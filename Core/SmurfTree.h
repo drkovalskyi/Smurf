@@ -8,9 +8,6 @@
 #include "Math/LorentzVector.h"
 #include "Math/VectorUtil.h"
 
-// float doesn't have dictionary by default, so use double
-typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
-
 //
 // Ntiple structure:
 //  * plain ntuples without vectors
@@ -61,6 +58,8 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 // 
 
 struct SmurfTree {
+  // float doesn't have dictionary by default, so use double
+  typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
   // bit map
   enum Selection {
     BaseLine    = 0x01,
