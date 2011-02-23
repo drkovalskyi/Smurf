@@ -33,13 +33,14 @@
 //  * MT2 - transverse mass of lepton2 and met
 //  * dPhi - delta phi between leptons
 //  * dR -   delta R   between leptons   
-//  * dEta - delta eta between leptons   
-//  * dPhiJet1 - delta phi between leading jet and leading lepton
-//  * dRJet1 -   delta R   between leading jet and leading lepton
-//  * dEtaJet1 - delta eta between leading jet and leading lepton
-//  * dPhiJet2 - delta phi between leading jet and sub-leading lepton
-//  * dRJet2 -   delta R   between leading jet and sub-leading lepton
-//  * dEtaJet2 - delta eta between leading jet and sub-leading lepton
+//  * dPhiLep1Jet1 - delta phi between leading jet and leading lepton
+//  * dRLep1Jet1 -   delta R   between leading jet and leading lepton
+//  * dPhiLep2Jet1 - delta phi between leading jet and sub-leading lepton
+//  * dRLep2Jet1 -   delta R   between leading jet and sub-leading lepton
+//  * dPhiLep1Met - delta phi between leading lepton and MET
+//  * dPhiLep2Met - delta phi between sub-leading lepton and MET
+//  * dPhiDiLepMet - delta phi between di-lepton and MET
+//  * dPhiDiLepJet1 - delta phi between di-lepton and leading jet
 //  * mc info
 //    * lep1 mc_id
 //    * lep2 mc_id
@@ -149,85 +150,86 @@ struct SmurfTree {
   float          genmetPhi_;
   Type           type_;
   DataType       dstype_;
-  LorentzVector* lep1_;
+  LorentzVector  lep1_;
   int            lq1_;
   unsigned int   lid1_;
-  LorentzVector* lep2_;
+  LorentzVector  lep2_;
   int            lq2_;
   unsigned int   lid2_;
-  LorentzVector* jet1_;
-  float          jet1_btag_;
-  LorentzVector* jet2_;
-  float          jet2_btag_;
+  LorentzVector  jet1_;
+  float          jet1Btag_;
+  LorentzVector  jet2_;
+  float          jet2Btag_;
   unsigned int   njets_;
   EventType      evtype_;
-  LorentzVector* dilep_;
+  LorentzVector  dilep_;
   float          pmet_;
-  float          pmetPhi_;
   float          mt_;
   float          mt1_;
   float          mt2_;
   float          dPhi_;
   float          dR_;
-  float          dEta_;
-  float          dPhiJet1_;
-  float          dRJet1_;
-  float          dEtaJet1_;
-  float          dPhiJet2_;
-  float          dRJet2_;
-  float          dEtaJet2_;
-  int            lep1_mc_id_;
-  int            lep2_mc_id_;
-  int            jet1_mc_id_;
-  int            jet2_mc_id_;
+  float          dPhiLep1Jet1_;
+  float          dRLep1Jet1_;
+  float          dPhiLep2Jet1_;
+  float          dRLep2Jet1_;
+  float          dPhiLep1MET_;
+  float          dPhiLep2MET_;
+  float          dPhiDiLepMET_;
+  float          dPhiDiLepJet1_;
+  int            lep1McId_;
+  int            lep2McId_;
+  int            jet1McId_;
+  int            jet2McId_;
 
   TTree *tree_;
+  SmurfTree():
+    lepPtr1_(&lep1_),
+    lepPtr2_(&lep2_),
+    jetPtr1_(&jet1_),
+    jetPtr2_(&jet2_),
+    dilepPtr_(&dilep_)
+  {}
 
   void InitVariables(){
-    event_      = 0;
-    run_        = 0;
-    lumi_       = 0;
-    nvtx_       = 0;
-    scale1fb_   = 0;
-    met_        = -999.;
-    metPhi_     = -999.;
-    sumet_      = -999.;
-    genmet_     = 0;
-    genmetPhi_  = 0;
-    type_       = mm;
-    dstype_     = data;
-    lep1_       = 0;
-    lq1_        = 0;
-    lid1_       = 0;
-    lep2_       = 0;
-    lq2_        = 0;
-    lid2_       = 0;
-    jet1_       = 0;
-    jet1_btag_  = -999.;
-    jet2_       = 0;
-    jet2_btag_  = -999.;
-    njets_      = 0;
-    evtype_     = ZeroJet;
-    dilep_      = 0;
-    pmet_       = -999.;
-    pmetPhi_    = -999.;
-    mt_         = -999.;
-    mt1_        = -999.;
-    mt2_        = -999.;
-    dPhi_       = -999.;
-    dR_         = -999.;
-    dEta_       = -999.;
-    dPhiJet1_   = -999.;
-    dRJet1_     = -999.;
-    dEtaJet1_   = -999.;
-    dPhiJet2_   = -999.;
-    dRJet2_     = -999.;
-    dEtaJet2_   = -999.;
-    lep1_mc_id_ = 0;
-    lep2_mc_id_ = 0;
-    jet1_mc_id_ = 0;
-    jet1_mc_id_ = 0;
-
+    event_        = 0;
+    run_          = 0;
+    lumi_         = 0;
+    nvtx_         = 0;
+    scale1fb_     = 0;
+    met_          = -999.;
+    metPhi_       = -999.;
+    sumet_        = -999.;
+    genmet_       = 0;
+    genmetPhi_    = 0;
+    type_         = mm;
+    dstype_       = data;
+    lq1_          = 0;
+    lid1_         = 0;
+    lq2_          = 0;
+    lid2_         = 0;
+    jet1Btag_     = -999.;
+    jet2Btag_     = -999.;
+    njets_        = 0;
+    evtype_       = ZeroJet;
+    pmet_         = -999.;
+    mt_           = -999.;
+    mt1_          = -999.;
+    mt2_          = -999.;
+    dPhi_         = -999.;
+    dR_           = -999.;
+    dPhiLep1Jet1_ = -999.;
+    dRLep1Jet1_   = -999.;
+    dPhiLep2Jet1_ = -999.;
+    dRLep2Jet1_   = -999.;
+    dPhiLep2MET_  = -999.;
+    dPhiLep2MET_  = -999.;
+    dPhiDiLepMET_ = -999.;
+    dPhiDiLepJet1_= -999.;
+    lep1McId_   = 0;
+    lep2McId_   = 0;
+    jet1McId_   = 0;
+    jet1McId_   = 0;
   }
   void LoadTree(const char* file){
     TFile* f = TFile::Open(file);
@@ -240,49 +242,56 @@ struct SmurfTree {
     InitVariables();
 
     //book the branches
-    tree_->Branch("event",      &event_,      "event/i");
-    tree_->Branch("run",        &run_,        "run/i");
-    tree_->Branch("lumi",       &lumi_,       "lumi/i");
-    tree_->Branch("nvtx",       &nvtx_,       "nvtx/i");
-    tree_->Branch("scale1fb",   &scale1fb_,   "scale1fb/F");
-    tree_->Branch("met",        &met_,        "met/F");
-    tree_->Branch("metPhi",     &metPhi_,     "metPhi/F");
-    tree_->Branch("sumet",      &sumet_,      "sumet/F");
-    tree_->Branch("genmet",     &genmet_,     "genmet/F");
-    tree_->Branch("genmetPhi",  &genmetPhi_,  "genmetPhi/F");
-    tree_->Branch("type",       &type_,       "type/I");
-    tree_->Branch("dstype",     &dstype_,     "dstype/I");
-    tree_->Branch("lep1", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lep1_);
-    tree_->Branch("lq1",        &lq1_,        "lq1/I");
-    tree_->Branch("lid1",       &lid1_,       "lid1/I");
-    tree_->Branch("lep2", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lep2_);
-    tree_->Branch("lq2",        &lq2_,        "lq2/I");
-    tree_->Branch("lid2",       &lid2_,       "lid2/I");
-    tree_->Branch("jet1", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet1_);
-    tree_->Branch("jet1_btag",  &jet1_btag_,  "jet1_btag/F");
-    tree_->Branch("jet2", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet2_);
-    tree_->Branch("jet2_btag",  &jet2_btag_,  "jet2_btag/F");
-    tree_->Branch("njets",      &njets_,      "njets/I");
-    tree_->Branch("evtype",     &evtype_,     "evtype/I");
-    tree_->Branch("dilep", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &dilep_);
-    tree_->Branch("pmet",       &pmet_,       "pmet/F");
-    tree_->Branch("pmetPhi",    &pmetPhi_,    "pmetPhi/F");
-    tree_->Branch("mt",         &mt_,         "mt/F");
-    tree_->Branch("mt1",        &mt1_,        "mt1/F");
-    tree_->Branch("mt2",        &mt2_,        "mt2/F");
-    tree_->Branch("dPhi",       &dPhi_,       "dPhi/F");
-    tree_->Branch("dR",         &dR_,         "dR/F");
-    tree_->Branch("dEta",       &dEta_,       "dEta/F");
-    tree_->Branch("dPhiJet1",   &dPhiJet1_,   "dPhiJet1/F");
-    tree_->Branch("dRJet1",     &dRJet1_,     "dRJet1/F");
-    tree_->Branch("dEtaJet1",   &dEtaJet1_,   "dEtaJet1/F");
-    tree_->Branch("dPhiJet2",   &dPhiJet2_,   "dPhiJet2/F");
-    tree_->Branch("dRJet2",     &dRJet2_,     "dRJet2/F");
-    tree_->Branch("dEtaJet2",   &dEtaJet2_,   "dEtaJet2/F");
-    tree_->Branch("lep1_mc_id", &lep1_mc_id_, "lep1_mc_id/I");
-    tree_->Branch("lep2_mc_id", &lep2_mc_id_, "lep2_mc_id/I");
-    tree_->Branch("jet1_mc_id", &jet1_mc_id_, "jet1_mc_id/I");
-    tree_->Branch("jet2_mc_id", &jet2_mc_id_, "jet2_mc_id/I");
+    tree_->Branch("event",         &event_,      "event/i");
+    tree_->Branch("run",           &run_,        "run/i");
+    tree_->Branch("lumi",          &lumi_,       "lumi/i");
+    tree_->Branch("nvtx",          &nvtx_,       "nvtx/i");
+    tree_->Branch("scale1fb",      &scale1fb_,   "scale1fb/F");
+    tree_->Branch("met",           &met_,        "met/F");
+    tree_->Branch("metPhi",        &metPhi_,     "metPhi/F");
+    tree_->Branch("sumet",         &sumet_,      "sumet/F");
+    tree_->Branch("genmet",        &genmet_,     "genmet/F");
+    tree_->Branch("genmetPhi",     &genmetPhi_,  "genmetPhi/F");
+    tree_->Branch("type",          &type_,       "type/I");
+    tree_->Branch("dstype",        &dstype_,     "dstype/I");
+    tree_->Branch("lep1", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr1_);
+    tree_->Branch("lq1",           &lq1_,        "lq1/I");
+    tree_->Branch("lid1",          &lid1_,       "lid1/I");
+    tree_->Branch("lep2", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr2_);
+    tree_->Branch("lq2",           &lq2_,        "lq2/I");
+    tree_->Branch("lid2",          &lid2_,       "lid2/I");
+    tree_->Branch("jet1", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr1_);
+    tree_->Branch("jet1Btag",      &jet1Btag_,   "jet1Btag/F");
+    tree_->Branch("jet2", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr2_);
+    tree_->Branch("jet2Btag",      &jet2Btag_,   "jet2Btag/F");
+    tree_->Branch("njets",         &njets_,      "njets/I");
+    tree_->Branch("evtype",        &evtype_,     "evtype/I");
+    tree_->Branch("dilep", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &dilepPtr_);
+    tree_->Branch("pmet",          &pmet_,       "pmet/F");
+    tree_->Branch("mt",            &mt_,         "mt/F");
+    tree_->Branch("mt1",           &mt1_,        "mt1/F");
+    tree_->Branch("mt2",           &mt2_,        "mt2/F");
+    tree_->Branch("dPhi",          &dPhi_,       "dPhi/F");
+    tree_->Branch("dR",            &dR_,         "dR/F");
+    tree_->Branch("dPhiLep1Jet1",  &dPhiLep1Jet1_,   "dPhiLep1Jet1/F");
+    tree_->Branch("dRLep1Jet1",    &dRLep1Jet1_,     "dRLep1Jet1/F");
+    tree_->Branch("dPhiLep2Jet1",  &dPhiLep2Jet1_,   "dPhiLep2Jet1/F");
+    tree_->Branch("dRLep2Jet1",    &dRLep2Jet1_,     "dRLep2Jet1/F");
+    tree_->Branch("dPhiDiLepMET",  &dPhiDiLepMET_,   "dPhiDiLepMET/F");
+    tree_->Branch("dPhiLep1MET",   &dPhiLep1MET_,    "dPhiLep1MET/F");
+    tree_->Branch("dPhiLep1MET",   &dPhiLep2MET_,    "dPhiLep2MET/F");
+    tree_->Branch("dPhiDiLepJet1", &dPhiDiLepJet1_,  "dPhiDiLepJet1/F");
+    tree_->Branch("lep1McId",      &lep1McId_,   "lep1McId/I");
+    tree_->Branch("lep2McId",      &lep2McId_,   "lep2McId/I");
+    tree_->Branch("jet1McId",      &jet1McId_,   "jet1McId/I");
+    tree_->Branch("jet2McId",      &jet2McId_,   "jet2McId/I");
   }
+  private:
+  LorentzVector* lepPtr1_;
+  LorentzVector* lepPtr2_;
+  LorentzVector* jetPtr1_;
+  LorentzVector* jetPtr2_;
+  LorentzVector* dilepPtr_;
+
 }; 
 #endif
