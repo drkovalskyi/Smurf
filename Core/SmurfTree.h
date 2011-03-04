@@ -256,15 +256,15 @@ struct SmurfTree {
     tree_->Branch("dstype",        &dstype_,     "dstype/I");
     tree_->Branch("lep1", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr1_);
     tree_->Branch("lq1",           &lq1_,        "lq1/I");
-    tree_->Branch("lid1",          &lid1_,       "lid1/I");
+    tree_->Branch("lid1",          &lid1_,       "lid1/i");
     tree_->Branch("lep2", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr2_);
     tree_->Branch("lq2",           &lq2_,        "lq2/I");
-    tree_->Branch("lid2",          &lid2_,       "lid2/I");
+    tree_->Branch("lid2",          &lid2_,       "lid2/i");
     tree_->Branch("jet1", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr1_);
     tree_->Branch("jet1Btag",      &jet1Btag_,   "jet1Btag/F");
     tree_->Branch("jet2", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr2_);
     tree_->Branch("jet2Btag",      &jet2Btag_,   "jet2Btag/F");
-    tree_->Branch("njets",         &njets_,      "njets/I");
+    tree_->Branch("njets",         &njets_,      "njets/i");
     tree_->Branch("evtype",        &evtype_,     "evtype/I");
     tree_->Branch("dilep", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &dilepPtr_);
     tree_->Branch("pmet",          &pmet_,       "pmet/F");
@@ -285,6 +285,57 @@ struct SmurfTree {
     tree_->Branch("lep2McId",      &lep2McId_,   "lep2McId/I");
     tree_->Branch("jet1McId",      &jet1McId_,   "jet1McId/I");
     tree_->Branch("jet2McId",      &jet2McId_,   "jet2McId/I");
+  }
+  void InitTree(){
+    assert(tree_);
+    // don't forget to set pointers to zero before you set address
+    // or you will fully appreciate that "ROOT sucks" :)
+    InitVariables();
+
+    //Set branch address
+    tree_->SetBranchAddress("event",         &event_);
+    tree_->SetBranchAddress("run",           &run_);
+    tree_->SetBranchAddress("lumi",          &lumi_);
+    tree_->SetBranchAddress("nvtx",          &nvtx_);
+    tree_->SetBranchAddress("scale1fb",      &scale1fb_);
+    tree_->SetBranchAddress("met",           &met_);
+    tree_->SetBranchAddress("metPhi",        &metPhi_);
+    tree_->SetBranchAddress("sumet",         &sumet_);
+    tree_->SetBranchAddress("genmet",        &genmet_);
+    tree_->SetBranchAddress("genmetPhi",     &genmetPhi_);
+    tree_->SetBranchAddress("type",          &type_);
+    tree_->SetBranchAddress("dstype",        &dstype_);
+    tree_->SetBranchAddress("lep1",          &lepPtr1_);
+    tree_->SetBranchAddress("lq1",           &lq1_);
+    tree_->SetBranchAddress("lid1",          &lid1_);
+    tree_->SetBranchAddress("lep2",          &lepPtr2_);
+    tree_->SetBranchAddress("lq2",           &lq2_);
+    tree_->SetBranchAddress("lid2",          &lid2_);
+    tree_->SetBranchAddress("jet1",          &jetPtr1_);
+    tree_->SetBranchAddress("jet1Btag",      &jet1Btag_);
+    tree_->SetBranchAddress("jet2",          &jetPtr2_);
+    tree_->SetBranchAddress("jet2Btag",      &jet2Btag_);
+    tree_->SetBranchAddress("njets",         &njets_);
+    tree_->SetBranchAddress("evtype",        &evtype_);
+    tree_->SetBranchAddress("dilep",         &dilepPtr_);
+    tree_->SetBranchAddress("pmet",          &pmet_);
+    tree_->SetBranchAddress("mt",            &mt_);
+    tree_->SetBranchAddress("mt1",           &mt1_);
+    tree_->SetBranchAddress("mt2",           &mt2_);
+    tree_->SetBranchAddress("dPhi",          &dPhi_);
+    tree_->SetBranchAddress("dR",            &dR_);
+    tree_->SetBranchAddress("dPhiLep1Jet1",  &dPhiLep1Jet1_);
+    tree_->SetBranchAddress("dRLep1Jet1",    &dRLep1Jet1_);
+    tree_->SetBranchAddress("dPhiLep2Jet1",  &dPhiLep2Jet1_);
+    tree_->SetBranchAddress("dRLep2Jet1",    &dRLep2Jet1_);
+    tree_->SetBranchAddress("dPhiDiLepMET",  &dPhiDiLepMET_);
+    tree_->SetBranchAddress("dPhiLep1MET",   &dPhiLep1MET_);
+    tree_->SetBranchAddress("dPhiLep1MET",   &dPhiLep2MET_);
+    tree_->SetBranchAddress("dPhiDiLepJet1", &dPhiDiLepJet1_);
+    tree_->SetBranchAddress("lep1McId",      &lep1McId_);
+    tree_->SetBranchAddress("lep2McId",      &lep2McId_);
+    tree_->SetBranchAddress("jet1McId",      &jet1McId_);
+    tree_->SetBranchAddress("jet2McId",      &jet2McId_);
   }
   private:
   LorentzVector* lepPtr1_;
