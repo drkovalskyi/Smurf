@@ -13,7 +13,7 @@ help:
 	@echo "Available Targets:";\
 	cat Makefile | perl -ne 'printf("\t%-15s %s\n",$$1,$$2) if(/^(\S+):[^#]+(#.*)$$/)';\
 	echo "Example:";\
-	echo "\tmake cards plots"
+	echo "    make cards plots"
 ifndef VERBOSE
   QUIET := @
 endif
@@ -42,8 +42,9 @@ clean: # clean up
 	*.card *.o *.d *.so LinkDef_out*
 cleanall: clean # complete clean up
 	$(QUIET) rm -v -f \
-	limits* *~
-	
+	limits* *~;\
+	cd $(LANDSPATH); \
+	$(MAKE) -f makefile cleanall
 
 $(LANDSLIB): lands
 
