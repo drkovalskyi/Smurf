@@ -97,20 +97,20 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits){
   }
   TPaveText *pt = lands::SetTPaveText(0.2, 0.7, 0.5, 0.9);
   pt->AddText("HWW #rightarrow 2l2#nu");
-  lands::PlotWithBelts lb(limits_m1s, limits_p1s, limits_m2s, limits_p2s,
-			  limits_mean, limits.size(), mass_points, 
-			  "limits", pt,
-			  100, 300, 0.1, 10, true, 
-			  ";Higgs mass, m_{H} [GeV/c^{2}]; 95% CL Limit on #sigma/#sigma_{SM} ");
-  lb.plot();
-  lb.drawLegend("95% CL exclusion: mean","95% CL exclusion: 68% band", "95% CL exclusion: 95% band");
-  lands::MoveLegend(lb.getLegend(),0.45,0.7);
-  lb.getMeanGraph()->SetLineStyle(1);
-  lb.getMeanGraph()->SetLineColor(kBlue);
-  lb.getMeanGraph()->SetLineWidth(2);
-  // 	lb.getObsGraph()->SetLineStyle(2);
-  // 	lb.getObsGraph()->SetLineWidth(1);
-  lb.getLine()->SetLineColor(kRed);
+  lands::PlotWithBelts* lb = new lands::PlotWithBelts(limits_m1s, limits_p1s, limits_m2s, limits_p2s,
+						      limits_mean, limits.size(), mass_points, 
+						      "limits", pt,
+						      100, 300, 0.1, 10, true, 
+						      ";Higgs mass, m_{H} [GeV/c^{2}]; 95% CL Limit on #sigma/#sigma_{SM} ");
+  lb->plot();
+  lb->drawLegend("95% CL exclusion: mean","95% CL exclusion: 68% band", "95% CL exclusion: 95% band");
+  lands::MoveLegend(lb->getLegend(),0.45,0.7);
+  lb->getMeanGraph()->SetLineStyle(1);
+  lb->getMeanGraph()->SetLineColor(kBlue);
+  lb->getMeanGraph()->SetLineWidth(2);
+  // 	lb->getObsGraph()->SetLineStyle(2);
+  // 	lb->getObsGraph()->SetLineWidth(1);
+  lb->getLine()->SetLineColor(kRed);
 }
 
 #endif
