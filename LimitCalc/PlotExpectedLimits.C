@@ -100,7 +100,7 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits){
   lands::PlotWithBelts* lb = new lands::PlotWithBelts(limits_m1s, limits_p1s, limits_m2s, limits_p2s,
 						      limits_mean, limits.size(), mass_points, 
 						      "limits", pt,
-						      100, 300, 0.1, 10, true, 
+						      100, 300, 0.1, 30, true, 
 						      ";Higgs mass, m_{H} [GeV/c^{2}]; 95% CL Limit on #sigma/#sigma_{SM} ");
   lb->plot();
   lb->drawLegend("95% CL exclusion: mean","95% CL exclusion: 68% band", "95% CL exclusion: 95% band");
@@ -111,6 +111,7 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits){
   // 	lb->getObsGraph()->SetLineStyle(2);
   // 	lb->getObsGraph()->SetLineWidth(1);
   lb->getLine()->SetLineColor(kRed);
+  lb->save();
 }
 
 #endif
