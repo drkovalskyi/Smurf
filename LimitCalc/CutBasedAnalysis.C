@@ -39,6 +39,15 @@ void CutBasedAnalysis(std::string path = "data/")
   Samples sigSamples;
   Samples bkgSamples;
   bkgSamples.push_back(Sample(path+"ww.root",     SmurfTree::qqww));
+  bkgSamples.push_back(Sample(path+"ggww.root",   SmurfTree::ggww));
+  bkgSamples.push_back(Sample(path+"wjets.root",  SmurfTree::wjets));
+  bkgSamples.push_back(Sample(path+"ttbar.root",  SmurfTree::ttbar));
+  bkgSamples.push_back(Sample(path+"tw.root",     SmurfTree::tw));
+  bkgSamples.push_back(Sample(path+"dyee.root",   SmurfTree::dyee));
+  bkgSamples.push_back(Sample(path+"dymm.root",   SmurfTree::dymm));
+  bkgSamples.push_back(Sample(path+"dytt.root",   SmurfTree::dytt));
+  bkgSamples.push_back(Sample(path+"wz.root",     SmurfTree::wz));
+  bkgSamples.push_back(Sample(path+"zz.root",     SmurfTree::zz));
 
   sigSamples.push_back(Sample(path+"hww130.root", SmurfTree::hww130));
   sigSamples.push_back(Sample(path+"hww160.root", SmurfTree::hww160));
