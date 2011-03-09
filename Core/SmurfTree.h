@@ -135,7 +135,7 @@ struct SmurfTree {
     wgamma,
     qcd,
     other
-};
+  };
 
   // variables
   unsigned int   event_;
@@ -337,6 +337,65 @@ struct SmurfTree {
     tree_->SetBranchAddress("jet1McId",      &jet1McId_);
     tree_->SetBranchAddress("jet2McId",      &jet2McId_);
   }
+  static std::string name(DataType type){
+    switch (type){
+    case data: return "data";
+    case qqww: return "qqww";
+    case ggww: return "ggww";
+    case hww120: return "hww120";
+    case hww130: return "hww130";
+    case hww140: return "hww140";
+    case hww150: return "hww150";
+    case hww160: return "hww160";
+    case hww170: return "hww170";
+    case hww180: return "hww180";
+    case hww190: return "hww190";
+    case hww200: return "hww200";
+    case hww210: return "hww210";
+    case hww220: return "hww220";
+    case hww230: return "hww230";
+    case hww250: return "hww250";
+    case hww300: return "hww300";
+    case hww350: return "hww350";
+    case hww400: return "hww400";
+    case hww450: return "hww450";
+    case hww500: return "hww500";
+    case hww550: return "hww550";
+    case hww600: return "hww600";
+    case vbfhww120: return "vbfhww120";
+    case vbfhww130: return "vbfhww130";
+    case vbfhww140: return "vbfhww140";
+    case vbfhww150: return "vbfhww150";
+    case vbfhww160: return "vbfhww160";
+    case vbfhww170: return "vbfhww170";
+    case vbfhww180: return "vbfhww180";
+    case vbfhww190: return "vbfhww190";
+    case vbfhww200: return "vbfhww200";
+    case vbfhww210: return "vbfhww210";
+    case vbfhww220: return "vbfhww220";
+    case vbfhww230: return "vbfhww230";
+    case vbfhww250: return "vbfhww250";
+    case vbfhww300: return "vbfhww300";
+    case vbfhww350: return "vbfhww350";
+    case vbfhww400: return "vbfhww400";
+    case vbfhww450: return "vbfhww450";
+    case vbfhww500: return "vbfhww500";
+    case vbfhww550: return "vbfhww550";
+    case vbfhww600: return "vbfhww600";
+    case ttbar: return "ttbar";
+    case tw: return "tw";
+    case dyee: return "dyee";
+    case dymm: return "dymm";
+    case dytt: return "dytt";
+    case wjets: return "wjets";
+    case wz: return "wz";
+    case zz: return "zz";
+    case wgamma: return "wgamma";
+    case qcd: return "qcd";
+    case other: return "other";
+    default: return "uknown";
+    }
+  };
   private:
   LorentzVector* lepPtr1_;
   LorentzVector* lepPtr2_;
