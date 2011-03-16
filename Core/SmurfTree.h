@@ -229,7 +229,7 @@ struct SmurfTree {
     lep1McId_   = 0;
     lep2McId_   = 0;
     jet1McId_   = 0;
-    jet1McId_   = 0;
+    jet2McId_   = 0;
   }
   void LoadTree(const char* file){
     TFile* f = TFile::Open(file);
@@ -330,7 +330,7 @@ struct SmurfTree {
     tree_->SetBranchAddress("dRLep2Jet1",    &dRLep2Jet1_);
     tree_->SetBranchAddress("dPhiDiLepMET",  &dPhiDiLepMET_);
     tree_->SetBranchAddress("dPhiLep1MET",   &dPhiLep1MET_);
-    tree_->SetBranchAddress("dPhiLep1MET",   &dPhiLep2MET_);
+    tree_->SetBranchAddress("dPhiLep2MET",   &dPhiLep2MET_);
     tree_->SetBranchAddress("dPhiDiLepJet1", &dPhiDiLepJet1_);
     tree_->SetBranchAddress("lep1McId",      &lep1McId_);
     tree_->SetBranchAddress("lep2McId",      &lep2McId_);
@@ -382,18 +382,18 @@ struct SmurfTree {
     case vbfhww500: return "vbfhww500";
     case vbfhww550: return "vbfhww550";
     case vbfhww600: return "vbfhww600";
-    case ttbar: return "ttbar";
-    case tw: return "tw";
-    case dyee: return "dyee";
-    case dymm: return "dymm";
-    case dytt: return "dytt";
-    case wjets: return "wjets";
-    case wz: return "wz";
-    case zz: return "zz";
+    case ttbar:  return "ttbar";
+    case tw:     return "tw";
+    case dyee:   return "dyee";
+    case dymm:   return "dymm";
+    case dytt:   return "dytt";
+    case wjets:  return "wjets";
+    case wz:     return "wz";
+    case zz:     return "zz";
     case wgamma: return "wgamma";
-    case qcd: return "qcd";
-    case other: return "other";
-    default: return "uknown";
+    case qcd:    return "qcd";
+    case other:  return "other";
+    default:     return "uknown";
     }
   };
   private:
