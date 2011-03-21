@@ -461,7 +461,7 @@ SmurfTree::InitVariables(){
   dRLep1Jet1_   = -999.;
   dPhiLep2Jet1_ = -999.;
   dRLep2Jet1_   = -999.;
-  dPhiLep2MET_  = -999.;
+  dPhiLep1MET_  = -999.;
   dPhiLep2MET_  = -999.;
   dPhiDiLepMET_ = -999.;
   dPhiDiLepJet1_= -999.;
