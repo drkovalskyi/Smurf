@@ -323,7 +323,7 @@ TreeValidator::validateBranches(SmurfTree* smurf)
     }
   }
   if(!branchList.empty()){
-    std::string issue("The following branches which are present in the referecne SmurfTree are missing in the test SmurfTree: \n");
+    std::string issue("The following branches which are present in the reference SmurfTree are missing in the test SmurfTree: \n");
     for(std::vector<std::string>::const_iterator branch=branchList.begin(); branch!=branchList.end(); ++branch){
       issue += std::string(" + ").append(*branch).append("\n");
     }

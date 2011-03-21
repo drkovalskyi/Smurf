@@ -386,7 +386,7 @@ class SmurfTree {
   LorentzVector* dilepPtr_;
 }; 
 
-void 
+inline void 
 SmurfTree::InitVariables(){
   // create list ao available variables
   if(variables_.empty()){
@@ -471,7 +471,7 @@ SmurfTree::InitVariables(){
   jet1McId_   = 0;
 }
 
-double
+inline double
 SmurfTree::Get(std::string value)
 {
   if(value=="event"        ) { return this->event_;        }
@@ -515,7 +515,7 @@ SmurfTree::Get(std::string value)
   return -9999.; 
 }
 
-std::vector<std::string> 
+inline std::vector<std::string> 
 SmurfTree::Compare(SmurfTree* value, double prec){
   std::vector<std::string> fails;
   // this should alway fit with ultimate precision
