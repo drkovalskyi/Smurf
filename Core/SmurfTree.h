@@ -525,7 +525,7 @@ SmurfTree::Compare(SmurfTree* value, double prec){
 
   // check within  (relative) precision
   for(std::vector<std::string>::const_iterator var=variables_.begin(); var!=variables_.end(); ++var){
-    if( fabs(Get(*var)-Get(*var))/Get(*var)>prec ) fails.push_back(*var);
+    if( fabs(Get(*var)-value->Get(*var))/Get(*var)>prec ) fails.push_back(*var);
   }
   return fails;
 }
