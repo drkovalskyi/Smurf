@@ -191,20 +191,24 @@ class SmurfTree {
   int            lep2McId_;
   int            jet1McId_;
   int            jet2McId_;
+  TNamed         info_;
 
  public:
   /// this is the main element
   TTree *tree_;
+
   /// hold the names of variables to facilitate things (filled during Init)
   std::vector<std::string> variables_;
 
   /// default constructor  
-  SmurfTree():lepPtr1_(&lep1_),lepPtr2_(&lep2_),jetPtr1_(&jet1_),jetPtr2_(&jet2_),dilepPtr_(&dilep_){}
+  SmurfTree():info_("info","Smurf ntuple"),
+    lepPtr1_(&lep1_),lepPtr2_(&lep2_),jetPtr1_(&jet1_),jetPtr2_(&jet2_),dilepPtr_(&dilep_){}
   /// default destructor
   ~SmurfTree(){};
   /// initialize varibles and fill list of available variables
   void InitVariables();
   /// load a SmurfTree
+
   void LoadTree(const char* file){
     TFile* f = TFile::Open(file);
     assert(f);
@@ -468,7 +472,12 @@ SmurfTree::InitVariables(){
   lep1McId_   = 0;
   lep2McId_   = 0;
   jet1McId_   = 0;
-  jet1McId_   = 0;
+  jet2McId_   = 0;
+  lep1_ = LorentzVector();
+  lep2_ = LorentzVector();
+  jet1_ = LorentzVector();
+  jet2_ = LorentzVector();
+  dilep_ = LorentzVector();
 }
 
 inline double
