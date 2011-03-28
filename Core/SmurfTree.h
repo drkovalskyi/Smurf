@@ -193,6 +193,29 @@ class SmurfTree {
   int            jet2McId_;
   TNamed         info_;
 
+  // Additional variables
+  LorentzVector  lep3_;
+  int            lq3_;
+  unsigned int   lid3_;
+  LorentzVector  jet3_;
+  float          jet3Btag_;
+  int            lep3McId_;
+  int            jet3McId_;
+  float          dPhiLep3Jet1_;
+  float          dRLep3Jet1_;
+  float          dPhiLep3MET_;
+  float          mt3_;
+  float          jetLowBtag_;
+  unsigned int   nSoftMuons_;
+  float          Q_;
+  float          id1_;
+  float          x1_;
+  float          pdf1_;
+  float          id2_;
+  float          x2_;
+  float          pdf2_;
+  int            processId_;
+
  public:
   /// this is the main element
   TTree *tree_;
@@ -202,22 +225,39 @@ class SmurfTree {
 
   /// default constructor  
   SmurfTree():info_("info","Smurf ntuple"),
-    lepPtr1_(&lep1_),lepPtr2_(&lep2_),jetPtr1_(&jet1_),jetPtr2_(&jet2_),dilepPtr_(&dilep_){}
+    lepPtr1_(&lep1_),lepPtr2_(&lep2_),jetPtr1_(&jet1_),jetPtr2_(&jet2_),dilepPtr_(&dilep_),
+    lepPtr3_(&lep3_),                 jetPtr3_(&jet3_){}
   /// default destructor
   ~SmurfTree(){};
+
   /// initialize varibles and fill list of available variables
   void InitVariables();
-  /// load a SmurfTree
 
-  void LoadTree(const char* file){
+  /// load a SmurfTree
+  void LoadTree(const char* file, int type = -1){
+    // to load three different ntuples in the same job HwwTree0/1/2
+    // type == 0/1/2 if all variables was added
+    // type == 3/4/5 if a minimum set of variables was added
+    // type = -1 (default) if a minimum set of variables was added with tree as name
     TFile* f = TFile::Open(file);
     assert(f);
-    tree_ = dynamic_cast<TTree*>(f->Get("tree"));
+    if     (type == 0 || type == 3) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree0"));
+    else if(type == 1 || type == 4) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree1"));
+    else if(type == 2 || type == 5) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree2"));
+    else                            tree_ = dynamic_cast<TTree*>(f->Get("tree"));
     assert(tree_);
   }
+
   /// create a SmurfTree
-  void CreateTree(){
-    tree_ = new TTree("tree","Smurf ntuples");
+  void CreateTree(int type = -1){
+    // to create three different ntuples in the same job HwwTree0/1/2
+    // type == 0/1/2 add all variables
+    // type == 3/4/5 add a minimum set of variables
+    // type = -1 (default) add a minimum set of variables with tree as name
+    if     (type == 0 || type == 3) tree_ = new TTree("HwwTree0","Smurf ntuples");
+    else if(type == 1 || type == 4) tree_ = new TTree("HwwTree1","Smurf ntuples");
+    else if(type == 2 || type == 5) tree_ = new TTree("HwwTree2","Smurf ntuples");
+    else                            tree_ = new TTree("tree","Smurf ntuples");
     InitVariables();
     //book the branches
     tree_->Branch("event"        , &event_        ,   "event/i");
@@ -263,9 +303,34 @@ class SmurfTree {
     tree_->Branch("lep2McId"     , &lep2McId_     ,   "lep2McId/I");
     tree_->Branch("jet1McId"     , &jet1McId_     ,   "jet1McId/I");
     tree_->Branch("jet2McId"     , &jet2McId_     ,   "jet2McId/I");
+
+    if(type >=0 && type <= 2){
+      tree_->Branch("lep3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr3_);
+      tree_->Branch("lq3",           &lq3_,          "lq3/I");
+      tree_->Branch("lid3",          &lid3_,         "lid3/i");
+      tree_->Branch("jet3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr3_);
+      tree_->Branch("jet3Btag",      &jet3Btag_,     "jet3Btag/F");
+      tree_->Branch("lep3McId",      &lep3McId_,     "lep3McId/I");
+      tree_->Branch("jet3McId",      &jet3McId_,     "jet3McId/I");
+      tree_->Branch("dPhiLep3Jet1",  &dPhiLep3Jet1_, "dPhiLep3Jet1/F");
+      tree_->Branch("dRLep3Jet1",    &dRLep3Jet1_,   "dRLep3Jet1/F");
+      tree_->Branch("dPhiLep3MET",   &dPhiLep3MET_,  "dPhiLep3MET/F");
+      tree_->Branch("mt3",           &mt3_,          "mt3/F");
+      tree_->Branch("jetLowBtag",    &jetLowBtag_,   "jetLowBtag/F");
+      tree_->Branch("nSoftMuons",    &nSoftMuons_,   "nSoftMuons/i");
+      tree_->Branch("Q",             &Q_	,    "Q/F");
+      tree_->Branch("id1",           &id1_	,    "id1/F");
+      tree_->Branch("x1",            &x1_	,    "x1/F");
+      tree_->Branch("pdf1",          &pdf1_	,    "pdf1/F");
+      tree_->Branch("id2",           &id2_	,    "id2/F");
+      tree_->Branch("x2",            &x2_	,    "x2/F");
+      tree_->Branch("pdf2",          &pdf2_	,    "pdf2/F");
+      tree_->Branch("processId",     &processId_,    "processId/I");
+    }
   }
+
   // initialze a SmurfTree
-  void InitTree(){
+  void InitTree(int type = -1){
     assert(tree_);
     // don't forget to set pointers to zero before you set address
     // or you will fully appreciate that "ROOT sucks" :)
@@ -314,6 +379,30 @@ class SmurfTree {
     tree_->SetBranchAddress("lep2McId",      &lep2McId_);
     tree_->SetBranchAddress("jet1McId",      &jet1McId_);
     tree_->SetBranchAddress("jet2McId",      &jet2McId_);
+
+    if(type >=0 && type <= 2){
+      tree_->SetBranchAddress("lep3",	       &lepPtr3_);
+      tree_->SetBranchAddress("lq3",	       &lq3_);
+      tree_->SetBranchAddress("lid3",	       &lid3_);
+      tree_->SetBranchAddress("jet3",	       &jetPtr3_);
+      tree_->SetBranchAddress("jet3Btag",      &jet3Btag_);
+      tree_->SetBranchAddress("lep3McId",      &lep3McId_);
+      tree_->SetBranchAddress("jet3McId",      &jet3McId_);
+      tree_->SetBranchAddress("dPhiLep3Jet1",  &dPhiLep3Jet1_);
+      tree_->SetBranchAddress("dRLep3Jet1",    &dRLep3Jet1_);
+      tree_->SetBranchAddress("dPhiLep3MET",   &dPhiLep3MET_);
+      tree_->SetBranchAddress("mt3",	       &mt3_);
+      tree_->SetBranchAddress("jetLowBtag",    &jetLowBtag_);
+      tree_->SetBranchAddress("nSoftMuons",    &nSoftMuons_);
+      tree_->SetBranchAddress("Q",	       &Q_);
+      tree_->SetBranchAddress("id1",	       &id1_);
+      tree_->SetBranchAddress("x1",	       &x1_);
+      tree_->SetBranchAddress("pdf1",	       &pdf1_);
+      tree_->SetBranchAddress("id2",	       &id2_);
+      tree_->SetBranchAddress("x2",	       &x2_);
+      tree_->SetBranchAddress("pdf2",	       &pdf2_);
+      tree_->SetBranchAddress("processId",     &processId_);
+    }
   }
   /// get a built in type variable by name
   double Get(std::string value);
@@ -388,13 +477,15 @@ class SmurfTree {
   LorentzVector* jetPtr1_;
   LorentzVector* jetPtr2_;
   LorentzVector* dilepPtr_;
+  LorentzVector* lepPtr3_;
+  LorentzVector* jetPtr3_;
 }; 
 
 inline void 
 SmurfTree::InitVariables(){
-  // create list ao available variables
+  // create list of available variables
   if(variables_.empty()){
-    //make sure thatthis is only done once
+    //make sure that this is only done once
     variables_.push_back(std::string("event"        ));
     variables_.push_back(std::string("run"          ));
     variables_.push_back(std::string("lumi"         ));
@@ -469,15 +560,37 @@ SmurfTree::InitVariables(){
   dPhiLep2MET_  = -999.;
   dPhiDiLepMET_ = -999.;
   dPhiDiLepJet1_= -999.;
-  lep1McId_   = 0;
-  lep2McId_   = 0;
-  jet1McId_   = 0;
-  jet2McId_   = 0;
-  lep1_ = LorentzVector();
-  lep2_ = LorentzVector();
-  jet1_ = LorentzVector();
-  jet2_ = LorentzVector();
-  dilep_ = LorentzVector();
+  lep1McId_   	= 0;
+  lep2McId_   	= 0;
+  jet1McId_   	= 0;
+  jet2McId_   	= 0;
+  lep1_       	= LorentzVector();
+  lep2_       	= LorentzVector();
+  jet1_       	= LorentzVector();
+  jet2_       	= LorentzVector();
+  dilep_      	= LorentzVector();
+
+  lep3_       	= LorentzVector();
+  lq3_  	= 0;
+  lid3_ 	= 0;
+  jet3_       	= LorentzVector();
+  jet3Btag_	= -999.;
+  lep3McId_	= 0;
+  jet3McId_	= 0;
+  dPhiLep3Jet1_ = -999.;
+  dRLep3Jet1_	= -999.;
+  dPhiLep3MET_  = -999.;
+  mt3_  	= -999.;
+  jetLowBtag_	= -999.;
+  nSoftMuons_	= 0;
+  Q_		= -999.;
+  id1_  	= -999.;
+  x1_		= -999.;
+  pdf1_ 	= -999.;  
+  id2_  	= -999.;  
+  x2_		= -999.;
+  pdf2_ 	= -999.;  
+  processId_	= 0;
 }
 
 inline double
@@ -521,6 +634,27 @@ SmurfTree::Get(std::string value)
   if(value=="lep2McId"     ) { return this->lep2McId_;     }
   if(value=="jet1McId"     ) { return this->jet1McId_;     }
   if(value=="jet2McId"     ) { return this->jet2McId_;     }
+
+  if(value=="lq3_"	   ) { return this->lq3_;          }
+  if(value=="lid3_"	   ) { return this->lid3_;         }
+  if(value=="jet3Btag_"	   ) { return this->jet3Btag_;     }
+  if(value=="lep3McId_"	   ) { return this->lep3McId_;     }
+  if(value=="jet3McId_"	   ) { return this->jet3McId_;     }
+  if(value=="dPhiLep3Jet1_") { return this->dPhiLep3Jet1_; }
+  if(value=="dRLep3Jet1_"  ) { return this->dRLep3Jet1_;   }
+  if(value=="dPhiLep3MET_" ) { return this->dPhiLep3MET_;  }
+  if(value=="mt3_"	   ) { return this->mt3_;          }
+  if(value=="jetLowBtag_"  ) { return this->jetLowBtag_;   }
+  if(value=="nSoftMuons_"  ) { return this->nSoftMuons_ ;  }
+  if(value=="Q_"           ) { return this->Q_;            }
+  if(value=="id1_"	   ) { return this->id1_;          }
+  if(value=="x1_"	   ) { return this->x1_;           }
+  if(value=="pdf1_"	   ) { return this->pdf1_;         }
+  if(value=="id2_"         ) { return this->id2_;          }
+  if(value=="x2_"	   ) { return this->x2_;           }
+  if(value=="pdf2_"	   ) { return this->pdf2_;         }
+  if(value=="processId"	   ) { return this->processId_;    }
+
   return -9999.; 
 }
 
