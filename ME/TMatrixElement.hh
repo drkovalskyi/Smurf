@@ -6,9 +6,10 @@
 //
 //      Interface to Different Matrix Element
 //
-// Jun 30 2007
-// Shih-Chieh Hsu
-// S. Jindariani
+// March 28 2011
+// S. Jindariani (sergo@fnal.gov)
+// Y. Gao (ygao@fnal.gov)
+// K. Burkett (burkett@fnal.gov)
 //-----------------------------------------------------------------------------
 
 #include "TObject.h"

@@ -1,3 +1,9 @@
+// March 28 2011
+// S. Jindariani (sergo@fnal.gov)
+// Y. Gao (ygao@fnal.gov)
+// K. Burkett (burkett@fnal.gov)
+
+
 #ifndef WW_KINEMATIC
 #define WW_KINEMATIC
 #include <TLorentzVector.h>

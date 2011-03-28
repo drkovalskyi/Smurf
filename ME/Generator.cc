@@ -1,6 +1,11 @@
 #include "iostream"
 #include "Generator.hh"
 
+// March 28 2011
+// S. Jindariani (sergo@fnal.gov)
+// Y. Gao (ygao@fnal.gov)
+// K. Burkett (burkett@fnal.gov)
+
 
 //______________________________________________________________________________
 double GetRandom(TH1* his, double r1) 

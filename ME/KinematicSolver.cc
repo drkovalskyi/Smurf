@@ -1,8 +1,14 @@
+// March 28 2011
+// S. Jindariani (sergo@fnal.gov)
+// Y. Gao (ygao@fnal.gov)
+// K. Burkett (burkett@fnal.gov)
+
 
 #include "TMCFM.hh"
 #include "KinematicSolver.hh"
 #include "PolySolver.hpp"
 #include "iostream"
+
 
 void WWL1L2Sol_MHiggsMw1( cdf_event_type* temp,
                     double qX, double qY , 
