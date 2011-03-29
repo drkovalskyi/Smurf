@@ -1,3 +1,26 @@
-Please follow the instructions from
+For more information, please follow the instructions from
+
 http://www.t2.ucsd.edu/tastwiki/bin/view/Smurf/MECode
 
+1. Run the code,
+
+     root -l
+     .L runME_WWHWW.C+
+     runME_WWHWW("/smurf/data/Run2010_Fall10U_SmurfWW_V1/tas/", "hww160.root", "./",  10, 1, 100000, 1.0, 0.0, 10) 
+
+
+2. Needed inputs in the arguments,
+
+   - smurf ntuple locations, including its location (for example "/smurf/data/Run2010_Fall10U_SmurfWW_V1/tas/")
+   - data sample you wish to run on ("hww160.root" corresponds to the ggHWW160)
+   - output directory for the adapted smurf trees, the new files will be the same as the smurf tree but with "_ME"  ("hww160_ME.root")
+   - random seed (10)
+   - SmearLevel (0: no boost or resolution; 1: include boost; 2: include both boost and lepton pt resolutions)
+   - number of steps in the integration, 100k has proven to be enough for stable results 
+   - error threshold (0.0 to suppress the debugging information)
+   - higgsMass (which higgs mass to run on, if set to 0 all higgs masses are run..)
+
+3. Handy scripts to run on the command line
+
+nohup root -l runME_WWHWW.C\+\(\"/smurf/data/Run2010_Fall10U_SmurfWW_V1/tas/\"\,\"hww160.root\"\,\"./\"\,10\,1\,100000\,1.0\,0.0\,5000\) >& hww160_ME.log &
+nohup root -l runME_WWHWW.C\+\(\"/smurf/data/Run2010_Fall10U_SmurfWW_V1/tas/\"\,\"ww.root\"\,\"./\"\,10\,1\,100000\,1.0\,0.0\,5000\) >& ww_ME.log &
