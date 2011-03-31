@@ -1,0 +1,165 @@
+\documentclass{cmspaper}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[pdfborder=0 0 0,
+            colorlinks,
+            urlcolor = blue,
+            linkcolor = black,
+            citecolor = black,
+            menucolor = black,]
+           {hyperref}
+%% \usepackage[colorlinks]{hyperref}
+%% \usepackage{url}
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixname}{Appendix}
+%% \renewcommand{\appendixtocname}{List of appendices}
+
+\input{privsym}
+
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+
+\begin{document}
+\begin{titlepage}
+
+  \analysisnote{2011/XXX}
+
+  \date{\today}
+
+  \title{Search for Higgs boson in WW to di-lepton final state}
+
+  \begin{Authlist}
+  \end{Authlist}
+
+  % if needed, use the following:
+  \collaboration{CMS collaboration}
+
+  % \Anotfoot{a}{On leave from prison}
+  %\Anotfoot{b}{Now at the Moon}
+  \begin{abstract}
+    This note describes a search for the Higgs boson in WW$\to$ll
+    final state with xx~fb$^{-1}$ of $pp$ collision data at $\sqrt s =
+    $ 10~TeV. We look for Higgs events in $ee$, $\mu\mu$ and $e\mu$
+    channels with 0, 1 and 2 jets in the final state.
+  \end{abstract} 
+
+\end{titlepage}
+\tableofcontents
+%\listoftables
+%\listoffigures
+\newpage 
+
+\section{Introduction}
+  \label{sec:overview}
+%  \input{overview}
+\section{Data samples}
+  \label{sec:dataset}
+%  \input{dataset}
+\section{Event selection}
+  \label{sec:selection} 
+%  \input{selection_introduction}
+  \subsection{Trigger}
+    \label{sec:sel_trigger}
+%    \input{selection_trigger}
+  \subsection{Muon selection} 
+    \label{sec:sel_muons}
+%    \input{selection_muons}
+  \subsection{Electron selection} 
+    \label{sec:sel_electrons}
+%    \input{selection_electrons}
+  \subsection{Missing \et} 
+    \label{sec:sel_met}
+%    \input{selection_met}
+  \subsection{Jet counting} 
+    \label{sec:sel_jets}
+%    \input{selection_jets}
+  \subsection{$Z$ veto}
+    \label{sec:sel_zveto}
+%    \input{selection_zveto}
+  \subsection{Top tagging}
+    \label{sec:sel_toptag}
+%    \input{selection_toptag}
+  \subsection{Other selection requirements}
+    \label{sec:sel_other}
+%    \input{selection_other}
+
+\section{Signal extraction}
+  \subsection{Cut based analysis}
+    \label{sec:anal_cutbased}
+%    \input{anal_cutbased}
+  \subsection{MVA analaysis}
+    \label{sec:anal_mva}
+%    \input{anal_mva}
+  \subsection{Matrix Element method}
+    \label{sec:anal_me}
+%    \input{anal_me}
+
+\section{Event yields in Data and Monte Carlo}
+  \subsection{Monte Carlo selection efficiency}
+    \label{sec:mc_eff}
+%    \input{mc_efficiency}
+  \subsection{Yields}
+    \label{sec:yields}
+%    \input{yields}
+
+\section{Background estimation}
+    \label{sec:bkg_intro}
+%    \input{bkg_intro}
+  \subsection{WW background}
+    \label{sec:bkg_ww}
+%    \input{bkg_fakes}
+  \subsection{Jet induced backgrounds}
+    \label{sec:bkg_fakes}
+%    \input{bkg_fakes}
+  \subsection{Top background}
+    \label{sec:bkg_top}
+%    \input{bkg_top}
+  \subsection{Drell-Yan background}
+    \label{sec:bkg_dy}
+%    \input{bkg_drell_yan}
+  \subsection{Other backgrounds}
+    \label{sec:bkg_other}
+%    \input{bkg_other}
+
+\section{Results}
+    \label{sec:results}
+%    \input{results.tex}
+
+\section{Summary}
+    \label{sec:summary}
+%    \input{summary.tex}
+
+\clearpage
+
+
+
+\appendix
+\appendixpage
+%%   \section{Anomalous triple gauge couplings}
+%%     \label{app:atgc}
+%%     \input{atgc}
+%%   \section{Electron selection details}\label{sec:eledetail}
+%%     \input{electron_detail}
+%%   \section{Using the transverse mass of the $W$ for
+%%     \dytt\ suppression}\label{sec:mt} 
+%%     \input{mt}
+%%   \section{Jet Veto at high $\eta$}
+%%     \input{higheta}
+%%   \section{Jet Veto using $b$ tagging}
+%%     \input{btagging}
+%%   \section{Application of the Drell-Yan estimate method}
+%%     \label{app:dy22X}
+%%     \input{drell_yan_appendix}
+%%   \section{Event yields in other samples}
+%%     \label{app:othersamples}
+%%     \input{alt_samples}
+%%   \section{Estimating the sensitivity to observe \ww\ in 100/pb}
+%%     \label{app:significance}
+%%     \input{significance}
+%%   \section{QCD multi jet background estimation}
+%%     \label{app:qcd}
+%%     \input{qcd}
+%% \input{biblio}
+
+\end{document}
