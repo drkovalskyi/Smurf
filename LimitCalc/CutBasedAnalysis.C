@@ -5,6 +5,18 @@
 typedef std::vector<std::pair<std::string,SmurfTree::DataType> > Samples;
 typedef std::pair<std::string,SmurfTree::DataType> Sample;
 
+//
+// If you want to change things, look at the following parts:
+//  gScale - set lumi 
+//  splitByChannels - 1 or 4 channels
+// Event selection can be specified in PassedFinalSelection():
+//  HWWCuts_Run2010Paper - reference 2010 HWW cut based selection
+//  HWWCuts_SmurfV1 - similar to HWWCuts_Run2010Paper, but low pt for M<=160 is 10  
+
+// Global Config Parameters
+const double gScale = 1.0; // fb^-1
+const bool splitByChannels = false; // fb^-1
+
 struct LimitInfo{
   double observed;
   double exp_m2sig;
@@ -23,15 +35,16 @@ struct SigInfo{
   double exp_p2sig;
 };
 
-const double gScale = 1.0; // fb^-1
-
 // declaration 
-bool HWWCuts_2010(SmurfTree& tree, SmurfTree::DataType sig_type);
+bool HWWCuts_Run2010Paper(SmurfTree& tree, SmurfTree::DataType sig_type);
+bool HWWCuts_SmurfV1(SmurfTree& tree, SmurfTree::DataType sig_type);
+bool HWWCuts_test(SmurfTree& tree, SmurfTree::DataType sig_type);
 void MakeLandsCard(const Sample& sig, const Samples& bkgs, std::string file_name);
 
 // definition
 bool PassedFinalSelection(SmurfTree& tree, SmurfTree::DataType sig_type){
-  return HWWCuts_2010(tree,sig_type);
+  return HWWCuts_SmurfV1(tree,sig_type);
+  // HWWCuts_Run2010Paper(tree,sig_type)
 }
 
 void CutBasedAnalysis(std::string path = "data/")
@@ -67,7 +80,7 @@ void AddEvents(const Sample& sample, TH1& hist, SmurfTree::DataType sig_type){
   Long64_t nentries = tree.tree_->GetEntries();
   for (Long64_t i = 0; i < nentries; i++){
     tree.tree_->GetEntry(i);
-    if ( HWWCuts_2010(tree,sig_type) ) 
+    if ( PassedFinalSelection(tree,sig_type) )
       hist.Fill(tree.type_+0.5,tree.scale1fb_*gScale);
   }
 }
@@ -84,19 +97,35 @@ void MakeLandsCard(const Sample& sig, const Samples& bkgs, std::string file_name
     AddEvents(*bkg,hbkg,sig.second);
   std::ofstream fout(file_name.c_str());
   fout << "Signal target: " << SmurfTree::name(sig.second) << "\n";
-  fout << "imax   1  number of channels\n";
   fout << "jmax   1  number of backgrounds\n"; 
   fout << "kmax   1  number of nuisance parameters\n";
-  fout << "Observation  0\n";
-  fout << "bin        1     1\n";
-  fout << "process    0     1\n";
-  fout << "rate " << hsig.Integral() << " " << hbkg.Integral() << "\n";
-  fout << "1  lnN  1.1  1.1\n";
+  if ( splitByChannels ) {
+    fout << "imax   4  number of channels\n";
+    fout << "Observation  0 0 0 0\n";
+  } else {
+    fout << "imax   1  number of channels\n";
+    fout << "Observation  0\n";
+  }
+  if ( splitByChannels ){
+    fout << "bin        1     1    2    2    3    3    4    4\n";
+    fout << "process    0     1    0    1    0    1    0    1\n";
+    fout << "rate " << hsig.GetBinContent(1) << " " << hbkg.GetBinContent(1) 
+	 << " " << hsig.GetBinContent(2) << " " << hbkg.GetBinContent(2)
+	 << " " << hsig.GetBinContent(3) << " " << hbkg.GetBinContent(3)  
+	 << " " << hsig.GetBinContent(4) << " " << hbkg.GetBinContent(4) 
+	 << "\n";
+    fout << "1  lnN     1.1   1.1  1.1  1.1  1.1  1.1  1.1  1.1\n";
+  } else {
+    fout << "bin        1     1\n";
+    fout << "process    0     1\n";
+    fout << "rate " << hsig.Integral() << " " << hbkg.Integral() << "\n";
+    fout << "1  lnN  1.1  1.1\n";
+  }
   fout.close();
   std::cout << "Card " << file_name << " is done " << std::endl; 
 }
 
-bool HWWCuts_2010(SmurfTree& tree, SmurfTree::DataType sig_type){
+bool HWWCuts_Run2010Paper(SmurfTree& tree, SmurfTree::DataType sig_type){
   switch (sig_type){
   case SmurfTree::hww120: 
     return tree.lep1_.pt()>20 && tree.lep2_.pt()>20 &&
@@ -134,6 +163,94 @@ bool HWWCuts_2010(SmurfTree& tree, SmurfTree::DataType sig_type){
       tree.dilep_.mass()<130 && fabs(tree.dPhi_)<M_PI/180*130;
   case SmurfTree::hww250:
     return tree.lep1_.pt()>55 && tree.lep2_.pt()>25 &&
+      tree.dilep_.mass()<150 && fabs(tree.dPhi_)<M_PI/180*140;
+  default: return false;
+  }
+}
+
+bool HWWCuts_SmurfV1(SmurfTree& tree, SmurfTree::DataType sig_type){
+  switch (sig_type){
+  case SmurfTree::hww120: 
+    return tree.lep1_.pt()>20 && tree.lep2_.pt()>10 &&
+      tree.dilep_.mass()<40 && fabs(tree.dPhi_)<M_PI/180*60;
+  case SmurfTree::hww130: 
+  case SmurfTree::hww140:
+    return tree.lep1_.pt()>25 && tree.lep2_.pt()>10 &&
+      tree.dilep_.mass()<45 && fabs(tree.dPhi_)<M_PI/180*60;
+  case SmurfTree::hww150:
+    return tree.lep1_.pt()>27 && tree.lep2_.pt()>10 &&
+      tree.dilep_.mass()<50 && fabs(tree.dPhi_)<M_PI/180*60;
+  case SmurfTree::hww160:
+    return tree.lep1_.pt()>30 && tree.lep2_.pt()>10 &&
+      tree.dilep_.mass()<50 && fabs(tree.dPhi_)<M_PI/180*60;
+  case SmurfTree::hww170:
+    return tree.lep1_.pt()>34 && tree.lep2_.pt()>25 &&
+      tree.dilep_.mass()<50 && fabs(tree.dPhi_)<M_PI/180*60;
+  case SmurfTree::hww180:
+    return tree.lep1_.pt()>36 && tree.lep2_.pt()>25 &&
+      tree.dilep_.mass()<60 && fabs(tree.dPhi_)<M_PI/180*70;
+  case SmurfTree::hww190:
+    return tree.lep1_.pt()>38 && tree.lep2_.pt()>25 &&
+      tree.dilep_.mass()<80 && fabs(tree.dPhi_)<M_PI/180*90;
+  case SmurfTree::hww200:
+    return tree.lep1_.pt()>40 && tree.lep2_.pt()>25 &&
+      tree.dilep_.mass()<90 && fabs(tree.dPhi_)<M_PI/180*100;
+  case SmurfTree::hww210:
+    return tree.lep1_.pt()>44 && tree.lep2_.pt()>25 &&
+      tree.dilep_.mass()<110 && fabs(tree.dPhi_)<M_PI/180*110;
+  case SmurfTree::hww220:
+    return tree.lep1_.pt()>48 && tree.lep2_.pt()>25 &&
+      tree.dilep_.mass()<120 && fabs(tree.dPhi_)<M_PI/180*120;
+  case SmurfTree::hww230:
+    return tree.lep1_.pt()>52 && tree.lep2_.pt()>25 &&
+      tree.dilep_.mass()<130 && fabs(tree.dPhi_)<M_PI/180*130;
+  case SmurfTree::hww250:
+    return tree.lep1_.pt()>55 && tree.lep2_.pt()>25 &&
+      tree.dilep_.mass()<150 && fabs(tree.dPhi_)<M_PI/180*140;
+  default: return false;
+  }
+}
+
+bool HWWCuts_test(SmurfTree& tree, SmurfTree::DataType sig_type){
+  switch (sig_type){
+  case SmurfTree::hww120: 
+    return tree.lep1_.pt()>20 &&
+      tree.dilep_.mass()<40 && fabs(tree.dPhi_)<M_PI/180*60;
+  case SmurfTree::hww130: 
+  case SmurfTree::hww140:
+    // return tree.dPhi_<2 && tree.met_<20+(2-tree.dPhi_)/2*50;
+    //    return tree.lep1_.pt()>25 &&
+    //      tree.dilep_.mass()<45 && fabs(tree.dPhi_)<M_PI/180*60;
+    return tree.dilep_.mass()<50&&tree.lep1_.pt()<50&&tree.met_<60;
+  case SmurfTree::hww150:
+    return tree.lep1_.pt()>27 &&
+      tree.dilep_.mass()<50 && fabs(tree.dPhi_)<M_PI/180*60;
+  case SmurfTree::hww160:
+    return tree.lep1_.pt()>30 &&
+      tree.dilep_.mass()<50 && fabs(tree.dPhi_)<M_PI/180*60;
+  case SmurfTree::hww170:
+    return tree.lep1_.pt()>34 &&
+      tree.dilep_.mass()<50 && fabs(tree.dPhi_)<M_PI/180*60;
+  case SmurfTree::hww180:
+    return tree.lep1_.pt()>36 &&
+      tree.dilep_.mass()<60 && fabs(tree.dPhi_)<M_PI/180*70;
+  case SmurfTree::hww190:
+    return tree.lep1_.pt()>38 &&
+      tree.dilep_.mass()<80 && fabs(tree.dPhi_)<M_PI/180*90;
+  case SmurfTree::hww200:
+    return tree.lep1_.pt()>40 &&
+      tree.dilep_.mass()<90 && fabs(tree.dPhi_)<M_PI/180*100;
+  case SmurfTree::hww210:
+    return tree.lep1_.pt()>44 &&
+      tree.dilep_.mass()<110 && fabs(tree.dPhi_)<M_PI/180*110;
+  case SmurfTree::hww220:
+    return tree.lep1_.pt()>48 &&
+      tree.dilep_.mass()<120 && fabs(tree.dPhi_)<M_PI/180*120;
+  case SmurfTree::hww230:
+    return tree.lep1_.pt()>52 &&
+      tree.dilep_.mass()<130 && fabs(tree.dPhi_)<M_PI/180*130;
+  case SmurfTree::hww250:
+    return tree.lep1_.pt()>55 &&
       tree.dilep_.mass()<150 && fabs(tree.dPhi_)<M_PI/180*140;
   default: return false;
   }
