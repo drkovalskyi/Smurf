@@ -125,3 +125,27 @@
 
 % integrated luminosity
 \newcommand{\intlumi}{35.5~\pbinv}
+
+
+%%%%%%%%%%%
+%
+\newcounter{myfootertablecounter}
+
+\newcommand\myfootnotemark{%
+  %\refstepcounter{footnote}%
+  \addtocounter{footnote}{1}%
+  \footnotemark[\thefootnote]%
+}%
+
+\newcommand\myfootnotetext[1]{%
+  \addtocounter{myfootertablecounter}{1}
+  \footnotetext[\value{myfootertablecounter}]{#1}
+}
+
+% from now on, myfootnote has to be used rather than footnote to
+% adapt the myfootercounter
+\newcommand\myfootnote[1]{%
+  \addtocounter{myfootertablecounter}{1}
+  \footnote{#1}
+}%
+
