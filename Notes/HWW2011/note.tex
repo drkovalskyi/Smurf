@@ -15,7 +15,8 @@
 \renewcommand{\appendixname}{Appendix}
 %% \renewcommand{\appendixtocname}{List of appendices}
 
-\input{privsym}
+% \input{privsym}
+\input{commands}
 
 \setcounter{topnumber}{1}
 \setcounter{bottomnumber}{1}
@@ -61,14 +62,14 @@
 %  \input{selection_introduction}
   \subsection{Trigger}
     \label{sec:sel_trigger}
-%    \input{selection_trigger}
+    \input{selection_trigger}
   \subsection{Muon selection} 
     \label{sec:sel_muons}
 %    \input{selection_muons}
   \subsection{Electron selection} 
     \label{sec:sel_electrons}
 %    \input{selection_electrons}
-  \subsection{Missing \et} 
+  \subsection{Missing energy} 
     \label{sec:sel_met}
 %    \input{selection_met}
   \subsection{Jet counting} 
@@ -136,9 +137,16 @@
 
 \appendix
 \appendixpage
-%%   \section{Anomalous triple gauge couplings}
-%%     \label{app:atgc}
-%%     \input{atgc}
+  \section{Electron selection optimization}
+     \label{app:els}
+%     \input{appendix_els}
+  \section{Muon selection optimization}
+     \label{app:mus}
+%     \input{appendix_mus}
+  \section{MET options}
+     \label{app:met}
+%     \input{appendix_met}
+
 %%   \section{Electron selection details}\label{sec:eledetail}
 %%     \input{electron_detail}
 %%   \section{Using the transverse mass of the $W$ for
