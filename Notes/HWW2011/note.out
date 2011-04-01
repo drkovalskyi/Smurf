@@ -2,9 +2,10 @@
 \BOOKMARK [1][-]{section.2}{Data samples}{}
 \BOOKMARK [1][-]{section.3}{Event selection}{}
 \BOOKMARK [2][-]{subsection.3.1}{Trigger}{section.3}
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Trigger efficiency}{subsection.3.1}
 \BOOKMARK [2][-]{subsection.3.2}{Muon selection}{section.3}
 \BOOKMARK [2][-]{subsection.3.3}{Electron selection}{section.3}
-\BOOKMARK [2][-]{subsection.3.4}{Missing ET}{section.3}
+\BOOKMARK [2][-]{subsection.3.4}{Missing energy}{section.3}
 \BOOKMARK [2][-]{subsection.3.5}{Jet counting}{section.3}
 \BOOKMARK [2][-]{subsection.3.6}{Z veto}{section.3}
 \BOOKMARK [2][-]{subsection.3.7}{Top tagging}{section.3}
@@ -25,3 +26,6 @@
 \BOOKMARK [1][-]{section.7}{Results}{}
 \BOOKMARK [1][-]{section.8}{Summary}{}
 \BOOKMARK [1][-]{section*.2}{Appendices}{}
+\BOOKMARK [1][-]{appendix.A}{Electron selection optimization}{}
+\BOOKMARK [1][-]{appendix.B}{Muon selection optimization}{}
+\BOOKMARK [1][-]{appendix.C}{MET options}{}
