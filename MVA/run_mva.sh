@@ -21,6 +21,7 @@ fi
 ### Fill MVA output information
 ### MVA output is available in "weights" folder
 ### an arbitrary list of samples can be added
+### samples must be in "data" folder
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
 data/histo_hww${MH}_std_pu11_randomized.all.root

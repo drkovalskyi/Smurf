@@ -393,7 +393,7 @@ TString path         = "")
     TString ofn(samples.at(i));
     ofn.ReplaceAll("data/","");
     const char* mydir = outdir;
-    TFile *out = TFile::Open( Form("%s/%s_%s.root" , mydir, outTag.Data(), ofn.Data() ) ,"RECREATE" );
+    TFile *out = TFile::Open( Form("%s/%s_%s" , mydir, outTag.Data(), ofn.Data() ) ,"RECREATE" );
     TTree *clone;
     clone = t->CloneTree(-1, "fast");
    
@@ -647,8 +647,8 @@ TString path         = "")
     // --- Write histograms
     cout << "dir " << dir << endl;
 
-    TFile *target  =   new TFile( Form("%s/%s_%s_histos.root",mydir, outTag.Data(), ofn.Data() ) ,"RECREATE" );
-    cout << "Writing to file " << Form("%s/%s_%s_histos.root",mydir, outTag.Data(), ofn.Data() ) << endl;
+    TFile *target  =   new TFile( Form("%s/%s_histos_%s",mydir, outTag.Data(), ofn.Data() ) ,"RECREATE" );
+    cout << "Writing to file " << Form("%s/%s_histos_%s",mydir, outTag.Data(), ofn.Data() ) << endl;
 
     if (Use["Likelihood"   ])   histLk     ->Write();
     if (Use["LikelihoodD"  ])   histLkD    ->Write();
