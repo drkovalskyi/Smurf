@@ -1,0 +1,53 @@
+{\fixme this is almost 2010 explanation, we need to add all new stuff}
+
+We select electrons using a cut-based approach consistent with the electron 
+selection criteria used for the measurement of the inclusive W and Z 
+cross-section~\cite{VBTFCrossSectionNote}. Electrons are required to 
+have transverse momentum larger than $20$ GeV and $|\eta| < 2.5$. Electron 
+identification is based on selection cuts on shower shape 
+($\sigma_{i\eta i\eta}$), track to cluster matching 
+($\Delta \phi_{\mathrm{in}}$ and $\Delta \eta_{\mathrm{in}}$), and the amount 
+of relative hadronic activity (H/E). The electron is required to be isolated by 
+imposing a requirement on the combined relative isolation 
+($\rm{Iso}_{Track}$, $\rm{Iso}_{ECAL}$, $\rm{Iso}_{HCAL}$ in a $\Delta$R $< 0.3$ 
+cone / $p_{T}$), where $\rm{Iso}_{ECAL}$ is calculated using ECAL crystals and 
+additional vetos have been applied to remove tracks and ECAL crystals from the 
+isolation sums to better account for the electron footprint~\cite{ElIso}. In the 
+barrel region ($|\eta| < 1.479$) we subtract 1~GeV of 
+ECAL energy deposition if it is more than 1~GeV to account for the
+noise pedestal. In order to veto fake electrons from converted photons, we look 
+for a partner track to the electron consistent with a 
+conversion~\cite{ConversionNote}, and require that there are no missing expected 
+hits forming the electron track~\cite{ConversionNote},~\cite{NExpHits}. Finally 
+we impose cuts on the transverse and longitudinal impact parameters with
+respect to the primary vertex to reduce fake electrons from non-prompt
+sources. Cut values are summarized in Tab.~\ref{tab:electronSelection}.
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+ Cut Variable           &   Cut Value (Barrel)                   & Cut Value (Endcap)    \\
+\hline
+ $\sigma_{i\eta i\eta}$      &   $<0.01$                              & $<0.03$               \\ 
+ $\Delta\phi_{\mathrm{in}}$  &   $<0.06$                              & $<0.03$               \\ 
+ $\Delta\eta_{\mathrm{in}}$  &   $<0.004$                             & $<0.007$               \\ 
+ H/E                         &  $<0.04$                          &   $< 0.025$          \\ 
+ Combined relative isolation &  $<0.1$                           &  $<0.1$              \\
+ Missing hits in inner pixel layers  &   $=0$      &  $=0$           \\ 
+ transverse impact parameter $|d_{0}|$  &  $<0.02$ cm   & $<0.02$ cm    \\
+ longitudinal impact parameter $|d_{z}|$  &  $<0.2$ cm   & $<0.2$ cm    \\
+ \hline
+ \hline
+ \multicolumn{3}{|c|}{Partner Track Conversion Veto} \\
+ \hline
+ Distance to the partner track       &  $<0.02$    &   $< 0.02$      \\  
+ $\Delta{\cot\theta}$ of the partner track   &  $<0.02$    &   $<0.02$      \\ 
+ \hline
+
+\hline
+\end{tabular}
+\caption{Summary of the electron selection requirements. \label{tab:electronSelection}}
+
+\end{center}
+\end{table}

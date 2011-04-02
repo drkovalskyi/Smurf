@@ -28,7 +28,7 @@
 
   \date{\today}
 
-  \title{Search for Higgs boson in WW to di-lepton final state}
+  \title{Search for Higgs Boson in the Fully Leptonic $W^+W^-$ Final State}
 
   \begin{Authlist}
   \end{Authlist}
@@ -39,10 +39,10 @@
   % \Anotfoot{a}{On leave from prison}
   %\Anotfoot{b}{Now at the Moon}
   \begin{abstract}
-    This note describes a search for the Higgs boson in WW$\to$ll
-    final state with xx~fb$^{-1}$ of $pp$ collision data at $\sqrt s =
-    $ 10~TeV. We look for Higgs events in $ee$, $\mu\mu$ and $e\mu$
-    channels with 0, 1 and 2 jets in the final state.
+    This note describes a search for the Higgs boson in $\WW \to 2\ell2\nu$
+    final state with 22~pb$^{-1}$ of $pp$ collision data at $\sqrt s =
+    $ 7~$\TeV$. We search for Higgs candidate events in $ee$, $\mu\mu$ and $e\mu$
+    channels with 0, 1 and 2 reconstructed jets in the final state.
   \end{abstract} 
 
 \end{titlepage}
@@ -53,75 +53,83 @@
 
 \section{Introduction}
   \label{sec:overview}
-%  \input{overview}
-\section{Data samples}
-  \label{sec:dataset}
-%  \input{dataset}
-\section{Event selection}
+  \input{introduction}
+  
+\section{Data Samples}
+  \label{sec:datasets}
+  \input{datasets}
+  
+\section{Event Selection}
   \label{sec:selection} 
-%  \input{selection_introduction}
+  \input{selection_introduction}
   \subsection{Trigger}
     \label{sec:sel_trigger}
     \input{selection_trigger}
-  \subsection{Muon selection} 
+  \subsection{Primary Vertex Reconstruction}
+    \label{sec:sel_pv}
+    \input{selection_pv}
+  \subsection{Muon Selection} 
     \label{sec:sel_muons}
-%    \input{selection_muons}
-  \subsection{Electron selection} 
+   \input{selection_muons}
+  \subsection{Electron Selection} 
     \label{sec:sel_electrons}
-%    \input{selection_electrons}
-  \subsection{Missing energy} 
+    \input{selection_electrons}
+  \subsection{Missing Energy} 
     \label{sec:sel_met}
 %    \input{selection_met}
-  \subsection{Jet counting} 
+  \subsection{Jet Counting} 
     \label{sec:sel_jets}
-%    \input{selection_jets}
-  \subsection{$Z$ veto}
+    \input{selection_jets}
+  \subsection{$Z$ Veto}
     \label{sec:sel_zveto}
-%    \input{selection_zveto}
-  \subsection{Top tagging}
+    \input{selection_zveto}
+  \subsection{Top Tagging}
     \label{sec:sel_toptag}
-%    \input{selection_toptag}
-  \subsection{Other selection requirements}
+    \input{selection_toptag}
+  \subsection{Other Preselection Requirements}
     \label{sec:sel_other}
-%    \input{selection_other}
+    \input{selection_other}
 
-\section{Signal extraction}
-  \subsection{Cut based analysis}
+\section{Signal Extraction}
+  \label{sec:signal_selection}
+  \subsection{Cut Based Analysis}
     \label{sec:anal_cutbased}
 %    \input{anal_cutbased}
-  \subsection{MVA analaysis}
+  \subsection{MVA Analysis}
     \label{sec:anal_mva}
 %    \input{anal_mva}
-  \subsection{Matrix Element method}
-    \label{sec:anal_me}
+%  \subsection{Matrix Element Method}
+%    \label{sec:anal_me}
 %    \input{anal_me}
 
 \section{Event yields in Data and Monte Carlo}
-  \subsection{Monte Carlo selection efficiency}
+  \label{sec:yields}
+  \subsection{Monte Carlo Selection Efficiency}
     \label{sec:mc_eff}
 %    \input{mc_efficiency}
   \subsection{Yields}
-    \label{sec:yields}
+    \label{sec:datayields}
 %    \input{yields}
 
-\section{Background estimation}
+\section{Background Estimation}
+    \label{sec:backgrounds}
+    \input{bkg_intro}
     \label{sec:bkg_intro}
-%    \input{bkg_intro}
   \subsection{WW background}
     \label{sec:bkg_ww}
-%    \input{bkg_fakes}
-  \subsection{Jet induced backgrounds}
+    \input{bkg_ww}
+  \subsection{Jet Induced Backgrounds}
     \label{sec:bkg_fakes}
-%    \input{bkg_fakes}
-  \subsection{Top background}
+    \input{bkg_fakes}
+  \subsection{Top Background}
     \label{sec:bkg_top}
-%    \input{bkg_top}
-  \subsection{Drell-Yan background}
+    \input{bkg_top}
+  \subsection{Drell-Yan Background}
     \label{sec:bkg_dy}
-%    \input{bkg_drell_yan}
-  \subsection{Other backgrounds}
+    \input{bkg_dy}
+  \subsection{Other Backgrounds}
     \label{sec:bkg_other}
-%    \input{bkg_other}
+    \input{bkg_other}
 
 \section{Results}
     \label{sec:results}
@@ -137,13 +145,13 @@
 
 \appendix
 \appendixpage
-  \section{Electron selection optimization}
+  \section{Electron Selection Optimization}
      \label{app:els}
 %     \input{appendix_els}
-  \section{Muon selection optimization}
+  \section{Muon Selection Optimization}
      \label{app:mus}
 %     \input{appendix_mus}
-  \section{MET options}
+  \section{$\met$ Options}
      \label{app:met}
 %     \input{appendix_met}
 

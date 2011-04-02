@@ -1,0 +1,47 @@
+{\fixme this is almost 2010 explanation, we need to add all new stuff}
+
+Muons in CMS are reconstructed as either $StandAloneMuons$ (track
+in the muon detector with low momentum resolution), $GlobalMuons$
+(outside-in approach seeded by a $StandAloneMuon$ with a global fit
+using hits in the muon, silicon strip and pixel 
+detectors) and $TrackerMuons$ (inside-out approach seeded by an offline 
+silicon strip track, using the muon detector only for muon identification 
+without refitting the track). Most good quality muons are reconstructed as 
+all three types at the same time and resolution is dominated by the inner
+tracker system up to about 200~GeV in transverse momentum. The specific
+requirements to select good prompt isolated muons are the following:
+\begin{itemize}
+\item the muon must be found by both the global and tracker muon algorithms;
+\item the global muon must have at least one good muon hit;
+\item the tracker muon must have at least two matches to muon segments in 
+      different muon stations;
+\item more than 10 hits in the inner tracker;
+\item at least one pixel hit;
+\item $\chi^2/{\mathrm{ndof}} < 10$ on a global fit;
+\item impact parameter in the transverse plane $|d_{0}| < 0.02$~cm,
+      calculated with respect to the primary vertex;
+\item longitudinal impact parameter $|d_{z}| <0.2$~cm,
+      calculated with respect to the primary vertex;
+\item $|\eta|$ angle must be smaller than 2.4;
+\item relative \pt\ resolution is better than 10\%.
+\end{itemize}
+
+Furthermore, tracker- and calorimeter- based isolation variables are
+used to reduce the contamination from fake muons originating from
+jets. We have chosen to use a combination of tracker, ECAL and HCAL
+based isolation:
+
+\begin{itemize}
+\item $\rm{Iso}_{Track}$: it is defined as the scalar sum of the \pt\ of the 
+    tracks in the $\eta \times \phi$ plane in a 0.01$~<~\Delta R~<~$0.3 cone 
+    around the muon;
+
+\item $\rm{Iso}_{ECAL}(\rm{Iso}_{HCAL})$: they are defined as the 
+    scalar sum of the transverse energy of the calorimeter ECAL (HCAL) towers 
+    in a $\Delta R$ cone of 0.3 centered on the muon with a veto cone of 
+    $\Delta R = 0.01 $ around it.
+\end{itemize}
+
+The combined isolation variable is defined as 
+$\rm{Iso}_{Total} = \rm{Iso}_{Track}+\rm{Iso}_{ECAL}+\rm{Iso}_{HCAL}$, 
+and we require $\frac{\rm{Iso}_{Total}}{\pt}~<~0.15$.

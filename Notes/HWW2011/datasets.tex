@@ -1,0 +1,74 @@
+The datasets used for this analysis are summarized in Tables.~\ref{tab:DatasetsData} 
+and~\ref{tab:DatasetsMC} for data and Monte Carlo, respectively. The total integrated
+luminosity is 22.2 $\pm$ 0.9 $\ipb$, where for the good run list selection, we 
+use the JSON file shown in~\cite{json}.
+
+The choice of the Monte Carlo samples depends on the sample
+availability, but in general we tried to be consistent and use a
+single generator - MadGraph. In the case of Drell-Yan, MadGraph samples
+are not adequate to cover the full mass spectrum. The main sample has a 50 $\GeVcc$ 
+minimum dilepton mass requirement, while the other one, covering
+the low mass region, has an additional requirement on extra jet
+activity. For $gg \to \WW$ a dedicated generator is used. For \wz\ and \zz\
+processes we use Pythia, since MadGraph samples are mixed with $\WW$ in
+a single $VV$ sample, which is difficult to use properly.
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+ Dataset Description                   &   Dataset Name   \\
+\hline
+\hline
+\multicolumn{2}{|c|}{$H \to \WW$ Signal Selection Samples} \\
+\hline
+Run2011A MuEl PromptReco            &     \\
+Run2011A DiMuon PromptReco          &     \\
+Run2011A SingleMuon PromptReco      &     \\
+Run2011A DiElectron PromptReco      &     \\
+Run2011A SingleElectron PromptReco  &     \\
+\hline
+\hline
+\multicolumn{2}{|c|}{Fake Rate Measurement Samples} \\
+\hline
+Run2010A Jet  PromptReco            &	\\
+Run2010B Photon PromptReco          &	\\
+\hline
+\end{tabular}
+\caption{Summary of data datasets used.\label{tab:DatasetsData}}
+\end{center}
+\end{table}
+
+\begin{table}[!ht]
+\begin{center}
+{\footnotesize
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{With Pileup: Processed dataset name is always} \\
+\multicolumn{3}{|c|}{/Spring11-PU\_S1\_START311\_V1G1-v*/AODSIM} \\
+\hline
+ Dataset Description                     &   Primary Dataset Name   & cross-section (pb)\\
+\hline
+qq $\rightarrow WW$                  	 &   /VVJetsTo4L\_TuneD6T\_7TeV-madgraph-tauola                        &  43.0  \\
+gg $\rightarrow WW \to 2l 2\nu$          &   /GluGluToWWTo4L\_TuneZ2\_7TeV-gg2ww-pythia6                       &   0.153\\
+$\ttbar$                              	 &   /TTJets\_TuneZ2\_7TeV-madgraph-tauola                             & 157.5 \\
+$\singletops$                  	 	 &   /TToBLNu\_TuneZ2\_s-channel\_7TeV-madgraph                        &  1.4 \\
+$\singletopt$                  	 	 &   /TToBLNu\_TuneZ2\_t-channel\_7TeV-madgraph                        &  20.9 \\
+tW                                    	 &   /TToBLNu\_TuneZ2\_tW-channel\_7TeV-madgraph                       &  10.6 \\
+Z[20-inf] $\rightarrow ee$	  	 &   /DYToEE\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia                   &  1666.0 \\
+Z[20-inf] $\rightarrow \mu\mu$        	 &   /DYToMuMu\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia                 &  1666.0 \\	       
+Z[20-inf] $\rightarrow \tau\tau$  	 &   /DYToTauTau\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia-tauola        &  1666.0 \\
+Z[10-20]  $\rightarrow ee$	  	 &   /DYToEE\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia               &  3892.9 \\
+Z[10-20]  $\rightarrow \mu\mu$    	 &   /DYToMuMu\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia             &  3892.9 \\
+Z[10-20]  $\rightarrow \tau\tau$  	 &   /DYToTauTau\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia-tauola    &  3892.9 \\
+W/Z+$\gamma$                       	 &   /PhotonVJets\_7TeV-madgraph                                       &  165.0 \\
+W $\rightarrow$ $\ell\nu$           	 &   /WJetsToLNu\_TuneZ2\_7TeV-madgraph-tauola                         &  31314.0 \\
+WZ                               	 &   /WZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &  18.2 \\
+ZZ                               	 &   /ZZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &   5.9\\
+\hline
+\hline
+\end{tabular}
+}
+\caption{Summary of Monte Carlo datasets used.\label{tab:DatasetsMC}}
+\end{center}
+\end{table}
