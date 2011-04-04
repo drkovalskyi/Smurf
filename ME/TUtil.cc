@@ -698,6 +698,27 @@ double getProbAcceptanceEfficiency(cdf_event_type cdf_event, EffHist effhist)
   return eff;
 }
 
+
+double getFakeRateProb(cdf_event_type cdf_event, FRHist frhist)
+{
+  double prob = 0.0; 
+  double prob_part_fo = 0.001;
+
+  for (int i=0;i<2;i++) {
+
+    if ( TMath::Abs(cdf_event.PdgCode[i]) == 11)
+      prob +=  frhist.els_fr->GetBinContent( frhist.els_fr->GetXaxis()->FindBin(fabs(cdf_event.p[i].Eta())), frhist.els_fr->GetYaxis()->FindBin(  cdf_event.p[i].Pt()<35 ? cdf_event.p[i].Pt():34.9 ) );
+    
+    if ( TMath::Abs(cdf_event.PdgCode[i]) == 13)
+      prob +=  frhist.mus_fr->GetBinContent( frhist.mus_fr->GetXaxis()->FindBin(fabs(cdf_event.p[i].Eta())), frhist.mus_fr->GetYaxis()->FindBin(  cdf_event.p[i].Pt()<35 ? cdf_event.p[i].Pt():34.9 ) );
+
+   }
+ 
+  cout<<"Calc fake prob: "<< prob * prob_part_fo<<"\n"; 
+  return prob * prob_part_fo;
+}
+
+
 void getProbFromHist(double x0, double* kX, double *wt, TH1F *hkx)
 {
   double c = hkx->GetXaxis()->GetXmax() - hkx->GetXaxis()->GetXmin();

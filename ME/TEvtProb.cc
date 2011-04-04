@@ -98,10 +98,11 @@ void   TEvtProb::NeutrinoIntegrate(TVar::Process proc,
     double sumW=0,sumW2=0;
 
     double probAcceptanceEfficiency = getProbAcceptanceEfficiency(cdf_event, _effhist);
-    // cout << "probAcceptanceEfficency = " << probAcceptanceEfficiency << endl;
-    // double probAcceptanceEfficiency = 1.0;
-    if(probAcceptanceEfficiency == 0) return;
-    if(probAcceptanceEfficiency<0) {
+
+    if (Global_process==TVar::Wp_1jet || Global_process==TVar::Wm_1jet  )
+      probAcceptanceEfficiency*=getFakeRateProb(cdf_event, _FRhist);
+
+    if(probAcceptanceEfficiency<=0) {
       cout <<"Error: " << probAcceptanceEfficiency <<endl;
       return;
     }

@@ -60,6 +60,7 @@ public:
   TVar::MatrixElement _matrixElement;
   TVar::HWWPhaseSpace _hwwPhaseSpace;
   EffHist _effhist;
+  FRHist _FRhist;
   BoostHist _boosthist;
 
   //---------------------------------------------------------------------------
@@ -86,11 +87,27 @@ public:
     // lepton efficiencies are taken from the WW MC
     _effhist.els_eff_mc = (TH2F*) fUtil->Get("WW_heleEff")->Clone();
     _effhist.mus_eff_mc = (TH2F*) fUtil->Get("WW_hmuEff")->Clone();
-    // boosts are taken according to the process
+
+    if (TVar::ProcessName(proc)=="Wp_1jet" || TVar::ProcessName(proc)=="Wm_1jet"  ) {
+      _boosthist.kx = (TH1F*) fUtil->Get(TString("WW_kx"))->Clone();
+      _boosthist.ky = (TH1F*) fUtil->Get(TString("WW_ky"))->Clone();
+    } 
+   else
+     {
     _boosthist.kx = (TH1F*) fUtil->Get(TString(TVar::ProcessName(proc)+"_kx"))->Clone();
     _boosthist.ky = (TH1F*) fUtil->Get(TString(TVar::ProcessName(proc)+"_ky"))->Clone();
+     }
+
     fUtil->Close();
-    
+  }
+
+ void SetFRHist() {
+    TFile *fFRfile = TFile::Open("OSFR_101115.root", "READ");
+    assert(fFRfile);
+    gROOT->cd();
+    _FRhist.els_fr = (TH2F*) fFRfile->Get("EG_OSv1_fr")->Clone();
+    _FRhist.mus_fr = (TH2F*) fFRfile->Get("Mu_OSGv1_fr")->Clone();
+    fFRfile->Close();
   }
   
 

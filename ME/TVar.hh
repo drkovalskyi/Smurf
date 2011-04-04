@@ -214,6 +214,13 @@ struct EffHist{
   TH2F* mus_eff_mc;
 };
 
+struct FRHist{
+  TH2F* els_fr;
+  TH2F* mus_fr;
+  TH2F* els_part_fo;
+  TH2F* mus_part_fo;
+};
+
 struct BoostHist{
   TH1F* kx;
   TH1F* ky;
