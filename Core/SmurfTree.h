@@ -173,6 +173,8 @@ class SmurfTree {
   unsigned int   njets_;
   EventType      evtype_;
   LorentzVector  dilep_;
+  float          trackMet_;
+  float          trackMetPhi_;
   float          pmet_;
   float          mt_;
   float          mt1_;
@@ -285,6 +287,8 @@ class SmurfTree {
     tree_->Branch("njets"        , &njets_        ,   "njets/i");
     tree_->Branch("evtype"       , &evtype_       ,   "evtype/I");
     tree_->Branch("dilep"        , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &dilepPtr_);
+    tree_->Branch("trackMet"     , &trackMet_	  ,   "trackMet/F");
+    tree_->Branch("trackMetPhi"  , &trackMetPhi_  ,   "trackMetPhi/F");
     tree_->Branch("pmet"         , &pmet_         ,   "pmet/F");
     tree_->Branch("mt"           , &mt_           ,   "mt/F");
     tree_->Branch("mt1"          , &mt1_          ,   "mt1/F");
@@ -361,6 +365,8 @@ class SmurfTree {
     tree_->SetBranchAddress("njets",         &njets_);
     tree_->SetBranchAddress("evtype",        &evtype_);
     tree_->SetBranchAddress("dilep",         &dilepPtr_);
+    tree_->SetBranchAddress("trackMet",      &trackMet_);
+    tree_->SetBranchAddress("trackMetPhi",   &trackMetPhi_);
     tree_->SetBranchAddress("pmet",          &pmet_);
     tree_->SetBranchAddress("mt",            &mt_);
     tree_->SetBranchAddress("mt1",           &mt1_);
@@ -506,6 +512,8 @@ SmurfTree::InitVariables(){
     variables_.push_back(std::string("jet2Btag"     ));
     variables_.push_back(std::string("njets"        ));
     variables_.push_back(std::string("evtype"       ));
+    variables_.push_back(std::string("trackMet"     ));
+    variables_.push_back(std::string("trackMetPhi"  ));
     variables_.push_back(std::string("pmet"         ));
     variables_.push_back(std::string("mt"           ));
     variables_.push_back(std::string("mt1"          )); 
@@ -546,6 +554,8 @@ SmurfTree::InitVariables(){
   jet2Btag_     = -999.;
   njets_        = 0;
   evtype_       = ZeroJet;
+  trackMet_     = -999.;
+  trackMetPhi_  = -999.;
   pmet_         = -999.;
   mt_           = -999.;
   mt1_          = -999.;
@@ -616,6 +626,8 @@ SmurfTree::Get(std::string value)
   if(value=="jet2Btag"     ) { return this->jet2Btag_;     }
   if(value=="njets"        ) { return this->njets_;        }
   if(value=="evtype"       ) { return this->evtype_;       }
+  if(value=="trackMet"     ) { return this->trackMet_; 	   }
+  if(value=="trackMetPhi"  ) { return this->trackMetPhi_;  }
   if(value=="pmet"         ) { return this->pmet_;         }
   if(value=="mt"           ) { return this->mt_;           }
   if(value=="mt1"          ) { return this->mt1_;          }
