@@ -320,7 +320,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 	ProcInt=processList[iproc];
 	Xcal2.SetNcalls(ncalls);
 	Xcal2.SetMCHist(ProcInt); 
-	Xcal2.SetFRHist(); 
+	// Xcal2.SetFRHist(); 
 	
 	printf(" Calculate Evt %4i Run %9i Evt %8i Proc %4i %s Lep %4i %4i\n", ievt, run_, event_, ProcIdx, TVar::ProcessName(ProcIdx).Data(),lep1_Type,lep2_Type);
 

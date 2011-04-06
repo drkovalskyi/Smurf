@@ -85,19 +85,25 @@ public:
     assert(fUtil);
     gROOT->cd();
     // lepton efficiencies are taken from the WW MC
-    _effhist.els_eff_mc = (TH2F*) fUtil->Get("WW_heleEff")->Clone();
-    _effhist.mus_eff_mc = (TH2F*) fUtil->Get("WW_hmuEff")->Clone();
+    _effhist.els_eff_mc = (TH2F*) fUtil->Get("ww_heleEff")->Clone();
+    _effhist.mus_eff_mc = (TH2F*) fUtil->Get("ww_hmuEff")->Clone();
 
-    if (TVar::ProcessName(proc)=="Wp_1jet" || TVar::ProcessName(proc)=="Wm_1jet"  ) {
-      _boosthist.kx = (TH1F*) fUtil->Get(TString("WW_kx"))->Clone();
-      _boosthist.ky = (TH1F*) fUtil->Get(TString("WW_ky"))->Clone();
+    if (TVar::SmurfProcessName(proc)=="wjets") {
+      _boosthist.kx = (TH1F*) fUtil->Get(TString("ww_kx"))->Clone();
+      _boosthist.ky = (TH1F*) fUtil->Get(TString("ww_ky"))->Clone();
     } 
    else
      {
-    _boosthist.kx = (TH1F*) fUtil->Get(TString(TVar::ProcessName(proc)+"_kx"))->Clone();
-    _boosthist.ky = (TH1F*) fUtil->Get(TString(TVar::ProcessName(proc)+"_ky"))->Clone();
+       _boosthist.kx = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_kx"))->Clone();
+       _boosthist.ky = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_ky"))->Clone();
      }
-
+    
+    // fake-rate histograms
+    _FRhist.els_fr = (TH2F*) fUtil->Get("wjets_heleFR")->Clone();
+    _FRhist.mus_fr = (TH2F*) fUtil->Get("wjets_hmuFR")->Clone();
+    _FRhist.els_part_fo = (TH2F*) fUtil->Get("wjets_heleGenFR")->Clone();
+    _FRhist.mus_part_fo = (TH2F*) fUtil->Get("wjets_hmuGenFR")->Clone();
+    
     fUtil->Close();
   }
 

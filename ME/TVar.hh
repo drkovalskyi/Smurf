@@ -137,6 +137,39 @@ class TVar{
     
   };
  
+
+ static TString SmurfProcessName(int temp){
+   if(temp==TVar::WW      ) return TString("ww");
+  else if(temp==TVar::Wp_gamma) return TString("wgamma");
+  else if(temp==TVar::Wm_gamma) return TString("wgamma");
+  else if(temp==TVar::Wp_1jet ) return TString("wjets");
+  else if(temp==TVar::Wm_1jet ) return TString("wjets");
+  else if(temp==TVar::ZZ      ) return TString("zz");
+  else if(temp==TVar::WZ      ) return TString("wz");
+  else if(temp==TVar::Data   ) return TString("data");
+  else if(temp==TVar::Zee     ) return TString("dyee");
+  else if(temp==TVar::Zmumu   ) return TString("dymm");
+  else if(temp==TVar::Ztautau ) return TString("dytt");
+  else if(temp==TVar::ttbar   ) return TString("ttbar");
+  else if(temp==TVar::HWW120  ) return TString("hww120");
+  else if(temp==TVar::HWW130  ) return TString("hww130");
+  else if(temp==TVar::HWW140  ) return TString("hww140");
+  else if(temp==TVar::HWW150  ) return TString("hww150");
+  else if(temp==TVar::HWW160  ) return TString("hww160");
+  else if(temp==TVar::HWW170  ) return TString("hww170");
+  else if(temp==TVar::HWW180  ) return TString("hww180");
+  else if(temp==TVar::HWW190  ) return TString("hww190");
+  else if(temp==TVar::HWW200  ) return TString("hww200");
+  else if(temp==TVar::HWW210  ) return TString("hww210");
+  else if(temp==TVar::HWW220  ) return TString("hww220");
+  else if(temp==TVar::HWW230  ) return TString("hww230");
+  else if(temp==TVar::HWW250  ) return TString("hww250");
+  else if(temp==TVar::HWW300  ) return TString("hww300");
+  else
+    return TString("UnKnown");
+ };
+ 
+
   ClassDef(TVar,0)
 };
 
