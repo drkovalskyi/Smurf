@@ -687,7 +687,7 @@ double getProbAcceptanceEfficiency(cdf_event_type cdf_event, EffHist effhist)
   double eff = 1.0; 
   
   for (int i=0;i<2;i++) {
-
+  
     if ( TMath::Abs(cdf_event.PdgCode[i]) == 11)
       eff = eff * effhist.els_eff_mc->GetBinContent( effhist.els_eff_mc->GetXaxis()->FindBin(cdf_event.p[i].Eta()), effhist.els_eff_mc->GetYaxis()->FindBin(cdf_event.p[i].Pt()) );
     
@@ -699,7 +699,7 @@ double getProbAcceptanceEfficiency(cdf_event_type cdf_event, EffHist effhist)
 }
 
 
-double getFakeRateProb(cdf_event_type cdf_event, FRHist frhist)
+double getFakeRateProb(cdf_event_type cdf_event,  EffHist effhist, FRHist frhist)
 {
   double prob = 0.0; 
   double prob_part_fo = 0.001;
@@ -707,15 +707,19 @@ double getFakeRateProb(cdf_event_type cdf_event, FRHist frhist)
   for (int i=0;i<2;i++) {
 
     if ( TMath::Abs(cdf_event.PdgCode[i]) == 11)
-      prob +=  frhist.els_fr->GetBinContent( frhist.els_fr->GetXaxis()->FindBin(fabs(cdf_event.p[i].Eta())), frhist.els_fr->GetYaxis()->FindBin(  cdf_event.p[i].Pt()<35 ? cdf_event.p[i].Pt():34.9 ) );
+      prob +=  effhist.els_eff_mc->GetBinContent( effhist.els_eff_mc->GetXaxis()->FindBin(cdf_event.p[i].Eta()), effhist.els_eff_mc->GetYaxis()->FindBin(cdf_event.p[i].Pt()) ) *
+	frhist.els_part_fo->GetBinContent( frhist.els_part_fo->GetXaxis()->FindBin(fabs(cdf_event.p[i].Eta())), frhist.els_part_fo->GetYaxis()->FindBin(  cdf_event.p[i].Pt()<100 ? cdf_event.p[i].Pt():99.9 ) ) *
+	frhist.els_fr->GetBinContent( frhist.els_fr->GetXaxis()->FindBin(fabs(cdf_event.p[i].Eta())), frhist.els_fr->GetYaxis()->FindBin(  cdf_event.p[i].Pt()<100 ? cdf_event.p[i].Pt():99.9 ) );
     
     if ( TMath::Abs(cdf_event.PdgCode[i]) == 13)
-      prob +=  frhist.mus_fr->GetBinContent( frhist.mus_fr->GetXaxis()->FindBin(fabs(cdf_event.p[i].Eta())), frhist.mus_fr->GetYaxis()->FindBin(  cdf_event.p[i].Pt()<35 ? cdf_event.p[i].Pt():34.9 ) );
+      prob +=  effhist.mus_eff_mc->GetBinContent( effhist.mus_eff_mc->GetXaxis()->FindBin(cdf_event.p[i].Eta()), effhist.mus_eff_mc->GetYaxis()->FindBin(cdf_event.p[i].Pt()) ) * 
+	frhist.mus_part_fo->GetBinContent( frhist.mus_part_fo->GetXaxis()->FindBin(fabs(cdf_event.p[i].Eta())), frhist.mus_part_fo->GetYaxis()->FindBin(  cdf_event.p[i].Pt()<100 ? cdf_event.p[i].Pt():99.9 ) ) *
+	frhist.mus_fr->GetBinContent( frhist.mus_fr->GetXaxis()->FindBin(fabs(cdf_event.p[i].Eta())), frhist.mus_fr->GetYaxis()->FindBin(  cdf_event.p[i].Pt()<100 ? cdf_event.p[i].Pt():99.9 ) );
 
-   }
+  }
  
-  cout<<"Calc fake prob: "<< prob * prob_part_fo<<"\n"; 
-  return prob * prob_part_fo;
+  cout<<"Calc fake prob: "<< prob<<"\n"; 
+  return prob;
 }
 
 
