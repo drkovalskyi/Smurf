@@ -97,7 +97,7 @@ float BR [kNProc][kNDilep] = {{ (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0
 
 // The NLO xsec includes the W->l BR, where l includes e/mu/tau
 // The values are obtained through http://ceballos.web.cern.ch/ceballos/hwwlnln/sigma_hww_2l2n_ec
-float NLOXsec[kNProc] = {  4.5*0.919, 31314.0/2.0, 31314.0/2.0, 31314.0/2.0, 31314.0/2.0, 5.9, 0.249642, 0.452090, 0.641773, 0.770471, 0.866443, 0.782962, 0.659328, 0.486486, 0.408305, 0.358465, 0.321398, 0.290454, 0.243724, 0.175652};
+float NLOXsec[kNProc] = {  4.5*0.919, 31314.0, 31314.0, 31314.0, 31314.0, 5.9, 0.249642, 0.452090, 0.641773, 0.770471, 0.866443, 0.782962, 0.659328, 0.486486, 0.408305, 0.358465, 0.321398, 0.290454, 0.243724, 0.175652};
 // Note that MCFMXsec is obtained from a standalone MCFM calculations with no generator cuts applied,
 // float MCFMXsec[kNProc] = { 28.4, 11270, 11270.0,  11270, 11270.0, 4.3, 0.6619, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25};
 // The following new numbers are including W->l branching fraction, ignoring currrently the Wjet and Wgamma nubmers
@@ -373,7 +373,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       cout << "START LR Construction ============" <<endl;
 
       for(int k=proc_HWW120; k<proc_HWW300; k++){
-        yield_bg = yield[proc_WW][type_]+yield[proc_Wpj][type_]+yield[proc_Wmj][type_];
+        yield_bg = yield[proc_WW][type_]+yield[proc_Wpj][type_];
 	cout<<"bg_yield="<<yield_bg<<"\n";
 	numer=1/(MCFMXsec[k]*acceptance[k][type_]) * dXsecList[k];
 	denom  = numer;
@@ -382,11 +382,8 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       	denom += 1/(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ] * yield[proc_WW][type_]/yield_bg;
 	cout<<" PWW= "<< 1/(MCFMXsec[proc_WW]*acceptance[proc_WW][type_]) * dXsecList[proc_WW] * yield[proc_WW][type_]/yield_bg <<"\n";	
 
-	denom += 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] * yield[proc_Wpj][type_]/yield_bg;
-	cout<<" PWpj= "<< 1/(MCFMXsec[proc_Wpj]*acceptance[proc_Wpj][type_]) * dXsecList[proc_Wpj] * yield[proc_Wpj][type_]/yield_bg <<"\n";	
-
-	denom += 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * yield[proc_Wmj][type_]/yield_bg;
-	cout<<" PWmj= "<< 1/(MCFMXsec[proc_Wmj]*acceptance[proc_Wmj][type_]) * dXsecList[proc_Wmj] * yield[proc_Wmj][type_]/yield_bg <<"\n";
+	denom += 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * (dXsecList[proc_Wpj ]+dXsecList[proc_Wpj ]) * yield[proc_Wpj][type_]/yield_bg;
+	cout<<" PWj= "<< 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * (dXsecList[proc_Wpj ]+dXsecList[proc_Wpj ]) * yield[proc_Wpj][type_]/yield_bg <<"\n";	
 
 	if(denom!=0)
 	  LR[k]=numer/denom;
