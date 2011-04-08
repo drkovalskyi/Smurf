@@ -698,7 +698,7 @@ double getProbAcceptanceEfficiency(cdf_event_type cdf_event, EffHist effhist)
   return eff;
 }
 
-
+/*
 double getFakeRateProb(cdf_event_type cdf_event,  EffHist effhist, FRHist frhist)
 {
   double prob = 0.0; 
@@ -721,6 +721,36 @@ double getFakeRateProb(cdf_event_type cdf_event,  EffHist effhist, FRHist frhist
   cout<<"Calc fake prob: "<< prob<<"\n"; 
   return prob;
 }
+
+*/
+
+double getFakeRateProb(cdf_event_type cdf_event,  EffHist effhist, FRHist frhist, TVar::Process Global_process)
+{
+  double prob = 1.0; 
+  int i, j;
+
+  if (Global_process==TVar::Wp_1jet){ i=0; j=1;}
+  else { i=1; j=0;} 
+
+    if ( TMath::Abs(cdf_event.PdgCode[i]) == 11)
+      prob *=  effhist.els_eff_mc->GetBinContent( effhist.els_eff_mc->GetXaxis()->FindBin(cdf_event.p[i].Eta()), effhist.els_eff_mc->GetYaxis()->FindBin(cdf_event.p[i].Pt()) );
+    else 
+      prob *=  effhist.mus_eff_mc->GetBinContent( effhist.mus_eff_mc->GetXaxis()->FindBin(cdf_event.p[i].Eta()), effhist.mus_eff_mc->GetYaxis()->FindBin(cdf_event.p[i].Pt()) );
+
+    if ( TMath::Abs(cdf_event.PdgCode[j]) == 11)
+      prob *=  frhist.els_part_fo->GetBinContent( frhist.els_part_fo->GetXaxis()->FindBin(fabs(cdf_event.p[j].Eta())), frhist.els_part_fo->GetYaxis()->FindBin(  cdf_event.p[j].Pt()<100 ? cdf_event.p[j].Pt():99.9 ) ) *
+	frhist.els_fr->GetBinContent( frhist.els_fr->GetXaxis()->FindBin(fabs(cdf_event.p[j].Eta())), frhist.els_fr->GetYaxis()->FindBin(  cdf_event.p[j].Pt()<100 ? cdf_event.p[j].Pt():99.9 ) );
+    else 
+      prob *=  frhist.mus_part_fo->GetBinContent( frhist.mus_part_fo->GetXaxis()->FindBin(fabs(cdf_event.p[j].Eta())), frhist.mus_part_fo->GetYaxis()->FindBin(  cdf_event.p[j].Pt()<100 ? cdf_event.p[j].Pt():99.9 ) ) *
+	frhist.mus_fr->GetBinContent( frhist.mus_fr->GetXaxis()->FindBin(fabs(cdf_event.p[j].Eta())), frhist.mus_fr->GetYaxis()->FindBin(  cdf_event.p[j].Pt()<100 ? cdf_event.p[j].Pt():99.9 ) );
+
+ 
+  cout<<"Calc fake prob: "<< prob<<"\n"; 
+  return prob;
+}
+
+
+
 
 
 void getProbFromHist(double x0, double* kX, double *wt, TH1F *hkx)

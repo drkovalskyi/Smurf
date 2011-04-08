@@ -633,6 +633,7 @@ void WWL1L2Sol_Mw ( cdf_event_type* temp,
    double gamY = temp->p[1].Py();
    double gamZ = temp->p[1].Pz();
    double gamE = temp->p[1].Energy();
+  
    if(nwz_.nwz==-1){
       	  lepX = temp->p[1].Px();
 	  lepY = temp->p[1].Py();
@@ -643,6 +644,7 @@ void WWL1L2Sol_Mw ( cdf_event_type* temp,
 	  gamZ = temp->p[0].Pz();
 	  gamE = temp->p[0].Energy();
    }
+
    double nuX  = qX-lepX-gamX;
    double nuY  = qY-lepY-gamY;
 		
