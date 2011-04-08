@@ -44,6 +44,90 @@ Triggers to be used for the analysis are summarized in Table~\ref{tab:triggers}.
 \myfootnotetext{HLT\_Ele17\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL\_Ele8\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL} 
  
 
-\subsubsection{Trigger efficiency}
+\subsubsection{Trigger efficiency (Tag and probe)}
  
+We used the tag and probe method on \dyll~events to provide an unbiased, high-purity, 
+lepton sample with which to measure efficiencies.
+This method was used successfully by both Tevatron experiments.
+
+Because of the differing kinematics between the \dyll~events and those on which we apply the measured efficiencies,
+we split the efficiency measurements into the barrel and endcap regions.
+We picked this division because it covers the largest observed variation in efficiency.
+
+We used a single lepton triggered sample available from the Express Stream, 
+from which we selected a subset of di-lepton events.
+Ultimately we will repeat this using a double lepton triggered sample from the Prompt Reco,
+where we select events using one of our tag and probe triggers which are very tight on one lepton,
+but loose on the other.
+
+At least one of the leptons, the {\it tag}, was required to pass the full selection criteria criteria 
+whilst the other lepton, the {\it probe}, was required to pass a set of identification criteria leaving 
+it unbiassed with respect to the criterion under study. 
+By requiring that the tag was able to have passed the single lepton trigger on which the events were acquired, 
+we reduced the bias due to the trigger on the probe.
+Because the analysis uses the same mass window to reduce the \dyll~contribution, 
+the tag and probe sample represents an independent control sample.
+The tight criteria imposed on the tag coupled with the invariant mass requirement were sufficient to ensure high purity.
+
+To extract the efficiency of offline selection and single trigger efficiency on a per lepton basis, 
+we first construct all possible tag-probe pairs in every event.
+Because more than one lepton can meet the tag criteria it is possible to use the same event more than once, to find the efficiency
+
+\begin{eqnarray}
+\label{eqn:tagAndProbeEfficiencyEqn}
+\varepsilon = \frac{2TT + TP}{2TT + TP + TF}.
+\end{eqnarray}
+
+Where the event categories are defined as:
+
+\begin{itemize}
+	\item 2TT: Both leptons passed the tight criteria, including the trigger. This means that either lepton could be used as a probe, 
+	so such events were counted twice.
+	\item TP: The probe passed the selection criterion but did not pass the tight criteria.
+	\item TF: The probe failed the selection criterion.
+\end{itemize}
+
+For the categories to be mutually exclusive it is important to note that the probe definition, 
+and the selection criteria studied are always a subset of the tag criteria.
+Classifying events and looping over all possible tag-probe combinations are thus equivalent.
+
+To determine the efficiency of the double lepton triggers, we derive the efficiency of the requirements imposed on each leg separately.
+This requires a modification to the tag and probe method described above in some cases.
+If the trigger objects are saved by the HLT before the requirement that there be two valid objects then
+we can check each leg independently of the other using the usual tag and probe method.
+If the trigger objects are saved after the requirement that there are two valid objects, then there is 
+a 100\% correlation between the decision we can probe on each lepton.
+This means that we must pick exactly one tag candidate for each event a priori, which we do 
+randomly. 
+If the randomly selected tag candidate meets the tight requirements then we are free to 
+probe the other lepton.
+
+\subsubsection{Trigger efficiency (Results)}
+
+The tag definition:
+\begin{itemize}
+	\item  Single trigger blah
+	\item Full offline electron/muon selection
+\end{itemize}
+	
+The probe definition (muons / electrons):
+\begin{itemize}
+	\item  Full offline electron/muon selection
+\end{itemize}
+
+\subsubsection{Offline efficiency (Results)}
+
+The tag definition:
+\begin{itemize}
+	\item  Single trigger blah
+	\item Full offline electron/muon selection
+\end{itemize}
+	
+The probe definition (muons / electrons):
+\begin{itemize}
+	\item  Full offline electron/muon selection
+\end{itemize}
+
+Repeat as above for each measurement, and discussions of systematics etc.
+
 
