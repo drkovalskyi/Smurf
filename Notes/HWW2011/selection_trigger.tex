@@ -1,17 +1,24 @@
-With higher instantaneous luminosity triggering on Higgs decays to the
-di-lepton final state becomes more challenging. With 2010 data we
-could use single lepton triggers and have effectively close to 100\%
-efficiency. Now we have less options and trigger efficiency becomes an
-issue.
+With higher instantaneous luminosities, triggering on Higgs decays to the
+di-lepton final state becomes very challenging. The single lepton triggers can
+only be sustained with very tight identification and isolation cuts and fairly 
+large momentum thresholds. This leaves only the double lepton triggers as a
+viable option for low mass Higgs scenarios. We design the dilepton triggers
+to be sufficiently loose that the fake lepton background prediction can be
+produced using the dataset collected from the same triggers. The full names
+of the triggers used in the analysis are summarized in Table~\ref{tab:triggers}.
+We describe the features and motivations for these triggers in Section 
+\ref{sec:mainTriggers} below.
 
-Triggers to be used for the analysis are summarized in Table~\ref{tab:triggers}.
 
 \begin{table}[!ht]
   \begin{center}
  {\small
-  \begin{tabular} {|l|l|l|c|p{1.0in}|}
+  \begin{tabular} {|l|l|l|c|p{1.0in}|} 
 \hline
   Dataset & Trigger name & L1 seed & Run range & Purpose\\
+  \hline
+  SingleEle & HLT\_Ele27\_CaloIdVT\_CaloIsoT\_TrkIdT\_TrkIsoT\_v1 & L1\_SingleEG15  & 160329-161176 & $ee$, $e\mu$ \\
+  SingleEle & HLT\_Ele27\_CaloIdVT\_CaloIsoT\_TrkIdT\_TrkIsoT\_v2 & L1\_SingleEG15  & 161210-161312 & $ee$, $e\mu$ \\
   \hline
   SingleMu & HLT\_IsoMu12\_v1   & L1\_SingleMu7  & 160329-161312 & $\mu\mu$, $e\mu$, efficiency \\
   SingleMu & HLT\_IsoMu17\_v5   & L1\_SingleMu10 & 160329-161312 & $\mu\mu$, $e\mu$, efficiency \\
@@ -43,6 +50,204 @@ Triggers to be used for the analysis are summarized in Table~\ref{tab:triggers}.
 \myfootnotetext{HLT\_Ele17\_CaloIdL\_CaloIsoVL\_Ele8\_CaloIdL\_CaloIsoVL}
 \myfootnotetext{HLT\_Ele17\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL\_Ele8\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL} 
  
+
+\subsubsection{Main analysis triggers}
+\label{sec:mainTriggers}
+
+The double electron trigger, {\bf HLT\_Ele17\_CaloIdL\_CaloIsoVL\_Ele8\_CaloIdL\_CaloIsoVL} 
+requires two high level trigger electron 
+candidates with fairly loose shower shape and calorimeter isolation
+requirements on both legs. This is the most challenging channel in terms
+of the total rate, due to larger fake electron background rates. To 
+accomodate the offline $E_{T}$ selection cuts at $20$ GeV and $10$ GeV
+for the leading and trailing leptons, respectively, we require $E_{T}$
+cuts of $17$ and $8$ GeV at the HLT level. The leading electron is seeded by the
+e/gamma Level-1 non-isolated trigger, L1\_SingleEG12, while the trailing electron
+is left unseeded. The cuts imposed on the trigger electrons can be found in 
+Table \ref{tab:HLTElectronCuts}, by matching the labels in the trigger name. For 
+instantaneous luminosities above 1E33, additional requirements
+are needed on the track to cluster matching and track isolation to reduce the 
+background rates. The cuts imposed on the electron candidates for the 
+tighter version of the dielectron trigger 
+{\bf HLT\_Ele17\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL\_Ele8\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL }
+can be found in Table \ref{tab:HLTElectronCuts}.
+
+
+\begin{table}[htb]
+ \caption{The trigger electron requirements. Values in parentheses corresponds with endcaps when different than in barrel. L=Loose, VL=Very loose.}
+ \label{tab:HLTElectronCuts}
+ \centering
+ \begin{tabular}{|l||c|}
+   \hline
+   name                       &  criterion \\
+   \hline \hline
+   \multirow{2}{*}{CaloId\_L} & $\mathrm{H/E < 0.15 (0.10) }$ \\
+                               & $\sigma_{\eta\eta}\mathrm{< 0.014\;(0.035)}$ \\
+    \hline
+    \multirow{2}{*}{TrkId\_VL} & $|\Delta\eta|\mathrm{< 0.01\; (0.01)}$ \\
+                               & $\Delta\phi\mathrm{< 0.15\;(0.10)}$  \\
+    \hline
+    \multirow{2}{*}{CaloIso\_VL} & $\mathrm{ECalIso/E_T <0.2\;(0.2)}$ \\
+                                 & $\mathrm{HCalIso/E_T <0.2\;(0.2)}$ \\    
+    \hline
+    TrkIso\_VL                   & $\mathrm{TrkIso/E_T <0.2\;(0.2)}$ \\
+
+   \hline
+ \end{tabular}
+\end{table}
+
+ 
+The double muon trigger, {\bf HLT\_DoubleMu7},  requires two high level trigger 
+muon candidates with transverse momentum greater than $7$ GeV. It is seeded 
+by the DoubleMu3 Level-1 trigger, with looser quality criteria than the
+single muon Level-1 seeds. 
+ 
+In the electron muon channel, we use two complementary triggers, 
+{\bf HLT\_Mu17\_Ele8\_CaloIdL} and {\bf HLT\_Mu8\_Ele17\_CaloIdL} requiring
+a muon HLT candidate and an electron HLT candidate. The electron
+candidate is required to pass the ``Loose'' CaloId requirement as 
+summarized in Table \ref{tab:HLTElectronCuts}. These triggers are seeded by 
+the Level-1 MuOpen\_EG5 trigger, with minimal requirements on the muon candidate.
+
+Finally, to further recover trigger inefficiencies, we also allow events that 
+passed only the single electron 
+({\bf HLT\_Ele27\_CaloIdVT\_CaloIsoT\_TrkIdT\_TrkIsoT\_v1} ) or single 
+isolated muon ({\bf HLT\_IsoMu17\_v5 } ) triggers. The requirements on the 
+electron candidate in the single electron trigger are summarized in 
+Table \ref{tab:HLTTightElectronCuts}. 
+
+\begin{table}[htb]
+ \caption{The trigger electron requirements for the single electron trigger. 
+Values in parentheses corresponds with endcaps when different than in 
+barrel. T=Tight, VT=Very tight.}
+ \label{tab:HLTTightElectronCuts}
+ \centering
+ \begin{tabular}{|l||c|}
+   \hline
+   name                       &  criterion \\
+   \hline \hline
+   \multirow{2}{*}{CaloId\_VT} & $\mathrm{H/E < 0.05 (0.05) }$ \\
+                               & $\sigma_{\eta\eta}\mathrm{< 0.011\;(0.031)}$ \\
+    \hline
+    \multirow{2}{*}{TrkId\_T} & $|\Delta\eta|\mathrm{< 0.008\; (0.008)}$ \\
+                               & $\Delta\phi\mathrm{< 0.07\;(0.05)}$  \\
+    \hline
+    \multirow{2}{*}{CaloIso\_T} & $\mathrm{ECalIso/E_T <0.15\;(0.075)}$ \\
+                                 & $\mathrm{HCalIso/E_T <0.15\;(0.075)}$ \\    
+    \hline
+    TrkIso\_T                   & $\mathrm{TrkIso/E_T <0.15\;(0.075)}$ \\
+
+   \hline
+ \end{tabular}
+\end{table}
+
+
+\subsubsection{Utility triggers}
+\label{sec:utilityTriggers}
+
+To measure the electron selection efficiency and the electron trigger
+efficiency we use specialized tag and probe triggers designed to maximize
+the number of useful \dyll~events for both low and high $p_{T}$ electrons,
+while keeping the total trigger rate to a reasonable level. We use 
+two different triggers, one specifically for low $p_{T}$ electrons,
+{\bf HLT\_Ele17\_CaloIdVT\_CaloIsoVT\_TrkIdT\_TrkIsoVT\_SC8\_Mass30}, 
+where very tight identification and isolation cuts are imposed on the 
+tag leg to reduce the background rate, and another specifically for
+higher $p_{T}$ electrons, {\bf HLT\_Ele32\_CaloIdL\_CaloIsoVL\_SC17}.
+The cuts on the tight leg for the low $p_{T}$ trigger is summarized in 
+Table \ref{tab:HLTVeryTightElectronCuts}. The cuts on the tight leg
+for the high $p_{T}$ triggers can be found in 
+Table \ref{tab:HLTElectronCuts}. 
+
+\begin{table}[htb]
+ \caption{The trigger electron requirements for the tag leg of the double electron 
+tag and probe trigger. Values in parentheses corresponds with endcaps when 
+different than in barrel. T=Tight, VT=Very tight.}
+ \label{tab:HLTVeryTightElectronCuts}
+ \centering
+ \begin{tabular}{|l||c|}
+   \hline
+   name                       &  criterion \\
+   \hline \hline
+   \multirow{2}{*}{CaloId\_VT} & $\mathrm{H/E < 0.05 (0.05) }$ \\
+                               & $\sigma_{\eta\eta}\mathrm{< 0.011\;(0.031)}$ \\
+    \hline
+    \multirow{2}{*}{TrkId\_T} & $|\Delta\eta|\mathrm{< 0.008\; (0.008)}$ \\
+                               & $\Delta\phi\mathrm{< 0.07\;(0.05)}$  \\
+    \hline
+    \multirow{2}{*}{CaloIso\_VT} & $\mathrm{ECalIso/E_T <0.05\;(0.05)}$ \\
+                                 & $\mathrm{HCalIso/E_T <0.05\;(0.05)}$ \\    
+    \hline
+    TrkIso\_VT                   & $\mathrm{TrkIso/E_T <0.05\;(0.05)}$ \\
+
+   \hline
+ \end{tabular}
+\end{table}
+
+
+Another set of specialized triggers are used for recording events
+enriched in fake electrons and muons used to measure the lepton fake 
+rates. There are two triggers each for electrons and muons with two 
+different $p_{T}$ thresholds, in order to collect a sufficiently 
+large sample for all $p_{T}$ bins. In order to collect a sample of
+events with a fake lepton and a recoiling high $E_{T}$ jet for 
+fake rate systematics studies, there are two additional 
+triggers for an electron or muon with $p_{T} > 8$~GeV and a jet
+with corrected $E_{T}>40$ GeV. Finally to study fake lepton composition
+systematics, we use a photon plus electron and a photon plus muon
+trigger, where very tight cuts are imposed on the photon to ensure purity. 
+The exact cuts imposed on the photon are summarized in 
+Table \ref{tab:PhotonPlusLeptonTriggerCuts}.
+The full set of triggers and their Level-1 seeds are summarized in 
+Table \ref{tab:HWWFakeRateL1Seeds}. These triggers are all prescaled, 
+if necessary, to yield a rate of at  least $0.5$Hz each. This rate is 
+sufficient to yield a sample of roughly $10^{6}$ events for every 4 
+weeks of data taking, enough to make a fake rate measurement with 
+small statistical uncertainties. 
+
+
+\begin{table}[htb]
+  \caption{Photon identification criteria. Values in parentheses corresponds 
+with endcaps when different than in barrel. VT=Very tight, T=Tight.}
+  \label{tab:PhotonPlusLeptonTriggerCuts}
+  \centering
+  \begin{tabular}{|l||c|}
+    \hline
+    name                        &  criterion \\
+    \hline \hline
+    \multirow{2}{*}{CaloId\_VT} & $\mathrm{H/E < 0.05 }$ \\
+                                & $\sigma_{\eta\eta}\mathrm{< 0.011\;(0.01)}$ \\
+    \hline
+    \multirow{3}{*}{Iso\_T}     & $\mathrm{ECalIso} < 5.0 + 0.012*E_{T} $ \\
+                                & $\mathrm{HCalIso} < 3.0 + 0.005*E_{T} $ \\
+                                & $\mathrm{TrkIso}  < 3.0 + 0.002*E_{T} $ \\
+    \hline
+  \end{tabular}
+\end{table}
+
+
+\begin{table}[htb]
+  \caption{Summary of all lepton fake rate triggers and their Level-1 seeds.}
+  \label{tab:HWWFakeRateL1Seeds}
+  \centering
+  \begin{tabular}{|l||c|}
+    \hline
+    HLT Path                                  &  L1 Seed       \\
+    \hline \hline
+    HLT\_Ele8\_CaloIdL\_CaloIsoVL             & L1\_SingleEG5  \\
+    HLT\_Ele17\_CaloIdL\_CaloIsoVL            & L1\_SingleEG12 \\
+    HLT\_Ele8\_CaloIdL\_CaloIsoVL\_Jet40      & L1\_EG5\_Jet36\_deltaPhi  \\
+    HLT\_Photon20\_CaloIdVT\_IsoT\_Ele8\_CaloIdL\_CaloIsoVL & L1\_SingleEG12 \\
+    \hline \hline
+    HLT\_Mu8                                  &  L1\_SingleMu3  \\
+    HLT\_Mu15                                 &  L1\_SingleMu10 \\
+    HLT\_Mu8\_Jet40                           &  L1\_Mu3\_Jet20   \\
+    HLT\_Mu8\_Photon20\_CaloIdVT\_IsoT        &  L1\_Mu3\_EG5   \\
+    \hline
+  \end{tabular}
+\end{table}
+
+
 
 \subsubsection{Trigger efficiency (Tag and probe)}
  
