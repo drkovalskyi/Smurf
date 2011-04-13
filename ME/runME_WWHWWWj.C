@@ -101,7 +101,7 @@ float NLOXsec[kNProc] = {  4.5*0.919, 31314.0, 31314.0, 31314.0, 31314.0, 5.9, 0
 // Note that MCFMXsec is obtained from a standalone MCFM calculations with no generator cuts applied,
 // float MCFMXsec[kNProc] = { 28.4, 11270, 11270.0,  11270, 11270.0, 4.3, 0.6619, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25};
 // The following new numbers are including W->l branching fraction, ignoring currrently the Wjet and Wgamma nubmers
-float MCFMXsec[kNProc] = { 2.983, 4032.1, 2694.8,  11270, 11270.0, 4.3, 0.07533, 0.1451, 0.2165, 0.2671, 0.3034, 0.2870, 0.2465, 0.1849, 0.1570, 0.1380, 0.1232, 0.1107, 0.0906, 0.05758};
+float MCFMXsec[kNProc] = { 2.983, 16481, 10987,  11270.0, 11270.0, 4.3, 0.07533, 0.1451, 0.2165, 0.2671, 0.3034, 0.2870, 0.2465, 0.1849, 0.1570, 0.1380, 0.1232, 0.1107, 0.0906, 0.05758};
 
 void CalculateAcceptance(){
 
@@ -216,7 +216,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   ch->SetBranchAddress( "lq2"        , &lq2_       );     
   ch->SetBranchAddress( "type"        , &type_       );   
   ch->SetBranchAddress( "met"        , &met_       );       
-  ch->SetBranchAddress( "metPhi"        , &metPhi_       );       
+  ch->SetBranchAddress( "metPhi"     , &metPhi_       );       
   
   
   //==========================================
@@ -265,16 +265,23 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       break;
     }
     
-    cms_event.PdgCode[0]=lep1_Type;
-    cms_event.PdgCode[1]=lep2_Type;    
+
     cms_event.MetX = met_*cos(metPhi_);
     cms_event.MetY = met_*sin(metPhi_);
+
+    if (!((lep2_Type==11)&&(lep2_->Pt()<15))){
+
     
     if (lq1_>lq2_){
+
+      cms_event.PdgCode[0]=lep1_Type;
+      cms_event.PdgCode[1]=lep2_Type;    
       cms_event.p[0].SetXYZM(lep1_->Px(), lep1_->Py(), lep1_->Pz(), 0.0);
       cms_event.p[1].SetXYZM(lep2_->Px(), lep2_->Py(), lep2_->Pz(), 0.0);
     }
     else{
+      cms_event.PdgCode[0]=lep2_Type;
+      cms_event.PdgCode[1]=lep1_Type;    
       cms_event.p[0].SetXYZM(lep2_->Px(), lep2_->Py(), lep2_->Pz(), 0.0);
       cms_event.p[1].SetXYZM(lep1_->Px(), lep1_->Py(), lep1_->Pz(), 0.0);
     }
@@ -392,10 +399,31 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 	  LR[k]=numer/denom;
 	  cout<<"LR_HWW["<<k<<"]= "<<LR[k]<<"\n";
       }      
+
+
+   // Begin Wj likelihood
+
+      numer=(1/(MCFMXsec[proc_Wpj]*acceptance[proc_Wpj][type_]) * dXsecList[proc_Wpj]+1/(MCFMXsec[proc_Wmj]*acceptance[proc_Wmj][type_]) * dXsecList[proc_Wmj]);
+      //      numer=1/(MCFMXsec[proc_Wpj]*acceptance[proc_Wpj][type_]+MCFMXsec[proc_Wmj]*acceptance[proc_Wmj][type_]) * (dXsecList[proc_Wpj]+dXsecList[proc_Wmj]);
+      cout<< "PWj" << " "  <<numer<<"\n";
+
+      denom  = numer;
+      
+      denom += 1/(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ];
+      cout<< "PWW" << " "  <<1/(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ]<<"\n";
+
+      if(denom!=0)
+	LR[proc_Wpj]=numer/denom;
+      cout<<"LR_Wj= "<<LR[proc_Wpj]<<"\n";
+      cout<<"acc_WW="<<acceptance[proc_WW ][type_]<<"    acc_Wj="<<acceptance[proc_Wpj ][type_]<<"\n";
+      cout<<"yield_WW="<<yield[proc_WW ][type_]<<"    yield_Wj="<<yield[proc_Wpj ][type_]<<"\n";
       
       evt_tree->Fill();
       
-    }//nevent
+    }
+    
+  }//nevent
+
     
     cout << "TotCalculatedEvts: " << evt_tree->GetEntries() <<endl; 
     
