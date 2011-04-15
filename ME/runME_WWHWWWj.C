@@ -71,7 +71,7 @@ static std::string name(int  dstype){
 
 const int kNDilep=4;
 
-float lumi=1000.0;
+float lumi=30.0;
 float yield [kNProc][kNDilep];
 float acceptance [kNProc][kNDilep];
 
@@ -99,7 +99,7 @@ float BR [kNProc][kNDilep] = {{ (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0
 
 // The NLO xsec includes the W->l BR, where l includes e/mu/tau
 // The values are obtained through http://ceballos.web.cern.ch/ceballos/hwwlnln/sigma_hww_2l2n_ec
-float NLOXsec[kNProc] = {  4.5*0.919, 31314.0, 31314.0, 31314.0, 31314.0, 5.9, 0.249642, 0.452090, 0.641773, 0.770471, 0.866443, 0.782962, 0.659328, 0.486486, 0.408305, 0.358465, 0.321398, 0.290454, 0.243724, 0.175652};
+float NLOXsec[kNProc] = {  4.5*0.919, 31314, 31314, 31314.0, 31314.0, 5.9, 0.249642, 0.452090, 0.641773, 0.770471, 0.866443, 0.782962, 0.659328, 0.486486, 0.408305, 0.358465, 0.321398, 0.290454, 0.243724, 0.175652};
 // Note that MCFMXsec is obtained from a standalone MCFM calculations with no generator cuts applied,
 // The following new numbers are including W->l branching fraction, ignoring currrently the Wgamma nubmers
 // float MCFMXsec[kNProc] = { 2.983, 4032.1, 2694.8,  11270, 11270.0, 4.3, 0.07533, 0.1451, 0.2165, 0.2671, 0.3034, 0.2870, 0.2465, 0.1849, 0.1570, 0.1380, 0.1232, 0.1107, 0.0906, 0.05758};
@@ -242,6 +242,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     
     ch->GetEntry(ievt);            
     // impose trailing electron pT > 15 GeV
+    //    if (type_!=3) continue;
     if((type_==1||type_==3) && lep2_->Pt()<15 ) continue;
 
     int lep1_Type (0);
@@ -326,7 +327,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       int HiggsMASS[20]={0,0,0,0,0,0,120,130,140,150,160,170,180,190,200,210,220,230,250,300};
 
       for(int iproc=0; iproc<NProcessCalculate; iproc++){ 
-	
+
 	// -- correct the lepton fo pt
 	// For W+ hypothesis, assume the l- is the FO
 	if(processList[iproc]==TVar::Wp_1jet) {
@@ -339,21 +340,22 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 	    scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
 	    // cout << "TEvtProb::"<<__LINE__<< ": muon with pT "<< cms_event.p[1].Pt() << ", scale_fo = " << scale_fo<<endl;
 	  }
-	  cms_event.p[1].SetXYZM( cms_event.p[1].Px()*scale_fo, cms_event.p[1].Py()*scale_fo, cms_event.p[1].Py()*scale_fo, 0);
+	  cms_event.p[1].SetXYZM( cms_event.p[1].Px()*scale_fo, cms_event.p[1].Py()*scale_fo, cms_event.p[1].Pz()*scale_fo, 0);
 	}
 	
 	// For W- hypothesis, assume the l+ is the FO
 	if(processList[iproc]==TVar::Wm_1jet) {
 	  double scale_fo = 1.0;
-	  if( TMath::Abs(cms_event.PdgCode[1]) == 11) {
+	  if( TMath::Abs(cms_event.PdgCode[0]) == 11) {
 	    scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
 	    // cout << "TEvtProb::"<<__LINE__<< ": electron with pT "<< cms_event.p[0].Pt() << ", scale_fo = " << scale_fo<<endl;
 	  }
-	  if( TMath::Abs(cms_event.PdgCode[1]) == 13) {
+	  if( TMath::Abs(cms_event.PdgCode[0]) == 13) {
 	    scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
 	    // cout << "TEvtProb::"<<__LINE__<< ": muon with pT "<< cms_event.p[0].Pt() << ", scale_fo = " << scale_fo<<endl;
 	  }
-	  cms_event.p[0].SetXYZM( cms_event.p[0].Px()*scale_fo, cms_event.p[0].Py()*scale_fo, cms_event.p[0].Py()*scale_fo, 0);
+	  cms_event.p[1].SetXYZM( cms_event.p[1].Px()/scale_fo, cms_event.p[1].Py()/scale_fo, cms_event.p[1].Pz()/scale_fo, 0);
+	  cms_event.p[0].SetXYZM( cms_event.p[0].Px()*scale_fo, cms_event.p[0].Py()*scale_fo, cms_event.p[0].Pz()*scale_fo, 0);
 	}
 	
 
@@ -439,9 +441,48 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 	  LR[k]=numer/denom;
 	  cout<<"LR_HWW["<<k<<"]= "<<LR[k]<<"\n";
       }      
+
+
+   // Begin Wj likelihood
+
+      numer= 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] *  MCFMXsec[proc_Wpj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]);
+      numer += 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * MCFMXsec[proc_Wmj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]);
+
+      cout<< "PWj" << " "  <<numer<<"\n";
+
+      denom  = numer;
       
+      denom += 1/(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ];
+      cout<< "PWW" << " "  <<1/(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ]<<"\n";
+
+      if(denom!=0)
+	LR[proc_Wpj]=numer/denom;
+      cout<<"LR_Wj= "<<LR[proc_Wpj]<<"\n";
+      cout<<"acc_WW="<<acceptance[proc_WW ][type_]<<"    acc_Wj="<<acceptance[proc_Wpj ][type_]<<"    acc_Wj="<<acceptance[proc_Wpj ][type_]<<"\n";
+      cout<<"yield_WW="<<yield[proc_WW ][type_]<<"    yield_Wj="<<yield[proc_Wpj ][type_]<<"\n";
+      
+
+
+  // Begin WW likelihood
+
+      numer=  1/(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ];
+
+      denom  = numer;
+      
+      denom += 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] *  MCFMXsec[proc_Wpj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]);
+      
+      denom += 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] *  MCFMXsec[proc_Wmj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]);
+	
+
+      if(denom!=0)
+	LR[proc_WW]=numer/denom;
+      
+      cout<<"LR_WW= "<<LR[proc_WW]<<"\n";
+
+
       evt_tree->Fill();
-      
+    
+ 
     }//nevent
     
     cout << "TotCalculatedEvts: " << evt_tree->GetEntries() <<endl; 
