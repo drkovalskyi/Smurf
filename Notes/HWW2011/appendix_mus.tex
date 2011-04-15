@@ -1,8 +1,8 @@
 \section{Muon ID}
 
-To increase sensitivity to a lower mass Higgs boson, the lepton $p_T$ threshold needs to be lowered. However, background contributions from muon fakes occur more often at lower momenta. The selection requirements from AN-10-344 were optimized for leptons above $20\:\GeVoverc$. This section presents studies on isolation and impact parameter requirements to improve the muon identification performance in the range, $10\:\GeVoverc < p_T < 20\:\GeVoverc$.
+To increase sensitivity to a lower mass Higgs boson, the lepton $p_T$ threshold needs to be lowered. However, background contributions from muon fakes occur more often at lower momenta. The selection requirements from AN-10-344 were optimized for leptons above $20\:\GeVc$. This section presents studies on isolation and impact parameter requirements to improve the muon identification performance in the range, $10\:\GeVc < p_T < 20\:\GeVc$.
 
-The nominal selection is extended to allow for one lepton with $p_T$ down to $10\:\GeVoverc$. The expected yield in $1\:\invfb$ is computed by applying the selection to the Higgs signal sample for mass $130\:\GeVovercsq$ and to all Monte Carlo background samples except $W+$jets. The $W+$jets expectation is derived by applying the fake rate method on the $W+$jets Monte Carlo sample and the details are explained in a later sub-section. The reason for the unique treatment of $W+$jets is because too few events remain after applying selection on the $W+$jets Monte Carlo, and too few tight-loose candidates are found in data to make a useful extrapolation. The nominal yield expectations for the $e\mu$ and $\mu\mu$ final states are listed in Table~\ref{tab:muidyield0}, where the trailing lepton is a muon.
+The nominal selection is extended to allow for one lepton with $p_T$ down to $10\:\GeVc$. The expected yield in $1\:\ifb$ is computed by applying the selection to the Higgs signal sample for mass $130\:\GeVcc$ and to all Monte Carlo background samples except $W+$jets. The $W+$jets expectation is derived by applying the fake rate method on the $W+$jets Monte Carlo sample and the details are explained in a later sub-section. The reason for the unique treatment of $W+$jets is because too few events remain after applying selection on the $W+$jets Monte Carlo, and too few tight-loose candidates are found in data to make a useful extrapolation. The nominal yield expectations for the $e\mu$ and $\mu\mu$ final states are listed in Table~\ref{tab:muidyield0}, where the trailing lepton is a muon.
 
 \begin{table}[!htbp]
 \begin{center}
@@ -19,7 +19,7 @@ $W+$jets ($\mu$+fake $\mu$)  & $0.11$   & $1.94$  & $1.20$ \\
 Other backgrounds($\mu\mu$)  & $13.664$ & $7.576$ & $3.647$ \\
 \hline
 \end{tabular}
-\caption{Predicted yields for $1\:\invfb$ in the $e\mu$ and $\mu\mu$ final states with the nominal selection extended to allow a lepton leg down to $10\:\GeVoverc$.}
+\caption{Predicted yields for $1\:\ifb$ in the $e\mu$ and $\mu\mu$ final states with the nominal selection extended to allow a lepton leg down to $10\:\GeVc$.}
 \label{tab:muidyield0}
 \end{center}
 \end{table}
@@ -42,11 +42,11 @@ In the $W+$jets Monte Carlo, the fakeable object is required to not be within $\
 
 In data, the fakeable object selection must ensure minimal contamination by prompt muons from $W$ and $Z$ decays. The following cuts are applied,
 \begin{itemize}
-\item $Z$ veto: event is rejected if there are two oppositely charged muons with $p_T>20\:\GeVoverc$ satisfying the fakeable object definition, 
-\item $W$ veto: event is rejected if PF-MET $> 20\:\GeV$ or the muon has transverse mass larger than $20\:\GeVovercsq$,
-\item there is a PF-jet away from the fakeable object ($\Delta R > 1$) with $p_T>15\:\GeVoverc$ after L2-Relative, L3-Absolute, L2L3-Residual jet corrections and energy density subtraction from the FastJet technique.
+\item $Z$ veto: event is rejected if there are two oppositely charged muons with $p_T>20\:\GeVc$ satisfying the fakeable object definition, 
+\item $W$ veto: event is rejected if PF-MET $> 20\:\GeV$ or the muon has transverse mass larger than $20\:\GeVcc$,
+\item there is a PF-jet away from the fakeable object ($\Delta R > 1$) with $p_T>15\:\GeVc$ after L2-Relative, L3-Absolute, L2L3-Residual jet corrections and energy density subtraction from the FastJet technique.
 \end{itemize}
-The motivation for the final criteria listed above is to select events that emulate $W+$jets conditions. The fake rate calibration in data was performed on $5\invpb$ of 2011 data.
+The motivation for the final criteria listed above is to select events that emulate $W+$jets conditions. The fake rate calibration in data was performed on $5\ipb$ of 2011 data.
 
 \subsection{Figures Of Merit}
 As Table~\ref{tab:muidyield0} shows, the background contribution from fakes is not dominant even with the lowered muon $p_T$ requirement. Hence, when tuning the selection cuts on isolation and impact parameter, the objective should not be to reject fakes as much as possible. The performance of the selection criteria is quantified by several figures of merit (FOMs), 
@@ -84,20 +84,20 @@ We consider varying the isolation cut from the nominal value of $0.15$ down to $
 
 \begin{figure}[!htbp]
 \begin{center}
-\includegraphics[scale=0.4]{figures/isoscan0.eps}
-\includegraphics[scale=0.4]{figures/isoscan1.eps}
-\includegraphics[scale=0.4]{figures/isoscan2.eps}
+\includegraphics[scale=0.4]{figures/isoscan0.pdf}
+\includegraphics[scale=0.4]{figures/isoscan1.pdf}
+\includegraphics[scale=0.4]{figures/isoscan2.pdf}
 \caption{Fake rates versus signal muon efficiency for varying isolation cut in different $p_T$ bins.}
 \label{fig:isoscan}
 \end{center}
 \end{figure}
 
-The corresponding FOMs are shown in Figure~\ref{fig:isofoms}. Taking the FOMs and signal muon efficiencies into consideration, we choose a working point of $I<0.10$ for muons in the $10\:\GeVoverc < p_T < 20\:\GeVoverc$ range.
+The corresponding FOMs are shown in Figure~\ref{fig:isofoms}. Taking the FOMs and signal muon efficiencies into consideration, we choose a working point of $I<0.10$ for muons in the $10\:\GeVc < p_T < 20\:\GeVc$ range.
 \begin{figure}[!htbp]
 \begin{center}
-\includegraphics[scale=0.55]{figures/iso_fom1.eps}
-\includegraphics[scale=0.55]{figures/iso_fom2.eps}
-\includegraphics[scale=0.55]{figures/iso_fom3.eps}
+\includegraphics[scale=0.55]{figures/iso_fom1.pdf}
+\includegraphics[scale=0.55]{figures/iso_fom2.pdf}
+\includegraphics[scale=0.55]{figures/iso_fom3.pdf}
 \caption{Figures of merit for varying isolation cut.}
 \label{fig:isofoms}
 \end{center}
@@ -108,20 +108,20 @@ We consider varying the impact parameter cut from the nominal value of $0.020\:$
 
 \begin{figure}[!htbp]
 \begin{center}
-\includegraphics[scale=0.4]{figures/ipscan0.eps}
-\includegraphics[scale=0.4]{figures/ipscan1.eps}
-\includegraphics[scale=0.4]{figures/ipscan2.eps}
+\includegraphics[scale=0.4]{figures/ipscan0.pdf}
+\includegraphics[scale=0.4]{figures/ipscan1.pdf}
+\includegraphics[scale=0.4]{figures/ipscan2.pdf}
 \caption{Fake rates versus signal muon efficiency for varying impact parameter cut in different $p_T$ bins.}
 \label{fig:ipscan}
 \end{center}
 \end{figure}
 
-The corresponding FOMs are shown in Figure~\ref{fig:ipfoms}. We choose a working point of $d_0<0.01\:$cm for muons in the $10\:\GeVoverc < p_T < 20\:\GeVoverc$ range.
+The corresponding FOMs are shown in Figure~\ref{fig:ipfoms}. We choose a working point of $d_0<0.01\:$cm for muons in the $10\:\GeVc < p_T < 20\:\GeVc$ range.
 \begin{figure}[!htbp]
 \begin{center}
-\includegraphics[scale=0.55]{figures/d0_fom1.eps}
-\includegraphics[scale=0.55]{figures/d0_fom2.eps}
-\includegraphics[scale=0.55]{figures/d0_fom3.eps}
+\includegraphics[scale=0.55]{figures/d0_fom1.pdf}
+\includegraphics[scale=0.55]{figures/d0_fom2.pdf}
+\includegraphics[scale=0.55]{figures/d0_fom3.pdf}
 \caption{Figures of merit for varying $d_0$ cut.}
 \label{fig:ipfoms}
 \end{center}
@@ -162,10 +162,10 @@ The fake rate in the 2011 data before and after our chosen working point is show
 
 \begin{figure}[!htbp]
 \begin{center}
-\includegraphics[scale=0.33]{figures/frpt_old.eps}
-\includegraphics[scale=0.33]{figures/frpt_new.eps} \\
-\includegraphics[scale=0.33]{figures/freta_old.eps}
-\includegraphics[scale=0.33]{figures/freta_new.eps}
+\includegraphics[scale=0.33]{figures/frpt_old.pdf}
+\includegraphics[scale=0.33]{figures/frpt_new.pdf} \\
+\includegraphics[scale=0.33]{figures/freta_old.pdf}
+\includegraphics[scale=0.33]{figures/freta_new.pdf}
 \caption{Fake rate projections on $p_T$ (top) and $\eta$ (bottom) for the old muon identification selection (left) and the new selection with tighter isolation and $d_0$ (right).}
 \label{fig:mufakerate0}
 \end{center}
@@ -173,8 +173,8 @@ The fake rate in the 2011 data before and after our chosen working point is show
 
 \begin{figure}[!htbp]
 \begin{center}
-\includegraphics[scale=0.5]{figures/frpt_pu.eps}
-\includegraphics[scale=0.5]{figures/freta_pu.eps}
+\includegraphics[scale=0.5]{figures/frpt_pu.pdf}
+\includegraphics[scale=0.5]{figures/freta_pu.pdf}
 \caption{Fake rate projections on $p_T$ and $\eta$ in different bins of reconstructed vertices with the tighter selection.}
 \label{fig:mufakerate1}
 \end{center}
