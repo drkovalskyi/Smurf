@@ -370,10 +370,10 @@ bool My_eventcuts(TVar::Process process, mcfm_event_type* mcfm_evt, cdf_event_ty
        nu = &mcfm_evt->p[3];
     }
     TLorentzVector* parton= &mcfm_evt->p[4];
-    if(fabs(ep->Eta())     >10  ) return true;
+    if(fabs(ep->Eta())     >5  ) return true;
     if(parton->Pt()        <8   ) return true;
-    if(fabs(parton->Eta()) >3   ) return true;
-    if(ep->DeltaR(*parton) <0.2 ) return true;
+    if(fabs(parton->Eta()) >5   ) return true;
+    if(ep->DeltaR(*parton) <0.4 ) return true;
 
   }
   else if(process==TVar::Z_2l){
@@ -529,6 +529,8 @@ double SumMatrixElementPDF(TVar::Process process, mcfm_event_type* mcfm_event,do
       }
     }
 
+
+
     //remove events has small invariant mass
     if(My_masscuts(s,process)) return 0.0;
     if(My_smalls(s,npart_.npart)) return 0.0;
@@ -539,7 +541,7 @@ double SumMatrixElementPDF(TVar::Process process, mcfm_event_type* mcfm_event,do
            fdist_ (&density_.ih1, &xx[0], &scale_.scale, fx1); //P+=> W+->e+nu
            fdist_ (&density_.ih2, &xx[1], &scale_.scale, fx2); //P-=> W-->e-nu
 
-	   //	   	   cout<<"energy="<<scale_.scale<<"\n";
+	
 		   
                 if(process==TVar::WW)	      qqb_ww_  (p4[0],msq[0]);    
            else if(process==TVar::WZ ||
@@ -705,6 +707,9 @@ double getFakeRateProb(cdf_event_type cdf_event,  EffHist effhist, FRHist frhist
 
   if (Global_process==TVar::Wp_1jet){ i=0; j=1;}
   else { i=1; j=0;} 
+
+  cout<<cdf_event.PdgCode[0]<<"  "<<cdf_event.p[0].Eta()<<" "<<cdf_event.p[0].Pt()<<"\n";
+  cout<<cdf_event.PdgCode[1]<<"  "<<cdf_event.p[1].Eta()<<" "<<cdf_event.p[1].Pt()<<"\n";
 
     if ( TMath::Abs(cdf_event.PdgCode[i]) == 11)
       prob *=  effhist.els_eff_mc->GetBinContent( effhist.els_eff_mc->GetXaxis()->FindBin(cdf_event.p[i].Eta()), effhist.els_eff_mc->GetYaxis()->FindBin(cdf_event.p[i].Pt()) );

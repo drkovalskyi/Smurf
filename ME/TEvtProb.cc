@@ -147,7 +147,6 @@ double Integrand_NeutrinoIntegration(double * r, unsigned int NDim, void * param
 
 
     //Weight calculation
-    // double probAcceptanceEfficiency;
     double PSWeight=1.;
     double flux=1.;
     double dXsec=0.;
@@ -198,7 +197,7 @@ double Integrand_NeutrinoIntegration(double * r, unsigned int NDim, void * param
     else if (Global_process==TVar::Wp_1jet || Global_process==TVar::Wm_1jet  )
       { 
 	Global_NSol=2; 
-	genMw_W1jet(r,Global_SmearLevel,Global_cdf_event,Global_mcfm_event);
+	genMw_W1jet(r,Global_SmearLevel,Global_cdf_event,Global_mcfm_event, boosthist);
       }
     else if (Global_process==TVar::ZZ)
       { 
@@ -216,7 +215,7 @@ double Integrand_NeutrinoIntegration(double * r, unsigned int NDim, void * param
       
       mcfm_event_type& mcfm_event=Global_mcfm_event[jps];
     
-      // cout << "mcfm_event.pswt = " << mcfm_event.pswt << endl;
+      //      cout << "mcfm_event.pswt = " << mcfm_event.pswt << endl;
       if(mcfm_event.pswt<=0) continue;
       
       //Matrix Element evaluation in qX=qY=0 frame

@@ -454,27 +454,28 @@ void genMw_Wgamma(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_
 // MW, qX, qY, Et1, Et2
 //
 //####################################
-void genMw_W1jet(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type* PSList){
+void genMw_W1jet(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type* PSList, BoostHist boosthist){
 
-//    double sixteen_twopi_to_eighth=16*TMath::Power(2*TMath::Pi(),8);
-    double PSWeight;
+    double wt[3];
      
     double mminsq=1e-15;
     double mmaxsq=EBEAM*EBEAM;
     double msq=1.;
     
-    breitw(r[0],mminsq,mmaxsq,breit_.mass2,breit_.width2,&msq,&PSWeight);
-    //GenMwModified(r[0], mminsq, mmaxsq, &msq, &PSWeight);
+    breitw(r[0],mminsq,mmaxsq,breit_.mass2,breit_.width2,&msq,&wt[0]);
    
-
+    double PSWeight=wt[0];
+    
     //System Pt
       double qX=0.,qY=0.;
 
+      if(SmearLevel >= 1) {
+	getProbFromHist(r[1], & qX, & wt[1], boosthist.kx);
+	getProbFromHist(r[2], & qY, & wt[2], boosthist.ky);
+	PSWeight = PSWeight*wt[1]*wt[2];
+    }
     
-//    mcfm_event_type  sol[4];
 
-//nu_Z=-0.62694; nb_Z=16.8335;
-//Mw1=81.0633; Mw2=78.2776;
     WWL1L2Sol_Mw( &cdf_event,
                    qX, qY, msq,
                    PSList);
@@ -483,7 +484,6 @@ void genMw_W1jet(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_t
     
        mcfm_event_type& temp = PSList[i];
        if(temp.pswt>0){
-         //temp.pswt = PSWeight/temp.pswt/eight_2Pi_to_5;
  
          temp.pswt = PSWeight/temp.pswt
                              /temp.p[2].Energy()

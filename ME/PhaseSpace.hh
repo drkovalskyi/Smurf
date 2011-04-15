@@ -50,7 +50,7 @@ void genMw1Mz2(double* r,int SmearLevel, cdf_event_type cdf_event, mcfm_event_ty
 
 //---------------------------
 void genMw_Wgamma(double* r,int SmearLevel, cdf_event_type cdf_event,mcfm_event_type* PSList);
-void genMw_W1jet (double* r,int SmearLevel, cdf_event_type cdf_event,mcfm_event_type* PSList);
+void genMw_W1jet (double* r,int SmearLevel, cdf_event_type cdf_event,mcfm_event_type* PSList,  BoostHist boosthist);
 
 //---------------------------
 void genMzNu3(double* r,int SmearLevel, cdf_event_type cdf_event, mcfm_event_type* PSList);
