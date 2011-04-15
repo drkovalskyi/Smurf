@@ -103,20 +103,26 @@ public:
     _FRhist.mus_fr = (TH2F*) fUtil->Get("wjets_hmuFR")->Clone();
     _FRhist.els_part_fo = (TH2F*) fUtil->Get("wjets_heleGenFR")->Clone();
     _FRhist.mus_part_fo = (TH2F*) fUtil->Get("wjets_hmuGenFR")->Clone();
+    _FRhist.els_ptres = (TH2F*) fUtil->Get("wjets_heleFOResponse")->Clone();
+    _FRhist.mus_ptres = (TH2F*) fUtil->Get("wjets_hmuFOResponse")->Clone();
     
     fUtil->Close();
   }
 
  void SetFRHist() {
-    TFile *fFRfile = TFile::Open("OSFR_101115.root", "READ");
-    assert(fFRfile);
+    TFile *elFRfile = TFile::Open("ww_el_fr_EG.root", "READ");
+    assert(elFRfile);
     gROOT->cd();
-    _FRhist.els_fr = (TH2F*) fFRfile->Get("EG_OSv1_fr")->Clone();
-    _FRhist.mus_fr = (TH2F*) fFRfile->Get("Mu_OSGv1_fr")->Clone();
-    fFRfile->Close();
-  }
-  
+    _FRhist.els_fr = (TH2F*) elFRfile->Get("el_fr_v4_wwV1")->Clone();
+    elFRfile->Close();
 
+    TFile *muFRfile = TFile::Open("ww_mu_fr_Mu.root", "READ");
+    assert(muFRfile);
+    gROOT->cd();
+    _FRhist.mus_fr = (TH2F*) muFRfile->Get("mu_fr_fo_wwV1_10")->Clone();
+    muFRfile->Close();
+ }
+  
   void LOXsec(double* Xsec,double* Err);
   void LOXsec_foam(double* Xsec,double* Err); 
  

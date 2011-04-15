@@ -4,9 +4,11 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TLeaf.h"
+#include "TProfile.h"
 #include <iostream>
 #include "Math/LorentzVector.h"
 #include "Math/VectorUtil.h"
+
 
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
@@ -74,8 +76,8 @@ float yield [kNProc][kNDilep];
 float acceptance [kNProc][kNDilep];
 
 float BR [kNProc][kNDilep] = {{ (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9,  (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 },
-			      { (1.0+0.1784)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3},
-			      { (1.0+0.1784)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3},
+			      { (1.0+0.1736)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3},
+			      { (1.0+0.1736)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3},
 			      { (1.0+0.1784)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3}, // Wpgamma placeholder
 			      { (1.0+0.1784)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3}, // Wpgamma placeholder
 			      { 2*0.2*(0.0363+0.0370*0.1736*0.1736), 0.0, 0.0, 2*0.2*(0.0363+0.0370*0.1784*0.1784) },
@@ -99,9 +101,9 @@ float BR [kNProc][kNDilep] = {{ (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0
 // The values are obtained through http://ceballos.web.cern.ch/ceballos/hwwlnln/sigma_hww_2l2n_ec
 float NLOXsec[kNProc] = {  4.5*0.919, 31314.0, 31314.0, 31314.0, 31314.0, 5.9, 0.249642, 0.452090, 0.641773, 0.770471, 0.866443, 0.782962, 0.659328, 0.486486, 0.408305, 0.358465, 0.321398, 0.290454, 0.243724, 0.175652};
 // Note that MCFMXsec is obtained from a standalone MCFM calculations with no generator cuts applied,
-// float MCFMXsec[kNProc] = { 28.4, 11270, 11270.0,  11270, 11270.0, 4.3, 0.6619, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25, 3.25};
-// The following new numbers are including W->l branching fraction, ignoring currrently the Wjet and Wgamma nubmers
-float MCFMXsec[kNProc] = { 2.983, 16481, 10987,  11270.0, 11270.0, 4.3, 0.07533, 0.1451, 0.2165, 0.2671, 0.3034, 0.2870, 0.2465, 0.1849, 0.1570, 0.1380, 0.1232, 0.1107, 0.0906, 0.05758};
+// The following new numbers are including W->l branching fraction, ignoring currrently the Wgamma nubmers
+// float MCFMXsec[kNProc] = { 2.983, 4032.1, 2694.8,  11270, 11270.0, 4.3, 0.07533, 0.1451, 0.2165, 0.2671, 0.3034, 0.2870, 0.2465, 0.1849, 0.1570, 0.1380, 0.1232, 0.1107, 0.0906, 0.05758};
+float MCFMXsec[kNProc] = { 2.983, 16481.0, 10987.0,  11270, 11270.0, 4.3, 0.07533, 0.1451, 0.2165, 0.2671, 0.3034, 0.2870, 0.2465, 0.1849, 0.1570, 0.1380, 0.1232, 0.1107, 0.0906, 0.05758};
 
 void CalculateAcceptance(){
 
@@ -122,16 +124,20 @@ void InitializeYields(TString inputDir){
     TTree *tree = (TTree*) f->Get("tree");
     
     TH1F *hdphi[kNDilep];
-    
+    double tot_yield = 0;
     cout<<"Yields from file "<< name(i)<<".root: mm/me/em/ee:  ";    
     for (int j=0; j<kNDilep; j++){ 
       hdphi[j] = new TH1F(Form("hdphi_%i", j), Form("hdphi_%i", j), 20, 0, 4); 
-      tree->Project(Form("hdphi_%i", j), "dPhi", Form("scale1fb*(type==%i)", j));
+      if(j==0 || j==2)
+	 tree->Project(Form("hdphi_%i", j), "dPhi", Form("scale1fb*(type==%i)", j));
+      if(j==1||j==3)
+	tree->Project(Form("hdphi_%i", j), "dPhi", Form("scale1fb*(type==%i&&lep2.pt()>15)", j));
       if (hdphi!= 0x0) yield[i][j]=hdphi[j]->Integral(0, 9999); 
       else yield[i][j]=0;
+      tot_yield+=yield[i][j];
       cout << Form("%.3f",yield[i][j])<<" " ;
     }       
-    cout << "\n"; 
+    cout << "; total yield = " << Form("%.3f", tot_yield) << "\n"; 
   }
 }
 
@@ -216,7 +222,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   ch->SetBranchAddress( "lq2"        , &lq2_       );     
   ch->SetBranchAddress( "type"        , &type_       );   
   ch->SetBranchAddress( "met"        , &met_       );       
-  ch->SetBranchAddress( "metPhi"     , &metPhi_       );       
+  ch->SetBranchAddress( "metPhi"        , &metPhi_       );       
   
   
   //==========================================
@@ -235,7 +241,9 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     }
     
     ch->GetEntry(ievt);            
-    
+    // impose trailing electron pT > 15 GeV
+    if((type_==1||type_==3) && lep2_->Pt()<15 ) continue;
+
     int lep1_Type (0);
     int lep2_Type (0);
     
@@ -265,25 +273,20 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       break;
     }
     
-
     cms_event.MetX = met_*cos(metPhi_);
     cms_event.MetY = met_*sin(metPhi_);
-
-    if (!((lep2_Type==11)&&(lep2_->Pt()<15))){
-
     
     if (lq1_>lq2_){
-
-      cms_event.PdgCode[0]=lep1_Type;
-      cms_event.PdgCode[1]=lep2_Type;    
       cms_event.p[0].SetXYZM(lep1_->Px(), lep1_->Py(), lep1_->Pz(), 0.0);
       cms_event.p[1].SetXYZM(lep2_->Px(), lep2_->Py(), lep2_->Pz(), 0.0);
+      cms_event.PdgCode[0]=lep1_Type;
+      cms_event.PdgCode[1]=lep2_Type;    
     }
     else{
-      cms_event.PdgCode[0]=lep2_Type;
-      cms_event.PdgCode[1]=lep1_Type;    
       cms_event.p[0].SetXYZM(lep2_->Px(), lep2_->Py(), lep2_->Pz(), 0.0);
       cms_event.p[1].SetXYZM(lep1_->Px(), lep1_->Py(), lep1_->Pz(), 0.0);
+      cms_event.PdgCode[0]=lep2_Type;
+      cms_event.PdgCode[1]=lep1_Type;    
     }
     
     double Mll  =(cms_event.p[0]+cms_event.p[1]).M();
@@ -324,6 +327,36 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 
       for(int iproc=0; iproc<NProcessCalculate; iproc++){ 
 	
+	// -- correct the lepton fo pt
+	// For W+ hypothesis, assume the l- is the FO
+	if(processList[iproc]==TVar::Wp_1jet) {
+	  double scale_fo = 1.0;
+	  if( TMath::Abs(cms_event.PdgCode[1]) == 11) {
+	    scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
+	    // cout << "TEvtProb::"<<__LINE__<< ": electron with pT "<< cms_event.p[1].Pt() << ", scale_fo = " << scale_fo<<endl;
+	  }
+	  if( TMath::Abs(cms_event.PdgCode[1]) == 13) {
+	    scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
+	    // cout << "TEvtProb::"<<__LINE__<< ": muon with pT "<< cms_event.p[1].Pt() << ", scale_fo = " << scale_fo<<endl;
+	  }
+	  cms_event.p[1].SetXYZM( cms_event.p[1].Px()*scale_fo, cms_event.p[1].Py()*scale_fo, cms_event.p[1].Py()*scale_fo, 0);
+	}
+	
+	// For W- hypothesis, assume the l+ is the FO
+	if(processList[iproc]==TVar::Wm_1jet) {
+	  double scale_fo = 1.0;
+	  if( TMath::Abs(cms_event.PdgCode[1]) == 11) {
+	    scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
+	    // cout << "TEvtProb::"<<__LINE__<< ": electron with pT "<< cms_event.p[0].Pt() << ", scale_fo = " << scale_fo<<endl;
+	  }
+	  if( TMath::Abs(cms_event.PdgCode[1]) == 13) {
+	    scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
+	    // cout << "TEvtProb::"<<__LINE__<< ": muon with pT "<< cms_event.p[0].Pt() << ", scale_fo = " << scale_fo<<endl;
+	  }
+	  cms_event.p[0].SetXYZM( cms_event.p[0].Px()*scale_fo, cms_event.p[0].Py()*scale_fo, cms_event.p[0].Py()*scale_fo, 0);
+	}
+	
+
 	ProcInt=processList[iproc];
 	Xcal2.SetNcalls(ncalls);
 	Xcal2.SetMCHist(ProcInt); 
@@ -389,41 +422,27 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       	denom += 1/(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ] * yield[proc_WW][type_]/yield_bg;
 	cout<<" PWW= "<< 1/(MCFMXsec[proc_WW]*acceptance[proc_WW][type_]) * dXsecList[proc_WW] * yield[proc_WW][type_]/yield_bg <<"\n";	
 
-	denom += 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] * 0.5*yield[proc_Wpj][type_]/yield_bg;
-	cout<<" PWpj= "<< 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] * 0.5*yield[proc_Wpj][type_]/yield_bg <<"\n";
+	//denom += 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] * 0.5*yield[proc_Wpj][type_]/yield_bg;
+	// cout<<" PWpj= "<< 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] * 0.5*yield[proc_Wpj][type_]/yield_bg <<"\n";
+	
+	denom += 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] *  MCFMXsec[proc_Wpj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]) * yield[proc_Wpj][type_]/yield_bg;
+	cout<<" PWpj= "<<  1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] *  MCFMXsec[proc_Wpj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]) * yield[proc_Wpj][type_]/yield_bg << "\n";
 
-	denom += 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * 0.5*yield[proc_Wpj][type_]/yield_bg;
-	cout<<" PWmj= "<< 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * 0.5*yield[proc_Wpj][type_]/yield_bg <<"\n";	
+
+	//denom += 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * 0.5*yield[proc_Wpj][type_]/yield_bg;
+	//cout<<" PWmj= "<< 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * 0.5*yield[proc_Wpj][type_]/yield_bg <<"\n";	
+
+	denom += 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * MCFMXsec[proc_Wmj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]) * yield[proc_Wpj][type_]/yield_bg;
+	cout<<" PWmj= "<< 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * MCFMXsec[proc_Wmj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]) * yield[proc_Wpj][type_]/yield_bg << "\n" <<endl;
 
 	if(denom!=0)
 	  LR[k]=numer/denom;
 	  cout<<"LR_HWW["<<k<<"]= "<<LR[k]<<"\n";
       }      
-
-
-   // Begin Wj likelihood
-
-      numer=(1/(MCFMXsec[proc_Wpj]*acceptance[proc_Wpj][type_]) * dXsecList[proc_Wpj]+1/(MCFMXsec[proc_Wmj]*acceptance[proc_Wmj][type_]) * dXsecList[proc_Wmj]);
-      //      numer=1/(MCFMXsec[proc_Wpj]*acceptance[proc_Wpj][type_]+MCFMXsec[proc_Wmj]*acceptance[proc_Wmj][type_]) * (dXsecList[proc_Wpj]+dXsecList[proc_Wmj]);
-      cout<< "PWj" << " "  <<numer<<"\n";
-
-      denom  = numer;
-      
-      denom += 1/(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ];
-      cout<< "PWW" << " "  <<1/(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ]<<"\n";
-
-      if(denom!=0)
-	LR[proc_Wpj]=numer/denom;
-      cout<<"LR_Wj= "<<LR[proc_Wpj]<<"\n";
-      cout<<"acc_WW="<<acceptance[proc_WW ][type_]<<"    acc_Wj="<<acceptance[proc_Wpj ][type_]<<"\n";
-      cout<<"yield_WW="<<yield[proc_WW ][type_]<<"    yield_Wj="<<yield[proc_Wpj ][type_]<<"\n";
       
       evt_tree->Fill();
       
-    }
-    
-  }//nevent
-
+    }//nevent
     
     cout << "TotCalculatedEvts: " << evt_tree->GetEntries() <<endl; 
     

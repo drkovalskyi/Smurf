@@ -252,6 +252,8 @@ struct FRHist{
   TH2F* mus_fr;
   TH2F* els_part_fo;
   TH2F* mus_part_fo;
+  TH2F* els_ptres;
+  TH2F* mus_ptres;
 };
 
 struct BoostHist{
