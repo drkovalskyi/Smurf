@@ -1,9 +1,16 @@
-{\fixme need to say something about the DA PV method}
-
+We use the so-called Deterministic Annealing (DA) clustering to reconstruct 
+primary verteces in the event. 
 To select a good primary vertex we require a position in $z$ smaller than 
 24~cm, a radius smaller than 2~cm and a number of degrees of freedom greater 
-than 4. Out of the selected ones, we assign each lepton candidate to the one 
-closest in $z$. Finally, at the event selection level, we require all leptons 
-to be closer in $z$ by less than 2~cm. The last cut rejects a sizable 
-fraction of $\Wjets$  events, where a fake lepton is selected from additional 
-overlapping events.
+than 4. Out of the selected ones, we use as event vertex the one with the
+largest summed squared $\pt$ for the tracks associated to that vertex. We 
+require all leptons to be closer in $z$ by less than 0.2~cm to it. The last 
+cut rejects a sizable fraction of $\Wjets$  events, where a fake lepton is 
+selected from additional overlapping events.
+
+Due to the fast evolution of the LHC machine the data taking conditions change
+rapidly. In particular the number of overlapping events is hard perfectly match
+between data and simulation, where the number of reconstructed primary verteces
+is directly correlated to it. Therefore we need to reweight the simulation to
+match the distribution in data. Details about the reweighting procedure are
+reported in Appendix~\ref{app:vertex_reweight}.

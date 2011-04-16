@@ -1,6 +1,6 @@
 The datasets used for this analysis are summarized in Tables.~\ref{tab:DatasetsData} 
 and~\ref{tab:DatasetsMC} for data and Monte Carlo, respectively. The total integrated
-luminosity is 22.2 $\pm$ 0.9 $\ipb$, where for the good run list selection, we 
+luminosity is 23.2 $\pm$ 0.9 $\ipb$, where for the good run list selection, we 
 use the JSON file shown in~\cite{json}.
 
 The choice of the Monte Carlo samples depends on the sample
@@ -22,17 +22,17 @@ a single $VV$ sample, which is difficult to use properly.
 \hline
 \multicolumn{2}{|c|}{$H \to \WW$ Signal Selection Samples} \\
 \hline
-Run2011A MuEl PromptReco            &     \\
-Run2011A DiMuon PromptReco          &     \\
-Run2011A SingleMuon PromptReco      &     \\
-Run2011A DiElectron PromptReco      &     \\
-Run2011A SingleElectron PromptReco  &     \\
+Run2011A MuEl PromptReco            &  /MuEG/Run2011A-PromptReco-v1/AOD   \\
+Run2011A DiMuon PromptReco          &  /DoubleMu/Run2011A-PromptReco-v1/AOD   \\
+Run2011A SingleMuon PromptReco      &  /SingleMu/Run2011A-PromptReco-v1/AOD   \\
+Run2011A DiElectron PromptReco      &  /DoubleElectron/Run2011A-PromptReco-v1/AOD   \\
+Run2011A SingleElectron PromptReco  &  /SingleElectron/Run2011A-PromptReco-v1/AOD   \\
 \hline
 \hline
 \multicolumn{2}{|c|}{Fake Rate Measurement Samples} \\
 \hline
-Run2010A Jet  PromptReco            &	\\
-Run2010B Photon PromptReco          &	\\
+Run2010A Jet  PromptReco            & /Jet/Run2011A-PromptReco-v1/AOD	\\
+Run2010B Photon PromptReco          & /Photon/Run2011A-PromptReco-v1/AOD \\
 \hline
 \end{tabular}
 \caption{Summary of data datasets used.\label{tab:DatasetsData}}
@@ -65,6 +65,13 @@ W/Z+$\gamma$                       	 &   /PhotonVJets\_7TeV-madgraph            
 W $\rightarrow$ $\ell\nu$           	 &   /WJetsToLNu\_TuneZ2\_7TeV-madgraph-tauola                         &  31314.0 \\
 WZ                               	 &   /WZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &  18.2 \\
 ZZ                               	 &   /ZZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &   5.9\\
+$gg \to H \to WW \to 2\ell2\nu$          &   /GluGluToHToWWTo2L2Nu\_M-*\_7TeV-powheg-pythia6                   & vary \\
+$gg \to H \to WW \to \ell\tau2\nu$       &   /GluGluToHToWWTo2L2Nu\_M-*\_7TeV-powheg-pythia6                   & vary \\
+$gg \to H \to WW \to 2\tau2\nu$          &   /GluGluToHToWWTo2Tau2Nu\_M-*\_7TeV-powheg-pythia6                 & vary \\
+$qqH,~H \to WW \to 2\ell2\nu$            &   /VBF\_HToWWTo2L2Nu\_M-*\_7TeV-powheg-pythia6                      & vary \\
+$qqH,~ H \to WW \to \ell\tau2\nu$	 &   /VBF\_HToWWTo2Tau2Nu\_M-*\_7TeV-powheg-pythia6                    & vary \\
+$qqH,~H \to WW \to 2\tau2\nu$	         &   /VBF\_HToWWToLNuTauNu\_M-*\_7TeV-powheg-pythia6                   & vary \\
+$WH/ZH/\ttbar H,~H\to WW$                &   /WH\_ZH\_TTH\_HToWW\_M-*\_7TeV-pythia6                            & vary \\
 \hline
 \hline
 \end{tabular}
@@ -72,3 +79,21 @@ ZZ                               	 &   /ZZtoAnything\_TuneZ2\_7TeV-pythia6-tauol
 \caption{Summary of Monte Carlo datasets used.\label{tab:DatasetsMC}}
 \end{center}
 \end{table}
+
+Due to details in the implementation of the Powheg calculation, the resulting Higgs $\pt$ 
+spectrum for $gg \to H$ has a much harder tail compare with the most precise spectrum calculated to NNLO with 
+resummation to NNLL order, as illustrated in Figure~\ref{fig:h160ww_pthiggs}(a). Therefore, the proper 
+procedure is to apply an event-by-event rewighting to the Powheg simulated events. For the time being 
+we correct the $gg \to H \to \WW$ jet bin efficiency computed from the Powheg Monte Carlo sample, by 
+a scale factor which is approximately identical for all Higgs masses. The scale factors applied to 
+each jet bin in the Powheg simulation are shown in Figure~\ref{fig:h160ww_pthiggs}(b).
+
+\begin{figure}[!htbp]
+\begin{center}
+   \subfigure[]{\includegraphics[width=0.49\textwidth]{figures/h160ww_pthiggs.pdf}}
+   \subfigure[]{\includegraphics[width=0.49\textwidth]{figures/h160ww_njets_kfactor_ratio.pdf}} 
+\caption{(a) Higgs transverse momentum spectrum as predicted by Powheg and the NNLO+NNLL calculation; (b) 
+scale factors applied to each jet bin in the Powheg simulation.}
+\label{fig:h160ww_pthiggs}
+\end{center}
+\end{figure}
