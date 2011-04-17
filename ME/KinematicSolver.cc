@@ -8,6 +8,7 @@
 #include "KinematicSolver.hh"
 #include "PolySolver.hpp"
 #include "iostream"
+#include "math.h"
 
 
 void WWL1L2Sol_MHiggsMw1( cdf_event_type* temp,
