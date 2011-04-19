@@ -1,4 +1,13 @@
-{\fixme This is just an introduction}
+{\fixme 
+\begin{itemize}
+\item fakable objects
+\item fake rates in data and MC (summary, details in appendix)
+\item systematics from sample dependence
+\item closure test Wjets Monte Carlo - systematics of the method
+\item results for data(?)
+\item wjets estimation after Higgs selection(?)
+\end{itemize}
+}
 
 Jet induced fake leptons are an important source of background for many 
 physics channels. In this specific case the main backgrounds are
@@ -18,3 +27,61 @@ misidentification probability, parameterized as a function of $\pt$ and $\eta$,
 is then applied to a sample of events selected using the final selection 
 criteria, except for one of the leptons for which the selection has been 
 relaxed to the looser criteria and that has failed the nominal selection.
+
+\subsubsection{Loose lepton selection requirements}
+Loose lepton selection definition has significant impact on the
+systematic uncertainty of the method. It was found in~\ref{blah} that
+extrapolation in isolation leads to larger systematic uncertainties
+than extrapolation in the electron identification. Unfortunately
+higher instantaneous luminosity delivered by LHC this year leads to
+tighter selection requirements in the trigger limiting our choice of
+loose object requirements. Below we present a few options that were
+studied and found to be usable.
+
+Here is a list of loose electron selection requirements:
+\begin{itemize}
+  \item V1 - extrapolation in isolation (up to the trigger limit) and partial id
+    \begin{itemize}
+      \item $\sigma_{i\eta i\eta} < 0.01/0.03$ (barrel/endcap)
+      \item $|\Delta\phi_{in}| < 0.15/0.10$
+      \item $|\Delta\eta_{in}| < 0.007/0.009$
+      \item $H/E< 0.12/0.10$
+      \item full conversion rejection
+    \end{itemize}
+  \item V2 - extrapolation only in partial id
+    \begin{itemize}
+      \item $\sigma_{i\eta i\eta} < 0.01/0.03$ (barrel/endcap)
+      \item $|\Delta\phi_{in}| < 0.15/0.10$
+      \item $|\Delta\eta_{in}| < 0.007/0.009$
+      \item $H/E< 0.12/0.10$
+      \item full conversion rejection
+      \item full isolation
+    \end{itemize}
+  \item V3 - extrapolation only isolation (up to the trigger limit)
+    \begin{itemize}
+      \item full electron identification with conversion rejection
+    \end{itemize}
+  \item V4 - extrapolation in partial isolation and id
+    \begin{itemize}
+      \item $\sigma_{i\eta i\eta} < 0.01/0.03$ (barrel/endcap)
+      \item $|\Delta\phi_{in}| < 0.15/0.10$
+      \item $|\Delta\eta_{in}| < 0.007/0.009$
+      \item $H/E< 0.12/0.10$
+      \item full conversion rejection
+      \item $\frac{\sum_{\rm trk}\Et}{\pt^{\rm ele}}<0.2$
+      \item $\frac{\sum_{\rm ECAL}\Et}{\pt^{\rm ele}}<0.2$
+      \item $\frac{\sum_{\rm HCAL}\Et}{\pt^{\rm ele}}<0.2$
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Fake rates}
+Using Run2011A data the following fake rates are observed.
+\begin{itemize}
+  \item V1: 0.05 (0.09 for $\pt>20$)
+  \item V2: 0.12 (0.24 for $\pt>20$)
+  \item V3: 0.09 (0.21 for $\pt>20$)
+  \item V4: 0.09 (0.17 for $\pt>20$)
+\end{itemize}
+
+For details see Appendix~\ref{blah} where fake rates presented in the
+formed they used for the final analysis.
