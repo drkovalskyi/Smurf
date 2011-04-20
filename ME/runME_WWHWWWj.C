@@ -71,7 +71,7 @@ static std::string name(int  dstype){
 
 const int kNDilep=4;
 
-float lumi=30.0;
+float lumi=35.5;
 float yield [kNProc][kNDilep];
 float acceptance [kNProc][kNDilep];
 
@@ -313,9 +313,9 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     TVar::Process processList[10];
     processList[ NProcessCalculate++]=TVar::WW;
     processList[ NProcessCalculate++]=TVar::HWW160;
-    //processList[ NProcessCalculate++]=TVar::ZZ; 
     processList[ NProcessCalculate++]=TVar::Wp_1jet;
     processList[ NProcessCalculate++]=TVar::Wm_1jet;
+    //processList[ NProcessCalculate++]=TVar::ZZ; 
     
     TVar::Process ProcInt;
     TVar::Process Vproc;
@@ -327,38 +327,31 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       int HiggsMASS[20]={0,0,0,0,0,0,120,130,140,150,160,170,180,190,200,210,220,230,250,300};
 
       for(int iproc=0; iproc<NProcessCalculate; iproc++){ 
-
+	
 	// -- correct the lepton fo pt
 	// For W+ hypothesis, assume the l- is the FO
+	double scale_fo = 1.0;
 	if(processList[iproc]==TVar::Wp_1jet) {
-	  double scale_fo = 1.0;
 	  if( TMath::Abs(cms_event.PdgCode[1]) == 11) {
 	    scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
-	    // cout << "TEvtProb::"<<__LINE__<< ": electron with pT "<< cms_event.p[1].Pt() << ", scale_fo = " << scale_fo<<endl;
 	  }
 	  if( TMath::Abs(cms_event.PdgCode[1]) == 13) {
 	    scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
-	    // cout << "TEvtProb::"<<__LINE__<< ": muon with pT "<< cms_event.p[1].Pt() << ", scale_fo = " << scale_fo<<endl;
 	  }
 	  cms_event.p[1].SetXYZM( cms_event.p[1].Px()*scale_fo, cms_event.p[1].Py()*scale_fo, cms_event.p[1].Pz()*scale_fo, 0);
 	}
 	
 	// For W- hypothesis, assume the l+ is the FO
 	if(processList[iproc]==TVar::Wm_1jet) {
-	  double scale_fo = 1.0;
 	  if( TMath::Abs(cms_event.PdgCode[0]) == 11) {
 	    scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
-	    // cout << "TEvtProb::"<<__LINE__<< ": electron with pT "<< cms_event.p[0].Pt() << ", scale_fo = " << scale_fo<<endl;
 	  }
 	  if( TMath::Abs(cms_event.PdgCode[0]) == 13) {
 	    scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
-	    // cout << "TEvtProb::"<<__LINE__<< ": muon with pT "<< cms_event.p[0].Pt() << ", scale_fo = " << scale_fo<<endl;
-	  }
-	  cms_event.p[1].SetXYZM( cms_event.p[1].Px()/scale_fo, cms_event.p[1].Py()/scale_fo, cms_event.p[1].Pz()/scale_fo, 0);
+	  }	  
 	  cms_event.p[0].SetXYZM( cms_event.p[0].Px()*scale_fo, cms_event.p[0].Py()*scale_fo, cms_event.p[0].Pz()*scale_fo, 0);
 	}
 	
-
 	ProcInt=processList[iproc];
 	Xcal2.SetNcalls(ncalls);
 	Xcal2.SetMCHist(ProcInt); 
@@ -369,7 +362,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 	if ((processList[iproc]>=TVar::HWW120) && (processList[iproc]<=TVar::HWW300)){
 	  Xcal2.SetProcess(TVar::HWW);
 	  Xcal2.SetHiggsMass(HiggsMASS[processList[iproc]]);
-	  cout<<HiggsMASS[processList[iproc]]<<"\n";
+	  cout<< "Higgs Mass: " << HiggsMASS[processList[iproc]]<<"GeV \n";
 	  
 	  if ( HiggsMASS[processList[iproc]]<160.8 )
 	    Xcal2.SetHWWPhaseSpace(TVar::MH);
@@ -388,9 +381,16 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 	  cout <<"IntegrateNTrials "<<" Ncalls " << Xcal2._ncalls<<" "<<Vproc<<" "<< TVar::ProcessName(Vproc)
 	       <<" Xsec = " <<  Xsec << " +- " << XsecErr << " ( " << Ratio << " ) " << endl;
 	}
-      }
-            
 
+	// setting back the cms_event for other hypothesis
+	if(processList[iproc]==TVar::Wp_1jet) 
+	  cms_event.p[1].SetXYZM( cms_event.p[1].Px()/scale_fo, cms_event.p[1].Py()/scale_fo, cms_event.p[1].Pz()/scale_fo, 0);
+	
+	if(processList[iproc]==TVar::Wm_1jet) 
+	  cms_event.p[0].SetXYZM( cms_event.p[0].Px()/scale_fo, cms_event.p[0].Py()/scale_fo, cms_event.p[0].Pz()/scale_fo, 0);
+		  
+      }
+      
       cout << "START summary ====================" <<endl;
       printf(" Evt %4i/%4i Run %9i Evt %8i Proc %4i %s lep %4i %4i njets %d \n", ievt,Ntot, run_, event_, ProcIdx, TVar::ProcessName(ProcIdx).Data(),lep1_Type,lep2_Type,njets_);
       printf(" MetX %8.8f MetY %8.8f Mll %8.8f Phill %8.8f\n",cms_event.MetX, cms_event.MetY,Mll,Phill);
