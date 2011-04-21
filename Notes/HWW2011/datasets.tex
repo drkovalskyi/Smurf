@@ -1,3 +1,4 @@
+%UPDATEME%
 The datasets used for this analysis are summarized in Tables.~\ref{tab:DatasetsData} 
 and~\ref{tab:DatasetsMC} for data and Monte Carlo, respectively. The total integrated
 luminosity is 23.2 $\pm$ 0.9 $\ipb$, where for the good run list selection, we 
@@ -13,6 +14,7 @@ activity. For $gg \to \WW$ a dedicated generator is used. For \wz\ and \zz\
 processes we use Pythia, since MadGraph samples are mixed with $\WW$ in
 a single $VV$ sample, which is difficult to use properly.
 
+%UPDATEME%
 \begin{table}[!ht]
 \begin{center}
 \begin{tabular}{|c|c|}
@@ -80,13 +82,17 @@ $WH/ZH/\ttbar H,~H\to WW$                &   /WH\_ZH\_TTH\_HToWW\_M-*\_7TeV-pyth
 \end{center}
 \end{table}
 
-Due to details in the implementation of the Powheg calculation, the resulting Higgs $\pt$ 
-spectrum for $gg \to H$ has a much harder tail compare with the most precise spectrum calculated to NNLO with 
-resummation to NNLL order, as illustrated in Figure~\ref{fig:h160ww_pthiggs}(a). Therefore, the proper 
-procedure is to apply an event-by-event rewighting to the Powheg simulated events. For the time being 
-we correct the $gg \to H \to \WW$ jet bin efficiency computed from the Powheg Monte Carlo sample, by 
-a scale factor which is approximately identical for all Higgs masses. The scale factors applied to 
-each jet bin in the Powheg simulation are shown in Figure~\ref{fig:h160ww_pthiggs}(b).
+Due to details in the implementation of the Powheg calculation, the
+resulting Higgs $\pt$ spectrum for $gg \to H$ has a much harder
+spectrum compared with the most precise spectrum calculated to NNLO
+with resummation to NNLL order, as illustrated in
+Figure~\ref{fig:h160ww_pthiggs}(a). Therefore, the proper procedure is
+to apply an event-by-event rewighting to the Powheg simulated
+events. For the time being we correct the $gg \to H \to \WW$ jet bin
+efficiency computed from the Powheg Monte Carlo sample, by a scale
+factor which is approximately identical for all Higgs masses. The
+scale factors applied to each jet bin in the Powheg simulation are
+shown in Figure~\ref{fig:h160ww_pthiggs}(b).
 
 \begin{figure}[!htbp]
 \begin{center}
