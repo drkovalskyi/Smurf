@@ -1,16 +1,57 @@
-The nonresonant $qq \to \WW$ contribution in the $\hww$ signal region is 
-estimated from data using the dilepton mass distribution. For a given Higgs 
-boson mass, the region with a small contribution from Higgs boson decays is 
-selected and simulation is used to extrapolate this background into the signal 
-region. For low Higgs boson mass values ($m_{\rm{H}} < 200~\GeVcc$) events 
-with $m_{\ell\ell} > 100~\GeVcc$ are used, while for $m_{\rm{H}} > 200~\GeVcc$ 
-events with $m_{\ell\ell} < 100~\GeVcc$ are used. The statistical uncertainty 
-on the estimate of the nonresonant $\WW$ background with the current data 
-sample is approximately 50\%. For the 1- and 2- jet bin cases we use the results
-from the 0-jet bin, and then extrapolate to each jet bin.
+The basic idea for the estimation of the nonresonant $WW$ contribution in the $\hww$ signal region is 
+to infer it from data using the dilepton mass distribution:
+the dilepton mass defines a control region where we can measure the $WW$ normalization, and then scale
+the contribution to the signal region.
 
-The $gg \to \WW$ background contribution has to be taken from simulated events 
-since we do not have enough sensitivity in the data to measure it. We assign a 
-50\% uncertainty to the overall normalization~\cite{ggWWError}. This is 
-obtained by studying the change in the cross-section when varying the parton 
-distribution functions (PDFs), QCD renormalization and scales.
+It turns out that this approach can be applied for $m_H \leq 200~\GeVcc$ only.
+In fact, MC studies show that the di-lepton mass distribution in Higgs samples has a cut-off value at $m_H-50~\GeVcc$;
+thus, for large $m_H$ it is possible to define an Higgs-depleted region only in a mass range populated by too 
+few $WW$ events. 
+
+Therefore, for $m_H > 200~\GeVcc$ the $WW$ contribution is estimated from MC.
+
+\subsubsection{Estimation procedure in low mass range}
+
+For low Higgs boson mass values ($m_{\rm{H}} \leq 200~\GeVcc$) events with $m_{\ell\ell} > 100~\GeVcc$ are used
+to define a control region where the Higgs contribution is $<3\%$.
+
+The procedure is as follows:
+\begin{itemize}
+\item the yield in the control region is measured after the lepton and jet selections 
+(i.e. full selection except $m_{l,l}$, $m_T$ and $\Delta\phi_{ll}$ cuts) so that most of the systematics uncertainties 
+cancel out (e.g. jet veto, lepton and trigger efficiencies); 
+\item the contamination from other backgrounds (mainly $t\bar t$ and $W$+jets, for a total of $\sim$ 20\%) 
+is subtracted using the corresponding data-driven techniques;
+\item the obtained yield is scaled to the signal region using the control-to-signal region ratio from MC;
+\item finally, the MC efficiency for $m_T$ and $\Delta\phi_{ll}$ cut is accounted to obtain the $WW$ contribution in the 
+signal region after all cuts.
+\end{itemize}
+
+In order to consider this procedure as reliable we verify that 
+the control-to-signal region ratio is stable using different generators and 
+we check that the efficiency of the $m_T$ and $\Delta\phi_{ll}$ cuts in the control region in data and MC is consistent.
+
+%Systematics are evaluated repeating the procedure varying the usual suspects.
+
+%
+%\subsection{Estimation in high mass range}
+%We take it from MC.
+
+
+
+%The nonresonant $qq \to \WW$ contribution in the $\hww$ signal region is 
+%estimated from data using the dilepton mass distribution. For a given Higgs 
+%boson mass, the region with a small contribution from Higgs boson decays is 
+%selected and simulation is used to extrapolate this background into the signal 
+%region. For low Higgs boson mass values ($m_{\rm{H}} < 200~\GeVcc$) events 
+%with $m_{\ell\ell} > 100~\GeVcc$ are used, while for $m_{\rm{H}} > 200~\GeVcc$ 
+%events with $m_{\ell\ell} < 100~\GeVcc$ are used. The statistical uncertainty 
+%on the estimate of the nonresonant $\WW$ background with the current data 
+%sample is approximately 50\%. For the 1- and 2- jet bin cases we use the results
+%from the 0-jet bin, and then extrapolate to each jet bin.
+%
+%The $gg \to \WW$ background contribution has to be taken from simulated events 
+%since we do not have enough sensitivity in the data to measure it. We assign a 
+%50\% uncertainty to the overall normalization~\cite{ggWWError}. This is 
+%obtained by studying the change in the cross-section when varying the parton 
+%distribution functions (PDFs), QCD renormalization and scales.
