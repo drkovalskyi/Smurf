@@ -1,0 +1,236 @@
+In order to make maximal use of the information in the data we have performed 
+also a multivariate analysis. The classifier that we decided to use is a Boosted 
+Decision Tree (BDT) implemented using the TMVA~\cite{tmva} toolkit. BDT is a  
+multivariate techniques (like artificial neural networks, likelihood estimators, 
+k-Nearest Neighbor classifiers,etc..) that has been already successfully applied 
+in high energy physics to increase the statistical significance of a signal 
+extraction. Compared to other multivariate classifiers, a BDT requires little 
+training to obtain good results and is also insensitive to the inclusion of 
+poorly discriminating input variables.
+
+
+In addition to the variables used in the cut based approach, additional variables 
+have been considered in the multivariate analysis. These variables either have 
+large correlation with the previous ones or they do not give a large separation 
+power by themselves. Nevertheless they improve the overall performance. For the 
+current version of the analysis only two variables have been added:
+
+\begin{itemize}
+\item $\Delta R_{\Lep\Lep}\equiv\sqrt{\deletall^2 + \delphill^2}$ between the leptons, which has 
+similar properties as $\delphill$;
+
+\item the di-lepton final states identification: $\mu\mu$, $ee$, $e\mu$ or 
+$\mu e$, where the leptons are sorted by its corresponding $\pt$. The 
+signal-to-background ratios for the different final states are different, 
+hence it provides an additional discriminant power to add that variable.
+
+\end{itemize}
+
+The training has been carried out depending on the Higgs mass and using the 
+corresponding signal samples. Besides the $\WW$ selection requirements, we 
+apply an upper loose cut on $\mll$ to enhance the signal-to-background ratio. 
+The values of this upper limit cut are detailed in 
+Table~\ref{tab:presel_tmva_analysis}. The 0-jet and 1-jet bin cases are 
+treated separately with their own training and performance evaluation.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|r|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$\mHi~~~~~[\GeV]$   & 120 & 130 & 140 & 150 & 160 & 170 & 180 & 190 & 200 & 210 \\
+\hline
+$\mll<~~~[\GeV]$    &  70 &  80 &  90 & 100 & 100 & 100 & 110 & 120 & 130 & 140 \\
+\hline
+\end{tabular}
+%\vspace{0.5cm}
+\begin{tabular}{|r|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$\mHi~~~~~[\GeV]$    & 220 & 230 & 250 & 300 & 350 & 400 & 450 & 500 & 550 & 600 \\
+\hline
+$\mll<~~~[\GeV]$     & 150 & 230 & 250 & 300 & 350 & 400 & 450 & 500 & 550 & 600 \\
+\hline
+\end{tabular}
+\caption{$\mll$ upper limit requirement as a function of the Higgs mass used to 
+enrich the background datasets of signal-like events. These samples are employed 
+in the training of the multivariate classifier used for the signal 
+extraction.\label{tab:presel_tmva_analysis}}
+\end{center}
+\end{table}
+
+\begin{figure}[!ht]
+\begin{center}
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_130_0j.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_130_1j.pdf}} 
+       \caption{Classifier outputs for Higgs signal and background events 
+for \mHi=130 $\GeVcc$ in the 0-jet bin (a) and 1-jet bin (b) after the $\WW$ selection. The number 
+of events is different on each mass point due to the specific $\mll$ requirement.}
+   \label{fig:histo_mva_130}
+\end{center}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_150_0j.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_150_1j.pdf}} 
+       \caption{Classifier outputs for Higgs signal and background events 
+for \mHi=150 $\GeVcc$ in the 0-jet bin (a) and 1-jet bin (b) after the $\WW$ selection. The number 
+of events is different on each mass point due to the specific $\mll$ requirement.}
+   \label{fig:histo_mva_150}
+\end{center}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_200_0j.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_200_1j.pdf}} 
+       \caption{Classifier outputs for Higgs signal and background events 
+for \mHi=200 $\GeVcc$ in the 0-jet bin (a) and 1-jet bin (b) after the $\WW$ selection. The number 
+of events is different on each mass point due to the specific $\mll$ requirement.}
+   \label{fig:histo_mva_200}
+\end{center}
+\end{figure}
+
+The classifier outputs for three different Higgs masses and both jet bins are shown in 
+Figures~\ref{fig:histo_mva_130},~\ref{fig:histo_mva_150} and~\ref{fig:histo_mva_200}. The 
+cut values have been optimized maximizing the statistical significance $S$ defined as:
+\begin{equation*}
+S=\frac{N_S}{\sqrt{N_B+(\Delta N_B)^2}}
+\end{equation*}
+where $N_S$ and $N_B$ are the expected signal and background event yields, 
+assuming the SM cross-sections and 1 $\ifb$ of integrated luminosity. 
+Exclusively for the cuts optimization, the relative uncertainty 
+$\Delta N_B/N_B$ on the combined background is considered to be equal to 35\%. 
+This is just a rough estimation of the overall uncertainty. We have tested 
+other values between 20\% and 50\% and obtained consistent results.
+
+The expected number of signal and background processes for an integrated luminosity 
+of 1 $\ifb$, after applying the full multivariate analysis selection in the 0-jet and 1-jet 
+bin cases are listed in Tables~\ref{tab:mvasel0j}~\ref{tab:mvasel1j}, respectively.
+
+\begin{table}[!ht]
+  \begin{center}
+ {\footnotesize
+  \begin{tabular} {|c|c|c|c|c|c|c|c|}
+\hline
+  mass    & SM $H\to WW$ & all bkg. & $qq \to \WW$ & $gg \to \WW$ & all non-$\WW$ bkg. \\
+  \hline
+  \hline
+120 &   2.18 $\pm$   0.06 &    5.55 $\pm$   0.22 &  4.71 $\pm$	0.20 & 0.27 $\pm$   0.02 & 0.57 $\pm$   0.10 \\
+130 &   6.14 $\pm$   0.13 &   12.15 $\pm$   0.51 &  9.79 $\pm$	0.28 & 0.63 $\pm$   0.03 & 1.73 $\pm$   0.42 \\
+140 &  10.82 $\pm$   0.21 &   17.68 $\pm$   1.06 & 13.53 $\pm$	0.34 & 0.95 $\pm$   0.04 & 3.20 $\pm$   1.00 \\
+150 &  10.38 $\pm$   0.23 &    8.21 $\pm$   0.29 &  6.78 $\pm$	0.24 & 0.65 $\pm$   0.03 & 0.78 $\pm$   0.17 \\
+160 &  11.05 $\pm$   0.24 &    2.31 $\pm$   0.14 &  1.79 $\pm$	0.12 & 0.32 $\pm$   0.02 & 0.19 $\pm$   0.07 \\
+170 &  17.72 $\pm$   0.30 &    6.23 $\pm$   0.30 &  4.70 $\pm$	0.20 & 0.82 $\pm$   0.04 & 0.70 $\pm$   0.22 \\
+180 &  10.64 $\pm$   0.20 &    6.26 $\pm$   0.46 &  4.15 $\pm$	0.18 & 0.80 $\pm$   0.04 & 1.31 $\pm$   0.42 \\
+190 &   8.11 $\pm$   0.15 &    8.08 $\pm$   0.35 &  6.08 $\pm$	0.23 & 1.02 $\pm$   0.04 & 0.98 $\pm$   0.27 \\
+200 &   8.05 $\pm$   0.14 &   11.23 $\pm$   0.42 &  8.32 $\pm$	0.26 & 1.34 $\pm$   0.05 & 1.57 $\pm$   0.32 \\
+250 &   2.35 $\pm$   0.06 &    7.34 $\pm$   0.50 &  5.13 $\pm$	0.21 & 0.54 $\pm$   0.03 & 1.66 $\pm$   0.45 \\
+300 &   2.20 $\pm$   0.05 &    8.05 $\pm$   0.47 &  5.68 $\pm$	0.22 & 0.47 $\pm$   0.03 & 1.89 $\pm$   0.42 \\
+350 &   0.85 $\pm$   0.03 &    1.63 $\pm$   0.15 &  1.22 $\pm$	0.10 & 0.13 $\pm$   0.02 & 0.28 $\pm$   0.10 \\
+400 &   3.32 $\pm$   0.05 &    9.19 $\pm$   0.56 &  6.38 $\pm$	0.23 & 0.56 $\pm$   0.03 & 2.25 $\pm$   0.51 \\
+450 &   1.78 $\pm$   0.03 &    5.96 $\pm$   0.46 &  4.21 $\pm$	0.19 & 0.34 $\pm$   0.03 & 1.41 $\pm$   0.42 \\
+500 &   1.07 $\pm$   0.02 &    4.22 $\pm$   0.37 &  2.81 $\pm$	0.15 & 0.38 $\pm$   0.03 & 1.03 $\pm$   0.34 \\
+550 &   0.75 $\pm$   0.01 &    4.00 $\pm$   0.31 &  2.92 $\pm$	0.15 & 0.26 $\pm$   0.02 & 0.83 $\pm$   0.26 \\
+600 &   0.26 $\pm$   0.01 &    0.86 $\pm$   0.13 &  0.62 $\pm$	0.07 & 0.10 $\pm$   0.01 & 0.14 $\pm$   0.10 \\
+ \hline
+  \end{tabular}
+  }
+ {\small
+  \begin{tabular} {|c|c|c|c|c|}
+\hline
+  mass    & $\ttbar+tW$ & non-resonant $WZ$/$ZZ$ & $\dyll+WZ+ZZ$ & $\Wjets/\gamma$ \\
+  \hline
+  \hline
+120 &  0.20 $\pm$   0.08 & 0.20 $\pm$   0.05 &  0.17 $\pm$   0.03 & 0.00 $\pm$ 0.00  \\
+130 &  1.12 $\pm$   0.42 & 0.45 $\pm$   0.07 &  0.16 $\pm$   0.02 & 0.00 $\pm$ 0.00  \\
+140 &  1.50 $\pm$   0.39 & 0.54 $\pm$   0.08 &  1.16 $\pm$   0.92 & 0.00 $\pm$ 0.00  \\
+150 &  0.52 $\pm$   0.16 & 0.16 $\pm$   0.04 &  0.10 $\pm$   0.02 & 0.00 $\pm$ 0.00  \\
+160 &  0.14 $\pm$   0.07 & 0.02 $\pm$   0.02 &  0.04 $\pm$   0.01 & 0.00 $\pm$ 0.00  \\
+170 &  0.50 $\pm$   0.22 & 0.12 $\pm$   0.04 &  0.09 $\pm$   0.02 & 0.00 $\pm$ 0.00  \\
+180 &  1.11 $\pm$   0.41 & 0.11 $\pm$   0.04 &  0.09 $\pm$   0.02 & 0.00 $\pm$ 0.00  \\
+190 &  0.65 $\pm$   0.27 & 0.15 $\pm$   0.04 &  0.18 $\pm$   0.03 & 0.00 $\pm$ 0.00  \\
+200 &  0.94 $\pm$   0.31 & 0.31 $\pm$   0.06 &  0.32 $\pm$   0.05 & 0.00 $\pm$ 0.00  \\
+250 &  1.43 $\pm$   0.45 & 0.12 $\pm$   0.04 &  0.12 $\pm$   0.03 & 0.00 $\pm$ 0.00  \\
+300 &  1.61 $\pm$   0.41 & 0.16 $\pm$   0.04 &  0.12 $\pm$   0.03 & 0.00 $\pm$ 0.00  \\
+350 &  0.22 $\pm$   0.10 & 0.04 $\pm$   0.02 &  0.02 $\pm$   0.01 & 0.00 $\pm$ 0.00  \\
+400 &  1.98 $\pm$   0.51 & 0.17 $\pm$   0.04 &  0.10 $\pm$   0.02 & 0.00 $\pm$ 0.00  \\
+450 &  1.28 $\pm$   0.42 & 0.09 $\pm$   0.03 &  0.04 $\pm$   0.02 & 0.00 $\pm$ 0.00  \\
+500 &  0.88 $\pm$   0.34 & 0.07 $\pm$   0.02 &  0.08 $\pm$   0.02 & 0.00 $\pm$ 0.00  \\
+550 &  0.65 $\pm$   0.26 & 0.12 $\pm$   0.04 &  0.05 $\pm$   0.01 & 0.00 $\pm$ 0.00  \\
+600 &  0.11 $\pm$   0.10 & 0.03 $\pm$   0.02 &  0.00 $\pm$   0.00 & 0.00 $\pm$ 0.00  \\
+  \hline
+  \hline
+
+ \hline
+  \end{tabular}
+  }
+  \caption{Expected number of signal and background processes for an 
+  integrated luminosity of 1 $\ifb$, after applying the full multivariate analysis 
+  selection in the 0-jet bin case. Monte Carlo statistical uncertainties are included.}
+   \label{tab:mvasel0j}
+  \end{center}
+\end{table}
+
+\begin{table}[!ht]
+  \begin{center}
+ {\footnotesize
+  \begin{tabular} {|c|c|c|c|c|c|c|c|}
+\hline
+  mass    & SM $H\to WW$ & all bkg. & $qq \to \WW$ & $gg \to \WW$ & all non-$\WW$ bkg. \\
+  \hline
+  \hline
+120 &  1.46 $\pm$   0.04 &    7.11 $\pm$   1.43 &  3.17 $\pm$   0.16 &  0.13 $\pm$   0.02 &   3.81 $\pm$   1.42 \\
+130 &  2.42 $\pm$   0.07 &    6.28 $\pm$   1.70 &  2.81 $\pm$   0.15 &  0.14 $\pm$   0.02 &   3.34 $\pm$   1.69 \\
+140 &  9.85 $\pm$   0.17 &   22.46 $\pm$   2.39 &  9.98 $\pm$   0.29 &  0.58 $\pm$   0.03 &  11.90 $\pm$   2.38 \\
+150 &  8.06 $\pm$   0.16 &   11.60 $\pm$   2.00 &  5.07 $\pm$   0.20 &  0.35 $\pm$   0.03 &   6.18 $\pm$   1.99 \\
+160 & 13.98 $\pm$   0.22 &   11.60 $\pm$   2.41 &  4.25 $\pm$   0.19 &  0.37 $\pm$   0.03 &   6.98 $\pm$   2.40 \\
+170 & 13.84 $\pm$   0.21 &   13.14 $\pm$   2.36 &  5.71 $\pm$   0.22 &  0.54 $\pm$   0.03 &   6.89 $\pm$   2.35 \\
+180 &  9.58 $\pm$   0.16 &   14.15 $\pm$   2.37 &  6.00 $\pm$   0.22 &  0.59 $\pm$   0.03 &   7.56 $\pm$   2.36 \\
+190 &  5.07 $\pm$   0.10 &   12.12 $\pm$   1.93 &  5.12 $\pm$   0.20 &  0.44 $\pm$   0.03 &   6.55 $\pm$   1.92 \\
+200 &  8.99 $\pm$   0.12 &   36.07 $\pm$   3.03 & 15.64 $\pm$   0.36 &  1.20 $\pm$   0.05 &  19.23 $\pm$   3.01 \\
+250 &  3.17 $\pm$   0.06 &   25.48 $\pm$   3.19 &  8.79 $\pm$   0.27 &  0.40 $\pm$   0.03 &  16.29 $\pm$   3.18 \\
+300 &  1.56 $\pm$   0.03 &   10.48 $\pm$   1.81 &  3.88 $\pm$   0.18 &  0.14 $\pm$   0.02 &   6.46 $\pm$   1.80 \\
+350 &  2.24 $\pm$   0.04 &   12.40 $\pm$   2.11 &  4.32 $\pm$   0.19 &  0.24 $\pm$   0.02 &   7.84 $\pm$   2.10 \\
+400 &  2.16 $\pm$   0.03 &   10.47 $\pm$   1.60 &  3.64 $\pm$   0.17 &  0.23 $\pm$   0.02 &   6.60 $\pm$   1.59 \\
+450 &  0.44 $\pm$   0.01 &    1.53 $\pm$   0.29 &  0.93 $\pm$   0.09 &  0.02 $\pm$   0.01 &   0.58 $\pm$   0.28 \\
+500 &  0.34 $\pm$   0.01 &    1.37 $\pm$   0.18 &  0.93 $\pm$   0.09 &  0.03 $\pm$   0.01 &   0.42 $\pm$   0.16 \\
+550 &  0.50 $\pm$   0.01 &    2.77 $\pm$   0.35 &  1.59 $\pm$   0.11 &  0.09 $\pm$   0.01 &   1.09 $\pm$   0.33 \\
+600 &  0.19 $\pm$   0.00 &    0.92 $\pm$   0.10 &  0.77 $\pm$   0.08 &  0.04 $\pm$   0.01 &   0.12 $\pm$   0.05 \\
+ \hline
+  \end{tabular}
+  }
+ {\small
+  \begin{tabular} {|c|c|c|c|c|}
+\hline
+  mass    & $\ttbar+tW$ & non-resonant $WZ$/$ZZ$ & $\dyll+WZ+ZZ$ & $\Wjets/\gamma$ \\
+  \hline
+  \hline
+120 &   1.16 $\pm$   0.35 & 0.20 $\pm$   0.05 &  2.45 $\pm$   1.38 & 0.00 $\pm$   0.00  \\
+130 &   0.78 $\pm$   0.25 & 0.17 $\pm$   0.04 &  2.39 $\pm$   1.67 & 0.00 $\pm$   0.00  \\
+140 &   6.53 $\pm$   0.97 & 0.53 $\pm$   0.08 &  4.84 $\pm$   2.17 & 0.00 $\pm$   0.00  \\
+150 &   2.93 $\pm$   0.64 & 0.18 $\pm$   0.04 &  3.07 $\pm$   1.88 & 0.00 $\pm$   0.00  \\
+160 &   1.74 $\pm$   0.40 & 0.10 $\pm$   0.03 &  5.14 $\pm$   2.36 & 0.00 $\pm$   0.00  \\
+170 &   2.18 $\pm$   0.52 & 0.18 $\pm$   0.05 &  4.54 $\pm$   2.29 & 0.00 $\pm$   0.00  \\
+180 &   2.94 $\pm$   0.58 & 0.10 $\pm$   0.03 &  4.52 $\pm$   2.28 & 0.00 $\pm$   0.00  \\
+190 &   3.32 $\pm$   0.70 & 0.13 $\pm$   0.04 &  3.11 $\pm$   1.79 & 0.00 $\pm$   0.00  \\
+200 &  12.05 $\pm$   1.33 & 0.39 $\pm$   0.06 &  6.78 $\pm$   2.70 & 0.00 $\pm$   0.00  \\
+250 &   7.71 $\pm$   1.12 & 0.18 $\pm$   0.04 &  8.39 $\pm$   2.97 & 0.00 $\pm$   0.00  \\
+300 &   3.48 $\pm$   0.81 & 0.03 $\pm$   0.02 &  2.95 $\pm$   1.61 & 0.00 $\pm$   0.00  \\
+350 &   3.71 $\pm$   0.73 & 0.06 $\pm$   0.03 &  4.07 $\pm$   1.97 & 0.00 $\pm$   0.00  \\
+400 &   4.67 $\pm$   0.88 & 0.10 $\pm$   0.04 &  1.83 $\pm$   1.33 & 0.00 $\pm$   0.00  \\
+450 &   0.57 $\pm$   0.28 & 0.00 $\pm$   0.00 &  0.01 $\pm$   0.00 & 0.00 $\pm$   0.00  \\
+500 &   0.40 $\pm$   0.16 & 0.01 $\pm$   0.01 &  0.01 $\pm$   0.00 & 0.00 $\pm$   0.00  \\
+550 &   1.04 $\pm$   0.33 & 0.03 $\pm$   0.02 &  0.02 $\pm$   0.01 & 0.00 $\pm$   0.00  \\
+600 &   0.10 $\pm$   0.05 & 0.01 $\pm$   0.01 &  0.01 $\pm$   0.00 & 0.00 $\pm$   0.00  \\
+  \hline
+  \hline
+
+ \hline
+  \end{tabular}
+  }
+  \caption{Expected number of signal and background processes for an 
+  integrated luminosity of 1 $\ifb$, after applying the full multivariate analysis 
+  selection in the 1-jet bin case. Monte Carlo statistical uncertainties are included.}
+   \label{tab:mvasel1j}
+  \end{center}
+\end{table}

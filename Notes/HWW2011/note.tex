@@ -44,7 +44,9 @@
     This note describes a search for the Higgs boson in $\WW \to 2\ell2\nu$
     final state with 23~pb$^{-1}$ of $pp$ collision data at $\sqrt s =
     $ 7~$\TeV$. We search for Higgs candidate events in $ee$, $\mu\mu$ and $e\mu$
-    channels with 0, 1 and 2 reconstructed jets in the final state.
+    channels with 0, 1 and 2 reconstructed jets in the final state. Signal and
+    background yields are extrapolate to 1 $\ifb$ of collected data to obtain
+    sensible projections.
   \end{abstract} 
 
 \end{titlepage}
@@ -95,14 +97,9 @@
 \section{Event yields in Data and Monte Carlo}
   \label{sec:yields}
   \input{yields_mc}
-  % \subsection{Monte Carlo Selection Efficiency}
-  %   \label{sec:mc_eff}
-  %    \input{mc_efficiency}
-  %  \subsection{Yields}
-  %    \label{sec:datayields}
-  %    \input{yields}
     
 \section{Signal Extraction}
+  \input{selection_intro}
   \label{sec:signal_selection}
   \subsection{Cut Based Analysis}
     \label{sec:anal_cutbased}
@@ -117,7 +114,7 @@
       \input{selection_vbf}
   \subsection{MVA Analysis}
     \label{sec:anal_mva}
-%    \input{anal_mva}
+    \input{anal_mva}
 %  \subsection{Matrix Element Method}
 %    \label{sec:anal_me}
 %    \input{anal_me}
@@ -127,7 +124,7 @@
     \label{sec:backgrounds}
     \input{bkg_intro}
     \label{sec:bkg_intro}
-  \subsection{WW background}
+  \subsection{WW Background}
     \label{sec:bkg_ww}
     \input{bkg_ww}
   \subsection{Jet Induced Backgrounds}
@@ -143,13 +140,13 @@
     \label{sec:bkg_other}
     \input{bkg_other}
 
-\section{Efficiency measurements}
+\section{Efficiency Measurements}
    \label{sec:efficiency}
-   \subsection{Trigger efficiency}
+   \subsection{Trigger Efficiency}
       \input{eff_trigger}
-   \subsection{Electron efficiency}
-   \subsection{Muon efficiency}
-   \subsection{Jet veto efficiency}
+   \subsection{Electron Efficiency}
+   \subsection{Muon Efficiency}
+   \subsection{Jet Efficiency}
 
 \clearpage
 \section{Results}
@@ -225,6 +222,9 @@ algorithm", JHEP 04,  2008.
 \bibitem{ConversionNote}
 W.~Andrews, \textit{et al.}, "Study of photon conversion rejection at CMS", CMS AN-2009/159.
 
+\bibitem{tmva}
+A. Hoecker, \textit{et al.}, "TMVA - Toolkit for Multivariate Data Analysis", arXiv:physics/0703039, 2007.
+
 \appendix
 \appendixpage
   \section{Primary Vertex Reweighting}
@@ -243,7 +243,7 @@ W.~Andrews, \textit{et al.}, "Study of photon conversion rejection at CMS", CMS 
      \label{app:met}
 %     \input{appendix_met}
   \clearpage
-  \section{Online vs Offline selection}
+  \section{Online vs Offline Selection}
      \label{app:online_vs_offline}
      \input{appendix_online_vs_offline}
 
