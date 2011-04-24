@@ -45,7 +45,7 @@
     final state with 23~pb$^{-1}$ of $pp$ collision data at $\sqrt s =
     $ 7~$\TeV$. We search for Higgs candidate events in $ee$, $\mu\mu$ and $e\mu$
     channels with 0, 1 and 2 reconstructed jets in the final state. Signal and
-    background yields are extrapolate to 1 $\ifb$ of collected data to obtain
+    background yields are extrapolated to 1 $\ifb$ of collected data to obtain
     sensible projections.
   \end{abstract} 
 
@@ -145,21 +145,26 @@
    \subsection{Trigger Efficiency}
       \input{eff_trigger}
    \subsection{Electron Efficiency}
+      \input{eff_electron}
    \subsection{Muon Efficiency}
+      \input{eff_muon}
    \subsection{Jet Efficiency}
       \input{eff_jet}
 
-\clearpage
+\section{Systematic Uncertainties}
+  \label{sec:systematics}
+  \input{systematics}
+
 \section{Results}
   \label{sec:results}
   \input{results}
   %\subsection{Cut Based Analysis}
   %  \label{sec:results_cutbased}
-  %  \input{results_cutbased.tex}
+  %  \input{results_cutbased}
 
 \section{Summary}
     \label{sec:summary}
-%    \input{summary.tex}
+    \input{summary}
 
 \clearpage
 
@@ -227,6 +232,25 @@ W.~Andrews, \textit{et al.}, "Study of photon conversion rejection at CMS", CMS 
 \bibitem{tmva}
 A. Hoecker, \textit{et al.}, "TMVA - Toolkit for Multivariate Data Analysis", arXiv:physics/0703039, 2007.
 
+\bibitem{XS}
+CMS Generator group, Standard Model Cross Sections for CMS at 7 TeV, 2010.
+
+\bibitem{PDF4LHC}
+PDF4LHC Working Group, 
+{\tt http://www.hep.ucl.ac.uk/pdf4lhc/PDF4LHCrecom.pdf}
+
+\bibitem{Nadolsky:2008zw}
+Nadolsky, Pavel M. and others, "Implications of CTEQ global analysis for 
+collider observables", Phys. Rev. D78 2008.
+
+\bibitem{Martin:2009iq}
+Martin, A. D. and Stirling, W. J. and Thorne, R. S. and Watt, G., "Parton 
+distributions for the LHC, Eur. Phys. J. C63 2009.
+
+\bibitem{Ball:2010de}
+Ball, Richard D. and others, "A first unbiased global NLO determination 
+of parton distributions and their uncertainties", arXiv 1002.4407.
+
 \bibitem{bayesian}
 A. O'Hagan and J.J. Forster, "Bayesian Inference", Kendall's Advanced Theory of Statistics, 
 Arnold, London, 2B, 2004.
@@ -253,12 +277,10 @@ Arnold, London, 2B, 2004.
      \label{app:online_vs_offline}
      \input{appendix_online_vs_offline}
   \clearpage
-  \section{Fake Rate studies}
+  \section{Fake Rate Studies}
      \label{app:fake_rate_studies}
      \input{appendix_muon_fakes}
      \input{appendix_electron_fakes}
-
-
 %%   \section{Electron selection details}\label{sec:eledetail}
 %%     \input{electron_detail}
 %%   \section{Using the transverse mass of the $W$ for

@@ -1,0 +1,93 @@
+This analysis does not have any clear mass peak anywhere, and hence is to a 
+large extend a counting experiment where it is important to understand the 
+signal efficiency and the estimation from the backgrounds. 
+
+\subsection{Signal Efficiencies and Background Evaluation}
+To compute the signal efficiency, several factors have to be taken into 
+account, such as the lepton identification and isolation, jet veto and 
+kinematic requirements, in addition to the acceptance of having both leptons in 
+the fiducial region. We use simulation to predict those efficiencies, but 
+applying the propersimulation to data corrections. For the lepton selection 
+and jet veto efficiencies, we use the $\dyll$ events as a control sample to 
+study the difference between data and simulation, and to derive data to 
+simulation scale factors, as explained in Section~\ref{sec:efficiency}. These 
+scale factors are later used to either correct the signal efficiency in 
+simulation or to provide the systematic uncertainties. 
+
+The estimation of the different background components is summarized in
+Section~\ref{sec:backgrounds}, where a combination of data-driven methods and 
+detailed simulated events is used.
+
+\subsection{Other Uncertainties}
+One relevant uncertainty for the analysis comes from the luminosity 
+measurement, with an uncertainty of 4\%.
+
+Due to several factors, the energy scale for electrons and the momentum 
+scale for muons have relatively large uncertainties for the current data 
+reconstruction version. Hence, we need to assign a systematic uncertainty by 
+varying the transverse momentum of the muons by 1\%, 
+and 2\% and 4\% for electrons in the barrel and the endcap, respectively. 
+The contribution to the uncertainty on the signal efficiency is about 1.3\% 
+only.
+
+Monte Carlo generators produce events with momentum fraction and energy taken 
+from parton distribution functions (PDFs), which are empirical functions. They 
+are obtained from the result of a QCD fit using data collected from many 
+different experiments, and therefore are subject to uncertainties coming from 
+these analyses. These uncertainties propagate from the global analysis 
+into the predictions for normalizations, selection efficiencies and 
+distribution shapes. In order to assign systematic uncertainties we follow the 
+strategy defined by the CMS Generator Group described in~\cite{XS}, which is 
+consistent with the latest PDF4LHC recommendations~\cite{PDF4LHC}. The 68\% 
+C.L.of the positive and negative uncertainties obtained with 
+CTEQ66~\cite{Nadolsky:2008zw}, MSTW2008NLO~\cite{Martin:2009iq} and 
+NNPDF2.0~\cite{Ball:2010de} sets are considered, adopting the specific 
+recommended recipes in each case. The final assigned systematic uncertainties 
+corresponds to half of the maximum difference observed between positive and 
+negative variations for any combination of the three sets. The maximum 
+difference corresponds to a positive variation from one set minus a negative 
+variation from a different set, since central values from different sets are 
+typically of the size of the uncertainties within a set. Uncertainties due 
+to $\alpha_s$ are also considered. An uncertainty of about 3\% has been 
+estimated.
+
+\subsection{Summary of Systematic Uncertainties}
+The summary of all systematic uncertainties taken into account 
+is shown in Tab.~\ref{tab:systww}. The total 
+uncertainty depends on the Higgs mass case and jet bin, but it is about 30\% on the 
+background estimation, while it is about 20\% on the signal efficiency. These are 
+preliminary numbers, more detailed results will be included soon.
+
+\begin{table}[!ht]
+\begin{center}
+{\tiny
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|}
+\hline
+            &       \multicolumn{8}{|c|}{Relative Uncertainty (\%)} \\
+Source      &                            $H \to \WW$ & $qq \to \WW$ & $gg \to \WW$ & $VV$ non-$\Z$ resonant & top & $\dyll$ & $\Wjets$ & $V(W/Z)+\gamma$    \\              
+\hline
+\hline
+Luminosity                               &   4 & --- & --- &   4 & --- & --- & --- &    4  \\
+Trigger efficiencies                     & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- & --- &  1.5  \\
+Muon efficiency                          & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- & --- &  1.5  \\
+Electron id efficiency                   & 2.5 & 2.5 & 2.5 & 2.5 & --- & --- & --- &  2.5  \\
+Pomentum scale                           & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- & --- &  1.5  \\
+Pile-up                                  & 0.5 & 0.5 & 0.5 & 0.5 & --- & --- & --- &  0.5  \\
+$\met$ resolution                        & 1.0 & 1.0 & 1.0 & 1.0 & 1.0 & 3.0 & --- &  1.0  \\
+Jet counting                             & 7-20& --- & 5.4 & 5.4 & --- & --- & --- &  5.4  \\  
+PDF uncertainties                        & 3.0 & 2.6 & --- &   2 & --- & --- & --- &  5.4  \\    
+NLO effects                              & 2.0 & 1.1 & --- & 3.5 & --- & --- & --- &   10  \\  
+Fakes                                    & --- & --- & --- & --- & --- & --- &  50 &  ---  \\
+Higgscross-section                       & 15  & --- & --- & --- & --- & --- & --- &  ---  \\
+$WZ/ZZ$ cross-section                    & --- & --- & --- & 3.0 & --- & --- & --- &  ---  \\
+$qq \to WW$ normalization                & --- &  20 & --- & --- & --- & --- & --- &  ---  \\
+$gg \to WW$ normalization                & --- & --- &  50 & --- & --- & --- & --- &  ---  \\
+$tX$ normalization                       & --- & --- & --- & --- &  20 & --- & --- &  ---  \\
+$DY$ normalization                       & --- & --- & --- & --- & --- & 100 & --- &  ---  \\
+Statistics                               &   1 &   1 &   1 &   4 &   6 &  20 &  20 &   10  \\
+\hline
+\end{tabular}
+}
+\caption{\label{tab:systww} Summary of all systematic uncertainties.}
+\end{center}
+\end{table}
