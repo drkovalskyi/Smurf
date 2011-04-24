@@ -1,0 +1,76 @@
+This section presents the effect of pileup events on the isolation of the leptons 
+produced in the primary interaction. The presence of additional inelastic
+interactions is expected to add some additional energy to the isolation cone
+of the leptons from the primary interaction, thus decreasing the efficiency
+of the isolation cut on signal events. This decrease in efficiency can be 
+studied as a function of the number of reconstructed primary vertices, serving
+as a reasonable measure of the number of additional pileup interaction.
+
+A number of techniques exist to correct for this inefficiency due to pileup,
+which are still under investigation at the moment. For the current analysis, 
+we do not perform any pileup correction for isolation and quantify the loss
+in this section.
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[Data Barrel ]{\includegraphics[width=0.45\textwidth]{figures/ElectronIsolationEfficiency_Barrel_vs_NVertices_DataTagAndProbe.pdf}}
+\subfigure[Data Endcap]{\includegraphics[width=0.45\textwidth]{figures/ElectronIsolationEfficiency_Endcap_vs_NVertices_DataTagAndProbe.pdf}}
+\subfigure[MC Barrel ]{\includegraphics[width=0.45\textwidth]{figures/ElectronIsolationEfficiency_Barrel_vs_NVertices_DataTagAndProbe.pdf}}
+\subfigure[MC Endcap]{\includegraphics[width=0.45\textwidth]{figures/ElectronIsolationEfficiency_Endcap_vs_NVertices_DataTagAndProbe.pdf}}
+\caption{Isolation efficiency vs number of reconstructed primary vertices for electrons, comparing the 
+results from the tag and probe selection on 2011 data with the Z Monte Carlo simulation.}
+\label{fig:eleIsoEff_TagAndProbe_vs_NVertices}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[Data Barrel ]{\includegraphics[width=0.45\textwidth]{figures/MuonIsolationEfficiency_PUStudy_vs_NVertices_DataTagAndProbe.pdf}}
+\subfigure[Data Endcap]{\includegraphics[width=0.45\textwidth]{figures/MuonIsolationEfficiency_PUStudy_vs_NVertices_MCTagAndProbe.pdf}}
+\caption{Isolation efficiency vs number of reconstructed primary vertices for muons, comparing the 
+results from the tag and probe selection on 2011 data with the Z Monte Carlo simulation.}
+\label{fig:muIsoEff_TagAndProbe_vs_NVertices}
+\end{center}
+\end{figure}
+
+Figs. \ref{fig:eleIsoEff_TagAndProbe_vs_NVertices} and \ref{fig:muIsoEff_TagAndProbe_vs_NVertices} 
+show the isolation efficiency for electrons and muons respectively, measured using the
+tag and probe selection, for 2011 data and Z Monte Carlo simulation. Agreement in these
+efficiencies allow us to use the signal Monte Carlo to infer the efficiency loss under 
+high pileup environment. The lepton isolation efficiency for HWW signal events are shown
+in Fig \ref{fig:HWW130IsoEff_vs_NVertices}, showing a loss of efficiency of 8\% for 
+electrons and 2\% for muons, between events with one reconstructed primary vertex
+and 10 reconstructed primary vertices. The efficiency loss is higgs mass dependent due to
+the dependence on the $p_{T}$ of the lepton. Fig \ref{fig:HWW130IsoEff_vs_NVertices_ptbins}
+shows this efficiency loss for leptons with $p_{T}$ between $10$ and $20$ GeV compared
+to leptons with $p_{T}$ between $35$ and $50$ GeV. The efficiency loss is almost $30\%$
+for low $p_{T}$ electrons, while it is almost negligible for high $p_{T}$ leptons.
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[HWW130 Electrons]{\includegraphics[width=0.45\textwidth]{figures/ElectronIsolationEfficiency_BkgData_vs_NVertices_HWW130_Pt20.pdf}}
+\subfigure[HWW130 Muons]{\includegraphics[width=0.45\textwidth]{figures/MuonIsolationEfficiency_BkgData_vs_NVertices_HWW130_Pt20.pdf}}
+\caption{Isolation efficiency vs number of reconstructed primary vertices for electrons and muons
+in the HWW ($m_{H} = 130$) Monte Carlo simulation.}
+\label{fig:HWW130IsoEff_vs_NVertices}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[HWW130 Electrons Pt 10-20 GeV]{\includegraphics[width=0.45\textwidth]{figures/ElectronIsolationEfficiency_BkgData_vs_NVertices_HWW130_Pt10To20.pdf}}
+\subfigure[HWW130 Muons Pt 10-20 GeV]{\includegraphics[width=0.45\textwidth]{figures/MuonIsolationEfficiency_BkgData_vs_NVertices_HWW130_Pt10To20.pdf}}
+\subfigure[HWW130 Electrons Pt 35-50 GeV]{\includegraphics[width=0.45\textwidth]{figures/ElectronIsolationEfficiency_BkgData_vs_NVertices_HWW130_Pt35To50.pdf}}
+\subfigure[HWW130 Muons Pt 35-50 GeV]{\includegraphics[width=0.45\textwidth]{figures/MuonIsolationEfficiency_BkgData_vs_NVertices_HWW130_Pt35To50.pdf}}
+\caption{Isolation efficiency vs number of reconstructed primary vertices for electrons and muons
+in the HWW ($m_{H} = 130$) Monte Carlo simulation, for different lepton $p_{T}$ bins.}
+\label{fig:HWW130IsoEff_vs_NVertices_ptbins}
+\end{center}
+\end{figure}
+
+This is one aspect of the analysis that will be improved in the future, either
+employing appropriate pileup corrections to recover these inefficiencies, or 
+parameterizing and re-tuning the cuts as a function of some observable correlated
+to pileup. 
+
+
