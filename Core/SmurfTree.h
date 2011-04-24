@@ -70,9 +70,27 @@ class SmurfTree {
 
   /// bit map
   enum Selection {
-    BaseLine    = 0x01,
-    Loose       = 0x02,
-    Alternative = 0x04
+    BaseLine          = 1UL<<0, // pt(reco)>20/10, acceptance, q1*q2<0,!STA muon, mll>12
+    Lep1FullSelection = 1UL<<1, // full id, isolation, d0, dz etc
+    Lep1LooseEleV1    = 1UL<<2, // electron fakeable object selection is passed V1
+    Lep1LooseEleV2    = 1UL<<3, // electron fakeable object selection is passed V2
+    Lep1LooseEleV3    = 1UL<<4, // electron fakeable object selection is passed V3
+    Lep1LooseEleV4    = 1UL<<5, // electron fakeable object selection is passed V4
+    Lep1LooseMuV1     = 1UL<<6, // muon fakeable object selection (relIso<1.0)
+    Lep1LooseMuV2     = 1UL<<7, // muon fakeable object selection (relIso<0.4)
+    Lep2FullSelection = 1UL<<8, // full id, isolation, d0, dz etc
+    Lep2LooseEleV1    = 1UL<<9, // electron fakeable object selection is passed V1
+    Lep2LooseEleV2    = 1UL<<10, // electron fakeable object selection is passed V2
+    Lep2LooseEleV3    = 1UL<<11, // electron fakeable object selection is passed V3
+    Lep2LooseEleV4    = 1UL<<12, // electron fakeable object selection is passed V4
+    Lep2LooseMuV1     = 1UL<<13, // muon fakeable object selection
+    Lep2LooseMuV2     = 1UL<<14, // muon fakeable object selection
+    FullMET           = 1UL<<15, // full met selection
+    ZVeto             = 1UL<<16, // event is not in the Z-mass peak for ee/mm final states
+    TopTag            = 1UL<<17, // soft muon and b-jet tagging for the whole event regardless of n-jets (non-zero means tagged)
+    OneBJet           = 1UL<<18, // 1-jet events, where the jet is b-tagged (top control sample with one b-quark missing)
+    TopTagNotInJets   = 1UL<<19, // soft muon and b-jet tagging for areas outside primary jets (non-zero means tagged)
+    ExtraLeptonVeto   = 1UL<<20  // extra lepton veto, DR(muon-electron)>=0.3
   };
 
   /// first is leading lepton
@@ -152,6 +170,7 @@ class SmurfTree {
   unsigned int   run_;
   unsigned int   lumi_;
   unsigned int   nvtx_;
+  unsigned int   cuts_;
   float          scale1fb_;
   float          met_;
   float          metPhi_;
@@ -176,6 +195,7 @@ class SmurfTree {
   float          trackMet_;
   float          trackMetPhi_;
   float          pmet_;
+  float          pTrackMet_;
   float          mt_;
   float          mt1_;
   float          mt2_;
@@ -266,6 +286,7 @@ class SmurfTree {
     tree_->Branch("run"          , &run_          ,   "run/i");
     tree_->Branch("lumi"         , &lumi_         ,   "lumi/i");
     tree_->Branch("nvtx"         , &nvtx_         ,   "nvtx/i");
+    tree_->Branch("cuts"         , &cuts_         ,   "cuts/i");
     tree_->Branch("scale1fb"     , &scale1fb_     ,   "scale1fb/F");
     tree_->Branch("met"          , &met_          ,   "met/F");
     tree_->Branch("metPhi"       , &metPhi_       ,   "metPhi/F");
@@ -290,6 +311,7 @@ class SmurfTree {
     tree_->Branch("trackMet"     , &trackMet_	  ,   "trackMet/F");
     tree_->Branch("trackMetPhi"  , &trackMetPhi_  ,   "trackMetPhi/F");
     tree_->Branch("pmet"         , &pmet_         ,   "pmet/F");
+    tree_->Branch("pTrackMet"    , &pTrackMet_    ,   "pTrackMet/F");
     tree_->Branch("mt"           , &mt_           ,   "mt/F");
     tree_->Branch("mt1"          , &mt1_          ,   "mt1/F");
     tree_->Branch("mt2"          , &mt2_          ,   "mt2/F");
@@ -344,6 +366,7 @@ class SmurfTree {
     tree_->SetBranchAddress("run",           &run_);
     tree_->SetBranchAddress("lumi",          &lumi_);
     tree_->SetBranchAddress("nvtx",          &nvtx_);
+    tree_->SetBranchAddress("cuts",          &cuts_);
     tree_->SetBranchAddress("scale1fb",      &scale1fb_);
     tree_->SetBranchAddress("met",           &met_);
     tree_->SetBranchAddress("metPhi",        &metPhi_);
@@ -368,6 +391,7 @@ class SmurfTree {
     tree_->SetBranchAddress("trackMet",      &trackMet_);
     tree_->SetBranchAddress("trackMetPhi",   &trackMetPhi_);
     tree_->SetBranchAddress("pmet",          &pmet_);
+    tree_->SetBranchAddress("pTrackMet",     &pTrackMet_);
     tree_->SetBranchAddress("mt",            &mt_);
     tree_->SetBranchAddress("mt1",           &mt1_);
     tree_->SetBranchAddress("mt2",           &mt2_);
@@ -515,6 +539,7 @@ SmurfTree::InitVariables(){
     variables_.push_back(std::string("trackMet"     ));
     variables_.push_back(std::string("trackMetPhi"  ));
     variables_.push_back(std::string("pmet"         ));
+    variables_.push_back(std::string("pTrackMet"    ));
     variables_.push_back(std::string("mt"           ));
     variables_.push_back(std::string("mt1"          )); 
     variables_.push_back(std::string("mt2"          ));
@@ -538,6 +563,7 @@ SmurfTree::InitVariables(){
   run_          = 0;
   lumi_         = 0;
   nvtx_         = 0;
+  cuts_         = 0;
   scale1fb_     = 0;
   met_          = -999.;
   metPhi_       = -999.;
@@ -557,6 +583,7 @@ SmurfTree::InitVariables(){
   trackMet_     = -999.;
   trackMetPhi_  = -999.;
   pmet_         = -999.;
+  pTrackMet_    = -999.;
   mt_           = -999.;
   mt1_          = -999.;
   mt2_          = -999.;
@@ -610,6 +637,7 @@ SmurfTree::Get(std::string value)
   if(value=="run"          ) { return this->run_;          }
   if(value=="lumi"         ) { return this->lumi_;         }
   if(value=="nvtx"         ) { return this->nvtx_;         }
+  if(value=="cuts"         ) { return this->cuts_;         }
   if(value=="scale1fb"     ) { return this->scale1fb_;     }
   if(value=="met"          ) { return this->met_;          }
   if(value=="metPhi"       ) { return this->metPhi_;       }
@@ -629,6 +657,7 @@ SmurfTree::Get(std::string value)
   if(value=="trackMet"     ) { return this->trackMet_; 	   }
   if(value=="trackMetPhi"  ) { return this->trackMetPhi_;  }
   if(value=="pmet"         ) { return this->pmet_;         }
+  if(value=="pTrackMet"    ) { return this->pTrackMet_;    }
   if(value=="mt"           ) { return this->mt_;           }
   if(value=="mt1"          ) { return this->mt1_;          }
   if(value=="mt2"          ) { return this->mt2_;          }
