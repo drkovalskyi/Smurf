@@ -72,11 +72,12 @@ to the fake electron candidate. The jets used in this study have the L1FastJet, 
 L3Absolute jet energy corrections applied. 
 
 \subsubsection{Fake Rates}
-The electron fake rates measured in the 2011A data for the different fakeable object 
+The electron fake rates measured in the 2011A data requiring the leading jet $p_{T}$ to be 
+larger than $15$ GeV for the different fakeable object 
 definitions described above are shown in Figures \ref{fig:ele_fr_V1_jet15},
 \ref{fig:ele_fr_V2_jet15}, \ref{fig:ele_fr_V3_jet15}, \ref{fig:ele_fr_V4_jet15}, as a function of the 
 $p_{T}$, $\eta$, and $phi$ of the electron, comparing the result measured from data to the
-results from the QCD (Pt-hat 30-50) and W+Jet Monte Carlo simulation.
+results from the QCD (Pt-hat 30-50) and the W+Jet Monte Carlo simulation.
 
 \begin{figure}[!htbp]
 \begin{center}
@@ -155,10 +156,10 @@ V4 & $16\%$ & $29\%$ & $17\%$ \\
 
 \begin{figure}[!htbp]
 \begin{center}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV1_Ele8CaloIdLCaloIsoVLSample_Pt.pdf}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV2_Ele8CaloIdLCaloIsoVLSample_Pt.pdf}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV3_Ele8CaloIdLCaloIsoVLSample_Pt.pdf}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV4_Ele8CaloIdLCaloIsoVLSample_Pt.pdf}
+\subfigure[V1 Denominator]{\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV1_Ele8CaloIdLCaloIsoVLSample_Pt.pdf}}
+\subfigure[V2 Denominator]{\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV2_Ele8CaloIdLCaloIsoVLSample_Pt.pdf}}
+\subfigure[V3 Denominator]{\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV3_Ele8CaloIdLCaloIsoVLSample_Pt.pdf}}
+\subfigure[V4 Denominator]{\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV4_Ele8CaloIdLCaloIsoVLSample_Pt.pdf}}
 \caption{Fake rates for the different fakeable object definitions, as a function of $p_T$, showing
 the dependence on the $p_{T}$ threshold of the leading jet in the event.}
 \label{fig:ele_fr_jetPtThresholdDependence}
