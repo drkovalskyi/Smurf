@@ -13,30 +13,36 @@ Jet induced fake leptons are an important source of background for many
 physics channels. In this specific case the main backgrounds are
 $\Wjets$ and QCD events, where at least one of the jets or its
 constituents is misidentified as an isolated lepton. $\Wjets$ is the
-dominant background with one prompt well isolated lepton from the $W$
+dominant background with one prompt, well isolated, lepton from the $W$
 boson decay and a fake non-prompt lepton from either a leptonic decay
-of heavy quarks, a misidentified hadron or an electron from photon
-conversion.
+of heavy quarks, a misidentified hadron or an electron from 
+photon conversions.
 
 A data-driven approach, described in detail in~\cite{fakeLeptonNote1} 
 and~\cite{fakeLeptonNote2}, is pursued to estimate this background. 
-A set of loosely selected lepton-like objects is defined in a sample of events 
-dominated by dijet production. The probability is calculated for those objects 
-that are misidentified as leptons passing all lepton selection criteria. This 
-misidentification probability, parameterized as a function of $\pt$ and $\eta$, 
-is then applied to a sample of events selected using the final selection 
-criteria, except for one of the leptons for which the selection has been 
-relaxed to the looser criteria and that has failed the nominal selection.
+A set of loosely selected lepton-like objects, referred to as the 
+``fakeable object'' or ``denominator'' from here on, is defined in a 
+sample of events dominated by dijet production. The efficiency for 
+these denominator objects to pass the full lepton selection critera is measured. 
+This background efficiency, typically referred to as the ``fake rate'', 
+is parameterized as a function of the $\pt$ and $\eta$ of the denominator 
+object in order to capture any dependence on kinematic and geometric 
+quantities. We will denote the fake rate symbollically by $\epsilon_{\mathrm{fake}}$.
+These fake rates are, then, used as weights to extrapolate
+the background yield from a sample of loose denominator objects to the sample
+of fully selected leptons, to be described in greater detail
+in Sec. \ref{sec:fakerateApplication}.
 
-\subsubsection{Loose Lepton Selection Requirements}
-Loose lepton selection definition has significant impact on the
-systematic uncertainty of the method. It has been shown that
-extrapolation in isolation leads to larger systematic uncertainties
-than extrapolation in the electron identification. Unfortunately
-higher instantaneous luminosity delivered by LHC this year leads to
-tighter selection requirements in the trigger limiting our choice of
-loose object requirements. Below we present a few options that were
-studied and found to be usable.
+\subsubsection{Denominator Object Definitions}
+The denominator object definition has significant impact on the
+systematic uncertainty of the method, due to the fact that 
+the sample dependence uncertainties for extrapolating in different 
+isolation and lepton quality criteria are typically different.
+
+The higher instantaneous luminosity delivered by LHC in 2011 leads to
+tighter selection requirements in the high level trigger, thus limiting 
+our choice of possible denominator object definitions. Below we present a 
+few options that were studied and found to have reasonable performance.
 
 Here is a list of loose electron selection requirements:
 \begin{itemize}
@@ -107,5 +113,75 @@ Using Run2011A data the following fake rates are observed.
 \end{itemize}
 For the muon fake rate, the overall systematic uncertainty due to sample dependence is $36\%$ for M1 and $19\%$ for M2.
 
-For details see Appendix~\ref{app:fake_rate_studies}, where fake rates presented in the
+For details see Appendix~\ref{app:fake_rate_studies} where fake rates presented in the
 formed they used for the final analysis.
+
+%\subsubsection{Fake rate measurement}
+%\label{sec:fakerateMeasurement}
+%The fake rates are measured in calibration data samples dominated by fake leptons 
+%resulting from jets. We use primarily two samples to perform this fake rate 
+%measurement:
+
+%\begin{itemize}
+%  \item QCD 
+%  \item 
+%  \item 
+%  \item 
+%\end{itemize}
+
+
+
+\subsubsection{Application of Fake rates}
+\label{sec:fakerateApplication}
+
+Having measured the fake rates, parameterized in the kinematic quantities of interest,
+we then use them as weights in order to extrapolate the yield of the sample of loose
+leptons to the sample of fully selected leptons. This is done by selecting events
+passing the full event selection described in Sec.\ref{sec:selection}, 
+with the exception that one of the two lepton
+candidates is required to pass the denominator selection cuts but fail the full 
+lepton selection cuts. This lepton is from here on denoted the ``failing leg''. 
+The other lepton is required to pass the full selection.
+The data sample selected in this way is denoted the ``tight + fail'' sample.
+Each of the events passing this selection is given a weight computed from
+the fake rate in the particular $p_{T}$ and $\eta$ bin of the 
+failing leg, as follows:
+
+\begin{eqnarray}
+  w_{i} = \frac{\epsilon_{\mathrm{fake}}(p_{\mathrm{T i}},\eta_{i})}{1 - \epsilon_{\mathrm{fake}}(p_{\mathrm{T i}},\eta_{i})}
+\end{eqnarray}
+
+where $i$ is an index denoting the failing leg, and $p_{\mathrm{T i}}$ and $\eta_{i}$
+are the transverse momentum and pseudorapidity of the failing leg. 
+Summing the weights $w_{i}$ over all such events in the tight + fail sample yields
+the total jet induced background prediction.
+
+For events in the dielectron and dimuon final states, this prediction will in fact 
+double count the QCD component of the background, where both leptons are jet induced
+fakes. This is essentially a combinatorial artifact, due to the fact that in the tight
+plus fail selection, one is unable to uniquely distinguish which lepton is required to
+be the tight one and which lepton is required to be the failing one, and therefore
+one customarily selects both combinations. This double fake background is 
+typically very small and accounts for roughly a few percent of the total jet
+induced background. In order to estimate the amount of double counting,
+we perform the fake rate extrapolation on both lepton legs, selecting events
+which pass all event selection criteria, except that both leptons are required
+to pass the denominator selection, but fail the full lepton selection. This
+event sample is denoted as the ``fail + fail'' sample. Events in the fail + fail
+sample are then given weights as follows:
+
+\begin{eqnarray}
+  w_{i,j} = \frac{\epsilon_{\mathrm{fake}}(p_{\mathrm{T i}},\eta_{\mathrm{i}})}{1 - \epsilon_{\mathrm{fake}}(p_{\mathrm{T i}},\eta_{\mathrm{i}})} \times \frac{\epsilon_{\mathrm{fake}}(p_{\mathrm{T j}},\eta_{\mathrm{j}})}{1 - \epsilon_{\mathrm{fake}}(p_{\mathrm{T j}},\eta_{\mathrm{j}})}
+\end{eqnarray}
+
+where $i$ and $j$ denote the two failing leg, and $p_{\mathrm{T i/j}}$ and $\eta_{\mathrm{i/j}}$
+are the transverse momentum and pseudorapidity of the first and second leg.
+Summing the weights $w_{i,j}$ over all such events in the fail + fail sample yields
+the total QCD double fake background. This prediction is then subtracted from the
+tight + loose prediction in order to account for the double counting in the dielectron
+and dimuon final states. 
+
+
+%\subsubsection{Systematic Uncertainties}
+%\label{sec:fakerateSystematics}
+
