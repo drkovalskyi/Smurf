@@ -1,2 +1,30 @@
-This has been performed in the past, we just need to apply the method to the 
-current available data.
+
+The electron selection efficiency can be factorised into two contributions,
+the efficiency from the electron reconstruction and from the additional
+analysis selections that are described in Section~\label{sec:sel_electrons}.
+
+The electron reconstruction efficiency is defined as the efficiency for a
+supercluster to be matched to a reconstructed ECAL driven GSF electron.
+The data to simulation scale factor was measured for the W and Z cross-section
+analysis~\cite{VBTFCrossSectionNote}~\cite{ref:tagprobe_mit_w},
+and found to be consistent with $1.0$ with a total uncertainty of
+$1.3\%$ and $1.5\%$ for the barrel and endcap, respectively.
+
+We thus measure the efficiency of our offline analysis selection 
+with respect to a reconstructed ECAL driven GSF electron denominator. 
+The resulting data to simulation scale factors are given in Table \ref{tab:eff_ele_offline}.
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{c|c|c} 
+\hline
+              & Barrel ( $|\eta|<1.5$ )  & Endcap ( $|\eta|>1.5$ )  \\ 
+\hline
+$10<p_{T}<15$ & XXX$\pm$YYY & XXX$\pm$YYY                 \\ \hline
+$15<p_{T}<20$ & XXX$\pm$YYY & XXX$\pm$YYY            \\ \hline
+$p_T>20$   & XXX$\pm$YYY & XXX$\pm$YYY \\ \hline
+\end{tabular}
+\caption{Electron selection efficiency for the barrel and endcap.
+\label{tab:eff_ele_offline}}
+\end{center}
+\end{table}
