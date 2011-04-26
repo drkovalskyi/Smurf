@@ -4,11 +4,19 @@ the dilepton mass defines a control region where we can measure the $WW$ normali
 the contribution to the signal region.
 
 It turns out that this approach can be applied for $m_H \leq 200~\GeVcc$ only.
-In fact, MC studies show that the di-lepton mass distribution in Higgs samples has a cut-off value at $m_H-50~\GeVcc$;
+In fact, MC studies show that the di-lepton mass distribution in Higgs samples has a cut-off value at $m_H-50~\GeVcc$ 
+(Fig.~\ref{fig:higgsMllCutoff});
 thus, for large $m_H$ it is possible to define an Higgs-depleted region only in a mass range populated by too 
 few $WW$ events. 
 
 Therefore, for $m_H > 200~\GeVcc$ the $WW$ contribution is estimated from simulated events.
+
+\begin{figure}[!hbtp]
+\centering
+\includegraphics[width=.45\textwidth]{figures/higgsMllCutoff.png}
+\caption{Difference between generated Higgs mass and di-lepton reconstructed invariant mass after WW cuts.}
+\label{fig:higgsMllCutoff}
+\end{figure}
 
 \subsubsection{Estimation in Low Mass Range}
 
@@ -28,7 +36,7 @@ signal region after all cuts.
 \end{itemize}
 
 In order to consider this procedure as reliable we verify that 
-the control-to-signal region ratio is stable using different generators (Table~\ref{tab:wwEstimationMC}) and 
+the control-to-signal region ratio $R_{C/S}$ is stable using different generators (Table~\ref{tab:wwEstimationMC}) and 
 we check that the efficiency of the $m_T$ and $\Delta\phi_{ll}$ cuts in the control region in data and MC is 
 consistent (to be done).
 
@@ -36,7 +44,7 @@ consistent (to be done).
 \begin{center}
 \begin{tabular}{|c|c|c|} \hline
 quantity                           &               MadGraph &                PYTHIA  \\ \hline
-$R_{in/out}$                        &      0.205 $\pm$ 0.003 &      0.189 $\pm$ 0.007 \\
+$R_{C/S}$                        &      0.205 $\pm$ 0.003 &      0.189 $\pm$ 0.007 \\
 $\epsilon_{m_T}$(mass region)       &      0.874 $\pm$ 0.017 &      0.876 $\pm$ 0.046 \\
 $\epsilon_{\Delta\phi}$(mass region) &      0.661 $\pm$ 0.015 &      0.655 $\pm$ 0.039 \\
 $\epsilon_{m_T}$(side band)         &      0.391 $\pm$ 0.005 &      0.390 $\pm$ 0.011 \\
@@ -59,7 +67,7 @@ Therefore, we estimate 168.4$\pm$14.5 $WW$ events in the side band region and, a
 the control-to-signal region ratio and the cut efficiencies, 18.3$\pm$2.1 events in the $m_H=160~\GeVcc$ signal region 
 (consistent with the expected value of 19.3$\pm$4.4).
 
-The results for all considered Higgs masses are reported in Table~\ref{tab:wwEstimationRes}.
+The results for all considered Higgs masses are reported in Table~\ref{tab:wwEstimationRes0j}.
 
 I AM NOT 100\% SYNCRONIZED YET!!!!
 
