@@ -35,7 +35,7 @@ show the isolation efficiency for electrons and muons respectively, measured usi
 tag and probe selection, for 2011 data and Z Monte Carlo simulation. Agreement in these
 efficiencies allow us to use the signal Monte Carlo to infer the efficiency loss under 
 high pileup environment. The lepton isolation efficiency for HWW signal events are plotted
-in Fig \ref{fig:HWW130IsoEff_vs_NVertices}, showing a loss of efficiency of 8\% for 
+in Fig \ref{fig:HWW130IsoEff_vs_NVertices}, showing a loss of efficiency of 5\% for 
 electrons and 2\% for muons, between events with one reconstructed primary vertex
 and 10 reconstructed primary vertices. The efficiency loss for leptons with $p_{T}$ 
 between $10$ and $20$ GeV is much larger compared to the efficiency loss for higher
@@ -55,9 +55,44 @@ bins are shown.}
 \end{figure}
 
 
-The isolation is one aspect of the analysis that will be improved in the future, either
-employing appropriate pileup corrections to recover these inefficiencies, or 
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[HWW130 Electrons]{\includegraphics[width=0.45\textwidth]{figures/ElectronIsolationVsNVertices_HWW130_FastjetCorrection.pdf}}
+\subfigure[HWW130 Muons]{\includegraphics[width=0.45\textwidth]{figures/MuonIsolationVsNVertices_HWW130_FastjetCorrection.pdf}}
+\caption{Signal lepton isolation efficiency vs number of reconstructed primary vertices, comparing uncorrected 
+and fastjet corrected isolation cuts in the HWW ($m_{H} = 130$) Monte Carlo simulation. Leptons
+with $p_{T} > 20$ GeV are used.}
+\label{fig:HWW130IsoEff_vs_NVertices_FastjetCorrection}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[Fake rate Data]{\includegraphics[width=0.45\textwidth]{figures/MuonIsolationVsNVertices_JetData_FastjetCorrection.pdf}}
+\subfigure[QCD MC]{\includegraphics[width=0.45\textwidth]{figures/MuonIsolationVsNVertices_QCDMC_FastjetCorrection.pdf}}
+\caption{Background lepton isolation efficiency vs number of reconstructed primary vertices, comparing uncorrected 
+and fastjet corrected isolation cuts. Results for a fake lepton dominated data sample, and the QCD Monte Carlo simulation
+are shown. }
+\label{fig:BkgIsoEff_vs_NVertices_FastjetCorrection}
+\end{center}
+\end{figure}
+
+
+The isolation is one aspect of the analysis that will need to be improved in the future, 
+either employing appropriate pileup corrections to recover these inefficiencies, or 
 parameterizing and re-tuning the cuts as a function of some observable correlated
-to pileup. 
+to pileup. As a preliminary attempt at pileup corrections for isolation, we investigated
+the possiblity to use the fastjet correction described in Section \ref{sec:sel_jets} 
+assuming a fixed area corresponding to the isolation cone of $\Delta$R $< 0.3$. 
+The isolation efficiency for electrons and muons from HWW signal events are shown in 
+Figure \ref{fig:HWW130IsoEff_vs_NVertices_FastjetCorrection}, comparing
+the fastjet corrected isolation with the uncorrected isolation as a function of the 
+number of reconstructed primary vertices. We observe that the efficiency does indeed become 
+flat for signal. However, we observe that for the background leptons, this correction appears
+over-correct the pileup contribution, demonstrated by the fact that the efficiency increases
+as a function of the number of reconstructed primary vertices shown in Fig 
+\ref{fig:BkgIsoEff_vs_NVertices_FastjetCorrection}. Therefore, further studies are needed to 
+understand the effect and performance of all the different pileup correction options, and
+will be presented as an update to the note in subsequent versions.
 
 

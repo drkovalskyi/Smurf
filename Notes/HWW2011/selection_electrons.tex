@@ -17,6 +17,12 @@ where $\rm{Iso}_{ECAL}$ is calculated using ECAL crystals and additional vetos h
 applied to remove tracks and ECAL crystals from the isolation sums to better account for 
 the electron footprint~\cite{ElIso}. In the barrel region ($|\eta| < 1.479$) we subtract 1~GeV of 
 ECAL energy deposition if it is more than 1~GeV to account for the noise pedestal. 
+Due to the presence of pileup, which introduces additional energy into 
+the isolation cone, the efficiency of the isolation cut is expected
+to decrease with increasing amount of pileup. We currently do not perform
+any pileup corrections. A more detailed discussion can be found in Appendix
+\ref{app:PUIso}.
+
 In order to veto fake electrons from converted photons, we look for a reconstructed conversion vertex where 
 one of the two track is compatible with the electron~\cite{ConversionNote}, 
 and require that there are no missing expected hits forming the electron track~\cite{ConversionNote},~\cite{NExpHits}. 
