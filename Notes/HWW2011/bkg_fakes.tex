@@ -116,20 +116,59 @@ For the muon fake rate, the overall systematic uncertainty due to sample depende
 For details see Appendix~\ref{app:fake_rate_studies} where fake rates presented in the
 formed they used for the final analysis.
 
-%\subsubsection{Fake rate measurement}
-%\label{sec:fakerateMeasurement}
-%The fake rates are measured in calibration data samples dominated by fake leptons 
-%resulting from jets. We use primarily two samples to perform this fake rate 
-%measurement:
 
-%\begin{itemize}
-%  \item QCD 
-%  \item 
-%  \item 
-%  \item 
-%\end{itemize}
+\subsubsection{Fake rate measurement}
+\label{sec:fakerateMeasurement}
+The fake rates are measured in calibration data samples dominated by fake leptons 
+resulting from jets. We use primarily two samples to perform this fake rate 
+measurement: QCD dijet events, and Photon+Jet events.
+
+The QCD dijet event sample is collected using the {\bf HLT\_Ele8\_CaloIdL\_CaloIsoVL } 
+trigger for electrons and the {\bf HLT\_Mu8 } trigger for muons. In order to suppress 
+contamination due to signal leptons from the decay of W and Z bosons we require
+that the missing transverse energy is less than $20$ GeV, and that the event contains 
+only a single reconstructed lepton. In order to control the average $p_{T}$ of the
+jet that fakes the lepton, we impose a $p_{T}$ requirement on the leading jet
+in the event and require that the lepton denominator object is 
+separated to the leading jet by $\Delta$R $ > 0.5$. The nominal fake rates are measured
+requiring that the leading jet $p_{T}$ is greater than $15$ GeV. 
+
+The Photon+Jet sample is collected using the dedicated triggers \\
+{\bf HLT\_Photon20\_CaloIdVT\_IsoT\_Ele8\_CaloIdL\_CaloIsoVL} and 
+{\bf HLT\_Mu8\_Photon20\_CaloIdVT\_IsoT} for electrons and muons, respectively.
+In order to suppress QCD background where the photon is resulting from a 
+jet, we impose cuts on the shower shape and isolation of the photon, 
+summarized in Table \ref{tab:photonOfflineSelection}. We also impose the pixel veto in order to reject
+Z $\rightarrow$ $e^{+}e^{-}$ events. The selected photon is required to
+be separated from the lepton candidate by $\Delta$R $ > 0.5$. Finally, 
+for electrons, we reject any events where the mass of the photon and
+electron system is within $20$ GeV of the Z boson mass. 
 
 
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+ Cut Variable           &   Cut Value (Barrel)        & Cut Value (Endcap)     \\
+\hline
+ $\sigma_{i\eta i\eta}$      &   $<0.01$              & $<0.028$               \\ 
+\hline
+ EcalIso (0.3 cone)          &   \multicolumn{2}{|c|}{$<2.0 + 0.006*E_{T}$}    \\ 
+ HcalIso (0.3 cone)          &   \multicolumn{2}{|c|}{$<2.0 + 0.0025*E_{T}$}   \\ 
+ TrkIso (0.3 hollow cone)    &   \multicolumn{2}{|c|}{$<1.5 + 0.001*E_{T}$}    \\ 
+\hline
+\end{tabular}
+\caption{Summary of the shower shape and isolation requirements on 
+photon candidates. \label{tab:photonOfflineSelection}}
+\end{center}
+\end{table}
+
+
+From these selected event samples, we measure the fake rate 
+($\epsilon_{\mathrm{fake}}$) by counting the number of denominator 
+objects which pass the full lepton selection, in bins of $p_{T}$
+and $\eta$. The results of the measurement are summarized in detail
+in Appendix \ref{app:fake_rate_studies}.
 
 \subsubsection{Application of Fake rates}
 \label{sec:fakerateApplication}
