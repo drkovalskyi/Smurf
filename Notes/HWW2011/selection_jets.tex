@@ -1,14 +1,19 @@
-To split the analysis in different jet bins, we count events 
-containing jets with $\pt > ~30~\GeV$ within $|\eta|<5.0$. Jets are 
-reconstructed using calorimeter and tracker information using a particle flow 
+%To split the analysis in different jet bins, we count events 
+%containing jets with $\pt > ~30~\GeV$ within $|\eta|<5.0$. 
+
+We analyze the events separately based on the number of reconstructed 
+jets with $\pt > ~30~\GeV$ within $|\eta|<5.0$ in the event. 
+Jets are reconstructed using calorimeter and tracker information using a particle flow 
 algorithm~\cite{jetpas}. The anti-${\rm k_T}$ clustering algorithm~\cite{antikt} 
 with ${\rm R=0.5}$ is used. We apply the standard jet energy 
 corrections~\cite{jes} to the reconstructed jets, where the L1 Fast Jets 
 corrections are included. The latter corrections are rather important since 
 they help in flatening the reconstruction efficiency as a function of the 
 number of overlapping events.
+To exclude electrons and muons from the jet sample, these 
+jets are required to be separated from the selected leptons in $\Delta R$ 
+by at least $\Delta R^{\mathrm{jet-lepton}}>0.3$.
 
-The performance of the jet veto is validated on data using Drell-Yan events, 
-as will be explained in Sec.~\ref{sec:backgrounds}. To exclude electrons and 
-muons from the jet sample, the jets are required to be separated from the 
-selected leptons by at least $\Delta R^{\mathrm{jet-lepton}}>0.3$.
+%In the 0-Jet bin, the performance of the jet veto 
+%is validated on data using Drell-Yan events, 
+%as will be explained in Sec.~\ref{sec:backgrounds}. 
