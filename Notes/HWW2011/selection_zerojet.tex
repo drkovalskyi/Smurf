@@ -3,26 +3,31 @@ against the remaining background, specially $\WW$ continuum:
 
 \begin{itemize}
 \item the angle $\delphill$ between the two selected leptons in the transverse 
-plane. This variable provides the best discriminating 
-power between the Higgs signal and the majority of the backgrounds for 
-$\hww$ production in the low Higgs boson mass range. Leptons originating from 
-$\hww$ decays tend to have a relatively small opening angle, while those from 
-backgrounds are preferentially emitted back-to-back. The importance of this 
-variable decreases for high masses, since the boost of the $\W$ bosons 
-dilutes the angular correlation;
+plane. Most background events tend to have back-to-back leptons, while
+leptons originating from $\hww$ decays tend to have a relatively small
+opening angle;
 
 \item an upper cut on the invariant mass of the lepton-pair;
 
 \item a lower cut on the transverse momenta of the harder (\ptlmax) and 
 the softer (\ptlmin) lepton;
 
-\item the transverse Higgs mass, $m_{T}^{\ell\ell\met} = \sqrt{2\pt^{ll}\met(1-cos(\ell\ell-\met))}$.
+\item the transverse Higgs mass, $m_{T}^{\ell\ell\met} = \sqrt{2\pt^{ll}\met(1-cos(\Delta\phi_{\ell\ell-\met}))}$, 
+where $\Delta\phi_{\ell\ell-\met}$ is the angle between dilepton
+direction and \met\ in the transverse plane.
 
 \end{itemize} 
 
 As a reference we use 2010 analysis cut based approach documented
 in~\cite{HWW2010}. Table~\ref{tab:cutanalysis0j} summarizes selection
-requirements re-tuned for this analysis.
+requirements re-tuned for this analysis. Most improvement is achieved
+in the low mass region, which is significantly different with respect
+to the last year analysis, since we reconstruct events with softer
+leptons. Table~\ref{tab:cutanalysis_perf} shows the performance gain
+that we observe for the expected upper limit at 1~\ifb\ of integrated
+luminosity. Above 160 GeV point we keep the selection requirements
+identical to those used in the 2010 analysis and only add the
+transverse Higgs mass.
 
 \begin{table}[!ht]
   \begin{center}
@@ -32,15 +37,25 @@ requirements re-tuned for this analysis.
 \mHi [GeV] & $\ptlmax$ [$\GeV$] & $\ptlmin$ [$\GeV$] & $\mll$ [$\GeV$] & $\delphill$ [dg.] & $m_{T}^{\ell\ell\met}$ [GeV  \\  \hline
            &   $>$               &   $>$               &   $<$             &  $<$          &    [,]                       \\  \hline
 
+    120 & 20  &  10 & 40  & 115 & [70,120]\\
+    130 & 25  &  10 & 45  & 90  & [75,125]\\
+    140 & 25  &  15 & 45  & 90  & [80,130]\\
+    150 & 27  &  25 & 50  & 90  & [80,150]\\
+    160 & 30  &  25 & 50  & 60  & [90,160]\\
+    160 & 30  &  25 & 50  & 60  & [20,160]\\
+    170 & 34  &  25 & 50  & 60  & [20,170]\\
+    180 & 36  &  25 & 60  & 70  & [20,180]\\
+    190 & 38  &  25 & 80  & 90  & [20,190]\\
+    200 & 40  &  25 & 90  & 100 & [20,200]\\
+    250 & 55  &  25 & 150 & 140 & [20,250]\\
+    300 & 70  &  25 & 200 & 175 & [20,300]\\
+    350 & 80  &  25 & 250 & 175 & [20,350]\\
+    400 & 90  &  25 & 300 & 175 & [20,400]\\
+    450 & 110 &  25 & 350 & 175 & [20,450]\\
+    500 & 120 &  25 & 400 & 175 & [20,500]\\
+    550 & 130 &  25 & 450 & 175 & [20,550]\\
+    600 & 140 &  25 & 500 & 175 & [20,600]\\
   \hline
-  \hline
-  H$_{120}$ & 20 & 10 & 2.0 & 40 & [70,120]\\
-  H$_{130}$ & 25 & 10 & 1.5 & 45 & [75,125]\\
-  H$_{140}$ & 25 & 15 & 1.5 & 45 & [80,130]\\
-  H$_{150}$ & 27 & 25 & 1.5 & 50 & [80,150]\\
-  H$_{160}$ & 30 & 25 & 1.0 & 50 & [90,160]\\
-  \hline
- \hline
   \end{tabular}
   }
   \caption{Final Event selection requirements for a cut-based analysis}
@@ -54,7 +69,7 @@ requirements re-tuned for this analysis.
  {\small
   \begin{tabular} {|c|c|c|c|}
   \hline
-  Mass   &  R(2020) & R(2010) & R(new) \\
+  Mass   &  R(20/20) & R(20/10) & R(new) \\
   \hline
   \hline
   H$_{120}$ & 7.6 & 5.0 & 3.4 \\
@@ -63,15 +78,14 @@ requirements re-tuned for this analysis.
   H$_{150}$ & 0.88 & 0.93 & 0.80 \\
   H$_{160}$ & 0.44 & 0.60 & 0.43 \\
   \hline
-
-
- \hline
+  \hline
   \end{tabular}
   }
-  \caption{Cut based analysis performance for different tunes. R(2020) refers 
-  to 2010 analysis with minimum lepton \pt\ of 20 GeV. R(2010) is the same set of cuts,
+  \caption{Cut based analysis performance for different tunes. R(20/20) refers 
+  to 2010 analysis with minimum lepton \pt\ of 20 GeV. R(20/10) is the same set of cuts,
   but the trailing lepton \pt\ is lowered to 10 GeV for Higgs mass hypothesis 
-  of 160 GeV and lower. R(new) is a new set of cuts used in this analysis.}
+  of 160 GeV and lower. R(new) is a new set of cuts used in this analysis.Only 
+  basic systematic uncertainties are considered.}
    \label{tab:cutanalysis_perf}
   \end{center}
 \end{table}
