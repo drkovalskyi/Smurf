@@ -1,33 +1,26 @@
-{\fixme 
-\begin{itemize}
-\item fakable objects
-\item fake rates in data and MC (summary, details in appendix)
-\item systematics from sample dependence
-\item closure test Wjets Monte Carlo - systematics of the method
-\item results for data(?)
-\item wjets estimation after Higgs selection(?)
-\end{itemize}
-}
 
 Jet induced fake leptons are an important source of background for many 
-physics channels. In this specific case the main backgrounds are
-$\Wjets$ and QCD events, where at least one of the jets or its
-constituents is misidentified as an isolated lepton. $\Wjets$ is the
-dominant background with one prompt, well isolated, lepton from the $W$
-boson decay and a fake non-prompt lepton from either a leptonic decay
-of heavy quarks, a misidentified hadron or an electron from 
-photon conversions.
+physics channels. 
+In this analysis the main sources of fake leptons are
+$\Wjets$ and QCD events, where at least one of the jets or a
+constituent is misidentified as an isolated lepton. 
+The dominant background is $\Wjets$ because there is already one prompt, 
+well isolated, lepton from the $W$ boson decay.
+Fake non-prompt leptons arise from the leptonic decay
+of heavy quarks, misidentified hadrons or electrons from 
+photon conversion.
 
 A data-driven approach, described in detail in~\cite{fakeLeptonNote1} 
 and~\cite{fakeLeptonNote2}, is pursued to estimate this background. 
 A set of loosely selected lepton-like objects, referred to as the 
 ``fakeable object'' or ``denominator'' from here on, is defined in a 
-sample of events dominated by dijet production. The efficiency for 
-these denominator objects to pass the full lepton selection critera is measured. 
+sample of events dominated by dijet production. 
+The efficiency for these denominator objects to pass 
+the full lepton selection critera is measured. 
 This background efficiency, typically referred to as the ``fake rate'', 
 is parameterized as a function of the $\pt$ and $\eta$ of the denominator 
-object in order to capture any dependence on kinematic and geometric 
-quantities. We will denote the fake rate symbollically by $\epsilon_{\mathrm{fake}}$.
+object in order to capture any dependence on kinematic and geometric quantities. 
+We will denote the fake rate symbollically by $\epsilon_{\mathrm{fake}}$.
 These fake rates are, then, used as weights to extrapolate
 the background yield from a sample of loose denominator objects to the sample
 of fully selected leptons, to be described in greater detail
@@ -40,12 +33,12 @@ systematic uncertainty of the method, due to the fact that
 the sample dependence uncertainties for extrapolating in different 
 isolation and lepton quality criteria are typically different.
 
-The higher instantaneous luminosity delivered by LHC in 2011 leads to
-tighter selection requirements in the high level trigger, thus limiting 
-our choice of possible denominator object definitions. Below we present a 
-few options that were studied and found to have reasonable performance.
+The higher instantaneous luminosity delivered by the LHC in 2011 leads to
+tighter selection requirements in the high level trigger for electrons, 
+thus limiting our choice of possible denominator object definitions. 
+Below we present a few options that were studied 
+and found to have reasonable performance.
 
-Here is a list of loose electron selection requirements:
 \begin{itemize}
   \item V1 - extrapolation in isolation (up to the trigger limit) and partial id
     \begin{itemize}
@@ -81,7 +74,7 @@ Here is a list of loose electron selection requirements:
     \end{itemize}
 \end{itemize}
 
-The situation for muons is simpler. The loose muon selection requirements differ from
+The situation for muons is simpler. The loose muon selection requirements can differ from
 the tight selection of Sec.~\ref{sec:sel_muons} only in less stringent cuts on $d_0$
 and isolation. We consider two definitions which differ only in isolation:
 \begin{itemize}
@@ -113,19 +106,18 @@ Using Run2011A data the following fake rates, averaged over $p_{T}$ and $\eta$ a
   \item M2: 0.21 (0.29 for $\pt>20$)
 \end{itemize}
 For the muon fake rate, the overall systematic uncertainty due to sample dependence is $36\%$ for M1 and $19\%$ for M2.
-
-For details see Appendix~\ref{app:fake_rate_studies} where fake rates presented in the
-formed they used for the final analysis.
-
+Full details of the fake rates as a function of $p_T$ and $\eta$ as used for the final analysis 
+are given in Appendix~\ref{app:fake_rate_studies}.
 
 \subsubsection{Fake rate measurement}
 \label{sec:fakerateMeasurement}
 The fake rates are measured in calibration data samples dominated by fake leptons 
-resulting from jets. We use primarily two samples to perform this fake rate 
+resulting from jets. We primarily use two samples to perform the 
 measurement: QCD dijet events, and Photon+Jet events.
 
-The QCD dijet event sample is collected using the {\bf HLT\_Ele8\_CaloIdL\_CaloIsoVL } 
-trigger for electrons and the {\bf HLT\_Mu8 } trigger for muons. In order to suppress 
+The QCD dijet event sample is collected using the {HLT\_Ele8\_CaloIdL\_CaloIsoVL } 
+trigger for electrons and the { HLT\_Mu8 } trigger for muons as described 
+in Section \ref{sec:sel_trigger}. In order to suppress 
 contamination due to signal leptons from the decay of W and Z bosons we require
 that the missing transverse energy is less than $20$ GeV, and that the event contains 
 only a single reconstructed lepton. In order to control the average $p_{T}$ of the
@@ -135,16 +127,16 @@ separated to the leading jet by $\Delta$R $ > 0.5$. The nominal fake rates are m
 requiring that the leading jet $p_{T}$ is greater than $15$ GeV. 
 
 The Photon+Jet sample is collected using the dedicated triggers \\
-{\bf HLT\_Photon20\_CaloIdVT\_IsoT\_Ele8\_CaloIdL\_CaloIsoVL} and 
-{\bf HLT\_Mu8\_Photon20\_CaloIdVT\_IsoT} for electrons and muons, respectively.
-In order to suppress QCD background where the photon is resulting from a 
+{HLT\_Photon20\_CaloIdVT\_IsoT\_Ele8\_CaloIdL\_CaloIsoVL} and 
+{HLT\_Mu8\_Photon20\_CaloIdVT\_IsoT} for electrons and muons
+as described in Section \ref{sec:sel_trigger}.
+In order to suppress QCD background where the photon comes from a 
 jet, we impose cuts on the shower shape and isolation of the photon, 
 summarized in Table \ref{tab:photonOfflineSelection}. We also impose the pixel veto in order to reject
 Z $\rightarrow$ $e^{+}e^{-}$ events. The selected photon is required to
 be separated from the lepton candidate by $\Delta$R $ > 0.5$. Finally, 
 for electrons, we reject any events where the mass of the photon and
 electron system is within $20$ GeV of the Z boson mass. 
-
 
 \begin{table}[!ht]
 \begin{center}
@@ -163,7 +155,6 @@ electron system is within $20$ GeV of the Z boson mass.
 photon candidates. \label{tab:photonOfflineSelection}}
 \end{center}
 \end{table}
-
 
 From these selected event samples, we measure the fake rate 
 ($\epsilon_{\mathrm{fake}}$) by counting the number of denominator 
@@ -219,7 +210,6 @@ are the transverse momentum and pseudorapidity of the first and second leg.
 Summing the weights $w_{i,j}$ over all such events in the fail + fail sample yields
 the total QCD double fake background. This prediction is then subtracted from the
 tight + loose prediction in order to account for the double counting. 
-
 
 \subsubsection{Closure Test and Systematic Uncertainties}
 \label{sec:fakerateSystematics}
