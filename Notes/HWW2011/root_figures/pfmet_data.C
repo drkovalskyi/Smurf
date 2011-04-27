@@ -1,6 +1,6 @@
 {
 //=========Macro generated from canvas: c1/c1
-//=========  (Fri Apr 15 16:38:40 2011) by ROOT version5.27/06
+//=========  (Wed Apr 27 13:15:19 2011) by ROOT version5.27/06
    TCanvas *c1 = new TCanvas("c1", "c1",0,22,600,600);
    gStyle->SetOptFit(1);
    gStyle->SetOptStat(0);
@@ -20,27 +20,23 @@
    c1->SetFrameBorderMode(0);
    
    TH1F *hpfmet_data_lopu__1 = new TH1F("hpfmet_data_lopu__1","",20,0,100);
-   hpfmet_data_lopu__1->SetBinContent(1,0.1984286);
-   hpfmet_data_lopu__1->SetBinContent(2,0.3581036);
-   hpfmet_data_lopu__1->SetBinContent(3,0.249434);
-   hpfmet_data_lopu__1->SetBinContent(4,0.1271807);
-   hpfmet_data_lopu__1->SetBinContent(5,0.04474631);
-   hpfmet_data_lopu__1->SetBinContent(6,0.01664669);
-   hpfmet_data_lopu__1->SetBinContent(7,0.003995206);
-   hpfmet_data_lopu__1->SetBinContent(8,0.0009322147);
-   hpfmet_data_lopu__1->SetBinContent(9,0.0002663471);
-   hpfmet_data_lopu__1->SetBinContent(10,0.0001331735);
+   hpfmet_data_lopu__1->SetBinContent(1,0.4838194);
+   hpfmet_data_lopu__1->SetBinContent(2,0.2989746);
+   hpfmet_data_lopu__1->SetBinContent(3,0.1404981);
+   hpfmet_data_lopu__1->SetBinContent(4,0.05260354);
+   hpfmet_data_lopu__1->SetBinContent(5,0.01784525);
+   hpfmet_data_lopu__1->SetBinContent(6,0.004661073);
+   hpfmet_data_lopu__1->SetBinContent(7,0.001331735);
+   hpfmet_data_lopu__1->SetBinContent(8,0.0001331735);
    hpfmet_data_lopu__1->SetBinContent(15,0.0001331735);
-   hpfmet_data_lopu__1->SetBinError(1,0.005140567);
-   hpfmet_data_lopu__1->SetBinError(2,0.006905789);
-   hpfmet_data_lopu__1->SetBinError(3,0.005763506);
-   hpfmet_data_lopu__1->SetBinError(4,0.004115471);
-   hpfmet_data_lopu__1->SetBinError(5,0.002441111);
-   hpfmet_data_lopu__1->SetBinError(6,0.001488925);
-   hpfmet_data_lopu__1->SetBinError(7,0.0007294214);
-   hpfmet_data_lopu__1->SetBinError(8,0.000352344);
-   hpfmet_data_lopu__1->SetBinError(9,0.0001883358);
-   hpfmet_data_lopu__1->SetBinError(10,0.0001331735);
+   hpfmet_data_lopu__1->SetBinError(1,0.008026951);
+   hpfmet_data_lopu__1->SetBinError(2,0.006309952);
+   hpfmet_data_lopu__1->SetBinError(3,0.004325578);
+   hpfmet_data_lopu__1->SetBinError(4,0.002646771);
+   hpfmet_data_lopu__1->SetBinError(5,0.001541595);
+   hpfmet_data_lopu__1->SetBinError(6,0.0007878652);
+   hpfmet_data_lopu__1->SetBinError(7,0.0004211317);
+   hpfmet_data_lopu__1->SetBinError(8,0.0001331735);
    hpfmet_data_lopu__1->SetBinError(15,0.0001331735);
    hpfmet_data_lopu__1->SetEntries(7509);
    hpfmet_data_lopu__1->SetDirectory(0);
@@ -48,7 +44,7 @@
    hpfmet_data_lopu__1->SetLineStyle(0);
    hpfmet_data_lopu__1->SetMarkerColor(2);
    hpfmet_data_lopu__1->SetMarkerStyle(20);
-   hpfmet_data_lopu__1->GetXaxis()->SetTitle("pfmet (GeV)");
+   hpfmet_data_lopu__1->GetXaxis()->SetTitle("projected pfmet (GeV)");
    hpfmet_data_lopu__1->GetXaxis()->SetLabelFont(42);
    hpfmet_data_lopu__1->GetXaxis()->SetLabelOffset(0.007);
    hpfmet_data_lopu__1->GetXaxis()->SetLabelSize(0.05);
@@ -70,29 +66,23 @@
    hpfmet_data_lopu__1->Draw("E1");
    
    TH1F *hpfmet_data_hipu__2 = new TH1F("hpfmet_data_hipu__2","",20,0,100);
-   hpfmet_data_hipu__2->SetBinContent(1,0.1260614);
-   hpfmet_data_hipu__2->SetBinContent(2,0.2891356);
-   hpfmet_data_hipu__2->SetBinContent(3,0.2649684);
-   hpfmet_data_hipu__2->SetBinContent(4,0.1754844);
-   hpfmet_data_hipu__2->SetBinContent(5,0.08621816);
-   hpfmet_data_hipu__2->SetBinContent(6,0.0385369);
-   hpfmet_data_hipu__2->SetBinContent(7,0.01502286);
-   hpfmet_data_hipu__2->SetBinContent(8,0.003048117);
-   hpfmet_data_hipu__2->SetBinContent(9,0.0008708905);
-   hpfmet_data_hipu__2->SetBinContent(10,0.0002177226);
-   hpfmet_data_hipu__2->SetBinContent(11,0.0002177226);
+   hpfmet_data_hipu__2->SetBinContent(1,0.3884172);
+   hpfmet_data_hipu__2->SetBinContent(2,0.2993686);
+   hpfmet_data_hipu__2->SetBinContent(3,0.1682996);
+   hpfmet_data_hipu__2->SetBinContent(4,0.0875245);
+   hpfmet_data_hipu__2->SetBinContent(5,0.03897235);
+   hpfmet_data_hipu__2->SetBinContent(6,0.01241019);
+   hpfmet_data_hipu__2->SetBinContent(7,0.00413673);
+   hpfmet_data_hipu__2->SetBinContent(8,0.0006531678);
    hpfmet_data_hipu__2->SetBinContent(12,0.0002177226);
-   hpfmet_data_hipu__2->SetBinError(1,0.005238933);
-   hpfmet_data_hipu__2->SetBinError(2,0.00793419);
-   hpfmet_data_hipu__2->SetBinError(3,0.007595368);
-   hpfmet_data_hipu__2->SetBinError(4,0.006181176);
-   hpfmet_data_hipu__2->SetBinError(5,0.004332625);
-   hpfmet_data_hipu__2->SetBinError(6,0.002896611);
-   hpfmet_data_hipu__2->SetBinError(7,0.00180854);
-   hpfmet_data_hipu__2->SetBinError(8,0.0008146435);
-   hpfmet_data_hipu__2->SetBinError(9,0.0004354452);
-   hpfmet_data_hipu__2->SetBinError(10,0.0002177226);
-   hpfmet_data_hipu__2->SetBinError(11,0.0002177226);
+   hpfmet_data_hipu__2->SetBinError(1,0.009196043);
+   hpfmet_data_hipu__2->SetBinError(2,0.008073371);
+   hpfmet_data_hipu__2->SetBinError(3,0.006053315);
+   hpfmet_data_hipu__2->SetBinError(4,0.004365325);
+   hpfmet_data_hipu__2->SetBinError(5,0.00291293);
+   hpfmet_data_hipu__2->SetBinError(6,0.00164377);
+   hpfmet_data_hipu__2->SetBinError(7,0.0009490309);
+   hpfmet_data_hipu__2->SetBinError(8,0.0003771066);
    hpfmet_data_hipu__2->SetBinError(12,0.0002177226);
    hpfmet_data_hipu__2->SetEntries(4593);
    hpfmet_data_hipu__2->SetDirectory(0);
@@ -119,7 +109,7 @@
    hpfmet_data_hipu__2->GetZaxis()->SetTitleFont(42);
    hpfmet_data_hipu__2->Draw("sameE1");
    
-   TLegend *leg = new TLegend(1.223091e-315,0,2.353653e-310,1.067364e-311,NULL,"brNDC");
+   TLegend *leg = new TLegend(-3.195408e+52,4.826356e-282,9.48606e-322,8.695555e-322,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
