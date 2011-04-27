@@ -1,5 +1,6 @@
  
-To determine the efficiency of the double lepton triggers, we derive the efficiency of the requirements imposed on each leg separately.
+To determine the efficiency of the dilepton triggers, 
+we derive the efficiency of the requirements imposed on each leg separately.
 This requires a modification to the tag and probe method described above in some cases.
 If the trigger objects are saved by the HLT before the requirement that there be two valid objects then
 we can check each leg independently of the other using the usual tag and probe method.
@@ -15,13 +16,18 @@ it is necessary to compute the expected efficiency for dilepton events to pass t
 This is done by taking into account the $p_{T}$ and $\eta$ distributions
 of both leptons in the signal sample.
 
-\subsubsection{Electron triggers}
+%\subsubsection{Electron triggers}
 %%%%%% double
 The double electron trigger requires the higher $p_T$ leg to be seeded at Level-1.
-The per electron efficiency for both the seeded leg is shown in 
+The per electron efficiency with respect to electrons passing the offline selection
+is shown for the seeded leg in  
 Figure \ref{fig:Ele17Ele8TriggerEfficiencySeededLeg} as a function of $p_{T}$ and $\eta$, 
-and the unseeded leg is shown in Figure \ref{fig:Ele17Ele8TriggerEfficiencyUnseededLeg}.
+and the unseeded leg in Figure \ref{fig:Ele17Ele8TriggerEfficiencyUnseededLeg}.
 The results are summarised in Table \ref{tab:eff_double_ele}. 
+The per electron efficiency for the
+single electron trigger with respect to electrons passing the offline selection
+is shown in Figure \ref{fig:Ele27Efficiency} and summarized
+in Table \ref{tab:Ele27Efficiency}.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -58,9 +64,6 @@ separately in bins of $p_{T}$ for the barrel and endcap.
 \end{table}
 
 %%%%%% single
-The per electron efficiency for the
-single electron trigger is shown in Figure \ref{fig:Ele27Efficiency} and summarized
-in Table \ref{tab:Ele27Efficiency}. 
 
 \begin{figure}[!ht]
 \begin{center}
@@ -88,28 +91,25 @@ separately in bins of $p_{T}$ for the barrel and endcap.
 %
 %
 %
-\subsubsection{Muon triggers}
+%\subsubsection{Muon triggers}
 
-The trigger efficiency with respect to muons passing offline muon
+The muon trigger efficiency with respect to muons passing the offline
 selection is summarized in Table \ref{tab:eff_single_mu} and 
-\ref{tab:eff_single_isomu} for the single muon {\bf HLT\_Mu15} and 
-single isolated muon {\bf HLT\_IsoMu17} triggers respectively. The trigger
-efficiencies are plotted as a function of the $p_{T}$ and $\eta$ of the
+\ref{tab:eff_single_isomu} for the single muon {HLT\_Mu15} and 
+single isolated muon {HLT\_IsoMu17} triggers respectively. 
+The trigger efficiencies are plotted as a function of the $p_{T}$ and $\eta$ of the
 muon candidate in Fig \ref{fig:SingleMu15TriggerEfficiency} and 
 \ref{fig:SingleIsoMu17TriggerEfficiency} for the single muon and 
-isolated single muon triggers respectively. We show the single
-muon trigger efficiencies separated into two data taking eras,
-where one can clearly observe the effect of a bug in the Level1 
-muon trigger logic in the v1 era in the form of a significant inefficiency 
-in the negative endcap region. 
+isolated single muon triggers respectively. 
+We show the single muon trigger efficiencies for two periods of data taking,
+because the first period was affected by a bug in the Level-1 trigger logic,
+which is clearly visible as an inefficiency in the negative endcap region.
 
-The double muon trigger {\bf HLT\_DoubleMu7 } requires both legs to be seeded 
-at Level-1. The per muon efficiency for each leg of the double muon trigger is 
+The double muon trigger {HLT\_DoubleMu7 } requires both legs to be seeded at Level-1. 
+The per muon efficiency for each leg of the double muon trigger is 
 summarized in Table \ref{tab:eff_double_mu}, and plotted in 
 Fig. \ref{fig:DoubleMu7TriggerEfficiency} as a function of the $p_{T}$
 and $\eta$ of the muon candidate.
-
-
 
 \begin{table}[!ht]
 \begin{center}
@@ -194,8 +194,6 @@ two different primary dataset eras.}
 \label{fig:SingleIsoMu17TriggerEfficiency}
 \end{figure} 
 
-
-
 \begin{table}[!ht]
 \begin{center}
 \begin{tabular}{c|c|c} 
@@ -224,8 +222,6 @@ two different primary dataset eras.}
 \label{tab:eff_double_mu}
 \end{center}
 \end{table}
-
-
 
 \begin{figure}[!ht]
 \begin{center}
