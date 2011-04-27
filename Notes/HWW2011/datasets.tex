@@ -1,17 +1,24 @@
 %UPDATEME%
 The datasets used for this analysis are summarized in Tables.~\ref{tab:DatasetsData} 
 and~\ref{tab:DatasetsMC} for data and Monte Carlo, respectively. The total integrated
-luminosity is 49 $\pm$ 2 $\ipb$.
+luminosity is 49 $\pm$ 2 $\ipb$. 
+We use madgraph when possible, but different generators such as Pythia and Powheg 
+are also used. 
+%For $gg \to \WW$ a dedicated generator is used. For \wz\ and \zz\
+%processes we use Pythia, since MadGraph samples are mixed with $\WW$ in
+%a single $VV$ sample, which is difficult to use properly.
 
-The choice of the Monte Carlo samples depends on the sample
-availability, but in general we tried to be consistent and use a
-single generator - MadGraph. In the case of Drell-Yan, MadGraph samples
-are not adequate to cover the full mass spectrum. The main sample has a 50 $\GeVcc$ 
-minimum dilepton mass requirement, while the other one, covering
-the low mass region, has an additional requirement on extra jet
-activity. For $gg \to \WW$ a dedicated generator is used. For \wz\ and \zz\
-processes we use Pythia, since MadGraph samples are mixed with $\WW$ in
-a single $VV$ sample, which is difficult to use properly.
+%The choice of the Monte Carlo samples depends on the sample
+%availability, but in general we tried to be consistent and use a
+%single generator - MadGraph. In the case of Drell-Yan, MadGraph samples
+%are not adequate to cover the full mass spectrum. The main sample has a 50 $\GeVcc$ 
+%minimum dilepton mass requirement, while the other one, covering
+%the low mass region, has an additional requirement on extra jet
+%activity. 
+%We use madgraph when possible, but different generators are used for some samples
+%For $gg \to \WW$ a dedicated generator is used. For \wz\ and \zz\
+%processes we use Pythia, since MadGraph samples are mixed with $\WW$ in
+%a single $VV$ sample, which is difficult to use properly.
 
 %UPDATEME%
 \begin{table}[!ht]
@@ -27,7 +34,7 @@ Run2011A MuEl PromptReco            &  /MuEG/Run2011A-PromptReco-v1/AOD   \\
 Run2011A DiMuon PromptReco          &  /DoubleMu/Run2011A-PromptReco-v1/AOD   \\
 Run2011A SingleMuon PromptReco      &  /SingleMu/Run2011A-PromptReco-v1/AOD   \\
 Run2011A DiElectron PromptReco      &  /DoubleElectron/Run2011A-PromptReco-v1/AOD   \\
-Run2011A SingleElectron PromptReco  &  /SingleElectron/Run2011A-PromptReco-v1/AOD   \\
+%Run2011A SingleElectron PromptReco  &  /SingleElectron/Run2011A-PromptReco-v1/AOD   \\
 \hline
 \hline
 \multicolumn{2}{|c|}{Fake Rate Measurement Samples} \\
