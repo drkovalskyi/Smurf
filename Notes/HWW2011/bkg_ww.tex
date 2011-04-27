@@ -1,47 +1,69 @@
-The basic idea for the estimation of the nonresonant $WW$ contribution in the $\hww$ signal region is 
-to infer it from data using the dilepton mass distribution:
-the dilepton mass defines a control region where we can measure the $WW$ normalization, and then scale
-the contribution to the signal region.
+The nonresonant $WW$ contribution in the signal region can be estimated from data 
+using the dilepton invariant mass distribution. 
+For a given Higgs boson mass, a $\ww$ dominated control region with small contribution 
+from Higgs decays can be selected. The $\ww$ contribution estimated in the control region 
+is then extrapolated into the signal region using simulation. 
 
-It turns out that this approach can be applied for $m_H \leq 200~\GeVcc$ only.
-In fact, MC studies show that the di-lepton mass distribution in Higgs samples has a cut-off value at $m_H-50~\GeVcc$ 
-(Fig.~\ref{fig:higgsMllCutoff});
-thus, for large $m_H$ it is possible to define an Higgs-depleted region only in a mass range populated by too 
-few $WW$ events. 
+Figure~\ref{fig:higgsMllCutoff} shows the dilepton invariant mass distributions for 
+$\ww$ and $\hww$ with $m_{H} = 130, 200, 300\GeVcc$. 
+For the Higg with $m_{H}>200\GeVcc$ there is significant overlap in the 
+dilepton invariant mass distribution with the nonresonant $\ww$ contribution. 
+The control region can not be defined efficiently in that case. Therefore for 
+the searches of high mass ($m_H>200\GeVcc$) Higgs we estimate the nonresonant 
+$\ww$ contributions from simulation. 
 
-Therefore, for $m_H > 200~\GeVcc$ the $WW$ contribution is estimated from simulated events.
+%The basic idea for the estimation of the nonresonant $WW$ contribution in the $\hww$ signal region is 
+%to infer it from data using the dilepton mass distribution:
+%the dilepton mass defines a control region where we can measure the $WW$ normalization, and then scale
+%the contribution to the signal region.
 
+%It turns out that this approach can be applied for $m_H \leq 200~\GeVcc$ only.
+%In fact, MC studies show that the di-lepton mass distribution in Higgs samples has a cut-off value at $m_H-50~\GeVcc$ 
+%(Fig.~\ref{fig:higgsMllCutoff});
+%thus, for large $m_H$ it is possible to define an Higgs-depleted region only in a mass range populated by too 
+%few $WW$ events. 
+
+%Therefore, for $m_H > 200~\GeVcc$ the $WW$ contribution is estimated from simulated events.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!hbtp]
 \centering
-\includegraphics[width=.45\textwidth]{figures/higgsMllCutoff.png}
-\caption{Difference between generated Higgs mass and di-lepton reconstructed invariant mass after WW cuts.
-Distributions are normalized to unity.}
+\includegraphics[width=.5\textwidth]{figures/higgsMllCutoff.png}
+\caption{The dilepton invariant mass distributions for $\hww$ decays with 
+$m_{H} = 130, 200, 300\GeVcc$ in simulation. 
+The distributions re normalized to unity.}
 \label{fig:higgsMllCutoff}
 \end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection{Estimation in Low Mass Range}
+%\subsubsection{Estimation in Low Mass Range}
 
-For low Higgs boson mass values ($m_{\rm{H}} \leq 200~\GeVcc$) events with $m_{\ell\ell} > 100~\GeVcc$ are used
-to define a control region where the Higgs contribution is $<3\%$.
-
-The procedure is as follows:
+For the search of low mass Higgs with $m_{H}<200\GeVcc$, we defined the $\ww$ control region as the events 
+with $m_{\ell\ell} > 100~\GeVcc$ that pass the full event selection (see Section~\ref{sec:signal_selection}) 
+except for the requirements on $m_T$ and $\Delta\phi$. The procedure to obtain the $\ww$ contribution 
+in the signal region is as follows. 
+%we define the $\ww$ dominated control region dominated by $\ww$ decays as 
+%For low Higgs boson mass values ($m_{\rm{H}} \leq 200~\GeVcc$) events with $m_{\ell\ell} > 100~\GeVcc$ are used
+%to define a control region where the Higgs contribution is $<3\%$.
 \begin{itemize}
-\item the yield in the control region is measured after the lepton and jet selections 
-(i.e. full selection except $m_{l,l}$, $m_T$ and $\Delta\phi_{ll}$ cuts) so that most of the systematics uncertainties 
-cancel out (e.g. jet veto, lepton and trigger efficiencies); 
-\item the contamination from other backgrounds (mainly $t\bar t$ and $W$+jets, for a total of $\sim$ 25\%; see Table~\ref{tab:wwEstimationSByields}) 
-is subtracted using the corresponding data-driven techniques;
-\item the obtained yield is scaled to the signal region using the control-to-signal region ratio from MC;
-\item finally, the MC efficiency for $m_T$ and $\Delta\phi_{ll}$ cut is accounted to obtain the $WW$ contribution in the 
-signal region after all cuts.
+\item We first measure the yield in the control region in data; %applying full event selections except for the cuts on 
+%$m_{ll}$, 
+%$m_T$ and $\Delta\phi_{ll}$% so that most of the systematics uncertainties 
+%cancel out (e.g. jet veto, lepton and trigger efficiencies); 
+\item We then subtract the contamination from other backgrounds such as $t\bar t$ and $W$+jets (see Table~\ref{tab:wwEstimationSByields}) which can be estimated using corresponding data-driven techniques
+\item The resulting yield is subsequently extrapolated to the signal region;
+using the control-to-signal region ratio estimated using the diletpon invariant mass spectrum in simulation;
+\item Finally, we multiple the yields in the signal region by the 
+$m_T$ and $\Delta\phi_{ll}$ cut efficiency from simulation to get the 
+$WW$ contribution in the signal region after all cuts.
 \end{itemize}
 
-In order to consider this procedure as reliable we check that the efficiency of the $m_T$ and $\Delta\phi_{ll}$ 
-cuts in the control region in data and MC is consistent (to be done as soon as we have enough data) and we verify that the control-to-signal 
-region ratio $R_{C/S}$ is stable using different generators (Table~\ref{tab:wwEstimationMC}). 
+We can validate this procedure by comparing the $m_T$ and $\Delta\phi_{ll}$ cut efficiency 
+in the control region between data and simulation with enough statsitics. 
+Table~\ref{tab:wwEstimationMC} shows the ratio of $\ww$ contribution in control and 
+signal regions referred to as $R_{C/S}$ comparing different MC generators. 
 In the 1-jet bin case, we observe a significant discrepancy in the $R_{C/S}$ value between MadGraph and PYTHIA.
-Such difference is very likely to be due to the worse description of the jet kinematics in the PYTHIA sample;
-therefore, we consider the MadGraph value as reliable.
+Such difference is likely due to the worse description of the jet kinematics in the PYTHIA sample. 
 
 \begin{table}[!htbp]
 \begin{center}
@@ -55,7 +77,7 @@ therefore, we consider the MadGraph value as reliable.
  others               &       2.07 &       0.66 &       0.96 &       1.72 &       5.41 \\ \hline
   total               &      28.36 &      43.31 &      45.16 &      27.81 &     144.64 \\ \hline
 \end{tabular}
-\caption{Expected yields in the control region from MC (0-jet bin); the assumed luminosity is $1~fb^{-1}$.}
+\caption{Expected yields in the control region from MC (0-jet bin) normalized to an integrated luminosity of $1~fb^{-1}$.}
 \label{tab:wwEstimationSByields}
 \end{center}
 \end{table}
@@ -85,15 +107,21 @@ Uncertainties are statistical only and account for the MC sample luminosity. }
 \end{center}
 \end{table}
 
-As a closure test, we apply the above procedure on simulated data, using MadGraph $qq\rightarrow WW$ and PYTHIA $gg\rightarrow WW$
-as data and PYTHIA inclusive $WW$ as MC. 
-For the moment we consider only the main contamination source in the side band region, top background; 
-the expected yield for $1~fb^{-1}$ is 128.8 events (111.9 for $WW$ and 16.9 for $t\bar t$ plus $tW$).
-The top contribution is evaluated by measuring the top tagging efficiency in a top-enriched sample (see dedicated section),
-with a result of 10.5$\pm$4.1 events. 
-Therefore, we estimate 118.4$\pm$12.1 $WW$ events in the side band region and, after applying
-the control-to-signal region ratio and the cut efficiencies, 18.2$\pm$2.3 events in the $m_H=160~\GeVcc$ signal region 
-(consistent with the expected value of 18.9$\pm$0.3).
+We perform a closure test of this procedure on simulation events. In this test we mix the events from 
+$\WW$ (including $qq\rightarrow WW$ and $gg\rightarrow WW$), $t\bar t$ and $tW$ according to their SM cross-sections 
+normalized to an integrated luminosity of $1~\text{fb}^{-1}$ to approximate the data composition. 
+The $qq\rightarrow WW$ events are taken from Pythia while the rest are taken from Madgraph. 
+%For the moment we consider only the main contamination source in the side band region, top background; 
+The expected yields of $\ww$ and top backgrounds in the control region % relaxing the $m_{T}$ and $\Delta\phi$ cuts  
+are 111.9 and 16.9 respectively (see Table~\ref{tab:wwEstimationSByields}). 
+Based on this mixed simulation data, we apply the $\ww$ background estimation method described above. 
+The top contribution is estimated as 10.5$\pm$4.1 events with the data-driven method (Section~\ref{sec:bkg_top}) 
+using the top tagging efficiency in a top-enriched sample. 
+The $R_{C/S}$ ratio and selection efficiencies of $m_T$ and $\Delta\phi$ cuts evaluated in the inclusive Pythia MC are then 
+used to estimate the $\ww$ contribution in the Higgs signal region. 
+%Therefore, we estimate 118.4$\pm$12.1 $WW$ events in the side band region and, after applying
+%the control-to-signal region ratio and the cut efficiencies, 18.2$\pm$2.3 events in the $m_H=160~\GeVcc$ signal region 
+%(consistent with the expected value of 18.9$\pm$0.3).
 Results for all considered Higgs masses in the 0- and 1-jet bins are reported in Table~\ref{tab:wwEstimationRes}.
 The agreement in the 0-jet bin is very good, while in the 1-jet bins there are $\sim1\sigma$ discrepancies due to the underestimated 
 PYTHIA $R_{C/S}$ value.
