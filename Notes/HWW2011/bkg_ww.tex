@@ -29,30 +29,57 @@ The procedure is as follows:
 \item the yield in the control region is measured after the lepton and jet selections 
 (i.e. full selection except $m_{l,l}$, $m_T$ and $\Delta\phi_{ll}$ cuts) so that most of the systematics uncertainties 
 cancel out (e.g. jet veto, lepton and trigger efficiencies); 
-\item the contamination from other backgrounds (mainly $t\bar t$ and $W$+jets, for a total of $\sim$ 20\%) 
+\item the contamination from other backgrounds (mainly $t\bar t$ and $W$+jets, for a total of $\sim$ 25\%; see Table~\ref{tab:wwEstimationSByields}) 
 is subtracted using the corresponding data-driven techniques;
 \item the obtained yield is scaled to the signal region using the control-to-signal region ratio from MC;
 \item finally, the MC efficiency for $m_T$ and $\Delta\phi_{ll}$ cut is accounted to obtain the $WW$ contribution in the 
 signal region after all cuts.
 \end{itemize}
 
-In order to consider this procedure as reliable we verify that 
-the control-to-signal region ratio $R_{C/S}$ is stable using different generators (Table~\ref{tab:wwEstimationMC}) and 
-we check that the efficiency of the $m_T$ and $\Delta\phi_{ll}$ cuts in the control region in data and MC is 
-consistent (to be done).
+In order to consider this procedure as reliable we check that the efficiency of the $m_T$ and $\Delta\phi_{ll}$ 
+cuts in the control region in data and MC is consistent (to be done as soon as we have enough data) and we verify that the control-to-signal 
+region ratio $R_{C/S}$ is stable using different generators (Table~\ref{tab:wwEstimationMC}). 
+In the 1-jet bin case, we observe a significant discrepancy in the $R_{C/S}$ value between MadGraph and PYTHIA.
+Such difference is very likely to be due to the worse description of the jet kinematics in the PYTHIA sample;
+therefore, we consider the MadGraph value as reliable.
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|} \hline
+ sample               &       MuMu &       ElMu &       MuEl &       ElEl &        All \\ \hline\hline
+   $qq\rightarrow WW$ &      21.75 &      34.06 &      35.81 &      16.29 &     107.91 \\ 
+   $gg\rightarrow WW$ &       0.87 &       1.20 &       1.25 &       0.69 &       4.00 \\ 
+  $t\bar t$           &       2.73 &       3.82 &       3.82 &       1.77 &      12.14 \\ 
+     tW               &       0.95 &       1.49 &       1.23 &       1.10 &       4.79 \\ 
+ W+jets               &       0.00 &       2.08 &       2.08 &       6.24 &      10.40 \\ 
+ others               &       2.07 &       0.66 &       0.96 &       1.72 &       5.41 \\ \hline
+  total               &      28.36 &      43.31 &      45.16 &      27.81 &     144.64 \\ \hline
+\end{tabular}
+\caption{Expected yields in the control region from MC (0-jet bin); the assumed luminosity is $1~fb^{-1}$.}
+\label{tab:wwEstimationSByields}
+\end{center}
+\end{table}
 
 \begin{table}[!htbp]
 \begin{center}
 \begin{tabular}{|c|c|c|} \hline
-quantity                           &               MadGraph &                PYTHIA  \\ \hline
-$R_{C/S}$                        &      0.205 $\pm$ 0.003 &      0.189 $\pm$ 0.007 \\
-$\epsilon_{m_T}$(mass region)       &      0.874 $\pm$ 0.017 &      0.876 $\pm$ 0.046 \\
-$\epsilon_{\Delta\phi}$(mass region) &      0.661 $\pm$ 0.015 &      0.655 $\pm$ 0.039 \\
-$\epsilon_{m_T}$(side band)         &      0.391 $\pm$ 0.005 &      0.390 $\pm$ 0.011 \\
-$\epsilon_{\Delta\phi}$(side band)   &      0.063 $\pm$ 0.003 &      0.046 $\pm$ 0.005 \\ \hline
+\multicolumn{3}{|c|}{0-jet bin} \\ \hline
+quantity                           &             MadGraph &              PYTHIA  \\ \hline
+$R_{C/S}$                           &      0.294$\pm$ 0.005&      0.271$\pm$ 0.011\\
+$\epsilon_{m_T}$(mass region)       &      0.877$\pm$ 0.018&      0.877$\pm$ 0.046\\
+$\epsilon_{\Delta\phi}$(mass region) &      0.657$\pm$ 0.015&      0.645$\pm$ 0.040\\
+$\epsilon_{m_T}$(side band)         &      0.544$\pm$ 0.007&      0.544$\pm$ 0.017\\
+$\epsilon_{\Delta\phi}$(side band)   &      0.051$\pm$ 0.002&      0.036$\pm$ 0.005\\ \hline \hline
+\multicolumn{3}{|c|}{1-jet bin} \\ \hline
+quantity                           &             MadGraph &              PYTHIA  \\ \hline
+$R_{C/S}$                           &    0.320$\pm$ 0.008 &      0.221$\pm$ 0.018 \\
+$\epsilon_{m_T}$(mass region)       &    0.759$\pm$ 0.026 &      0.737$\pm$ 0.086 \\
+$\epsilon_{\Delta\phi}$(mass region) &   0.814$\pm$ 0.031 &      0.775$\pm$ 0.103  \\
+$\epsilon_{m_T}$(side band)         &    0.521$\pm$ 0.011 &      0.513$\pm$ 0.031 \\
+$\epsilon_{\Delta\phi}$(side band)   &   0.105$\pm$ 0.006 &      0.086$\pm$ 0.015  \\ \hline
 \end{tabular}
 \caption{Control-to-signal region ratio and cut efficiencies using MadGraph $qq\rightarrow WW$ and PYTHIA $gg\rightarrow WW$
-vs PYTHIA inclusive $WW$. Results for $m_H=160~\GeVcc$ analysis in the 0-jet bin. 
+vs PYTHIA inclusive $WW$. Results for $m_H=160~\GeVcc$ analysis in the 0- and 1-jet bins. 
 Uncertainties are statistical and account for the MC sample luminosity. }
 \label{tab:wwEstimationMC}
 \end{center}
@@ -61,30 +88,37 @@ Uncertainties are statistical and account for the MC sample luminosity. }
 As a closure test, we apply the above procedure on simulated data, using MadGraph $qq\rightarrow WW$ and PYTHIA $gg\rightarrow WW$
 as data and PYTHIA inclusive $WW$ as MC (errors are statistical only and are computed for a luminosity of $1~fb^{-1}$). 
 For the moment we consider only the main contamination source in the side band region, top background; 
-the expected yield for $1~fb^{-1}$ is 184.0 events (163.4 for $WW$ and 20.6 for $t\bar t$ plus $tW$).
+the expected yield for $1~fb^{-1}$ is 128.8 events (111.9 for $WW$ and 16.9 for $t\bar t$ plus $tW$).
 The top contribution is evaluated by measuring the top tagging efficiency in a top-enriched sample (see dedicated section),
-with a result of 15.6$\pm$5.2. 
-Therefore, we estimate 168.4$\pm$14.5 $WW$ events in the side band region and, after applying
-the control-to-signal region ratio and the cut efficiencies, 18.3$\pm$2.1 events in the $m_H=160~\GeVcc$ signal region 
-(consistent with the expected value of 19.3$\pm$4.4).
+with a result of 10.5$\pm$4.1 events. 
+Therefore, we estimate 118.4$\pm$12.1 $WW$ events in the side band region and, after applying
+the control-to-signal region ratio and the cut efficiencies, 18.2$\pm$2.3 events in the $m_H=160~\GeVcc$ signal region 
+(consistent with the expected value of 18.9$\pm$4.4).
 
-The results for all considered Higgs masses are reported in Table~\ref{tab:wwEstimationRes0j}.
-
-I AM NOT 100\% SYNCRONIZED YET!!!!
+The results for all considered Higgs masses in the 0- and 1-jet bins are reported in Table~\ref{tab:wwEstimationRes0j}.
 
 \begin{table}[!htbp]
 \begin{center}
 \begin{tabular}{|c|c|c|} \hline
+\multicolumn{3}{|c|}{0-jet bin} \\ \hline
 $m_H~[\GeVcc]$ & WW estimation ($1~fb^{-1}$) & WW expected ($1~fb^{-1}$)  \\ \hline
-120 & 43.3 $\pm$ 4.2 & 45.7 $\pm$ 6.8 \\
-130 & 47.1 $\pm$ 4.5 & 49.5 $\pm$ 7.0 \\
-140 & 42.7 $\pm$ 4.2 & 44.4 $\pm$ 6.7 \\
-150 & 28.1 $\pm$ 3.1 & 28.9 $\pm$ 5.4 \\
-160 & 18.3 $\pm$ 2.1 & 19.3 $\pm$ 4.4 \\
-200 & 11.6 $\pm$ 1.3 & 12.3 $\pm$ 3.5 \\
+120 & 41.2 $\pm$ 4.9 & 43.4 $\pm$ 6.6 \\
+130 & 45.4 $\pm$ 5.2 & 47.4 $\pm$ 6.9 \\
+140 & 41.7 $\pm$ 4.9 & 42.7 $\pm$ 6.5 \\
+150 & 28.3 $\pm$ 3.7 & 28.4 $\pm$ 5.3 \\
+160 & 18.2 $\pm$ 2.5 & 18.9 $\pm$ 4.4 \\
+200 & 11.7 $\pm$ 1.6 & 12.2 $\pm$ 3.5 \\ \hline \hline
+\multicolumn{3}{|c|}{1-jet bin} \\ \hline
+$m_H~[\GeVcc]$ & WW estimation ($1~fb^{-1}$) & WW expected ($1~fb^{-1}$)  \\ \hline
+120 & 6.2 $\pm$ 4.6 & 9.6 $\pm$ 3.1 \\
+130 & 6.8 $\pm$ 5.1 & 10.7$\pm$ 3.3 \\
+140 & 6.3 $\pm$ 4.7 & 9.7 $\pm$ 3.1 \\
+150 & 4.6 $\pm$ 3.8 & 8.9 $\pm$ 3.0 \\
+160 & 3.6 $\pm$ 3.0 & 7.4 $\pm$ 2.7 \\
+200 & 4.4 $\pm$ 3.7 & 8.8 $\pm$ 3.0 \\
  \hline
 \end{tabular}
-\caption{Result of $WW$ estimation for different Higgs mass analyses in the 0-jet bin. }
+\caption{Result of $WW$ estimation for different Higgs mass analyses in the 0- and 1-jet bins. }
 \label{tab:wwEstimationRes0j}
 \end{center}
 \end{table}
