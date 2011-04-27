@@ -34,6 +34,7 @@ of fully selected leptons, to be described in greater detail
 in Sec. \ref{sec:fakerateApplication}.
 
 \subsubsection{Denominator Object Definitions}
+\label{sec:fakerateDenominatorObjectDef}
 The denominator object definition has significant impact on the
 systematic uncertainty of the method, due to the fact that 
 the sample dependence uncertainties for extrapolating in different 
@@ -221,6 +222,51 @@ tight + loose prediction in order to account for the double counting in the diel
 and dimuon final states. 
 
 
-%\subsubsection{Systematic Uncertainties}
-%\label{sec:fakerateSystematics}
+\subsubsection{Closure Test and Systematic Uncertainties}
+\label{sec:fakerateSystematics}
+
+The fake rate method for estimating fake lepton backgrounds, in our case
+dominated by W+Jet production, crucially relies on the assumption that
+fake rates can be transferred from jets in QCD events to jets in W+Jet
+events. The degree to which this assumption is incorrect must be 
+reflected in the systematic uncertainties of the fake lepton 
+background prediction. In order to test the validity of the assumption
+and to extract some quantitative measure of the systematic uncertainties,
+we perform a closure test on the W+Jets Monte Carlo simulation sample by 
+comparing the background yield predicted by the Monte Carlo simulation
+with the yield predicted using the fake rate procedure. To be consistent,
+we use the QCD Monte Carlo simulation to measure the fake rates, and then
+apply them to the tight + fail sample selected in the W+Jet Monte Carlo
+sample. The degree of disagreement yields a quantitative measure of the 
+systematic uncertainty of the method.
+
+The systematic uncertainties can be factorized into two main sources. 
+The first source is due to the difference in the $p_{T}$ spectrum 
+of the jets in the measurement sample (QCD and Photon+Jets) compared
+to the tight+fail sample (primarily W+Jets). Since we measure the 
+fake rate in bins of denominator object $p_{T}$, it is clear that
+for a denominator object with a given $p_{T}$, the efficiency of the
+isolation cut can vary greatly depending on whether the jet producing
+this denominator object has large or small $p_{T}$. The second main
+source of systematic uncertainty is the composition of the fake lepton.
+Due to the difference in the quark content in W+Jet events compared
+to QCD events, the fractional component of fake leptons due to different 
+sources or fake mechanisms may be different. Since these different sources
+can typically have different fake rates (also dependent on the particular 
+denominator definition that is used), the final averaged fake rate can 
+be different.
+
+To address the first source of systematic uncertainty in data, we perform the
+fake rate measurement using different thresholds on the leading jet
+in the event, in order to capture the degree of uncertainty in 
+the jet $p_{T}$ spectrum. A very conservative systematic estimate
+is obtained by taking the largest difference between the fake rates
+measured using the following three $p_{T}$ thresholds: no requirement,
+ $15$ GeV, and $30$ GeV. To address the second source of systematic
+uncertainty in data, we compare the difference in the fake rates 
+measured in the QCD enriched selection sample and the fake rates 
+measured in the Photon+Jet enriched selection sample. Since Photon+Jet
+events are more similar to W+Jet events in the production mechanism,
+one expects that fake rates measured in Photon+Jet events more closely
+represent the fake rates in W+Jet events. 
 
