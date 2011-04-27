@@ -27,8 +27,8 @@ requirements to select good prompt isolated muons are the following:
 \end{itemize}
 
 Furthermore, tracker- and calorimeter- based isolation variables are
-used to reduce the contamination from fake muons originating from
-jets. We have chosen to use a combination of tracker, ECAL and HCAL
+used to reduce the contamination from the non-isolated muons originating from
+jets. We use a combination of tracker, ECAL and HCAL
 based isolation:
 
 \begin{itemize}
@@ -48,13 +48,15 @@ and we require $\frac{\rm{Iso}_{Total}}{\pt}~<~0.15~(0.10)$ for muons
 with $\pt$ greater (smaller) than 20 $\GeVc$.
 
 Due to the presence of pileup, which introduces additional energy into 
-the isolation cone, the efficiency of the isolation cut is expected
-to decrease with increasing amount of pileup. The average efficiency loss for signal 
-muons with $p_{T} > 20$ GeV from a Higgs Monte Carlo simulation sample with mass of 
-$130$ GeV is found to be approximately $1\%$. One specific procedure to correct for 
-pileup in the isolation requirement, the fastjet correction method, has been attempted 
-and found to over-correct the background, thus giving comparatively worse performance. 
-Therefore, we currently do not perform any pileup corrections, and continue to 
-investigate other options. A more detailed discussion can be found in 
-Appendix \ref{app:PUIso}.
+the isolation cone, the isolation selection efficiency is expected
+to decrease with the increasing pileup rates. 
+The average efficiency loss for signal muons with $p_{T} > 20$ GeV is 
+found to be approximately $1\%$, estimated using $\hww$ (with $m_H=130\GeVcc$) signal MC. 
+One specific procedure to correct for pileup contributions to the
+isolation sum is referred to as the fastjet correction method.
+This was investigated and found to over-correct the efficiency on background electrons,
+giving comparatively worse performance.
+Therefore we currently do not perform any pileup corrections for isolation while
+we continue to investigate other options.
+This is discussed in more detail in Appendix \ref{app:PUIso}.
 
