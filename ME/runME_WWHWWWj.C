@@ -103,7 +103,7 @@ float NLOXsec[kNProc] = {  4.5*0.919, 31314, 31314, 31314.0, 31314.0, 5.9, 0.249
 // Note that MCFMXsec is obtained from a standalone MCFM calculations with no generator cuts applied,
 // The following new numbers are including W->l branching fraction, ignoring currrently the Wgamma nubmers
 // float MCFMXsec[kNProc] = { 2.983, 4032.1, 2694.8,  11270, 11270.0, 4.3, 0.07533, 0.1451, 0.2165, 0.2671, 0.3034, 0.2870, 0.2465, 0.1849, 0.1570, 0.1380, 0.1232, 0.1107, 0.0906, 0.05758};
-float MCFMXsec[kNProc] = { 2.983, 16481.0, 10987.0,  11270, 11270.0, 4.3, 0.07533, 0.1451, 0.2165, 0.2671, 0.3034, 0.2870, 0.2465, 0.1849, 0.1570, 0.1380, 0.1232, 0.1107, 0.0906, 0.05758};
+float MCFMXsec[kNProc] = { 2.983, 18788.0, 12525.0,  11270, 11270.0, 4.3, 0.07533, 0.1451, 0.2165, 0.2671, 0.3034, 0.2870, 0.2465, 0.1849, 0.1570, 0.1380, 0.1232, 0.1107, 0.0906, 0.05758};
 
 void CalculateAcceptance(){
 
@@ -312,7 +312,9 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     int NProcessCalculate=0;
     TVar::Process processList[10];
     processList[ NProcessCalculate++]=TVar::WW;
+    processList[ NProcessCalculate++]=TVar::HWW120;
     processList[ NProcessCalculate++]=TVar::HWW160;
+    processList[ NProcessCalculate++]=TVar::HWW200;
     processList[ NProcessCalculate++]=TVar::Wp_1jet;
     processList[ NProcessCalculate++]=TVar::Wm_1jet;
     //processList[ NProcessCalculate++]=TVar::ZZ; 
