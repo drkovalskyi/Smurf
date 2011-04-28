@@ -18,23 +18,26 @@ Thus the method to extract the background depends on the jet bin.
 Additionally, the $\ttbar$ and $tW$ processes show slightly different $b$-tagging behavior, 
 although the difference can be taken as a small systematic uncertainty.
 
-The methods used are now described for each jet bin.
+The methods used are now described for each jet bin. We define ``counted jets'' as jets
+which pass the $p_{T} > 30$ GeV cut.
+
 %
 % ZERO JETS
 %
 \subsubsection{Zero-Jet Bin Method}
-We use a control sample with exactly one counted jet to
-determine the top tagging efficiency $\varepsilon_{1b}$ for $b$-quarks that 
-do not result in counted jets by excluding the counted jet from the denominator.
-To increase the purity of the $t\bar{t}$ events in this sample, it
+We perform the measurement of the top tagging efficiency $\varepsilon_{1b}$ 
+in a control sample with exactly one counted jet. To measure 
+$\varepsilon_{1b}$ for $b$-quarks that do not result in a counted jet
+we exclude the one counted jet in the event from the denominator. To 
+increase the purity of the $t\bar{t}$ events in this sample, it
 is possible to apply $b$-tagging requirements to the counted jet.
 The efficiency to tag a $t\bar{t}$ event in the zero jet bin, 
 where neither $b$-quark resulted in a counted jet is thus
 $$\epsilon_{2b} = 1 - (1-\epsilon_{1b})^2.$$
 
-The per event tagging efficiency in simulated $t\bar{t}$ events
+The per event top tagging efficiency in simulated $t\bar{t}$ events
 using the soft muon tagging, $b$-tagging 
-and combination of both methods is shown as a function 
+and the combination of both methods is shown as a function 
 of the number of counted jets after the $WW$ preselection
 in Figure \ref{fig:btag_njets_lowpttagging}.
 The $b$-tagging efficiency in data $\varepsilon_{1b}$ for low $\pt$ jets in the 1-jet 
@@ -63,7 +66,7 @@ jets in top events after applying the $\WW$-like selection.}
 %
 \subsubsection{1-Jet Bin Method}
 To measure the tagging efficiency in the 1-jet bin we use top events 
-with two reconstructed jets as a control sample. 
+with two reconstructed jets as the control sample. 
 The expected tagging efficiency in simulated $t\bar{t}$ events after the $WW$ preselection
 is shown using all jets and soft-muons and for the highest $\pt$ jet only
 as a function of the number of counted jets in Figure~\ref{fig:btag_njets_highestptjet}.
@@ -90,9 +93,10 @@ jets in top events after applying the $\WW$-like selection.}
 
 The residual number of top events in the 1-jet bin is then given by,
 $${N_{no~tagged}^{1-jet} = N_{tagged}^{1-jet} \times (1-\epsilon_{highest~\pt~jet})/\epsilon_{highest~\pt~jet}},$$
-where $N_{tagged}^{1-jet}$ is the number of tagged events and $\epsilon_{highest~\pt~jet}$ is the tagging efficiency.
-The closure test with simulated events agrees 
-well within the statistical uncertainty.
+where $N_{tagged}^{1-jet}$ is the number of events where the counted jet is
+tagged and none of the other non-counted jets are tagged, and $\epsilon_{highest~\pt~jet}$ is the 
+tagging efficiency for the highest $p_{T}$ jet measured from the 2-jet bin.
+The closure test with simulated events agrees well within the statistical uncertainty.
 
 %
 % VBF! VBF! VBF!
@@ -107,9 +111,12 @@ $t\bar{t}$ events after requiring $\Delta \eta_{j1j2}>3.5$,
 $m_{j1j2}>450~\GeVcc$ and $\eta_{j1}\cdot\eta_{j2}<0$ is shown in 
 Figure~\ref{fig:btag_njets_vbfcuts}.
 Although the number of simulated events meeting these requirements
-is small, a trend towards lower efficiency in the 2-jet bin is observed
-when compared with the behavior in Figure~\ref{fig:btag_njets_highestptjet}.
-This is consistent with the expectation for this kinematic selection.
+is small, we observe that the tagging efficiency is lower for events
+in the 2-jet bin after VBF selection compared to events in the 2-jet
+bin before VBF selection. This is consistent with the expectations 
+since VBF selection enhances events with forward jets, which have 
+lower tagging efficiency.
+
 
 \begin{figure}[!htbp]
 \begin{center}
