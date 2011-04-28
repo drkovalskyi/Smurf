@@ -1,7 +1,7 @@
 The nonresonant $WW$ contribution in the signal region can be estimated from data 
-using the dilepton invariant mass distribution. 
-For a given Higgs boson mass, a $\ww$-dominated control region with a small contribution 
-from Higgs decays can be selected. The $\ww$ contribution estimated in the control region 
+using the dilepton invariant mass distribution. For a given Higgs boson mass, 
+a $\ww$-dominated control region with a small contribution from Higgs decays 
+can be selected. The $\ww$ contribution estimated in the control region 
 is then extrapolated into the signal region using simulation. 
 
 Figure~\ref{fig:higgsMllCutoff} shows the dilepton invariant mass distributions for 
@@ -46,13 +46,17 @@ in the signal region is as follows.
 %For low Higgs boson mass values ($m_{\rm{H}} \leq 200~\GeVcc$) events with $m_{\ell\ell} > 100~\GeVcc$ are used
 %to define a control region where the Higgs contribution is $<3\%$.
 \begin{itemize}
-\item We first measure the yield in the control region in data; %applying full event selections except for the cuts on 
+\item We first measure the yield in the control region in data; 
+%applying full event selections except for the cuts on 
 %$m_{ll}$, 
 %$m_T$ and $\Delta\phi_{ll}$% so that most of the systematics uncertainties 
 %cancel out (e.g. jet veto, lepton and trigger efficiencies); 
-\item We then subtract the contamination from other backgrounds such as $t\bar t$ and $W$+jets (see Table~\ref{tab:wwEstimationSByields}) which can be estimated using corresponding data-driven techniques
-\item The resulting yield is subsequently extrapolated to the signal region;
-using the control-to-signal region ratio estimated using the dilepton invariant mass spectrum in simulation;
+\item We then subtract the contamination from other backgrounds such as $t\bar t$ and 
+$W$+jets (see Table~\ref{tab:wwEstimationSByields}) which can be estimated using 
+corresponding data-driven techniques;
+\item The resulting yield is subsequently extrapolated to the signal region, using 
+the control-to-signal region ratio estimated from the dilepton invariant mass 
+spectrum in simulation;
 \item Finally, we multiply the yields in the signal region by the 
 $m_T$ and $\Delta\phi_{ll}$ cut efficiency from simulation to get the 
 $WW$ contribution in the signal region after all cuts.
@@ -68,7 +72,7 @@ Such difference is likely due to the worse description of jet kinematics in the 
 \begin{table}[!htbp]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|} \hline
- sample               &       MuMu &       ElMu &       MuEl &       ElEl &        All \\ \hline\hline
+ Sample               &       MuMu &       ElMu &       MuEl &       ElEl &        All \\ \hline\hline
    $qq\rightarrow WW$ &      21.75 &      34.06 &      35.81 &      16.29 &     107.91 \\ 
    $gg\rightarrow WW$ &       0.87 &       1.20 &       1.25 &       0.69 &       4.00 \\ 
   $t\bar t$           &       2.73 &       3.82 &       3.82 &       1.77 &      12.14 \\ 
@@ -86,19 +90,23 @@ Such difference is likely due to the worse description of jet kinematics in the 
 \begin{center}
 \begin{tabular}{|c|c|c|} \hline
 \multicolumn{3}{|c|}{0-jet bin} \\ \hline
-quantity                           &             MadGraph &              PYTHIA  \\ \hline
-$R_{C/S}$                           &      0.294$\pm$ 0.005&      0.271$\pm$ 0.011\\
-$\epsilon_{m_T}$(mass region)       &      0.877$\pm$ 0.018&      0.877$\pm$ 0.046\\
-$\epsilon_{\Delta\phi}$(mass region) &      0.657$\pm$ 0.015&      0.645$\pm$ 0.040\\
-$\epsilon_{m_T}$(side band)         &      0.544$\pm$ 0.007&      0.544$\pm$ 0.017\\
-$\epsilon_{\Delta\phi}$(side band)   &      0.051$\pm$ 0.002&      0.036$\pm$ 0.005\\ \hline \hline
+Quantity                                       &            MadGraph   &   PYTHIA           \\ 
+\hline
+$R_{C/S}$                                      &      0.294$\pm$ 0.005 &   0.271$\pm$ 0.011 \\
+$\epsilon_{m_T}$(signal mass region)           &      0.877$\pm$ 0.018 &   0.877$\pm$ 0.046 \\
+$\epsilon_{\Delta\phi}$(signal mass region)    &      0.657$\pm$ 0.015 &   0.645$\pm$ 0.040 \\
+$\epsilon_{m_T}$(sideband mass region)         &      0.544$\pm$ 0.007 &   0.544$\pm$ 0.017 \\
+$\epsilon_{\Delta\phi}$(sideband mass region)  &      0.051$\pm$ 0.002 &   0.036$\pm$ 0.005 \\ 
+\hline \hline
 \multicolumn{3}{|c|}{1-jet bin} \\ \hline
-quantity                           &             MadGraph &              PYTHIA  \\ \hline
-$R_{C/S}$                           &    0.320$\pm$ 0.008 &      0.221$\pm$ 0.018 \\
-$\epsilon_{m_T}$(mass region)       &    0.759$\pm$ 0.026 &      0.737$\pm$ 0.086 \\
-$\epsilon_{\Delta\phi}$(mass region) &   0.814$\pm$ 0.031 &      0.775$\pm$ 0.103  \\
-$\epsilon_{m_T}$(side band)         &    0.521$\pm$ 0.011 &      0.513$\pm$ 0.031 \\
-$\epsilon_{\Delta\phi}$(side band)   &   0.105$\pm$ 0.006 &      0.086$\pm$ 0.015  \\ \hline
+quantity                             &    MadGraph         &    PYTHIA           \\ 
+\hline
+$R_{C/S}$                            &    0.320$\pm$ 0.008 &    0.221$\pm$ 0.018 \\
+$\epsilon_{m_T}$(mass region)        &    0.759$\pm$ 0.026 &    0.737$\pm$ 0.086 \\
+$\epsilon_{\Delta\phi}$(mass region) &    0.814$\pm$ 0.031 &    0.775$\pm$ 0.103 \\
+$\epsilon_{m_T}$(side band)          &    0.521$\pm$ 0.011 &    0.513$\pm$ 0.031 \\
+$\epsilon_{\Delta\phi}$(side band)   &    0.105$\pm$ 0.006 &    0.086$\pm$ 0.015 \\ 
+\hline
 \end{tabular}
 \caption{Control-to-signal region ratio and cut efficiencies using MadGraph $qq\rightarrow WW$ and PYTHIA $gg\rightarrow WW$
 vs PYTHIA inclusive $WW$. Results for $m_H=160~\GeVcc$ analysis in the 0- and 1-jet bins. 
@@ -155,8 +163,10 @@ while in the WW expected column they correspond to the MC sample luminosity.}
 \end{center}
 \end{table}
 
-
+%\Fixme : We need to add procedure for estimating systematics: 
+lepton scales, jet energy scale, theory uncertainties...
 %Systematics are evaluated repeating the procedure varying the usual suspects.
+
 
 %
 %\subsection{Estimation in high mass range}
