@@ -1,40 +1,40 @@
-Although the vector boson fusion (VBF) process of Higgs production has a 
-cross section roughly ten times smaller than the production initiated by 
-gluon-gluon interaction, the signal can be effectively obtained with few 
-addition requirements to the event selection and with relatively low 
-backgrounds, particularly in the fully leptonic channel.
+he cross section for Higgs boson production in the vector boson fusion (VBF)
+mode is roughly ten times smaller than the gluon-gluon fusion mode.
+However, the VBF signal can be extracted
+using simple selections, especially in the fully leptonic decay channel
+where the backgrounds are expected to be relatively low.
 
-The VBF topology is characterized by a pair of high energy forward-backward 
-jets and very little hadronic activity in the rest of the event. The starting 
-point is a $\WW$-like selection requiring two and only two reconstructed 
-jets with $\pt~>~30~\GeVc$. Then, neither of the jets must be $b$-tagged 
-to reject most of the top background. The following requirements are 
-applied to select a relatively ``loose" VBF-like topology, where $j_1$ and 
-$j_2$ are the reconstructed jets:
-
+The $\hww$ events from VBF production is characterized by a pair of energetic 
+forward-backward jets and very little hadronic activity in the rest of the event. 
+As a starting point, we select the events that pass the $\ww$ preselection 
+requiring exactly two reconstructed jets with $\pt~>~30~\GeVc$. 
+To reject the main background from top decays we apply further selections on the 
+two jets $j_1$ and $j_2$, 
 \begin{itemize}
+  \item neither of the jets must be $b$-tagged 
   \item $\eta_{j_1}\cdot\eta_{j_2} < 0$;
   \item $\Delta\eta (j_1-j_2) > 3.5$;
   \item $m_{j_1j_2} > 450\:\GeVcc$.
 \end{itemize}
-
-Finally, to enhance the $H \to \WW$ signal in the low mass region, we 
-require $\mll~<~80~\GeVcc$. Further optimization may be applied, although 
-the number of available simulated events is rather poor at this point and 
-the data statistics for up to 1 $\ifb$ is rather small.
-
-The expected number of signal and background 
-processes for an integrated luminosity of 1 $\ifb$, after applying the full 
-cut based selection is shown in Table~\ref{tab:hwwcutevolution2j}. After all 
-requirements the $qqH$ contribution to the total expected signal is about 85\%, 
-as also shown in Table~\ref{tab:hwwcutevolution2j}.
+To improve the selection efficiency for the low mass Higgs signal we select 
+events with $\mll~<~100~\GeVcc$. Table~\ref{tab:hwwcutevolution2j} shows 
+the expected signal and background yields after each step of the selections 
+for a few Higgs mass hypotheses. Table~\ref{tab:hwwselection2j} shows the 
+expected number of signal and background events after applying the full selections for 
+all the Higgs mass hypotheses considered. 
+The $qqH$ contribution to the total $\hww$ signal is found to be about 
+85\% after full event selections for all the mass hypotheses considered. 
 
 \begin{table}[!htbp]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-Source & $WW$ selection with $N_{jets} = 2$ & anti $b$-tagging & WBF selection & $\mll~<~100~\GeVcc$ \\
+\multirow{2}{*}{Source } & $WW$ preselection  &  \multirow{2}{*}{anti $b$-tagging} & \multirow{2}{*}{VBF selection} & \multirow{2}{*}{$\mll~<~100~\GeVcc$} \\
+  & and $N_{jets} = 2$ &  & & \\
+
 \hline\hline
+\multicolumn{5}{|c|} {Background} \\
+\hline
 $\ttbar+tW$            & 745.18 $\pm$   7.34 & 88.87 $\pm$   4.44 & 2.22 $\pm$	0.61 & 1.51 $\pm$   0.37 \\
 non-resonant $WZ$/$ZZ$ &   1.58 $\pm$   0.14 &  1.42 $\pm$   0.13 & 0.04 $\pm$	0.02 & 0.01 $\pm$   0.01 \\
 $\dyll+WZ+ZZ$          &  39.30 $\pm$  12.01 & 35.09 $\pm$  11.95 & 0.76 $\pm$	0.75 & 0.75 $\pm$   0.75 \\
@@ -43,6 +43,8 @@ $qq \to \WW$           &  23.96 $\pm$   0.51 & 20.92 $\pm$   0.48 & 0.74 $\pm$	0
 $gg \to \WW$           &   1.02 $\pm$   0.05 &  0.94 $\pm$   0.05 & 0.11 $\pm$	0.02 & 0.06 $\pm$   0.01 \\
 \hline
 Total background       & 814.01 $\pm$  13.45 &147.26 $\pm$  12.76 & 3.88 $\pm$  0.97 & 2.77 $\pm$   0.84 \\
+\hline\hline
+\multicolumn{5}{|c|} { $gg\to\hww$} \\
 \hline
 $H(130)\to \WW$        &  6.03 $\pm$    0.18 &  5.32 $\pm$   0.16 & 1.05 $\pm$	0.03 & 1.04 $\pm$   0.03 \\
 $H(150)\to \WW$        & 12.98 $\pm$    0.39 & 11.42 $\pm$   0.34 & 2.60 $\pm$	0.08 & 2.60 $\pm$   0.08 \\
@@ -53,13 +55,15 @@ $H(300)\to \WW$        &  5.68 $\pm$    0.17 &  4.93 $\pm$   0.15 & 1.32 $\pm$	0
 $H(400)\to \WW$        &  3.18 $\pm$    0.10 &  2.76 $\pm$   0.08 & 0.69 $\pm$	0.02 & 0.12 $\pm$   0.00 \\
 \hline
 \hline
-$qqH,~H(130)\to \WW$   &  1.69 $\pm$   0.05  &  1.52 $\pm$   0.05 & 0.78 $\pm$	0.02 & 0.78 $\pm$   0.02 \\
-$qqH,~H(150)\to \WW$   &  4.66 $\pm$   0.14  &  4.22 $\pm$   0.13 & 2.17 $\pm$	0.07 & 2.17 $\pm$   0.07 \\
-$qqH,~H(160)\to \WW$   &  6.59 $\pm$   0.20  &  6.00 $\pm$   0.18 & 3.25 $\pm$	0.10 & 3.24 $\pm$   0.10 \\
-$qqH,~H(170)\to \WW$   &  6.98 $\pm$   0.21  &  6.32 $\pm$   0.19 & 3.47 $\pm$	0.10 & 3.47 $\pm$   0.10 \\
-$qqH,~H(200)\to \WW$   &  3.94 $\pm$   0.12  &  3.59 $\pm$   0.11 & 2.10 $\pm$	0.06 & 1.90 $\pm$   0.06 \\
-$qqH,~H(300)\to \WW$   &  1.72 $\pm$   0.05  &  1.57 $\pm$   0.05 & 1.02 $\pm$	0.03 & 0.35 $\pm$   0.01 \\
-$qqH,~H(400)\to \WW$   &  0.81 $\pm$   0.02  &  0.75 $\pm$   0.02 & 0.51 $\pm$	0.02 & 0.09 $\pm$   0.00 \\
+\multicolumn{5}{|c|} {$qq\to\hww$} \\
+\hline
+$H(130)\to \WW$   &  1.69 $\pm$   0.05  &  1.52 $\pm$   0.05 & 0.78 $\pm$	0.02 & 0.78 $\pm$   0.02 \\
+$H(150)\to \WW$   &  4.66 $\pm$   0.14  &  4.22 $\pm$   0.13 & 2.17 $\pm$	0.07 & 2.17 $\pm$   0.07 \\
+$H(160)\to \WW$   &  6.59 $\pm$   0.20  &  6.00 $\pm$   0.18 & 3.25 $\pm$	0.10 & 3.24 $\pm$   0.10 \\
+$H(170)\to \WW$   &  6.98 $\pm$   0.21  &  6.32 $\pm$   0.19 & 3.47 $\pm$	0.10 & 3.47 $\pm$   0.10 \\
+$H(200)\to \WW$   &  3.94 $\pm$   0.12  &  3.59 $\pm$   0.11 & 2.10 $\pm$	0.06 & 1.90 $\pm$   0.06 \\
+$H(300)\to \WW$   &  1.72 $\pm$   0.05  &  1.57 $\pm$   0.05 & 1.02 $\pm$	0.03 & 0.35 $\pm$   0.01 \\
+$H(400)\to \WW$   &  0.81 $\pm$   0.02  &  0.75 $\pm$   0.02 & 0.51 $\pm$	0.02 & 0.09 $\pm$   0.00 \\
 \hline
 \end{tabular}
 \caption{Expected number of signal and background events for an 

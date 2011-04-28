@@ -1,34 +1,32 @@
-After the $\WW$ selection, the following handles are used to discriminate
-against the remaining background, specially $\WW$ continuum:
-
+On top of the $\ww$ preselection, we apply extra selections based on the following variables to suppress mainly the nonresonant $\ww$ 
+background:
 \begin{itemize}
-\item the angle $\delphill$ between the two selected leptons in the transverse 
-plane. Most background events tend to have back-to-back leptons, while
-leptons originating from $\hww$ decays tend to have a relatively small
-opening angle;
-
-\item an upper cut on the invariant mass of the lepton-pair;
-
-\item a lower cut on the transverse momenta of the harder (\ptlmax) and 
-the softer (\ptlmin) lepton;
-
-\item the transverse Higgs mass, $m_{T}^{\ell\ell\met} = \sqrt{2\pt^{ll}\met(1-cos(\Delta\phi_{\ell\ell-\met}))}$, 
-where $\Delta\phi_{\ell\ell-\met}$ is the angle between dilepton
+\item transverse momenta of the harder (\ptlmax ) 
+and the softer (\ptlmin) leptons, 
+\item the dilepton mass $\mll$
+\item the azimuthal angle difference $\delphill$ between the two selected leptons
+\item transverse Higgs mass, 
+$m_{T}^{\ell\ell\met} = \sqrt{2\pt^{ll}\met(1-cos(\Delta\phi_{\ell\ell-\met}))}$ where 
+$\Delta\phi_{\ell\ell-\met}$ is the angle between dilepton
 direction and \met\ in the transverse plane.
+\end{itemize}
+Among these variables, $\delphill$ provides the best discriminating 
+power between the Higgs signal and the majority of the backgrounds for 
+$\hww$ production in the low mass range~\cite{HWW2010}. Leptons originating from 
+$\hww$ decays tend to have a relatively small opening angle, while those from 
+backgrounds are preferentially emitted back-to-back (see Figure~\ref{fig:dPhi_jets0}). 
 
-\end{itemize} 
-
-As a reference we use the 2010 analysis cut based approach documented
-in~\cite{HWW2010}. Table~\ref{tab:cutanalysis0j} summarizes the selection
-requirements re-tuned for this analysis. Most improvement is achieved
-in the low mass region, which is significantly different with respect
-to last year's analysis, since we reconstruct events with softer
-leptons. Table~\ref{tab:cutanalysis_perf} compares the performance of a few selections.
+The specific selection requirements vary depending on the $m_H$ hypothesis as detailed in 
+Table~\ref{tab:cutanalysis0j}. 
+Compared to the cut based approach in 2010 analysis~\cite{HWW2010}, the selections 
+are re-tuned to improve the search sensitivity. 
+Significant improvement is achieved in the search for low mass Higgs ($m_H<=160\GeVcc$) 
+as we lowered the $\pt$ thresold of the trailing leptons compared to the 2010 analysis. 
+For the searches of high mass Higgs ($m_H > 160 \GeVcc$) we use the same 
+selections as in the 2010 analysis with only one additional cut on the transverse Higgs mass. 
+Table~\ref{tab:cutanalysis_perf} compares the performance of a few selections.
 The comparison is based on $R$, defined as the ratio of the mean expected upper limit 
 cross-section and the SM value, for 1~\ifb\ of integrated luminosity. 
-Above $m_H = 160 \GeVcc$ we keep the selection requirements
-identical to those used in the 2010 analysis and only add a cut on the
-transverse Higgs mass.
 
 \begin{table}[!ht]
   \begin{center}
@@ -59,7 +57,7 @@ transverse Higgs mass.
   \hline
   \end{tabular}
   }
-  \caption{Final Event selection requirements for a cut-based analysis}
+  \caption{Final event selection requirements for the cut-based analysis in the zero-jet bin. }
    \label{tab:cutanalysis0j}
   \end{center}
 \end{table}
@@ -80,7 +78,7 @@ transverse Higgs mass.
   \hline
   \end{tabular}
   }
-  \caption{Cut based analysis performance for different selections. R is a ratio of the mean
+  \caption{Cut based analysis performance for different tunes. R is a ratio of the mean
    expected upper limit cross-section and the SM value.  R(20/20) corresponds 
   to 2010 analysis with a minimum lepton \pt\ of 20 GeV. R(20/10) corresponds to the same 
   set of kinemaic cuts, but the trailing lepton \pt\ is lowered to 10 GeV for Higgs mass hypothesis 

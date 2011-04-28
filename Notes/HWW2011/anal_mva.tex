@@ -1,37 +1,55 @@
-In order to make maximal use of the information in the data we have performed 
-also a multivariate analysis. The classifier that we decided to use is a Boosted 
-Decision Tree (BDT) implemented using the TMVA~\cite{tmva} toolkit. BDT is a  
-multivariate technique (like artificial neural networks, likelihood estimators, 
-k-Nearest Neighbor classifiers, etc..) that has been already successfully applied 
-in high energy physics to increase the statistical significance of a signal 
-extraction. Compared to other multivariate classifiers, a BDT requires little 
-training to obtain good results and is also insensitive to the inclusion of 
-poorly discriminating input variables.
+To make maximal use of the event information we have performed a multivariate analysis 
+using a multivariate classifier based on the Boosted Decision Tree (BDT) technique. 
+The BDT is implemented using the TMVA~\cite{tmva} toolkit and has been 
+successfully applied in high energy physics to increase the 
+statistical significance of a signal extraction
+It requires less training than other multivariate classifiers and 
+it is insensitive to the inclusion of poorly discriminating input variables.
 
+%Just as other multivariate technique (like artificial neural networks, likelihood estimators, 
+%k-Nearest Neighbor classifiers, etc..) that has been already successfully applied 
+%in high energy physics to increase the statistical significance of a signal 
+%extraction. 
 
-In addition to the variables used in the cut based approach, additional variables 
-have been considered in the multivariate analysis. These variables either have 
-large correlations with the previous ones or they do not give a large separation 
-power by themselves. Nevertheless they improve the overall performance. For the 
-current version of the analysis only two variables have been added:
-
+In addition to the $\WW$ preselection, we apply a loose cut on the
+maximum $\mll$ to enhance the signal-to-background ratio shown in Table~\ref{tab:presel_tmva_analysis}. 
+The multivariate technique uses the following additional variables compared to the cut-based analysis: 
 \begin{itemize}
-\item $\Delta R_{\Lep\Lep}\equiv\sqrt{\deletall^2 + \delphill^2}$ between the leptons, which has 
-similar properties as $\delphill$;
-
-\item the di-lepton final states identification: $\mu\mu$, $ee$, $e\mu$ or 
-$\mu e$, where the leptons are ordered by $\pt$. The 
-signal-to-background ratios for the different final states are different, 
-hence the addition of this variable provides additional discriminating power.
-
+\item $\Delta R_{\Lep\Lep}\equiv\sqrt{\deletall^2 + \delphill^2}$ between the leptons, 
+with $\deletall$ the $\eta$ difference between the leptons, 
+which has similar properties as $\delphill$
+\item the angle in the transverse plane between 
+the $\met$ and the leptons, which discriminates against events with 
+no real $\met$
+\item the {\it projected $\met$}
+\item the transverse mass of both lepton-\met pairs, $m_T^{\ell-\met}$, which 
+helps in reducing the non-$\W$ background
+\item lepton flavors ($\mu\mu$, $ee$, $e\mu$ or $\mu e$ ). 
 \end{itemize}
+%These variables either have 
+%large correlations with the previous ones or they do not give a large separation 
+%power by themselves. Nevertheless they improve the overall performance. For the 
+%current version of the analysis only two variables have been added:
 
-The training has been carried out separately for different Higgs masses, using the 
-corresponding signal samples. Besides the $\WW$ selection requirements, we 
-apply a loose upper cut on $\mll$ to enhance the signal-to-background ratio. 
-The values of this upper limit cut are detailed in 
-Table~\ref{tab:presel_tmva_analysis}. The 0-jet and 1-jet bin cases are 
-treated separately with their own training and performance evaluation.
+The training has been carried out separately in the 0-jet and 1-jet bins 
+for different Higgs masses using the corresponding signal samples. 
+The classifier outputs for three different Higgs masses and both jet bins are shown in 
+Figures~\ref{fig:histo_mva_130}-\ref{fig:histo_mva_200}. 
+
+The cut on the BDT output has been chosen to maximize 
+the statistical significance $S$ defined as:
+\begin{equation*}
+S=\frac{N_S}{\sqrt{N_B+(\Delta N_B)^2}}
+\end{equation*}
+where $N_S$ and $N_B$ are the expected signal and background event yields, 
+assuming the SM cross-sections and 1 $\ifb$ of integrated luminosity. 
+Exclusively for the cuts optimization, the relative uncertainty 
+$\Delta N_B/N_B$ on the combined background is considered to be equal to 35\%. 
+This is just a rough estimation of the overall uncertainty. We have tested 
+other values between 20\% and 50\% and obtained consistent results.
+The expected number of signal and background events for an integrated luminosity 
+of 1 $\ifb$, after applying the full multivariate analysis selection in the 0-jet and 1-jet 
+bin cases are listed in Tables~\ref{tab:mvasel0j} and ~\ref{tab:mvasel1j}, respectively.
 
 \begin{table}
 \begin{center}
@@ -90,22 +108,6 @@ of events is different on each mass point due to the specific $\mll$ requirement
 \end{center}
 \end{figure}
 
-The classifier outputs for three different Higgs masses and both jet bins are shown in 
-Figures~\ref{fig:histo_mva_130},~\ref{fig:histo_mva_150} and~\ref{fig:histo_mva_200}. The 
-cut values have been optimized maximizing the statistical significance $S$ defined as:
-\begin{equation*}
-S=\frac{N_S}{\sqrt{N_B+(\Delta N_B)^2}}
-\end{equation*}
-where $N_S$ and $N_B$ are the expected signal and background event yields, 
-assuming the SM cross-sections and 1 $\ifb$ of integrated luminosity. 
-Exclusively for the cuts optimization, the relative uncertainty 
-$\Delta N_B/N_B$ on the combined background is considered to be equal to 35\%. 
-This is just a rough estimation of the overall uncertainty. We have tested 
-other values between 20\% and 50\% and obtained consistent results.
-
-The expected number of signal and background processes for an integrated luminosity 
-of 1 $\ifb$, after applying the full multivariate analysis selection in the 0-jet and 1-jet 
-bin cases are listed in Tables~\ref{tab:mvasel0j}~\ref{tab:mvasel1j}, respectively.
 
 \begin{table}[!ht]
   \begin{center}
