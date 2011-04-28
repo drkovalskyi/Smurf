@@ -6,11 +6,6 @@ statistical significance of a signal extraction
 It requires less training than other multivariate classifiers and 
 it is insensitive to the inclusion of poorly discriminating input variables.
 
-%Just as other multivariate technique (like artificial neural networks, likelihood estimators, 
-%k-Nearest Neighbor classifiers, etc..) that has been already successfully applied 
-%in high energy physics to increase the statistical significance of a signal 
-%extraction. 
-
 In addition to the $\WW$ preselection, we apply a loose cut on the
 maximum $\mll$ to enhance the signal-to-background ratio shown in Table~\ref{tab:presel_tmva_analysis}. 
 The multivariate technique uses the following additional variables compared to the cut-based analysis: 
@@ -26,14 +21,11 @@ no real $\met$
 helps in reducing the non-$\W$ background
 \item lepton flavors ($\mu\mu$, $ee$, $e\mu$ or $\mu e$ ). 
 \end{itemize}
-%These variables either have 
-%large correlations with the previous ones or they do not give a large separation 
-%power by themselves. Nevertheless they improve the overall performance. For the 
-%current version of the analysis only two variables have been added:
 
 The training has been carried out separately in the 0-jet and 1-jet bins 
-for different Higgs masses using the corresponding signal samples. 
-The classifier outputs for three different Higgs masses and both jet bins are shown in 
+for different Higgs masses using the corresponding signal samples. For the background, 
+we have considered $\WW$ processes only for now. The classifier outputs 
+for three different Higgs masses and both jet bins are shown in 
 Figures~\ref{fig:histo_mva_130}-\ref{fig:histo_mva_200}. 
 
 The cut on the BDT output has been chosen to maximize 
