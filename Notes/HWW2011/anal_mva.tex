@@ -1,8 +1,8 @@
 In order to make maximal use of the information in the data we have performed 
 also a multivariate analysis. The classifier that we decided to use is a Boosted 
 Decision Tree (BDT) implemented using the TMVA~\cite{tmva} toolkit. BDT is a  
-multivariate techniques (like artificial neural networks, likelihood estimators, 
-k-Nearest Neighbor classifiers,etc..) that has been already successfully applied 
+multivariate technique (like artificial neural networks, likelihood estimators, 
+k-Nearest Neighbor classifiers, etc..) that has been already successfully applied 
 in high energy physics to increase the statistical significance of a signal 
 extraction. Compared to other multivariate classifiers, a BDT requires little 
 training to obtain good results and is also insensitive to the inclusion of 
@@ -11,7 +11,7 @@ poorly discriminating input variables.
 
 In addition to the variables used in the cut based approach, additional variables 
 have been considered in the multivariate analysis. These variables either have 
-large correlation with the previous ones or they do not give a large separation 
+large correlations with the previous ones or they do not give a large separation 
 power by themselves. Nevertheless they improve the overall performance. For the 
 current version of the analysis only two variables have been added:
 
@@ -20,15 +20,15 @@ current version of the analysis only two variables have been added:
 similar properties as $\delphill$;
 
 \item the di-lepton final states identification: $\mu\mu$, $ee$, $e\mu$ or 
-$\mu e$, where the leptons are sorted by its corresponding $\pt$. The 
+$\mu e$, where the leptons are ordered by $\pt$. The 
 signal-to-background ratios for the different final states are different, 
-hence it provides an additional discriminant power to add that variable.
+hence the addition of this variable provides additional discriminating power.
 
 \end{itemize}
 
-The training has been carried out depending on the Higgs mass and using the 
+The training has been carried out separately for different Higgs masses, using the 
 corresponding signal samples. Besides the $\WW$ selection requirements, we 
-apply an upper loose cut on $\mll$ to enhance the signal-to-background ratio. 
+apply a loose upper cut on $\mll$ to enhance the signal-to-background ratio. 
 The values of this upper limit cut are detailed in 
 Table~\ref{tab:presel_tmva_analysis}. The 0-jet and 1-jet bin cases are 
 treated separately with their own training and performance evaluation.
