@@ -1,8 +1,10 @@
 %UPDATEME%
 The datasets used for this analysis are summarized in Tables.~\ref{tab:DatasetsData} 
 and~\ref{tab:DatasetsMC} for data and Monte Carlo, respectively. The total integrated
-luminosity is 49 $\pm$ 2 $\ipb$. 
-We use madgraph when possible, but different generators such as Pythia and Powheg 
+luminosity is 49 $\pm$ 2 $\ipb$. We used just basic quality requirements, since an official good 
+run list (JSON file) was not available. It will be used in future updates.
+For Monte Carlo simulation we use madgraph when possible, 
+but different generators such as Pythia and Powheg 
 are also used. 
 %For $gg \to \WW$ a dedicated generator is used. For \wz\ and \zz\
 %processes we use Pythia, since MadGraph samples are mixed with $\WW$ in
@@ -30,17 +32,16 @@ are also used.
 \hline
 \multicolumn{2}{|c|}{$H \to \WW$ Signal Selection Samples} \\
 \hline
-Run2011A MuEl PromptReco            &  /MuEG/Run2011A-PromptReco-v1/AOD   \\
-Run2011A DiMuon PromptReco          &  /DoubleMu/Run2011A-PromptReco-v1/AOD   \\
-Run2011A SingleMuon PromptReco      &  /SingleMu/Run2011A-PromptReco-v1/AOD   \\
-Run2011A DiElectron PromptReco      &  /DoubleElectron/Run2011A-PromptReco-v1/AOD   \\
-%Run2011A SingleElectron PromptReco  &  /SingleElectron/Run2011A-PromptReco-v1/AOD   \\
+Run2011A MuEl PromptReco            &  /MuEG/Run2011A-PromptReco-v*/AOD   \\
+Run2011A DiMuon PromptReco          &  /DoubleMu/Run2011A-PromptReco-v*/AOD   \\
+Run2011A SingleMuon PromptReco      &  /SingleMu/Run2011A-PromptReco-v*/AOD   \\
+Run2011A DiElectron PromptReco      &  /DoubleElectron/Run2011A-PromptReco-v*/AOD   \\
 \hline
 \hline
 \multicolumn{2}{|c|}{Fake Rate Measurement Samples} \\
 \hline
-Run2010A Jet  PromptReco            & /Jet/Run2011A-PromptReco-v1/AOD	\\
-Run2010B Photon PromptReco          & /Photon/Run2011A-PromptReco-v1/AOD \\
+Run2010A Jet  PromptReco            & /Jet/Run2011A-PromptReco-v*/AOD	\\
+Run2010B Photon PromptReco          & /Photon/Run2011A-PromptReco-v*/AOD \\
 \hline
 \end{tabular}
 \caption{Summary of data datasets used.\label{tab:DatasetsData}}
@@ -84,7 +85,8 @@ $WH/ZH/\ttbar H,~H\to WW$                &   /WH\_ZH\_TTH\_HToWW\_M-*\_7TeV-pyth
 \hline
 \end{tabular}
 }
-\caption{Summary of Monte Carlo datasets used.\label{tab:DatasetsMC}}
+\caption{Summary of Monte Carlo datasets used.\label{tab:DatasetsMC}. The cross sections for a SM Higgs boson
+is taken from the LHC Higgs cross-section working group~\cite{LHCHiggsCrossSectionWorkingGroup:2011ti}}
 \end{center}
 \end{table}
 
@@ -98,7 +100,8 @@ events. For the time being we correct the $gg \to H \to \WW$ jet bin
 efficiency computed from the Powheg Monte Carlo sample, by a scale
 factor which is approximately identical for all Higgs masses. The
 scale factors applied to each jet bin in the Powheg simulation are
-shown in Figure~\ref{fig:h160ww_pthiggs}(b).
+shown in Figure~\ref{fig:h160ww_pthiggs}(b). The jet definition is 
+consitent with the one used in the analysis.
 
 \begin{figure}[!htbp]
 \begin{center}
