@@ -1,15 +1,15 @@
 \subsection{Introduction}
-Published $H\rightarrow WW\rightarrow ll$ 2010 analysis was based on the following electron selection:
+The published $H\rightarrow WW\rightarrow 2\ell 2\nu$ analysis of 2010 was based on the following electron selection:
 \begin{itemize}
 \item identification: VBTF80;
-\item isolation: relIso$<$0.10, where relIso is the sum of contributions from tracks, ECAL and HCAL is a cone of R=0.3 around the electron, 
-divided by the electron $p_T$; in the barrel the ECAL contribution has a pedestal subtrction of 1 GeV;
+\item isolation: relIso$<$0.10, where relIso is the sum of contributions from tracks, ECAL, and HCAL in a cone of R=0.3 around the electron, 
+divided by the electron $p_T$; in the barrel the ECAL contribution has a pedestal subtraction of 1 GeV;
 \item impact parameter: transverse longitudinal parameter w.r.t. the primary vertex $<0.02$ cm and longitudinal i.p. $<$ 0.2 cm;
 \item conversion rejection: 0 missing inner expected hits and partner track veto (distance $<$0.02 cm, $\Delta \cot \theta <$0.02).
 \end{itemize}
 Before the 2011 data taking we wanted to review the selection and check if there is anything better available.
 
-This process is divided in two steps: we review the available selections for high $p_T$ electrons ($>$20 GeV) and, then, 
+This process is divided into two steps: we review the available selections for high $p_T$ electrons ($>$20 GeV) and then, 
 we look for improvement for a possible extension at low $p_T$.
 
 The choice of the optimal selection is based on the analysis results after all cuts, 
@@ -24,20 +24,20 @@ The performance of the tested algorithms are evaluated using three figures of me
 \item FOM3: $S/\sqrt{S+B+(0.35 \cdot B)^2}$, the significance including a 35\% systematic uncertainty on the background;
 \end{itemize}
 where S and B are the total signal and background yields for an integrated luminosity of 1/fb and evaluated in the 2010 
-$H\rightarrow WW\rightarrow ll$, $m_H=130$ GeV analysis signal region:
+$H\rightarrow WW\rightarrow 2\ell 2\nu$, $m_H=130$ GeV analysis signal region:
 $\Delta\phi < 60$, 12$< m_{ll} <$45 GeV, projected Met$>$35 GeV (20 GeV for $\mu$-e final state), jet and top veto.
 In this exercise we consider the final states where the trailing lepton is an electron ($\mu$-e and e-e).
 The choice of 35\% in the FOM3 definition is somewhat arbitrary; the idea is to pick a conservative value on the background systematic uncertainty, 
 as opposed to FOM2 where the assumption of negligible systematic uncertainty is too optimistic.
 
-Yields are evaluated according a simple model that deals separately for good and fake electrons.
+Yields are evaluated according to a simple model that treats good and fake electrons separately.
 Real electrons are well modeled by simulation and thus we can rely on efficiency estimates from Monte Carlo; 
 we use the electron efficiency from the signal sample to scale the signal and non-fake background yields.
 Fake and non-prompt electrons, instead, can't be studied on simulation since their physics origin is difficult to parametrize and because
-the available sample have low statistics. 
+the available sample has low statistics. 
 Therefore, we predict the fake background yield from data with the following procedure: 
 first, we take as baseline the prediction from 2010 data scaled to 1/fb (using the fake rate method for 2010 analysis electron selection); 
-then, for each of the tested selections, we calculate the efficiency per fake electron from data and use this efficiency to scale the baseline prediction.
+then for each of the tested selections, we calculate the efficiency per fake electron from data and use this efficiency to scale the baseline prediction.
 
 Fake electrons from data are selected from the EG2010A sample requiring HLT\_Ele10\_SW\_L1R and rejecting electrons from W and Z with the following cuts:
 Met$<$20 GeV, $m_T(e, Met)<$20 GeV and, for event with two electrons, $|m_{ee}-m_Z|>$15 GeV. 
@@ -121,7 +121,6 @@ http://cmssw.cvs.cern.ch/cgi-bin/cmssw.cgi/CMSSW/RecoEgamma/ElectronIdentificati
 cutsInCategoriesElectronIdentificationV06\_DataTuning\_cfi.py?view=log.}: 
   \begin{itemize}
   \item CICST: CIC SuperTight ID 
-  \item CICHT1: CIC HyperTight v1 ID 
   \item CICHT2: CIC HyperTight v2 ID
   \item CICHT4: CIC HyperTight v4 ID
   \end{itemize}
@@ -131,7 +130,7 @@ cutsInCategoriesElectronIdentificationV06\_DataTuning\_cfi.py?view=log.}:
 
 The first step is the definition of a baseline cut at high $p_T$. 
 We verify the identification performance by comparing the cut efficiency on fake electrons from data and on signal electrons on MC.
-Figure~\ref{subfig:idEffic_gt20} shows that the MVA curve has worse rejection power than CIC, while VBTF goes across.
+Figure~\ref{subfig:idEffic_gt20} shows that the MVA curve has worse rejection power than CIC, while the VBTF and CIC curves cross.
 This result can be interpreted in terms of analysis performance by looking at the FOM's for $p_{T,max}>$20 GeV and $p_{T,min}>$20 GeV
 (Figs.~\ref{subfig:id_hww130_fom1_pt20}-\ref{subfig:id_hww130_fom3_pt20}). 
 No algorithm provides the best results for all FOM's; however, it is clear that MVA is slightly worse, while VBTF and CIC are comparable.
@@ -231,11 +230,11 @@ $p_{T,min}>$15 GeV; the 2010 selection is used as a baseline, the ID cut is vari
 \label{fig:idpt15}
 \end{figure}
 
-\subsubsection{Results for 10$<p_T<$10 $\GeVc$}
+\subsubsection{Results for 10$<p_T<$15 $\GeVc$}
 
 Again, the VBTF+ cuts significantly improve the ID performance (Figure~\ref{subfig:idEffic_10pt15}).
 However, despite VBTF+ brings a large relative improvement, the FOM's for $p_{T,max}>$20 GeV and $p_{T,min}>$10 GeV 
-(Figs.~\ref{subfig:id_hww130_fom1_pt10}-\ref{subfig:id_hww130_fom3_pt10}) do not show an overall unhancment w.r.t. $p_{T,min}>$15 GeV.
+(Figs.~\ref{subfig:id_hww130_fom1_pt10}-\ref{subfig:id_hww130_fom3_pt10}) do not show an overall enhancement w.r.t. $p_{T,min}>$15 GeV.
 
 \begin{figure}[!hbtp]
 \subfigure[]{
@@ -269,22 +268,21 @@ Thus, we choose VBTF80 for $p_T>$20 GeV and VBTF70+ for 15$<p_T<$20 GeV.
 
 \subsection{Electron Isolation}
 
-2010 analysis used relIso$<$0.10, where relIso is the sum of isolation contributions (cone size=0.3) from tracker, ECAL (1 GeV pedestal subtraction for ECAL barrel)
-and HCAL divided by the electron $p_T$.
+The 2010 analysis used relIso$<$0.10.
 Given that the ID optimization suggests to lower the  $p_{T,min}$ cut to 15 GeV, we wanted to review if tightening the isolation cut further 
-the analysis performance are improved.
-Within the cut based approach, we can tighten the cut in three ways: lowering the cut value, increasing the cone size and removing the pedestal subtraction.
+would improve the performance of the analysis.
+Within the cut based approach, we can tighten the cut in three ways: lowering the cut value, increasing the cone size, and removing the pedestal subtraction.
 In the following tests, we call (tight) sliding isolation the following set of cuts: 
 \begin{itemize}
 \item relIso$<$0.1 (0.1) for $p_T>$20 GeV
 \item relIso$<$0.07 (0.03) for 15$<p_T<$20 GeV
 \item relIso$<$0.05 (0.01) for 10$<p_T<$15 GeV
 \end{itemize}
-and we will test it with cone size 03 and cone size 04 with and without pedestal subtraction.
-CIC isolation uses cone size 0.3 for tracker and 0.4 for calo and does not apply pedestal subtracion; cut values are optimized for various categories.
+and we will test it with cone size 0.3 and cone size 0.4 with and without pedestal subtraction.
+CIC isolation uses cone size 0.3 for the tracker and 0.4 for the calorimeters and does not apply pedestal subtracion; cut values are optimized for various categories.
 Results are summarized in Figure~\ref{fig:isopt15}. 
-The efficiency plot shows that the cut based approach is basically one single surve covering the whole range and it is slightly worse than CIC; 
-however, there is not a clear advantage in using tighter isolation approaches since FOM1 and FOM2 slightly improve, while FOM2 worsens. 
+The efficiency plot shows that the cut based approach is basically one single curve covering the whole range and it is slightly worse than CIC; 
+however, there is not a clear advantage in using tighter isolation approaches since FOM1 and FOM3 slightly improve, while FOM2 worsens. 
 Therefore, we choose to stick to the relIso$<$0.10 cut. This exercise will be repeated with 2011 fake data.
 
 \begin{figure}[!hbtp]
@@ -371,7 +369,7 @@ We analyzed ExpressStream data, selecting Z events with 76$<M_{ee}<$106 GeV, $p_
 $p_{T,min}>$10 GeV, relative isolation$<$0.2 for tracks, ECAL and HCAL separately and $\sigma_{i\eta i\eta}<$0.015 (0.031) for barrel (endcap).
 Given that no selection for good run certification is applied, all distributions (Figs.~\ref{fig:mcdata_vbtf_bar}-\ref{fig:mcdata_smurf}) 
 are in reasonable agreement except $H/E$ in the endcap (Fig.~\ref{subfig:mcdata_hOverE_end_log}). 
-As other studies on high-pile up samples confirm, this variable is particularly sensitive to the pile-up conditions and can introduce data-MC discrepancies 
+As other studies on high pile-up samples confirm, this variable is particularly sensitive to the pile-up conditions and can introduce data-MC discrepancies 
 in the electron identification efficiency up to the 20\% level at large $|\eta|$.
 We verified that with our current selection (VBTF80 for $p_T>$20 GeV and VBTF70+ for 15$<p_T<$20 GeV) we can remove the $H/E$ cut in the endcap
 region without significant decrease in the analysis performance (Fig.~\ref{fig:idpt15_nohoe}). We define as VBTF- the VBTF identification without the $H/E$ cut in the endcap.
@@ -465,7 +463,7 @@ After the optimization procedure and the tests on data we define the following e
 \begin{itemize}
 \item identification: 
   \begin{itemize}
-  \item 15$<$pt$<$20: VBTF70 (no H/E cut for endcap) AND (fbrem$>$0.15 OR (|eta|$<$1 AND E/p$>$0.95)
+  \item 15$<$pt$<$20: VBTF70 (no H/E cut for endcap) AND (fbrem$>$0.15 OR ($|\eta|<$1 AND E/p$>$0.95)
   \item pt$>$20: VBTF80 (no H/E cut for endcap)
   \end{itemize}
 \item isolation: relIso$<$0.10, where relIso is the sum of contributions from tracks, ECAL and HCAL is a cone of R=0.3 around the electron, 
