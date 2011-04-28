@@ -103,8 +103,8 @@ by the additional kinematic requirements applied to the jets to
 select qqH-like events.
 The total tagging efficiency for the highest $\pt$ jet as a function
 of the number of counted jets in simulated
-$t\bar{t}$ events after requiring $\Delta \eta_{j1j2}>4$,
-$m_{j1j2}>500~\GeVcc$ and $\eta_{j1}\eta_{j2}<0$ is shown in 
+$t\bar{t}$ events after requiring $\Delta \eta_{j1j2}>3.5$,
+$m_{j1j2}>450~\GeVcc$ and $\eta_{j1}\cdot\eta_{j2}<0$ is shown in 
 Figure~\ref{fig:btag_njets_vbfcuts}.
 Although the number of simulated events meeting these requirements
 is small, a trend towards lower efficiency in the 2-jet bin is observed
@@ -121,10 +121,32 @@ jets in top events after applying the $\WW$-like selection and a qqH-like select
 \end{center}
 \end{figure}
 
-The proposed method is to extract the tagging efficiency for the leading and 
-trailing jet as a function of jet $\eta$ and $\pt$. 
-This efficiency is then applied to untagged simulated top events. 
-The tagging efficiency for low $\pt$ jets and soft muons is also measured from data.
+The proposed method is to measure the tagging efficiency for the leading and 
+trailing jet as a function of $(\eta,\:\pt)$-bins of its jet. This efficiency measurement
+is performed on a sample defined by a $\WW$-like selection with two jets ($b$-tag veto
+is not applied on the two jets). The expected $\ttbar$ purity of such a selection is about 
+$95\%$. The top background in the signal region is then predicted by considering the
+events passing qqH-like selection with exactly one $b$-tagged jet: the number of events in
+each $(\eta,\:\pt)$-bin of the $b$-tagged jet is scaled by $(1-\epsilon_{tag})/\epsilon_{tag}$ 
+to derive a contribution, and the total contribution over all bins yield the prediction. 
+Explicitly,
+$$N^{2-jet}_{no\;tagged} = \sum_i N_i\cdot\frac{(1-\epsilon(\eta_i,\:{\pt}_i))}{\epsilon(\eta_i,\:{\pt}_i)}.$$
+Note that this method is analogous to the fake rate approach of Sec.~\ref{sec:bkg_fakes}.
+Furthermore, two samples to derive a prediction can be defined here: one sample where only
+the leading jet is $b$-tagged, and one sample where only the trailing jet is $b$-tagged. The two predictions
+from these two samples serve as a useful and convenient cross check. As the 
+$b$-tag efficiency has been measured and parametrized as a function of $\eta$ and $\pt$, we are able 
+to account for the jet kinematics from top events which are biased by applying VBF cuts.
+
+Since the method is analogous to the fake rate procedure, the sources of systematic uncertainties
+arise from similar principles. The composition of the sample in which $\epsilon_{tag}$ is measured,
+in other words the purity, can cause a bias. This systematic uncertainty can be estimated by 
+measuring how much $\epsilon_{tag}$ varies by applying top tagging requirements on the two jet 
+selection. For example, one can require that the trailing jet is $b$-tagged when measuring $\epsilon_{tag}$
+for the leading jet. Another potential source of systematic uncertainty is a difference in the
+jet kinematic distributions between top events in the signal sample and top events in the sample used to
+make the prediction. This can be checked by comparing distributions in a sufficienctly large
+sample of generated $\ttbar$ events. 
 
 %
 % ON DATA
