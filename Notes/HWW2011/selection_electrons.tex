@@ -8,7 +8,7 @@ The choice of electron selection is described in detail in Appendix~\ref{app:els
 The specific requirements to select good prompt electrons are the following:
 
 \begin{itemize}
-    \item Basic fiduciality cuts are imposed,  $p_T>15$~GeV and $|\eta| < 2.5$
+    \item Basic acceptance cuts are imposed,  $p_T>15$~GeV and $|\eta| < 2.5$
     \item Standard electron identification is applied to barrel (endcap) electrons when $p_T>20$~GeV
     \begin{itemize}
         \item The latteral shower shape, $\sigma_{i\eta i\eta} < 0.01~(0.03)$
@@ -37,9 +37,9 @@ with the footprint of the electron are vetoed~\cite{ElIso}.
 In the barrel region we subtract 1~GeV from the ECAL isolation sum to account for pedestal effects.
 If the subtraction causes this sum to become negative, it is set to zero. 
 
-The effect of the pileup contributions to the muon isolation selection efficiency 
+The effect of the pileup contributions to the electron isolation selection efficiency 
 is similar to that of muons (Sec.~\ref{sec:sel_muons}). 
-The average efficiency loss for signal electrons with $p_{T} > 20~\GeVc$ 
+For the current running conditions the average efficiency loss for signal electrons with $p_{T} > 20~\GeVc$ 
 was assessed to be approximately $2\%$ using Monte Carlo simulation of the decay
 of a Higgs boson with a mass of $130~\GeVcc$. 
 We currently do not perform any pileup corrections for isolation while 
@@ -61,7 +61,7 @@ In order to veto fake electrons from converted photons,
 we look for a reconstructed conversion vertex where one of the two tracks 
 is compatible with the electron~\cite{ConversionNote}.
 The vertex fit probability is required to be $>10^{-6}$.
-We then require that there are no missing expected missing hts forming the electron track~\cite{ConversionNote},~\cite{NExpHits}. 
+We then require that there are no missing expected missing hits forming the electron track~\cite{ConversionNote},~\cite{NExpHits}. 
 Finally to reduce fake electrons from non-prompt sources,
 we require the transverse and longitudinal impact parameters with
 respect to the primary vertex to be less than $0.02$ and $0.2$~cm respectively.
