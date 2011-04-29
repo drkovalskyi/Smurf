@@ -1,10 +1,10 @@
 Primary vertices are reconstructed using the so-called Deterministic Annealing (DA) 
-clustering of tracks.  Reconstructed primary vertices are required to have a
+clustering of tracks~\cite{PVDA}. Reconstructed primary vertices are required to have a
 $z$ position within 24~cm of the nominal detector center and a radial position within 
-2~cm of the beamspot.  There must also be greater than four degrees of freedom in
-the fitted vertex.  From the set of primary vertices in the event passing these
+2~cm of the beamspot. There must also be greater than four degrees of freedom in
+the fitted vertex. From the set of primary vertices in the event passing these
 selection cuts, the vertex with the largest summed squared-$\pt$ of the associated
-tracks is chosen as the event primary vertex.  Reconstructed leptons will be required 
+tracks is chosen as the event primary vertex. Reconstructed leptons will be required 
 to have small impact parameters with respect to this vertex.
 
 Due to the fast evolution of the LHC machine, with a rapid rise in the
@@ -12,7 +12,7 @@ instantaneous luminosity, the data taking conditions have changed
 rapidly.  In particular it is difficult to exactly reproduce the
 number of overlapping events (i.e. pileup) between data and
 simulation, and thus there will be differences in the number of
-reconstructed primary vertices.  We can correct this disagreement by
+reconstructed primary vertices. We can correct this disagreement by
 reweighting the simulation to match the distribution in data.  While
 the average pileup conditions are similar between data and Monte
 Carlo, we do not reweight events and just assign a corresponding systematic
