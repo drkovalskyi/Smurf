@@ -315,6 +315,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     processList[ NProcessCalculate++]=TVar::HWW120;
     processList[ NProcessCalculate++]=TVar::HWW160;
     processList[ NProcessCalculate++]=TVar::HWW200;
+    processList[ NProcessCalculate++]=TVar::HWW250;
     processList[ NProcessCalculate++]=TVar::Wp_1jet;
     processList[ NProcessCalculate++]=TVar::Wm_1jet;
     //processList[ NProcessCalculate++]=TVar::ZZ; 
