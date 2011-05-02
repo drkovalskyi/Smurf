@@ -70,27 +70,29 @@ class SmurfTree {
 
   /// bit map
   enum Selection {
-    BaseLine          = 1UL<<0, // pt(reco)>20/10, acceptance, q1*q2<0,!STA muon, mll>12
-    Lep1FullSelection = 1UL<<1, // full id, isolation, d0, dz etc
-    Lep1LooseEleV1    = 1UL<<2, // electron fakeable object selection is passed V1
-    Lep1LooseEleV2    = 1UL<<3, // electron fakeable object selection is passed V2
-    Lep1LooseEleV3    = 1UL<<4, // electron fakeable object selection is passed V3
-    Lep1LooseEleV4    = 1UL<<5, // electron fakeable object selection is passed V4
-    Lep1LooseMuV1     = 1UL<<6, // muon fakeable object selection (relIso<1.0)
-    Lep1LooseMuV2     = 1UL<<7, // muon fakeable object selection (relIso<0.4)
-    Lep2FullSelection = 1UL<<8, // full id, isolation, d0, dz etc
-    Lep2LooseEleV1    = 1UL<<9, // electron fakeable object selection is passed V1
-    Lep2LooseEleV2    = 1UL<<10, // electron fakeable object selection is passed V2
-    Lep2LooseEleV3    = 1UL<<11, // electron fakeable object selection is passed V3
-    Lep2LooseEleV4    = 1UL<<12, // electron fakeable object selection is passed V4
-    Lep2LooseMuV1     = 1UL<<13, // muon fakeable object selection
-    Lep2LooseMuV2     = 1UL<<14, // muon fakeable object selection
-    FullMET           = 1UL<<15, // full met selection
-    ZVeto             = 1UL<<16, // event is not in the Z-mass peak for ee/mm final states
-    TopTag            = 1UL<<17, // soft muon and b-jet tagging for the whole event regardless of n-jets (non-zero means tagged)
-    OneBJet           = 1UL<<18, // 1-jet events, where the jet is b-tagged (top control sample with one b-quark missing)
-    TopTagNotInJets   = 1UL<<19, // soft muon and b-jet tagging for areas outside primary jets (non-zero means tagged)
-    ExtraLeptonVeto   = 1UL<<20  // extra lepton veto, DR(muon-electron)>=0.3
+    BaseLine          = 1UL<<0,  // pt(reco)>20/10, acceptance,!STA muon, mll>12
+    ChargeMatch       = 1UL<<1,  // q1*q2<0
+    Lep1FullSelection = 1UL<<2,  // full id, isolation, d0, dz etc
+    Lep1LooseEleV1    = 1UL<<3,  // electron fakeable object selection is passed V1
+    Lep1LooseEleV2    = 1UL<<4,  // electron fakeable object selection is passed V2
+    Lep1LooseEleV3    = 1UL<<5,  // electron fakeable object selection is passed V3
+    Lep1LooseEleV4    = 1UL<<6,  // electron fakeable object selection is passed V4
+    Lep1LooseMuV1     = 1UL<<7,  // muon fakeable object selection (relIso<1.0)
+    Lep1LooseMuV2     = 1UL<<8,  // muon fakeable object selection (relIso<0.4)
+    Lep2FullSelection = 1UL<<9,  // full id, isolation, d0, dz etc
+    Lep2LooseEleV1    = 1UL<<10, // electron fakeable object selection is passed V1
+    Lep2LooseEleV2    = 1UL<<11, // electron fakeable object selection is passed V2
+    Lep2LooseEleV3    = 1UL<<12, // electron fakeable object selection is passed V3
+    Lep2LooseEleV4    = 1UL<<13, // electron fakeable object selection is passed V4
+    Lep2LooseMuV1     = 1UL<<14, // muon fakeable object selection (relIso<1.0)
+    Lep2LooseMuV2     = 1UL<<15, // muon fakeable object selection (relIso<0.4)
+    FullMET           = 1UL<<16, // full met selection
+    ZVeto             = 1UL<<17, // event is not in the Z-mass peak for ee/mm final states
+    TopTag            = 1UL<<18, // soft muon and b-jet tagging for the whole event regardless of n-jets (non-zero means tagged)
+    TopVeto           = 1UL<<19, // soft muon and b-jet tagging for the whole event regardless of n-jets (zero means tagged)
+    OneBJet           = 1UL<<20, // 1-jet events, where the jet is b-tagged (top control sample with one b-quark missing)
+    TopTagNotInJets   = 1UL<<21, // soft muon and b-jet tagging for areas outside primary jets (non-zero means tagged)
+    ExtraLeptonVeto   = 1UL<<22  // extra lepton veto, DR(muon-electron)>=0.3
   };
 
   /// first is leading lepton
@@ -99,13 +101,6 @@ class SmurfTree {
     me, 
     em, 
     ee
-  };
-
-  enum EventType {
-    ZeroJet, 
-    OneJet, 
-    VBF, 
-    AllJets
   };
 
   enum DataType {
@@ -190,7 +185,6 @@ class SmurfTree {
   LorentzVector  jet2_;
   float          jet2Btag_;
   unsigned int   njets_;
-  EventType      evtype_;
   LorentzVector  dilep_;
   float          trackMet_;
   float          trackMetPhi_;
@@ -306,7 +300,6 @@ class SmurfTree {
     tree_->Branch("jet2"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr2_);
     tree_->Branch("jet2Btag"     , &jet2Btag_     ,   "jet2Btag/F");
     tree_->Branch("njets"        , &njets_        ,   "njets/i");
-    tree_->Branch("evtype"       , &evtype_       ,   "evtype/I");
     tree_->Branch("dilep"        , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &dilepPtr_);
     tree_->Branch("trackMet"     , &trackMet_	  ,   "trackMet/F");
     tree_->Branch("trackMetPhi"  , &trackMetPhi_  ,   "trackMetPhi/F");
@@ -386,7 +379,6 @@ class SmurfTree {
     tree_->SetBranchAddress("jet2",          &jetPtr2_);
     tree_->SetBranchAddress("jet2Btag",      &jet2Btag_);
     tree_->SetBranchAddress("njets",         &njets_);
-    tree_->SetBranchAddress("evtype",        &evtype_);
     tree_->SetBranchAddress("dilep",         &dilepPtr_);
     tree_->SetBranchAddress("trackMet",      &trackMet_);
     tree_->SetBranchAddress("trackMetPhi",   &trackMetPhi_);
@@ -535,7 +527,6 @@ SmurfTree::InitVariables(){
     variables_.push_back(std::string("jet1Btag"     ));
     variables_.push_back(std::string("jet2Btag"     ));
     variables_.push_back(std::string("njets"        ));
-    variables_.push_back(std::string("evtype"       ));
     variables_.push_back(std::string("trackMet"     ));
     variables_.push_back(std::string("trackMetPhi"  ));
     variables_.push_back(std::string("pmet"         ));
@@ -579,7 +570,6 @@ SmurfTree::InitVariables(){
   jet1Btag_     = -999.;
   jet2Btag_     = -999.;
   njets_        = 0;
-  evtype_       = ZeroJet;
   trackMet_     = -999.;
   trackMetPhi_  = -999.;
   pmet_         = -999.;
@@ -653,7 +643,6 @@ SmurfTree::Get(std::string value)
   if(value=="jet1Btag"     ) { return this->jet1Btag_;     }
   if(value=="jet2Btag"     ) { return this->jet2Btag_;     }
   if(value=="njets"        ) { return this->njets_;        }
-  if(value=="evtype"       ) { return this->evtype_;       }
   if(value=="trackMet"     ) { return this->trackMet_; 	   }
   if(value=="trackMetPhi"  ) { return this->trackMetPhi_;  }
   if(value=="pmet"         ) { return this->pmet_;         }
