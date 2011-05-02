@@ -95,6 +95,8 @@ class SmurfTree {
     ExtraLeptonVeto   = 1UL<<22  // extra lepton veto, DR(muon-electron)>=0.3
   };
 
+  static const unsigned int FullSelection = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
+
   /// first is leading lepton
   enum Type {
     mm, 
