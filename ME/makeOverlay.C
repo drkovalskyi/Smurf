@@ -228,7 +228,7 @@ void drawSignificance(TVar::Process higgsProcess, std::vector<Sample*> & bkgsamp
   hist_SOverB->GetXaxis()->SetTitle(Form("LR(%s) Mininum",  TVar::SmurfProcessName(higgsProcess).Data()));
   TString yTitle; 
 
-  for (int i = 1;i < hist_SOverB->GetNbinsX(); i++) 
+  for (int i = 1;i < hist_SOverB->GetNbinsX()+1; i++) 
     {
       double nsig (0.0), nbkg(0.0);
       nsig = hist_sig->Integral(i, 100000);
@@ -245,9 +245,16 @@ void drawSignificance(TVar::Process higgsProcess, std::vector<Sample*> & bkgsamp
   Float_t sign_CB = calcsig(nsig_CB, nbkg_CB, fom);
   Float_t sign_MVA = calcsig(nsig_MVA, nbkg_MVA, fom); 
   
-  if(sign_MVA > hist_SOverB->GetMaximum()) 
-    hist_SOverB->GetYaxis()->SetRangeUser(hist_SOverB->GetMinimum(), sign_MVA*1.1);
+  // get the ranges of the histogram right
+  Float_t maxBin =  hist_SOverB->GetMaximum(); 
+  maxBin = sign_MVA > maxBin ? sign_MVA : maxBin;
+  maxBin = sign_CB > maxBin ? sign_CB : maxBin;
+
+  Float_t minBin =  hist_SOverB->GetMinimum(); 
+  minBin = sign_MVA < minBin ? sign_MVA : minBin;
+  minBin = sign_CB < minBin ? sign_CB : minBin;
   
+  hist_SOverB->GetYaxis()->SetRangeUser(minBin*0.9, maxBin*1.1);
   
   if(fom == 0)  hist_SOverB->GetYaxis()->SetTitle("N_{S}/#sqrt{(N_{S}+N_{B}}+#sigmaN_{B}^{2})");
   if(fom == 1)  hist_SOverB->GetYaxis()->SetTitle("N_{S}/#sqrt{(N_{S}+N_{B}})");
@@ -320,8 +327,6 @@ void makeOverlay()
   drawLROverlay(TVar::HWW160, bkgsamples, LRBins, LRMin, LRMax);
   drawLROverlay(TVar::HWW200, bkgsamples, LRBins, LRMin, LRMax);
 
-
-
   // mow make the significance plots
   // The last four numbers follows (nsig_CB, nbkg_CB, nsig_MVA, nbkg_MVA)
   // Read off the numbers from the Higgs Note
@@ -341,7 +346,7 @@ void makeOverlay()
   drawSignificance(TVar::HWW200, bkgsamples, LRBins, LRMin, LRMax, 0, 0.0, 0.0, 8.05, 8.32+0.94);
   drawSignificance(TVar::HWW200, bkgsamples, LRBins, LRMin, LRMax, 1, 0.0, 0.0, 8.05, 8.32+0.94);
   drawSignificance(TVar::HWW200, bkgsamples, LRBins, LRMin, LRMax, 2, 0.0, 0.0, 8.05, 8.32+0.94);
-  
+
       
 }
 
