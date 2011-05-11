@@ -63,7 +63,7 @@ double HiggsWidth(double);
 double SetTGCParameter(TString ,double par);
 double GetTGCParameter(int i);
 double getProbAcceptanceEfficiency(cdf_event_type cdf_event, EffHist effhist);
-double getFakeRateProb(cdf_event_type cdf_event,  EffHist effhist, FRHist frhist, TVar::Process Global_process);
+double getFakeRateProb(cdf_event_type cdf_event,  EffHist effhist, FRHist frhist, TVar::Process Global_process, TVar::VerbosityLevel verbosity);
 void getProbFromHist(double x0, double* kX, double *wt, TH1F *hkx);
 
 #endif

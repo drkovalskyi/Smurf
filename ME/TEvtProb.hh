@@ -79,8 +79,9 @@ public:
   void SetProcess(TVar::Process tmp) { _process = tmp; }
   void SetMatrixElement(TVar::MatrixElement tmp){ _matrixElement = tmp; }
   void SetHWWPhaseSpace(TVar::HWWPhaseSpace tmp){ _hwwPhaseSpace = tmp; }
-  void SetMCHist(int proc) {
-    std::cout << "TEvtProb::SetMCHist for process " << TVar::ProcessName(proc) << std::endl;
+
+  void SetMCHist(int proc, TVar::VerbosityLevel verbosity) {
+    if (verbosity >= TVar::DEBUG) std::cout << "TEvtProb::SetMCHist for process " << TVar::ProcessName(proc) << std::endl;
     TFile *fUtil = TFile::Open("Util.root", "READ");
     assert(fUtil);
     gROOT->cd();
@@ -129,7 +130,7 @@ public:
   void NeutrinoIntegrate(TVar::Process proc,
                          cdf_event_type cdf_event,
                          double *Xsec,
-                         double *XsecErr);
+                         double *XsecErr, TVar::VerbosityLevel verbosity);
 
   void SetHiggsMass(double mass){
     masses_mcfm_.hmass=mass;

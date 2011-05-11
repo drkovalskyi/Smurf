@@ -71,26 +71,27 @@ static std::string name(int  dstype){
   }
 };
 
-void NeutrinoIntegration(int process, TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int Mass);
+void NeutrinoIntegration(int process, TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int Mass, TVar::VerbosityLevel verbosity);
 
 //###################
 //# main function
 //###################
-void runME_test(TString inputDir, TString fileName, TString outputDir, int seed,int SmearLevel,int ncalls,double Error, int Mass, int nev){
+void runME_test(TString inputDir, TString fileName, TString outputDir, int seed,int SmearLevel,int ncalls,double Error, int Mass, int nev, TVar::VerbosityLevel verbosity=TVar::INFO){
 
   ERRORthreshold=Error;
   int process=TVar::HWW;
   int maxevt=nev;
   
-  cout <<"=== Neutrino Integration ==========" <<endl;  
-  NeutrinoIntegration(process, inputDir, fileName, outputDir, seed, SmearLevel,ncalls,maxevt, Mass); 
+  if (verbosity >= TVar::INFO) cout <<"=== Neutrino Integration ==========" <<endl;  
+  NeutrinoIntegration(process, inputDir, fileName, outputDir, seed, SmearLevel,ncalls,maxevt, Mass, verbosity); 
  
 }
 
 
-void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int Mass){
+void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int Mass, TVar::VerbosityLevel verbosity){
 
-  cout << "Input File: "<< fileName <<" seed " << seed <<" SmearLevel " << SmearLevel <<" ncalls "<< ncalls<<endl;
+  if (verbosity >= TVar::INFO) cout << "Input File: " << fileName << " seed " << seed << " SmearLevel " << SmearLevel << " ncalls " << ncalls << endl;
+
   TFile* fin = new TFile(inputDir+fileName);
   TString outFileName = outputDir+fileName;
   outFileName.ReplaceAll(".root","_ME.root");
@@ -106,7 +107,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   Xcal2.SetNcalls(ncalls);
   
   
-  cout <<"Integration Seed= "<< Xcal2._seed << " SmearLevel= "<< Xcal2._smearLevel << " Ncalls = " << Xcal2._ncalls <<  endl;  
+  if (verbosity >= TVar::INFO) cout << "Integration Seed= "<< Xcal2._seed << " SmearLevel= " << Xcal2._smearLevel << " Ncalls = " << Xcal2._ncalls <<  endl;  
   
   TTree* ch=(TTree*)fin->Get("tree"); 
   if (ch==0x0) return; 
@@ -157,10 +158,13 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   
   int Ntot = ch->GetEntries();
   if(maxevt<Ntot) Ntot=maxevt;
-  printf("Total number of events = %d\n", Ntot);
+  if (verbosity >= TVar::INFO) printf("Total number of events = %d\n", Ntot);
   
   for(int ievt=0;ievt<Ntot;ievt++){
-    
+   
+    if (verbosity >= TVar::INFO && (ievt % 5 == 0)) 
+        std::cout << "Doing Event: " << ievt << std::endl;
+ 
     for(int idx=0;idx<nProc;idx++) {
       dXsecList   [idx] = 0;
       dXsecErrList[idx] = 0;
@@ -220,19 +224,20 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     double Phill=TVector2::Phi_0_2pi(cms_event.p[0].DeltaPhi(cms_event.p[1]));
     if(Phill>TMath::Pi()) Phill=2*TMath::Pi()-Phill;			   
       
-    cout<<endl<<endl<<endl;
-    cout <<"========================================================="<<endl;
-    cout<<"Entry: "<<ievt<<"   Run: "<<run_<<"   Event: "<<event_<<endl;
-    
-    cout <<"Input: =================================================="<<endl;
-    for(int lep=0;lep<2;lep++){
-      printf("lep%d : %d %4.4f %4.4f %4.4f %4.4f %4.4f \n",
-	     lep, cms_event.PdgCode[lep], cms_event.p[lep].Px(),
-	     cms_event.p[lep].Py(), cms_event.p[lep].Pz(),
-	     cms_event.p[lep].Energy(), cms_event.p[lep].M());
-    } 
-    cout <<"========================================================="<<endl;
-    
+
+    if (verbosity >= TVar::DEBUG) {
+        cout<<endl<<endl<<endl;
+        cout << "=========================================================" <<endl;
+        cout << "Entry: " << ievt << "   Run: " << run_ << "   Event: " << event_ <<endl;
+        cout << "Input: ==================================================" <<endl;
+        for(int lep=0;lep<2;lep++){
+            printf("lep%d : %d %4.4f %4.4f %4.4f %4.4f %4.4f \n",
+	        lep, cms_event.PdgCode[lep], cms_event.p[lep].Px(),
+	         cms_event.p[lep].Py(), cms_event.p[lep].Pz(),
+	         cms_event.p[lep].Energy(), cms_event.p[lep].M());
+        } 
+        cout << "========================================================="<<endl;
+    }
     
     // Processes considered
     int NProcessCalculate=0;
@@ -282,32 +287,33 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 	
 	ProcInt=processList[iproc];
 	Xcal2.SetNcalls(ncalls);
-	Xcal2.SetMCHist(ProcInt); 
+	Xcal2.SetMCHist(ProcInt, verbosity); 
 	// Xcal2.SetFRHist(); 
 	
-	printf(" Calculate Evt %4i Run %9i Evt %8i Proc %4i %s Lep %4i %4i\n", ievt, run_, event_, ProcIdx, TVar::ProcessName(ProcIdx).Data(),lep1_Type,lep2_Type);
+	if (verbosity >= TVar::DEBUG) printf(" Calculate Evt %4i Run %9i Evt %8i Proc %4i %s Lep %4i %4i\n", ievt, run_, event_, ProcIdx, TVar::ProcessName(ProcIdx).Data(),lep1_Type,lep2_Type);
 
 	if ((processList[iproc]>=TVar::HWW120) && (processList[iproc]<=TVar::HWW300)){
 	  Xcal2.SetProcess(TVar::HWW);
 	  Xcal2.SetHiggsMass(HiggsMASS[processList[iproc]]);
-	  cout<< "Higgs Mass: " << HiggsMASS[processList[iproc]]<<"GeV \n";
+	  if (verbosity >= TVar::DEBUG) cout<< "Higgs Mass: " << HiggsMASS[processList[iproc]]<<"GeV \n";
 	  
 	  if ( HiggsMASS[processList[iproc]]<160.8 )
 	    Xcal2.SetHWWPhaseSpace(TVar::MH);
 	  else
 	    Xcal2.SetHWWPhaseSpace(TVar::MHMW);
 
-	  Xcal2.NeutrinoIntegrate(TVar::HWW,cms_event, &Xsec, &XsecErr);
+	  Xcal2.NeutrinoIntegrate(TVar::HWW,cms_event, &Xsec, &XsecErr, verbosity);
 	} 
-	else Xcal2.NeutrinoIntegrate(ProcInt,cms_event, &Xsec, &XsecErr);
+	else Xcal2.NeutrinoIntegrate(ProcInt,cms_event, &Xsec, &XsecErr, verbosity);
 	 
 	dXsecList[ProcInt]=Xsec;  
 	dXsecErrList[ProcInt]=XsecErr;
 	if (Xsec>0) Ratio = XsecErr/Xsec;
 	
-	if (Ratio>ERRORthreshold){
-	  cout <<"IntegrateNTrials "<<" Ncalls " << Xcal2._ncalls<<" "<<Vproc<<" "<< TVar::ProcessName(Vproc)
-	       <<" Xsec = " <<  Xsec << " +- " << XsecErr << " ( " << Ratio << " ) " << endl;
+	if (Ratio > ERRORthreshold){
+	  if (verbosity >= TVar::ERROR) 
+            cout    << "IntegrateNTrials " << " Ncalls " << Xcal2._ncalls << " " << Vproc << " " << TVar::ProcessName(Vproc)
+	                << " Xsec = " <<  Xsec << " +- " << XsecErr << " ( " << Ratio << " ) " << endl;
 	}
 
 	// setting back the cms_event for other hypothesis
@@ -319,27 +325,29 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 		  
       }
       
-      cout << "START summary ====================" <<endl;
-      printf(" Evt %4i/%4i Run %9i Evt %8i Proc %4i %s lep %4i %4i njets %d \n", ievt,Ntot, run_, event_, ProcIdx, TVar::ProcessName(ProcIdx).Data(),lep1_Type,lep2_Type,njets_);
-      printf(" MetX %8.8f MetY %8.8f Mll %8.8f Phill %8.8f\n",cms_event.MetX, cms_event.MetY,Mll,Phill);
-      printf(" L1 %d ( %8.8f , %8.8f , %8.8f , %8.8f)\n",cms_event.PdgCode[0],cms_event.p[0].Px(),cms_event.p[0].Py(),cms_event.p[0].Pz(),cms_event.p[0].Energy());
-      printf(" L2 %d ( %8.8f , %8.8f , %8.8f , %8.8f)\n",cms_event.PdgCode[1],cms_event.p[1].Px(),cms_event.p[1].Py(),cms_event.p[1].Pz(),cms_event.p[1].Energy());
+
+    if (verbosity >= TVar::DEBUG) {
+        cout << "START summary ====================" <<endl;
+        printf(" Evt %4i/%4i Run %9i Evt %8i Proc %4i %s lep %4i %4i njets %d \n", ievt,Ntot, run_, event_, ProcIdx, TVar::ProcessName(ProcIdx).Data(),lep1_Type,lep2_Type,njets_);
+        printf(" MetX %8.8f MetY %8.8f Mll %8.8f Phill %8.8f\n",cms_event.MetX, cms_event.MetY,Mll,Phill);
+        printf(" L1 %d ( %8.8f , %8.8f , %8.8f , %8.8f)\n",cms_event.PdgCode[0],cms_event.p[0].Px(),cms_event.p[0].Py(),cms_event.p[0].Pz(),cms_event.p[0].Energy());
+        printf(" L2 %d ( %8.8f , %8.8f , %8.8f , %8.8f)\n",cms_event.PdgCode[1],cms_event.p[1].Px(),cms_event.p[1].Py(),cms_event.p[1].Pz(),cms_event.p[1].Energy());
       
-      for(int j=0;j<NProcessCalculate;j++){
-	TVar::Process proc = processList[j];
-	printf("%2i %8s  :", proc,TVar::ProcessName(proc).Data());
-	double ratio=0;
-	if(dXsecList[processList[j]]>0) ratio=dXsecErrList[processList[j]]/dXsecList[processList[j]];
-	cout <<  dXsecList[processList[j]] << " +- " << dXsecErrList[processList[j]] << " ( " << ratio <<" ) "<<endl;
-      }
-      cout << "END summary =====================" <<endl;
+        for(int j=0;j<NProcessCalculate;j++){
+	        TVar::Process proc = processList[j];
+	        printf("%2i %8s  :", proc,TVar::ProcessName(proc).Data());
+	        double ratio=0;
+	        if(dXsecList[processList[j]]>0) ratio=dXsecErrList[processList[j]]/dXsecList[processList[j]];
+	            cout <<  dXsecList[processList[j]] << " +- " << dXsecErrList[processList[j]] << " ( " << ratio <<" ) "<<endl;
+        }
+        cout << "END summary =====================" <<endl;
+    }
 
       evt_tree->Fill();
     
- 
     }//nevent
     
-    cout << "TotCalculatedEvts: " << evt_tree->GetEntries() <<endl; 
+    if (verbosity >= TVar::INFO) cout << "TotCalculatedEvts: " << evt_tree->GetEntries() <<endl; 
     
     newfile->cd(); 
     evt_tree->Write(); 

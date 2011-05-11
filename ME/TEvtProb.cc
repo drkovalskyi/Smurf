@@ -57,7 +57,7 @@ int Global_NSol;
 void   TEvtProb::NeutrinoIntegrate(TVar::Process proc,
                                          cdf_event_type cdf_event,
                                          double *Xsec,
-                                         double *XsecErr){
+                                         double *XsecErr, TVar::VerbosityLevel verbosity){
 
     Global_process = proc;
     Global_HWWPhaseSpace = _hwwPhaseSpace;
@@ -78,12 +78,13 @@ void   TEvtProb::NeutrinoIntegrate(TVar::Process proc,
     if (Global_SmearLevel>=2) NDim+=2;
 
  
-    cout <<" [NeutrinoIntegrate]: Evaluate " << TVar::ProcessName(proc)
-     <<" Ncalls " << Global_Ncalls
-     <<" npart._npart=" << npart_.npart
-     <<" bveg1_mcfm_.ndim= " << bveg1_mcfm_.ndim
-     <<" NDim= "<<NDim<<endl;
-
+    if (verbosity >= TVar::DEBUG) {
+        cout <<" [NeutrinoIntegrate]: Evaluate " << TVar::ProcessName(proc)
+        <<" Ncalls " << Global_Ncalls
+        <<" npart._npart=" << npart_.npart
+        <<" bveg1_mcfm_.ndim= " << bveg1_mcfm_.ndim
+        <<" NDim= "<<NDim<<endl;
+    }
 
     //Phase space generation
     TRandom3 myRandom;
@@ -100,7 +101,7 @@ void   TEvtProb::NeutrinoIntegrate(TVar::Process proc,
     double probAcceptanceEfficiency;
 
     if (Global_process==TVar::Wp_1jet || Global_process==TVar::Wm_1jet  )
-      probAcceptanceEfficiency = getFakeRateProb(Global_cdf_event, _effhist, _FRhist, Global_process);
+      probAcceptanceEfficiency = getFakeRateProb(Global_cdf_event, _effhist, _FRhist, Global_process, verbosity);
     else 
       probAcceptanceEfficiency = getProbAcceptanceEfficiency(Global_cdf_event, _effhist);
 

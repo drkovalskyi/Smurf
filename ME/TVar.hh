@@ -13,6 +13,12 @@
 class TVar{
   public:
 
+    enum VerbosityLevel {
+        ERROR = 0,
+        INFO = 1,
+        DEBUG = 2
+    };
+
        enum MatrixElement{
           MCFM,
           MadGraph

@@ -700,7 +700,7 @@ double getProbAcceptanceEfficiency(cdf_event_type cdf_event, EffHist effhist)
   return eff;
 }
 
-double getFakeRateProb(cdf_event_type cdf_event,  EffHist effhist, FRHist frhist, TVar::Process Global_process)
+double getFakeRateProb(cdf_event_type cdf_event,  EffHist effhist, FRHist frhist, TVar::Process Global_process, TVar::VerbosityLevel verbosity)
 {
   double prob = 1.0; 
   int i, j;
@@ -708,8 +708,10 @@ double getFakeRateProb(cdf_event_type cdf_event,  EffHist effhist, FRHist frhist
   if (Global_process==TVar::Wp_1jet){ i=0; j=1;}
   else { i=1; j=0;} 
 
-  cout<<cdf_event.PdgCode[0]<<"  "<<cdf_event.p[0].Eta()<<" "<<cdf_event.p[0].Pt()<<"\n";
-  cout<<cdf_event.PdgCode[1]<<"  "<<cdf_event.p[1].Eta()<<" "<<cdf_event.p[1].Pt()<<"\n";
+    if (verbosity >= TVar::DEBUG) {
+        cout<<cdf_event.PdgCode[0]<<"  "<<cdf_event.p[0].Eta()<<" "<<cdf_event.p[0].Pt()<<"\n";
+        cout<<cdf_event.PdgCode[1]<<"  "<<cdf_event.p[1].Eta()<<" "<<cdf_event.p[1].Pt()<<"\n";
+    }
 
     if ( TMath::Abs(cdf_event.PdgCode[i]) == 11)
       prob *=  effhist.els_eff_mc->GetBinContent( effhist.els_eff_mc->GetXaxis()->FindBin(cdf_event.p[i].Eta()), effhist.els_eff_mc->GetYaxis()->FindBin(cdf_event.p[i].Pt()) );
@@ -725,7 +727,7 @@ double getFakeRateProb(cdf_event_type cdf_event,  EffHist effhist, FRHist frhist
       prob *=  frhist.mus_part_fo->GetBinContent( frhist.mus_part_fo->GetXaxis()->FindBin(fabs(cdf_event.p[j].Eta())), frhist.mus_part_fo->GetYaxis()->FindBin(  cdf_event.p[j].Pt() )) *
 	frhist.mus_fr->GetBinContent( frhist.mus_fr->GetXaxis()->FindBin(fabs(cdf_event.p[j].Eta())), frhist.mus_fr->GetYaxis()->FindBin(  cdf_event.p[j].Pt() ) );
     
-  cout<<"Calc fake prob: "<< prob<<"\n"; 
+  if (verbosity >= TVar::DEBUG) cout << "Calc fake prob: " << prob << "\n"; 
   return prob;
 }
 
