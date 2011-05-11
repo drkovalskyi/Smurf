@@ -71,81 +71,6 @@ static std::string name(int  dstype){
   }
 };
 
-
-
-const int kNDilep=4;
-
-float lumi=35.5;
-float yield [kNProc][kNDilep];
-float acceptance [kNProc][kNDilep];
-
-float BR [kNProc][kNDilep] = {{ (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9,  (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 },
-			      { (1.0+0.1736)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3},
-			      { (1.0+0.1736)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3},
-			      { (1.0+0.1784)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3}, // Wpgamma placeholder
-			      { (1.0+0.1784)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3}, // Wpgamma placeholder
-			      { 2*0.2*(0.0363+0.0370*0.1736*0.1736), 0.0, 0.0, 2*0.2*(0.0363+0.0370*0.1784*0.1784) },
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }
-};
-
-// The NLO xsec includes the W->l BR, where l includes e/mu/tau
-// The values are obtained through http://ceballos.web.cern.ch/ceballos/hwwlnln/sigma_hww_2l2n_ec
-float NLOXsec[kNProc] = {  4.5*0.919, 31314, 31314, 31314.0, 31314.0, 5.9, 0.249642, 0.452090, 0.641773, 0.770471, 0.866443, 0.782962, 0.659328, 0.486486, 0.408305, 0.358465, 0.321398, 0.290454, 0.243724, 0.175652};
-// Note that MCFMXsec is obtained from a standalone MCFM calculations with no generator cuts applied,
-// The following new numbers are including W->l branching fraction, ignoring currrently the Wgamma nubmers
-// float MCFMXsec[kNProc] = { 2.983, 4032.1, 2694.8,  11270, 11270.0, 4.3, 0.07533, 0.1451, 0.2165, 0.2671, 0.3034, 0.2870, 0.2465, 0.1849, 0.1570, 0.1380, 0.1232, 0.1107, 0.0906, 0.05758};
-float MCFMXsec[kNProc] = { 2.983, 18788.0, 12525.0,  11270, 11270.0, 4.3, 0.07533, 0.1451, 0.2165, 0.2671, 0.3034, 0.2870, 0.2465, 0.1849, 0.1570, 0.1380, 0.1232, 0.1107, 0.0906, 0.05758};
-
-void CalculateAcceptance(){
-
-    for (int i=0; i<kNProc; i++){
-      for (int j=0; j<kNDilep; j++){
-      float denominator = lumi* BR[i][j] * NLOXsec[i];
-      if (denominator!=0) acceptance [i][j]= yield [i][j]/denominator; else acceptance [i][j]=1E+20;
-      }
-    }
-
-}
-
-void InitializeYields(TString inputDir){
-  for (int i=0;i<kNProc;i++) {
-    TFile *f = TFile::Open(TString(inputDir+name(i)+".root"));
-    if(f==0x0) continue;
-    cout << TString("../"+name(i)+".root") <<endl;
-    TTree *tree = (TTree*) f->Get("tree");
-    
-    TH1F *hdphi[kNDilep];
-    double tot_yield = 0;
-    cout<<"Yields from file "<< name(i)<<".root: mm/me/em/ee:  ";    
-    for (int j=0; j<kNDilep; j++){ 
-      hdphi[j] = new TH1F(Form("hdphi_%i", j), Form("hdphi_%i", j), 20, 0, 4); 
-      if(j==0 || j==2)
-	 tree->Project(Form("hdphi_%i", j), "dPhi", Form("scale1fb*(type==%i)", j));
-      if(j==1||j==3)
-	tree->Project(Form("hdphi_%i", j), "dPhi", Form("scale1fb*(type==%i&&lep2.pt()>15)", j));
-      if (hdphi!= 0x0) yield[i][j]=hdphi[j]->Integral(0, 9999); 
-      else yield[i][j]=0;
-      tot_yield+=yield[i][j];
-      cout << Form("%.3f",yield[i][j])<<" " ;
-    }       
-    cout << "; total yield = " << Form("%.3f", tot_yield) << "\n"; 
-  }
-}
-
-
 void NeutrinoIntegration(int process, TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int Mass);
 
 //###################
@@ -156,10 +81,7 @@ void runME_test(TString inputDir, TString fileName, TString outputDir, int seed,
   ERRORthreshold=Error;
   int process=TVar::HWW;
   int maxevt=nev;
-
-  InitializeYields(inputDir);
-  CalculateAcceptance();
-
+  
   cout <<"=== Neutrino Integration ==========" <<endl;  
   NeutrinoIntegration(process, inputDir, fileName, outputDir, seed, SmearLevel,ncalls,maxevt, Mass); 
  
@@ -411,80 +333,6 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 	cout <<  dXsecList[processList[j]] << " +- " << dXsecErrList[processList[j]] << " ( " << ratio <<" ) "<<endl;
       }
       cout << "END summary =====================" <<endl;
-
-      
-      double denom=0.0, numer=0.0;
-      double yield_bg=0.0;
-      
-      // Begin HWW likelihood
-
-      cout << "START LR Construction ============" <<endl;
-
-      for(int k=proc_HWW120; k<proc_HWW300; k++){
-        yield_bg = yield[proc_WW][type_]+yield[proc_Wpj][type_];
-	cout<<"bg_yield="<<yield_bg<<"\n";
-	numer=1/(MCFMXsec[k]*acceptance[k][type_]) * dXsecList[k];
-	denom  = numer;
-	cout<< "PHWW " << name(k) << " "  <<numer<<"\n";
-
-      	denom += 1/(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ] * yield[proc_WW][type_]/yield_bg;
-	cout<<" PWW= "<< 1/(MCFMXsec[proc_WW]*acceptance[proc_WW][type_]) * dXsecList[proc_WW] * yield[proc_WW][type_]/yield_bg <<"\n";	
-
-	//denom += 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] * 0.5*yield[proc_Wpj][type_]/yield_bg;
-	// cout<<" PWpj= "<< 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] * 0.5*yield[proc_Wpj][type_]/yield_bg <<"\n";
-	
-	denom += 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] *  MCFMXsec[proc_Wpj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]) * yield[proc_Wpj][type_]/yield_bg;
-	cout<<" PWpj= "<<  1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] *  MCFMXsec[proc_Wpj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]) * yield[proc_Wpj][type_]/yield_bg << "\n";
-
-
-	//denom += 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * 0.5*yield[proc_Wpj][type_]/yield_bg;
-	//cout<<" PWmj= "<< 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * 0.5*yield[proc_Wpj][type_]/yield_bg <<"\n";	
-
-	denom += 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * MCFMXsec[proc_Wmj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]) * yield[proc_Wpj][type_]/yield_bg;
-	cout<<" PWmj= "<< 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * MCFMXsec[proc_Wmj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]) * yield[proc_Wpj][type_]/yield_bg << "\n" <<endl;
-
-	if(denom!=0)
-	  LR[k]=numer/denom;
-	  cout<<"LR_HWW["<<k<<"]= "<<LR[k]<<"\n";
-      }      
-
-
-   // Begin Wj likelihood
-
-      numer= 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] *  MCFMXsec[proc_Wpj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]);
-      numer += 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * MCFMXsec[proc_Wmj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]);
-
-      cout<< "PWj" << " "  <<numer<<"\n";
-
-      denom  = numer;
-      
-      denom += 1/(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ];
-      cout<< "PWW" << " "  <<1/(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ]<<"\n";
-
-      if(denom!=0)
-	LR[proc_Wpj]=numer/denom;
-      cout<<"LR_Wj= "<<LR[proc_Wpj]<<"\n";
-      cout<<"acc_WW="<<acceptance[proc_WW ][type_]<<"    acc_Wj="<<acceptance[proc_Wpj ][type_]<<"    acc_Wj="<<acceptance[proc_Wpj ][type_]<<"\n";
-      cout<<"yield_WW="<<yield[proc_WW ][type_]<<"    yield_Wj="<<yield[proc_Wpj ][type_]<<"\n";
-      
-
-
-  // Begin WW likelihood
-
-      numer=  1/(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ];
-
-      denom  = numer;
-      
-      denom += 1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] *  MCFMXsec[proc_Wpj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]);
-      
-      denom += 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] *  MCFMXsec[proc_Wmj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]);
-	
-
-      if(denom!=0)
-	LR[proc_WW]=numer/denom;
-      
-      cout<<"LR_WW= "<<LR[proc_WW]<<"\n";
-
 
       evt_tree->Fill();
     
