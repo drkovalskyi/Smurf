@@ -340,51 +340,57 @@ void My_choose(TVar::Process process){
 //
 //###########################
 
-bool My_eventcuts(TVar::Process process, mcfm_event_type* mcfm_evt, cdf_event_type* cdf_evt){
+bool My_eventcuts(TVar::Process process, const mcfm_event_type &mcfm_evt, const cdf_event_type &cdf_evt) {
 
+    unsigned int nu_idx = 2;
+    unsigned int ep_idx = 3;
 
-  TLorentzVector* nu =  &mcfm_evt->p[2];
-  TLorentzVector* ep =  &mcfm_evt->p[3];
-  
+    if(process==TVar::Wp_gamma || process==TVar::Wm_gamma ) {
 
-  if(process==TVar::Wp_gamma ||
-     process==TVar::Wm_gamma ){
-    if(nwz_.nwz==-1){
-       ep = &mcfm_evt->p[2]; 
-       nu = &mcfm_evt->p[3];
+        if(nwz_.nwz==-1) {
+            ep_idx = 2;
+        }
+
+        const TLorentzVector* ep =  &mcfm_evt.p[ep_idx];
+        const TLorentzVector* gamma = &mcfm_evt.p[4];
+       
+        if(ep->Pt()           <8   ) return true;
+        if(fabs(ep->Eta())    >10  ) return true;
+        if(gamma->Pt()        <5   ) return true;
+        if(fabs(gamma->Eta()) >10  ) return true;
+        if(ep->DeltaR(*gamma) <0.35) return true;
+
     }
-    TLorentzVector* gamma = &mcfm_evt->p[4];
-   
-    
-    if(ep->Pt()           <8   ) return true;
-    if(fabs(ep->Eta())    >10  ) return true;
-    if(gamma->Pt()        <5   ) return true;
-    if(fabs(gamma->Eta()) >10  ) return true;
-    if(ep->DeltaR(*gamma) <0.35) return true;
-  }
-  else if(process==TVar::Wp_1jet ||
-          process==TVar::Wm_1jet){
 
-   if(nwz_.nwz==-1){
-       ep = &mcfm_evt->p[2];
-       nu = &mcfm_evt->p[3];
+    else if(process==TVar::Wp_1jet || process==TVar::Wm_1jet) {
+
+        if(nwz_.nwz==-1){
+            ep_idx = 2;
+        }
+
+        const TLorentzVector* ep =  &mcfm_evt.p[ep_idx];
+        const TLorentzVector* parton = &mcfm_evt.p[4];
+
+        if(fabs(ep->Eta())     >5  ) return true;
+        if(parton->Pt()        <8   ) return true;
+        if(fabs(parton->Eta()) >5   ) return true;
+        if(ep->DeltaR(*parton) <0.4 ) return true;
+
     }
-    TLorentzVector* parton= &mcfm_evt->p[4];
-    if(fabs(ep->Eta())     >5  ) return true;
-    if(parton->Pt()        <8   ) return true;
-    if(fabs(parton->Eta()) >5   ) return true;
-    if(ep->DeltaR(*parton) <0.4 ) return true;
 
-  }
-  else if(process==TVar::Z_2l){
-    double emPt = nu->Pt();
-    double epPt = ep->Pt();
-    if(emPt    <5 ) return true; //em
-    if(epPt    <5 ) return true; //ep
-  } 
-  return false;
+    else if(process==TVar::Z_2l) {
+
+        const TLorentzVector* nu =  &mcfm_evt.p[nu_idx];
+        const TLorentzVector* ep =  &mcfm_evt.p[ep_idx];
+
+        if(ep->Pt()    <5 ) return true; //em
+        if(nu->Pt()    <5 ) return true; //ep
+
+    }
+ 
+    return false;
+
 }
-
 
 
 
@@ -700,7 +706,7 @@ double getProbAcceptanceEfficiency(cdf_event_type cdf_event, EffHist effhist)
   return eff;
 }
 
-double getFakeRateProb(cdf_event_type cdf_event,  EffHist effhist, FRHist frhist, TVar::Process Global_process, TVar::VerbosityLevel verbosity)
+double getFakeRateProb(const cdf_event_type &cdf_event,  EffHist effhist, FRHist frhist, TVar::Process Global_process, TVar::VerbosityLevel verbosity)
 {
   double prob = 1.0; 
   int i, j;

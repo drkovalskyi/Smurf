@@ -47,7 +47,7 @@ bool Acceptance(event_type);
 void testPdf(double);
 
 void My_choose(TVar::Process process);
-bool My_eventcuts(TVar::Process process, mcfm_event_type*, cdf_event_type*);
+bool My_eventcuts(TVar::Process process, const mcfm_event_type &, const cdf_event_type &);
 bool My_masscuts(double s[][12],TVar::Process process);
 bool My_smalls(double s[][12], int npart);
 
@@ -63,7 +63,7 @@ double HiggsWidth(double);
 double SetTGCParameter(TString ,double par);
 double GetTGCParameter(int i);
 double getProbAcceptanceEfficiency(cdf_event_type cdf_event, EffHist effhist);
-double getFakeRateProb(cdf_event_type cdf_event,  EffHist effhist, FRHist frhist, TVar::Process Global_process, TVar::VerbosityLevel verbosity);
+double getFakeRateProb(const cdf_event_type &cdf_event,  EffHist effhist, FRHist frhist, TVar::Process Global_process, TVar::VerbosityLevel verbosity);
 void getProbFromHist(double x0, double* kX, double *wt, TH1F *hkx);
 
 #endif
