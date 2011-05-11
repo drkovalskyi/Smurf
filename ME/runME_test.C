@@ -1,6 +1,6 @@
-/*
+ /*
   test version
-  nohup root -l runME_test.C\+\(\"/smurf/data/Run2011_Spring11_SmurfV3/tas-zerojet/\"\,\"ww.root\"\,\"./\"\,10\,1\,100000\,1.0\,500\) >& ww_ME_test.log &
+  nohup root -l runME_test.C\+\(\"/smurf/data/Run2011_Spring11_SmurfV3/tas-zerojet/\"\,\"ww.root\"\,\"./\"\,10\,1\,100000\,1.0\,100\) >& ww_ME_test.log &
 */
  
 #include "TVar.hh"
@@ -207,12 +207,18 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     
     int HiggsMASS[20]={0,0,0,0,0,0,120,130,140,150,160,170,180,190,200,210,220,230,250,300};
     
-    for(int iproc = 0; iproc < NProcessCalculate; iproc++){ 
+    for(int iproc = 0; iproc < NProcessCalculate; iproc++) { 
       
+      ProcInt=processList[iproc];
+      Xcal2.SetMCHist(ProcInt, verbosity); 
+      // Xcal2.SetFRHist(); 
+      
+      if (verbosity >= TVar::DEBUG) printf(" Calculate Evt %4i Run %9i Evt %8i Proc %4i %s Lep %4i %4i\n", ievt, run_, event_, ProcInt, TVar::ProcessName(ProcInt).Data(),lep1_Type,lep2_Type);
+
       // -- correct the lepton fo pt
       // For W+ hypothesis, assume the l- is the FO
       double scale_fo = 1.0;
-      if(processList[iproc]==TVar::Wp_1jet) {
+      if(ProcInt == TVar::Wp_1jet) {
 	if( TMath::Abs(cms_event.PdgCode[1]) == 11) {
 	  scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
 	}
@@ -223,7 +229,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       }
 	
       // For W- hypothesis, assume the l+ is the FO
-      if(processList[iproc]==TVar::Wm_1jet) {
+      if(ProcInt == TVar::Wm_1jet) {
 	if( TMath::Abs(cms_event.PdgCode[0]) == 11) {
 	  scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
 	}
@@ -233,19 +239,13 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 	cms_event.p[0].SetXYZM( cms_event.p[0].Px()*scale_fo, cms_event.p[0].Py()*scale_fo, cms_event.p[0].Pz()*scale_fo, 0);
       }
       
-      ProcInt=processList[iproc];
-      Xcal2.SetNcalls(ncalls);
-      Xcal2.SetMCHist(ProcInt, verbosity); 
-      // Xcal2.SetFRHist(); 
       
-      if (verbosity >= TVar::DEBUG) printf(" Calculate Evt %4i Run %9i Evt %8i Proc %4i %s Lep %4i %4i\n", ievt, run_, event_, ProcIdx, TVar::ProcessName(ProcIdx).Data(),lep1_Type,lep2_Type);
-      
-      if ((processList[iproc]>=TVar::HWW120) && (processList[iproc]<=TVar::HWW300)){
+      if (ProcInt >= TVar::HWW120 && ProcInt <= TVar::HWW300){
 	Xcal2.SetProcess(TVar::HWW);
-	Xcal2.SetHiggsMass(HiggsMASS[processList[iproc]]);
-	if (verbosity >= TVar::DEBUG) cout<< "Higgs Mass: " << HiggsMASS[processList[iproc]]<<"GeV \n";
+	Xcal2.SetHiggsMass(HiggsMASS[ProcInt]);
+	if (verbosity >= TVar::DEBUG) cout<< "Higgs Mass: " << HiggsMASS[ProcInt]<<"GeV \n";
 	
-	if ( HiggsMASS[processList[iproc]]<160.8 )
+	if ( HiggsMASS[ProcInt] < 160.8 )
 	  Xcal2.SetHWWPhaseSpace(TVar::MH);
 	else
 	  Xcal2.SetHWWPhaseSpace(TVar::MHMW);
@@ -265,12 +265,12 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       }
       
       // setting back the cms_event for other hypothesis
-      if(processList[iproc]==TVar::Wp_1jet) 
+      if(ProcInt == TVar::Wp_1jet) 
 	cms_event.p[1].SetXYZM( cms_event.p[1].Px()/scale_fo, cms_event.p[1].Py()/scale_fo, cms_event.p[1].Pz()/scale_fo, 0);
       
-      if(processList[iproc]==TVar::Wm_1jet) 
+      if(ProcInt == TVar::Wm_1jet) 
 	cms_event.p[0].SetXYZM( cms_event.p[0].Px()/scale_fo, cms_event.p[0].Py()/scale_fo, cms_event.p[0].Pz()/scale_fo, 0);
-    }
+    } 
     
     // print some event based information for debugging purposes
     if (verbosity >= TVar::DEBUG) {
