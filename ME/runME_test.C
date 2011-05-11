@@ -19,30 +19,6 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 double ERRORthreshold=1.0;
 using namespace std;
 
-enum process {
-  proc_WW,
-  proc_Wpj,
-  proc_Wmj,
-  proc_Wpg,
-  proc_Wmg,
-  proc_ZZ,
-  proc_HWW120,
-  proc_HWW130,
-  proc_HWW140,
-  proc_HWW150,
-  proc_HWW160,
-  proc_HWW170,
-  proc_HWW180,
-  proc_HWW190,
-  proc_HWW200,
-  proc_HWW210,
-  proc_HWW220,
-  proc_HWW230,
-  proc_HWW250,
-  proc_HWW300,
-  kNProc
-};
-
 void NeutrinoIntegration(int process, TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, TVar::VerbosityLevel verbosity);
 
 //###################
