@@ -58,16 +58,17 @@ void CalculateAcceptance(){
 
 }
 
-void InitializeYields(TString inputDir, Float_t massCut){
+void InitializeYields(TString inputDir, Float_t massCut, TVar::VerbosityLevel verbosity) 
+{
   for (int i=0;i<kNProc;i++) {
     TFile *f = TFile::Open(TString(inputDir+name(i)+".root"));
     if(f==0x0) continue;
-    cout << TString("../"+name(i)+".root") <<endl;
+    if (verbosity >= TVar::INFO) cout << TString("../"+name(i)+".root") <<endl;
     
     TTree *tree = (TTree*) f->Get("tree");
     
     double tot_yield = 0;
-    cout<<"Yields from file "<< name(i)<<".root: mm/me/em/ee:  ";    
+    if (verbosity >= TVar::INFO) cout<<"Yields from file "<< name(i)<<".root: mm/me/em/ee:  ";    
     for (int j=0; j<kNDilep; j++){ 
       TH1F *tmp = new TH1F("tmp", "tmp", 20, 0, 20);
       if(j==0 || j==2)
@@ -78,36 +79,36 @@ void InitializeYields(TString inputDir, Float_t massCut){
       if (tmp!= 0x0) yield[i][j] = tmp->Integral(0, 9999); 
       else yield[i][j]=0;
       tot_yield+=yield[i][j];
-      cout << Form("%.3f",yield[i][j])<<" " ;
+      if (verbosity >= TVar::INFO) cout << Form("%.3f",yield[i][j])<<" " ;
       delete tmp;
     }       
-    cout << "; total yield = " << Form("%.3f", tot_yield) << "\n"; 
+    if (verbosity >= TVar::INFO) cout << "; total yield = " << Form("%.3f", tot_yield) << "\n"; 
     f->Close();
   }
 }
 
-void CalculateLR(TString meFDir, TString fileName, TString outputDir, int maxevt, int k, float massCut);
+void CalculateLR(TString meFDir, TString fileName, TString outputDir, int maxevt, int k, float massCut, TVar::VerbosityLevel verbosity);
 
 //###################
 //# main function
 //###################
-void LR(TString smurfFDir, TString meFDir, TString fileName, TString outputDir, int nev, int k, float massCut)  
+void LR(TString smurfFDir, TString meFDir, TString fileName, TString outputDir, int nev, int k, float massCut, TVar::VerbosityLevel verbosity)  
 {
   int maxevt=nev;
-  InitializeYields(smurfFDir, massCut);
+  InitializeYields(smurfFDir, massCut, verbosity);
   CalculateAcceptance();
-  CalculateLR(meFDir, fileName, outputDir, maxevt, k, massCut);
+  CalculateLR(meFDir, fileName, outputDir, maxevt, k, massCut, verbosity);
 }
 
-void CalculateLR(TString meFDir, TString fileName, TString outputDir, int maxevt, int k, float massCut) {
+void CalculateLR(TString meFDir, TString fileName, TString outputDir, int maxevt, int k, float massCut, TVar::VerbosityLevel verbosity) {
 
-  cout << "Input File: "<< fileName << "\n"; 
+  if (verbosity >= TVar::INFO) cout << "Input File: "<< fileName << "\n"; 
   TFile* fin = new TFile(meFDir + fileName);
   TString outFileName = outputDir+fileName;
   outFileName.ReplaceAll("_ME.root", Form("_LR_%s.root", name(k).c_str()));
 			  
   TFile *newfile = new TFile(outFileName,"recreate");
-  std::cout << "creating" << outFileName << "...\n";
+  if (verbosity >= TVar::INFO) std::cout << "creating" << outFileName << "...\n";
 
   
   TTree* ch=(TTree*)fin->Get("tree"); 
@@ -150,43 +151,45 @@ void CalculateLR(TString meFDir, TString fileName, TString outputDir, int maxevt
 
     if(dilep_->mass() > massCut) continue;
     
-    // Begin HWW likelihood
+    if (verbosity >= TVar::INFO && (ievt % 100 == 0)) 
+      std::cout << "Doing Event: " << ievt << std::endl;
     
-    cout << "\n ** START LR Construction, run = " << run_ << "; event = " << event_ << " for Signal " << name(k) << "\n"; 
+    // 
+    // Begin HWW likelihood 
+    // LR = Psig / (Psig +  Sum_i{fbkg_i * Pbkg_i})
+    // Psig and Pbkg_i are normalized to a constant individually
+    // 
+    if (verbosity > TVar::INFO)  cout << "\n ** START LR Construction, run = " << run_ << "; event = " << event_ << " for Signal " << name(k) << "\n"; 
+
+    // get the signal event probability
+    double numer = dXsecList[k] / (MCFMXsec[k]*acceptance[k][type_]);
+    if (verbosity > TVar::INFO) cout<< "PHWW " << name(k) << " "  <<numer<< "\t dXsec "<< dXsecList[k] << "\n";
     
     // get the background yields
     double yield_bg=yield[proc_WW][type_]+yield[proc_Wpj][type_];
-    cout<<"bg_yield="<<yield_bg<<"\n";
-    
-    // define the numerator of the LR <- from HWW process
-    double numer=1/(MCFMXsec[k]*acceptance[k][type_]) * dXsecList[k];
-    cout<< "PHWW " << name(k) << " "  <<numer<< "\t dXsec "<< dXsecList[k] << "\n";
-    
-    // define the numerator of the LR <- from HWW process
+    if (verbosity > TVar::INFO) cout<<"bg_yield="<<yield_bg<<"\n";
+
     double denom  = numer;
+    // add WW background to the denominator  
+    denom +=  dXsecList[proc_WW ] /(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * yield[proc_WW][type_]/yield_bg;
+    if (verbosity > TVar::INFO) cout<<" PWW= "<< dXsecList[proc_WW ] / (MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]);
     
-    // add WW background 
-    denom += 1 /(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * dXsecList[proc_WW ] * yield[proc_WW][type_]/yield_bg;
-    cout<<" PWW= "<< 1/(MCFMXsec[proc_WW]*acceptance[proc_WW][type_]) * dXsecList[proc_WW] * yield[proc_WW][type_]/yield_bg <<"\n";	
-    
-    // add Wjet background 
-    denom += 1 /(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] *  MCFMXsec[proc_Wpj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]) * yield[proc_Wpj][type_]/yield_bg;
-    cout<<" PWpj= "<<  1/(MCFMXsec[proc_Wpj ]*acceptance[proc_Wpj ][type_]) * dXsecList[proc_Wpj ] *  MCFMXsec[proc_Wpj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]) * yield[proc_Wpj][type_]/yield_bg << "\n";
-    
-    denom += 1 /(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * MCFMXsec[proc_Wmj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]) * yield[proc_Wpj][type_]/yield_bg;
-    cout<<" PWmj= "<< 1/(MCFMXsec[proc_Wmj ]*acceptance[proc_Wmj ][type_]) * dXsecList[proc_Wmj ] * MCFMXsec[proc_Wmj]/(MCFMXsec[proc_Wpj]+MCFMXsec[proc_Wmj]) * yield[proc_Wpj][type_]/yield_bg << "\n";
+    // add Wjet background combining W+jet and W-jet, note that
+    // 1. Same acceptance is used for Wpj and Wmj 
+    // 2. yield[proc_Wpj] = yield[proc_Wmj], which are filled as the combined w+jet yield
+    denom +=  (dXsecList[proc_Wpj ] + dXsecList[proc_Wmj]) /( ( MCFMXsec[proc_Wpj ] + MCFMXsec[proc_Wmj]) * acceptance[proc_Wpj ][type_]) * yield[proc_Wpj][type_]/yield_bg;
+    if (verbosity > TVar::INFO) cout<<" PWj= "<< (dXsecList[proc_Wpj ] + dXsecList[proc_Wmj]) /( ( MCFMXsec[proc_Wpj ] + MCFMXsec[proc_Wmj]) * acceptance[proc_Wpj ][type_])  * yield[proc_Wpj][type_]/yield_bg << "\n";
     
     
     if(denom!=0)
       LR[k]=numer/denom;
-    cout<<"LR_HWW["<<k<<"]= "<<LR[k]<<"\n";
+    if (verbosity > TVar::INFO) cout<<"LR_HWW["<<k<<"]= "<<LR[k]<<"\n";
     
     evt_tree->Fill();
     
-    
   }//nevent
   
-  cout << "TotCalculatedEvts: " << evt_tree->GetEntries() <<endl; 
+  if (verbosity >= TVar::INFO)     cout << "TotCalculatedEvts: " << evt_tree->GetEntries() <<endl; 
   
   newfile->cd(); 
   evt_tree->Write(); 
