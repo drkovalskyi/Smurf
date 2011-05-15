@@ -69,6 +69,7 @@ class SmurfTree {
   typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
   /// bit map
+  /// DON'T CHANGE ORDER
   enum Selection {
     BaseLine          = 1UL<<0,  // pt(reco)>20/10, acceptance,!STA muon, mll>12
     ChargeMatch       = 1UL<<1,  // q1*q2<0
@@ -98,6 +99,7 @@ class SmurfTree {
   static const unsigned int FullSelection = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
 
   /// first is leading lepton
+  /// DON'T CHANGE ORDER
   enum Type {
     mm, 
     me, 
@@ -105,6 +107,7 @@ class SmurfTree {
     ee
   };
 
+  /// DON'T CHANGE ORDER
   enum DataType {
     data,
     qqww,
@@ -159,7 +162,11 @@ class SmurfTree {
     zz,
     wgamma,
     qcd,
-    other
+    other,
+    hww110,
+    hww115,
+    vbfhww110,
+    vbfhww115
   };
 
   /// variables
@@ -439,6 +446,8 @@ class SmurfTree {
     case data: return "data";
     case qqww: return "qqww";
     case ggww: return "ggww";
+    case hww110: return "hww110";
+    case hww115: return "hww115";
     case hww120: return "hww120";
     case hww130: return "hww130";
     case hww140: return "hww140";
@@ -459,6 +468,8 @@ class SmurfTree {
     case hww500: return "hww500";
     case hww550: return "hww550";
     case hww600: return "hww600";
+    case vbfhww110: return "vbfhww110";
+    case vbfhww115: return "vbfhww115";
     case vbfhww120: return "vbfhww120";
     case vbfhww130: return "vbfhww130";
     case vbfhww140: return "vbfhww140";
