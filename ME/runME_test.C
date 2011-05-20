@@ -19,24 +19,23 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 double ERRORthreshold=1.0;
 using namespace std;
 
-void NeutrinoIntegration(int process, TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, TVar::VerbosityLevel verbosity);
+void NeutrinoIntegration(int process, TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int evtstart, TVar::VerbosityLevel verbosity);
 
 //###################
 //# main function
 //###################
-void runME_test(TString inputDir, TString fileName, TString outputDir, int seed,int SmearLevel,int ncalls,double Error, int nev, TVar::VerbosityLevel verbosity=TVar::INFO){
+void runME_test(TString inputDir, TString fileName, TString outputDir, int seed,int SmearLevel,int ncalls,double Error, int nev, int evtstart = 0, TVar::VerbosityLevel verbosity=TVar::INFO){
 
   ERRORthreshold=Error;
   int process=TVar::HWW;
   int maxevt=nev;
   
   if (verbosity >= TVar::INFO) cout <<"=== Neutrino Integration ==========" <<endl;  
-  NeutrinoIntegration(process, inputDir, fileName, outputDir, seed, SmearLevel,ncalls,maxevt, verbosity); 
+  NeutrinoIntegration(process, inputDir, fileName, outputDir, seed, SmearLevel,ncalls,maxevt, evtstart, verbosity); 
  
 }
 
-
-void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, TVar::VerbosityLevel verbosity){
+void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int evtstart, TVar::VerbosityLevel verbosity){
 
   if (verbosity >= TVar::INFO) cout << "Input File: " << fileName << " seed " << seed << " SmearLevel " << SmearLevel << " ncalls " << ncalls << endl;
 
@@ -103,13 +102,13 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   //==========================================
   // Loop All Events
   //==========================================
-  
+ 
   int Ntot = ch->GetEntries();
-  if(maxevt<Ntot) Ntot=maxevt;
+  if(evtstart+maxevt<Ntot) Ntot=evtstart+maxevt;
   if (verbosity >= TVar::INFO) printf("Total number of events = %d\n", Ntot);
   
-  for(int ievt=0;ievt<Ntot;ievt++){
-   
+  for(int ievt=evtstart;ievt<Ntot;ievt++){
+ 
     if (verbosity >= TVar::INFO && (ievt % 5 == 0)) 
         std::cout << "Doing Event: " << ievt << std::endl;
  
