@@ -93,7 +93,14 @@ class SmurfTree {
     TopVeto           = 1UL<<19, // soft muon and b-jet tagging for the whole event regardless of n-jets (zero means tagged)
     OneBJet           = 1UL<<20, // 1-jet events, where the jet is b-tagged (top control sample with one b-quark missing)
     TopTagNotInJets   = 1UL<<21, // soft muon and b-jet tagging for areas outside primary jets (non-zero means tagged)
-    ExtraLeptonVeto   = 1UL<<22  // extra lepton veto, DR(muon-electron)>=0.3
+    ExtraLeptonVeto   = 1UL<<22, // extra lepton veto, DR(muon-electron)>=0.3
+    Lep3FullSelection = 1UL<<23,  // full id, isolation, d0, dz etc
+    Lep3LooseEleV1    = 1UL<<24, // electron fakeable object selection is passed V1
+    Lep3LooseEleV2    = 1UL<<25, // electron fakeable object selection is passed V2
+    Lep3LooseEleV3    = 1UL<<26, // electron fakeable object selection is passed V3
+    Lep3LooseEleV4    = 1UL<<27, // electron fakeable object selection is passed V4
+    Lep3LooseMuV1     = 1UL<<28, // muon fakeable object selection (relIso<1.0)
+    Lep3LooseMuV2     = 1UL<<29  // muon fakeable object selection (relIso<0.4)
   };
 
   static const unsigned int FullSelection = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
@@ -214,6 +221,8 @@ class SmurfTree {
   float          dPhiDiLepJet1_;
   int            lep1McId_;
   int            lep2McId_;
+  int            lep1MotherMcId_;
+  int            lep2MotherMcId_;
   int            jet1McId_;
   int            jet2McId_;
   TNamed         info_;
@@ -225,6 +234,7 @@ class SmurfTree {
   LorentzVector  jet3_;
   float          jet3Btag_;
   int            lep3McId_;
+  int            lep3MotherMcId_;
   int            jet3McId_;
   float          dPhiLep3Jet1_;
   float          dRLep3Jet1_;
@@ -329,31 +339,34 @@ class SmurfTree {
     tree_->Branch("dPhiDiLepJet1", &dPhiDiLepJet1_,   "dPhiDiLepJet1/F");
     tree_->Branch("lep1McId"     , &lep1McId_     ,   "lep1McId/I");
     tree_->Branch("lep2McId"     , &lep2McId_     ,   "lep2McId/I");
-    tree_->Branch("jet1McId"     , &jet1McId_     ,   "jet1McId/I");
-    tree_->Branch("jet2McId"     , &jet2McId_     ,   "jet2McId/I");
+    tree_->Branch("lep1MotherMcId",&lep1MotherMcId_,  "lep1MotherMcId/I");
+    tree_->Branch("lep2MotherMcId",&lep2MotherMcId_,  "lep2MotherMcId/I");
+    tree_->Branch("jet1McId"      ,&jet1McId_	  ,   "jet1McId/I");
+    tree_->Branch("jet2McId"      ,&jet2McId_	  ,   "jet2McId/I");
 
     if(type >=0 && type <= 2){
       tree_->Branch("lep3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr3_);
       tree_->Branch("lq3",           &lq3_,          "lq3/I");
       tree_->Branch("lid3",          &lid3_,         "lid3/i");
       tree_->Branch("jet3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr3_);
-      tree_->Branch("jet3Btag",      &jet3Btag_,     "jet3Btag/F");
-      tree_->Branch("lep3McId",      &lep3McId_,     "lep3McId/I");
-      tree_->Branch("jet3McId",      &jet3McId_,     "jet3McId/I");
-      tree_->Branch("dPhiLep3Jet1",  &dPhiLep3Jet1_, "dPhiLep3Jet1/F");
-      tree_->Branch("dRLep3Jet1",    &dRLep3Jet1_,   "dRLep3Jet1/F");
-      tree_->Branch("dPhiLep3MET",   &dPhiLep3MET_,  "dPhiLep3MET/F");
-      tree_->Branch("mt3",           &mt3_,          "mt3/F");
-      tree_->Branch("jetLowBtag",    &jetLowBtag_,   "jetLowBtag/F");
-      tree_->Branch("nSoftMuons",    &nSoftMuons_,   "nSoftMuons/i");
-      tree_->Branch("Q",             &Q_	,    "Q/F");
-      tree_->Branch("id1",           &id1_	,    "id1/F");
-      tree_->Branch("x1",            &x1_	,    "x1/F");
-      tree_->Branch("pdf1",          &pdf1_	,    "pdf1/F");
-      tree_->Branch("id2",           &id2_	,    "id2/F");
-      tree_->Branch("x2",            &x2_	,    "x2/F");
-      tree_->Branch("pdf2",          &pdf2_	,    "pdf2/F");
-      tree_->Branch("processId",     &processId_,    "processId/I");
+      tree_->Branch("jet3Btag",      &jet3Btag_,      "jet3Btag/F");
+      tree_->Branch("lep3McId",      &lep3McId_,      "lep3McId/I");
+      tree_->Branch("lep3MotherMcId",&lep3MotherMcId_,"lep3MotherMcId/I");
+      tree_->Branch("jet3McId",      &jet3McId_,      "jet3McId/I");
+      tree_->Branch("dPhiLep3Jet1",  &dPhiLep3Jet1_,  "dPhiLep3Jet1/F");
+      tree_->Branch("dRLep3Jet1",    &dRLep3Jet1_,    "dRLep3Jet1/F");
+      tree_->Branch("dPhiLep3MET",   &dPhiLep3MET_,   "dPhiLep3MET/F");
+      tree_->Branch("mt3",           &mt3_,           "mt3/F");
+      tree_->Branch("jetLowBtag",    &jetLowBtag_,    "jetLowBtag/F");
+      tree_->Branch("nSoftMuons",    &nSoftMuons_,    "nSoftMuons/i");
+      tree_->Branch("Q",             &Q_	,     "Q/F");
+      tree_->Branch("id1",           &id1_	,     "id1/F");
+      tree_->Branch("x1",            &x1_	,     "x1/F");
+      tree_->Branch("pdf1",          &pdf1_	,     "pdf1/F");
+      tree_->Branch("id2",           &id2_	,     "id2/F");
+      tree_->Branch("x2",            &x2_	,     "x2/F");
+      tree_->Branch("pdf2",          &pdf2_	,     "pdf2/F");
+      tree_->Branch("processId",     &processId_,     "processId/I");
     }
   }
 
@@ -408,6 +421,8 @@ class SmurfTree {
     tree_->SetBranchAddress("dPhiDiLepJet1", &dPhiDiLepJet1_);
     tree_->SetBranchAddress("lep1McId",      &lep1McId_);
     tree_->SetBranchAddress("lep2McId",      &lep2McId_);
+    tree_->SetBranchAddress("lep1MotherMcId",&lep1MotherMcId_);
+    tree_->SetBranchAddress("lep2MotherMcId",&lep2MotherMcId_);
     tree_->SetBranchAddress("jet1McId",      &jet1McId_);
     tree_->SetBranchAddress("jet2McId",      &jet2McId_);
 
@@ -418,6 +433,7 @@ class SmurfTree {
       tree_->SetBranchAddress("jet3",	       &jetPtr3_);
       tree_->SetBranchAddress("jet3Btag",      &jet3Btag_);
       tree_->SetBranchAddress("lep3McId",      &lep3McId_);
+      tree_->SetBranchAddress("lep3MotherMcId",&lep3MotherMcId_);
       tree_->SetBranchAddress("jet3McId",      &jet3McId_);
       tree_->SetBranchAddress("dPhiLep3Jet1",  &dPhiLep3Jet1_);
       tree_->SetBranchAddress("dRLep3Jet1",    &dRLep3Jet1_);
@@ -521,182 +537,190 @@ SmurfTree::InitVariables(){
   // create list of available variables
   if(variables_.empty()){
     //make sure that this is only done once
-    variables_.push_back(std::string("event"        ));
-    variables_.push_back(std::string("run"          ));
-    variables_.push_back(std::string("lumi"         ));
-    variables_.push_back(std::string("nvtx"         ));
-    variables_.push_back(std::string("scale1fb"     ));
-    variables_.push_back(std::string("met"          ));
-    variables_.push_back(std::string("metPhi"       ));
-    variables_.push_back(std::string("sumet"        ));
-    variables_.push_back(std::string("genmet"       ));
-    variables_.push_back(std::string("genmetPhi"    ));
-    variables_.push_back(std::string("type"         ));
-    variables_.push_back(std::string("dstype"       ));
-    variables_.push_back(std::string("lq1"          ));
-    variables_.push_back(std::string("lid1"         ));
-    variables_.push_back(std::string("lq2"          ));
-    variables_.push_back(std::string("lid2"         ));
-    variables_.push_back(std::string("jet1Btag"     ));
-    variables_.push_back(std::string("jet2Btag"     ));
-    variables_.push_back(std::string("njets"        ));
-    variables_.push_back(std::string("trackMet"     ));
-    variables_.push_back(std::string("trackMetPhi"  ));
-    variables_.push_back(std::string("pmet"         ));
-    variables_.push_back(std::string("pTrackMet"    ));
-    variables_.push_back(std::string("mt"           ));
-    variables_.push_back(std::string("mt1"          )); 
-    variables_.push_back(std::string("mt2"          ));
-    variables_.push_back(std::string("dPhi"         ));
-    variables_.push_back(std::string("dR"           ));
-    variables_.push_back(std::string("dPhiLep1Jet1" ));
-    variables_.push_back(std::string("dRLep1Jet1"   ));
-    variables_.push_back(std::string("dPhiLep2Jet1" ));
-    variables_.push_back(std::string("dRLep2Jet1"   ));
-    variables_.push_back(std::string("dPhiDiLepMET" ));
-    variables_.push_back(std::string("dPhiLep1MET"  ));
-    variables_.push_back(std::string("dPhiLep2MET"  ));
-    variables_.push_back(std::string("dPhiDiLepJet1"));
-    variables_.push_back(std::string("lep1McId"     ));
-    variables_.push_back(std::string("lep2McId"     ));
-    variables_.push_back(std::string("jet1McId"     ));
-    variables_.push_back(std::string("jet2McId"     ));
+    variables_.push_back(std::string("event"         ));
+    variables_.push_back(std::string("run"           ));
+    variables_.push_back(std::string("lumi"          ));
+    variables_.push_back(std::string("nvtx"          ));
+    variables_.push_back(std::string("scale1fb"      ));
+    variables_.push_back(std::string("met"           ));
+    variables_.push_back(std::string("metPhi"        ));
+    variables_.push_back(std::string("sumet"         ));
+    variables_.push_back(std::string("genmet"        ));
+    variables_.push_back(std::string("genmetPhi"     ));
+    variables_.push_back(std::string("type"          ));
+    variables_.push_back(std::string("dstype"        ));
+    variables_.push_back(std::string("lq1"           ));
+    variables_.push_back(std::string("lid1"          ));
+    variables_.push_back(std::string("lq2"           ));
+    variables_.push_back(std::string("lid2"          ));
+    variables_.push_back(std::string("jet1Btag"      ));
+    variables_.push_back(std::string("jet2Btag"      ));
+    variables_.push_back(std::string("njets"         ));
+    variables_.push_back(std::string("trackMet"      ));
+    variables_.push_back(std::string("trackMetPhi"   ));
+    variables_.push_back(std::string("pmet"          ));
+    variables_.push_back(std::string("pTrackMet"     ));
+    variables_.push_back(std::string("mt"            ));
+    variables_.push_back(std::string("mt1"           ));
+    variables_.push_back(std::string("mt2"           ));
+    variables_.push_back(std::string("dPhi"          ));
+    variables_.push_back(std::string("dR"            ));
+    variables_.push_back(std::string("dPhiLep1Jet1"  ));
+    variables_.push_back(std::string("dRLep1Jet1"    ));
+    variables_.push_back(std::string("dPhiLep2Jet1"  ));
+    variables_.push_back(std::string("dRLep2Jet1"    ));
+    variables_.push_back(std::string("dPhiDiLepMET"  ));
+    variables_.push_back(std::string("dPhiLep1MET"   ));
+    variables_.push_back(std::string("dPhiLep2MET"   ));
+    variables_.push_back(std::string("dPhiDiLepJet1" ));
+    variables_.push_back(std::string("lep1McId"      ));
+    variables_.push_back(std::string("lep2McId"      ));
+    variables_.push_back(std::string("lep1MotherMcId"));
+    variables_.push_back(std::string("lep2MotherMcId"));
+    variables_.push_back(std::string("jet1McId"      ));
+    variables_.push_back(std::string("jet2McId"      ));
   }
   // inizialize variables
-  event_        = 0;
-  run_          = 0;
-  lumi_         = 0;
-  nvtx_         = 0;
-  cuts_         = 0;
-  scale1fb_     = 0;
-  met_          = -999.;
-  metPhi_       = -999.;
-  sumet_        = -999.;
-  genmet_       = 0;
-  genmetPhi_    = 0;
-  type_         = mm;
-  dstype_       = data;
-  lq1_          = 0;
-  lid1_         = 0;
-  lq2_          = 0;
-  lid2_         = 0;
-  jet1Btag_     = -999.;
-  jet2Btag_     = -999.;
-  njets_        = 0;
-  trackMet_     = -999.;
-  trackMetPhi_  = -999.;
-  pmet_         = -999.;
-  pTrackMet_    = -999.;
-  mt_           = -999.;
-  mt1_          = -999.;
-  mt2_          = -999.;
-  dPhi_         = -999.;
-  dR_           = -999.;
-  dPhiLep1Jet1_ = -999.;
-  dRLep1Jet1_   = -999.;
-  dPhiLep2Jet1_ = -999.;
-  dRLep2Jet1_   = -999.;
-  dPhiLep1MET_  = -999.;
-  dPhiLep2MET_  = -999.;
-  dPhiDiLepMET_ = -999.;
-  dPhiDiLepJet1_= -999.;
-  lep1McId_   	= 0;
-  lep2McId_   	= 0;
-  jet1McId_   	= 0;
-  jet2McId_   	= 0;
-  lep1_       	= LorentzVector();
-  lep2_       	= LorentzVector();
-  jet1_       	= LorentzVector();
-  jet2_       	= LorentzVector();
-  dilep_      	= LorentzVector();
+  event_         = 0;
+  run_           = 0;
+  lumi_          = 0;
+  nvtx_          = 0;
+  cuts_          = 0;
+  scale1fb_      = 0;
+  met_           = -999.;
+  metPhi_        = -999.;
+  sumet_         = -999.;
+  genmet_        = 0;
+  genmetPhi_     = 0;
+  type_          = mm;
+  dstype_        = data;
+  lq1_           = 0;
+  lid1_          = 0;
+  lq2_           = 0;
+  lid2_          = 0;
+  jet1Btag_      = -999.;
+  jet2Btag_      = -999.;
+  njets_         = 0;
+  trackMet_      = -999.;
+  trackMetPhi_   = -999.;
+  pmet_          = -999.;
+  pTrackMet_     = -999.;
+  mt_            = -999.;
+  mt1_           = -999.;
+  mt2_           = -999.;
+  dPhi_          = -999.;
+  dR_            = -999.;
+  dPhiLep1Jet1_  = -999.;
+  dRLep1Jet1_    = -999.;
+  dPhiLep2Jet1_  = -999.;
+  dRLep2Jet1_    = -999.;
+  dPhiLep1MET_   = -999.;
+  dPhiLep2MET_   = -999.;
+  dPhiDiLepMET_  = -999.;
+  dPhiDiLepJet1_ = -999.;
+  lep1McId_   	 = 0;
+  lep2McId_   	 = 0;
+  lep1MotherMcId_= 0;
+  lep2MotherMcId_= 0;
+  jet1McId_   	 = 0;
+  jet2McId_   	 = 0;
+  lep1_       	 = LorentzVector();
+  lep2_       	 = LorentzVector();
+  jet1_       	 = LorentzVector();
+  jet2_       	 = LorentzVector();
+  dilep_      	 = LorentzVector();
 
-  lep3_       	= LorentzVector();
-  lq3_  	= 0;
-  lid3_ 	= 0;
-  jet3_       	= LorentzVector();
-  jet3Btag_	= -999.;
-  lep3McId_	= 0;
-  jet3McId_	= 0;
-  dPhiLep3Jet1_ = -999.;
-  dRLep3Jet1_	= -999.;
-  dPhiLep3MET_  = -999.;
-  mt3_  	= -999.;
-  jetLowBtag_	= -999.;
-  nSoftMuons_	= 0;
-  Q_		= -999.;
-  id1_  	= -999.;
-  x1_		= -999.;
-  pdf1_ 	= -999.;  
-  id2_  	= -999.;  
-  x2_		= -999.;
-  pdf2_ 	= -999.;  
-  processId_	= 0;
+  lep3_       	 = LorentzVector();
+  lq3_  	 = 0;
+  lid3_ 	 = 0;
+  jet3_       	 = LorentzVector();
+  jet3Btag_	 = -999.;
+  lep3McId_	 = 0;
+  lep3MotherMcId_= 0;
+  jet3McId_	 = 0;
+  dPhiLep3Jet1_  = -999.;
+  dRLep3Jet1_	 = -999.;
+  dPhiLep3MET_   = -999.;
+  mt3_  	 = -999.;
+  jetLowBtag_	 = -999.;
+  nSoftMuons_	 = 0;
+  Q_		 = -999.;
+  id1_  	 = -999.;
+  x1_		 = -999.;
+  pdf1_ 	 = -999.;  
+  id2_  	 = -999.;  
+  x2_		 = -999.;
+  pdf2_ 	 = -999.;  
+  processId_	 = 0;
 }
 
 inline double
 SmurfTree::Get(std::string value)
 {
-  if(value=="event"        ) { return this->event_;        }
-  if(value=="run"          ) { return this->run_;          }
-  if(value=="lumi"         ) { return this->lumi_;         }
-  if(value=="nvtx"         ) { return this->nvtx_;         }
-  if(value=="cuts"         ) { return this->cuts_;         }
-  if(value=="scale1fb"     ) { return this->scale1fb_;     }
-  if(value=="met"          ) { return this->met_;          }
-  if(value=="metPhi"       ) { return this->metPhi_;       }
-  if(value=="sumet"        ) { return this->sumet_;        }
-  if(value=="genmet"       ) { return this->genmet_;       }
-  if(value=="genmetPhi"    ) { return this->genmetPhi_;    }
-  if(value=="type"         ) { return this->type_;         }
-  if(value=="dstype"       ) { return this->dstype_;       }
-  if(value=="lq1"          ) { return this->lq1_;          }
-  if(value=="lid1"         ) { return this->lid1_;         }
-  if(value=="lq2"          ) { return this->lq2_;          }
-  if(value=="lid2"         ) { return this->lid2_;         }
-  if(value=="jet1Btag"     ) { return this->jet1Btag_;     }
-  if(value=="jet2Btag"     ) { return this->jet2Btag_;     }
-  if(value=="njets"        ) { return this->njets_;        }
-  if(value=="trackMet"     ) { return this->trackMet_; 	   }
-  if(value=="trackMetPhi"  ) { return this->trackMetPhi_;  }
-  if(value=="pmet"         ) { return this->pmet_;         }
-  if(value=="pTrackMet"    ) { return this->pTrackMet_;    }
-  if(value=="mt"           ) { return this->mt_;           }
-  if(value=="mt1"          ) { return this->mt1_;          }
-  if(value=="mt2"          ) { return this->mt2_;          }
-  if(value=="dPhi"         ) { return this->dPhi_;         }
-  if(value=="dR"           ) { return this->dR_;           }
-  if(value=="dPhiLep1Jet1" ) { return this->dPhiLep1Jet1_; }
-  if(value=="dRLep1Jet1"   ) { return this->dRLep1Jet1_;   }
-  if(value=="dPhiLep2Jet1" ) { return this->dPhiLep2Jet1_; }
-  if(value=="dRLep2Jet1"   ) { return this->dRLep2Jet1_;   }
-  if(value=="dPhiDiLepMET" ) { return this->dPhiDiLepMET_; }
-  if(value=="dPhiLep1MET"  ) { return this->dPhiLep1MET_;  }
-  if(value=="dPhiLep2MET"  ) { return this->dPhiLep2MET_;  }
-  if(value=="dPhiDiLepJet1") { return this->dPhiDiLepJet1_;}
-  if(value=="lep1McId"     ) { return this->lep1McId_;     }
-  if(value=="lep2McId"     ) { return this->lep2McId_;     }
-  if(value=="jet1McId"     ) { return this->jet1McId_;     }
-  if(value=="jet2McId"     ) { return this->jet2McId_;     }
+  if(value=="event"         ) { return this->event_;	     }
+  if(value=="run"           ) { return this->run_;	     }
+  if(value=="lumi"          ) { return this->lumi_;	     }
+  if(value=="nvtx"          ) { return this->nvtx_;	     }
+  if(value=="cuts"          ) { return this->cuts_;	     }
+  if(value=="scale1fb"      ) { return this->scale1fb_;      }
+  if(value=="met"           ) { return this->met_;	     }
+  if(value=="metPhi"        ) { return this->metPhi_;	     }
+  if(value=="sumet"         ) { return this->sumet_;	     }
+  if(value=="genmet"        ) { return this->genmet_;	     }
+  if(value=="genmetPhi"     ) { return this->genmetPhi_;     }
+  if(value=="type"          ) { return this->type_;	     }
+  if(value=="dstype"        ) { return this->dstype_;	     }
+  if(value=="lq1"           ) { return this->lq1_;	     }
+  if(value=="lid1"          ) { return this->lid1_;	     }
+  if(value=="lq2"           ) { return this->lq2_;	     }
+  if(value=="lid2"          ) { return this->lid2_;	     }
+  if(value=="jet1Btag"      ) { return this->jet1Btag_;      }
+  if(value=="jet2Btag"      ) { return this->jet2Btag_;      }
+  if(value=="njets"         ) { return this->njets_;	     }
+  if(value=="trackMet"      ) { return this->trackMet_;      }
+  if(value=="trackMetPhi"   ) { return this->trackMetPhi_;   }
+  if(value=="pmet"          ) { return this->pmet_;	     }
+  if(value=="pTrackMet"     ) { return this->pTrackMet_;     }
+  if(value=="mt"            ) { return this->mt_;	     }
+  if(value=="mt1"           ) { return this->mt1_;	     }
+  if(value=="mt2"           ) { return this->mt2_;	     }
+  if(value=="dPhi"          ) { return this->dPhi_;	     }
+  if(value=="dR"            ) { return this->dR_;	     }
+  if(value=="dPhiLep1Jet1"  ) { return this->dPhiLep1Jet1_;  }
+  if(value=="dRLep1Jet1"    ) { return this->dRLep1Jet1_;    }
+  if(value=="dPhiLep2Jet1"  ) { return this->dPhiLep2Jet1_;  }
+  if(value=="dRLep2Jet1"    ) { return this->dRLep2Jet1_;    }
+  if(value=="dPhiDiLepMET"  ) { return this->dPhiDiLepMET_;  }
+  if(value=="dPhiLep1MET"   ) { return this->dPhiLep1MET_;   }
+  if(value=="dPhiLep2MET"   ) { return this->dPhiLep2MET_;   }
+  if(value=="dPhiDiLepJet1" ) { return this->dPhiDiLepJet1_; }
+  if(value=="lep1McId"      ) { return this->lep1McId_;      }
+  if(value=="lep2McId"      ) { return this->lep2McId_;      }
+  if(value=="lep1MotherMcId") { return this->lep1MotherMcId_;}
+  if(value=="lep2MotherMcId") { return this->lep2MotherMcId_;}
+  if(value=="jet1McId"      ) { return this->jet1McId_;      }
+  if(value=="jet2McId"      ) { return this->jet2McId_;      }
 
-  if(value=="lq3_"	   ) { return this->lq3_;          }
-  if(value=="lid3_"	   ) { return this->lid3_;         }
-  if(value=="jet3Btag_"	   ) { return this->jet3Btag_;     }
-  if(value=="lep3McId_"	   ) { return this->lep3McId_;     }
-  if(value=="jet3McId_"	   ) { return this->jet3McId_;     }
-  if(value=="dPhiLep3Jet1_") { return this->dPhiLep3Jet1_; }
-  if(value=="dRLep3Jet1_"  ) { return this->dRLep3Jet1_;   }
-  if(value=="dPhiLep3MET_" ) { return this->dPhiLep3MET_;  }
-  if(value=="mt3_"	   ) { return this->mt3_;          }
-  if(value=="jetLowBtag_"  ) { return this->jetLowBtag_;   }
-  if(value=="nSoftMuons_"  ) { return this->nSoftMuons_ ;  }
-  if(value=="Q_"           ) { return this->Q_;            }
-  if(value=="id1_"	   ) { return this->id1_;          }
-  if(value=="x1_"	   ) { return this->x1_;           }
-  if(value=="pdf1_"	   ) { return this->pdf1_;         }
-  if(value=="id2_"         ) { return this->id2_;          }
-  if(value=="x2_"	   ) { return this->x2_;           }
-  if(value=="pdf2_"	   ) { return this->pdf2_;         }
-  if(value=="processId"	   ) { return this->processId_;    }
+  if(value=="lq3"	    ) { return this->lq3_;	     } 
+  if(value=="lid3"	    ) { return this->lid3_;	     } 
+  if(value=="jet3Btag"	    ) { return this->jet3Btag_;      } 
+  if(value=="lep3McId"	    ) { return this->lep3McId_;      } 
+  if(value=="lep3MotherMcId") { return this->lep3MotherMcId_;} 
+  if(value=="jet3McId"	    ) { return this->jet3McId_;      } 
+  if(value=="dPhiLep3Jet1"  ) { return this->dPhiLep3Jet1_;  } 
+  if(value=="dRLep3Jet1"    ) { return this->dRLep3Jet1_;    } 
+  if(value=="dPhiLep3MET"   ) { return this->dPhiLep3MET_;   } 
+  if(value=="mt3"	    ) { return this->mt3_;	     } 
+  if(value=="jetLowBtag"    ) { return this->jetLowBtag_;    } 
+  if(value=="nSoftMuons"    ) { return this->nSoftMuons_ ;   } 
+  if(value=="Q"             ) { return this->Q_;	     } 
+  if(value=="id1"	    ) { return this->id1_;	     } 
+  if(value=="x1"	    ) { return this->x1_;	     } 
+  if(value=="pdf1"	    ) { return this->pdf1_;	     } 
+  if(value=="id2"           ) { return this->id2_;	     } 
+  if(value=="x2"	    ) { return this->x2_;	     } 
+  if(value=="pdf2"	    ) { return this->pdf2_;	     } 
+  if(value=="processId"	    ) { return this->processId_;     } 
 
   return -9999.; 
 }
