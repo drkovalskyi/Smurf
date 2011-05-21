@@ -94,7 +94,7 @@ void   TEvtProb::NeutrinoIntegrate(TVar::Process proc,
         count_PS++;
         myRandom.RndmArray(NDim,r); // generate NDim random numbers and set the first NDim entries of r arrary
         double dXsec=0;
-        dXsec=Integrand_NeutrinoIntegration(proc, cdf_event, r,NDim,0, _boosthist)*probAcceptanceEfficiency;
+        dXsec=Integrand_NeutrinoIntegration(proc, cdf_event, r,NDim,0, _boosthist, verbosity)*probAcceptanceEfficiency;
         
 	if (dXsec<=0) continue;
         sumW  += dXsec;
@@ -113,7 +113,7 @@ void   TEvtProb::NeutrinoIntegrate(TVar::Process proc,
 //=======================================
 // Integrand
 //=======================================
-double TEvtProb::Integrand_NeutrinoIntegration(TVar::Process proc, const cdf_event_type &cdf_event, double * r, unsigned int NDim, void * param, BoostHist boosthist){
+double TEvtProb::Integrand_NeutrinoIntegration(TVar::Process proc, const cdf_event_type &cdf_event, double * r, unsigned int NDim, void * param, BoostHist boosthist, TVar::VerbosityLevel verbosity){
 
     //constants
     double sqrts = 2.*EBEAM;
@@ -219,18 +219,18 @@ double TEvtProb::Integrand_NeutrinoIntegration(TVar::Process proc, const cdf_eve
             sumW  += dXsec;
             mcfm_event.pswt=dXsec;
         }  
-        else
-        {
-	  cout <<" NeutrinoIntegrate Warning: dXsec " << dXsec
-               << " dXsec==dXsec " << (dXsec==dXsec)
-               << " dXsec>0.0 " << (dXsec>0.0)<<" "
-	       <<" Msq="<<msqjk 
-               <<" flux="<<flux 
-               <<" wgt="<<mcfm_event.pswt
-	       <<endl;
-        }
+        else if (verbosity >= TVar::DEBUG)
+	  {
+	    cout <<" NeutrinoIntegrate Warning: dXsec " << dXsec
+		 << " dXsec==dXsec " << (dXsec==dXsec)
+		 << " dXsec>0.0 " << (dXsec>0.0)<<" "
+		 <<" Msq="<<msqjk 
+		 <<" flux="<<flux 
+		 <<" wgt="<<mcfm_event.pswt
+		 <<endl;
+	  }
     }//loop solutions
-
+    
     return sumW;
 
 }
