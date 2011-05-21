@@ -213,11 +213,11 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       processList[ NProcessCalculate++]=TVar::HWW180;
       processList[ NProcessCalculate++]=TVar::HWW190;
       processList[ NProcessCalculate++]=TVar::HWW200;
-      processList[ NProcessCalculate++]=TVar::HWW210;
-      processList[ NProcessCalculate++]=TVar::HWW220;
-      processList[ NProcessCalculate++]=TVar::HWW230;
-      processList[ NProcessCalculate++]=TVar::HWW250;
-      processList[ NProcessCalculate++]=TVar::HWW300;
+      //processList[ NProcessCalculate++]=TVar::HWW210;
+      //processList[ NProcessCalculate++]=TVar::HWW220;
+      //processList[ NProcessCalculate++]=TVar::HWW230;
+      //processList[ NProcessCalculate++]=TVar::HWW250;
+      //processList[ NProcessCalculate++]=TVar::HWW300;
     }
     else {
       switch (higgsMass) {
