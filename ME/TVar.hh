@@ -70,6 +70,7 @@ class TVar{
           Wmu1jet  =41,
 	  WWj      =42,
 	  HWWj     =43,
+	  ggWW     =44,
 	  Null
        };
 
