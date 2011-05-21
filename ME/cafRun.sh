@@ -5,12 +5,14 @@
 # 2 - filename
 # 3 - input path
 # 4 - number of events to run
+# 5 - higgs mass argument
 
 SECTION=$1
 ROOTFILE=$2.root
 INPUTPATH=$3
 NEV=$4
 EVSTART=$((NEV*($1-1)))
+HIGGSMASS=$5
 
 cd tardir
 
@@ -20,7 +22,7 @@ cp $INPUTPATH/$ROOTFILE ./
 
 echo "{" > temp.C
 echo "gSystem->CompileMacro(\"runME_test.C\");" >> temp.C
-echo "runME_test(\"./\", \"$ROOTFILE\", \"./\", 10, 1, 100000, 1.0, $NEV, $EVSTART);" >> temp.C
+echo "runME_test(\"./\", \"$ROOTFILE\", \"./\", 10, 1, 100000, 1.0, $NEV, $EVSTART,$HIGGSMASS);" >> temp.C
 echo "}" >> temp.C
 cat temp.C
 
