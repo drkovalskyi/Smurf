@@ -26,7 +26,9 @@ echo "runME_test(\"./\", \"$ROOTFILE\", \"./\", 10, 1, 100000, 1.0, $NEV, $EVSTA
 echo "}" >> temp.C
 cat temp.C
 
+echo `date`
 root -l -b -q temp.C
 mv $2_ME.root ../$2_ME_$1.root
 find . -type f -name "*.root" ! -name '*ME*.root' -execdir rm {} +
+echo `date`
 
