@@ -1,7 +1,17 @@
  /*
-  test version
-  nohup root -l runME_test.C\+\(\"/smurf/data/Run2011_Spring11_SmurfV3/tas-zerojet/\"\,\"ww.root\"\,\"./\"\,10\,1\,100000\,1.0\,100\) >& ww_ME_test.log &
-*/
+   runME_test(smurfFDir, "ww.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, 0, TVar::INFO);
+   0 - location of the smurf ntuples
+   1 - the sample to run over
+   2 - the location of the output me files
+   3 - random number seed
+   4 - smear level (0: no smearing, 1: include kx/ky, 2: include resolution which is not implemented so far)
+   5 - number of integration steps
+   6 - thresold for the dXsec/dXsecErr to print out information
+   7 - maximum events
+   8 - start event number
+   9 - higgsMass (set to 0 if for SM background, specify for the HiggsSample)
+   10 - level of output
+ */
  
 #include "TVar.hh"
 #include "TEvtProb.hh"
@@ -19,23 +29,23 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 double ERRORthreshold=1.0;
 using namespace std;
 
-void NeutrinoIntegration(int process, TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int evtstart, TVar::VerbosityLevel verbosity);
+void NeutrinoIntegration(int process, TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int evtstart, int higgsMass, TVar::VerbosityLevel verbosity);
 
 //###################
 //# main function
 //###################
-void runME_test(TString inputDir, TString fileName, TString outputDir, int seed,int SmearLevel,int ncalls,double Error, int nev, int evtstart = 0, TVar::VerbosityLevel verbosity=TVar::INFO){
+void runME_test(TString inputDir, TString fileName, TString outputDir, int seed,int SmearLevel,int ncalls,double Error, int nev, int evtstart = 0, int higgsMass = 0, TVar::VerbosityLevel verbosity=TVar::INFO){
 
   ERRORthreshold=Error;
   int process=TVar::HWW;
   int maxevt=nev;
   
   if (verbosity >= TVar::INFO) cout <<"=== Neutrino Integration ==========" <<endl;  
-  NeutrinoIntegration(process, inputDir, fileName, outputDir, seed, SmearLevel,ncalls,maxevt, evtstart, verbosity); 
+  NeutrinoIntegration(process, inputDir, fileName, outputDir, seed, SmearLevel,ncalls,maxevt, evtstart, higgsMass, verbosity); 
  
 }
 
-void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int evtstart, TVar::VerbosityLevel verbosity){
+void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int evtstart, int higgsMass, TVar::VerbosityLevel verbosity){
 
   if (verbosity >= TVar::INFO) cout << "Input File: " << fileName << " seed " << seed << " SmearLevel " << SmearLevel << " ncalls " << ncalls << endl;
 
@@ -81,13 +91,13 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   ch->SetBranchAddress( "njets"      , &njets_     );     
   ch->SetBranchAddress( "lq1"        , &lq1_       );     
   ch->SetBranchAddress( "lq2"        , &lq2_       );     
-  ch->SetBranchAddress( "type"        , &type_       );   
+  ch->SetBranchAddress( "type"       , &type_      );   
   ch->SetBranchAddress( "met"        , &met_       );       
-  ch->SetBranchAddress( "metPhi"        , &metPhi_       );       
-  
+  ch->SetBranchAddress( "metPhi"     , &metPhi_    );       
+
   // The reconstructed event level information  
   // Create the instance of TEvtProb to calculate the differential cross-section
-  // and set the calculation global variables
+  // and set the calculation global variables common for all processes
   
   TEvtProb Xcal2;  
   Xcal2.SetApplyFake(1);
@@ -120,8 +130,10 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     ch->GetEntry(ievt);            
     
     // impose trailing electron pT > 15 GeV
-    if((type_ == 1||type_ == 3) && lep2_->Pt()<15 ) continue;
-
+    if( (type_ == 1||type_ == 3) && lep2_->Pt()<15 ) continue;
+    // analyse only the 0-jet bin
+    if (njets_ > 0) continue;
+    
     // Initialize the reco-level cms_event, which contains the complete event
     // for the differential cross-section calculation
     
@@ -129,27 +141,22 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     int lep2_Type (0);
     
     switch (type_) {
-      
     case 0: //mm
       lep1_Type = 13;
       lep2_Type = 13;
       break;
-      
     case 1: // me
       lep1_Type = 13;
       lep2_Type = 11;
       break;
-      
     case 2: // em
       lep1_Type = 11;
       lep2_Type = 13;
       break;
-      
     case 3: // ee
       lep1_Type = 11;
       lep2_Type = 11;
       break;
-      
     default:
       break;
     }
@@ -170,51 +177,103 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       cms_event.PdgCode[1]=lep1_Type;    
     }
     
-
-    if (verbosity >= TVar::DEBUG) {
-        cout<<endl<<endl<<endl;
-        cout << "=========================================================" <<endl;
-        cout << "Entry: " << ievt << "   Run: " << run_ << "   Event: " << event_ <<endl;
-        cout << "Input: ==================================================" <<endl;
-        for(int lep=0;lep<2;lep++){
-            printf("lep%d : %d %4.4f %4.4f %4.4f %4.4f %4.4f \n",
-	        lep, cms_event.PdgCode[lep], cms_event.p[lep].Px(),
-	         cms_event.p[lep].Py(), cms_event.p[lep].Pz(),
-	         cms_event.p[lep].Energy(), cms_event.p[lep].M());
-        } 
-        cout << "========================================================="<<endl;
-    }    // Finishing loading the event information
+  if (verbosity >= TVar::DEBUG) {
+    cout << "\n=========================================================\n";
+    cout << "Entry: " << ievt << "   Run: " << run_ << "   Event: " << event_ <<endl;
+    cout << "Input: ==================================================" <<endl;
+    printf("lep1(%i) p3 = (%4.4f, %4.4f, %4.4f)  lep2(%i) p3 = (%4.4f, %4.4f, %4.4f)\n",
+	   lep1_Type*lq1_, lep1_->Px(), lep1_->Py(), lep1_->Pz(), 
+	   lep2_Type*lq2_, lep2_->Px(), lep2_->Py(), lep2_->Pz());
+    cout << "=========================================================\n";
+  }
+  // finish loading event information
     
     // ==== Begin the differential cross-section calculation
-    
-    // The event hypotheses
-    int NProcessCalculate=0;
-    TVar::Process processList[10];
-    processList[ NProcessCalculate++]=TVar::WW;
-    processList[ NProcessCalculate++]=TVar::Wp_1jet;
-    processList[ NProcessCalculate++]=TVar::Wm_1jet;
-    processList[ NProcessCalculate++]=TVar::HWW130;
-    processList[ NProcessCalculate++]=TVar::HWW160;
-    processList[ NProcessCalculate++]=TVar::HWW200;
-
-    
     TVar::Process ProcInt;
-    
     double Xsec=0;
     double XsecErr=0;
     double Ratio=0;
-    
     int HiggsMASS[20]={0,0,0,0,0,0,120,130,140,150,160,170,180,190,200,210,220,230,250,300};
     
+    // The SM background processes
+    int NProcessCalculate=0;
+    TVar::Process processList[20];
+    
+    processList[ NProcessCalculate++]=TVar::WW;
+    processList[ NProcessCalculate++]=TVar::Wp_1jet;
+    processList[ NProcessCalculate++]=TVar::Wm_1jet;
+
+    // calculate all the higgs hypothesis if the higgsMass is not specified
+    if(higgsMass <= 0) {
+      processList[ NProcessCalculate++]=TVar::HWW130;
+      processList[ NProcessCalculate++]=TVar::HWW140;
+      processList[ NProcessCalculate++]=TVar::HWW150;
+      processList[ NProcessCalculate++]=TVar::HWW160;
+      processList[ NProcessCalculate++]=TVar::HWW170;
+      processList[ NProcessCalculate++]=TVar::HWW180;
+      processList[ NProcessCalculate++]=TVar::HWW190;
+      processList[ NProcessCalculate++]=TVar::HWW200;
+      processList[ NProcessCalculate++]=TVar::HWW210;
+      processList[ NProcessCalculate++]=TVar::HWW220;
+      processList[ NProcessCalculate++]=TVar::HWW230;
+      processList[ NProcessCalculate++]=TVar::HWW250;
+      processList[ NProcessCalculate++]=TVar::HWW300;
+    }
+    else {
+      switch (higgsMass) {
+      case 130:
+	processList[ NProcessCalculate++]=TVar::HWW130;
+	break;
+      case 140:
+	processList[ NProcessCalculate++]=TVar::HWW140;
+	break;
+      case 150:
+	processList[ NProcessCalculate++]=TVar::HWW150;
+	break;
+      case 160:
+	processList[ NProcessCalculate++]=TVar::HWW160;
+	break;
+      case 170:
+	processList[ NProcessCalculate++]=TVar::HWW170;
+	break;
+      case 180:
+	processList[ NProcessCalculate++]=TVar::HWW180;
+	break;
+      case 190:
+	processList[ NProcessCalculate++]=TVar::HWW190;
+	break;
+      case 200:
+	processList[ NProcessCalculate++]=TVar::HWW200;
+	break;
+      case 210:
+	processList[ NProcessCalculate++]=TVar::HWW210;
+	break;
+      case 220:
+	processList[ NProcessCalculate++]=TVar::HWW220;
+	break;
+      case 230:
+	processList[ NProcessCalculate++]=TVar::HWW230;
+	break;
+      case 250:
+	processList[ NProcessCalculate++]=TVar::HWW250;
+	break;
+      case 300:
+	processList[ NProcessCalculate++]=TVar::HWW300;
+	break;
+      default:
+	break;
+      }
+    }
+
     for(int iproc = 0; iproc < NProcessCalculate; iproc++) { 
-      
       ProcInt=processList[iproc];
       Xcal2.SetMCHist(ProcInt, verbosity); 
       // Xcal2.SetFRHist(); 
       
-      if (verbosity >= TVar::DEBUG) printf(" Calculate Evt %4i Run %9i Evt %8i Proc %4i %s Lep %4i %4i\n", ievt, run_, event_, ProcInt, TVar::ProcessName(ProcInt).Data(),lep1_Type,lep2_Type);
-
-      // -- correct the lepton fo pt
+      if (verbosity >= TVar::DEBUG) 
+	printf(" Calculate Evt %4i Run %9i Evt %8i Proc %4i %s Lep %4i %4i\n", ievt, run_, event_, ProcInt, TVar::ProcessName(ProcInt).Data(), lq1_*lep1_Type, lq2_*lep2_Type);
+      
+      // -- correct the lepton fo pt for W + jet only
       // For W+ hypothesis, assume the l- is the FO
       double scale_fo = 1.0;
       if(ProcInt == TVar::Wp_1jet) {
@@ -238,8 +297,8 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 	cms_event.p[0].SetXYZM( cms_event.p[0].Px()*scale_fo, cms_event.p[0].Py()*scale_fo, cms_event.p[0].Pz()*scale_fo, 0);
       }
       
-      
-      if (ProcInt >= TVar::HWW120 && ProcInt <= TVar::HWW300){
+      // -- Do the integration over unknown parameters
+       if (ProcInt >= TVar::HWW120 && ProcInt <= TVar::HWW300){
 	Xcal2.SetProcess(TVar::HWW);
 	Xcal2.SetHiggsMass(HiggsMASS[ProcInt]);
 	if (verbosity >= TVar::DEBUG) cout<< "Higgs Mass: " << HiggsMASS[ProcInt]<<"GeV \n";
@@ -250,20 +309,21 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 	  Xcal2.SetHWWPhaseSpace(TVar::MHMW);
 	
 	Xcal2.NeutrinoIntegrate(TVar::HWW,cms_event, &Xsec, &XsecErr, verbosity);
-      } 
+      }
       else Xcal2.NeutrinoIntegrate(ProcInt,cms_event, &Xsec, &XsecErr, verbosity);
       
+      // fill in the differential cross-section and errors
       dXsecList[ProcInt]=Xsec;  
       dXsecErrList[ProcInt]=XsecErr;
+
       if (Xsec>0) Ratio = XsecErr/Xsec;
-      
       if (Ratio > ERRORthreshold){
-	if (verbosity >= TVar::ERROR) 
+	if (verbosity >= TVar::DEBUG) 
 	  cout    << "IntegrateNTrials " << " Ncalls " << Xcal2._ncalls << " " << ProcInt << " " << TVar::ProcessName(ProcInt)
 		  << " Xsec = " <<  Xsec << " +- " << XsecErr << " ( " << Ratio << " ) " << endl;
       }
       
-      // setting back the cms_event for other hypothesis
+      // setting back the lepton pT for the W + jet hypothesis
       if(ProcInt == TVar::Wp_1jet) 
 	cms_event.p[1].SetXYZM( cms_event.p[1].Px()/scale_fo, cms_event.p[1].Py()/scale_fo, cms_event.p[1].Pz()/scale_fo, 0);
       
@@ -278,7 +338,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       if(Phill>TMath::Pi()) Phill=2*TMath::Pi()-Phill;			   
       
       cout << "START summary ====================" <<endl;
-      printf(" Evt %4i/%4i Run %9i Evt %8i Proc %4i %s lep %4i %4i njets %d \n", ievt,Ntot, run_, event_, ProcIdx, TVar::ProcessName(ProcIdx).Data(),lep1_Type,lep2_Type,njets_);
+      printf(" Evt %4i/%4i Run %9i Evt %8i Proc %4i %s lep %4i %4i njets %d \n", ievt,Ntot, run_, event_, ProcIdx, TVar::ProcessName(ProcIdx).Data(), lq1_*lep1_Type, lq2_*lep2_Type,njets_);
       printf(" MetX %8.8f MetY %8.8f Mll %8.8f Phill %8.8f\n",cms_event.MetX, cms_event.MetY,Mll,Phill);
       printf(" L1 %d ( %8.8f , %8.8f , %8.8f , %8.8f)\n",cms_event.PdgCode[0],cms_event.p[0].Px(),cms_event.p[0].Py(),cms_event.p[0].Pz(),cms_event.p[0].Energy());
       printf(" L2 %d ( %8.8f , %8.8f , %8.8f , %8.8f)\n",cms_event.PdgCode[1],cms_event.p[1].Px(),cms_event.p[1].Py(),cms_event.p[1].Pz(),cms_event.p[1].Energy());
@@ -286,8 +346,8 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       for(int j=0;j<NProcessCalculate;j++){
 	TVar::Process proc = processList[j];
 	printf("%2i %8s  :", proc,TVar::ProcessName(proc).Data());
-	double ratio=0;
-	if(dXsecList[processList[j]]>0) ratio=dXsecErrList[processList[j]]/dXsecList[processList[j]];
+	double ratio = 0.0;
+	if(dXsecList[processList[j]] > 0.0) ratio=dXsecErrList[processList[j]]/dXsecList[processList[j]];
 	cout <<  dXsecList[processList[j]] << " +- " << dXsecErrList[processList[j]] << " ( " << ratio <<" ) "<<endl;
       }
       cout << "END summary =====================" <<endl;
