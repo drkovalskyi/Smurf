@@ -94,18 +94,14 @@ void   TEvtProb::NeutrinoIntegrate(TVar::Process proc,
         count_PS++;
         myRandom.RndmArray(NDim,r); // generate NDim random numbers and set the first NDim entries of r arrary
         double dXsec=0;
-
-        // dXsec=Integrand_NeutrinoIntegration(r,NDim,0);
         dXsec=Integrand_NeutrinoIntegration(proc, cdf_event, r,NDim,0, _boosthist)*probAcceptanceEfficiency;
-
-        if (dXsec<=0) continue;
-        // count_PS++;
+        
+	if (dXsec<=0) continue;
         sumW  += dXsec;
         sumW2 += dXsec*dXsec;
     }
 
     *Xsec = sumW/count_PS;
-    //    cout << "TEvtProb:: count_PS = " << count_PS << "; _ncalls = " << _ncalls << endl;
 
     *XsecErr = sumW2/count_PS-sumW/count_PS*sumW/count_PS;
     if(*XsecErr>0.0) *XsecErr = sqrt(*XsecErr/count_PS);
@@ -126,16 +122,9 @@ double TEvtProb::Integrand_NeutrinoIntegration(TVar::Process proc, const cdf_eve
     int NSol = 4;
 
     //Weight calculation
-    double PSWeight=1.;
     double flux=1.;
     double dXsec=0.;
     double sumW =0.;
-
-    int count_PS=0;
-
-    count_PS++;
-
-    PSWeight=1.;
 
     // array of mcfm event type
     mcfm_event_type arr_mcfm_event[4];
@@ -224,8 +213,7 @@ double TEvtProb::Integrand_NeutrinoIntegration(TVar::Process proc, const cdf_eve
         //for(int ipt=2;ipt<npart_.npart+2;ipt++) msqjk = msqjk/mcfm_event.p[ipt].Energy();
 
         flux=fbGeV2/(mcfm_event.p[0].Energy()*mcfm_event.p[1].Energy())	/(4*W);
-        //dXsec=msqjk*flux*mcfm_event.pswt*PSWeight*probAcceptanceEfficiency;
-        dXsec=msqjk*flux*mcfm_event.pswt*PSWeight;
+        dXsec=msqjk*flux*mcfm_event.pswt;
 
         if (dXsec>0.0){
             sumW  += dXsec;
@@ -233,18 +221,13 @@ double TEvtProb::Integrand_NeutrinoIntegration(TVar::Process proc, const cdf_eve
         }  
         else
         {
-            /*
-               cout <<" NeutrinoIntegrate Warning: dXsec " << dXsec
+	  cout <<" NeutrinoIntegrate Warning: dXsec " << dXsec
                << " dXsec==dXsec " << (dXsec==dXsec)
                << " dXsec>0.0 " << (dXsec>0.0)<<" "
-               <<TVar::ProcessName(Global_process)
-               <<" Msq="<<msqjk 
+	       <<" Msq="<<msqjk 
                <<" flux="<<flux 
                <<" wgt="<<mcfm_event.pswt
-               <<" PS=" <<PSWeight
-            //<<" eff="<<probAcceptanceEfficiency
-            <<endl;
-             */
+	       <<endl;
         }
     }//loop solutions
 
