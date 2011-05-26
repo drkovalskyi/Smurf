@@ -203,10 +203,12 @@ PlotWithBelts::~PlotWithBelts(){
 }
 void PlotWithBelts::save(){
 	string seps = ssave+".eps";
+	string spng = ssave+".png";
 	string spdf = ssave+".pdf";
 	//string sroot = ssave+".root";
 	cCanvas->Print(seps.c_str());
 	cCanvas->Print(spdf.c_str());
+	cCanvas->Print(spng.c_str());
 	//cCanvas->Print(sroot.c_str());
 }
 void PlotWithBelts::clear(){
@@ -348,7 +350,7 @@ void DrawSigBkgPdfs::draw(){
 }
 void DrawSigBkgPdfs::save(){
 	string seps = _ssave+".eps";
-	string sgif = _ssave+".gif";
+	string sgif = _ssave+".png";
 	string sroot = _ssave+".root";
 	cCanvas->Print(sroot.c_str());
 	cCanvas->Print(seps.c_str());
@@ -416,7 +418,7 @@ void DrawEvolution2D::draw(){
 void DrawEvolution2D::save(){
 	Save(cCanvas,_ssave);
 	/*string seps = _ssave+".eps";
-	  string sgif = _ssave+".gif";
+	  string sgif = _ssave+".png";
 	  string sroot = _ssave+".root";
 	  cCanvas->Print(sroot.c_str());
 	  cCanvas->Print(seps.c_str());
@@ -584,7 +586,7 @@ void DrawCMS(string cms, double x1, double y1, double x2, double y2, double txts
 	 */
 }
 void Save(TCanvas *cCanvas, string _ssave){
-	string seps = _ssave+".eps";
+	string seps = _ssave+".png";
 	string sgif = _ssave+".gif";
 	string sroot = _ssave+".root";
 	cCanvas->Print(sroot.c_str());

@@ -14,9 +14,6 @@ int plotBand2(int nsel = 0, TString resdir = "output/limits/", TString input = "
   double projectingRLimitYmin = 0.1, projectingRLimitYmax = 20;
   
   double obs0j[nPoints],exp0j_2sm[nPoints],exp0j_1sm[nPoints],exp0j[nPoints],exp0j_1sp[nPoints],exp0j_2sp[nPoints];
-  double obs1j[nPoints],exp1j_2sm[nPoints],exp1j_1sm[nPoints],exp1j[nPoints],exp1j_1sp[nPoints],exp1j_2sp[nPoints];
-  double obs2j[nPoints],exp2j_2sm[nPoints],exp2j_1sm[nPoints],exp2j[nPoints],exp2j_1sp[nPoints],exp2j_2sp[nPoints];
-  double obsnj[nPoints],expnj_2sm[nPoints],expnj_1sm[nPoints],expnj[nPoints],expnj_1sp[nPoints],expnj_2sp[nPoints];
   
   char sb[50];
   int i = 0;
@@ -57,7 +54,8 @@ int plotBand2(int nsel = 0, TString resdir = "output/limits/", TString input = "
   
   PlotWithBelts lb(
 		   limits_m1s, limits_p1s, limits_m2s, limits_p2s,
-		   limits_mean, limits_obs, nPoints,  
+		   //limits_mean, limits_obs, nPoints,  
+		   limits_mean, nPoints,  
 		   xpoints, ssave+"_1", pt,
 		   projectingXmin, projectingXmax, projectingRLimitYmin, projectingRLimitYmax, projectingRLimitLogY, projectingRLimitXYtitles);
   lb.plot(posX, posY);
