@@ -79,13 +79,13 @@ void drawLROverlay(Sample* & higgsSample, std::vector<Sample*> & bkgsamples,
   h1_stack->GetXaxis()->SetTitle(Form("LR(%s)", higgsSample->name().Data()));
     hist_sig->Draw("SAMEHIST");
   stacklg->Draw();
-  c1->SaveAs( outputDir + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR.eps");
-  c1->SaveAs( outputDir +  TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR.png");
+  c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR.eps");
+  c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR.png");
   
   // draw stacked plots - log
   c1->SetLogy();
-  c1->SaveAs( outputDir + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_log.eps");
-  c1->SaveAs( outputDir + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_log.png");
+  c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_log.eps");
+  c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_log.png");
 
   // draw overlay plots
   c1->Clear();
@@ -101,13 +101,13 @@ void drawLROverlay(Sample* & higgsSample, std::vector<Sample*> & bkgsamples,
   }
   hist_sig->GetYaxis()->SetRangeUser(0.001, yMax  + 2*sqrt(yMax));
   overlaylg->Draw();
-  c1->SaveAs( outputDir + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay.eps");
-  c1->SaveAs( outputDir + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay.png");
+  c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay.eps");
+  c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay.png");
   
   // draw overlay plots - log
   c1->SetLogy(1);
-  c1->SaveAs( outputDir + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay_log.eps");
-  c1->SaveAs( outputDir + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay_log.png");  
+  c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay_log.eps");
+  c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay_log.png");  
   // end of drawing histograms
   
   
@@ -166,7 +166,7 @@ void writeMVAOutput(TString method, Sample* & higgsSample, std::vector<Sample*> 
   TH1F *hist_Data = new TH1F("histo_Data", "histo_Data", nBins, binMin, binMax);
 
   // Write out the input files to the limits setting
-  TFile *limits_histo = new TFile(outputDir+"histo_limits_ntuples_" + method + "_" +TVar::SmurfProcessName(higgsSample->GetLRProcess())+".root", "RECREATE");
+  TFile *limits_histo = new TFile(outputDir + "limits/" + "histo_limits_ntuples_" + method + "_" +TVar::SmurfProcessName(higgsSample->GetLRProcess())+".root", "RECREATE");
   limits_histo->cd();
   hist_sig->SetName("histo_Higgs");
   hist_sig->SetXTitle(xtitle);
@@ -194,7 +194,7 @@ void writeMVAOutput(TString method, Sample* & higgsSample, std::vector<Sample*> 
   // now write out the cards..
   
   ofstream text; 
-  text.open(outputDir+TVar::SmurfProcessName(higgsSample->GetLRProcess())+"_"+method.Data()+".card");
+  text.open(outputDir + "limits/" + TVar::SmurfProcessName(higgsSample->GetLRProcess())+"_"+method.Data()+".card");
   text << "imax 1 number of channels\n";
   text << "jmax 6 number of background\n";
   text << "kmax 25 number of nuisance parameters\n";
@@ -335,8 +335,8 @@ void drawSignificance(Sample* & higgsSample, std::vector<Sample*> & bkgsamples, 
   if(sign_MVA != 0.0)
     arr_MVA->Draw("same");
   lg->Draw("same");
-  c1->SaveAs(outputDir+ Form("SOverB_%s_fom%i.eps", TVar::SmurfProcessName(higgsSample->GetLRProcess()).Data(), fom));
-  c1->SaveAs(outputDir + Form("SOverB_%s_fom%i.png", TVar::SmurfProcessName(higgsSample->GetLRProcess()).Data(), fom));
+  c1->SaveAs(outputDir + "plots/" + Form("SOverB_%s_fom%i.eps", TVar::SmurfProcessName(higgsSample->GetLRProcess()).Data(), fom));
+  c1->SaveAs(outputDir + "plots/" + Form("SOverB_%s_fom%i.png", TVar::SmurfProcessName(higgsSample->GetLRProcess()).Data(), fom));
   
   delete hist_sig;
   for (unsigned int s = 0; s < bkgsamples.size(); s++) delete hist_bkg[s];
