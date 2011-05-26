@@ -1,3 +1,8 @@
+// This code calculates the LR of HWW hypothesis
+// LR = Psig / (Psig +  Sum_i{fbkg_i * Pbkg_i})
+// Psig and Pbkg_i are normalized to a constant individually
+// 
+
 #include "TFile.h"
 #include "TTree.h"
 #include "TLeaf.h"
@@ -6,109 +11,32 @@
 #include "Math/LorentzVector.h"
 #include "Math/VectorUtil.h"
 
-#include "commonFunction.h"
 #include "../TVar.hh"
+#include "Proc.cc"
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
 using namespace std;
 
-const int kNDilep=4;
-
-float lumi=1000.;
-float yield [kNProc][kNDilep];
-float acceptance [kNProc][kNDilep];
-
-float BR [kNProc][kNDilep] = {{ (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9,  (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 },
-			      { (1.0+0.1736)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3},
-			      { (1.0+0.1736)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3},
-			      { (1.0+0.1784)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3}, // Wpgamma placeholder
-			      { (1.0+0.1784)/3, (2.0+0.1736+0.1784)/6, (2.0+0.1736+0.1784)/6,   (1+0.1784)/3}, // Wpgamma placeholder
-			      { 2*0.2*(0.0363+0.0370*0.1736*0.1736), 0.0, 0.0, 2*0.2*(0.0363+0.0370*0.1784*0.1784) },
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }, 
-			      { (1.0+0.1736)*(1.0+0.1736)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1736)*(1.0+0.1784)/9, (1.0+0.1784)*(1.0+0.1784)/9 }
-};
-
-// The NLO xsec includes the W->l BR, where l includes e/mu/tau
-// The values are obtained through http://ceballos.web.cern.ch/ceballos/hwwlnln/sigma_hww_2l2n_ec
-float NLOXsec[kNProc] = {  4.5, 31314, 31314, 31314.0, 31314.0, 5.9, 0.249642, 0.452090, 0.641773, 0.770471, 0.866443, 0.782962, 0.659328, 0.486486, 0.408305, 0.358465, 0.321398, 0.290454, 0.243724, 0.175652};
-// The MCFM total cross-sections 
-float MCFMXsec[kNProc] = { 2.983, 18788.0, 12525.0,  11270, 11270.0, 4.3, 0.07533, 0.1451, 0.2165, 0.2671, 0.3034, 0.2870, 0.2465, 0.1849, 0.1570, 0.1380, 0.1232, 0.1107, 0.0906, 0.05758};
-
-void CalculateAcceptance(){
-
-    for (int i=0; i<kNProc; i++){
-      for (int j=0; j<kNDilep; j++){
-      float denominator = lumi* BR[i][j] * NLOXsec[i];
-      if (denominator!=0) acceptance [i][j]= yield [i][j]/denominator; else acceptance [i][j]=1E+20;
-      }
-    }
-
-}
-
-void InitializeYields(TString inputDir, Float_t massCut, TVar::VerbosityLevel verbosity) 
-{
-  for (int i=0;i<kNProc;i++) {
-    TFile *f = TFile::Open(TString(inputDir+name(i)+".root"));
-    if(f==0x0) continue;
-    if (verbosity >= TVar::INFO) cout << TString("../"+name(i)+".root") <<endl;
-    
-    TTree *tree = (TTree*) f->Get("tree");
-    
-    double tot_yield = 0;
-    if (verbosity >= TVar::INFO) cout<<"Yields from file "<< name(i)<<".root: mm/me/em/ee:  ";    
-    for (int j=0; j<kNDilep; j++){ 
-      TH1F *tmp = new TH1F("tmp", "tmp", 20, 0, 20);
-      if(j==0 || j==2)
-	tree->Project("tmp", "dPhi", Form("scale1fb*(type==%i&&dilep.mass()<%f)", j, massCut));
-      if(j==1 || j==3)
-	tree->Project("tmp", "dPhi", Form("scale1fb*((type==%i&&lep2.pt()>15)&&dilep.mass()<%f)", j, massCut));
-      
-      if (tmp!= 0x0) yield[i][j] = tmp->Integral(0, 9999); 
-      else yield[i][j]=0;
-      tot_yield+=yield[i][j];
-      if (verbosity >= TVar::INFO) cout << Form("%.3f",yield[i][j])<<" " ;
-      delete tmp;
-    }       
-    if (verbosity >= TVar::INFO) cout << "; total yield = " << Form("%.3f", tot_yield) << "\n"; 
-    f->Close();
-  }
-}
-
-void CalculateLR(TString meFDir, TString fileName, TString outputDir, int maxevt, int k, float massCut, TVar::VerbosityLevel verbosity);
-
+void getProcess(int mH, TVar::Process & k, float & massCut);
 //###################
 //# main function
 //###################
-void LR(TString smurfFDir, TString meFDir, TString fileName, TString outputDir, int nev, int k, float massCut, TVar::VerbosityLevel verbosity)  
+void LR(int mH, TString bdtprefix, TString fileName, TString meFDir, TString mebdtFDir,  int nev, TVar::VerbosityLevel verbosity = TVar::INFO)  
 {
-  int maxevt=nev;
-  InitializeYields(smurfFDir, massCut, verbosity);
-  CalculateAcceptance();
-  CalculateLR(meFDir, fileName, outputDir, maxevt, k, massCut, verbosity);
-}
-
-void CalculateLR(TString meFDir, TString fileName, TString outputDir, int maxevt, int k, float massCut, TVar::VerbosityLevel verbosity) {
-
-  if (verbosity >= TVar::INFO) cout << "Input File: "<< fileName << "\n"; 
-  TFile* fin = new TFile(meFDir + fileName);
-  TString outFileName = outputDir+fileName;
-  outFileName.ReplaceAll("_ME.root", Form("_LR_%s.root", name(k).c_str()));
-			  
+  
+  TVar::Process k;
+  float massCut;
+  getProcess(mH, k, massCut);
+  
+  cout << "Input File: "<< fileName << "\n"; 
+  TFile* fin = new TFile(mebdtFDir + bdtprefix + "_" + fileName);
+  cout << mebdtFDir + bdtprefix + "_" + fileName <<endl;
+  TString outFileName = mebdtFDir + fileName;
+  outFileName.ReplaceAll("_ME.root", Form("_LR_%s.root", TVar::SmurfProcessName(k).Data()));
+    
   TFile *newfile = new TFile(outFileName,"recreate");
-  if (verbosity >= TVar::INFO) std::cout << "creating" << outFileName << "...\n";
+  std::cout << "creating" << outFileName << "...\n";
 
   
   TTree* ch=(TTree*)fin->Get("tree"); 
@@ -134,62 +62,75 @@ void CalculateLR(TString meFDir, TString fileName, TString outputDir, int maxevt
   ch->SetBranchAddress( "lep2",  &lep2_      ); 
   ch->SetBranchAddress( "dilep", &dilep_      ); 
 
-
   //==========================================
   // Loop All Events
   //==========================================
   
   int Ntot = ch->GetEntries();
-  if(maxevt == -1) Ntot = ch->GetEntries();
-  if(maxevt > 0 && maxevt < Ntot) Ntot = maxevt;
+  if(nev == -1) Ntot = ch->GetEntries();
+  if(nev > 0 && nev < Ntot) Ntot = nev;
   
   printf("Total number of events = %d\n", Ntot);
   
+  float lumi = 1000.0; 
+  Proc *higgs = new Proc(k, lumi, massCut, meFDir);
+  Proc *ww    =  new Proc(TVar::WW, lumi, massCut, meFDir);
+  Proc *wpj    = new Proc(TVar::Wp_1jet, lumi, massCut, meFDir);
+  Proc *wmj    = new Proc(TVar::Wm_1jet, lumi, massCut, meFDir);
+  
+if (verbosity >= TVar::DEBUG) {
+    cout << "higgs->GetMCFMXsec() = " << higgs->GetMCFMXsec() << "\n";
+    cout << "ww->GetMCFMXsec() = " << ww->GetMCFMXsec() << "\n";
+    cout << "wpj->GetMCFMXsec() = " << wpj->GetMCFMXsec() << "\n";
+    cout << "wmj->GetMCFMXsec() = " << wmj->GetMCFMXsec() << "\n";
+  }
+ 
   for(int ievt=0;ievt<Ntot;ievt++){
-    
+
     ch->GetEntry(ievt);  
 
     if(dilep_->mass() > massCut) continue;
-    
-    if (verbosity >= TVar::INFO && (ievt % 100 == 0)) 
-      std::cout << "Doing Event: " << ievt << std::endl;
-    
-    // 
-    // Begin HWW likelihood 
-    // LR = Psig / (Psig +  Sum_i{fbkg_i * Pbkg_i})
-    // Psig and Pbkg_i are normalized to a constant individually
-    // 
-    if (verbosity > TVar::INFO)  cout << "\n ** START LR Construction, run = " << run_ << "; event = " << event_ << " for Signal " << name(k) << "\n"; 
 
+    if (verbosity >= TVar::DEBUG) 
+      cout << "\n ** START LR Construction, run = " << run_ << "; event = " << event_ << " for Signal " << TVar::SmurfProcessName(k) << "\n"; 
+    
     // get the signal event probability
-    double numer = dXsecList[k] / (MCFMXsec[k]*acceptance[k][type_]);
-    if (verbosity > TVar::INFO) cout<< "PHWW " << name(k) << " "  <<numer<< "\t dXsec "<< dXsecList[k] << "\n";
+    double numer = dXsecList[k] / (higgs->GetMCFMXsec() * higgs->GetAcceptance(type_)); 
+    if (verbosity >= TVar::DEBUG)
+      cout<< "PHWW " << TVar::SmurfProcessName(k) << " "  <<numer<< "\t dXsec "<< dXsecList[k] << "\n";
     
     // get the background yields
-    double yield_bg=yield[proc_WW][type_]+yield[proc_Wpj][type_];
-    if (verbosity > TVar::INFO) cout<<"bg_yield="<<yield_bg<<"\n";
-
+    double yield_bg = ww->GetYield(type_) + wpj->GetYield(type_);
+    if (verbosity >= TVar::DEBUG)
+      cout<<"bg_yield="<<yield_bg<<"\n";
+    
+    // add WW background to the denominator
     double denom  = numer;
-    // add WW background to the denominator  
-    denom +=  dXsecList[proc_WW ] /(MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]) * yield[proc_WW][type_]/yield_bg;
-    if (verbosity > TVar::INFO) cout<<" PWW= "<< dXsecList[proc_WW ] / (MCFMXsec[proc_WW ]*acceptance[proc_WW ][type_]);
-    
-    // add Wjet background combining W+jet and W-jet, note that
-    // 1. Same acceptance is used for Wpj and Wmj 
-    // 2. yield[proc_Wpj] = yield[proc_Wmj], which are filled as the combined w+jet yield
-    denom +=  (dXsecList[proc_Wpj ] + dXsecList[proc_Wmj]) /( ( MCFMXsec[proc_Wpj ] + MCFMXsec[proc_Wmj]) * acceptance[proc_Wpj ][type_]) * yield[proc_Wpj][type_]/yield_bg;
-    if (verbosity > TVar::INFO) cout<<" PWj= "<< (dXsecList[proc_Wpj ] + dXsecList[proc_Wmj]) /( ( MCFMXsec[proc_Wpj ] + MCFMXsec[proc_Wmj]) * acceptance[proc_Wpj ][type_])  * yield[proc_Wpj][type_]/yield_bg << "\n";
-    
+    denom += dXsecList[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(type_)) * ww->GetYield(type_)/yield_bg;
+    if (verbosity >= TVar::DEBUG)
+      cout<<" PWW = "<<  dXsecList[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(type_)) * ww->GetYield(type_)/yield_bg;
+
+    // add Wjet background combining W+jet and W-jet assume the same acceptance for Wpj and Wmj 
+    denom +=  (dXsecList[TVar::Wp_1jet ] + dXsecList[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg;
+    if (verbosity >= TVar::DEBUG)
+      cout<<" PWj = " << (dXsecList[TVar::Wp_1jet ] + dXsecList[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg << "\n";
     
     if(denom!=0)
       LR[k]=numer/denom;
-    if (verbosity > TVar::INFO) cout<<"LR_HWW["<<k<<"]= "<<LR[k]<<"\n";
+    if (verbosity >= TVar::DEBUG) 
+      cout<<"LR_HWW["<<k<<"]= "<<LR[k]<<"\n";
     
     evt_tree->Fill();
     
+    
   }//nevent
   
-  if (verbosity >= TVar::INFO)     cout << "TotCalculatedEvts: " << evt_tree->GetEntries() <<endl; 
+  delete higgs;
+  delete ww;
+  delete wpj;
+  delete wmj;
+  
+  cout << "TotCalculatedEvts: " << evt_tree->GetEntries() <<endl; 
   
   newfile->cd(); 
   evt_tree->Write(); 
@@ -197,3 +138,69 @@ void CalculateLR(TString meFDir, TString fileName, TString outputDir, int maxevt
   
   delete fin;
 }  
+
+void getProcess(int mH, TVar::Process & k, float& massCut)
+{
+  switch (mH) {
+  case (120):
+    k = TVar::HWW120;
+    massCut = 70.0;
+    break;
+  case (130):
+    k = TVar::HWW130;
+    massCut = 80.0;
+    break;
+  case (140):
+    k = TVar::HWW140;
+    massCut = 90.0;
+    break;
+  case (150):
+    k = TVar::HWW150;
+    massCut = 100.0;
+    break;
+  case (160):
+    k = TVar::HWW160;
+    massCut = 100.0;
+    break;
+  case (170):
+    k = TVar::HWW170;
+    massCut = 100.0;
+    break;
+  case (180):
+    k = TVar::HWW180;
+    massCut = 110.0;
+    break;
+  case (190):
+    k = TVar::HWW190;
+    massCut = 120.0;
+    break;
+  case (200):
+    k = TVar::HWW200;
+    massCut = 130.0;
+    break;
+  case (210):
+    k = TVar::HWW210;
+    massCut = 140.0;
+    break;
+  case (220):
+    k = TVar::HWW220;
+    massCut = 150.0;
+    break;
+  case (230):
+    k = TVar::HWW230;
+    massCut = 230.0;
+    break;
+  case (250):
+    k = TVar::HWW250;
+    massCut = 250.0;
+    break;
+  case (300):
+    k = TVar::HWW300;
+    massCut = 300.0;
+    break;
+  default:
+    break;
+  }
+  
+
+}
