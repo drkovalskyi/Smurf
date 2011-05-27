@@ -206,6 +206,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     // calculate all the higgs hypothesis if the higgsMass is not specified
     if(higgsMass <= 0) {
       processList[ NProcessCalculate++]=TVar::HWW130;
+      processList[ NProcessCalculate++]=TVar::HWW130;
       processList[ NProcessCalculate++]=TVar::HWW140;
       processList[ NProcessCalculate++]=TVar::HWW150;
       processList[ NProcessCalculate++]=TVar::HWW160;
@@ -221,6 +222,9 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     }
     else {
       switch (higgsMass) {
+      case 120:
+	processList[ NProcessCalculate++]=TVar::HWW120;
+	break;
       case 130:
 	processList[ NProcessCalculate++]=TVar::HWW130;
 	break;
