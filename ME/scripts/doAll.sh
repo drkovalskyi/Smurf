@@ -16,13 +16,13 @@ export NJET=0
 
 for MVA in BDT ME; do
    echo $MVA method
-    if [ -f ${LIMITDIR}/results_${NJET}j_${LUMI}pb_$MVA.txt ]; then rm -f ${LIMITDIR}/results_${NJET}_${LUMI}pb_$MVA.txt; fi
+    if [ -f ${LIMITDIR}/results_${NJET}j_${LUMI}pb_$MVA.txt ]; then rm -f ${LIMITDIR}/results_${NJET}j_${LUMI}pb_$MVA.txt; fi
     touch ${LIMITDIR}/results_${NJET}j_${LUMI}pb_$MVA.txt
     for LOG in `ls ${LIMITDIR} | grep $MVA.res`; do
         # get the data from this log file and print it to the results file
-	OBSERVED=`cat ${LIMITDIR}/$LOG | grep "Observed Upper Limit" | awk '{print $12}'`
-	BANDS=`cat ${LIMITDIR}/$LOG | grep "BANDS" | awk '{print $2" "$3" "$4" "$5" "$6}'`
-	echo $OBSERVED $BANDS >> ${LIMITDIR}/results_${NJET}j_${LUMI}pb_$MVA.txt
+	    OBSERVED=`cat ${LIMITDIR}/$LOG | grep "Observed Upper Limit" | awk '{print $12}'`
+	    BANDS=`cat ${LIMITDIR}/$LOG | grep "BANDS" | awk '{print  $2"  "$3"  "$4"  "$5" "$6}'`
+	    echo $OBSERVED $BANDS >> ${LIMITDIR}/results_${NJET}j_${LUMI}pb_$MVA.txt
     done
 
    # now call the root script to draw the bands
