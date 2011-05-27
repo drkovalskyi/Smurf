@@ -2,9 +2,9 @@ On top of the $\ww$ preselection, we apply extra selections based on the followi
 suppress mainly the nonresonant $\ww$ background:
 \begin{itemize}
 \item transverse momenta of the harder (\ptlmax ) 
-and the softer (\ptlmin) leptons, 
-\item the dilepton mass $\mll$
-\item the azimuthal angle difference $\delphill$ between the two selected leptons
+and the softer (\ptlmin) leptons;
+\item the dilepton mass $\mll$;
+\item the azimuthal angle difference $\delphill$ between the two selected leptons;
 \item transverse Higgs mass, 
 $m_{T}^{\ell\ell\met} = \sqrt{2\pt^{ll}\met(1-cos(\Delta\phi_{\ell\ell-\met}))}$ where 
 $\Delta\phi_{\ell\ell-\met}$ is the angle between dilepton
@@ -28,9 +28,8 @@ Table~\ref{tab:cutanalysis_perf} compares the performance of a few selections.
 The comparison is based on $R$, defined as the ratio of the mean expected upper limit 
 cross-section and the SM value, for 1~\ifb\ of integrated luminosity. The expected number 
 of signal and background events for an integrated luminosity of 1\ifb{} after 
-applying the full selection requirements for $\mHi~\leq~160~\GeVcc$ are shown in 
-Table~\ref{tab:cutbase_yields1}, while for $\mHi~>~160~\GeVcc$ are shown in 
-Table~\ref{tab:cutbase_yields2}
+applying the full selection requirements are shown in 
+Table~\ref{tab:cutbase_yields_0j}.
 
 \begin{table}[!ht]
   \begin{center}
@@ -40,6 +39,7 @@ Table~\ref{tab:cutbase_yields2}
 \mHi [GeV] & $\ptlmax$ [$\GeV$] & $\ptlmin$ [$\GeV$] & $\mll$ [$\GeV$] & $\delphill$ [dg.] & $m_{T}^{\ell\ell\met}$ [GeV  \\  \hline
            &   $>$               &   $>$               &   $<$             &  $<$          &    [,]                       \\  \hline
 
+    115 & 20  &  10 & 40  & 115 & [70,110]\\
     120 & 20  &  10 & 40  & 115 & [70,120]\\
     130 & 25  &  10 & 45  & 90  & [75,125]\\
     140 & 25  &  15 & 45  & 90  & [80,130]\\
@@ -91,124 +91,39 @@ Table~\ref{tab:cutbase_yields2}
   \end{center}
 \end{table}
 
-
 \begin{table}[!ht]
   \begin{center}
  {\footnotesize
-  \begin{tabular} {|c|c|c|c|c|c|c|c|c||c||c|}
+  \begin{tabular} {|c|c|c|c|c|c|c|c|c|c|}
 \hline
-  & DY & ttbar & TW & Wjets & WZ & ZZ & ggWW & qqWW & {\bf All bkg} & {\bf H$_{120}$}\\
-  \hline
-  mm &  0.8$\pm$0.8 &  0.4$\pm$0.3 &  0.3$\pm$0.1 &  4.4$\pm$3.1 &  0.3$\pm$0.1 &  0.5$\pm$0.0 &  0.6$\pm$0.0 & 12.9$\pm$0.3 & 20.2$\pm$3.2 & 2.5$\pm$0.1 \\
-  me &  0.0$\pm$0.0 &  0.7$\pm$0.3 &  0.3$\pm$0.1 &  4.4$\pm$3.1 &  0.3$\pm$0.0 &  0.0$\pm$0.0 &  0.4$\pm$0.0 &  8.4$\pm$0.2 & 14.4$\pm$3.1 & 1.5$\pm$0.0 \\
-  em &  0.0$\pm$0.0 &  0.6$\pm$0.3 &  0.4$\pm$0.1 &  6.4$\pm$3.7 &  0.4$\pm$0.1 &  0.0$\pm$0.0 &  0.5$\pm$0.0 & 11.7$\pm$0.3 & 20.1$\pm$3.7 & 2.5$\pm$0.1 \\
-  ee &  0.0$\pm$0.0 &  0.1$\pm$0.1 &  0.1$\pm$0.1 &  6.2$\pm$3.6 &  0.2$\pm$0.0 &  0.2$\pm$0.0 &  0.3$\pm$0.0 &  6.1$\pm$0.2 & 13.2$\pm$3.6 & 1.1$\pm$0.0 \\
- \hline
- all &  0.8$\pm$0.8 &  1.9$\pm$0.5 &  1.1$\pm$0.2 & 21.3$\pm$6.7 &  1.2$\pm$0.1 &  0.8$\pm$0.0 &  1.8$\pm$0.1 & 39.0$\pm$0.5 & 67.9$\pm$6.8 & 7.6$\pm$0.1 \\
- \hline
- \hline
-  & DY & ttbar & TW & Wjets & WZ & ZZ & ggWW & qqWW & {\bf All bkg} & {\bf H$_{130}$}\\
-  \hline
-  mm & 0.8$\pm$0.8 &  0.3$\pm$0.2 &  0.3$\pm$0.1 &  4.4$\pm$3.1 &  0.4$\pm$0.1 &  0.5$\pm$0.0 &  0.7$\pm$0.0 & 14.5$\pm$0.3 & 21.8$\pm$3.2 & 4.9$\pm$0.1 \\
-  me & 0.0$\pm$0.0 &  1.0$\pm$0.4 &  0.3$\pm$0.1 &  2.2$\pm$2.2 &  0.3$\pm$0.0 &  0.0$\pm$0.0 &  0.5$\pm$0.0 &  9.2$\pm$0.2 & 13.4$\pm$2.2 & 3.2$\pm$0.1 \\
-  em & 0.0$\pm$0.0 &  0.4$\pm$0.3 &  0.5$\pm$0.1 &  2.1$\pm$2.1 &  0.4$\pm$0.1 &  0.0$\pm$0.0 &  0.6$\pm$0.0 & 12.3$\pm$0.3 & 16.3$\pm$2.1 & 4.4$\pm$0.1 \\
-  ee & 0.8$\pm$0.8 &  0.1$\pm$0.1 &  0.1$\pm$0.0 &  8.2$\pm$4.1 &  0.2$\pm$0.0 &  0.2$\pm$0.0 &  0.4$\pm$0.0 &  7.1$\pm$0.2 & 17.2$\pm$4.2 & 2.4$\pm$0.1 \\
- \hline
- all & 1.6$\pm$1.1 &  1.9$\pm$0.5 &  1.2$\pm$0.2 & 16.8$\pm$5.9 &  1.2$\pm$0.1 &  0.7$\pm$0.0 &  2.2$\pm$0.1 & 43.1$\pm$0.5 & 68.9$\pm$6.1 & 15.0$\pm$0.2 \\
- \hline
- \hline
-  & DY & ttbar & TW & Wjets & WZ & ZZ & ggWW & qqWW & {\bf All bkg} & {\bf H$_{140}$}\\
-  \hline
-  mm & 0.8$\pm$0.8 &  0.3$\pm$0.2 &  0.3$\pm$0.1 &  2.2$\pm$2.2 &  0.3$\pm$0.0 &  0.4$\pm$0.0 &  0.7$\pm$0.0 & 13.1$\pm$0.3 & 18.1$\pm$2.4 & 6.3$\pm$0.1 \\
-  me & 0.0$\pm$0.0 &  1.0$\pm$0.4 &  0.3$\pm$0.1 &  2.2$\pm$2.2 &  0.3$\pm$0.0 &  0.0$\pm$0.0 &  0.5$\pm$0.0 &  9.5$\pm$0.2 & 13.9$\pm$2.2 & 5.1$\pm$0.1 \\
-  em & 0.0$\pm$0.0 &  0.3$\pm$0.2 &  0.3$\pm$0.1 &  0.0$\pm$0.0 &  0.3$\pm$0.1 &  0.0$\pm$0.0 &  0.6$\pm$0.0 & 10.8$\pm$0.3 & 12.4$\pm$0.3 & 5.6$\pm$0.1 \\
-  ee & 0.8$\pm$0.8 &  0.1$\pm$0.1 &  0.2$\pm$0.1 &  8.2$\pm$4.1 &  0.2$\pm$0.0 &  0.2$\pm$0.0 &  0.5$\pm$0.0 &  7.6$\pm$0.2 & 17.8$\pm$4.2 & 4.1$\pm$0.1 \\
- \hline
- all & 1.6$\pm$1.1 &  1.8$\pm$0.5 &  1.2$\pm$0.2 & 12.6$\pm$5.1 &  1.1$\pm$0.1 &  0.6$\pm$0.0 &  2.3$\pm$0.1 & 41.0$\pm$0.5 & 62.1$\pm$5.3 & 21.2$\pm$0.2 \\
+  mass    & SM $H\to WW$ & all bkg. & $qq \to \WW$ & $gg \to \WW$ & $\ttbar+tW$ & $\dyll+WZ+ZZ$ \\
   \hline
   \hline
-  & DY & ttbar & TW & Wjets & WZ & ZZ & ggWW & qqWW & {\bf All bkg} & {\bf H$_{150}$}\\
-  \hline
-  mm & 0.8$\pm$0.8 &  0.4$\pm$0.3 &  0.1$\pm$0.1 &  0.0$\pm$0.0 &  0.3$\pm$0.1 &  0.2$\pm$0.0 &  0.6$\pm$0.0 &  8.1$\pm$0.2 & 10.5$\pm$0.9 & 6.5$\pm$0.1 \\
-  me & 0.0$\pm$0.0 &  0.6$\pm$0.3 &  0.3$\pm$0.1 &  0.0$\pm$0.0 &  0.2$\pm$0.0 &  0.0$\pm$0.0 &  0.5$\pm$0.0 &  6.4$\pm$0.2 &  8.0$\pm$0.4 & 5.3$\pm$0.1 \\
-  em & 0.0$\pm$0.0 &  0.4$\pm$0.3 &  0.3$\pm$0.1 &  0.0$\pm$0.0 &  0.2$\pm$0.0 &  0.0$\pm$0.0 &  0.5$\pm$0.0 &  6.9$\pm$0.2 &  8.4$\pm$0.3 & 5.4$\pm$0.1 \\
-  ee & 0.0$\pm$0.0 &  0.3$\pm$0.2 &  0.1$\pm$0.0 &  2.1$\pm$2.1 &  0.1$\pm$0.0 &  0.1$\pm$0.0 &  0.4$\pm$0.0 &  5.2$\pm$0.2 &  8.3$\pm$2.1 & 4.3$\pm$0.1 \\
- \hline
- all & 0.8$\pm$0.8 &  1.8$\pm$0.5 &  0.8$\pm$0.1 &  2.1$\pm$2.1 &  0.7$\pm$0.1 &  0.3$\pm$0.0 &  2.1$\pm$0.1 & 26.6$\pm$0.4 & 35.2$\pm$2.3 & 21.5$\pm$0.3 \\
- \hline
- \hline
-  & DY & ttbar & TW & Wjets & WZ & ZZ & ggWW & qqWW & {\bf All bkg} & {\bf H$_{160}$}\\
-  \hline
-  mm & 0.0$\pm$0.0 &  0.4$\pm$0.3 &  0.1$\pm$0.1 &  0.0$\pm$0.0 &  0.2$\pm$0.0 &  0.1$\pm$0.0 &  0.5$\pm$0.0 &  5.2$\pm$0.2 &  6.6$\pm$0.3 & 8.9$\pm$0.2 \\
-  me & 0.0$\pm$0.0 &  0.3$\pm$0.2 &  0.2$\pm$0.1 &  0.0$\pm$0.0 &  0.1$\pm$0.0 &  0.0$\pm$0.0 &  0.5$\pm$0.0 &  4.2$\pm$0.2 &  5.3$\pm$0.3 & 8.0$\pm$0.2 \\
-  em & 0.0$\pm$0.0 &  0.3$\pm$0.2 &  0.3$\pm$0.1 &  0.0$\pm$0.0 &  0.1$\pm$0.0 &  0.0$\pm$0.0 &  0.5$\pm$0.0 &  4.5$\pm$0.2 &  5.7$\pm$0.3 & 7.8$\pm$0.2 \\
-  ee & 0.0$\pm$0.0 &  0.3$\pm$0.2 &  0.1$\pm$0.0 &  0.0$\pm$0.0 &  0.1$\pm$0.0 &  0.1$\pm$0.0 &  0.4$\pm$0.0 &  3.5$\pm$0.1 &  4.3$\pm$0.3 & 6.1$\pm$0.1 \\
- \hline
- all & 0.0$\pm$0.0 &  1.3$\pm$0.4 &  0.7$\pm$0.1 &  0.0$\pm$0.0 &  0.6$\pm$0.1 &  0.2$\pm$0.0 &  1.8$\pm$0.1 & 17.3$\pm$0.3 & 21.9$\pm$0.6 & 30.9$\pm$0.3 \\
+115 &   5.7 $\pm$  0.2 &   56.8 $\pm$  7.2 &  32.9 $\pm$  0.5 &  1.4 $\pm$  0.1 &  1.8 $\pm$  0.4 &  1.8 $\pm$  0.6 \\
+120 &  10.6 $\pm$  0.3 &   66.9 $\pm$  7.2 &  41.6 $\pm$  0.6 &  1.8 $\pm$  0.1 &  2.4 $\pm$  0.5 &  2.1 $\pm$  0.6 \\
+130 &  21.4 $\pm$  0.6 &   73.7 $\pm$  6.9 &  49.4 $\pm$  0.6 &  2.4 $\pm$  0.1 &  2.6 $\pm$  0.5 &  3.8 $\pm$  1.5 \\
+140 &  26.9 $\pm$  0.8 &   61.0 $\pm$  5.7 &  42.5 $\pm$  0.6 &  2.2 $\pm$  0.1 &  2.5 $\pm$  0.5 &  3.4 $\pm$  1.5 \\
+150 &  26.1 $\pm$  0.8 &   37.7 $\pm$  4.0 &  27.8 $\pm$  0.5 &  2.0 $\pm$  0.1 &  2.1 $\pm$  0.5 &  1.7 $\pm$  0.9 \\
+160 &  45.7 $\pm$  1.4 &   36.2 $\pm$  4.0 &  26.0 $\pm$  0.5 &  2.2 $\pm$  0.1 &  2.3 $\pm$  0.6 &  1.6 $\pm$  0.9 \\
+170 &  34.2 $\pm$  1.0 &   22.5 $\pm$  0.7 &  17.7 $\pm$  0.4 &  2.0 $\pm$  0.1 &  2.0 $\pm$  0.5 &  0.6 $\pm$  0.1 \\
+180 &  24.7 $\pm$  0.7 &   25.2 $\pm$  0.8 &  18.9 $\pm$  0.4 &  2.4 $\pm$  0.1 &  3.1 $\pm$  0.7 &  0.6 $\pm$  0.1 \\
+190 &  19.8 $\pm$  0.6 &   36.1 $\pm$  1.0 &  27.1 $\pm$  0.5 &  3.2 $\pm$  0.1 &  4.6 $\pm$  0.9 &  1.0 $\pm$  0.1 \\
+200 &  14.4 $\pm$  0.4 &   36.2 $\pm$  1.0 &  26.9 $\pm$  0.5 &  3.2 $\pm$  0.1 &  4.7 $\pm$  0.9 &  1.1 $\pm$  0.1 \\
+250 &   6.6 $\pm$  0.2 &   34.4 $\pm$  1.1 &  23.1 $\pm$  0.4 &  2.3 $\pm$  0.1 &  7.3 $\pm$  1.0 &  1.5 $\pm$  0.1 \\
+300 &   5.5 $\pm$  0.2 &   28.0 $\pm$  1.0 &  19.1 $\pm$  0.4 &  1.7 $\pm$  0.1 &  6.0 $\pm$  0.9 &  1.2 $\pm$  0.1 \\
+350 &   5.9 $\pm$  0.2 &   25.1 $\pm$  0.9 &  17.1 $\pm$  0.4 &  1.4 $\pm$  0.1 &  5.4 $\pm$  0.8 &  1.1 $\pm$  0.1 \\
+400 &   4.8 $\pm$  0.1 &   21.6 $\pm$  1.0 &  14.2 $\pm$  0.3 &  1.2 $\pm$  0.0 &  5.4 $\pm$  0.9 &  0.8 $\pm$  0.1 \\
+450 &   2.8 $\pm$  0.1 &   14.0 $\pm$  0.9 &   8.4 $\pm$  0.3 &  0.8 $\pm$  0.0 &  4.3 $\pm$  0.8 &  0.5 $\pm$  0.1 \\
+500 &   1.8 $\pm$  0.1 &   10.9 $\pm$  0.7 &   6.6 $\pm$  0.2 &  0.6 $\pm$  0.0 &  3.2 $\pm$  0.7 &  0.3 $\pm$  0.0 \\
+550 &   1.1 $\pm$  0.0 &    8.5 $\pm$  0.6 &   5.3 $\pm$  0.2 &  0.5 $\pm$  0.0 &  2.4 $\pm$  0.6 &  0.3 $\pm$  0.0 \\
+600 &   0.7 $\pm$  0.0 &    6.5 $\pm$  0.5 &   4.3 $\pm$  0.2 &  0.4 $\pm$  0.0 &  1.5 $\pm$  0.4 &  0.2 $\pm$  0.0 \\
  \hline
   \end{tabular}
   }
   \caption{Expected number of signal and background events for an 
   integrated luminosity of 1\ifb{} after 
-  applying the full cut-based 0-jet selection requirements for $\mHi \leq 160~\GeVcc$. Monte Carlo 
+  applying the full cut-based 0-jet selection requirements. Monte Carlo 
   statistical uncertainties are included.}
-   \label{tab:cutbase_yields1}
-  \end{center}
-\end{table}
-
-\begin{table}[!ht]
-  \begin{center}
- {\footnotesize
-  \begin{tabular} {|c|c|c|c|c|c|c|c|}
-\hline
-  mass    & SM $H\to WW$ & all bkg. & $qq \to \WW$ & $gg \to \WW$ & all non-$\WW$ bkg. \\
-  \hline
-  \hline
-170 &  37.88 $\pm$  0.42 &   33.07 $\pm$  3.88 &  22.82 $\pm$  0.43 &  2.34 $\pm$  0.07 &	7.91 $\pm$  3.86 \\
-180 &  30.32 $\pm$  0.33 &   41.83 $\pm$  1.29 &  32.56 $\pm$  0.52 &  3.18 $\pm$  0.08 &	6.09 $\pm$  1.18 \\
-190 &  25.94 $\pm$  0.29 &   74.60 $\pm$  2.18 &  58.66 $\pm$  0.70 &  4.62 $\pm$  0.09 &      11.32 $\pm$  2.07 \\
-200 &  19.39 $\pm$  0.21 &   81.36 $\pm$  3.81 &  61.50 $\pm$  0.74 &  4.61 $\pm$  0.09 &      15.26 $\pm$  3.74 \\
-250 &  10.67 $\pm$  0.13 &   78.75 $\pm$  4.24 &  57.12 $\pm$  0.69 &  3.51 $\pm$  0.08 &      18.11 $\pm$  4.19 \\
-300 &   8.37 $\pm$  0.09 &   60.91 $\pm$  5.13 &  39.55 $\pm$  0.55 &  2.39 $\pm$  0.07 &      18.97 $\pm$  5.10 \\
-350 &   8.18 $\pm$  0.09 &   47.02 $\pm$  4.16 &  30.78 $\pm$  0.49 &  1.86 $\pm$  0.06 &      14.37 $\pm$  4.13 \\
-400 &   6.32 $\pm$  0.07 &   36.46 $\pm$  3.86 &  23.21 $\pm$  0.44 &  1.45 $\pm$  0.05 &      11.80 $\pm$  3.84 \\
-450 &   3.43 $\pm$  0.04 &   21.78 $\pm$  3.81 &  11.95 $\pm$  0.31 &  0.86 $\pm$  0.04 &	8.97 $\pm$  3.80 \\
-500 &   2.13 $\pm$  0.03 &   13.66 $\pm$  0.75 &   9.06 $\pm$  0.27 &  0.70 $\pm$  0.04 &	3.90 $\pm$  0.70 \\
-550 &   1.31 $\pm$  0.02 &   10.71 $\pm$  0.65 &   7.06 $\pm$  0.24 &  0.58 $\pm$  0.03 &	3.08 $\pm$  0.60 \\
-600 &   0.79 $\pm$  0.01 &    8.06 $\pm$  0.53 &   5.50 $\pm$  0.21 &  0.45 $\pm$  0.03 &	2.12 $\pm$  0.48 \\
- \hline
-  \end{tabular}
-  }
- {\small
-  \begin{tabular} {|c|c|c|c|c|}
-\hline
-  mass    & $\ttbar+tW$ & non-resonant $WZ$/$ZZ$ & $\dyll+WZ+ZZ$ & $\Wjets/\gamma$ \\
-  \hline
-  \hline
-170 &  2.37 $\pm$  0.55 & 0.63 $\pm$  0.09 & 1.21 $\pm$  0.92 & 3.70 $\pm$  3.70  \\
-180 &  3.79 $\pm$  0.72 & 0.92 $\pm$  0.11 & 1.38 $\pm$  0.92 & 0.00 $\pm$  0.00  \\
-190 &  5.90 $\pm$  0.90 & 1.50 $\pm$  0.13 & 1.92 $\pm$  0.93 & 1.99 $\pm$  1.61  \\
-200 &  6.77 $\pm$  0.97 & 1.48 $\pm$  0.13 & 1.93 $\pm$  0.93 & 5.08 $\pm$  3.48  \\
-250 &  9.68 $\pm$  1.14 & 1.50 $\pm$  0.13 & 2.78 $\pm$  1.51 & 4.15 $\pm$  3.73  \\
-300 &  8.52 $\pm$  1.05 & 0.92 $\pm$  0.10 & 2.45 $\pm$  1.52 & 7.09 $\pm$  4.75  \\
-350 &  7.62 $\pm$  1.01 & 0.78 $\pm$  0.09 & 2.26 $\pm$  1.51 & 3.70 $\pm$  3.70  \\
-400 &  6.99 $\pm$  1.01 & 0.57 $\pm$  0.08 & 0.53 $\pm$  0.05 & 3.70 $\pm$  3.70  \\
-450 &  4.66 $\pm$  0.83 & 0.31 $\pm$  0.06 & 0.29 $\pm$  0.04 & 3.70 $\pm$  3.70  \\
-500 &  3.46 $\pm$  0.70 & 0.21 $\pm$  0.05 & 0.23 $\pm$  0.03 & 0.00 $\pm$  0.00  \\
-550 &  2.72 $\pm$  0.60 & 0.16 $\pm$  0.04 & 0.20 $\pm$  0.03 & 0.00 $\pm$  0.00  \\
-600 &  1.84 $\pm$  0.48 & 0.11 $\pm$  0.03 & 0.16 $\pm$  0.03 & 0.00 $\pm$  0.00  \\
-  \hline
-  \hline
-
- \hline
-  \end{tabular}
-  }
-  \caption{Expected number of signal and background processes for an 
-  integrated luminosity of 1 $\ifb$, after applying the full cut based 
-  selection in the 2-jet bin case. Monte Carlo statistical uncertainties are included. Expected number of signal and background events for an 
-  integrated luminosity of 1\ifb{} after 
-  applying the full cut-based 0-jet selection requirements for $\mHi > 160~\GeVcc$. Monte Carlo 
-  statistical uncertainties are included.}
-   \label{tab:cutbase_yields2}
+   \label{tab:cutbase_yields_0j}
   \end{center}
 \end{table}
