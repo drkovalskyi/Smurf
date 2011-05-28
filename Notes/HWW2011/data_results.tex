@@ -1,17 +1,19 @@
-The full analysis is performed on 49 $\pm$ 2 $\ipb$ of integrated luminosity, as a 
+The full analysis is performed on 192 $\pm$ 8 $\ipb$ of integrated luminosity, as a 
 preparation for larger luminosity scenarios in the near future.
 
 The estimation of the background follows the strategies described in 
-Section~\ref{sec:backgrounds}; we summarize here the yields for the main background
-components.
+Section~\ref{sec:backgrounds}. We summarize here the yields for the main background
+components. For $\dyll$, top and $\Wjets$ backgrounds, we report the 
+expected yields after the $\WW$ selection, those results are then extrapolated 
+to each Higgs signal mass point.
 
 The expected contributions from $\dyll$ events outside the $Z$-mass region in data 
 can be estimated by counting the number of events near the $Z$ mass region in data, 
 subtracting from it the non-$Z$ contributions, and scaling it by a ratio $R_{out/in}$ 
 defined as the fraction of events outside and inside the $Z$-mass region in the 
 simulation. This procedure is applied separately to all jet bins. Electrons and muons 
-are considered together. The predictions for the three jet bins are shown in 
-Table~\ref{tab:dyest}.
+are considered separately. The predictions for the three jet bins are shown in 
+Tables~\ref{tab:dyestmm} and~\ref{tab:dyestee}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}
@@ -20,18 +22,38 @@ Table~\ref{tab:dyest}.
 \hline
 Sample                                 &   0-jet             & 1-jet & 2-jet        \\
 \hline
-$R_{out/in}$ (simulation)              &   0.15 $\pm$ 0.01 	      & 0.15 $\pm$ 0.02 	   & 0.20 $\pm$ 0.13	\\
-$ee/\mu\mu$ evens with $Z$-mass region &          6        	      &       10		   &	 17		\\
-$e\mu$ events with $Z$-mass region     &          2        	      &        1		   &	  0		\\
-$Z/\gamma^*+X$ simulation Prediction   &   0.55 $\pm$ 0.12 	      & 0.84 $\pm$ 0.09 	   & 1.72 $\pm$ 0.59	\\
-Data-driven $\dyll$ Estimate           &   0.58 $\pm$ 0.42 $\pm$ 0.58 & 2.83 $\pm$ 1.06 $\pm$ 2.83 & 3.37 $\pm$ 0.82 $\pm$ 3.37    \\ 
+$R_{out/in}$ (simulation)              &   0.16 $\pm$ 0.01 $\pm$ 0.08 & 0.22 $\pm$ 0.01 $\pm$ 0.11 & 0.18 $\pm$ 0.02 $\pm$ 0.09	\\
+$\mu\mu$ evens with $Z$-mass region    &         27        	      &       19		   &	 48			\\
+$e\mu$ events with $Z$-mass region     &          9        	      &        7		   &	  2			\\
+$\dymm+X$ simulation Prediction        &   0.89 $\pm$ 0.21 	      & 1.15 $\pm$ 0.23 	   & 3.57 $\pm$ 0.54		\\
+Data-driven $\dymm+X$ Estimate         &   3.68 $\pm$ 0.84 $\pm$ 1.84 & 3.55 $\pm$ 0.99 $\pm$ 1.78 & 8.56 $\pm$ 1.26 $\pm$ 4.28 \\ 
 \hline
 \end{tabular}
 \end{center}
-\caption{Predictions of the off-peak $Z/\gamma^*$ contribution compared 
+\caption{Predictions of the off-peak $\dymm+X$ contribution compared 
 with observed event counts in the data-driven estimation. The events are required to pass all 
-$\WW$ selections but the $Z$-mass requirements. We report the statistical and systematic uncertainties for the data-driven estimate.}
-\label{tab:dyest}
+$\WW$ selections. We report the statistical and systematic uncertainties for the data-driven estimate.}
+\label{tab:dyestmm}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}
+\begin{center}
+\begin{tabular}{l c c c}
+\hline
+Sample                                 &   0-jet             & 1-jet & 2-jet        \\
+\hline
+$R_{out/in}$ (simulation)              &   0.13 $\pm$ 0.01 $\pm$ 0.07 & 0.19 $\pm$ 0.01 $\pm$ 0.10 & 0.15 $\pm$ 0.02 $\pm$ 0.08	\\
+$ee$ evens with $Z$-mass region        &         14        	      &       11		   &	 28			\\
+$e\mu$ events with $Z$-mass region     &          9        	      &        7		   &	  2			\\
+$\dyee+X$ simulation Prediction        &   0.97 $\pm$ 0.13 	      & 0.72 $\pm$ 0.20 	   & 2.01 $\pm$ 0.39		\\
+Data-driven $\dyee+X$ Estimate         &   1.15 $\pm$ 0.57 $\pm$ 0.58 & 1.32 $\pm$ 0.71 $\pm$ 0.66 & 4.10 $\pm$ 0.82 $\pm$ 2.05 \\ 
+\hline
+\end{tabular}
+\end{center}
+\caption{Predictions of the off-peak $\dymm+X$ contribution compared 
+with observed event counts in the data-driven estimation. The events are required to pass all 
+$\WW$ selections. We report the statistical and systematic uncertainties for the data-driven estimate.}
+\label{tab:dyestee}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -46,25 +68,27 @@ as summarized in Table~\ref{tab:dyest_nomet}.
 \begin{center}
 \begin{tabular}{l c c c}
 \hline
-Sample                                 &   0-jet             & 1-jet & 2-jet        \\
+Sample                                        &   0-jet           & 1-jet           & 2-jet               \\
 \hline
-Estimated top events in simulation  	      &   1.86 $\pm$ 0.11 & 4.39 $\pm$ 0.13 & 4.35 $\pm$ 0.21	 \\
-tagging efficiency (\%)                       &    57  $\pm$  3   &  72  $\pm$ 1    &  89  $\pm$  1	 \\
-top-tagged events in data           	      &           6       &       13        &        37  	 \\
-Data-driven top background estimate           &   4.21 $\pm$ 1.72 & 4.91 $\pm$ 1.36 & 4.40 $\pm$ 0.72    \\
+Estimated top events in simulation  	      &   7.55 $\pm$ 0.45 & 18.63 $\pm$ 1.33& 18.12 $\pm$ 0.72	  \\
+tagging efficiency (\%)                       &    56  $\pm$  7   &  69  $\pm$ 3    &  69  $\pm$  3	  \\
+top-tagged events in data           	      &          22       &       53        &        45  	  \\
+Data-driven top background estimate           &  14.37 $\pm$ 5.34 & 21.90 $\pm$ 4.70& 18.39 $\pm$ 4.11    \\
 \hline
 \end{tabular}
 \end{center}
 \caption{Predictions of the top background contribution compared 
 with observed event counts in the data-driven estimation. The uncertainties are 
-statistical only. The method is heavily dominated by the available data in the control regions, hence any possible 
-uncertainty on the method does not add anything significant.}
+statistical only. The method is dominated by the available data in the control regions, 
+hence any possible uncertainty on the method does not add anything significant.}
 \label{tab:dyest_nomet}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The estimation of the fake leptons from $\Wjets$ is explained in Section~\ref{sec:bkg_fakes}. The total 
-$\Wjets$ background contribution is shown in Table~\ref{tab:wwselection_all}.
+The estimation of the fake leptons from $\Wjets$ is explained in 
+Section~\ref{sec:bkg_fakes}. The event predictions in the 0-jet, 1-jet 
+and 2-jet bins are 25.19 $\pm$ 1.93 $\pm$ 7.56, 11.04 $\pm$ 1.34 $\pm$ 3.31 and 
+3.02 $\pm$ 0.75 $\pm$ 0.91, respectively.
 
 As a summary, the expected number of signal and background events after 
 applying the $\WW$ selection requirements for each jet bin are shown in 
@@ -80,27 +104,27 @@ events taking into account the previously computed scale factors.
           &   data & all bkg. & $qq \to \WW$ & $gg \to \WW$ &  $\ttbar+tW$ \\
   \hline
   \hline
- 0-jet &  24 & 26.98 $\pm$   0.72  & 16.88 $\pm$   0.02 &  0.27 $\pm$   0.01 &  4.21 $\pm$   0.25 \\
- 1-jet &  20 & 14.53 $\pm$   0.60  &  4.82 $\pm$   0.05 &  0.05 $\pm$   0.01 &  4.92 $\pm$   0.15 \\
- 2-jet &  10 &  8.81 $\pm$   1.17  &  1.03 $\pm$   0.02 &  0.00 $\pm$   0.00 &  4.35 $\pm$   0.22 \\
+ 0-jet &  130 & 119.7 $\pm$  2.4  & 67.3 $\pm$ 0.3 &  3.4 $\pm$   0.1 &  14.3 $\pm$ 0.8 \\
+ 1-jet &   67 &  61.2 $\pm$  2.1  & 19.1 $\pm$ 0.2 &  1.1 $\pm$   0.1 &  21.9 $\pm$ 1.4 \\
+ 2-jet &   43 &  40.1 $\pm$  3.6  &  4.1 $\pm$ 0.1 &  0.2 $\pm$   0.1 &  18.3 $\pm$ 0.8 \\
  \hline
  \hline
   \end{tabular}
-  \begin{tabular} {|c|c|c|c|}
+  \begin{tabular} {|c|c|c|c|c|}
 \hline
-       & non-resonant $WZ$/$ZZ$ & $\dyll+WZ+ZZ$ & $\Wjets/\gamma$ \\
+       & non-resonant $WZ$/$ZZ$ & $\dyll+WZ+ZZ$ & $\Wjets$& $W+\gamma$ \\
   \hline
   \hline
- 0-jet &   0.45 $\pm$	0.01 &  0.59 $\pm$   0.13 & 3.97 $\pm$   0.66 \\
- 1-jet &   0.33 $\pm$	0.01 &  2.83 $\pm$   0.29 & 1.34 $\pm$   0.50 \\
- 2-jet &   0.07 $\pm$	0.01 &  3.37 $\pm$   1.15 & 1.34 $\pm$   0.50 \\
+ 0-jet &   1.8 $\pm$	0.1 &  5.6 $\pm$   1.1 & 25.2 $\pm$   1.9 & 2.1 $\pm$   0.3  \\
+ 1-jet &   1.4 $\pm$	0.1 &  6.2 $\pm$   1.4 & 11.0 $\pm$   1.3 & 0.4 $\pm$   0.1 \\
+ 2-jet &   0.3 $\pm$	0.1 & 14.1 $\pm$   3.4 &  3.0 $\pm$   0.7 & 0.4 $\pm$   0.1 \\
  \hline
  \hline
   \end{tabular}
   }
   \caption{Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of 49 $\ipb$ after 
-  applying the $\WW$ selection requirements. The statistical uncertainty is reported.}
+  integrated luminosity of 192 $\ipb$ after applying the $\WW$ selection requirements. 
+  Only the statistical uncertainty on the samples is reported.}
    \label{tab:wwselection_all}
   \end{center}
 \end{table}
@@ -129,8 +153,8 @@ statistical uncertainties are reported.}
 \end{table}
 
 The cut based and multivariate analyses upper limits at 95\% C.L. are shown in 
-Tables~\ref{fig:cutbase_uls_data} and~\ref{fig:mvabase_uls_data}, respectively. With 
-49 $\ipb$ of data the upper limit is about 1.8 times the expectation of a Higgs boson of 
+Tables~\ref{fig:cutbase_uls_data} and~\ref{fig:mvabase_uls_data}, respectively. With 192 
+$\ipb$ of data the upper limit is about 0.9 times the expectation of a Higgs boson of 
 160~$\GeVcc$.
 
 \begin{figure}[!htbp]

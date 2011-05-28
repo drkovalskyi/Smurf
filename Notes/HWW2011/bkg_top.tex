@@ -92,42 +92,80 @@ the simulation, gives agreement to within $1\%$.
 % VBF
 % 
 \subsubsection{2-Jet Bin Method}
-Estimation of the top background in the 2-jet bin is complicated
-by the additional kinematic requirements applied to the jets to
+Estimation of the top background in the 2-jet bin is complicated due to 
+the additional requirements applied to the jets to
 select $qqH$-like events. The tagging effiency for the selected jets 
 after applying such selection is smaller than that in the inclusive 
 2-jet bin sample, since the selection enhances events with forward 
 jets, which have lower tagging efficiency.
 
-The proposed method is to measure the tagging efficiency using low $\pt$ 
-jets and soft muons in the event, which has little correlation 
-with the two tagging jets. The tagging efficiency for the combination of 
-low $\pt$ jets and soft muons after and before applying the $qqH$-like 
-selection, and after and before requiring that the two highest $\pt$ jets 
-in the event are not tagged is shown in 
-Figure~\ref{fig:btag_njets_vbfcuts}. We see that just by requiring the two 
-highest $\pt$ jets in the event not tagged, the agreement in the 2-jet 
-bin is rather good.
-
-\begin{figure}[!htbp]
-\begin{center}
-\includegraphics[width=0.65\textwidth]{figures/btag_njets_vbfcuts.pdf}
-\caption{Tagging efficiency for the combination of 
-low $\pt$ jets and soft muons after and before applying the $qqH$-like 
-selection, and after and before requiring that the two highest $\pt$ jets 
-in the event are not tagged.}
-\label{fig:btag_njets_vbfcuts}
-\end{center}
-\end{figure}
+The proposed method is to measure the tagging efficiency of the most central 
+jet in the event as a function of its $\pt$ and $\eta$ in an inclusive top 
+enriched control sample, and then apply that rate to fully selected events 
+where the most central jet is top tagged. In this way the 
+possible kinematical differences between the control and signal regions 
+are taken into account.
 
 Therefore, the residual number of top events in the 2-jet bin after applying the full 
 $qqH$-like is given by,
-$${N_{no~tagged}^{qqH} = N_{tagged}^{qqH} \times (1-\epsilon_{soft~jets})/\epsilon_{soft~jets}},$$
-where $N_{no~tagged/tagged}^{qqH}$ is the number of events where the event is no-tagged/tagged by either low $\pt$ 
-jets or soft muons, and $\epsilon_{soft~jets}$ is the 
-tagging efficiency for low $\pt$ jets and soft muons measured from the 2-jet bin for events where the two 
-highest $\pt$ jets in the event not $b$-tagged. The closure test, comparing the estimate using 
-this procedure with the simulation, gives agreement to within $5\%$.
+$${N_{non~tagged}^{qqH} = N_{tagged}^{qqH} \times (1-\epsilon_{central~jet})/\epsilon_{central~jet}},$$
+where $N_{no~tagged/tagged}^{qqH}$ is the number non-tagged/tagged events using 
+the most central jet, and $\epsilon_{central~jet}$ is the 
+tagging efficiency as a function of $\pt$ and $\eta$ of the jet. The comparison of the 
+$|\eta|$ distribution of the most central jet in top events after applying the $qqH$-like selection between the simulation and 
+the prediction using top-tagged events is shown in Figure~\ref{fig:vbf_btagprediction_jetmin}, where 
+good agreement in shape and normalization is observed in the region $|\eta|<2.5$. A small correction 
+of about 10\% in the yield must be included in the prediction to take into account the fraction 
+of top events where the most central jet is outside the tracker acceptance.
+
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[width=0.65\textwidth]{figures/vbf_btagprediction_jetmin.pdf}
+\caption{$|\eta|$ distribution of the most central jet in top events after 
+applying the $qqH$-like selection. Comparison between the simulation and 
+the prediction using top-tagged events.}
+\label{fig:vbf_btagprediction_jetmin}
+\end{center}
+\end{figure}
+
+%jets and soft muons in the event, which has little correlation 
+%with the two tagging jets. The tagging efficiency for the combination of 
+%low $\pt$ jets and soft muons after and before applying the $qqH$-like 
+%selection, and after and before requiring that the two highest $\pt$ jets 
+%in the event are not tagged is shown in 
+%Figure~\ref{fig:btag_njets_vbfcuts}. We see that just by requiring the two 
+%highest $\pt$ jets in the event not tagged, the agreement in the 2-jet 
+%bin is rather good.
+
+%The proposed method is to measure the tagging efficiency using low $\pt$ 
+%jets and soft muons in the event, which has little correlation 
+%with the two tagging jets. The tagging efficiency for the combination of 
+%low $\pt$ jets and soft muons after and before applying the $qqH$-like 
+%selection, and after and before requiring that the two highest $\pt$ jets 
+%in the event are not tagged is shown in 
+%Figure~\ref{fig:btag_njets_vbfcuts}. We see that just by requiring the two 
+%highest $\pt$ jets in the event not tagged, the agreement in the 2-jet 
+%bin is rather good.
+
+%\begin{figure}[!htbp]
+%\begin{center}
+%\includegraphics[width=0.65\textwidth]{figures/btag_njets_vbfcuts.pdf}
+%\caption{Tagging efficiency for the combination of 
+%low $\pt$ jets and soft muons after and before applying the $qqH$-like 
+%selection, and after and before requiring that the two highest $\pt$ jets 
+%in the event are not tagged.}
+%\label{fig:btag_njets_vbfcuts}
+%\end{center}
+%\end{figure}
+
+%Therefore, the residual number of top events in the 2-jet bin after applying the full 
+%$qqH$-like is given by,
+%$${N_{no~tagged}^{qqH} = N_{tagged}^{qqH} \times (1-\epsilon_{soft~jets})/\epsilon_{soft~jets}},$$
+%where $N_{no~tagged/tagged}^{qqH}$ is the number of events where the event is no-tagged/tagged by either low $\pt$ 
+%jets or soft muons, and $\epsilon_{soft~jets}$ is the 
+%tagging efficiency for low $\pt$ jets and soft muons measured from the 2-jet bin for events where the two 
+%highest $\pt$ jets in the event not $b$-tagged. The closure test, comparing the estimate using 
+%this procedure with the simulation, gives agreement to within $5\%$.
 
 %
 % ON DATA
