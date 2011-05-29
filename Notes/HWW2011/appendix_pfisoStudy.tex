@@ -1,5 +1,4 @@
-This section presents detailed studies of lepton isolation, the influence of pileup on isolation,
-and strategies on mitigating the effects of pileup. 
+This section presents the influence of pileup on isolation, strategies on mitigating the effects of pileup and detailed studies of lepton isolation.
 
 
 \subsection{Pileup Effect on Letpon Isolation}
@@ -45,6 +44,7 @@ and 10 reconstructed primary vertices. The efficiency loss for leptons with $p_{
 between $10$ and $20$ GeV is much larger compared to the efficiency loss for higher
 $p_{T}$ leptons. As a result the efficiency loss on signal events is dependent 
 on the mass of the Higgs boson. For a signal with Higgs mass of $130$ GeV, 
+under current conditions,
 the average loss of efficiency for electrons and muons with $p_{T}>20$ GeV is
 $2\%$ and $1\%$ respectively. 
 
@@ -67,17 +67,18 @@ bins are shown.}
 \subsection{Mitigating the effect of Pileup}
 
 Typical strategies for mitigating the effect of pileup on lepton isolation include
-performing appropriate isolation energy corrections to recover inefficiencies, or 
-parameterizing and re-tuning the cuts as a function of some observable correlated
-to pileup. As a preliminary attempt at pileup corrections for isolation, we investigated
-the possiblity to use the fastjet correction described in Section \ref{sec:sel_jets} 
-assuming a fixed area corresponding to the isolation cone of $\Delta$R $< 0.3$. 
+attempts to subtract some of the energy in the isolation cone that is attributed to pile-up, 
+corrections to recover inefficiencies, or parameterizing and re-tuning the cuts as a function 
+of some observable correlated to pileup. 
+
+As a first attempt, we investigated the possibility of using the fastjet correction described in 
+Section \ref{sec:sel_jets} assuming a fixed area corresponding to the isolation cone of $\Delta$R $< 0.3$. 
 The isolation efficiency for electrons and muons from HWW signal events are shown in 
 Figure \ref{fig:HWW130IsoEff_vs_NVertices_FastjetCorrection}, comparing
 the fastjet corrected isolation with the uncorrected isolation as a function of the 
 number of reconstructed primary vertices. We observe that the efficiency does indeed become 
-flat for signal. However, we observe that for the background leptons, this correction appears
-over-correct the pileup contribution, demonstrated by the fact that the efficiency increases
+flat for signal. However, we also observe that for the background leptons, this correction appears
+to over-correct the pileup contribution. This is demonstrated by the fact that the background rate increases
 as a function of the number of reconstructed primary vertices shown in Fig 
 \ref{fig:BkgIsoEff_vs_NVertices_FastjetCorrection}. 
 
@@ -104,19 +105,21 @@ are shown. }
 \end{center}
 \end{figure}
 
-One possible explanation for this behavior is that it is due to the inconsistency of applying
+One possible explanation for this behavior is that it is due to the inconsistency in applying
 a particle flow based energy density calculation to a detector based isolation quantity. Therefore,
-we study the use of a particle flow based isolation quantity. For electrons, in order to 
-remove any remaining footprint, we veto any neutral hadron particle flow objects with
-$\Delta$R $ < 0.07$ corresponding to the size of one calorimeter tower , and we 
+we study the use of a particle flow candidates to assemble both the isolation variable and compute
+the event energy density, to be used for pile-up correction.
+
+For electrons, in order to remove any remaining footprint, we veto any neutral hadron particle flow 
+candidates with $\Delta$R $ < 0.07$ corresponding to the size of one calorimeter tower , and we 
 veto any particle flow photons or particle flow electrons inside of the $\eta$-strip defined by
 $|\Delta\eta| < 0.025$ in order to remove the effect of unrecovered bremstrahlung. No such
-footprint removal is necessary for muons.
-
+footprint removal is necessary for muons. 
 
 \subsubsection{Association of charged particles to the primary vertex}
 
-The first handle to address pileup subtraction is to apply a cut in $\Delta$z for 
+The first handle to address pileup is to avoid including charged particles from vertices other than
+the event primary vertex. This is done by applying a cut in $\Delta$z for 
 charged particles or tracks. Figure \ref{fig:IsoPerformance_EleBarrel_dZCut} shows the difference
 in performance between rejecting charged particles inside the isolation cone 
 incompatible with the primary vertex and not rejecting them. There is a clear increase
