@@ -26,36 +26,21 @@ The specific requirements to select good prompt electrons are the following:
     \end{itemize}
 \end{itemize}
 
-Isolation requirements are then imposed by computing the combined relative isolation.
+
+Isolation requirements are then imposed by computing the particle flow isolation,
+defined as the scalar sum of the \pt\ of the particle flow candidates satisfying 
+the following requirements:
 
 \begin{itemize}
-    \item $\Sigma (\rm{Iso}_{Track}$, $\rm{Iso}_{ECAL}$, $\rm{Iso}_{HCAL}) / p_T < 0.10$
+\item $\Delta R~<~0.4$ to the electron in the $\eta \times \phi$ plane,
+\item for neutral hadron PF candidates, require that it is outside the footprint veto region of $\Delta R~<~0.07$,
+\item for photon and electron PF candidates, require that it is outside the footprint veto region of $|\Delta\eta|<0.025$,
+\item $|d_{z}(\mathrm{PF~Candidate}) - d_{z}(\mathrm{muon})| < 0.1$~cm, if the PF candidate is charged,
+\item \pt $>1.0$ GeV, if the PF candidate is classified as a neutral hadron or a photon.
 \end{itemize}
 
-When computing the sum, tracks and ECAL energy deposits that are consistent 
-with the footprint of the electron are vetoed~\cite{ElIso}.
-In the barrel region we subtract 1~GeV from the ECAL isolation sum to account for pedestal effects.
-If the subtraction causes this sum to become negative, it is set to zero. 
-
-The effect of the pileup contributions to the electron isolation selection efficiency 
-is similar to that of muons (Sec.~\ref{sec:sel_muons}). 
-For the current running conditions the average efficiency loss for signal electrons with $p_{T} > 20~\GeVc$ 
-was assessed to be approximately $2\%$ using Monte Carlo simulation of the decay
-of a Higgs boson with a mass of $130~\GeVcc$. 
-We currently do not perform any pileup corrections for isolation while 
-we continue to investigate other options.
-
-%The presence of pileup introduces additional energy into the isolation cone.
-%This is expected to reduce the efficiency of the isolation cut as the ammount of 
-%pileup increases.
-
-%One specific procedure to correct for pileup contributions to the
-%isolation sum is referred to as the fastjet correction method.
-%This was investigated and found to over-correct the efficiency on background electrons,
-%giving comparatively worse performance.
-%Therefore we currently do not perform any pileup corrections for isolation while
-%we continue to investigate other options.
-%This is discussed in more detail in Appendix \ref{app:PUIso}.
+We require $\frac{\rm{Iso}_{PF}}{\pt}~<~0.13~(0.09)$ for electrons in the barrel (endcap). 
+Further details of the choice of the isolation requirement is documented in Appendix \ref{app:pfIsoStudy}.
 
 In order to veto fake electrons from converted photons, 
 we look for a reconstructed conversion vertex where one of the two tracks 
