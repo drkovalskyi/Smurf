@@ -21,7 +21,7 @@ if [ ! -d $INPUTDIR ]; then
         exit 2
 fi
 
-if [ ! -d $OUTPUTDIR]; then
+if [ ! -d $OUTPUTDIR ]; then
         echo Error: Output dir doesnt exist!
         exit 3
 fi
@@ -31,6 +31,6 @@ fi
 
 for FILE in `ls $INPUTDIR | grep root`
 do
-        root -b -q smurfproducer.C\(\"$INPUTDIR\", \"$FILE\", \"$OUTPUTDIR\"\)
+        root -l -b -q smurfproducer.C\(\"$INPUTDIR\",\"$FILE\",\"$OUTPUTDIR\"\)
 done
 
