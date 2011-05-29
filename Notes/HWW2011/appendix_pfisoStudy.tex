@@ -118,7 +118,7 @@ footprint removal is necessary for muons.
 
 \subsubsection{Association of charged particles to the primary vertex}
 
-The first handle to address pileup is to avoid including charged particles from vertices other than
+The obvious handle to address pileup is to avoid including charged particles from vertices other than
 the event primary vertex. This is done by applying a cut in $\Delta$z for 
 charged particles or tracks. Figure \ref{fig:IsoPerformance_EleBarrel_dZCut} shows the difference
 in performance between rejecting charged particles inside the isolation cone 
@@ -136,13 +136,16 @@ Electrons with $p_{T} > 20$ GeV are used. }
 \end{center}
 \end{figure}
 
+After avoiding the inclusion of charged particles from pileup interactions to the isolation sum, 
+the next issue we have to address is contributions from neutral particles from pileup interactions.
+There are a two basic approaches to this: subtraction of the average contribution or increased
+threshold on individual contribution. We shall discuss each in turn, in the next two sections.
+
 
 \subsubsection{Event Energy Density based Corrections}
 \label{sec:CorrectionBasedIsolation}
 
-Having rejected charged particles from pileup interactions in the isolation cone, there are
-a couple of ways to reject neutral particles from pileup. One scheme is to perform a 
-subtraction of energy inside the isolation cone due to pileup based on the average energy
+Here we consider subtraction of energy inside the isolation cone based on the average energy
 density in the event. We first compute the average energy density, $\rho_{\mathrm{FJ}}$ due to 
 pileup using either the Fast Jet procedure or the procedure employing a fixed grid of squares, 
 plot the mean of $\rho_{\mathrm{FJ}}$ as a function of
@@ -171,10 +174,12 @@ The high pileup scenario (NVtx $7$-$15$) is shown.}
 
 \subsubsection{Threshold-based Rejection of PU Contamination}
 \label{sec:ThresholdBasedIsolation}
-An alternative scheme for addressing pileup is to increase the $p_{T}$ threshold on neutral 
-particles inside the isolation cone. Since particles produced in typical pileup events are
-fairly low in $p_{T}$, this decreases sensitivity of the isolation cut to the presence of 
-pileup. In Figure \ref{fig:IsoPerformance_Ele_PtThresholds}, we compare the performance
+
+An alternative scheme for addressing pileup is based on the observation that most of the 
+individual energy deposits due to an additional zero-bias event are very soft. This suggsets 
+that an increase of the $p_{T}$ threshold on neutral 
+particles inside the isolation cone will avoid most of them. 
+In Figure \ref{fig:IsoPerformance_Ele_PtThresholds}, we compare the performance
 of the particle flow isolation cut, varying the $p_{T}$ threshold for neutral particles
 inside the isolation cone. We observe a fairly small degradation in performance going up
 to a threshold of $1.0$ GeV. In the endcap, the degradation in performance is a bit
@@ -251,8 +256,6 @@ pileup to a scenario with $10$ reconstructed primary vertices. }
 \label{tab:EleIsoEfficiency_LossFromPileup_CompareStdWithPF}
 \end{center}
 \end{table}
-
-
 
 
 
@@ -355,8 +358,8 @@ we have for the particle flow isolation.}
 
 \subsection{Working Point Definition}
 
-For the current analysis, we employ the threshold-based solution to mitigating the effect of pileup,
-primarily for its simplicity. To obtain the best working point in terms of the actual isolation
+For the current analysis, we employ the threshold-based solution to mitigating the effect of pileup. 
+To obtain the best working point in terms of the actual isolation
 cut values that we will use, we compare the change in the signal yield, estimated from signal
 Monte Carlo, and the change in the background yield, estimated using the fake rate method,
 relative to the old isolation requirement using detector-based isolation cuts. We define a number
