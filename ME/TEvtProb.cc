@@ -236,16 +236,16 @@ double TEvtProb::Integrand_NeutrinoIntegration(TVar::Process proc, const cdf_eve
 }
 
 void TEvtProb::SetFRHist() {
-    TFile *elFRfile = TFile::Open("ww_el_fr_EG.root", "READ");
+    TFile *elFRfile = TFile::Open("ElectronFakeRates_SmurfV5_V4.root", "READ");
     assert(elFRfile);
     gROOT->cd();
-    _FRhist.els_fr = (TH2F*) elFRfile->Get("el_fr_v4_wwV1")->Clone();
+    _FRhist.els_fr = (TH2F*) elFRfile->Get("ElectronFakeRateDenominatorV4_Ele8CaloIdLCaloIsoVLCombinedSample_ptThreshold35_PtEta")->Clone();
     elFRfile->Close();
 
-    TFile *muFRfile = TFile::Open("ww_mu_fr_Mu.root", "READ");
+    TFile *muFRfile = TFile::Open("MuonFakeRate_SmurfV5_M1.root", "READ");
     assert(muFRfile);
     gROOT->cd();
-    _FRhist.mus_fr = (TH2F*) muFRfile->Get("mu_fr_fo_wwV1_10")->Clone();
+    _FRhist.mus_fr = (TH2F*) muFRfile->Get("frEtaPt")->Clone();
     muFRfile->Close();
 }
 
@@ -269,8 +269,8 @@ void TEvtProb::SetMCHist(int proc, TVar::VerbosityLevel verbosity) {
     }
 
     // fake-rate histograms
-    _FRhist.els_fr = (TH2F*) fUtil->Get("wjets_heleFR")->Clone();
-    _FRhist.mus_fr = (TH2F*) fUtil->Get("wjets_hmuFR")->Clone();
+    //_FRhist.els_fr = (TH2F*) fUtil->Get("wjets_heleFR")->Clone();
+    //_FRhist.mus_fr = (TH2F*) fUtil->Get("wjets_hmuFR")->Clone();
     _FRhist.els_part_fo = (TH2F*) fUtil->Get("wjets_heleGenFR")->Clone();
     _FRhist.mus_part_fo = (TH2F*) fUtil->Get("wjets_hmuGenFR")->Clone();
     _FRhist.els_ptres = (TH2F*) fUtil->Get("wjets_heleFOResponse")->Clone();
