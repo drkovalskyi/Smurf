@@ -91,38 +91,112 @@ the fake rate from QCD Monte Carlo actually gives a reasonable description of th
 between the QCD Monte Carlo and the W+Jet Monte Carlo fake rate reflects the systematic uncertainties
 due to different fake composition.
 
+The fake rates used to extract the background prediction is summarized in Table \ref{tab:ele_fr_V4_jet35},
+where we have used a combination of the {\bf Ele8\_CaloIdL\_CaloIsoVL}, {\bf Ele17\_CaloIdL\_CaloIsoVL}, 
+{\bf Ele8\_CaloIdL\_CaloIsoVL\_Jet40} triggers, with a $p_{T}$ threshold on the leading jet in
+the event of $35$ GeV. Figure \ref{fig:ele_fr_triggerDependence} shows that the fake rate measurement 
+is insensitive to the particular trigger being used for this event selection, and therefore we combined 
+them to minimize the statistical uncertainties of the fake rate measurement. The choice of the $p_{T}$
+threshold on the leading jet is further elaborated in Section \ref{sec:FakeElectronBkgJetSpectrumSystematics}.
 
-\subsubsection{Systematics}
-To study the systematic uncertainty due to the jet $p_{T}$ spectrum, we compare the fake rates
-measured requiring different thresholds on the $p_{T}$ of the leading jet. The comparisons
-are shown in Fig \ref{fig:ele_fr_jetPtThresholdDependence} for the different denominator definitions. 
 
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+
+\hline
+                         & $0<\eta<0.5$            & $0.5<\eta<1$            & $1<\eta<1.5$            & $1.5<\eta<2$            & $2<\eta<2.5$              \\
+\hline
+    $10 < p_{T} <= 15$ &        $0.129^{+0.023}_{-0.020}$ &        $0.109^{+0.019}_{-0.016}$ &        $0.068^{+0.013}_{-0.011}$ &        $0.024^{+0.011}_{-0.008}$ &        $0.050^{+0.013}_{-0.011}$  \\ 
+ \hline
+    $15 < p_{T} <= 20$ &        $0.079^{+0.019}_{-0.016}$ &        $0.079^{+0.016}_{-0.014}$ &        $0.055^{+0.012}_{-0.010}$ &        $0.036^{+0.012}_{-0.009}$ &        $0.056^{+0.013}_{-0.011}$  \\ 
+ \hline
+    $20 < p_{T} <= 25$ &        $0.088^{+0.018}_{-0.016}$ &        $0.118^{+0.020}_{-0.017}$ &        $0.113^{+0.017}_{-0.015}$ &        $0.104^{+0.016}_{-0.014}$ &        $0.100^{+0.015}_{-0.013}$  \\ 
+ \hline
+    $25 < p_{T} <= 30$ &        $0.070^{+0.020}_{-0.016}$ &        $0.132^{+0.024}_{-0.021}$ &        $0.092^{+0.017}_{-0.015}$ &        $0.069^{+0.016}_{-0.013}$ &        $0.092^{+0.016}_{-0.014}$  \\ 
+ \hline
+    $30 < p_{T} <= 35$ &        $0.126^{+0.030}_{-0.025}$ &        $0.083^{+0.024}_{-0.019}$ &        $0.123^{+0.024}_{-0.021}$ &        $0.070^{+0.019}_{-0.016}$ &        $0.118^{+0.021}_{-0.018}$  \\ 
+ \hline
+
+
+
+
+\end{tabular}
+\caption{Electron fake rate in $\eta$-$p_T$ for the V4 fakeable object definition. Uncertainties are statistical only.
+A combination of the {\bf Ele8\_CaloIdL\_CaloIsoVL}, {\bf Ele17\_CaloIdL\_CaloIsoVL}, 
+{\bf Ele8\_CaloIdL\_CaloIsoVL\_Jet40} triggers are used, with a $p_{T}$ threshold on the leading jet in
+the event of $35$ GeV. }
+\label{tab:ele_fr_V4_jet35}
+\end{center}
+\end{table}
 
 \begin{figure}[!htbp]
 \begin{center}
-\subfigure[V1 Denominator]{\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV1_Ele8CaloIdLCaloIsoVLSample_Pt.pdf}}
-\subfigure[V2 Denominator]{\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV2_Ele8CaloIdLCaloIsoVLSample_Pt.pdf}}
-\subfigure[V3 Denominator]{\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV3_Ele8CaloIdLCaloIsoVLSample_Pt.pdf}}
-\subfigure[V4 Denominator]{\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV4_Ele8CaloIdLCaloIsoVLSample_Pt.pdf}}
-\caption{Fake rates for the different fakeable object definitions, as a function of $p_T$, showing
-the dependence on the $p_{T}$ threshold of the leading jet in the event.}
-\label{fig:ele_fr_jetPtThresholdDependence}
+\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV4_TriggerDependence.pdf}
+\caption{Comparison of the fake rates for the V4 fakeable object definition as a function of $p_T$
+for a variety of trigger selections.}
+\label{fig:ele_fr_triggerDependence}
 \end{center}
 \end{figure}
 
-Due to the fact that the jet $p_{T}$ primarily affects the efficiency of the isolation cut,
-we observe rather large differences between the different jet $p_{T}$ threshold samples
-for the V1 and V3 fakeable object, where extrapolations in isolation are made. The V4 
-denominator exhibits smaller systematic uncertainties since loose isolation cuts are 
-already imposed on the denominator. The V2 fakeable object exhibits negligible 
-systematic uncertainty since it is already fully isolated. 
 
-These jet $p_{T}$ systematic uncertainties give a rough estimate of the uncertainty on the fake rate. 
-We intend to improve the understanding of this aspect of the fake rate in the next iteration of the
-analysis, by reweighting the jet $p_{T}$ in the fake rate measurement sample to the 
-jet $p_{T}$ distribution in the W+Jet Monte Carlo
-simulation. This procedure is expected to significantly decrease the jet $p_{T}$ systematic
-uncertainty.
+\subsubsection{Jet $p_{T}$ Spectrum Systematics}
+\label{sec:FakeElectronBkgJetSpectrumSystematics}
+
+The isolation efficiency for fake electrons are affected by any difference of the spectrum of the
+jet that a fakeable object lies inside between the fake rate measurement sample and the 
+application sample. To study this systematic uncertainty, we compare the $p_{T}$ spectrum 
+of the jet that a particular fakeable object lies inside for the W+Jet Monte Carlo sample and the
+data sample in which we measure the fake rates. This spectrum is representative of the $p_{T}$
+spectrum of a particular parton which produces the fake electron after fragmentation and 
+hadronization. Figure \ref{fig:ele_fr_jetspectrum} shows this comparison between the W+Jet spectrum and the
+spectrum obtained from the fake rate measurement sample in data for three different 
+thresholds on the leading jet in the event. Ideally one wants to match the data spectrum to the
+W+Jet spectrum to obtain an unbiased fake rate determination, however none of our data-based
+samples matches completely. The sample obtained with a threshold on the leading jet of
+$35$ GeV matches the W+Jet spectrum the best, and it taken for the central value of the 
+fake rate measurement. The systematic uncertainty is estimated by using fake rates from the sample 
+defined by thresholds of $30$ and $40$ GeV, since they are observed to reasonably cover the 
+correct W+Jet spectrum. Table \ref{tab:ele_fr_JetSpectrumSystematics} summarizes the systematic
+uncertainties due to the jet spectrum. From these results, we estimate a systematic uncertainty 
+of 15$\%$, taking the largest difference between the $25$GeV threshold result and the $45$ GeV 
+threshold result after the WW selection.
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[$p_{T}$ Threshold : $30-40$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_ElectronV4_30To40.pdf}}
+\subfigure[$p_{T}$ Threshold : $25-45$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_ElectronV4_25To45.pdf}}
+\caption{The $p_{T}$ spectrum of the jet that an electron fakeable object lies inside for the 
+W+Jet Monte Carlo sample and the data fake rate measurement sample.}
+\label{fig:ele_fr_jetspectrum}
+\end{center}
+\end{figure}
+
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+                        & \multicolumn{2}{|c|}{ $\%$ Change in Bkg Estimate} \\
+\hline
+Jet Threshold           & After WW Selection  & After HWW130 Selection \\
+\hline
+%Jet15                  &  $+31\%$     & $+31\%$    \\
+Jet25                   &  $+15\%$     & $+14\%$    \\
+Jet30                   &  $+6\%$      & $+1\%$     \\
+Jet35 (Central Value)   &  $0\%$       & $0\%$      \\
+Jet40                   &  $-4\%$      & $-6\%$     \\
+Jet45                   &  $-12\%$     & $-20\%$    \\
+%Jet50                  &  $-18\%$     & $-23\%$    \\
+\hline
+
+\hline
+\end{tabular}
+\caption{Relative change in the fake electron background estimate using different thresholds on the leading jet to compute the fake rate. }
+\label{tab:ele_fr_JetSpectrumSystematics}
+\end{center}
+\end{table}
 
 
 
@@ -132,7 +206,7 @@ uncertainty.
 %% - we demonstrate how much run dependence there is
 
 
- \subsubsection{Closure Test}
+ \subsubsection{Sample Extrapolation Systematics and Closure Test}
  To quantify the systematic uncertainties in extrapolating from the QCD dominated fake rate
 calibration sample to the W+Jet dominated application sample, we perform a closure test using 
 the Monte Carlo simulation. Fake rates measured from a cross-section weighted combination of 
