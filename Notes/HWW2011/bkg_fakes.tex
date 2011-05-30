@@ -93,21 +93,6 @@ The M1 definition affords us more candidates to estimate the fake background in 
 application sample, while M2 has lower systematic uncertainties because the extrapolation
 in isolation is reduced.
 
-\subsubsection{Fake rates}
-Using Run2011A data the following fake rates, averaged over $p_{T}$ and $\eta$ are observed.
-\begin{itemize}
-  \item V1: 0.05 (0.09 for $\pt>20$)
-  \item V2: 0.12 (0.24 for $\pt>20$)
-  \item V3: 0.09 (0.21 for $\pt>20$)
-  \item V4: 0.09 (0.17 for $\pt>20$)
-\end{itemize}
-\begin{itemize}
-  \item M1: 0.10 (0.13 for $\pt>20$)
-  \item M2: 0.21 (0.29 for $\pt>20$)
-\end{itemize}
-
-Full details of the fake rates as a function of $p_T$ and $\eta$ as used for the final analysis 
-are given in Appendix~\ref{app:fake_rate_studies}.
 
 \subsubsection{Fake rate measurement}
 \label{sec:fakerateMeasurement}
@@ -124,7 +109,7 @@ the event contains only a single reconstructed lepton. In order to control the
 average $p_{T}$ of the jet that fakes the lepton, we impose a $p_{T}$ requirement 
 on the leading jet in the event and require that the lepton denominator object is 
 separated from the leading jet by $\Delta$R $ > 1.0$. The nominal fake rates are measured
-requiring that the leading jet $p_{T}$ is greater than $15$ GeV. 
+requiring that the leading jet $p_{T}$ is greater than $35$ GeV. 
 
 The Photon+Jet sample is collected using the dedicated triggers \\
 {HLT\_Photon20\_CaloIdVT\_IsoT\_Ele8\_CaloIdL\_CaloIsoVL} and 
@@ -161,6 +146,8 @@ From these selected event samples, we measure the fake rate
 objects which pass the full lepton selection, in bins of $p_{T}$
 and $\eta$. The results of the measurement are summarized in detail
 in Appendix \ref{app:fake_rate_studies}.
+
+
 
 \subsubsection{Application of Fake rates}
 \label{sec:fakerateApplication}
@@ -211,10 +198,97 @@ Summing the weights $w_{i,j}$ over all such events in the fail + fail sample yie
 the total QCD double fake background. This prediction is then subtracted from the
 tight + loose prediction in order to account for the double counting. 
 
-In this procedure, an over-estimation of the fake lepton contribution due to contamination
-from real dilepton events, and from $W+\gamma$ events may occur. This is dealt with 
-according to the procedure described in reference \cite{fakeLeptonNote1} and 
-\cite{fakeLeptonBkgSpillage1}.
+We summarize the fake rate estimation on the current data sample after the WW selection in Tables
+\ref{tab:FakeElectronBkgPrediction_WWSelection_0JetBin}, 
+\ref{tab:FakeElectronBkgPrediction_WWSelection_0JetBin},
+\ref{tab:FakeElectronBkgPrediction_WWSelection_1JetBin}, and
+\ref{tab:FakeElectronBkgPrediction_WWSelection_1JetBin} separately for fake electrons and fake muons in the
+0-jet bin and 1-jet bin. In this procedure, an over-estimation of the fake lepton contribution due to 
+contamination from real dilepton events, and from $W+\gamma$ events may occur. These contributions 
+are subtracted using the Monte Carlo simulation prediction with the procedure described in reference
+ \cite{fakeLeptonNote1} and \cite{fakeLeptonBkgSpillage1}.
+
+
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+Fake Lepton Bin               & Electron + Fake Electron & Muon + Fake Electron  \\
+\hline
+Barrel, $10 <= p_{T} < 20$    &  $1.2 \pm 0.4$(stat)     &   $1.6 \pm 0.4$(stat) \\
+Barrel, $20 <= p_{T} $        &  $1.5 \pm 0.5$(stat)     &   $3.7 \pm 0.7$(stat) \\
+Endcap, $10 <= p_{T} < 20$    &  $0.1 \pm 0.1$(stat)     &   $0.7 \pm 0.2$(stat) \\
+Endcap, $20 <= p_{T} $        &  $0.5 \pm 0.2$(stat)     &   $2.4 \pm 0.5$(stat) \\
+\hline
+Total                         &  $3.3  \pm 0.7$(stat)    &   $8.4 \pm 1.0$(stat) \\
+\hline
+\end{tabular}
+\caption{Summary of fake electron background yields in the 0-jet bin after WW selection. }
+\label{tab:FakeElectronBkgPrediction_WWSelection_0JetBin}
+\end{center}
+\end{table}
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+Fake Lepton Bin               & Electron + Fake Muon & Muon + Fake Muon  \\
+\hline
+Barrel, $10 <= p_{T} < 20$    &  $2.8 \pm 0.5$(stat)     &   $1.9 \pm 0.4$(stat) \\
+Barrel, $20 <= p_{T} $        &  $1.2 \pm 0.4$(stat)     &   $1.0 \pm 0.3$(stat) \\
+Endcap, $10 <= p_{T} < 20$    &  $1.2 \pm 0.4$(stat)     &   $0.2 \pm 0.1$(stat) \\
+Endcap, $20 <= p_{T} $        &  $1.8 \pm 0.5$(stat)     &   $0.4 \pm 0.2$(stat) \\
+\hline
+Total                         &  $7.0  \pm 1.0$(stat)    &   $3.5 \pm 0.5$(stat) \\
+\hline
+\end{tabular}
+\caption{Summary of fake muon background yields in the 0-jet bin after WW selection. }
+\label{tab:FakeElectronBkgPrediction_WWSelection_0JetBin}
+\end{center}
+\end{table}
+
+
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+Fake Lepton Bin               & Electron + Fake Electron & Muon + Fake Electron  \\
+\hline
+Barrel, $10 <= p_{T} < 20$    &  $0.4 \pm 0.2$(stat)     &   $0.5 \pm 0.2$(stat) \\
+Barrel, $20 <= p_{T} $        &  $0.02 \pm 0.02$(stat)   &   $0.2 \pm 0.1$(stat) \\
+Endcap, $10 <= p_{T} < 20$    &  $0.7 \pm 0.3$(stat)     &   $1.5 \pm 0.5$(stat) \\
+Endcap, $20 <= p_{T} $        &  $0.4 \pm 0.2$(stat)     &   $1.0 \pm 0.3$(stat) \\
+\hline
+Total                         &  $1.5  \pm 0.4$(stat)    &   $3.2 \pm 0.6$(stat) \\
+\hline
+\end{tabular}
+\caption{Summary of fake electron background yields in the 1-jet bin after WW selection. }
+\label{tab:FakeElectronBkgPrediction_WWSelection_1JetBin}
+\end{center}
+\end{table}
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+Fake Lepton Bin               & Electron + Fake Muon & Muon + Fake Muon  \\
+\hline
+Barrel, $10 <= p_{T} < 20$    &  $0.4 \pm 0.2$(stat)     &   $0.5 \pm 0.2$(stat) \\
+Barrel, $20 <= p_{T} $        &  $0.5 \pm 0.2$(stat)     &   $0.7 \pm 0.3$(stat) \\
+Endcap, $10 <= p_{T} < 20$    &  $1.0 \pm 0.3$(stat)     &   $0.3 \pm 0.2$(stat) \\
+Endcap, $20 <= p_{T} $        &  $0.5 \pm 0.3$(stat)     &   $0.3 \pm 0.2$(stat) \\
+\hline
+Total                         &  $2.4 \pm 0.5$(stat)     &   $1.8 \pm 0.5$(stat) \\
+\hline
+\end{tabular}
+\caption{Summary of fake muon background yields in the 1-jet bin after WW selection. }
+\label{tab:FakeElectronBkgPrediction_WWSelection_1JetBin}
+\end{center}
+\end{table}
+
+
 
 
 \subsubsection{Closure Test and Systematic Uncertainties}
@@ -233,7 +307,7 @@ with the yield predicted using the fake rate procedure. To be consistent,
 we use the QCD Monte Carlo simulation to measure the fake rates, and then
 apply them to the tight + fail sample selected in the W+Jet Monte Carlo
 sample. The degree of disagreement yields a quantitative measure of the 
-systematic uncertainty of the method.
+systematic uncertainty of the method. 
 
 The systematic uncertainties can be factorized into two main sources. 
 The first source is due to the difference in the $p_{T}$ spectrum 
@@ -254,14 +328,24 @@ be different.
 To address the first source of systematic uncertainty in data, we perform the
 fake rate measurement using different thresholds on the leading jet
 in the event, in order to capture the degree of uncertainty in 
-the jet $p_{T}$ spectrum. A very conservative systematic estimate
-is obtained by taking the largest difference between the fake rates
-measured using the following three $p_{T}$ thresholds: no requirement,
- $15$ GeV, and $30$ GeV. To address the second source of systematic
-uncertainty in data, we compare the difference in the fake rates 
-measured in the QCD enriched selection sample and the fake rates 
-measured in the Photon+Jet enriched selection sample. Since Photon+Jet
-events are more similar to W+Jet events in the production mechanism,
-one expects that fake rates measured in Photon+Jet events more closely
-represent the fake rates in W+Jet events. 
+the jet $p_{T}$ spectrum. This systematic uncertainty is estimated to 
+be $15\%$, described in more detail in Appendix 
+\ref{sec:FakeElectronBkgJetSpectrumSystematics}. To address the second 
+source of systematic uncertainty, we evaluate the agreement in the closure
+test between the fake rate prediction and the simulation prediction for 
+the W+Jet background. This is estimated to be $25\%$, documented in greater 
+detail in Appendix \ref{sec:FakeElectronBkgClosureTest}. Furthermore, we
+cross check these systematics estimates with a comparison of the prediction 
+for the WW selected sample containing two same sign leptons, dominated by W+Jet
+background, and the data yield. Subtracting real lepton contributions,
+we observe agreement to within $30\%$ and $1$ standard deviation. Details
+are documented in Appendix \ref{sec:FakeLeptonBkgSameSignControlSample}.
+
+
+%% To address the second source of systematic uncertainty in data, we compare the difference in 
+%% the fake rates measured in the QCD enriched selection sample and the fake rates 
+%% measured in the Photon+Jet enriched selection sample. Since Photon+Jet
+%% events are more similar to W+Jet events in the production mechanism,
+%% one expects that fake rates measured in Photon+Jet events more closely
+%% represent the fake rates in W+Jet events. 
 
