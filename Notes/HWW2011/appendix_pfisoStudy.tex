@@ -261,9 +261,16 @@ pileup to a scenario with $10$ reconstructed primary vertices. }
 
 \subsection{Isolation Algorithms Performances}
 
-From here on, we will only compare the performance of the particle flow based isolation employing
-the two different strategies for addressing pileup described in Sections 
-\ref{sec:CorrectionBasedIsolation} and \ref{sec:ThresholdBasedIsolation}. 
+%From here on, we will only compare the performance of the particle flow based isolation employing
+%the two different strategies for addressing pileup described in Sections 
+%\ref{sec:CorrectionBasedIsolation} and \ref{sec:ThresholdBasedIsolation}. 
+
+In the following we will compare the performances of the isolation algorithms discussed so far
+in terms of signal versus background efficiency. The HWW130 Monte Carlo sample is used as reference signal
+wherease events data passing the lepton fake selections define our background sample.
+
+\subsubsection{Electron Isolation}
+
 In Figure \ref{fig:IsoPerformance_EleBarrel_BestChoices_LowPU} we compare the performance of the 
 standard detector based isolation corrected with the effective area subtraction scheme with the 
 two variations of PF isolation described above at the pileup 
@@ -354,6 +361,61 @@ we have for the particle flow isolation.}
 \end{figure}
 
 \clearpage
+
+
+\subsubsection{Muon Isolation}
+
+In Figure \ref{fig:IsoPerformance_Muon_LowPU}, we compare the performance of the 
+standard detector based isolation corrected with the effective area subtraction scheme with 
+the PF based isolation described above (with cone size of $\Delta R=0.3$ and $\Delta R=0.4$) 
+at the pileup scenario faced in the first $200$ \ipb of the 2011 data. Results are shown independently 
+for low (left column) and high (right column) $p_T$, barrel (upper raw) and endcap (lower raw).
+In the barrel the performances of the standard isolation and of the particle flow based algorithm
+are comparable around the working point used in the 2010 analysis (black star on the plot);
+in general a cone size of $\Delta R=0.3$ is preferable at low $p_T$ whereas $\Delta R=0.4$ gives better results
+at high $p_T$. PF isolation performaces deteriorates with respect to standard isolation in the 
+endcap region.
+
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[Muons in barrel, $p_{T}$ in $(10,20)$ GeV]{\includegraphics[width=0.48\textwidth]{figures/muonIso_lowPU_lowPt_barrel.pdf}}
+\subfigure[Muons in barrel, $p_{T}>20$ GeV]{\includegraphics[width=0.48\textwidth]{figures/muonIso_lowPU_highPt_barrel.pdf}}
+\subfigure[Muons in endcap, $p_{T}$ in $(10,20)$ GeV]{\includegraphics[width=0.48\textwidth]{figures/muonIso_lowPU_lowPt_endcap.pdf}}
+\subfigure[Muons in endcap, $p_{T}>20$ GeV]{\includegraphics[width=0.48\textwidth]{figures/muonIso_lowPU_highPt_endcap.pdf}}
+\caption{Signal efficiency (HWW130) vs background efficiency at low pileup
+for muons in the barrel (upper raw) and endcap (lower raw) regions. The plots on the two columns
+are for low (left) and high (right) $p_T$ muons. 
+The red curve represents the corrected standard isolation, the blue curve the PF isolation with $\Delta R=0.3$
+and the green one the PF isolation with $\Delta R=0.4$.}
+\label{fig:IsoPerformance_Muon_LowPU}
+\end{center}
+\end{figure}
+
+
+\clearpage
+
+
+In Figure \ref{fig:IsoPerformance_Muon_HighPU}, we perform the same comparison
+for the high pileup scenario. Similar conclusions hold in this case 
+as for lower multiplicity pileup conditions.
+
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[Muons in barrel, $p_{T}$ in $(10,20)$ GeV]{\includegraphics[width=0.48\textwidth]{figures/muonIso_highPU_lowPt_barrel.pdf}}
+\subfigure[Muons in barrel, $p_{T}>20$ GeV]{\includegraphics[width=0.48\textwidth]{figures/muonIso_highPU_highPt_barrel.pdf}}
+\subfigure[Muons in endcap, $p_{T}$ in $(10,20)$ GeV]{\includegraphics[width=0.48\textwidth]{figures/muonIso_highPU_lowPt_endcap.pdf}}
+\subfigure[Muons in endcap, $p_{T}>20$ GeV]{\includegraphics[width=0.48\textwidth]{figures/muonIso_highPU_highPt_endcap.pdf}}
+\caption{Signal efficiency (HWW130) vs background efficiency at high pileup
+for muons in the barrel (upper raw) and endcap (lower raw) regions. The plots on the two columns
+are for low (left) and high (right) $p_T$ muons. 
+The red curve represents the corrected standard isolation, the blue curve the PF isolation with $\Delta R=0.3$
+and the green one the PF isolation with $\Delta R=0.4$.}
+\label{fig:IsoPerformance_Muon_HighPU}
+\end{center}
+\end{figure}
+
 
 
 \subsection{Working Point Definition}
