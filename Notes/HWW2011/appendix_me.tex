@@ -94,10 +94,12 @@ The efficiency function is the probability for a parton-level object with moment
 $p$ to be reconstructed as a lepton with momentum $q$. In the calculation of the event 
 probabilities we assume that the parton level lepton momentum is equal to the reconstructed 
 momentum. The lepton efficiency is parameterized as a function of transverse momentum and 
-pseudo-rapidity and extracted from inclusive $W$ Monte Carlo. A scale factor to account for
-differences between data and Monte Carlo is
-calculated using a tag-and-probe analysis and applied when calculating event probabilities 
-for data events.
+pseudo-rapidity and extracted from $WW$ Monte Carlo. Figure~\ref{fig:lepeff_gen} shows the 
+one dimensional projection of the efficiency as a function of the lepton $\eta$ and $\pt$. 
+A scale factor to account for
+differences between data and Monte Carlo can be calculated using a tag-and-probe analysis 
+and applied when calculating event probabilities for data events. 
+
 Note that the efficiency function in Equation~\ref{eqn:EvtProb} can be factorized out of
 the integral when calculating event probabilities.
 %The efficiency function in Equation~\ref{eqn:EvtProb} can be pulled out from 
@@ -111,6 +113,19 @@ the integral when calculating event probabilities.
 %\end{array} 
 %\end{eqnarray}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{figures/lepton_eff_Eta.pdf}
+\includegraphics[width=0.4\textwidth]{figures/lepton_eff_Pt.pdf}\\
+\caption{Lepton efficiency as a function of the lepton $\eta$ (left) and $\pt$ (right) extracted 
+from the $\WW$ Monte Carlo.}
+\label{fig:lepeff_gen}
+\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 Treatment of the $W+jet$ event probability calculation deserves special discussion.
 For these events to be reconstructed in the dilepton final state,
 one of the reconstructed leptons has been faked by a parton fragmenting and hadronizing 
@@ -123,15 +138,24 @@ This probability can be factorized into two terms:
 P(parton\rightarrow lepton)=P(parton\rightarrow FO)\times P(FO\rightarrow lepton)
 \end{array} 
 \end{eqnarray} 
-where FO refers to a so-called "fakeable object" (see Sec.~\ref{fakeableobjects}).
+where FO refers to a so-called "fakeable object" (see Sec.~\ref{sec:bkg_fakes}). 
 The first term in the product is measured using Monte Carlo and parametrized
-in $p_{T}$ and $\eta$.  The second term is the fake rate measured in the data
-(see Sec.~\ref{fakeableobjects}).
-We verify the $P(parton\rightarrow lepton)$ values we obtain from this method by comparing them to ones measured in a $\gamma+jet$ Monte Carlo sample.  The probabilities agree within the uncertainty of $30\%$.  The values of $P(parton\rightarrow lepton)$ are illustrated in Figure FIXME:
-\\
-FIGURE FIXME\\
-pt-eta distribution of  $P(parton\rightarrow lepton)$ for electrons\\
-pt-eta distribution of  $P(parton\rightarrow lepton)$ for muons\\
+in $p_{T}$ and $\eta$.  The second term is the fake rate measured in the data 
+(see Sec.~\ref{sec:bkg_fakes}).
+
+We verify the $P(parton\rightarrow lepton)$ values we obtain from this method by comparing them to ones measured in a $\gamma+jet$ Monte Carlo sample.  The probabilities agree within the uncertainty of $30\%$.  The values of $P(parton\rightarrow lepton)$ are illustrated in Figure~\ref{fig:lepgenfr}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{figures/wjets_heleGenFR.pdf}
+\includegraphics[width=0.4\textwidth]{figures/wjets_hmuGenFR.pdf}\\
+\caption{The probability for a parton to pass the electron (left) and muon (right) 
+fakable object selections. }
+\label{fig:lepgenfr}
+\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %The $W+jet$ event probability can be then  written as:
 %\begin{eqnarray}
@@ -149,9 +173,22 @@ One final complication that must be considered is the boost of the initial state
 In the leading order Matrix Element calculation there is no initial state radiation. 
 The initial state partons collide head-on and the system has no transverse boost. 
 To account for the transverse recoil and thus improve the performance of our discriminant
-on data,
-we integrate over the possible values of the system boost $k_{T}(k_{x},k_{y})$. 
-The $k_T$ model is extracted from Monte Carlo for each process separately.
+on data, we integrate over the possible values of the system boost $k_{T}(k_{x},k_{y})$. 
+The $k_T$ model is extracted from Monte Carlo for each process separately. 
+Figure~\ref{fig:wwboost} shows the distribution of $k_T$ for $\hww$ and 
+the non-resonant $\WW$ processes.  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{figures/boost.pdf}
+\caption{The transverse boost of the $WW$ system. }
+\label{fig:wwboost}
+\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \subsection{Likelihood Ratio Discriminator}
 Event probabilities, calculated as described above, are used to construct 
