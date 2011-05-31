@@ -86,7 +86,7 @@ void   TEvtProb::NeutrinoIntegrate(TVar::Process proc,
         probAcceptanceEfficiency = getProbAcceptanceEfficiency(cdf_event, _effhist);
 
     if(probAcceptanceEfficiency<=0) {
-        cout <<"Error: " << probAcceptanceEfficiency <<endl;
+      cout <<"ERROR: probAcceptanceEfficiency =  " << probAcceptanceEfficiency <<endl;
         return;
     }
 
@@ -235,30 +235,35 @@ double TEvtProb::Integrand_NeutrinoIntegration(TVar::Process proc, const cdf_eve
 
 }
 
-void TEvtProb::SetFRHist() {
-    TFile *elFRfile = TFile::Open("ElectronFakeRates_SmurfV5_V4.root", "READ");
-    assert(elFRfile);
-    gROOT->cd();
-    _FRhist.els_fr = (TH2F*) elFRfile->Get("ElectronFakeRateDenominatorV4_Ele8CaloIdLCaloIsoVLCombinedSample_ptThreshold35_PtEta")->Clone();
-    elFRfile->Close();
-
-    TFile *muFRfile = TFile::Open("MuonFakeRate_SmurfV5_M1.root", "READ");
-    assert(muFRfile);
-    gROOT->cd();
-    _FRhist.mus_fr = (TH2F*) muFRfile->Get("frEtaPt")->Clone();
-    muFRfile->Close();
+void TEvtProb::SetFRHist(TString elFRFile, TString elFRHist, TString muFRFile, TString muFRHist, TVar::VerbosityLevel verbosity) {
+  TFile *elFRfile = TFile::Open(elFRFile, "READ");
+  assert(elFRfile);
+  gROOT->cd();
+  if (verbosity >= TVar::DEBUG) 
+    std::cout << "TEvtProb::SetFRHist set electron Fakerate from " << elFRFile << std::endl;
+  _FRhist.els_fr = (TH2F*) elFRfile->Get(elFRHist)->Clone();
+  elFRfile->Close();
+  
+  TFile *muFRfile = TFile::Open(muFRFile, "READ");
+  assert(muFRfile);
+  gROOT->cd();
+  if (verbosity >= TVar::DEBUG) 
+    std::cout << "TEvtProb::SetFRHist set muon Fakerate from " << muFRFile << std::endl;
+  _FRhist.mus_fr = (TH2F*) muFRfile->Get(muFRHist)->Clone();
+  muFRfile->Close();
 }
 
-void TEvtProb::SetMCHist(int proc, TVar::VerbosityLevel verbosity) {
-    if (verbosity >= TVar::DEBUG) std::cout << "TEvtProb::SetMCHist for process " << TVar::ProcessName(proc) << std::endl;
-    TFile *fUtil = TFile::Open("Util.root", "READ");
+void TEvtProb::SetMCHist(int proc, TString MCFileName, bool setFR, TVar::VerbosityLevel verbosity) {
+  
+  if (verbosity >= TVar::DEBUG) std::cout << "TEvtProb::SetMCHist for process " << TVar::ProcessName(proc) << " from " << MCFileName << std::endl;
+    TFile *fUtil = TFile::Open(MCFileName, "READ");
     assert(fUtil);
     gROOT->cd();
     // lepton efficiencies are taken from the WW MC
     _effhist.els_eff_mc = (TH2F*) fUtil->Get("ww_heleEff")->Clone();
     _effhist.mus_eff_mc = (TH2F*) fUtil->Get("ww_hmuEff")->Clone();
 
-    if (TVar::SmurfProcessName(proc)=="wjets") {
+    if (TVar::SmurfProcessName(proc) == "wjets") {
         _boosthist.kx = (TH1F*) fUtil->Get(TString("ww_kx"))->Clone();
         _boosthist.ky = (TH1F*) fUtil->Get(TString("ww_ky"))->Clone();
     }
@@ -269,8 +274,10 @@ void TEvtProb::SetMCHist(int proc, TVar::VerbosityLevel verbosity) {
     }
 
     // fake-rate histograms
-    //_FRhist.els_fr = (TH2F*) fUtil->Get("wjets_heleFR")->Clone();
-    //_FRhist.mus_fr = (TH2F*) fUtil->Get("wjets_hmuFR")->Clone();
+    if (setFR) {
+      _FRhist.els_fr = (TH2F*) fUtil->Get("wjets_heleFR")->Clone();
+      _FRhist.mus_fr = (TH2F*) fUtil->Get("wjets_hmuFR")->Clone();
+    }
     _FRhist.els_part_fo = (TH2F*) fUtil->Get("wjets_heleGenFR")->Clone();
     _FRhist.mus_part_fo = (TH2F*) fUtil->Get("wjets_hmuGenFR")->Clone();
     _FRhist.els_ptres = (TH2F*) fUtil->Get("wjets_heleFOResponse")->Clone();

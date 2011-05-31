@@ -48,7 +48,7 @@ void runME_test(TString inputDir, TString fileName, TString outputDir, int seed,
 void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int evtstart, int higgsMass, TVar::VerbosityLevel verbosity){
 
   if (verbosity >= TVar::INFO) cout << "Input File: " << fileName << " seed " << seed << " SmearLevel " << SmearLevel << " ncalls " << ncalls << endl;
-
+  
   TFile* fin = new TFile(inputDir+fileName);
   TString outFileName = outputDir+fileName;
   outFileName.ReplaceAll(".root","_ME.root");
@@ -104,7 +104,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   Xcal2.SetSmearLevel(SmearLevel);
   Xcal2.SetSeed(seed);
   Xcal2.SetMatrixElement(TVar::MCFM);
-  Xcal2.SetNcalls(ncalls);
+
   
   if (verbosity >= TVar::INFO) cout << "Integration Seed= "<< Xcal2._seed << " SmearLevel= " << Xcal2._smearLevel << " Ncalls = " << Xcal2._ncalls <<  endl;  
   cdf_event_type cms_event;
@@ -129,8 +129,9 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     
     ch->GetEntry(ievt);            
     
-    // impose trailing electron pT > 15 GeV
-    if( (type_ == 1||type_ == 3) && lep2_->Pt()<15 ) continue;
+    // impose trailing electron pT > 15 GeV (obselete for SmurfV5)
+    // if( (type_ == 1||type_ == 3) && lep2_->Pt()<15 ) continue;
+
     // analyse only the 0-jet bin
     if (njets_ > 0) continue;
     
@@ -193,11 +194,11 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     double Xsec=0;
     double XsecErr=0;
     double Ratio=0;
-    int HiggsMASS[20]={0,0,0,0,0,0,120,130,140,150,160,170,180,190,200,210,220,230,250,300};
+    int HiggsMASS[26]={0,0,0,0,0,115,120,130,140,150,160,170,180,190,200,210,220,230,250,300,350,400,450,500,550,600};
     
     // The SM background processes
     int NProcessCalculate=0;
-    TVar::Process processList[20];
+    TVar::Process processList[30];
     
     processList[ NProcessCalculate++]=TVar::WW;
     processList[ NProcessCalculate++]=TVar::Wp_1jet;
@@ -205,6 +206,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 
     // calculate all the higgs hypothesis if the higgsMass is not specified
     if(higgsMass <= 0) {
+      processList[ NProcessCalculate++]=TVar::HWW115;
       processList[ NProcessCalculate++]=TVar::HWW120;
       processList[ NProcessCalculate++]=TVar::HWW130;
       processList[ NProcessCalculate++]=TVar::HWW140;
@@ -214,14 +216,20 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       processList[ NProcessCalculate++]=TVar::HWW180;
       processList[ NProcessCalculate++]=TVar::HWW190;
       processList[ NProcessCalculate++]=TVar::HWW200;
-      //processList[ NProcessCalculate++]=TVar::HWW210;
-      //processList[ NProcessCalculate++]=TVar::HWW220;
-      //processList[ NProcessCalculate++]=TVar::HWW230;
-      //processList[ NProcessCalculate++]=TVar::HWW250;
-      //processList[ NProcessCalculate++]=TVar::HWW300;
+      processList[ NProcessCalculate++]=TVar::HWW250;
+      processList[ NProcessCalculate++]=TVar::HWW300;
+      //processList[ NProcessCalculate++]=TVar::HWW350;
+      //processList[ NProcessCalculate++]=TVar::HWW400;
+      //processList[ NProcessCalculate++]=TVar::HWW450;
+      //processList[ NProcessCalculate++]=TVar::HWW500;
+      //processList[ NProcessCalculate++]=TVar::HWW550;
+      //processList[ NProcessCalculate++]=TVar::HWW600;
     }
     else {
       switch (higgsMass) {
+      case 115:
+	processList[ NProcessCalculate++]=TVar::HWW115;
+	break;
       case 120:
 	processList[ NProcessCalculate++]=TVar::HWW120;
 	break;
@@ -264,6 +272,24 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       case 300:
 	processList[ NProcessCalculate++]=TVar::HWW300;
 	break;
+      case 350:
+	processList[ NProcessCalculate++]=TVar::HWW350;
+	break;
+      case 400:
+	processList[ NProcessCalculate++]=TVar::HWW400;
+	break;
+      case 450:
+	processList[ NProcessCalculate++]=TVar::HWW450;
+	break;
+      case 500:
+	processList[ NProcessCalculate++]=TVar::HWW500;
+	break;
+      case 550:
+	processList[ NProcessCalculate++]=TVar::HWW550;
+	break;
+      case 600:
+	processList[ NProcessCalculate++]=TVar::HWW600;
+	break;
       default:
 	break;
       }
@@ -271,9 +297,19 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 
     for(int iproc = 0; iproc < NProcessCalculate; iproc++) { 
       ProcInt=processList[iproc];
-      Xcal2.SetMCHist(ProcInt, verbosity); 
-      // Xcal2.SetFRHist(); 
+
+      // Load the MC based boost, efficiency and generator FR
+      bool setMCFR = false;
+      Xcal2.SetMCHist(ProcInt, "Util.root", setMCFR, verbosity);
       
+      // Set the fakerate from data measurements
+      if (!setMCFR && (iproc == TVar::Wp_1jet || iproc == TVar::Wm_1jet)) {
+	TString elFRFile = "ElectronFakeRates_SmurfV5_V4.root";
+	TString elFRHist = "ElectronFakeRateDenominatorV4_Ele8CaloIdLCaloIsoVLCombinedSample_ptThreshold35_PtEta";
+	TString muFRFile = "MuonFakeRate_SmurfV5_M1.root";
+	TString muFRHist = "frEtaPt";
+	Xcal2.SetFRHist(elFRFile, elFRHist, muFRFile, muFRHist, verbosity);
+      }
       if (verbosity >= TVar::DEBUG) 
 	printf(" Calculate Evt %4i Run %9i Evt %8i Proc %4i %s Lep %4i %4i\n", ievt, run_, event_, ProcInt, TVar::ProcessName(ProcInt).Data(), lq1_*lep1_Type, lq2_*lep2_Type);
       
@@ -302,19 +338,26 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       }
       
       // -- Do the integration over unknown parameters
-       if (ProcInt >= TVar::HWW120 && ProcInt <= TVar::HWW300){
+       if (ProcInt >= TVar::HWW115 && ProcInt <= TVar::HWW600){
 	Xcal2.SetProcess(TVar::HWW);
 	Xcal2.SetHiggsMass(HiggsMASS[ProcInt]);
 	if (verbosity >= TVar::DEBUG) cout<< "Higgs Mass: " << HiggsMASS[ProcInt]<<"GeV \n";
 	
-	if ( HiggsMASS[ProcInt] < 160.8 )
+	if ( HiggsMASS[ProcInt] < 160.8 ) 
 	  Xcal2.SetHWWPhaseSpace(TVar::MH);
 	else
 	  Xcal2.SetHWWPhaseSpace(TVar::MHMW);
-	
+	// increase the number of steps for the HWW115 and HWW120 to 5 time the nominal value
+	if ( HiggsMASS[ProcInt] <= 130 )   
+	  Xcal2.SetNcalls(5*ncalls);
+	else  
+	  Xcal2.SetNcalls(ncalls);
 	Xcal2.NeutrinoIntegrate(TVar::HWW,cms_event, &Xsec, &XsecErr, verbosity);
-      }
-      else Xcal2.NeutrinoIntegrate(ProcInt,cms_event, &Xsec, &XsecErr, verbosity);
+       }
+       else {
+	 Xcal2.SetNcalls(ncalls);
+	 Xcal2.NeutrinoIntegrate(ProcInt,cms_event, &Xsec, &XsecErr, verbosity);
+       }
       
       // fill in the differential cross-section and errors
       dXsecList[ProcInt]=Xsec;  
