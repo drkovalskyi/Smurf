@@ -31,7 +31,7 @@ class TVar{
           Wm_1jet = 2,
           Wp_gamma= 3,
           Wm_gamma= 4,
-          ZZ      = 5,
+          HWW115  = 5,
           HWW120  = 6,
           HWW130  = 7,
           HWW140  = 8,
@@ -46,31 +46,38 @@ class TVar{
           HWW230  =17,
           HWW250  =18,
           HWW300  =19,
-          HWW     =20,
-	  Z_2l    =21,
-          WpZ_lostW=22,
-          WpZ_lostZ=23,
-          ZZ_4l    =24,
-          Wgamma   =25,
-	  Wegamma  =26,
-	  Wmugamma =27,
-	  Wtaugamma=28,
-          ttbar    =29,
-          Zee      =30,
-          Zmumu    =31,
+          HWW350  =20,
+          HWW400  =21,
+          HWW450  =22,
+          HWW500  =23,
+          HWW550  =24,
+	  HWW600  =25,
+	  HWW     =26,
+	  Z_2l    =27,
+          WpZ_lostW=28,
+          WpZ_lostZ=29,
+          ZZ_4l    =30,
+          Wgamma   =31,
+	  Wegamma  =32,
+	  Wmugamma =33,
+	  Wtaugamma=34,
+          ttbar    =35,
+          Zee      =36,
+          Zmumu    =37,
           Ztautau  =32,
-          Data     =33,
-	  Data_runFakes=34,
-          Wenu     =35,
-          Wmunu    =36,
-          Wtaunu   =37,
-          We1jet   =38,
-          WZ       =39,
-          HZZ      =40,
-          Wmu1jet  =41,
-	  WWj      =42,
-	  HWWj     =43,
-	  ggWW     =44,
+          Data     =38,
+	  Data_runFakes=39,
+          Wenu     =40,
+          Wmunu    =41,
+          Wtaunu   =42,
+          We1jet   =43,
+          WZ       =44,
+          HZZ      =45,
+          Wmu1jet  =46,
+	  WWj      =47,
+	  HWWj     =48,
+	  ggWW     =49,
+          ZZ      = 50,
 	  Null
        };
 
@@ -101,26 +108,21 @@ class TVar{
   else if(temp==TVar::Z_2l    ) return TString("Z_2l");
   else if(temp==TVar::WpZ_lostW) return TString("WpZ_lostW");
   else if(temp==TVar::WpZ_lostZ) return TString("WpZ_lostZ");
-
   else if(temp==TVar::Wegamma ) return TString("Wegamma");
   else if(temp==TVar::Wmugamma) return TString("Wmugamma");
   else if(temp==TVar::Wtaugamma ) return TString("Wtaugamma");
-
   else if(temp==TVar::We1jet ) return TString("We1jet");
   else if(temp==TVar::Wmu1jet) return TString("Wmu1jet");
-
   else if(temp==TVar::Wenu   ) return TString("Wenu");
   else if(temp==TVar::Wmunu  ) return TString("Wmunu");
   else if(temp==TVar::Wtaunu ) return TString("Wtaunu");
-
   else if(temp==TVar::Data   ) return TString("Data");
   else if(temp==TVar::Data_runFakes) return TString("Data_runFakes");
-
   else if(temp==TVar::Zee     ) return TString("Zee");
   else if(temp==TVar::Zmumu   ) return TString("Zmumu");
   else if(temp==TVar::Ztautau ) return TString("Ztautau");
   else if(temp==TVar::ttbar   ) return TString("ttbar");
-
+  else if(temp==TVar::HWW115  ) return TString("HWW115");
   else if(temp==TVar::HWW120  ) return TString("HWW120");
   else if(temp==TVar::HWW130  ) return TString("HWW130");
   else if(temp==TVar::HWW140  ) return TString("HWW140");
@@ -130,13 +132,17 @@ class TVar{
   else if(temp==TVar::HWW180  ) return TString("HWW180");
   else if(temp==TVar::HWW190  ) return TString("HWW190");
   else if(temp==TVar::HWW200  ) return TString("HWW200");
-
   else if(temp==TVar::HWW210  ) return TString("HWW210");
   else if(temp==TVar::HWW220  ) return TString("HWW220");
   else if(temp==TVar::HWW230  ) return TString("HWW230");
   else if(temp==TVar::HWW250  ) return TString("HWW250");
   else if(temp==TVar::HWW300  ) return TString("HWW300");
-
+  else if(temp==TVar::HWW350  ) return TString("HWW350");
+  else if(temp==TVar::HWW400  ) return TString("HWW400");
+  else if(temp==TVar::HWW450  ) return TString("HWW450");
+  else if(temp==TVar::HWW500  ) return TString("HWW500");
+  else if(temp==TVar::HWW550  ) return TString("HWW550");
+  else if(temp==TVar::HWW600  ) return TString("HWW600");
   else if(temp==TVar::WWj      ) return TString("WWj");
   else if(temp==TVar::HWWj     ) return TString("HWWj");
 
@@ -158,6 +164,7 @@ class TVar{
   else if(temp==TVar::Zmumu   ) return TString("dymm");
   else if(temp==TVar::Ztautau ) return TString("dytt");
   else if(temp==TVar::ttbar   ) return TString("ttbar");
+  else if(temp==TVar::HWW115  ) return TString("hww115");
   else if(temp==TVar::HWW120  ) return TString("hww120");
   else if(temp==TVar::HWW130  ) return TString("hww130");
   else if(temp==TVar::HWW140  ) return TString("hww140");
@@ -172,6 +179,12 @@ class TVar{
   else if(temp==TVar::HWW230  ) return TString("hww230");
   else if(temp==TVar::HWW250  ) return TString("hww250");
   else if(temp==TVar::HWW300  ) return TString("hww300");
+  else if(temp==TVar::HWW350  ) return TString("hww350");
+  else if(temp==TVar::HWW400  ) return TString("hww400");
+  else if(temp==TVar::HWW450  ) return TString("hww450");
+  else if(temp==TVar::HWW500  ) return TString("hww500");
+  else if(temp==TVar::HWW550  ) return TString("hww550");
+  else if(temp==TVar::HWW600  ) return TString("hww600");
   else
     return TString("UnKnown");
  };
