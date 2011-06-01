@@ -157,7 +157,7 @@ W+Jet spectrum to obtain an unbiased fake rate determination, however none of ou
 samples matches completely. The sample obtained with a threshold on the leading jet of
 $35$ GeV matches the W+Jet spectrum the best, and it taken for the central value of the 
 fake rate measurement. The systematic uncertainty is estimated by using fake rates from the sample 
-defined by thresholds of $30$ and $40$ GeV, since they are observed to reasonably cover the 
+defined by thresholds of $25$ and $45$ GeV, since they are observed to reasonably cover the 
 correct W+Jet spectrum. Table \ref{tab:ele_fr_JetSpectrumSystematics} summarizes the systematic
 uncertainties due to the jet spectrum. From these results, we estimate a systematic uncertainty 
 of 15$\%$, taking the largest difference between the $25$GeV threshold result and the $45$ GeV 
@@ -256,33 +256,33 @@ sample size.
 \hline
 Final State     & Predicted Yield   & Simulation Yield & Fractional Difference\\
 \hline
-ee              &  $193 \pm 10$     & $203 \pm 14$     & $-5\%$\\
-e $\mu$         &  $250 \pm 11$     & $203 \pm 14$     & $+23\%$\\
-total           &  $443 \pm 15$     & $406 \pm 20$     & $+9\%$\\
+ee              &  $188 \pm 6$      & $203 \pm 14$     & $-7\%$\\
+e $\mu$         &  $250 \pm 8$      & $203 \pm 14$     & $+23\%$\\
+total           &  $437 \pm 10$     & $406 \pm 20$     & $+8\%$\\
 \hline
 \multicolumn{4}{|c|}{After dilepton selection and $\met > 20$ GeV, $M_{\mathrm{ll}} > 12$ GeV cuts} \\
 \hline
 Final State     & Predicted Yield   & Simulation Yield & Fractional Difference\\
 \hline
-ee              &  $126 \pm 9$      & $164 \pm 13$     & $-23\%$\\
-e $\mu$         &  $168 \pm 10$     & $169 \pm 13$     & $-1\%$\\
-total           &  $295 \pm 13$     & $333 \pm 18$     & $-11\%$\\
+ee              &  $147 \pm 6$      & $164 \pm 13$     & $-10\%$\\
+e $\mu$         &  $202 \pm 7$     & $169 \pm 13$     & $+20\%$\\
+total           &  $344 \pm 9$     & $333 \pm 18$     & $+3\%$\\
 \hline
 \multicolumn{4}{|c|}{After WW selection} \\
 \hline
 Final State     & Predicted Yield   & Simulation Yield & Fractional Difference\\
 \hline
-ee              &  $36.2  \pm 4.9$  & $33  \pm  5.7$   & $+10\%$  \\
-e $\mu$         &  $93.8  \pm 6.7$  & $105 \pm 10.2$   & $-11\%$  \\
-total           &  $130.0 \pm 8.3$  & $138 \pm 11.7$   & $-6\%$  \\
+ee              &  $40.5  \pm 2.9$  & $33  \pm  5.7$   & $+23\%$  \\
+e $\mu$         &  $119.9 \pm 5.3$  & $105 \pm 10.2$   & $+14\%$  \\
+total           &  $160.4 \pm 6.1$  & $138 \pm 11.7$   & $+16\%$  \\
 \hline
 \multicolumn{4}{|c|}{After HWW 130 selection} \\
 \hline
 Final State     & Predicted Yield   & Simulation Yield & Fractional Difference\\
 \hline
-ee              &  $3.2  \pm 0.9$   & $8  \pm 2.8$     & $-60\%$\\
-e $\mu$         &  $9.8  \pm 1.7$   & $11 \pm 3.3$     & $-11\%$\\
-total           &  $13.1 \pm 2.0$   & $19 \pm 4.4$     & $-31\%$\\
+ee              &  $4.8  \pm 0.9$   & $8  \pm 2.8$     & $-40\%$\\
+e $\mu$         &  $16.4  \pm 1.9$  & $11 \pm 3.3$     & $+50\%$\\
+total           &  $21.2 \pm 2.1$   & $19 \pm 4.4$     & $+12\%$\\
 \hline
 \end{tabular}
 \caption{Comparison of fake electron background yields at various stages of the 
@@ -295,19 +295,23 @@ prediction. }
 Figure \ref{fig:FakeElectronClosureTest_LeptonPt} shows the comparison of the $p_{T}$
 of the leading and trailing leptons after the WW selection between the prediction
 from the fake rate method and from the simulation. Analogous comparisons for 
-the missing transverse energy, the dilepton mass, and the $\Delta\phi$ between 
-the two leptons are shown in Figure \ref{fig:FakeElectronClosureTest_MoreObservables}.
-There are no major systematic differences observed in any of these distributions 
-beyond the $20-30\%$ level. Finally, Figure \ref{fig:FakeElectronClosureTest_CutFlow}
-shows the comparison of the cut flow for the $ee$ and $e\mu$ final states between
+the missing transverse energy, the $\Delta\phi$ between the two leptons, 
+the dilepton mass, and the transverse mass of the Higgs are shown in 
+Figures \ref{fig:FakeElectronClosureTest_MetAndDeltaPhi} and 
+\ref{fig:FakeElectronClosureTest_MetAndDeltaPhi}. While there are statistically 
+significant systematic differences in the leading lepton $p_{T}$ and dilepton
+mass distributions for example, there are no major systematic differences 
+observed in any of these distributions beyond the $20-30\%$ level. Finally, 
+Figure \ref{fig:FakeElectronClosureTest_CutFlow} shows the comparison of the 
+cut flow for the $ee$ and $e\mu$ final states between
 the prediction from the fake rate method and the simulation. Again, no major 
 discrepancies beyond the $20-30\%$ level are observed. 
 
 
 \begin{figure}[!htbp]
 \begin{center}
-\subfigure[Leading lepton $p_{T}$]{\includegraphics[width=0.45\textwidth]{figures/FakeElectronClosureTest_PtMin.pdf}}
-\subfigure[Trailing lepton $p_{T}$]{\includegraphics[width=0.45\textwidth]{figures/FakeElectronClosureTest_PtMax.pdf}}
+\subfigure[Leading lepton $p_{T}$]{\includegraphics[width=0.45\textwidth]{figures/FakeElectronClosureTest_PtMax.pdf}}
+\subfigure[Trailing lepton $p_{T}$]{\includegraphics[width=0.45\textwidth]{figures/FakeElectronClosureTest_PtMin.pdf}}
 \caption{A comparison of the $p_{T}$ distribution of the leading and trailing lepton
 between the fake rate method prediction and the simulation prediction. }
 \label{fig:FakeElectronClosureTest_LeptonPt}
@@ -317,14 +321,24 @@ between the fake rate method prediction and the simulation prediction. }
 \begin{figure}[!htbp]
 \begin{center}
 \subfigure[$\met$]{\includegraphics[width=0.45\textwidth]{figures/FakeElectronClosureTest_Met.pdf}}
-\subfigure[Dilepton Mass]{\includegraphics[width=0.45\textwidth]{figures/FakeElectronClosureTest_DileptonMass.pdf}}
 \subfigure[$\Delta\phi$]{\includegraphics[width=0.45\textwidth]{figures/FakeElectronClosureTest_DeltaPhi.pdf}}
-\caption{A comparison of the distribution of the missing transverse energy, the dilepton mass, 
+\caption{A comparison of the distribution of the missing transverse energy, 
 and the $\Delta\phi$ between the two leptons predicted using the fake rate method and the
 full simulation.}
-\label{fig:FakeElectronClosureTest_MoreObservables}
+\label{fig:FakeElectronClosureTest_MetAndDeltaPhi}
 \end{center}
 \end{figure}
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[Dilepton Mass]{\includegraphics[width=0.45\textwidth]{figures/FakeElectronClosureTest_DileptonMass.pdf}}
+\subfigure[Higgs $M_{T}$]{\includegraphics[width=0.45\textwidth]{figures/FakeElectronClosureTest_MtHiggs.pdf}}
+\caption{A comparison of the distribution of the dilepton mass and Higgs transverse mass 
+predicted using the fake rate method and the full simulation.}
+\label{fig:FakeElectronClosureTest_DileptonMassAndMtHiggs}
+\end{center}
+\end{figure}
+
 
 \begin{figure}[!htbp]
 \begin{center}
@@ -338,7 +352,7 @@ between the fake rate method prediction and the full simulation prediction. }
 
 To summarize, ignoring the yield comparison after the final Higgs selection cuts which 
 suffer from large statistical uncertainties, we estimate a systematic uncertainty of 
-$25\%$ for the fake electron background prediction due to the sample extrapolation 
+$23\%$ for the fake electron background prediction due to the sample extrapolation 
 coming from the largest differences observed in the yields of the closure test from 
 Table \ref{tab:FakeElectronClosureTest_Yields}. 
 

@@ -235,12 +235,12 @@ Total                         &  $3.3  \pm 0.7$(stat)    &   $8.4 \pm 1.0$(stat)
 \hline
 Fake Lepton Bin               & Electron + Fake Muon & Muon + Fake Muon  \\
 \hline
-Barrel, $10 <= p_{T} < 20$    &  $2.8 \pm 0.5$(stat)     &   $1.9 \pm 0.4$(stat) \\
-Barrel, $20 <= p_{T} $        &  $1.2 \pm 0.4$(stat)     &   $1.0 \pm 0.3$(stat) \\
-Endcap, $10 <= p_{T} < 20$    &  $1.2 \pm 0.4$(stat)     &   $0.2 \pm 0.1$(stat) \\
-Endcap, $20 <= p_{T} $        &  $1.8 \pm 0.5$(stat)     &   $0.4 \pm 0.2$(stat) \\
+Barrel, $10 <= p_{T} < 20$    &  $1.8 \pm 0.6$(stat)     &   $0.7 \pm 0.4$(stat) \\
+Barrel, $20 <= p_{T} $        &  $1.5 \pm 0.7$(stat)     &   $0.3 \pm 0.3$(stat) \\
+Endcap, $10 <= p_{T} < 20$    &  $1.2 \pm 0.7$(stat)     &   $1.1 \pm 0.6$(stat) \\
+Endcap, $20 <= p_{T} $        &  $3.5 \pm 1.5$(stat)     &   $0.0 \pm 0.0$(stat) \\
 \hline
-Total                         &  $7.0  \pm 1.0$(stat)    &   $3.5 \pm 0.5$(stat) \\
+Total                         &  $8.0  \pm 1.9$(stat)    &   $2.1 \pm 0.8$(stat) \\
 \hline
 \end{tabular}
 \caption{Summary of fake muon background yields in the 0-jet bin after WW selection. }
@@ -269,24 +269,26 @@ Total                         &  $1.5  \pm 0.4$(stat)    &   $3.2 \pm 0.6$(stat)
 \end{center}
 \end{table}
 
+
 \begin{table}[!htbp]
 \begin{center}
 \begin{tabular}{|l|c|c|}
 \hline
 Fake Lepton Bin               & Electron + Fake Muon & Muon + Fake Muon  \\
 \hline
-Barrel, $10 <= p_{T} < 20$    &  $0.4 \pm 0.2$(stat)     &   $0.5 \pm 0.2$(stat) \\
-Barrel, $20 <= p_{T} $        &  $0.5 \pm 0.2$(stat)     &   $0.7 \pm 0.3$(stat) \\
-Endcap, $10 <= p_{T} < 20$    &  $1.0 \pm 0.3$(stat)     &   $0.3 \pm 0.2$(stat) \\
-Endcap, $20 <= p_{T} $        &  $0.5 \pm 0.3$(stat)     &   $0.3 \pm 0.2$(stat) \\
+Barrel, $10 <= p_{T} < 20$    &  $0.2 \pm 0.2$(stat)     &   $0.2 \pm 0.2$(stat) \\
+Barrel, $20 <= p_{T} $        &  $0.9 \pm 0.5$(stat)     &   $0.2 \pm 0.2$(stat) \\
+Endcap, $10 <= p_{T} < 20$    &  $0.3 \pm 0.3$(stat)     &   $1.3 \pm 0.7$(stat) \\
+Endcap, $20 <= p_{T} $        &  $0.7 \pm 0.7$(stat)     &   $0.5 \pm 0.5$(stat) \\
 \hline
-Total                         &  $2.4 \pm 0.5$(stat)     &   $1.8 \pm 0.5$(stat) \\
+Total                         &  $2.1 \pm 0.9$(stat)     &   $2.2 \pm 0.9$(stat) \\
 \hline
 \end{tabular}
 \caption{Summary of fake muon background yields in the 1-jet bin after WW selection. }
 \label{tab:FakeElectronBkgPrediction_WWSelection_1JetBin}
 \end{center}
 \end{table}
+
 
 
 
@@ -329,13 +331,19 @@ To address the first source of systematic uncertainty in data, we perform the
 fake rate measurement using different thresholds on the leading jet
 in the event, in order to capture the degree of uncertainty in 
 the jet $p_{T}$ spectrum. This systematic uncertainty is estimated to 
-be $15\%$, described in more detail in Appendix 
-\ref{sec:FakeElectronBkgJetSpectrumSystematics}. To address the second 
+be $15\%$ for electrons and $30\%$ for muons, described in more detail in Appendices 
+\ref{sec:FakeElectronBkgJetSpectrumSystematics} and 
+\ref{sec:FakeMuonBkgJetSpectrumSystematics}. To address the second 
 source of systematic uncertainty, we evaluate the agreement in the closure
 test between the fake rate prediction and the simulation prediction for 
-the W+Jet background. This is estimated to be $25\%$, documented in greater 
-detail in Appendix \ref{sec:FakeElectronBkgClosureTest}. Furthermore, we
-cross check these systematics estimates with a comparison of the prediction 
+the W+Jet background. This is estimated to be $25\%$ for electrons
+and $18\%$ for muons, documented in greater 
+detail in Appendices \ref{sec:FakeElectronBkgClosureTest} and
+\ref{sec:FakeMuonBkgClosureTest}. These two 
+systematic uncertainties are added in quadrature to give a total 
+systematic uncertainty of $29\%$ for electrons and $34\%$ for muons. 
+
+Furthermore, we cross check these systematics estimates with a comparison of the prediction 
 for the WW selected sample containing two same sign leptons, dominated by W+Jet
 background, and the data yield. Subtracting real lepton contributions,
 we observe agreement to within $30\%$ and $1$ standard deviation. Details
