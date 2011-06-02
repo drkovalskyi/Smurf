@@ -126,6 +126,8 @@ from the $\WW$ Monte Carlo.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+
+
 Treatment of the $W+jet$ event probability calculation deserves special discussion.
 For these events to be reconstructed in the dilepton final state,
 one of the reconstructed leptons has been faked by a parton fragmenting and hadronizing 
@@ -205,7 +207,31 @@ satisfying the sum $\sum k_{bi} =1$.
 Because signal events are expected to have $P_s>P_b$ and vice-versa for background events, 
 the value of $LR$ is close to one for signal and zero for background processes.
 The calculation of $P_s$ is a function of Higgs mass so that the likelihood ratio
-shape depends on $m_H$. This is true for both signal and background templates of $LR$.
+shape depends on $m_H$. This is true for both signal and background templates of $LR$. 
+Figure~\ref{fig:lrstacks} shows the likelihood ratio distributions for $m_H$~=~130, 160, and 200 $GeV/c^2$, 
+corresponding to 1$\fb$. 
+Note that the backgrounds peak near $LR~=~0$ while the signal peaks near $LR~=~1$. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!hbtp]
+\centering
+\subfigure[]{
+\centering
+\label{subfig:lr_hm130}
+\includegraphics[width=.32\textwidth]{figures/hww130_LR.pdf}}
+\subfigure[]{
+\centering
+\label{subfig:lr_hm160}
+\includegraphics[width=.32\textwidth]{figures/hww160_LR.pdf}}
+\subfigure[]{
+\centering
+\label{subfig:lr_hm200}
+\includegraphics[width=.32\textwidth]{figures/hww200_LR.pdf}}\\
+\caption{The matrix element output LR distribution after \WW\ selection and $m_{ll}$ cut 
+for $m_H$=160 $\GeVcc$ \subref{subfig:lr_hm130}, $m_H$=160 $\GeVcc$ \subref{subfig:lr_hm160} 
+and $m_H$=200 $\GeVcc$ \subref{subfig:lr_hm200} in the 0-jet bin.}
+\label{fig:lrstacks}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 It is important to note that because the $LR$ distribution is calculated the same way for data, 
 signal and backgrounds, the fact that we use a LO Matrix Element and make certain 
@@ -213,8 +239,29 @@ approximations in the analytic calculation may result in less than optimal sensi
 %but does not introduce any mismodeling.
 but does not introduce any bias.
 
-\subsection{Results}
-The LR distributions for $m_H$~=~130, 160, and 190 $GeV/c^2$ are shown in
-Figures~A, B, and C.  Note that the backgrounds peak near $LR~=~0$ while the signal
-peaks near $LR~=~1$...........
-The expected upper limit at 95\%C.L as a function of $m_H$ are shown in Figure~D.
+\subsection{Sensitivity projection with 1$\fb$}
+
+We compute the upper limits using the shape of the LR to maximize the analysis sensitivity as described in 
+Section~\ref{sec:results}. The expected upper limit at 95\%C.L as a function of $m_H$ using the LR are shown in 
+Figure~\ref{fig:me_expected_1fb} comparing the corresponding results using the BDT output. 
+The sensitivity performance of the matrix element method is consistent with the BDT based approach, with a 
+slightly larger exclusion region. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!hbtp]
+\centering
+\subfigure[]{
+\centering
+\label{subfig:me_exp_1fb}
+\includegraphics[width=.45\textwidth]{figures/limits_0j_1000pb_ME_shape.pdf}}
+\subfigure[]{
+\centering
+\label{subfig:bdt_exp_1fb}
+\includegraphics[width=.45\textwidth]{figures/limits_0j_1000pb_BDT_shape.pdf}} \\
+\caption{ 
+Multivariate shape analysis expected upper limits at 95\% C.L. for 1$\fb$ data using the 
+matrix elemement output \subref{subfig:me_exp_1fb} and BDT output \subref{subfig:bdt_exp_1fb}. } 
+\label{fig:me_expected_1fb}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
