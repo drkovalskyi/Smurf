@@ -17,11 +17,10 @@ export MH=$2;
 
 mkdir -p output
 
-
 # this is the prefix added to the BDT added ntuples
 export TAG=ntuples_${MH}train_${NJETS}jets;
-export METHODS=BDT;
-#export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
+#export METHODS=BDT;
+export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
 
 ### Fill MVA output information
 ### MVA output is available in "weights" folder
@@ -29,14 +28,17 @@ export METHODS=BDT;
 ### samples must be in "data" folder
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-hww${MH}_ME.root
-ww_ME.root
-ggww_ME.root
-wjets_ME.root
-ttbar_ME.root
-tw_ME.root
-wz_ME.root
-zz_ME.root
+hww${MH}
+qqww
+ggww
+wjets
+ttbar
+tw
+wz
+zz
+dyee
+dymm
+dytt
 EOF
 
 # ===========================================
@@ -46,9 +48,9 @@ EOF
 for i in `cat list_samples.txt` ; do
   sample=${i%%,*};
   echo "filling MVA information in sample: "  $sample
-  ./root-5.28.sh -q -b evaluateMVA_smurf.C+\(\"data/$sample\",${MH},\"${METHODS}\",\"${TAG}\"\);
+  ./root-5.28.sh -q -b evaluateMVA_smurf.C++\(\"data/${sample}_ME.root\",${MH},\"${METHODS}\",\"${TAG}\"\);
   echo "filling ME LR in sample: "  $sample
-  root -q -b LR.C+\(${MH},\"${TAG}\",\"$sample\",\"data/\",\"output/\",-1\);
+  root -q -b LR.C++\(${MH},\"${TAG}\",\"$sample\",\"smurfdata/\",\"output/\",-1\);
 
 done
 
@@ -70,11 +72,12 @@ root -l -q -b makePlots.C\(${MH},\"output/\"\);
 # ===========================================
 
 export LANDS=/tas03/home/yygao/WWAnalysis/CMSSW_3_11_3_ME_test/src/LandS/test/lands.exe
+#export LANDS=/Users/yanyan/CMS/SnT/WW/ME/SmurfV3/LandS/test/lands.exe
 cd output/limits/;
 echo "Calculating expected limits using BDT output for mH = " ${MH}
-${LANDS} -d hww${MH}_BDT.card -tB 1000 -tPB 30 -M Bayesian --doExpectation 1 -t 10 > hww${MH}_BDT.res; 
+${LANDS} -d hww${MH}_BDT.card -tB 1000 -tPB 30 -M Bayesian --doExpectation 1 -t 1000 > hww${MH}_BDT.res; 
 echo "Calculating expected limits using BDT output for mH = " ${MH}
-${LANDS} -d hww${MH}_ME.card -tB 1000 -tPB 30 -M Bayesian --doExpectation 1 -t 10 > hww${MH}_ME.res; 
+${LANDS} -d hww${MH}_ME.card -tB 1000 -tPB 30 -M Bayesian --doExpectation 1 -t 1000 > hww${MH}_ME.res; 
 cd ../../
 
 rm -f list_samples.txt;
