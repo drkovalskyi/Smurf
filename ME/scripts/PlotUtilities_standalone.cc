@@ -202,14 +202,23 @@ PlotWithBelts::~PlotWithBelts(){
 	clear();
 }
 void PlotWithBelts::save(){
-	string seps = ssave+".eps";
-	string spng = ssave+".png";
-	string spdf = ssave+".pdf";
-	//string sroot = ssave+".root";
-	cCanvas->Print(seps.c_str());
-	cCanvas->Print(spdf.c_str());
-	cCanvas->Print(spng.c_str());
-	//cCanvas->Print(sroot.c_str());
+
+    // do log version
+    cCanvas->SetLogy(1);
+	cCanvas->Print(string(ssave+".eps").c_str());
+	cCanvas->Print(string(ssave+".png").c_str());
+	cCanvas->Print(string(ssave+".pdf").c_str());
+	cCanvas->Print(string(ssave+".root").c_str());
+	cCanvas->Print(string(ssave+".C").c_str());
+
+    // do linear version
+    cCanvas->SetLogy(0);
+    cCanvas->Print(string(ssave+"_linear.eps").c_str());
+    cCanvas->Print(string(ssave+"_linear.png").c_str());
+    cCanvas->Print(string(ssave+"_linear.pdf").c_str());
+    cCanvas->Print(string(ssave+"_linear.root").c_str());
+    cCanvas->Print(string(ssave+"_linear.C").c_str());
+
 }
 void PlotWithBelts::clear(){
 

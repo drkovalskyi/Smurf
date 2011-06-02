@@ -138,6 +138,8 @@ void setTDRStyle() {
  tdrStyle->SetOptLogx(0);
  tdrStyle->SetOptLogy(0);
  tdrStyle->SetOptLogz(0);
+ 
+ tdrStyle->SetPalette(1);
 
 // Postscript options:
  tdrStyle->SetPaperSize(20.,20.);
