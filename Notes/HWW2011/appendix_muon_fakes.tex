@@ -20,8 +20,9 @@ in Section \ref{sec:fakerateDenominatorObjectDef}:
 Note that M1 is the definition studied in~\cite{fakeLeptonNote2}. The motivation for the tighter selection 
 of M2 is the reduction of systematic uncertainties by reducing the extrapolation in isolation.
 
+
 \subsubsection{Calibration Sample Selection}
-The muon fake rate has been measured in $5\ipb$ of data in Run2011A. The selected events are triggered
+The muon fake rate has been measured in $192\ipb$ of data in Run2011A. The selected events are triggered
 by any one of HLT\_Mu8 or HLT\_Mu15 single muon trigger paths. Addition requirements are also needed to
 reduce contamination of the calibration sample with muons from $W$ and $Z$ decays and to tune the
 jet composition:
@@ -33,61 +34,74 @@ jet composition:
   \item require the presence of a PF-jet with $p_T > 15\:\GeVc$ and separated by $\Delta R > 1$ 
         from the loose muon.
 \end{itemize}
-The jet threshold of $p_T > 15\:\GeVc$ (uncorrected) was found to best model the jet spectrum of the $W+$jets 
-process according to~\cite{fakeLeptonNote2}. The jets used in this study has the L1FastJet, L2Relative, and
-L3Absolute jet energy corrections applied. 
+The jet threshold of $p_T > 15\:\GeVc$, corrected for the contribution of pileup, was found to best model 
+the jet spectrum of the $W+$jets process described in more detail in Section 
+\ref{sec:FakeMuonBkgJetSpectrumSystematics} below. The jets used in this study have the L1FastJet, 
+L2Relative, and L3Absolute jet energy corrections applied. 
+
 
 \subsubsection{Fake Rates}
 The fake rate parametrized in $\eta$-$p_T$ is listed in Tabs.~\ref{tab:mu_fr_iso1_jet15} and~\ref{tab:mu_fr_iso04_jet15}. 
 Figs.~\ref{fig:mu_fr_iso1_jet15} and~\ref{fig:mu_fr_iso04_jet15} show how the fake rates trends when projected onto $p_T$ or $\eta$.
 
-\begin{table}[!htbp]
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-  & $0<\eta<0.5$ & $0.5<\eta<1$ & $1<\eta<1.5$ & $1.5<\eta<2$ & $2<\eta<2.4$ \\
-\hline
-$10 < p_T < 15$ & $0.0856 \pm 0.0044$ & $0.1016 \pm 0.0048$ & $0.1128 \pm 0.0050$ & $0.1265 \pm 0.0057$ & $0.1376 \pm 0.0096$ \\
-\hline
-$15 < p_T < 20$ & $0.0687 \pm 0.0019$ & $0.0768 \pm 0.0021$ & $0.0897 \pm 0.0024$ & $0.1078 \pm 0.0029$ & $0.1060 \pm 0.0054$ \\
-\hline
-$20 < p_T < 25$ & $0.0991 \pm 0.0046$ & $0.1231 \pm 0.0052$ & $0.1467 \pm 0.0059$ & $0.1608 \pm 0.0068$ & $0.1901 \pm 0.0136$ \\
-\hline
-$25 < p_T < 30$ & $0.1056 \pm 0.0086$ & $0.1194 \pm 0.0092$ & $0.1189 \pm 0.0102$ & $0.1764 \pm 0.0136$ & $0.1769 \pm 0.0251$ \\
-\hline
-$30 < p_T < 35$ & $0.0804 \pm 0.0130$ & $0.0958 \pm 0.0147$ & $0.1407 \pm 0.0195$ & $0.1852 \pm 0.0241$ & $0.2637 \pm 0.0543$ \\
-\hline
-$35 < p_T < 40$ & $0.1429 \pm 0.0268$ & $0.1043 \pm 0.0255$ & $0.1719 \pm 0.0292$ & $0.1473 \pm 0.0381$ & $0.1957 \pm 0.0764$ \\
-\hline
-\end{tabular}
-\caption{Muon fake rate in $\eta$-$p_T$ for M1 definition. Uncertainties are statistical only.}
-\label{tab:mu_fr_iso1_jet15}
-\end{center}
-\end{table}
+
 
 \begin{table}[!htbp]
 \begin{center}
-\begin{tabular}{|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|}
+
 \hline
-  & $0<\eta<0.5$ & $0.5<\eta<1$ & $1<\eta<1.5$ & $1.5<\eta<2$ & $2<\eta<2.4$ \\
-\hline 
-$10 < p_T < 15$ & $0.1813 \pm 0.0088$ & $0.2034 \pm 0.0090$ & $0.2154 \pm 0.0089$ & $0.2258 \pm 0.0096$ & $0.2557 \pm 0.0164$ \\
+                       &        $ 0<\eta<=1.0$            &        $1.0<\eta<=1.479$         &        $1.479<\eta<=2.0$         &        $2.0<\eta<=2.4$            \\
 \hline
-$15 < p_T < 20$ & $0.1548 \pm 0.0041$ & $0.1682 \pm 0.0043$ & $0.1829 \pm 0.0046$ & $0.2009 \pm 0.0051$ & $0.1942 \pm 0.0093$ \\
-\hline
-$20 < p_T < 25$ & $0.2489 \pm 0.0105$ & $0.2903 \pm 0.0109$ & $0.2996 \pm 0.0108$ & $0.3190 \pm 0.0122$ & $0.3501 \pm 0.0222$ \\
-\hline
-$25 < p_T < 30$ & $0.2641 \pm 0.0195$ & $0.3116 \pm 0.0210$ & $0.2692 \pm 0.0209$ & $0.3376 \pm 0.0231$ & $0.3291 \pm 0.0416$ \\
-\hline
-$30 < p_T < 35$ & $0.2130 \pm 0.0316$ & $0.2392 \pm 0.0332$ & $0.3240 \pm 0.0387$ & $0.3429 \pm 0.0396$ & $0.4800 \pm 0.0802$ \\
-\hline
-$35 < p_T < 40$ & $0.3434 \pm 0.0542$ & $0.3194 \pm 0.0642$ & $0.3551 \pm 0.0522$ & $0.2969 \pm 0.0680$ & $0.3750 \pm 0.1229$ \\
-\hline
+    $10 < p_{T} <= 15$ &        $0.098^{+0.002}_{-0.002}$ &        $0.114^{+0.003}_{-0.003}$ &        $0.133^{+0.003}_{-0.003}$ &        $0.161^{+0.005}_{-0.005}$  \\ 
+ \hline
+    $15 < p_{T} <= 20$ &        $0.064^{+0.001}_{-0.001}$ &        $0.085^{+0.001}_{-0.001}$ &        $0.103^{+0.001}_{-0.001}$ &        $0.132^{+0.002}_{-0.002}$  \\ 
+ \hline
+    $20 < p_{T} <= 25$ &        $0.114^{+0.001}_{-0.001}$ &        $0.153^{+0.002}_{-0.002}$ &        $0.151^{+0.003}_{-0.003}$ &        $0.205^{+0.006}_{-0.006}$  \\ 
+ \hline
+    $25 < p_{T} <= 30$ &        $0.098^{+0.002}_{-0.002}$ &        $0.141^{+0.004}_{-0.004}$ &        $0.143^{+0.005}_{-0.005}$ &        $0.204^{+0.011}_{-0.011}$  \\ 
+ \hline
+    $30 < p_{T} <= 35$ &        $0.095^{+0.004}_{-0.004}$ &        $0.126^{+0.007}_{-0.007}$ &        $0.138^{+0.008}_{-0.008}$ &        $0.187^{+0.021}_{-0.019}$  \\ 
+ \hline
 \end{tabular}
-\caption{Muon fake rate in $\eta$-$p_T$ fro M2 definition. Uncertainties are statistical only.}
-\label{tab:mu_fr_iso04_jet15}
+\caption{Muon fake rate in $\eta$-$p_T$ for the M1 fakeable object definition. Uncertainties are statistical only.
+The {\bf Mu8} triggers are used, with a $p_{T}$ threshold on the leading jet in the event of $15$ GeV. }
+\label{tab:mu_fr_M2_jet15}
 \end{center}
 \end{table}
+
+
+
+
+
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+
+\hline
+                       &        $ 0<\eta<=1.0$            &        $1.0<\eta<=1.479$         &        $1.479<\eta<=2.0$         &        $2.0<\eta<=2.4$            \\
+\hline
+    $10 < p_{T} <= 15$ &        $0.182^{+0.003}_{-0.003}$ &        $0.199^{+0.005}_{-0.005}$ &        $0.217^{+0.005}_{-0.005}$ &        $0.244^{+0.007}_{-0.007}$  \\ 
+ \hline
+    $15 < p_{T} <= 20$ &        $0.130^{+0.001}_{-0.001}$ &        $0.153^{+0.002}_{-0.002}$ &        $0.170^{+0.002}_{-0.002}$ &        $0.200^{+0.003}_{-0.003}$  \\ 
+ \hline
+    $20 < p_{T} <= 25$ &        $0.250^{+0.003}_{-0.003}$ &        $0.284^{+0.004}_{-0.004}$ &        $0.255^{+0.004}_{-0.004}$ &        $0.311^{+0.008}_{-0.008}$  \\ 
+ \hline
+    $25 < p_{T} <= 30$ &        $0.226^{+0.005}_{-0.005}$ &        $0.277^{+0.008}_{-0.008}$ &        $0.245^{+0.008}_{-0.008}$ &        $0.311^{+0.016}_{-0.016}$  \\ 
+ \hline
+    $30 < p_{T} <= 35$ &        $0.235^{+0.009}_{-0.008}$ &        $0.258^{+0.014}_{-0.013}$ &        $0.240^{+0.014}_{-0.013}$ &        $0.287^{+0.030}_{-0.028}$  \\ 
+ \hline
+\end{tabular}
+\caption{Muon fake rate in $\eta$-$p_T$ for the M2 fakeable object definition. Uncertainties are statistical only.
+The {\bf Mu8} triggers are used, with a $p_{T}$ threshold on the leading jet in the event of $15$ GeV. }
+\label{tab:mu_fr_M2_jet15}
+\end{center}
+\end{table}
+
+
+
+
 
 \begin{figure}[!htbp]
 \begin{center}
@@ -117,7 +131,7 @@ application sample. To study this systematic uncertainty, we compare the $p_{T}$
 of the jet that a particular fakeable object lies inside for the W+Jet Monte Carlo sample and the
 data sample in which we measure the fake rates. This spectrum is representative of the $p_{T}$
 spectrum of a particular parton which produces the fake muon after fragmentation and 
-hadronization. Figures \ref{fig:mu_fr_jetspectrumM1} and \ref{fig:mu_fr_jetspectrumM2} show 
+hadronization. Figures \ref{fig:mu_M1_fr_jetspectrum0To30} and \ref{fig:mu_M2_fr_jetspectrum0To30} show 
 this comparison between the W+Jet spectrum and the spectrum obtained from the fake rate measurement 
 sample in data for three different thresholds on the leading jet in the event, for the M1 and M2
 fakeable object definitions respectively. Ideally one wants to match the data spectrum to the
@@ -125,33 +139,62 @@ W+Jet spectrum to obtain an unbiased fake rate determination, however none of ou
 samples matches completely. The sample obtained with a threshold on the leading jet of
 $15$ GeV matches the W+Jet spectrum the best, and is taken for the central value of the 
 fake rate measurement. The systematic uncertainty is estimated by using fake rates from the sample 
-defined by thresholds of $5$ and $25$ GeV, since they are observed to reasonably cover the 
-correct W+Jet spectrum. Table \ref{tab:mu_fr_JetSpectrumSystematics} summarizes the systematic
+defined by thresholds of $0$ and $30$ GeV, since they are observed to cover the 
+correct W+Jet spectrum. Figures \ref{fig:mu_M1_fr_jetspectrumNarrowerWindow} and 
+\ref{fig:mu_M2_fr_jetspectrumNarrowerWindow} show analogous 
+comparisons of the jet spectrum with narrower windows on the leading jet $p_{T}$ threshold 
+for the M1 and M2 denominator definitions respectively, providing some guidance on the 
+possibility for more aggressive systematic uncertainty estimates.
+
+Table \ref{tab:mu_fr_JetSpectrumSystematics} summarizes the systematic
 uncertainties due to the jet spectrum. The systematic uncertainties from the M1 extrapolation
 is about $10\%$ larger than the systematic uncertainties from the M2 extrapolation. 
-Using the M2 extrapolation, we estimate a systematic uncertainty of $30\%$, taking the largest 
-difference between the $5$GeV threshold result and the $25$ GeV threshold result after the 
+Using the M2 extrapolation, we estimate a systematic uncertainty of $31\%$, taking the largest 
+difference between the $0$GeV threshold result and the $30$ GeV threshold result after the 
 WW selection.
 
 \begin{figure}[!htbp]
 \begin{center}
-\subfigure[$p_{T}$ Threshold : $30-40$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_MuonM1_5To25.pdf}}
-\subfigure[$p_{T}$ Threshold : $25-45$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_MuonM1_10To20.pdf}}
+\includegraphics[width=0.75\textwidth]{figures/LeptonJetPt_MuonM1_0To30.pdf}
 \caption{The $p_{T}$ spectrum of the jet that a M1 muon fakeable object lies inside for the 
-W+Jet Monte Carlo sample and the data fake rate measurement sample.}
-\label{fig:mu_fr_jetspectrumM1}
+W+Jet Monte Carlo sample and the data fake rate measurement sample, requiring a threshold on the $p_{T}$ of 
+the leading jet in the event between $0$ and $30$ GeV.}
+\label{fig:mu_M1_fr_jetspectrum0To30}
 \end{center}
 \end{figure}
 
 \begin{figure}[!htbp]
 \begin{center}
-\subfigure[$p_{T}$ Threshold : $30-40$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_MuonM2_5To25.pdf}}
-\subfigure[$p_{T}$ Threshold : $25-45$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_MuonM2_10To20.pdf}}
-\caption{The $p_{T}$ spectrum of the jet that a M2 muon fakeable object lies inside for the 
-W+Jet Monte Carlo sample and the data fake rate measurement sample.}
-\label{fig:mu_fr_jetspectrumM2}
+\subfigure[$p_{T}$ Threshold : $5-25$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_MuonM1_5To25.pdf}}
+\subfigure[$p_{T}$ Threshold : $10-20$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_MuonM1_10To20.pdf}}
+\caption{The $p_{T}$ spectrum of the jet that a M1 muon fakeable object lies inside for the 
+W+Jet Monte Carlo sample and the data fake rate measurement sample, for a narrower window of thresholds
+on the $p_{T}$ of the leading jet in the event.}
+\label{fig:mu_M1_fr_jetspectrumNarrowerWindow}
 \end{center}
 \end{figure}
+
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/LeptonJetPt_MuonM2_0To30.pdf}
+\caption{The $p_{T}$ spectrum of the jet that a M2 muon fakeable object lies inside for the 
+W+Jet Monte Carlo sample and the data fake rate measurement sample, requiring a threshold on the $p_{T}$ of 
+the leading jet in the event between $0$ and $30$ GeV.}
+\label{fig:mu_M2_fr_jetspectrum0To30}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[$p_{T}$ Threshold : $5-25$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_MuonM2_5To25.pdf}}
+\subfigure[$p_{T}$ Threshold : $10-20$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_MuonM2_10To20.pdf}}
+\caption{The $p_{T}$ spectrum of the jet that a M2 muon fakeable object lies inside for the 
+W+Jet Monte Carlo sample and the data fake rate measurement sample, for a narrower window of thresholds
+on the $p_{T}$ of the leading jet in the event.}
+\label{fig:mu_M2_fr_jetspectrumNarrowerWindow}
+\end{center}
+\end{figure}
+
 
 
 \begin{table}[!htbp]
@@ -164,11 +207,13 @@ W+Jet Monte Carlo sample and the data fake rate measurement sample.}
 \hline
 Jet Threshold           & After WW Selection  & After HWW130 Selection \\
 \hline
-Jet5                    &  $+40\%$     & $+43\%$     \\
-Jet10                   &  $+26\%$     & $+31\%$     \\
+Jet0                    &  $+33\%$     & $+31\%$     \\
+Jet5                    &  $+29\%$     & $+28\%$     \\
+Jet10                   &  $+20\%$     & $+20\%$     \\
 Jet15 (Central Value)   &  $0\%$       & $0\%$       \\
-Jet20                   &  $-18\%$     & $-14\%$     \\
-Jet25                   &  $-33\%$     & $-31\%$     \\
+Jet20                   &  $-16\%$     & $-16\%$     \\
+Jet25                   &  $-27\%$     & $-33\%$     \\
+Jet30                   &  $-41\%$     & $-46\%$     \\
 \hline
 
 \hline
@@ -179,11 +224,13 @@ Jet25                   &  $-33\%$     & $-31\%$     \\
 Jet Threshold           & After WW Selection  & After HWW130 Selection \\
 \hline
 
-Jet5                    &  $+31\%$     & $+36\%$    \\
-Jet10                   &  $+22\%$     & $+28\%$    \\
-Jet15 (Central Value)   &  $0\%$       & $0\%$      \\
-Jet20                   &  $-13\%$     & $-7\%$     \\
-Jet25                   &  $-25\%$     & $-22\%$    \\
+Jet0                    &  $+19\%$     & $+20\%$     \\
+Jet5                    &  $+17\%$     & $+18\%$   \\
+Jet10                   &  $+13\%$     & $+14\%$   \\
+Jet15 (Central Value)   &  $0\%$       & $0\%$     \\
+Jet20                   &  $-8\%$     & $-6\%$     \\
+Jet25                   &  $-20\%$     & $-26\%$   \\
+Jet30                   &  $-31\%$     & $-40\%$   \\
 
 \hline
 

@@ -150,26 +150,40 @@ application sample. To study this systematic uncertainty, we compare the $p_{T}$
 of the jet that a particular fakeable object lies inside for the W+Jet Monte Carlo sample and the
 data sample in which we measure the fake rates. This spectrum is representative of the $p_{T}$
 spectrum of a particular parton which produces the fake electron after fragmentation and 
-hadronization. Figure \ref{fig:ele_fr_jetspectrum} shows this comparison between the W+Jet spectrum and the
+hadronization. Figure \ref{fig:ele_fr_jetspectrum20To50} shows this comparison between the W+Jet spectrum and the
 spectrum obtained from the fake rate measurement sample in data for three different 
 thresholds on the leading jet in the event. Ideally one wants to match the data spectrum to the
 W+Jet spectrum to obtain an unbiased fake rate determination, however none of our data-based
 samples matches completely. The sample obtained with a threshold on the leading jet of
 $35$ GeV matches the W+Jet spectrum the best, and it taken for the central value of the 
 fake rate measurement. The systematic uncertainty is estimated by using fake rates from the sample 
-defined by thresholds of $25$ and $45$ GeV, since they are observed to reasonably cover the 
-correct W+Jet spectrum. Table \ref{tab:ele_fr_JetSpectrumSystematics} summarizes the systematic
+defined by thresholds of $20$ and $50$ GeV, since they are observed to cover the 
+correct W+Jet spectrum. Figure \ref{fig:ele_fr_jetspectrumNarrowerWindow} shows analogous 
+comparisons of the jet spectrum with narrower windows on the leading jet $p_{T}$ threshold,
+providing some guidance on the possibility for more aggressive systematic uncertainty 
+estimates. Table \ref{tab:ele_fr_JetSpectrumSystematics} summarizes the systematic
 uncertainties due to the jet spectrum. From these results, we estimate a systematic uncertainty 
-of 15$\%$, taking the largest difference between the $25$GeV threshold result and the $45$ GeV 
+of $28\%$, taking the largest difference between the $20$GeV threshold result and the $50$ GeV 
 threshold result after the WW selection.
 
 \begin{figure}[!htbp]
 \begin{center}
-\subfigure[$p_{T}$ Threshold : $30-40$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_ElectronV4_30To40.pdf}}
-\subfigure[$p_{T}$ Threshold : $25-45$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_ElectronV4_25To45.pdf}}
+\includegraphics[width=0.75\textwidth]{figures/LeptonJetPt_ElectronV4_20To50.pdf}
 \caption{The $p_{T}$ spectrum of the jet that an electron fakeable object lies inside for the 
-W+Jet Monte Carlo sample and the data fake rate measurement sample.}
-\label{fig:ele_fr_jetspectrum}
+W+Jet Monte Carlo sample and the data fake rate measurement sample, requiring a threshold on the $p_{T}$ of 
+the leading jet in the event between $20$ and $50$ GeV.}
+\label{fig:ele_fr_jetspectrum20To50}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[$p_{T}$ Threshold : $25-45$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_ElectronV4_25To45.pdf}}
+\subfigure[$p_{T}$ Threshold : $30-40$ GeV]{\includegraphics[width=0.45\textwidth]{figures/LeptonJetPt_ElectronV4_30To40.pdf}}
+\caption{The $p_{T}$ spectrum of the jet that an electron fakeable object lies inside for the 
+W+Jet Monte Carlo sample and the data fake rate measurement sample, for a narrower window of thresholds
+on the $p_{T}$ of the leading jet in the event.}
+\label{fig:ele_fr_jetspectrumNarrowerWindow}
 \end{center}
 \end{figure}
 
@@ -183,12 +197,13 @@ W+Jet Monte Carlo sample and the data fake rate measurement sample.}
 Jet Threshold           & After WW Selection  & After HWW130 Selection \\
 \hline
 %Jet15                  &  $+31\%$     & $+31\%$    \\
-Jet25                   &  $+15\%$     & $+14\%$    \\
+Jet20                   &  $+28\%$     & $+33\%$    \\
+Jet25                   &  $+20\%$     & $+23\%$    \\
 Jet30                   &  $+6\%$      & $+1\%$     \\
 Jet35 (Central Value)   &  $0\%$       & $0\%$      \\
-Jet40                   &  $-4\%$      & $-6\%$     \\
-Jet45                   &  $-12\%$     & $-20\%$    \\
-%Jet50                  &  $-18\%$     & $-23\%$    \\
+Jet40                   &  $-2\%$      & $-2\%$     \\
+Jet45                   &  $-15\%$     & $-14\%$    \\
+Jet50                   &  $-22\%$     & $-25\%$    \\
 \hline
 
 \hline
