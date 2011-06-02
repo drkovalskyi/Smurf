@@ -99,7 +99,8 @@ TString path         = "")
 
   float dilmass_cut = 10000;
    
-  if     ( mH == 120 ) dilmass_cut =  70.0;
+  if     ( mH == 115 ) dilmass_cut =  70.0;
+  else if( mH == 120 ) dilmass_cut =  70.0;
   else if( mH == 130 ) dilmass_cut =  80.0;
   else if( mH == 140 ) dilmass_cut =  90.0;
   else if( mH == 150 ) dilmass_cut = 100.0;

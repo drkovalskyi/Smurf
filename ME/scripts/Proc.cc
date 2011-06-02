@@ -8,7 +8,7 @@
 
 // function to initialize BR 
 void Proc::initBR() {
-  if (proc_ == TVar::WW || (proc_ <= TVar::HWW300 && proc_ >= TVar::HWW120 )) {
+  if (proc_ == TVar::WW || (proc_ <= TVar::HWW300 && proc_ >= TVar::HWW115 )) {
     BR_[0] = (1.0+0.1736)*(1.0+0.1736)/9;
     BR_[1] = (1.0+0.1736)*(1.0+0.1784)/9;
     BR_[2] = (1.0+0.1736)*(1.0+0.1784)/9;
@@ -40,29 +40,27 @@ void Proc::CalculateAcceptance(){
 
 // function to calculate acceptance from yields
 void Proc::initYields() {
-
-  TFile *f = TFile::Open(TString(inputDir_ + TVar::SmurfProcessName(proc_).Data() + "_ME.root"));
+  TString fileName = TVar::SmurfProcessName(proc_);
+  if (proc_ == TVar::WW) fileName = "qqww"; 
+  TFile *f = TFile::Open(TString(inputDir_ + fileName.Data() + ".root"));
+      
   if(f==0x0) {
-    std::cout << "Proc:initYields for process " << TVar::SmurfProcessName(proc_) << " WARNING!" << TString(inputDir_ + TVar::SmurfProcessName(proc_).Data()+"_ME.root") << " doesn't exist\n";
+    std::cout << "Proc:initYields for process " << TVar::SmurfProcessName(proc_) << "WARNING!" << TString(inputDir_ + fileName + ".root") << " doesn't exist\n";
     for (int j = 0; j < kNDilep; j++)
       yield_[j] = 0.0;
     return;
   }
   
   std::cout << "Proc:initYields for process " << TVar::SmurfProcessName(proc_) 
-       <<" from " << TString(inputDir_ + TVar::SmurfProcessName(proc_).Data()+"_ME.root") << std::endl; 
+       <<" from " << TString(inputDir_ + fileName + ".root") << std::endl; 
   
   TTree *tree = (TTree*) f->Get("tree");
   double tot_yield = 0;
-  std::cout<<"Yields from file "<< TVar::SmurfProcessName(proc_)  <<"_ME.root: mm/me/em/ee:  ";
+  std::cout<<"Yields from file "<< fileName << ".root: mm/me/em/ee:  ";
   
   for (int j=0; j<kNDilep; j++){ 
     TH1F *tmp = new TH1F("tmp", "tmp", 20, 0, 20);
-    if(j==0 || j==2)
-      tree->Project("tmp", "dPhi", Form("scale1fb*(type==%i&&dilep.mass()<%f)", j, massCut_));
-    if(j==1 || j==3)
-      tree->Project("tmp", "dPhi", Form("scale1fb*((type==%i&&lep2.pt()>15)&&dilep.mass()<%f)", j, massCut_));
-    
+    tree->Project("tmp", "dPhi", Form("scale1fb*(type==%i&&dilep.mass()<%f)", j, massCut_));
     if (tmp!= 0x0) yield_[j] = tmp->Integral(0, 9999); 
     else yield_[j]=0;
     tot_yield += yield_[j];
@@ -92,6 +90,11 @@ void Proc::initTotXsec() {
   case (TVar::Wm_1jet):
     NLOXsec_ = 31314.0;
     MCFMXsec_ =  12525.0;
+    break;
+
+  case (TVar::HWW115):
+    NLOXsec_ = 0.165009;
+    MCFMXsec_ = 0.04980;
     break;
 
   case (TVar::HWW120):
