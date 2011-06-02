@@ -81,12 +81,13 @@ void drawLROverlay(Sample* & higgsSample, std::vector<Sample*> & bkgsamples,
   stacklg->Draw();
   c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR.eps");
   c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR.png");
+  c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR.pdf");
   
   // draw stacked plots - log
   c1->SetLogy();
   c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_log.eps");
   c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_log.png");
-
+  c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_log.pdf");
   // draw overlay plots
   c1->Clear();
   c1->SetLogy(0);
@@ -103,11 +104,13 @@ void drawLROverlay(Sample* & higgsSample, std::vector<Sample*> & bkgsamples,
   overlaylg->Draw();
   c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay.eps");
   c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay.png");
-  
+    c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay.pdf");
+
   // draw overlay plots - log
   c1->SetLogy(1);
   c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay_log.eps");
-  c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay_log.png");  
+  c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay_log.png");
+  c1->SaveAs( outputDir + "plots/" + TVar::SmurfProcessName(higgsSample->GetLRProcess()) + "_LR_overlay_log.pdf");  
   // end of drawing histograms
   
   
@@ -120,7 +123,15 @@ void drawLROverlay(Sample* & higgsSample, std::vector<Sample*> & bkgsamples,
   delete overlaylg;
 }
 
-void writeMVAOutput(TString method, Sample* & higgsSample, std::vector<Sample*> & bkgsamples, 
+float getTotErr(TH1F* & tmp ) {
+  float err = 0;
+  for (int i = 0; i < tmp->GetNbinsX()+1 ; i++) {
+    err += pow(tmp->GetBinError(i),2);
+  }
+  return sqrt(err);
+}
+
+void writeMVAOutput(int mH, TString method, Sample* & higgsSample, std::vector<Sample*> & bkgsamples, 
 		   Int_t nBins, Float_t binMin, Float_t binMax, TString outputDir)
 {   
   cout << "Writing out the " << method << " Output for process " << TVar::SmurfProcessName(higgsSample->GetLRProcess()) << "\n";
@@ -131,7 +142,10 @@ void writeMVAOutput(TString method, Sample* & higgsSample, std::vector<Sample*> 
     xtitle = "ME output";
   }
   if (method == "BDT") {
-    var = Form("bdt_%s_ww", TVar::SmurfProcessName(higgsSample->GetLRProcess()).Data());
+    if (mH == 150 || mH == 160 || mH ==190 )
+      var = Form("bdtg_%s_ww", TVar::SmurfProcessName(higgsSample->GetLRProcess()).Data());
+    else 
+      var = Form("knn_%s_ww", TVar::SmurfProcessName(higgsSample->GetLRProcess()).Data());
     xtitle = "BDT Output";
   }
   
@@ -172,19 +186,46 @@ void writeMVAOutput(TString method, Sample* & higgsSample, std::vector<Sample*> 
   hist_sig->SetXTitle(xtitle);
   hist_sig->SetYTitle("Number of Events");
   hist_sig->Write();
-  float nqqWW(0.0), nggWW(0.0), nVV(0.0), nTop(0.0), nZjets(0.0), nWjets(0.0), nWgamma(0.0); 
+  float nHiggs (0.0), nqqWW(0.0), nggWW(0.0), nVV(0.0), nTop(0.0), nZjets(0.0), nWjets(0.0), nWgamma(0.0); 
+  float sigmanHiggs(0.0), sigmanqqWW(0.0), sigmanggWW(0.0), sigmanVV(0.0), sigmanTop(0.0), sigmanZjets(0.0), sigmanWjets(0.0), sigmanWgamma(0.0); 
+   
+  nHiggs = hist_sig->Integral(0, 10000);
+  sigmanHiggs = getTotErr(hist_sig);
+
+  cout << nHiggs << " \t " << sigmanHiggs << "\n"; 
   
   for(unsigned int s = 0; s < bkgsamples.size(); ++s) {
     hist_bkg[s]->SetName("histo_"+bkgsamples[s]->name());
     hist_bkg[s]->SetXTitle(xtitle);
     hist_bkg[s]->SetYTitle("Number of Events");
-    if (bkgsamples[s]->name() == "qqWW")     nqqWW = hist_bkg[s]->Integral(0,100);
-    if (bkgsamples[s]->name() == "ggWW")   nggWW = hist_bkg[s]->Integral(0,100);
-    if (bkgsamples[s]->name() == "VV")     nVV = hist_bkg[s]->Integral(0,100);
-    if (bkgsamples[s]->name() == "Top")    nTop = hist_bkg[s]->Integral(0,100);
-    if (bkgsamples[s]->name() == "Wjets")  nWjets = hist_bkg[s]->Integral(0,100);
-    if (bkgsamples[s]->name() == "Zjets")  nZjets = hist_bkg[s]->Integral(0,100);
-    if (bkgsamples[s]->name() == "Wgamma") nWgamma = hist_bkg[s]->Integral(0,100);
+    if (bkgsamples[s]->name() == "qqWW")   {
+      nqqWW = hist_bkg[s]->Integral(0,100);
+      sigmanqqWW = getTotErr(hist_bkg[s]);
+    }
+    if (bkgsamples[s]->name() == "ggWW") {
+      nggWW = hist_bkg[s]->Integral(0,100);
+      sigmanggWW = getTotErr(hist_bkg[s]);
+    }
+    if (bkgsamples[s]->name() == "VV") {
+      nVV = hist_bkg[s]->Integral(0,100);
+      sigmanVV = getTotErr(hist_bkg[s]);
+    }
+    if (bkgsamples[s]->name() == "Top")  {
+      nTop = hist_bkg[s]->Integral(0,100);
+      sigmanTop = getTotErr(hist_bkg[s]);
+    }
+    if (bkgsamples[s]->name() == "Wjets") {
+      nWjets = hist_bkg[s]->Integral(0,100);
+      sigmanWjets = getTotErr(hist_bkg[s]);
+    }
+    if (bkgsamples[s]->name() == "Zjets") {
+      nZjets = hist_bkg[s]->Integral(0,100);
+      sigmanZjets = getTotErr(hist_bkg[s]);
+    }
+    if (bkgsamples[s]->name() == "Wgamma") {
+      nWgamma = hist_bkg[s]->Integral(0,100);
+      sigmanWgamma = getTotErr(hist_bkg[s]);
+    }
     hist_bkg[s]->Write();
   }
   hist_Data->Write();
@@ -192,7 +233,8 @@ void writeMVAOutput(TString method, Sample* & higgsSample, std::vector<Sample*> 
   limits_histo->Close();
     
   // now write out the cards..
-  
+  // some really not complete documentation on these awesome numbers...
+  // http://www.t2.ucsd.edu/tastwiki/bin/view/Smurf/MVAShape
   ofstream text; 
   text.open(outputDir + "limits/" + TVar::SmurfProcessName(higgsSample->GetLRProcess())+"_"+method.Data()+".card");
   text << "imax 1 number of channels\n";
@@ -205,7 +247,7 @@ void writeMVAOutput(TString method, Sample* & higgsSample, std::vector<Sample*> 
   text << "process Higgs qqWW ggWW VV Top Zjets Wjets Wgamma\n";
   text << "process 0 1 2 3 4 5 6 7\n";
   text << Form("rate %.3f  %.3f  %.3f %.3f %.3f %.3f %.3f %.3f\n", 
-	       hist_sig->Integral(0,100), nqqWW, nggWW, nVV, nTop, nZjets, nWjets, nWgamma);
+	       nHiggs, nqqWW, nggWW, nVV, nTop, nZjets, nWjets, nWgamma);
   text << "1 lnN 1.040 1.040 1.040 1.040 1.000 1.000 1.000 1.040\n";
   text << "2 lnN 1.015 1.015 1.015 1.015 1.000 1.000 1.000 1.015\n";
   text << "3 lnN 1.015 1.015 1.015 1.015 1.000 1.000 1.000 1.015\n";
@@ -216,20 +258,36 @@ void writeMVAOutput(TString method, Sample* & higgsSample, std::vector<Sample*> 
   text << "8 lnN 1.070 1.000 1.054 1.054 1.000 1.000 1.000 1.054\n";
   text << "9 lnN 1.030 1.030 1.030 1.030 1.000 1.000 1.000 1.030\n";
   text << "10 lnN 1.040 1.040 1.040 1.040 1.040 1.040 1.040 1.100\n";
-  text << "11 lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.500 1.000\n";
+  // fakerate
+  text << "11 lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.360 1.000\n";
+  // Higgs cross-section, currently constant throughout the mass points
   text << "12 lnN 1.150 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n";
+  // VV cross-section
   text << "13 lnN 1.000 1.000 1.000 1.030 1.000 1.000 1.000 1.000\n";
-  text << "14 lnN 1.000 1.200 1.200 1.100 1.100 1.000 1.000 1.000\n";
+  // WW normalization
+  text << "14 lnN 1.000 1.200 1.200 1.000 1.000 1.000 1.000 1.000\n";
+  // extra Xsection normalization for ggWW
   text << "15 lnN 1.000 1.000 1.500 1.000 1.000 1.000 1.000 1.000\n";
-  text << "16 lnN 1.000 1.000 1.000 1.000 1.200 1.000 1.000 1.000\n";
-  text << "17 lnN 1.000 1.000 1.000 1.000 1.000 2.000 1.000 1.000\n";
-  text << "18 lnN 1.009 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n";
-  text << "19 lnN 1.000 1.006 1.000 1.000 1.000 1.000 1.000 1.000\n";
-  text << "20 lnN 1.000 1.000 1.012 1.000 1.000 1.000 1.000 1.000\n";
-  text << "21 lnN 1.000 1.000 1.000 1.045 1.000 1.000 1.000 1.000\n";
-  text << "22 lnN 1.000 1.000 1.000 1.000 1.085 1.000 1.000 1.000\n";
-  text << "23 lnN 1.000 1.000 1.000 1.000 1.000 1.291 1.000 1.000\n";
-  text << "24 lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.202 1.000\n";
+  // top normalization
+  text << "16 lnN 1.000 1.000 1.000 1.000 1.700 1.000 1.000 1.000\n";
+  // dy normalization
+  text << "17 lnN 1.000 1.000 1.000 1.000 1.000 1.450 1.000 1.000\n";
+  // Begin the statistical uncertainties...
+  // Higgs
+  text << Form("18 lnN %.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n", 1.0 + sigmanHiggs/nHiggs);
+  // qqWW
+  text << Form("19 lnN 1.000 %.3f 1.000 1.000 1.000 1.000 1.000 1.000\n", 1.0 + sigmanqqWW/nqqWW);
+  // ggWW 
+  text << Form("20 lnN 1.000 1.000 %.3f 1.000 1.000 1.000 1.000 1.000\n", 1.0 + sigmanggWW/nggWW);
+  // VV 
+  text << Form("21 lnN 1.000 1.000 1.000 %.3f 1.000 1.000 1.000 1.000\n", 1.0 + sigmanVV/nVV);
+  // Top
+  text << Form("22 lnN 1.000 1.000 1.000 1.000 %.3f 1.000 1.000 1.000\n", 1.0 + sigmanTop/nTop);
+  // Zjets
+  text << Form("23 lnN 1.000 1.000 1.000 1.000 1.000 %.3f 1.000 1.000\n", 1.0 + sigmanZjets/nZjets);
+  // Wjets
+  text << Form("24 lnN 1.000 1.000 1.000 1.000 1.000 1.000 %.3f 1.000\n", 1.0 + sigmanWjets/nWjets);
+  // Wgamma
   text << "25 lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n";
   text.close();
 
@@ -337,6 +395,7 @@ void drawSignificance(Sample* & higgsSample, std::vector<Sample*> & bkgsamples, 
   lg->Draw("same");
   c1->SaveAs(outputDir + "plots/" + Form("SOverB_%s_fom%i.eps", TVar::SmurfProcessName(higgsSample->GetLRProcess()).Data(), fom));
   c1->SaveAs(outputDir + "plots/" + Form("SOverB_%s_fom%i.png", TVar::SmurfProcessName(higgsSample->GetLRProcess()).Data(), fom));
+  c1->SaveAs(outputDir + "plots/" + Form("SOverB_%s_fom%i.pdf", TVar::SmurfProcessName(higgsSample->GetLRProcess()).Data(), fom));
   
   delete hist_sig;
   for (unsigned int s = 0; s < bkgsamples.size(); s++) delete hist_bkg[s];
@@ -376,6 +435,9 @@ void makeOverlay(int mH, TString outputDir, Float_t nsig_CB, Float_t nbkg_CB, Fl
   TChain *ZjetsChain = new TChain("tree");
   ZjetsChain->Add(outputDir + "zz_LR_"+ TVar::SmurfProcessName(higgsProcess) + ".root");
   ZjetsChain->Add(outputDir + "wz_LR_"+ TVar::SmurfProcessName(higgsProcess) + ".root");
+  ZjetsChain->Add(outputDir + "dyee_LR_"+ TVar::SmurfProcessName(higgsProcess) + ".root");
+  ZjetsChain->Add(outputDir + "dymm_LR_"+ TVar::SmurfProcessName(higgsProcess) + ".root");
+  ZjetsChain->Add(outputDir + "dytt_LR_"+ TVar::SmurfProcessName(higgsProcess) + ".root");
   Sample *ZjetsSample = new Sample(higgsProcess, "Zjets", ZjetsChain, kBlue, true, 1000.0);
   
   // top
@@ -396,7 +458,7 @@ void makeOverlay(int mH, TString outputDir, Float_t nsig_CB, Float_t nbkg_CB, Fl
   
   // WW
   TChain *WWChain = new TChain("tree");
-  WWChain->Add(outputDir + "ww_LR_"+ TVar::SmurfProcessName(higgsProcess) + ".root");
+  WWChain->Add(outputDir + "qqww_LR_"+ TVar::SmurfProcessName(higgsProcess) + ".root");
   Sample *WWSample = new Sample(higgsProcess, "qqWW", WWChain, kYellow+2, true, 1000.0);
   
 
@@ -416,11 +478,11 @@ void makeOverlay(int mH, TString outputDir, Float_t nsig_CB, Float_t nbkg_CB, Fl
   drawSignificance(HiggsSample, bkgSamples, LRBins, LRMin, LRMax, nsig_CB, nbkg_CB, nsig_MVA, nbkg_MVA, outputDir, 2);
   
   // now write out the mva outputs for the limits setting
-  writeMVAOutput("ME", HiggsSample, bkgSamples, LRBins, LRMin, LRMax, outputDir);
-  Int_t BDTBins = 50;
-  Float_t BDTMin = -0.5;
-  Float_t BDTMax = 0.5;
-  writeMVAOutput("BDT", HiggsSample, bkgSamples, BDTBins, BDTMin, BDTMax, outputDir);
+  writeMVAOutput(mH, "ME", HiggsSample, bkgSamples, LRBins, LRMin, LRMax, outputDir);
+  Int_t BDTBins = 40;
+  Float_t BDTMin = -1.0;
+  Float_t BDTMax = 1.0;
+  writeMVAOutput(mH, "BDT", HiggsSample, bkgSamples, BDTBins, BDTMin, BDTMax, outputDir);
 
   delete HiggsChain;
   delete HiggsSample;
@@ -448,6 +510,9 @@ void makeOverlay(int mH, TString outputDir, Float_t nsig_CB, Float_t nbkg_CB, Fl
 void getProcess(int mH, TVar::Process & k)
 {
   switch (mH) {
+  case (115):
+    k = TVar::HWW115;
+    break;
   case (120):
     k = TVar::HWW120;
     break;

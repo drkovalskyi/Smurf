@@ -49,5 +49,6 @@ private:
   bool stack_;
   Color_t color_;
   Float_t lumi_;
+  Float_t sf_;
 };
 

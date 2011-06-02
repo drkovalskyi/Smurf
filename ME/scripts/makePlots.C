@@ -11,7 +11,7 @@ void getRefYields(int &mH, Float_t & nsig_CB, Float_t & nbkg_CB, Float_t & nsig_
 
 void makePlots(int mH, TString outputDir)
 {
-  gROOT->ProcessLine(".L makeOverlay.C+"); 
+  gROOT->ProcessLine(".L makeOverlay.C++"); 
   
   using namespace std;
   Float_t nsig_CB(0.0), nbkg_CB(0.0), nsig_MVA(0.0), nbkg_MVA(0.0);
@@ -26,79 +26,95 @@ void makePlots(int mH, TString outputDir)
 // http://cms.cern.ch/iCMS/jsp/db_notes/showNoteDetails.jsp?noteID=CMS%20AN-2011/155
 void getRefYields(int &mH, Float_t & nsig_CB, Float_t & nbkg_CB, Float_t & nsig_MVA, Float_t & nbkg_MVA) {
   switch (mH) {
+
+  case (115):
+    nsig_CB = 5.7;
+    nbkg_CB = 73.4;
+    nsig_MVA = 5.7;
+    nbkg_MVA = 65.8;
+    break;
+
   case (120):
-    nsig_CB = 7.6;
-    nbkg_CB = 67.9;
-    nsig_MVA = 2.18;
-    nbkg_MVA = 5.55;
+    nsig_CB = 10.6;
+    nbkg_CB = 86.2;
+    nsig_MVA = 10.2;
+    nbkg_MVA = 79.1;
+    //nsig_MVA = 2.18;
+    //nbkg_MVA = 5.55;
     break;
 
   case (130):
-    nsig_CB = 15.0;
-    nbkg_CB = 68.9;
-    nsig_MVA = 6.14;
-    nbkg_MVA = 12.15;
+    nsig_CB = 21.4;
+    nbkg_CB = 92.6;
+    nsig_MVA = 21.6;
+    nbkg_MVA = 92.3;
+    //nsig_MVA = 6.14;
+    //nbkg_MVA = 12.15;
     break;
 
   case (140):
-    nsig_CB = 21.2;
-    nbkg_CB = 62.1;
-    nsig_MVA = 10.82;
-    nbkg_MVA = 17.68;
+    nsig_CB = 26.9;
+    nbkg_CB = 73.2;
+    nsig_MVA = 24.6;
+    nbkg_MVA = 56.6;
+    // nsig_MVA = 10.82;
+    // nbkg_MVA = 17.68;
     break;
 
   case (150):
-    nsig_CB = 21.5;
-    nbkg_CB = 35.2;
-    nsig_MVA = 10.38;
-    nbkg_MVA = 8.21;
+    nsig_CB = 26.1;
+    nbkg_CB = 44.0;
+    nsig_MVA = 25.0;
+    nbkg_MVA = 33.7;
     break;
 
   case (160):
-    nsig_CB = 30.9;
-    nbkg_CB = 21.9;
-    nsig_MVA = 11.05;
-    nbkg_MVA = 2.31;
+    nsig_CB = 45.7;
+    nbkg_CB = 40.5;
+    nsig_MVA = 51.2;
+    nbkg_MVA = 44.1;
     break;
+
   case (170):
-    nsig_CB = 0.0;
-    nbkg_CB = 0.0;
-    nsig_MVA = 17.72;
-    nbkg_MVA = 6.23;
+    nsig_CB = 34.2;
+    nbkg_CB = 24.9;
+    nsig_MVA = 37.5;
+    nbkg_MVA = 25.4;
     break;
+
   case (180):
-    nsig_CB = 0.0;
-    nbkg_CB = 0.0;
-    nsig_MVA = 10.64;
-    nbkg_MVA = 6.26;
+    nsig_CB = 24.7;
+    nbkg_CB = 28.0;
+    nsig_MVA = 27.4;
+    nbkg_MVA = 29.6;
     break;
 
   case (190):
-    nsig_CB = 0.0;
-    nbkg_CB = 0.0;
-    nsig_MVA = 8.11;
-    nbkg_MVA = 8.08;
+    nsig_CB = 19.8;
+    nbkg_CB = 41.7;
+    nsig_MVA = 20.3;
+    nbkg_MVA = 41.7;
     break;
 
   case (200):
-    nsig_CB = 0.0;
-    nbkg_CB = 0.0;
-    nsig_MVA = 8.05;
-    nbkg_MVA = 11.23;
+    nsig_CB = 14.4;
+    nbkg_CB = 43.0;
+    nsig_MVA = 14.2;
+    nbkg_MVA = 38.3;
     break;
 
   case (250):
-    nsig_CB = 0.0;
-    nbkg_CB = 0.0;
-    nsig_MVA = 2.35;
-    nbkg_MVA = 7.34;
+    nsig_CB = 6.6;
+    nbkg_CB = 46.2;
+    nsig_MVA = 6.5;
+    nbkg_MVA = 33.5;
     break;
 
   case (300):
-    nsig_CB = 0.0;
-    nbkg_CB = 0.0;
-    nsig_MVA = 2.20;
-    nbkg_MVA = 8.05;
+    nsig_CB = 5.5;
+    nbkg_CB = 39.1;
+    nsig_MVA = 5.9;
+    nbkg_MVA = 33.9;
     break;
     
   default:

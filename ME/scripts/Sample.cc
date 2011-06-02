@@ -9,6 +9,7 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TArrow.h"
+#include "TCut.h"
 
 #include <vector>
 #include <math.h>
@@ -17,6 +18,8 @@
 // Matrix Element related
 #include "../TVar.hh"
 #include "Sample.h"
+#include "../../Core/SmurfTree.h"
+
 
 Sample::Sample(TVar::Process LRProcess, TString datasample, TChain *chain, Color_t color, bool stack, float lumi) {
   // initialize data members
@@ -26,6 +29,15 @@ Sample::Sample(TVar::Process LRProcess, TString datasample, TChain *chain, Color
   color_ = color;
   stack_ = stack;
   lumi_ = lumi;
+  sf_ = 1.0;
+
+  if (datasample_ == "Higgs")   sf_ = 1.13;
+  else if (datasample_ == "Top")   sf_ = 1.9;
+  else if (datasample_ == "Zjets") sf_ = 2.6;
+  else if (datasample_ == "Wjets") sf_ = 1.9;
+  else  sf_ = 1.0;
+
+  
 }
 
 Sample::~Sample() {
@@ -34,22 +46,54 @@ Sample::~Sample() {
 TH1F * Sample::GetHistogram(TString var, Int_t nBins, Float_t binMin, Float_t binMax) {
   
   TH1F *tmp = new TH1F(Form("hist_%s_%s", TVar::SmurfProcessName(LRProcess_).Data(), datasample_.Data()), Form("hist_%s_%s", TVar::SmurfProcessName(LRProcess_).Data(), datasample_.Data()), nBins, binMin, binMax);
-  // VV contains only the non-peaking 
-  // Use the lepton mother id to distinguish lep1McId and lep2McId 
-  // This variable is 11 for leptons from W and 21 for leptons from Z (and 0 for fakes)
-  if (datasample_ == "VV") {
-    chain_->Project(Form("hist_%s_%s", TVar::SmurfProcessName(LRProcess_).Data(), datasample_.Data()), var,  "scale1fb*(lep1McId!=lep2McId)");
-  }
-  
-  else if (datasample_ == "Zjets") {
-    chain_->Project(Form("hist_%s_%s", TVar::SmurfProcessName(LRProcess_).Data(), datasample_.Data()), var, "scale1fb*(lep1McId==lep2McId&&lep1McId==21)");
-  }
-  
+  tmp->Sumw2();
+
+  TCut cut; 
+  // use only the wz/zz events where the two leptons are from different mothers....
+  if (datasample_ == "VV")   
+    cut = TCut("mycut", Form("%f*scale1fb*scaleME*(lep1MotherMcId!=lep2MotherMcId)", sf_*lumi_/1000.0));
+  // Very bad hard coded stuff...fixme
+  // 49: wz 50 :zz
+  // requiring the two leptons from the same mother if the Zjets samples are wz or zz
+  else if (datasample_ == "Zjets") 
+    cut = TCut("mycut", Form("%f*scale1fb*scaleME*((dstype!=%i&& dstype!=%i)||(lep1MotherMcId==lep2MotherMcId&&lep1MotherMcId==23))",sf_*lumi_/1000.0, 49, 50));
   else
-    chain_->Project(Form("hist_%s_%s", TVar::SmurfProcessName(LRProcess_).Data(), datasample_.Data()), var, "scale1fb");
+    cut = TCut("mycut", Form("%f*scale1fb*scaleME", sf_*lumi_/1000.0));
+  chain_->Project(Form("hist_%s_%s", TVar::SmurfProcessName(LRProcess_).Data(), datasample_.Data()), var, cut);
   
-  tmp->Scale(lumi_/1000.0);
+  /*
+    // for future developement
+  float scale1fb_ = 0;
+  double scaleME_ = 0;
+  double dPhi_ = 0;
+  int  lep1MotherMcId_;                                                                                        
+  int  lep2MotherMcId_;   
+  SmurfTree::DataType dstype_; 
+  double var_;
   
+  chain_->SetBranchAddress( "scale1fb", &scale1fb_); 
+  chain_->SetBranchAddress( "scaleME", &scaleME_); 
+  chain_->SetBranchAddress( "dPhi", &dPhi_); 
+  chain_->SetBranchAddress( "lep1MotherMcId", &lep1MotherMcId_); 
+  chain_->SetBranchAddress( "lep2MotherMcId", &lep2MotherMcId_); 
+  chain_->SetBranchAddress( "dstype", &dstype_); 
+  chain_->SetBranchAddress( var.Data(), &var_);
+  
+  for(int ievt=0; ievt < chain_->GetEntries();ievt++){
+    chain_->GetEntry(ievt);
+    // skipping the events where both leptons come from the same parent
+    if (datasample_ == "VV" && (lep1MotherMcId_ == lep2MotherMcId_)  ) continue;
+    if (datasample_ == "Zjets") {
+      if (dstype_ == SmurfTree::wz || dstype_ == SmurfTree::zz) {
+	if (lep1MotherMcId_ != lep2MotherMcId_ || lep1MotherMcId_ != 23) 
+	  continue;
+      }
+    }
+    tmp->Fill(var_, scale1fb_*scaleME_*lumi_/1000.0);
+  }
+
+  */
+    
   if (stack_) {
     tmp->SetFillColor(color_);
     tmp->SetLineColor(color_);
