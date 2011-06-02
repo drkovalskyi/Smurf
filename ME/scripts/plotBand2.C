@@ -4,14 +4,15 @@ int plotBand2(int nsel = 0, TString resdir = "output/limits/", TString input = "
   gStyle->SetCanvasDefW      (800);
   gStyle->SetTitleOffset( 1, "y");
   
+
   // const int nPoints = 11;
   // double xpoints[nPoints] = {120,130,140,150,160,170,180,190,200,250,300};
   //double projectingXmin = 110, projectingXmax = 310;
 
-  const int nPoints = 9;
-  double xpoints[nPoints] = {120,130,140,150,160,170,180,190,200};
-  double projectingXmin = 110, projectingXmax = 210;
-  double projectingRLimitYmin = 0.1, projectingRLimitYmax = 20;
+  const int nPoints = 12;
+  double xpoints[nPoints] = {115, 120,130,140,150,160,170,180,190,200,250,300};
+  double projectingXmin = 100, projectingXmax = 310;
+  double projectingRLimitYmin = 0.1, projectingRLimitYmax = 10;
   
   double obs0j[nPoints],exp0j_2sm[nPoints],exp0j_1sm[nPoints],exp0j[nPoints],exp0j_1sp[nPoints],exp0j_2sp[nPoints];
   
@@ -52,6 +53,10 @@ int plotBand2(int nsel = 0, TString resdir = "output/limits/", TString input = "
     }
   }
   
+  for(int i = 0; i < nPoints; i++) {
+    printf("%i & %4.2f &  %4.2f &  %4.2f &  %4.2f & %4.2f \\\\\n ", xpoints[i], exp0j_2sm[i], exp0j_1sm[i], exp0j[i],  exp0j_1sp[i], exp0j_2sp[i]);
+  }
+
   PlotWithBelts lb(
 		   limits_m1s, limits_p1s, limits_m2s, limits_p2s,
 		   //limits_mean, limits_obs, nPoints,  

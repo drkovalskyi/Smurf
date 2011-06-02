@@ -29,6 +29,7 @@ void makeUtilPlots( TString UtilFile = "../Util.root")
 
   drawBoost(UtilFile, "output/plots/");
   drawEff(UtilFile, "output/plots/", "Eta", "Lepton #eta", -2.5, 2.5);
+  drawEff(UtilFile, "output/plots/", "Pt", "Lepton pT (GeV)", 0, 100);
   drawFR(UtilFile, "output/plots/", "wjets_heleGenFR");
   drawFR(UtilFile, "output/plots/", "wjets_hmuGenFR");
 }
@@ -53,6 +54,7 @@ void drawFR(TString UtilFile, TString outputdir, TString histName)
   fr->Draw("colz");
 
   c1->SaveAs(outputdir+histName+".png");
+  c1->SaveAs(outputdir+histName+".pdf");
   
   // tidy up
   delete c1;
@@ -135,7 +137,7 @@ void drawBoost(TString UtilFile, TString outputdir) {
     Style_t style (1);
     setColor(process[i], color, style);
     hist[i]->GetYaxis()->SetRangeUser(0, yMax*1.1);
-    hist[i]->SetXTitle("System Boost GeV");
+    hist[i]->SetXTitle("System Boost (GeV)");
     hist[i]->SetYTitle("A.U.");
     hist[i]->SetLineColor(color);
     hist[i]->SetMarkerColor(color);

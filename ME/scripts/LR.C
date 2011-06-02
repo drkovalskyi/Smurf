@@ -19,6 +19,8 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 using namespace std;
 
 void getProcess(int mH, TVar::Process & k, float & massCut);
+float weightME(TString fileName, TString meFDir, TString mebdtFDir, TString bdtprefix);
+
 //###################
 //# main function
 //###################
@@ -30,18 +32,27 @@ void LR(int mH, TString bdtprefix, TString fileName, TString meFDir, TString meb
   getProcess(mH, k, massCut);
   
   cout << "Input File: "<< fileName << "\n"; 
-  TFile* fin = new TFile(mebdtFDir + bdtprefix + "_" + fileName);
-  cout << mebdtFDir + bdtprefix + "_" + fileName <<endl;
-  TString outFileName = mebdtFDir + fileName;
+  TFile* fin = new TFile(mebdtFDir + bdtprefix + "_" + fileName + "_ME.root");
+  cout << mebdtFDir + bdtprefix + "_" + fileName + "_ME.root"<<endl;
+  TString outFileName = mebdtFDir + fileName + "_ME.root" ;
   outFileName.ReplaceAll("_ME.root", Form("_LR_%s.root", TVar::SmurfProcessName(k).Data()));
     
   TFile *newfile = new TFile(outFileName,"recreate");
-  std::cout << "creating" << outFileName << "...\n";
+  std::cout << "creating " << outFileName << "...\n";
 
   
   TTree* ch=(TTree*)fin->Get("tree"); 
   if (ch==0x0) return; 
   TTree* evt_tree=(TTree*) ch->CloneTree(0, "fast");
+
+
+  // Add additional event weight to account for the possible difference 
+  // between the total events before the differential cross-section calcualtion
+  // and the input. This is to protect the cases where some of the jobs 
+  // fail the differential cross-section calcuation in the lpc grid
+  double scaleME = 1.0;
+  evt_tree->Branch("scaleME",  &scaleME, "scaleME/D");
+  double scalefactor = weightME(fileName, meFDir, mebdtFDir, bdtprefix);
 
   // The variable we want to recalculate
   double LR[60];
@@ -86,7 +97,7 @@ if (verbosity >= TVar::DEBUG) {
   }
  
   for(int ievt=0;ievt<Ntot;ievt++){
-
+    
     ch->GetEntry(ievt);  
 
     if(dilep_->mass() > massCut) continue;
@@ -120,6 +131,7 @@ if (verbosity >= TVar::DEBUG) {
     if (verbosity >= TVar::DEBUG) 
       cout<<"LR_HWW["<<k<<"]= "<<LR[k]<<"\n";
     
+    scaleME = scalefactor;
     evt_tree->Fill();
     
     
@@ -142,6 +154,11 @@ if (verbosity >= TVar::DEBUG) {
 void getProcess(int mH, TVar::Process & k, float& massCut)
 {
   switch (mH) {
+  case (115):
+    k = TVar::HWW115;
+    massCut = 70.0;
+    break;
+
   case (120):
     k = TVar::HWW120;
     massCut = 70.0;
@@ -201,6 +218,27 @@ void getProcess(int mH, TVar::Process & k, float& massCut)
   default:
     break;
   }
-  
+}
 
+float weightME(TString fileName, TString meFDir, TString mebdtFDir, TString bdtprefix)
+{
+  TFile *fin = TFile::Open(meFDir + fileName + ".root");
+  if (fin == 0x0 ) {
+    std::cout << "ERROR: weightME() file " << meFDir + fileName + ".root doesn't exsit, weight set to 1....";
+    return 1.0;
+  }
+
+  TTree *treein = (TTree*)fin->Get("tree");
+  float Nin = treein->GetEntries();
+  
+  TFile *fout = TFile::Open(mebdtFDir + bdtprefix + "_" + fileName + "_ME.root");
+  if (fout == 0x0 ) {
+    std::cout << "ERROR: weightME() file " << meFDir + fileName + ".root doesn't exsit, weight set to 0....";
+    return 1.0;
+  }
+  TTree *treeout = (TTree*)fout->Get("tree");
+  float Nout = treeout->GetEntries();
+  fin->Close();
+  fout->Close();
+  return Nin/Nout;
 }
