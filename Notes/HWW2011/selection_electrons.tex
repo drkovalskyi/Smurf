@@ -14,18 +14,20 @@ The specific requirements to select good prompt electrons are the following:
         \item The latteral shower shape, $\sigma_{i\eta i\eta} < 0.01~(0.03)$
         \item The track-cluster matching in the $\phi$-direction, $\Delta \phi_{\mathrm{in}} < 0.06~(0.03)$
         \item The track-cluster matching in the $\eta$-direction, $\Delta \eta_{\mathrm{in}} < 0.004~(0.007)$
-        \item The relative hadronic activity, $H/E<0.04$~(N/A)
+        \item The relative hadronic activity, $H/E<0.04$~(0.1)
     \end{itemize}
     \item Standard electron identification is applied to barrel (endcap) electrons when $15<p_T<20$~GeV
     \begin{itemize}
         \item The lateral shower shape, $\sigma_{i\eta i\eta} < 0.01~(0.03)$
         \item The track-cluster matching in the $\phi$-direction, $\Delta \phi_{\mathrm{in}} < 0.03~(0.02)$
         \item The track-cluster matching in the $\eta$-direction, $\Delta \eta_{\mathrm{in}} < 0.004~(0.005)$
-        \item The relative hadronic activity, $H/E<0.025$~(N/A)
+        \item The relative hadronic activity, $H/E<0.025$~(0.1)
         \item The track bremsstrahlung fraction, $\mathrm{fbrem}>0.15~\mathrm{OR}~(|\eta|<1.0~\mathrm{AND}~E/p_{IN}>0.95)$
     \end{itemize}
 \end{itemize}
 
+The H/E requirement is looser in the endcap since the tighter values
+introduce noticible reconstruction efficiency drop with large pileup.
 
 Isolation requirements are then imposed by computing the particle flow isolation,
 defined as the scalar sum of the \pt\ of the particle flow candidates satisfying 
