@@ -22,10 +22,11 @@ of M2 is the reduction of systematic uncertainties by reducing the extrapolation
 
 
 \subsubsection{Calibration Sample Selection}
+\label{sec:MuonFakeRate_CalibrationSampleSelection}
 The muon fake rate has been measured in $192\ipb$ of data in Run2011A. The selected events are triggered
-by any one of HLT\_Mu8 or HLT\_Mu15 single muon trigger paths. Addition requirements are also needed to
-reduce contamination of the calibration sample with muons from $W$ and $Z$ decays and to tune the
-jet composition:
+by any one of the HLT\_Mu8 or HLT\_Mu15 single muon trigger paths. Additional requirements are also needed to
+reduce contamination of the calibration sample with muons from $W$ and $Z$ decays and to match the
+jet $p_{T}$ spectrum:
 \begin{itemize}
   \item $Z$ veto: reject the event if there are two oppositely charged muons satisfying the loose muon 
         selection and with $p_T>20\:\GeVc$,
@@ -41,8 +42,9 @@ L2Relative, and L3Absolute jet energy corrections applied.
 
 
 \subsubsection{Fake Rates}
-The fake rate parametrized in $\eta$-$p_T$ is listed in Tabs.~\ref{tab:mu_fr_iso1_jet15} and~\ref{tab:mu_fr_iso04_jet15}. 
-Figs.~\ref{fig:mu_fr_iso1_jet15} and~\ref{fig:mu_fr_iso04_jet15} show how the fake rates trends when projected onto $p_T$ or $\eta$.
+The fake rate parametrized in $\eta$-$p_T$ is listed in Tabs.~\ref{tab:mu_fr_M1_jet15} and~\ref{tab:mu_fr_M2_jet15},
+for the M1 and M2 denominators respectively. Figs.~\ref{fig:mu_fr_M1_jet15} and~\ref{fig:mu_fr_M2_jet15} 
+show the dependence of the fake rates on $p_T$ or $\eta$.
 
 
 
@@ -66,7 +68,7 @@ Figs.~\ref{fig:mu_fr_iso1_jet15} and~\ref{fig:mu_fr_iso04_jet15} show how the fa
 \end{tabular}
 \caption{Muon fake rate in $\eta$-$p_T$ for the M1 fakeable object definition. Uncertainties are statistical only.
 The {\bf Mu8} triggers are used, with a $p_{T}$ threshold on the leading jet in the event of $15$ GeV. }
-\label{tab:mu_fr_M2_jet15}
+\label{tab:mu_fr_M1_jet15}
 \end{center}
 \end{table}
 
@@ -108,7 +110,7 @@ The {\bf Mu8} triggers are used, with a $p_{T}$ threshold on the leading jet in 
 \includegraphics[width=0.45\textwidth]{figures/muon_frpt_m1.pdf}
 \includegraphics[width=0.45\textwidth]{figures/muon_freta_m1.pdf}
 \caption{Fake rates for M1 definition projected onto $p_T$ and $\eta$.}
-\label{fig:mu_fr_iso1_jet15}
+\label{fig:mu_fr_M1_jet15}
 \end{center}
 \end{figure}
 
@@ -117,7 +119,7 @@ The {\bf Mu8} triggers are used, with a $p_{T}$ threshold on the leading jet in 
 \includegraphics[width=0.45\textwidth]{figures/muon_frpt_m2.pdf}
 \includegraphics[width=0.45\textwidth]{figures/muon_freta_m2.pdf}
 \caption{Fake rates for M2 definition projected onto $p_T$ and $\eta$.}
-\label{fig:mu_fr_iso04_jet15}
+\label{fig:mu_fr_M2_jet15}
 \end{center}
 \end{figure}
 
@@ -143,11 +145,14 @@ defined by thresholds of $0$ and $30$ GeV, since they are observed to cover the
 correct W+Jet spectrum. Figures \ref{fig:mu_M1_fr_jetspectrumNarrowerWindow} and 
 \ref{fig:mu_M2_fr_jetspectrumNarrowerWindow} show analogous 
 comparisons of the jet spectrum with narrower windows on the leading jet $p_{T}$ threshold 
-for the M1 and M2 denominator definitions respectively, providing some guidance on the 
+for the M1 and M2 denominator definitions respectively, providing some indication on the 
 possibility for more aggressive systematic uncertainty estimates.
 
 Table \ref{tab:mu_fr_JetSpectrumSystematics} summarizes the systematic
-uncertainties due to the jet spectrum. The systematic uncertainties from the M1 extrapolation
+uncertainties due to the jet spectrum, obtained by applying the fake
+rates measured using different jet $p_{T}$ thresholds on the data application 
+sample and comparing the relative change in the background prediction. 
+The systematic uncertainty from the M1 extrapolation due to the jet spectrum effect
 is about $10\%$ larger than the systematic uncertainties from the M2 extrapolation. 
 Using the M2 extrapolation, we estimate a systematic uncertainty of $31\%$, taking the largest 
 difference between the $0$GeV threshold result and the $30$ GeV threshold result after the 
@@ -162,6 +167,16 @@ the leading jet in the event between $0$ and $30$ GeV.}
 \label{fig:mu_M1_fr_jetspectrum0To30}
 \end{center}
 \end{figure}
+etc 
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/LeptonJetPt_MuonM2_0To30.pdf}
+\caption{The $p_{T}$ spectrum of the jet that a M2 muon fakeable object lies inside for the 
+W+Jet Monte Carlo sample and the data fake rate measurement sample, requiring a threshold on the $p_{T}$ of 
+the leading jet in the event between $0$ and $30$ GeV.}
+\label{fig:mu_M2_fr_jetspectrum0To30}
+\end{center}
+\end{figure}
 
 \begin{figure}[!htbp]
 \begin{center}
@@ -171,16 +186,6 @@ the leading jet in the event between $0$ and $30$ GeV.}
 W+Jet Monte Carlo sample and the data fake rate measurement sample, for a narrower window of thresholds
 on the $p_{T}$ of the leading jet in the event.}
 \label{fig:mu_M1_fr_jetspectrumNarrowerWindow}
-\end{center}
-\end{figure}
-
-\begin{figure}[!htbp]
-\begin{center}
-\includegraphics[width=0.75\textwidth]{figures/LeptonJetPt_MuonM2_0To30.pdf}
-\caption{The $p_{T}$ spectrum of the jet that a M2 muon fakeable object lies inside for the 
-W+Jet Monte Carlo sample and the data fake rate measurement sample, requiring a threshold on the $p_{T}$ of 
-the leading jet in the event between $0$ and $30$ GeV.}
-\label{fig:mu_M2_fr_jetspectrum0To30}
 \end{center}
 \end{figure}
 
@@ -246,7 +251,7 @@ Jet30                   &  $-31\%$     & $-40\%$   \\
 
  \subsubsection{Sample Extrapolation Systematics and Closure Test}
 \label{sec:FakeMuonBkgClosureTest}
- To quantify the systematic uncertainties in extrapolating from the QCD dominated fake rate
+ To quantify the systematic uncertainty in extrapolating from the QCD dominated fake rate
 calibration sample to the W+Jet dominated application sample, we perform a closure test using 
 the Monte Carlo simulation. Fake rates measured from a cross-section weighted combination of 
 the QCD Monte Carlo samples, generated with pt-hat $15-30$ GeV and $30-50$ GeV, are applied on
