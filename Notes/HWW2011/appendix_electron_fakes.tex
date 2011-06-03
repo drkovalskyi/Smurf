@@ -18,8 +18,7 @@ uncertainties and statistical uncertainties in the fake rate extrapolation.
 
 \subsubsection{Calibration Sample Selection}
 \label{sec:ElectronFakeRate_CalibrationSampleSelection}
-The electron fake rate is measured two orthogonal calibration samples, intended to 
-capture different fake composition. The first sample is a QCD-dominated event sample
+The electron fake rate is measured in a QCD-dominated event sample
 selected by events triggered by {\bf Ele8\_CaloIdL\_CaloIsoVL } or 
 {\bf Ele17\_CaloIdL\_CaloIsoVL }. We impose a few additional requirements in order
 to reduce contamination due to events containing electrons from $W$ and $Z$ decays:
@@ -37,49 +36,31 @@ L3Absolute jet energy corrections applied.
 
 \subsubsection{Fake Rates}
 The electron fake rates measured in the 2011A data requiring the leading jet $p_{T}$ to be 
-larger than $30$ GeV for the different fakeable object 
-definitions described above are shown in Figures \ref{fig:ele_fr_V1_jet30},
-\ref{fig:ele_fr_V2_jet30}, \ref{fig:ele_fr_V3_jet30}, \ref{fig:ele_fr_V4_jet30}, as a function of the 
-$p_{T}$, $\eta$, and $phi$ of the electron, comparing the result measured from data to the
-results from the QCD (Pt-hat 30-50) and the W+Jet Monte Carlo simulation.
+larger than $35$ GeV for the V2 and V4 fakeable object definitions described above are shown 
+in Figures \ref{fig:ele_fr_V2_jet35}, and \ref{fig:ele_fr_V4_jet35}, as a function of the 
+$p_{T}$, $\eta$, and $\phi$ of the electron, comparing the result measured from data to the
+results from the W+Jet Monte Carlo simulation and the cross section weighted combination 
+of QCD Monte Carlo samples with Pt-hat $15-30$ and $30-50$.
+
 
 \begin{figure}[!htbp]
 \begin{center}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV1_ptThreshold30_Pt.pdf}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV1_ptThreshold30_Eta.pdf}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV1_ptThreshold30_Phi.pdf}
-\caption{Fake rates for V1 definition as a function of $p_T$,$\eta$, and $\phi$.}
-\label{fig:ele_fr_V1_jet30}
-\end{center}
-\end{figure}
-
-\begin{figure}[!htbp]
-\begin{center}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV2_ptThreshold30_Pt.pdf}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV2_ptThreshold30_Eta.pdf}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV2_ptThreshold30_Phi.pdf}
+\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV2_ptThreshold35_Pt.pdf}
+\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV2_ptThreshold35_Eta.pdf}
+\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV2_ptThreshold35_Phi.pdf}
 \caption{Fake rates for V2 definition as a function of $p_T$,$\eta$, and $\phi$.}
-\label{fig:ele_fr_V2_jet30}
+\label{fig:ele_fr_V2_jet35}
 \end{center}
 \end{figure}
 
-\begin{figure}[!htbp]
-\begin{center}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV3_ptThreshold30_Pt.pdf}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV3_ptThreshold30_Eta.pdf}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV3_ptThreshold30_Phi.pdf}
-\caption{Fake rates for V3 definition as a function of $p_T$,$\eta$, and $\phi$.}
-\label{fig:ele_fr_V3_jet30}
-\end{center}
-\end{figure}
 
 \begin{figure}[!htbp]
 \begin{center}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV4_ptThreshold30_Pt.pdf}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV4_ptThreshold30_Eta.pdf}
-\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV4_ptThreshold30_Phi.pdf}
+\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV4_ptThreshold35_Pt.pdf}
+\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV4_ptThreshold35_Eta.pdf}
+\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_DenominatorV4_ptThreshold35_Phi.pdf}
 \caption{Fake rates for V4 definition as a function of $p_T$,$\eta$, and $\phi$.}
-\label{fig:ele_fr_V4_jet30}
+\label{fig:ele_fr_V4_jet35}
 \end{center}
 \end{figure}
 
@@ -160,7 +141,7 @@ fake rate measurement. The systematic uncertainty is estimated by using fake rat
 defined by thresholds of $20$ and $50$ GeV, since they are observed to cover the 
 correct W+Jet spectrum. Figure \ref{fig:ele_fr_jetspectrumNarrowerWindow} shows analogous 
 comparisons of the jet spectrum with narrower windows on the leading jet $p_{T}$ threshold,
-providing some guidance on the possibility for more aggressive systematic uncertainty 
+providing some indication on the possibility for more aggressive systematic uncertainty 
 estimates. Table \ref{tab:ele_fr_JetSpectrumSystematics} summarizes the systematic
 uncertainties due to the jet spectrum. From these results, we estimate a systematic uncertainty 
 of $28\%$, taking the largest difference between the $20$GeV threshold result and the $50$ GeV 
@@ -229,7 +210,7 @@ the Monte Carlo simulation. Fake rates measured from a cross-section weighted co
 the QCD Monte Carlo samples, generated with pt-hat $15-30$ GeV and $30-50$ GeV, are applied on
 a W+Jet Monte Carlo sample. To measure the fake rate, the selection documented in Section
 \ref{sec:ElectronFakeRate_CalibrationSampleSelection} is used as in data, with a $p_{T}$ 
-threshold of $30$ GeV on the leading jet in the event. These predictions of yields and 
+threshold of $35$ GeV on the leading jet in the event. These predictions of yields and 
 distributions are compared with the yields and distributions obtained from the 
 simulation-based result after the WW selection. The sample is normalized to the 
 total number of Monte Carlo events in the W+Jet sample, corresponding roughly to $3$ \ifb.
