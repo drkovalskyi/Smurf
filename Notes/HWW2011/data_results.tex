@@ -87,8 +87,10 @@ hence any possible uncertainty on the method does not add anything significant.}
 
 The estimation of the fake leptons from $\Wjets$ is explained in 
 Section~\ref{sec:bkg_fakes}. The event predictions in the 0-jet, 1-jet 
-and 2-jet bins are 25.19 $\pm$ 1.93 $\pm$ 7.56, 11.04 $\pm$ 1.34 $\pm$ 3.31 and 
-3.02 $\pm$ 0.75 $\pm$ 0.91, respectively.
+and 2-jet bins are 25.38 $\pm$ 1.86 $\pm$ 9.14, 10.50 $\pm$ 1.20 $\pm$ 3.78 and 
+3.04 $\pm$ 0.71 $\pm$ 1.09, respectively. The results are quoted using the 
+fakeable object version V4 for electrons and M1 for muons, see Section~\ref{sec:bkg_fakes} 
+for details. The contribution due to contamination from real dilepton events is subtracted.
 
 As a summary, the expected number of signal and background events after 
 applying the $\WW$ selection requirements for each jet bin are shown in 
@@ -104,9 +106,9 @@ events taking into account the previously computed scale factors.
           &   data & all bkg. & $qq \to \WW$ & $gg \to \WW$ &  $\ttbar+tW$ \\
   \hline
   \hline
- 0-jet &  130 & 119.7 $\pm$  2.4  & 67.3 $\pm$ 0.3 &  3.4 $\pm$   0.1 &  14.3 $\pm$ 0.8 \\
- 1-jet &   67 &  61.2 $\pm$  2.1  & 19.1 $\pm$ 0.2 &  1.1 $\pm$   0.1 &  21.9 $\pm$ 1.4 \\
- 2-jet &   43 &  40.1 $\pm$  3.6  &  4.1 $\pm$ 0.1 &  0.2 $\pm$   0.1 &  18.3 $\pm$ 0.8 \\
+ 0-jet &  130 & 119.7 $\pm$  2.4  & 67.3 $\pm$ 0.3 &  3.4 $\pm$   0.1 &  14.3 $\pm$ 5.3 \\
+ 1-jet &   67 &  60.6 $\pm$  2.1  & 19.1 $\pm$ 0.2 &  1.1 $\pm$   0.1 &  21.9 $\pm$ 4.7 \\
+ 2-jet &   43 &  40.1 $\pm$  3.6  &  4.1 $\pm$ 0.1 &  0.2 $\pm$   0.1 &  18.3 $\pm$ 4.1 \\
  \hline
  \hline
   \end{tabular}
@@ -133,10 +135,10 @@ events taking into account the previously computed scale factors.
 The WW background data-driven estimation procedure defined in Section~\ref{sec:bkg_ww} is applied on the 
 collected data in the 0- and 1-jet bin analyses.
 In the $\WW$ control region, the top, Drell-Yan and fake backgrounds are estimated from data, while the others are taken from MC. 
-Estimated values are in very good agreement with MC predictions and, with the current luminosity of $192~pb^{-1}$, 
+Estimated values are in very good agreement with predictions from the simulation and, with the current luminosity, 
 the statistical uncertainties are at the level of 30\% for 0-jet and 100\% for 1-jet bin 
 (see Table~\ref{tab:wwEstimResData} and \ref{tab:wwEstimResDataMVA} for cut-based and MVA analysis respectively).
-Thus, we take the central values predicted by MC as WW estimate and assign an uncertainty of 30\% on it, corresponding to the current level of 
+Thus, we take the central values predicted by the simulation as WW estimate and assign an uncertainty of 30\% on it, corresponding to the current level of 
 precision on the WW cross section measurement.
 
 \begin{table}[!htbp]
@@ -185,16 +187,16 @@ Only statistical uncertainties are reported.}
 
 The cut based and multivariate analyses upper limits at 95\% C.L. are shown in 
 Tables~\ref{fig:cutbase_uls_data} and~\ref{fig:mvabase_uls_data}, respectively. With 192 
-$\ipb$ of data the upper limit is about 0.9 times the expectation of a Higgs boson of 
-160~$\GeVcc$.
+$\ipb$ of data the expected (observed) upper limit is about 1.0 (1.8) times the expectation 
+of a Higgs boson of 160~$\GeVcc$.
 
 \begin{figure}[!htbp]
 \begin{center}
-   \includegraphics[width=0.49\textwidth]{figures/limits_0j_50pb_cut_1.pdf}
-   \includegraphics[width=0.49\textwidth]{figures/limits_1j_50pb_cut_1.pdf}
-   \includegraphics[width=0.49\textwidth]{figures/limits_2j_50pb_cut_1.pdf}
-   \includegraphics[width=0.49\textwidth]{figures/limits_nj_50pb_cut_1.pdf}
-   \caption{Cut based analysis expected upper limits at 95\% C.L. for 49 $\ipb$ of data. Top left plot 
+   \includegraphics[width=0.49\textwidth]{figures/limits_0j_200pb_cut_1.pdf}
+   \includegraphics[width=0.49\textwidth]{figures/limits_1j_200pb_cut_1.pdf}
+   \includegraphics[width=0.49\textwidth]{figures/limits_2j_200pb_cut_1.pdf}
+   \includegraphics[width=0.49\textwidth]{figures/limits_nj_200pb_cut_1.pdf}
+   \caption{Cut based analysis expected upper limits at 95\% C.L. for 192 $\ipb$ of data. Top left plot 
    is the result for the 0-jet bin, top right plot is the result for the 1-jet bin, bottom left plot 
    is the result for the 2-jet bin and, bottom right plot is the combined result.}
    \label{fig:cutbase_uls_data}
@@ -203,10 +205,10 @@ $\ipb$ of data the upper limit is about 0.9 times the expectation of a Higgs bos
 
 \begin{figure}[!htbp]
 \begin{center}
-   \includegraphics[width=0.49\textwidth]{figures/limits_0j_50pb_mva_1.pdf}
-   \includegraphics[width=0.49\textwidth]{figures/limits_1j_50pb_mva_1.pdf}
-   \includegraphics[width=0.49\textwidth]{figures/limits_nj_50pb_mva_1.pdf}
-   \caption{Multivariate analysis expected upper limits at 95\% C.L. for 49 $\ipb$ of data. Top left plot 
+   \includegraphics[width=0.49\textwidth]{figures/limits_0j_200pb_mva_1.pdf}
+   \includegraphics[width=0.49\textwidth]{figures/limits_1j_200pb_mva_1.pdf}
+   \includegraphics[width=0.49\textwidth]{figures/limits_nj_200pb_mva_1.pdf}
+   \caption{Multivariate analysis expected upper limits at 95\% C.L. for 192 $\ipb$ of data. Top left plot 
    is the result for the 0-jet bin, top right plot is the result for the 1-jet bin and, 
    bottom right plot is the combined result.}
    \label{fig:mvabase_uls_data}
