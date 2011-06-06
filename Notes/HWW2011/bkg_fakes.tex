@@ -288,6 +288,60 @@ Total                         &  $4.5 \pm 0.6$(stat)     &   $2.8 \pm 0.5$(stat)
 \end{center}
 \end{table}
 
+
+For the MVA shape analysis, each event in the tight+fail sample enters the 
+distribution of the final discriminant variable with a weight equal to the 
+fake rate for the failing denominator object. In this way, one can build
+the distributions of various observables for the fake lepton background
+and compare them to the prediction from the Monte Carlo simulation. 
+In Figure \ref{fig:FakeBkgDataDistribution_LeptonPt} we show this data to Monte Carlo 
+comparison for the $p_{T}$ of the leading and trailing lepton. The analogous comparison
+for the projected missing transverse energy and the $\Delta\phi$ between the two 
+leptons are shown in Figure \ref{fig:FakeBkgDataDistribution_MetAndDeltaPhi}. Finally,
+the dilepton mass and the transverse mass of the higgs system is shown in 
+Figure \ref{fig:FakeBkgDataDistribution_DileptonMassAndMtHiggs}. The Monte Carlo simulation
+prediction has been normalized to the total yield predicted by the data-driven method,
+and only shapes of these distributions are compared. In all six distributions, there is
+reasonable agreement in the predicted shapes. A more detailed 
+discussion of the applicability of this method to predict the shapes of 
+the distributions for various important observables can be found in
+Appendices \ref{sec:FakeElectronBkgClosureTest} and 
+\ref{sec:FakeMuonBkgClosureTest}.
+
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[Leading lepton $p_{T}$]{\includegraphics[width=0.45\textwidth]{figures/histo_wjets_ptmax.pdf}}
+\subfigure[Trailing lepton $p_{T}$]{\includegraphics[width=0.45\textwidth]{figures/histo_wjets_ptmin.pdf}}
+\caption{A comparison of the $p_{T}$ distribution of the leading and trailing lepton
+between the fake rate method prediction and the W+Jets simulation prediction. }
+\label{fig:FakeBkgDataDistribution_LeptonPt}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[$\met$]{\includegraphics[width=0.45\textwidth]{figures/histo_wjets_pmet.pdf}}
+\subfigure[$\Delta\phi$]{\includegraphics[width=0.45\textwidth]{figures/histo_wjets_deltaphill.pdf}}
+\caption{A comparison of the distribution of the missing transverse energy, 
+and the $\Delta\phi$ between the two leptons predicted using the fake rate method and the
+W+Jets full simulation.}
+\label{fig:FakeBkgDataDistribution_MetAndDeltaPhi}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[Dilepton Mass]{\includegraphics[width=0.45\textwidth]{figures/histo_wjets_dilmass.pdf}}
+\subfigure[Higgs $M_{T}$]{\includegraphics[width=0.45\textwidth]{figures/histo_wjets_mt.pdf}}
+\caption{A comparison of the distribution of the dilepton mass and Higgs transverse mass 
+predicted using the fake rate method and the W+Jets full simulation.}
+\label{fig:FakeBkgDataDistribution_DileptonMassAndMtHiggs}
+\end{center}
+\end{figure}
+
+
+
 \subsubsection{Closure Test and Systematic Uncertainties}
 \label{sec:fakerateSystematics}
 

@@ -260,11 +260,11 @@ Higgs Mass     & $\kappa^{0}_{\mathrm{QCDscale\_ggH}}$ & $\kappa^{0}_{\mathrm{QC
 
 Finally, we estimate the systematic uncertainty due to higher order log terms by testing the default 
 parton shower and hadronization model, Pythia, with the results obtained using an alternative
-parton shower and hadronization model, Herwig++. The same matrix element calculation, Powheg,
-is used in both cases. In order to isolate the effect of the parton shower and hadronization 
-model, we reweight the Higgs $p_{T}$ distribution to the reference NNLO+NNLL resummed calculation,
-in both cases. Since the underlying event model in the two Monte Carlo are also different, this
-estimate includes also the effect of the underlying event model. 
+parton shower and hadronization model, Herwig++. In the first case, Powheg is used for the matrix
+element calculation, while in the second case MC@NLO is used. In order to isolate the effect of the 
+parton shower and hadronization model, we reweight the Higgs $p_{T}$ distribution to the reference 
+NNLO+NNLL resummed calculation, in both cases. Since the underlying event model in the two Monte Carlo 
+are also different, this estimate includes also the effect of the underlying event model. 
 
 Figure \ref{} shows a comparison of the jet bin fractions for these two Monte Carlo samples
 for a Higgs mass of $130$ GeV. The relative differences in the jet bin fractions,
@@ -292,8 +292,21 @@ Higgs Mass     &   $f_{0}$   &  $f_{1}$       &   $f_{2}$       \\
 
 \subsubsection{Lepton Acceptance and Selection Efficiency }
 
+The effect of the parton distribution function and the value of $\alpha_{s}$
+ on the lepton acceptance and the efficiency of all the selection cuts are 
+estimated using the prescription from the PDF4LHC recommendations \cite{}. We 
+propagate the uncertainty for each of the three PDF sets, MSTW2008, CT10, and
+NNPDF, according to their own prescriptions, and then take the envelope
+of the systematic uncertainties as the total PDF+$\alpha_{s}$  uncertainty. 
 
-
+The effect of the missing higher order corrections are accounted for by
+reweighting the Higgs $p_{T}$ spectrum to the one obtained from the
+NNLO+NNLL calculation with the renormalization and factorization scales
+varied by factors of $2$ and $1/2$. It is assumed that any change in the
+lepton acceptance and the efficiency of other selection cuts are only
+influenced via the Higgs $p_{T}$ spectrum. This effect is much smaller in 
+magnitude than the effect on the jet bin fractions in any case, and 
+essentially can be neglected.
 
 
 
