@@ -14,7 +14,7 @@ probe the other lepton.
 %\subsubsection{Electron triggers}
 %%%%%% double
 The per electron efficiency for
-HLT\_HLT\_Ele27\_CaloIdVT\_CaloIsoT\_TrkIdT\_TrkIsoT\_v*
+HLT\_Ele27\_CaloIdVT\_CaloIsoT\_TrkIdT\_TrkIsoT\_v*
 is given in Table \ref{tab:eff_trigger_ee}
 and the per electron efficiency for 
 HLT\_Ele17\_CaloIdL\_CaloIsoVL\_Ele8\_CaloIdL\_CaloIsoVL\_v* OR
@@ -35,13 +35,13 @@ given in Table \ref{tab:eff_trigger_mm}.
 \begin{center}
 \begin{tabular}{c|c|c}
 \hline
-Measurement  & $0.00<\eta<1.479$  & $1.479<\eta<2.50$  \\ 
+Measurement  & $0.00<|\eta|<1.479$  & $1.479<|\eta|<2.50$  \\ 
 \hline
 $  10<p_T<  25$ & 0.0007 $\pm$ 0.0007  & 0.0091 $\pm$ 0.0037  \\ \hline 
 $  25<p_T<  30$ & 0.5730 $\pm$ 0.0126  & 0.3344 $\pm$ 0.0155  \\ \hline 
 $  30<p_T<  50$ & 0.9826 $\pm$ 0.0005  & 0.9706 $\pm$ 0.0013  \\ \hline 
 \end{tabular}
-\caption{The efficiency of HLT\_HLT\_Ele27\_CaloIdVT\_CaloIsoT\_TrkIdT\_TrkIsoT\_v* as a function of $p_T$ and $|\eta|$.}
+\caption{The efficiency of HLT\_Ele27\_CaloIdVT\_CaloIsoT\_TrkIdT\_TrkIsoT\_v* as a function of $p_T$ and $|\eta|$.}
 \label{tab:eff_trigger_e}
 \end{center}
 \end{table}
@@ -52,7 +52,7 @@ $  30<p_T<  50$ & 0.9826 $\pm$ 0.0005  & 0.9706 $\pm$ 0.0013  \\ \hline
 \begin{center}
 \begin{tabular}{c|c|c}
 \hline
-Measurement  & $0.00<\eta<1.479$  & $1.479< \eta<2.50$  \\ 
+Measurement  & $0.00<|\eta|<1.479$  & $1.479<|\eta|<2.50$  \\ 
 \hline
 $  10<p_T<  15$ & 0.9739 $\pm$ 0.0105  & 1.0000 $\pm$ 0.0191  \\ \hline 
 $  15<p_T<  20$ & 0.9918 $\pm$ 0.0031  & 1.0000 $\pm$ 0.0047  \\ \hline 
@@ -70,7 +70,7 @@ HLT\_Ele17\_\{CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL\}\_Ele8\_\{X\}\_v* as a func
 \begin{center}
 \begin{tabular}{c|c|c|c|c}
 \hline
-Measurement  & $0.00<\eta<0.80$  & $0.80<\eta<1.479$  & $1.479<\eta<2.10$  & $2.10<\eta<2.40$  \\ 
+Measurement  & $0.00<|\eta|<0.80$  & $0.80<|\eta|<1.479$  & $1.479<|\eta|<2.10$  & $2.10<|\eta|<2.40$  \\ 
 \hline
 $  10<p_T<  16$ & 0.0000 $\pm$ 0.0000  & 0.0000 $\pm$ 0.0000  & 0.0000 $\pm$ 0.0000  & 0.0081 $\pm$ 0.0081  \\ \hline 
 $  16<p_T<  18$ & 0.5351 $\pm$ 0.0367  & 0.5034 $\pm$ 0.0412  & 0.4643 $\pm$ 0.0421  & 0.4098 $\pm$ 0.0630  \\ \hline 
@@ -89,7 +89,7 @@ $  25<p_T<  50$ & 0.9660 $\pm$ 0.0008  & 0.9100 $\pm$ 0.0016  & 0.8562 $\pm$ 0.0
 \begin{center}
 \begin{tabular}{c|c|c|c}
 \hline
-Measurement  & $0.00<\eta<0.80$  & $0.80<\eta<1.20$  & $1.20<\eta<2.40$  \\ 
+Measurement  & $0.00<|\eta|<0.80$  & $0.80<|\eta|<1.20$  & $1.20<|\eta|<2.40$  \\ 
 \hline
 $  10<p_T<  20$ & 0.9765 $\pm$ 0.0082  & 0.9503 $\pm$ 0.0171  & 0.9511 $\pm$ 0.0092  \\ \hline 
 $  20<p_T<  50$ & 0.9770 $\pm$ 0.0010  & 0.9464 $\pm$ 0.0022  & 0.9536 $\pm$ 0.0014  \\ \hline 
@@ -111,7 +111,7 @@ In this case the tag was required to be a muon passing the muon part of the
 trigger, and the probe was an electron passing the offline selection.
 To select a well defined $t\bar{t}$ event sample, the MET was required to be
 above $20~GeV$.
-The efficiency was consistant with the other double electron triggers,
+The efficiency was consistent with the other double electron triggers,
 thus the electron leg can be taken from 
 Table \ref{tab:eff_trigger_ee}.
 
@@ -135,8 +135,9 @@ $\varepsilon_{D}(p_T,\:\eta)$ is the per leg efficiency of the double trigger.
                &   & +~\varepsilon_{S}(p_T',\:\eta')\varepsilon_{D}(p_T,\:\eta)(1-\varepsilon_{D}(p_T',\:\eta'))
 \end{eqnarray}
 
-After applying this procedure to simulated Higgs boson decays we find a trigger efficiency with
-respect to the offline selection of $XXX \pm YYY$ for a Higgs boson mass of $ZZZ$ etc.
+The procedure of Equation \ref{eqn:evteff} is applied to simulated Higgs boson decays to obtain an event-by-event weight factor. We find a 
+trigger efficiency with respect to the offline selection of $98\%$ for a Higgs boson mass of $115\:\GeVcc$ and this increases with larger
+mass hypotheses to higher than $99\%$ for masses above $160\:\GeVcc$.
 
 %Since the triggers involve different lepton flavour 
 %combinations, an overall dilepton efficiency is computed for each final state ($ee$, $e\mu$, and $\mu\mu$) 
