@@ -54,14 +54,22 @@ simulation and propaged to the uncertainty on the efficiency extracted.
 If the bias is small or the scale factor is close to unity then the bias on
 the scale factor is very small.
 
-The results shown here use the N-1 method with simple counting.
+The offline selection results shown here use the N-1 method with simple counting.
 We split the results into the detector regions $|\eta|<1.479$ and $1.479<|\eta|<2.50$
 to reflect the divisions that define our event selections.
 In each $\eta$ bin we measured the scale factor between data and simulation
 for $10\leq p_T<15$, $15\leq p_T<20$ and $p_T\geq 20$.
+The trigger selection results are shown in the minimum number of bins required
+to capture the efficiency below the kinematic turn-on, in the region of the turn-on
+and at plateau.
 
 To produce overall data-MC scale factors to apply in the analysis, we factorise the efficiency measurements
-into two steps such that $\varepsilon_{total} = \varepsilon_{offline} \times \varepsilon_{trigger}$.
+into two steps such that
+
+\begin{equation}
+\varepsilon_{total} = \varepsilon_{offline} \times \varepsilon_{trigger}.
+\end{equation}
+
 The offline efficiency $\varepsilon_{offline} = \varepsilon_{offline}^{l1} \times \varepsilon_{offline}^{l2}$
 is the product of the efficiencies of the two leptons and is discussed in more detail in Sections \ref{sec:eff_electron}
 and \ref{sec:eff_muon} for electrons and muons respectively.
