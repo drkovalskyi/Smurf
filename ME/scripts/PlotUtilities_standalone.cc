@@ -209,7 +209,7 @@ void PlotWithBelts::save(){
 	cCanvas->Print(string(ssave+".png").c_str());
 	cCanvas->Print(string(ssave+".pdf").c_str());
 	cCanvas->Print(string(ssave+".root").c_str());
-	cCanvas->Print(string(ssave+".C").c_str());
+	cCanvas-Print(string(ssave+".C").c_str());
 
     // do linear version
     cCanvas->SetLogy(0);
@@ -289,7 +289,8 @@ void PlotWithBelts::plot(double posX, double posY){
 		grobs->Draw("LP");
 	}
 
-	legend = DrawLegend(posX, posY, gr, "bkgd-only: mean", "l");
+	// legend = DrawLegend(posX, posY, gr, "bkgd-only: mean", "l");
+	legend = DrawLegend(posX, posY, gr, "bkgd-only: median", "l");
 	legend->AddEntry(gGreen,"bkgd-only: 1 #sigma band", "f");
 	legend->AddEntry(gYellow,"bkgd-only: 2 #sigma band", "f");
 	if(bDrawGrobs==1){
