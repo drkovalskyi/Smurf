@@ -1,4 +1,4 @@
-We apply a data-driven method to estimate the $\dyll$ contributions in the 
+We apply a data-driven method~\cite{dyestnote} to estimate the $\dyll$ contributions in the 
 same flavor $\ell^+\ell^-$ final states. This method also provides an estimate 
 for the \emph{peaking component} of $WZ$ and $ZZ$ contributions, in which both 
 leptons come from the same $Z$ boson.
@@ -6,7 +6,13 @@ leptons come from the same $Z$ boson.
 The expected contributions from $\dyll$ events outside the $Z$-mass 
 region in data can be estimated by counting the number of events near 
 the $Z$ mass region in data, subtracting from it the non-$Z$ contributions, 
-and scaling it by a ratio $R_{out/in}$ defined as
+and scaling it by a ratio $R_{out/in}$ defined as the fraction of events outside and 
+inside the $Z$-mass region in the simulation. The non-$Z$ contributions close to the 
+$Z$-mass region in data is estimated from the number of events in the $e^\pm\mu^\mp$ final state 
+$N_{in}^{e\mu}$, applying a correction factor that normalizes the 
+electron-to-muon efficiency $k_{ee/\mu\mu}$. $R_{out/in}$ is obtained from simulation as 
+$N_{out}^{MC}/N_{in}^{MC}$ with a looser $\met$ cut of 20 GeV (referred to as a loose selection). 
+This method is described mathematically in Eq.~\ref{eq:dyest}. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{eqnarray}
 N_{out}^{ll,exp} = R_{out/in}^{ll,loose}(N_{in}^{ll} - 0.5N_{in}^{e\mu}k_{ll}), 
@@ -15,31 +21,28 @@ N_{out}^{ll,exp} = R_{out/in}^{ll,loose}(N_{in}^{ll} - 0.5N_{in}^{e\mu}k_{ll}),
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 where $k_{ee} = \sqrt{\frac{N_{in}^{ee,loose}}{N_{in}^{\mu\mu,loose}}}$ for 
 $\dyee$ and $k_{mm} = \sqrt{\frac{N_{in}^{\mu\mu,loose}}{N_{in}^{ee,loose}}}$ 
-for $\dymm$. $R_{out/in}$ is obtained from simulation as 
-$N_{out}^{MC}/N_{in}^{MC}$ with no $\met$ cut (referred to as a loose 
-selection). The non-$Z$ contributions close to the $Z$-mass region in data is 
-estimated from the number of events in the $e^\pm\mu^\mp$ final state 
-$N_{in}^{e\mu}$, applying a correction factor that normalizes the 
-electron-to-muon efficiency $k_{ee/\mu\mu}$. 
+for $\dymm$. 
 %To validate this method, we apply it first on events with no $\met$ cut. 
 %These events are dominated by $\dyll$. A good agreement within 10\% between 
 %the predictions from the data-driven method and simulation is observed. 
-The method relies on on the assumption that the dependence of the ratio $R_{out/in}$ 
+
+The method relies on the assumption that the dependence of the ratio $R_{out/in}$ 
 on the $\met$ cut is well modelled by the simulation and is relatively flat. 
 %An estimate of the degree to which this assumption fails is shown in  
 Figure~\ref{fig:routin_met} shows the ratios $R_{out/in}$ as functions of 
-the $\met$ cut at different jet bins. 
+the $\met$ cut at different jet bins determined from simulation.  
 In the zero-jet bin, we have observed an increase of the 
 ratio with respect to the $\met$ cut mainly due to the correlation of the 
-$\met$ and the di-lepton mass measurement. The measurement of $R_{out/in}$ is taken 
-from simulation with a looser $\met$ cut at 20 GeV as the statistics at the 
-nominal cut value (35 GeV) is limited. The systematic uncertainty is assigned as the 
+$\met$ and the di-lepton mass measurement. The systematic uncertainty is assigned as the 
 largest difference in the ratio to the central value as we vary the $\met$ cut from 
 0 to 35 GeV. The results are tabulated in Table~\ref{tab:Routinmc}. 
-We cross-checked the $R_{out/in}$ value in data as 
-$(N_{out}^{ll} - 0.5N_{out}^{e\mu}k_{ll})/(N_{in}^{ll} - 0.5N_{in}^{e\mu}k_{ll})$, the 
-dependence of which on the $\met$ cut is shown in Figure~\ref{fig:routin_met_data}. 
 
+We cross-checked the $R_{out/in}$ value in data where we subtract the 
+non-$Z$ contributions in both the neaer $Z$ mass region and outside 
+the $Z$ mass region. 
+%as $$(N_{out}^{ll} - 0.5N_{out}^{e\mu}k_{ll})/(N_{in}^{ll} - 0.5N_{in}^{e\mu}k_{ll})$$. 
+Figure~\ref{fig:routin_met_data} shows the dependence of $R_{out/in}$ of $\met$ cut evaluated 
+in data. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
