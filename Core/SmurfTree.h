@@ -310,10 +310,10 @@ class SmurfTree {
     tree_->Branch("dstype"       , &dstype_       ,   "dstype/I");
     tree_->Branch("lep1"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr1_);
     tree_->Branch("lq1"          , &lq1_          ,   "lq1/I");
-    tree_->Branch("lid1"         , &lid1_         ,   "lid1/i");
+    tree_->Branch("lid1"         , &lid1_         ,   "lid1/I");
     tree_->Branch("lep2"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr2_);
     tree_->Branch("lq2"          , &lq2_          ,   "lq2/I");
-    tree_->Branch("lid2"         , &lid2_         ,   "lid2/i");
+    tree_->Branch("lid2"         , &lid2_         ,   "lid2/I");
     tree_->Branch("jet1"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr1_);
     tree_->Branch("jet1Btag"     , &jet1Btag_     ,   "jet1Btag/F");
     tree_->Branch("jet2"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr2_);
@@ -347,7 +347,7 @@ class SmurfTree {
     if(type >=0 && type <= 2){
       tree_->Branch("lep3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr3_);
       tree_->Branch("lq3",           &lq3_,          "lq3/I");
-      tree_->Branch("lid3",          &lid3_,         "lid3/i");
+      tree_->Branch("lid3",          &lid3_,         "lid3/I");
       tree_->Branch("jet3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr3_);
       tree_->Branch("jet3Btag",      &jet3Btag_,      "jet3Btag/F");
       tree_->Branch("lep3McId",      &lep3McId_,      "lep3McId/I");
