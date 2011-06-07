@@ -10,15 +10,22 @@ this simpfied approach could lead to an overestimated limit.
 The exact impact depends on the size of the background samples from which 
 the background template is built upon. 
 
-In this section, we describe a procedure to correctly account for the bin-by-bin 
-statistical uncertainties and estimate the effects on the measured upperlimits shown in 
-Section~\ref{sec:dataresults}. In this procedure, instead of using the histograms directly 
-as an input to the LandS calculation, we write out an input card for each bin in which 
-the correct statistical uncertainty is used. We then combine these cards to compute the 
-upper limits. If the background template at a given bin is empty, we flucturate the 
-bin content equal to one even count and assign 100\% relative uncertainty. 
-The results obtained this way is then compared with the default 
-shape analysis results to evaulate the effects, as tabulated in Table~\ref{tab:shapeuncertain}. 
+To account for the bin-by-bin statistical uncertainties and estimate
+the effects on the measured upperlimits shown in
+Section~\ref{sec:dataresults} we use the following procedure. Instead
+of using the histograms directly as an input to the LandS calculation,
+we write out an input card for each bin in which the correct
+statistical uncertainty is used. We then combine these cards to
+compute the upper limits. If the background template at a given bin is
+empty, we flucturate the bin content equal to one even count and
+assign 100\% relative uncertainty.  The results obtained this way is
+then compared with the default shape analysis results to evaulate the
+effects, as tabulated in Table~\ref{tab:shapeuncertain}.
+
+This method provides full systematic uncertainty evaluation for the
+shape analysis since the uncertainty on the shape is taken directly
+from data driven background estimation and the uncertainty is properly
+taken into account.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}
@@ -34,7 +41,7 @@ shape analysis results to evaulate the effects, as tabulated in Table~\ref{tab:s
 relative difference in the median of the expected limits at 95\% C.L. correponding to 200/pb  
 between the results obtained including the bin-by-bin uncertainty and the results obtained 
 from the default shape analysis. }
-\label{tab:shapeuncert}
+\label{tab:shapeuncertain}
 \end{table}
 
 
