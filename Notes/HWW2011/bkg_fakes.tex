@@ -100,7 +100,7 @@ The fake rates are measured in calibration data samples dominated by fake lepton
 resulting from jets in QCD dijet events. 
 
 %We primarily use two samples to perform the 
-measurement: QCD dijet events, and Photon+Jet events.
+%measurement: QCD dijet events, and Photon+Jet events.
 
 The QCD dijet event sample is collected using a combination of different 
 electron and muon triggers. For electrons, we use the 
@@ -115,7 +115,7 @@ in Section \ref{sec:sel_trigger}.
 
 In order to suppress 
 contamination due to signal leptons from the decay of W and Z bosons we require
-that the particle flow missing transverse energy is less than $20$ GeV, and that 
+that the missing transverse energy is less than $20$ GeV, and that 
 the event contains only a single reconstructed lepton. In order to control the 
 average $p_{T}$ of the jet that fakes the lepton, we impose a $p_{T}$ requirement 
 on the leading jet in the event and require that the lepton denominator object is 
@@ -310,7 +310,7 @@ distribution of the final discriminant variable with a weight equal to the
 fake rate for the failing denominator object. In this way, one can build
 the distributions of various observables for the fake lepton background
 and compare them to the prediction from the Monte Carlo simulation. 
-In Figure \ref{fig:FakeBkgDataDistribution_LeptonPt} we show this data to Monte Carlo 
+In Figure \ref{fig:FakeBkgDataDistribution_LeptonPt} we show this data to Pythia Monte Carlo 
 comparison for the $p_{T}$ of the leading and trailing lepton. The analogous comparison
 for the projected missing transverse energy and the $\Delta\phi$ between the two 
 leptons are shown in Figure \ref{fig:FakeBkgDataDistribution_MetAndDeltaPhi}. Finally,
@@ -330,7 +330,8 @@ Appendices \ref{sec:FakeElectronBkgClosureTest} and
 \subfigure[Leading lepton $p_{T}$]{\includegraphics[width=0.45\textwidth]{figures/histo_wjets_ptmax.pdf}}
 \subfigure[Trailing lepton $p_{T}$]{\includegraphics[width=0.45\textwidth]{figures/histo_wjets_ptmin.pdf}}
 \caption{A comparison of the $p_{T}$ distribution of the leading and trailing lepton
-between the fake rate method prediction and the W+Jets simulation prediction. }
+between the fake rate method prediction and the W+Jets Pythia MC simulation prediction 
+(simulation is scaled to data). }
 \label{fig:FakeBkgDataDistribution_LeptonPt}
 \end{center}
 \end{figure}
@@ -341,7 +342,7 @@ between the fake rate method prediction and the W+Jets simulation prediction. }
 \subfigure[$\Delta\phi$]{\includegraphics[width=0.45\textwidth]{figures/histo_wjets_deltaphill.pdf}}
 \caption{A comparison of the distribution of the missing transverse energy, 
 and the $\Delta\phi$ between the two leptons predicted using the fake rate method and the
-W+Jets full simulation.}
+W+Jets Pythia MC simulation (simulation is scaled to data).}
 \label{fig:FakeBkgDataDistribution_MetAndDeltaPhi}
 \end{center}
 \end{figure}
@@ -351,7 +352,7 @@ W+Jets full simulation.}
 \subfigure[Dilepton Mass]{\includegraphics[width=0.45\textwidth]{figures/histo_wjets_dilmass.pdf}}
 \subfigure[Higgs $M_{T}$]{\includegraphics[width=0.45\textwidth]{figures/histo_wjets_mt.pdf}}
 \caption{A comparison of the distribution of the dilepton mass and Higgs transverse mass 
-predicted using the fake rate method and the W+Jets full simulation.}
+predicted using the fake rate method and the W+Jets Pythia MC simulation (simulation is scaled to data).}
 \label{fig:FakeBkgDataDistribution_DileptonMassAndMtHiggs}
 \end{center}
 \end{figure}
