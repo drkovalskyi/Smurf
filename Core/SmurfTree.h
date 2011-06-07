@@ -192,10 +192,10 @@ class SmurfTree {
   DataType       dstype_;
   LorentzVector  lep1_;
   int            lq1_;
-  unsigned int   lid1_;
+  int            lid1_;
   LorentzVector  lep2_;
   int            lq2_;
-  unsigned int   lid2_;
+  int            lid2_;
   LorentzVector  jet1_;
   float          jet1Btag_;
   LorentzVector  jet2_;
@@ -230,7 +230,7 @@ class SmurfTree {
   // Additional variables
   LorentzVector  lep3_;
   int            lq3_;
-  unsigned int   lid3_;
+  int            lid3_;
   LorentzVector  jet3_;
   float          jet3Btag_;
   int            lep3McId_;
