@@ -97,49 +97,65 @@ in isolation is reduced.
 \subsubsection{Fake rate measurement}
 \label{sec:fakerateMeasurement}
 The fake rates are measured in calibration data samples dominated by fake leptons 
-resulting from jets. We primarily use two samples to perform the 
+resulting from jets in QCD dijet events. 
+
+%We primarily use two samples to perform the 
 measurement: QCD dijet events, and Photon+Jet events.
 
-The QCD dijet event sample is collected using the {HLT\_Ele8\_CaloIdL\_CaloIsoVL } 
-trigger for electrons and the { HLT\_Mu8 } trigger for muons as described 
-in Section \ref{sec:sel_trigger}. In order to suppress 
+The QCD dijet event sample is collected using a combination of different 
+electron and muon triggers. For electrons, we use the 
+{HLT\_Ele8\_CaloIdL\_CaloIsoVL}, {HLT\_Ele17\_CaloIdL\_CaloIsoVL}, \\ 
+and {HLT\_Ele8\_CaloIdL\_CaloIsoVL\_Jet40} triggers. The 
+{HLT\_Ele17\_CaloIdL\_CaloIsoVL} trigger adds more events at high electron
+$p_{T}$, while the {HLT\_Ele8\_CaloIdL\_CaloIsoVL\_Jet40} trigger adds more
+events with higher jet $p_{T}$ thresholds. For muons, we use the
+{ HLT\_Mu8 }, and { HLT\_Mu15 } triggers in order to add more events at 
+higher muon $p_{T}$. Details of these triggers are described 
+in Section \ref{sec:sel_trigger}. 
+
+In order to suppress 
 contamination due to signal leptons from the decay of W and Z bosons we require
 that the particle flow missing transverse energy is less than $20$ GeV, and that 
 the event contains only a single reconstructed lepton. In order to control the 
 average $p_{T}$ of the jet that fakes the lepton, we impose a $p_{T}$ requirement 
 on the leading jet in the event and require that the lepton denominator object is 
-separated from the leading jet by $\Delta$R $ > 1.0$. The nominal fake rates are measured
-requiring that the leading jet $p_{T}$ is greater than $35$ GeV. 
+separated from the leading jet by $\Delta$R $ > 1.0$. The nominal fake rates for
+electrons are measured requiring that the leading jet $p_{T}$ is greater than 
+$35$ GeV, and the nominal fake rates for muons are measured with the requirement 
+that the leading jet $p_{T}$ is greater than $15$ GeV. Details of the justification for
+these different thresholds are further discussed in Appendices 
+\ref{sec:FakeElectronBkgJetSpectrumSystematics} and 
+\ref{sec:FakeMuonBkgJetSpectrumSystematics}.
 
-The Photon+Jet sample is collected using the dedicated triggers \\
-{HLT\_Photon20\_CaloIdVT\_IsoT\_Ele8\_CaloIdL\_CaloIsoVL} and 
-{HLT\_Mu8\_Photon20\_CaloIdVT\_IsoT} for electrons and muons
-as described in Section \ref{sec:sel_trigger}.
-In order to suppress QCD background where the photon comes from a 
-jet, we impose cuts on the shower shape and isolation of the photon, 
-summarized in Table \ref{tab:photonOfflineSelection}. We also impose the pixel veto in order to reject
-Z $\rightarrow$ $e^{+}e^{-}$ events. The selected photon is required to
-be separated from the lepton candidate by $\Delta$R $ > 0.5$. Finally, 
-for electrons, we reject any events where the mass of the photon and
-electron system is within $20$ GeV of the Z boson mass. 
+%% The Photon+Jet sample is collected using the dedicated triggers \\
+%% {HLT\_Photon20\_CaloIdVT\_IsoT\_Ele8\_CaloIdL\_CaloIsoVL} and 
+%% {HLT\_Mu8\_Photon20\_CaloIdVT\_IsoT} for electrons and muons
+%% as described in Section \ref{sec:sel_trigger}.
+%% In order to suppress QCD background where the photon comes from a 
+%% jet, we impose cuts on the shower shape and isolation of the photon, 
+%% summarized in Table \ref{tab:photonOfflineSelection}. We also impose the pixel veto in order to reject
+%% Z $\rightarrow$ $e^{+}e^{-}$ events. The selected photon is required to
+%% be separated from the lepton candidate by $\Delta$R $ > 0.5$. Finally, 
+%% for electrons, we reject any events where the mass of the photon and
+%% electron system is within $20$ GeV of the Z boson mass. 
 
-\begin{table}[!ht]
-\begin{center}
-\begin{tabular}{|c|c|c|}
-\hline
- Cut Variable           &   Cut Value (Barrel)        & Cut Value (Endcap)     \\
-\hline
- $\sigma_{i\eta i\eta}$      &   $<0.01$              & $<0.028$               \\ 
-\hline
- EcalIso (0.3 cone)          &   \multicolumn{2}{|c|}{$<2.0 + 0.006*E_{T}$}    \\ 
- HcalIso (0.3 cone)          &   \multicolumn{2}{|c|}{$<2.0 + 0.0025*E_{T}$}   \\ 
- TrkIso (0.3 hollow cone)    &   \multicolumn{2}{|c|}{$<1.5 + 0.001*E_{T}$}    \\ 
-\hline
-\end{tabular}
-\caption{Summary of the shower shape and isolation requirements on 
-photon candidates. \label{tab:photonOfflineSelection}}
-\end{center}
-\end{table}
+%% \begin{table}[!ht]
+%% \begin{center}
+%% \begin{tabular}{|c|c|c|}
+%% \hline
+%%  Cut Variable           &   Cut Value (Barrel)        & Cut Value (Endcap)     \\
+%% \hline
+%%  $\sigma_{i\eta i\eta}$      &   $<0.01$              & $<0.028$               \\ 
+%% \hline
+%%  EcalIso (0.3 cone)          &   \multicolumn{2}{|c|}{$<2.0 + 0.006*E_{T}$}    \\ 
+%%  HcalIso (0.3 cone)          &   \multicolumn{2}{|c|}{$<2.0 + 0.0025*E_{T}$}   \\ 
+%%  TrkIso (0.3 hollow cone)    &   \multicolumn{2}{|c|}{$<1.5 + 0.001*E_{T}$}    \\ 
+%% \hline
+%% \end{tabular}
+%% \caption{Summary of the shower shape and isolation requirements on 
+%% photon candidates. \label{tab:photonOfflineSelection}}
+%% \end{center}
+%% \end{table}
 
 From these selected event samples, we measure the fake rate 
 ($\epsilon_{\mathrm{fake}}$) by counting the number of denominator 
