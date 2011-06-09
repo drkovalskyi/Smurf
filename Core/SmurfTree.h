@@ -250,6 +250,8 @@ class SmurfTree {
   float          x2_;
   float          pdf2_;
   int            processId_;
+  float          higgsPt_;
+
 
  public:
   /// this is the main element
@@ -367,6 +369,7 @@ class SmurfTree {
       tree_->Branch("x2",            &x2_	,     "x2/F");
       tree_->Branch("pdf2",          &pdf2_	,     "pdf2/F");
       tree_->Branch("processId",     &processId_,     "processId/I");
+      tree_->Branch("higgsPt",       &higgsPt_,       "higgsPt/F");
     }
   }
 
@@ -449,6 +452,7 @@ class SmurfTree {
       tree_->SetBranchAddress("x2",	       &x2_);
       tree_->SetBranchAddress("pdf2",	       &pdf2_);
       tree_->SetBranchAddress("processId",     &processId_);
+      tree_->SetBranchAddress("higgsPt",       &higgsPt_);
     }
   }
   /// get a built in type variable by name
@@ -652,6 +656,7 @@ SmurfTree::InitVariables(){
   x2_		 = -999.;
   pdf2_ 	 = -999.;  
   processId_	 = 0;
+  higgsPt_	 = -999;
 }
 
 inline double
@@ -721,6 +726,7 @@ SmurfTree::Get(std::string value)
   if(value=="x2"	    ) { return this->x2_;	     } 
   if(value=="pdf2"	    ) { return this->pdf2_;	     } 
   if(value=="processId"	    ) { return this->processId_;     } 
+  if(value=="higgsPt"	    ) { return this->higgsPt_;       } 
 
   return -9999.; 
 }
