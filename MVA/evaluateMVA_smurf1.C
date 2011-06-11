@@ -51,7 +51,7 @@ void fillUnderOverFlow(TH1F *h1, float value, float weight = 1)
 
 //--------------------------------------------------------------------
 
-void evaluateMVA_smurf(
+void evaluateMVA_smurf1(
 char* inputFile      = "data/histo_hww130_std_pu11_randomized.training.root", 
 int mH               = 130,
 TString myMethodList = "Fisher,BDT",
@@ -90,8 +90,8 @@ TString path         = "")
   mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
   mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
   mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
-  mvaVar[ "dPhiDiLepMET" ]	= 0;  //delta phi btw dilepton and met
-  mvaVar[ "dPhiDiLepJet1" ]	= 0;  //delta phi btw dilepton and jet1 (only for njet>0)
+  mvaVar[ "dPhiDiLepMET" ]	= 1;  //delta phi btw dilepton and met
+  mvaVar[ "dPhiDiLepJet1" ]	= 1;  //delta phi btw dilepton and jet1 (only for njet>0)
 
   //---------------------------------------------------------------
   // specifies the selection applied to events in the training
@@ -256,7 +256,7 @@ TString path         = "")
     // --- Book the MVA methods
 
     //--------------------------------------------------------------------------------------
-    // tell evaluateMVA_smurf where to find the weights dir, which contains the trained MVA's. 
+    // tell evaluateMVA_smurf1 where to find the weights dir, which contains the trained MVA's. 
     // In this example, the weights dir is located at [path]/[dir]
     // and the output root file is written to [path]/[output]
     //--------------------------------------------------------------------------------------

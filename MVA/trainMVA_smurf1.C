@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.1 2011/03/29 21:05:10 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf1.C,v 1.1 2011/03/29 21:05:10 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -65,7 +65,7 @@ enum Type {
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
-void trainMVA_smurf(
+void trainMVA_smurf1(
  UInt_t  njetsType       = 0,			   
  TString sigInputFile    = "data/histo_hww130_std_pu11_randomized.training.root",
  TString bgdInputFile    = "data/histo_w10-ggww-z2-v8-pu11_all_noskim_normalized.root",
@@ -123,8 +123,8 @@ void trainMVA_smurf(
   mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
   mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
   mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
-  mvaVar[ "dPhiDiLepMET" ]	= 0;  //delta phi btw dilepton and met
-  mvaVar[ "dPhiDiLepJet1" ]	= 0;  //delta phi btw dilepton and jet1 (only for njet>0)
+  mvaVar[ "dPhiDiLepMET" ]	= 1;  //delta phi btw dilepton and met
+  mvaVar[ "dPhiDiLepJet1" ]	= 1;  //delta phi btw dilepton and jet1 (only for njet>0)
 
   TCut sel = "";
   
