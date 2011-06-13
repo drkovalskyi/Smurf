@@ -4,12 +4,12 @@
 
 void doAllME()
 {
-  gROOT->ProcessLine(".L runME_WWHWW.C+");
+  gROOT->ProcessLine(".L runME_test.C++");
   using namespace std;
   
   /* =====   ME arguements  
        1 - input file
-       2 - random seed
+       2 - random seeds
        3 - smearing level
        4 - number of steps in the integration
        5 - error threshold
@@ -20,23 +20,38 @@ void doAllME()
   int seed = 10; // random seed generator
   int SmearLevel = 1; 
   int ncalls = 100000;
-  int maxevt = 1000;
+  int maxevt = 10;
   int higgsMass = 0;
   double error = 0.0;
 
   // location of the smurf trees
-  TString inputDir = "/smurf/data/Run2010_Fall10U_SmurfWW_V1/tas/";
-  TString outputDir = "./";
-  
+  // TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV3/tas-zerojet/";
+  TString smurfFDir = "/smurf/yygao/data/Run2011_Spring11_SmurfV5/mitf-zerojet/";
+  TString meFDir = "datame/";
+
   // Flags for files to run over 
   // (0 and 1 are easier to modify)
 
-  bool runWW = 0;
-  bool runHWW120 = 0;
+  bool runData = 0;
+  bool runData_lfake = 0;
+  bool runMC_lfake = ;
+  bool runqqWW = 0;
+  bool runggWW = 0;
+  bool runWjets = 0;
+  bool runWgamma = 0;
+  bool runttbar = 0;
+  bool runWZ = 0;
+  bool runZZ = 0;
+  bool runDYee = 0;
+  bool runDYmm = 0;
+  bool runDYtt = 0;
+  bool runtW = 0;
+  bool runHWW115 = 0;
+  bool runHWW120 = 1;
   bool runHWW130 = 0;
   bool runHWW140 = 0;
   bool runHWW150 = 0;
-  bool runHWW160 = 1;
+  bool runHWW160 = 0;
   bool runHWW170 = 0;
   bool runHWW180 = 0;
   bool runHWW190 = 0;
@@ -46,53 +61,59 @@ void doAllME()
   bool runHWW230 = 0;
   bool runHWW250 = 0;
   bool runHWW300 = 0;
-
-
-  if(runWW)
-    runME_WWHWW(inputDir, "ww.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
   
+  
+  if(runData_lfake)
+    runME_test(smurfFDir, "data_lfake.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+
+  if(runMC_lfake)
+    runME_test(smurfFDir, "mc_l_fake_pu.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+
+  if(runData)
+    runME_test(smurfFDir, "data.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+  
+  if(runqqWW)
+    runME_test(smurfFDir, "qqww.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+
+  if(runggWW)
+    runME_test(smurfFDir, "ggww.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+
+  if(runZZ)
+    runME_test("/smurf/data/Run2011_Spring11_SmurfV3/mitf-zerojets-wwselection/", "zz.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+
+  if(runWZ)
+    runME_test("/smurf/data/Run2011_Spring11_SmurfV3/mitf-zerojets-wwselection/", "wz.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+  
+  if(runDYee)
+    runME_test(smurfFDir, "dyee.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+
+  if(runDYmm)
+    runME_test(smurfFDir, "dymm.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+
+  if(runDYtt)
+    runME_test(smurfFDir, "dytt.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+  
+  if(runWjets)
+    //runME_test(smurfFDir, "wjets_pythia.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+    runME_test(smurfFDir, "wjets.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+
+  if(runWgamma)
+    runME_test(smurfFDir, "wgamma.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+
+  if(runttbar)
+    runME_test(smurfFDir, "ttbar.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+  
+  if(runtW)
+    runME_test(smurfFDir, "tw.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+
+  if(runHWW115)
+    runME_test(smurfFDir, "hww115.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
+
   if(runHWW120)
-    runME_WWHWW(inputDir, "hww120.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
-  
- if(runHWW130)
-   runME_WWHWW(inputDir, "hww130.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
+    runME_test(smurfFDir, "hww120.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
 
- if(runHWW140)
-   runME_WWHWW(inputDir, "hww140.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
- 
- if(runHWW150)
-   runME_WWHWW(inputDir, "hww150.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
- 
- if(runHWW160)
-   runME_WWHWW(inputDir, "hww160.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
- 
- if(runHWW170)
-   runME_WWHWW(inputDir, "hww170.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
+  if(runHWW130)
+    runME_test(smurfFDir, "hww130.root", meFDir, seed, SmearLevel, ncalls, error, maxevt, 0, TVar::DEBUG);
   
- if(runHWW180)
-   runME_WWHWW(inputDir, "hww180.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
- 
- if(runHWW190)
-   runME_WWHWW(inputDir, "hww190.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
- 
- if(runHWW200)
-   runME_WWHWW(inputDir, "hww200.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
-
- if(runHWW210)
-   runME_WWHWW(inputDir, "hww210.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
- 
- if(runHWW220)
-   runME_WWHWW(inputDir, "hww220.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
-  
- if(runHWW230)
-   runME_WWHWW(inputDir, "hww230.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
- 
- if(runHWW250)
-   runME_WWHWW(inputDir, "hww250.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
- 
- if(runHWW300)
-   runME_WWHWW(inputDir, "hww300.root", outputDir, seed, SmearLevel, ncalls, error, higgsMass, maxevt); 
- 
-
 }
 

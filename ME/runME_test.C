@@ -9,8 +9,7 @@
    6 - thresold for the dXsec/dXsecErr to print out information
    7 - maximum events
    8 - start event number
-   9 - higgsMass (set to 0 if for SM background, specify for the HiggsSample)
-   10 - level of output
+   9 - level of output
  */
  
 #include "TVar.hh"
@@ -22,30 +21,30 @@
 #include <iostream>
 #include "Math/LorentzVector.h"
 #include "Math/VectorUtil.h"
-
+#include "../Core/SmurfTree.h"
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
 double ERRORthreshold=1.0;
 using namespace std;
 
-void NeutrinoIntegration(int process, TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int evtstart, int higgsMass, TVar::VerbosityLevel verbosity);
+void NeutrinoIntegration(int process, TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int evtstart, TVar::VerbosityLevel verbosity);
 
 //###################
 //# main function
 //###################
-void runME_test(TString inputDir, TString fileName, TString outputDir, int seed,int SmearLevel,int ncalls,double Error, int nev, int evtstart = 0, int higgsMass = 0, TVar::VerbosityLevel verbosity=TVar::INFO){
+void runME_test(TString inputDir, TString fileName, TString outputDir, int seed,int SmearLevel,int ncalls,double Error, int nev, int evtstart = 0, TVar::VerbosityLevel verbosity=TVar::INFO){
 
   ERRORthreshold=Error;
   int process=TVar::HWW;
   int maxevt=nev;
   
   if (verbosity >= TVar::INFO) cout <<"=== Neutrino Integration ==========" <<endl;  
-  NeutrinoIntegration(process, inputDir, fileName, outputDir, seed, SmearLevel,ncalls,maxevt, evtstart, higgsMass, verbosity); 
+  NeutrinoIntegration(process, inputDir, fileName, outputDir, seed, SmearLevel,ncalls,maxevt, evtstart, verbosity); 
  
 }
 
-void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int evtstart, int higgsMass, TVar::VerbosityLevel verbosity){
+void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString outputDir, int seed, int SmearLevel,int ncalls,int maxevt, int evtstart, TVar::VerbosityLevel verbosity){
 
   if (verbosity >= TVar::INFO) cout << "Input File: " << fileName << " seed " << seed << " SmearLevel " << SmearLevel << " ncalls " << ncalls << endl;
   
@@ -83,6 +82,8 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   int type_ = 0;
   float metPhi_ = 0;
   float met_ = 0;
+  int dstype_ = 0;
+  
   
   ch->SetBranchAddress( "run"        , &run_       );   
   ch->SetBranchAddress( "event"      , &event_     );   
@@ -94,7 +95,8 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   ch->SetBranchAddress( "type"       , &type_      );   
   ch->SetBranchAddress( "met"        , &met_       );       
   ch->SetBranchAddress( "metPhi"     , &metPhi_    );       
-
+  ch->SetBranchAddress( "dstype"     , &dstype_    );   
+  
   // The reconstructed event level information  
   // Create the instance of TEvtProb to calculate the differential cross-section
   // and set the calculation global variables common for all processes
@@ -188,220 +190,242 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     cout << "=========================================================\n";
   }
   // finish loading event information
-    
-    // ==== Begin the differential cross-section calculation
-    TVar::Process ProcInt;
-    double Xsec=0;
-    double XsecErr=0;
-    double Ratio=0;
-    int HiggsMASS[26]={0,0,0,0,0,115,120,130,140,150,160,170,180,190,200,210,220,230,250,300,350,400,450,500,550,600};
-    
-    // The SM background processes
-    int NProcessCalculate=0;
-    TVar::Process processList[30];
-    
-    processList[ NProcessCalculate++]=TVar::WW;
-    processList[ NProcessCalculate++]=TVar::Wp_1jet;
-    processList[ NProcessCalculate++]=TVar::Wm_1jet;
+  
+  // ==== Begin the differential cross-section calculation
+  TVar::Process ProcInt;
+  double Xsec=0;
+  double XsecErr=0;
+  double Ratio=0;
+  int HiggsMASS[26]={0,0,0,0,0,115,120,130,140,150,160,170,180,190,200,210,220,230,250,300,350,400,450,500,550,600};
+  
+  // The SM background processes
+  int NProcessCalculate=0;
+  TVar::Process processList[30];
+  
+  processList[ NProcessCalculate++]=TVar::WW;
+  processList[ NProcessCalculate++]=TVar::Wp_1jet;
+  processList[ NProcessCalculate++]=TVar::Wm_1jet;
+  
+  // adjust the number of processes to run according to the datatype
+  // run single higgs mass hypothesis for those hww MC
+  // This is kind of dangerous, as we reply on the smurfntuples 
+  // to be filled correctly...
 
-    // calculate all the higgs hypothesis if the higgsMass is not specified
-    if(higgsMass <= 0) {
-      processList[ NProcessCalculate++]=TVar::HWW115;
-      processList[ NProcessCalculate++]=TVar::HWW120;
-      processList[ NProcessCalculate++]=TVar::HWW130;
-      processList[ NProcessCalculate++]=TVar::HWW140;
-      processList[ NProcessCalculate++]=TVar::HWW150;
-      processList[ NProcessCalculate++]=TVar::HWW160;
-      processList[ NProcessCalculate++]=TVar::HWW170;
-      processList[ NProcessCalculate++]=TVar::HWW180;
-      processList[ NProcessCalculate++]=TVar::HWW190;
-      processList[ NProcessCalculate++]=TVar::HWW200;
-      processList[ NProcessCalculate++]=TVar::HWW250;
-      processList[ NProcessCalculate++]=TVar::HWW300;
-      //processList[ NProcessCalculate++]=TVar::HWW350;
-      //processList[ NProcessCalculate++]=TVar::HWW400;
-      //processList[ NProcessCalculate++]=TVar::HWW450;
-      //processList[ NProcessCalculate++]=TVar::HWW500;
-      //processList[ NProcessCalculate++]=TVar::HWW550;
-      //processList[ NProcessCalculate++]=TVar::HWW600;
+  switch ( dstype_) {
+  case SmurfTree::hww115:
+  case SmurfTree::vbfhww115:
+    processList[ NProcessCalculate++]=TVar::HWW115;
+    break;
+  case SmurfTree::hww120:
+  case SmurfTree::vbfhww120:
+    processList[ NProcessCalculate++]=TVar::HWW120;
+    break;
+  case SmurfTree::hww130:
+  case SmurfTree::vbfhww130:
+    processList[ NProcessCalculate++]=TVar::HWW130;
+    break;
+  case SmurfTree::hww140:
+  case SmurfTree::vbfhww140:
+    processList[ NProcessCalculate++]=TVar::HWW140;
+    break;
+  case SmurfTree::hww150:
+  case SmurfTree::vbfhww150:
+    processList[ NProcessCalculate++]=TVar::HWW150;
+    break;
+  case SmurfTree::hww160:
+  case SmurfTree::vbfhww160:
+    processList[ NProcessCalculate++]=TVar::HWW160;
+    break;
+  case SmurfTree::hww170:
+  case SmurfTree::vbfhww170:
+    processList[ NProcessCalculate++]=TVar::HWW170;
+    break;
+  case SmurfTree::hww180:
+  case SmurfTree::vbfhww180:
+    processList[ NProcessCalculate++]=TVar::HWW180;
+    break;
+  case SmurfTree::hww190:
+  case SmurfTree::vbfhww190:
+    processList[ NProcessCalculate++]=TVar::HWW190;
+    break;
+  case SmurfTree::hww200:
+  case SmurfTree::vbfhww200:
+    processList[ NProcessCalculate++]=TVar::HWW200;
+    break;
+  case SmurfTree::hww210:
+  case SmurfTree::vbfhww210:
+    processList[ NProcessCalculate++]=TVar::HWW210;
+    break;
+  case SmurfTree::hww220:
+  case SmurfTree::vbfhww220:
+    processList[ NProcessCalculate++]=TVar::HWW220;
+    break;
+  case SmurfTree::hww230:
+  case SmurfTree::vbfhww230:
+    processList[ NProcessCalculate++]=TVar::HWW230;
+    break;
+  case SmurfTree::hww250:
+  case SmurfTree::vbfhww250:
+    processList[ NProcessCalculate++]=TVar::HWW250;
+    break;
+  case SmurfTree::hww300:
+  case SmurfTree::vbfhww300:
+    processList[ NProcessCalculate++]=TVar::HWW300;
+    break;
+  case SmurfTree::hww350:
+  case SmurfTree::vbfhww350:
+    processList[ NProcessCalculate++]=TVar::HWW350;
+    break;
+  case SmurfTree::hww400:
+  case SmurfTree::vbfhww400:
+    processList[ NProcessCalculate++]=TVar::HWW400;
+    break;
+  case SmurfTree::hww450:
+  case SmurfTree::vbfhww450:
+    processList[ NProcessCalculate++]=TVar::HWW450;
+    break;
+  case SmurfTree::hww500:
+  case SmurfTree::vbfhww500:
+    processList[ NProcessCalculate++]=TVar::HWW500;
+    break;
+  case SmurfTree::hww550:
+  case SmurfTree::vbfhww550:
+    processList[ NProcessCalculate++]=TVar::HWW550;
+    break;
+  case SmurfTree::hww600:
+  case SmurfTree::vbfhww600:
+    processList[ NProcessCalculate++]=TVar::HWW600;
+    break;
+  default:
+    processList[ NProcessCalculate++]=TVar::HWW115;
+    processList[ NProcessCalculate++]=TVar::HWW120;
+    processList[ NProcessCalculate++]=TVar::HWW130;
+    processList[ NProcessCalculate++]=TVar::HWW140;
+    processList[ NProcessCalculate++]=TVar::HWW150;
+    processList[ NProcessCalculate++]=TVar::HWW160;
+    processList[ NProcessCalculate++]=TVar::HWW170;
+    processList[ NProcessCalculate++]=TVar::HWW180;
+    processList[ NProcessCalculate++]=TVar::HWW190;
+    processList[ NProcessCalculate++]=TVar::HWW200;
+    processList[ NProcessCalculate++]=TVar::HWW250;
+    processList[ NProcessCalculate++]=TVar::HWW300;
+    //processList[ NProcessCalculate++]=TVar::HWW350;
+    //processList[ NProcessCalculate++]=TVar::HWW400;
+    //processList[ NProcessCalculate++]=TVar::HWW450;
+    //processList[ NProcessCalculate++]=TVar::HWW500;
+    //processList[ NProcessCalculate++]=TVar::HWW550;
+    //processList[ NProcessCalculate++]=TVar::HWW600;
+    break;
+  }
+  
+    
+  for(int iproc = 0; iproc < NProcessCalculate; iproc++) { 
+    ProcInt=processList[iproc];
+    
+    // Load the MC based boost, efficiency and generator FR
+    bool setMCFR = false;
+    Xcal2.SetMCHist(ProcInt, "Util.root", setMCFR, verbosity);
+    
+    // Set the fakerate from data measurements
+    if (!setMCFR && (iproc == TVar::Wp_1jet || iproc == TVar::Wm_1jet)) {
+      TString elFRFile = "ElectronFakeRates_SmurfV5_V4.root";
+      TString elFRHist = "ElectronFakeRateDenominatorV4_Ele8CaloIdLCaloIsoVLCombinedSample_ptThreshold35_PtEta";
+      TString muFRFile = "MuonFakeRate_SmurfV5_M1.root";
+      TString muFRHist = "frEtaPt";
+      Xcal2.SetFRHist(elFRFile, elFRHist, muFRFile, muFRHist, verbosity);
+    }
+    if (verbosity >= TVar::DEBUG) 
+      printf(" Calculate Evt %4i Run %9i Evt %8i Proc %4i %s Lep %4i %4i\n", ievt, run_, event_, ProcInt, TVar::ProcessName(ProcInt).Data(), lq1_*lep1_Type, lq2_*lep2_Type);
+    
+    // -- correct the lepton fo pt for W + jet only
+    // For W+ hypothesis, assume the l- is the FO
+    double scale_fo = 1.0;
+    if(ProcInt == TVar::Wp_1jet) {
+      if( TMath::Abs(cms_event.PdgCode[1]) == 11) {
+	scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
+      }
+      if( TMath::Abs(cms_event.PdgCode[1]) == 13) {
+	scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
+      }
+      cms_event.p[1].SetXYZM( cms_event.p[1].Px()*scale_fo, cms_event.p[1].Py()*scale_fo, cms_event.p[1].Pz()*scale_fo, 0);
+    }
+    
+    // For W- hypothesis, assume the l+ is the FO
+    if(ProcInt == TVar::Wm_1jet) {
+      if( TMath::Abs(cms_event.PdgCode[0]) == 11) {
+	scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
+      }
+      if( TMath::Abs(cms_event.PdgCode[0]) == 13) {
+	scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
+      }	  
+      cms_event.p[0].SetXYZM( cms_event.p[0].Px()*scale_fo, cms_event.p[0].Py()*scale_fo, cms_event.p[0].Pz()*scale_fo, 0);
+    }
+    
+    // -- Do the integration over unknown parameters
+    if (ProcInt >= TVar::HWW115 && ProcInt <= TVar::HWW600){
+      Xcal2.SetProcess(TVar::HWW);
+      Xcal2.SetHiggsMass(HiggsMASS[ProcInt]);
+      if (verbosity >= TVar::DEBUG) cout<< "Higgs Mass: " << HiggsMASS[ProcInt]<<"GeV \n";
+      
+      if ( HiggsMASS[ProcInt] < 160.8 ) 
+	Xcal2.SetHWWPhaseSpace(TVar::MH);
+      else
+	Xcal2.SetHWWPhaseSpace(TVar::MHMW);
+      // increase the number of steps for the HWW115 and HWW120 to 5 time the nominal value
+      if ( HiggsMASS[ProcInt] <= 130 )   
+	Xcal2.SetNcalls(5*ncalls);
+      else  
+	Xcal2.SetNcalls(ncalls);
+      Xcal2.NeutrinoIntegrate(TVar::HWW,cms_event, &Xsec, &XsecErr, verbosity);
     }
     else {
-      switch (higgsMass) {
-      case 115:
-	processList[ NProcessCalculate++]=TVar::HWW115;
-	break;
-      case 120:
-	processList[ NProcessCalculate++]=TVar::HWW120;
-	break;
-      case 130:
-	processList[ NProcessCalculate++]=TVar::HWW130;
-	break;
-      case 140:
-	processList[ NProcessCalculate++]=TVar::HWW140;
-	break;
-      case 150:
-	processList[ NProcessCalculate++]=TVar::HWW150;
-	break;
-      case 160:
-	processList[ NProcessCalculate++]=TVar::HWW160;
-	break;
-      case 170:
-	processList[ NProcessCalculate++]=TVar::HWW170;
-	break;
-      case 180:
-	processList[ NProcessCalculate++]=TVar::HWW180;
-	break;
-      case 190:
-	processList[ NProcessCalculate++]=TVar::HWW190;
-	break;
-      case 200:
-	processList[ NProcessCalculate++]=TVar::HWW200;
-	break;
-      case 210:
-	processList[ NProcessCalculate++]=TVar::HWW210;
-	break;
-      case 220:
-	processList[ NProcessCalculate++]=TVar::HWW220;
-	break;
-      case 230:
-	processList[ NProcessCalculate++]=TVar::HWW230;
-	break;
-      case 250:
-	processList[ NProcessCalculate++]=TVar::HWW250;
-	break;
-      case 300:
-	processList[ NProcessCalculate++]=TVar::HWW300;
-	break;
-      case 350:
-	processList[ NProcessCalculate++]=TVar::HWW350;
-	break;
-      case 400:
-	processList[ NProcessCalculate++]=TVar::HWW400;
-	break;
-      case 450:
-	processList[ NProcessCalculate++]=TVar::HWW450;
-	break;
-      case 500:
-	processList[ NProcessCalculate++]=TVar::HWW500;
-	break;
-      case 550:
-	processList[ NProcessCalculate++]=TVar::HWW550;
-	break;
-      case 600:
-	processList[ NProcessCalculate++]=TVar::HWW600;
-	break;
-      default:
-	break;
-      }
+      Xcal2.SetNcalls(ncalls);
+      Xcal2.NeutrinoIntegrate(ProcInt,cms_event, &Xsec, &XsecErr, verbosity);
     }
-
-    for(int iproc = 0; iproc < NProcessCalculate; iproc++) { 
-      ProcInt=processList[iproc];
-
-      // Load the MC based boost, efficiency and generator FR
-      bool setMCFR = false;
-      Xcal2.SetMCHist(ProcInt, "Util.root", setMCFR, verbosity);
-      
-      // Set the fakerate from data measurements
-      if (!setMCFR && (iproc == TVar::Wp_1jet || iproc == TVar::Wm_1jet)) {
-	TString elFRFile = "ElectronFakeRates_SmurfV5_V4.root";
-	TString elFRHist = "ElectronFakeRateDenominatorV4_Ele8CaloIdLCaloIsoVLCombinedSample_ptThreshold35_PtEta";
-	TString muFRFile = "MuonFakeRate_SmurfV5_M1.root";
-	TString muFRHist = "frEtaPt";
-	Xcal2.SetFRHist(elFRFile, elFRHist, muFRFile, muFRHist, verbosity);
-      }
+    
+    // fill in the differential cross-section and errors
+    dXsecList[ProcInt]=Xsec;  
+    dXsecErrList[ProcInt]=XsecErr;
+    
+    if (Xsec>0) Ratio = XsecErr/Xsec;
+    if (Ratio > ERRORthreshold){
       if (verbosity >= TVar::DEBUG) 
-	printf(" Calculate Evt %4i Run %9i Evt %8i Proc %4i %s Lep %4i %4i\n", ievt, run_, event_, ProcInt, TVar::ProcessName(ProcInt).Data(), lq1_*lep1_Type, lq2_*lep2_Type);
-      
-      // -- correct the lepton fo pt for W + jet only
-      // For W+ hypothesis, assume the l- is the FO
-      double scale_fo = 1.0;
-      if(ProcInt == TVar::Wp_1jet) {
-	if( TMath::Abs(cms_event.PdgCode[1]) == 11) {
-	  scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
-	}
-	if( TMath::Abs(cms_event.PdgCode[1]) == 13) {
-	  scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
-	}
-	cms_event.p[1].SetXYZM( cms_event.p[1].Px()*scale_fo, cms_event.p[1].Py()*scale_fo, cms_event.p[1].Pz()*scale_fo, 0);
-      }
-	
-      // For W- hypothesis, assume the l+ is the FO
-      if(ProcInt == TVar::Wm_1jet) {
-	if( TMath::Abs(cms_event.PdgCode[0]) == 11) {
-	  scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
-	}
-	if( TMath::Abs(cms_event.PdgCode[0]) == 13) {
-	  scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
-	}	  
-	cms_event.p[0].SetXYZM( cms_event.p[0].Px()*scale_fo, cms_event.p[0].Py()*scale_fo, cms_event.p[0].Pz()*scale_fo, 0);
-      }
-      
-      // -- Do the integration over unknown parameters
-       if (ProcInt >= TVar::HWW115 && ProcInt <= TVar::HWW600){
-	Xcal2.SetProcess(TVar::HWW);
-	Xcal2.SetHiggsMass(HiggsMASS[ProcInt]);
-	if (verbosity >= TVar::DEBUG) cout<< "Higgs Mass: " << HiggsMASS[ProcInt]<<"GeV \n";
-	
-	if ( HiggsMASS[ProcInt] < 160.8 ) 
-	  Xcal2.SetHWWPhaseSpace(TVar::MH);
-	else
-	  Xcal2.SetHWWPhaseSpace(TVar::MHMW);
-	// increase the number of steps for the HWW115 and HWW120 to 5 time the nominal value
-	if ( HiggsMASS[ProcInt] <= 130 )   
-	  Xcal2.SetNcalls(5*ncalls);
-	else  
-	  Xcal2.SetNcalls(ncalls);
-	Xcal2.NeutrinoIntegrate(TVar::HWW,cms_event, &Xsec, &XsecErr, verbosity);
-       }
-       else {
-	 Xcal2.SetNcalls(ncalls);
-	 Xcal2.NeutrinoIntegrate(ProcInt,cms_event, &Xsec, &XsecErr, verbosity);
-       }
-      
-      // fill in the differential cross-section and errors
-      dXsecList[ProcInt]=Xsec;  
-      dXsecErrList[ProcInt]=XsecErr;
-
-      if (Xsec>0) Ratio = XsecErr/Xsec;
-      if (Ratio > ERRORthreshold){
-	if (verbosity >= TVar::DEBUG) 
-	  cout    << "IntegrateNTrials " << " Ncalls " << Xcal2._ncalls << " " << ProcInt << " " << TVar::ProcessName(ProcInt)
-		  << " Xsec = " <<  Xsec << " +- " << XsecErr << " ( " << Ratio << " ) " << endl;
-      }
-      
-      // setting back the lepton pT for the W + jet hypothesis
-      if(ProcInt == TVar::Wp_1jet) 
-	cms_event.p[1].SetXYZM( cms_event.p[1].Px()/scale_fo, cms_event.p[1].Py()/scale_fo, cms_event.p[1].Pz()/scale_fo, 0);
-      
-      if(ProcInt == TVar::Wm_1jet) 
-	cms_event.p[0].SetXYZM( cms_event.p[0].Px()/scale_fo, cms_event.p[0].Py()/scale_fo, cms_event.p[0].Pz()/scale_fo, 0);
-    } 
+	cout    << "IntegrateNTrials " << " Ncalls " << Xcal2._ncalls << " " << ProcInt << " " << TVar::ProcessName(ProcInt)
+		<< " Xsec = " <<  Xsec << " +- " << XsecErr << " ( " << Ratio << " ) " << endl;
+    }
     
-    // print some event based information for debugging purposes
-    if (verbosity >= TVar::DEBUG) {
-      double Mll  =(cms_event.p[0]+cms_event.p[1]).M();
-      double Phill=TVector2::Phi_0_2pi(cms_event.p[0].DeltaPhi(cms_event.p[1]));
-      if(Phill>TMath::Pi()) Phill=2*TMath::Pi()-Phill;			   
-      
-      cout << "START summary ====================" <<endl;
-      printf(" Evt %4i/%4i Run %9i Evt %8i Proc %4i %s lep %4i %4i njets %d \n", ievt,Ntot, run_, event_, ProcIdx, TVar::ProcessName(ProcIdx).Data(), lq1_*lep1_Type, lq2_*lep2_Type,njets_);
-      printf(" MetX %8.8f MetY %8.8f Mll %8.8f Phill %8.8f\n",cms_event.MetX, cms_event.MetY,Mll,Phill);
-      printf(" L1 %d ( %8.8f , %8.8f , %8.8f , %8.8f)\n",cms_event.PdgCode[0],cms_event.p[0].Px(),cms_event.p[0].Py(),cms_event.p[0].Pz(),cms_event.p[0].Energy());
-      printf(" L2 %d ( %8.8f , %8.8f , %8.8f , %8.8f)\n",cms_event.PdgCode[1],cms_event.p[1].Px(),cms_event.p[1].Py(),cms_event.p[1].Pz(),cms_event.p[1].Energy());
-      
-      for(int j=0;j<NProcessCalculate;j++){
-	TVar::Process proc = processList[j];
-	printf("%2i %8s  :", proc,TVar::ProcessName(proc).Data());
-	double ratio = 0.0;
-	if(dXsecList[processList[j]] > 0.0) ratio=dXsecErrList[processList[j]]/dXsecList[processList[j]];
-	cout <<  dXsecList[processList[j]] << " +- " << dXsecErrList[processList[j]] << " ( " << ratio <<" ) "<<endl;
-      }
-      cout << "END summary =====================" <<endl;
-    } 
+    // setting back the lepton pT for the W + jet hypothesis
+    if(ProcInt == TVar::Wp_1jet) 
+      cms_event.p[1].SetXYZM( cms_event.p[1].Px()/scale_fo, cms_event.p[1].Py()/scale_fo, cms_event.p[1].Pz()/scale_fo, 0);
     
-    evt_tree->Fill();
+    if(ProcInt == TVar::Wm_1jet) 
+      cms_event.p[0].SetXYZM( cms_event.p[0].Px()/scale_fo, cms_event.p[0].Py()/scale_fo, cms_event.p[0].Pz()/scale_fo, 0);
+  } 
+  
+  // print some event based information for debugging purposes
+  if (verbosity >= TVar::DEBUG) {
+    double Mll  =(cms_event.p[0]+cms_event.p[1]).M();
+    double Phill=TVector2::Phi_0_2pi(cms_event.p[0].DeltaPhi(cms_event.p[1]));
+    if(Phill>TMath::Pi()) Phill=2*TMath::Pi()-Phill;			   
     
+    cout << "START summary ====================" <<endl;
+    printf(" Evt %4i/%4i Run %9i Evt %8i Proc %4i %s lep %4i %4i njets %d \n", ievt,Ntot, run_, event_, ProcIdx, TVar::ProcessName(ProcIdx).Data(), lq1_*lep1_Type, lq2_*lep2_Type,njets_);
+    printf(" MetX %8.8f MetY %8.8f Mll %8.8f Phill %8.8f\n",cms_event.MetX, cms_event.MetY,Mll,Phill);
+    printf(" L1 %d ( %8.8f , %8.8f , %8.8f , %8.8f)\n",cms_event.PdgCode[0],cms_event.p[0].Px(),cms_event.p[0].Py(),cms_event.p[0].Pz(),cms_event.p[0].Energy());
+    printf(" L2 %d ( %8.8f , %8.8f , %8.8f , %8.8f)\n",cms_event.PdgCode[1],cms_event.p[1].Px(),cms_event.p[1].Py(),cms_event.p[1].Pz(),cms_event.p[1].Energy());
+    
+    for(int j=0;j<NProcessCalculate;j++){
+      TVar::Process proc = processList[j];
+      printf("%2i %8s  :", proc,TVar::ProcessName(proc).Data());
+      double ratio = 0.0;
+      if(dXsecList[processList[j]] > 0.0) ratio=dXsecErrList[processList[j]]/dXsecList[processList[j]];
+      cout <<  dXsecList[processList[j]] << " +- " << dXsecErrList[processList[j]] << " ( " << ratio <<" ) "<<endl;
+    }
+    cout << "END summary =====================" <<endl;
+  } 
+  
+  evt_tree->Fill();
+  
   }//nevent
   
   if (verbosity >= TVar::INFO) cout << "TotCalculatedEvts: " << evt_tree->GetEntries() <<endl; 
