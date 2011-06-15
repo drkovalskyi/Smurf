@@ -1,5 +1,13 @@
 Here are basic instruction how to get LandS run in parallel.
 
+0) Install LandS
+
+cvs co -d LandS UserCode/mschen/LandS
+cvs co -d Smurf/LimitCalc UserCode/Smurf/LimitCalc
+cd Smurf/LimitCalc
+make lands
+
+
 1) create input text file with cards to be used. Example:
 
 # Format:
