@@ -1,0 +1,187 @@
+% Customizable fields and text areas start with % >> below.
+% Lines starting with the comment character (%) are normally removed before release outside the collaboration, but not those comments ending lines
+
+% svn info. These are modified by svn at checkout time.
+% The last version of these macros found before the maketitle will be the one on the front page,
+% so only the main file is tracked.
+% Do not edit by hand!
+\RCS$Revision: 61453 $
+\RCS$HeadURL: svn+ssh://svn.cern.ch/reps/tdr2/notes/AN-11-148/trunk/AN-11-148.tex $
+\RCS$Id: AN-11-148.tex 61453 2011-06-16 00:20:00Z ceballos $
+\input{commands}
+%%%%%%%%%%%%% ptdr definitions %%%%%%%%%%%%%%%%%%%%%
+%\input{ptdr-definitions} %These have been replaced by the equivalent style file
+%%%%%%%%%%%%%%%  Title page %%%%%%%%%%%%%%%%%%%%%%%%
+\cmsNoteHeader{AN-11-148} % This is over-written in the CMS environment: useful as preprint no. for export versions
+% >> Title: please make sure that the non-TeX equivalent is in PDFTitle below
+\title{Search for Higgs Boson Decays to Two W Bosons in the Fully Leptonic Final State $\sqrt{s}$ = 7 TeV with 2011 data of CMS detector.}
+
+% >> Authors
+%Author is always "The CMS Collaboration" for PAS and papers, so author, etc, below will be ignored in those cases
+%For multiple affiliations, create an address entry for the combination
+\address[cern]{CERN}
+\author[cern]{The CMS Collaboration}
+
+% >> Date
+% The date is in yyyy/mm/dd format. Today has been
+% redefined to match, but if the date needs to be fixed, please write it in this fashion.
+% For papers and PAS, \today is taken as the date the head file (this one) was last modified according to svn: see the RCS Id string above.
+% For the final version it is best to "touch" the head file to make sure it has the latest date.
+\date{\today}
+
+% >> Abstract
+% Abstract processing:
+% 1. **DO NOT use \include or \input** to include the abstract: our abstract extractor will not search through other files than this one.
+% 2. **DO NOT use %**                  to comment out sections of the abstract: the extractor will still grab those lines (and they won't be comments any longer!).
+% 3. **DO NOT use tex macros**         in the abstract: External TeX parsers used on the abstract don't understand them.
+\abstract{
+    This note describes a search for the Higgs boson in the $\WW \to 2\ell2\nu$ final state in 
+    $pp$ collision data at $\sqrt s = 7~\TeV$. We search for Higgs candidate events in
+    $ee$, $\mu\mu$ and $e\mu$ channels with 0, 1 and 2 reconstructed jets in the final state. Signal
+    and background yields are also extrapolated to data corresponding to an integrated luminosity of
+    $1~\ifb$ to represent a benchmark scenario.
+}
+
+% >> PDF Metadata
+% Do not comment out the following hypersetup lines (metadata). They will disappear in NODRAFT mode and are needed by CDS.
+% Also: make sure that the values of the metadata items are sensible. For APS submissions, they are automatically converted to APS keywords.
+\hypersetup{%
+pdfauthor={G. Gomez-Ceballos, D.~Kovalskyi, B.~Mangano, Ch.~Rovelli},%
+pdftitle={Search for Higgs Boson Decays to Two W Bosons in the Fully Leptonic Final State sqrts = 7 TeV with 2011 data of CMS detector.},%
+pdfsubject={CMS},%
+pdfkeywords={CMS, physics, software, computing}}
+
+\maketitle %maketitle comes after all the front information has been supplied
+
+% >> Text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Begin text %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% **DO NOT REMOVE THE BIBLIOGRAPHY** which is located before the appendix.
+%% You can take the text between here and the bibiliography as an example which you should replace with the actual text of your document.
+%% If you include other TeX files, be sure to use "\input{filename}" rather than "\input filename".
+%% The latter works for you, but our parser looks for the braces and will break when uploading the document.
+%%%%%%%%%%%%%%%
+
+%===================================================================================================
+\section{Introduction}
+  \label{sec:overview}
+  \input{introduction.tex}
+  
+\section{Data Samples}
+  \label{sec:datasets}
+  \input{datasets.tex}
+  
+\section{Event Selection}
+  \label{sec:selection} 
+  \input{selection_introduction.tex}
+  \subsection{Trigger}
+    \label{sec:sel_trigger}
+    \input{selection_trigger.tex}
+  \subsection{Primary Vertex Reconstruction}
+    \label{sec:sel_pv}
+    \input{selection_pv.tex}
+  \subsection{Muon Selection} 
+    \label{sec:sel_muons}
+   \input{selection_muons.tex}
+  \subsection{Electron Selection} 
+    \label{sec:sel_electrons}
+    \input{selection_electrons.tex}
+  \subsection{Missing Energy} 
+    \label{sec:sel_met}
+    \input{selection_met.tex}
+    \clearpage
+  \subsection{$Z$ Veto}
+    \label{sec:sel_zveto}
+    \input{selection_zveto.tex}
+  \subsection{Jet Counting} 
+    \label{sec:sel_jets}
+    \input{selection_jets.tex}
+  \subsection{Top Tagging}
+    \label{sec:sel_toptag}
+    \input{selection_toptag.tex}
+  \subsection{Other Preselection Requirements}
+    \label{sec:sel_other}
+    \input{selection_other.tex}
+
+\section{Expected Event Yields After $\ww$ Preselection}
+  \label{sec:yields}
+  \input{yields_mc.tex}
+
+\clearpage    
+\section{Higgs Signal Extraction Strategy}
+  \input{selection_intro.tex}
+  \label{sec:signal_selection}
+  \subsection{Cut Based Analysis}
+    \label{sec:anal_cutbased}
+    \subsubsection{0-Jet Selection}
+      \label{sec:sel_zerojet}
+      \input{selection_zerojet.tex}
+    \subsubsection{1-Jet Selection}
+      \label{sec:sel_onejet}
+      \input{selection_onejet.tex}
+    \subsubsection{VBF Selection}
+      \label{sec:sel_vbf}
+      \input{selection_vbf.tex}
+  \subsection{MVA Analysis}
+    \label{sec:anal_mva}
+    \input{anal_mva.tex}
+
+\clearpage
+\section{Background Estimation}
+    \label{sec:backgrounds}
+    \input{bkg_intro.tex}
+    \label{sec:bkg_intro}
+  \subsection{$\WW$ Background}
+    \label{sec:bkg_ww}
+    \input{bkg_ww.tex}
+  \subsection{Jet Induced Backgrounds}
+    \label{sec:bkg_fakes}
+    \input{bkg_fakes.tex}
+  \subsection{Top Background}
+    \label{sec:bkg_top}
+    \input{bkg_top.tex}
+  \subsection{Drell-Yan Background}
+    \label{sec:bkg_dy}
+    \input{bkg_dy.tex}
+  \subsection{Other Backgrounds}
+    \label{sec:bkg_other}
+    \input{bkg_other.tex}
+
+\section{Efficiency Measurements}
+    \label{sec:alleff}
+    \subsection{Lepton Efficiency}
+    \label{sec:efficiency}
+    \input{eff_intro.tex}
+        \subsubsection{Electron Efficiency}
+        \input{eff_electron.tex}
+        \label{sec:eff_electron}
+        \subsubsection{Muon Efficiency}
+        \input{eff_muon.tex}
+        \label{sec:eff_muon}
+        \subsubsection{Trigger Efficiency}
+        \input{eff_trigger.tex}
+        \label{sec:eff_trigger}
+    \subsection{Jet Counting Efficiency}
+    \input{eff_jet.tex}
+
+\section{Systematic Uncertainties}
+  \label{sec:systematics}
+  \input{systematics.tex}
+
+\section{Sensitivity Projections with 1~$\ifb$}
+  \label{sec:results}
+  \input{results.tex}
+  
+  \clearpage
+
+\section{Data Results with 188~$\ipb$}
+  \label{sec:dataresults}
+  \input{data_results.tex}
+
+\section{Summary}
+    \label{sec:summary}
+    \input{summary.tex}
+
+%% **DO NOT REMOVE BIBLIOGRAPHY**
+\bibliography{auto_generated}   % will be created by the tdr script.
+
+%%% DO NOT ADD \end{document}!

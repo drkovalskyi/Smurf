@@ -1,0 +1,48 @@
+Muons in CMS are reconstructed as either $StandAloneMuons$ (track
+in the muon detector with low momentum resolution), $GlobalMuons$
+(outside-in approach seeded by a $StandAloneMuon$ with a global fit
+using hits in the muon, silicon strip and pixel 
+detectors) and $TrackerMuons$ (inside-out approach seeded by an offline 
+silicon strip track, using the muon detector only for muon identification 
+without refitting the track). Most good quality muons are reconstructed as 
+all three types at the same time and the momentum resolution is dominated by the inner
+tracker system up to about 200~$\GeVc$ in transverse momentum. We require 
+the muon to be reconstructed as $GlobalMuon$, with $\chi^2/{\mathrm{ndof}} < 10$ 
+on the global fit, must have at least one good muon hit, and at least two 
+matches to muon segments in different muon stations; 
+or $TrackerMuon$, provided it satisfies the ``Tracker Muon Last Station 
+Tight" selection requiring at least two muon segments matched at 
+3$\sigma$ in local X and Y coordinates, with one being in the outermost muon station.
+
+In addition, the following specific requirements to select good prompt isolated 
+muons are the following:
+\begin{itemize}
+\item more than 10 hits in the inner tracker;
+\item at least one pixel hit;
+\item impact parameter in the transverse plane $|d_{0}| < 0.02~(0.01)$~cm for
+      muons with $\pt$ greater (smaller) than 20 $\GeVc$,
+      calculated with respect to the primary vertex;
+\item longitudinal impact parameter $|d_{z}| <0.1$~cm,
+      calculated with respect to the primary vertex;
+\item pseudorapidity $|\eta|$ must be smaller than 2.4;
+\item relative \pt\ resolution is better than 10\%.
+\end{itemize}
+
+Furthermore, the particle flow candidate-based isolation variable is 
+used to reduce the contamination from the non-isolated muons originating from
+jets. Details of the algorithm are given in~\cite{HWWAnalysis_Alpha}.
+
+\begin{itemize}
+\item $\rm{Iso}_{PF}$: defined as the scalar sum of the \pt\ of the 
+    particle flow candidates satisfying the following requirements:
+    \begin{itemize}
+    \item $\Delta R~<~0.3$ to the muon in the $\eta \times \phi$ plane,
+    \item $|d_{z}(\mathrm{PF Candidate}) - d_{z}(\mathrm{muon})| < 0.1$~cm, if the PF candidate is charged,
+    \item \pt $>1.0$ GeV, if the PF candidate is classified as a neutral hadron or a photon.
+    \end{itemize}
+\end{itemize}
+
+We require $\frac{\rm{Iso}_{PF}}{\pt}~<~0.13~(0.06)$ for muons in the barrel 
+with $\pt$ greater (smaller) than 20 $\GeVc$. For muons in the endcap, we
+require $\frac{\rm{Iso}_{PF}}{\pt}~<~0.09~(0.05)$ for muons with $\pt$ 
+greater (smaller) than 20 $\GeVc$.
