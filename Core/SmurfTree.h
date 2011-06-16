@@ -345,6 +345,8 @@ class SmurfTree {
     tree_->Branch("lep2MotherMcId",&lep2MotherMcId_,  "lep2MotherMcId/I");
     tree_->Branch("jet1McId"      ,&jet1McId_	  ,   "jet1McId/I");
     tree_->Branch("jet2McId"      ,&jet2McId_	  ,   "jet2McId/I");
+    tree_->Branch("processId",     &processId_,     "processId/I");
+    tree_->Branch("higgsPt",       &higgsPt_,       "higgsPt/F");
 
     if(type >=0 && type <= 2){
       tree_->Branch("lep3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr3_);
@@ -368,8 +370,6 @@ class SmurfTree {
       tree_->Branch("id2",           &id2_	,     "id2/F");
       tree_->Branch("x2",            &x2_	,     "x2/F");
       tree_->Branch("pdf2",          &pdf2_	,     "pdf2/F");
-      tree_->Branch("processId",     &processId_,     "processId/I");
-      tree_->Branch("higgsPt",       &higgsPt_,       "higgsPt/F");
     }
   }
 
@@ -428,6 +428,8 @@ class SmurfTree {
     tree_->SetBranchAddress("lep2MotherMcId",&lep2MotherMcId_);
     tree_->SetBranchAddress("jet1McId",      &jet1McId_);
     tree_->SetBranchAddress("jet2McId",      &jet2McId_);
+    tree_->SetBranchAddress("processId",     &processId_);
+    tree_->SetBranchAddress("higgsPt",       &higgsPt_);
 
     if(type >=0 && type <= 2){
       tree_->SetBranchAddress("lep3",	       &lepPtr3_);
@@ -451,8 +453,6 @@ class SmurfTree {
       tree_->SetBranchAddress("id2",	       &id2_);
       tree_->SetBranchAddress("x2",	       &x2_);
       tree_->SetBranchAddress("pdf2",	       &pdf2_);
-      tree_->SetBranchAddress("processId",     &processId_);
-      tree_->SetBranchAddress("higgsPt",       &higgsPt_);
     }
   }
   /// get a built in type variable by name
