@@ -96,7 +96,8 @@ void AddLimits(std::vector<LimitInfo>& limits, const char* pattern1, const char*
   double sum(0);
   for (Long64_t i = 0; i < nentries; i++){
     chain->GetEvent(i);
-    values.push_back(result);
+    if(fabs(result)<1E3)
+      values.push_back(result);
     sum+=result;
   }
   std::sort(values.begin(),values.end());
@@ -150,15 +151,17 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
   gStyle->SetTitleOffset( 1, "y");
   TPaveText *pt = lands::SetTPaveText(0.5, 0.95, 0.8, 0.95); //SetTPaveText(0.5, 0.95, 0.8, 0.95)
   pt->AddText(title);
+  float yMax = 18; 
   lands::PlotWithBelts* lb = new lands::PlotWithBelts(limits_m1s, limits_p1s, limits_m2s, limits_p2s,
 						      limits_mean, limits.size(), mass_points, 
 						      "limits", pt,
-						      100, 300, 0, 5, false, 
+						      110, 305, 0, yMax, false, 
 						      ";Higgs mass, m_{H} [GeV/c^{2}]; 95% CL Limit on #sigma/#sigma_{SM} ");
   lb->plot();
   lb->drawLegend("95% CL exclusion: median","95% CL exclusion: 68% band", "95% CL exclusion: 95% band");
   // lb->drawLegend("95% CL exclusion: mean","95% CL exclusion: 68% band", "95% CL exclusion: 95% band");
-  lands::MoveLegend(lb->getLegend(),0.45,0.7);
+  //lands::MoveLegend(lb->getLegend(),0.45,0.7);
+  lands::MoveLegend(lb->getLegend(),0.18,0.7);
   lb->getMeanGraph()->SetLineWidth(2);
   lb->getMeanGraph()->SetMarkerStyle(20);
   /*
@@ -320,7 +323,8 @@ void plotBand()
 			projectingXmin, projectingXmax, projectingRLimitYmin, projectingRLimitYmax, projectingRLimitLogY, projectingRLimitXYtitles);
 	lb.plot();
 	lb.drawLegend("95% CL exclusion: mean","95% CL exclusion: 68% band", "95% CL exclusion: 95% band");
-	lands::MoveLegend(lb.getLegend(),0.45,0.7);
+	//lands::MoveLegend(lb.getLegend(),0.45,0.7);
+	lands::MoveLegend(lb.getLegend(),0.20,0.7);
 	lb.getMeanGraph()->SetLineStyle(1);
 	lb.getMeanGraph()->SetLineColor(kBlue);
 	lb.getMeanGraph()->SetLineWidth(2);
