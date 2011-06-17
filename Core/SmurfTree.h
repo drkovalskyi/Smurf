@@ -251,6 +251,7 @@ class SmurfTree {
   float          pdf2_;
   int            processId_;
   float          higgsPt_;
+  float          hPtWeight_;
 
 
  public:
@@ -347,6 +348,7 @@ class SmurfTree {
     tree_->Branch("jet2McId"      ,&jet2McId_	  ,   "jet2McId/I");
     tree_->Branch("processId",     &processId_,     "processId/I");
     tree_->Branch("higgsPt",       &higgsPt_,       "higgsPt/F");
+    tree_->Branch("hPtWeight",     &hPtWeight_,     "hPtWeight/F");
 
     if(type >=0 && type <= 2){
       tree_->Branch("lep3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr3_);
@@ -430,6 +432,7 @@ class SmurfTree {
     tree_->SetBranchAddress("jet2McId",      &jet2McId_);
     tree_->SetBranchAddress("processId",     &processId_);
     tree_->SetBranchAddress("higgsPt",       &higgsPt_);
+    tree_->SetBranchAddress("hPtWeight",     &hPtWeight_);
 
     if(type >=0 && type <= 2){
       tree_->SetBranchAddress("lep3",	       &lepPtr3_);
@@ -657,6 +660,7 @@ SmurfTree::InitVariables(){
   pdf2_ 	 = -999.;  
   processId_	 = 0;
   higgsPt_	 = -999;
+  hPtWeight_	 = -999;
 }
 
 inline double
@@ -727,6 +731,7 @@ SmurfTree::Get(std::string value)
   if(value=="pdf2"	    ) { return this->pdf2_;	     } 
   if(value=="processId"	    ) { return this->processId_;     } 
   if(value=="higgsPt"	    ) { return this->higgsPt_;       } 
+  if(value=="hPtWeight"	    ) { return this->hPtWeight_;     } 
 
   return -9999.; 
 }
