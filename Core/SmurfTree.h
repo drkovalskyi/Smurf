@@ -253,7 +253,6 @@ class SmurfTree {
   float          higgsPt_;
   float          hPtWeight_;
 
-
  public:
   /// this is the main element
   TTree *tree_;
@@ -274,28 +273,28 @@ class SmurfTree {
   /// load a SmurfTree
   void LoadTree(const char* file, int type = -1){
     // to load three different ntuples in the same job HwwTree0/1/2
-    // type == 0/1/2 if all variables was added
-    // type == 3/4/5 if a minimum set of variables was added
+    // type == 0/1/2/3 if all variables was added
     // type = -1 (default) if a minimum set of variables was added with tree as name
     TFile* f = TFile::Open(file);
     assert(f);
-    if     (type == 0 || type == 3) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree0"));
-    else if(type == 1 || type == 4) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree1"));
-    else if(type == 2 || type == 5) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree2"));
-    else                            tree_ = dynamic_cast<TTree*>(f->Get("tree"));
+    if     (type == 0) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree0"));
+    else if(type == 1) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree1"));
+    else if(type == 2) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree2"));
+    else if(type == 3) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree3"));
+    else               tree_ = dynamic_cast<TTree*>(f->Get("tree"));
     assert(tree_);
   }
 
   /// create a SmurfTree
   void CreateTree(int type = -1){
     // to create three different ntuples in the same job HwwTree0/1/2
-    // type == 0/1/2 add all variables
-    // type == 3/4/5 add a minimum set of variables
+    // type == 0/1/2/3 add all variables
     // type = -1 (default) add a minimum set of variables with tree as name
-    if     (type == 0 || type == 3) tree_ = new TTree("HwwTree0","Smurf ntuples");
-    else if(type == 1 || type == 4) tree_ = new TTree("HwwTree1","Smurf ntuples");
-    else if(type == 2 || type == 5) tree_ = new TTree("HwwTree2","Smurf ntuples");
-    else                            tree_ = new TTree("tree","Smurf ntuples");
+    if     (type == 0) tree_ = new TTree("HwwTree0","Smurf ntuples");
+    else if(type == 1) tree_ = new TTree("HwwTree1","Smurf ntuples");
+    else if(type == 2) tree_ = new TTree("HwwTree2","Smurf ntuples");
+    else if(type == 3) tree_ = new TTree("HwwTree3","Smurf ntuples");
+    else               tree_ = new TTree("tree","Smurf ntuples");
     InitVariables();
     //book the branches
     tree_->Branch("event"        , &event_        ,   "event/i");
@@ -350,7 +349,7 @@ class SmurfTree {
     tree_->Branch("higgsPt",       &higgsPt_,       "higgsPt/F");
     tree_->Branch("hPtWeight",     &hPtWeight_,     "hPtWeight/F");
 
-    if(type >=0 && type <= 2){
+    if(type >=0 && type <= 3){
       tree_->Branch("lep3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr3_);
       tree_->Branch("lq3",           &lq3_,          "lq3/I");
       tree_->Branch("lid3",          &lid3_,         "lid3/I");
@@ -434,7 +433,7 @@ class SmurfTree {
     tree_->SetBranchAddress("higgsPt",       &higgsPt_);
     tree_->SetBranchAddress("hPtWeight",     &hPtWeight_);
 
-    if(type >=0 && type <= 2){
+    if(type >=0 && type <= 3){
       tree_->SetBranchAddress("lep3",	       &lepPtr3_);
       tree_->SetBranchAddress("lq3",	       &lq3_);
       tree_->SetBranchAddress("lid3",	       &lid3_);
