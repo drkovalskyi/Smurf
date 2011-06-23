@@ -60,9 +60,10 @@ int plotBand2(int nsel = 0, TString resdir = "output/limits/", TString input = "
   }
   
   cout << "Print twiki styel tables..........\n";
-  cout << "|*mH*|*Observed*|*-2sigma*|*-1sigma*|*mean*|*median*|*+1sigma*|*+2sigma*|\n";
+  // cout << "|*mH*|*Observed*|*-2sigma*|*-1sigma*|*mean*|*median*|*+1sigma*|*+2sigma*|\n";
+  cout << "|*mH*|*-2sigma*|*-1sigma*|*mean*|*median*|*+1sigma*|*+2sigma*|\n";
   for(int i = 0; i < nPoints; i++) {
-    printf("|%i|%4.2f|%4.2f|%4.2f|%4.2f|%4.2f|%4.2f|%4.2f|\n ", xpoints[i], obs0j[i], exp0j_2sm[i], exp0j_1sm[i], exp0j[i], exp0j_median[i], exp0j_1sp[i], exp0j_2sp[i]);
+    printf("|%i|%4.2f|%4.2f|%4.2f|%4.2f|%4.2f|%4.2f|\n ", xpoints[i], exp0j_2sm[i], exp0j_1sm[i], exp0j[i], exp0j_median[i], exp0j_1sp[i], exp0j_2sp[i]);
   }
   
   PlotWithBelts lb(

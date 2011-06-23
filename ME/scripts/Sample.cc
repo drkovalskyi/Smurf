@@ -30,14 +30,6 @@ Sample::Sample(TVar::Process LRProcess, TString datasample, TChain *chain, Color
   stack_ = stack;
   lumi_ = lumi;
   sf_ = 1.0;
-
-  if (datasample_ == "Higgs")   sf_ = 1.13;
-  else if (datasample_ == "Top")   sf_ = 1.9;
-  else if (datasample_ == "Zjets") sf_ = 2.6;
-  else if (datasample_ == "Wjets") sf_ = 1.9;
-  else  sf_ = 1.0;
-
-  
 }
 
 Sample::~Sample() {
@@ -50,11 +42,14 @@ TH1F * Sample::GetHistogram(TString var, Int_t nBins, Float_t binMin, Float_t bi
 
   TCut cut; 
   // use only the wz/zz events where the two leptons are from different mothers....
-  if (datasample_ == "VV")   
-    cut = TCut("mycut", Form("%f*scale1fb*scaleME*(lep1MotherMcId!=lep2MotherMcId)", sf_*lumi_/1000.0));
+  
+  if (datasample_ == "Data") 
+    cut = TCut("mycut", "scaleME");
   // Very bad hard coded stuff...fixme
   // 49: wz 50 :zz
   // requiring the two leptons from the same mother if the Zjets samples are wz or zz
+  else if (datasample_ == "VV")
+    cut = TCut("mycut", Form("%f*scale1fb*scaleME*(lep1MotherMcId!=lep2MotherMcId)", sf_*lumi_/1000.0));
   else if (datasample_ == "Zjets") 
     cut = TCut("mycut", Form("%f*scale1fb*scaleME*((dstype!=%i&& dstype!=%i)||(lep1MotherMcId==lep2MotherMcId&&lep1MotherMcId==23))",sf_*lumi_/1000.0, 49, 50));
   else
@@ -97,6 +92,7 @@ TH1F * Sample::GetHistogram(TString var, Int_t nBins, Float_t binMin, Float_t bi
   if (stack_) {
     tmp->SetFillColor(color_);
     tmp->SetLineColor(color_);
+    tmp->SetMarkerColor(color_);
   }
   else {
     tmp->SetLineColor(color_);

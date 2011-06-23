@@ -29,7 +29,7 @@ fi
 # loop over root files in input dir
 # and do the skim root script
 
-for FILE in `ls $INPUTDIR | grep root`
+for FILE in `ls $INPUTDIR | grep lfake.root`
 do
         root -l -b -q smurfproducer.C\(\"$INPUTDIR\",\"$FILE\",\"$OUTPUTDIR\"\)
 done

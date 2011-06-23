@@ -209,7 +209,7 @@ void PlotWithBelts::save(){
 	cCanvas->Print(string(ssave+".png").c_str());
 	cCanvas->Print(string(ssave+".pdf").c_str());
 	cCanvas->Print(string(ssave+".root").c_str());
-	cCanvas-Print(string(ssave+".C").c_str());
+	// cCanvas-Print(string(ssave+".C").c_str());
 
     // do linear version
     cCanvas->SetLogy(0);

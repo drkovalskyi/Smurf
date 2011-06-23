@@ -25,8 +25,7 @@ void makeUtilPlots( TString UtilFile = "../Util.root")
   gROOT->ProcessLine("setTDRStyle();");
   TGaxis *gaxis = new TGaxis();
   gaxis->SetMaxDigits(3);
-
-
+  
   drawBoost(UtilFile, "output/plots/");
   drawEff(UtilFile, "output/plots/", "Eta", "Lepton #eta", -2.5, 2.5);
   drawEff(UtilFile, "output/plots/", "Pt", "Lepton pT (GeV)", 0, 100);
@@ -50,9 +49,8 @@ void drawFR(TString UtilFile, TString outputdir, TString histName)
   
   TCanvas *c1 = new TCanvas();
   c1->SetRightMargin(0.16);
-  //fr->Draw("texte1");
-  fr->Draw("colz");
-
+  fr->Draw("colztexte1");
+  
   c1->SaveAs(outputdir+histName+".png");
   c1->SaveAs(outputdir+histName+".pdf");
   

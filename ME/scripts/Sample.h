@@ -26,13 +26,17 @@ public:
   
   Sample(TVar::Process LRProcess, TString datasample, TChain *chain, Color_t color, bool stack, float lumi);
   ~Sample();
-    
+  
+  void setSF(float sf) { sf_ = sf; }
+  float setlumi(float lumi) { lumi_ = lumi; } 
+  
   const TString name() { return datasample_; }
   const TVar::Process GetLRProcess() { return LRProcess_;}
   const bool Stack() {return stack_; }
   const TChain *GetChain() {return chain_; }
   TH1F* GetHistogram(TString var, Int_t nBins, Float_t binMin, Float_t binMax);
-  
+  float lumi() { return lumi_; }
+    
 private:
   
   //

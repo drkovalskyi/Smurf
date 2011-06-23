@@ -9,15 +9,17 @@
 
 void getRefYields(int &mH, Float_t & nsig_CB, Float_t & nbkg_CB, Float_t & nsig_MVA, Float_t & nbkg_MVA);
 
-void makePlots(int mH, TString outputDir)
+void makePlots(int mH, TString outputDir, Float_t lumi, Float_t datalumi )
 {
   gROOT->ProcessLine(".L makeOverlay.C++"); 
   
   using namespace std;
   Float_t nsig_CB(0.0), nbkg_CB(0.0), nsig_MVA(0.0), nbkg_MVA(0.0);
   getRefYields(mH, nsig_CB, nbkg_CB, nsig_MVA, nbkg_MVA);
-  makeOverlay(mH, outputDir, nsig_CB, nbkg_CB, nsig_MVA, nbkg_MVA);
 
+  // this assumes if we want to draw the data points on top of the MC stacks
+  // be aware, this is a temporarily solution,
+  makeOverlay(mH, outputDir, nsig_CB, nbkg_CB, nsig_MVA, nbkg_MVA, lumi, datalumi);
 }
 
 
