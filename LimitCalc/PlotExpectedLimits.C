@@ -18,9 +18,13 @@
 #include <iostream>
 #include "TMath.h"
 #include "TROOT.h"
+#include "TPRegexp.h"
 
 #ifndef __CINT__
 #include "../../LandS/include/PlotUtilities.h"
+#include <iostream>
+#include <fstream>
+using namespace std;
 // #include "../../LandS/include/CRandom.h"
 // #include "../../LandS/include/CountingModel.h"
 // #include "../../LandS/include/BayesianBase.h"
@@ -35,6 +39,7 @@ struct LimitInfo{
   double exp_p1sig;
   double exp_p2sig;
   double mass;
+  double observed;
 };
 // void AddLimits(std::vector<LimitInfo>& limits, const char* card, double mass){
 //   if (gSystem->AccessPathName(card)){
@@ -84,11 +89,36 @@ struct LimitInfo{
 
 //   limits.push_back(limit);
 // }
+double getObservedLimit(const char* file)
+{
+  if (! file) return -1;
+  // cout << file << endl;
+  string line;
+  ifstream myfile (file);
+  if (myfile.is_open())
+    {
+      while ( myfile.good() )
+	{
+	  getline (myfile,line);
+	  TPRegexp pattern("Observed.*?= (.+)$");
+	  // ("Observed.*?=\ *(.+)$");
+	  TObjArray* matches = pattern.MatchS(line.c_str());
+	  if (matches && matches->GetLast()==1){
+	    TString result(((TObjString*)matches->At(1))->GetString());
+	    myfile.close();
+	    return atof(result.Data());
+	  }
+	}
+      myfile.close();   
+    }
+  return -1;
+}
 
-void AddLimits(std::vector<LimitInfo>& limits, const char* pattern1, const char* pattern2, double mass){
+void AddLimits(std::vector<LimitInfo>& limits, const char* name, double mass)
+{
   TChain* chain = new TChain("T");
-  chain->Add(Form("%s%s",pattern1,pattern2));
-  double result;
+  chain->Add(Form("output/%s-%.0f-*root",name,mass));
+  double result(0);
   chain->SetBranchAddress("brT", &result);
   Long64_t nentries = chain->GetEntries();
   if (nentries<=0) return;
@@ -96,9 +126,10 @@ void AddLimits(std::vector<LimitInfo>& limits, const char* pattern1, const char*
   double sum(0);
   for (Long64_t i = 0; i < nentries; i++){
     chain->GetEvent(i);
-    if(fabs(result)<1E3)
+    if(fabs(result)<1E3){
       values.push_back(result);
-    sum+=result;
+      sum+=result;
+    }
   }
   std::sort(values.begin(),values.end());
   const double prob1S = TMath::Erfc(1/sqrt(2))/2;
@@ -121,6 +152,8 @@ void AddLimits(std::vector<LimitInfo>& limits, const char* pattern1, const char*
   limit.exp_p1sig  = values.at(values.size()-int(prob1S*values.size()));
   limit.exp_p2sig  = values.at(values.size()-int(prob2S*values.size()));
 
+  limit.observed = getObservedLimit(Form("output/%s-%.0f.observed",name,mass));
+  printf("observed: %f\n",limit.observed);
   limits.push_back(limit);
 }
 
@@ -136,6 +169,8 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
   double *limits_p2s = new double[limits.size()];
   double *limits_mean = new double[limits.size()];
   double *mass_points = new double[limits.size()];
+  double *observed = new double[limits.size()];
+  bool showObserved = true;
   for(unsigned int i=0; i<limits.size(); ++i){
     limits_m2s[i]  = limits.at(i).exp_m2sig;
     limits_m1s[i]  = limits.at(i).exp_m1sig;
@@ -144,6 +179,8 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
     limits_p1s[i]  = limits.at(i).exp_p1sig;
     limits_p2s[i]  = limits.at(i).exp_p2sig;
     mass_points[i] = limits.at(i).mass;
+    observed[i] = limits.at(i).observed;
+    if (limits.at(i).observed<0) showObserved=false;
   }
   gROOT->SetStyle("Plain");
   gStyle->SetCanvasDefH      (600);
@@ -151,17 +188,28 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
   gStyle->SetTitleOffset( 1, "y");
   TPaveText *pt = lands::SetTPaveText(0.5, 0.95, 0.8, 0.95); //SetTPaveText(0.5, 0.95, 0.8, 0.95)
   pt->AddText(title);
+  lands::PlotWithBelts* lb = 0;
   float yMax = 18; 
-  lands::PlotWithBelts* lb = new lands::PlotWithBelts(limits_m1s, limits_p1s, limits_m2s, limits_p2s,
-						      limits_mean, limits.size(), mass_points, 
-						      "limits", pt,
-						      110, 305, 0, yMax, false, 
-						      ";Higgs mass, m_{H} [GeV/c^{2}]; 95% CL Limit on #sigma/#sigma_{SM} ");
-  lb->plot();
-  lb->drawLegend("95% CL exclusion: median","95% CL exclusion: 68% band", "95% CL exclusion: 95% band");
+  if (showObserved){
+    lb = new lands::PlotWithBelts(limits_m1s, limits_p1s, limits_m2s, limits_p2s,
+				  limits_mean, observed, limits.size(), mass_points, 
+				  "limits", pt,
+				  100, 305, 0, yMax, false, 
+				  ";Higgs mass, m_{H} [GeV/c^{2}]; 95% CL Limit on #sigma/#sigma_{SM}; observed ");
+    lb->plot();
+    lb->drawLegend("95% CL exclusion: median","95% CL exclusion: 68% band", "95% CL exclusion: 95% band", "observed");
+  } else {
+    lb = new lands::PlotWithBelts(limits_m1s, limits_p1s, limits_m2s, limits_p2s,
+				  limits_mean, limits.size(), mass_points, 
+				  "limits", pt,
+				  100, 305, 0, yMax, false, 
+				  ";Higgs mass, m_{H} [GeV/c^{2}]; 95% CL Limit on #sigma/#sigma_{SM} ");
+    lb->plot();
+    lb->drawLegend("95% CL exclusion: median","95% CL exclusion: 68% band", "95% CL exclusion: 95% band");
+  }
   // lb->drawLegend("95% CL exclusion: mean","95% CL exclusion: 68% band", "95% CL exclusion: 95% band");
-  //lands::MoveLegend(lb->getLegend(),0.45,0.7);
-  lands::MoveLegend(lb->getLegend(),0.18,0.7);
+  lands::MoveLegend(lb->getLegend(),0.45,0.7);
+  // lands::MoveLegend(lb->getLegend(),0.18,0.7);
   lb->getMeanGraph()->SetLineWidth(2);
   lb->getMeanGraph()->SetMarkerStyle(20);
   /*
@@ -177,21 +225,22 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
 
 #endif
 
-void PlotExpectedLimits(const char* pattern, const char* title="H #rightarrow WW #rightarrow 2l2#nu + 0/1 jets")
+void PlotExpectedLimits(const char* name, 
+			const char* title="H #rightarrow WW #rightarrow 2l2#nu + 0/1 jets")
 {
   std::vector<LimitInfo> limits;
-  AddLimits(limits, pattern, "115-*.root", 115);
-  AddLimits(limits, pattern, "120-*.root", 120);
-  AddLimits(limits, pattern, "130-*.root", 130);
-  AddLimits(limits, pattern, "140-*.root", 140);
-  AddLimits(limits, pattern, "150-*.root", 150);
-  AddLimits(limits, pattern, "160-*.root", 160);
-  AddLimits(limits, pattern, "170-*.root", 170);
-  AddLimits(limits, pattern, "180-*.root", 180);
-  AddLimits(limits, pattern, "190-*.root", 190);
-  AddLimits(limits, pattern, "200-*.root", 200);
-  AddLimits(limits, pattern, "250-*.root", 250);
-  AddLimits(limits, pattern, "300-*.root", 300);
+  AddLimits(limits, name, 115);
+  AddLimits(limits, name, 120);
+  AddLimits(limits, name, 130);
+  AddLimits(limits, name, 140);
+  AddLimits(limits, name, 150);
+  AddLimits(limits, name, 160);
+  AddLimits(limits, name, 170);
+  AddLimits(limits, name, 180);
+  AddLimits(limits, name, 190);
+  AddLimits(limits, name, 200);
+  AddLimits(limits, name, 250);
+  AddLimits(limits, name, 300);
   
   PlotExpectedLimits(limits,title);
   /*
@@ -314,7 +363,7 @@ void plotBand()
 	}
 
 	TPaveText *pt;
-	pt = lands::SetTPaveText(0.2, 0.7, 0.5, 0.9);
+	pt = lands::SetTPaveText(0.3, 0.7, 0.5, 0.9);
 	pt->AddText("HZZ #rightarrow 2l2#nu");
 	lands::PlotWithBelts lb(
 			limits_m1s, limits_p1s, limits_m2s, limits_p2s,
@@ -324,7 +373,7 @@ void plotBand()
 	lb.plot();
 	lb.drawLegend("95% CL exclusion: mean","95% CL exclusion: 68% band", "95% CL exclusion: 95% band");
 	//lands::MoveLegend(lb.getLegend(),0.45,0.7);
-	lands::MoveLegend(lb.getLegend(),0.20,0.7);
+	lands::MoveLegend(lb.getLegend(),0.3,0.7);
 	lb.getMeanGraph()->SetLineStyle(1);
 	lb.getMeanGraph()->SetLineColor(kBlue);
 	lb.getMeanGraph()->SetLineWidth(2);

@@ -10,8 +10,12 @@ use warnings;
 
 
 my $lands = "../../LandS/test/lands.exe";
-my $command = "-tB 1000 -tPB 30 -t 100 -M Bayesian --doExpectation 1";
-my $useLSF = 0; 
+my $expectLimitCommand = "-tB 1000 -tPB 30 -t 1000 -M Bayesian --doExpectation 1";
+# my $expectLimitCommand = "-tB 1000 -tPB 30 -t 100 -M Bayesian --doExpectation 1";
+my $observedLimitCommand = "-tB 100000 -M Bayesian";
+my $useLSF = 1; 
+my $doObserved = 1;
+my $doExpected = 1;
 my $nJobsPerMassPoint = 10;
 
 #########################################################################
@@ -60,11 +64,17 @@ foreach my $mass(sort {$a<=>$b} keys %cards){
     foreach (1..$nJobsPerMassPoint){
 	my $seed = seed();
 	my $n = "$name-$mass-$seed";
-	if ($useLSF){
-	    system("bsub -q cmscaf1nd -o output/$n.log \"$wrapper $command --seed $seed --name output/$n -d ".join(" ",@{$cards{$mass}})."\"");
-	} else {
-	    system("nice $lands $command --seed $seed --name output/$n -d ".join(" ",@{$cards{$mass}}).">output/$n.log 2>&1 &");
+	if ( $doExpected ) {
+	    if ($useLSF){
+		system("bsub -q cmscaf1nd -o output/$n.log \"$wrapper $expectLimitCommand --seed $seed --name output/$n -d ".join(" ",@{$cards{$mass}})."\"");
+	    } else {
+		system("nice $lands $expectLimitCommand --seed $seed --name output/$n -d ".join(" ",@{$cards{$mass}}).">output/$n.log 2>&1 &");
+	    }
 	}
+    }
+    if ( $doObserved ) {
+	print "nice $lands $observedLimitCommand -d ".join(" ",@{$cards{$mass}}).">output/$name-$mass.observed 2>&1 &\n";
+	system("nice $lands $observedLimitCommand -d ".join(" ",@{$cards{$mass}}).">output/$name-$mass.observed 2>&1 &");
     }
 }
 
