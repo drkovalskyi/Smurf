@@ -706,6 +706,8 @@ double getProbAcceptanceEfficiency(cdf_event_type cdf_event, EffHist effhist)
   return eff;
 }
 
+// WARNING..
+// This code assumes that the generated FR and FR are binned X = eta, Y = Pt
 double getFakeRateProb(const cdf_event_type &cdf_event,  EffHist effhist, FRHist frhist, TVar::Process Global_process, TVar::VerbosityLevel verbosity)
 {
   double prob = 1.0; 
@@ -729,22 +731,16 @@ double getFakeRateProb(const cdf_event_type &cdf_event,  EffHist effhist, FRHist
     }
 
     if ( TMath::Abs(cdf_event.PdgCode[j]) == 11) {
-      
-      int xBin_genfr =  frhist.els_part_fo->GetXaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta())) >  frhist.els_part_fo->GetXaxis()->GetNbins() ?  frhist.els_part_fo->GetXaxis()->GetNbins() : frhist.els_part_fo->GetXaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta()));
-      int yBin_genfr =  frhist.els_part_fo->GetYaxis()->FindBin(cdf_event.p[j].Pt()) >  frhist.els_part_fo->GetYaxis()->GetNbins() ?  frhist.els_part_fo->GetYaxis()->GetNbins() : frhist.els_part_fo->GetYaxis()->FindBin(cdf_event.p[j].Pt());
-
-      // WARNING :: !! Temporary change..Because the external FR has a different format for SmurfV5!!
-      // int xBin_fr = frhist.els_fr->GetXaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta())) >  frhist.els_fr->GetXaxis()->GetNbins() ?  frhist.els_fr->GetXaxis()->GetNbins() : frhist.els_fr->GetXaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta()));
-      //int yBin_fr =  frhist.els_fr->GetYaxis()->FindBin(cdf_event.p[j].Pt()) >  frhist.els_fr->GetYaxis()->GetNbins() ?  frhist.els_fr->GetYaxis()->GetNbins() : frhist.els_fr->GetYaxis()->FindBin(cdf_event.p[j].Pt());
+      int xBin_genfr =  frhist.els_part_fo->GetXaxis()->FindBin(cdf_event.p[j].Pt()) >  frhist.els_part_fo->GetXaxis()->GetNbins() ?  frhist.els_part_fo->GetXaxis()->GetNbins() : frhist.els_part_fo->GetXaxis()->FindBin(cdf_event.p[j].Pt());
+      int yBin_genfr =  frhist.els_part_fo->GetYaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta())) >  frhist.els_part_fo->GetYaxis()->GetNbins() ?  frhist.els_part_fo->GetYaxis()->GetNbins() : frhist.els_part_fo->GetYaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta()));
       int xBin_fr = frhist.els_fr->GetXaxis()->FindBin( cdf_event.p[j].Pt()) >  frhist.els_fr->GetXaxis()->GetNbins() ?  frhist.els_fr->GetXaxis()->GetNbins() : frhist.els_fr->GetXaxis()->FindBin( cdf_event.p[j].Pt());
       int yBin_fr =  frhist.els_fr->GetYaxis()->FindBin( TMath::Abs(cdf_event.p[j].Eta())) >  frhist.els_fr->GetYaxis()->GetNbins() ?  frhist.els_fr->GetYaxis()->GetNbins() : frhist.els_fr->GetYaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta()));
       prob *=  frhist.els_part_fo->GetBinContent(xBin_genfr, yBin_genfr) * frhist.els_fr->GetBinContent(xBin_fr, yBin_fr);
     }
     
     else {
-      int xBin_genfr =  frhist.mus_part_fo->GetXaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta())) >  frhist.mus_part_fo->GetXaxis()->GetNbins() ?  frhist.mus_part_fo->GetXaxis()->GetNbins() : frhist.mus_part_fo->GetXaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta()));
-      int yBin_genfr =  frhist.mus_part_fo->GetYaxis()->FindBin(cdf_event.p[j].Pt()) >  frhist.mus_part_fo->GetYaxis()->GetNbins() ?  frhist.mus_part_fo->GetYaxis()->GetNbins() : frhist.mus_part_fo->GetYaxis()->FindBin(cdf_event.p[j].Pt());
-      
+      int xBin_genfr =  frhist.mus_part_fo->GetXaxis()->FindBin(cdf_event.p[j].Pt()) >  frhist.mus_part_fo->GetXaxis()->GetNbins() ?  frhist.mus_part_fo->GetXaxis()->GetNbins() : frhist.mus_part_fo->GetXaxis()->FindBin(cdf_event.p[j].Pt());
+      int yBin_genfr =  frhist.mus_part_fo->GetYaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta())) >  frhist.mus_part_fo->GetYaxis()->GetNbins() ?  frhist.mus_part_fo->GetYaxis()->GetNbins() : frhist.mus_part_fo->GetYaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta()));
       int xBin_fr = frhist.mus_fr->GetXaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta())) >  frhist.mus_fr->GetXaxis()->GetNbins() ?  frhist.mus_fr->GetXaxis()->GetNbins() : frhist.mus_fr->GetXaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta()));
       int yBin_fr = frhist.mus_fr->GetYaxis()->FindBin(cdf_event.p[j].Pt()) >  frhist.mus_fr->GetYaxis()->GetNbins() ?  frhist.mus_fr->GetYaxis()->GetNbins() : frhist.mus_fr->GetYaxis()->FindBin(cdf_event.p[j].Pt());
       prob *=  frhist.mus_part_fo->GetBinContent(xBin_genfr, yBin_genfr) * frhist.mus_fr->GetBinContent(xBin_fr, yBin_fr);
