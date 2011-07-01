@@ -26,9 +26,9 @@ fi
 
 export DO_TRAINING=0;
 if [ ${DO_TRAINING} == "1" ]; then
-  export SIG_TRAIN=data/../mitf-alljets-hzz/hzz${MH}.root;
-  export BKG_TRAIN=data/zz.root;
-  #export BKG_TRAIN=data/background_training.root;
+  export SIG_TRAIN=data/hzz${MH}.root;
+  #export BKG_TRAIN=data/zz.root;
+  export BKG_TRAIN=data/background_training.root;
   #export SIG_TRAIN=data/hww${MH}.root;
   #export BKG_TRAIN=data/ww2l_pythia.root;
   mkdir -p weights;
@@ -46,7 +46,9 @@ rm -f list_samples.txt;
 #data/background_mconly.root
 #data/background.root
 cat > list_samples.txt <<EOF
-data/zz.root
+data/background.root
+data/data_2l.root
+data/hzz${MH}.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf.C+;
