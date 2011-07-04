@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf_hzz.C,v 1.2 2011/06/11 06:12:41 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf_hzz.C,v 1.1 2011/06/30 07:54:03 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -63,6 +63,39 @@ enum Type {
   ee
 };
 
+enum Selection {
+  BaseLine	    = 1UL<<0,  // pt(reco)>20/10, acceptance,!STA muon, mll>12
+  ChargeMatch	    = 1UL<<1,  // q1*q2<0
+  Lep1FullSelection = 1UL<<2,  // full id, isolation, d0, dz etc
+  Lep1LooseEleV1    = 1UL<<3,  // electron fakeable object selection is passed V1
+  Lep1LooseEleV2    = 1UL<<4,  // electron fakeable object selection is passed V2
+  Lep1LooseEleV3    = 1UL<<5,  // electron fakeable object selection is passed V3
+  Lep1LooseEleV4    = 1UL<<6,  // electron fakeable object selection is passed V4
+  Lep1LooseMuV1     = 1UL<<7,  // muon fakeable object selection (relIso<1.0)
+  Lep1LooseMuV2     = 1UL<<8,  // muon fakeable object selection (relIso<0.4)
+  Lep2FullSelection = 1UL<<9,  // full id, isolation, d0, dz etc
+  Lep2LooseEleV1    = 1UL<<10, // electron fakeable object selection is passed V1
+  Lep2LooseEleV2    = 1UL<<11, // electron fakeable object selection is passed V2
+  Lep2LooseEleV3    = 1UL<<12, // electron fakeable object selection is passed V3
+  Lep2LooseEleV4    = 1UL<<13, // electron fakeable object selection is passed V4
+  Lep2LooseMuV1     = 1UL<<14, // muon fakeable object selection (relIso<1.0)
+  Lep2LooseMuV2     = 1UL<<15, // muon fakeable object selection (relIso<0.4)
+  FullMET	    = 1UL<<16, // full met selection
+  ZVeto 	    = 1UL<<17, // event is not in the Z-mass peak for ee/mm final states
+  TopTag	    = 1UL<<18, // soft muon and b-jet tagging for the whole event regardless of n-jets (non-zero means tagged)
+  TopVeto	    = 1UL<<19, // soft muon and b-jet tagging for the whole event regardless of n-jets (zero means tagged)
+  OneBJet	    = 1UL<<20, // 1-jet events, where the jet is b-tagged (top control sample with one b-quark missing)
+  TopTagNotInJets   = 1UL<<21, // soft muon and b-jet tagging for areas outside primary jets (non-zero means tagged)
+  ExtraLeptonVeto   = 1UL<<22, // extra lepton veto, DR(muon-electron)>=0.3
+  Lep3FullSelection = 1UL<<23,  // full id, isolation, d0, dz etc
+  Lep3LooseEleV1    = 1UL<<24, // electron fakeable object selection is passed V1
+  Lep3LooseEleV2    = 1UL<<25, // electron fakeable object selection is passed V2
+  Lep3LooseEleV3    = 1UL<<26, // electron fakeable object selection is passed V3
+  Lep3LooseEleV4    = 1UL<<27, // electron fakeable object selection is passed V4
+  Lep3LooseMuV1     = 1UL<<28, // muon fakeable object selection (relIso<1.0)
+  Lep3LooseMuV2     = 1UL<<29  // muon fakeable object selection (relIso<0.4)
+};
+
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
 void trainMVA_smurf_hzz(
@@ -113,18 +146,18 @@ void trainMVA_smurf_hzz(
   mvaVar[ "lep1pt" ]            = 1;  //pt of leading lepton
   mvaVar[ "lep2pt" ]            = 1;  //pt of sub-leading lepton
   mvaVar[ "dPhi" ]              = 1;  //delta phi btw leptons
-  mvaVar[ "dR" ]                = 1;  //delta R btw leptons
+  mvaVar[ "dR" ]                = 0;  //delta R btw leptons
   mvaVar[ "dilmass" ]           = 0;  //dilepton mass
-  mvaVar[ "type" ]              = 1;  //dilepton flavor type
+  mvaVar[ "type" ]              = 0;  //dilepton flavor type
   mvaVar[ "pmet" ]              = 0;  //projected met
   mvaVar[ "met" ]               = 1;  //met
-  mvaVar[ "mt" ]                = 1;  //tranvserse higgs mass
-  mvaVar[ "mt1" ]               = 0;  //transverse mass of leading lepton and met
-  mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
+  mvaVar[ "mt" ]                = 0;  //tranvserse higgs mass
+  mvaVar[ "mt1" ]               = 1;  //transverse mass of leading lepton and met
+  mvaVar[ "mt2" ]               = 1;  //transverse mass of sub-leading lepton and met
   mvaVar[ "dPhiLep1MET" ]       = 1;  //delta phi btw leading lepton and met
   mvaVar[ "dPhiLep2MET" ]       = 1;  //delta phi btw leading sub-lepton and met
-  mvaVar[ "dPhiDiLepMET" ]	= 1;  //delta phi btw dilepton and met
-  mvaVar[ "dPhiDiLepJet1" ]	= 1;  //delta phi btw dilepton and jet1
+  mvaVar[ "dPhiDiLepMET" ]	= 0;  //delta phi btw dilepton and met
+  mvaVar[ "dPhiDiLepJet1" ]	= 0;  //delta phi btw dilepton and jet1
   mvaVar[ "mtHZZ" ]             = 1;  //tranvserse higgs mass for HZZ
 
   TCut sel = "";
@@ -354,8 +387,11 @@ void trainMVA_smurf_hzz(
   //      variable definition, but simply compute the expression before adding the event
   //
   
+  unsigned int patternTopTag = TopTag;
+
   std::vector<Double_t> vars( nVariables );
 
+  UInt_t          cuts;
   UInt_t          njets;
   UInt_t          event;
   Float_t         scale1fb;
@@ -385,6 +421,7 @@ void trainMVA_smurf_hzz(
   UInt_t          nSoftMuons;
   Float_t         jet1Btag;
 
+  signal->SetBranchAddress( "cuts"          , &cuts        );
   signal->SetBranchAddress( "njets"        , &njets        );
   signal->SetBranchAddress( "event"        , &event        );
   signal->SetBranchAddress( "scale1fb"     , &scale1fb     );
@@ -434,10 +471,9 @@ void trainMVA_smurf_hzz(
     if( type == em || type == me         ) continue; // cut on em/me pairs
     if( fabs(dilep->mass()-91.1876) > 15 ) continue; // cut on Z selection
     if( lid3 != 0	                 ) continue; // cut on dileptons
-    if( jetLowBtag >= 2.1	         ) continue; // cut on jetLowBtag
-    if( nSoftMuons > 0	                 ) continue; // cut on n soft muons
-    if( jet1->Pt() >  7 &&
-        jet1Btag >= 2.1	                 ) continue; // cut on jet1Btag
+    if( (cuts & patternTopTag) == 
+         patternTopTag	                 ) continue; // cut on btagging
+    if( dilep->pt() < 35                 ) continue; // cut on pt Z
 
     int varCounter = 0;
     
@@ -475,6 +511,7 @@ void trainMVA_smurf_hzz(
     }
   }
 
+  background->SetBranchAddress( "cuts"         , &cuts         );
   background->SetBranchAddress( "njets"        , &njets        );  
   background->SetBranchAddress( "event"        , &event        );
   background->SetBranchAddress( "scale1fb"     , &scale1fb     );
@@ -523,10 +560,9 @@ void trainMVA_smurf_hzz(
     if( type == em || type == me         ) continue; // cut on em/me pairs
     if( fabs(dilep->mass()-91.1876) > 15 ) continue; // cut on Z selection
     if( lid3 != 0	                 ) continue; // cut on dileptons
-    if( jetLowBtag >= 2.1	         ) continue; // cut on jetLowBtag
-    if( nSoftMuons > 0	                 ) continue; // cut on n soft muons
-    if( jet1->Pt() >  7 &&
-        jet1Btag >= 2.1	                 ) continue; // cut on jet1Btag
+    if( (cuts & patternTopTag) == 
+         patternTopTag	                 ) continue; // cut on btagging
+    if( dilep->pt() < 35                 ) continue; // cut on pt Z
 
     int varCounter = 0;
     

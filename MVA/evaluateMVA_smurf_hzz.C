@@ -81,18 +81,18 @@ TString path         = "")
   mvaVar[ "lep1pt" ]            = 1;  //pt of leading lepton
   mvaVar[ "lep2pt" ]            = 1;  //pt of sub-leading lepton
   mvaVar[ "dPhi" ]              = 1;  //delta phi btw leptons
-  mvaVar[ "dR" ]                = 1;  //delta R btw leptons
+  mvaVar[ "dR" ]                = 0;  //delta R btw leptons
   mvaVar[ "dilmass" ]           = 0;  //dilepton mass
-  mvaVar[ "type" ]              = 1;  //dilepton flavor type
+  mvaVar[ "type" ]              = 0;  //dilepton flavor type
   mvaVar[ "pmet" ]              = 0;  //projected met
   mvaVar[ "met" ]               = 1;  //met
-  mvaVar[ "mt" ]                = 1;  //transverse higgs mass
-  mvaVar[ "mt1" ]               = 0;  //transverse mass of leading lepton and met
-  mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
+  mvaVar[ "mt" ]                = 0;  //transverse higgs mass
+  mvaVar[ "mt1" ]               = 1;  //transverse mass of leading lepton and met
+  mvaVar[ "mt2" ]               = 1;  //transverse mass of sub-leading lepton and met
   mvaVar[ "dPhiLep1MET" ]       = 1;  //delta phi btw leading lepton and met
   mvaVar[ "dPhiLep2MET" ]       = 1;  //delta phi btw leading sub-lepton and met
-  mvaVar[ "dPhiDiLepMET" ]	= 1;  //delta phi btw dilepton and met
-  mvaVar[ "dPhiDiLepJet1" ]	= 1;  //delta phi btw dilepton and jet1 (only for njet>0)
+  mvaVar[ "dPhiDiLepMET" ]	= 0;  //delta phi btw dilepton and met
+  mvaVar[ "dPhiDiLepJet1" ]	= 0;  //delta phi btw dilepton and jet1 (only for njet>0)
   mvaVar[ "mtHZZ" ]             = 1;  //tranvserse higgs mass for HZZ
 
   //---------------------------------------------------------------

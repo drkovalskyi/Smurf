@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.1 2011/03/29 21:05:10 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.1 2011/06/11 06:12:41 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *

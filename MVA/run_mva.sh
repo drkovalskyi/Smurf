@@ -24,7 +24,7 @@ elif [ ${NJETS} == "hzz" ]; then
   export NJETS=999;
 fi
 
-export DO_TRAINING=0;
+export DO_TRAINING=1;
 if [ ${DO_TRAINING} == "1" ]; then
   export SIG_TRAIN=data/hzz${MH}.root;
   #export BKG_TRAIN=data/zz.root;
