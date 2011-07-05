@@ -8,7 +8,7 @@
 
 #include "TFile.h"
 #include "TTree.h"
-
+#include "TError.h"
 #include "Math/VectorUtil.h"
 #include "Math/LorentzVector.h"
 
@@ -376,11 +376,15 @@ class SmurfTree {
 
   // initialze a SmurfTree
   void InitTree(int type = -1){
+    assert(type==type); // just to suppress warnings
     assert(tree_);
     // don't forget to set pointers to zero before you set address
     // or you will fully appreciate that "ROOT sucks" :)
     InitVariables();
     //Set branch address
+    Int_t currentState = gErrorIgnoreLevel;
+    // gErrorIgnoreLevel = kError;
+    gErrorIgnoreLevel = kBreak;
     tree_->SetBranchAddress("event",         &event_);
     tree_->SetBranchAddress("run",           &run_);
     tree_->SetBranchAddress("lumi",          &lumi_);
@@ -433,7 +437,6 @@ class SmurfTree {
     tree_->SetBranchAddress("higgsPt",       &higgsPt_);
     tree_->SetBranchAddress("hPtWeight",     &hPtWeight_);
 
-    if(type >=0 && type <= 3){
       tree_->SetBranchAddress("lep3",	       &lepPtr3_);
       tree_->SetBranchAddress("lq3",	       &lq3_);
       tree_->SetBranchAddress("lid3",	       &lid3_);
@@ -455,7 +458,8 @@ class SmurfTree {
       tree_->SetBranchAddress("id2",	       &id2_);
       tree_->SetBranchAddress("x2",	       &x2_);
       tree_->SetBranchAddress("pdf2",	       &pdf2_);
-    }
+
+    gErrorIgnoreLevel = currentState;
   }
   /// get a built in type variable by name
   double Get(std::string value);
