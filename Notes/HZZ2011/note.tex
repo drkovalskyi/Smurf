@@ -1,0 +1,179 @@
+\documentclass{cmspaper}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage[pdfborder=0 0 0,
+            colorlinks,
+            urlcolor = blue,
+            linkcolor = black,
+            citecolor = black,
+            menucolor = black,]
+           {hyperref}
+%% \usepackage[colorlinks]{hyperref}
+%% \usepackage{url}
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixname}{Appendix}
+%% \renewcommand{\appendixtocname}{List of appendices}
+
+% \input{privsym}
+\input{commands}
+
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+
+%===================================================================================================
+\begin{document}
+\begin{titlepage}
+
+  \analysisnote{2011/000}
+
+  \date{\today}
+
+  \title{A Higgs Boson Search in the Fully Leptonic $Z^+Z^-$ Final State}
+
+  \input{authors}
+
+  \begin{abstract}
+    This note describes a search for the Higgs boson in the $\ZZ \to 2\ell2\nu$ final state with
+    $192~\ipb$ of $pp$ collision data at $\sqrt s = 7~\TeV$. We search for Higgs candidate events in
+    $ee$, $\mu\mu$ and $e\mu$ channels with 0, 1 and 2 reconstructed jets in the final state. Signal
+    and background yields are extrapolated to data corresponding to an integrated luminosity of
+    $1~\ifb$ to represent the expectations for the amount of data the CMS detector will collect by
+    the summer conferences.
+  \end{abstract} 
+
+\end{titlepage}
+\tableofcontents
+%\listoftables
+%\listoffigures
+\newpage 
+
+%===================================================================================================
+\section{Introduction}
+%  \label{sec:overview}
+%  \input{introduction}
+  
+\section{Data Samples}
+%  \label{sec:datasets}
+%  \input{datasets}
+  
+\section{Event Selection}
+%  \label{sec:selection} 
+%  \input{selection_introduction}
+  \subsection{Trigger}
+%    \label{sec:sel_trigger}
+%    \input{selection_trigger}
+  \subsection{Primary Vertex Reconstruction}
+%    \label{sec:sel_pv}
+%    \input{selection_pv}
+  \subsection{Muon Selection} 
+%    \label{sec:sel_muons}
+%   \input{selection_muons}
+  \subsection{Electron Selection} 
+%    \label{sec:sel_electrons}
+%    \input{selection_electrons}
+  \subsection{Missing Energy} 
+%    \label{sec:sel_met}
+%    \input{selection_met}
+%    \clearpage
+  \subsection{$Z$ Veto}
+%    \label{sec:sel_zveto}
+%    \input{selection_zveto}
+  \subsection{Jet Counting} 
+%    \label{sec:sel_jets}
+%    \input{selection_jets}
+  \subsection{Top Tagging}
+%    \label{sec:sel_toptag}
+%    \input{selection_toptag}
+  \subsection{Other Preselection Requirements}
+%    \label{sec:sel_other}
+%    \input{selection_other}
+
+%\section{Event yields in Data and Monte Carlo}
+\section{Expected Event Yields After $\ww$ Preselection}
+%  \label{sec:yields}
+%  \input{yields_mc}
+
+\clearpage    
+\section{Higgs Signal Extraction Strategy}
+%  \input{selection_intro}
+%  \label{sec:signal_selection}
+  \subsection{Cut Based Analysis}
+%    \label{sec:anal_cutbased}
+    \subsubsection{0-Jet Selection}
+%      \label{sec:sel_zerojet}
+%      \input{selection_zerojet}
+    \subsubsection{1-Jet Selection}
+%      \label{sec:sel_onejet}
+%      \input{selection_onejet}
+    \subsubsection{VBF Selection}
+%      \label{sec:sel_vbf}
+%      \input{selection_vbf}
+  \subsection{MVA Analysis}
+%    \label{sec:anal_mva}
+%    \input{anal_mva}
+
+\clearpage
+\section{Background Estimation}
+ %   \label{sec:backgrounds}
+ %   \input{bkg_intro}
+ %   \label{sec:bkg_intro}
+  \subsection{$\WW$ Background}
+  %  \label{sec:bkg_ww}
+  %  \input{bkg_ww}
+  \subsection{Jet Induced Backgrounds}
+  %  \label{sec:bkg_fakes}
+  %  \input{bkg_fakes}
+  \subsection{Top Background}
+  %  \label{sec:bkg_top}
+  %  \input{bkg_top}
+  \subsection{Drell-Yan Background}
+  %  \label{sec:bkg_dy}
+  %  \input{bkg_dy}
+  \subsection{Other Backgrounds}
+  %  \label{sec:bkg_other}
+  %  \input{bkg_other}
+
+\section{Efficiency Measurements}
+  %  \label{sec:alleff}
+    \subsection{Lepton Efficiency}
+  %  \label{sec:efficiency}
+  %  \input{eff_intro}
+        \subsubsection{Electron Efficiency}
+   %     \input{eff_electron}
+   %     \label{sec:eff_electron}
+        \subsubsection{Muon Efficiency}
+    %    \input{eff_muon}
+    %    \label{sec:eff_muon}
+        \subsubsection{Trigger Efficiency}
+    %    \input{eff_trigger}
+    %    \label{sec:eff_trigger}
+    \subsection{Jet Counting Efficiency}
+    %\input{eff_jet}
+
+\section{Systematic Uncertainties}
+%  \label{sec:systematics}
+%  \input{systematics}
+
+\section{Sensitivity Projections with 1~$\ifb$}
+%  \label{sec:results}
+%  \input{results}
+  
+  \clearpage
+
+\section{Data Results with 192~$\ipb$}
+%  \label{sec:dataresults}
+%  \input{data_results}
+
+\section{Summary}
+%    \label{sec:summary}
+%    \input{summary}
+
+%===================================================================================================
+\input{biblio}
+
+%===================================================================================================
+%\appendix
+\end{document}
