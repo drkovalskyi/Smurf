@@ -6,10 +6,9 @@
 \BOOKMARK [2][-]{subsection.3.3}{Muon Selection}{section.3}
 \BOOKMARK [2][-]{subsection.3.4}{Electron Selection}{section.3}
 \BOOKMARK [2][-]{subsection.3.5}{Missing Energy}{section.3}
-\BOOKMARK [2][-]{subsection.3.6}{Z Veto}{section.3}
-\BOOKMARK [2][-]{subsection.3.7}{Jet Counting}{section.3}
-\BOOKMARK [2][-]{subsection.3.8}{Top Tagging}{section.3}
-\BOOKMARK [2][-]{subsection.3.9}{Other Preselection Requirements}{section.3}
+\BOOKMARK [2][-]{subsection.3.6}{Jet Counting}{section.3}
+\BOOKMARK [2][-]{subsection.3.7}{Top Tagging}{section.3}
+\BOOKMARK [2][-]{subsection.3.8}{Other Preselection Requirements}{section.3}
 \BOOKMARK [1][-]{section.4}{Expected Event Yields After WW Preselection}{}
 \BOOKMARK [1][-]{section.5}{Higgs Signal Extraction Strategy}{}
 \BOOKMARK [2][-]{subsection.5.1}{Cut Based Analysis}{section.5}
@@ -18,10 +17,10 @@
 \BOOKMARK [3][-]{subsubsection.5.1.3}{VBF Selection}{subsection.5.1}
 \BOOKMARK [2][-]{subsection.5.2}{MVA Analysis}{section.5}
 \BOOKMARK [1][-]{section.6}{Background Estimation}{}
-\BOOKMARK [2][-]{subsection.6.1}{W+W- Background}{section.6}
-\BOOKMARK [2][-]{subsection.6.2}{Jet Induced Backgrounds}{section.6}
-\BOOKMARK [2][-]{subsection.6.3}{Top Background}{section.6}
-\BOOKMARK [2][-]{subsection.6.4}{Drell-Yan Background}{section.6}
+\BOOKMARK [2][-]{subsection.6.1}{Drell-Yan Background}{section.6}
+\BOOKMARK [2][-]{subsection.6.2}{ZZ and resonant WZ Background}{section.6}
+\BOOKMARK [2][-]{subsection.6.3}{W+W- non-resonant WZ and Top Backgrounds}{section.6}
+\BOOKMARK [2][-]{subsection.6.4}{Jet Induced Backgrounds}{section.6}
 \BOOKMARK [2][-]{subsection.6.5}{Other Backgrounds}{section.6}
 \BOOKMARK [1][-]{section.7}{Efficiency Measurements}{}
 \BOOKMARK [2][-]{subsection.7.1}{Lepton Efficiency}{section.7}
