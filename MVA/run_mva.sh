@@ -12,8 +12,8 @@ export NJETS=$1;
 export MH=$2;
 
 export TAG=ntuples_${MH}train_${NJETS}jets;
-#export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
-export METHODS=MLPBNN,BDTG;
+export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
+#export METHODS=MLPBNN,BDTG;
 
 ### Training: change done hand made, it's an expert option
 export trainMVA_smurfFile=trainMVA_smurf.C+;
@@ -24,7 +24,7 @@ elif [ ${NJETS} == "hzz" ]; then
   export NJETS=999;
 fi
 
-export DO_TRAINING=1;
+export DO_TRAINING=0;
 if [ ${DO_TRAINING} == "1" ]; then
   export SIG_TRAIN=data/hzz${MH}.root;
   #export BKG_TRAIN=data/zz.root;
@@ -41,14 +41,11 @@ fi
 ### an arbitrary list of samples can be added
 ### samples must be in "data" folder
 rm -f list_samples.txt;
-#data/data_2l.root
-#data/hww${MH}.root
-#data/background_mconly.root
-#data/background.root
 cat > list_samples.txt <<EOF
-data/background.root
 data/data_2l.root
-data/hzz${MH}.root
+data/hww${MH}.root
+data/background42x_spring11dy.root
+data/background42x.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf.C+;
