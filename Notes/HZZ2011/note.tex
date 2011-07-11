@@ -17,7 +17,6 @@
 \renewcommand{\appendixname}{Appendix}
 %% \renewcommand{\appendixtocname}{List of appendices}
 
-% \input{privsym}
 \input{commands}
 
 \setcounter{topnumber}{1}
@@ -31,7 +30,7 @@
 
   \date{\today}
 
-  \title{A Higgs Boson Search in the Fully Leptonic $Z^+Z^-$ Final State}
+  \title{A Higgs Boson Search in the $Z^+Z^- \to 2\ell2\nu$ Final State}
 
   \input{authors}
 
@@ -56,15 +55,15 @@
 %  \input{introduction}
   
 \section{Data Samples}
-%  \label{sec:datasets}
-%  \input{datasets}
+  \label{sec:datasets}
+  \input{datasets}
   
 \section{Event Selection}
-%  \label{sec:selection} 
-%  \input{selection_introduction}
+  \label{sec:selection} 
+  \input{selection_intro}
   \subsection{Trigger}
-%    \label{sec:sel_trigger}
-%    \input{selection_trigger}
+    \label{sec:sel_trigger}
+    \input{selection_trigger}
   \subsection{Primary Vertex Reconstruction}
 %    \label{sec:sel_pv}
 %    \input{selection_pv}
@@ -89,45 +88,49 @@
 %    \input{selection_other}
 
 %\section{Event yields in Data and Monte Carlo}
-\section{Expected Event Yields After $\ww$ Preselection}
-%  \label{sec:yields}
-%  \input{yields_mc}
+\section{Expected Event Yields After $\zz$ Preselection}
+  \label{sec:yields}
+  \input{yields_mc}
 
 \clearpage    
 \section{Higgs Signal Extraction Strategy}
-%  \input{selection_intro}
-%  \label{sec:signal_selection}
+  \input{selection_higgs_intro}
+  \label{sec:signal_selection}
   \subsection{Cut Based Analysis}
-%    \label{sec:anal_cutbased}
+    \label{sec:anal_cutbased}
     \subsubsection{0-Jet Selection}
-%      \label{sec:sel_zerojet}
-%      \input{selection_zerojet}
+      \label{sec:sel_zerojet}
+     % \input{selection_zerojet}
     \subsubsection{1-Jet Selection}
 %      \label{sec:sel_onejet}
 %      \input{selection_onejet}
     \subsubsection{VBF Selection}
 %      \label{sec:sel_vbf}
 %      \input{selection_vbf}
-  \subsection{MVA Analysis}
+%  \subsection{MVA Analysis}
 %    \label{sec:anal_mva}
 %    \input{anal_mva}
 
 \clearpage
 \section{Background Estimation}
- %   \label{sec:backgrounds}
- %   \input{bkg_intro}
- %   \label{sec:bkg_intro}
+   \label{sec:backgrounds}
+   \input{bkg_intro}
+   \label{sec:bkg_intro}
+ \subsection{$\ZZ$ and resonant~$\WZ$ Background}
+    \label{sec:bkg_ww}
+    \input{bkg_ww}
   \subsection{Drell-Yan Background}
     \label{sec:bkg_dy}
     \input{bkg_dy}
-  \subsection{$\ZZ$ and resonant~$\WZ$ Background}
-  %  \label{sec:bkg_ww}
-  %  \input{bkg_ww}
-  \subsection{$\WW$ non-resonant~$\WZ$ and Top Backgrounds}
-    \label{sec:bkg_of}
-    \input{bkg_of}
+  \subsection{$\WW$ Backgrounds}
+    \label{sec:bkg_ww}
+    \input{bkg_ww}
+  \subsection{Top Backgrounds}
+    \label{sec:bkg_top}
+   \input{bkg_top}
+
   \subsection{Jet Induced Backgrounds}
-  %  \label{sec:bkg_fakes}
+    \label{sec:bkg_fakes}
   %  \input{bkg_fakes}
   \subsection{Other Backgrounds}
   %  \label{sec:bkg_other}
@@ -169,7 +172,7 @@
 %    \input{summary}
 
 %===================================================================================================
-\input{biblio}
+%\input{biblio}
 
 %===================================================================================================
 %\appendix

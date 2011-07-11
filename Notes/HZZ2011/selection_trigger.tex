@@ -1,0 +1,154 @@
+Triggering on Higgs boson decays in the dilepton final state increases 
+in difficulty with increasing instantaenous luminosity.
+Single lepton triggers can only be sustained with very tight identification and
+isolation requirements and large transverse momentum thresholds.
+This means that double lepton triggers are the only viable option to maintain
+sensitivity to a low mass Higgs boson, where the leptons transverse momentum
+can be small.
+
+We use a suite of signal and control triggers designed in the $H \to \WW$ analysis~\cite{HWW2011AN}. 
+These dilepton triggers have a high efficiency to collect Higgs boson events
+and are sufficiently loose to collect control events to estimate the 
+selection efficiencies and with adequate precision.
+%We describe the features and motivations for the analysis triggers in Section~\ref{sec:mainTriggers},
+%and additional triggers to collect control events in 
+%Section~\ref{sec:utilityTriggers}.
+
+%\subsubsection{Analysis Triggers}
+%\label{sec:mainTriggers}
+
+The main dielectron triggers, described in Table~\ref{tab:triggers_ee}, require two HLT electron
+candidates with loose shower shape and calorimeter isolation requirements on both legs
+and a match to a Level-1 seed for the leading leg.
+To accomodate the offline selection of $E_{T}>30,20$~GeV for the leading and trailing
+electrons, $E_{T}>17,8$~GeV is required at the HLT level.
+The main dimuon triggers
+require two HLT muon candidates with transverse momentum greater than $7$~$\GeVc$ and
+a match to a Level-1 seed is required for both legs.
+These are described in Table~\ref{tab:triggers_mm}.
+
+%%%%%%%%%
+\begin{table}[!ht]
+  \caption{Analysis triggers for the $ee$ final state. 
+The identification and isolation requirements are described in Ref.~\cite{HWW2011AN}}.
+    \vspace{5pt}
+   \label{tab:triggers_ee}
+  \begin{center}
+ {\small
+  \begin{tabular} {l|l|l|c}
+\hline
+  Dataset & Trigger name & L1 seed & Description\\
+  \hline \hline
+  \multirow{2}{*}{DoubleElectron} & HLT\_Ele17\_CaloIdL\_CaloIsoVL\_&  L1\_SingleEG12  & $p_T>17,8~\GeVc$ \\
+                                  & Ele8\_CaloIdL\_CaloIsoVL &                  & \\
+
+  \multirow{2}{*}{DoubleElectron} & HLT\_Ele17\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL\_ &  L1\_SingleEG12  & $p_T>17,8~\GeVc$ \\
+                                  & Ele8\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL &                  & \\
+  \hline
+  \end{tabular}
+}
+  \end{center}
+\end{table}
+%%%%%%%%%
+
+%%%%%%%%%
+\begin{table}[!ht]
+  \caption{Analysis triggers for the $\mu\mu$ final state. Triggers marked (*) are also used for efficiency studies.}
+    \vspace{5pt}
+   \label{tab:triggers_mm}
+  \begin{center}
+ {\small
+  \begin{tabular} {l|l|l|c}
+\hline
+  Dataset & Trigger name & L1 seed & Description\\
+  \hline \hline
+  DoubleMu & HLT\_DoubleMu6 & L1\_DoubleMu3  & $p_T>6,6~\GeVc$\\
+  DoubleMu & HLT\_DoubleMu7 & L1\_DoubleMu3  & $p_T>7,7~\GeVc$ \\
+  DoubleMu & HLT\_Mu13\_Mu8 & L1\_DoubleMu3  & $p_T>13,8~\GeVc$ \\
+  DoubleMu & HLT\_Mu17\_Mu8 & L1\_DoubleMu3  & $p_T>17,8~\GeVc$ \\
+  \hline
+  \end{tabular}
+}
+  \end{center}
+\end{table}
+%%%%%%%%%
+
+%%%%%
+\begin{table}[!ht]
+  \caption{Single lepton triggers to recover lost efficiency. These trigges are also used for efficiency studies.
+The identification and isolation requirements for electrons are described in Table~\ref{tab:HLTElectronCuts}.}
+    \vspace{5pt}
+   \label{tab:triggers_single}
+  \begin{center}
+ {\small
+  \begin{tabular} {l|l|l|c}
+\hline
+  Dataset & Trigger name & L1 seed & Description\\
+  \hline \hline
+  SingleEle & HLT\_Ele27\_CaloIdVT\_CaloIsoT\_TrkIdT\_TrkIsoT & L1\_SingleEG15  & $p_T>27~\GeVc$ \\
+  \hline \hline
+  SingleMu & HLT\_IsoMu12   & L1\_SingleMu7  & $p_T>12~\GeVc$ \\
+  SingleMu & HLT\_IsoMu17   & L1\_SingleMu10 & $p_T>17~\GeVc$ \\
+  SingleMu & HLT\_Mu15      & L1\_SingleMu10 & $p_T>15~\GeVc$ \\
+  \hline 
+  \end{tabular}
+}
+  \end{center}
+\end{table}
+%%%%%
+
+
+%\subsubsection{Utility Triggers}
+%\label{sec:utilityTriggers}
+
+%We now describe additional triggers that are introduced to collect control or
+%calibration events not covered by the main analysis triggers.
+
+To estimate the non-$Z$ dilepton backgrounds, where the selected dileptons are 
+not from the $Z$ details, we need to use the events collected in the $e\mu$ final sates. 
+In the electron-muon channel we use two complementary triggers, which require
+both muon and electron HLT candidates.
+These are summarised in Table~\ref{tab:triggers_em}.
+Finally, to recover any residual inefficiency,
+we also allow events that passed only the single electron
+or single isolated muon triggers summarised in Table~\ref{tab:triggers_single}.
+
+%%%%%
+\begin{table}[!ht]
+  \caption{Analysis triggers for the $e\mu$ final state.
+The identification and isolation requirements for electrons are described in Ref.~\cite{HWW2011AN}.}
+    \vspace{5pt}
+   \label{tab:triggers_em}
+  \begin{center}
+ {\small
+  \begin{tabular} {l|l|l|c}
+\hline
+  Dataset & Trigger name & L1 seed & Description\\
+  \hline \hline
+  MuEG & HLT\_Mu17\_Ele8\_CaloIdL & L1\_Mu3\_EG5 & $p_T>17,8~\GeVc$ \\
+  MuEG & HLT\_Mu8\_Ele17\_CaloIdL & L1\_Mu3\_EG5 & $p_T>8,17~\GeVc$ \\
+ \hline
+  \end{tabular}
+}
+  \end{center}
+\end{table}
+%%%%%
+
+Because the main dielectron analysis triggers make requirements on
+both legs, events collected with those triggers cannot be used to measure
+efficiencies without introducing unacceptable bias.
+Thus, to measure the electron selection and trigger efficiency
+we introduce two specialised tag and probe triggers designed to maximize
+the number of useful \dyll~events, % for both low and high $p_{T}$ electrons,
+while keeping the total trigger rate at a reasonable level. 
+%The tag and probe method is described later in Section~\ref{sec:efficiency}.
+
+%The first trigger probes low $p_T$ electrons and applies very tight identification 
+%and isolation requirements on the tag leg to reduce the background rate.
+%The second trigger probes higher $p_{T}$ electrons.
+%Both triggers are described in Table~\ref{tab:triggers_util} and labeled "eff".
+
+Another set of specialised triggers are used to record events
+enriched in fake electrons and muons for the measurement of jet induced backgrounds.
+This is done using the fake rate method, which is described in detail in ref.~\ref{sec:HWW2011AN}. 
+{\bf \fixme{} Add the photon jet triggers..}
