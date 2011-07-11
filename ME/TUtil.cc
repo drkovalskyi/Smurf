@@ -208,7 +208,7 @@ void My_choose(TVar::Process process){
 
     zcouple_.q2=0.;
     zcouple_.l2=zcouple_.ln*sqrt(3.);
-    zcouple_.r2=zcouple_.re*sqrt(3.);
+    zcouple_.r2=zcouple_.rn*sqrt(3.);
  }  
  else if(process==TVar::ZZ_4l ){ 
  
@@ -278,8 +278,7 @@ void My_choose(TVar::Process process){
   
  }
  else if(process==TVar::HZZ ){ 
-    //121 '  f(p1)+f(p2) --> H(-->Z^0(mu^-(p3)+mu^+(p4)) + Z^0(e^-(p5)+e^+(p6))'
-    //case='HZZ_4l'
+   // 115 '  f(p1)+f(p2) --> H(-->Z^0(3*(nu(p3)+nu~(p4)))+ Z^0(e^-(p5)+e^+(p6))'
      npart_.npart=4;
      nqcdjets_.nqcdjets=0;
      nqcdjets_.nqcdstart=7;
@@ -301,8 +300,8 @@ void My_choose(TVar::Process process){
 
      zcouple_.l1=zcouple_.le;
      zcouple_.r1=zcouple_.re;
-     zcouple_.l2=zcouple_.le;
-     zcouple_.r2=zcouple_.re;
+     zcouple_.l2=zcouple_.ln*sqrt(3.0);
+     zcouple_.r2=zcouple_.ln*sqrt(3.0);
 
      //sprintf(plabel[31],"el"); 
      //sprintf(plabel[41],"ea");

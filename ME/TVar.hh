@@ -185,6 +185,7 @@ class TVar{
   else if(temp==TVar::HWW500  ) return TString("hww500");
   else if(temp==TVar::HWW550  ) return TString("hww550");
   else if(temp==TVar::HWW600  ) return TString("hww600");
+  else if(temp==TVar::HZZ     ) return TString("hzz300");
   else
     return TString("UnKnown");
  };

@@ -173,7 +173,17 @@ double TEvtProb::Integrand_NeutrinoIntegration(TVar::Process proc, const cdf_eve
     else if (proc == TVar::ZZ)
     { 
         NSol=2;
-        genMzNu3     (r,_smearLevel, cdf_event, arr_mcfm_event);
+        genMzNu3     (r,_smearLevel, cdf_event, arr_mcfm_event, boosthist);
+    }
+    else if (proc == TVar::WZ)
+    { 
+        NSol=2;
+        genMwNu3WZ     (r,_smearLevel, cdf_event, arr_mcfm_event, boosthist);
+    }
+    else if (proc == TVar::HZZ)
+    { 
+        NSol=2;
+        genMzNu3HZZ  (r,_smearLevel, cdf_event, arr_mcfm_event, boosthist);
     }
     else if (proc == TVar::Z_2l)
     { 
@@ -264,6 +274,18 @@ void TEvtProb::SetMCHist(int proc, TString MCFileName, bool setFR, TVar::Verbosi
     _effhist.mus_eff_mc = (TH2F*) fUtil->Get("ww_hmuEff")->Clone();
 
     if (TVar::SmurfProcessName(proc) == "wjets") {
+        _boosthist.kx = (TH1F*) fUtil->Get(TString("ww_kx"))->Clone();
+        _boosthist.ky = (TH1F*) fUtil->Get(TString("ww_ky"))->Clone();
+    }
+    else if (TVar::SmurfProcessName(proc) == "hzz300") {
+        _boosthist.kx = (TH1F*) fUtil->Get(TString("hww160_kx"))->Clone();
+        _boosthist.ky = (TH1F*) fUtil->Get(TString("hww160_ky"))->Clone();
+    }
+    else if (TVar::SmurfProcessName(proc) == "zz") {
+        _boosthist.kx = (TH1F*) fUtil->Get(TString("ww_kx"))->Clone();
+        _boosthist.ky = (TH1F*) fUtil->Get(TString("ww_ky"))->Clone();
+    }
+    else if (TVar::SmurfProcessName(proc) == "wz") {
         _boosthist.kx = (TH1F*) fUtil->Get(TString("ww_kx"))->Clone();
         _boosthist.ky = (TH1F*) fUtil->Get(TString("ww_ky"))->Clone();
     }

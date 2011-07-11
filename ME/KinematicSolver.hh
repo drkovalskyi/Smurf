@@ -75,4 +75,14 @@ void WWL1L2Sol_MzNu3( cdf_event_type* temp,
                       double Mz, double nu_X, double nu_Y, double nu_Z,
                       mcfm_event_type* sol);
 
+void WWL1L2Sol_MzNu3HZZ( cdf_event_type* temp,
+                      double qx, double qy,
+                      double Mz, double nu_X, double nu_Y, double nu_Z,
+                      mcfm_event_type* sol);
+
+void WWL1L2Sol_MzNu3WZ( cdf_event_type* temp,
+                      double qx, double qy,
+                      double Mz, double nu_X, double nu_Y, double nu_Z,
+                      mcfm_event_type* sol);
+
 #endif

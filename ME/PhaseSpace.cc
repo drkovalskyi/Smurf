@@ -503,9 +503,9 @@ void genMw_W1jet(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_t
 //==============================================================
 
 
-void genMzNu3(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type* PSList){
+void genMzNu3(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type* PSList, BoostHist boosthist){
 
-    double wt[4];
+    double wt[6];
      
     double nu_X,nu_Y,nu_Z;
     EtExponential(40.,r[0],&nu_X,&wt[0]);  
@@ -523,7 +523,12 @@ void genMzNu3(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type
     //System Pt
       double qX=0.,qY=0.;
     
-//    mcfm_event_type  sol[4];
+      if(SmearLevel >= 1) {
+	getProbFromHist(r[4], & qX, & wt[4], boosthist.kx);
+	getProbFromHist(r[5], & qY, & wt[5], boosthist.ky);
+	PSWeight = PSWeight*wt[4]*wt[5];
+      }
+
 
 //nu_Z=-0.62694; nb_Z=16.8335;
 //Mw1=81.0633; Mw2=78.2776;
@@ -548,6 +553,66 @@ void genMzNu3(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type
     }
 }
 
+
+
+//=============================================================
+//
+//  Phase Space for H->Z(nu nu~)Z(l+l-)
+//
+//==============================================================
+
+
+void genMzNu3HZZ(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type* PSList, BoostHist boosthist){
+
+    double wt[6];
+     
+    double nu_X,nu_Y,nu_Z;
+    EtExponential(40.,r[0],&nu_X,&wt[0]);  
+    EtExponential(40.,r[1],&nu_Y,&wt[1]);
+    EtExponential(80.,r[2],&nu_Z,&wt[2]);
+
+    double mminsq=1e-15;
+    double mmaxsq=EBEAM*EBEAM;
+    double msq=1.;
+    breitw(r[3],mminsq,mmaxsq,breit_.mass3,breit_.width3,&msq,&wt[3]);
+
+    double PSWeight=wt[0]*wt[1]*wt[2]*wt[3];
+   
+
+    //System Pt
+    double qX=0, qY=0;
+    
+    if(SmearLevel >= 1) {
+      getProbFromHist(r[4], & qX, & wt[4], boosthist.kx);
+      getProbFromHist(r[5], & qY, & wt[5], boosthist.ky);
+      PSWeight = PSWeight*wt[4]*wt[5];
+    }
+
+
+//nu_Z=-0.62694; nb_Z=16.8335;
+//Mw1=81.0633; Mw2=78.2776;
+    WWL1L2Sol_MzNu3HZZ( &cdf_event,
+                      qX, qY, msq, nu_X, nu_Y, nu_Z,
+                      PSList);
+		      
+    for(int i=0;i<2;i++){
+    
+       mcfm_event_type& temp = PSList[i];
+       if(temp.pswt>0){
+         //temp.pswt = PSWeight/temp.pswt/sixteen_2Pi_to_8;
+ 
+         temp.pswt = PSWeight/temp.pswt
+                             /temp.p[2].Energy()
+			     /temp.p[3].Energy()
+			     /temp.p[4].Energy()
+			     /temp.p[5].Energy()
+                             /sixteen_2Pi_to_8;
+
+       }
+    }
+}
+
+
 //=============================================================
 //
 //  Phase Space for WZ->(l+/- nu) (l+l-)
@@ -556,9 +621,9 @@ void genMzNu3(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type
 //==============================================================
 
 
-void genMwNu3(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type* PSList){
+void genMwNu3WZ(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type* PSList, BoostHist boosthist){
 
-    double wt[4];
+    double wt[6];
      
     double nu_X,nu_Y,nu_Z;
     EtExponential(40.,r[0],&nu_X,&wt[0]);  
@@ -576,18 +641,21 @@ void genMwNu3(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type
 
     //System Pt
       double qX=0.,qY=0.;
+      if(SmearLevel >= 1) {
+	getProbFromHist(r[4], & qX, & wt[4], boosthist.kx);
+	getProbFromHist(r[5], & qY, & wt[5], boosthist.ky);
+	PSWeight = PSWeight*wt[4]*wt[5];
+      }
 
-//    mcfm_event_type  sol[4];
 
 //nu_Z=-0.62694; nb_Z=16.8335;
 //Mw1=81.0633; Mw2=78.2776;
-    WWL1L2Sol_MzNu3( &cdf_event,
+      WWL1L2Sol_MzNu3WZ( &cdf_event,
                       qX, qY, msq, nu_X, nu_Y, nu_Z,
                       PSList);
 //------------------------------------------
 // The solution is ordered as
-// 82 '  f(p1)+f(p2) --> Z^0(-->3*(nu(p3)+nu~(p4))) + Z^0(-->e^-(p5)+e^+(p6))'
-//
+//82 '  f(p1)+f(p2) --> Z^0(-->e^-(p3)+e^+(p4)) + Z^0(-->3*(nu(p5)+nu~(p6)))'
 		      
     for(int i=0;i<2;i++){
     

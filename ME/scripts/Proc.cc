@@ -20,6 +20,12 @@ void Proc::initBR() {
     BR_[2] = (2.0+0.1736+0.1784)/6;
     BR_[3] = (1.0+0.1784)/3;
   }
+  else if (proc_ == TVar::ZZ || proc_ == TVar::HZZ || proc_==TVar::WZ) {
+    BR_[0] = (1.0+0.1736*0.1736)/3;
+    BR_[1] = (0.1736*0.1784)/3;
+    BR_[2] = (0.1736*0.1784)/3;
+    BR_[3] = (1.0+0.1784*0.1784)/3;
+  }
   else {
     std::cout << "Initialize BR() for process " << TVar::SmurfProcessName(proc_) << " WARNING! Unsupported processes...setting BR to 0...\n";
     for (int j = 0; j < kNDilep; j++)
@@ -79,7 +85,7 @@ void Proc::initTotXsec() {
     
   case (TVar::WW): 
     NLOXsec_ = 4.5;
-    MCFMXsec_ = 2.983;
+    MCFMXsec_ = 0.333;
     break;
 
   case (TVar::Wp_1jet):
@@ -166,7 +172,22 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.243724;
     MCFMXsec_ = 0.05758;
     break;
+
+ case (TVar::HZZ):
+   NLOXsec_ = 0.02999;
+   MCFMXsec_ = 0.003274;
+    break;
+
+ case (TVar::ZZ):
+    NLOXsec_ = 0.238;
+    MCFMXsec_ = 0.06644;
+    break;
     
+ case (TVar::WZ):
+    NLOXsec_ = 0.202;
+    MCFMXsec_ = 0.060;
+    break;
+
   default:
     NLOXsec_ = 0.0;
     MCFMXsec_ = 0.0;

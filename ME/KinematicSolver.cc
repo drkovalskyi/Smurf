@@ -686,7 +686,7 @@ void WWL1L2Sol_Mw ( cdf_event_type* temp,
      double wMsqr = wE*wE-wX*wX-wY*wY-wZ*wZ;
 
 //cout <<"Debug MwSol " << wMsqr <<" input " << Msqr <<endl;
-     if(fabs(wMsqr-Msqr)/Msqr<1E-4 >1){
+     if(fabs(wMsqr-Msqr)/Msqr > 1E-4 ){
        solevent.pswt=-1; 
        continue;
 
@@ -829,10 +829,12 @@ void WWL1L2Sol_MzNu3( cdf_event_type* temp,
    solevent.p[0].SetPxPyPzE   (scale0*qX, scale0*qY, x0*EBEAM, scale0*qE);
    solevent.p[1].SetPxPyPzE   (scale1*qX, scale1*qY,-x1*EBEAM, scale1*qE);
   
-   solevent.p[2].SetPxPyPzE   ( nuX, nuY, nuZ, nuE);
-   solevent.p[3].SetPxPyPzE   ( nbX, nbY, nbZ, nbE);
-   solevent.p[4].SetPxPyPzE   ( emX, emY, emZ, emE);
-   solevent.p[5].SetPxPyPzE   ( epX, epY, epZ, epE);
+   solevent.p[2].SetPxPyPzE   ( emX, emY, emZ, emE);
+   solevent.p[3].SetPxPyPzE   ( epX, epY, epZ, epE);
+   solevent.p[4].SetPxPyPzE   ( nuX, nuY, nuZ, nuE);
+   solevent.p[5].SetPxPyPzE   ( nbX, nbY, nbZ, nbE);
+
+
      
    double J3x=2*(nuE*nbZ/nbE-nuZ); 
    solevent.pswt=TMath::Abs(J3x);
@@ -840,6 +842,224 @@ void WWL1L2Sol_MzNu3( cdf_event_type* temp,
  }//solutions
   		    
 }
+
+
+
+//=============================================================
+//
+//  Solve Kinematics for H->Z(nu nu~) Z(l+l-) 
+//
+//==============================================================
+
+
+void WWL1L2Sol_MzNu3HZZ( cdf_event_type* temp,
+                    double  qX, double   qY,
+                    double  Msqr, double  nuX, double nuY, double nuZ,
+                    mcfm_event_type* sol){
+
+
+ double epX=temp->p[0].Px() ;
+ double epY=temp->p[0].Py() ;
+ double epZ=temp->p[0].Pz() ;
+ double epE=temp->p[0].Energy();
+ 
+ double emX=temp->p[1].Px() ;
+ double emY=temp->p[1].Py() ;
+ double emZ=temp->p[1].Pz() ;
+ double emE=temp->p[1].Energy();
+
+		    
+   double nbX = qX-epX-emX-nuX;
+   double nbY = qY-epY-emY-nuY;
+   
+   double nuE = TMath::Sqrt(nuX*nuX+nuY*nuY+nuZ*nuZ);
+   double A = Msqr/2.+nuX*nbX+nuY*nbY;
+   
+ double k[3];
+ k[2]= (nuE+nuZ)*(nuE-nuZ);
+ k[1]= -2*A*nuZ;
+ k[0]= nuE*nuE*(nbX*nbX+nbY*nbY)-A*A;
+ 
+ double limits[2]={-EBEAM,EBEAM};
+ double roots [2];
+ PolySolver::FindRoots(2,k,limits,roots);
+
+ 
+ for(int i=0;i<2;i++){
+   mcfm_event_type& solevent=sol[i];
+   double nbZ=roots[i];
+ 
+   double eval =k[0]
+               +k[1]*nbZ
+               +k[2]*nbZ*nbZ;
+
+   if(fabs(eval/k[2])>1.0){
+     solevent.pswt=-1;
+     continue;
+   }
+
+   double nbE=TMath::Sqrt(nbX*nbX+nbY*nbY+nbZ*nbZ);
+   
+   double zX = nuX+nbX;
+   double zY = nuY+nbY;
+   double zZ = nuZ+nbZ;
+   double zE = nuE+nbE;
+   
+   double zMsqr = zE*zE-zX*zX-zY*zY-zZ*zZ;
+   
+   if(fabs(zMsqr-Msqr)/Msqr>1E-4){
+     solevent.pswt=-1;
+     continue;   
+   }
+
+
+     double qZ = epZ+emZ+zZ;
+     double qE = epE+emE+zE;
+
+     if(qE >2*EBEAM) {
+        solevent.pswt=-1;
+	continue;
+     }
+
+     double qEold= TMath::Sqrt(qE*qE-qX*qX-qY*qY);
+     double x0 = (qEold+qZ)/2/EBEAM;
+     double x1 = (qEold-qZ)/2/EBEAM;     
+
+
+     double scale0=x0/(x0+x1);
+     double scale1=x1/(x0+x1);
+
+     if(x0 > 1 || x1>1 || x0<=xmin_.xmin || x1 <=xmin_.xmin) {
+
+     solevent.pswt=-1;
+     continue;
+   }
+
+//115 '  f(p1)+f(p2) --> H(-->Z^0(3*(nu(p3)+nu~(p4)))+ Z^0(e^-(p5)+e^+(p6))'
+
+   solevent.p[0].SetPxPyPzE   (scale0*qX, scale0*qY, x0*EBEAM, scale0*qE);
+   solevent.p[1].SetPxPyPzE   (scale1*qX, scale1*qY,-x1*EBEAM, scale1*qE);
+  
+   solevent.p[2].SetPxPyPzE   ( nuX, nuY, nuZ, nuE);
+   solevent.p[3].SetPxPyPzE   ( nbX, nbY, nbZ, nbE);
+   solevent.p[4].SetPxPyPzE   ( emX, emY, emZ, emE);
+   solevent.p[5].SetPxPyPzE   ( epX, epY, epZ, epE);
+
+   double J3x=2*(nuE*nbZ/nbE-nuZ); 
+   solevent.pswt=TMath::Abs(J3x);
+     
+ }//solutions
+  		    
+}
+
+
+//=============================================================
+//
+//  Solve Kinematics for W(nu l) Z(l-l+) 
+//
+//==============================================================
+
+
+void WWL1L2Sol_MzNu3WZ( cdf_event_type* temp,
+                    double  qX, double   qY,
+                    double  Msqr, double  nuX, double nuY, double nuZ,
+                    mcfm_event_type* sol){
+
+
+ double epX=temp->p[0].Px() ;
+ double epY=temp->p[0].Py() ;
+ double epZ=temp->p[0].Pz() ;
+ double epE=temp->p[0].Energy();
+ 
+ double emX=temp->p[1].Px() ;
+ double emY=temp->p[1].Py() ;
+ double emZ=temp->p[1].Pz() ;
+ double emE=temp->p[1].Energy();
+
+		    
+   double nbX = qX-epX-emX-nuX;
+   double nbY = qY-epY-emY-nuY;
+   
+   double nuE = TMath::Sqrt(nuX*nuX+nuY*nuY+nuZ*nuZ);
+   double A = Msqr/2.+nuX*nbX+nuY*nbY;
+   
+ double k[3];
+ k[2]= (nuE+nuZ)*(nuE-nuZ);
+ k[1]= -2*A*nuZ;
+ k[0]= nuE*nuE*(nbX*nbX+nbY*nbY)-A*A;
+ 
+ double limits[2]={-EBEAM,EBEAM};
+ double roots [2];
+ PolySolver::FindRoots(2,k,limits,roots);
+
+ 
+ for(int i=0;i<2;i++){
+   mcfm_event_type& solevent=sol[i];
+   double nbZ=roots[i];
+ 
+   double eval =k[0]
+               +k[1]*nbZ
+               +k[2]*nbZ*nbZ;
+
+   if(fabs(eval/k[2])>1.0){
+     solevent.pswt=-1;
+     continue;
+   }
+
+   double nbE=TMath::Sqrt(nbX*nbX+nbY*nbY+nbZ*nbZ);
+   
+   double zX = nuX+nbX;
+   double zY = nuY+nbY;
+   double zZ = nuZ+nbZ;
+   double zE = nuE+nbE;
+   
+   double zMsqr = zE*zE-zX*zX-zY*zY-zZ*zZ;
+   
+   if(fabs(zMsqr-Msqr)/Msqr>1E-4){
+     solevent.pswt=-1;
+     continue;   
+   }
+
+
+     double qZ = epZ+emZ+zZ;
+     double qE = epE+emE+zE;
+
+     if(qE >2*EBEAM) {
+        solevent.pswt=-1;
+	continue;
+     }
+
+     double qEold= TMath::Sqrt(qE*qE-qX*qX-qY*qY);
+     double x0 = (qEold+qZ)/2/EBEAM;
+     double x1 = (qEold-qZ)/2/EBEAM;     
+
+
+     double scale0=x0/(x0+x1);
+     double scale1=x1/(x0+x1);
+
+     if(x0 > 1 || x1>1 || x0<=xmin_.xmin || x1 <=xmin_.xmin) {
+
+     solevent.pswt=-1;
+     continue;
+   }
+
+ //71 '  f(p1)+f(p2) --> W^+(-->nu(p3)+mu^+(p4))+Z^0(-->e^-(p5)+e^+(p6))'
+
+   solevent.p[0].SetPxPyPzE   (scale0*qX, scale0*qY, x0*EBEAM, scale0*qE);
+   solevent.p[1].SetPxPyPzE   (scale1*qX, scale1*qY,-x1*EBEAM, scale1*qE);
+  
+   solevent.p[2].SetPxPyPzE   ( nuX, nuY, nuZ, nuE);
+   solevent.p[3].SetPxPyPzE   ( nbX, nbY, nbZ, nbE);
+   solevent.p[4].SetPxPyPzE   ( emX, emY, emZ, emE);
+   solevent.p[5].SetPxPyPzE   ( epX, epY, epZ, epE);
+
+   double J3x=2*(nuE*nbZ/nbE-nuZ); 
+   solevent.pswt=TMath::Abs(J3x);
+     
+ }//solutions
+  		    
+}
+
 
 
 
