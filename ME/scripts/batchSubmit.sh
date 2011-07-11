@@ -41,7 +41,7 @@ echo writting commands.cmd
 echo "
 # -*- sh -*- # for font lock mode
 # variable definitions
-- env =  cd $ME_CODE_LOCATION; . /uscmst1/prod/sw/cms/bashrc prod; eval \`export SCRAM_ARCH=slc5_ia32_gcc434; scramv1 runtime -sh\`; cd -
+- env =  cd $ME_CODE_LOCATION; . /uscmst1/prod/sw/cms/bashrc prod; eval \`export SCRAM_ARCH=slc5_amd64_gcc434; scramv1 runtime -sh\`; cd -
 - tag =
 - output = outputFile=
 - tagmode = none
@@ -54,7 +54,7 @@ echo "
 
 for (( SECTION=1; SECTION<=$NSECTIONS; SECTION++)) 
 do
-	echo "output_\$(JID)         tardir/cafRun.sh $SECTION $PROCESS $ME_NTUPLE_LOCATION $NEVT_PER_SECTION" >> commands.cmd
+	echo "output_\$(JID)         tardir/cafRun.sh $SECTION $PROCESS $ME_NTUPLE_LOCATION $NEVT_PER_SECTION 0" >> commands.cmd
 done
 
 #
