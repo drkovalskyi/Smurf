@@ -1,0 +1,8 @@
+
+* Three folders must exist:
+   pic (for plots)
+   output (for limits input cards)
+   data (link to the actual ntuples with MVA information)
+
+* running example:
+   ./runAll-default.sh 0 115 4
