@@ -114,10 +114,10 @@ double getObservedLimit(const char* file)
   return -1;
 }
 
-void AddLimits(std::vector<LimitInfo>& limits, const char* name, double mass)
+void AddLimits(std::vector<LimitInfo>& limits, const char* dir, const char* name, double mass)
 {
   TChain* chain = new TChain("T");
-  chain->Add(Form("output/%s-%.0f-*root",name,mass));
+  chain->Add(Form("%s/output/%s-%.0f-*_limits_tree.root",dir,name,mass));
   double result(0);
   chain->SetBranchAddress("brT", &result);
   Long64_t nentries = chain->GetEntries();
@@ -152,7 +152,7 @@ void AddLimits(std::vector<LimitInfo>& limits, const char* name, double mass)
   limit.exp_p1sig  = values.at(values.size()-int(prob1S*values.size()));
   limit.exp_p2sig  = values.at(values.size()-int(prob2S*values.size()));
 
-  limit.observed = getObservedLimit(Form("output/%s-%.0f.observed",name,mass));
+  limit.observed = getObservedLimit(Form("%s/output/%s-%.0f.observed",dir,name,mass));
   printf("observed: %f\n",limit.observed);
   limits.push_back(limit);
 }
@@ -189,7 +189,7 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
   TPaveText *pt = lands::SetTPaveText(0.5, 0.95, 0.8, 0.95); //SetTPaveText(0.5, 0.95, 0.8, 0.95)
   pt->AddText(title);
   lands::PlotWithBelts* lb = 0;
-  float yMax = 18; 
+  float yMax = 10; 
   if (showObserved){
     lb = new lands::PlotWithBelts(limits_m1s, limits_p1s, limits_m2s, limits_p2s,
 				  limits_mean, observed, limits.size(), mass_points, 
@@ -225,22 +225,22 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
 
 #endif
 
-void PlotExpectedLimits(const char* name, 
+void PlotExpectedLimits(const char* dir, const char* name, 
 			const char* title="H #rightarrow WW #rightarrow 2l2#nu + 0/1 jets")
 {
   std::vector<LimitInfo> limits;
-  AddLimits(limits, name, 115);
-  AddLimits(limits, name, 120);
-  AddLimits(limits, name, 130);
-  AddLimits(limits, name, 140);
-  AddLimits(limits, name, 150);
-  AddLimits(limits, name, 160);
-  AddLimits(limits, name, 170);
-  AddLimits(limits, name, 180);
-  AddLimits(limits, name, 190);
-  AddLimits(limits, name, 200);
-  AddLimits(limits, name, 250);
-  AddLimits(limits, name, 300);
+  AddLimits(limits, dir, name, 115);
+  AddLimits(limits, dir, name, 120);
+  AddLimits(limits, dir, name, 130);
+  AddLimits(limits, dir, name, 140);
+  AddLimits(limits, dir, name, 150);
+  AddLimits(limits, dir, name, 160);
+  AddLimits(limits, dir, name, 170);
+  AddLimits(limits, dir, name, 180);
+  AddLimits(limits, dir, name, 190);
+  AddLimits(limits, dir, name, 200);
+  AddLimits(limits, dir, name, 250);
+  AddLimits(limits, dir, name, 300);
   
   PlotExpectedLimits(limits,title);
   /*

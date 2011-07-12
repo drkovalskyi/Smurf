@@ -10,16 +10,19 @@ use warnings;
 
 
 my $lands = "../../LandS/test/lands.exe";
-my $expectLimitCommand = "-tB 1000 -tPB 30 -t 1000 -M Bayesian --doExpectation 1";
-# my $expectLimitCommand = "-tB 1000 -tPB 30 -t 100 -M Bayesian --doExpectation 1";
-my $observedLimitCommand = "-tB 100000 -M Bayesian";
+# my $expectLimitCommand = "-tB 1000 -tPB 30 -t 1000 -M Bayesian --doExpectation 1";
+my $expectLimitCommand = "-tB 1000 -tPB 30 -t 100 -M Bayesian --doExpectation 1";
+# my $observedLimitCommand = "-tB 100000 -M Bayesian";
+my $observedLimitCommand = "-tB 10000 -M Bayesian";
+# my $observedLimitCommand = "-tB 100000 -M Hybrid";
 my $useLSF = 1; 
 my $doObserved = 1;
 my $doExpected = 1;
 my $nJobsPerMassPoint = 10;
 
 #########################################################################
-die "Usage:\n\t$0 <file with a list of cards>\n" unless @ARGV == 1;
+my $usage = "Usage:\n \t$0 <dir>/<card name>\n";
+die $usage unless @ARGV == 1;
 die "LandS not found. Please fix it.\n" unless -e $lands;
 
 sub seed{
@@ -27,10 +30,12 @@ sub seed{
 }
 
 my %cards = ();
-my $name = $ARGV[0];
+my $inputCard = $ARGV[0];
+my ($dir,$name) = ($inputCard =~ /^(.+?)\/([^\/]+)$/);
+die $usage if (!defined $dir || !defined $name); 
 $name =~ s/.*?([^\/]+)$/$1/;
 $name =~ s/\.[^\.]+$//;
-foreach my $line (`cat $ARGV[0]`){
+foreach my $line (`cat $inputCard`){
     $line =~ s/\n//;
     next if ($line =~ /^\s*\#/);
     next if ($line !~ /\S/);
@@ -59,22 +64,26 @@ EOF
     system("chmod u+x $wrapper");
 }
 
-system("mkdir output") unless -d "output";
+system("mkdir $dir/output") unless -d "$dir/output";
 foreach my $mass(sort {$a<=>$b} keys %cards){
+    my $cards = "";
+    foreach my $card(@{$cards{$mass}}){
+	$cards .= " $dir/$card";
+    }
     foreach (1..$nJobsPerMassPoint){
 	my $seed = seed();
 	my $n = "$name-$mass-$seed";
 	if ( $doExpected ) {
 	    if ($useLSF){
-		system("bsub -q cmscaf1nd -o output/$n.log \"$wrapper $expectLimitCommand --seed $seed --name output/$n -d ".join(" ",@{$cards{$mass}})."\"");
+		system("bsub -q cmscaf1nd -o $dir/output/$n.log \"$wrapper $expectLimitCommand --seed $seed --name $dir/output/$n -d$cards\"");
 	    } else {
-		system("nice $lands $expectLimitCommand --seed $seed --name output/$n -d ".join(" ",@{$cards{$mass}}).">output/$n.log 2>&1 &");
+		system("nice $lands $expectLimitCommand --seed $seed --name $dir/output/$n -d$cards>$dir/output/$n.log 2>&1 &");
 	    }
 	}
     }
     if ( $doObserved ) {
-	print "nice $lands $observedLimitCommand -d ".join(" ",@{$cards{$mass}}).">output/$name-$mass.observed 2>&1 &\n";
-	system("nice $lands $observedLimitCommand -d ".join(" ",@{$cards{$mass}}).">output/$name-$mass.observed 2>&1 &");
+	print "nice $lands $observedLimitCommand -d$cards>$dir/output/$name-$mass.observed 2>&1 &\n";
+	system("nice $lands $observedLimitCommand -d$cards>$dir/output/$name-$mass.observed 2>&1 &");
     }
 }
 

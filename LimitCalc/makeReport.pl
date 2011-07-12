@@ -1,0 +1,114 @@
+#!/bin/env perl
+use strict;
+use warnings;
+
+my $usage = "Usage:\n \t$0 <dir>/<card name>\n";
+die $usage unless @ARGV == 1;
+my %cards = ();
+my $inputCard = $ARGV[0];
+my ($dir,$name) = ($inputCard =~ /^(.+?)\/([^\/]+)$/);
+die $usage if (!defined $dir || !defined $name); 
+$name =~ s/.*?([^\/]+)$/$1/;
+$name =~ s/\.[^\.]+$//;
+my $nCardsPerMassPoint = 0;
+foreach my $line (`cat $inputCard`){
+    $line =~ s/\n//;
+    next if ($line =~ /^\s*\#/);
+    next if ($line !~ /\S/);
+    my @elements = split(/\s+/,$line);
+    die "Wrong format of input file. Each line show be: <mass> <card1> [<card2>...]\n" 
+	unless @elements>1;
+    my $mass = shift @elements;
+    $nCardsPerMassPoint = @elements if ($nCardsPerMassPoint == 0);
+    die "Inconsistent number of cards per mass point. It should be the same number to parse it right\n"
+	unless $nCardsPerMassPoint == @elements;
+    $cards{$mass} = \@elements;
+}
+die "0 cards is found\n" unless $nCardsPerMassPoint>0;
+
+sub FilterColumns{
+    my @input = @_;
+    @input = @input[0,4..$#input];
+    return @input;
+}
+
+
+my $tableBegin = << 'EOF';
+\begin{table}
+{\footnotesize
+ \begin{center}
+ \begin{tabular}{SEPARATORS}
+ \hline
+ TITLE
+ \hline
+EOF
+
+my $tableEnd = << 'EOF';
+\hline
+\end{tabular}
+\end{center}
+}
+\caption{TEXT}
+\end{table}
+EOF
+
+
+# print "Number of mass points to process: ", scalar keys %cards,"\n";
+foreach my $card(0..$nCardsPerMassPoint-1){
+    open(OUT,">$name-$card.tex");
+    print OUT << 'EOF';
+\documentclass{report}
+\begin{document}
+EOF
+    my $title;
+    foreach my $mass( sort {$a<=>$b} keys %cards ){
+	my $file = "$dir/".$cards{$mass}->[$card];
+	# print "$file\n";
+	my @columns;
+	my @errors2;
+	foreach my $line(`cat $file`){
+	    if ( !defined $title && ($line =~ /process/) ){
+		$title = $line;
+		$title =~ s/\n//;
+		my @columns = split(/\s+/,$title); 
+		@columns = FilterColumns(@columns);
+		my $separators = "l ".("c "x(@columns - 1));
+		$title = join(" & ",@columns);
+		$title .= " \\\\";
+		my $tab = $tableBegin;
+		$tab =~ s/SEPARATORS/$separators/m;
+		$tab =~ s/TITLE/$title/m;
+		print OUT $tab;
+            }
+	    $line =~ s/\n//;
+	    if ($line =~ /rate/){
+		$line =~ s/rate/$mass/;
+		@columns = FilterColumns(split(/\s+/,$line));
+		foreach my $i(1..$#columns){
+		    $columns[$i] = sprintf("%.1f", $columns[$i]);
+		}
+	    }
+	    if ($line =~ /lnN/){
+		my @errors = FilterColumns(split(/\s+/,$line));
+		if (!defined @errors2){
+		    @errors2 = @errors;
+		    foreach my $i(0..$#errors2){
+			$errors2[$i] = ($errors2[$i]-1)*($errors2[$i]-1);
+		    }
+		} else {
+		    foreach my $i(0..$#errors2){
+			$errors2[$i] += ($errors[$i]-1)*($errors[$i]-1);
+		    }
+		}
+	    }   
+	}
+	print OUT join(" & ",@columns)." \\\\\n";
+    }
+    my $tab = $tableEnd;
+    my $label = $name;
+    $label =~ s/_/\\_/g;
+    $tab =~ s/TEXT/Summary of car $label/m;
+    print OUT $tab;
+    print OUT '\end{document}'."\n";
+    close OUT;
+}
