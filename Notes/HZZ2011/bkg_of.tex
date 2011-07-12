@@ -1,2 +1,48 @@
-Method to estimate OF
+\subsubsection{Method using opposite flavor di-leptons}
 
+For processes where the final states involving $\mu^+\mu^-$, $e^{\pm}\mu^{\mp}$ and $e^+e^-$ occur at equal 
+rates, we can estimate the yields in the signal region (same flavor di-leptons) by counting 
+opposite flavor di-lepton events. This method can be used to estimate backgrounds from top (including $\ttbar$ and $\tw$), 
+$\WW$, and $\ztt$, as well as $\wz$ and $\zz$ when the selected same flavor leptons do not come from the same 
+$Z$ boson. Since the non-resonant contributions from $\wz$ and $\zz$ are small, we estimate these backgrounds
+fully from Monte Carlo simulation. Hence, we restrict the scope of the opposite flavor method to
+evaluating the contamination from top, $\WW$ and $\ztt$.
+
+The method begins with a control sample of opposite flavor di-lepton events. Ideally, the selection criteria are 
+identical to those used for signal extraction except for the requirement that the final state is $e\mu$. 
+The opposite flavor events would then be selected with kinematics and event variables that mimic the conditions
+in which we select same flavor events. However, due to the flavor-symmetric nature of the top, $\WW$, and $\ztt$, 
+this means the control sample is roughly the same size as the background contribution to the signal region and 
+is therefore statistically limited with only 187~$\ipb$. To make our background estimations a little more significant, 
+we relax the selection requirement as follows:
+\begin{enumerate}
+\item $m_{e\mu} > 12\:\GeVcc$,
+\item no $M_{T}$ requirement,
+\item Min(PF-MET,track-MET) $>60\:\GeV$ for all jet multiplicity bins. 
+\end{enumerate}
+With this control sample definition we derive a scale factor from the yields in data and in simulation. This is then 
+used to rescale the $ee$ and $\mu\mu$ Monte Carlo expectations to obtain the background estimate. 
+
+There are contributions to the control sample in data from processes other than top, $\WW$, and $\ztt$; these are $\wz$, $\zz$ and 
+$W+$jets. The $\wz$ and $\zz$ events are adequately modeled in the Monte Carlo and the yields are expected to be small. We subtract
+the expected $\wz$ and $\zz$ yields from our data control sample. The $W+$jets background is to be estimated with the
+fake rate method but for now we perform the subtraction on the data control sample with the Monte Carlo expectation.
+
+When extracting the control region with Monte Carlo samples, an event by event correction is applied to
+account for pileup and lepton efficiencies. The ratio of the data yield and the corrected simulations is taken as the scale
+factor. 
+
+\subsubsection{Closure test in Monte Carlo simulation}
+
+As a check on the validity of the flavor symmetry assumption of top, $\WW$, and $\ztt$, a closure test is performed using 
+Monte Carlo simulation. The test is to make a direct prediction of the $ee$ and $\mu\mu$ background in the signal 
+region using opposite flavor events. Limited by the size of the Monte Carlo samples, this closure test is done
+at the preselection level. In particular, the missing energy requirement is Min(PF-MET,track-MET) $>50\:\GeV$ and
+$m_{e\mu}$ must lie within the $Z$ mass window. Electrons and muons have different reconstuction and selection 
+efficiencies so this difference must be taken into account when making a prediction for same flavor di-lepton yields. The 
+predicted same flavor yields is determined from the opposite flavor yields as follows:
+\begin{equation}
+N_{ee} + N_{\mu\mu} = \frac{1}{2}N_{e\mu}\left(\frac{\varepsilon_{e}}{\varepsilon_{\mu}} + \frac{\varepsilon_{\mu}}{\varepsilon_{e}}\right),
+\end{equation}
+where $\varepsilon_{e}$ and $\varepsilon_{\mu}$ are the selection and reconstruction efficiencies for electrons and muons
+respectively.
