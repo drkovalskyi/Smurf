@@ -59,6 +59,7 @@ EOF
 open(OUT,">$dir/$name-report.tex");
 print OUT << 'EOF';
 \documentclass{report}
+\usepackage{fullpage}
 \begin{document}
 EOF
 
@@ -70,14 +71,17 @@ foreach my $card(0..$nCardsPerMassPoint-1){
 	# print "$file\n";
 	my @columns;
 	my @errors2;
+	my $observation;
 	foreach my $line(`cat $file`){
 	    if ( !defined $title && ($line =~ /process/) ){
 		$title = $line;
 		$title =~ s/\n//;
-		my @columns = split(/\s+/,$title); 
-		@columns = FilterColumns(@columns);
-		my $separators = "l ".("c "x(@columns - 1));
-		$title = join(" & ",@columns);
+		my @titleColumns = split(/\s+/,$title); 
+		@titleColumns = FilterColumns(@titleColumns);
+		push @titleColumns, "\$\\sum\$Bkg";
+		push @titleColumns, "Data";
+		my $separators = "l ".("c "x(@titleColumns - 1));
+		$title = join(" & ",@titleColumns);
 		$title .= " \\\\";
 		my $tab = $tableBegin;
 		$tab =~ s/SEPARATORS/$separators/m;
@@ -110,10 +114,21 @@ foreach my $card(0..$nCardsPerMassPoint-1){
 		    }
 		}
 	    }   
+	    if ($line =~ /Observation\s+(\d+)/){
+		$observation = $1;
+	    }
 	}
+	my $sum = 0;
+	my $sumErr2 = 0;
 	foreach my $i(1..$#columns){
+	    if ($i>1){
+		$sum += $columns[$i];
+		$sumErr2 += $errors2[$i]*$columns[$i]*$columns[$i];
+	    }
 	    $columns[$i] = sprintf("\$%0.1f\\pm%0.1f\$", $columns[$i], $columns[$i]*sqrt($errors2[$i]));
 	}
+	push @columns, sprintf("\$%0.1f\\pm%0.1f\$", $sum, sqrt($sumErr2));
+	push @columns, "$observation";
 	print OUT join(" & ",@columns)." \\\\\n";
     }
     my $tab = $tableEnd;
