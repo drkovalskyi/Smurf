@@ -15,12 +15,13 @@
 #include "Math/VectorUtil.h"
 #include "TH1D.h"
 #include "TH2D.h"
+#include "MitAna/DataCont/interface/RunLumiRangeMap.h"
 #include "Smurf/Core/SmurfTree.h"
-#include "/home/ceballos/HiggsMVA/NeuralNetworkMaker-3x/factors.h"
+#include "Smurf/Analysis/HZZllvv/factors.h"
 #include "Smurf/HZZ/HiggsQCDScaleSystematics.h"
 #include "Smurf/HZZ/PSUESystematics.h"
 #include "Smurf/HZZ/LeptonScaleLookup.h"
-#include "Smurf/HZZ/PileupReweighting.h"
+#include "Smurf/Analysis/HZZllvv/PileupReweighting.h"
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
@@ -63,7 +64,9 @@ void MakeHZZRes
   TString c1Name = TString("plot_") + outTag + TString(".gif");
   TString c2Name = TString("plot_") + outTag + TString("_effvsbkg.gif");
 
-
+  Bool_t hasJSON = kTRUE;
+  mithep::RunLumiRangeMap rlrm;
+  rlrm.AddJSONFile("certifiedUCSD.json"); 
 
 
   //************************************************************************************************
@@ -73,10 +76,12 @@ void MakeHZZRes
   TChain *chsignal = new TChain("tree");
   chsignal->Add(sigFile1);
 
-  TChain *chbackground = new TChain("tree");
+   TChain *chbackground = new TChain("tree");
+//   TChain *chbackground = new TChain("HwwTree1");
   chbackground->Add(bgdFile1);
 
   TChain *chdata = new TChain("tree");
+//   TChain *chdata = new TChain("HwwTree0");
   chdata->Add(datFile1);
 
   TTree *signal     = (TTree*) chsignal;
@@ -108,7 +113,7 @@ void MakeHZZRes
   //************************************************************************************************
   // Lepton Efficiencies
   //************************************************************************************************
-  TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/Run2011_Spring11_SmurfV6/lepton_eff/efficiency_results_v6.root");
+  TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/Run2011_Spring11_SmurfV6/lepton_eff/efficiency_results_v6_187pb.root");
   TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
   TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
   fhDEffMu->SetDirectory(0);
@@ -116,16 +121,16 @@ void MakeHZZRes
   fLeptonEffFile->Close();
   delete fLeptonEffFile;
 
-  LeptonScaleLookup trigLookup("/data/smurf/data/Run2011_Spring11_SmurfV6/lepton_eff/efficiency_results_v6.root");
+  LeptonScaleLookup trigLookup("/data/smurf/data/Run2011_Spring11_SmurfV6/lepton_eff/efficiency_results_v6_187pb.root");
 
-  TFile *fLeptonFRFileM = TFile::Open("/home/ceballos/releases/CMSSW_4_2_2/src/MitPhysics/data/FakeRates_SmurfV6.root");
-  TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M1_ptThreshold15_PtEta"));
+  TFile *fLeptonFRFileM = TFile::Open("/data/smurf/sixie/FakeRates/FakeRates_SmurfV6.PromptRecoV1V2.200ipb.root");
+  TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
   assert(fhDFRMu);
   fhDFRMu->SetDirectory(0);
   fLeptonFRFileM->Close();
   delete fLeptonFRFileM;
 
-  TFile *fLeptonFRFileE = TFile::Open("/home/ceballos/releases/CMSSW_4_2_2/src/MitPhysics/data/FakeRates_SmurfV5.root");
+  TFile *fLeptonFRFileE = TFile::Open("/data/smurf/sixie/FakeRates/FakeRates_SmurfV6.PromptRecoV1V2.200ipb.root");
   TH2D *fhDFREl = (TH2D*)(fLeptonFRFileE->Get("ElectronFakeRate_V4_ptThreshold35_PtEta"));
   assert(fhDFREl);
   fhDFREl->SetDirectory(0);
@@ -160,15 +165,18 @@ void MakeHZZRes
   fZZKFactorFile->Close();
   delete fZZKFactorFile;
 
+  //************************************************************************************************
+  // MC -> Data ScaleFactors
+  //************************************************************************************************
+  double TopAndWWScaleFactor[3]            = { 1.615, 1.671, 1.000 };
+  double TopAndWWScaleFactorKappa[3]       = { 1.359, 1.440, 1.000 };
+
 
   //************************************************************************************************
   // Luminosity
   //************************************************************************************************
 
-  double scaleFactorLum = 1.0;
-
-
-
+  double scaleFactorLum = 0.187;
 
 
   //************************************************************************************************
@@ -454,6 +462,8 @@ void MakeHZZRes
   UInt_t          dstype;
   UInt_t          nvtx;
   UInt_t          njets;
+  UInt_t          run;
+  UInt_t          lumi;
   UInt_t          event;
   Float_t         scale1fb;
   LorentzVector*  lep1  = 0;
@@ -567,14 +577,16 @@ void MakeHZZRes
     if( !((cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection )) continue;
     if( !(type == SmurfTree::mm || type == SmurfTree::ee )) continue;
     if( !(fabs(dilep->mass() - 91.1876) < 15 )) continue;
-    if( !(lid3 == 0)) continue;
-    if( !(jetLowBtag < 2.1 && jet1Btag < 2.1 && jet2Btag < 2.1)) continue;
+    if( !(lq1*lq2 < 0)) continue;
+    if( !((cuts & SmurfTree::TopVeto) == SmurfTree::TopVeto )) continue;
+    if( !((cuts & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto )) continue;
     if( !(dilep->pt() > 40)) continue;
-    if ( jet1->pt() > 15 && (dPhiDiLepJet1 > 165.0 * TMath::Pi() / 180.0) ) continue; 
+    if( !(dilep->pt() > 40)) continue;
+    if( jet1->pt() > 15 && (dPhiDiLepJet1 > 165.0 * TMath::Pi() / 180.0) ) continue; 
     if( dilep->pt() <= 40.0         ) continue; // cut on low dilepton mass
     
     if( Njet3 != nJetsType          ) continue; // select n-jet type events
-
+    if( !(TMath::Min(met,trackMet) > 50.0)) continue;
 
     
     //************************************************************************************************
@@ -721,7 +733,6 @@ void MakeHZZRes
     background->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
 
-
     //VBF Jet Selection (Central Jet Veto)
     unsigned int Njet3 = njets;
     if(nJetsType == 2){
@@ -742,11 +753,12 @@ void MakeHZZRes
     if( !((cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection )) continue;
     if( !(type == SmurfTree::mm || type == SmurfTree::ee )) continue;
     if( !(fabs(dilep->mass() - 91.1876) < 15 )) continue;
-    if( !(lid3 == 0)) continue;
-    if( !(jetLowBtag < 2.1 && jet1Btag < 2.1 && jet2Btag < 2.1)) continue;
+    if( !(lq1*lq2 < 0)) continue;
+    if( !((cuts & SmurfTree::TopVeto) == SmurfTree::TopVeto )) continue;
+    if( !((cuts & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto )) continue;
     if( !(dilep->pt() > 40)) continue;
-    if ( jet1->pt() > 15 && (dPhiDiLepJet1 > 165.0 * TMath::Pi() / 180.0) ) continue; 
-    
+    if( jet1->pt() > 15 && (dPhiDiLepJet1 > 165.0 * TMath::Pi() / 180.0) ) continue; 
+    if( !(TMath::Min(met,trackMet) > 50.0)) continue;
 
     //************************************************************************************************
     // Background Process
@@ -770,8 +782,8 @@ void MakeHZZRes
     
     if(dstype == SmurfTree::data || 
        ((cuts & SmurfTree::Lep1LooseMuV1) == SmurfTree::Lep1LooseMuV1) || ((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) ||
-       ((cuts & SmurfTree::Lep2LooseMuV1) == SmurfTree::Lep2LooseMuV1) || ((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) ||
-       ((cuts & SmurfTree::Lep3LooseMuV1) == SmurfTree::Lep3LooseMuV1) || ((cuts & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4)){
+       ((cuts & SmurfTree::Lep2LooseMuV1) == SmurfTree::Lep2LooseMuV1) || ((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) || 
+       ((cuts & SmurfTree::Lep2LooseMuV1) == SmurfTree::Lep3LooseMuV1) || ((cuts & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep2LooseEleV4)  ){
       weightFactor *= fakeRate(lep1->pt(), lep1->eta(), fhDFRMu, fhDFREl, ((cuts & SmurfTree::Lep1LooseMuV1) == SmurfTree::Lep1LooseMuV1), ((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4));
       weightFactor *= fakeRate(lep2->pt(), lep2->eta(), fhDFRMu, fhDFREl, ((cuts & SmurfTree::Lep2LooseMuV1) == SmurfTree::Lep2LooseMuV1), ((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4));
       
@@ -789,6 +801,10 @@ void MakeHZZRes
       }
     }
     else {
+      //****************************************************************************************
+      //For MC Bkg Estimates
+      //****************************************************************************************
+
       weightFactor *= PileupReweightFactor(nvtx);
 
       if( bkgIndex == 0 || bkgIndex == 1 || bkgIndex == 5){
@@ -807,9 +823,14 @@ void MakeHZZRes
         weightFactor *= ZZKFactor->GetBinContent( ZZKFactor->GetXaxis()->FindFixBin(dilep->pt()));
       }
       
+      //Scale Factor from e-mu control region
+      if (bkgIndex == 2 || bkgIndex == 3) {
+        if (njets==0)
+          weightFactor *= TopAndWWScaleFactor[nJetsType];
+      }
+      
       myWeight 	     = scale1fb*scaleFactorLum*weightFactor;
     }
-
 
     //************************************************************************************************
     // Yields and histograms
@@ -880,6 +901,8 @@ void MakeHZZRes
   data->SetBranchAddress( "cuts"         , &cuts         );
   data->SetBranchAddress( "nvtx"         , &nvtx         );
   data->SetBranchAddress( "njets"        , &njets        );
+  data->SetBranchAddress( "run"          , &run          );
+  data->SetBranchAddress( "lumi"         , &lumi         );
   data->SetBranchAddress( "event"        , &event        );
   data->SetBranchAddress( "scale1fb"     , &scale1fb     );
   data->SetBranchAddress( "lep1"         , &lep1         );
@@ -921,31 +944,39 @@ void MakeHZZRes
     data->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)data->GetEntries());
 
-   //VBF Jet Selection (Central Jet Veto)
-    unsigned int Njet3 = njets;
-    if(nJetsType == 2){
-      if(jet3->pt() <= 30)					         Njet3 = 2;
-      else if(jet3->pt() > 30 && (
-        (jet1->eta()-jet3->eta() > 0 && jet2->eta()-jet3->eta() < 0) ||
-        (jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))   Njet3 = 0;
-      else								 Njet3 = 2;
-      if(njets < 2 || njets > 3) Njet3 = 0;
-    }
+    //apply goodrun list
+    mithep::RunLumiRangeMap::RunLumiPairType rl(run, lumi);      
+    if(hasJSON && !rlrm.HasRunLumi(rl)) continue;  // not certified run? Skip to next event...
+
+    //Remove this for now because the EPS ntuple doesn't have jet3...
+//    //VBF Jet Selection (Central Jet Veto)
+//     unsigned int Njet3 = njets;
+//     if(nJetsType == 2){
+//       if(jet3->pt() <= 30)					         Njet3 = 2;
+//       else if(jet3->pt() > 30 && (
+//         (jet1->eta()-jet3->eta() > 0 && jet2->eta()-jet3->eta() < 0) ||
+//         (jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))   Njet3 = 0;
+//       else								 Njet3 = 2;
+//       if(njets < 2 || njets > 3) Njet3 = 0;
+//     }
 
 
     //************************************************************************************************
     // PreSelection
     //************************************************************************************************
+
     if( njets != nJetsType ) continue; // select n-jet type events
     if( !(lep1->pt() > 30 && lep2->pt() > 20 )) continue;
     if( !((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection )) continue;
     if( !((cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection )) continue;
     if( !(type == SmurfTree::mm || type == SmurfTree::ee )) continue;
     if( !(fabs(dilep->mass() - 91.1876) < 15 )) continue;
-    if( !(lid3 == 0)) continue;
-    if( !(jetLowBtag < 2.1 && jet1Btag < 2.1 && jet2Btag < 2.1)) continue;
+    if( !(lq1*lq2 < 0)) continue;
+    if( !((cuts & SmurfTree::TopVeto) == SmurfTree::TopVeto )) continue;
+    if( !((cuts & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto )) continue;
     if( !(dilep->pt() > 40)) continue;
-    if ( jet1->pt() > 15 && (dPhiDiLepJet1 > 165.0 * TMath::Pi() / 180.0) ) continue; 
+    if( jet1->pt() > 15 && (dPhiDiLepJet1 > 165.0 * TMath::Pi() / 180.0) ) continue; 
+    if( !(TMath::Min(met,trackMet) > 50.0)) continue;
 
     double myWeight = 1.0;
 
@@ -1163,9 +1194,7 @@ void MakeHZZRes
     outFileLimits->Close();
 
     double jeteff_E 	     = 1.02;
-    double topXS_E  	     = 1.37;
-    double  wwXS_E  	     = 1.30;
-    double   ZXS_E  	     = 1.60;
+    double ZXS_E  	     = 1.30;
     double XS_QCDscale_ggH[3];
     double UEPS  = HiggsSignalPSUESystematics(mH,nJetsType);
     XS_QCDscale_ggH[0] = HiggsSignalQCDScaleKappa("QCDscale_ggH",mH,nJetsType);
@@ -1173,15 +1202,11 @@ void MakeHZZRes
     XS_QCDscale_ggH[2] = HiggsSignalQCDScaleKappa("QCDscale_ggH2in",mH,nJetsType);
     if     (nJetsType == 1) {
       jeteff_E  	= 1.05;
-      topXS_E   	= 1.22;
-      wwXS_E    	= 1.30;
       ZXS_E     	= 1.30;
     }
     else if(nJetsType == 2) {
       jeteff_E  	= 1.10;
-      topXS_E   	= 2.00;
-      wwXS_E    	= 1.30;
-      ZXS_E     	= 1.20;
+       ZXS_E     	= 1.30;
     }
     for(int i=0; i<nBkgChannels; i++) if(nBgdAccDecays[i] < 0) nBgdAccDecays[i] = 0.0;
     for(int i=0; i<nBkgChannels; i++) if(nBgdCutDecays[i] < 0) nBgdCutDecays[i] = 0.0;
@@ -1288,9 +1313,9 @@ void MakeHZZRes
       newcardShape << Form("QCDscale_ggH_EXTRAP            lnN 1.000 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
       newcardShape << Form("QCDscale_qqH_EXTRAP            lnN 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
       newcardShape << Form("QCDscale_VH_EXTRAP             lnN 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
-      newcardShape << Form("CMS_hww_%1dj_ttbar             lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,topXS_E);	     
+      newcardShape << Form("CMS_hww_%1dj_ttbar             lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType]);	     
       newcardShape << Form("CMS_hww_%1dj_Z                 lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,ZXS_E); 		     
-      newcardShape << Form("CMS_hww_%1dj_WW                lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,wwXS_E,wwXS_E); 		     
+      newcardShape << Form("CMS_hww_%1dj_WW                lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType],TopAndWWScaleFactorKappa[nJetsType]); 		     
       newcardShape << Form("CMS_hww_stat_%1dj_VH_bin%d     lnN %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[1]+1.0);
       newcardShape << Form("CMS_hww_stat_%1dj_qqH_bin%d    lnN 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[2]+1.0);
       newcardShape << Form("CMS_hww_stat_%1dj_ggH_bin%d    lnN 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[3]+1.0);
@@ -1316,7 +1341,7 @@ void MakeHZZRes
     //Actual Data
     newcardCut << Form("Observation %d\n",(int)nDatCut);
     //Expected from MC
-    / newcardCut << Form("Observation %d\n",(int)(nBgdCutDecays[0]+nBgdCutDecays[1]+nBgdCutDecays[2]+nBgdCutDecays[3]+nBgdCutDecays[4]+nBgdCutDecays[5]+nBgdCutDecays[6]));
+    //newcardCut << Form("Observation %d\n",(int)(nBgdCutDecays[0]+nBgdCutDecays[1]+nBgdCutDecays[2]+nBgdCutDecays[3]+nBgdCutDecays[4]+nBgdCutDecays[5]+nBgdCutDecays[6]));
 
     newcardCut << Form("bin 1 1 1 1 1 1 1 1 1 1 \n");
     newcardCut << Form("process VH qqH ggH ZZ WZ WW Top Zjets DYtt Wjets\n");
@@ -1344,9 +1369,9 @@ void MakeHZZRes
     newcardCut << Form("QCDscale_ggH_EXTRAP   	   lnN 1.000 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
     newcardCut << Form("QCDscale_qqH_EXTRAP   	   lnN 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
     newcardCut << Form("QCDscale_VH_EXTRAP    	   lnN 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
-    newcardCut << Form("CMS_hww_%1dj_ttbar	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,topXS_E);    
+    newcardCut << Form("CMS_hww_%1dj_ttbar	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType]);    
     newcardCut << Form("CMS_hww_%1dj_Z  	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,ZXS_E); 	     
-    newcardCut << Form("CMS_hww_%1dj_WW 	   lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,wwXS_E,wwXS_E); 		  
+    newcardCut << Form("CMS_hww_%1dj_WW 	   lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType],TopAndWWScaleFactorKappa[nJetsType]); 		  
     newcardCut << Form("CMS_hww_stat_%1dj_VH	   lnN %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigECut[3]/TMath::Max((double)nSigCut[3],0.00001)+1.0);
     newcardCut << Form("CMS_hww_stat_%1dj_qqH	   lnN 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigECut[2]/TMath::Max((double)nSigCut[2],0.00001)+1.0);
     newcardCut << Form("CMS_hww_stat_%1dj_ggH	   lnN 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigECut[1]/TMath::Max((double)nSigCut[1],0.00001)+1.0);
@@ -1371,7 +1396,7 @@ void MakeHZZRes
     //Actual Data
     newcardMVA << Form("Observation %d\n",(int)nDatMVA);
     //Expected from MC
-    // newcardMVA << Form("Observation %d\n",(int)(nBgdMVADecays[0]+nBgdMVADecays[1]+nBgdMVADecays[2]+nBgdMVADecays[3]+nBgdMVADecays[4]+nBgdMVADecays[5]+nBgdMVADecays[6]));
+    //newcardMVA << Form("Observation %d\n",(int)(nBgdMVADecays[0]+nBgdMVADecays[1]+nBgdMVADecays[2]+nBgdMVADecays[3]+nBgdMVADecays[4]+nBgdMVADecays[5]+nBgdMVADecays[6]));
 
     newcardMVA << Form("bin 1 1 1 1 1 1 1 1 1 1 \n");
     newcardMVA << Form("process VH qqH ggH ZZ WZ WW Top Zjets DYtt Wjets \n");
@@ -1399,9 +1424,9 @@ void MakeHZZRes
     newcardMVA << Form("QCDscale_ggH_EXTRAP   	   lnN 1.000 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
     newcardMVA << Form("QCDscale_qqH_EXTRAP   	   lnN 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
     newcardMVA << Form("QCDscale_VH_EXTRAP    	   lnN 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
-    newcardMVA << Form("CMS_hww_%1dj_ttbar	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,topXS_E);    
+    newcardMVA << Form("CMS_hww_%1dj_ttbar	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType]);    
     newcardMVA << Form("CMS_hww_%1dj_Z  	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,ZXS_E); 	     
-    newcardMVA << Form("CMS_hww_%1dj_WW 	   lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,wwXS_E,wwXS_E); 		  
+    newcardMVA << Form("CMS_hww_%1dj_WW 	   lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType],TopAndWWScaleFactorKappa[nJetsType]); 		  
     newcardMVA << Form("CMS_hww_stat_%1dj_VH	   lnN %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigEMVA[3]/TMath::Max((double)nSigMVA[3],0.00001)+1.0);
     newcardMVA << Form("CMS_hww_stat_%1dj_qqH	   lnN 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigEMVA[2]/TMath::Max((double)nSigMVA[2],0.00001)+1.0);
     newcardMVA << Form("CMS_hww_stat_%1dj_ggH	   lnN 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigEMVA[1]/TMath::Max((double)nSigMVA[1],0.00001)+1.0);
