@@ -28,7 +28,11 @@ die "0 cards is found\n" unless $nCardsPerMassPoint>0;
 
 sub FilterColumns{
     my @input = @_;
-    @input = @input[0,4..$#input];
+    if ($input[1] =~ /lnN/){
+	@input = @input[0,5..$#input];
+    } else {
+	@input = @input[0,4..$#input];
+    }
     return @input;
 }
 
@@ -52,14 +56,14 @@ my $tableEnd = << 'EOF';
 \end{table}
 EOF
 
-
-# print "Number of mass points to process: ", scalar keys %cards,"\n";
-foreach my $card(0..$nCardsPerMassPoint-1){
-    open(OUT,">$name-$card.tex");
-    print OUT << 'EOF';
+open(OUT,">$dir/$name-report.tex");
+print OUT << 'EOF';
 \documentclass{report}
 \begin{document}
 EOF
+
+# print "Number of mass points to process: ", scalar keys %cards,"\n";
+foreach my $card(0..$nCardsPerMassPoint-1){
     my $title;
     foreach my $mass( sort {$a<=>$b} keys %cards ){
 	my $file = "$dir/".$cards{$mass}->[$card];
@@ -84,31 +88,40 @@ EOF
 	    if ($line =~ /rate/){
 		$line =~ s/rate/$mass/;
 		@columns = FilterColumns(split(/\s+/,$line));
-		foreach my $i(1..$#columns){
-		    $columns[$i] = sprintf("%.1f", $columns[$i]);
-		}
+# 		foreach my $i(1..$#columns){
+# 		    $columns[$i] = sprintf("%.1f", $columns[$i]);
+# 		}
 	    }
 	    if ($line =~ /lnN/){
 		my @errors = FilterColumns(split(/\s+/,$line));
-		if (!defined @errors2){
+		die "Errors and yeild don't match\n" unless (scalar @errors == scalar @columns);
+		if (! @errors2){
 		    @errors2 = @errors;
-		    foreach my $i(0..$#errors2){
-			$errors2[$i] = ($errors2[$i]-1)*($errors2[$i]-1);
+		    foreach my $i(1..$#errors2){
+			my $err = $errors2[$i];
+			$err = 1 if ($err eq "-");
+			$errors2[$i] = ($err-1)*($err-1);
 		    }
 		} else {
-		    foreach my $i(0..$#errors2){
-			$errors2[$i] += ($errors[$i]-1)*($errors[$i]-1);
+		    foreach my $i(1..$#errors2){
+			my $err = $errors[$i];
+			$err = 1 if ($err eq "-");
+			$errors2[$i] += ($err-1)*($err-1);
 		    }
 		}
 	    }   
+	}
+	foreach my $i(1..$#columns){
+	    $columns[$i] = sprintf("\$%0.1f\\pm%0.1f\$", $columns[$i], $columns[$i]*sqrt($errors2[$i]));
 	}
 	print OUT join(" & ",@columns)." \\\\\n";
     }
     my $tab = $tableEnd;
     my $label = $name;
     $label =~ s/_/\\_/g;
-    $tab =~ s/TEXT/Summary of car $label/m;
+    $tab =~ s/TEXT/Summary of card $label-$card/m;
     print OUT $tab;
-    print OUT '\end{document}'."\n";
-    close OUT;
 }
+print OUT '\end{document}'."\n";
+close OUT;
+exit
