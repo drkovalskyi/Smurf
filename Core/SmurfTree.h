@@ -252,6 +252,9 @@ class SmurfTree {
   int            processId_;
   float          higgsPt_;
   float          hPtWeight_;
+  unsigned int   npu_;
+  unsigned int   npuPlusOne_;
+    
 
  public:
   /// this is the main element
@@ -371,6 +374,8 @@ class SmurfTree {
       tree_->Branch("id2",           &id2_	,     "id2/F");
       tree_->Branch("x2",            &x2_	,     "x2/F");
       tree_->Branch("pdf2",          &pdf2_	,     "pdf2/F");
+      tree_->Branch("npu",           &npu_,           "npu/i");
+      tree_->Branch("npuPlusOne",    &npuPlusOne_,    "npuPlusOne/i");
     }
   }
 
@@ -458,9 +463,12 @@ class SmurfTree {
       tree_->SetBranchAddress("id2",	       &id2_);
       tree_->SetBranchAddress("x2",	       &x2_);
       tree_->SetBranchAddress("pdf2",	       &pdf2_);
+      tree_->SetBranchAddress("npu",	       &npu_);
+      tree_->SetBranchAddress("npuPlusOne",    &npuPlusOne_);
 
     gErrorIgnoreLevel = currentState;
   }
+
   /// get a built in type variable by name
   double Get(std::string value);
   /// compare two SmurfTrees for a given event on a given level of precision; 
@@ -735,6 +743,8 @@ SmurfTree::Get(std::string value)
   if(value=="processId"	    ) { return this->processId_;     } 
   if(value=="higgsPt"	    ) { return this->higgsPt_;       } 
   if(value=="hPtWeight"	    ) { return this->hPtWeight_;     } 
+  if(value=="npu"	    ) { return this->npu_;           } 
+  if(value=="npuPlusOne"    ) { return this->npuPlusOne_;    } 
 
   return -9999.; 
 }
