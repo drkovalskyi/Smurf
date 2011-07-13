@@ -24,7 +24,7 @@ setenv DAT_TEST data/${TAG}_data_2l.root;
  #root -l -q -b PlotHiggsRes.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",5,1,0\); --> sf
  #root -l -q -b PlotHiggsRes.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",6,1,0\); --> of
 
-if ($MAKEINPUTS == "yes") then
+if ($MAKEINPUTS == "") then
   setenv INPUTDIR /data/smurf/ceballos/inputLimits/ana_v6_1000pb;
   mkdir -p ${INPUTDIR}/${MH}
   if ($NJETS == 0) then
