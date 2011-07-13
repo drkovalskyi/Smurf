@@ -90,87 +90,87 @@ void Proc::initTotXsec() {
 
   case (TVar::Wp_1jet):
     NLOXsec_ = 31314.0;
-    MCFMXsec_ = 18788.0;
+    MCFMXsec_ = 18788.0/3.0;
     break;
 
   case (TVar::Wm_1jet):
     NLOXsec_ = 31314.0;
-    MCFMXsec_ =  12525.0;
+    MCFMXsec_ =  12525.0/3.0;
     break;
 
   case (TVar::HWW115):
     NLOXsec_ = 0.165009;
-    MCFMXsec_ = 0.04980;
+    MCFMXsec_ = 0.04980/9.0;
     break;
 
   case (TVar::HWW120):
     NLOXsec_ = 0.249642;
-    MCFMXsec_ = 0.07533;
+    MCFMXsec_ = 0.07533/9.0;
     break;
 
   case (TVar::HWW130):
     NLOXsec_ = 0.452090;
-    MCFMXsec_ = 0.1451;
+    MCFMXsec_ = 0.1451/9.0;
     break;
 
   case (TVar::HWW140):
     NLOXsec_ = 0.641773;
-    MCFMXsec_ = 0.2165;
+    MCFMXsec_ = 0.2165/9.0;
     break;
 
   case (TVar::HWW150):
     NLOXsec_ = 0.770471;
-    MCFMXsec_ = 0.2671;
+    MCFMXsec_ = 0.2671/9.0;
     break;
 
   case (TVar::HWW160):
     NLOXsec_ = 0.866443;
-    MCFMXsec_ = 0.3034;
+    MCFMXsec_ = 0.3034/9.0;
     break;
 
   case (TVar::HWW170):
     NLOXsec_ = 0.782962;
-    MCFMXsec_ = 0.2870;
+    MCFMXsec_ = 0.2870/9.0;
     break;
 
   case (TVar::HWW180):
     NLOXsec_ = 0.659328;
-    MCFMXsec_ = 0.2465;
+    MCFMXsec_ = 0.2465/9.0;
     break;
 
   case (TVar::HWW190):
     NLOXsec_ = 0.486486;
-    MCFMXsec_ = 0.1849;
+    MCFMXsec_ = 0.1849/9.0;
     break;
 
   case (TVar::HWW200):
     NLOXsec_ = 0.408305;
-    MCFMXsec_ = 0.1570;
+    MCFMXsec_ = 0.1570/9.0;
     break;
 
   case (TVar::HWW210):
     NLOXsec_ = 0.358465;
-    MCFMXsec_ =  0.1380;
+    MCFMXsec_ =  0.1380/9.0;
     break;
     
   case (TVar::HWW220):
     NLOXsec_ = 0.321398;
-    MCFMXsec_ = 0.1232;
+    MCFMXsec_ = 0.1232/9.0;
     break;
 
   case (TVar::HWW230):
     NLOXsec_ = 0.290454;
-    MCFMXsec_ = 0.1107;
+    MCFMXsec_ = 0.1107/9.0;
     break;
 
   case (TVar::HWW250):
     NLOXsec_ = 0.243724;
-    MCFMXsec_ = 0.0906;
+    MCFMXsec_ = 0.0906/9.0;
     break;
     
   case (TVar::HWW300):
     NLOXsec_ = 0.243724;
-    MCFMXsec_ = 0.05758;
+    MCFMXsec_ = 0.05758/9.0;
     break;
 
  case (TVar::HZZ):
