@@ -8,18 +8,22 @@
 \BOOKMARK [2][-]{subsection.3.5}{Missing Energy}{section.3}
 \BOOKMARK [2][-]{subsection.3.6}{Jet Counting}{section.3}
 \BOOKMARK [2][-]{subsection.3.7}{Top Tagging}{section.3}
-\BOOKMARK [2][-]{subsection.3.8}{Other Preselection Requirements}{section.3}
-\BOOKMARK [1][-]{section.4}{Expected Event Yields After WW Preselection}{}
+\BOOKMARK [2][-]{subsection.3.8}{Third Lepton Veto}{section.3}
+\BOOKMARK [1][-]{section.4}{Expected Event Yields After ZZ Preselection}{}
 \BOOKMARK [1][-]{section.5}{Higgs Signal Extraction Strategy}{}
 \BOOKMARK [2][-]{subsection.5.1}{Cut Based Analysis}{section.5}
 \BOOKMARK [3][-]{subsubsection.5.1.1}{0-Jet Selection}{subsection.5.1}
 \BOOKMARK [3][-]{subsubsection.5.1.2}{1-Jet Selection}{subsection.5.1}
 \BOOKMARK [3][-]{subsubsection.5.1.3}{VBF Selection}{subsection.5.1}
-\BOOKMARK [2][-]{subsection.5.2}{MVA Analysis}{section.5}
 \BOOKMARK [1][-]{section.6}{Background Estimation}{}
-\BOOKMARK [2][-]{subsection.6.1}{Drell-Yan Background}{section.6}
-\BOOKMARK [2][-]{subsection.6.2}{ZZ and resonant WZ Background}{section.6}
-\BOOKMARK [2][-]{subsection.6.3}{W+W- non-resonant WZ and Top Backgrounds}{section.6}
+\BOOKMARK [2][-]{subsection.6.1}{ZZ and resonant WZ Background}{section.6}
+\BOOKMARK [2][-]{subsection.6.2}{Drell-Yan Background}{section.6}
+\BOOKMARK [3][-]{subsubsection.6.2.1}{Photon Selection and Reweighting Procedure}{subsection.6.2}
+\BOOKMARK [3][-]{subsubsection.6.2.2}{Monte Carlo Closure Test}{subsection.6.2}
+\BOOKMARK [3][-]{subsubsection.6.2.3}{Data Estimate}{subsection.6.2}
+\BOOKMARK [2][-]{subsection.6.3}{Top, W+W- and Z Backgrounds}{section.6}
+\BOOKMARK [3][-]{subsubsection.6.3.1}{Method using opposite flavor di-leptons}{subsection.6.3}
+\BOOKMARK [3][-]{subsubsection.6.3.2}{Closure test in Monte Carlo simulation}{subsection.6.3}
 \BOOKMARK [2][-]{subsection.6.4}{Jet Induced Backgrounds}{section.6}
 \BOOKMARK [2][-]{subsection.6.5}{Other Backgrounds}{section.6}
 \BOOKMARK [1][-]{section.7}{Efficiency Measurements}{}
