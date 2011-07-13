@@ -1,0 +1,53 @@
+We select electrons using a cut-based approach consistent with the electron 
+selection criteria used for the measurement of the inclusive W and Z 
+cross-section~\cite{VBTFCrossSectionNote}. 
+Because we allow the trailing electron leg to have lower $p_T$ compared
+to that measurement, we make additional requirements to further reduce
+jet induced background.
+The choice of electron selection is described in detail in reference \cite{HWW2011AN}.
+The specific requirements to select good prompt electrons are the following:
+
+\begin{itemize}
+    \item Basic acceptance cuts are imposed,  $p_T>10$~GeV and $|\eta| < 2.5$
+    \item Standard electron identification is applied to barrel (endcap) electrons when $p_T>20$~GeV
+    \begin{itemize}
+        \item The latteral shower shape, $\sigma_{i\eta i\eta} < 0.01~(0.03)$
+        \item The track-cluster matching in the $\phi$-direction, $\Delta \phi_{\mathrm{in}} < 0.06~(0.03)$
+        \item The track-cluster matching in the $\eta$-direction, $\Delta \eta_{\mathrm{in}} < 0.004~(0.007)$
+        \item The relative hadronic activity, $H/E<0.04$~(0.1)
+    \end{itemize}
+    \item Standard electron identification is applied to barrel (endcap) electrons when $10<p_T<20$~GeV
+    \begin{itemize}
+        \item The lateral shower shape, $\sigma_{i\eta i\eta} < 0.01~(0.03)$
+        \item The track-cluster matching in the $\phi$-direction, $\Delta \phi_{\mathrm{in}} < 0.03~(0.02)$
+        \item The track-cluster matching in the $\eta$-direction, $\Delta \eta_{\mathrm{in}} < 0.004~(0.005)$
+        \item The relative hadronic activity, $H/E<0.025$~(0.1)
+        \item The track bremsstrahlung fraction, $\mathrm{fbrem}>0.15~\mathrm{OR}~(|\eta|<1.0~\mathrm{AND}~E/p_{IN}>0.95)$
+    \end{itemize}
+\end{itemize}
+
+The H/E requirement is looser in the endcap since the tighter values
+introduce noticible reconstruction efficiency drop with large pileup.
+
+Isolation requirements are then imposed by computing the particle flow isolation,
+defined as the scalar sum of the \pt\ of the particle flow candidates satisfying 
+the following requirements:
+
+\begin{itemize}
+\item $\Delta R~<~0.4$ to the electron in the $\eta \times \phi$ plane,
+\item for neutral hadron PF candidates, require that it is outside the footprint veto region of $\Delta R~<~0.07$,
+\item for photon and electron PF candidates, require that it is outside the footprint veto region of $|\Delta\eta|<0.025$,
+\item $|d_{z}(\mathrm{PF~Candidate}) - d_{z}(\mathrm{muon})| < 0.1$~cm, if the PF candidate is charged,
+\item \pt $>1.0$ GeV, if the PF candidate is classified as a neutral hadron or a photon.
+\end{itemize}
+
+We require $\frac{\rm{Iso}_{PF}}{\pt}~<~0.13~(0.09)$ for electrons in the barrel (endcap). 
+
+In order to veto fake electrons from converted photons, 
+we look for a reconstructed conversion vertex where one of the two tracks 
+is compatible with the electron~\cite{ConversionNote}.
+The vertex fit probability is required to be $>10^{-6}$.
+We then require that there are no missing expected missing hits forming the electron track~\cite{ConversionNote},~\cite{NExpHits}. 
+Finally to reduce fake electrons from non-prompt sources,
+we require the transverse and longitudinal impact parameters with
+respect to the primary vertex to be less than $0.02$ and $0.1$~cm respectively.

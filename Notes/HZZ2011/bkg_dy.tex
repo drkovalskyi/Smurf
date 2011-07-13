@@ -25,10 +25,13 @@ is well measured and does not contribute to the \met.
 
 \subsubsection{Photon Selection and Reweighting Procedure}
 The photon data sample is selected by requiring one and only one photon passing reaonsably tight
-identification and isolation requirements, summarized in Table \ref{} below. The pixel hit veto
-is imposed on the photon, requiring that no pixel hits are matched in the direction of the photon
-to reduce contributions from W bosons decaying to electrons. To reduce 
-contamination from $W$+$\gamma$ events, we veto any events with one or more well identified leptons.
+identification and isolation requirements, summarized in Table \ref{tab:PhotonSelection} below 
+\cite{MITHggNote}. 
+An electron veto is imposed on the photon, requiring that no GSF electron which does not match to 
+one leg of a well reconstructed convert is sharing the same supercluster as the photon
+candidate. This is intended to reduce contributions from W bosons decaying to electrons, misidentified
+as photons. To reduce contamination from $W$+$\gamma$ events, we veto any events with one or 
+more well identified leptons.
 
 
 \begin{table}[!ht]
@@ -74,7 +77,7 @@ TrkIso        & TrkIso $ - \rho\times \mathrm{A}_{\mathrm{eff Trk}}$ $<  1.5 + 0
 \end{tabular}
 \caption{MC yield prediction for $H\rightarrow WW$ sample ($m_H=130$ GeV) ($\mu$-e and e-e final states). 
 The electron selection is the same as in 2010 analysis and the results is scaled to 1/fb.
-\label{tab:hww130yieds}}
+\label{tab:PhotonSelection}}
 \end{center}
 \end{table}
 
@@ -113,9 +116,11 @@ is constructed from data imposing all preselection cuts except the \met requirem
 In order to verify that the procedure models the $Z$+jet background well, we test it
 in $\gamma$+jets and $Z$+jets Monte Carlo simulation. The reweighting factors are 
 built from the simulation sample according to the procedure described above and then 
-applied on the $\gamma$+jets Monte Carlo sample. The photon and $Z$ 
-$p_{T}$ distributions are shown in Fig \ref{fig:PhotonJetsClosureTest_Pt} to demonstrate that 
-the reweighting is carried out consistently.
+applied on the $\gamma$+jets Monte Carlo sample. 
+
+%The photon and $Z$ 
+%$p_{T}$ distributions are shown in Fig \ref{fig:PhotonJetsClosureTest_Pt} to demonstrate that 
+%the reweighting is carried out consistently.
 
 %% \begin{figure}[!htbp]
 %% \begin{center}
@@ -137,27 +142,27 @@ is agreement slightly worse than for particle flow \met. Finally, in
 Fig \ref{fig:PhotonJetsClosureTest_TrackMET}, we show the comparison for the minimum of the 
 track \met and the particle flow \met, which shows better agreement than the track \met alone. 
 
-%% \begin{figure}[!htbp]
-%% \begin{center}
-%% \subfigure[0-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_0Jet_PFMET.pdf}}
-%% \subfigure[1-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_1Jet_PFMET.pdf}}
-%% \subfigure[2-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_2Jet_PFMET.pdf}}
-%% \caption{Comparison of the particle flow \met prediction from the reweighted $\gamma$+jets sample
-%% and the simulation prediction from the $Z$+jets sample.}
-%% \label{fig:PhotonJetsClosureTest_TrackMET}
-%% \end{center}
-%% \end{figure}
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[0-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_0Jet_PFMET.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_1Jet_PFMET.pdf}}
+\subfigure[2-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_2Jet_PFMET.pdf}}
+\caption{Comparison of the particle flow \met prediction from the reweighted $\gamma$+jets sample
+and the simulation prediction from the $Z$+jets sample.}
+\label{fig:PhotonJetsClosureTest_TrackMET}
+\end{center}
+\end{figure}
 
-%% \begin{figure}[!htbp]
-%% \begin{center}
-%% \subfigure[0-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_0Jet_TrackMET.pdf}}
-%% \subfigure[1-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_1Jet_TrackMET.pdf}}
-%% \subfigure[2-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_2Jet_TrackMET.pdf}}
-%% \caption{Comparison of the particle flow track \met prediction from the reweighted $\gamma$+jets sample
-%% and the simulation prediction from the $Z$+jets sample.}
-%% \label{fig:PhotonJetsClosureTest_TrackMET}
-%% \end{center}
-%% \end{figure}
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[0-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_0Jet_TrackMET.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_1Jet_TrackMET.pdf}}
+\subfigure[2-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_2Jet_TrackMET.pdf}}
+\caption{Comparison of the particle flow track \met prediction from the reweighted $\gamma$+jets sample
+and the simulation prediction from the $Z$+jets sample.}
+\label{fig:PhotonJetsClosureTest_TrackMET}
+\end{center}
+\end{figure}
 
 \begin{figure}[!htbp]
 \begin{center}
