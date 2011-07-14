@@ -39,9 +39,6 @@ high score of the MVA is required (MVA $>0.8$).
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-\subsubsection{Higher Order Corrections}
-
 We factorize the effect of the higher order corrections into two
 pieces: the effect of higher order corrections on the Higgs $p_{T}$ spectrum
 and the effect of higher order corrections on everything else. To study the
@@ -142,5 +139,81 @@ between the prediction of the MC reweighted to the scale varied and default $p_{
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \subsubsection{Parton Distribution Function}
+
+Parton distribution functions (PDFS) are obtained from global fits 
+to experimental data from deep in-elastic scattering, Drell-Yan, and jet processes.
+Hence, the parameters describing the proton structure have associated  
+uncertainties which are presented in the form of error PDFs packaaged with the PDF set.
+The recommendations of the PDF4LHC group are followed for 
+cross section uncertainty on the signal samples from the PDF. 
+The predictions from CT10, MSTW2008, and NNPDF2.0 PDF sets are used. 
+These uncertainties, including both the associated intrinsic uncertainties,
+and the uncertainty introduced through the choice of $\alpha_S$ used in each PDF set,
+are summarised at the following location 
+\footnote{https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt7TeV\#gluon\_gluon\_Fusion\_Process}.
+
+These uncertainties are presented as overall normalisation uncertainties.
+Because we perform a shape analysis as a function of an MVA output variable,
+it is necessary to verify that the this overall normalisation uncertainty
+does not underestimate the uncertainty at any point in the shape of the
+MVA output variable.  We checked this hypothesis by following the standard
+procedure described in CMS-AN2011-055, used for the W/Z cross section measurement.
+Rather than running Monte Carlo production for different PDFs,
+an event by event re-weighting procedure is done by scaling one PDF to another,
+and then calculating the  effect on the cross section as a function of MVA output variable.
+
+The effect of variation of the intrinsic and $\alpha_S$ uncertainties is shown in
+Figures \ref{fig:appendix_signalshape_ct10} and \ref{fig:appendix_signalshape_mstw}
+for the CT10 and MSTW PDF sets respectively.
+The NNPDF uncertainty is shown in \ref{fig:appendix_signalshape_mstw}.
+In this case, the uncertainty from sampling a large number of replica NNPDF sets produce with
+different central values of $\alpha_S$ in the correct proportions covers both the
+intrinsic and $\alpha_S$ uncertainties simultaneously.
+These are shown for the $m_H=115$~GeV Higgs boson mass Monte-Carlo sample.
+
+\begin{figure}[!hbtp]
+\begin{center}
+\label{fig:appendix_signalshape_ct10}
+\subfigure[a]{\includegraphics[width=.45\textwidth]{figures/nn_hww115_ww_CT10_alphaS.pdf}}
+\subfigure[b]{\includegraphics[width=.45\textwidth]{figures/nn_hww115_ww_CT10_envelope.pdf}}
+\caption{The intrinsic and $\alpha_S$ variation of the CT10 PDF set (a) and the combined intrinsic and $\alpha_S$ variation (b). B
+oth are shown as a function of the MVA output for the $m_H=115$~GeV Higgs boson mass dependent analysis. The uncertainty is shown
+relative to the central value of the CT10 PDF set.}
+\end{center}
+\end{figure}
+
+\begin{figure}[!hbtp]\begin{center}\label{fig:appendix_signalshape_mstw}\subfigure[a]{\includegraphics[width=.45\textwidth]{figures/nn_hww115_ww_MSTW_alphaS.pdf}}
+\subfigure[b]{\includegraphics[width=.45\textwidth]{figures/nn_hww115_ww_MSTW_envelope.pdf}}
+\caption{The intrinsic and $\alpha_S$ variation of the MSTW PDF set (a) and the combined intrinsic and $\alpha_S$ variation (b). B
+oth are shown as a function of the MVA output for the $m_H=115$~GeV Higgs boson mass dependent analysis. The uncertainty is shown 
+relative to the central value of the MSTW PDF set.}
+\end{center}
+\end{figure}
+
+\begin{figure}[!hbtp]
+\begin{center}
+\label{fig:appendix_signalshape_nnpdf}
+\includegraphics[width=.45\textwidth]{figures/nn_hww115_ww_NNPDF_envelope.pdf}
+\caption{The envelope of the intrinsic and $\alpha_S$ variation of the NNPDF PDF set shown as a function of the MVA output for the
+ $m_H=115$~GeV Higgs boson mass dependent analysis. The uncertainty is shown relative to the central value of the NNPDF PDF set.}
+\end{center}
+\end{figure}
+
+The variations of each PDF set are then combined to construct an overall envelope to
+cover the largest possible expected variation in the signal sample cross section
+as a function of the MVA output variable in Figure \ref{fig:appendix_signalshape_pdfenvelope}.
+We find that this is consistent with the overall scale uncertainty quoted at the
+YellowReport page of (+8.1, -6.9)\%.
+Thus, we consider the overall normalisation uncertainty to adequately contain possible variations
+in the uncertainty as a function of the MVA output variable.
+
+\begin{figure}[!hbtp]\begin{center}
+\label{fig:appendix_signalshape_pdfenvelope}
+\includegraphics[width=.45\textwidth]{figures/nn_hww115_ww_envelope.pdf}
+\caption{The overall envelope of the PDF uncertainty shwon as a function of the MVA output for the $m_H=115$~GeV Higgs boson mass
+dependent analysis. The upper and lower bounds of the uncertainty are shown relative to the central value of the PDF set used to g
+enerate the signal sample, taking into account changes to the central value from the different PDF sets considered.}
+\end{center}
+\end{figure}
+
