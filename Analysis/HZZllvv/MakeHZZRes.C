@@ -1,4 +1,4 @@
-#include <TROOT.h>
+#include <TROOT.h> 
 #include <TFile.h>
 #include <TTree.h>
 #include <TCanvas.h>
@@ -113,7 +113,7 @@ void MakeHZZRes
   //************************************************************************************************
   // Lepton Efficiencies
   //************************************************************************************************
-  TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/Run2011_Spring11_SmurfV6/lepton_eff/efficiency_results_v6_187pb.root");
+  TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/Run2011_Spring11_SmurfV6/lepton_eff/efficiency_results_v6_187pb_newhistnames.root");
   TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
   TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
   fhDEffMu->SetDirectory(0);
@@ -121,7 +121,7 @@ void MakeHZZRes
   fLeptonEffFile->Close();
   delete fLeptonEffFile;
 
-  LeptonScaleLookup trigLookup("/data/smurf/data/Run2011_Spring11_SmurfV6/lepton_eff/efficiency_results_v6_187pb.root");
+  LeptonScaleLookup trigLookup("/data/smurf/data/Run2011_Spring11_SmurfV6/lepton_eff/efficiency_results_v6_187pb_newhistnames.root");
 
   TFile *fLeptonFRFileM = TFile::Open("/data/smurf/sixie/FakeRates/FakeRates_SmurfV6.PromptRecoV1V2.200ipb.root");
   TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
@@ -809,7 +809,7 @@ void MakeHZZRes
 
       if( bkgIndex == 0 || bkgIndex == 1 || bkgIndex == 5){
         if((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection)
-          weightFactor  = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1);
+          weightFactor  *= leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1);
         if((cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)
           weightFactor *= leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
     	double trigEff = trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
@@ -830,7 +830,10 @@ void MakeHZZRes
       }
       
       myWeight 	     = scale1fb*scaleFactorLum*weightFactor;
+      printf("pileup: %i : %i : %4.5f %4.5f\n", event, nvtx,  PileupReweightFactor(nvtx), myWeight ) ;
     }
+
+//     myWeight = 1.0;
 
     //************************************************************************************************
     // Yields and histograms
