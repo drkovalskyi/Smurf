@@ -177,6 +177,7 @@ void MakeHZZRes
   //************************************************************************************************
 
   double scaleFactorLum = 0.187;
+//   double scaleFactorLum = 1.1;
 
 
   //************************************************************************************************
@@ -593,6 +594,9 @@ void MakeHZZRes
     // weights and scale factors
     //************************************************************************************************
     Double_t weightFactor = 1.0;
+
+    weightFactor *= PileupReweightFactor(nvtx);
+
     Double_t effCorrection = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1) * 
       leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2) *
       trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
@@ -830,10 +834,7 @@ void MakeHZZRes
       }
       
       myWeight 	     = scale1fb*scaleFactorLum*weightFactor;
-      printf("pileup: %i : %i : %4.5f %4.5f\n", event, nvtx,  PileupReweightFactor(nvtx), myWeight ) ;
     }
-
-//     myWeight = 1.0;
 
     //************************************************************************************************
     // Yields and histograms
