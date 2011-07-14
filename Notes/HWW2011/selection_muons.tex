@@ -6,17 +6,19 @@ detectors) and $TrackerMuons$ (inside-out approach seeded by an offline
 silicon strip track, using the muon detector only for muon identification 
 without refitting the track). Most good quality muons are reconstructed as 
 all three types at the same time and the momentum resolution is dominated by the inner
-tracker system up to about 200~$\GeVc$ in transverse momentum. Details about the
-optimization at low $\pt$ are given in Appendix~\ref{app:mus}. The specific
-requirements to select good prompt isolated muons are the following:
+tracker system up to about 200~$\GeVc$ in transverse momentum.  
+We require the muon to be reconstructed as $GlobalMuon$, with $\chi^2/{\mathrm{ndof}} < 10$ 
+on the global fit, must have at least one good muon hit, and at least two 
+matches to muon segments in different muon stations; 
+or $TrackerMuon$, provided it satisfies the ``Tracker Muon Last Station 
+Tight" selection requiring at least two muon segments matched at 
+3$\sigma$ in local X and Y coordinates, with one being in the outermost muon station.
+
+In addition, the following specific requirements to select good prompt isolated 
+muons are the following:
 \begin{itemize}
-\item the muon must be found by both the global and tracker muon algorithms;
-\item the global muon must have at least one good muon hit;
-\item the tracker muon must have at least two matches to muon segments in 
-      different muon stations;
 \item more than 10 hits in the inner tracker;
 \item at least one pixel hit;
-\item $\chi^2/{\mathrm{ndof}} < 10$ on a global fit;
 \item impact parameter in the transverse plane $|d_{0}| < 0.02~(0.01)$~cm for
       muons with $\pt$ greater (smaller) than 20 $\GeVc$,
       calculated with respect to the primary vertex;
@@ -25,6 +27,7 @@ requirements to select good prompt isolated muons are the following:
 \item pseudorapidity $|\eta|$ must be smaller than 2.4;
 \item relative \pt\ resolution is better than 10\%.
 \end{itemize}
+Details about the optimization at low $\pt$ are given in Appendix~\ref{app:mus}.
 
 Furthermore, the particle flow candidate-based isolation variable is 
 used to reduce the contamination from the non-isolated muons originating from

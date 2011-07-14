@@ -1,71 +1,69 @@
-The top production cross-section is substantially higher than the 
-$\WW$ cross-section.
-Thus the background due to top quarks represents a significant 
-challenge for studies of the $\WW$ final state, including $H \to \WW$ searches. 
+The top production cross-section is substantially higher than the
+$\WW$ cross-section.  Thus the background due to top quarks represents
+a significant challenge for studies of the $\WW$ final state,
+including $H \to \WW$ searches.
 
-As explained in Section~\ref{sec:sel_toptag}, we use a dedicated top tagging 
-veto, which relies on identifying $b$-quarks from top decay to 
-further suppress the top background. 
-By assessing the tagging efficiency and applying this to the number of
-tagged events, we can estimate the residual top background after the veto.
-Because details of the jet fragmentation cannot be reliably simulated at 
-low energy, the tagging efficiency should be estimated from data where possible.
+As explained in Section~\ref{sec:sel_toptag}, we use a dedicated top
+tagging veto, which relies on identifying $b$-quarks from top decay to
+further suppress the top background.  By assessing the tagging
+efficiency and applying this to the number of tagged events, we can
+estimate the residual top background after the veto.  Since details
+of the jet fragmentation cannot be reliably simulated at low energy,
+the tagging efficiency should be estimated from data.
 
-Because the efficiency of the tagging methods has 
-a significant dependence on the jet $\pt$,
-the data control samples should have similar properties to the signal samples.
-Thus the method to extract the background depends on the jet bin. 
-Additionally, the $\ttbar$ and $tW$ processes show slightly different $b$-tagging behavior, 
-although the difference can be taken as a small systematic uncertainty.
+Due to strong dependence of the tagging efficiency on the jet $\pt$, 
+the data control samples should have
+similar properties to the signal samples.  Thus the method to extract
+the background depends on the jet bin.  Additionally, the $\ttbar$ and
+$tW$ processes have different tagging efficiency due to difference in 
+the number of taggable $b$-quarks. The uncertainty on the expected ratio 
+of the event yields for the two processes represents one of the systematic
+uncertainties of the top background estimation.
 
-The methods used are now described for each jet bin. We define ``counted jets'' as jets
-which pass the $p_{T} > 30$ GeV cut. The background in the control samples is subtracted 
-using a combination of data-driven methods and simulated events, using the same 
-techniques explained in this section. The background fractions are at the level 
+The methods used are now described for each jet bin.  The background
+in the control samples is subtracted using a combination of
+data-driven methods and simulated events, using the same techniques
+explained in this section. The background fractions are at the level
 of a few percent of the total sample.
 
 %
 % ZERO JETS
 %
 \subsubsection{Zero-Jet Bin Method}
-We perform the measurement of the top tagging efficiency $\varepsilon_{1b}$ 
-in a control sample with exactly one counted jet. To measure 
-$\varepsilon_{1b}$ for $b$-quarks that do not result in a counted jet
-we exclude the one counted jet in the event from the denominator. To 
-increase the purity of the $t\bar{t}$ events in this sample, we
- apply $b$-tagging requirements to the counted jet.
-The efficiency to tag a top event in the zero-jet bin is thus
-$$\epsilon_{0-jet} = f_{\ttbar}(1 - (1-\epsilon_{1b})^2)+f_{tW}\epsilon_{1b}$$
-%The efficiency to tag a $t\bar{t}$ event in the zero-jet bin, 
-%where neither $b$-quark resulted in a counted jet is thus
-%$$\epsilon_{2b} = 1 - (1-\epsilon_{1b})^2.$$
+We perform the measurement of the tagging efficiency for a $b$-quark 
+that leads to a low $p_T$ jet or no jet at all in a top control 
+sample with exactly one counted jet, which is dominated by $t \bar t$. 
+To increase the purity of the $t\bar{t}$ events in this sample, 
+we apply $b$-tagging requirements to
+the counted jet. The purity of this control sample, as estimated from
+simulation, is 97\%.  
 
-%The per event top tagging efficiency in simulated $t\bar{t}$ events
-%using the soft muon tagging, $b$-tagging 
-%and the combination of both methods is shown as a function 
-%of the number of counted jets after the $WW$ preselection
-%in Figure \ref{fig:btag_njets_lowpttagging}.
-%The combined top tagging efficiency $\varepsilon_{1b}$ in the 1-jet 
-%bin is ($35 \pm 1$)\%, which leads to a predicted efficiency in the 
-%zero-jet bin of ($58 \pm 2$)\%. This is consistent with the expected value 
-%in the zero-jet bin of ($57 \pm 2$)\% as measured in simulated events.
+We define $\varepsilon^{soft}_{top-tag}$ as:
+$$\varepsilon^{soft}_{top-tag} = \frac{N^{control}_{top-tag}}{N^{control}}$$ 
+
+where $N^{control}$ is the number of events in the top control sample,
+and $N^{control}_{btag}$ is the number of events in the top control
+samples that are tagged by either soft muon tagging or the low-$p_T$
+b-jet tagging looking at the rest of the events outside the counted
+jet.  The idea is that for \ttbar\ events reconstructed as 1-jet
+events, the counted jet is one of the $b$-quarks, while the other one
+does not produce a countable jet and has similar kinematics to the
+$b$-quarks in the 0-jet events. The efficiency to tag a top event in
+the zero-jet bin is thus
+$$\varepsilon_{0-jet} = f_{\ttbar}(1 - (1-\varepsilon^{soft}_{top-tag})^2)+f_{tW}\varepsilon^{soft}_{top-tag}$$
 
 where $f_{\ttbar}$ and $f_{tW}$ are the corresponding fraction of 
 $\ttbar$ and $tW$ events, respectively, with $f_{tW} \equiv 1-f_{\ttbar}$. 
 An important ingredient is the ratio of $\ttbar$ and 
-$tW$ cross-sections, which we assume an uncertainty of 17\%~\cite{XS}. 
+$tW$ cross-sections, for which we assume an uncertainty of 17\%~\cite{XS}. 
 The fraction of $\ttbar$ events in the 0-jet bin sample is 
 approximately 75\%, after all $\WW$ requirements except the top veto.
 
-The per event top tagging efficiency in simulated top events
-using the soft muon tagging, $b$-tagging 
-and the combination of both methods is shown as a function 
-of the number of counted jets, after the $WW$ preselection, 
-in Figure \ref{fig:btag_njets_lowpttagging}.
-The combined top tagging efficiency $\varepsilon_{1b}$ in the 1-jet 
-bin in simulated events is ($35 \pm 1$)\%, which leads to a predicted efficiency in the 
-zero-jet bin of ($53 \pm 1$)\%. This is consistent with the measured value 
-in simulated events in the zero-jet bin of ($55 \pm 2$)\%.
+In simulated top events $\varepsilon^{soft}_{top-tag}$ is estimated to be
+($35 \pm 1$)\%, which leads to a predicted efficiency in the zero-jet
+bin of ($53 \pm 1$)\%. This is consistent with the value obtained in
+simulated top events in the zero-jet bin of ($55 \pm 2$)\%.
+This represents a closure test of the method on simulation.
 
 \begin{figure}[!htbp]
 \begin{center}
@@ -88,9 +86,10 @@ The expected tagging efficiency in simulated $t\bar{t}$ events after the $WW$ pr
 is shown using all jets and soft-muons and for the highest $\pt$ jet only
 as a function of the number of counted jets in Figure~\ref{fig:btag_njets_highestptjet}.
 The tagging efficiency for the highest $\pt$ jet is approximately
-the same for the 1-jet and 2-jet bins. Therefore, we propose to use the 
-tagging on the highest $\pt$ jet and measure the tagging efficiency in
-the 2-jet bin.
+the same for the 1-jet and 2-jet bins. Therefore, we use the 
+tagging on the highest $\pt$ jet and measure its efficiency in
+the 2-jet bin where, in order to increase the top purity, 
+the second jet is required to be b-tagged.
 
 \begin{figure}[!htbp]
 \begin{center}
@@ -150,6 +149,20 @@ the prediction using top-tagged events.}
 \end{center}
 \end{figure}
 
+The extrapolation from the $b$-tag region is performed by means of a bayesian model, built with 
+JAGS~\cite{jags}, that relies on the knowledge of the $\eta$ shape of the $b$-vetoed jet (signal region) 
+for the ttbar sample from MC. Assuming the statistics in this region to be multinomial, 
+and by using the $b$-tagging efficiency measured from data, the model is built, 
+to be used to extrapolate a measurement in the $b$-tag region to the signal region. 
+For $\intlumi$, from the measured distribution of 5 $b$-tag events in the control region, 
+distributed in $\eta$ according to the simulation expectations, 
+the extrapolated number of events in the signal region is $3.4\pm 2.3$,
+to be compared to the expectation of 2.83. 
+The uncertainty on the estimate is evaluated as the RMS of the distribution in the signal region, 
+around its peak. Therefore, it accounts both for the statistics fluctuations and for the systematics of 
+the technique.
+Assuming the statistics fluctuations to be poissonian, the remaining systematic part is of the order of 40\%. 
+
 %jets and soft muons in the event, which has little correlation 
 %with the two tagging jets. The tagging efficiency for the combination of 
 %low $\pt$ jets and soft muons after and before applying the $qqH$-like 
@@ -188,6 +201,36 @@ the prediction using top-tagged events.}
 %tagging efficiency for low $\pt$ jets and soft muons measured from the 2-jet bin for events where the two 
 %highest $\pt$ jets in the event not $b$-tagged. The closure test, comparing the estimate using 
 %this procedure with the simulation, gives agreement to within $5\%$.
+
+\subsubsection{Results on data}
+The MC prediction for the top background after the $WW$ preselection 
+is compared with the observed event counts in the data-driven estimation
+in Table~\ref{tab:ttbar_est1}. The analyzed data correspond to \intlumi.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l c c c}
+\hline
+Sample                                        &   0-jet           & 1-jet           \\
+\hline
+Estimated top events in simulation  	      &   36.6 $\pm$ 1.6  & 112.0 $\pm$ 6.1 \\
+tagging efficiency (\%)                       &    52  $\pm$  8   &  66  $\pm$ 2    \\
+top-tagged events in data           	      &          92       &    305          \\
+background events in control region           &    23.3  $\pm$ 4.6&   13.5 $\pm$ 3.7\\
+Data-driven top background estimate           &  63.7 $\pm$ 15.9  & 144.5 $\pm$ 15.1\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Predictions of the top background contribution compared 
+with observed event counts in the data-driven estimation (first method)
+after the $WW$ preselection. 
+The analyzed data correspond to \intlumi.
+The uncertainties are 
+statistical only. The systematic uncertainties are expected to be 
+negligible at this level or precision.\label{tab:ttbar_est1}}
+\end{table}
+
+The extrapolation from the $\WW$ region to each $H \to \WW$ region is obtained from simulated events. 
 
 %\subsubsection{Data Results}
 %This section describes the tagging efficiency results obtained in data, 

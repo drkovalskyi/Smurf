@@ -1,72 +1,40 @@
 The event selection in the 1-jet bin is based on the selection in the 0-jet bin 
 requiring exactly one reconstructed jet. To reject the main background from 
-the top decays we require that the jet is not $b$-tagged and the angle between the dilepton 
-system and the jet in the transverse plane must be smaller than 165 dg. in the $ee/\mu\mu$ final states. 
-The latter requirement rejects $\dyll$ events where the jet recoils against the $\Z$ boson as well. 
-Table~\ref{tab:cuts_analysis1j} details the selection requirements for different Higgs mass hypotheses. 
+the top decays we require that the jet is not $b$-tagged. 
+Table~\ref{tab:cutanalysis0j} details the selection requirements for different Higgs mass hypotheses,
+and are the same as the 0-jet bin analysis. 
 The expected number of signal and background events corresponding to an integrated luminosity 
-of 1~$\ifb$, after applying the full cut based selection is shown in Table~\ref{tab:hwwselection1j}. 
-The $gg \to H \to WW$ 
-simulated events are reweighted to match the Higgs $\pt$ at NNLO, as explained 
+of $\intlumi$, after applying the full cut based selection is shown in Table~\ref{tab:hwwselection1j}. 
+The $gg \to H \to WW$ simulated events are reweighted to match the Higgs $\pt$ at NNLO, as explained 
 in Section~\ref{sec:datasets}; all data-driven corrections are not applied.
 
-\begin{table}[ht]
-  \begin{center}
-    \begin{tabular}{|c|c|c|c|c|c|}
-    \hline
-\mHi [GeV] & $\ptlmax$ [$\GeV$] & $\ptlmin$ [$\GeV$] & $\mll$ [$\GeV$] & $\delphill$ [dg.] & $m_{T}^{\ell\ell\met}$ [$\GeVcc$]  \\  \hline
-           &   $>$               &   $>$               &   $<$             &  $<$          &	[,]			        \\  \hline
-    115 & 20  &  10 & 40  & 115 & [70,110]\\
-    120 & 20  &  10 & 40  & 115 & [70,120]\\
-    130 & 25  &  10 & 45  & 90  & [75,125]\\
-    140 & 25  &  15 & 45  & 90  & [80,130]\\
-    150 & 27  &  25 & 50  & 90  & [80,150]\\
-    160 & 30  &  25 & 50  & 60  & [90,160]\\
-    170 & 34  &  25 & 50  & 60  & [110,170]\\
-    180 & 36  &  25 & 60  & 70  & [120,180]\\
-    190 & 38  &  25 & 80  & 90  & [120,190]\\
-    200 & 40  &  25 & 90  & 100 & [120,200]\\
-    250 & 55  &  25 & 150 & 140 & [120,250]\\
-    300 & 70  &  25 & 200 & 175 & [120,300]\\
-    350 & 80  &  25 & 250 & 175 & [120,350]\\
-    400 & 90  &  25 & 300 & 175 & [120,400]\\
-    450 & 110 &  25 & 350 & 175 & [120,450]\\
-    500 & 120 &  25 & 400 & 175 & [120,500]\\
-    550 & 130 &  25 & 450 & 175 & [120,550]\\
-    600 & 140 &  25 & 500 & 175 & [120,600]\\
-      \hline
-    \end{tabular}
-  \end{center}
-  \caption{Optimized selection cuts for different mass hypotheses for the 1-jet bin case.}
-  \label{tab:cuts_analysis1j}
-\end{table}
 
 \begin{table}[!ht]
   \begin{center}
  {\normalsize
   \begin{tabular} {|c|c|c|c|c|c|}
 \hline
-  mass    & SM $H\to WW$ & all bkg. & $qq \to \WW$ & $gg \to \WW$ & non-resonant $WZ+ZZ$ \\
+  mass    & SM $H\to WW$ & all bkg. & $qq \to \WW$ & $gg \to \WW$ & {\small $WZ$/$ZZ$ not included in the $\dyll$} \\
   \hline
   \hline
-115 &   1.7 $\pm$   0.1 &  17.6	$\pm$    2.8  &   6.5 $\pm$	0.2 &	0.3 $\pm$   0.0 &   0.7 $\pm$   0.1 \\
-120 &   3.2 $\pm$   0.1 &  20.6	$\pm$    2.8  &   8.4 $\pm$	0.2 &	0.5 $\pm$   0.0 &   0.8 $\pm$   0.1 \\
-130 &   6.4 $\pm$   0.2 &  21.8	$\pm$    2.7  &   9.3 $\pm$	0.2 &	0.6 $\pm$   0.0 &   0.8 $\pm$   0.1 \\
-140 &   8.7 $\pm$   0.3 &  17.8	$\pm$    1.7  &   8.2 $\pm$	0.2 &	0.6 $\pm$   0.0 &   0.7 $\pm$   0.1 \\
-150 &  10.1 $\pm$   0.3 &  13.9	$\pm$    1.1  &   7.4 $\pm$	0.2 &	0.6 $\pm$   0.0 &   0.4 $\pm$   0.1 \\
-160 &  15.0 $\pm$   0.5 &  11.5	$\pm$    1.0  &   6.0 $\pm$	0.2 &	0.6 $\pm$   0.0 &   0.3 $\pm$   0.1 \\
-170 &  11.1 $\pm$   0.3 &   9.7	$\pm$    0.6  &   4.9 $\pm$	0.2 &	0.6 $\pm$   0.0 &   0.2 $\pm$   0.0 \\
-180 &   8.9 $\pm$   0.3 &  11.3	$\pm$    0.7  &   5.8 $\pm$	0.2 &	0.7 $\pm$   0.0 &   0.2 $\pm$   0.0 \\
-190 &   7.6 $\pm$   0.2 &  18.7	$\pm$    1.3  &   8.6 $\pm$	0.2 &	0.9 $\pm$   0.0 &   0.3 $\pm$   0.0 \\
-200 &   6.2 $\pm$   0.2 &  20.8	$\pm$    1.3  &   9.4 $\pm$	0.2 &	1.0 $\pm$   0.0 &   0.3 $\pm$   0.1 \\
-250 &   3.4 $\pm$   0.1 &  27.2	$\pm$    1.5  &  11.2 $\pm$	0.3 &	0.9 $\pm$   0.0 &   0.5 $\pm$   0.1 \\
-300 &   3.0 $\pm$   0.1 &  26.7	$\pm$    1.3  &  10.6 $\pm$	0.3 &	0.7 $\pm$   0.0 &   0.4 $\pm$   0.1 \\
-350 &   3.0 $\pm$   0.1 &  23.3	$\pm$    1.2  &   9.5 $\pm$	0.2 &	0.6 $\pm$   0.0 &   0.4 $\pm$   0.1 \\
-400 &   2.7 $\pm$   0.1 &  20.5	$\pm$    1.2  &   8.2 $\pm$	0.2 &	0.5 $\pm$   0.0 &   0.3 $\pm$   0.0 \\
-450 &   1.6 $\pm$   0.0 &  12.0	$\pm$    0.9  &   5.1 $\pm$	0.2 &	0.3 $\pm$   0.0 &   0.1 $\pm$   0.0 \\
-500 &   1.1 $\pm$   0.0 &   9.5	$\pm$    0.8  &   4.1 $\pm$	0.2 &	0.3 $\pm$   0.0 &   0.1 $\pm$   0.0 \\
-550 &   0.7 $\pm$   0.0 &   7.8	$\pm$    0.7  &   3.5 $\pm$	0.1 &	0.2 $\pm$   0.0 &   0.1 $\pm$   0.0 \\
-600 &   0.5 $\pm$   0.0 &   6.2	$\pm$    0.6  &   2.8 $\pm$	0.1 &	0.2 $\pm$   0.0 &   0.1 $\pm$   0.0 \\
+115 &  1.7 $\pm$ 0.1 &  18.6  $\pm$  1.6  &   6.9 $\pm$ 0.2 &   0.4 $\pm$ 0.0 &   0.7 $\pm$ 0.1 \\
+120 &  3.4 $\pm$ 0.1 &  22.9  $\pm$  1.7  &   9.0 $\pm$ 0.2 &   0.6 $\pm$ 0.0 &   0.8 $\pm$ 0.1 \\
+130 &  6.9 $\pm$ 0.2 &  25.6  $\pm$  1.7  &  10.2 $\pm$ 0.3 &   0.7 $\pm$ 0.0 &   0.9 $\pm$ 0.1 \\
+140 &  9.8 $\pm$ 0.3 &  21.8  $\pm$  1.5  &   9.2 $\pm$ 0.3 &   0.6 $\pm$ 0.0 &   0.7 $\pm$ 0.1 \\
+150 & 11.3 $\pm$ 0.3 &  17.0  $\pm$  1.1  &   8.1 $\pm$ 0.2 &   0.7 $\pm$ 0.0 &   0.5 $\pm$ 0.1 \\
+160 & 17.4 $\pm$ 0.5 &  13.9  $\pm$  1.0  &   6.7 $\pm$ 0.2 &   0.7 $\pm$ 0.0 &   0.4 $\pm$ 0.1 \\
+170 & 13.3 $\pm$ 0.4 &  11.9  $\pm$  0.9  &   5.5 $\pm$ 0.2 &   0.7 $\pm$ 0.0 &   0.2 $\pm$ 0.0 \\
+180 & 10.6 $\pm$ 0.3 &  13.6  $\pm$  1.0  &   6.5 $\pm$ 0.2 &   0.7 $\pm$ 0.0 &   0.2 $\pm$ 0.0 \\
+190 &  9.0 $\pm$ 0.3 &  21.4  $\pm$  1.3  &   9.6 $\pm$ 0.3 &   1.0 $\pm$ 0.0 &   0.3 $\pm$ 0.1 \\
+200 &  6.7 $\pm$ 0.2 &  24.6  $\pm$  1.4  &  10.6 $\pm$ 0.3 &   1.1 $\pm$ 0.0 &   0.4 $\pm$ 0.1 \\
+250 &  3.7 $\pm$ 0.1 &  31.8  $\pm$  1.6  &  12.4 $\pm$ 0.3 &   1.0 $\pm$ 0.0 &   0.5 $\pm$ 0.1 \\
+300 &  3.4 $\pm$ 0.1 &  31.1  $\pm$  1.6  &  11.7 $\pm$ 0.3 &   0.8 $\pm$ 0.0 &   0.5 $\pm$ 0.1 \\
+350 &  3.5 $\pm$ 0.1 &  27.0  $\pm$  1.5  &  10.4 $\pm$ 0.3 &   0.7 $\pm$ 0.0 &   0.4 $\pm$ 0.1 \\
+400 &  3.1 $\pm$ 0.1 &  23.7  $\pm$  1.5  &   9.0 $\pm$ 0.2 &   0.6 $\pm$ 0.0 &   0.3 $\pm$ 0.1 \\
+450 &  1.9 $\pm$ 0.1 &  14.2  $\pm$  1.1  &   5.5 $\pm$ 0.2 &   0.4 $\pm$ 0.0 &   0.2 $\pm$ 0.0 \\
+500 &  1.3 $\pm$ 0.0 &  10.9  $\pm$  1.0  &   4.5 $\pm$ 0.2 &   0.3 $\pm$ 0.0 &   0.1 $\pm$ 0.0 \\
+550 &  0.8 $\pm$ 0.0 &   9.3  $\pm$  0.9  &   3.8 $\pm$ 0.2 &   0.2 $\pm$ 0.0 &   0.1 $\pm$ 0.0 \\
+600 &  0.6 $\pm$ 0.0 &   7.7  $\pm$  0.8  &   3.0 $\pm$ 0.1 &   0.2 $\pm$ 0.0 &   0.1 $\pm$ 0.0 \\
  \hline
   \end{tabular}
   }
@@ -76,29 +44,29 @@ in Section~\ref{sec:datasets}; all data-driven corrections are not applied.
   mass    & $\ttbar+tW$ & $\dyll+WZ+ZZ$ & $\Wjets$ \\
   \hline
   \hline
-115 &   4.4 $\pm$   0.7 &   3.5 $\pm$   1.7 &   2.1 $\pm$   2.1  \\
-120 &   5.3 $\pm$   0.7 &   3.5 $\pm$   1.7 &   2.1 $\pm$   2.1  \\
-130 &   6.2 $\pm$   0.8 &   2.7 $\pm$   1.5 &   2.1 $\pm$   2.1  \\
-140 &   5.7 $\pm$   0.7 &   2.7 $\pm$   1.5 &   0.0 $\pm$   0.0  \\
-150 &   4.6 $\pm$   0.7 &   0.9 $\pm$   0.8 &   0.0 $\pm$   0.0  \\
-160 &   3.7 $\pm$   0.6 &   0.9 $\pm$   0.8 &   0.0 $\pm$   0.0  \\
-170 &   3.9 $\pm$   0.6 &   0.1 $\pm$   0.0 &   0.0 $\pm$   0.0  \\
-180 &   4.5 $\pm$   0.7 &   0.1 $\pm$   0.0 &   0.0 $\pm$   0.0  \\
-190 &   8.0 $\pm$   0.9 &   1.0 $\pm$   0.8 &   0.0 $\pm$   0.0  \\
-200 &   9.1 $\pm$   1.0 &   1.1 $\pm$   0.8 &   0.0 $\pm$   0.0  \\
-250 &  13.4 $\pm$   1.2 &   1.2 $\pm$   0.8 &   0.0 $\pm$   0.0  \\
-300 &  14.6 $\pm$   1.3 &   0.3 $\pm$   0.0 &   0.0 $\pm$   0.0  \\
-350 &  12.6 $\pm$   1.2 &   0.3 $\pm$   0.0 &   0.0 $\pm$   0.0  \\
-400 &  11.3 $\pm$   1.1 &   0.2 $\pm$   0.0 &   0.0 $\pm$   0.0  \\
-450 &   6.3 $\pm$   0.8 &   0.1 $\pm$   0.0 &   0.0 $\pm$   0.0  \\
-500 &   4.9 $\pm$   0.7 &   0.1 $\pm$   0.0 &   0.0 $\pm$   0.0  \\
-550 &   4.0 $\pm$   0.7 &   0.1 $\pm$   0.0 &   0.0 $\pm$   0.0  \\
-600 &   3.1 $\pm$   0.6 &   0.1 $\pm$   0.0 &   0.0 $\pm$   0.0  \\
+115 &  4.5 $\pm$ 0.7 &   0.9 $\pm$ 0.3 &   4.7 $\pm$ 1.4  \\
+120 &  5.6 $\pm$ 0.8 &   1.1 $\pm$ 0.3 &   5.3 $\pm$ 1.4  \\
+130 &  7.0 $\pm$ 0.9 &   1.5 $\pm$ 0.4 &   5.3 $\pm$ 1.4  \\
+140 &  6.3 $\pm$ 0.8 &   1.5 $\pm$ 0.3 &   3.4 $\pm$ 1.1  \\
+150 &  5.3 $\pm$ 0.7 &   0.8 $\pm$ 0.2 &   1.7 $\pm$ 0.8  \\
+160 &  4.2 $\pm$ 0.7 &   0.7 $\pm$ 0.2 &   1.3 $\pm$ 0.7  \\
+170 &  4.7 $\pm$ 0.7 &   0.5 $\pm$ 0.2 &   0.3 $\pm$ 0.5  \\
+180 &  5.3 $\pm$ 0.8 &   0.4 $\pm$ 0.2 &   0.4 $\pm$ 0.5  \\
+190 &  8.8 $\pm$ 1.0 &   0.6 $\pm$ 0.2 &   0.9 $\pm$ 0.7  \\
+200 & 10.0 $\pm$ 1.1 &   0.7 $\pm$ 0.2 &   1.8 $\pm$ 0.9  \\
+250 & 14.8 $\pm$ 1.3 &   1.2 $\pm$ 0.3 &   1.8 $\pm$ 0.8  \\
+300 & 16.0 $\pm$ 1.4 &   0.9 $\pm$ 0.2 &   1.1 $\pm$ 0.7  \\
+350 & 13.6 $\pm$ 1.3 &   0.7 $\pm$ 0.2 &   1.1 $\pm$ 0.7  \\
+400 & 12.4 $\pm$ 1.2 &   0.6 $\pm$ 0.2 &   0.9 $\pm$ 0.7  \\
+450 &  7.3 $\pm$ 0.9 &   0.3 $\pm$ 0.1 &   0.6 $\pm$ 0.5  \\
+500 &  5.3 $\pm$ 0.8 &   0.2 $\pm$ 0.1 &   0.5 $\pm$ 0.5  \\
+550 &  4.2 $\pm$ 0.7 &   0.2 $\pm$ 0.1 &   0.8 $\pm$ 0.5  \\
+600 &  3.6 $\pm$ 0.7 &   0.2 $\pm$ 0.1 &   0.6 $\pm$ 0.4  \\
  \hline
   \end{tabular}
   }
   \caption{Expected number of signal and background events for an 
-  integrated luminosity of 1 $\ifb$, after applying the full cut based 
+  integrated luminosity of $\intlumi$, after applying the full cut based 
   selection in the 1-jet bin case. Monte Carlo statistical uncertainties are included.}
    \label{tab:hwwselection1j}
   \end{center}

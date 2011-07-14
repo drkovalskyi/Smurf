@@ -37,11 +37,11 @@
 
   \begin{abstract}
     This note describes a search for the Higgs boson in the $\WW \to 2\ell2\nu$ final state with
-    $192~\ipb$ of $pp$ collision data at $\sqrt s = 7~\TeV$. We search for Higgs candidate events in
-    $ee$, $\mu\mu$ and $e\mu$ channels with 0, 1 and 2 reconstructed jets in the final state. Signal
-    and background yields are extrapolated to data corresponding to an integrated luminosity of
-    $1~\ifb$ to represent the expectations for the amount of data the CMS detector will collect by
-    the summer conferences.
+    \intlumi of $pp$ collision data at $\sqrt s = 7~\TeV$. We search for Higgs candidate events in
+    $ee$, $\mu\mu$ and $e\mu$ channels with 0, 1 and 2 reconstructed jets in the final state. 
+    %Signal and background yields are extrapolated to data corresponding to an integrated luminosity of
+    %$1~\ifb$ to represent the expectations for the amount of data the CMS detector will collect by
+    %the summer conferences.
   \end{abstract} 
 
 \end{titlepage}
@@ -166,7 +166,7 @@
   
   \clearpage
 
-\section{Data Results with 192~$\ipb$}
+\section{Data Results with \intlumi}
   \label{sec:dataresults}
   \input{data_results}
 
@@ -204,7 +204,6 @@
      \label{app:fake_rate_studies}
      \input{appendix_muon_fakes}
      \input{appendix_electron_fakes}
-     \input{appendix_fakeBkgSameSignControlSample}
 
   \clearpage
   \section{Lepton Isolation}
@@ -259,6 +258,14 @@
   \section{Matrix Element Method}
      \label{app:matrixelement}
      \input{appendix_me}
+  \clearpage
+  \section{Signal \& Background Distributions}
+     \label{app:mvaplots}
+     \input{mvaplots.tex}
+  \clearpage
+  \section{Drell-Yan update for Higgs to WW analysis}
+     \label{app:dy_writeup}
+     \input{dy_writeup.tex}
 
   \clearpage
 \end{document}

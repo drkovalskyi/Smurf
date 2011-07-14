@@ -127,8 +127,7 @@ Based on this mixed simulation data, we apply the $\ww$ background estimation me
 The top contribution is estimated as 10.5$\pm$4.1 events with the data-driven method (Section~\ref{sec:bkg_top}) 
 using the top tagging efficiency in a top-enriched sample. 
 The $R_{C/S}$ ratio and selection efficiencies of $m_T$ and $\Delta\phi$ cuts evaluated in the inclusive PYTHIA MC 
-are then 
-used to estimate the $\ww$ contribution in the Higgs signal region. 
+are then used to estimate the $\ww$ contribution in the Higgs signal region. 
 %Therefore, we estimate 118.4$\pm$12.1 $WW$ events in the side band region and, after applying
 %the control-to-signal region ratio and the cut efficiencies, 18.2$\pm$2.3 events in the $m_H=160~\GeVcc$ signal region 
 %(consistent with the expected value of 18.9$\pm$0.3).
@@ -157,40 +156,32 @@ $m_H~[\GeVcc]$ & WW estimation ($1~fb^{-1}$) & WW expected ($1~fb^{-1}$)  \\ \hl
 200 & 4.4 $\pm$ 3.7 & 8.8 $\pm$ 0.2 \\
  \hline
 \end{tabular}
-\caption{Closure test result of $WW$ estimation for different Higgs mass analyses in the 0- and 1-jet bins.  
+\caption{Cross-check result of $WW$ estimation for different Higgs mass analyses in the 0- and 1-jet bins.  
 Errors are statistical only; in the WW estimation column they are computed for a luminosity of $1~fb^{-1}$, 
 while in the WW expected column they correspond to the MC sample luminosity.}
 \label{tab:wwEstimationRes}
 \end{center}
 \end{table}
 
-%\Fixme : We need to add procedure for estimating systematics: 
-% lepton scales, jet energy scale, theory uncertainties...
-%Systematics are evaluated repeating the procedure varying the usual suspects.
+\subsubsection{Alternative Approaches in 1-jet Bin}
+Two possible approaches in the estimation of WW background in the
+1-jet bin are to apply the same tecnique described for the 0-jet bin,
+or to extrapolate the yield measured in the 0-jet bin using MC
+simulation.
 
+In the first method, the same procedure described for the 0-jet bin is applied in the 1-jet
+bin case, so that the estimation does not rely on the description of
+the jet multiplicity of the simulation.  In this case the main
+uncertainties come from the normalization of the backgrounds in the
+$m_{\ell\ell}>100$ GeV region.  
 
-%
-%\subsection{Estimation in high mass range}
-%We take it from MC.
+The second method is based on the the 0-jet bin results, which is a statistically 
+more precise measurement of the $\ww$ cross section. 
+Thus, for each mass point it takes as central value the data-MC scale factor obtained in the 0-jet bin case and adds the 
+systematic uncertainties due to bin migrations. 
+As described in the following section, such uncertainties are at the level of $21\%$.
+This method provides the most precise estimate and thus it is used as input for the limit computation.
 
-
-
-%The nonresonant $qq \to \WW$ contribution in the $\hww$ signal region is 
-%estimated from data using the dilepton mass distribution. For a given Higgs 
-%boson mass, the region with a small contribution from Higgs boson decays is 
-%selected and simulation is used to extrapolate this background into the signal 
-%region. For low Higgs boson mass values ($m_{\rm{H}} < 200~\GeVcc$) events 
-%with $m_{\ell\ell} > 100~\GeVcc$ are used, while for $m_{\rm{H}} > 200~\GeVcc$ 
-%events with $m_{\ell\ell} < 100~\GeVcc$ are used. The statistical uncertainty 
-%on the estimate of the nonresonant $\WW$ background with the current data 
-%sample is approximately 50\%. For the 1- and 2- jet bin cases we use the results
-%from the 0-jet bin, and then extrapolate to each jet bin.
-%
-%The $gg \to \WW$ background contribution has to be taken from simulated events 
-%since we do not have enough sensitivity in the data to measure it. We assign a 
-%50\% uncertainty to the overall normalization~\cite{ggWWError}. This is 
-%obtained by studying the change in the cross-section when varying the parton 
-%distribution functions (PDFs), QCD renormalization and scales.
 
 \subsubsection{Theoretical Systematic Uncertainties} 
 Since we extrapolate the WW background yield from the 0-jet bin to the 1-jet bin using Monte Carlo
@@ -238,3 +229,59 @@ therefore can be ignored. $\kappa^{\mathrm{1-jet}}_{\mathrm{QCDscale\_WW1in}}$ i
 a $21\%$ systematic uncertainty on the normalization of the WW background in the 1-jet bin, and is propagated in the
 analysis.
 
+\subsubsection{Results on data}
+The $\WW$ background data-driven estimation procedure defined above
+is applied on the collected data in the 0-and 1-jet bin analyses.  
+In the $\WW$ control region, the top, Drell-Yan and fake backgrounds are estimated 
+from data as discussed in the previous sections, while the others are taken from MC. 
+
+Table~\ref{tab:wwEstimResData} shows the $\WW$ estimate after the full Higgs selection for 
+the cut-based approach (for MVA analysis see Table~\ref{tab:wwEstimResDataMVA}): the estimated values are in 
+agreement with predictions from the simulation at the 1-$\sigma$ level.
+With the current luminosity, the statistical uncertainties are $\sim$15\% for the 0-jet bin and $\sim$30\% for the 1-jet bin, where 
+the larger uncertainty is dominated by the background normalization in the control region; 
+other uncertainties are the extrapolation to signal region and the systematics on the lepton momentum/energy scale. 
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c c c c c}
+ & \multicolumn{2}{c}{0-jet bin} & \multicolumn{2}{c}{1-jet bin} \\ \hline
+$m_H~[\GeVcc]$ & $\WW$ estimation & $\WW$ expected & $\WW$ estimation  & $\WW$ expected \\ \hline
+115 & 34.8 $\pm$ 4.7 & 28.4 $\pm$ 0.4 &  8.7 $\pm$ 2.4 &  6.7 $\pm$ 0.2 \\
+120 & 45.6 $\pm$ 6.2 & 37.4 $\pm$ 0.5 & 11.4 $\pm$ 3.1 & 8.8  $\pm$ 0.2 \\
+130 & 52.6 $\pm$ 7.1 & 43.5 $\pm$ 0.5 & 13.1 $\pm$ 3.5 & 10.1 $\pm$ 0.3 \\
+140 & 47.4 $\pm$ 6.4 & 40.2 $\pm$ 0.5 & 11.6 $\pm$ 3.2 & 9.3  $\pm$ 0.2 \\
+150 & 30.0 $\pm$ 4.5 & 27.6 $\pm$ 0.4 & 10.7 $\pm$ 3.0 & 8.4  $\pm$ 0.2 \\
+160 & 20.9 $\pm$ 3.1 & 19.2 $\pm$ 0.3 & 8.9  $\pm$ 2.5 & 7.0  $\pm$ 0.2 \\
+170 & 16.4 $\pm$ 2.5 & 15.1 $\pm$ 0.3 & 7.5  $\pm$ 2.1 & 5.8  $\pm$ 0.2 \\
+180 & 19.0 $\pm$ 2.9 & 17.6 $\pm$ 0.3 & 9.0  $\pm$ 2.5 & 7.0  $\pm$ 0.2 \\
+190 & 28.7 $\pm$ 4.3 & 26.6 $\pm$ 0.4 & 12.9 $\pm$ 3.6 & 10.1 $\pm$ 0.2 \\
+200 & 29.4 $\pm$ 4.5 & 27.8 $\pm$ 0.4 & 14.4 $\pm$ 4.0 & 11.1 $\pm$ 0.3 \\ \hline
+\end{tabular}
+\caption{Cut-based analysis: data driven WW estimation for different Higgs masses in the 0- and 1-jet bins (\intlumi). 
+Only statistical uncertainties are reported.}
+\label{tab:wwEstimResData}
+\end{center}
+\end{table}
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|} \hline
+ & \multicolumn{2}{|c|}{0-jet bin} \\ \hline
+$m_H~[\GeVcc]$ & $\WW$ estimation & $\WW$ expected \\ \hline
+115 & 203 $\pm$ 28 & 170 $\pm$ 1  \\
+120 & 203 $\pm$ 28 & 170 $\pm$ 1  \\
+130 & 235 $\pm$ 32 & 197 $\pm$ 1  \\
+140 & 255 $\pm$ 35 & 214 $\pm$ 1  \\
+150 & 272 $\pm$ 37 & 228 $\pm$ 1  \\
+160 & 272 $\pm$ 37 & 228 $\pm$ 1  \\
+170 & 272 $\pm$ 37 & 228 $\pm$ 1  \\
+180 & 289 $\pm$ 40 & 243 $\pm$ 1  \\
+190 & 308 $\pm$ 42 & 259 $\pm$ 1  \\
+200 & 323 $\pm$ 44 & 272 $\pm$ 1  \\ \hline
+\end{tabular}
+\caption{MVA analysis: data driven WW estimation for different Higgs masses in the 0-jet bin (\intlumi). 
+Only statistical uncertainties are reported.}
+\label{tab:wwEstimResDataMVA}
+\end{center}
+\end{table}

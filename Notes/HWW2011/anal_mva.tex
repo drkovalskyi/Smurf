@@ -8,7 +8,8 @@ it is insensitive to the inclusion of poorly discriminating input variables.
 
 In addition to the $\WW$ preselection, we apply a loose cut on the
 maximum $\mll$ to enhance the signal-to-background ratio shown in Table~\ref{tab:presel_tmva_analysis}. 
-The multivariate technique uses the following additional variables compared to the cut-based analysis: 
+In addition to the selection variables for the cut-based analysis, the multivariate signal extraction 
+procedure uses the following ones: 
 \begin{itemize}
 \item $\Delta R_{\Lep\Lep}\equiv\sqrt{\deletall^2 + \delphill^2}$ between the leptons, 
 with $\deletall$ the $\eta$ difference between the leptons, 
@@ -19,26 +20,20 @@ system and $\met$, and between the dilepton system and the
 highest $\pt$ jet, are included.
 \end{itemize}
 
+The distributions for SM Higgs signal and background for all the variables used in the 
+multivariate analysis for a Higgs mass of 160 $\GeV$ are shown in Appendix~\ref{app:mvaplots}. 
 The training has been carried out separately in the 0-jet and 1-jet bins 
 for different Higgs masses using the corresponding signal samples. For the background, 
-we have considered $\WW$ processes only for now. The classifier outputs 
-for three different Higgs masses and both jet bins are shown in 
-Figures~\ref{fig:histo_mva_130}-\ref{fig:histo_mva_200}. 
+we have considered $\WW$ processes only for now.  The classifier outputs 
+for different Higgs masses and splitting in jet bins and flavor final states are shown in 
+Figures~\ref{fig:histo_mva_130} to~\ref{fig:histo_mva_200}.
+This analysis technique is not performed 
+in the 2-jet bin case due to the limited amount of simulated events for the main background samples.
 
-The cut on the BDT output has been chosen to maximize 
-the statistical significance $S$ defined as:
-\begin{equation*}
-S=\frac{N_S}{\sqrt{N_B+(\Delta N_B)^2}},
-\end{equation*}
-where $N_S$ and $N_B$ are the expected signal and background event yields, 
-assuming the SM cross-sections and 1 $\ifb$ of integrated luminosity. 
-Exclusively for the cuts optimization, the relative uncertainty 
-$\Delta N_B/N_B$ on the combined background is considered to be equal to 35\%. 
-This is just a rough estimation of the overall uncertainty. We have tested 
-other values between 20\% and 50\% and obtained consistent results. It is 
-worth mentioning that this method is not perfectly correct for cases with low 
-number of events, and hence it is expected to see some small jumps in the 
-signal and background yields for consecutive Higgs mass points. 
+We follow two approaches for the MVA analysis: either a cut on the MVA output or use of the 
+full shape of the classifier output. The cut on the MVA output has been chosen to 
+obtain roughly the same background component, which yields in about 10-15\% higher signal 
+efficiency. 
 The expected number of signal and background events for an integrated luminosity 
 of 1 $\ifb$, after applying the full multivariate analysis selection in the 0-jet and 1-jet 
 bin cases are listed in Tables~\ref{tab:mvasel0j} and ~\ref{tab:mvasel1j}, respectively. 
@@ -71,10 +66,13 @@ extraction.\label{tab:presel_tmva_analysis}}
 
 \begin{figure}[!ht]
 \begin{center}
-   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_130_0j.pdf}} 
-   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_130_1j.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_130_0j_sf.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_130_1j_sf.pdf}} \\ 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_130_0j_of.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_130_1j_of.pdf}} 
        \caption{Classifier outputs for Higgs signal and background events 
-for \mHi=130 $\GeVcc$ in the 0-jet bin (a) and 1-jet bin (b) after the $\WW$ selection. The number 
+for \mHi=130 $\GeVcc$ in the 0-jet bin same flavor final state (a), 1-jet bin same flavor final state (b), 
+ 0-jet bin opposite flavor final state (c), and 1-jet bin opposite flavor final state (d), after the $\WW$ selection. The number 
 of events is different on each mass point due to the specific $\mll$ requirement.}
    \label{fig:histo_mva_130}
 \end{center}
@@ -82,10 +80,27 @@ of events is different on each mass point due to the specific $\mll$ requirement
 
 \begin{figure}[!ht]
 \begin{center}
-   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_150_0j.pdf}} 
-   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_150_1j.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_140_0j_sf.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_140_1j_sf.pdf}} \\
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_140_0j_of.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_140_1j_of.pdf}} 
        \caption{Classifier outputs for Higgs signal and background events 
-for \mHi=150 $\GeVcc$ in the 0-jet bin (a) and 1-jet bin (b) after the $\WW$ selection. The number 
+for \mHi=140 $\GeVcc$ in the 0-jet bin same flavor final state (a), 1-jet bin same flavor final state (b), 
+ 0-jet bin opposite flavor final state (c), and 1-jet bin opposite flavor final state (d), after the $\WW$ selection. The number 
+of events is different on each mass point due to the specific $\mll$ requirement.}
+   \label{fig:histo_mva_140}
+\end{center}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_150_0j_sf.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_150_1j_sf.pdf}}  \\
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_150_0j_of.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_150_1j_of.pdf}} 
+       \caption{Classifier outputs for Higgs signal and background events 
+for \mHi=150 $\GeVcc$ in the 0-jet bin same flavor final state (a), 1-jet bin same flavor final state (b), 
+ 0-jet bin opposite flavor final state (c), and 1-jet bin opposite flavor final state (d), after the $\WW$ selection. The number 
 of events is different on each mass point due to the specific $\mll$ requirement.}
    \label{fig:histo_mva_150}
 \end{center}
@@ -93,40 +108,58 @@ of events is different on each mass point due to the specific $\mll$ requirement
 
 \begin{figure}[!ht]
 \begin{center}
-   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_200_0j.pdf}} 
-   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_200_1j.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_160_0j_sf.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_160_1j_sf.pdf}}  \\
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_160_0j_of.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_160_1j_of.pdf}} 
        \caption{Classifier outputs for Higgs signal and background events 
-for \mHi=200 $\GeVcc$ in the 0-jet bin (a) and 1-jet bin (b) after the $\WW$ selection. The number 
+for \mHi=160 $\GeVcc$ in the 0-jet bin same flavor final state (a), 1-jet bin same flavor final state (b), 
+ 0-jet bin opposite flavor final state (c), and 1-jet bin opposite flavor final state (d), after the $\WW$ selection. The number 
+of events is different on each mass point due to the specific $\mll$ requirement.}
+   \label{fig:histo_mva_160}
+\end{center}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_200_0j_sf.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_200_1j_sf.pdf}}  \\
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_200_0j_of.pdf}} 
+   \subfigure[]{\includegraphics[width=0.49\textwidth,angle=0]{figures/histo_mva_200_1j_of.pdf}} 
+       \caption{Classifier outputs for Higgs signal and background events 
+for \mHi=200 $\GeVcc$ in the 0-jet bin same flavor final state (a), 1-jet bin same flavor final state (b), 
+ 0-jet bin opposite flavor final state (c), and 1-jet bin opposite flavor final state (d), after the $\WW$ selection. The number 
 of events is different on each mass point due to the specific $\mll$ requirement.}
    \label{fig:histo_mva_200}
 \end{center}
 \end{figure}
+
 \begin{table}[!ht]
   \begin{center}
  {\normalsize
   \begin{tabular} {|c|c|c|c|c|c|}
 \hline
-  mass    & SM $H\to WW$ & all bkg. & $qq \to \WW$ & $gg \to \WW$ & non-resonant $WZ+ZZ$ \\
+  mass    & SM $H\to WW$ & all bkg. & $qq \to \WW$ & $gg \to \WW$ & {\small $WZ$/$ZZ$ not included in the $\dyll$} \\
   \hline
   \hline
-115 &   5.6 $\pm$   0.1 &  49.8 $\pm$   5.7  &  28.7 $\pm$   0.4 &   1.3 $\pm$   0.0 &   0.8 $\pm$   0.1 \\
-120 &  10.0 $\pm$   0.1 &  57.9 $\pm$   5.8  &  34.8 $\pm$   0.5 &   1.6 $\pm$   0.0 &   1.1 $\pm$   0.1 \\
-130 &  21.4 $\pm$   0.2 &  74.7 $\pm$   6.1  &  47.3 $\pm$   0.5 &   2.4 $\pm$   0.1 &   1.4 $\pm$   0.1 \\
-140 &  24.1 $\pm$   0.3 &  48.0 $\pm$   3.8  &  34.4 $\pm$   0.4 &   2.2 $\pm$   0.1 &   0.9 $\pm$   0.1 \\
-150 &  25.2 $\pm$   0.3 &  29.9 $\pm$   2.3  &  22.8 $\pm$   0.4 &   1.7 $\pm$   0.0 &   0.5 $\pm$   0.1 \\
-160 &  39.0 $\pm$   0.4 &  23.4 $\pm$   2.3  &  16.8 $\pm$   0.3 &   1.7 $\pm$   0.0 &   0.3 $\pm$   0.1 \\
-170 &  32.6 $\pm$   0.4 &  20.1 $\pm$   2.1  &  13.7 $\pm$   0.3 &   1.8 $\pm$   0.1 &   0.3 $\pm$   0.0 \\
-180 &  22.9 $\pm$   0.3 &  21.8 $\pm$   2.2  &  14.2 $\pm$   0.3 &   2.1 $\pm$   0.1 &   0.3 $\pm$   0.1 \\
-190 &  19.1 $\pm$   0.2 &  30.3 $\pm$   1.1  &  21.9 $\pm$   0.4 &   3.0 $\pm$   0.1 &   0.6 $\pm$   0.1 \\
-200 &  12.1 $\pm$   0.1 &  25.4 $\pm$   2.2  &  16.6 $\pm$   0.3 &   2.4 $\pm$   0.1 &   0.5 $\pm$   0.1 \\
-250 &   6.6 $\pm$   0.1 &  23.9 $\pm$   0.8  &  16.5 $\pm$   0.3 &   1.7 $\pm$   0.0 &   0.4 $\pm$   0.1 \\
-300 &   5.9 $\pm$   0.1 &  24.2 $\pm$   0.8  &  17.0 $\pm$   0.3 &   1.4 $\pm$   0.0 &   0.4 $\pm$   0.1 \\
-350 &   6.1 $\pm$   0.1 &  20.8 $\pm$   0.7  &  14.5 $\pm$   0.3 &   1.1 $\pm$   0.0 &   0.3 $\pm$   0.0 \\
-400 &   5.3 $\pm$   0.1 &  19.4 $\pm$   0.7  &  13.3 $\pm$   0.3 &   1.0 $\pm$   0.0 &   0.3 $\pm$   0.1 \\
-450 &   3.1 $\pm$   0.0 &  13.8 $\pm$   0.7  &   9.1 $\pm$   0.2 &   0.8 $\pm$   0.0 &   0.2 $\pm$   0.0 \\
-500 &   2.0 $\pm$   0.0 &  11.6 $\pm$   0.6  &   7.5 $\pm$   0.2 &   0.6 $\pm$   0.0 &   0.2 $\pm$   0.0 \\
-550 &   1.2 $\pm$   0.0 &   9.3 $\pm$   0.6  &   5.9 $\pm$   0.2 &   0.5 $\pm$   0.0 &   0.1 $\pm$   0.0 \\
-600 &   0.7 $\pm$   0.0 &   6.2 $\pm$   0.5  &   4.0 $\pm$   0.2 &   0.3 $\pm$   0.0 &   0.1 $\pm$   0.0 \\
+115 &    5.3 $\pm$ 0.1 &  52.5 $\pm$ 2.4  &  25.4 $\pm$ 0.4 &   1.1 $\pm$ 0.0 &   0.8 $\pm$ 0.1 \\
+120 &    9.5 $\pm$ 0.1 &  61.8 $\pm$ 2.5  &  33.1 $\pm$ 0.5 &   1.4 $\pm$ 0.0 &   0.9 $\pm$ 0.1 \\
+130 &   21.1 $\pm$ 0.2 &  75.6 $\pm$ 2.6  &  46.3 $\pm$ 0.6 &   2.3 $\pm$ 0.1 &   1.2 $\pm$ 0.1 \\
+140 &   24.3 $\pm$ 0.3 &  48.9 $\pm$ 1.7  &  34.8 $\pm$ 0.5 &   2.0 $\pm$ 0.1 &   0.8 $\pm$ 0.1 \\
+150 &   25.9 $\pm$ 0.3 &  28.9 $\pm$ 0.9  &  23.3 $\pm$ 0.4 &   1.8 $\pm$ 0.1 &   0.5 $\pm$ 0.1 \\
+160 &   40.0 $\pm$ 0.4 &  23.1 $\pm$ 1.0  &  17.4 $\pm$ 0.3 &   1.8 $\pm$ 0.1 &   0.3 $\pm$ 0.1 \\
+170 &   33.9 $\pm$ 0.4 &  20.4 $\pm$ 1.0  &  14.7 $\pm$ 0.3 &   1.9 $\pm$ 0.1 &   0.3 $\pm$ 0.1 \\
+180 &   22.7 $\pm$ 0.3 &  20.3 $\pm$ 0.9  &  13.8 $\pm$ 0.3 &   2.1 $\pm$ 0.1 &   0.3 $\pm$ 0.1 \\
+190 &   19.8 $\pm$ 0.2 &  33.2 $\pm$ 1.2  &  22.9 $\pm$ 0.4 &   3.1 $\pm$ 0.1 &   0.6 $\pm$ 0.1 \\
+200 &   11.8 $\pm$ 0.2 &  25.0 $\pm$ 1.0  &  16.6 $\pm$ 0.3 &   2.5 $\pm$ 0.1 &   0.5 $\pm$ 0.1 \\
+250 &    5.9 $\pm$ 0.1 &  23.6 $\pm$ 1.1  &  15.4 $\pm$ 0.3 &   1.6 $\pm$ 0.0 &   0.4 $\pm$ 0.1 \\
+300 &    5.9 $\pm$ 0.1 &  29.2 $\pm$ 1.3  &  19.2 $\pm$ 0.4 &   1.5 $\pm$ 0.0 &   0.4 $\pm$ 0.1 \\
+350 &    5.9 $\pm$ 0.1 &  24.0 $\pm$ 1.1  &  15.3 $\pm$ 0.3 &   1.1 $\pm$ 0.0 &   0.4 $\pm$ 0.1 \\
+400 &    4.9 $\pm$ 0.1 &  22.2 $\pm$ 1.1  &  13.5 $\pm$ 0.3 &   0.9 $\pm$ 0.0 &   0.3 $\pm$ 0.1 \\
+450 &    3.0 $\pm$ 0.0 &  16.3 $\pm$ 1.0  &   9.6 $\pm$ 0.3 &   0.7 $\pm$ 0.0 &   0.3 $\pm$ 0.1 \\
+500 &    1.7 $\pm$ 0.0 &  12.2 $\pm$ 0.8  &   6.7 $\pm$ 0.2 &   0.6 $\pm$ 0.0 &   0.2 $\pm$ 0.0 \\
+550 &    1.1 $\pm$ 0.0 &  11.2 $\pm$ 0.8  &   6.3 $\pm$ 0.2 &   0.5 $\pm$ 0.0 &   0.2 $\pm$ 0.0 \\
+600 &    0.6 $\pm$ 0.0 &   7.3 $\pm$ 0.6  &   4.0 $\pm$ 0.2 &   0.3 $\pm$ 0.0 &   0.1 $\pm$ 0.0 \\
  \hline
   \end{tabular}
   }
@@ -136,29 +169,29 @@ of events is different on each mass point due to the specific $\mll$ requirement
   mass    & $\ttbar+tW$ & $\dyll+WZ+ZZ$ & $\Wjets$ \\
   \hline
   \hline
-115 &  2.0 $\pm$	0.4 &	2.4 $\pm$   1.2 &  14.6 $\pm$   5.5 \\
-120 &  2.4 $\pm$	0.5 &	3.4 $\pm$   1.5 &  14.6 $\pm$   5.5 \\
-130 &  3.5 $\pm$	0.6 &	3.5 $\pm$   1.5 &  16.6 $\pm$   5.9 \\
-140 &  2.7 $\pm$	0.5 &	1.5 $\pm$   0.8 &   6.2 $\pm$   3.6 \\
-150 &  1.6 $\pm$	0.4 &	1.2 $\pm$   0.8 &   2.1 $\pm$   2.1 \\
-160 &  1.3 $\pm$	0.4 &	1.1 $\pm$   0.8 &   2.1 $\pm$   2.1 \\
-170 &  2.0 $\pm$	0.4 &	0.2 $\pm$   0.0 &   2.1 $\pm$   2.1 \\
-180 &  2.7 $\pm$	0.5 &	0.3 $\pm$   0.0 &   2.1 $\pm$   2.1 \\
-190 &  3.6 $\pm$	0.6 &	1.3 $\pm$   0.8 &   0.0 $\pm$   0.0 \\
-200 &  3.4 $\pm$	0.6 &	0.4 $\pm$   0.0 &   2.1 $\pm$   2.1 \\
-250 &  4.9 $\pm$	0.7 &	0.5 $\pm$   0.0 &   0.0 $\pm$   0.0 \\
-300 &  5.0 $\pm$	0.7 &	0.4 $\pm$   0.0 &   0.0 $\pm$   0.0 \\
-350 &  4.7 $\pm$	0.7 &	0.3 $\pm$   0.0 &   0.0 $\pm$   0.0 \\
-400 &  4.5 $\pm$	0.7 &	0.2 $\pm$   0.0 &   0.0 $\pm$   0.0 \\
-450 &  3.7 $\pm$	0.6 &	0.2 $\pm$   0.0 &   0.0 $\pm$   0.0 \\
-500 &  3.3 $\pm$	0.6 &	0.1 $\pm$   0.0 &   0.0 $\pm$   0.0 \\
-550 &  2.6 $\pm$	0.5 &	0.1 $\pm$   0.0 &   0.0 $\pm$   0.0 \\
-600 &  1.7 $\pm$	0.4 &	0.1 $\pm$   0.0 &   0.0 $\pm$   0.0 \\
+115 &  1.9 $\pm$ 0.4 &   1.9 $\pm$ 0.4 &  16.5 $\pm$ 2.1 \\
+120 &  2.2 $\pm$ 0.5 &   1.9 $\pm$ 0.4 &  17.9 $\pm$ 2.3 \\
+130 &  2.6 $\pm$ 0.5 &   2.2 $\pm$ 0.4 &  17.6 $\pm$ 2.3 \\
+140 &  2.3 $\pm$ 0.5 &   1.2 $\pm$ 0.2 &   6.8 $\pm$ 1.5 \\
+150 &  1.1 $\pm$ 0.3 &   0.8 $\pm$ 0.2 &   1.3 $\pm$ 0.8 \\
+160 &  1.2 $\pm$ 0.3 &   0.7 $\pm$ 0.2 &   1.8 $\pm$ 0.9 \\
+170 &  1.7 $\pm$ 0.4 &   0.6 $\pm$ 0.2 &   1.2 $\pm$ 0.8 \\
+180 &  2.3 $\pm$ 0.5 &   0.6 $\pm$ 0.2 &   1.2 $\pm$ 0.7 \\
+190 &  3.7 $\pm$ 0.6 &   0.7 $\pm$ 0.1 &   2.1 $\pm$ 0.9 \\
+200 &  3.5 $\pm$ 0.6 &   0.7 $\pm$ 0.1 &   1.2 $\pm$ 0.7 \\
+250 &  4.6 $\pm$ 0.7 &   0.6 $\pm$ 0.1 &   0.8 $\pm$ 0.7 \\
+300 &  5.3 $\pm$ 0.7 &   0.5 $\pm$ 0.0 &   2.2 $\pm$ 0.9 \\
+350 &  4.9 $\pm$ 0.7 &   0.4 $\pm$ 0.0 &   1.8 $\pm$ 0.7 \\
+400 &  4.7 $\pm$ 0.7 &   0.3 $\pm$ 0.0 &   2.4 $\pm$ 0.8 \\
+450 &  3.5 $\pm$ 0.6 &   0.2 $\pm$ 0.0 &   2.0 $\pm$ 0.7 \\
+500 &  3.1 $\pm$ 0.6 &   0.1 $\pm$ 0.0 &   1.6 $\pm$ 0.5 \\
+550 &  2.8 $\pm$ 0.6 &   0.1 $\pm$ 0.0 &   1.3 $\pm$ 0.5 \\
+600 &  1.6 $\pm$ 0.4 &   0.1 $\pm$ 0.0 &   1.1 $\pm$ 0.4 \\
  \hline
   \end{tabular}
   }
   \caption{Expected number of signal and background processes for an 
-  integrated luminosity of 1 $\ifb$, after applying the full multivariate analysis 
+  integrated luminosity of $\intlumi$, after applying the full multivariate analysis 
   selection in the 0-jet bin case. Monte Carlo statistical uncertainties are included.}
    \label{tab:mvasel0j}
   \end{center}
@@ -169,27 +202,27 @@ of events is different on each mass point due to the specific $\mll$ requirement
  {\normalsize
   \begin{tabular} {|c|c|c|c|c|c|}
 \hline
-  mass    & SM $H\to WW$ & all bkg. & $qq \to \WW$ & $gg \to \WW$ & non-resonant $WZ+ZZ$ \\
+  mass    & SM $H\to WW$ & all bkg. & $qq \to \WW$ & $gg \to \WW$ & {\small $WZ$/$ZZ$  not included in the $\dyll$} \\
   \hline
   \hline
-115 &   1.7 $\pm$   0.0 &  16.5 $\pm$   2.6  &   6.2 $\pm$   0.2 &   0.3 $\pm$   0.0 &   0.6 $\pm$   0.1 \\
-120 &   3.3 $\pm$   0.1 &  20.5 $\pm$   2.8  &   8.1 $\pm$   0.2 &   0.4 $\pm$   0.0 &   0.8 $\pm$   0.1 \\
-130 &   6.2 $\pm$   0.1 &  19.2 $\pm$   2.4  &   9.3 $\pm$   0.2 &   0.5 $\pm$   0.0 &   0.8 $\pm$   0.1 \\
-140 &   9.1 $\pm$   0.1 &  18.9 $\pm$   2.4  &   8.5 $\pm$   0.2 &   0.5 $\pm$   0.0 &   0.6 $\pm$   0.1 \\
-150 &  10.1 $\pm$   0.2 &  13.3 $\pm$   1.1  &   6.7 $\pm$   0.2 &   0.4 $\pm$   0.0 &   0.4 $\pm$   0.1 \\
-160 &  16.5 $\pm$   0.2 &  13.0 $\pm$   1.1  &   6.5 $\pm$   0.2 &   0.6 $\pm$   0.0 &   0.3 $\pm$   0.1 \\
-170 &  13.6 $\pm$   0.2 &  11.4 $\pm$   1.0  &   6.2 $\pm$   0.2 &   0.6 $\pm$   0.0 &   0.2 $\pm$   0.0 \\
-180 &   9.2 $\pm$   0.1 &  12.8 $\pm$   1.4  &   6.0 $\pm$   0.2 &   0.5 $\pm$   0.0 &   0.1 $\pm$   0.0 \\
-190 &   9.2 $\pm$   0.1 &  21.9 $\pm$   1.5  &  10.9 $\pm$   0.3 &   1.0 $\pm$   0.0 &   0.3 $\pm$   0.1 \\
-200 &   6.2 $\pm$   0.1 &  18.6 $\pm$   1.2  &   9.8 $\pm$   0.2 &   0.9 $\pm$   0.0 &   0.2 $\pm$   0.0 \\
-250 &   3.8 $\pm$   0.1 &  25.8 $\pm$   2.5  &  10.4 $\pm$   0.2 &   0.4 $\pm$   0.0 &   0.3 $\pm$   0.1 \\
-300 &   3.1 $\pm$   0.0 &  20.3 $\pm$   1.4  &   7.8 $\pm$   0.2 &   0.4 $\pm$   0.0 &   0.3 $\pm$   0.1 \\
-350 &   4.2 $\pm$   0.0 &  26.5 $\pm$   1.6  &   9.8 $\pm$   0.2 &   0.5 $\pm$   0.0 &   0.4 $\pm$   0.1 \\
-400 &   3.6 $\pm$   0.0 &  22.1 $\pm$   1.5  &   8.1 $\pm$   0.2 &   0.4 $\pm$   0.0 &   0.3 $\pm$   0.1 \\
-450 &   1.9 $\pm$   0.0 &  12.3 $\pm$   0.9  &   4.6 $\pm$   0.2 &   0.3 $\pm$   0.0 &   0.1 $\pm$   0.0 \\
-500 &   1.2 $\pm$   0.0 &   9.5 $\pm$   0.8  &   3.7 $\pm$   0.2 &   0.2 $\pm$   0.0 &   0.1 $\pm$   0.0 \\
-550 &   0.8 $\pm$   0.0 &   8.1 $\pm$   0.8  &   3.0 $\pm$   0.1 &   0.2 $\pm$   0.0 &   0.1 $\pm$   0.0 \\
-600 &   0.5 $\pm$   0.0 &   5.7 $\pm$   0.7  &   2.0 $\pm$   0.1 &   0.1 $\pm$   0.0 &   0.1 $\pm$   0.0 \\
+115 &   1.6 $\pm$ 0.0 &  18.6 $\pm$ 1.4  &   6.3 $\pm$ 0.2 &   0.3 $\pm$ 0.0 &   0.6 $\pm$ 0.1 \\
+120 &   3.3 $\pm$ 0.1 &  24.9 $\pm$ 1.6  &   8.4 $\pm$ 0.2 &   0.4 $\pm$ 0.0 &   0.8 $\pm$ 0.1 \\
+130 &   6.4 $\pm$ 0.1 &  25.1 $\pm$ 1.6  &   8.9 $\pm$ 0.2 &   0.5 $\pm$ 0.0 &   0.7 $\pm$ 0.1 \\
+140 &   9.5 $\pm$ 0.1 &  21.9 $\pm$ 1.4  &   9.2 $\pm$ 0.2 &   0.6 $\pm$ 0.0 &   0.5 $\pm$ 0.1 \\
+150 &  10.6 $\pm$ 0.2 &  16.4 $\pm$ 1.1  &   7.1 $\pm$ 0.2 &   0.5 $\pm$ 0.0 &   0.4 $\pm$ 0.1 \\
+160 &  18.8 $\pm$ 0.2 &  15.0 $\pm$ 0.9  &   7.1 $\pm$ 0.2 &   0.6 $\pm$ 0.0 &   0.3 $\pm$ 0.1 \\
+170 &  15.5 $\pm$ 0.2 &  12.4 $\pm$ 0.7  &   6.9 $\pm$ 0.2 &   0.6 $\pm$ 0.0 &   0.2 $\pm$ 0.0 \\
+180 &  10.1 $\pm$ 0.2 &  13.3 $\pm$ 0.9  &   6.5 $\pm$ 0.2 &   0.6 $\pm$ 0.0 &   0.2 $\pm$ 0.0 \\
+190 &  10.5 $\pm$ 0.1 &  24.4 $\pm$ 1.3  &  12.0 $\pm$ 0.3 &   1.1 $\pm$ 0.0 &   0.4 $\pm$ 0.1 \\
+200 &   6.4 $\pm$ 0.1 &  20.9 $\pm$ 1.1  &  10.7 $\pm$ 0.3 &   1.0 $\pm$ 0.0 &   0.2 $\pm$ 0.0 \\
+250 &   3.9 $\pm$ 0.1 &  26.9 $\pm$ 1.5  &  11.1 $\pm$ 0.3 &   0.5 $\pm$ 0.0 &   0.4 $\pm$ 0.1 \\
+300 &   3.3 $\pm$ 0.0 &  21.2 $\pm$ 1.4  &   8.4 $\pm$ 0.2 &   0.4 $\pm$ 0.0 &   0.3 $\pm$ 0.1 \\
+350 &   4.6 $\pm$ 0.1 &  27.4 $\pm$ 1.4  &  10.5 $\pm$ 0.3 &   0.6 $\pm$ 0.0 &   0.5 $\pm$ 0.1 \\
+400 &   4.0 $\pm$ 0.0 &  23.2 $\pm$ 1.4  &   8.7 $\pm$ 0.2 &   0.5 $\pm$ 0.0 &   0.4 $\pm$ 0.1 \\
+450 &   2.1 $\pm$ 0.0 &  14.1 $\pm$ 1.2  &   4.9 $\pm$ 0.2 &   0.3 $\pm$ 0.0 &   0.2 $\pm$ 0.0 \\
+500 &   1.4 $\pm$ 0.0 &  11.1 $\pm$ 1.0  &   3.9 $\pm$ 0.2 &   0.2 $\pm$ 0.0 &   0.1 $\pm$ 0.0 \\
+550 &   0.9 $\pm$ 0.0 &   9.3 $\pm$ 0.9  &   3.3 $\pm$ 0.1 &   0.2 $\pm$ 0.0 &   0.1 $\pm$ 0.0 \\
+600 &   0.6 $\pm$ 0.0 &   6.7 $\pm$ 0.8  &   2.2 $\pm$ 0.1 &   0.1 $\pm$ 0.0 &   0.1 $\pm$ 0.0 \\
  \hline
   \end{tabular}
   }
@@ -199,29 +232,29 @@ of events is different on each mass point due to the specific $\mll$ requirement
   mass    & $\ttbar+tW$ & $\dyll+WZ+ZZ$ & $\Wjets$  \\
   \hline
   \hline
-115 &   4.6 $\pm$   0.7 &   2.7 $\pm$   1.5 &  2.1 $\pm$   2.1 \\
-120 &   5.6 $\pm$   0.8 &   3.5 $\pm$   1.7 &  2.1 $\pm$   2.1 \\
-130 &   5.5 $\pm$   0.7 &   1.0 $\pm$   0.8 &  2.1 $\pm$   2.1 \\
-140 &   6.2 $\pm$   0.8 &   1.0 $\pm$   0.8 &  2.1 $\pm$   2.1 \\
-150 &   4.9 $\pm$   0.7 &   1.0 $\pm$   0.8 &  0.0 $\pm$   0.0 \\
-160 &   4.6 $\pm$   0.7 &   0.9 $\pm$   0.8 &  0.0 $\pm$   0.0 \\
-170 &   3.5 $\pm$   0.6 &   0.9 $\pm$   0.8 &  0.0 $\pm$   0.0 \\
-180 &   4.3 $\pm$   0.7 &   1.8 $\pm$   1.2 &  0.0 $\pm$   0.0 \\
-190 &   7.9 $\pm$   0.9 &   1.8 $\pm$   1.2 &  0.0 $\pm$   0.0 \\
-200 &   6.8 $\pm$   0.8 &   1.0 $\pm$   0.8 &  0.0 $\pm$   0.0 \\
-250 &  11.6 $\pm$   1.1 &   1.1 $\pm$   0.8 &  2.1 $\pm$   2.1 \\
-300 &  10.8 $\pm$   1.1 &   1.0 $\pm$   0.8 &  0.0 $\pm$   0.0 \\
-350 &  14.8 $\pm$   1.3 &   1.0 $\pm$   0.8 &  0.0 $\pm$   0.0 \\
-400 &  12.4 $\pm$   1.2 &   0.9 $\pm$   0.8 &  0.0 $\pm$   0.0 \\
-450 &   7.3 $\pm$   0.9 &   0.0 $\pm$   0.0 &  0.0 $\pm$   0.0 \\
-500 &   5.5 $\pm$   0.8 &   0.0 $\pm$   0.0 &  0.0 $\pm$   0.0 \\
-550 &   4.7 $\pm$   0.8 &   0.0 $\pm$   0.0 &  0.0 $\pm$   0.0 \\
-600 &   3.6 $\pm$   0.7 &   0.0 $\pm$   0.0 &  0.0 $\pm$   0.0 \\
+115 &   4.6 $\pm$ 0.7 &   1.9 $\pm$ 0.4 &  3.9 $\pm$ 1.1 \\
+120 &   5.5 $\pm$ 0.8 &   4.3 $\pm$ 0.6 &  4.4 $\pm$ 1.2 \\
+130 &   6.4 $\pm$ 0.9 &   4.2 $\pm$ 0.6 &  3.4 $\pm$ 1.0 \\
+140 &   6.7 $\pm$ 0.9 &   1.5 $\pm$ 0.3 &  2.9 $\pm$ 1.0 \\
+150 &   5.4 $\pm$ 0.8 &   0.9 $\pm$ 0.3 &  1.6 $\pm$ 0.6 \\
+160 &   5.2 $\pm$ 0.7 &   0.8 $\pm$ 0.2 &  0.5 $\pm$ 0.4 \\
+170 &   4.0 $\pm$ 0.6 &   0.7 $\pm$ 0.2 &  0.0 $\pm$ 0.0 \\
+180 &   4.9 $\pm$ 0.7 &   0.6 $\pm$ 0.2 &  0.3 $\pm$ 0.3 \\
+190 &   8.7 $\pm$ 1.0 &   0.9 $\pm$ 0.3 &  1.2 $\pm$ 0.7 \\
+200 &   7.3 $\pm$ 0.9 &   0.9 $\pm$ 0.3 &  0.7 $\pm$ 0.6 \\
+250 &  12.6 $\pm$ 1.2 &   0.6 $\pm$ 0.2 &  1.7 $\pm$ 0.8 \\
+300 &  11.1 $\pm$ 1.2 &   0.3 $\pm$ 0.1 &  0.6 $\pm$ 0.6 \\
+350 &  15.5 $\pm$ 1.4 &   0.4 $\pm$ 0.1 &  0.0 $\pm$ 0.0 \\
+400 &  13.5 $\pm$ 1.3 &   0.1 $\pm$ 0.0 &  0.0 $\pm$ 0.5 \\
+450 &   8.2 $\pm$ 1.0 &   0.1 $\pm$ 0.0 &  0.4 $\pm$ 0.5 \\
+500 &   6.1 $\pm$ 0.9 &   0.0 $\pm$ 0.0 &  0.7 $\pm$ 0.5 \\
+550 &   5.3 $\pm$ 0.8 &   0.1 $\pm$ 0.0 &  0.4 $\pm$ 0.4 \\
+600 &   3.9 $\pm$ 0.7 &   0.0 $\pm$ 0.0 &  0.4 $\pm$ 0.4 \\
  \hline
   \end{tabular}
   }
   \caption{Expected number of signal and background processes for an 
-  integrated luminosity of 1 $\ifb$, after applying the full multivariate analysis 
+  integrated luminosity of $\intlumi$, after applying the full multivariate analysis 
   selection in the 1-jet bin case. Monte Carlo statistical uncertainties are included.}
    \label{tab:mvasel1j}
   \end{center}

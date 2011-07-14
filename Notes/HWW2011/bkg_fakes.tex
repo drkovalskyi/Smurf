@@ -215,15 +215,18 @@ the total QCD double fake background. This prediction is then subtracted from th
 tight + loose prediction in order to account for the double counting. 
 
 We summarize the fake rate estimation on the current data sample after the $\WW$ selection, 
-using version V4 for electrons and M1 for muons, in 
+using version V4 for electrons and M2 for muons, in 
 Tables~\ref{tab:FakeElectronBkgPrediction_WWSelection_0JetBin},
 ~\ref{tab:FakeMuonBkgPrediction_WWSelection_0JetBin},
 ~\ref{tab:FakeElectronBkgPrediction_WWSelection_1JetBin}, 
 and~\ref{tab:FakeMuonBkgPrediction_WWSelection_1JetBin} separately for fake electrons and fake muons in the
-0-jet bin and 1-jet bin, in 192 $\ipb$ of integrated luminosity. In this procedure, an over-estimation of the fake lepton contribution due to 
+0-jet bin and 1-jet bin, in $\intlumi$ of integrated luminosity. 
+
+In this procedure, an over-estimation of the fake lepton contribution due to 
 contamination from real dilepton events, and from $W+\gamma$ events may occur. These contributions 
 are subtracted using the Monte Carlo simulation prediction with the procedure described 
 in~\cite{fakeLeptonNote1} and~\cite{fakeLeptonBkgSpillage1}.
+
 
 \begin{table}[!htbp]
 \begin{center}
@@ -231,15 +234,15 @@ in~\cite{fakeLeptonNote1} and~\cite{fakeLeptonBkgSpillage1}.
 \hline
 Fake Lepton Bin               & Electron + Fake Electron & Muon + Fake Electron  \\
 \hline
-Barrel, $10 <= p_{T} < 20$    &  $1.4 \pm 0.4$(stat)	 &   $1.5 \pm 0.4$(stat) \\
-Barrel, $20 <= p_{T} $        &  $1.8 \pm 0.5$(stat)	 &   $3.0 \pm 0.6$(stat) \\
-Endcap, $10 <= p_{T} < 20$    &  $0.2 \pm 0.1$(stat)	 &   $0.7 \pm 0.2$(stat) \\
-Endcap, $20 <= p_{T} $        &  $0.7 \pm 0.3$(stat)	 &   $2.0 \pm 0.4$(stat) \\
+Barrel, $10 <= p_{T} < 20$    &  $2.6 \pm  0.5$(stat)	  &   $ 9.5 \pm  0.9$(stat) \\
+Barrel, $20 <= p_{T} $        &  $8.5 \pm  1.1$(stat)	  &   $22.7 \pm  1.9$(stat) \\
+Endcap, $10 <= p_{T} < 20$    &  $0.8 \pm  0.2$(stat)	  &   $ 4.9 \pm  0.5$(stat) \\
+Endcap, $20 <= p_{T} $        &  $2.2 \pm  0.4$(stat)	  &   $ 9.0 \pm  0.9$(stat) \\
 \hline
-Total                         &  $4.1 \pm 0.7$(stat)     &   $7.2 \pm 0.7$(stat) \\
+Total                         &  $14.1 \pm  1.3$(stat)     &   $46.1 \pm  2.3$(stat) \\
 \hline
 \end{tabular}
-\caption{Summary of fake electron background yields in the 0-jet bin after WW selection in 192 $\ipb$.}
+\caption{Summary of fake electron background yields in the 0-jet bin after WW selection in \intlumi.}
 \label{tab:FakeElectronBkgPrediction_WWSelection_0JetBin}
 \end{center}
 \end{table}
@@ -250,20 +253,18 @@ Total                         &  $4.1 \pm 0.7$(stat)     &   $7.2 \pm 0.7$(stat)
 \hline
 Fake Lepton Bin               & Electron + Fake Muon & Muon + Fake Muon  \\
 \hline
-Barrel, $10 <= p_{T} < 20$    &  $3.7 \pm 0.9$(stat)	 &   $2.8 \pm 0.6$(stat) \\
-Barrel, $20 <= p_{T} $        &  $1.8 \pm 0.8$(stat)	 &   $1.4 \pm 0.4$(stat) \\
-Endcap, $10 <= p_{T} < 20$    &  $2.0 \pm 0.7$(stat)	 &   $0.5 \pm 0.3$(stat) \\
-Endcap, $20 <= p_{T} $        &  $2.5 \pm 1.0$(stat)	 &   $0.3 \pm 0.2$(stat) \\
+Barrel, $10 <= p_{T} < 20$    &  $19.4 \pm  2.5$(stat)     &   $5.8 \pm  1.3$(stat) \\
+Barrel, $20 <= p_{T} $        &  $ 9.6 \pm  2.2$(stat)     &   $4.6 \pm  1.5$(stat) \\
+Endcap, $10 <= p_{T} < 20$    &  $12.5 \pm  2.2$(stat)     &   $2.8 \pm  1.1$(stat) \\
+Endcap, $20 <= p_{T} $        &  $ 8.2 \pm  1.9$(stat)     &   $1.7 \pm  0.8$(stat) \\
 \hline
-Total                         & $10.0 \pm 1.5$(stat)     &   $5.0 \pm 0.8$(stat) \\
+Total                         &  $49.7 \pm  4.4 $(stat)     &   $14.9 \pm  2.4$(stat) \\
 \hline
 \end{tabular}
-\caption{Summary of fake muon background yields in the 0-jet bin after WW selection in 192 $\ipb$.}
+\caption{Summary of fake muon background yields in the 0-jet bin after WW selection in \intlumi.}
 \label{tab:FakeMuonBkgPrediction_WWSelection_0JetBin}
 \end{center}
 \end{table}
-
-
 
 \begin{table}[!htbp]
 \begin{center}
@@ -271,19 +272,18 @@ Total                         & $10.0 \pm 1.5$(stat)     &   $5.0 \pm 0.8$(stat)
 \hline
 Fake Lepton Bin               & Electron + Fake Electron & Muon + Fake Electron  \\
 \hline
-Barrel, $10 <= p_{T} < 20$    &  $0.4 \pm 0.2$(stat)	 &   $0.7 \pm 0.3$(stat) \\
-Barrel, $20 <= p_{T} $        &  $0.9 \pm 0.3$(stat)	 &   $1.1 \pm 0.4$(stat) \\
-Endcap, $10 <= p_{T} < 20$    &  $0.1 \pm 0.1$(stat)     &   $0.1 \pm 0.1$(stat) \\
-Endcap, $20 <= p_{T} $        &  $0.4 \pm 0.2$(stat)	 &   $0.9 \pm 0.3$(stat) \\
+Barrel, $10 <= p_{T} < 20$    &  $0.6 \pm  0.2$(stat)	  &   $ 3.1 \pm  0.5$(stat) \\
+Barrel, $20 <= p_{T} $        &  $2.8 \pm  0.7$(stat)	  &   $11.5 \pm  1.3$(stat) \\
+Endcap, $10 <= p_{T} < 20$    &  $0.2 \pm  0.1$(stat)	  &   $ 1.1 \pm  0.2$(stat) \\
+Endcap, $20 <= p_{T} $        &  $0.7 \pm  0.2$(stat)	  &   $ 3.0 \pm  0.5$(stat) \\
 \hline
-Total                         &  $1.8 \pm 0.4$(stat)     &   $2.8 \pm 0.5$(stat) \\
+Total                         &  $4.3 \pm  0.8$(stat)      &   $18.7 \pm  1.5$(stat) \\
 \hline
 \end{tabular}
-\caption{Summary of fake electron background yields in the 1-jet bin after WW selection in 192 $\ipb$.}
+\caption{Summary of fake electron background yields in the 1-jet bin after WW selection in \intlumi.}
 \label{tab:FakeElectronBkgPrediction_WWSelection_1JetBin}
 \end{center}
 \end{table}
-
 
 \begin{table}[!htbp]
 \begin{center}
@@ -291,19 +291,18 @@ Total                         &  $1.8 \pm 0.4$(stat)     &   $2.8 \pm 0.5$(stat)
 \hline
 Fake Lepton Bin               & Electron + Fake Muon & Muon + Fake Muon  \\
 \hline
-Barrel, $10 <= p_{T} < 20$    &  $1.6 \pm 0.4$(stat)	 &   $1.0 \pm 0.3$(stat) \\
-Barrel, $20 <= p_{T} $        &  $1.4 \pm 0.4$(stat)	 &   $1.0 \pm 0.4$(stat) \\
-Endcap, $10 <= p_{T} < 20$    &  $1.0 \pm 0.4$(stat)	 &   $0.5 \pm 0.3$(stat) \\
-Endcap, $20 <= p_{T} $        &  $0.5 \pm 0.3$(stat)	 &   $0.3 \pm 0.2$(stat) \\
+Barrel, $10 <= p_{T} < 20$    &  $4.7 \pm  1.2$(stat)	  &   $3.4 \pm  1.0$(stat) \\
+Barrel, $20 <= p_{T} $        &  $5.2 \pm  1.6$(stat)	  &   $2.9 \pm  1.2$(stat) \\
+Endcap, $10 <= p_{T} < 20$    &  $3.4 \pm  1.2$(stat)	  &   $2.1 \pm  0.9$(stat) \\
+Endcap, $20 <= p_{T} $        &  $3.1 \pm  1.2$(stat)	  &   $1.2 \pm  0.7$(stat) \\
 \hline
-Total                         &  $4.5 \pm 0.6$(stat)     &   $2.8 \pm 0.5$(stat) \\
+Total                         &  $16.4 \pm  2.6$(stat)     &   $9.6 \pm  1.9$(stat) \\
 \hline
 \end{tabular}
-\caption{Summary of fake muon background yields in the 1-jet bin after WW selection in 192 $\ipb$.}
+\caption{Summary of fake muon background yields in the 1-jet bin after WW selection in \intlumi.}
 \label{tab:FakeMuonBkgPrediction_WWSelection_1JetBin}
 \end{center}
 \end{table}
-
 
 For the MVA shape analysis, each event in the tight+fail sample enters the 
 distribution of the final discriminant variable with a weight equal to the 
@@ -409,11 +408,43 @@ detail in Appendices \ref{sec:FakeElectronBkgClosureTest} and
 systematic uncertainties are added in quadrature to give a total 
 systematic uncertainty of $36\%$ for electrons and $36\%$ for muons. 
 
-Furthermore, we cross check these systematics estimates with a comparison of the prediction 
-for the WW selected sample containing two same sign leptons, dominated by W+Jet
-background, and the data yield. Subtracting real lepton contributions,
-we observe agreement to within $30\%$ and $1$ standard deviation. Details
-are documented in Appendix \ref{sec:FakeLeptonBkgSameSignControlSample}.
+Further closure tests on the fake lepton background estimate is
+performed using data events with two same sign leptons. This control
+sample is highly enriched in W+Jet background and can serve as an
+additional cross-check of the systematic uncertainties estimated above
+from Monte Carlo
+simulation. Table \ref{tab:FakeLeptonBkgPrediction_SameSignSample}
+summarizes the total fake lepton background estimate using the fake
+rate method after the WW selection where we require that the two
+leptons have the same charge instead of opposite charge. After
+subtracting the non-fake background same-sign background contributions
+(mostly WZ and W$\gamma$), we obtain an observed yield of $48.3\pm8.3$
+and predict a yield of $48.4\pm3.6^{+11.1}_{-6.6}$. The result of this
+cross-check is perfectly consistent with the uncertainties estimated
+in the previous sections, demonstrating that the extrapolation
+systematics estimated from the Monte Carlo simulation is applicable to
+data.
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+Type           & Yield \\
+\hline
+Electron Fakes          &  $28.5\pm2.3^{+10.7}_{-4.2}$   \\
+Muon Fakes              &  $19.9\pm2.8^{+2.9}_{-5.1}$   \\
+Total                   &  $48.4\pm3.6^{+11.1}_{-6.6}$  \\
+\hline
+Observed same-sign events in Data        &  $68$   \\
+Monte Carlo estimate of non-fake contribution (WZ \& W$\gamma)$         &  $19.7\pm1.3$\\
+Fake background observed  &  $48.3\pm8.3$  \\
+
+\hline
+\end{tabular}
+\caption{Summary of fake lepton background yields in the same sign sample after WW selection. }
+\label{tab:FakeLeptonBkgPrediction_SameSignSample}
+\end{center}
+\end{table}
 
 
 %% To address the second source of systematic uncertainty in data, we compare the difference in 
