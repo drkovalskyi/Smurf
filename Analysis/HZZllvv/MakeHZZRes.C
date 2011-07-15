@@ -1,3 +1,5 @@
+//root -l Smurf/Analysis/HZZllvv/MakeHZZRes.C+'(0,300,"","/data/smurf/data/Run2011_Spring11_SmurfV6/mitf-alljets/hzz300.root","/data/smurf/data/EPS/mitf/background42x.root","/data/smurf/sixie/data/Run2011_Spring11_SmurfV6/mitf-alljets/data_photons.root","/data/smurf/data/EPS/mitf/data_2l.root",0,true,0)'
+
 #include <TROOT.h> 
 #include <TFile.h>
 #include <TTree.h>
@@ -45,6 +47,7 @@ void MakeHZZRes
  TString outTag          = "default",
  TString sigInputFile    = "data/ntuples_250train_hzzjets_hzz250.root",
  TString bgdInputFile    = "data/ntuples_250train_hzzjets_zz.root",
+ TString photonInputFile = "data/ntuples_250train_hzzjets_photon.root",
  TString datInputFile    = "data/ntuples_250train_hzzjets_data_2l.root",
  Int_t   wwDecay         = 0,
  bool fillInfoNote       = false,
@@ -57,16 +60,17 @@ void MakeHZZRes
   //************************************************************************************************
   verboseLevel = TheVerboseLevel;
 
-  TString sigFile1 = sigInputFile;
-  TString bgdFile1 = bgdInputFile;
-  TString datFile1 = datInputFile;
+  TString sigFile1    = sigInputFile;
+  TString bgdFile1    = bgdInputFile;
+  TString photonFile1 = photonInputFile;
+  TString datFile1    = datInputFile;
 
   TString c1Name = TString("plot_") + outTag + TString(".gif");
   TString c2Name = TString("plot_") + outTag + TString("_effvsbkg.gif");
 
   Bool_t hasJSON = kTRUE;
   mithep::RunLumiRangeMap rlrm;
-  rlrm.AddJSONFile("certifiedUCSD.json"); 
+  rlrm.AddJSONFile("Smurf/Analysis/HZZllvv/goodlumiList.1092ipb.json"); 
 
 
   //************************************************************************************************
@@ -84,9 +88,13 @@ void MakeHZZRes
 //   TChain *chdata = new TChain("HwwTree0");
   chdata->Add(datFile1);
 
+  TChain *chPhotonSample = new TChain("HwwTree0");
+  chPhotonSample->Add(photonFile1);
+
   TTree *signal     = (TTree*) chsignal;
   TTree *background = (TTree*) chbackground;
   TTree *data       = (TTree*) chdata;
+  TTree *photonSample = (TTree*) chPhotonSample;
 
 
 
@@ -95,25 +103,26 @@ void MakeHZZRes
   //************************************************************************************************
   // DY Bkg Photon+Jets Template Reweight Factors
   //************************************************************************************************
-  TFile *fReweightFactorFile = TFile::Open("PhotonJetsReweightFactors.root");
-  string photonTemplateLabel = "Spring11MC_BarrelOnlyNoCuts";
-  TH2D *fReweightFactor = (TH2D*)(fReweightFactorFile->Get(("DYReweightFactorPtNJet_"+photonTemplateLabel).c_str()));
-  assert(fReweightFactor);
-  fReweightFactor->SetDirectory(0);
-  TH2D *fReweightFactor_ee = (TH2D*)(fReweightFactorFile->Get(("DYReweightFactorPtNJet_ee_"+photonTemplateLabel).c_str()));
-  assert(fReweightFactor_ee);
-  fReweightFactor_ee->SetDirectory(0);
-  TH2D *fReweightFactor_mm = (TH2D*)(fReweightFactorFile->Get(("DYReweightFactorPtNJet_mm_"+photonTemplateLabel).c_str()));
-  fReweightFactor_mm->SetDirectory(0);
-  assert(fReweightFactor_mm);
+  TFile *GammaReweightFactorFile = TFile::Open("Smurf/Analysis/HZZllvv/PhotonSampleReweightFactors.root");
 
-  fReweightFactorFile->Close();
-  delete fReweightFactorFile;
+  TH2F *GammaReweightFactor = (TH2F*)(GammaReweightFactorFile->Get("h2_weight"));
+  TH1F *DileptonMassShape = (TH1F*)(GammaReweightFactorFile->Get("h1_mass"));
+  assert(GammaReweightFactor);
+  assert(DileptonMassShape);
+  GammaReweightFactor->SetDirectory(0);
+  DileptonMassShape->SetDirectory(0);
+
+  GammaReweightFactorFile->Close();
+  delete GammaReweightFactorFile;
+  
+  //Set specific random seed
+  gRandom->SetSeed(48151623);
+
 
   //************************************************************************************************
   // Lepton Efficiencies
   //************************************************************************************************
-  TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/Run2011_Spring11_SmurfV6/lepton_eff/efficiency_results_v6_187pb_newhistnames.root");
+  TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/EPS/auxiliar/efficiency_results_v6.root");
   TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
   TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
   fhDEffMu->SetDirectory(0);
@@ -121,16 +130,16 @@ void MakeHZZRes
   fLeptonEffFile->Close();
   delete fLeptonEffFile;
 
-  LeptonScaleLookup trigLookup("/data/smurf/data/Run2011_Spring11_SmurfV6/lepton_eff/efficiency_results_v6_187pb_newhistnames.root");
+  LeptonScaleLookup trigLookup("/data/smurf/data/EPS/auxiliar/efficiency_results_v6.root");
 
-  TFile *fLeptonFRFileM = TFile::Open("/data/smurf/sixie/FakeRates/FakeRates_SmurfV6.PromptRecoV1V2.200ipb.root");
+  TFile *fLeptonFRFileM = TFile::Open("/data/smurf/data/EPS/auxiliar/FakeRates_SmurfV6.root");
   TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
   assert(fhDFRMu);
   fhDFRMu->SetDirectory(0);
   fLeptonFRFileM->Close();
   delete fLeptonFRFileM;
 
-  TFile *fLeptonFRFileE = TFile::Open("/data/smurf/sixie/FakeRates/FakeRates_SmurfV6.PromptRecoV1V2.200ipb.root");
+  TFile *fLeptonFRFileE = TFile::Open("/data/smurf/data/EPS/auxiliar/FakeRates_SmurfV6.root");
   TH2D *fhDFREl = (TH2D*)(fLeptonFRFileE->Get("ElectronFakeRate_V4_ptThreshold35_PtEta"));
   assert(fhDFREl);
   fhDFREl->SetDirectory(0);
@@ -165,19 +174,19 @@ void MakeHZZRes
   fZZKFactorFile->Close();
   delete fZZKFactorFile;
 
+
   //************************************************************************************************
   // MC -> Data ScaleFactors
   //************************************************************************************************
-  double TopAndWWScaleFactor[3]            = { 1.615, 1.671, 1.000 };
-  double TopAndWWScaleFactorKappa[3]       = { 1.359, 1.440, 1.000 };
-
+  double TopAndWWScaleFactor[3]            = { 1.248, 1.133, 1.181 }; 
+  double TopAndWWScaleFactorKappa[3]       = { 1.164, 1.183, 1.200 };
 
   //************************************************************************************************
   // Luminosity
   //************************************************************************************************
 
-  double scaleFactorLum = 0.187;
-//   double scaleFactorLum = 1.1;
+//   double scaleFactorLum = 0.187;
+  double scaleFactorLum = 1.092;
 
 
   //************************************************************************************************
@@ -285,6 +294,8 @@ void MakeHZZRes
   float nDatAcc = 0.0;
   float nDatCut = 0.0;
   float nDatMVA = 0.0;
+
+  float PhotonSampleDYEstimateSysUncertainty = 0.0;
 
 
   //************************************************************************************************
@@ -573,7 +584,7 @@ void MakeHZZRes
     //************************************************************************************************
     // PreSelection
     //************************************************************************************************
-    if( !(lep1->pt() > 30 && lep2->pt() > 20 )) continue;
+    if( !(lep1->pt() > 20 && lep2->pt() > 20 )) continue;
     if( !((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection )) continue;
     if( !((cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection )) continue;
     if( !(type == SmurfTree::mm || type == SmurfTree::ee )) continue;
@@ -684,8 +695,10 @@ void MakeHZZRes
 
 
 
+
+
   //**************************************************************************
-  //Bkg Loop
+  //Background Loop
   //**************************************************************************
 
   background->SetBranchAddress( "cuts"          , &cuts 	  );
@@ -752,7 +765,7 @@ void MakeHZZRes
     // PreSelection
     //************************************************************************************************
     if( njets != nJetsType ) continue; // select n-jet type events
-    if( !(lep1->pt() > 30 && lep2->pt() > 20 )) continue;
+    if( !(lep1->pt() > 20 && lep2->pt() > 20 )) continue;
     if( !((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection )) continue;
     if( !((cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection )) continue;
     if( !(type == SmurfTree::mm || type == SmurfTree::ee )) continue;
@@ -899,6 +912,176 @@ void MakeHZZRes
 
 
   //**************************************************************************
+  //Photon Loop
+  //**************************************************************************
+
+  photonSample->SetBranchAddress( "cuts"          , &cuts 	  );
+  photonSample->SetBranchAddress( "dstype"        , &dstype	  );
+  photonSample->SetBranchAddress( "nvtx"          , &nvtx 	  );
+  photonSample->SetBranchAddress( "njets"         , &njets	  );
+  photonSample->SetBranchAddress( "run"           , &run	  );
+  photonSample->SetBranchAddress( "lumi"          , &lumi	  );
+  photonSample->SetBranchAddress( "event"         , &event	  );
+  photonSample->SetBranchAddress( "scale1fb"      , &scale1fb	  );
+  photonSample->SetBranchAddress( "lep1"          , &lep1 	  );
+  photonSample->SetBranchAddress( "lep2"          , &lep2 	  );
+  photonSample->SetBranchAddress( "jet1"          , &jet1 	  );
+  photonSample->SetBranchAddress( "jet2"          , &jet2 	  );
+  photonSample->SetBranchAddress( "jet3"          , &jet3 	  );
+  photonSample->SetBranchAddress( "dPhi"          , &dPhi 	  );
+  photonSample->SetBranchAddress( "dR"            , &dR		  );
+  photonSample->SetBranchAddress( "dilep"         , &dilep	  );
+  photonSample->SetBranchAddress( "type"          , &type 	  );
+  photonSample->SetBranchAddress( "pmet"          , &pmet 	  );
+  photonSample->SetBranchAddress( "pTrackMet"     , &pTrackMet	  );
+  photonSample->SetBranchAddress( "met"           , &met  	  );
+  photonSample->SetBranchAddress( "metPhi"        , &metPhi         );
+  photonSample->SetBranchAddress( "trackMet"      , &trackMet  	  );
+  photonSample->SetBranchAddress( "mt"            , &mt		  );
+  photonSample->SetBranchAddress( "mt1"           , &mt1  	  );
+  photonSample->SetBranchAddress( "mt2"           , &mt2  	  );
+  photonSample->SetBranchAddress( "dPhiLep1MET"   , &dPhiLep1MET    );
+  photonSample->SetBranchAddress( "dPhiLep2MET"   , &dPhiLep2MET    );
+  photonSample->SetBranchAddress( "dPhiDiLepMET"  , &dPhiDiLepMET   );
+  photonSample->SetBranchAddress( "dPhiDiLepJet1" , &dPhiDiLepJet1  );
+  photonSample->SetBranchAddress( "lq1"           , &lq1  	  );
+  photonSample->SetBranchAddress( "lq2"           , &lq2  	  );
+  photonSample->SetBranchAddress( "lid1"          , &lid1 	  );
+  photonSample->SetBranchAddress( "lid2"          , &lid2 	  );
+  photonSample->SetBranchAddress( "lid3"          , &lid3 	  );
+  photonSample->SetBranchAddress( "processId"     , &processId	  );
+  photonSample->SetBranchAddress( "jetLowBtag"    , &jetLowBtag	  );
+  photonSample->SetBranchAddress( "nSoftMuons"    , &nSoftMuons	  );
+  photonSample->SetBranchAddress( "jet1Btag"      , &jet1Btag	  );
+  photonSample->SetBranchAddress( "jet2Btag"      , &jet2Btag	  );
+  photonSample->SetBranchAddress( "lep1McId"      , &lep1McId	  );
+  photonSample->SetBranchAddress( "lep2McId"      , &lep2McId	  );
+  photonSample->SetBranchAddress( "lep1MotherMcId", &lep1MotherMcId );
+  photonSample->SetBranchAddress( "lep2MotherMcId", &lep2MotherMcId );
+  photonSample->SetBranchAddress(Form("nn_hzz%i"     ,mH), &nn   );
+  photonSample->SetBranchAddress(Form("bdtg_hzz%i"   ,mH), &bdtg );
+
+  for (UInt_t i=0; i<photonSample->GetEntries(); i++) {
+    
+    photonSample->GetEntry(i);
+    if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)photonSample->GetEntries());
+
+    mithep::RunLumiRangeMap::RunLumiPairType rl(run, lumi);      
+    if(hasJSON && !rlrm.HasRunLumi(rl)) continue;  // not certified run? Skip to next event...
+
+    //VBF Jet Selection (Central Jet Veto)
+    unsigned int Njet3 = njets;
+    if(nJetsType == 2){
+      if(jet3->pt() <= 30)                                               Njet3 = 2;
+      else if(jet3->pt() > 30 && (
+        (jet1->eta()-jet3->eta() > 0 && jet2->eta()-jet3->eta() < 0) ||
+        (jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))   Njet3 = 0;
+      else                                                               Njet3 = 2;
+      if(njets < 2 || njets > 3) Njet3 = 0;
+    }
+
+    //************************************************************************************************
+    // PreSelection
+    //************************************************************************************************
+    if( njets != nJetsType ) continue; // select n-jet type events
+    if( njets < 2 && jet1->pt() > 15 && (dPhiDiLepJet1 > 165.0 * TMath::Pi() / 180.0) ) continue; 
+    if( !((cuts & SmurfTree::TopVeto) == SmurfTree::TopVeto )) continue;
+    if( !(dilep->pt() > 40)) continue;
+    if( !(TMath::Min(met,trackMet) > 50.0)) continue;
+
+    //use only barrel photons
+    if (fabs(dilep->eta()) > 1.5) continue;
+
+    //************************************************************************************************
+    // Background Process
+    //************************************************************************************************
+    Int_t bkgIndex = 4; //This gives DY->ee/mm bkg estimate
+
+
+    //************************************************************************************************
+    // weights and scale factors
+    //************************************************************************************************
+    Double_t myWeight = 0.0;
+    Double_t myWeightError = 0.0;
+
+    Double_t DileptonPt = TMath::Min(299.9, dilep->pt());
+    Int_t NJets = TMath::Min(3, Int_t(njets));
+    Int_t bin_pt        = GammaReweightFactor->GetXaxis()->FindFixBin(DileptonPt);
+    Int_t bin_njet      = GammaReweightFactor->GetYaxis()->FindFixBin(NJets);
+
+    myWeight      = GammaReweightFactor->GetBinContent(bin_pt,bin_njet);
+    myWeightError = GammaReweightFactor->GetBinError(bin_pt,bin_njet);
+
+
+    //************************************************************************************************
+    // Yields and histograms
+    //************************************************************************************************
+    nBgdAcc  += myWeight;
+    nBgdEAcc += myWeight*myWeight;
+    nBgdAccDecays[bkgIndex]  += myWeight;
+    nBgdEAccDecays[bkgIndex] += myWeight*myWeight;
+
+    if(useVar == 0) histoBkg[bkgIndex]->Fill(TMath::Max(TMath::Min((double)nn,maxHis[0]-0.001),minHis[0]+0.001),     myWeight);
+    else if(useVar == 1) histoBkg[bkgIndex]->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[1]-0.001),minHis[1]+0.001),   myWeight);
+
+    bgdMVA[0]->Fill(TMath::Max(TMath::Min((double)nn,maxHis[0]-0.001),minHis[0]+0.001), myWeight);
+    bgdMVA[1]->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[1]-0.001),minHis[1]+0.001), myWeight);
+    bgdMVADecays[0][bkgIndex]->Fill(TMath::Max(TMath::Min((double)nn,maxHis[0]-0.001),minHis[0]+0.001),     myWeight);
+    bgdMVADecays[1][bkgIndex]->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[1]-0.001),minHis[1]+0.001), myWeight);
+
+    //**************************************************************************
+    //Define HZZ Cuts
+    //**************************************************************************
+    Double_t DileptonMass = DileptonMassShape->GetRandom();
+
+    double pxzll = dilep->px() + met*cos(metPhi);
+    double pyzll = dilep->py() + met*sin(metPhi);
+    double mtHZZ = TMath::Power(sqrt(dilep->pt()*dilep->pt() + DileptonMass*DileptonMass)+
+                         sqrt(met*met + DileptonMass*DileptonMass),2) - (pow(pxzll,2) + pow(pyzll,2));
+    if(mtHZZ >0) mtHZZ = sqrt(mtHZZ); else mtHZZ = 0.0;
+    
+    bool passCutBased = ( (0==0)
+                          && ( TMath::Min(met,trackMet) > cutMETLow[njets][mHIndex])
+                          && (mtHZZ > cutMTLow[njets][mHIndex] && mtHZZ < cutMTHigh[njets][mHIndex]) );
+
+    if(nJetsType == 2) {
+      int centrality = 0;
+      if(((jet1->eta()-lep1->eta() > 0 && jet2->eta()-lep1->eta() < 0) ||
+          (jet2->eta()-lep1->eta() > 0 && jet1->eta()-lep1->eta() < 0)) &&
+         ((jet1->eta()-lep2->eta() > 0 && jet2->eta()-lep2->eta() < 0) ||
+          (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
+      passCutBased = (*jet1+*jet2).M() > 450. &&
+                    TMath::Abs(jet1->eta()-jet2->eta()) > 3.5 &&
+                    jet1->eta()*jet2->eta() < 0 &&
+		    (mH > 200 || dilep->mass() < 100.) &&
+		    centrality == 1;
+    }
+
+    if(passCutBased == true) {
+      nBgdCut  += myWeight;
+      nBgdECut += myWeight*myWeight;
+      nBgdCutDecays[bkgIndex]  += myWeight;
+      nBgdECutDecays[bkgIndex] += myWeight*myWeight;
+      PhotonSampleDYEstimateSysUncertainty += myWeightError*myWeightError;
+
+    }
+
+    bool passMVACut = false;
+    if     (useVar == 0 && nn   > useCut) { nBgdMVA += myWeight; nBgdEMVA += myWeight*myWeight; nBgdMVADecays[bkgIndex]  += myWeight; nBgdEMVADecays[bkgIndex]  += myWeight*myWeight; passMVACut = true; }
+    else if(useVar == 1 && bdtg > useCut) { nBgdMVA += myWeight; nBgdEMVA += myWeight*myWeight; nBgdMVADecays[bkgIndex]  += myWeight; nBgdEMVADecays[bkgIndex]  += myWeight*myWeight; passMVACut = true; }
+  }
+  nBgdEAcc = sqrt(nBgdEAcc);
+  nBgdECut = sqrt(nBgdECut);
+  nBgdEMVA = sqrt(nBgdEMVA);
+  Double_t PhotonSampelDYEstimateKappa = ( sqrt(PhotonSampleDYEstimateSysUncertainty) / nBgdCutDecays[4] ); //still need to add 30% in quadrature
+  printf("--- Finished Bgdnal loop\n");
+
+
+
+
+
+
+  //**************************************************************************
   //Data Loop
   //**************************************************************************
 
@@ -970,7 +1153,7 @@ void MakeHZZRes
     //************************************************************************************************
 
     if( njets != nJetsType ) continue; // select n-jet type events
-    if( !(lep1->pt() > 30 && lep2->pt() > 20 )) continue;
+    if( !(lep1->pt() > 20 && lep2->pt() > 20 )) continue;
     if( !((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection )) continue;
     if( !((cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection )) continue;
     if( !(type == SmurfTree::mm || type == SmurfTree::ee )) continue;
@@ -1005,8 +1188,8 @@ void MakeHZZRes
     if(mtHZZ >0) mtHZZ = sqrt(mtHZZ); else mtHZZ = 0.0;
     
     bool passCutBased = ( (0==0)
-                          && ( TMath::Min(met,trackMet) > cutMETLow[njets][mHIndex])
-                          && (mtHZZ > cutMTLow[njets][mHIndex] && mtHZZ < cutMTHigh[njets][mHIndex]) );
+                          && ( TMath::Min(met,trackMet) > cutMETLow[njets][mHIndex] )
+                          && ( mtHZZ > cutMTLow[njets][mHIndex] && mtHZZ < cutMTHigh[njets][mHIndex] ) );
     
     if(nJetsType == 2) {
       int centrality = 0;
@@ -1318,7 +1501,7 @@ void MakeHZZRes
       newcardShape << Form("QCDscale_qqH_EXTRAP            lnN 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
       newcardShape << Form("QCDscale_VH_EXTRAP             lnN 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
       newcardShape << Form("CMS_hww_%1dj_ttbar             lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType]);	     
-      newcardShape << Form("CMS_hww_%1dj_Z                 lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,ZXS_E); 		     
+      newcardShape << Form("CMS_hww_%1dj_Z                 lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,PhotonSampelDYEstimateKappa); // ZXS_E);   
       newcardShape << Form("CMS_hww_%1dj_WW                lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType],TopAndWWScaleFactorKappa[nJetsType]); 		     
       newcardShape << Form("CMS_hww_stat_%1dj_VH_bin%d     lnN %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[1]+1.0);
       newcardShape << Form("CMS_hww_stat_%1dj_qqH_bin%d    lnN 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[2]+1.0);
@@ -1374,7 +1557,7 @@ void MakeHZZRes
     newcardCut << Form("QCDscale_qqH_EXTRAP   	   lnN 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
     newcardCut << Form("QCDscale_VH_EXTRAP    	   lnN 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
     newcardCut << Form("CMS_hww_%1dj_ttbar	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType]);    
-    newcardCut << Form("CMS_hww_%1dj_Z  	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,ZXS_E); 	     
+    newcardCut << Form("CMS_hww_%1dj_Z  	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,PhotonSampelDYEstimateKappa); //ZXS_E); 	     
     newcardCut << Form("CMS_hww_%1dj_WW 	   lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType],TopAndWWScaleFactorKappa[nJetsType]); 		  
     newcardCut << Form("CMS_hww_stat_%1dj_VH	   lnN %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigECut[3]/TMath::Max((double)nSigCut[3],0.00001)+1.0);
     newcardCut << Form("CMS_hww_stat_%1dj_qqH	   lnN 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigECut[2]/TMath::Max((double)nSigCut[2],0.00001)+1.0);
@@ -1429,7 +1612,7 @@ void MakeHZZRes
     newcardMVA << Form("QCDscale_qqH_EXTRAP   	   lnN 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
     newcardMVA << Form("QCDscale_VH_EXTRAP    	   lnN 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
     newcardMVA << Form("CMS_hww_%1dj_ttbar	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType]);    
-    newcardMVA << Form("CMS_hww_%1dj_Z  	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,ZXS_E); 	     
+    newcardMVA << Form("CMS_hww_%1dj_Z  	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,PhotonSampelDYEstimateKappa); //,ZXS_E); 	     
     newcardMVA << Form("CMS_hww_%1dj_WW 	   lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType],TopAndWWScaleFactorKappa[nJetsType]); 		  
     newcardMVA << Form("CMS_hww_stat_%1dj_VH	   lnN %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigEMVA[3]/TMath::Max((double)nSigMVA[3],0.00001)+1.0);
     newcardMVA << Form("CMS_hww_stat_%1dj_qqH	   lnN 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigEMVA[2]/TMath::Max((double)nSigMVA[2],0.00001)+1.0);
