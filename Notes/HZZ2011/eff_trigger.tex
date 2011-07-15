@@ -13,13 +13,10 @@ probe the other lepton.
 
 %\subsubsection{Electron triggers}
 %%%%%% double
-The per electron efficiency for
-HLT\_Ele27\_CaloIdVT\_CaloIsoT\_TrkIdT\_TrkIsoT\_v*
-is given in Table \ref{tab:eff_trigger_ee}
-and the per electron efficiency for 
-HLT\_Ele17\_CaloIdL\_CaloIsoVL\_Ele8\_CaloIdL\_CaloIsoVL\_v* OR
-HLT\_Ele17\_\{CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL\}\_Ele8\_\{X\}\_v*
-is given in Table \ref{tab:eff_trigger_ee}.
+The per electron efficiency for the single electron triggers
+is given in Table \ref{tab:eff_trigger_e}
+and the per electron efficiency for the double electron triggers
+is given in Table \ref{tab:eff_trigger_ee}. 
 The double electron trigger requires the higher $p_T$ leg to be seeded at Level-1.
 The efficiency of the seeded leg with respect to a denominator object above the
 trigger $p_T$ threshold was found to be $0.993^{+0.001}_{-0.001}$ in the barrel and
@@ -29,19 +26,25 @@ HLT\_IsoMu17 OR HLT\_Mu24
 is given in Table \ref{tab:eff_trigger_m}
 and the per muon efficiency for HLT\_DoubleMu7, which requires both legs to be seeded
 at Level-1 is
-given in Table \ref{tab:eff_trigger_mm}.
+given in Table \ref{tab:eff_trigger_mm}. The listed values
+represent the overall efficiencies averaged over the run range
+of the dataset, absorbing changes in thresholds and seeding requirements
+over time.
 \vspace{10pt}
 \begin{table}[!ht]
 \begin{center}
 \begin{tabular}{c|c|c}
 \hline
-Measurement  & $0.00<|\eta|<1.479$  & $1.479<|\eta|<2.50$  \\ 
+Measurement  & $0.00<\eta<1.479$  & $1.479<\eta<2.50$  \\ 
 \hline
-$  10<p_T<  25$ & 0.00 $\pm$ 0.00  & 0.01 $\pm$ 0.00  \\ \hline 
-$  25<p_T<  30$ & 0.57 $\pm$ 0.01  & 0.34 $\pm$ 0.02  \\ \hline 
-$  p_T>  30$ & 0.98 $\pm$ 0.00  & 0.97 $\pm$ 0.00  \\ \hline 
+$  10<p_T<  25$ & 0.00 $\pm$ 0.00  & 0.00 $\pm$ 0.00  \\ \hline 
+$  25<p_T<  30$ & 0.17 $\pm$ 0.00  & 0.06 $\pm$ 0.00  \\ \hline 
+$  30<p_T<  35$ & 0.65 $\pm$ 0.00  & 0.52 $\pm$ 0.00  \\ \hline 
+$  35<p_T<  50$ & 0.98 $\pm$ 0.00  & 0.96 $\pm$ 0.00  \\ \hline 
+$  50<p_T<  55$ & 0.98 $\pm$ 0.00  & 0.97 $\pm$ 0.00  \\ \hline 
+$  p_T>     55$ & 0.98 $\pm$ 0.00  & 0.98 $\pm$ 0.00  \\ \hline 
 \end{tabular}
-\caption{The efficiency of HLT\_Ele27\_CaloIdVT\_CaloIsoT\_TrkIdT\_TrkIsoT\_v* as a function of $p_T$ and $|\eta|$.}
+\caption{Overall single electron efficiency as a function of $p_T$ and $|\eta|$.}
 \label{tab:eff_trigger_e}
 \end{center}
 \end{table}
@@ -52,14 +55,13 @@ $  p_T>  30$ & 0.98 $\pm$ 0.00  & 0.97 $\pm$ 0.00  \\ \hline
 \begin{center}
 \begin{tabular}{c|c|c}
 \hline
-Measurement  & $0.00<|\eta|<1.479$  & $1.479<|\eta|<2.50$  \\ 
+Measurement  & $0.00<\eta<1.479$  & $1.479<\eta<2.50$  \\ 
 \hline
-%$  10<p_T<  15$ & 0.97 $\pm$ 0.01  & 1.00 $\pm$ 0.02  \\ \hline 
-%$  15<p_T<  20$ & 0.99 $\pm$ 0.00  & 1.00 $\pm$ 0.00  \\ \hline 
-$  p_T>  20$ & 1.00 $\pm$ 0.00  & 1.00 $\pm$ 0.00  \\ \hline 
+%$  10<p_T<  15$ & 0.99 $\pm$ 0.00  & 0.99 $\pm$ 0.01  \\ \hline 
+%$  15<p_T<  20$ & 1.00 $\pm$ 0.00  & 1.00 $\pm$ 0.00  \\ \hline 
+$  p_T>     20$ & 1.00 $\pm$ 0.00  & 1.00 $\pm$ 0.00  \\ \hline 
 \end{tabular}
-\caption{The efficiency of HLT\_Ele17\_CaloIdL\_CaloIsoVL\_Ele8\_CaloIdL\_CaloIsoVL\_v* OR
-HLT\_Ele17\_\{CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL\}\_Ele8\_\{X\}\_v* as a function of $p_T$ and $|\eta|$.}
+\caption{Overall double electron trigger efficiency as a function of $p_T$ and $|\eta|$.}
 \label{tab:eff_trigger_ee}
 \end{center}
 \end{table}
@@ -70,18 +72,22 @@ HLT\_Ele17\_\{CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL\}\_Ele8\_\{X\}\_v* as a func
 \begin{center}
 \begin{tabular}{c|c|c|c|c}
 \hline
-Measurement  & $0.00<|\eta|<0.80$  & $0.80<|\eta|<1.479$  & $1.479<|\eta|<2.10$  & $2.10<|\eta|<2.40$  \\ 
+Measurement  & $0.00<\eta<0.80$  & $0.80<\eta<1.479$  & $1.479<\eta<2.10$  & $2.10<\eta<2.40$  \\ 
 \hline
-%$  10<p_T<  16$ & 0.00 $\pm$ 0.00  & 0.00 $\pm$ 0.00  & 0.00 $\pm$ 0.00  & 0.01 $\pm$ 0.01  \\ \hline 
-%$  16<p_T<  18$ & 0.53 $\pm$ 0.04  & 0.51 $\pm$ 0.04  & 0.46 $\pm$ 0.04  & 0.42 $\pm$ 0.06  \\ \hline 
-$  18<p_T<  23$ & 0.91 $\pm$ 0.01  & 0.82 $\pm$ 0.01  & 0.78 $\pm$ 0.02  & 0.62 $\pm$ 0.03  \\ \hline 
-$  23<p_T<  25$ & 0.94 $\pm$ 0.01  & 0.87 $\pm$ 0.02  & 0.81 $\pm$ 0.02  & 0.68 $\pm$ 0.04  \\ \hline 
-$  p_T>  25$ & 0.96 $\pm$ 0.00  & 0.90 $\pm$ 0.00  & 0.85 $\pm$ 0.00  & 0.70 $\pm$ 0.01  \\ \hline 
+%$  10<p_T<  14$ & 0.00 $\pm$ 0.00  & 0.00 $\pm$ 0.00  & 0.00 $\pm$ 0.00  & 0.01 $\pm$ 0.01  \\ \hline 
+%$  14<p_T<  16$ & 0.05 $\pm$ 0.01  & 0.03 $\pm$ 0.01  & 0.03 $\pm$ 0.01  & 0.02 $\pm$ 0.01  \\ \hline 
+%$  16<p_T<  18$ & 0.54 $\pm$ 0.02  & 0.52 $\pm$ 0.01  & 0.54 $\pm$ 0.02  & 0.45 $\pm$ 0.02  \\ \hline 
+$  18<p_T<  23$ & 0.92 $\pm$ 0.00  & 0.87 $\pm$ 0.00  & 0.84 $\pm$ 0.01  & 0.69 $\pm$ 0.01  \\ \hline 
+$  23<p_T<  25$ & 0.91 $\pm$ 0.00  & 0.87 $\pm$ 0.01  & 0.85 $\pm$ 0.01  & 0.71 $\pm$ 0.01  \\ \hline 
+$  25<p_T<  29$ & 0.92 $\pm$ 0.00  & 0.86 $\pm$ 0.00  & 0.85 $\pm$ 0.00  & 0.72 $\pm$ 0.01  \\ \hline 
+$  29<p_T<  31$ & 0.94 $\pm$ 0.00  & 0.89 $\pm$ 0.00  & 0.85 $\pm$ 0.01  & 0.75 $\pm$ 0.01  \\ \hline 
+$  p_T>     31$ & 0.96 $\pm$ 0.00  & 0.92 $\pm$ 0.00  & 0.88 $\pm$ 0.00  & 0.76 $\pm$ 0.00  \\ \hline 
 \end{tabular}
-\caption{The efficiency of HLT\_IsoMu17 OR HLT\_Mu24 as a function of $p_T$ and $|\eta|$.}
+\caption{Overall single muon trigger efficiency as a function of $p_T$ and $|\eta|$.}
 \label{tab:eff_trigger_m}
 \end{center}
 \end{table}
+
 %
 %
 %
@@ -90,13 +96,30 @@ $  p_T>  25$ & 0.96 $\pm$ 0.00  & 0.90 $\pm$ 0.00  & 0.85 $\pm$ 0.00  & 0.70 $\p
 \begin{tabular}{c|c|c|c}
 \hline
 Measurement  & $0.00<|\eta|<0.80$  & $0.80<|\eta|<1.20$  & $1.20<|\eta|<2.40$  \\ \hline
-%$  10<p_T<  20$ & 0.97 $\pm$ 0.01  & 0.94 $\pm$ 0.02  & 0.93 $\pm$ 0.01  \\ \hline 
-$  p_T > 20$ & 0.97 $\pm$ 0.00  & 0.94 $\pm$ 0.00  & 0.95 $\pm$ 0.00  \\ \hline 
+$  10<p_T<  15$ & 0.94 $\pm$ 0.02  & 0.92 $\pm$ 0.02  & 0.94 $\pm$ 0.01  \\ \hline 
+$  15<p_T<  20$ & 0.97 $\pm$ 0.01  & 0.96 $\pm$ 0.01  & 0.96 $\pm$ 0.00  \\ \hline 
+$  p_T>     20$ & 0.97 $\pm$ 0.00  & 0.95 $\pm$ 0.00  & 0.95 $\pm$ 0.00  \\ \hline 
 \end{tabular}
-\caption{The efficiency of HLT\_DoubleMu7 with respect to the offline selection as a function of $p_T$ and $|\eta|$.}
+\caption{Overall double muon trigger efficiency as a function of $p_T$ and $|\eta|$.}
 \label{tab:eff_trigger_mm}
 \end{center}
 \end{table}
+
+In the case of the $e\mu$ triggers, the efficiency of the muon leg can be
+taken from Table \ref{tab:eff_trigger_mm} because the 
+requirements other than the $p_T$ threshold are the similar.
+In the case of the electron leg, the requirements applied are looser
+to those of the double electron triggers.
+The efficiency of the electron leg was cross checked using $t\bar{t}$ 
+events in the $e\mu$ final state using the tag
+and probe method described previously.
+In this case the tag was required to be a muon passing the muon part of the
+trigger, and the probe was an electron passing the offline selection.
+To select a well defined $t\bar{t}$ event sample, the MET was required to be
+above $20~GeV$.
+The efficiency was consistent with the other double electron triggers,
+thus the electron leg can be taken from 
+Table \ref{tab:eff_trigger_ee}.
 
 Having measured the per lepton trigger efficiencies 
 and for the double and single trigger,
@@ -118,43 +141,6 @@ $\varepsilon_{D}(p_T,\:\eta)$ is the per leg efficiency of the double trigger.
                &   & +~\varepsilon_{S}(p_T,\:\eta)(1-\varepsilon_{D}(p_T',\:\eta'))
 \end{eqnarray}
 
-The procedure of Equation \ref{eqn:evteff} is applied to simulated Higgs boson decays to obtain an event-by-event weight factor. 
-We find a trigger efficiency with respect to the offline selection of higher than $99\%$ for all masses considered.% above $160\:\GeVcc$.
-
-%Since the triggers involve different lepton flavour 
-%combinations, an overall dilepton efficiency is computed for each final state ($ee$, $e\mu$, and $\mu\mu$) 
-%by the weighted average of efficiencies from the various trigger paths. For a pair of selected leptons of flavour 
-%$\ell$ and $\ell'$ with kinematics $(p_T,\:\eta)$ and $(p'_T,\:\eta')$, 
-%
-%\begin{equation}
-%\varepsilon_{\ell\ell'}(p_T,\:\eta,\:p'_T,\:\eta') = \sum_i f_i\cdot\varepsilon_i(p_T,\:\eta,\:\ell,\:p'_T,\:\eta',\:\ell'),
-%\end{equation}
-%
-%where the summation index $i$ runs over all the trigger paths used to obtain the signal sample and $f_i$
-%is the weight of the contribution to the overall efficiency from each trigger.
-%
-%The determination of $f_i$ comes from the fraction of selected events in data which came 
-%through that trigger path. For example, if $10\%$ of the selected $\mu\mu$ events were triggered 
-%by HLT\_IsoMu17, then the overall efficiency for $\mu\mu$ events will include the efficiency 
-%of HLT\_IsoMu17 weighted by $f_i=0.1$. There is no ambiguity in the assignment of a selected event to
-%a trigger since the trigger requirements are applied in a mutually exclusive way: the selection is
-%performed by checking each trigger sequentially and requiring that an event passing a trigger
-%must not have also passed another trigger previously in the sequence.
-%
-%For each trigger path, the determination of $\varepsilon_i$ from the measured single leg efficiencies depends
-%on whether the trigger is a single or a double lepton trigger. For a single lepton trigger,
-%
-%\begin{equation}
-%\varepsilon_{single}(p_T,\:\eta,\:\ell',\:p'_T,\:\eta',\:\ell') = 
-%1 - \left(1-\varepsilon_{leg}(p_T,\:\eta)\right)\left(1-\varepsilon_{leg}(p'_T,\:\eta')\right),
-%\end{equation}
-%
-%whereas for a double lepton trigger,
-%
-%\begin{equation}
-%\varepsilon_{double}(p_T,\:\eta,\:\ell',\:p'_T,\:\eta',\:\ell') = \varepsilon_{leg}(p_T,\:\eta)\cdot\varepsilon_{leg}(p'_T,\:\eta').
-%\end{equation}
-%
-%If there is a mismatch of lepton flavour with the trigger (e.g. $\ell=e$ and $i=$HLT\_IsoMu17) then $\varepsilon_{leg}=0$.
-
+The procedure of Equation \ref{eqn:evteff} is applied to simulated Higgs boson decays to obtain an event-by-event weight factor. We find a 
+trigger efficiency with respect to the offline selection of higher than $99\%$ for all masses considered.
 
