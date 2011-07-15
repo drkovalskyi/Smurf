@@ -28,7 +28,7 @@ The photon data sample is selected by requiring one and only one photon passing 
 identification and isolation requirements, summarized in Table \ref{tab:PhotonSelection} below 
 \cite{MITHggNote}. 
 An electron veto is imposed on the photon, requiring that no GSF electron which does not match to 
-one leg of a well reconstructed convert is sharing the same supercluster as the photon
+one leg of a well reconstructed conversion is sharing the same supercluster as the photon
 candidate. This is intended to reduce contributions from W bosons decaying to electrons, misidentified
 as photons. To reduce contamination from $W$+$\gamma$ events, we veto any events with one or 
 more well identified leptons.
@@ -81,7 +81,6 @@ The electron selection is the same as in 2010 analysis and the results is scaled
 \end{center}
 \end{table}
 
-
 Since the fake \met is due to mismeasurement of the hadronic recoil, we parameterize the 
 modelling of the \met distribution in the $p_{T}$ of the photon / dilepton system and 
 the number of counted jets. Both variables are highly correlated with the behavior 
@@ -95,7 +94,8 @@ in the $\gamma$+jets data sample and the dilepton data sample:
 
 In order for these reweighting factors to be insensitive to the presence of signal or backgrounds with 
 real \met, we build these weight factors on a $\gamma$+jets and $Z$+jets sample imposing an anti-selection
-on the \met : $\met < 30$ GeV. For the $Z$+jets sample, the full $H \to ZZ$ preselection is imposed, 
+on the minimum of the \met and the track \met at below $50$ GeV. For the $Z$+jets sample, 
+the full $H \to ZZ$ preselection is imposed, 
 including the top veto and the third lepton veto.
 
 Finally, to model the \met distribution for the final selection we select $\gamma$+jets events
@@ -144,9 +144,9 @@ track \met and the particle flow \met, which shows better agreement than the tra
 
 \begin{figure}[!htbp]
 \begin{center}
-\subfigure[0-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_0Jet_PFMET.pdf}}
-\subfigure[1-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_1Jet_PFMET.pdf}}
-\subfigure[2-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_2Jet_PFMET.pdf}}
+\subfigure[0-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_0Jet_PFMET.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_1Jet_PFMET.pdf}}
+\subfigure[2-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_2Jet_PFMET.pdf}}
 \caption{Comparison of the particle flow \met prediction from the reweighted $\gamma$+jets sample
 and the simulation prediction from the $Z$+jets sample.}
 \label{fig:PhotonJetsClosureTest_TrackMET}
@@ -155,9 +155,9 @@ and the simulation prediction from the $Z$+jets sample.}
 
 \begin{figure}[!htbp]
 \begin{center}
-\subfigure[0-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_0Jet_TrackMET.pdf}}
-\subfigure[1-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_1Jet_TrackMET.pdf}}
-\subfigure[2-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_2Jet_TrackMET.pdf}}
+\subfigure[0-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_0Jet_TrackMET.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_1Jet_TrackMET.pdf}}
+\subfigure[2-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_2Jet_TrackMET.pdf}}
 \caption{Comparison of the particle flow track \met prediction from the reweighted $\gamma$+jets sample
 and the simulation prediction from the $Z$+jets sample.}
 \label{fig:PhotonJetsClosureTest_TrackMET}
@@ -166,9 +166,9 @@ and the simulation prediction from the $Z$+jets sample.}
 
 \begin{figure}[!htbp]
 \begin{center}
-\subfigure[0-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_0Jet_MinMET.pdf}}
-\subfigure[1-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_1Jet_MinMET.pdf}}
-\subfigure[2-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_2Jet_MinMET.pdf}}
+\subfigure[0-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_0Jet_MinMET.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_1Jet_MinMET.pdf}}
+\subfigure[2-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_2Jet_MinMET.pdf}}
 \caption{Comparison of the minimum of particle flow \met and particle flow track \met prediction from
 the reweighted $\gamma$+jets sample and the simulation prediction from the $Z$+jets sample.}
 \label{fig:PhotonJetsClosureTest_TrackMET}
@@ -177,9 +177,9 @@ the reweighted $\gamma$+jets sample and the simulation prediction from the $Z$+j
 
 \begin{figure}[!htbp]
 \begin{center}
-\subfigure[0-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_0Jet_Dphi.pdf}}
-\subfigure[1-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_1Jet_Dphi.pdf}}
-\subfigure[2-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_2Jet_Dphi.pdf}}
+\subfigure[0-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_0Jet_Dphi.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_1Jet_Dphi.pdf}}
+\subfigure[2-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_2Jet_Dphi.pdf}}
 \caption{Comparison of the $\Delta\phi$ between the dilepton system and the leading jet 
 (with $p_{T} > 15$ GeV) in the event between the reweighted $\gamma$+jets sample and the 
 simulation prediction from the $Z$+jets sample.}
@@ -195,9 +195,9 @@ The predicted shape and the simulation shape are again in reasonable agreement.
 
 \begin{figure}[!htbp]
 \begin{center}
-\subfigure[0-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_0Jet_MtHZZ_NoMetCut.pdf}}
-\subfigure[1-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_1Jet_MtHZZ_NoMetCut.pdf}}
-\subfigure[2-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_2Jet_MtHZZ_NoMetCut.pdf}}
+\subfigure[0-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_0Jet_MtHZZ_NoMetCut.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_1Jet_MtHZZ_NoMetCut.pdf}}
+\subfigure[2-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_2Jet_MtHZZ_NoMetCut.pdf}}
 \caption{Comparison of the transverse mass prediction from the reweighted $\gamma$+jets sample 
 and the simulation prediction from the $Z$+jets sample, where no \met cut has been applied.}
 \label{fig:PhotonJetsClosureTest_MtHZZ_NoMetCut}
@@ -206,9 +206,9 @@ and the simulation prediction from the $Z$+jets sample, where no \met cut has be
 
 \begin{figure}[!htbp]
 \begin{center}
-\subfigure[0-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_0Jet_MtHZZ_MetPresel.pdf}}
-\subfigure[1-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_1Jet_MtHZZ_MetPresel.pdf}}
-\subfigure[2-Jet]{\includegraphics[width=0.45\textwidth]{figures/PhotonJetsClosureTest_2Jet_MtHZZ_MetPresel.pdf}}
+\subfigure[0-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_0Jet_MtHZZ_MetPresel.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_1Jet_MtHZZ_MetPresel.pdf}}
+\subfigure[2-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_2Jet_MtHZZ_MetPresel.pdf}}
 \caption{Comparison of the transverse mass prediction from the reweighted $\gamma$+jets sample 
 and the simulation prediction from the $Z$+jets sample, where the minimum \met is required to be larger than 
 $40$ GeV. }
@@ -226,27 +226,57 @@ systematic uncertainties of $30\%$ in all the jet bins.
 
 \subsubsection{Data Estimate}
 
-The predictions for the minimum \met is compared with the results obtained in the first $187$\ipb 
-of Run2011 data in Fig \ref{}, separately for the 0-jet, 1-jet, and 2-jet bins. Including all of the
-backgrounds with real \met, we obtain reasonable agreement with data. 
+The predictions for the minimum \met and MT are compared with the results obtained in the first $1092\ipb$ 
+of Run2011 data in Figures \ref{fig:PhotonJetsDataPreselMinMet} and \ref{fig:PhotonJetsDataPreselMinMet} respectively
+This is done sparately for the 0-jet and 1-jet bins. 
+Including all of the backgrounds with real \met, we obtain reasonable agreement with data. 
 
 Based on the $\gamma$+jet sample prediction, we obtain the background predictions for the
 preselection and all the mass dependent cut-based analyses summarized in Table \ref{tab:DYBkgPrediction}.
 
 \begin{table}[!htbp]
 \begin{center}
+{\footnotesize
 \begin{tabular}{|l|c|c|c|c|}
 \hline
 Higgs Mass      &  0-jet bin             & 1-jet bin             & 2-jet bin             & Total                \\
 \hline
-ZZ Preselection &  $0.01 \pm 0.00$(stat) & $0.08 \pm 0.02$(stat) & $0.22 \pm 0.07$(stat) $ 0.31 \pm 0.11$(stat) \\
-\hline
-250             &  $0.01 \pm 0.00$(stat) & $0.08 \pm 0.02$(stat) & $0.22 \pm 0.07$(stat) $ 0.31 \pm 0.11$(stat) \\
-300             &  $0.01 \pm 0.00$(stat) & $0.08 \pm 0.02$(stat) & $0.22 \pm 0.07$(stat) $ 0.31 \pm 0.11$(stat) \\
-400             &  $0.01 \pm 0.00$(stat) & $0.08 \pm 0.02$(stat) & $0.22 \pm 0.07$(stat) $ 0.31 \pm 0.11$(stat) \\
+ZZ Preselection &  $16.34\pm0.15\pm4.9$ (stat) & $17.57\pm0.15\pm5.27$(stat)       & $99.10\pm0.24\pm29.73$(stat) & $133.0\pm0.32\pm30.59$(stat) \\ \hline
+250             &  $6.73\pm0.11\pm2.00$ (stat)  & $4.76\pm0.03\pm1.43$(stat)       & N/A                          & $11.49\pm0.11\pm2.46$(stat)\\
+300             &  $0.51\pm0.05\pm0.15$ (stat)  & $0.33\pm0.01\pm0.01$(stat)       & N/A                          & $0.84\pm0.05\pm0.15$(stat)\\
+400             &  $0.00\pm0.00\pm0.00$ (stat)  & $0.87\pm0.07\pm0.26$(stat)       & N/A                          & $0.87\pm0.07\pm0.26$(stat)\\
 \hline
 \end{tabular}
-\caption{Summary of $Z$+jets background yields estimated using $\gamma$+jets events in 187 $\ipb$.}
+}
+\caption{Summary of $Z$+jets background yields estimated using $\gamma$+jets events in 1092 $\ipb$.}
 \label{tab:DYBkgPrediction}
 \end{center}
 \end{table}
+
+%
+% plots in data at the preselection stage 
+%
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[0-Jet]{\includegraphics[width=0.45\textwidth]{figures/hzz300_minmet_0j_log.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.45\textwidth]{figures/hzz300_minmet_1j_log.pdf}}
+\caption{Comparison of the minimum of the \met and track \met rediction from the reweighted $\gamma$+jets sample
+and the dilepton data sample in 1092 $\ipb$. The non Drell-Yan backgrounds are stacked MC scaled from data as appropriate.
+The reweighted $\gamma$+jets prediction is not stacked dle FIXME.}
+\label{fig:PhotonJetsDataPreselMinMet}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[0-Jet]{\includegraphics[width=0.45\textwidth]{figures/hzz300_mt_0j.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.45\textwidth]{figures/hzz300_mt_1j.pdf}}
+\caption{Comparison of the MT prediction from the reweighted $\gamma$+jets sample
+and the dilepton data sample in 1092 $\ipb$ after requiring the minimum of \met and tracker \met to be above 50 GeV. 
+The non Drell-Yan backgrounds are stacked MC scaled from data as appropriate.
+The reweighted $\gamma$+jets prediction is not stacked dle FIXME.}
+\label{fig:PhotonJetsDataPreselMT}
+\end{center}
+\end{figure}
+
