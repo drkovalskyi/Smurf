@@ -1,7 +1,7 @@
-We perform the analysis on a dataset corresponding to $187\pm7\ipb$ integrated luminosity.
+We perform the analysis on a dataset corresponding to $1.1\pm0.1\ifb$ integrated luminosity.
 
 Table~\ref{tab:zzselection_all} shows the number of events observed in 
-data, comparing to the expected background contribution at the \zz{} 
+data, comparing to the expected background contribution at the \zz 
 preselection level. The background estimation was discussed at Section~\ref{sec:backgrounds}. 
 Figure~\ref{fig:zz_0j_1} the distributions of key analysis variables observed in data, comparing 
 to the SM expectations from simulation in the 0-jet bin final state.  
@@ -11,7 +11,7 @@ to the SM expectations from simulation in the 0-jet bin final state.
 \begin{center}
 \begin{tabular} {c|c|c|cccc}
 \hline
- Jet-Bin & data & all bkg. & peaking-$WZ$/$ZZ$ & $\WW$+$\ttbar+tW$ & $\dyll$ & $\Wjets$ \\
+ Jet-Bin & data & all bkg. & peaking-$\WZ$/$\ZZ$ & $\WW$+$\ttbar+tW$ & $\dyll$ & $\Wjets$ \\
 \hline
  0-Jet & X & X & X  & X & X & X\\
  1-Jet & X & X & X  & X & X & X\\
@@ -20,21 +20,21 @@ to the SM expectations from simulation in the 0-jet bin final state.
 \hline
 \end{tabular}
 \caption{Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of $187\pm7\ipb$ after applying the $\ZZ$ selection requirements. 
+  integrated luminosity of \intlumi  after applying the $\ZZ$ selection requirements. 
 Both statistical and systematic uncertaities are reported. }
    \label{tab:zzselection_all}
   \end{center}
 \end{table}
 %%%%%%%%
 
-Table~\ref{tab:yield_0j_zzpresel}-\ref{tab:yield_1j_zzpresel} shows the number of observed events after the $\ZZ$ 
+Table~\ref{tab:yield_zzpresel} shows the number of observed events in data after the $\ZZ$ 
 selection, compared to the expected number of signal and background events from the data-driven methods for an 
- integrated luminosity of $187\pm7\ipb$ in the 0 and 1 jet bins. 
+ integrated luminosity of \intlumi  in the 0 and 1 jet bins. 
 The MC expectations includes the lepton efficiencies, trigger 
 efficiencies, pileup reweighting, higher order reweighting on the $\hzz$ and $\pt$-dependent 
 reweighting on $\ZZ$ and the data/simulation scale factors derived in Section~\ref{sec:backgrounds}.  
-Table~\ref{tab:yield_0j_hzz200}-\ref{tab:yield_1j_hzz400} shows the equivalent results 
-applying the $\hzz$ ($m_{H}=200,250,300,500\GeVcc$) selections~\ref{sec:signal_selection}.
+Tables~\ref{tab:yield_hzz200}-\ref{tab:yield_hzz400} shows the equivalent results 
+applying the $\hzz$ ($m_{H}=200,250,300,400\GeVcc$) selections~\ref{sec:signal_selection}.
 
 
 %%%%%%%%
@@ -43,192 +43,50 @@ applying the $\hzz$ ($m_{H}=200,250,300,500\GeVcc$) selections~\ref{sec:signal_s
 \begin{tabular}{c|cc|c}
 \hline
 sample    & $\mu\mu$   & ee     & TOTAL\\ \hline 
-hzz300   & 0.43 $\pm$ 0.01   & 0.31 $\pm$ 0.00   & 0.74 $\pm$ 0.01 \\ \hline 
-hww300   & 0.13 $\pm$ 0.00   & 0.10 $\pm$ 0.00   & 0.22 $\pm$ 0.01 \\ \hline 
-wjets   & 0.00 $\pm$ 0.00   & 0.26 $\pm$ 0.12   & 0.26 $\pm$ 0.12 \\ \hline 
-qqww   & 2.12 $\pm$ 0.07   & 1.43 $\pm$ 0.06   & 3.55 $\pm$ 0.09 \\ \hline 
-ggww   & 0.13 $\pm$ 0.01   & 0.09 $\pm$ 0.01   & 0.22 $\pm$ 0.01 \\ \hline 
-wz   & 1.22 $\pm$ 0.05   & 0.72 $\pm$ 0.04   & 1.94 $\pm$ 0.06 \\ \hline 
-$\zz$   & 2.49 $\pm$ 0.05   & 1.72 $\pm$ 0.04   & 4.21 $\pm$ 0.06 \\ \hline 
-$\ttbar$   & 0.28 $\pm$ 0.12   & 0.08 $\pm$ 0.05   & 0.36 $\pm$ 0.13 \\ \hline 
-$\tw$   & 0.12 $\pm$ 0.03   & 0.12 $\pm$ 0.03   & 0.24 $\pm$ 0.04 \\ \hline 
-$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\dyll$   & 1.28 $\pm$ 0.04   & 1.28 $\pm$ 0.04   & 2.57 $\pm$ 0.05 \\ \hline 
-SIGNAL   & 0.43 $\pm$ 0.01   & 0.31 $\pm$ 0.00   & 0.74 $\pm$ 0.01 \\ \hline 
-BKGD   & 7.78 $\pm$ 0.16   & 5.79 $\pm$ 0.16   & 13.57 $\pm$ 0.23 \\ \hline 
-DATA   & 10.00 $\pm$ 3.16   & 8.00 $\pm$ 2.83   & 18.00 $\pm$ 4.24 \\ \hline 
+\multicolumn{4}{c} { 0 Jet Bin} \\
+\hline
+%hww300   & 0.74 $\pm$ 0.03   & 0.55 $\pm$ 0.02   & 1.29 $\pm$ 0.04 \\  
+$\wjets$   & 0.00 $\pm$ 0.00   & 1.29 $\pm$ 0.63   & 1.29 $\pm$ 0.63 \\  
+\qqww   & 10.91 $\pm$ 0.35   & 7.09 $\pm$ 0.27   & 17.99 $\pm$ 0.45 \\  
+\ggww   & 0.68 $\pm$ 0.04   & 0.46 $\pm$ 0.03   & 1.14 $\pm$ 0.05 \\  
+\wz   & 7.12 $\pm$ 0.30   & 4.03 $\pm$ 0.22   & 11.15 $\pm$ 0.37 \\  
+$\ZZ$   & 14.54 $\pm$ 0.28   & 9.67 $\pm$ 0.22   & 24.21 $\pm$ 0.35 \\  
+$\ttbar$   & 1.44 $\pm$ 0.63   & 0.41 $\pm$ 0.25   & 1.85 $\pm$ 0.67 \\  
+$\tw$   & 0.63 $\pm$ 0.16   & 0.58 $\pm$ 0.15   & 1.21 $\pm$ 0.22 \\  
+$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+$\dyll$   & 8.17 $\pm$ 0.10   & 8.17 $\pm$ 0.10   & 16.34 $\pm$ 0.15 \\  
+\hline
+Background   & 43.49 $\pm$ 0.85   & 31.70 $\pm$ 0.81   & 75.18 $\pm$ 1.17 \\  
+hzz300   & 2.50 $\pm$ 0.03   & 1.75 $\pm$ 0.03   & 4.25 $\pm$ 0.04 \\  
+\hline
+DATA   & 39.00 $\pm$ 6.24   & 31.00 $\pm$ 5.57   & 70.00 $\pm$ 8.37 \\ 
+\hline 
+\multicolumn{4}{c} { 1 Jet Bin} \\
+\hline
+$\wjets$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+\qqww   & 3.11 $\pm$ 0.18   & 2.04 $\pm$ 0.14   & 5.15 $\pm$ 0.23 \\  
+\ggww   & 0.21 $\pm$ 0.02   & 0.14 $\pm$ 0.02   & 0.34 $\pm$ 0.03 \\  
+\wz   & 3.74 $\pm$ 0.22   & 2.50 $\pm$ 0.17   & 6.24 $\pm$ 0.28 \\  
+\zz   & 3.68 $\pm$ 0.14   & 2.59 $\pm$ 0.11   & 6.27 $\pm$ 0.18 \\  
+$\ttbar$  & 2.35 $\pm$ 0.70   & 2.77 $\pm$ 0.81   & 5.11 $\pm$ 1.07 \\  
+\tw   & 0.72 $\pm$ 0.15   & 0.82 $\pm$ 0.17   & 1.54 $\pm$ 0.23 \\  
+$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+$\dyll$  & 8.79 $\pm$ 0.11   & 8.79 $\pm$ 0.11   & 17.57 $\pm$ 0.15 \\  
+\hline
+Background   & 22.59 $\pm$ 0.79   & 19.63 $\pm$ 0.87   & 42.22 $\pm$ 1.17 \\  
+hzz300   & 1.42 $\pm$ 0.02   & 0.98 $\pm$ 0.02   & 2.40 $\pm$ 0.03 \\  
+\hline
+DATA   & 21.00 $\pm$ 4.58   & 18.00 $\pm$ 4.24   & 39.00 $\pm$ 6.24 \\ 
+\hline
 \end{tabular}
 \caption{
 Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of $187\pm7\ipb$ after the {\bf $\ZZ$ pre-selection in the 0-Jet bin}. 
+  integrated luminosity of \intlumi  after the {\bf $\ZZ$ pre-selection in the 0/1-Jet bin}. 
 Only statistical uncertainties are reported. The MC expectations includes the lepton efficiencies, 
 trigger efficiencies, pileup reweighting, 
 higher order reweighting on the $\hzz$ and $\pt$-dependent reweighting on $\ZZ$. The $\ttbar$, 
 $\tw$, $\ww$, $\dytt$ and $\wjets$ yields include the data/MC scale factors derived in section~\ref{sec:backgrounds}. }
-\label{tab:yield_0j_zzpresel}
-\end{center}
-%\end{table}
-%%%%%%%%
-%%%%%%%%
-%\begin{table}[!ht]
-\begin{center}
-\begin{tabular}{c|cc|c}
-\hline
-sample    & $\mu\mu$   & ee     & TOTAL\\ \hline 
-hzz300   & 0.24 $\pm$ 0.00   & 0.17 $\pm$ 0.00   & 0.42 $\pm$ 0.01 \\ \hline 
-hww300   & 0.08 $\pm$ 0.00   & 0.05 $\pm$ 0.00   & 0.14 $\pm$ 0.00 \\ \hline 
-wjets   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-qqww   & 0.54 $\pm$ 0.03   & 0.37 $\pm$ 0.03   & 0.91 $\pm$ 0.04 \\ \hline 
-ggww   & 0.04 $\pm$ 0.00   & 0.02 $\pm$ 0.00   & 0.06 $\pm$ 0.00 \\ \hline 
-wz   & 0.64 $\pm$ 0.04   & 0.44 $\pm$ 0.03   & 1.09 $\pm$ 0.05 \\ \hline 
-zz   & 0.63 $\pm$ 0.02   & 0.46 $\pm$ 0.02   & 1.09 $\pm$ 0.03 \\ \hline 
-ttbar   & 0.41 $\pm$ 0.12   & 0.50 $\pm$ 0.15   & 0.91 $\pm$ 0.19 \\ \hline 
-tw   & 0.13 $\pm$ 0.03   & 0.15 $\pm$ 0.03   & 0.27 $\pm$ 0.04 \\ \hline 
-zttjets   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\dyll$   & 1.31 $\pm$ 0.02   & 1.31 $\pm$ 0.02   & 2.62 $\pm$ 0.02 \\ \hline 
-SIGNAL   & 0.24 $\pm$ 0.00   & 0.17 $\pm$ 0.00   & 0.42 $\pm$ 0.01 \\ \hline 
-BKGD   & 3.78 $\pm$ 0.14   & 3.31 $\pm$ 0.16   & 7.08 $\pm$ 0.21 \\ \hline 
-DATA   & 7.00 $\pm$ 2.65   & 1.00 $\pm$ 1.00   & 8.00 $\pm$ 2.83 \\ \hline 
-\end{tabular}
-\caption{
-Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of $187\pm7\ipb$ after the {\bf $\ZZ$ pre-selection in the 1-Jet bin}. 
-Only statistical uncertainties are reported. The MC expectations includes the lepton efficiencies, 
-trigger efficiencies, pileup reweighting, 
-higher order reweighting on the $\hzz$ and $\pt$-dependent reweighting on $\ZZ$. The $\ttbar$, 
-$\tw$, $\ww$, $\dytt$ and $\wjets$ yields include the data/MC scale factors derived in section~\ref{sec:backgrounds}. }
-\label{tab:yield_1j_zzpresel}
-\end{center}
-\end{table}
-%%%%%%%%
-
-
-
-
-%%%%%%%%
-\begin{table}[!ht]
-\begin{center}
-\begin{tabular}{c|cc|c}
-\hline
-sample    & $\mu\mu$   & ee     & TOTAL\\ \hline 
-hzz200   & 0.02 $\pm$ 0.00   & 0.01 $\pm$ 0.00   & 0.03 $\pm$ 0.00 \\ \hline 
-hww200   & 0.15 $\pm$ 0.01   & 0.11 $\pm$ 0.01   & 0.26 $\pm$ 0.01 \\ \hline 
-wjets   & 0.00 $\pm$ 0.00   & 0.02 $\pm$ 0.02   & 0.02 $\pm$ 0.02 \\ \hline 
-qqww   & 0.89 $\pm$ 0.04   & 0.58 $\pm$ 0.03   & 1.47 $\pm$ 0.06 \\ \hline 
-ggww   & 0.04 $\pm$ 0.00   & 0.04 $\pm$ 0.00   & 0.08 $\pm$ 0.01 \\ \hline 
-$\WZ$   & 0.36 $\pm$ 0.03   & 0.22 $\pm$ 0.02   & 0.58 $\pm$ 0.03 \\ \hline 
-$\ZZ$   & 0.53 $\pm$ 0.02   & 0.35 $\pm$ 0.02   & 0.88 $\pm$ 0.03 \\ \hline 
-$\ttbar$   & 0.06 $\pm$ 0.05   & 0.00 $\pm$ 0.00   & 0.06 $\pm$ 0.05 \\ \hline 
-$\tw$   & 0.05 $\pm$ 0.02   & 0.05 $\pm$ 0.02   & 0.09 $\pm$ 0.03 \\ \hline 
-$dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-gamma   & 0.53 $\pm$ 0.01   & 0.53 $\pm$ 0.01   & 1.06 $\pm$ 0.02 \\ \hline 
-SIGNAL   & 0.02 $\pm$ 0.00   & 0.01 $\pm$ 0.00   & 0.03 $\pm$ 0.00 \\ \hline 
-BKGD   & 2.61 $\pm$ 0.08   & 1.89 $\pm$ 0.05   & 4.50 $\pm$ 0.10 \\ \hline 
-DATA   & 2.00 $\pm$ 1.41   & 2.00 $\pm$ 1.41   & 4.00 $\pm$ 2.00 \\ \hline 
-\end{tabular}
-\caption{Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of $187\pm7\ipb$ after applying the {\bf $\hzz$ ($m_H = 200\GeVcc$) selection in the 0-Jet bin}. 
-Only statistical uncertainties are reported. 
-The MC expectations includes the lepton efficiencies, trigger efficiencies, pileup reweighting, 
-higher order reweighting on the $\hzz$ and $\pt$-dependent reweighting on $\ZZ$. The $\ttbar$, 
-$\tw$, $\ww$, $\dytt$ and $\wjets$ yields include the data/MC scale factors derived in section~\ref{sec:backgrounds}. }
-\label{tab:yield_0j_hzz200}
-\end{center}
-%\end{table}
-%%%%%%%%
-%%%%%%%%
-%\begin{table}[!ht]
-\begin{center}
-\begin{tabular}{c|cc|c}
-\hline
-sample    & $\mu\mu$   & ee     & TOTAL\\ \hline 
-hzz200   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.01 $\pm$ 0.00 \\ \hline 
-hww200   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.01 $\pm$ 0.00 \\ \hline 
-wjets   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-qqww   & 0.01 $\pm$ 0.00   & 0.01 $\pm$ 0.00   & 0.02 $\pm$ 0.01 \\ \hline 
-ggww   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\WZ$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\ZZ$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.01 $\pm$ 0.00 \\ \hline 
-$\ttbar$   & 0.01 $\pm$ 0.01   & 0.00 $\pm$ 0.00   & 0.01 $\pm$ 0.01 \\ \hline 
-$\tw$   & 0.01 $\pm$ 0.01   & 0.00 $\pm$ 0.00   & 0.01 $\pm$ 0.01 \\ \hline 
-$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\dyll$   & 0.02 $\pm$ 0.00   & 0.02 $\pm$ 0.00   & 0.04 $\pm$ 0.00 \\ \hline 
-SIGNAL   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.01 $\pm$ 0.00 \\ \hline 
-BKGD   & 0.06 $\pm$ 0.02   & 0.03 $\pm$ 0.01   & 0.10 $\pm$ 0.02 \\ \hline 
-DATA   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-\end{tabular}
-\caption{Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of $187\pm7\ipb$ after applying the {\bf $\hzz$ ($m_H = 200\GeVcc$) selection in the 1-Jet bin}. 
-Only statistical uncertainties are reported. 
-The MC expectations includes the lepton efficiencies, trigger efficiencies, pileup reweighting, 
-higher order reweighting on the $\hzz$ and $\pt$-dependent reweighting on $\ZZ$. The $\ttbar$, 
-$\tw$, $\ww$, $\dytt$ and $\wjets$ yields include the data/MC scale factors derived in section~\ref{sec:backgrounds}. }
-\label{tab:yield_1j_hzz200}
-\end{center}
-\end{table}
-%%%%%%%%
-
-
-
-%%%%%%%%
-\begin{table}[!ht]
-\begin{center}
-\begin{tabular}{c|cc|c}
-\hline
-sample    & $\mu\mu$   & ee     & TOTAL\\ \hline 
-hzz250   & 0.36 $\pm$ 0.01   & 0.28 $\pm$ 0.01   & 0.64 $\pm$ 0.01 \\ \hline 
-hww250   & 0.14 $\pm$ 0.01   & 0.09 $\pm$ 0.00   & 0.23 $\pm$ 0.01 \\ \hline 
-wjets   & 0.00 $\pm$ 0.00   & 0.17 $\pm$ 0.10   & 0.17 $\pm$ 0.10 \\ \hline 
-qqww   & 0.73 $\pm$ 0.04   & 0.54 $\pm$ 0.03   & 1.26 $\pm$ 0.05 \\ \hline 
-ggww   & 0.06 $\pm$ 0.01   & 0.04 $\pm$ 0.00   & 0.10 $\pm$ 0.01 \\ \hline 
-$\WZ$   & 0.46 $\pm$ 0.03   & 0.29 $\pm$ 0.02   & 0.74 $\pm$ 0.04 \\ \hline 
-$\ZZ$   & 0.91 $\pm$ 0.03   & 0.62 $\pm$ 0.02   & 1.52 $\pm$ 0.04 \\ \hline 
-$\ttbar$   & 0.21 $\pm$ 0.11   & 0.05 $\pm$ 0.04   & 0.27 $\pm$ 0.12 \\ \hline 
-$\tw$   & 0.05 $\pm$ 0.02   & 0.05 $\pm$ 0.02   & 0.10 $\pm$ 0.03 \\ \hline 
-$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\dyll$   & 0.55 $\pm$ 0.03   & 0.55 $\pm$ 0.03   & 1.10 $\pm$ 0.04 \\ \hline 
-SIGNAL   & 0.36 $\pm$ 0.01   & 0.28 $\pm$ 0.01   & 0.64 $\pm$ 0.01 \\ \hline 
-BKGD   & 3.10 $\pm$ 0.13   & 2.39 $\pm$ 0.12   & 5.49 $\pm$ 0.18 \\ \hline 
-DATA   & 5.00 $\pm$ 2.24   & 1.00 $\pm$ 1.00   & 6.00 $\pm$ 2.45 \\ \hline 
-\end{tabular}
-\caption{Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of $187\pm7\ipb$ after applying the {\bf $\hzz$ ($m_H = 250\GeVcc$) selection in the 0-Jet bin}. 
-Only statistical uncertainties are reported. 
-The MC expectations includes the lepton efficiencies, trigger efficiencies, pileup reweighting, 
-higher order reweighting on the $\hzz$ and $\pt$-dependent reweighting on $\ZZ$. The $\ttbar$, 
-$\tw$, $\ww$, $\dytt$ and $\wjets$ yields include the data/MC scale factors derived in section~\ref{sec:backgrounds}. }
-\label{tab:yield_0j_hzz250}
-\end{center}
-%\end{table}
-%%%%%%%%
-%%%%%%%%
-%\begin{table}[!ht]
-\begin{center}
-\begin{tabular}{c|cc|c}
-\hline
-sample    & $\mu\mu$   & ee     & TOTAL\\ \hline 
-hzz250   & 0.17 $\pm$ 0.00   & 0.12 $\pm$ 0.00   & 0.30 $\pm$ 0.01 \\ \hline 
-hww250   & 0.08 $\pm$ 0.00   & 0.06 $\pm$ 0.00   & 0.14 $\pm$ 0.01 \\ \hline 
-wjets   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-qqww   & 0.28 $\pm$ 0.02   & 0.20 $\pm$ 0.02   & 0.48 $\pm$ 0.03 \\ \hline 
-ggww   & 0.02 $\pm$ 0.00   & 0.01 $\pm$ 0.00   & 0.03 $\pm$ 0.00 \\ \hline 
-$\WZ$   & 0.30 $\pm$ 0.03   & 0.19 $\pm$ 0.02   & 0.49 $\pm$ 0.03 \\ \hline 
-$\ZZ$  & 0.24 $\pm$ 0.01   & 0.19 $\pm$ 0.01   & 0.43 $\pm$ 0.02 \\ \hline 
-$\ttbar$   & 0.23 $\pm$ 0.09   & 0.44 $\pm$ 0.14   & 0.67 $\pm$ 0.16 \\ \hline 
-$\tw$   & 0.09 $\pm$ 0.02   & 0.09 $\pm$ 0.02   & 0.18 $\pm$ 0.03 \\ \hline 
-$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\dyll$   & 0.38 $\pm$ 0.01   & 0.38 $\pm$ 0.01   & 0.76 $\pm$ 0.01 \\ \hline 
-SIGNAL   & 0.17 $\pm$ 0.00   & 0.12 $\pm$ 0.00   & 0.30 $\pm$ 0.01 \\ \hline 
-BKGD   & 1.62 $\pm$ 0.10   & 1.56 $\pm$ 0.14   & 3.18 $\pm$ 0.17 \\ \hline 
-DATA   & 1.00 $\pm$ 1.00   & 0.00 $\pm$ 0.00   & 1.00 $\pm$ 1.00 \\ \hline 
-\end{tabular}
-\caption{Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of $187\pm7\ipb$ after applying the {\bf $\hzz$ ($m_H = 250\GeVcc$) selection in the 1-Jet bin}. 
-Only statistical uncertainties are reported. 
-The MC expectations includes the lepton efficiencies, trigger efficiencies, pileup reweighting, 
-higher order reweighting on the $\hzz$ and $\pt$-dependent reweighting on $\ZZ$. The $\ttbar$, 
-$\tw$, $\ww$, $\dytt$ and $\wjets$ yields include the data/MC scale factors derived in section~\ref{sec:backgrounds}. }
-\label{tab:yield_1j_hzz250}
+\label{tab:yield_zzpresel}
 \end{center}
 \end{table}
 %%%%%%%%
@@ -240,59 +98,162 @@ $\tw$, $\ww$, $\dytt$ and $\wjets$ yields include the data/MC scale factors deri
 \begin{tabular}{c|cc|c}
 \hline
 sample    & $\mu\mu$   & ee     & TOTAL\\ \hline 
-hzz300   & 0.28 $\pm$ 0.00   & 0.21 $\pm$ 0.00   & 0.49 $\pm$ 0.01 \\ \hline 
-hww300   & 0.03 $\pm$ 0.00   & 0.02 $\pm$ 0.00   & 0.04 $\pm$ 0.00 \\ \hline 
-wjets   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-qqww   & 0.15 $\pm$ 0.02   & 0.06 $\pm$ 0.01   & 0.21 $\pm$ 0.02 \\ \hline 
-ggww   & 0.01 $\pm$ 0.00   & 0.01 $\pm$ 0.00   & 0.02 $\pm$ 0.00 \\ \hline 
-$\WZ$   & 0.23 $\pm$ 0.02   & 0.11 $\pm$ 0.02   & 0.34 $\pm$ 0.03 \\ \hline 
-$\ZZ$   & 0.50 $\pm$ 0.02   & 0.39 $\pm$ 0.02   & 0.89 $\pm$ 0.03 \\ \hline 
-$\ttbar$   & 0.01 $\pm$ 0.01   & 0.03 $\pm$ 0.03   & 0.04 $\pm$ 0.03 \\ \hline 
-$\tw$   & 0.01 $\pm$ 0.01   & 0.00 $\pm$ 0.00   & 0.01 $\pm$ 0.01 \\ \hline 
-$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\dytt$   & 0.01 $\pm$ 0.01   & 0.01 $\pm$ 0.01   & 0.02 $\pm$ 0.01 \\ \hline 
-SIGNAL   & 0.28 $\pm$ 0.00   & 0.21 $\pm$ 0.00   & 0.49 $\pm$ 0.01 \\ \hline 
-BKGD   & 0.94 $\pm$ 0.04   & 0.63 $\pm$ 0.04   & 1.57 $\pm$ 0.06 \\ \hline 
-DATA   & 2.00 $\pm$ 1.41   & 1.00 $\pm$ 1.00   & 3.00 $\pm$ 1.73 \\ \hline 
+\multicolumn{4}{c} { 0 Jet Bin} \\
+\hline
+%hww200   & 0.86 $\pm$ 0.05   & 0.63 $\pm$ 0.04   & 1.50 $\pm$ 0.06 \\  
+$\wjets$   & 0.00 $\pm$ 0.00   & 0.08 $\pm$ 0.08   & 0.08 $\pm$ 0.08 \\  
+\qqww   & 4.57 $\pm$ 0.23   & 2.86 $\pm$ 0.17   & 7.44 $\pm$ 0.29 \\  
+\ggww   & 0.20 $\pm$ 0.02   & 0.19 $\pm$ 0.02   & 0.39 $\pm$ 0.03 \\  
+\wz   & 2.10 $\pm$ 0.16   & 1.24 $\pm$ 0.12   & 3.34 $\pm$ 0.20 \\  
+\zz   & 3.10 $\pm$ 0.12   & 1.97 $\pm$ 0.10   & 5.07 $\pm$ 0.16 \\  
+$\ttbar$  & 0.30 $\pm$ 0.27   & 0.00 $\pm$ 0.00   & 0.30 $\pm$ 0.27 \\  
+\tw   & 0.24 $\pm$ 0.09   & 0.23 $\pm$ 0.09   & 0.47 $\pm$ 0.13 \\  
+$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+$\dyll$  & 3.34 $\pm$ 0.04   & 3.34 $\pm$ 0.04   & 6.68 $\pm$ 0.06 \\  
+\hline
+Background   & 13.86 $\pm$ 0.42   & 9.91 $\pm$ 0.26   & 23.77 $\pm$ 0.50 \\  
+hzz200   & 0.12 $\pm$ 0.01   & 0.07 $\pm$ 0.01   & 0.19 $\pm$ 0.02 \\  
+\hline
+DATA   & 12.00 $\pm$ 3.46   & 14.00 $\pm$ 3.74   & 26.00 $\pm$ 5.10 \\ 
+\hline 
+\multicolumn{4}{c} { 1 Jet Bin} \\
+\hline
+%hww200   & 0.02 $\pm$ 0.01   & 0.01 $\pm$ 0.00   & 0.03 $\pm$ 0.01 \\  
+$\wjets$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+\qqww   & 0.07 $\pm$ 0.03   & 0.05 $\pm$ 0.02   & 0.12 $\pm$ 0.03 \\  
+\ggww   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.01 $\pm$ 0.00 \\  
+\wz   & 0.01 $\pm$ 0.01   & 0.02 $\pm$ 0.01   & 0.02 $\pm$ 0.01 \\  
+\zz   & 0.02 $\pm$ 0.01   & 0.01 $\pm$ 0.01   & 0.03 $\pm$ 0.01 \\  
+$\ttbar$  & 0.08 $\pm$ 0.08   & 0.00 $\pm$ 0.00   & 0.08 $\pm$ 0.08 \\  
+\tw   & 0.05 $\pm$ 0.05   & 0.00 $\pm$ 0.00   & 0.05 $\pm$ 0.05 \\  
+$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+$\dyll$  & 0.12 $\pm$ 0.00   & 0.12 $\pm$ 0.00   & 0.24 $\pm$ 0.01 \\  
+\hline
+Background   & 0.34 $\pm$ 0.10   & 0.20 $\pm$ 0.03   & 0.55 $\pm$ 0.10 \\  
+hzz200   & 0.02 $\pm$ 0.00   & 0.01 $\pm$ 0.00   & 0.03 $\pm$ 0.01 \\ 
+\hline 
+DATA   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ 
+\hline
 \end{tabular}
 \caption{Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of $187\pm7\ipb$ after applying the {\bf $\hzz$ ($m_H = 300\GeVcc$) selection in the 0-Jet bin}. 
+  integrated luminosity of \intlumi  after applying the {\bf $\hzz$ ($m_H = 200\GeVcc$) selection in the 0/1-Jet bin}. 
+Only statistical uncertainties are reported. 
+The MC expectations includes the lepton efficiencies, trigger efficiencies, pileup reweighting, 
+higher order reweighting on the $\hzz$ and $\pt$-dependent reweighting on $\ZZ$. The $\ttbar$, 
+$\tw$, $\ww$, $\dytt$ and $\wjets$ yields include the data/MC scale factors derived in section~\ref{sec:backgrounds}. }
+\label{tab:yield_hzz200}
+\end{center}
+\end{table}
+%%%%%%%%
+%%%%%%%%
+
+
+%%%%%%%%
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{c|cc|c}
+\hline
+sample    & $\mu\mu$   & ee     & TOTAL\\ \hline 
+\multicolumn{4}{c} { 0 Jet Bin} \\
+\hline
+%hww250   & 0.79 $\pm$ 0.03   & 0.51 $\pm$ 0.03   & 1.30 $\pm$ 0.04 \\  
+$\wjets$   & 0.00 $\pm$ 0.00   & 0.84 $\pm$ 0.50   & 0.84 $\pm$ 0.50 \\  
+\qqww   & 3.72 $\pm$ 0.20   & 2.67 $\pm$ 0.17   & 6.40 $\pm$ 0.27 \\  
+\ggww   & 0.32 $\pm$ 0.03   & 0.18 $\pm$ 0.02   & 0.50 $\pm$ 0.04 \\  
+\wz   & 2.66 $\pm$ 0.18   & 1.63 $\pm$ 0.14   & 4.29 $\pm$ 0.23 \\  
+\zz   & 5.28 $\pm$ 0.17   & 3.47 $\pm$ 0.13   & 8.75 $\pm$ 0.21 \\  
+$\ttbar$  & 1.09 $\pm$ 0.57   & 0.27 $\pm$ 0.20   & 1.36 $\pm$ 0.60 \\  
+\tw   & 0.27 $\pm$ 0.10   & 0.23 $\pm$ 0.09   & 0.50 $\pm$ 0.14 \\  
+$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+$\dyll$  & 3.36 $\pm$ 0.08   & 3.36 $\pm$ 0.08   & 6.73 $\pm$ 0.11 \\  
+\hline
+Background   & 16.71 $\pm$ 0.66   & 12.65 $\pm$ 0.61   & 29.36 $\pm$ 0.90 \\  
+hzz250   & 2.12 $\pm$ 0.04   & 1.57 $\pm$ 0.03   & 3.68 $\pm$ 0.05 \\ 
+\hline 
+DATA   & 20.00 $\pm$ 4.47   & 7.00 $\pm$ 2.65   & 27.00 $\pm$ 5.20 \\ 
+\hline 
+\multicolumn{4}{c} { 1 Jet Bin} \\
+\hline
+%hww250   & 0.47 $\pm$ 0.02   & 0.31 $\pm$ 0.02   & 0.78 $\pm$ 0.03 \\  
+$\wjets$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+\qqww   & 1.60 $\pm$ 0.13   & 1.11 $\pm$ 0.10   & 2.71 $\pm$ 0.17 \\  
+\ggww   & 0.11 $\pm$ 0.01   & 0.07 $\pm$ 0.01   & 0.18 $\pm$ 0.02 \\  
+\wz   & 1.76 $\pm$ 0.15   & 1.06 $\pm$ 0.11   & 2.82 $\pm$ 0.19 \\  
+\zz   & 1.41 $\pm$ 0.08   & 1.05 $\pm$ 0.07   & 2.46 $\pm$ 0.11 \\  
+$\ttbar$  & 1.30 $\pm$ 0.51   & 2.44 $\pm$ 0.76   & 3.74 $\pm$ 0.91 \\  
+\tw   & 0.54 $\pm$ 0.13   & 0.50 $\pm$ 0.13   & 1.04 $\pm$ 0.19 \\  
+$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+$\dyll$  & 2.38 $\pm$ 0.02   & 2.38 $\pm$ 0.02   & 4.76 $\pm$ 0.03 \\  
+\hline
+Background   & 9.09 $\pm$ 0.57   & 8.62 $\pm$ 0.79   & 17.71 $\pm$ 0.97 \\  
+hzz250   & 1.02 $\pm$ 0.02   & 0.70 $\pm$ 0.02   & 1.73 $\pm$ 0.03 \\
+\hline  
+DATA   & 5.00 $\pm$ 2.24   & 8.00 $\pm$ 2.83   & 13.00 $\pm$ 3.61 \\ 
+\hline
+\end{tabular}
+\caption{Expected number of signal and background events from the data-driven methods for an 
+  integrated luminosity of \intlumi  after applying the {\bf $\hzz$ ($m_H = 250\GeVcc$) selection in the 0/1-Jet bin}. 
+Only statistical uncertainties are reported. 
+The MC expectations includes the lepton efficiencies, trigger efficiencies, pileup reweighting, 
+higher order reweighting on the $\hzz$ and $\pt$-dependent reweighting on $\ZZ$. The $\ttbar$, 
+$\tw$, $\ww$, $\dytt$ and $\wjets$ yields include the data/MC scale factors derived in section~\ref{sec:backgrounds}. }
+\label{tab:yield_hzz250}
+\end{center}
+\end{table}
+%%%%%%%%
+
+
+%%%%%%%%
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{c|cc|c}
+\hline
+sample    & $\mu\mu$   & ee     & TOTAL\\ \hline 
+\multicolumn{4}{c} { 0 Jet Bin} \\
+\hline
+%hww300   & 0.15 $\pm$ 0.01   & 0.09 $\pm$ 0.01   & 0.24 $\pm$ 0.02 \\  
+$\wjets$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+\qqww   & 0.75 $\pm$ 0.09   & 0.31 $\pm$ 0.06   & 1.06 $\pm$ 0.11 \\  
+\ggww   & 0.07 $\pm$ 0.01   & 0.04 $\pm$ 0.01   & 0.11 $\pm$ 0.02 \\  
+\wz   & 1.32 $\pm$ 0.13   & 0.64 $\pm$ 0.09   & 1.97 $\pm$ 0.16 \\  
+\zz   & 2.91 $\pm$ 0.12   & 2.20 $\pm$ 0.11   & 5.11 $\pm$ 0.16 \\  
+$\ttbar$  & 0.04 $\pm$ 0.04   & 0.14 $\pm$ 0.14   & 0.18 $\pm$ 0.15 \\  
+\tw   & 0.05 $\pm$ 0.04   & 0.00 $\pm$ 0.00   & 0.05 $\pm$ 0.04 \\  
+$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+$\dyll$  & 0.26 $\pm$ 0.03   & 0.26 $\pm$ 0.03   & 0.51 $\pm$ 0.05 \\  
+\hline
+Background   & 5.40 $\pm$ 0.21   & 3.59 $\pm$ 0.21   & 8.99 $\pm$ 0.30 \\  
+hzz300   & 1.67 $\pm$ 0.03   & 1.18 $\pm$ 0.02   & 2.85 $\pm$ 0.03 \\  
+\hline
+DATA   & 3.00 $\pm$ 1.73   & 4.00 $\pm$ 2.00   & 7.00 $\pm$ 2.65 \\ 
+\hline 
+\multicolumn{4}{c} { 1 Jet Bin} \\
+\hline
+sample    & $\mu\mu$   & ee     & TOTAL\\ \hline 
+%hww300   & 0.03 $\pm$ 0.00   & 0.03 $\pm$ 0.00   & 0.06 $\pm$ 0.01 \\  
+$\wjets$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+\qqww   & 0.13 $\pm$ 0.04   & 0.12 $\pm$ 0.03   & 0.25 $\pm$ 0.05 \\  
+\ggww   & 0.01 $\pm$ 0.00   & 0.01 $\pm$ 0.01   & 0.02 $\pm$ 0.01 \\  
+\wz   & 0.26 $\pm$ 0.06   & 0.15 $\pm$ 0.04   & 0.40 $\pm$ 0.07 \\  
+\zz   & 0.47 $\pm$ 0.05   & 0.34 $\pm$ 0.04   & 0.81 $\pm$ 0.07 \\  
+$\ttbar$  & 0.23 $\pm$ 0.19   & 0.00 $\pm$ 0.00   & 0.23 $\pm$ 0.19 \\  
+\tw   & 0.04 $\pm$ 0.04   & 0.08 $\pm$ 0.06   & 0.12 $\pm$ 0.07 \\  
+$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+$\dyll$  & 0.16 $\pm$ 0.01   & 0.16 $\pm$ 0.01   & 0.33 $\pm$ 0.01 \\  
+\hline
+Background   & 1.30 $\pm$ 0.21   & 0.86 $\pm$ 0.09   & 2.17 $\pm$ 0.23 \\  
+hzz300   & 0.60 $\pm$ 0.01   & 0.43 $\pm$ 0.01   & 1.03 $\pm$ 0.02 \\  
+\hline
+DATA   & 1.00 $\pm$ 1.00   & 2.00 $\pm$ 1.41   & 3.00 $\pm$ 1.73 \\  
+\hline
+\end{tabular}
+\caption{Expected number of signal and background events from the data-driven methods for an 
+  integrated luminosity of \intlumi  after applying the {\bf $\hzz$ ($m_H = 300\GeVcc$) selection in the 0/1-Jet bin}. 
 Only statistical uncertainties are reported. 
 The MC expectations includes the lepton efficiencies, trigger efficiencies, pileup reweighting, 
 higher order reweighting on the $\hzz$ and $\pt$-dependent reweighting on $\ZZ$. The $\ttbar$, 
 $\tw$, $\ww$ and $\wjets$ yields include the data/MC scale factors derived in section~\ref{sec:backgrounds}. }
-\label{tab:yield_0j_hzz300}
-\end{center}
-%\end{table}
-%%%%%%%%
-%%%%%%%%
-%\begin{table}[!ht]
-\begin{center}
-\begin{tabular}{c|cc|c}
-\hline
-sample    & $\mu\mu$   & ee     & TOTAL\\ \hline 
-hzz300   & 0.10 $\pm$ 0.00   & 0.08 $\pm$ 0.00   & 0.18 $\pm$ 0.00 \\ \hline 
-hww300   & 0.01 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.01 $\pm$ 0.00 \\ \hline 
-wjets   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-qqww   & 0.02 $\pm$ 0.01   & 0.02 $\pm$ 0.01   & 0.04 $\pm$ 0.01 \\ \hline 
-ggww   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\WZ$   & 0.04 $\pm$ 0.01   & 0.03 $\pm$ 0.01   & 0.07 $\pm$ 0.01 \\ \hline 
-$\ZZ$   & 0.08 $\pm$ 0.01   & 0.06 $\pm$ 0.01   & 0.14 $\pm$ 0.01 \\ \hline 
-$\ttbar$   & 0.04 $\pm$ 0.03   & 0.00 $\pm$ 0.00   & 0.04 $\pm$ 0.03 \\ \hline 
-$\tw$   & 0.01 $\pm$ 0.01   & 0.02 $\pm$ 0.01   & 0.02 $\pm$ 0.01 \\ \hline 
-$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\dyll$  & 0.02 $\pm$ 0.00   & 0.02 $\pm$ 0.00   & 0.05 $\pm$ 0.00 \\ \hline 
-SIGNAL   & 0.10 $\pm$ 0.00   & 0.08 $\pm$ 0.00   & 0.18 $\pm$ 0.00 \\ \hline 
-BKGD   & 0.22 $\pm$ 0.04   & 0.15 $\pm$ 0.02   & 0.38 $\pm$ 0.04 \\ \hline 
-DATA   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-\end{tabular}
-\caption{Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of $187\pm7\ipb$ after applying the {\bf $\hzz$ ($m_H = 300\GeVcc$) selection in the 1-Jet bin}. 
-Only statistical uncertainties are reported. 
-The MC expectations includes the lepton efficiencies, trigger efficiencies, pileup reweighting, 
-higher order reweighting on the $\hzz$ and $\pt$-dependent reweighting on $\ZZ$. The $\ttbar$, 
-$\tw$, $\ww$, $\dytt$ and $\wjets$ yields include the data/MC scale factors derived in section~\ref{sec:backgrounds}. }
-\label{tab:yield_1j_hzz300}
+\label{tab:yield_hzz300}
 \end{center}
 \end{table}
 %%%%%%%%
@@ -303,63 +264,55 @@ $\tw$, $\ww$, $\dytt$ and $\wjets$ yields include the data/MC scale factors deri
 \begin{center}
 \begin{tabular}{c|cc|c}
 \hline
-sample    & $\mu\mu$   & ee     & TOTAL\\ \hline 
-hzz400   & 0.22 $\pm$ 0.00   & 0.17 $\pm$ 0.00   & 0.39 $\pm$ 0.00 \\ \hline 
-hww400   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-wjets   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-qqww   & 0.01 $\pm$ 0.00   & 0.01 $\pm$ 0.01   & 0.02 $\pm$ 0.01 \\ \hline 
-ggww   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\WZ$   & 0.09 $\pm$ 0.01   & 0.04 $\pm$ 0.01   & 0.14 $\pm$ 0.02 \\ \hline 
-$\ZZ$   & 0.29 $\pm$ 0.02   & 0.20 $\pm$ 0.01   & 0.49 $\pm$ 0.02 \\ \hline 
-$\ttbar$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\tw$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\dyll$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-SIGNAL   & 0.22 $\pm$ 0.00   & 0.17 $\pm$ 0.00   & 0.39 $\pm$ 0.00 \\ \hline 
-BKGD   & 0.40 $\pm$ 0.02   & 0.25 $\pm$ 0.02   & 0.65 $\pm$ 0.03 \\ \hline 
-DATA   & 0.00 $\pm$ 0.00   & 1.00 $\pm$ 1.00   & 1.00 $\pm$ 1.00 \\ \hline 
+sample    & $\mu\mu$   & ee     & TOTAL\\ \hline
+\multicolumn{4}{c} { 0 Jet Bin} \\
+\hline
+%hww400   & 0.01 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.01 $\pm$ 0.00 \\  
+$\wjets$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+\qqww   & 0.05 $\pm$ 0.02   & 0.05 $\pm$ 0.03   & 0.10 $\pm$ 0.03 \\  
+\ggww   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+\wz   & 0.55 $\pm$ 0.08   & 0.25 $\pm$ 0.06   & 0.79 $\pm$ 0.10 \\  
+\zz   & 1.71 $\pm$ 0.10   & 1.11 $\pm$ 0.08   & 2.82 $\pm$ 0.13 \\  
+$\ttbar$  & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+\tw   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+$\dyll$  & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+\hline
+Background   & 2.31 $\pm$ 0.13   & 1.40 $\pm$ 0.10   & 3.71 $\pm$ 0.17 \\ 
+hzz400   & 1.29 $\pm$ 0.02   & 0.94 $\pm$ 0.02   & 2.24 $\pm$ 0.03 \\   
+\hline
+DATA   & 1.00 $\pm$ 1.00   & 2.00 $\pm$ 1.41   & 3.00 $\pm$ 1.73 \\  
+\hline
+\multicolumn{4}{c} { 0 Jet Bin} \\
+\hline
+%hww400   & 0.01 $\pm$ 0.00   & 0.01 $\pm$ 0.00   & 0.02 $\pm$ 0.00 \\  
+$\wjets$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+\qqww   & 0.05 $\pm$ 0.02   & 0.03 $\pm$ 0.01   & 0.07 $\pm$ 0.02 \\  
+\ggww   & 0.00 $\pm$ 0.00   & 0.01 $\pm$ 0.00   & 0.01 $\pm$ 0.00 \\  
+\wz   & 0.37 $\pm$ 0.07   & 0.21 $\pm$ 0.05   & 0.59 $\pm$ 0.08 \\  
+\zz   & 0.68 $\pm$ 0.06   & 0.46 $\pm$ 0.05   & 1.14 $\pm$ 0.08 \\  
+$\ttbar$  & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+\tw   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\  
+$\dyll$  & 0.43 $\pm$ 0.05   & 0.43 $\pm$ 0.05   & 0.87 $\pm$ 0.07 \\  
+\hline
+Background   & 1.54 $\pm$ 0.11   & 1.14 $\pm$ 0.08   & 2.68 $\pm$ 0.13 \\  
+hzz400   & 0.97 $\pm$ 0.02   & 0.70 $\pm$ 0.01   & 1.67 $\pm$ 0.02 \\  
+\hline
+DATA   & 2.00 $\pm$ 1.41   & 3.00 $\pm$ 1.73      & 5.00 $\pm$ 2.24 \\  
+\hline
 \end{tabular}
 \caption{Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of $187\pm7\ipb$ after applying the {\bf $\hzz$ ($m_H = 400\GeVcc$) selection in the 0-Jet bin}. 
+  integrated luminosity of \intlumi  after applying the {\bf $\hzz$ ($m_H = 400\GeVcc$) selection in the 0/1-Jet bin}. 
 Only statistical uncertainties are reported. 
 The MC expectations includes the lepton efficiencies, trigger efficiencies, pileup reweighting, 
 higher order reweighting on the $\hzz$ and $\pt$-dependent reweighting on $\ZZ$. The $\ttbar$, 
 $\tw$, $\ww$, $\dytt$ and $\wjets$ yields include the data/MC scale factors derived in section~\ref{sec:backgrounds}. }
-\label{tab:yield_0j_hzz400}
-\end{center}
-%\end{table}
-%%%%%%%%
-%%%%%%%%
-%\begin{table}[!ht]
-\begin{center}
-\begin{tabular}{c|cc|c}
-\hline
-sample    & $\mu\mu$   & ee     & TOTAL\\ \hline 
-hzz400   & 0.16 $\pm$ 0.00   & 0.12 $\pm$ 0.00   & 0.29 $\pm$ 0.00 \\ \hline 
-hww400   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-wjets   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-qqww   & 0.01 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.01 $\pm$ 0.00 \\ \hline 
-ggww   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\WZ$   & 0.06 $\pm$ 0.01   & 0.04 $\pm$ 0.01   & 0.10 $\pm$ 0.01 \\ \hline 
-$\ZZ$   & 0.12 $\pm$ 0.01   & 0.08 $\pm$ 0.01   & 0.20 $\pm$ 0.01 \\ \hline 
-$\ttbar$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\tw$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\dytt$   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-$\dyll$   & 0.04 $\pm$ 0.01   & 0.04 $\pm$ 0.01   & 0.08 $\pm$ 0.01 \\ \hline 
-SIGNAL   & 0.16 $\pm$ 0.00   & 0.12 $\pm$ 0.00   & 0.29 $\pm$ 0.00 \\ \hline 
-BKGD   & 0.23 $\pm$ 0.02   & 0.17 $\pm$ 0.01   & 0.40 $\pm$ 0.02 \\ \hline 
-DATA   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00   & 0.00 $\pm$ 0.00 \\ \hline 
-\end{tabular}
-\caption{Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of $187\pm7\ipb$ after applying the {\bf $\hzz$ ($m_H = 400\GeVcc$) selection in the 1-Jet bin}. 
-Only statistical uncertainties are reported. 
-The MC expectations includes the lepton efficiencies, trigger efficiencies, pileup reweighting, 
-higher order reweighting on the $\hzz$ and $\pt$-dependent reweighting on $\ZZ$. The $\ttbar$, 
-$\tw$, $\ww$ and $\wjets$ yields include the data/MC scale factors derived in section~\ref{sec:backgrounds}. }
-\label{tab:yield_1j_hzz400}
+\label{tab:yield_hzz400}
 \end{center}
 \end{table}
 %%%%%%%%
+
 
 
 %%%%%%%%
