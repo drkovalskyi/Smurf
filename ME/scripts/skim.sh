@@ -27,17 +27,27 @@ fi
 if [ ! -d $OUTPUTDIR ]; then
     echo Error: Output dir doesnt exist!
     exit 3
-    mkdir -p $OUTPUTDIR/$SELECTION
 fi
+
+mkdir -p $OUTPUTDIR/$SELECTION
 
 # loop over root files in input dir
 # and do the skim root script
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-hzz200.root
-hzz250.root
-hzz300.root
-hzz400.root
+data-met20-1092ipb.root
+hww115.root
+hww120.root
+hww130.root
+hww140.root
+hww150.root
+hww160.root
+hww170.root
+hww180.root
+hww190.root
+hww200.root
+hww250.root
+hww300.root
 zz.root
 wz.root
 ttbar.root
@@ -45,10 +55,16 @@ tw.root
 qqww.root
 ggww.root
 wjets.root
+wgamma.root
 dyee.root
 dymm.root
 dytt.root
 EOF
+
+#hzz200.root
+#hzz250.root
+#hzz300.root
+#hzz400.root
 
 #for FILE in `ls $INPUTDIR | grep lfake.root`
 for FILE in `cat list_samples.txt` ; do

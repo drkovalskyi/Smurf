@@ -103,6 +103,9 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
   float dPhi_ = 0.;
   LorentzVector*  jet1_ = 0;
   float dPhiDiLepJet1_ = 0.;
+  float met_ = 0.0;
+  float trackMet_ = 0.0;
+
 
   ch->SetBranchAddress( "njets"     , &njets_     );     
   ch->SetBranchAddress( "cuts"      , &cuts_     );     
@@ -118,7 +121,8 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
   ch->SetBranchAddress( "mt"      , &mt_     );     
   ch->SetBranchAddress( "jet1"      , &jet1_      );   
   ch->SetBranchAddress( "dPhiDiLepJet1"      , &dPhiDiLepJet1_     );     
-
+  ch->SetBranchAddress( "met"      , &met_     );     
+  ch->SetBranchAddress( "trackMet"      , &trackMet_     );   
   //==========================================
   // Loop All Events
   //==========================================
@@ -131,11 +135,13 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
     if (njets_ != 0 ) continue;
     // add selections commmon to WW/ZZ analysis
     if ( type_==0||type_==3) {
-      if (TMath::Min(pmet_,pTrackMet_) < 40.) continue;
       if (jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
     }
       // cuts to select the WW pre-selection
     if (cutstring == "WW") {
+      if ( type_==0||type_==3) {
+	if (TMath::Min(pmet_,pTrackMet_) < 40.) continue;
+      }
       if ((cuts_ & ww) != ww) continue;
     }
     
@@ -167,9 +173,9 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if (type_ != 0 && type_ !=3 ) continue; 
       if ( (cuts_ & zz_baseline) != zz_baseline) continue;
       if ( (cuts_ & ZVeto) == ZVeto ) continue;
-      if (lep1_->Pt() < 30.) continue;
+      if (lep1_->Pt() < 20.) continue;
       if (lep2_->Pt() < 20.) continue;
-      if ( TMath::Min(pmet_, pTrackMet_) < 50.0) continue;
+      if ( TMath::Min(met_, trackMet_) < 50.0) continue;
       if ( dilep_->Pt() < 40.0) continue;
     }
     
