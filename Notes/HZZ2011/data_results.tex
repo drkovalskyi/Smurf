@@ -1,14 +1,25 @@
 We perform the analysis on a dataset corresponding to $1.1\pm0.1\ifb$ integrated luminosity.
 
-Table~\ref{tab:zzselection_all} shows the number of events observed in 
-data, comparing to the expected background contribution at the \zz 
-preselection level. The background estimation was discussed at Section~\ref{sec:backgrounds}. 
-Figure~\ref{fig:zz_0j_1} the distributions of key analysis variables observed in data, comparing 
-to the SM expectations from simulation in the 0-jet bin final state.  
-Tables~\ref{tab:yield_hzz250}-\ref{tab:yield_hzz400} shows the equivalent results 
-applying the $\hzz$ ($m_{H}=250,300,400\GeVcc$) selections~\ref{sec:signal_selection}. 
-The details of the events counts can also be found in ~\ref{app:yield1fbdetail}. 
+The dilepton $p_T$ distribution is shown in Figure \ref{fig:zpt_zzpresel} after a very loose
+cut on the minimum of \met and track \met to be above 20 GeV to take into account data
+skimming requirements.  We select events with a dilepton $p_T$ above 40 GeV.
+The distribution of the minimum of \met and track \met is shown after the dilepton $p_T$
+cut in Figure \ref{fig:minmet_zzpresel}.  The $M_T$ distributions are shown in
+Figure \ref{fig:mt_zzpresel} after requiring the minimum of \met and track \met to be 
+greater than 50 GeV.  This is referred to as the \zz preselection.
 
+Table~\ref{tab:zzselection_all} shows the number of events observed in
+data, comparing to the expected background contribution at the \zz
+preselection level. The background estimation was discussed at Section~\ref{sec:backgrounds}.
+
+The Higgs boson mass dependent signal selections are described in Section \ref{sec:signal_selection}.
+After applying these signal selections, which differ only from the \zz preselection
+in terms of the \met and $M_T$ cuts, the resulting $M_T$ distributions are shown
+in Figures \ref{fig:mt_hzz250}, \ref{fig:mt_hzz300} and \ref{fig:mt_hzz400} respectively.
+
+Tables~\ref{tab:yield_hzz250}-\ref{tab:yield_hzz400} show the equivalent data yields
+and background expectations.
+A more detailed break down of the event yields can be found in ~\ref{app:yield1fbdetail}.
 
 %%%%%%%%
 \begin{table}[!ht]
@@ -140,18 +151,19 @@ Only statistical uncertaities are reported. The $\Wjets$ background is neglible 
 %%%%%%%%
 
 
-
-
-
-
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{}
-\includegraphics[width=.45\textwidth]{figures/preselection_njets.pdf}
-\caption{Number of jets distribution observed in data corresponding to $187\pm7$~\ipb data, compared to the expected from simulation for signal and background. 
-The background MC does not include any corrections, while we apply the $\pt$ reweighting correction in the higgs signal. }
-\label{fig:njets_zzpresel}
+\label{fig:zpt_zzpresel}
+\subfigure[0-Jet]{\label{subfig:zpt_0j}
+\includegraphics[width=.3\textwidth]{figures/presel_hzz300_zpt_0j_log.pdf}}
+\subfigure[1-Jet]{\label{subfig:zpt_1j}
+\includegraphics[width=.3\textwidth]{figures/presel_hzz300_zpt_1j_log.pdf}}
+\subfigure[$\geq$2 Jets]{\label{subfig:zpt_2j}
+\includegraphics[width=.3\textwidth]{figures/presel_hzz300_zpt_2j_log.pdf}}
+\caption{Dilepton $p_T$ distribution after the $\ZZ$ preselection observed in data corresponding to $1092\pm7$~\ipb data in 0-Jet~\subref{subfig:zpt_0j}, 1-Jet~\subref{subfig:zpt_1j}
+and 2-Jet~\subref{subfig:zpt_2j} bins, compared to the expected from simulation for signal and background.
+The MC backgrounds are scaled as appropriate and the photon+jets estimate of the Z+jets background is added to the stack.}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -161,14 +173,14 @@ The background MC does not include any corrections, while we apply the $\pt$ rew
 \begin{center}
 \label{fig:minmet_zzpresel}
 \subfigure[0-Jet]{\label{subfig:minmet_0j}
-\includegraphics[width=.3\textwidth]{figures/preselection_0jets_minmet.pdf}}
+\includegraphics[width=.3\textwidth]{figures/presel_hzz300_minmet_0j_log.pdf}}
 \subfigure[1-Jet]{\label{subfig:minmet_1j}
-\includegraphics[width=.3\textwidth]{figures/preselection_1jet_minmet.pdf}}
+\includegraphics[width=.3\textwidth]{figures/presel_hzz300_minmet_1j_log.pdf}}
 \subfigure[$\geq$2 Jets]{\label{subfig:minmet_2j}
-\includegraphics[width=.3\textwidth]{figures/preselection_2jets_minmet.pdf}}
-\caption{Min-MET distribution after the $\ZZ$ preselection observed in data corresponding to $187\pm7$~\ipb data in 0-Jet~\subref{subfig:minmet_0j}, 1-Jet~\subref{subfig:minmet_1j} 
+\includegraphics[width=.3\textwidth]{figures/presel_hzz300_minmet_2j_log.pdf}}
+\caption{Min-MET distribution after the $\ZZ$ preselection observed in data corresponding to $1092\pm7$~\ipb data in 0-Jet~\subref{subfig:minmet_0j}, 1-Jet~\subref{subfig:minmet_1j} 
 and 2-Jet~\subref{subfig:minmet_2j} bins, compared to the expected from simulation for signal and background. 
-The background MC does not include any corrections, while we apply the $\pt$ reweighting correction in the higgs signal. }
+The MC backgrounds are scaled as appropriate and the photon+jets estimate of the Z+jets background is added to the stack.}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -179,14 +191,30 @@ The background MC does not include any corrections, while we apply the $\pt$ rew
 \begin{center}
 \label{fig:mt_zzpresel}
 \subfigure[0-Jet]{\label{subfig:mt_0j}
-\includegraphics[width=.3\textwidth]{figures/preselection_0jets_mt.pdf}}
+\includegraphics[width=.3\textwidth]{figures/presel_hzz300_mt_0j.pdf}}
 \subfigure[1-Jet]{\label{subfig:mt_1j}
-\includegraphics[width=.3\textwidth]{figures/preselection_1jet_mt.pdf}}
+\includegraphics[width=.3\textwidth]{figures/presel_hzz300_mt_1j.pdf}}
 \subfigure[$\geq$2 Jets]{\label{subfig:mt_2j}
-\includegraphics[width=.3\textwidth]{figures/preselection_2jets_mt.pdf}}
-\caption{Transverse mass $m_T$ distribution after the $\ZZ$ preselection observed in data corresponding to $187\pm7$~\ipb data in 0-Jet~\subref{subfig:mt_0j}, 1-Jet~\subref{subfig:mt_1j} 
+\includegraphics[width=.3\textwidth]{figures/presel_hzz300_mt_2j.pdf}}
+\caption{Transverse mass $m_T$ distribution after the $\ZZ$ preselection observed in data corresponding to $1092\pm7$~\ipb data in 0-Jet~\subref{subfig:mt_0j}, 1-Jet~\subref{subfig:mt_1j} 
 and 2-Jet~\subref{subfig:mt_2j} bins, compared to the expected from simulation for signal and background. 
-The background MC does not include any corrections, while we apply the $\pt$ reweighting correction in the higgs signal. }
+The MC backgrounds are scaled as appropriate and the photon+jets estimate of the Z+jets background is added to the stack.}
+\end{center}
+\end{figure}
+%%%%%%%%
+
+%%%%%%%%
+\begin{figure}[!hbtp]
+\begin{center}
+\label{fig:mt_hzz250}
+\subfigure[0-Jet]{\label{subfig:mt_0j}
+\includegraphics[width=.3\textwidth]{figures/hzz250_mt_0j.pdf}}
+\subfigure[1-Jet]{\label{subfig:mt_1j}
+\includegraphics[width=.3\textwidth]{figures/hzz250_mt_1j.pdf}}
+\caption{Transverse mass $m_T$ distribution after the full $\hzz$ ($m_H = 250\GeVcc$) selection observed in 
+data corresponding to $1092\pm7$~\ipb data in 0-Jet~\subref{subfig:mt_0j} and 1-Jet~\subref{subfig:mt_1j}
+bins compared to the expected from simulation for signal and background. 
+The MC backgrounds are scaled as appropriate and the photon+jets estimate of the Z+jets background is added to the stack.}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -196,15 +224,30 @@ The background MC does not include any corrections, while we apply the $\pt$ rew
 \begin{center}
 \label{fig:mt_hzz300}
 \subfigure[0-Jet]{\label{subfig:mt_0j}
-\includegraphics[width=.3\textwidth]{figures/preselection_0jets_mt.pdf}}
+\includegraphics[width=.3\textwidth]{figures/hzz300_mt_0j.pdf}}
 \subfigure[1-Jet]{\label{subfig:mt_1j}
-\includegraphics[width=.3\textwidth]{figures/preselection_1jet_mt.pdf}}
-\subfigure[$\geq$2 Jets]{\label{subfig:mt_2j}
-\includegraphics[width=.3\textwidth]{figures/preselection_2jets_mt.pdf}}
-\caption{Transverse mass $m_T$ distribution after the full $\hzz$ ($m_H = 300\GeVcc$) selection observed in 
-data corresponding to $187\pm7$~\ipb data in 0-Jet~\subref{subfig:mt_0j}, 1-Jet~\subref{subfig:mt_1j} 
-and 2-Jet~\subref{subfig:mt_2j} bins, compared to the expected from simulation for signal and background. 
-The background MC does not include any corrections, while we apply the $\pt$ reweighting correction in the higgs signal. }
+\includegraphics[width=.3\textwidth]{figures/hzz300_mt_1j.pdf}}
+\caption{Transverse mass $m_T$ distribution after the full $\hzz$ ($m_H = 300\GeVcc$) selection observed in
+data corresponding to $1092\pm7$~\ipb data in 0-Jet~\subref{subfig:mt_0j} and 1-Jet~\subref{subfig:mt_1j}
+bins compared to the expected from simulation for signal and background. 
+The MC backgrounds are scaled as appropriate and the photon+jets estimate of the Z+jets background is added to the stack.}
 \end{center}
 \end{figure}
 %%%%%%%%
+
+%%%%%%%%
+\begin{figure}[!hbtp]
+\begin{center}
+\label{fig:mt_hzz400}
+\subfigure[0-Jet]{\label{subfig:mt_0j}
+\includegraphics[width=.3\textwidth]{figures/hzz400_mt_0j.pdf}}
+\subfigure[1-Jet]{\label{subfig:mt_1j}
+\includegraphics[width=.3\textwidth]{figures/hzz400_mt_1j.pdf}}
+\caption{Transverse mass $m_T$ distribution after the full $\hzz$ ($m_H = 400\GeVcc$) selection observed in
+data corresponding to $1092\pm7$~\ipb data in 0-Jet~\subref{subfig:mt_0j} and 1-Jet~\subref{subfig:mt_1j}
+bins compared to the expected from simulation for signal and background. 
+The MC backgrounds are scaled as appropriate and the photon+jets estimate of the Z+jets background is added to the stack.}
+\end{center}
+\end{figure}
+%%%%%%%%
+
