@@ -179,7 +179,7 @@ void MakeHZZRes
   // MC -> Data ScaleFactors
   //************************************************************************************************
   double TopAndWWScaleFactor[3]            = { 1.248, 1.133, 1.181 }; 
-  double TopAndWWScaleFactorKappa[3]       = { 1.164, 1.183, 1.200 };
+  double TopAndWWScaleFactorKappa[3]       = { 1.131, 1.169, 1.197 };
 
   //************************************************************************************************
   // Luminosity
@@ -193,21 +193,22 @@ void MakeHZZRes
   // higgs masses
   //************************************************************************************************
   Int_t mHIndex = -1;
-  if (mH == 250) mHIndex = 0;
-  if (mH == 275) mHIndex = 1;
-  if (mH == 300) mHIndex = 2;
-  if (mH == 325) mHIndex = 3;
-  if (mH == 350) mHIndex = 4;
-  if (mH == 375) mHIndex = 5;
-  if (mH == 400) mHIndex = 6;
-  if (mH == 425) mHIndex = 7;
-  if (mH == 450) mHIndex = 8;
-  if (mH == 475) mHIndex = 9;
-  if (mH == 500) mHIndex = 10;
-  if (mH == 525) mHIndex = 11;
-  if (mH == 550) mHIndex = 12;
-  if (mH == 575) mHIndex = 13;
-  if (mH == 600) mHIndex = 14;
+  if (mH == 200) mHIndex = 0;
+  if (mH == 250) mHIndex = 1;
+  if (mH == 275) mHIndex = 2;
+  if (mH == 300) mHIndex = 3;
+  if (mH == 325) mHIndex = 4;
+  if (mH == 350) mHIndex = 5;
+  if (mH == 375) mHIndex = 6;
+  if (mH == 400) mHIndex = 7;
+  if (mH == 425) mHIndex = 8;
+  if (mH == 450) mHIndex = 9;
+  if (mH == 475) mHIndex = 10;
+  if (mH == 500) mHIndex = 11;
+  if (mH == 525) mHIndex = 12;
+  if (mH == 550) mHIndex = 13;
+  if (mH == 575) mHIndex = 14;
+  if (mH == 600) mHIndex = 15;
   if (mHIndex == -1 ) return;
 
 
@@ -215,8 +216,6 @@ void MakeHZZRes
   //************************************************************************************************
   // Yields Tables and Histograms
   //************************************************************************************************
-
-
 
   const int nMVAVars = 2; //number of different MVA variables
   int    nBinHis[nMVAVars] = { 200,  200};
@@ -295,24 +294,22 @@ void MakeHZZRes
   float nDatCut = 0.0;
   float nDatMVA = 0.0;
 
-  float PhotonSampleDYEstimateSysUncertainty = 0.0;
-
 
   //************************************************************************************************
   // mH dependant Cuts
   // [NJETS][mH]
   // double NJETS[3] = { 0, 1, 2 };
-  // double mH[15] = { 200, 250, 300, 325, 350, 375, 400, 425, 450, 475, 500, 525, 550, 575, 600 };
+  // double mH[16] = { 200, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500, 525, 550, 575, 600 };
   //************************************************************************************************
-  double cutMETLow[3][15]        = { { 50, 60, 70 , 70, 70, 70, 70, 50, 60, 80, 90,110,120,130,150},
-                                     { 60, 60, 100,100,100,100,100, 50, 60, 80, 90,110,120,130,150},
-                                     { 80, 80, 100,100,100,100,100, 50, 60, 80, 90,110,120,130,150} };
-  double cutMTLow[3][15]         = { { 180,220,260,320,320,320,320,110,120,120,120,120,120,120,120},
-                                     { 180,220,260,300,300,300,300,110,120,120,120,120,120,120,120},
-                                     { 180,220,240,300,300,300,300,110,120,120,120,120,120,120,120} };
-  double cutMTHigh[3][15]        = { { 220,260,320,450,450,450,450,450,180,190,200,210,220,230,250}, 
-                                     { 200,260,320,450,450,450,450,450,180,190,200,210,220,230,250}, 
-                                     { 200,260,320,450,450,450,450,450,180,190,200,210,220,230,250} };
+  double cutMETLow[3][16]        = { { 50, 60, 60, 70 , 70, 70, 70, 70, 50, 60, 80, 90,110,120,130,150},
+                                     { 60, 60, 60, 100,100,100,100,100, 50, 60, 80, 90,110,120,130,150},
+                                     { 80, 80, 80, 100,100,100,100,100, 50, 60, 80, 90,110,120,130,150} };
+  double cutMTLow[3][16]         = { { 180,220,220,260,320,320,320,320,110,120,120,120,120,120,120,120},
+                                     { 180,180,180,260,300,300,300,300,110,120,120,120,120,120,120,120},
+                                     { 180,180,180,240,300,300,300,300,110,120,120,120,120,120,120,120} };
+  double cutMTHigh[3][16]        = { { 220,260,260,320,450,450,450,450,450,180,190,200,210,220,230,250}, 
+                                     { 200,260,260,320,450,450,450,450,450,180,190,200,210,220,230,250}, 
+                                     { 200,260,260,320,450,450,450,450,450,180,190,200,210,220,230,250} };
 
 
   // TMVA cuts (known a posteriori)
@@ -916,7 +913,14 @@ void MakeHZZRes
   //**************************************************************************
   //Photon Loop
   //**************************************************************************
+  TH2F *WeightCount = (TH2F*)GammaReweightFactor->Clone("WeightCount");
+  for(int i=0; i < GammaReweightFactor->GetXaxis()->GetNbins() + 2; ++i) {
+    for(int j=0; j < GammaReweightFactor->GetYaxis()->GetNbins() + 2 ; ++j) {
+      WeightCount->SetBinContent(i,j,0);
+    }
+  }
 
+  ofstream outf("SyncPhotons.sixie.txt");
   photonSample->SetBranchAddress( "cuts"          , &cuts 	  );
   photonSample->SetBranchAddress( "dstype"        , &dstype	  );
   photonSample->SetBranchAddress( "nvtx"          , &nvtx 	  );
@@ -1014,7 +1018,6 @@ void MakeHZZRes
     myWeight      = GammaReweightFactor->GetBinContent(bin_pt,bin_njet);
     myWeightError = GammaReweightFactor->GetBinError(bin_pt,bin_njet);
 
-
     //************************************************************************************************
     // Yields and histograms
     //************************************************************************************************
@@ -1064,8 +1067,7 @@ void MakeHZZRes
       nBgdECut += myWeight*myWeight;
       nBgdCutDecays[bkgIndex]  += myWeight;
       nBgdECutDecays[bkgIndex] += myWeight*myWeight;
-      PhotonSampleDYEstimateSysUncertainty += myWeightError*myWeightError;
-
+      WeightCount->SetBinContent(bin_pt,bin_njet, WeightCount->GetBinContent(bin_pt,bin_njet) + 1);
     }
 
     bool passMVACut = false;
@@ -1075,13 +1077,22 @@ void MakeHZZRes
   nBgdEAcc = sqrt(nBgdEAcc);
   nBgdECut = sqrt(nBgdECut);
   nBgdEMVA = sqrt(nBgdEMVA);
-  Double_t PhotonSampelDYEstimateKappa = ( sqrt(PhotonSampleDYEstimateSysUncertainty) / nBgdCutDecays[4] ); //still need to add 30% in quadrature
+
+
+  //Propagate uncertainties of event weights
+  Double_t PhotonSampleDYEstimateWeightErrSqr=0;
+  for(int i=0; i < WeightCount->GetXaxis()->GetNbins() + 2; ++i) {
+    for(int j=0; j < WeightCount->GetYaxis()->GetNbins() + 2 ; ++j) {
+      PhotonSampleDYEstimateWeightErrSqr +=  pow(WeightCount->GetBinContent(i,j) * GammaReweightFactor->GetBinError(i,j) ,2) ; 
+    }
+  }
+  //Add 30% systematic from the method
+  Double_t PhotonSampleDYEstimateKappa = 1 + TMath::Sqrt(pow( sqrt(PhotonSampleDYEstimateWeightErrSqr) / nBgdCutDecays[4] , 2) + pow(0.30,2)) ; 
+
+
+
+
   printf("--- Finished Bgdnal loop\n");
-
-
-
-
-
 
   //**************************************************************************
   //Data Loop
@@ -1487,9 +1498,9 @@ void MakeHZZRes
       newcardShape << Form("CMS_trigger_e                  lnN 1.015 1.015 1.015 1.015 1.015 1.015 1.000 1.000 1.000 1.015\n"); 		      
       newcardShape << Form("CMS_scale_m                    lnN 1.015 1.015 1.015 1.015 1.015 1.015 1.000 1.000 1.000 1.015\n"); 		      
       newcardShape << Form("CMS_scale_e  	           lnN 1.020 1.020 1.020 1.020 1.020 1.020 1.000 1.000 1.000 1.020\n");
-      newcardShape << Form("CMS_hww_met_resolution         lnN 1.020 1.020 1.020 1.020 1.020 1.020 1.000 1.000 1.000 1.020\n");
+      newcardShape << Form("CMS_hzzllvv_met_resolution         lnN 1.020 1.020 1.020 1.020 1.020 1.020 1.000 1.000 1.000 1.020\n");
       newcardShape << Form("CMS_scale_j                    lnN %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f 1.000 1.000 1.000 %5.3f\n",jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E);        
-      newcardShape << Form("CMS_hww_fake_em       	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.360 1.000\n");
+      newcardShape << Form("CMS_hzzllvv_fake_em       	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.360 1.000\n");
       newcardShape << Form("UEPS 		           lnN 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",UEPS);
       newcardShape << Form("pdf_gg		           lnN 1.000 1.000 1.100 1.000 1.040 1.000 1.000 1.000 1.000 1.000\n");
       newcardShape << Form("pdf_qqbar                      lnN 1.050 1.050 1.000 1.040 1.000 1.040 1.000 1.000 1.000 1.040\n");
@@ -1502,19 +1513,19 @@ void MakeHZZRes
       newcardShape << Form("QCDscale_ggH_EXTRAP            lnN 1.000 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
       newcardShape << Form("QCDscale_qqH_EXTRAP            lnN 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
       newcardShape << Form("QCDscale_VH_EXTRAP             lnN 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
-      newcardShape << Form("CMS_hww_%1dj_ttbar             lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType]);	     
-      newcardShape << Form("CMS_hww_%1dj_Z                 lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,PhotonSampelDYEstimateKappa); // ZXS_E);   
-      newcardShape << Form("CMS_hww_%1dj_WW                lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType],TopAndWWScaleFactorKappa[nJetsType]); 		     
-      newcardShape << Form("CMS_hww_stat_%1dj_VH_bin%d     lnN %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[1]+1.0);
-      newcardShape << Form("CMS_hww_stat_%1dj_qqH_bin%d    lnN 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[2]+1.0);
-      newcardShape << Form("CMS_hww_stat_%1dj_ggH_bin%d    lnN 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[3]+1.0);
-      newcardShape << Form("CMS_hww_stat_%1dj_ZZ_bin%d     lnN 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[4]+1.0);
-      newcardShape << Form("CMS_hww_stat_%1dj_WZ_bin%d     lnN 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[5]+1.0);
-      newcardShape << Form("CMS_hww_stat_%1dj_WW_bin%d     lnN 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[6]+1.0);
-      newcardShape << Form("CMS_hww_stat_%1dj_ttbar_bin%d  lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,i,yieldE[7]+1.0);
-      newcardShape << Form("CMS_hww_stat_%1dj_Z_bin%d      lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,i,yieldE[8]+1.0);
-      newcardShape << Form("CMS_hww_stat_%1dj_DYtt_bin%d   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000\n",nJetsType,i,yieldE[9]+1.0);
-      newcardShape << Form("CMS_hww_stat_%1dj_Wjets_bin%d lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f\n",nJetsType,i,yieldE[10]+1.0);
+      newcardShape << Form("CMS_hzzllvv_%1dj_ttbar             lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType]);	     
+      newcardShape << Form("CMS_hzzllvv_%1dj_Z                 lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,PhotonSampleDYEstimateKappa); // ZXS_E);   
+      newcardShape << Form("CMS_hzzllvv_%1dj_WW                lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType],TopAndWWScaleFactorKappa[nJetsType]); 		     
+      newcardShape << Form("CMS_hzzllvv_stat_%1dj_VH_bin%d     lnN %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[1]+1.0);
+      newcardShape << Form("CMS_hzzllvv_stat_%1dj_qqH_bin%d    lnN 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[2]+1.0);
+      newcardShape << Form("CMS_hzzllvv_stat_%1dj_ggH_bin%d    lnN 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[3]+1.0);
+      newcardShape << Form("CMS_hzzllvv_stat_%1dj_ZZ_bin%d     lnN 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[4]+1.0);
+      newcardShape << Form("CMS_hzzllvv_stat_%1dj_WZ_bin%d     lnN 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[5]+1.0);
+      newcardShape << Form("CMS_hzzllvv_stat_%1dj_WW_bin%d     lnN 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000\n",nJetsType,i,yieldE[6]+1.0);
+      newcardShape << Form("CMS_hzzllvv_stat_%1dj_ttbar_bin%d  lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,i,yieldE[7]+1.0);
+      newcardShape << Form("CMS_hzzllvv_stat_%1dj_Z_bin%d      lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,i,yieldE[8]+1.0);
+      newcardShape << Form("CMS_hzzllvv_stat_%1dj_DYtt_bin%d   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000\n",nJetsType,i,yieldE[9]+1.0);
+      newcardShape << Form("CMS_hzzllvv_stat_%1dj_Wjets_bin%d lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f\n",nJetsType,i,yieldE[10]+1.0);
       newcardShape.close();
     }
 
@@ -1543,9 +1554,9 @@ void MakeHZZRes
     newcardCut << Form("CMS_trigger_e         	   lnN 1.015 1.015 1.015 1.015 1.015 1.015 1.000 1.000 1.000 1.015\n"); 			
     newcardCut << Form("CMS_scale_m           	   lnN 1.015 1.015 1.015 1.015 1.015 1.015 1.000 1.000 1.000 1.015\n"); 			
     newcardCut << Form("CMS_scale_e           	   lnN 1.020 1.020 1.020 1.020 1.020 1.020 1.000 1.000 1.000 1.020\n"); 			
-    newcardCut << Form("CMS_hww_met_resolution     lnN 1.020 1.020 1.020 1.020 1.020 1.020 1.000 1.000 1.000 1.020\n"); 			
+    newcardCut << Form("CMS_hzzllvv_met_resolution     lnN 1.020 1.020 1.020 1.020 1.020 1.020 1.000 1.000 1.000 1.020\n"); 			
     newcardCut << Form("CMS_scale_j           	   lnN %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f 1.000 1.000 1.000 %5.3f\n",jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E); 	 
-    newcardCut << Form("CMS_hww_fake_em       	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.360 1.000\n");
+    newcardCut << Form("CMS_hzzllvv_fake_em       	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.360 1.000\n");
     newcardCut << Form("UEPS 		           lnN 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",UEPS);
     newcardCut << Form("pdf_gg                	   lnN 1.000 1.000 1.100 1.000 1.040 1.000 1.000 1.000 1.000 1.000\n");
     newcardCut << Form("pdf_qqbar             	   lnN 1.050 1.050 1.000 1.040 1.000 1.040 1.000 1.000 1.000 1.040\n");
@@ -1558,19 +1569,19 @@ void MakeHZZRes
     newcardCut << Form("QCDscale_ggH_EXTRAP   	   lnN 1.000 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
     newcardCut << Form("QCDscale_qqH_EXTRAP   	   lnN 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
     newcardCut << Form("QCDscale_VH_EXTRAP    	   lnN 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
-    newcardCut << Form("CMS_hww_%1dj_ttbar	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType]);    
-    newcardCut << Form("CMS_hww_%1dj_Z  	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,PhotonSampelDYEstimateKappa); //ZXS_E); 	     
-    newcardCut << Form("CMS_hww_%1dj_WW 	   lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType],TopAndWWScaleFactorKappa[nJetsType]); 		  
-    newcardCut << Form("CMS_hww_stat_%1dj_VH	   lnN %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigECut[3]/TMath::Max((double)nSigCut[3],0.00001)+1.0);
-    newcardCut << Form("CMS_hww_stat_%1dj_qqH	   lnN 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigECut[2]/TMath::Max((double)nSigCut[2],0.00001)+1.0);
-    newcardCut << Form("CMS_hww_stat_%1dj_ggH	   lnN 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigECut[1]/TMath::Max((double)nSigCut[1],0.00001)+1.0);
-    newcardCut << Form("CMS_hww_stat_%1dj_ZZ	   lnN 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nBgdECutDecays[0]+1.0);
-    newcardCut << Form("CMS_hww_stat_%1dj_WZ       lnN 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nBgdECutDecays[1]+1.0);
-    newcardCut << Form("CMS_hww_stat_%1dj_WW	   lnN 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000\n",nJetsType,nBgdECutDecays[2]+1.0);
-    newcardCut << Form("CMS_hww_stat_%1dj_ttbar    lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,nBgdECutDecays[3]+1.0);
-    newcardCut << Form("CMS_hww_stat_%1dj_Z	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,nBgdECutDecays[4]+1.0);
-    newcardCut << Form("CMS_hww_stat_%1dj_DYtt     lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000\n",nJetsType,nBgdECutDecays[5]+1.0);
-    newcardCut << Form("CMS_hww_stat_%1dj_Wjets    lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f\n",nJetsType,nBgdECutDecays[6]+1.0);
+    newcardCut << Form("CMS_hzzllvv_%1dj_ttbar	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType]);    
+    newcardCut << Form("CMS_hzzllvv_%1dj_Z  	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,PhotonSampleDYEstimateKappa); //ZXS_E); 	     
+    newcardCut << Form("CMS_hzzllvv_%1dj_WW 	   lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType],TopAndWWScaleFactorKappa[nJetsType]); 		  
+    newcardCut << Form("CMS_hzzllvv_stat_%1dj_VH	   lnN %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigECut[3]/TMath::Max((double)nSigCut[3],0.00001)+1.0);
+    newcardCut << Form("CMS_hzzllvv_stat_%1dj_qqH	   lnN 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigECut[2]/TMath::Max((double)nSigCut[2],0.00001)+1.0);
+    newcardCut << Form("CMS_hzzllvv_stat_%1dj_ggH	   lnN 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigECut[1]/TMath::Max((double)nSigCut[1],0.00001)+1.0);
+    newcardCut << Form("CMS_hzzllvv_stat_%1dj_ZZ	   lnN 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nBgdECutDecays[0]+1.0);
+    newcardCut << Form("CMS_hzzllvv_stat_%1dj_WZ       lnN 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nBgdECutDecays[1]+1.0);
+    newcardCut << Form("CMS_hzzllvv_stat_%1dj_WW	   lnN 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000\n",nJetsType,nBgdECutDecays[2]+1.0);
+    newcardCut << Form("CMS_hzzllvv_stat_%1dj_ttbar    lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,nBgdECutDecays[3]+1.0);
+    newcardCut << Form("CMS_hzzllvv_stat_%1dj_Z	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,nBgdECutDecays[4]+1.0);
+    newcardCut << Form("CMS_hzzllvv_stat_%1dj_DYtt     lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000\n",nJetsType,nBgdECutDecays[5]+1.0);
+    newcardCut << Form("CMS_hzzllvv_stat_%1dj_Wjets    lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f\n",nJetsType,nBgdECutDecays[6]+1.0);
     newcardCut.close();
 
     //***********MVA***************
@@ -1598,9 +1609,9 @@ void MakeHZZRes
     newcardMVA << Form("CMS_trigger_e         	   lnN 1.015 1.015 1.015 1.015 1.015 1.015 1.000 1.000 1.000 1.015\n"); 			
     newcardMVA << Form("CMS_scale_m           	   lnN 1.015 1.015 1.015 1.015 1.015 1.015 1.000 1.000 1.000 1.015\n"); 			
     newcardMVA << Form("CMS_scale_e           	   lnN 1.020 1.020 1.020 1.020 1.020 1.020 1.000 1.000 1.000 1.020\n"); 			
-    newcardMVA << Form("CMS_hww_met_resolution     lnN 1.020 1.020 1.020 1.020 1.020 1.020 1.000 1.000 1.000 1.020\n"); 			
+    newcardMVA << Form("CMS_hzzllvv_met_resolution     lnN 1.020 1.020 1.020 1.020 1.020 1.020 1.000 1.000 1.000 1.020\n"); 			
     newcardMVA << Form("CMS_scale_j           	   lnN %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f 1.000 1.000 1.000 %5.3f\n",jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E); 	  
-    newcardMVA << Form("CMS_hww_fake_em       	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.360 1.000\n");
+    newcardMVA << Form("CMS_hzzllvv_fake_em       	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.360 1.000\n");
     newcardMVA << Form("UEPS 		           lnN 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",UEPS);
     newcardMVA << Form("pdf_gg                	   lnN 1.000 1.000 1.100 1.000 1.040 1.000 1.000 1.000 1.000 1.000\n");
     newcardMVA << Form("pdf_qqbar             	   lnN 1.050 1.050 1.000 1.040 1.000 1.040 1.000 1.000 1.000 1.040\n");
@@ -1613,19 +1624,19 @@ void MakeHZZRes
     newcardMVA << Form("QCDscale_ggH_EXTRAP   	   lnN 1.000 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
     newcardMVA << Form("QCDscale_qqH_EXTRAP   	   lnN 1.000 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
     newcardMVA << Form("QCDscale_VH_EXTRAP    	   lnN 1.020 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n");
-    newcardMVA << Form("CMS_hww_%1dj_ttbar	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType]);    
-    newcardMVA << Form("CMS_hww_%1dj_Z  	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,PhotonSampelDYEstimateKappa); //,ZXS_E); 	     
-    newcardMVA << Form("CMS_hww_%1dj_WW 	   lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType],TopAndWWScaleFactorKappa[nJetsType]); 		  
-    newcardMVA << Form("CMS_hww_stat_%1dj_VH	   lnN %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigEMVA[3]/TMath::Max((double)nSigMVA[3],0.00001)+1.0);
-    newcardMVA << Form("CMS_hww_stat_%1dj_qqH	   lnN 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigEMVA[2]/TMath::Max((double)nSigMVA[2],0.00001)+1.0);
-    newcardMVA << Form("CMS_hww_stat_%1dj_ggH	   lnN 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigEMVA[1]/TMath::Max((double)nSigMVA[1],0.00001)+1.0);
-    newcardMVA << Form("CMS_hww_stat_%1dj_ZZ	   lnN 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nBgdEMVADecays[0]+1.0);
-    newcardMVA << Form("CMS_hww_stat_%1dj_WZ       lnN 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nBgdEMVADecays[1]+1.0);
-    newcardMVA << Form("CMS_hww_stat_%1dj_WW	   lnN 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000\n",nJetsType,nBgdEMVADecays[2]+1.0);
-    newcardMVA << Form("CMS_hww_stat_%1dj_ttbar    lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,nBgdEMVADecays[3]+1.0);
-    newcardMVA << Form("CMS_hww_stat_%1dj_Z	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,nBgdEMVADecays[4]+1.0);
-    newcardMVA << Form("CMS_hww_stat_%1dj_DYtt     lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000\n",nJetsType,nBgdEMVADecays[5]+1.0);
-    newcardMVA << Form("CMS_hww_stat_%1dj_Wjets    lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f\n",nJetsType,nBgdEMVADecays[6]+1.0);
+    newcardMVA << Form("CMS_hzzllvv_%1dj_ttbar	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType]);    
+    newcardMVA << Form("CMS_hzzllvv_%1dj_Z  	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,PhotonSampleDYEstimateKappa); //,ZXS_E); 	     
+    newcardMVA << Form("CMS_hzzllvv_%1dj_WW 	   lnN 1.000 1.000 1.000 %5.3f %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,TopAndWWScaleFactorKappa[nJetsType],TopAndWWScaleFactorKappa[nJetsType]); 		  
+    newcardMVA << Form("CMS_hzzllvv_stat_%1dj_VH	   lnN %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigEMVA[3]/TMath::Max((double)nSigMVA[3],0.00001)+1.0);
+    newcardMVA << Form("CMS_hzzllvv_stat_%1dj_qqH	   lnN 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigEMVA[2]/TMath::Max((double)nSigMVA[2],0.00001)+1.0);
+    newcardMVA << Form("CMS_hzzllvv_stat_%1dj_ggH	   lnN 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nSigEMVA[1]/TMath::Max((double)nSigMVA[1],0.00001)+1.0);
+    newcardMVA << Form("CMS_hzzllvv_stat_%1dj_ZZ	   lnN 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nBgdEMVADecays[0]+1.0);
+    newcardMVA << Form("CMS_hzzllvv_stat_%1dj_WZ       lnN 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000 1.000\n",nJetsType,nBgdEMVADecays[1]+1.0);
+    newcardMVA << Form("CMS_hzzllvv_stat_%1dj_WW	   lnN 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000 1.000\n",nJetsType,nBgdEMVADecays[2]+1.0);
+    newcardMVA << Form("CMS_hzzllvv_stat_%1dj_ttbar    lnN 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000 1.000\n",nJetsType,nBgdEMVADecays[3]+1.0);
+    newcardMVA << Form("CMS_hzzllvv_stat_%1dj_Z	   lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000 1.000\n",nJetsType,nBgdEMVADecays[4]+1.0);
+    newcardMVA << Form("CMS_hzzllvv_stat_%1dj_DYtt     lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f 1.000\n",nJetsType,nBgdEMVADecays[5]+1.0);
+    newcardMVA << Form("CMS_hzzllvv_stat_%1dj_Wjets    lnN 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 %5.3f\n",nJetsType,nBgdEMVADecays[6]+1.0);
     newcardMVA.close();
   }
 
