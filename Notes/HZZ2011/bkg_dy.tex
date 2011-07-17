@@ -215,13 +215,40 @@ $40$ GeV. }
 \end{center}
 \end{figure}
 
-
+%
+%
 %We work on this section more later
-%\subsubsection{Systematic Uncertainties}
+\subsubsection{Systematic Uncertainties}
 
-Based on the degree of overall disagreement in the full range of the minimum \met we assign 
-systematic uncertainties of $30\%$ in all the jet bins.
+We derive the systematic uncertainty in two components.
+First we account for the intrinsic systematic uncertainty on the method by comparing
+the predicted and observed \met~distribution in the closure test described above.
+This is illustrated in Figure \ref{fig:PhotonJetsClosureTest_MinMETRatio}.
+From this we conclude a systematic uncertainty of 20\% in each jet bin.
+The second part of the systematic uncertainty comes from a cross check in
+the data itself.
+This cross check is performed by re-deriving the weighting for the photon+jets sample in the region
+$20<\met<30$~GeV and then using this to predict the number of events in the region
+$30<\met<50$~GeV, which should still be dominated by Drell-Yan.
+We then take the uncertainty as the relative difference between the central values
+of the prediction and observations.
+From this we conclude an additional systematic uncertainty of
+15\%, 1\% and 5\% in the zero, one and two-jet bins respectively.
+This uncertainty is added in quadrature with the first to give a total 
+systematic uncertainty of 25\%, 20\% and 21\% respectively.
 
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[0-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_0Jet_MinMETRatio.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_1Jet_MinMETRatio.pdf}}
+\subfigure[2-Jet]{\includegraphics[width=0.3\textwidth]{figures/PhotonJetsClosureTest_2Jet_MinMETRatio.pdf}}
+\caption{
+The ratio of the
+the minimum of particle flow \met and particle flow track \met prediction from
+the reweighted $\gamma$+jets sample and the simulation prediction from the $Z$+jets sample.}
+\label{fig:PhotonJetsClosureTest_MinMETRatio}
+\end{center}
+\end{figure}
 
 \subsubsection{Data Estimate}
 
