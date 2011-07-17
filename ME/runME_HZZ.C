@@ -196,7 +196,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   double Xsec=0;
   double XsecErr=0;
   double Ratio=0;
-  int HiggsMASS[26]={0,0,0,0,0,115,120,130,140,150,160,170,180,190,200,210,220,230,250,300,350,400,450,500,550,600};
+  int HiggsMASS[30]={0,0,0,0,0,115,120,130,140,150,160,170,180,190,200,210,220,230,250,300,350,400,450,500,550,600,200,250,300,400};
   
   // The SM background processes
   int NProcessCalculate=0;
@@ -212,8 +212,33 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   // run single higgs mass hypothesis for those hww MC
   // This is kind of dangerous, as we reply on the smurfntuples 
   // to be filled correctly...
-  processList[ NProcessCalculate++]=TVar::HZZ;
+  // processList[ NProcessCalculate++]=TVar::HZZ;
 
+ switch ( dstype_) {
+  case SmurfTree::hww200:
+  case SmurfTree::vbfhww200:
+    processList[ NProcessCalculate++]=TVar::HZZ200;
+    break;
+  case SmurfTree::hww250:
+  case SmurfTree::vbfhww250:
+    processList[ NProcessCalculate++]=TVar::HZZ250;
+    break;
+  case SmurfTree::hww300:
+  case SmurfTree::vbfhww300:
+    processList[ NProcessCalculate++]=TVar::HZZ300;
+    break;
+  case SmurfTree::hww400:
+  case SmurfTree::vbfhww400:
+    processList[ NProcessCalculate++]=TVar::HZZ400;
+    break;
+  default:
+    processList[ NProcessCalculate++]=TVar::HZZ200;
+    processList[ NProcessCalculate++]=TVar::HZZ250;
+    processList[ NProcessCalculate++]=TVar::HZZ300;
+    processList[ NProcessCalculate++]=TVar::HZZ400;
+    break;
+ }
+ 
   
     
   for(int iproc = 0; iproc < NProcessCalculate; iproc++) { 
@@ -259,10 +284,9 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     }
     
     // -- Do the integration over unknown parameters
-    if (ProcInt == TVar::HZZ){
+    if (ProcInt >= TVar::HZZ200 && ProcInt <= TVar::HZZ400){
       Xcal2.SetProcess(TVar::HZZ);
-      Xcal2.SetHiggsMass(300.0);
-
+      Xcal2.SetHiggsMass(HiggsMASS[ProcInt]);
       if (verbosity >= TVar::DEBUG) cout<< "Higgs Mass: " << HiggsMASS[ProcInt]<<"GeV \n";    
       Xcal2.NeutrinoIntegrate(TVar::HZZ,cms_event, &Xsec, &XsecErr, verbosity);
     }

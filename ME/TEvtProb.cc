@@ -277,10 +277,12 @@ void TEvtProb::SetMCHist(int proc, TString MCFileName, bool setFR, TVar::Verbosi
         _boosthist.kx = (TH1F*) fUtil->Get(TString("ww_kx"))->Clone();
         _boosthist.ky = (TH1F*) fUtil->Get(TString("ww_ky"))->Clone();
     }
-    else if (TVar::SmurfProcessName(proc) == "hzz300") {
-        _boosthist.kx = (TH1F*) fUtil->Get(TString("hww160_kx"))->Clone();
-        _boosthist.ky = (TH1F*) fUtil->Get(TString("hww160_ky"))->Clone();
-    }
+    else if 
+      ((TVar::SmurfProcessName(proc) == "hzz200")||(TVar::SmurfProcessName(proc) == "hzz250")||(TVar::SmurfProcessName(proc) == "hzz300")||(TVar::SmurfProcessName(proc) == "hzz400"))
+      {
+        _boosthist.kx = (TH1F*) fUtil->Get(TString("hww300_kx"))->Clone();
+        _boosthist.ky = (TH1F*) fUtil->Get(TString("hww300_ky"))->Clone();
+      }
     else if (TVar::SmurfProcessName(proc) == "zz") {
         _boosthist.kx = (TH1F*) fUtil->Get(TString("ww_kx"))->Clone();
         _boosthist.ky = (TH1F*) fUtil->Get(TString("ww_ky"))->Clone();
