@@ -253,16 +253,21 @@ region using opposite flavor events. Limited by the size of the Monte Carlo samp
 at the preselection level. In particular, the missing energy requirement is Min(PF-MET,track-MET) $>50\:\GeV$ and
 $m_{e\mu}$ must lie within the $Z$ mass window. Electrons and muons have different reconstuction and selection 
 efficiencies so this difference must be taken into account when making a prediction for same flavor di-lepton yields. The 
-predicted same flavor yields is determined from the opposite flavor yields as follows:
+predicted same flavor yields are determined from the opposite flavor yields as follows:
 \begin{equation}
 N_{ee} + N_{\mu\mu} = \frac{1}{2}N_{e\mu}\left(\frac{\varepsilon_{e}}{\varepsilon_{\mu}} + \frac{\varepsilon_{\mu}}{\varepsilon_{e}}\right),
 \end{equation}
 where $\varepsilon_{e}$ and $\varepsilon_{\mu}$ are the selection and reconstruction efficiencies for electrons and muons
-respectively. The results of the closure test in the 0-jet, 1-jet, and $\geq$2-jets bins are tabulated in Tables~\ref{tab:ofmcj0},
-~\ref{tab:ofmcj1},~\ref{tab:ofmcj2}, showing the counted opposite flavor yields, the prediction for same flavor yields after efficiency corrections, 
-and the counted same flavor yields. These tables show that flavor symmetry is valid for $\WW$ and $t\bar{t}$ and furthermore, that the efficiency 
-correction is a small effect. The $\ztt$ sample has too few events to make a definitive statement. The $tW$ does not appear to be
-flavor symmetric and further investigations are needed to understand why.
+respectively. The efficiencies are derived from $Z\rightarrow\ell\ell$ simulation using Tag-and-Probe and binned into barrel and endcap in order
+to account for the different kinematics of the various backgrounds. The $\varepsilon_{e}/\varepsilon_{\mu}$ ratio are 
+$0.8793 \pm 0.0006$ for the barrel and $0.7237 \pm 0.0012$ for the endcap. The results of the closure test in the 0-jet, 1-jet, and $\geq$2-jets bins are 
+tabulated in Tables~\ref{tab:ofmcj0}, ~\ref{tab:ofmcj1},~\ref{tab:ofmcj2}, showing the counted opposite flavor yields, the prediction 
+for same flavor yields after efficiency corrections, and the counted same flavor yields. These tables show that flavor symmetry is 
+valid for $\WW$ and $t\bar{t}$ and furthermore, that the efficiency correction is a small effect. The $\ztt$ sample has too few 
+events to make a definitive statement. The $tW$ does not appear to be flavor symmetric and further investigations are needed to understand 
+why. Overall, the opposite flavor prediction and the same flavor expectation for the total background are within the statistical uncertainties 
+of the simulation samples.
+
 
 %%%%%%%%%%%%%
 \begin{table}[!ht]
@@ -271,10 +276,12 @@ flavor symmetric and further investigations are needed to understand why.
 \hline
 Process & $N_{e\mu}$ & Predicted $N_{ee/\mu\mu}$ & $N_{ee/\mu\mu}$ \\
 \hline
-$t\bar{t}$  & $1.375 \pm 0.435$  & $1.421 \pm 0.325$  & $1.375 \pm 0.435$ \\
-$tW$        & $0.482 \pm 0.103$  & $0.489 \pm 0.075$  & $0.876 \pm 0.139$ \\
-$\WW$       & $13.398 \pm 0.285$ & $13.632 \pm 0.209$ & $14.016 \pm 0.292$ \\
-$\ztt$      & $0.838 \pm 0.838$  & $0.845 \pm 0.602$  & $0.000 \pm 0.000$ \\
+$t\bar{t}$  & $1.375 \pm 0.435$  & $1.421 \pm 0.451$  & $1.375 \pm 0.435$ \\
+$tW$        & $0.482 \pm 0.103$  & $0.489 \pm 0.104$  & $0.876 \pm 0.139$ \\
+$\WW$       & $13.398 \pm 0.285$ & $13.632 \pm 0.291$ & $14.016 \pm 0.292$ \\
+$\ztt$      & $0.838 \pm 0.838$  & $0.845 \pm 0.845$  & $0.000 \pm 0.000$ \\
+\hline
+Total       & $16.093 \pm 0.992$ & $16.387 \pm 1.006$ & $16.267 \pm 0.542$ \\
 \hline
 \end{tabular}
 \caption{Results of the closure test in the 0-jet bin.}
@@ -290,10 +297,12 @@ $\ztt$      & $0.838 \pm 0.838$  & $0.845 \pm 0.602$  & $0.000 \pm 0.000$ \\
 \hline
 Process & $N_{e\mu}$ & Predicted $N_{ee/\mu\mu}$ & $N_{ee/\mu\mu}$ \\
 \hline
-$t\bar{t}$  & $3.850 \pm 0.727$ & $3.923 \pm 0.532$ & $4.125 \pm 0.753$ \\
-$tW$        & $1.095 \pm 0.155$ & $1.116 \pm 0.113$ & $1.314 \pm 0.170$ \\
-$\WW$       & $4.527 \pm 0.166$ & $4.617 \pm 0.122$ & $4.635 \pm 0.168$ \\
-$\ztt$      & $0.838 \pm 0.838$ & $0.845 \pm 0.602$ & $0.000 \pm 0.000$ \\
+$t\bar{t}$  & $3.850 \pm 0.727$ & $3.923 \pm 0.743$ & $4.125 \pm 0.753$ \\
+$tW$        & $1.095 \pm 0.155$ & $1.116 \pm 0.158$ & $1.314 \pm 0.170$ \\
+$\WW$       & $4.527 \pm 0.166$ & $4.617 \pm 0.170$ & $4.635 \pm 0.168$ \\
+$\ztt$      & $0.838 \pm 0.838$ & $0.845 \pm 0.845$ & $0.000 \pm 0.000$ \\
+\hline
+Total       & $10.310 \pm 1.132$ & $10.501 \pm 1.149$ & $10.074 \pm 0.790$ \\
 \hline
 \end{tabular}
 \caption{Results of the closure test in the 1-jet bin.}
@@ -309,10 +318,12 @@ $\ztt$      & $0.838 \pm 0.838$ & $0.845 \pm 0.602$ & $0.000 \pm 0.000$ \\
 \hline
 Process & $N_{e\mu}$ & Predicted $N_{ee/\mu\mu}$ & $N_{ee/\mu\mu}$ \\
 \hline
-$t\bar{t}$  & $7.974 \pm 1.047$ & $8.139 \pm 0.767$ & $7.149 \pm 0.991$ \\
-$tW$        & $0.723 \pm 0.126$ & $0.732 \pm 0.091$ & $0.526 \pm 0.107$ \\
-$\WW$       & $1.697 \pm 0.103$ & $1.721 \pm 0.075$ & $1.628 \pm 0.101$ \\
+$t\bar{t}$  & $7.974 \pm 1.047$ & $8.139 \pm 1.072$ & $7.149 \pm 0.991$ \\
+$tW$        & $0.723 \pm 0.126$ & $0.732 \pm 0.128$ & $0.526 \pm 0.107$ \\
+$\WW$       & $1.697 \pm 0.103$ & $1.721 \pm 0.105$ & $1.628 \pm 0.101$ \\
 $\ztt$      & $0.000 \pm 0.000$ & $0.000 \pm 0.000$ & $0.000 \pm 0.000$ \\
+\hline
+Total       & $10.394 \pm 1.060$ & $10.592 \pm 1.085$ & $9.303 \pm 1.002$ \\
 \hline
 \end{tabular}
 \caption{Results of the closure test in the $\geq$2-jets bin.}
