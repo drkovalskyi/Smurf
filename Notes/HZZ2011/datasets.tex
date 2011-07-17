@@ -20,24 +20,32 @@ For $gg \to \WW$ a dedicated generator is used.
 \hline
 \multicolumn{2}{|c|}{$H \to \ZZ$ Signal Selection Samples} \\
 \hline
-Run2011A MuEl PromptReco            &  /MuEG/Run2011A-PromptReco-v*/AOD   \\
-Run2011A DiMuon PromptReco          &  /DoubleMu/Run2011A-PromptReco-v*/AOD   \\
-Run2011A SingleMuon PromptReco      &  /SingleMu/Run2011A-PromptReco-v*/AOD   \\
-Run2011A DiElectron PromptReco      &  /DoubleElectron/Run2011A-PromptReco-v*/AOD   \\
+Run2011A DiElectron PromptReco      &  /DoubleElectron/Run2011A-PromptReco-v4/AOD   \\
+Run2011A DiMuon PromptReco          &  /DoubleMu/Run2011A-PromptReco-v4/AOD   \\
+Run2011A MuEl PromptReco            &  /MuEG/Run2011A-PromptReco-v4/AOD   \\
+Run2011A SingleMuon PromptReco      &  /SingleMu/Run2011A-PromptReco-v4/AOD   \\
+Run2011A SingleElectron PromptReco  &  /SingleElectron/Run2011A-PromptReco-v4/AOD   \\
+Run2011A DiElectron May10ReReco      &  /DoubleElectron/Run2011A-May10ReReco-v1/AOD \\
+Run2011A DiMuon May10ReReco          &  /DoubleMu/Run2011A-May10ReReco-v1/AOD \\
+Run2011A MuEl May10ReReco            &  /MuEG/Run2011A-May10ReReco-v1/AOD \\
+Run2011A SingleMuon May10ReReco      &  /SingleMu/Run2011A-May10ReReco-v1/AOD \\
+Run2011A SingleElectron May10ReReco  &  /SingleElectron/Run2011A-May10ReReco-v4/AOD   \\
 \hline
 \hline
-\multicolumn{2}{|c|}{\fixme{}\bf Photon+Jets Samples} \\
+\multicolumn{2}{|c|}{Photon+Jets Samples} \\
 \hline
-Run2010A Jet  PromptReco            & /Jet/Run2011A-PromptReco-v*/AOD	\\
-Run2010B Photon PromptReco          & /Photon/Run2011A-PromptReco-v*/AOD \\
+Run2011A Photon May10ReReco         & /Photon/Run2011A-May10ReReco-v1/AOD \\
+Run2011A Photon PromptReco          & /Photon/Run2011A-PromptReco-v4/AOD \\
 \hline
 \multicolumn{2}{|c|}{Fake Rate Measurement Samples} \\
 \hline
-Run2010A Jet  PromptReco            & /Jet/Run2011A-PromptReco-v*/AOD	\\
-Run2010B Photon PromptReco          & /Photon/Run2011A-PromptReco-v*/AOD \\
+Run2011A Jet  May10ReReco           & /Jet/Run2011A-May10ReReco-v1/AOD \\
+Run2011A Jet  PromptReco            & /Jet/Run2011A-PromptReco-v4/AOD	\\
+
 \hline
 \end{tabular}
-\caption{Summary of data datasets used.}
+\caption{Summary of data datasets used. In general we use the combination of the May10ReReco and the PromptReco-v4 datasets, 
+selecting the part the official lumis}
 \label{tab:DatasetsData}
 \end{center}
 \end{table}
@@ -59,7 +67,7 @@ $\singletops$                  	 	 &   /TToBLNu\_TuneZ2\_s-channel\_7TeV-madgrap
 $\singletopt$                  	 	 &   /TToBLNu\_TuneZ2\_t-channel\_7TeV-madgraph                        &  20.9 \\
 tW                                    	 &   /TToBLNu\_TuneZ2\_tW-channel\_7TeV-madgraph                       &  10.6 \\
 Z[20-inf] $\rightarrow ee$	  	 &   /DYToEE\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia                   &  1666.0 \\
-Z[20-inf] $\rightarrow \mu\mu$        	 &   /DYToMuMu\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia                 &  1666.0 \\	       
+Z[20-inf] $\rightarrow \mu\mu$        	 &   /DYToMuMu\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia                 &  1666.0 \\
 Z[20-inf] $\rightarrow \tau\tau$  	 &   /DYToTauTau\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia-tauola        &  1666.0 \\
 Z[10-20]  $\rightarrow ee$	  	 &   /DYToEE\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia               &  3892.9 \\
 Z[10-20]  $\rightarrow \mu\mu$    	 &   /DYToMuMu\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia             &  3892.9 \\
@@ -68,6 +76,7 @@ W/Z+$\gamma$                       	 &   /PhotonVJets\_7TeV-madgraph            
 W $\rightarrow$ $\ell\nu$           	 &   /WJetsToLNu\_TuneZ2\_7TeV-madgraph-tauola                         &  31314.0 \\
 WZ                               	 &   /WZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &  18.2 \\
 ZZ                               	 &   /ZZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &  7.4\\
+$\gamma$ + Jets                          &   /G\_Pt\_15to3000\_TuneZ2\_Flat\_7TeV\_pythia6                     & 1.5e+07    \\
 $gg \to H \to ZZ \to 2\ell2\nu$          &   /GluGluToHToZZTo2L2Nu\_M-*\_7TeV-powheg-pythia6                   & vary \\
 $gg \to H \to WW \to 2\ell2\nu$          &   /GluGluToHToWWTo2L2Nu\_M-*\_7TeV-powheg-pythia6                   & vary \\
 $gg \to H \to WW \to \ell\tau2\nu$       &   /GluGluToHToWWTo2L2Nu\_M-*\_7TeV-powheg-pythia6                   & vary \\
@@ -85,8 +94,7 @@ is taken from the LHC Higgs cross-section working group~\cite{LHCHiggsCrossSecti
 Due to details in the implementation of the Powheg calculation in the Higgs MC, 
 the Higgs $\pt$ spectrum for $gg \to H$ in MC has a much harder
 spectrum compared with the most precise spectrum calculated to NNLO
-with resummation to NNLL order, as illustrated in
-Figure~\ref{fig:h160ww_pthiggs}{\fixme{}}. 
+with resummation to NNLL order, as illustrated in Ref.~\cite{HWW2011AN}. 
 Therefore we reweight the MC simulated events according to the 
 Higgs $\pt$ to match the spectrum obtained in NNLO calculation. 
 This is done on the event-by-event level for both $gg \to H \to ZZ$ and 
