@@ -99,15 +99,18 @@ Therefore we reweight the MC simulated events according to the
 Higgs $\pt$ to match the spectrum obtained in NNLO calculation. 
 This is done on the event-by-event level for both $gg \to H \to ZZ$ and 
 $gg \to H \to WW$ processes. 
-{\it\bf \fixme{} Add the details of ZZ pT reweighting.. }
- 
 
-%\begin{figure}[!htbp]
-%\begin{center}
-%   \subfigure[]{\includegraphics[width=0.49\textwidth]{figures/h160ww_pthiggs.pdf}}
-%   \subfigure[]{\includegraphics[width=0.49\textwidth]{figures/h160ww_njets_kfactor_ratio.pdf}} 
-%\caption{(a) Higgs transverse momentum spectrum as predicted by Powheg and the NNLO+NNLL calculation; (b) 
-%scale factors applied to each jet bin in the Powheg simulation.}
-%\label{fig:h160ww_pthiggs}
-%\end{center}
-%\end{figure}
+To account for the difference in the $p_{T}$ spectrum of the Z between the leading order Monte Carlo prediction
+and the NLO prediction, we apply an event-by-event k-factor parameterized in the $p_{T}$ of the Z, given by:
+
+\begin{eqnarray}
+  \mathrm{KFactor}(p_{T\mathrm{ Z}}) = ( 1.108 + 0.002429 \times p_{T\mathrm{ Z}} - 1.655e-06 \times p_{T\mathrm{ Z}}^{2} ),
+\end{eqnarray}
+
+for the $qq \rightarrow ZZ$ process, computed using MCFM \cite{HZZ2011EPS}. To account for the $gg \rightarrow ZZ$ 
+process we add to the ZZ cross section a term 
+$\sigma_{gg \rightarrow ZZ} = 0.12 \times \sigma_{qq \rightarrow ZZ \mathrm{ , LO}}$. 
+The total cross section for the ZZ process of $7.4\pb$ given in 
+Table \ref{tab:DatasetsMC} includes this term.
+
+ 
