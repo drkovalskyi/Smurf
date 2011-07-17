@@ -37,7 +37,7 @@ tar --exclude "scripts" -czf ME_tarball.tgz ../*
 # and what to do with it
 #
 
-echo writting commands.cmd
+echo writting commands_${PROCESS}.cmd
 echo "
 # -*- sh -*- # for font lock mode
 # variable definitions
@@ -50,11 +50,11 @@ echo "
 - copycommand = cp
 
 # Sections listed
-# arguments of cafRun.sh: section number, process, input directory, number of events to run" > commands.cmd
+# arguments of cafRun.sh: section number, process, input directory, number of events to run" > commands_${PROCESS}.cmd
 
 for (( SECTION=1; SECTION<=$NSECTIONS; SECTION++)) 
 do
-	echo "output_\$(JID)         tardir/cafRun.sh $SECTION $PROCESS $ME_NTUPLE_LOCATION $NEVT_PER_SECTION 0" >> commands.cmd
+	echo "output_\$(JID)         tardir/cafRun.sh $SECTION $PROCESS $ME_NTUPLE_LOCATION $NEVT_PER_SECTION 0" >> commands_${PROCESS}.cmd
 done
 
 #
@@ -63,8 +63,8 @@ done
 # from above
 #
 
-echo python runManySections.py --submitCondor commands.cmd
-python runManySections.py --submitCondor commands.cmd
+echo python runManySections.py --submitCondor commands_${PROCESS}.cmd
+python runManySections.py --submitCondor commands_${PROCESS}.cmd
 
 echo HINT: monitor your jobs with condor_q -submitter username
 
