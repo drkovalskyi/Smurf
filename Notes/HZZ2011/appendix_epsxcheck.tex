@@ -1,2 +1,55 @@
-In this section we document the results obtained using the selections 
-documented  in the Ref.~\cite{HZZ2011EPS} and \cite{HZZ2011EPSPAS}. 
+
+In this section we document the comparison of the documented EPS analysis results \cite{HZZ2011EPS, HZZ2011EPSPAS}
+with those obtained applying the EPS high level analysis selections.  To do this we made the 
+following modifications to our \zz~preselection as defined in Section \ref{sec:selection}:
+
+\begin{itemize}
+    \item Use \met~instead of the minimum of \met~and track \met.
+    \item We modify the top veto to reject events with TCHE b-tag $<2.0$ only for counted jets.
+\end{itemize}
+
+We then applied the EPS analysis high level selections for the $m_{H}=300$~GeV analysis,
+and compared these with those presented at the time of the approval of the EPS analysis.
+In the case of our results, we applied the data driven background estimates and efficiency
+correction factors as defined previously.
+%Note that we did not apply any scaling to the signal MC to account for the missing VBF contribution, 
+%which is done for the EPS results.
+The selection requirements are:
+
+\begin{itemize}
+    \item $\met>82.9$~GeV.
+    \item $242<m_{T}<320$~GeV.
+    \item $\Delta\phi(\mathrm{\met, nearst jet}) > 0.28$.
+\end{itemize}
+
+The results are reported in Table \ref{tab:zzselection_all}.
+We conclude that the results are consistent given the differences
+in the low level event selections.  
+This gives confidence in the robustness of the EPS results.
+
+%%%%%%%%
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular} {c|c|c|cccc}
+\hline
+  & data & all bkg. & $\dyll$ & $\ZZ$ & $\WZ$ & $WW+\ttbar+tW+\Wjets$  \\
+\hline
+\multicolumn{7}{c} {EPS Analysis} \\
+\hline
+ $\mu\mu$ &  13 & $15 \pm 1.8$ & $3.5 \pm 1.8$ & $5.2 \pm 0.13$  & $3.2 \pm 0.15$ & $3.0 \pm 1.3$ \\
+ $ee$     &  21 & $11 \pm 1.3$ & $2.6 \pm 1.3$ & $3.8 \pm 0.12$  & $2.2 \pm 0.14$ & $2.2 \pm 1.0$ \\
+\hline
+\multicolumn{7}{c} {Crosscheck} \\
+\hline
+ $\mu\mu$ &  12 & $16.84 \pm 1.07$ & $4.47 \pm 0.07$ & $5.11 \pm 0.17$ & $3.08 \pm 0.20$ & $6.41 \pm 1.0$  \\
+ $ee$     &  18 & $11.02 \pm 0.68$ & $4.47 \pm 0.07$ & $3.66 \pm 0.14$ & $1.86 \pm 0.15$ & $3.27 \pm 0.65$  \\
+\hline
+\end{tabular}
+\caption{Expected number of signal and background events from the data-driven methods for an
+  integrated luminosity of \intlumi  after applying the $\ZZ$ selection requirements.
+Only statistical uncertaities are reported. }
+   \label{tab:zzselection_all}
+  \end{center}
+\end{table}
+%%%%%%%%
+
