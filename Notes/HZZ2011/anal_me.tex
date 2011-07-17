@@ -42,7 +42,7 @@ for gluon fusion Higgs boson production ($ggH$), electroweak $q\bar{q}\rightarro
 and $q\bar{q}\rightarrow WZ\to l\nu2\ell$ processes and the $q\bar{q}\rightarrow WW$ processes. 
 
 
-\subsection{Event Probability Calculation}
+\subsubsection{Event Probability Calculation}
 
 In the Matrix Element technique we calculate a probability  for each event assuming a
 certain hypothesis.  The probability is denoted by $P(x_{obs};\alpha)$,
@@ -92,8 +92,9 @@ The efficiency function is the probability for a parton-level object with moment
 $p$ to be reconstructed as a lepton with momentum $q$. In the calculation of the event 
 probabilities we assume that the parton level lepton momentum is equal to the reconstructed 
 momentum. The lepton efficiency is parameterized as a function of transverse momentum and 
-pseudo-rapidity and extracted from $WW$ Monte Carlo. Figure~\ref{fig:lepeff_gen} shows the 
-one dimensional projection of the efficiency as a function of the lepton $\eta$ and $\pt$. 
+pseudo-rapidity and extracted from $WW$ Monte Carlo. 
+%Figure~\ref{fig:lepeff_gen} shows the 
+%one dimensional projection of the efficiency as a function of the lepton $\eta$ and $\pt$. 
 A scale factor to account for
 differences between data and Monte Carlo can be calculated using a tag-and-probe analysis 
 and applied when calculating event probabilities for data events. 
@@ -111,15 +112,15 @@ the integral when calculating event probabilities.
 %\end{eqnarray}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}[!htbp]
-\begin{center}
-\includegraphics[width=0.4\textwidth]{figures/lepton_eff_Eta.pdf}
-\includegraphics[width=0.4\textwidth]{figures/lepton_eff_Pt.pdf}\\
-\caption{{\bf this needs to be updated for the ZZ sample, especially with the pT 30/20 selection..}Lepton efficiency as a function of the lepton $\eta$ (left) and $\pt$ (right) extracted 
-from the $\ZZ$ Monte Carlo.}
-\label{fig:lepeff_gen}
-\end{center}
-\end{figure}
+%\begin{figure}[!htbp]
+%\begin{center}
+%\includegraphics[width=0.4\textwidth]{figures/lepton_eff_Eta.pdf}
+%\includegraphics[width=0.4\textwidth]{figures/lepton_eff_Pt.pdf}\\
+%\caption{{\bf this needs to be updated for the ZZ sample, especially with the pT 30/20 selection..}Lepton efficiency as a function of the lepton $\eta$ (left) and $\pt$ (right) extracted 
+%from the $\ZZ$ Monte Carlo.}
+%\label{fig:lepeff_gen}
+%\end{center}
+%\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -130,22 +131,22 @@ The initial state partons collide head-on and the system has no transverse boost
 To account for the transverse recoil and thus improve the performance of our discriminant
 on data, we integrate over the possible values of the system boost $k_{T}(k_{x},k_{y})$. 
 The $k_T$ model is extracted from Monte Carlo for each process separately. 
-Figure~\ref{fig:zzboost} shows the distribution of $k_T$ for $\hzz$ and 
-the non-resonant $\ZZ$ processes.  
+%Figure~\ref{fig:zzboost} shows the distribution of $k_T$ for $\hzz$ and 
+%the non-resonant $\ZZ$ processes.  
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}[!htbp]
-\begin{center}
-\includegraphics[width=0.5\textwidth]{figures/boost.pdf}
-\caption{{\bf This needs to be replaced with the ones from hzz properly...}The transverse boost of the $WW$ system for $ZZ$ production and $\hzz$ at 3 different Higgs masses.}
-\label{fig:zzboost}
-\end{center}
-\end{figure}
+%\begin{figure}[!htbp]
+%\begin{center}
+%\includegraphics[width=0.5\textwidth]{figures/boost.pdf}
+%\caption{{\bf This needs to be replaced with the ones from hzz properly...}The transverse boost of the $WW$ system for $ZZ$ production and $\hzz$ at 3 different Higgs masses.}
+%\label{fig:zzboost}
+%\end{center}
+%\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{Likelihood Ratio Discriminator}
+\subsubsection{Likelihood Ratio Discriminator}
 Event probabilities, calculated as described above, are used to construct 
 a likelihood ratio discriminant which we use in a one-dimensional template fit.  
 The discriminator is defined as :
@@ -161,21 +162,21 @@ Because signal events are expected to have $P_s>P_b$ and vice-versa for backgrou
 the value of $LR$ is close to one for signal and zero for background processes.
 The calculation of $P_s$ is a function of Higgs mass, so the likelihood ratio
 shape depends on $m_H$. This is true for both signal and background templates of $LR$. 
-Figure~\ref{fig:lrstacks} shows the likelihood ratio distributions for $m_H$~=~130, 160, and 200 $\GeVcc$, 
-corresponding to 1~$\ifb$. 
-Note that the backgrounds peak near $LR~=~0$ while the signal peaks near $LR~=~1$. 
+%Figure~\ref{fig:lrstacks} shows the likelihood ratio distributions for $m_H$~=~130, 160, and 200 $\GeVcc$, 
+%corresponding to 1~$\ifb$. 
+%Note that the backgrounds peak near $LR~=~0$ while the signal peaks near $LR~=~1$. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}[!hbtp]
-\centering
-\subfigure[]{
-\centering
-\label{subfig:lr_hm130}
-%\includegraphics[width=.32\textwidth]{figures/hww130_LR.pdf}}
-}
-\caption{The matrix element output LR distribution after \ZZ\ pre-selection $m_H$=250 $\GeVcc$ 
-\subref{subfig:lr_hm130} in the 0-jet bin.}
-\label{fig:lrstacks}
-\end{figure}
+%\begin{figure}[!hbtp]
+%\centering
+%\subfigure[]{
+%\centering
+%\label{subfig:lr_hm130}
+%%\includegraphics[width=.32\textwidth]{figures/hww130_LR.pdf}}
+%}
+%\caption{The matrix element output LR distribution after \ZZ\ pre-selection $m_H$=250 $\GeVcc$ 
+%\subref{subfig:lr_hm130} in the 0-jet bin.}
+%\label{fig:lrstacks}
+%\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 It is important to note that because the $LR$ distribution is calculated the same way for data, 
@@ -183,7 +184,7 @@ signal and backgrounds, the fact that we use a LO Matrix Element and make certai
 approximations in the analytic calculation may result in less than optimal sensitivity 
 but does not introduce any bias.
 
-\subsection{Validation on the $\WZ/ZZ$ Cross-section Measurement}
+\subsubsection{Validation on the $\WZ/ZZ$ Cross-section Measurement}
 We validate performance of our implementation of the Matrix Element technique by simultaneously measuring
 $WZ$ and $ZZ$ cross-section in events with two-charged leptons and missing transverse energy.
  
