@@ -148,7 +148,37 @@ while keeping the total trigger rate at a reasonable level.
 %The second trigger probes higher $p_{T}$ electrons.
 %Both triggers are described in Table~\ref{tab:triggers_util} and labeled "eff".
 
+Table~\ref{tab:triggers_photon} shows the list of the triggers used to 
+collect the $\gamma$ plus jet events to be used in the data-driven estimate of the 
+$\dyll$ plus jets. 
+%%%%%
+\begin{table}[!ht]
+  \caption{Photon triggers used for the $\met$ modelling of the $\dyll$ backgrounds. }
+    \vspace{5pt}
+   \label{tab:triggers_photon}
+  \begin{center}
+ {\small
+  \begin{tabular} {l|l|c}
+\hline
+  Trigger name & pre-scale & rate \\
+  \hline \hline
+HLT\_Photon20\_CaloIdVL\_IsoL\_v5 & prescale 1790 & 0.5Hz \\
+HLT\_Photon30\_CaloIdVL\_IsoL\_v6 & prescale 360 & 0.5Hz \\
+HLT\_Photon30\_CaloIdVL\_v6 & prescale 720 & 0.7Hz \\
+HLT\_Photon50\_CaloIdVL\_IsoL\_v5 & prescale 85 & 0.3Hz \\
+HLT\_Photon50\_CaloIdVL\_v3 & prescale 180 & 0.4Hz \\
+HLT\_Photon75\_CaloIdVL\_IsoL\_v6 & Prescale 7 & 0.8Hz \\
+HLT\_Photon75\_CaloIdVL\_v6 & Prescale 30 & 0.5Hz \\
+HLT\_Photon90\_CaloIdVL\_IsoL\_v3 & Unprescaled & 3Hz \\
+HLT\_Photon90\_CaloIdVL\_v3 & prescaled 15 & 0.5Hz\\
+  \hline 
+  \end{tabular}
+}
+  \end{center}
+\end{table}
+%%%%%
+
+
 Another set of specialised triggers are used to record events
 enriched in fake electrons and muons for the measurement of jet induced backgrounds.
-This is done using the fake rate method, which is described in detail in ref.~\ref{sec:HWW2011AN}. 
-{\bf \fixme{} Add the photon jet triggers..}
+This is done using the fake rate method, which is described in detail in ref.~\cite{HWW2011AN}. 
