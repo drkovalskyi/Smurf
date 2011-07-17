@@ -672,6 +672,8 @@ SmurfTree::InitVariables(){
   processId_	 = 0;
   higgsPt_	 = -999;
   hPtWeight_	 = -999;
+  npu_           = -999;
+  npuPlusOne_    = -999;
 }
 
 inline double
