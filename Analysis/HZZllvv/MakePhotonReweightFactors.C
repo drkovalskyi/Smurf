@@ -56,6 +56,11 @@ void MakePhotonReweightFactors
   Pt_Photons->Sumw2();
   Pt_Dileptons->Sumw2();
 
+  TH2F *Pt_Photons_Met10To30   = new TH2F("Pt_Photons_Met10To30", "g", 17, ptbinsarr, 4, jetbinsarr);
+  TH2F *Pt_Dileptons_Met10To30 = new TH2F("Pt_Dileptons_Met10To30", "z", 17, ptbinsarr, 4, jetbinsarr);
+  Pt_Photons_Met10To30->Sumw2();
+  Pt_Dileptons_Met10To30->Sumw2();
+
 
   //----------------------------------------------------------------------------
   UInt_t          cuts;
@@ -188,6 +193,11 @@ void MakePhotonReweightFactors
     if( njets < 2 && jet1->pt() > 15 && (dPhiDiLepJet1 > 165.0 * TMath::Pi() / 180.0) ) continue; 
     if( !((cuts & SmurfTree::TopVeto) == SmurfTree::TopVeto )) continue;
     if( !(dilep->pt() > 40)) continue;
+
+    if ( TMath::Min(met,trackMet) > 10 && TMath::Min(met,trackMet) < 30.0 ) {
+      Pt_Photons_Met10To30->Fill(TMath::Min(dilep->pt(), 299.0),TMath::Min(Int_t(njets), 3));
+    }
+
     if( !(TMath::Min(met,trackMet) < 50.0)) continue;
 
  
@@ -275,6 +285,10 @@ void MakePhotonReweightFactors
     //Fill Mass Distribution before anti Met cut
     DileptonMass->Fill(dilep->mass());
 
+    if ( TMath::Min(met,trackMet) > 10 && TMath::Min(met,trackMet) < 30.0 ) {
+      Pt_Dileptons_Met10To30->Fill(TMath::Min(dilep->pt(), 299.0),TMath::Min(Int_t(njets), 3));
+    }
+
     //Anti Met Cut
     if( !(TMath::Min(met,trackMet) < 50.0)) continue;
     
@@ -314,13 +328,36 @@ void MakePhotonReweightFactors
     }
   }
 
+  TH2D *ReweightFactorPtNJet_Met10To30 = (TH2D*)Pt_Photons->Clone("h2_weight_Met10To30");
+  ReweightFactorPtNJet_Met10To30->SetBinContent(0,0,1.0);
+  for(UInt_t a=1; a < ReweightFactorPtNJet_Met10To30->GetXaxis()->GetNbins()+2; ++a) {
+    ReweightFactorPtNJet_Met10To30->SetBinContent(a,0,1.0);
+    for(UInt_t b=1; b < ReweightFactorPtNJet_Met10To30->GetYaxis()->GetNbins()+2; ++b) {
+      if (Pt_Photons_Met10To30->GetBinContent(a,b)>0) {
+        Double_t ratio =  Pt_Dileptons_Met10To30->GetBinContent(a,b) / Pt_Photons_Met10To30->GetBinContent(a,b);
+        Double_t ratioUncertainty = 0.0;
+        if (Pt_Dileptons_Met10To30->GetBinContent(a,b) > 0 && Pt_Photons_Met10To30->GetBinContent(a,b) > 0) {
+          ratioUncertainty = ratio * TMath::Sqrt( 1.0 / Pt_Dileptons_Met10To30->GetBinContent(a,b) + 
+                                                  1.0 / Pt_Photons_Met10To30->GetBinContent(a,b));
+        }
+        ReweightFactorPtNJet_Met10To30->SetBinContent(a,b, ratio);
+        ReweightFactorPtNJet_Met10To30->SetBinError(a,b, ratioUncertainty);
+      } else {
+        ReweightFactorPtNJet_Met10To30->SetBinContent(a,b, 0.0);
+        ReweightFactorPtNJet_Met10To30->SetBinError(a,b, 0.0);
+      }
+    }
+  }
+
+
   //************************************************************************************************
   // Plots
   //************************************************************************************************
   TFile *file = 0;
 
-  file = new TFile("PhotonJetsReweightFactors.root", "UPDATE");
+  file = new TFile("PhotonSampleReweightFactors.root", "UPDATE");
   file->WriteTObject(ReweightFactorPtNJet, ReweightFactorPtNJet->GetName(), "WriteDelete");
+  file->WriteTObject(ReweightFactorPtNJet_Met10To30, ReweightFactorPtNJet_Met10To30->GetName(), "WriteDelete");
 
   file->WriteTObject(DileptonMass, DileptonMass->GetName(), "WriteDelete");
 
