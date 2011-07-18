@@ -251,5 +251,29 @@ $28.4 \pm 3.5$ pb, which is in good agreement with theoretical predictions.
 
 \subsubsection{$\hzz$ Likellihood Ratio Distribtuions}
 
-In this section we document the first implementation of the likelihood ratio for the $\hzz$ process 
-evaluated with $m_H = 300\GeVcc$ in MC.   
+To separate Higgs event from Standard Model backgrounds we implement likelihood ratio for the $\hzz$ process 
+evaluated with $m_H = 250\GeVcc$, $300\GeVcc$, and $400\GeVcc$ in MC. The higgs likelihood is defined as:   
+
+\begin{equation}
+\label{eqn:LRHZZ}
+LR_{HZZ} = \frac { P_{HZZ}} { P_{HZZ} + k_{ZZ}P_{ZZ}+k_{WZ}P_{WZ} + k_{WW}P_{WW} },
+\end{equation}
+where $k_{i}$ is relative contribution of background process ``i'' to the total background yield.
+Distributions of Higgs Likelihood Ratio for 3 test mass hypothesis are shown in Fig.~\ref{fig:lrhzz}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[250 GeV]{\label{subfig:250GeV}
+\includegraphics[width=0.45\textwidth]{figures/hzz250_LR.png}}
+\subfigure[300 GeV]{\label{subfig:300GeV}
+\includegraphics[width=0.45\textwidth]{figures/hzz300_LR.png}}
+\subfigure[400 GeV]{\label{subfig:400GeV}
+\includegraphics[width=0.45\textwidth]{figures/hzz400_LR.png}}
+\caption{$LR_{HZZ}$ in 1092 pb$^{-1}$ for expected backgrounds and signal.}
+\label{fig:lrhzz}
+\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
