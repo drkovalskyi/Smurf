@@ -287,6 +287,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     if (ProcInt >= TVar::HZZ200 && ProcInt <= TVar::HZZ400){
       Xcal2.SetProcess(TVar::HZZ);
       Xcal2.SetHiggsMass(HiggsMASS[ProcInt]);
+      Xcal2.SetNcalls(ncalls);
       if (verbosity >= TVar::DEBUG) cout<< "Higgs Mass: " << HiggsMASS[ProcInt]<<"GeV \n";    
       Xcal2.NeutrinoIntegrate(TVar::HZZ,cms_event, &Xsec, &XsecErr, verbosity);
     }
