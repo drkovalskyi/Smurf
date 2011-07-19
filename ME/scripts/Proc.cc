@@ -20,7 +20,7 @@ void Proc::initBR() {
     BR_[2] = (2.0+0.1736+0.1784)/6;
     BR_[3] = (1.0+0.1784)/3;
   }
-  else if (proc_ == TVar::ZZ || proc_ == TVar::HZZ || proc_==TVar::WZ) {
+  else if (proc_ == TVar::ZZ || ( proc_ >= TVar::HZZ200 && proc_ <= TVar::HZZ400) || proc_==TVar::WZ) {
     BR_[0] = (1.0+0.1736*0.1736)/3;
     BR_[1] = (0.1736*0.1784)/3;
     BR_[2] = (0.1736*0.1784)/3;
@@ -173,9 +173,19 @@ void Proc::initTotXsec() {
     MCFMXsec_ = 0.05758/9.0;
     break;
 
- case (TVar::HZZ):
+ case (TVar::HZZ250):
+   NLOXsec_ = 0.03974;
+   MCFMXsec_ = 0.004906;
+   break;
+
+ case (TVar::HZZ300):
    NLOXsec_ = 0.02999;
    MCFMXsec_ = 0.003274;
+    break;
+
+ case (TVar::HZZ400):
+   NLOXsec_ = 0.0221156;
+   MCFMXsec_ = 0.001323;
     break;
 
  case (TVar::ZZ):
