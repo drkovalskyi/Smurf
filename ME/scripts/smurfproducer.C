@@ -70,7 +70,7 @@ UInt_t ww_nozveto_nomet = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelecti
 UInt_t ww_lepfo = BaseLine|ChargeMatch|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
 // zz baseline selections using the bits setup in the smurfntuples
 // http://www.t2.ucsd.edu/tastwiki/bin/view/Smurf/HZZllvvEventSelections#Reference_selection_V1
-UInt_t zz_baseline = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|FullMET|TopVeto|ExtraLeptonVeto;
+UInt_t zz_baseline = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|TopVeto|ExtraLeptonVeto;
 
 using namespace std;
 
@@ -172,9 +172,9 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
     else if (cutstring == "ZZ") {
       if (type_ != 0 && type_ !=3 ) continue; 
       if ( (cuts_ & zz_baseline) != zz_baseline) continue;
-      if ( (cuts_ & ZVeto) == ZVeto ) continue;
       if (lep1_->Pt() < 20.) continue;
       if (lep2_->Pt() < 20.) continue;
+      if ( TMath::Abs(dilep_->M()-91.1876) > 15.0 ) continue;
       if ( TMath::Min(met_, trackMet_) < 50.0) continue;
       if ( dilep_->Pt() < 40.0) continue;
     }
