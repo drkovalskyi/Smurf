@@ -631,7 +631,8 @@ double HiggsWidth(double mass){
     if (mass==290) width=7.44700E+00;
   else
     if (mass==300) width=8.51200E+00;
-
+  else
+    if (mass==400) width=28.8900E+00;
   //5 GeV steps
   else
     if (mass==115) width=0.3228E-02;
