@@ -824,7 +824,8 @@ void WWL1L2Sol_MzNu3( cdf_event_type* temp,
      solevent.pswt=-1;
      continue;
    }
-   //82 '  f(p1)+f(p2) --> Z^0(-->3*(nu(p3)+nu~(p4))) + Z^0(-->e^-(p5)+e^+(p6))'
+
+   //82 '  f(p1)+f(p2) --> Z^0(-->e^-(p3)+e^+(p4)) + Z^0(-->3*(nu(p5)+nu~(p6)))'
 
    solevent.p[0].SetPxPyPzE   (scale0*qX, scale0*qY, x0*EBEAM, scale0*qE);
    solevent.p[1].SetPxPyPzE   (scale1*qX, scale1*qY,-x1*EBEAM, scale1*qE);
