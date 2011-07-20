@@ -33,9 +33,36 @@ mkdir -p $OUTPUTDIR/$SELECTION
 
 # loop over root files in input dir
 # and do the skim root script
-rm -f list_samples.txt;
+
+if [ "$SELECTION" == 'ZZ' ]; then
+rm -f list_samples.txt
 cat > list_samples.txt <<EOF
-data-met20-1092ipb.root
+zz.root
+wz.root
+ttbar.root
+tw.root
+qqww.root
+ggww.root
+wjets.root
+wgamma.root    
+hzz200.root
+hzz250.root
+hzz300.root
+hzz400.root
+EOF
+fi
+
+if [ "$SELECTION" == 'WW' ]; then
+rm -f list_samples.txt
+cat > list_samples.txt <<EOF
+zz.root
+wz.root
+ttbar.root
+tw.root
+qqww.root
+ggww.root
+wjets.root
+wgamma.root    
 hww115.root
 hww120.root
 hww130.root
@@ -48,23 +75,11 @@ hww190.root
 hww200.root
 hww250.root
 hww300.root
-zz.root
-wz.root
-ttbar.root
-tw.root
-qqww.root
-ggww.root
-wjets.root
-wgamma.root
-dyee.root
-dymm.root
-dytt.root
 EOF
+fi
 
-#hzz200.root
-#hzz250.root
-#hzz300.root
-#hzz400.root
+#data-met20-1092ipb.root
+
 
 #for FILE in `ls $INPUTDIR | grep lfake.root`
 for FILE in `cat list_samples.txt` ; do
@@ -72,4 +87,3 @@ for FILE in `cat list_samples.txt` ; do
     echo doing "root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\"\);"
     root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\"\);
 done
-

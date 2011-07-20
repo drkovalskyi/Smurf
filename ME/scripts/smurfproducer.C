@@ -81,10 +81,10 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
 
   gROOT->ProcessLine(".L ../../Core/SmurfTree.h+");
   TFile* fin = new TFile(smurfFDir+fileName);
-  TFile *newfile = new TFile(outputDir+fileName,"recreate");
-
   TTree* ch=(TTree*)fin->Get("tree"); 
   if (ch==0x0) return; 
+
+  TFile *newfile = new TFile(outputDir+fileName,"recreate");
   TTree* evt_tree=(TTree*) ch->CloneTree(0, "fast");
   
   
