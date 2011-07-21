@@ -13,7 +13,7 @@ export MH=$2;
 
 export TAG=ntuples_${MH}train_${NJETS}jets;
 export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
-#export METHODS=MLPBNN,BDTG;
+#export METHODS=BDTG,Likelihood;
 
 ### Training: change done hand made, it's an expert option
 export trainMVA_smurfFile=trainMVA_smurf.C+;
@@ -26,11 +26,13 @@ fi
 
 export DO_TRAINING=0;
 if [ ${DO_TRAINING} == "1" ]; then
-  export SIG_TRAIN=data/hzz${MH}.root;
+  #export SIG_TRAIN=data/hzz${MH}.root;
   #export BKG_TRAIN=data/zz.root;
-  export BKG_TRAIN=data/background_training.root;
-  #export SIG_TRAIN=data/hww${MH}.root;
+  #export BKG_TRAIN=data/background_training.root;
+  #export BKG_TRAIN=data/background_training.root;
+  export SIG_TRAIN=data/hww${MH}.root;
   #export BKG_TRAIN=data/ww2l_pythia.root;
+  export BKG_TRAIN=data/background42x.root;
   mkdir -p weights;
   root -l -q -b ${trainMVA_smurfFile}\(${NJETS},\"${SIG_TRAIN}\",\"${BKG_TRAIN}\",\"${TAG}\",\"${METHODS}\",${MH}\);
 fi
@@ -40,12 +42,13 @@ fi
 ### MVA output is available in "weights" folder
 ### an arbitrary list of samples can be added
 ### samples must be in "data" folder
+#data/data_2l.root
+#data/hww${MH}.root
+#data/background42x_spring11dy.root
+#data/background42x.root
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-data/data_2l.root
-data/hww${MH}.root
-data/background42x_spring11dy.root
-data/background42x.root
+data/background42x_wwpythia_met20_zveto.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf.C+;

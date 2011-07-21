@@ -5,7 +5,7 @@
 void atributes(TH1D *histo, Char_t xtitle[]="", Int_t COLOR = 1, Char_t ytitle[]="Fraction");
 double scpFast(double sig, double bkg, double sigma_b, double delta_b = 0.0);
 double scaleFactor(double pt1, double eta1, double pt2, double eta2, int type, int nsel);
-double enhancementFactor(double mass);
+double enhancementFactor(double mass, bool isBRFactor = false);
 double fakeRate(double pt, double eta, TH2D *fhDFRMu, TH2D *fhDFREl, int fm, int fe);
 double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, int lid);
 double hzz2l_cuts(double mass, int opt);
@@ -148,28 +148,56 @@ double scaleFactor(double pt1, double eta1, double pt2, double eta2, int type, i
   return weight;
 }
 
-double enhancementFactor(double mass){
+double enhancementFactor(double mass, bool isBRFactor){
 
-if     (mass==120.000) return 5.75062;
-else if(mass==130.000) return 5.86330;
-else if(mass==140.000) return 6.42979;
-else if(mass==150.000) return 7.24459;
-else if(mass==160.000) return 8.40496;
-else if(mass==170.000) return 8.66238;
-else if(mass==180.000) return 8.61018;
-else if(mass==190.000) return 8.37293;
-else if(mass==200.000) return 8.28886;
-else if(mass==210.000) return 8.18228;
-else if(mass==220.000) return 8.04580;
-else if(mass==230.000) return 7.94073;
-else if(mass==250.000) return 7.65509;
-else if(mass==300.000) return 6.79525;
-else if(mass==350.000) return 5.54666;
-else if(mass==400.000) return 4.42893;
-else if(mass==450.000) return 4.19498;
-else if(mass==500.000) return 4.16685;
-else if(mass==550.000) return 4.22798;
-else if(mass==600.000) return 4.35004;
+if(isBRFactor == false){
+  if     (mass==110.000) return 9.203 ;
+  else if(mass==115.000) return 9.170 ;
+  else if(mass==120.000) return 9.129 ;
+  else if(mass==130.000) return 9.053 ;
+  else if(mass==140.000) return 8.966 ;
+  else if(mass==150.000) return 8.867 ;
+  else if(mass==160.000) return 8.768 ;
+  else if(mass==170.000) return 8.675 ;
+  else if(mass==180.000) return 8.562 ;
+  else if(mass==190.000) return 8.454 ;
+  else if(mass==200.000) return 8.337 ;
+  else if(mass==210.000) return 8.218 ;
+  else if(mass==220.000) return 8.096 ;
+  else if(mass==230.000) return 7.962 ;
+  else if(mass==250.000) return 7.685 ;
+  else if(mass==300.000) return 6.824 ;
+  else if(mass==350.000) return 5.304 ;
+  else if(mass==400.000) return 4.498 ;
+  else if(mass==450.000) return 4.3895;
+  else if(mass==500.000) return 4.450 ;
+  else if(mass==550.000) return 4.6065;
+  else if(mass==600.000) return 4.837 ;
+}
+else {
+  if     (mass==110.000) return 0.574;
+  else if(mass==115.000) return 0.569;
+  else if(mass==120.000) return 0.570;
+  else if(mass==130.000) return 0.600;
+  else if(mass==140.000) return 0.672;
+  else if(mass==150.000) return 0.781;
+  else if(mass==160.000) return 0.931;
+  else if(mass==170.000) return 0.981;
+  else if(mass==180.000) return 0.986;
+  else if(mass==190.000) return 0.988;
+  else if(mass==200.000) return 0.988;
+  else if(mass==210.000) return 0.989;
+  else if(mass==220.000) return 0.990;
+  else if(mass==230.000) return 0.991;
+  else if(mass==250.000) return 0.991;
+  else if(mass==300.000) return 0.993;
+  else if(mass==350.000) return 0.992;
+  else if(mass==400.000) return 0.989;
+  else if(mass==450.000) return 0.989;
+  else if(mass==500.000) return 0.991;
+  else if(mass==550.000) return 0.993;
+  else if(mass==600.000) return 0.996;
+}
 
 return 1.0;
 

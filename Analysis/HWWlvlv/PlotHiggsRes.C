@@ -640,10 +640,10 @@ void PlotHiggsRes
 
     // CAREFUL HERE, no data-driven corrections, just Higgs k-factors
     // add = 1.0;
-    add = add * enhancementFactor(mH,true);
+    // add = add * enhancementFactor(mH,true);
     if (processId == 10010) {
       add = add * HiggsPtKFactor->GetBinContent( HiggsPtKFactor->GetXaxis()->FindFixBin(higgsPt));
-      add = add * enhancementFactor(mH,false);
+      // add = add * enhancementFactor(mH,false);
     }
     double myWeight = scaleFactorLum * scale1fb * add;
 

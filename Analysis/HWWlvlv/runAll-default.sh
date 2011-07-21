@@ -13,7 +13,10 @@ endif
 
 setenv SIG_TEST data/${TAG}_hww${MH}.root
 setenv BKG_TEST data/${TAG}_background42x.root
+#setenv BKG_TEST data/${TAG}_background42x_wwpythia_met20_zveto.root
 setenv DAT_TEST data/${TAG}_data_2l.root;
+#setenv DAT_TEST data/${TAG}_hww140.root;
+#setenv DAT_TEST data/${TAG}_dataToy_2l_met20_zveto_3.root;
 
 ### Perform analysis
  #root -l -q -b PlotHiggsRes.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",0,1,0\); --> mm
@@ -25,7 +28,7 @@ setenv DAT_TEST data/${TAG}_data_2l.root;
  #root -l -q -b PlotHiggsRes.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",6,1,0\); --> of
 
 if ($MAKEINPUTS == "") then
-  setenv INPUTDIR /data/smurf/ceballos/inputLimits/ana_v6_1000pb;
+  setenv INPUTDIR /data/smurf/ceballos/inputLimits/ana_v6_1000pb_SM4;
   mkdir -p ${INPUTDIR}/${MH}
   if ($NJETS == 0) then
    root -l -q -b PlotHiggsRes.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",5,1\);
