@@ -37,6 +37,48 @@
 using namespace TMVA;
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
+/// first is leading lepton
+enum Type {
+  mm, 
+  me, 
+  em, 
+  ee
+};
+
+enum Selection {
+  BaseLine	    = 1UL<<0,  // pt(reco)>20/10, acceptance,!STA muon, mll>12
+  ChargeMatch	    = 1UL<<1,  // q1*q2<0
+  Lep1FullSelection = 1UL<<2,  // full id, isolation, d0, dz etc
+  Lep1LooseEleV1    = 1UL<<3,  // electron fakeable object selection is passed V1
+  Lep1LooseEleV2    = 1UL<<4,  // electron fakeable object selection is passed V2
+  Lep1LooseEleV3    = 1UL<<5,  // electron fakeable object selection is passed V3
+  Lep1LooseEleV4    = 1UL<<6,  // electron fakeable object selection is passed V4
+  Lep1LooseMuV1     = 1UL<<7,  // muon fakeable object selection (relIso<1.0)
+  Lep1LooseMuV2     = 1UL<<8,  // muon fakeable object selection (relIso<0.4)
+  Lep2FullSelection = 1UL<<9,  // full id, isolation, d0, dz etc
+  Lep2LooseEleV1    = 1UL<<10, // electron fakeable object selection is passed V1
+  Lep2LooseEleV2    = 1UL<<11, // electron fakeable object selection is passed V2
+  Lep2LooseEleV3    = 1UL<<12, // electron fakeable object selection is passed V3
+  Lep2LooseEleV4    = 1UL<<13, // electron fakeable object selection is passed V4
+  Lep2LooseMuV1     = 1UL<<14, // muon fakeable object selection (relIso<1.0)
+  Lep2LooseMuV2     = 1UL<<15, // muon fakeable object selection (relIso<0.4)
+  FullMET	    = 1UL<<16, // full met selection
+  ZVeto 	    = 1UL<<17, // event is not in the Z-mass peak for ee/mm final states
+  TopTag	    = 1UL<<18, // soft muon and b-jet tagging for the whole event regardless of n-jets (non-zero means tagged)
+  TopVeto	    = 1UL<<19, // soft muon and b-jet tagging for the whole event regardless of n-jets (zero means tagged)
+  OneBJet	    = 1UL<<20, // 1-jet events, where the jet is b-tagged (top control sample with one b-quark missing)
+  TopTagNotInJets   = 1UL<<21, // soft muon and b-jet tagging for areas outside primary jets (non-zero means tagged)
+  ExtraLeptonVeto   = 1UL<<22, // extra lepton veto, DR(muon-electron)>=0.3
+  Lep3FullSelection = 1UL<<23,  // full id, isolation, d0, dz etc
+  Lep3LooseEleV1    = 1UL<<24, // electron fakeable object selection is passed V1
+  Lep3LooseEleV2    = 1UL<<25, // electron fakeable object selection is passed V2
+  Lep3LooseEleV3    = 1UL<<26, // electron fakeable object selection is passed V3
+  Lep3LooseEleV4    = 1UL<<27, // electron fakeable object selection is passed V4
+  Lep3LooseMuV1     = 1UL<<28, // muon fakeable object selection (relIso<1.0)
+  Lep3LooseMuV2     = 1UL<<29  // muon fakeable object selection (relIso<0.4)
+};
+
+
 //--------------------------------------------------------------------
 
 void fillUnderOverFlow(TH1F *h1, float value, float weight = 1)
@@ -55,6 +97,7 @@ void fillUnderOverFlow(TH1F *h1, float value, float weight = 1)
 void evaluateMVA_smurf_hzz(
 char* inputFile      = "data/histo_hww130_std_pu11_randomized.training.root", 
 int mH               = 130,
+TString mvaLabel     = "ZZ0Jet",
 TString myMethodList = "Fisher,BDT",
 TString outTag       = "default",
 TString path         = "") 
@@ -78,21 +121,25 @@ TString path         = "")
   //--------------------------------------------------------------------------------
 
   std::map<std::string,int> mvaVar;
-  mvaVar[ "lep1pt" ]            = 1;  //pt of leading lepton
-  mvaVar[ "lep2pt" ]            = 1;  //pt of sub-leading lepton
-  mvaVar[ "dPhi" ]              = 1;  //delta phi btw leptons
+  mvaVar[ "lep1pt" ]            = 0;  //pt of leading lepton
+  mvaVar[ "lep2pt" ]            = 0;  //pt of sub-leading lepton
+  mvaVar[ "dPhi" ]              = 0;  //delta phi btw leptons
   mvaVar[ "dR" ]                = 0;  //delta R btw leptons
   mvaVar[ "dilmass" ]           = 0;  //dilepton mass
   mvaVar[ "type" ]              = 0;  //dilepton flavor type
   mvaVar[ "pmet" ]              = 0;  //projected met
   mvaVar[ "met" ]               = 1;  //met
-  mvaVar[ "mt" ]                = 0;  //transverse higgs mass
-  mvaVar[ "mt1" ]               = 1;  //transverse mass of leading lepton and met
-  mvaVar[ "mt2" ]               = 1;  //transverse mass of sub-leading lepton and met
-  mvaVar[ "dPhiLep1MET" ]       = 1;  //delta phi btw leading lepton and met
-  mvaVar[ "dPhiLep2MET" ]       = 1;  //delta phi btw leading sub-lepton and met
+  mvaVar[ "trackMet" ]          = 1;  //trackMet
+  mvaVar[ "mt" ]                = 0;  //tranvserse higgs mass
+  mvaVar[ "mt1" ]               = 0;  //transverse mass of leading lepton and met
+  mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
+  mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
+  mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
   mvaVar[ "dPhiDiLepMET" ]	= 0;  //delta phi btw dilepton and met
-  mvaVar[ "dPhiDiLepJet1" ]	= 0;  //delta phi btw dilepton and jet1 (only for njet>0)
+  mvaVar[ "dPhiDiLepJet1" ]	= 0;  //delta phi btw dilepton and jet1
+  mvaVar[ "njets" ]	        = 0;  //njets
+  mvaVar[ "dilepPt" ]           = 1;  //dilepton pt
+  mvaVar[ "dilepRapidity" ]     = 1;  //dilepton pt
   mvaVar[ "mtHZZ" ]             = 1;  //tranvserse higgs mass for HZZ
 
   //---------------------------------------------------------------
@@ -219,6 +266,7 @@ TString path         = "")
     Float_t pmet;
     Float_t met;
     Float_t metPhi;
+    Float_t trackMet;
     Float_t mt;
     Float_t mt1;
     Float_t mt2;
@@ -226,6 +274,9 @@ TString path         = "")
     Float_t dPhiLep2MET;
     Float_t dPhiDiLepMET;
     Float_t dPhiDiLepJet1;
+    Float_t njets;
+    Float_t dilepPt;
+    Float_t dilepRapidity;
     Float_t mtHZZ;
 
     if (mvaVar["lep1pt"])        reader->AddVariable( "lep1pt",        &lep1pt       );
@@ -237,6 +288,7 @@ TString path         = "")
     if (mvaVar["pmet"])          reader->AddVariable( "pmet",          &pmet         );
     if (mvaVar["met"])           reader->AddVariable( "met",           &met          );
     if (mvaVar["metPhi"])        reader->AddVariable( "metPhi",        &metPhi       );
+    if (mvaVar["trackMet"])      reader->AddVariable( "trackMet",      &trackMet     );
     if (mvaVar["mt"])            reader->AddVariable( "mt",            &mt           );
     if (mvaVar["mt1"])           reader->AddVariable( "mt1",           &mt1          );
     if (mvaVar["mt2"])           reader->AddVariable( "mt2",           &mt2          );
@@ -244,6 +296,9 @@ TString path         = "")
     if (mvaVar["dPhiLep2MET"])   reader->AddVariable( "dPhiLep2MET",   &dPhiLep2MET  );
     if (mvaVar["dPhiDiLepMET"])  reader->AddVariable( "dPhiDiLepMET",  &dPhiDiLepMET );
     if (mvaVar["dPhiDiLepJet1"]) reader->AddVariable( "dPhiDiLepJet1", &dPhiDiLepJet1);
+    if (mvaVar["njets"])         reader->AddVariable( "njets",         &njets        );
+    if (mvaVar["dilepPt"])       reader->AddVariable( "dilepPt",       &dilepPt      );
+    if (mvaVar["dilepRapidity"]) reader->AddVariable( "dilepRapidity", &dilepRapidity );
     if (mvaVar["mtHZZ"])         reader->AddVariable( "mtHZZ",         &mtHZZ        );
  
     // Spectator variables declared in the training have to be added to the reader, too
@@ -278,7 +333,7 @@ TString path         = "")
         TString weightfile = dir + prefix + TString("_") + TString(it->first) + TString(".weights.xml");
         reader->BookMVA( methodName, weightfile ); 
       }
-    }
+    } 
    
     // Book output histograms
     UInt_t nbin = 1000;
@@ -397,19 +452,13 @@ TString path         = "")
     TBranch* br_nn         = 0;
     TBranch* br_knn        = 0;
     TBranch* br_bdtg       = 0;
-    TBranch* br_test = clone->Branch(Form("test_hww%i_ww",mH) , &test , Form("test_hww%i_ww/I" , mH) );
+    TBranch* br_test = clone->Branch(Form("test_hzz%i_zz",mH) , &test , Form("test_hzz%i_zz/I" , mH) );
 
-    if(Use["BDT"])         br_bdt        = clone->Branch(Form("bdt_hww%i_ww"        ,mH) , &bdt        , Form("bdt_hww%i_ww/F"        ,mH) );
-    if(Use["BDTD"])        br_bdtd       = clone->Branch(Form("bdtd_hww%i_ww"       ,mH) , &bdtd       , Form("bdtd_hww%i_ww/F"       ,mH) );
-    if(Use["MLPBNN"])      br_nn         = clone->Branch(Form("nn_hww%i_ww"         ,mH) , &nn         , Form("nn_hww%i_ww/F"         ,mH) );
-    if(Use["KNN"])         br_knn        = clone->Branch(Form("knn_hww%i_ww"        ,mH) , &knn        , Form("knn_hww%i_ww/F"        ,mH) );
-    if(Use["BDTG"])        br_bdtg       = clone->Branch(Form("bdtg_hww%i_ww"       ,mH) , &bdtg       , Form("bdtg_hww%i_ww/F"       ,mH) );
+    if(Use["MLPBNN"])      br_nn         = clone->Branch(Form("nn_hzz%i_%s"   ,mH,mvaLabel.Data()) , &nn   , Form("nn_hzz%i_%s/F"   ,mH,mvaLabel.Data()) );
+    if(Use["BDTG"])        br_bdtg       = clone->Branch(Form("bdtg_hzz%i_%s" ,mH,mvaLabel.Data()) , &bdtg , Form("bdtg_hzz%i_%s/F" ,mH,mvaLabel.Data()) );
 
-    if(Use["BDT"])         br_bdt       -> SetTitle(Form("BDT Output H%i"    , mH));
-    if(Use["BDTD"])        br_bdt       -> SetTitle(Form("BDTD Output H%i"   , mH));
-    if(Use["MLPBNN"])      br_nn        -> SetTitle(Form("MLPBNN Output H%i" , mH));
-    if(Use["KNN"])         br_knn       -> SetTitle(Form("KNN Output H%i"    , mH));
-    if(Use["BDTG"])        br_bdtg      -> SetTitle(Form("BDTG Output H%i"   , mH));
+    if(Use["MLPBNN"])      br_nn        -> SetTitle(Form("MLPBNN Output H%i %s" ,mH ,mvaLabel.Data()));
+    if(Use["BDTG"])        br_bdtg      -> SetTitle(Form("BDTG Output H%i %s"   , mH,mvaLabel.Data()));
 
     // --- Event loop
 
@@ -431,6 +480,7 @@ TString path         = "")
       std::cout << currentFile->GetTitle() << std::endl;
     }
 
+    UInt_t          cuts;
     UInt_t          event_;
     Float_t         scale1fb_;
     LorentzVector*  lep1_   = 0;
@@ -442,6 +492,7 @@ TString path         = "")
     Float_t         pmet_;
     Float_t         met_;
     Float_t         metPhi_;
+    Float_t         trackMet_;
     Float_t         mt_;
     Float_t         mt1_;
     Float_t         mt2_;
@@ -449,7 +500,12 @@ TString path         = "")
     Float_t         dPhiLep2MET_;
     Float_t         dPhiDiLepMET_;
     Float_t         dPhiDiLepJet1_;
+    Float_t         njets_;
+    Int_t           lq1;
+    Int_t           lq2;
+    LorentzVector*  jet1  = 0;
 
+    theTree->SetBranchAddress( "cuts"         , &cuts          );
     theTree->SetBranchAddress( "event"        , &event_        );
     theTree->SetBranchAddress( "scale1fb"     , &scale1fb_     );
     theTree->SetBranchAddress( "lep1"         , &lep1_         );
@@ -461,6 +517,7 @@ TString path         = "")
     theTree->SetBranchAddress( "pmet"         , &pmet_         );
     theTree->SetBranchAddress( "met"          , &met_          );
     theTree->SetBranchAddress( "metPhi"       , &metPhi_       );
+    theTree->SetBranchAddress( "trackMet"     , &trackMet_     );
     theTree->SetBranchAddress( "mt"           , &mt_           );
     theTree->SetBranchAddress( "mt1"          , &mt1_          );
     theTree->SetBranchAddress( "mt2"          , &mt2_          );
@@ -468,6 +525,10 @@ TString path         = "")
     theTree->SetBranchAddress( "dPhiLep2MET"  , &dPhiLep2MET_  );
     theTree->SetBranchAddress( "dPhiDiLepMET" , &dPhiDiLepMET_ );
     theTree->SetBranchAddress( "dPhiDiLepJet1", &dPhiDiLepJet1_);
+    theTree->SetBranchAddress( "njets"        , &njets_        );
+    theTree->SetBranchAddress( "lq1"          , &lq1          );
+    theTree->SetBranchAddress( "lq2"          , &lq2          );
+    theTree->SetBranchAddress( "jet1"         , &jet1         );
 
     // Efficiency calculator for cut method
     Int_t    nSelCutsGA = 0;
@@ -500,6 +561,7 @@ TString path         = "")
       type           = type_;
       pmet           = pmet_;
       met            = met_;
+      trackMet       = trackMet_;
       mt             = mt_;
       mt1            = mt1_;
       mt2            = mt2_;
@@ -507,11 +569,14 @@ TString path         = "")
       dPhiLep2MET    = dPhiLep2MET_;
       dPhiDiLepMET   = dPhiDiLepMET_;
       dPhiDiLepJet1  = dPhiDiLepJet1_;
-
+      njets          = njets_;
+      dilepPt        = dilep_->pt();
+      dilepRapidity  = dilep_->Rapidity();
+ 
       double pxzll = dilep_->px() + met*cos(metPhi);
       double pyzll = dilep_->py() + met*sin(metPhi);
-      mtHZZ = TMath::Power(sqrt(dilep_->pt()*dilep_->pt()+91.1876*91.1876)+
-                           sqrt(met        *met          +91.1876*91.1876),2)
+      mtHZZ = TMath::Power(sqrt(dilep_->pt()*dilep_->pt()+dilep_->mass()*dilep_->mass())+
+                           sqrt(met        *met          +dilep_->mass()*dilep_->mass()),2)
 		    -pxzll*pxzll-pyzll*pyzll;
       if(mtHZZ >0) mtHZZ = sqrt(mtHZZ); else mtHZZ = 0.0;
 
@@ -545,13 +610,31 @@ TString path         = "")
       if(event_ %2 == 1 ) test = 1; 
       br_test->Fill();
 
-
+      
       if (Use["CutsGA"]) {
         // Cuts is a special case: give the desired signal efficienciy
         Bool_t passed = reader->EvaluateMVA( "CutsGA method", effS );
         if (passed) nSelCutsGA++;
       }
 
+
+      Bool_t pass=kTRUE;
+      if( !(lep1_->pt() > 20 && lep2_->pt() > 20 )) pass=kFALSE;
+      if( !((cuts & Lep1FullSelection) == Lep1FullSelection )) pass=kFALSE;
+      if( !((cuts & Lep2FullSelection) == Lep2FullSelection )) pass=kFALSE;
+      if( !(type_ == mm || type_ == ee )) pass=kFALSE;
+      if( !(fabs(dilep_->mass() - 91.1876) < 15 )) pass=kFALSE;
+      if( !(lq1*lq2 < 0)) pass=kFALSE;
+      if( !((cuts & TopVeto) == TopVeto )) pass=kFALSE;
+      if( !((cuts & ExtraLeptonVeto) == ExtraLeptonVeto )) pass=kFALSE;
+      if( !(dilep_->pt() > 40)) pass=kFALSE;
+      if( njets_ < 2 && jet1->pt() > 15 && (dPhiDiLepJet1 > 165.0 * TMath::Pi() / 180.0) ) pass=kFALSE; 
+      if( dilep_->pt() <= 40.0         ) pass=kFALSE; // cut on low dilepton mass
+      
+//       if( njets != 0          ) pass=kFALSE; // select n-jet type events
+      if( !(TMath::Min(met,trackMet) > 50.0)) pass=kFALSE;
+
+      if (pass) {
       if (Use["Likelihood"   ])   histLk     ->Fill( reader->EvaluateMVA( "Likelihood method"    ) , scale1fb_);
       if (Use["LikelihoodD"  ])   histLkD    ->Fill( reader->EvaluateMVA( "LikelihoodD method"   ) , scale1fb_);
       if (Use["LikelihoodPCA"])   histLkPCA  ->Fill( reader->EvaluateMVA( "LikelihoodPCA method" ) , scale1fb_);
@@ -582,6 +665,7 @@ TString path         = "")
       if (Use["FDA_GA"       ])   histFDAGA  ->Fill( reader->EvaluateMVA( "FDA_GA method"        ) , scale1fb_);
       if (Use["Category"     ])   histCat    ->Fill( reader->EvaluateMVA( "Category method"      ) , scale1fb_);
       if (Use["Plugin"       ])   histPBdt   ->Fill( reader->EvaluateMVA( "P_BDT method"         ) , scale1fb_);
+      }
 
       // Retrieve also per-event error
       if (Use["PDEFoam"]) {
