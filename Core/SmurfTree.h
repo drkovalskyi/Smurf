@@ -173,7 +173,8 @@ class SmurfTree {
     hww110,
     hww115,
     vbfhww110,
-    vbfhww115
+    vbfhww115,
+    ggzz
   };
 
   /// variables
@@ -254,6 +255,7 @@ class SmurfTree {
   float          hPtWeight_;
   unsigned int   npu_;
   unsigned int   npuPlusOne_;
+  unsigned int   npuMinusOne_;
     
 
  public:
@@ -376,6 +378,7 @@ class SmurfTree {
       tree_->Branch("pdf2",          &pdf2_	,     "pdf2/F");
       tree_->Branch("npu",           &npu_,           "npu/i");
       tree_->Branch("npuPlusOne",    &npuPlusOne_,    "npuPlusOne/i");
+      tree_->Branch("npuMinusOne",   &npuMinusOne_,   "npuMinusOne/i");
     }
   }
 
@@ -465,6 +468,7 @@ class SmurfTree {
       tree_->SetBranchAddress("pdf2",	       &pdf2_);
       tree_->SetBranchAddress("npu",	       &npu_);
       tree_->SetBranchAddress("npuPlusOne",    &npuPlusOne_);
+      tree_->SetBranchAddress("npuMinusOne",   &npuMinusOne_);
 
     gErrorIgnoreLevel = currentState;
   }
@@ -674,6 +678,7 @@ SmurfTree::InitVariables(){
   hPtWeight_	 = -999;
   npu_           = -999;
   npuPlusOne_    = -999;
+  npuMinusOne_   = -999;
 }
 
 inline double
@@ -747,6 +752,7 @@ SmurfTree::Get(std::string value)
   if(value=="hPtWeight"	    ) { return this->hPtWeight_;     } 
   if(value=="npu"	    ) { return this->npu_;           } 
   if(value=="npuPlusOne"    ) { return this->npuPlusOne_;    } 
+  if(value=="npuMinusOne"   ) { return this->npuMinusOne_;   } 
 
   return -9999.; 
 }
