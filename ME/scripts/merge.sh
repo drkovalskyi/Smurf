@@ -1,35 +1,37 @@
+#!/bin/bash
 
-#!/bin/sh
-
-# Merges files in XXX directories 
-
-if [ $# -lt 1 ]; then
-	echo "USAGE : $0 <path> <process>"
-	exit
+if [ ! $# -eq 3 ]; then
+    echo "USAGE: ./merge.sh   FILEPATH PROCES
+	FILEPATH - path to ME files to merge
+	PROCESS - name of process, e.g. ww, hww120 etc.
+	OUTPUT - directory to put merged files"
+    exit 1
 fi
 
-nfiles=`ls $2/*$1*.root | wc -l`
+FILEPATH=$1
+PROCESS=$2
+OUTPUT=$3
 
-i=1
+. /uscmst1/prod/sw/cms/bashrc prod
+eval `export SCRAM_ARCH=slc5_ia32_gcc434; scramv1 runtime -sh`
 
-rm  merge.C
-touch merge.C
-echo -e "{\tTChain s(\"tree\");" >> merge.C
+if [ -f merge.C ]; then
+	rm -f merge.C
+fi
 
-for fn in $2/$1_ME_*.root; do
+echo -e "{\tTChain s(\"tree\");" > merge.C
+for FILE in $FILEPATH/${PROCESS}_ME_*.root; do
 
-	if [ .$fn = ."" ]; then 
-		echo "ERROR : File $1_ME_$i.root not found, skip"  
-	else 
-		echo -e "\ts.Add(\"$fn\");" >> merge.C
-	fi
-	i=$((i+1))
+        if [ .$FILE = ."" ]; then
+                echo "ERROR : File ${PROCESS}_ME_$i.root not found, skip"  
+        else
+                echo -e "\ts.Add(\"$FILE\");" >> merge.C
+        fi
 done
-
 echo -e "\ts.SetMaxTreeSize(1e9);" >> merge.C
-echo -e "\ts.Merge(\"$1_ME_merged.root\");" >> merge.C
+echo -e "\ts.Merge(\"${OUTPUT}/${PROCESS}_ME.root\");" >> merge.C
 echo "}" >> merge.C
 
-echo "Merging $1"
+echo "Merging $PROCESS"
 root -l -q merge.C
 
