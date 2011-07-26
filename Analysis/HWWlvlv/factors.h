@@ -210,20 +210,20 @@ double fakeRate(double pt, double eta, TH2D *fhDFRMu, TH2D *fhDFREl, int fm, int
   double myeta  = TMath::Min(fabs(eta),2.4999);
   double prob = 1.0;
   if     (fm == 1){
-    //Int_t ptbin = fhDFRMu->GetXaxis()->FindBin(mypt);
-    //Int_t etabin = fhDFRMu->GetYaxis()->FindBin(myeta);	 
-    //prob = fhDFRMu->GetBinContent(ptbin,etabin);
-    Int_t ptbin = fhDFRMu->GetYaxis()->FindBin(mypt);
-    Int_t etabin = fhDFRMu->GetXaxis()->FindBin(myeta);  
-    prob = fhDFRMu->GetBinContent(etabin,ptbin);
+    Int_t ptbin = fhDFRMu->GetXaxis()->FindBin(mypt);
+    Int_t etabin = fhDFRMu->GetYaxis()->FindBin(myeta);        
+    prob = fhDFRMu->GetBinContent(ptbin,etabin);
+    //Int_t ptbin = fhDFRMu->GetYaxis()->FindBin(mypt);
+    //Int_t etabin = fhDFRMu->GetXaxis()->FindBin(myeta);  
+    //prob = fhDFRMu->GetBinContent(etabin,ptbin);
   }
   else if(fe == 1){
-    //Int_t ptbin = fhDFREl->GetXaxis()->FindBin(mypt);
-    //Int_t etabin = fhDFREl->GetYaxis()->FindBin(myeta);	 
-    //prob = fhDFREl->GetBinContent(ptbin,etabin);
-    Int_t ptbin = fhDFREl->GetYaxis()->FindBin(mypt);
-    Int_t etabin = fhDFREl->GetXaxis()->FindBin(myeta);  
-    prob = fhDFREl->GetBinContent(etabin,ptbin);
+    Int_t ptbin = fhDFREl->GetXaxis()->FindBin(mypt);
+    Int_t etabin = fhDFREl->GetYaxis()->FindBin(myeta);        
+    prob = fhDFREl->GetBinContent(ptbin,etabin);
+    //Int_t ptbin = fhDFREl->GetYaxis()->FindBin(mypt);
+    //Int_t etabin = fhDFREl->GetXaxis()->FindBin(myeta);  
+    //prob = fhDFREl->GetBinContent(etabin,ptbin);
   }
   return prob/(1-prob);
 }
