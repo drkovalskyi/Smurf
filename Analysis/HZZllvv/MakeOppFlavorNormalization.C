@@ -1,5 +1,6 @@
-//root -l Smurf/Analysis/HZZllvv/MakeOppFlavorNormalization.C+'(0,300,"","/data/smurf/sixie/data/Run2011_Summer11_EPSHZZV0/mitf-alljets/background.root","/data/smurf/sixie/data/Run2011_Summer11_EPSHZZV0/mitf-alljets/data_2l.root")'
+//root -l Smurf/Analysis/HZZllvv/MakeOppFlavorNormalization.C+'(0,300,"","/data/smurf/sixie/data/Run2011_Summer11_EPSHZZV0/mitf-alljets/background.root","/data/smurf/sixie/data/Run2011_Summer11_EPSHZZV0/mitf-alljets/data_2l.goodlumi1092ipb.root")'
 //root -l Smurf/Analysis/HZZllvv/MakeOppFlavorNormalization.C+'(0,300,"","/data/smurf/sixie/data/Run2011_Spring11_SmurfV6/background.root","/data/smurf/data/EPS/tas/data-met20-1092ipb.root")'
+//root -l Smurf/Analysis/HZZllvv/MakeOppFlavorNormalization.C+'(0,300,"","/data/smurf/sixie/data/Run2011_Summer11_SmurfV6/mitf-alljets/background.root","/data/smurf/sixie/data/Run2011_Summer11_SmurfV6/mitf-alljets/data_2l.goodlumi1092ipb.root")'
 
 
 #include <TROOT.h> 
@@ -19,7 +20,6 @@
 #include "Math/VectorUtil.h"
 #include "TH1D.h"
 #include "TH2D.h"
-#include "MitAna/DataCont/interface/RunLumiRangeMap.h"
 #include "Smurf/Core/SmurfTree.h"
 #include "Smurf/Analysis/HZZllvv/factors.h"
 #include "Smurf/Analysis/HZZllvv/HiggsQCDScaleSystematics.h"
@@ -49,11 +49,6 @@ void MakeOppFlavorNormalization
  
   TString bgdFile1    = bgdInputFile;
   TString datFile1    = datInputFile;
-
-  Bool_t hasJSON = kTRUE;
-  mithep::RunLumiRangeMap rlrm;
-  rlrm.AddJSONFile("Smurf/Analysis/HZZllvv/goodlumiList.1092ipb.json"); 
-  hasJSON = kFALSE;
 
   //************************************************************************************************
   // Load Trees
@@ -86,17 +81,7 @@ void MakeOppFlavorNormalization
   // Lepton Efficiencies
   //************************************************************************************************
 
-  TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/EPS/auxiliar/efficiency_results_v6.root");
-//    TFile *fLeptonEffFile = TFile::Open("Smurf/Analysis/HZZllvv/efficiency_42X.root");
-  TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
-  TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
-  fhDEffMu->SetDirectory(0);
-  fhDEffEl->SetDirectory(0);
-  fLeptonEffFile->Close();
-  delete fLeptonEffFile;
-
-//   LeptonScaleLookup trigLookup("Smurf/Analysis/HZZllvv/efficiency_42X.root");
-  LeptonScaleLookup trigLookup("/data/smurf/data/EPS/auxiliar/efficiency_results_v6.root");
+  LeptonScaleLookup trigLookup("Smurf/Analysis/HZZllvv/efficiency_42X.root");
 
   TFile *fLeptonFRFileM = TFile::Open("/data/smurf/data/EPS/auxiliar/FakeRates_SmurfV6.root");
   TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
@@ -297,10 +282,20 @@ void MakeOppFlavorNormalization
     //************************************************************************************************
     // PreSelection
     //************************************************************************************************
+    bool passTightPlusDenominatorSelection = ( dstype == SmurfTree::data && 
+                                               (((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
+                                                 (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) 
+                                                ||
+                                                ((cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection && 
+                                                 (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)
+                                                 ));
+    bool passTightPlusTightSelection = ( ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection) &&
+                                         ((cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) );
+    
+    
     if( njets != nJetsType ) continue; // select n-jet type events
     if( !(lep1->pt() > 20 && lep2->pt() > 20 )) continue;
-    if( !((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection )) continue;
-    if( !((cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection )) continue;
+    if( !( (dstype != SmurfTree::data && passTightPlusTightSelection) || passTightPlusDenominatorSelection)) continue;
     if( !(type == SmurfTree::em || type == SmurfTree::me )) continue;
     if( !(dilep->mass() > 12 )) continue;
     if( !(lq1*lq2 < 0)) continue;
@@ -319,7 +314,7 @@ void MakeOppFlavorNormalization
     else if (dstype == SmurfTree::ttbar || dstype == SmurfTree::tw ) bkgIndex = 3;
     else if (dstype == SmurfTree::dyee || dstype == SmurfTree::dymm ) bkgIndex = 4;
     else if (dstype == SmurfTree::dytt ) bkgIndex = 5;
-    else if (dstype == SmurfTree::wjets) bkgIndex = 6;
+    else if (dstype == SmurfTree::wjets || dstype == SmurfTree::data) bkgIndex = 6;
     else bkgIndex = 7;
 
     if (bkgIndex == 7) { cout << "other bkg: " << dstype << " " << endl; }
@@ -330,6 +325,8 @@ void MakeOppFlavorNormalization
     Double_t myWeight = 0.0;
     Double_t weightFactor = 1.0;
     
+
+
     if(dstype == SmurfTree::data || 
        ((cuts & SmurfTree::Lep1LooseMuV1) == SmurfTree::Lep1LooseMuV1) || ((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) ||
        ((cuts & SmurfTree::Lep2LooseMuV1) == SmurfTree::Lep2LooseMuV1) || ((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) || 
@@ -337,16 +334,23 @@ void MakeOppFlavorNormalization
       weightFactor *= fakeRate(lep1->pt(), lep1->eta(), fhDFRMu, fhDFREl, ((cuts & SmurfTree::Lep1LooseMuV1) == SmurfTree::Lep1LooseMuV1), ((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4));
       weightFactor *= fakeRate(lep2->pt(), lep2->eta(), fhDFRMu, fhDFREl, ((cuts & SmurfTree::Lep2LooseMuV1) == SmurfTree::Lep2LooseMuV1), ((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4));
       
+
       if(dstype == SmurfTree::data) {
-        bkgIndex = 6;
         myWeight = weightFactor;
+
+        cout << "data: " << dstype << " " << weightFactor 
+             << " : " << ((cuts & SmurfTree::Lep1LooseMuV1) == SmurfTree::Lep1LooseMuV1) << " " << ((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) << " , " << ((cuts & SmurfTree::Lep2LooseMuV1) == SmurfTree::Lep2LooseMuV1) << " " << ((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) << " "
+             << " : " << fakeRate(lep1->pt(), lep1->eta(), fhDFRMu, fhDFREl, ((cuts & SmurfTree::Lep1LooseMuV1) == SmurfTree::Lep1LooseMuV1), ((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4)) << " " << fakeRate(lep2->pt(), lep2->eta(), fhDFRMu, fhDFREl, ((cuts & SmurfTree::Lep2LooseMuV1) == SmurfTree::Lep2LooseMuV1), ((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4)) 
+             << endl;
+
+
       }
       else if(TMath::Abs(lep1McId)*TMath::Abs(lep2McId) > 0 || dstype == SmurfTree::wgamma){
      	weightFactor *= PileupReweightFactor(nvtx);
         bkgIndex               = 6;
         myWeight	       = -1.0 * scale1fb*scaleFactorLum*weightFactor;
       }
-     else {
+      else {
         myWeight = 0.0;
       }
     }
@@ -365,8 +369,8 @@ void MakeOppFlavorNormalization
       } else {
         myPUWeights = fPUWeightsS3;
       }
-//       weightFactor *= myPUWeights->GetBinContent(myPUWeights->GetXaxis()->FindFixBin(npu));
-      weightFactor *= PileupReweightFactor(nvtx);
+      weightFactor *= myPUWeights->GetBinContent(myPUWeights->GetXaxis()->FindFixBin(npu));
+//       weightFactor *= PileupReweightFactor(nvtx);
       
       
       if((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection)
@@ -447,10 +451,6 @@ void MakeOppFlavorNormalization
     
     data->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)data->GetEntries());
-
-    //apply goodrun list
-    mithep::RunLumiRangeMap::RunLumiPairType rl(run, lumi);      
-    if(hasJSON && !rlrm.HasRunLumi(rl)) continue;  // not certified run? Skip to next event...
 
     //************************************************************************************************
     // PreSelection
@@ -535,7 +535,7 @@ void MakeOppFlavorNormalization
   //Summary
   //**************************************************************************
 
-  printf("| %d jet | ZZ | WZ | WW | top | Ztt | wjets | TotalBkg | Data | Data/MC Ratio |\n", nJetsType);
+  printf("| *%d jet* | *ZZ* | *WZ* | *WW* | *top* | *Ztt* | *wjets* | *TotalBkg* | *Data* | *Data/MC Ratio* |\n", nJetsType);
 
   for(UInt_t i=0; i<nMetBins; ++i) {
     Double_t numerator = dataYields[i] - ( bkgYields[0][i] + bkgYields[1][i] + bkgYields[6][i] );
@@ -546,7 +546,7 @@ void MakeOppFlavorNormalization
     double ratioerr = ratio*sqrt(nrelerr*nrelerr + drelerr*drelerr);
 
 
-    printf("| Met > %8.3f | %8.3f +/- %8.3f | %8.3f +/- %8.3f | %8.3f +/- %8.3f | %8.3f +/- %8.3f | %8.3f +/- %8.3f | %8.3f +/- %8.3f | %8.3f  +/- %8.3f| %8.3f +/- %8.3f | %8.3f +/- %8.3f |\n", metThresholds[i], bkgYields[0][i], TMath::Sqrt(bkgYieldsErrorSqr[0][i]) , bkgYields[1][i], TMath::Sqrt(bkgYieldsErrorSqr[1][i]), bkgYields[2][i], TMath::Sqrt(bkgYieldsErrorSqr[2][i]), bkgYields[3][i], TMath::Sqrt(bkgYieldsErrorSqr[3][i]), bkgYields[5][i], TMath::Sqrt(bkgYieldsErrorSqr[5][i]), bkgYields[6][i], TMath::Sqrt(bkgYieldsErrorSqr[6][i]), bkgYields[nBkgChannels][i], TMath::Sqrt(bkgYieldsErrorSqr[nBkgChannels][i]), dataYields[i], TMath::Sqrt(dataYields[i]) , ratio , ratioerr );
+    printf("| *Met > %8.3f* | %8.3f +/- %8.3f | %8.3f +/- %8.3f | %8.3f +/- %8.3f | %8.3f +/- %8.3f | %8.3f +/- %8.3f | %8.3f +/- %8.3f | %8.3f  +/- %8.3f| %8.3f +/- %8.3f | %8.3f +/- %8.3f |\n", metThresholds[i], bkgYields[0][i], TMath::Sqrt(bkgYieldsErrorSqr[0][i]) , bkgYields[1][i], TMath::Sqrt(bkgYieldsErrorSqr[1][i]), bkgYields[2][i], TMath::Sqrt(bkgYieldsErrorSqr[2][i]), bkgYields[3][i], TMath::Sqrt(bkgYieldsErrorSqr[3][i]), bkgYields[5][i], TMath::Sqrt(bkgYieldsErrorSqr[5][i]), bkgYields[6][i], TMath::Sqrt(bkgYieldsErrorSqr[6][i]), bkgYields[nBkgChannels][i], TMath::Sqrt(bkgYieldsErrorSqr[nBkgChannels][i]), dataYields[i], TMath::Sqrt(dataYields[i]) , ratio , ratioerr );
   }
 
 
