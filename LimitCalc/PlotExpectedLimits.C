@@ -2,7 +2,7 @@
 {
   gSystem->Load("lands.so");
   gSystem->CompileMacro("PlotExpectedLimits.C","k");
-  PlotExpectedLimits("output/hww-1000pb_0-1_cut*","H #rightarrow WW #rightarrow 2l2#nu + 0/1 jets");
+  // PlotExpectedLimits("output/hww-1000pb_0-1_cut*","H #rightarrow WW #rightarrow 2l2#nu + 0/1 jets");
   // plotBand();
 }
 #endif
@@ -132,8 +132,9 @@ void AddLimits(std::vector<LimitInfo>& limits, const char* dir, const char* name
     }
   }
   std::sort(values.begin(),values.end());
-  const double prob1S = TMath::Erfc(1/sqrt(2))/2;
-  const double prob2S = TMath::Erfc(2/sqrt(2))/2;
+  const double trialFactor = 1;
+  const double prob1S = TMath::Erfc(1/sqrt(2))/2/trialFactor;
+  const double prob2S = TMath::Erfc(2/sqrt(2))/2/trialFactor;
   std::cout << mass << std::endl;
   std::cout << "\tN toys: " << nentries << std::endl;
   std::cout << "\t-2 sigma: \t" << values.at(int(prob2S*values.size())) << std::endl;
@@ -189,12 +190,13 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
   TPaveText *pt = lands::SetTPaveText(0.5, 0.95, 0.8, 0.95); //SetTPaveText(0.5, 0.95, 0.8, 0.95)
   pt->AddText(title);
   lands::PlotWithBelts* lb = 0;
-  float yMax = 10; 
+  float yMax = 5; 
   if (showObserved){
     lb = new lands::PlotWithBelts(limits_m1s, limits_p1s, limits_m2s, limits_p2s,
 				  limits_mean, observed, limits.size(), mass_points, 
 				  "limits", pt,
 				  100, 305, 0, yMax, false, 
+				  // 100, 205, 0, yMax, false, 
 				  ";Higgs mass, m_{H} [GeV/c^{2}]; 95% CL Limit on #sigma/#sigma_{SM}; observed ");
     lb->plot();
     lb->drawLegend("95% CL exclusion: median","95% CL exclusion: 68% band", "95% CL exclusion: 95% band", "observed");
@@ -203,6 +205,7 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
 				  limits_mean, limits.size(), mass_points, 
 				  "limits", pt,
 				  100, 305, 0, yMax, false, 
+				  // 100, 205, 0, yMax, false, 
 				  ";Higgs mass, m_{H} [GeV/c^{2}]; 95% CL Limit on #sigma/#sigma_{SM} ");
     lb->plot();
     lb->drawLegend("95% CL exclusion: median","95% CL exclusion: 68% band", "95% CL exclusion: 95% band");
@@ -223,10 +226,46 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
   lb->save();
 }
 
+void ReportLimits(std::vector<LimitInfo>& limits, const char* title, const char* dir, const char* name){
+  if (limits.empty()){
+    std::cout << "No limits to plot." << std::endl;
+    return;
+  }
+//   bool showObserved = true;
+//   for(unsigned int i=0; i<limits.size(); ++i){
+//     if (limits.at(i).observed<0) showObserved=false;
+//   }
+  printf("Mass \tObserved \tMedian Expected \t68%% C.L. band \t95%% C.L. band\n");
+  for(unsigned int i=0; i<limits.size(); ++i){
+    printf("%.0f \t%0.1f \t%0.1f \t[%0.1f, %0.1f] \t[%0.1f, %0.1f]\n",
+	   limits.at(i).mass,
+	   limits.at(i).observed, limits.at(i).exp_median, 
+	   limits.at(i).exp_m1sig, limits.at(i).exp_p1sig,
+	   limits.at(i).exp_m2sig, limits.at(i).exp_p2sig);
+  }
+}
+
 #endif
 
+
+void PlotExpectedLimits(const char* file, const char* title)
+{
+  std::vector<LimitInfo> limits;
+  std::ifstream fin(file);
+  while(!fin.eof()){
+    LimitInfo limit;
+    fin >> limit.mass >> limit.observed >> limit.exp_m2sig >> limit.exp_m1sig
+	>> limit.exp_median >> limit.exp_p1sig >> limit.exp_p2sig;
+    std::cout << limit.mass << "\t" << limit.observed << "\t" << limit.exp_m2sig << "\t" 
+	      << limit.exp_m1sig << "\t" << limit.exp_median << "\t" 
+	      << limit.exp_p1sig << "\t" << limit.exp_p2sig << std::endl;
+    limits.push_back(limit);
+  }
+  PlotExpectedLimits(limits,title);
+}
+
 void PlotExpectedLimits(const char* dir, const char* name, 
-			const char* title="H #rightarrow WW #rightarrow 2l2#nu + 0/1 jets")
+			const char* title)
 {
   std::vector<LimitInfo> limits;
   AddLimits(limits, dir, name, 115);
@@ -241,8 +280,15 @@ void PlotExpectedLimits(const char* dir, const char* name,
   AddLimits(limits, dir, name, 200);
   AddLimits(limits, dir, name, 250);
   AddLimits(limits, dir, name, 300);
+  AddLimits(limits, dir, name, 350);
+  AddLimits(limits, dir, name, 400);
+  AddLimits(limits, dir, name, 450);
+  AddLimits(limits, dir, name, 500);
+  AddLimits(limits, dir, name, 550);
+  AddLimits(limits, dir, name, 600);
   
   PlotExpectedLimits(limits,title);
+  ReportLimits(limits,title,dir,name);
   /*
 
   TCanvas* c1 = new TCanvas("c1","A Simple Graph with error bars",200,10,700,500);
