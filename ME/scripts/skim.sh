@@ -69,6 +69,9 @@ qqww.root
 ggww.root
 wjets.root
 wgamma.root    
+dyee.root
+dymm.root
+dytt.root
 hww115.root
 hww120.root
 hww130.root
