@@ -77,16 +77,18 @@ using namespace std;
 //###################
 //# main function
 //###################
-void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mitf-alljets/", TString fileName = "zz.root", TString outputDir = "rawsmurfdata/", TString cutstring = "ZZ" ) {
+void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mitf-alljets/", TString fileName = "zz.root", TString outputDir = "rawsmurfdata/", TString cutstring = "ZZ", int jetbin = 0 ) {
 
   gROOT->ProcessLine(".L ../../Core/SmurfTree.h+");
   TFile* fin = new TFile(smurfFDir+fileName);
   TTree* ch=(TTree*)fin->Get("tree"); 
   if (ch==0x0) return; 
-
-  TFile *newfile = new TFile(outputDir+fileName,"recreate");
-  TTree* evt_tree=(TTree*) ch->CloneTree(0, "fast");
   
+  TString outputFileName = outputDir + fileName;
+  if (cutstring == "PassFail")   outputFileName.ReplaceAll(".root","_PassFail.root");
+  
+  TFile *newfile= new TFile(outputFileName,"recreate");
+  TTree* evt_tree=(TTree*) ch->CloneTree(0, "fast");
   
   // get event based branches..
   unsigned int njets_ = 0;
@@ -106,7 +108,6 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
   float met_ = 0.0;
   float trackMet_ = 0.0;
 
-
   ch->SetBranchAddress( "njets"     , &njets_     );     
   ch->SetBranchAddress( "cuts"      , &cuts_     );     
   ch->SetBranchAddress( "lep1"      , &lep1_      );   
@@ -123,6 +124,12 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
   ch->SetBranchAddress( "dPhiDiLepJet1"      , &dPhiDiLepJet1_     );     
   ch->SetBranchAddress( "met"      , &met_     );     
   ch->SetBranchAddress( "trackMet"      , &trackMet_     );   
+
+  float scale1fb = 0.0;
+  ch->SetBranchAddress( "scale1fb"      , &scale1fb     );   
+  
+
+  
   //==========================================
   // Loop All Events
   //==========================================
@@ -131,23 +138,21 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
 
   for(int ievt = 0; ievt < ch->GetEntries() ;ievt++){
     ch->GetEntry(ievt); 
-    // select only 0 jet final states
-    if (njets_ != 0 ) continue;
-    // add selections commmon to WW/ZZ analysis
-    if ( type_==0||type_==3) {
-      if (jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
-    }
-      // cuts to select the WW pre-selection
+
+    // select a specific jetbin
+    if (njets_ != jetbin ) continue;
+
+    // cuts to select the WW pre-selection
     if (cutstring == "WW") {
-      if ( type_==0||type_==3) {
-	if (TMath::Min(pmet_,pTrackMet_) < 40.) continue;
-      }
       if ((cuts_ & ww) != ww) continue;
+      if ( (type_==0||type_==3) && TMath::Min(pmet_,pTrackMet_) < 40.) continue;
+      if ( (type_==0||type_==3) && jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
     }
     
     // select the PassFail sample for the wjets studies
-    // haven't fully verified yet - YY
-    else if (cutstring == "PassFail") {
+    else if (cutstring == "PassFail") {  
+      if ( (type_==0||type_==3) && TMath::Min(pmet_,pTrackMet_) < 40.) continue;
+      if ( (type_==0||type_==3) && jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
       if ( (cuts_ & ww_lepfo) != ww_lepfo) continue;
       // skip events with no lepton pass the full selection
       if ( ( (cuts_ & Lep1FullSelection) != Lep1FullSelection)  &&  
@@ -162,13 +167,16 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
 	    && ( (cuts_ & Lep2LooseEleV4) != Lep2LooseEleV4)
 	       && ( (cuts_ & Lep2LooseMuV1) != Lep2LooseMuV1)) continue;
       
-      // if lep1 pass full selection, but none of the lep2 pass the FO definition, skip the event
+      // if lep2 pass full selection, but none of the lep1 pass the FO definition, skip the event
       if (     ( (cuts_ & Lep2FullSelection) == Lep2FullSelection) 
 	       && ( (cuts_ & Lep1LooseEleV4) != Lep1LooseEleV4)
 	       && ( (cuts_ & Lep1LooseMuV1) != Lep1LooseMuV1) ) continue;
+      
+      if ( ! fileName.Contains("data", TString::kExact))
+	scale1fb = -1. * scale1fb;
     }
     
-      
+    // cuts to select the ZZ pre-selection
     else if (cutstring == "ZZ") {
       if (type_ != 0 && type_ !=3 ) continue; 
       if ( (cuts_ & zz_baseline) != zz_baseline) continue;
@@ -177,6 +185,7 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if ( TMath::Abs(dilep_->M()-91.1876) > 15.0 ) continue;
       if ( TMath::Min(met_, trackMet_) < 50.0) continue;
       if ( dilep_->Pt() < 40.0) continue;
+      if ( (njets_ < 2) && (type_==0||type_==3) && jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
     }
     
     evt_tree->Fill();

@@ -2,6 +2,10 @@
 
 #
 # script to skim smurf ntuples
+# it outputs 3 different selections
+# WW pre-selections
+# ZZ pre-selections
+# PassFail samples for the WW analysis
 #
 
 INPUTDIR=$1
@@ -29,14 +33,13 @@ if [ ! -d $OUTPUTDIR ]; then
     exit 3
 fi
 
-mkdir -p $OUTPUTDIR/$SELECTION
-
 # loop over root files in input dir
 # and do the skim root script
 
 if [ "$SELECTION" == 'ZZ' ]; then
 rm -f list_samples.txt
 cat > list_samples.txt <<EOF
+data-met20-1092ipb.root
 zz.root
 wz.root
 ttbar.root
@@ -44,17 +47,20 @@ tw.root
 qqww.root
 ggww.root
 wjets.root
-wgamma.root    
 hzz200.root
 hzz250.root
 hzz300.root
 hzz400.root
+dyee.root
+dymm.root
+dytt.root
 EOF
 fi
 
 if [ "$SELECTION" == 'WW' ]; then
 rm -f list_samples.txt
 cat > list_samples.txt <<EOF
+data-met20-1092ipb.root
 zz.root
 wz.root
 ttbar.root
@@ -75,15 +81,38 @@ hww190.root
 hww200.root
 hww250.root
 hww300.root
+hww350.root
+hww400.root
+hww450.root
+hww500.root
+hww550.root
+hww600.root
 EOF
 fi
 
-#data-met20-1092ipb.root
+if [ "$SELECTION" == 'PassFail' ]; then
+rm -f list_samples.txt
+cat > list_samples.txt <<EOF
+data-met20-1092ipb.root
+zz.root
+wz.root
+ttbar.root
+tw.root
+qqww.root
+ggww.root
+wgamma.root
+EOF
+fi
+
+
 
 
 #for FILE in `ls $INPUTDIR | grep lfake.root`
 for FILE in `cat list_samples.txt` ; do
-    outputdir=$OUTPUTDIR/$SELECTION/
-    echo doing "root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\"\);"
-    root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\"\);
+    for JETBIN in 0 1 2 ; do 
+	outputdir=$OUTPUTDIR/$SELECTION/${JETBIN}j/
+	mkdir -p $outputdir
+	echo doing "root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",$JETBIN\);"
+	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",$JETBIN\);
+    done
 done
