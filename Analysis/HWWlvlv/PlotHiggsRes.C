@@ -29,6 +29,7 @@ void setPair(TH1D* h1, TH1D* h2);
 void setGraph(TGraphErrors* g, int color, int marker);
 TGraphErrors* makeSignificanceCurve(TH1D* sig, TH1D* bgd, TH1D* dat, const char* name);
 TGraphErrors* makeGraphFromHists   (TH1D* sig, TH1D* bgd, const char* name);
+double DeltaPhi(double phi1, double phi2);
 
 int    verboseLevel =   0;
 const double sigmaB = 0.35;
@@ -719,7 +720,9 @@ void PlotHiggsRes
     else if(useVar == 3 && knn        > useCut) {nSigMVA[nSigBin] += myWeight; nSigEMVA[nSigBin] += myWeight*myWeight; passFinalCut = true;}
     else if(useVar == 4 && bdtg       > useCut) {nSigMVA[nSigBin] += myWeight; nSigEMVA[nSigBin] += myWeight*myWeight; passFinalCut = true;}
     if(passFinalCut == true){
-      histoS->Fill(dPhi*180.0/TMath::Pi(),myWeight);
+      double myVar = 0.0;
+      //if(jet1->pt()>15&&jet2->pt()>15) myVar = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi();
+      histoS->Fill(myVar,myWeight);
     }
   }
   for(int i=0; i<6; i++) nSigEAcc[i] = sqrt(nSigEAcc[i]);
@@ -1047,7 +1050,6 @@ void PlotHiggsRes
     else if(useVar == 3 && knn        > useCut) {nBgdMVA += myWeight; nBgdEMVA += myWeight*myWeight; nBgdMVADecays[fDecay]  += myWeight; nBgdEMVADecays[fDecay]  += myWeight*myWeight; passFinalCut = true;}
     else if(useVar == 4 && bdtg       > useCut) {nBgdMVA += myWeight; nBgdEMVA += myWeight*myWeight; nBgdMVADecays[fDecay]  += myWeight; nBgdEMVADecays[fDecay]  += myWeight*myWeight; passFinalCut = true;}
     if(passFinalCut == true){
-      histoB->Fill(dPhi*180.0/TMath::Pi(),myWeight);
       if((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
          (type   == SmurfTree::mm   || type   == SmurfTree::ee)){     
 	DYXS[2] += myWeight;
@@ -1055,6 +1057,9 @@ void PlotHiggsRes
       else if(fDecay == 4){
 	VVXS[2] += myWeight;
       }
+      double myVar = 0.0;
+      //if(jet1->pt()>15&&jet2->pt()>15) myVar = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi();
+      histoB->Fill(myVar,myWeight);
     }
   }
   nBgdEAcc = sqrt(nBgdEAcc);
@@ -1196,7 +1201,9 @@ void PlotHiggsRes
     else if(useVar == 3 && knn        > useCut) {nDatMVA += myWeight; passFinalCut = true;}
     else if(useVar == 4 && bdtg       > useCut) {nDatMVA += myWeight; passFinalCut = true;}
     if(passFinalCut == true){
-      histoD->Fill(dPhi*180.0/TMath::Pi(),myWeight);
+      double myVar = 0.0;
+      //if(jet1->pt()>15&&jet2->pt()>15) myVar = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi();
+      histoD->Fill(myVar,myWeight);
     }
   }
 
@@ -1826,4 +1833,16 @@ TGraphErrors* makeGraphFromHists(TH1D* hsig, TH1D* hbgd, const char* name)
   TGraphErrors* g = new TGraphErrors(i, xs, ys, dxs, dys);
   g->SetName(name);
   return g;
+}
+
+//------------------------------------------------------------------------------
+// DeltaPhi
+//------------------------------------------------------------------------------
+double DeltaPhi(double phi1, double phi2)
+{
+  // Compute DeltaPhi between two given angles. Results is in [-pi/2,pi/2].
+  double dphi = TMath::Abs(phi1-phi2);
+  while (dphi>TMath::Pi())
+    dphi = TMath::Abs(dphi - TMath::TwoPi());
+  return(dphi);
 }

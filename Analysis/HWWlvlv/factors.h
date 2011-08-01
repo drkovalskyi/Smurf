@@ -7,7 +7,7 @@ double scpFast(double sig, double bkg, double sigma_b, double delta_b = 0.0);
 double scaleFactor(double pt1, double eta1, double pt2, double eta2, int type, int nsel);
 double enhancementFactor(double mass, bool isBRFactor = false);
 double fakeRate(double pt, double eta, TH2D *fhDFRMu, TH2D *fhDFREl, int fm, int fe);
-double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, int lid);
+double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, int lid, int syst = 0);
 double hzz2l_cuts(double mass, int opt);
 
 void atributes(TH1D *histo, Char_t xtitle[], Int_t COLOR, Char_t ytitle[]){
@@ -228,7 +228,7 @@ double fakeRate(double pt, double eta, TH2D *fhDFRMu, TH2D *fhDFREl, int fm, int
   return prob/(1-prob);
 }
 
-double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, int lid){
+double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, int lid, int syst){
   // lid == 13 (muon), 11 (electron)
   double mypt   = TMath::Min(pt,49.999);
   double myeta  = TMath::Min(fabs(eta),2.4999);
@@ -237,11 +237,15 @@ double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, i
     Int_t ptbin = fhDEffMu->GetXaxis()->FindBin(mypt);
     Int_t etabin = fhDEffMu->GetYaxis()->FindBin(myeta);	 
     prob = fhDEffMu->GetBinContent(ptbin,etabin);
+    if     (syst > 0) prob += fhDEffMu->GetBinError(ptbin,etabin);
+    else if(syst < 0) prob -= fhDEffMu->GetBinError(ptbin,etabin);
   }
   else if(TMath::Abs(lid) == 11){
     Int_t ptbin = fhDEffEl->GetXaxis()->FindBin(mypt);
     Int_t etabin = fhDEffEl->GetYaxis()->FindBin(myeta);	 
     prob = fhDEffEl->GetBinContent(ptbin,etabin);
+    if     (syst > 0) prob += fhDEffEl->GetBinError(ptbin,etabin);
+    else if(syst < 0) prob -= fhDEffEl->GetBinError(ptbin,etabin);
   }
   return prob;
 }
