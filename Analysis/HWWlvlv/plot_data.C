@@ -135,7 +135,7 @@ void plot_data(int nsel = 0, int ReBin = 10, char XTitle[300] = "N_{jets}", char
   labelcms->SetTextAlign(12);
   labelcms->SetTextSize(0.05);
   labelcms->SetFillColor(kWhite);
-  labelcms->AddText("CMS, #sqrt{s} = 7 TeV, L_{ int} = 188 pb^{-1}");
+  labelcms->AddText("CMS, #sqrt{s} = 7 TeV, L_{ int} = 1.1 fb^{-1}");
   labelcms->SetBorderSize(0);
   labelcms->SetTextFont(132);
   labelcms->SetLineWidth(2);
