@@ -648,7 +648,7 @@ void PlotHiggsRes
     double myWeight = scaleFactorLum * scale1fb * add;
 
     int nSigBin = -1;
-    // 10010 == ggH, 10001 == VBF, 121/122 == ttH, 24 == WH, 26 == ZH
+    // GF  == 10010, WBF == 10001, WH == 26, ZH == 24, ttH=121/122
     if     (processId==121 ||
     	    processId==122)   nSigBin = 1;
     else if(processId==24)    nSigBin = 2;
