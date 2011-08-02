@@ -1,4 +1,9 @@
 //root -l Smurf/Analysis/HZZllvv/MakePhotonReweightFactors.C+\(\"/data/smurf/sixie/data/Run2011_Spring11_SmurfV6/mitf-alljets/data_photons.root\",\"/data/smurf/sixie/data/Run2011_Spring11_SmurfV6/mitf-alljets/data-met0-1092ifb-dileptrig.root\"\)
+//root -l Smurf/Analysis/HZZllvv/MakePhotonReweightFactors.C+\(\"/data/smurf/sixie/data/Run2011_Summer11_SmurfV6/mitf-alljets/data_photons.goodlumi1092ipb.root\",\"/data/smurf/sixie/data/Run2011_Summer11_SmurfV6/mitf-alljets/data_2l.goodlumi1092ipb.root\"\)
+//root -l Smurf/Analysis/HZZllvv/MakePhotonReweightFactors.C+\(\"/data/smurf/sixie/data/Run2011_Summer11_SmurfV6/mitf-alljets/data_photons.goodlumi1092ipb.root\",\"/data/smurf/sixie/data/Run2011_Summer11_SmurfV6/mitf-alljets/data_2l.goodlumi1092ipb.root\",1,\"BarrelOnly\"\)
+//root -l Smurf/Analysis/HZZllvv/MakePhotonReweightFactors.C+\(\"/data/smurf/sixie/data/Run2011_Summer11_SmurfV6/mitf-alljets/data_photons.goodlumi1092ipb.root\",\"/data/smurf/sixie/data/Run2011_Summer11_SmurfV6/mitf-alljets/data_2l.goodlumi1092ipb.root\",2,\"BarrelOnlySpikesRemoved\"\)
+//root -l Smurf/Analysis/HZZllvv/MakePhotonReweightFactors.C+\(\"/data/smurf/sixie/data/Run2011_Summer11_SmurfV6/mitf-alljets/data_photons.goodlumi1092ipb.root\",\"/data/smurf/sixie/data/Run2011_Summer11_SmurfV6/mitf-alljets/data_2l.goodlumi1092ipb.root\",3,\"BarrelOnlySpikesRemovedHighR9\"\)
+//root -l Smurf/Analysis/HZZllvv/MakePhotonReweightFactors.C+\(\"/data/smurf/sixie/data/Run2011_Summer11_SmurfV6/mitf-alljets/data_photons.goodlumi1092ipb.root\",\"/data/smurf/sixie/data/Run2011_Summer11_SmurfV6/mitf-alljets/data_2l.goodlumi1092ipb.root\",4,\"BarrelOnlySpikesRemovedUnconverted\"\)
 
 #include <TROOT.h>
 #include <TFile.h>
@@ -18,7 +23,6 @@
 #include "TH2D.h"
 #include "/home/sixie/CMSSW_analysis/src/Smurf/Core/SmurfTree.h"
 #include "/home/sixie/CMSSW_analysis/src/Smurf/HWW/factors.h"
-#include "MitAna/DataCont/interface/RunLumiRangeMap.h"
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
@@ -29,15 +33,15 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 void MakePhotonReweightFactors
 (
   TString PhotonFile    = "/data/smurf/sixie/data/Run2011_Spring11_SmurfV6/mitf-alljets/data_photons.root",
-  TString DileptonFile    = "/data/smurf/sixie/data/Run2011_Spring11_SmurfV6/mitf-alljets/data.root"
+  TString DileptonFile    = "/data/smurf/sixie/data/Run2011_Spring11_SmurfV6/mitf-alljets/data.root",
+  UInt_t PhotonSelectionType = 0,
+  string label = ""
   )
 {
 
-  Bool_t hasJSON = kTRUE;
-  mithep::RunLumiRangeMap rlrm;
-  rlrm.AddJSONFile("Smurf/Analysis/HZZllvv/goodlumiList.1092ipb.json"); 
+  string Label = ""; if (label != "") Label = "_" + label;
 
-  TChain *chPhoton = new TChain("HwwTree0");
+  TChain *chPhoton = new TChain("tree");
   chPhoton->Add(PhotonFile);
 
   TChain *chDilepton = new TChain("tree");
@@ -166,9 +170,6 @@ void MakePhotonReweightFactors
     treePhoton->GetEntry(i);
     if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)treePhoton->GetEntries());
 
-    mithep::RunLumiRangeMap::RunLumiPairType rl(run, lumi);      
-    if(hasJSON && !rlrm.HasRunLumi(rl)) continue;  // not certified run? Skip to next event...
-
     //****************************************************
     //Photon ID
     //****************************************************
@@ -182,10 +183,27 @@ void MakePhotonReweightFactors
 
     //Apply no cuts for now   
     Bool_t passPhotonCuts = kTRUE;    
-    if (!passPhotonCuts) continue;
+    if (PhotonSelectionType == 0) {
+      passPhotonCuts = (fabs(dilep->eta()) > 1.5);
+    } else if (PhotonSelectionType == 1) {
+      passPhotonCuts = (isBarrel);
+    } else if (PhotonSelectionType == 2) {
+      passPhotonCuts = (isBarrel && passSpikeKillingEMaxOverE9 
+                        && passSpikeKillingSigmaiEtaiEta 
+                        && passSpikeKillingSigmaiPhiiPhi);
+    } else if (PhotonSelectionType == 3) {
+      passPhotonCuts = (isBarrel && passSpikeKillingEMaxOverE9 
+                        && passSpikeKillingSigmaiEtaiEta 
+                        && passSpikeKillingSigmaiPhiiPhi
+                        && passR9Tight);
+    } else if (PhotonSelectionType == 4) {
+      passPhotonCuts = (isBarrel && passSpikeKillingEMaxOverE9 
+                        && passSpikeKillingSigmaiEtaiEta 
+                        && passSpikeKillingSigmaiPhiiPhi
+                        && !isConverted);
+    }
 
-    //use only barrel photons
-    if (fabs(dilep->eta()) > 1.5) continue;
+    if (!passPhotonCuts) continue;
     
     //************************************************************************************************
     // PreSelection + Anti Met Cut
@@ -265,9 +283,6 @@ void MakePhotonReweightFactors
     treeDilepton->GetEntry(i);
     if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)treeDilepton->GetEntries());
     
-    mithep::RunLumiRangeMap::RunLumiPairType rl(run, lumi);      
-    if(hasJSON && !rlrm.HasRunLumi(rl)) continue;  // not certified run? Skip to next event...
-
     //************************************************************************************************
     // PreSelection
     //************************************************************************************************
@@ -355,7 +370,7 @@ void MakePhotonReweightFactors
   //************************************************************************************************
   TFile *file = 0;
 
-  file = new TFile("PhotonSampleReweightFactors.root", "UPDATE");
+  file = new TFile((string("PhotonSampleReweightFactors") + Label + ".root").c_str(), "UPDATE");
   file->WriteTObject(ReweightFactorPtNJet, ReweightFactorPtNJet->GetName(), "WriteDelete");
   file->WriteTObject(ReweightFactorPtNJet_Met10To30, ReweightFactorPtNJet_Met10To30->GetName(), "WriteDelete");
 
