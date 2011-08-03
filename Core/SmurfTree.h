@@ -253,6 +253,7 @@ class SmurfTree {
   int            processId_;
   float          higgsPt_;
   float          hPtWeight_;
+  float          weight_; // full weight (scale factors, corrections etc)
   unsigned int   npu_;
   unsigned int   npuPlusOne_;
   unsigned int   npuMinusOne_;
@@ -292,6 +293,7 @@ class SmurfTree {
 
   /// create a SmurfTree
   void CreateTree(int type = -1){
+    assert(type==type); // just to suppress warnings
     // to create three different ntuples in the same job HwwTree0/1/2
     // type == 0/1/2/3 add all variables
     // type = -1 (default) add a minimum set of variables with tree as name
@@ -353,33 +355,32 @@ class SmurfTree {
     tree_->Branch("processId",     &processId_,     "processId/I");
     tree_->Branch("higgsPt",       &higgsPt_,       "higgsPt/F");
     tree_->Branch("hPtWeight",     &hPtWeight_,     "hPtWeight/F");
+    tree_->Branch("weight",        &weight_,        "weight/F");
 
-    if(type >=0 && type <= 3){
-      tree_->Branch("lep3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr3_);
-      tree_->Branch("lq3",           &lq3_,          "lq3/I");
-      tree_->Branch("lid3",          &lid3_,         "lid3/I");
-      tree_->Branch("jet3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr3_);
-      tree_->Branch("jet3Btag",      &jet3Btag_,      "jet3Btag/F");
-      tree_->Branch("lep3McId",      &lep3McId_,      "lep3McId/I");
-      tree_->Branch("lep3MotherMcId",&lep3MotherMcId_,"lep3MotherMcId/I");
-      tree_->Branch("jet3McId",      &jet3McId_,      "jet3McId/I");
-      tree_->Branch("dPhiLep3Jet1",  &dPhiLep3Jet1_,  "dPhiLep3Jet1/F");
-      tree_->Branch("dRLep3Jet1",    &dRLep3Jet1_,    "dRLep3Jet1/F");
-      tree_->Branch("dPhiLep3MET",   &dPhiLep3MET_,   "dPhiLep3MET/F");
-      tree_->Branch("mt3",           &mt3_,           "mt3/F");
-      tree_->Branch("jetLowBtag",    &jetLowBtag_,    "jetLowBtag/F");
-      tree_->Branch("nSoftMuons",    &nSoftMuons_,    "nSoftMuons/i");
-      tree_->Branch("Q",             &Q_	,     "Q/F");
-      tree_->Branch("id1",           &id1_	,     "id1/F");
-      tree_->Branch("x1",            &x1_	,     "x1/F");
-      tree_->Branch("pdf1",          &pdf1_	,     "pdf1/F");
-      tree_->Branch("id2",           &id2_	,     "id2/F");
-      tree_->Branch("x2",            &x2_	,     "x2/F");
-      tree_->Branch("pdf2",          &pdf2_	,     "pdf2/F");
-      tree_->Branch("npu",           &npu_,           "npu/i");
-      tree_->Branch("npuPlusOne",    &npuPlusOne_,    "npuPlusOne/i");
-      tree_->Branch("npuMinusOne",   &npuMinusOne_,   "npuMinusOne/i");
-    }
+    tree_->Branch("lep3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr3_);
+    tree_->Branch("lq3",           &lq3_,          "lq3/I");
+    tree_->Branch("lid3",          &lid3_,         "lid3/I");
+    tree_->Branch("jet3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr3_);
+    tree_->Branch("jet3Btag",      &jet3Btag_,      "jet3Btag/F");
+    tree_->Branch("lep3McId",      &lep3McId_,      "lep3McId/I");
+    tree_->Branch("lep3MotherMcId",&lep3MotherMcId_,"lep3MotherMcId/I");
+    tree_->Branch("jet3McId",      &jet3McId_,      "jet3McId/I");
+    tree_->Branch("dPhiLep3Jet1",  &dPhiLep3Jet1_,  "dPhiLep3Jet1/F");
+    tree_->Branch("dRLep3Jet1",    &dRLep3Jet1_,    "dRLep3Jet1/F");
+    tree_->Branch("dPhiLep3MET",   &dPhiLep3MET_,   "dPhiLep3MET/F");
+    tree_->Branch("mt3",           &mt3_,           "mt3/F");
+    tree_->Branch("jetLowBtag",    &jetLowBtag_,    "jetLowBtag/F");
+    tree_->Branch("nSoftMuons",    &nSoftMuons_,    "nSoftMuons/i");
+    tree_->Branch("Q",             &Q_	,     "Q/F");
+    tree_->Branch("id1",           &id1_	,     "id1/F");
+    tree_->Branch("x1",            &x1_	,     "x1/F");
+    tree_->Branch("pdf1",          &pdf1_	,     "pdf1/F");
+    tree_->Branch("id2",           &id2_	,     "id2/F");
+    tree_->Branch("x2",            &x2_	,     "x2/F");
+    tree_->Branch("pdf2",          &pdf2_	,     "pdf2/F");
+    tree_->Branch("npu",           &npu_,           "npu/i");
+    tree_->Branch("npuPlusOne",    &npuPlusOne_,    "npuPlusOne/i");
+    tree_->Branch("npuMinusOne",   &npuMinusOne_,   "npuMinusOne/i");
   }
 
   // initialze a SmurfTree
@@ -444,31 +445,32 @@ class SmurfTree {
     tree_->SetBranchAddress("processId",     &processId_);
     tree_->SetBranchAddress("higgsPt",       &higgsPt_);
     tree_->SetBranchAddress("hPtWeight",     &hPtWeight_);
+    tree_->SetBranchAddress("weight",        &weight_);
 
-      tree_->SetBranchAddress("lep3",	       &lepPtr3_);
-      tree_->SetBranchAddress("lq3",	       &lq3_);
-      tree_->SetBranchAddress("lid3",	       &lid3_);
-      tree_->SetBranchAddress("jet3",	       &jetPtr3_);
-      tree_->SetBranchAddress("jet3Btag",      &jet3Btag_);
-      tree_->SetBranchAddress("lep3McId",      &lep3McId_);
-      tree_->SetBranchAddress("lep3MotherMcId",&lep3MotherMcId_);
-      tree_->SetBranchAddress("jet3McId",      &jet3McId_);
-      tree_->SetBranchAddress("dPhiLep3Jet1",  &dPhiLep3Jet1_);
-      tree_->SetBranchAddress("dRLep3Jet1",    &dRLep3Jet1_);
-      tree_->SetBranchAddress("dPhiLep3MET",   &dPhiLep3MET_);
-      tree_->SetBranchAddress("mt3",	       &mt3_);
-      tree_->SetBranchAddress("jetLowBtag",    &jetLowBtag_);
-      tree_->SetBranchAddress("nSoftMuons",    &nSoftMuons_);
-      tree_->SetBranchAddress("Q",	       &Q_);
-      tree_->SetBranchAddress("id1",	       &id1_);
-      tree_->SetBranchAddress("x1",	       &x1_);
-      tree_->SetBranchAddress("pdf1",	       &pdf1_);
-      tree_->SetBranchAddress("id2",	       &id2_);
-      tree_->SetBranchAddress("x2",	       &x2_);
-      tree_->SetBranchAddress("pdf2",	       &pdf2_);
-      tree_->SetBranchAddress("npu",	       &npu_);
-      tree_->SetBranchAddress("npuPlusOne",    &npuPlusOne_);
-      tree_->SetBranchAddress("npuMinusOne",   &npuMinusOne_);
+    tree_->SetBranchAddress("lep3",	       &lepPtr3_);
+    tree_->SetBranchAddress("lq3",	       &lq3_);
+    tree_->SetBranchAddress("lid3",	       &lid3_);
+    tree_->SetBranchAddress("jet3",	       &jetPtr3_);
+    tree_->SetBranchAddress("jet3Btag",      &jet3Btag_);
+    tree_->SetBranchAddress("lep3McId",      &lep3McId_);
+    tree_->SetBranchAddress("lep3MotherMcId",&lep3MotherMcId_);
+    tree_->SetBranchAddress("jet3McId",      &jet3McId_);
+    tree_->SetBranchAddress("dPhiLep3Jet1",  &dPhiLep3Jet1_);
+    tree_->SetBranchAddress("dRLep3Jet1",    &dRLep3Jet1_);
+    tree_->SetBranchAddress("dPhiLep3MET",   &dPhiLep3MET_);
+    tree_->SetBranchAddress("mt3",	       &mt3_);
+    tree_->SetBranchAddress("jetLowBtag",    &jetLowBtag_);
+    tree_->SetBranchAddress("nSoftMuons",    &nSoftMuons_);
+    tree_->SetBranchAddress("Q",	       &Q_);
+    tree_->SetBranchAddress("id1",	       &id1_);
+    tree_->SetBranchAddress("x1",	       &x1_);
+    tree_->SetBranchAddress("pdf1",	       &pdf1_);
+    tree_->SetBranchAddress("id2",	       &id2_);
+    tree_->SetBranchAddress("x2",	       &x2_);
+    tree_->SetBranchAddress("pdf2",	       &pdf2_);
+    tree_->SetBranchAddress("npu",	       &npu_);
+    tree_->SetBranchAddress("npuPlusOne",    &npuPlusOne_);
+    tree_->SetBranchAddress("npuMinusOne",   &npuMinusOne_);
 
     gErrorIgnoreLevel = currentState;
   }
@@ -676,6 +678,7 @@ SmurfTree::InitVariables(){
   processId_	 = 0;
   higgsPt_	 = -999;
   hPtWeight_	 = -999;
+  weight_	 = 1.0;
   npu_           = -999;
   npuPlusOne_    = -999;
   npuMinusOne_   = -999;
@@ -750,6 +753,7 @@ SmurfTree::Get(std::string value)
   if(value=="processId"	    ) { return this->processId_;     } 
   if(value=="higgsPt"	    ) { return this->higgsPt_;       } 
   if(value=="hPtWeight"	    ) { return this->hPtWeight_;     } 
+  if(value=="weight"	    ) { return this->weight_;        } 
   if(value=="npu"	    ) { return this->npu_;           } 
   if(value=="npuPlusOne"    ) { return this->npuPlusOne_;    } 
   if(value=="npuMinusOne"   ) { return this->npuMinusOne_;   } 
