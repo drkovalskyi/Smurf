@@ -28,11 +28,6 @@ using namespace std;
 
 
 //-------------------------
-void gen3(int* jbranch,double* r,double p[][12],double* wt3);
-void phase3(int* jbranch, double* r,double*p1,double*p2,double*p3,double*p4,double*p5,double*p6,double*p7,double*wt);
-void phi1_2m(int* jbranch, double m2,double x3,double xth,double xphi,double s3min,double* p1,double* p2,double* p3,double* wt);
-
-//-------------------------
 void genDY    (double* r,int SmearLevel, cdf_event_type cdf_event, mcfm_event_type* PSList);
 
 //-------------------------
