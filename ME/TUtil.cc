@@ -72,6 +72,7 @@ void My_choose(TVar::Process process){
  //ZZ_4l
  //HWW
  //HZZ
+
  if(process==TVar::Wp_1jet ||
     process==TVar::Wm_1jet ){
    //nrpoc =11  '  f(p1)+f(p2) --> W^+(-->nu(p3)+e^+(p4))+f(p5)'
@@ -104,25 +105,18 @@ void My_choose(TVar::Process process){
       
    npart_.npart=3; 
    nqcdjets_.nqcdjets=0;
-   //case='Wgamma'
+
    bveg1_mcfm_.ndim=7;
    masses_mcfm_.mb=0;
    breit_.n2=0;
    breit_.n3=1;
    breit_.mass3 =masses_mcfm_.wmass;
    breit_.width3=masses_mcfm_.wwidth;
-
-
-   //sprintf(plabel[3-1],"nl"); 
-   //sprintf(plabel[4-1],"ea");
-   //sprintf(plabel[5-1],"ga");
-   //sprintf(plabel[6-1],"pp");
  
  }
  else if(process==TVar::WW){ 
  //61 '  f(p1)+f(p2) --> W^+(-->nu(p3)+e^+(p4)) +W^-(-->e^-(p5)+nu~(p6))'
-   //maximum weight: 177475
-   //call readcoup
+
    nwz_.nwz=1;
    npart_.npart=4;
    nqcdjets_.nqcdjets=0;
@@ -136,26 +130,18 @@ void My_choose(TVar::Process process){
    breit_.width3=masses_mcfm_.wwidth;
    zcouple_.l1=1.;
 
-   //case='WWqqbr'
-   //sprintf(plabel[3-1],"nl");  
-   //sprintf(plabel[4-1],"ea");
-   //sprintf(plabel[5-1],"el");
-   //sprintf(plabel[6-1],"na");
-   //sprintf(plabel[7-1],"pp");
- 
  } 
  else if(process==TVar::WZ || process==TVar::WpZ_lostW || process==TVar::WpZ_lostZ){ 
     //71 '  f(p1)+f(p2) --> W^+(-->nu(p3)+mu^+(p4))+Z^0(-->e^-(p5)+e^+(p6))'
     //76 '  f(p1)+f(p2) --> W^-(-->mu^-(p3)+nu~(p4))+Z^0(-->e^-(p5)+e^+(p6))
     //nwz_.nwz=-1;
     //nwz_.nwz=+1;
-    //call readcoup
+
     nwz_.nwz=1;
 
     npart_.npart=4;
     nqcdjets_.nqcdjets=0;
-    //case='WZbbar'
-    //call checkminzmass(2)
+
     bveg1_mcfm_.ndim=10;
     masses_mcfm_.mb=0;
     breit_.n2=1;
@@ -169,12 +155,6 @@ void My_choose(TVar::Process process){
     zcouple_.l1=zcouple_.le;
     zcouple_.r1=zcouple_.re;
 
-    //sprintf(plabel[3-1],"nl");	    
-    //sprintf(plabel[4-1],"ea");
-    //sprintf(plabel[5-1],"ml");
-    //sprintf(plabel[6-1],"ma");
-    //sprintf(plabel[7-1],"pp");
-
  }
  else if(process==TVar::ZZ ){ 
  
@@ -183,9 +163,7 @@ void My_choose(TVar::Process process){
     //call readcoup
     npart_.npart=4;
     nqcdjets_.nqcdjets=0;
-    //case='ZZlept'
-    //call checkminzmass(1)
-    //call checkminzmass(2)
+
     nwz_.nwz=0;
     bveg1_mcfm_.ndim=10;
     masses_mcfm_.mb=0;
@@ -199,12 +177,6 @@ void My_choose(TVar::Process process){
     zcouple_.q1=-1.;
     zcouple_.l1=zcouple_.le;
     zcouple_.r1=zcouple_.re;
-
-    //sprintf(plabel[3-1],"el"); 
-    //sprintf(plabel[4-1],"ea");
-    //sprintf(plabel[5-1],"nl");
-    //sprintf(plabel[6-1],"na");
-    //sprintf(plabel[7-1],"pp");
 
     zcouple_.q2=0.;
     zcouple_.l2=zcouple_.ln*sqrt(3.);
@@ -214,12 +186,10 @@ void My_choose(TVar::Process process){
  
     //81 '  f(p1)+f(p2) --> Z^0(-->mu^-(p3)+mu^+(p4)) + Z^0(-->e^-(p5)+e^+(p6))'
     //86 '  f(p1)+f(p2) --> Z^0(-->e^-(p5)+e^+(p6))+Z^0(-->mu^-(p3)+mu^+(p4)) (NO GAMMA*)'
-    //call readcoup
+
     npart_.npart=4;
     nqcdjets_.nqcdjets=0;
-    //case='ZZlept'
-    //call checkminzmass(1)
-    //call checkminzmass(2)
+
     nwz_.nwz=0;
     bveg1_mcfm_.ndim=10;
     masses_mcfm_.mb=0;
@@ -234,31 +204,12 @@ void My_choose(TVar::Process process){
     zcouple_.l1=zcouple_.le;
     zcouple_.r1=zcouple_.re;
 
-    //sprintf(plabel[3-1],"el"); 
-    //sprintf(plabel[4-1],"ea");
-    //sprintf(plabel[5-1],"ml");
-    //sprintf(plabel[6-1],"ma");
-    //sprintf(plabel[7-1],"pp");
-
     zcouple_.q2=-1.;
     zcouple_.l2=zcouple_.le;
     zcouple_.r2=zcouple_.re;
  }  
  else if(process==TVar::HWW ){ 
     //112 '  f(p1)+f(p2) --> H(-->W^- W^+ (for total Xsect)'
-    // spira gives us real Higgs width
-    //if (spira) then
-    //    call higgsp(br,gamgambr,wwbr,zzbr)
-    //else
-    //    call higgsw(br)
-    //endif
-    //write(6,99) hmass,hwidth,br
-    //case='HWW_4l'
-    //sprintf(plabel[3-1],"nl"); 
-    //sprintf(plabel[4-1],"ea");
-    //sprintf(plabel[5-1],"el");
-    //sprintf(plabel[6-1],"na");
-    //sprintf(plabel[7-1],"pp");
     npart_.npart=4;
     nqcdjets_.nqcdjets=0;
     nqcdjets_.nqcdstart=7;
@@ -272,10 +223,7 @@ void My_choose(TVar::Process process){
     breit_.mass3 =masses_mcfm_.wmass;
     breit_.width3=masses_mcfm_.wwidth;
 
-    //call branch(brwen,brzee,brtau,brtop)
-    //BrnRat=brwen**2*wwbr
-
-  
+ 
  }
  else if(process==TVar::HZZ ){ 
    // 115 '  f(p1)+f(p2) --> H(-->Z^0(3*(nu(p3)+nu~(p4)))+ Z^0(e^-(p5)+e^+(p6))'
@@ -299,21 +247,16 @@ void My_choose(TVar::Process process){
  }
  else if(process==TVar::Z_2l){
     //31 '  f(p1)+f(p2) --> Z^0(-->e^-(p3)+e^+(p4))'
-    //         case='Z_only'      
-             nqcdjets_.nqcdjets=0;
-             npart_.npart=2; 
-             nwz_.nwz=0;
-             breit_.mass3 =masses_mcfm_.zmass ;
-             breit_.width3=masses_mcfm_.zwidth;
-             breit_.n3=1;
-             bveg1_mcfm_.ndim=4;
-             //BrnRat=1d0
-             //plabel(3)='el'
-             //plabel(4)='ea'
-             //plabel(5)='pp'
-             zcouple_.q1=-1;
-             zcouple_.l1=zcouple_.le;
-             zcouple_.r1=zcouple_.re;
+   nqcdjets_.nqcdjets=0;
+   npart_.npart=2; 
+   nwz_.nwz=0;
+   breit_.mass3 =masses_mcfm_.zmass ;
+   breit_.width3=masses_mcfm_.zwidth;
+   breit_.n3=1;
+   bveg1_mcfm_.ndim=4;
+   zcouple_.q1=-1;
+   zcouple_.l1=zcouple_.le;
+   zcouple_.r1=zcouple_.re;
  
  }
  else{
