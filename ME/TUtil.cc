@@ -291,23 +291,10 @@ void My_choose(TVar::Process process){
      breit_.mass3 =masses_mcfm_.zmass;
      breit_.width3=masses_mcfm_.zwidth;
 
-     //if (spira) then
-     //    call higgsp(bbbr,gamgambr,wwbr,br)
-     //else
-     //    call higgsw(br)
-     //endif
-     //write(6,99) hmass,hwidth,br
-
      zcouple_.l1=zcouple_.le;
      zcouple_.r1=zcouple_.re;
      zcouple_.l2=zcouple_.ln*sqrt(3.0);
      zcouple_.r2=zcouple_.ln*sqrt(3.0);
-
-     //sprintf(plabel[31],"el"); 
-     //sprintf(plabel[41],"ea");
-     //sprintf(plabel[51],"ml");
-     //sprintf(plabel[61],"ma");
-     //sprintf(plabel[71],"pp");
 
  }
  else if(process==TVar::Z_2l){

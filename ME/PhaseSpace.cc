@@ -181,7 +181,7 @@ void genMHiggsMw1(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_
     double msqW=1.;
     double rmass =80.419;
     double rwidth=2.06;
-    mminsq=1e-15;
+    mminsq=smallnumber;
     mmaxsq=TMath::Sqrt(msqHiggs)-Mll;
     mmaxsq=mmaxsq*mmaxsq;
     breitw(r[3],mminsq,mmaxsq,rmass,rwidth,&msqW,&wt[3]);    
@@ -272,7 +272,7 @@ void genMw1Mw2(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_typ
     EtExponential(80.,r[0],&nu_Z,&wt[0]);  
     EtExponential(80.,r[1],&nb_Z,&wt[1]);
 
-    double mminsq=1e-15;
+    double mminsq=smallnumber;
     double mmaxsq=EBEAM*EBEAM;
     double msq2=1.;
     double msq3=1.;
@@ -342,7 +342,7 @@ cout <<"DebugE "<<   temp.p[2].Energy()
     EtExponential(80.,r[0],&nu_Z,&wt[0]);  
     EtExponential(80.,r[1],&nb_Z,&wt[1]);
 
-    double mminsq=1e-15;
+    double mminsq=smallnumber;
     double mmaxsq=EBEAM*EBEAM;
     double msq2=1.;
     double msq3=1.;
@@ -410,7 +410,7 @@ void genMw_Wgamma(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_
 //    double sixteen_twopi_to_eighth=16*TMath::Power(2*TMath::Pi(),8);
     double PSWeight;
      
-    double mminsq=1e-15;
+    double mminsq=smallnumber;
     double mmaxsq=EBEAM*EBEAM;
     double msq=1.;
     
@@ -458,7 +458,7 @@ void genMw_W1jet(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_t
 
     double wt[3];
      
-    double mminsq=1e-15;
+    double mminsq=smallnumber;
     double mmaxsq=EBEAM*EBEAM;
     double msq=1.;
     
@@ -512,7 +512,7 @@ void genMzNu3(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type
     EtExponential(40.,r[1],&nu_Y,&wt[1]);
     EtExponential(80.,r[2],&nu_Z,&wt[2]);
 
-    double mminsq=1e-15;
+    double mminsq=smallnumber;
     double mmaxsq=EBEAM*EBEAM;
     double msq=1.;
     breitw(r[3],mminsq,mmaxsq,breit_.mass3,breit_.width3,&msq,&wt[3]);
@@ -571,7 +571,7 @@ void genMzNu3HZZ(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_t
     EtExponential(40.,r[1],&nu_Y,&wt[1]);
     EtExponential(80.,r[2],&nu_Z,&wt[2]);
 
-    double mminsq=1e-15;
+    double mminsq=smallnumber;
     double mmaxsq=EBEAM*EBEAM;
     double msq=1.;
     breitw(r[3],mminsq,mmaxsq,breit_.mass3,breit_.width3,&msq,&wt[3]);
@@ -589,8 +589,6 @@ void genMzNu3HZZ(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_t
     }
 
 
-//nu_Z=-0.62694; nb_Z=16.8335;
-//Mw1=81.0633; Mw2=78.2776;
     WWL1L2Sol_MzNu3HZZ( &cdf_event,
                       qX, qY, msq, nu_X, nu_Y, nu_Z,
                       PSList);
@@ -599,8 +597,7 @@ void genMzNu3HZZ(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_t
     
        mcfm_event_type& temp = PSList[i];
        if(temp.pswt>0){
-         //temp.pswt = PSWeight/temp.pswt/sixteen_2Pi_to_8;
- 
+
          temp.pswt = PSWeight/temp.pswt
                              /temp.p[2].Energy()
 			     /temp.p[3].Energy()
@@ -630,7 +627,7 @@ void genMwNu3WZ(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_ty
     EtExponential(40.,r[1],&nu_Y,&wt[1]);
     EtExponential(80.,r[2],&nu_Z,&wt[2]);
 
-    double mminsq=1e-15;
+    double mminsq=smallnumber;
     double mmaxsq=EBEAM*EBEAM;
     double msq=1.;
    // wmass

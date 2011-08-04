@@ -7,6 +7,7 @@
 
 #define EBEAM 3500.0
 #define fbGeV2 0.389379E12
+#define smallnumber 1e-15
 #define sixteen_2Pi_to_8 3.88650230418250561e+07
 #define   eight_2Pi_to_5 7.83410393050320417e+04
 #define    four_2Pi_to_2 39.478417604357432
