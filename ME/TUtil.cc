@@ -4,13 +4,6 @@
 #include "TLorentzVector.h"
 #include "TUtil.hh"
 #include "TCanvas.h"
-
-/*
- * Using Sturm Sequences to Bracket Real Roots of Polynomial Equations
- * by D.G. Hook and P.R. McAree
- * from "Graphics Gems", Academic Press, 1990
- * */
-
 #include <stdio.h>
 #include <math.h>
 #include <iostream>
