@@ -153,7 +153,7 @@ void My_choose(TVar::Process process){
  
    //82 '  f(p1)+f(p2) --> Z^0(-->3*(nu(p3)+nu~(p4))) + Z^0(-->e^-(p5)+e^+(p6))'
    //87 '  f(p1)+f(p2) --> Z^0(-->e^-(p5)+e^+(p6))+Z^0(-->3*(nu(p3)+nu~(p4))) (NO GAMMA*)'
-    //call readcoup
+
     npart_.npart=4;
     nqcdjets_.nqcdjets=0;
 
@@ -353,9 +353,12 @@ bool My_masscuts(double s[][12],TVar::Process process){
  return false;	 
 
 }
-//c----reject event if any s(i,j) is too small
+
+
 bool My_smalls(double s[][12],int npart){
-//cutoff is defined in technical.Dat
+
+// Reject event if any s(i,j) is too small
+// cutoff is defined in technical.Dat
 	
       if ( 
        npart == 3 &&
