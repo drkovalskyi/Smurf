@@ -77,14 +77,14 @@ def fakeRate(eta, pt, histo) :
     myeta  = min(math.fabs(eta),2.4999)
 
     # Si
-    #ptbin = histo.GetXaxis().FindBin(mypt)
-    #etabin = histo.GetYaxis().FindBin(myeta)	 
-    #prob = histo.GetBinContent(ptbin,etabin)
+    ptbin = histo.GetXaxis().FindBin(mypt)
+    etabin = histo.GetYaxis().FindBin(myeta)	 
+    prob = histo.GetBinContent(ptbin,etabin)
 
     # Dima
-    ptbin = histo.GetYaxis().FindBin(mypt)
-    etabin = histo.GetXaxis().FindBin(myeta)	 
-    prob = histo.GetBinContent(etabin,ptbin)
+    #ptbin = histo.GetYaxis().FindBin(mypt)
+    #etabin = histo.GetXaxis().FindBin(myeta)	 
+    #prob = histo.GetBinContent(etabin,ptbin)
 
     
     if prob==1: return 1

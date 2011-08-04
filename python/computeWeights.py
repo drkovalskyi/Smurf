@@ -60,7 +60,7 @@ def computeWeights(sample, mass=140):
 
 
         # PU (watch out the bins!)
-        weight[0] = weight[0]*puReweight.GetBinContent(tree.nvtx)
+        weight[0] = weight[0]*puReweight.GetBinContent(min(tree.nvtx,19))
 
         # leptons scale factor
         weight[0] = weight[0]*scaleFactors.leptonEfficiency(math.fabs(tree.lid1), math.fabs(tree.lep1.eta()), tree.lep1.pt(), leptonEfficiencyHistos)
@@ -118,13 +118,13 @@ def computeFakeWeights(sample, isData, luminosity=1.092):
 
     # Fake Rates
     # Si
-    #fakeRateFile = TFile('/data/smurf/mzanetti/data/EPS/auxiliar/FakeRates_SmurfV6.root')
-    #fakeRateHistos = {'muon':fakeRateFile.Get('MuonFakeRate_M2_ptThreshold15_PtEta'),'electron': fakeRateFile.Get('ElectronFakeRate_V4_ptThreshold35_PtEta')}
+    fakeRateFile = TFile('/data/smurf/mzanetti/data/EPS/auxiliar/FakeRates_SmurfV6.root')
+    fakeRateHistos = {'muon':fakeRateFile.Get('MuonFakeRate_M2_ptThreshold15_PtEta'),'electron': fakeRateFile.Get('ElectronFakeRate_V4_ptThreshold35_PtEta')}
 
     # Dima
-    fakeRateMuFile = TFile('/data/smurf/mzanetti/data/EPS/auxiliar/ww_mu_fr.root')
-    fakeRateElFile = TFile('/data/smurf/mzanetti/data/EPS/auxiliar/ww_el_fr.root')
-    fakeRateHistos = {'muon':fakeRateMuFile.Get('mu_fr_m2_15'),'electron': fakeRateElFile.Get('el_fr_v4_35')}    
+    #fakeRateMuFile = TFile('/data/smurf/mzanetti/data/EPS/auxiliar/ww_mu_fr.root')
+    #fakeRateElFile = TFile('/data/smurf/mzanetti/data/EPS/auxiliar/ww_el_fr.root')
+    #fakeRateHistos = {'muon':fakeRateMuFile.Get('mu_fr_m2_15'),'electron': fakeRateElFile.Get('el_fr_v4_35')}    
 
 
     # reference File
@@ -168,21 +168,23 @@ def computeFakeWeights(sample, isData, luminosity=1.092):
             if nElectronFakes[0] == 1: weight[0] = weight[0]*scaleFactors.fakeRate(tree.lep1.eta(), tree.lep1.pt(), fakeRateHistos['electron'])
             if nElectronFakes[1] == 1: weight[0] = weight[0]*scaleFactors.fakeRate(tree.lep2.eta(), tree.lep2.pt(), fakeRateHistos['electron'])            
 
-            # PU (watch out the bins!)
-            weight[0] = weight[0]*puReweight.GetBinContent(tree.nvtx)
-            
-            # leptons scale factor
-            weight[0] = weight[0]*scaleFactors.leptonEfficiency(math.fabs(tree.lid1), math.fabs(tree.lep1.eta()), tree.lep1.pt(), leptonEfficiencyHistos)
-            weight[0] = weight[0]*scaleFactors.leptonEfficiency(math.fabs(tree.lid2), math.fabs(tree.lep2.eta()), tree.lep2.pt(), leptonEfficiencyHistos)
-            
-            # trigger efficiency
-            weight[0] = weight[0]*scaleFactors.triggerEfficiency([math.fabs(tree.lid1), math.fabs(tree.lid2)],
-                                                             [math.fabs(tree.lep1.eta()), math.fabs(tree.lep2.eta())],
-                                                             [tree.lep1.pt(), tree.lep2.pt()],
-                                                             triggerEfficiencyHistos)
+            # this is only for MC
+            if not isData: 
+                # PU (watch out the bins!)
+                weight[0] = weight[0]*puReweight.GetBinContent(min(tree.nvtx,19))
 
-            # add luminosity in the case spillage is been computed
-            if not isData: weight[0] = weight[0]*luminosity
+                # leptons scale factor
+                weight[0] = weight[0]*scaleFactors.leptonEfficiency(math.fabs(tree.lid1), math.fabs(tree.lep1.eta()), tree.lep1.pt(), leptonEfficiencyHistos)
+                weight[0] = weight[0]*scaleFactors.leptonEfficiency(math.fabs(tree.lid2), math.fabs(tree.lep2.eta()), tree.lep2.pt(), leptonEfficiencyHistos)
+
+                # trigger efficiency
+                weight[0] = weight[0]*scaleFactors.triggerEfficiency([math.fabs(tree.lid1), math.fabs(tree.lid2)],
+                                                                 [math.fabs(tree.lep1.eta()), math.fabs(tree.lep2.eta())],
+                                                                 [tree.lep1.pt(), tree.lep2.pt()],
+                                                                 triggerEfficiencyHistos)
+
+                # add luminosity in the case spillage is been computed
+                weight[0] = weight[0]*luminosity
             
         weightBranch.Fill()
 
