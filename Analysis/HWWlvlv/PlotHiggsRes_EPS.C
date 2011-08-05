@@ -488,6 +488,7 @@ void PlotHiggsRes_EPS
   UInt_t          dstype;
   UInt_t          nvtx;
   UInt_t          njets;
+  UInt_t          run;
   UInt_t          event;
   Float_t         scale1fb;
   LorentzVector*  lep1  = 0;
@@ -534,6 +535,7 @@ void PlotHiggsRes_EPS
   signal->SetBranchAddress( "dstype"       , &dstype       );
   signal->SetBranchAddress( "nvtx"         , &nvtx         );
   signal->SetBranchAddress( "njets"        , &njets        );
+  signal->SetBranchAddress( "run"          , &run          );
   signal->SetBranchAddress( "event"        , &event        );
   signal->SetBranchAddress( "scale1fb"     , &scale1fb     );
   signal->SetBranchAddress( "lep1"         , &lep1         );
@@ -606,7 +608,7 @@ void PlotHiggsRes_EPS
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
-    if( lid3 != 0	                                                 ) continue; // cut on dileptons
+    //if( lid3 != 0	                                                 ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     //if( jetLowBtag >= 2.1	    					 ) continue; // cut on anti b-tagging
     //if( nSoftMuons != 0                                                ) continue; // cut on soft muons veto
@@ -734,6 +736,7 @@ void PlotHiggsRes_EPS
   background->SetBranchAddress( "dstype"        , &dstype	  );
   background->SetBranchAddress( "nvtx"          , &nvtx 	  );
   background->SetBranchAddress( "njets"         , &njets	  );
+  background->SetBranchAddress( "run"           , &run	          );
   background->SetBranchAddress( "event"         , &event	  );
   background->SetBranchAddress( "scale1fb"      , &scale1fb	  );
   background->SetBranchAddress( "lep1"          , &lep1 	  );
@@ -788,7 +791,7 @@ void PlotHiggsRes_EPS
   float nBgdECutDecays[nChan] = {0.,0.,0.,0.,0.,0.,0.,0.};
   float nBgdEMVADecays[nChan] = {0.,0.,0.,0.,0.,0.,0.,0.};
   for (UInt_t i=0; i<background->GetEntries(); i++) {
-    
+
     background->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
 
@@ -820,7 +823,7 @@ void PlotHiggsRes_EPS
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
-    if( lid3 != 0	                                                 ) continue; // cut on dileptons
+    //if( lid3 != 0	                                                 ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     //if( jetLowBtag >= 2.1	    					 ) continue; // cut on anti b-tagging
     //if( nSoftMuons != 0		    			         ) continue; // cut on soft muons veto
@@ -867,17 +870,13 @@ void PlotHiggsRes_EPS
       if(dstype == SmurfTree::data ){
         if(((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
         if(((cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-        if(((cuts & SmurfTree::Lep3LooseMuV2)  == SmurfTree::Lep3LooseMuV2)  && (cuts & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
         if(((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
         if(((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-        if(((cuts & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4) && (cuts & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
       } else {
         if(((cuts & SmurfTree::Lep1LooseMuV1)  == SmurfTree::Lep1LooseMuV1)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
         if(((cuts & SmurfTree::Lep2LooseMuV1)  == SmurfTree::Lep2LooseMuV1)  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-        if(((cuts & SmurfTree::Lep3LooseMuV1)  == SmurfTree::Lep3LooseMuV1)  && (cuts & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
         if(((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
         if(((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-        if(((cuts & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4) && (cuts & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
       }
       if(nFake > 1){
         myWeight = 0.0;
@@ -1070,6 +1069,7 @@ void PlotHiggsRes_EPS
   data->SetBranchAddress( "cuts"         , &cuts         );
   data->SetBranchAddress( "nvtx"         , &nvtx         );
   data->SetBranchAddress( "njets"        , &njets        );
+  data->SetBranchAddress( "run"          , &run          );
   data->SetBranchAddress( "event"        , &event        );
   data->SetBranchAddress( "scale1fb"     , &scale1fb     );
   data->SetBranchAddress( "lep1"         , &lep1         );
@@ -1138,7 +1138,7 @@ void PlotHiggsRes_EPS
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
-    if( lid3 != 0	                                                 ) continue; // cut on dileptons
+    //if( lid3 != 0	                                                 ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     //if( jetLowBtag >= 2.1	    					 ) continue; // cut on anti b-tagging
     //if( nSoftMuons != 0                                                ) continue; // cut on soft muons veto
