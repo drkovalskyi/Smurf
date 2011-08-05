@@ -55,7 +55,7 @@ void fillUnderOverFlow(TH1F *h1, float value, float weight = 1)
 
 //--------------------------------------------------------------------
 
-void evaluateMVA_smurf(
+void evaluateMVA_smurf_hww(
 char* inputFile      = "data/histo_hww130_std_pu11_randomized.training.root", 
 int mH               = 130,
 TString myMethodList = "Fisher,BDT",
@@ -248,6 +248,14 @@ bool doShapes        = true
     delete fLeptonFRFileE;
 
     LeptonScaleLookup trigLookup("/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root");
+
+    TFile *fNvtxFile = TFile::Open("/data/smurf/data/LP2011/auxiliar/puReweighting.root");
+    TH1D *fhDNvtx = (TH1D*)(fNvtxFile->Get("puWeights"));
+    assert(fhDNvtx);
+    fhDNvtx->SetDirectory(0);
+    fNvtxFile->Close();
+    delete fNvtxFile;
+
     */
     // This is for 41X
     TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/EPS/auxiliar/efficiency_results_v6.root");
@@ -274,8 +282,7 @@ bool doShapes        = true
 
     LeptonScaleLookup trigLookup("/data/smurf/data/EPS/auxiliar/efficiency_results_v6.root");
     
-    // This is for 1 fb-1
-    TFile *fNvtxFile = TFile::Open("/data/smurf/data/LP2011/auxiliar/puReweighting.root");
+    TFile *fNvtxFile = TFile::Open("/data/smurf/data/EPS/auxiliar/puReweighting.root");
     TH1D *fhDNvtx = (TH1D*)(fNvtxFile->Get("puWeights"));
     assert(fhDNvtx);
     fhDNvtx->SetDirectory(0);
@@ -288,7 +295,7 @@ bool doShapes        = true
     TFile *fHiggsPtKFactorFile = TFile::Open("/data/smurf/data/EPS/auxiliar/ggHWW_KFactors_PowhegToHQT.root");
     TH1D *HiggsPtKFactor;
     char kfactorHistName[100];
-    sprintf(kfactorHistName, "KFactor_PowhegToHQT_mH%d", mH);
+    sprintf(kfactorHistName, "KFactor_PowhegToHQT_mH%d", newMH);
     HiggsPtKFactor = (TH1D*)(fHiggsPtKFactorFile->Get(kfactorHistName));
     if (HiggsPtKFactor) {
       HiggsPtKFactor->SetDirectory(0);
@@ -346,7 +353,7 @@ bool doShapes        = true
     // --- Book the MVA methods
 
     //--------------------------------------------------------------------------------------
-    // tell evaluateMVA_smurf where to find the weights dir, which contains the trained MVA's. 
+    // tell evaluateMVA_smurf_hww where to find the weights dir, which contains the trained MVA's. 
     // In this example, the weights dir is located at [path]/[dir]
     // and the output root file is written to [path]/[output]
     //--------------------------------------------------------------------------------------
@@ -734,7 +741,6 @@ bool doShapes        = true
           sfWeightEff = sfWeightEff*leptonEfficiency(lep1_->pt(), lep1_->eta(), fhDEffMu, fhDEffEl, lid1_);
           sfWeightEff = sfWeightEff*leptonEfficiency(lep2_->pt(), lep2_->eta(), fhDEffMu, fhDEffEl, lid2_);
           if(lid3_ != 0)
-          if((cuts_ & SmurfTree::Lep3FullSelection) == SmurfTree::Lep3FullSelection)
             sfWeightEff = sfWeightEff*leptonEfficiency(lep3_->pt(), lep3_->eta(), fhDEffMu, fhDEffEl, lid3_);
 
           sfWeightTrig = 1.0;
