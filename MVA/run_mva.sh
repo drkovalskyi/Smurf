@@ -60,24 +60,6 @@ data/dyee.root
 data/dymm.root
 data/dytt.root
 data/ggww.root
-data/hww115.root
-data/hww120.root
-data/hww130.root
-data/hww140.root
-data/hww150.root
-data/hww160.root
-data/hww170.root
-data/hww180.root
-data/hww190.root
-data/hww200.root
-data/hww250.root
-data/hww300.root
-data/hww350.root
-data/hww400.root
-data/hww450.root
-data/hww500.root
-data/hww550.root
-data/hww600.root
 data/qqww.root
 data/stop.root
 data/ttbar.root
@@ -88,9 +70,10 @@ data/wjets.root
 data/ww2l_mcnlo.root
 data/wz.root
 data/zz.root
+data/hww${MH}.root
 EOF
 
-export evaluateMVAFile=evaluateMVA_smurf.C+;
+export evaluateMVAFile=evaluateMVA_smurf_hww.C+;
 if [ ${NJETS} == "999" ]; then
   export evaluateMVAFile=evaluateMVA_smurf_hzz.C+;
 fi
