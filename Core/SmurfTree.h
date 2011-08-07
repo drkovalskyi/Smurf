@@ -203,6 +203,7 @@ class SmurfTree {
   float          jet2Btag_;
   unsigned int   njets_;
   LorentzVector  dilep_;
+  LorentzVector  quadlep_;
   float          trackMet_;
   float          trackMetPhi_;
   float          pmet_;
@@ -268,10 +269,10 @@ class SmurfTree {
 
   /// default constructor  
   SmurfTree():info_("info","Smurf ntuple"),
-    lepPtr1_(&lep1_),lepPtr2_(&lep2_),jetPtr1_(&jet1_),jetPtr2_(&jet2_),dilepPtr_(&dilep_),
+    lepPtr1_(&lep1_),lepPtr2_(&lep2_),jetPtr1_(&jet1_),jetPtr2_(&jet2_),dilepPtr_(&dilep_),quadlepPtr_(&quadlep_),
     lepPtr3_(&lep3_),                 jetPtr3_(&jet3_){}
   /// default destructor
-  ~SmurfTree(){tree_->Delete();};
+  ~SmurfTree(){};
 
   /// initialize varibles and fill list of available variables
   void InitVariables();
@@ -329,6 +330,7 @@ class SmurfTree {
     tree_->Branch("jet2Btag"     , &jet2Btag_     ,   "jet2Btag/F");
     tree_->Branch("njets"        , &njets_        ,   "njets/i");
     tree_->Branch("dilep"        , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &dilepPtr_);
+    tree_->Branch("quadlep"      , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &quadlepPtr_);
     tree_->Branch("trackMet"     , &trackMet_	  ,   "trackMet/F");
     tree_->Branch("trackMetPhi"  , &trackMetPhi_  ,   "trackMetPhi/F");
     tree_->Branch("pmet"         , &pmet_         ,   "pmet/F");
@@ -419,6 +421,7 @@ class SmurfTree {
     tree_->SetBranchAddress("jet2Btag",      &jet2Btag_);
     tree_->SetBranchAddress("njets",         &njets_);
     tree_->SetBranchAddress("dilep",         &dilepPtr_);
+    tree_->SetBranchAddress("quadlep",       &quadlepPtr_);
     tree_->SetBranchAddress("trackMet",      &trackMet_);
     tree_->SetBranchAddress("trackMetPhi",   &trackMetPhi_);
     tree_->SetBranchAddress("pmet",          &pmet_);
@@ -552,6 +555,7 @@ class SmurfTree {
   LorentzVector* jetPtr1_;
   LorentzVector* jetPtr2_;
   LorentzVector* dilepPtr_;
+  LorentzVector* quadlepPtr_;
   LorentzVector* lepPtr3_;
   LorentzVector* jetPtr3_;
 }; 
@@ -653,6 +657,7 @@ SmurfTree::InitVariables(){
   jet1_       	 = LorentzVector();
   jet2_       	 = LorentzVector();
   dilep_      	 = LorentzVector();
+  quadlep_     	 = LorentzVector();
 
   lep3_       	 = LorentzVector();
   lq3_  	 = 0;
