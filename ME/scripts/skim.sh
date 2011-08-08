@@ -65,6 +65,8 @@ zz.root
 wz.root
 ttbar.root
 tw.root
+ttop.root
+stop.root
 qqww.root
 ggww.root
 wjets.root
@@ -109,13 +111,40 @@ fi
 
 
 
-
-#for FILE in `ls $INPUTDIR | grep lfake.root`
+# Do the skimming...
 for FILE in `cat list_samples.txt` ; do
     for JETBIN in 0 1 2 ; do 
 	outputdir=$OUTPUTDIR/$SELECTION/${JETBIN}j/
+	if [ "$SELECTION" == 'PassFail' ]; then
+	    outputdir=$OUTPUTDIR/WW/${JETBIN}j/
+	fi
 	mkdir -p $outputdir
 	echo doing "root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",$JETBIN\);"
 	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",$JETBIN\);
     done
 done
+
+
+# if the selection is the PassFail merge all the files
+if [ "$SELECTION" == 'PassFail' ]; then
+    for JETBIN in 0 1 2 ; do 
+	outputdir=$OUTPUTDIR/WW/${JETBIN}j/
+	rm  merge.C
+	touch merge.C
+	echo -e "{\tTChain s(\"tree\");" >> merge.C
+	for fn in $outputdir/*_PassFail.root; do
+	    if [ .$fn = ."" ]; then 
+		echo "ERROR : File _PassFail.root not found, skip"  
+	    else 
+		echo -e "\ts.Add(\"$fn\");" >> merge.C
+	    fi
+	    i=$((i+1))
+	done
+	
+	echo -e "\ts.SetMaxTreeSize(1e9);" >> merge.C
+	echo -e "\ts.Merge(\"$outputdir/wjets_data.root\");" >> merge.C
+	echo "}" >> merge.C
+	echo "Merging $PROCESS"
+	root -l -q merge.C
+    done
+fi

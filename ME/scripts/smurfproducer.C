@@ -161,19 +161,28 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       // skip events with both leptons hat pass the final selection
       if ( ((cuts_ & Lep1FullSelection) == Lep1FullSelection)
 	   && ((cuts_ & Lep2FullSelection) == Lep2FullSelection)) 	continue;
-      
+									  
       // if lep1 pass full selection, but none of the lep2 pass the FO definition, skip the event
-      if (     ( (cuts_ & Lep1FullSelection) == Lep1FullSelection) 
-	    && ( (cuts_ & Lep2LooseEleV4) != Lep2LooseEleV4)
-	       && ( (cuts_ & Lep2LooseMuV1) != Lep2LooseMuV1)) continue;
-      
-      // if lep2 pass full selection, but none of the lep1 pass the FO definition, skip the event
-      if (     ( (cuts_ & Lep2FullSelection) == Lep2FullSelection) 
-	       && ( (cuts_ & Lep1LooseEleV4) != Lep1LooseEleV4)
-	       && ( (cuts_ & Lep1LooseMuV1) != Lep1LooseMuV1) ) continue;
-      
+    if (  cuts_ & Lep1FullSelection ) {
+      if ( fileName.Contains("data", TString::kExact))
+	if ( ! ( (cuts_ & Lep2LooseEleV4) || (cuts_ & Lep2LooseMuV2) ) ) continue;
+	else 
+	  if ( ! ( (cuts_ & Lep2LooseEleV4) || (cuts_ & Lep2LooseMuV1) ) ) continue;
+    }
+    
+    // if lep2 pass full selection, but none of the lep1 pass the FO definition, skip the event
+    if ( cuts_ & Lep2FullSelection ) {
+      if ( fileName.Contains("data", TString::kExact))
+	if ( ! ( (cuts_ & Lep1LooseEleV4) || (cuts_ & Lep1LooseMuV2) ) ) continue;
+	else 
+	  if ( ! ( (cuts_ & Lep1LooseEleV4) || (cuts_ & Lep1LooseMuV1) ) ) continue;
+    }
+    
+    
+      /*
       if ( ! fileName.Contains("data", TString::kExact))
 	scale1fb = -1. * scale1fb;
+      */
     }
     
     // cuts to select the ZZ pre-selection
