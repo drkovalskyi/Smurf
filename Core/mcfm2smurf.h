@@ -12,6 +12,8 @@
 #include <TChain.h>
 #include <TFile.h>
 
+class SmurfTree;
+
 class mcfm2smurf {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
@@ -80,6 +82,7 @@ public :
    virtual void     MakeSmurfNtuple(const char* filename, int mcfm_process_id);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
+   virtual bool     FillProcess(SmurfTree& tree, int mcfm_process_id);
 };
 
 #endif
