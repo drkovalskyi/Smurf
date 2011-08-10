@@ -79,7 +79,6 @@ using namespace std;
 //###################
 void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mitf-alljets/", TString fileName = "zz.root", TString outputDir = "rawsmurfdata/", TString cutstring = "ZZ", int jetbin = 0 ) {
 
-  gROOT->ProcessLine(".L ../../Core/SmurfTree.h+");
   TFile* fin = new TFile(smurfFDir+fileName);
   TTree* ch=(TTree*)fin->Get("tree"); 
   if (ch==0x0) return; 
@@ -141,7 +140,8 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
 
     // select a specific jetbin
     if (njets_ != jetbin ) continue;
-
+    if ( dilep_->mass() < 12.0) continue;
+    
     // cuts to select the WW pre-selection
     if (cutstring == "WW") {
       if ((cuts_ & ww) != ww) continue;
@@ -151,9 +151,11 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
     
     // select the PassFail sample for the wjets studies
     else if (cutstring == "PassFail") {  
+      if (TMath::Min(pmet_,pTrackMet_) < 20.)  continue;
       if ( (type_==0||type_==3) && TMath::Min(pmet_,pTrackMet_) < 40.) continue;
       if ( (type_==0||type_==3) && jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
       if ( (cuts_ & ww_lepfo) != ww_lepfo) continue;
+
       // skip events with no lepton pass the full selection
       if ( ( (cuts_ & Lep1FullSelection) != Lep1FullSelection)  &&  
       	   ( (cuts_ & Lep2FullSelection) != Lep2FullSelection) ) continue;
@@ -163,26 +165,24 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
 	   && ((cuts_ & Lep2FullSelection) == Lep2FullSelection)) 	continue;
 									  
       // if lep1 pass full selection, but none of the lep2 pass the FO definition, skip the event
-    if (  cuts_ & Lep1FullSelection ) {
-      if ( fileName.Contains("data", TString::kExact))
-	if ( ! ( (cuts_ & Lep2LooseEleV4) || (cuts_ & Lep2LooseMuV2) ) ) continue;
-	else 
+      if (  cuts_ & Lep1FullSelection ) {
+	if ( fileName.Contains("data", TString::kExact)) {
+	  if ( ! ( (cuts_ & Lep2LooseEleV4) || (cuts_ & Lep2LooseMuV2) ) ) continue;
+	}
+	else {
 	  if ( ! ( (cuts_ & Lep2LooseEleV4) || (cuts_ & Lep2LooseMuV1) ) ) continue;
-    }
-    
-    // if lep2 pass full selection, but none of the lep1 pass the FO definition, skip the event
-    if ( cuts_ & Lep2FullSelection ) {
-      if ( fileName.Contains("data", TString::kExact))
-	if ( ! ( (cuts_ & Lep1LooseEleV4) || (cuts_ & Lep1LooseMuV2) ) ) continue;
-	else 
+	}
+      }
+      
+      // if lep2 pass full selection, but none of the lep1 pass the FO definition, skip the event
+      if ( cuts_ & Lep2FullSelection ) {
+	if ( fileName.Contains("data", TString::kExact)) {
+	  if ( ! ( (cuts_ & Lep1LooseEleV4) || (cuts_ & Lep1LooseMuV2) ) ) continue;
+	}
+	else {
 	  if ( ! ( (cuts_ & Lep1LooseEleV4) || (cuts_ & Lep1LooseMuV1) ) ) continue;
-    }
-    
-    
-      /*
-      if ( ! fileName.Contains("data", TString::kExact))
-	scale1fb = -1. * scale1fb;
-      */
+	}
+      }
     }
     
     // cuts to select the ZZ pre-selection
