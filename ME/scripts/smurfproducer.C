@@ -139,7 +139,7 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
     ch->GetEntry(ievt); 
 
     // select a specific jetbin
-    if (njets_ != jetbin ) continue;
+    if (int(njets_) != jetbin ) continue;
     if ( dilep_->mass() < 12.0) continue;
     
     // cuts to select the WW pre-selection
