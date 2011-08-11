@@ -10,8 +10,8 @@ use warnings;
 
 
 my $lands = "../../LandS/test/lands.exe";
-# my $expectLimitCommand = "-tB 1000 -tPB 30 -t 1000 -M Bayesian --doExpectation 1";
-my $expectLimitCommand = "-tB 1000 -tPB 30 -t 100 -M Bayesian --doExpectation 1";
+my $expectLimitCommand = "-tB 1000 -tPB 30 -t 1000 -M Bayesian --doExpectation 1";
+#my $expectLimitCommand = "-tB 1000 -tPB 30 -t 100 -M Bayesian --doExpectation 1";
 # my $observedLimitCommand = "-tB 100000 -M Bayesian";
 my $observedLimitCommand = "-tB 10000 -M Bayesian";
 # my $observedLimitCommand = "-tB 100000 -M Hybrid";
