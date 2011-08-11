@@ -453,7 +453,6 @@ class SmurfTree {
     tree_->SetBranchAddress("jet2McId",      &jet2McId_);
     tree_->SetBranchAddress("processId",     &processId_);
     tree_->SetBranchAddress("higgsPt",       &higgsPt_);
-<<<<<<< SmurfTree.h
     tree_->SetBranchAddress("sfWeightFR",    &sfWeightFR_);
     tree_->SetBranchAddress("sfWeightPU",    &sfWeightPU_);
     tree_->SetBranchAddress("sfWeightTrig",  &sfWeightTrig_);
@@ -482,34 +481,6 @@ class SmurfTree {
     tree_->SetBranchAddress("x2",	     &x2_);
     tree_->SetBranchAddress("pdf2",	     &pdf2_);
     tree_->SetBranchAddress("npu",	     &npu_);
-    tree_->SetBranchAddress("npuPlusOne",    &npuPlusOne_);
-    tree_->SetBranchAddress("npuMinusOne",   &npuMinusOne_);
-=======
-    tree_->SetBranchAddress("hPtWeight",     &hPtWeight_);
-    tree_->SetBranchAddress("weight",        &weight_);
-
-    tree_->SetBranchAddress("lep3",	       &lepPtr3_);
-    tree_->SetBranchAddress("lq3",	       &lq3_);
-    tree_->SetBranchAddress("lid3",	       &lid3_);
-    tree_->SetBranchAddress("jet3",	       &jetPtr3_);
-    tree_->SetBranchAddress("jet3Btag",      &jet3Btag_);
-    tree_->SetBranchAddress("lep3McId",      &lep3McId_);
-    tree_->SetBranchAddress("lep3MotherMcId",&lep3MotherMcId_);
-    tree_->SetBranchAddress("jet3McId",      &jet3McId_);
-    tree_->SetBranchAddress("dPhiLep3Jet1",  &dPhiLep3Jet1_);
-    tree_->SetBranchAddress("dRLep3Jet1",    &dRLep3Jet1_);
-    tree_->SetBranchAddress("dPhiLep3MET",   &dPhiLep3MET_);
-    tree_->SetBranchAddress("mt3",	       &mt3_);
-    tree_->SetBranchAddress("jetLowBtag",    &jetLowBtag_);
-    tree_->SetBranchAddress("nSoftMuons",    &nSoftMuons_);
-    tree_->SetBranchAddress("Q",	       &Q_);
-    tree_->SetBranchAddress("id1",	       &id1_);
-    tree_->SetBranchAddress("x1",	       &x1_);
-    tree_->SetBranchAddress("pdf1",	       &pdf1_);
-    tree_->SetBranchAddress("id2",	       &id2_);
-    tree_->SetBranchAddress("x2",	       &x2_);
-    tree_->SetBranchAddress("pdf2",	       &pdf2_);
-    tree_->SetBranchAddress("npu",	       &npu_);
     tree_->SetBranchAddress("npuPlusOne",    &npuPlusOne_);
     tree_->SetBranchAddress("npuMinusOne",   &npuMinusOne_);
 
