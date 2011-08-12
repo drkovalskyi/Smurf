@@ -31,8 +31,8 @@ if [ ${DO_TRAINING} == "1" ]; then
   #export BKG_TRAIN=data/background_training.root;
   #export BKG_TRAIN=data/background_training.root;
   export SIG_TRAIN=data/hww${MH}.root;
-  #export BKG_TRAIN=data/ww2l_pythia.root;
-  export BKG_TRAIN=data/background42x.root;
+  export BKG_TRAIN=data/ww2l_pythia.root;
+  #export BKG_TRAIN=data/background42x.root;
   mkdir -p weights;
   root -l -q -b ${trainMVA_smurfFile}\(${NJETS},\"${SIG_TRAIN}\",\"${BKG_TRAIN}\",\"${TAG}\",\"${METHODS}\",${MH}\);
 fi
@@ -48,28 +48,8 @@ fi
 #data/background42x.root
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-data/background42x.root
-data/background42x_spring11dy.root
-data/background42x_wwpythia_met20_zveto.root
-data/data_2l.root
-data/data-met20-1092ipb.root
-data/dataToy_2l_met20_zveto_1.root
-data/dataToy_2l_met20_zveto_2.root
-data/dataToy_2l_met20_zveto_3.root
-data/dyee.root
-data/dymm.root
-data/dytt.root
-data/ggww.root
-data/qqww.root
-data/stop.root
-data/ttbar.root
-data/ttop.root
-data/tw.root
-data/wgamma.root
-data/wjets.root
-data/ww2l_mcnlo.root
-data/wz.root
-data/zz.root
+data/data_2l_pmetveto_zveto.root
+data/background42x_pmetveto_zveto.root
 data/hww${MH}.root
 EOF
 

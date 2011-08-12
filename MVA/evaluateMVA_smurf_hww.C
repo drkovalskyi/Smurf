@@ -282,7 +282,7 @@ bool doShapes        = true
 
     LeptonScaleLookup trigLookup("/data/smurf/data/EPS/auxiliar/efficiency_results_v6.root");
     
-    TFile *fNvtxFile = TFile::Open("/data/smurf/data/EPS/auxiliar/puReweighting.root");
+    TFile *fNvtxFile = TFile::Open("/data/smurf/data/LP2011/auxiliar/puReweighting.root");
     TH1D *fhDNvtx = (TH1D*)(fNvtxFile->Get("puWeights"));
     assert(fhDNvtx);
     fhDNvtx->SetDirectory(0);
@@ -473,8 +473,8 @@ bool doShapes        = true
     ofn.ReplaceAll("data/","");
     const char* mydir = outdir;
     TFile *out;
-    if(outTag.Data() == "") out = TFile::Open( Form("%s/%s_%s" , mydir, outTag.Data(), ofn.Data() ) ,"RECREATE" );
-    else                    out = TFile::Open( Form("%s/%s"    , mydir,                ofn.Data() ) ,"RECREATE" );
+    if(outTag != "") out = TFile::Open( Form("%s/%s_%s" , mydir, outTag.Data(), ofn.Data() ) ,"RECREATE" );
+    else             out = TFile::Open( Form("%s/%s"    , mydir,                ofn.Data() ) ,"RECREATE" );
     TTree *clone;
     clone = t->CloneTree(-1, "fast");
    
@@ -628,7 +628,7 @@ bool doShapes        = true
 
     for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
 
-      if (ievt%1000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
+      if (ievt%10000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
 
       theTree->GetEntry(ievt);
 
@@ -667,9 +667,9 @@ bool doShapes        = true
           if(((cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
           if(((cuts_ & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4) && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
         } else { // THIS IS A HACK!
-          if(((cuts_ & SmurfTree::Lep1LooseMuV1)  == SmurfTree::Lep1LooseMuV1)  && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-          if(((cuts_ & SmurfTree::Lep2LooseMuV1)  == SmurfTree::Lep2LooseMuV1)  && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-          if(((cuts_ & SmurfTree::Lep3LooseMuV1)  == SmurfTree::Lep3LooseMuV1)  && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
+          if(((cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
+          if(((cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+          if(((cuts_ & SmurfTree::Lep3LooseMuV2)  == SmurfTree::Lep3LooseMuV2)  && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
           if(((cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
           if(((cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
           if(((cuts_ & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4) && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
@@ -688,7 +688,7 @@ bool doShapes        = true
         										  (cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
             sfWeightFR = sfWeightFR*fakeRate(lep2_->pt(), lep2_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
         										  (cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
-            if(lid3_ != 0)
+            if((cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto && lid3_ != 0)
             sfWeightFR = sfWeightFR*fakeRate(lep3_->pt(), lep3_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep3LooseMuV2)  == SmurfTree::Lep3LooseMuV2  && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection,
         										  (cuts_ & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4 && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection);
             if(nFake > 1) sfWeightFR = -1.0 * sfWeightFR;
@@ -697,15 +697,15 @@ bool doShapes        = true
             sfWeightTrig = 1.0;
             sfWeightHPt  = 1.0;
           }
-          else if((TMath::Abs(lep1McId_)*TMath::Abs(lep2McId_) > 0 && lid3_ == 0) || dstype_ == SmurfTree::wgamma || 
-        	  (TMath::Abs(lep1McId_)*TMath::Abs(lep2McId_)*TMath::Abs(lep3McId_) > 0 && lid3_ != 0)){
+          else if((TMath::Abs(lep1McId_)*TMath::Abs(lep2McId_) > 0                       && (cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto) || dstype_ == SmurfTree::wgamma || 
+        	  (TMath::Abs(lep1McId_)*TMath::Abs(lep2McId_)*TMath::Abs(lep3McId_) > 0 && (cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto)){
             sfWeightFR = 1.0;
-            sfWeightFR = sfWeightFR*fakeRate(lep1_->pt(), lep1_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep1LooseMuV1)  == SmurfTree::Lep1LooseMuV1  && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
+            sfWeightFR = sfWeightFR*fakeRate(lep1_->pt(), lep1_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
         										  (cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
-            sfWeightFR = sfWeightFR*fakeRate(lep2_->pt(), lep2_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep2LooseMuV1)  == SmurfTree::Lep2LooseMuV1  && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
+            sfWeightFR = sfWeightFR*fakeRate(lep2_->pt(), lep2_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
         										  (cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
-            if(lid3_ != 0)
-            sfWeightFR = sfWeightFR*fakeRate(lep3_->pt(), lep3_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep3LooseMuV1)  == SmurfTree::Lep3LooseMuV1  && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection,
+            if((cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto && lid3_ != 0)
+            sfWeightFR = sfWeightFR*fakeRate(lep3_->pt(), lep3_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep3LooseMuV2)  == SmurfTree::Lep3LooseMuV2  && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection,
         										  (cuts_ & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4 && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection);
             sfWeightFR = -1.0 * sfWeightFR;
             if(nFake > 1) sfWeightFR = -1.0 * sfWeightFR;
@@ -715,11 +715,11 @@ bool doShapes        = true
             sfWeightEff = 1.0;
             sfWeightEff = sfWeightEff*leptonEfficiency(lep1_->pt(), lep1_->eta(), fhDEffMu, fhDEffEl, lid1_);
             sfWeightEff = sfWeightEff*leptonEfficiency(lep2_->pt(), lep2_->eta(), fhDEffMu, fhDEffEl, lid2_);
-            if(lid3_ != 0)
+            if((cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto && lid3_ != 0)
               sfWeightEff = sfWeightEff*leptonEfficiency(lep3_->pt(), lep3_->eta(), fhDEffMu, fhDEffEl, lid3_);
 
             sfWeightTrig = 1.0;
-            if(lid3_ == 0)
+            if((cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto)
               sfWeightTrig = trigLookup.GetExpectedTriggerEfficiency(fabs(lep1_->eta()), lep1_->pt() , 
         								fabs(lep2_->eta()), lep2_->pt(), 
         								TMath::Abs( lid1_), TMath::Abs(lid2_));
@@ -740,11 +740,11 @@ bool doShapes        = true
           sfWeightEff = 1.0;
           sfWeightEff = sfWeightEff*leptonEfficiency(lep1_->pt(), lep1_->eta(), fhDEffMu, fhDEffEl, lid1_);
           sfWeightEff = sfWeightEff*leptonEfficiency(lep2_->pt(), lep2_->eta(), fhDEffMu, fhDEffEl, lid2_);
-          if(lid3_ != 0)
+          if((cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto && lid3_ != 0)
             sfWeightEff = sfWeightEff*leptonEfficiency(lep3_->pt(), lep3_->eta(), fhDEffMu, fhDEffEl, lid3_);
 
           sfWeightTrig = 1.0;
-          if(lid3_ == 0)
+          if((cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto)
             sfWeightTrig = trigLookup.GetExpectedTriggerEfficiency(fabs(lep1_->eta()), lep1_->pt() , 
         						      fabs(lep2_->eta()), lep2_->pt(), 
         						      TMath::Abs( lid1_), TMath::Abs(lid2_));
