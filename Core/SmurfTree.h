@@ -100,7 +100,8 @@ class SmurfTree {
     Lep3LooseEleV3    = 1UL<<26, // electron fakeable object selection is passed V3
     Lep3LooseEleV4    = 1UL<<27, // electron fakeable object selection is passed V4
     Lep3LooseMuV1     = 1UL<<28, // muon fakeable object selection (relIso<1.0)
-    Lep3LooseMuV2     = 1UL<<29  // muon fakeable object selection (relIso<0.4)
+    Lep3LooseMuV2     = 1UL<<29, // muon fakeable object selection (relIso<0.4)
+    Trigger           = 1UL<<30  // passed a set of triggers
   };
 
   static const unsigned int FullSelection = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
