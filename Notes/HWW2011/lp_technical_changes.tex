@@ -1,9 +1,6 @@
 
-The LP analysis is the same as the EPS analysis, with the exception of the following
-
-
-Since the EPS analysis was completed, we identified the following small technical
-changes required to make the analysis more consistent:
+The LP analysis makes the following additions or changes to the EPS analysis
+described in the body of this document:
 
 \begin{itemize}
     \item The integrated luminosity estimate for EPS dataset is revised from 1.092 fb$^{-1}$ to 1.143 fb$^{-1}$.
@@ -13,6 +10,18 @@ always applied to the simulation both when deriving and applying scale factors f
     \item The residual jet energy corrections are included.
 \end{itemize}
 
-We additionally considered the effect on the analysis of adding FIXME describe MT cut here.
 The effect of these changes is evaluated on the EPS dataset in Section \ref{sec:lp_technical_validation}.
+
+\subsubsection{Additional MT Preselection}
+
+There is a concern that $W/\gamma*$ with $W\rightarrow \ell\nu$ 
+and $\gamma*\rightarrow\ell\ell$ could be a significant unaccounted background.
+This background, if present, could be reduced by a cut $M_T > 80$~GeV and $M_T< m^{Higgs}$
+at the preselection level for the MVA analysis.
+
+This cut was demonstrated to have a negligible effect on the expected signal yields. 
+FIXME, put results here or refer to elsewhere.
+Thus the cut can be considered a safe addition with potential benefits in reducing 
+additional backgrounds that are poorly understood. 
+As such, we present the results with and without this cut in Sections FIXME.
 
