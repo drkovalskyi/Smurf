@@ -190,7 +190,7 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
   TPaveText *pt = lands::SetTPaveText(0.5, 0.95, 0.8, 0.95); //SetTPaveText(0.5, 0.95, 0.8, 0.95)
   pt->AddText(title);
   lands::PlotWithBelts* lb = 0;
-  float yMax = 5; 
+  float yMax = 10; 
   if (showObserved){
     lb = new lands::PlotWithBelts(limits_m1s, limits_p1s, limits_m2s, limits_p2s,
 				  limits_mean, observed, limits.size(), mass_points, 
@@ -238,6 +238,14 @@ void ReportLimits(std::vector<LimitInfo>& limits, const char* title, const char*
   printf("Mass \tObserved \tMedian Expected \t68%% C.L. band \t95%% C.L. band\n");
   for(unsigned int i=0; i<limits.size(); ++i){
     printf("%.0f \t%0.1f \t%0.1f \t[%0.1f, %0.1f] \t[%0.1f, %0.1f]\n",
+	   limits.at(i).mass,
+	   limits.at(i).observed, limits.at(i).exp_median, 
+	   limits.at(i).exp_m1sig, limits.at(i).exp_p1sig,
+	   limits.at(i).exp_m2sig, limits.at(i).exp_p2sig);
+  }
+  // print latex format
+  for(unsigned int i=0; i<limits.size(); ++i){
+    printf("%.0f & %0.1f & %0.1f & [%0.1f, %0.1f] & [%0.1f, %0.1f] \\\\\n",
 	   limits.at(i).mass,
 	   limits.at(i).observed, limits.at(i).exp_median, 
 	   limits.at(i).exp_m1sig, limits.at(i).exp_p1sig,
