@@ -1,16 +1,38 @@
-This is a background Estimation for \lpintlumi.
+This section describes the data-driven background Estimation for \lpintlumi. 
+Also, it shows a comparison of the resulting scale factors for the EPS, post-EPS and full LP data samples.
 
 \subsubsection{Drell-Yan}
 
+Here are the results from the method described in Section~\ref{sec:bkg_dy} applied to \lpintlumi.
+
 YY should provide the tex version of her tables.
 
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c c c c} 
+\hline
+Period & 0-jet bin & 1-jet bin & 2-jet bin \\ 
+\hline
+EPS      & 3.47 $\pm$ 2.26 & 2.69 $\pm$ 1.37 & 4.81 $\pm$ 1.84 \\
+post-EPS & 2.71 $\pm$ 3.50 & 3.17 $\pm$ 1.84 & 4.90 $\pm$ 1.97 \\
+LP       & 3.02 $\pm$ 1.84 & 2.81 $\pm$ 1.40 & 4.84 $\pm$ 1.83 \\
+\hline
+\end{tabular}
+\caption{Comparison of data-MC scale factors for the DY background for the EPS, post-EPS and LP (LP=EPS+post-EPS) data samples.}
+\label{tab:lp_periods_dy}
+\end{center}
+\end{table}
+
+
 \subsubsection{Fake-induced background}
+
+Here are the results from the method described in Section~\ref{sec:bkg_fakes} applied to \lpintlumi.
 
 \begin{table}[!htbp]
 \begin{center}
 \begin{tabular}{c c c c c c} 
 \hline
-jet-bin &	 mm &	 me &	 em &	 ee &	 ll \\ 
+jet-bin &	 $\mu\mu$ &	 $\mu e$ &	 $e\mu$ &	 $ee$ &	 total \\ 
 \hline
 0 &	 12.76 $\pm$ 2.24 &	 43.67 $\pm$ 2.72 &	 66.67 $\pm$ 4.22 &	 15.34 $\pm$ 1.47 &	 138.46 $\pm$ 5.69 \\
 1 &	 6.70 $\pm$ 1.86  &      16.45 $\pm$ 1.87 &      28.18 $\pm$ 2.86 &       4.91 $\pm$ 0.93 &       56.27 $\pm$ 4.00 \\
@@ -25,28 +47,44 @@ The uncertainties are statistical only.}
 \end{center}
 \end{table}
 
-Closure test on same-sign events:
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c c c c} 
+\hline
+Period & 0-jet bin & 1-jet bin & 2-jet bin \\ 
+\hline
+EPS      & 94.4 $\pm$ 4.4 & 34.2 $\pm$ 2.9 & 13.9 $\pm$ 1.9 \\
+post-EPS & 76.5 $\pm$ 6.3 & 42.6 $\pm$ 5.3 & 16.9 $\pm$ 3.6 \\
+LP       & 89.6 $\pm$ 3.7 & 36.4 $\pm$ 2.6 & 14.6 $\pm$ 1.7 \\
+\hline
+\end{tabular}
+\caption{Comparison of numer of events per \ifb of data for the fake-induced background for the EPS, post-EPS and LP (LP=EPS+post-EPS) data samples.}
+\label{tab:lp_periods_fake}
+\end{center}
+\end{table}
+
+Closure test on same-sign events: Table~\ref{tab:lp_FakeLeptonBkgPrediction_SameSignSample}.
 \begin{table}[!htbp]
 \begin{center}
 \begin{tabular}{|l|c|c|}
 \hline
-Type           & Yield \\
+Type                                                             & Yield \\
 \hline
-Total                   &  $68.4\pm3.8^{+15.6}_{-10.6}$  \\
+Estimated events                                                 &  $68.4\pm3.8^{+15.6}_{-10.6}$  \\
 \hline
-Observed same-sign events in Data        &  $92$   \\
-Monte Carlo estimate of non-fake contribution (WZ \& W$\gamma)$         &  $28.0\pm1.9$\\
-Fake background observed  &  $64.0\pm9.7$  \\
-
+Observed same-sign events in Data                                &  $92$        \\
+Monte Carlo estimate of non-fake contribution (WZ \& W$\gamma)$  & $28.0\pm1.9$ \\
+Fake background observed                                         & $64.0\pm9.7$ \\
 \hline
 \end{tabular}
-\caption{Summary of fake lepton background yields in the same sign sample after WW selection. }
+\caption{Summary of fake lepton background yields in the same sign sample after WW selection (\lpintlumi). }
 \label{tab:lp_FakeLeptonBkgPrediction_SameSignSample}
 \end{center}
 \end{table}
 
-
 \subsubsection{Top}
+
+Here are the results from the method described in Section~\ref{sec:bkg_top} applied to \lpintlumi.
 
 \begin{table}[!htbp]
 \begin{center}
@@ -70,24 +108,42 @@ negligible at this level or precision.}
 \end{center}
 \end{table}
 
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c c c} 
+\hline
+Period & 0-jet bin & 1-jet bin \\ 
+\hline
+EPS      & 1.67 $\pm$ 0.25 & 1.20 $\pm$ 0.10 \\
+post-EPS & 1.12 $\pm$ 0.40 & 1.02 $\pm$ 0.18 \\
+LP       & 1.50 $\pm$ 0.24 & 1.15 $\pm$ 0.09 \\
+\hline
+\end{tabular}
+\caption{Comparison of data-MC scale factors for the top background for the EPS, post-EPS and LP (LP=EPS+post-EPS) data samples.}
+\label{tab:lp_periods_top}
+\end{center}
+\end{table}
 
 \subsubsection{WW}
 
+Here are the results from the method described in Section~\ref{sec:bkg_ww} applied to \lpintlumi.
+
 \begin{table}[!htbp]
 \begin{center}
-\begin{tabular}{c c c c c}
- & \multicolumn{2}{c}{0-jet bin} & \multicolumn{2}{c}{1-jet bin} \\ \hline
-$m_H~[\GeVcc]$ & $\WW$ estimation & $\WW$ expected & $\WW$ estimation  & $\WW$ expected \\ \hline
-115 & 45.9 $\pm$  5.4 & 43.7 $\pm$  0.7 & 10.9 $\pm$  2.9 &  9.9 $\pm$ 0.3 \\
-120 & 60.1 $\pm$  7.0 & 57.2 $\pm$  0.8 & 14.4 $\pm$  3.8 & 13.0 $\pm$ 0.4 \\
-130 & 69.4 $\pm$  8.1 & 65.8 $\pm$  0.8 & 16.7 $\pm$  4.4 & 15.0 $\pm$ 0.4 \\
-140 & 63.1 $\pm$  7.3 & 60.9 $\pm$  0.8 & 15.1 $\pm$  3.9 & 13.6 $\pm$ 0.4 \\
-150 & 40.6 $\pm$  5.0 & 42.0 $\pm$  0.6 & 13.3 $\pm$  3.6 & 12.2 $\pm$ 0.3 \\
-160 & 28.3 $\pm$  3.5 & 29.2 $\pm$  0.5 & 11.3 $\pm$  3.1 & 10.4 $\pm$ 0.3 \\
-170 & 22.3 $\pm$  2.8 & 23.0 $\pm$  0.5 &  9.5 $\pm$  2.6 &  8.7 $\pm$ 0.3 \\
-180 & 25.5 $\pm$  3.2 & 26.5 $\pm$  0.5 & 11.5 $\pm$  3.1 & 10.3 $\pm$ 0.3 \\
-190 & 38.8 $\pm$  4.8 & 39.9 $\pm$  0.6 & 16.7 $\pm$  4.4 & 14.9 $\pm$ 0.4 \\
-200 & 39.9 $\pm$  5.0 & 41.5 $\pm$  0.6 & 18.7 $\pm$  4.9 & 16.5 $\pm$ 0.4 \\
+\begin{tabular}{c | c c c | c c c}
+\hline
+$m_H$ & \multicolumn{3}{c}{0-jet bin} & \multicolumn{3}{|c}{1-jet bin} \\
+$[\GeVcc]$ & estimate & expected & scale factor & estimate  & expected & scale factor \\ \hline
+115 & 46.6 $\pm$  5.3 & 43.7 $\pm$  0.7 & 1.07 $\pm$ 0.12 & 10.9 $\pm$  2.9 &  9.9 $\pm$  0.3 & 1.11 $\pm$ 0.29 \\
+120 & 61.0 $\pm$  6.9 & 57.2 $\pm$  0.8 & 1.07 $\pm$ 0.12 & 14.4 $\pm$  3.8 & 13.0 $\pm$  0.4 & 1.11 $\pm$ 0.29 \\
+130 & 70.5 $\pm$  8.0 & 65.8 $\pm$  0.8 & 1.07 $\pm$ 0.12 & 16.7 $\pm$  4.4 & 15.0 $\pm$  0.4 & 1.11 $\pm$ 0.29 \\
+140 & 64.1 $\pm$  7.2 & 60.9 $\pm$  0.8 & 1.05 $\pm$ 0.12 & 15.1 $\pm$  3.9 & 13.6 $\pm$  0.4 & 1.11 $\pm$ 0.29 \\
+150 & 41.3 $\pm$  5.0 & 42.0 $\pm$  0.6 & 0.98 $\pm$ 0.12 & 13.3 $\pm$  3.6 & 12.2 $\pm$  0.3 & 1.09 $\pm$ 0.30 \\
+160 & 28.7 $\pm$  3.5 & 29.2 $\pm$  0.5 & 0.99 $\pm$ 0.12 & 11.3 $\pm$  3.1 & 10.4 $\pm$  0.3 & 1.09 $\pm$ 0.30 \\
+170 & 22.7 $\pm$  2.8 & 23.0 $\pm$  0.5 & 0.98 $\pm$ 0.12 &  9.5 $\pm$  2.6 &  8.7 $\pm$  0.3 & 1.10 $\pm$ 0.30 \\
+180 & 26.0 $\pm$  3.2 & 26.5 $\pm$  0.5 & 0.98 $\pm$ 0.12 & 11.5 $\pm$  3.1 & 10.3 $\pm$  0.3 & 1.12 $\pm$ 0.30 \\
+190 & 39.5 $\pm$  4.7 & 39.9 $\pm$  0.6 & 0.99 $\pm$ 0.12 & 16.7 $\pm$  4.4 & 14.9 $\pm$  0.4 & 1.12 $\pm$ 0.30 \\
+200 & 40.6 $\pm$  4.9 & 41.5 $\pm$  0.6 & 0.98 $\pm$ 0.12 & 18.7 $\pm$  4.9 & 16.5 $\pm$  0.4 & 1.14 $\pm$ 0.30 \\
 \hline
 \end{tabular}
 \caption{Cut-based analysis: data driven WW estimation for different Higgs masses in the 0- and 1-jet bins (\lpintlumi). 
@@ -95,5 +151,45 @@ Only statistical uncertainties are reported.}
 \label{tab:lp_wwEstimResData}
 \end{center}
 \end{table}
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c | c c c | c c c}
+\hline
+$m_H$ & \multicolumn{3}{c}{0-jet bin} & \multicolumn{3}{|c}{1-jet bin} \\
+$[\GeVcc]$ & estimate & expected & scale factor & estimate  & expected & scale factor \\ \hline
+115 & 274.9 $\pm$ 31.1 & 257.8 $\pm$  1.6 & 1.07 $\pm$ 0.12 & 84.8 $\pm$ 22.3 & 76.8 $\pm$  0.9 & 1.11 $\pm$ 0.29 \\
+120 & 274.9 $\pm$ 31.1 & 257.8 $\pm$  1.6 & 1.07 $\pm$ 0.12 & 84.8 $\pm$ 22.3 & 76.8 $\pm$  0.9 & 1.11 $\pm$ 0.29 \\
+130 & 317.4 $\pm$ 35.9 & 297.6 $\pm$  1.7 & 1.07 $\pm$ 0.12 & 98.8 $\pm$ 26.0 & 89.4 $\pm$  0.9 & 1.11 $\pm$ 0.29 \\
+140 & 344.9 $\pm$ 39.0 & 323.4 $\pm$  1.8 & 1.07 $\pm$ 0.12 & 107.5 $\pm$ 28.3 & 97.3 $\pm$  1.0 & 1.11 $\pm$ 0.29 \\
+150 & 368.4 $\pm$ 41.7 & 345.5 $\pm$  1.8 & 1.07 $\pm$ 0.12 & 114.5 $\pm$ 30.1 & 103.6 $\pm$  1.0 & 1.11 $\pm$ 0.29 \\
+160 & 368.4 $\pm$ 41.7 & 345.5 $\pm$  1.8 & 1.07 $\pm$ 0.12 & 114.5 $\pm$ 30.1 & 103.6 $\pm$  1.0 & 1.11 $\pm$ 0.29 \\
+170 & 368.4 $\pm$ 41.7 & 345.5 $\pm$  1.8 & 1.07 $\pm$ 0.12 & 114.5 $\pm$ 30.1 & 103.6 $\pm$  1.0 & 1.11 $\pm$ 0.29 \\
+180 & 392.4 $\pm$ 44.4 & 368.0 $\pm$  1.9 & 1.07 $\pm$ 0.12 & 122.2 $\pm$ 32.1 & 110.6 $\pm$  1.0 & 1.11 $\pm$ 0.29 \\
+190 & 417.6 $\pm$ 47.2 & 391.6 $\pm$  2.0 & 1.07 $\pm$ 0.12 & 130.9 $\pm$ 34.4 & 118.5 $\pm$  1.1 & 1.11 $\pm$ 0.29 \\
+200 & 438.2 $\pm$ 49.5 & 410.9 $\pm$  2.0 & 1.07 $\pm$ 0.12 & 137.4 $\pm$ 36.1 & 124.3 $\pm$  1.1 & 1.11 $\pm$ 0.29 \\\hline
+\end{tabular}
+\caption{MVA analysis: data driven WW estimation for different Higgs masses in the 0- and 1-jet bin (\lpintlumi). 
+Only statistical uncertainties are reported.}
+\label{tab:lp_wwEstimResDataMVA}
+\end{center}
+\end{table}
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c c c} 
+\hline
+Period & 0-jet bin & 1-jet bin \\ 
+\hline
+EPS      & 1.05 $\pm$ 0.14 & 1.14 $\pm$ 0.33 \\
+post-EPS & 1.09 $\pm$ 0.20 & 1.00 $\pm$ 0.51 \\
+LP       & 1.07 $\pm$ 0.12 & 1.11 $\pm$ 0.29 \\
+\hline
+\end{tabular}
+\caption{Comparison of data-MC scale factors for the WW background (MVA analysis) for the EPS, post-EPS and LP (LP=EPS+post-EPS) data samples.}
+\label{tab:lp_periods_ww}
+\end{center}
+\end{table}
+
 
 \clearpage
