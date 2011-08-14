@@ -16,12 +16,42 @@ The effect of these changes is evaluated on the EPS dataset in Section \ref{sec:
 
 There is a concern that $W/\gamma*$ with $W\rightarrow \ell\nu$ 
 and $\gamma*\rightarrow\ell\ell$ could be a significant unaccounted background.
-This background, if present, could be reduced by a cut $M_T > 80$~GeV and $M_T< m^{Higgs}$
-at the preselection level for the MVA analysis.
+This background has two relevant properties:
 
-This cut was demonstrated to have a negligible effect on the expected signal yields. 
-FIXME, put results here or refer to elsewhere.
-Thus the cut can be considered a safe addition with potential benefits in reducing 
-additional backgrounds that are poorly understood. 
-As such, we present the results with and without this cut in Sections FIXME.
+\begin{itemize}
+    \item The $e^{+}e^{-}$ pair from $\gamma*$ has very similar kinematics as external
+   conversions for the bulk of its production cross section.
+    \item The $M_T$ of the reconstructed $e^{+}e^{-}$+MET system should be less than
+    or equal to the expected $M_T$ from the decay of a $W$ boson.
+\end{itemize}
+
+The yield cross check using same-sign events bounds this background 
+at something less than 10 events at WW preselection level.  
+This bound has the caveat that if the $\gamma*$ background is large and the 
+fake rate method understimates the real background then the two
+effects can cancel.
+
+The default conversion rejection algorithm used in this analysis
+includes a 2 cm flight (Lxy) cut, so would not reject this background
+from apparently prompt conversions.
+Taking into account the expected efficiency of our conversion
+rejection algorithm, and removing the Lxy cut, 
+we would expect to reject $30-50$\% of the residual 
+$\gamma*\rightarrow e^{+}e^{-}$ background.
+Performing this test we remove four events at the WW preselection level.
+This reduction in the observed yield is consistent with expectations
+from WW, W+jet and W+$\gamma$ simulation.
+The events removed are distributed randomly in $M_T$.
+
+Although we do not find evidence of a large unaccounted $W/\gamma*$ background,
+we cannot conclusively prove that it is absent either.
+This background as well as mismeasured Drell-Yan events, 
+if present, could be reduced by removing events with $M_T < 80$~GeV,
+without significantly changing the expected signal yield.
+In general, a requirement that $80 < M_T < m^{Higgs}$ would remove poorly
+understood regions with only a negligible reduction in sensitivity.
+This is illustrated in Section \ref{app:lp_limits}.
+We think this is important to the analysis because shapes for both of
+these backgrounds are not well understood. Reducing our exposure to these types of 
+background is the right thing to do.
 
