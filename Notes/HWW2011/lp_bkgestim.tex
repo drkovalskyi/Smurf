@@ -1,13 +1,10 @@
 This section describes the results of the data-driven background estimation with \lpintlumi. 
-The rate for each background process is proven to be reasonably stable in the EPS, post-EPS and full LP data samples.
+The rate for each background process is found to be stable in the EPS, post-EPS and full LP data samples.
 
 \subsubsection{Drell-Yan}
 
-Table~XX shows the results for the Drell-Yan estimation in the LP dataset. 
+Table~\ref{tab:lp_periods_dy} shows the results for the Drell-Yan estimation in the LP dataset. 
 The method is described in Section~\ref{sec:bkg_dy}.
-
-YY should insert the summary table for DY estimation with \lpintlumi.
-
 The scale factors obtained in the EPS, post-EPS and LP datasets are compatible within the large uncertainties (Table~\ref{tab:lp_periods_dy}).
 
 \begin{table}[!htbp]
@@ -21,20 +18,20 @@ post-EPS & 2.71 $\pm$ 3.50 & 3.17 $\pm$ 1.84 & 4.90 $\pm$ 1.97 \\
 LP       & 3.02 $\pm$ 1.84 & 2.81 $\pm$ 1.40 & 4.84 $\pm$ 1.83 \\
 \hline
 \end{tabular}
-\caption{Comparison of data-MC scale factors for the DY background for the EPS, post-EPS and LP (LP=EPS+post-EPS) data samples.}
+\caption{Comparison of data to simulation scale factors for the DY background for the EPS, post-EPS and LP datasets.}
 \label{tab:lp_periods_dy}
 \end{center}
 \end{table}
-
 
 \subsubsection{Fake-induced background}
 
 The fake-induced background estimation on the LP dataset is reported in Table~\ref{tab:lp_fake_est} 
 (see Section~\ref{sec:bkg_fakes} for details on the method).
-The closure test on same-sign events gives good agreement with the expectations, as shown in Table~\ref{tab:lp_FakeLeptonBkgPrediction_SameSignSample}.
-
-A summary of the rate of fake events per \ifb of data in the EPS, post-EPS and LP is in Table~\ref{tab:lp_periods_fake}. 
-The level of agreement is at the 1-2 sigma level.
+A summary of the rate of fake events per \ifb~of data in the EPS, post-EPS and LP 
+is reported in Table~\ref{tab:lp_periods_fake}.
+The results agree between the datasets at the 1-2 sigma level.
+The closure test on same-sign events gives good agreement with the expectations, 
+as shown in Table~\ref{tab:lp_FakeLeptonBkgPrediction_SameSignSample}.
 
 \begin{table}[!htbp]
 \begin{center}
@@ -57,6 +54,22 @@ The uncertainties are statistical only.}
 
 \begin{table}[!htbp]
 \begin{center}
+\begin{tabular}{c c c c}
+\hline
+Period & 0-jet bin & 1-jet bin & 2-jet bin \\
+\hline
+EPS      & 94.4 $\pm$ 4.4 & 34.2 $\pm$ 2.9 & 13.9 $\pm$ 1.9 \\
+post-EPS & 76.5 $\pm$ 6.3 & 42.6 $\pm$ 5.3 & 16.9 $\pm$ 3.6 \\
+LP       & 89.6 $\pm$ 3.7 & 36.4 $\pm$ 2.6 & 14.6 $\pm$ 1.7 \\
+\hline
+\end{tabular}
+\caption{Comparison of the number of fake-induced events per \ifb~of data in the EPS, post-EPS and LP datasets.}
+\label{tab:lp_periods_fake}
+\end{center}
+\end{table}
+
+\begin{table}[!htbp]
+\begin{center}
 \begin{tabular}{|l|c|c|}
 \hline
 Type                                                             & Yield \\
@@ -73,27 +86,10 @@ Fake background observed                                         & $64.0\pm9.7$ 
 \end{center}
 \end{table}
 
-\begin{table}[!htbp]
-\begin{center}
-\begin{tabular}{c c c c} 
-\hline
-Period & 0-jet bin & 1-jet bin & 2-jet bin \\ 
-\hline
-EPS      & 94.4 $\pm$ 4.4 & 34.2 $\pm$ 2.9 & 13.9 $\pm$ 1.9 \\
-post-EPS & 76.5 $\pm$ 6.3 & 42.6 $\pm$ 5.3 & 16.9 $\pm$ 3.6 \\
-LP       & 89.6 $\pm$ 3.7 & 36.4 $\pm$ 2.6 & 14.6 $\pm$ 1.7 \\
-\hline
-\end{tabular}
-\caption{Comparison of the number of fake-induced events per \ifb of data in the EPS, post-EPS and LP (LP=EPS+post-EPS) data samples.}
-\label{tab:lp_periods_fake}
-\end{center}
-\end{table}
-
 \subsubsection{Top}
 
-Table~\ref{tab:lp_ttbar_est} summarizes the results for the top background estimation in the LP data sample. 
+Table~\ref{tab:lp_ttbar_est} summarizes the results for the top background estimation in the LP dataset. 
 The method described in details in Section~\ref{sec:bkg_top}.
-
 The scale factors for top background in EPS and post-EPS data are compatible within one sigma (Table~\ref{tab:lp_periods_top}).
 
 \begin{table}[!htbp]
@@ -129,17 +125,16 @@ post-EPS & 1.12 $\pm$ 0.40 & 1.02 $\pm$ 0.18 \\
 LP       & 1.50 $\pm$ 0.24 & 1.15 $\pm$ 0.09 \\
 \hline
 \end{tabular}
-\caption{Comparison of data-MC scale factors for the top background for the EPS, post-EPS and LP (LP=EPS+post-EPS) data samples.}
+\caption{Comparison of data to simulation scale factors for the top background for the EPS, post-EPS and LP datasets.}
 \label{tab:lp_periods_top}
 \end{center}
 \end{table}
 
 \subsubsection{WW}
 
-The data driven estimation of the WW background for the cut based and MVA based analyses are summaried in Tables~\ref{tab:lp_wwEstimResData} 
-and \ref{tab:lp_wwEstimResDataMVA} respectively. They correspond to the full LP dataset (\lpintlumi) and follow the 
-method described in Section~\ref{sec:bkg_ww}.
-
+The data driven estimation of the WW background for the cut based and MVA based analyses 
+are summaried in Tables~\ref{tab:lp_wwEstimResData} and \ref{tab:lp_wwEstimResDataMVA} respectively. 
+They correspond to the full LP dataset (\lpintlumi) and follow the method described in Section~\ref{sec:bkg_ww}.
 The WW rate is stable in the EPS and post-EPS data samples (Table~\ref{tab:lp_periods_ww}).
 
 \begin{table}[!htbp]
@@ -200,10 +195,9 @@ post-EPS & 1.09 $\pm$ 0.20 & 1.00 $\pm$ 0.51 \\
 LP       & 1.07 $\pm$ 0.12 & 1.11 $\pm$ 0.29 \\
 \hline
 \end{tabular}
-\caption{Comparison of data-MC scale factors for the WW background (MVA analysis) for the EPS, post-EPS and LP (LP=EPS+post-EPS) data samples.}
+\caption{Comparison of data to simulation scale factors for the WW background (MVA analysis) for the EPS, post-EPS and LP datasets.}
 \label{tab:lp_periods_ww}
 \end{center}
 \end{table}
-
 
 \clearpage
