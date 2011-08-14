@@ -1,1 +1,59 @@
-This is a Lepton and Trigger Efficiency
+
+We used the tag and probe method to study the lepton selection
+efficiencies in the EPS and post-EPS datasets.
+The post-EPS dataset was initially available in the PromptReco V5 processing,
+which is known to contain ECAL calibration issues leading to large fake MET.
+These studies were performed on the PromptReco V5 before the data was 
+reprocessed because the calibration issues are not expected to bias the
+lepton efficiencies.
+
+The electron and muon selections efficiencies in the two datasets
+and compared in Tables \ref{tab:lp_eff_electrons} and \ref{tab:lp_eff_muons}
+respectively.
+Because we do not observe any significant change in the
+lepton selection efficiencies, we perform the LP analysis
+using the same data to simulation scale factors as the EPS analysis.
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular} {c|ccc}
+\hline
+          & $10<p_T<15$ & $15<p_T<20$ & $p_T>20$ \\
+\hline
+\multicolumn{4}{c} {Barrel ($|\eta|<1.479$)} \\ \hline
+post-EPS       & $0.3955 \pm 0.0411$ & $0.5443 \pm 0.0090$ & $0.6808 \pm 0.0029$ \\
+EPS            & $0.4064 \pm 0.0250$ & $0.5184 \pm 0.0076$ & $0.6891 \pm 0.0013$ \\ \hline
+\multicolumn{4}{c} {Endcap ($|\eta|>1.479$)} \\ \hline
+post-EPS       & $0.1935 \pm 0.0265$ & $0.3320 \pm 0.0218$ & $0.6808 \pm 0.0029$ \\
+EPS            & $0.2079 \pm 0.0103$ & $0.3219 \pm 0.0101$ & $0.6891 \pm 0.0013$ \\
+\hline
+\end{tabular}
+\caption{Comparison of the electron efficiencies in the EPS and post-EPS datasets.}
+\label{tab:lp_eff_electrons}
+\end{center}
+\end{table}
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular} {c|ccc}
+\hline
+          & $10<p_T<15$ & $15<p_T<20$ & $p_T>20$ \\
+\hline
+\multicolumn{4}{c} {Barrel ($|\eta|<1.479$)} \\ \hline
+post-EPS       & N/A                 & $0.7651 \pm 0.0188$ & $0.6808 \pm 0.0029$ \\
+EPS            & $0.6620 \pm 0.0108$ & $0.7306 \pm 0.0047$ & $0.6891 \pm 0.0013$ \\ \hline
+\multicolumn{4}{c} {Endcap ($|\eta|>1.479$)} \\ \hline
+post-EPS       & N/A                 & $0.7543 \pm 0.0197$ & $0.9193 \pm 0.0010$ \\
+EPS            & $0.7079 \pm 0.0110$ & $0.7235 \pm 0.0073$ & $0.9138 \pm 0.0008$ \\
+\hline
+\end{tabular}
+\caption{Comparison of the muon efficiencies in the EPS and post-EPS datasets.
+Note that the low $p_T$ efficiencies were not available for the post-EPS dataset at the time of writing
+with the code used to produce these results.
+An independent measurement of the data to simulation scale factors found
+$0.91 \pm 0.01$ ($0.91 \pm 0.02$) for the EPS dataset and $0.95 \pm 0.02$ ($0.90 \pm 0.03$)
+for the post-EPS dataset in the Barrel (Endcap) regions.}
+\label{tab:lp_eff_muons}
+\end{center}
+\end{table}
+
