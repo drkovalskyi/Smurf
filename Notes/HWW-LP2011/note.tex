@@ -1,0 +1,90 @@
+\documentclass{cmspaper}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage[pdfborder=0 0 0,
+            colorlinks,
+            urlcolor = blue,
+            linkcolor = black,
+            citecolor = black,
+            menucolor = black,]
+           {hyperref}
+%% \usepackage[colorlinks]{hyperref}
+%% \usepackage{url}
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixname}{Appendix}
+%% \renewcommand{\appendixtocname}{List of appendices}
+
+% \input{privsym}
+\input{commands}
+
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+
+%===================================================================================================
+\begin{document}
+\begin{titlepage}
+
+  \analysisnote{2011/*}
+
+  \date{\today}
+
+  \title{A Higgs Boson Search in the Fully Leptonic $W^+W^-$ Final State - Update for Lepton-Photon 2011}
+
+  \input{authors}
+
+  \begin{abstract}
+  \end{abstract} 
+
+\end{titlepage}
+\tableofcontents
+%\listoftables
+%\listoffigures
+\newpage 
+
+%===================================================================================================
+\appendix
+  \section{Lepton-Photon Reload}
+     \label{app:lp_reload}
+     \subsection{Introduction}
+     \input{lp_intro}
+     \subsection{Definition of Reload}
+    \label{app:lp_technical_changes}
+     \input{lp_technical_changes}
+
+     \subsection{Post-EPS Data Validation}
+     \label{app:lp_validation}
+     \subsubsection{Lepton and Trigger Efficiency}
+     \input{lp_tagnprobe}
+     \subsubsection{PU reweighting}
+     \input{lp_pureweight}
+    \subsubsection{Summary of Data Validation}
+    \input{lp_datavalidation}
+
+     \subsection{Background Estimation for \lpintlumi}
+    \label{app:lp_bkgestim}
+     \input{lp_bkgestim}
+
+     \subsection{Final limits for \lpintlumi}
+    \label{app:lp_limits}
+     \input{lp_limits}
+
+     \subsection{Conclusions}
+     \input{lp_conclusions}
+
+    \subsection{Data Validation}
+    \label{app:lp_postEPSdist}
+    \input{lp_postEPSdist}
+
+    \subsection{MVA output plots}
+    \label{app:lp_mvaplots}
+    \input{lp_mvaplots_eps}
+    \input{lp_mvaplots_posteps}
+    \input{lp_mvaplots_lp}
+    \input{lp_mvaplots_lp80p}
+    \input{lp_mvaplots_lp80m}
+
+  \clearpage
+\end{document}
