@@ -72,45 +72,15 @@ the fake rate from QCD Monte Carlo actually gives a reasonable description of th
 between the QCD Monte Carlo and the W+Jet Monte Carlo fake rate reflects the systematic uncertainties
 due to different fake composition.
 
-The fake rates used to extract the background prediction is summarized in Table \ref{tab:ele_fr_V4_jet35},
-where we have used a combination of the {\bf Ele8\_CaloIdL\_CaloIsoVL}, {\bf Ele17\_CaloIdL\_CaloIsoVL}, 
+The fake rates used to extract the background prediction is summarized in Section \ref{sec:ElectronFakeRateDataResults}
+for different datasets used, where we have used a combination of the 
+{\bf Ele8\_CaloIdL\_CaloIsoVL}, {\bf Ele17\_CaloIdL\_CaloIsoVL}, 
 {\bf Ele8\_CaloIdL\_CaloIsoVL\_Jet40} triggers, with a $p_{T}$ threshold on the leading jet in
 the event of $35$ GeV. Figure \ref{fig:ele_fr_triggerDependence} shows that the fake rate measurement 
 is insensitive to the particular trigger being used for this event selection, and therefore we combined 
 them to minimize the statistical uncertainties of the fake rate measurement. The choice of the $p_{T}$
 threshold on the leading jet is further elaborated in Section \ref{sec:FakeElectronBkgJetSpectrumSystematics}.
 
-
-
-\begin{table}[!htbp]
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|c|}
-
-\hline
-                         & $0<\eta<0.5$            & $0.5<\eta<1$            & $1<\eta<1.5$            & $1.5<\eta<2$            & $2<\eta<2.5$              \\
-\hline
-    $10 < p_{T} <= 15$ &        $0.129^{+0.023}_{-0.020}$ &        $0.109^{+0.019}_{-0.016}$ &        $0.068^{+0.013}_{-0.011}$ &        $0.024^{+0.011}_{-0.008}$ &        $0.050^{+0.013}_{-0.011}$  \\ 
- \hline
-    $15 < p_{T} <= 20$ &        $0.079^{+0.019}_{-0.016}$ &        $0.079^{+0.016}_{-0.014}$ &        $0.055^{+0.012}_{-0.010}$ &        $0.036^{+0.012}_{-0.009}$ &        $0.056^{+0.013}_{-0.011}$  \\ 
- \hline
-    $20 < p_{T} <= 25$ &        $0.088^{+0.018}_{-0.016}$ &        $0.118^{+0.020}_{-0.017}$ &        $0.113^{+0.017}_{-0.015}$ &        $0.104^{+0.016}_{-0.014}$ &        $0.100^{+0.015}_{-0.013}$  \\ 
- \hline
-    $25 < p_{T} <= 30$ &        $0.070^{+0.020}_{-0.016}$ &        $0.132^{+0.024}_{-0.021}$ &        $0.092^{+0.017}_{-0.015}$ &        $0.069^{+0.016}_{-0.013}$ &        $0.092^{+0.016}_{-0.014}$  \\ 
- \hline
-    $30 < p_{T} <= 35$ &        $0.126^{+0.030}_{-0.025}$ &        $0.083^{+0.024}_{-0.019}$ &        $0.123^{+0.024}_{-0.021}$ &        $0.070^{+0.019}_{-0.016}$ &        $0.118^{+0.021}_{-0.018}$  \\ 
- \hline
-
-
-
-
-\end{tabular}
-\caption{Electron fake rate in $\eta$-$p_T$ for the V4 fakeable object definition. Uncertainties are statistical only.
-A combination of the {\bf Ele8\_CaloIdL\_CaloIsoVL}, {\bf Ele17\_CaloIdL\_CaloIsoVL}, 
-{\bf Ele8\_CaloIdL\_CaloIsoVL\_Jet40} triggers are used, with a $p_{T}$ threshold on the leading jet in
-the event of $35$ GeV. }
-\label{tab:ele_fr_V4_jet35}
-\end{center}
-\end{table}
 
 \begin{figure}[!htbp]
 \begin{center}
@@ -195,11 +165,6 @@ Jet50                   &  $-22\%$     & $-25\%$    \\
 \end{table}
 
 
-
-%% \subsubsection{Run dependence}
-
-%% - fake rates can be affected by run and detector conditions.
-%% - we demonstrate how much run dependence there is
 
 
  \subsubsection{Sample Extrapolation Systematics and Closure Test}
@@ -357,3 +322,152 @@ Table \ref{tab:FakeElectronClosureTest_Yields}.
 %% - describe how we propagate uncertainties
 %%   - assume statistical uncertainties are uncorrelated per bin
 %%   - assume systematics are 100\% correlated
+
+\subsubsection{Data Results and Run dependence}
+\label{sec:ElectronFakeRateDataResults}
+
+In this section we tabulate the electron fake rates in the $p_{T}$ and $\eta$ bins for different 
+periods of data taking. Tables \ref{tab:ele_fr_V4_jet35_m10}, \ref{tab:ele_fr_V4_jet35_prv4}, 
+\ref{tab:ele_fr_V4_jet35_aug05}, \ref{tab:ele_fr_V4_jet35_prv6} show the fake rates separately 
+for the May 10 rereco, PromptRecoV4, August 05 rereco, and the PromptRecoV6 datasets respectively.
+We observe statistically consistent fake rates for all these datasets.
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+
+\hline
+                       &        $0<\eta<0.5$              &        $1<\eta<1.5$              &        $1.5<\eta<2$              &        $2<\eta<2.5$               \\
+\hline
+   $10 < p_{T} <= 15$ &        $0.123^{+0.012}_{-0.011}$ &        $0.083^{+0.012}_{-0.011}$ &        $0.030^{+0.010}_{-0.008}$ &        $0.063^{+0.013}_{-0.011}$  \\ 
+ \hline
+    $15 < p_{T} <= 20$ &        $0.081^{+0.010}_{-0.009}$ &        $0.062^{+0.011}_{-0.010}$ &        $0.038^{+0.010}_{-0.008}$ &        $0.050^{+0.012}_{-0.010}$  \\ 
+ \hline
+    $20 < p_{T} <= 25$ &        $0.105^{+0.011}_{-0.010}$ &        $0.124^{+0.015}_{-0.013}$ &        $0.116^{+0.013}_{-0.012}$ &        $0.113^{+0.014}_{-0.012}$  \\ 
+ \hline
+    $25 < p_{T} <= 30$ &        $0.101^{+0.013}_{-0.012}$ &        $0.093^{+0.016}_{-0.014}$ &        $0.088^{+0.014}_{-0.012}$ &        $0.123^{+0.016}_{-0.015}$  \\ 
+ \hline
+    $30 < p_{T} <= 35$ &        $0.134^{+0.017}_{-0.016}$ &        $0.117^{+0.021}_{-0.018}$ &        $0.087^{+0.016}_{-0.014}$ &        $0.146^{+0.020}_{-0.018}$  \\ 
+ \hline
+
+\end{tabular}
+\caption{Electron fake rate in $\eta$-$p_T$ for the V4 fakeable object definition using data from the May 10 Rereco dataset. 
+Uncertainties are statistical only. A combination of the {\bf Ele8\_CaloIdL\_CaloIsoVL}, {\bf Ele17\_CaloIdL\_CaloIsoVL}, 
+{\bf Ele8\_CaloIdL\_CaloIsoVL\_Jet40} triggers are used, with a $p_{T}$ threshold on the leading jet in
+the event of $35$ GeV. }
+\label{tab:ele_fr_V4_jet35_m10}
+\end{center}
+\end{table}
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+
+\hline
+                       &        $0<\eta<0.5$              &        $1<\eta<1.5$              &        $1.5<\eta<2$              &        $2<\eta<2.5$               \\
+\hline
+    $10 < p_{T} <= 15$ &        $0.150^{+0.020}_{-0.018}$ &        $0.058^{+0.016}_{-0.013}$ &        $0.040^{+0.015}_{-0.011}$ &        $0.056^{+0.019}_{-0.015}$  \\ 
+ \hline
+    $15 < p_{T} <= 20$ &        $0.105^{+0.013}_{-0.011}$ &        $0.066^{+0.013}_{-0.011}$ &        $0.042^{+0.011}_{-0.009}$ &        $0.063^{+0.014}_{-0.012}$  \\ 
+ \hline
+    $20 < p_{T} <= 25$ &        $0.129^{+0.012}_{-0.011}$ &        $0.120^{+0.014}_{-0.013}$ &        $0.109^{+0.013}_{-0.011}$ &        $0.114^{+0.014}_{-0.012}$  \\ 
+ \hline
+    $25 < p_{T} <= 30$ &        $0.118^{+0.013}_{-0.012}$ &        $0.096^{+0.016}_{-0.014}$ &        $0.094^{+0.013}_{-0.012}$ &        $0.122^{+0.015}_{-0.014}$  \\ 
+ \hline
+    $30 < p_{T} <= 35$ &        $0.114^{+0.015}_{-0.014}$ &        $0.133^{+0.020}_{-0.018}$ &        $0.125^{+0.018}_{-0.016}$ &        $0.104^{+0.018}_{-0.016}$  \\ 
+ \hline
+
+\end{tabular}
+\caption{Electron fake rate in $\eta$-$p_T$ for the V4 fakeable object definition using data from the PromptReco V4 dataset. 
+Uncertainties are statistical only. A combination of the {\bf Ele8\_CaloIdL\_CaloIsoVL}, {\bf Ele17\_CaloIdL\_CaloIsoVL}, 
+{\bf Ele8\_CaloIdL\_CaloIsoVL\_Jet40} triggers are used, with a $p_{T}$ threshold on the leading jet in
+the event of $35$ GeV. }
+\label{tab:ele_fr_V4_jet35_prv4}
+\end{center}
+\end{table}
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+
+\hline
+                       &        $0<\eta<0.5$              &        $1<\eta<1.5$              &        $1.5<\eta<2$              &        $2<\eta<2.5$               \\
+\hline
+   $10 < p_{T} <= 15$ &        $0.146^{+0.077}_{-0.056}$ &        $0.217^{+0.120}_{-0.090}$ &        $0.065^{+0.079}_{-0.042}$ &        $0.077^{+0.155}_{-0.064}$  \\ 
+ \hline
+    $15 < p_{T} <= 20$ &        $0.135^{+0.065}_{-0.048}$ &        $0.039^{+0.049}_{-0.025}$ &        $0.176^{+0.090}_{-0.068}$ &        $0.000^{+0.068}_{-0.000}$  \\ 
+ \hline
+    $20 < p_{T} <= 25$ &        $0.175^{+0.047}_{-0.040}$ &        $0.071^{+0.053}_{-0.034}$ &        $0.058^{+0.053}_{-0.031}$ &        $0.143^{+0.058}_{-0.045}$  \\ 
+ \hline
+    $25 < p_{T} <= 30$ &        $0.067^{+0.050}_{-0.032}$ &        $0.033^{+0.072}_{-0.028}$ &        $0.087^{+0.063}_{-0.041}$ &        $0.077^{+0.069}_{-0.042}$  \\ 
+ \hline
+    $30 < p_{T} <= 35$ &        $0.140^{+0.067}_{-0.050}$ &        $0.226^{+0.100}_{-0.079}$ &        $0.086^{+0.076}_{-0.046}$ &        $0.146^{+0.077}_{-0.056}$  \\ 
+ \hline
+
+\end{tabular}
+\caption{Electron fake rate in $\eta$-$p_T$ for the V4 fakeable object definition using data from the Aug 05 Rereco dataset. 
+Uncertainties are statistical only. A combination of the {\bf Ele8\_CaloIdL\_CaloIsoVL}, {\bf Ele17\_CaloIdL\_CaloIsoVL}, 
+{\bf Ele8\_CaloIdL\_CaloIsoVL\_Jet40} triggers are used, with a $p_{T}$ threshold on the leading jet in
+the event of $35$ GeV. }
+\label{tab:ele_fr_V4_jet35_a05}
+\end{center}
+\end{table}
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+
+\hline
+                       &        $0<\eta<0.5$              &        $1<\eta<1.5$              &        $1.5<\eta<2$              &        $2<\eta<2.5$               \\
+\hline
+    $10 < p_{T} <= 15$ &        $0.125^{+0.232}_{-0.104}$ &        $0.100^{+0.194}_{-0.083}$ &        $0.111^{+0.211}_{-0.092}$ &        $0.167^{+0.287}_{-0.138}$  \\ 
+ \hline
+    $15 < p_{T} <= 20$ &        $0.000^{+0.097}_{-0.000}$ &        $0.059^{+0.122}_{-0.049}$ &        $0.000^{+0.154}_{-0.000}$ &        $0.000^{+0.369}_{-0.000}$  \\ 
+ \hline
+    $20 < p_{T} <= 25$ &        $0.154^{+0.105}_{-0.072}$ &        $0.105^{+0.122}_{-0.068}$ &        $0.263^{+0.139}_{-0.108}$ &        $0.105^{+0.122}_{-0.068}$  \\ 
+ \hline
+    $25 < p_{T} <= 30$ &        $0.059^{+0.122}_{-0.049}$ &        $0.067^{+0.137}_{-0.055}$ &        $0.000^{+0.154}_{-0.000}$ &        $0.071^{+0.146}_{-0.059}$  \\ 
+ \hline
+    $30 < p_{T} <= 35$ &        $0.062^{+0.129}_{-0.052}$ &        $0.111^{+0.211}_{-0.092}$ &        $0.111^{+0.128}_{-0.071}$ &        $0.308^{+0.177}_{-0.141}$  \\ 
+ \hline
+
+\end{tabular}
+\caption{Electron fake rate in $\eta$-$p_T$ for the V4 fakeable object definition using data from the PromptReco V6 dataset (up to LeptonPhoton2011 cutoff). 
+Uncertainties are statistical only. A combination of the {\bf Ele8\_CaloIdL\_CaloIsoVL}, {\bf Ele17\_CaloIdL\_CaloIsoVL}, 
+{\bf Ele8\_CaloIdL\_CaloIsoVL\_Jet40} triggers are used, with a $p_{T}$ threshold on the leading jet in
+the event of $35$ GeV. }
+\label{tab:ele_fr_V4_jet35_prv6}
+\end{center}
+\end{table}
+
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+
+\hline
+                       &        $0<\eta<0.5$              &        $1<\eta<1.5$              &        $1.5<\eta<2$              &        $2<\eta<2.5$               \\
+\hline
+    $10 < p_{T} <= 15$ &        $0.132^{+0.010}_{-0.009}$ &        $0.078^{+0.010}_{-0.009}$ &        $0.036^{+0.008}_{-0.006}$ &        $0.062^{+0.010}_{-0.009}$  \\ 
+ \hline
+    $15 < p_{T} <= 20$ &        $0.092^{+0.008}_{-0.007}$ &        $0.062^{+0.008}_{-0.007}$ &        $0.045^{+0.007}_{-0.006}$ &        $0.055^{+0.008}_{-0.007}$  \\ 
+ \hline
+    $20 < p_{T} <= 25$ &        $0.120^{+0.008}_{-0.007}$ &        $0.119^{+0.010}_{-0.009}$ &        $0.112^{+0.009}_{-0.008}$ &        $0.115^{+0.009}_{-0.009}$  \\ 
+ \hline
+    $25 < p_{T} <= 30$ &        $0.108^{+0.009}_{-0.008}$ &        $0.092^{+0.011}_{-0.010}$ &        $0.090^{+0.009}_{-0.008}$ &        $0.121^{+0.011}_{-0.010}$  \\ 
+ \hline
+    $30 < p_{T} <= 35$ &        $0.124^{+0.011}_{-0.010}$ &        $0.131^{+0.014}_{-0.013}$ &        $0.106^{+0.011}_{-0.011}$ &        $0.129^{+0.013}_{-0.012}$  \\ 
+ \hline
+
+
+\end{tabular}
+\caption{Electron fake rate in $\eta$-$p_T$ for the V4 fakeable object definition using 1.545 \ifb of data up to LeptonPhoton 2011 cutoff. 
+Uncertainties are statistical only. A combination of the {\bf Ele8\_CaloIdL\_CaloIsoVL}, {\bf Ele17\_CaloIdL\_CaloIsoVL}, 
+{\bf Ele8\_CaloIdL\_CaloIsoVL\_Jet40} triggers are used, with a $p_{T}$ threshold on the leading jet in
+the event of $35$ GeV. }
+\label{tab:ele_fr_V4_jet35_LP2011}
+\end{center}
+\end{table}
+
+
+
