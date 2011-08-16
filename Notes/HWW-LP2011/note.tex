@@ -38,13 +38,18 @@ We advocate the use of this requirement in future iterations of this analysis.
 \tableofcontents
 \clearpage
 
+
+%%%%%%%%%%%%%
+% MAIN NOTE
+
+
 %===================================================================================================
 % Introduction
-\section{Update Summary}
+\section{Summary of Update}
 \input{lp_intro}
 %===================================================================================================
 % Conclusion
-\section{Update Conclusions}
+\subsection{Conclusion}
 \input{lp_conclusions}
 
 %%%%%%%%%%%%%
@@ -53,52 +58,46 @@ We advocate the use of this requirement in future iterations of this analysis.
 \appendix
 
 %===================================================================================================
-% Comparison of limits
-\section{Limits}
-\input{lp_limitsummary}
-
+% Scale Factors
+\clearpage
+\section{Data to Simulation Scale Factors}
+\input{lp_scalefactors}
+%===================================================================================================
+% Background Estimation tables
+\section{Background Estimation}
+\label{app:lp_bkgestim}
+\input{lp_bkgestim}
 %===================================================================================================
 % Comparison of yields
 \pagebreak
 \clearpage
 \section{Yields}
 \input{lp_yields}
-
 %===================================================================================================
-% Scale Factors
+% Comparison of limits
 \clearpage
-\section{Data to Simulation Scale Factors}
-\input{lp_scalefactors}
-
+\section{Limits}
+\input{lp_limitsummary}
 %===================================================================================================
-% Background Estimation tables
-\section{Background Estimation}
-\label{app:lp_bkgestim}
-\input{lp_bkgestim}
-
+% Validation plots
+\clearpage
 \section{Data Validation Plots}
 \label{app:lp_postEPSdist}
 \input{lp_postEPSdist}
-
-%%      \subsection{Background Estimation for \lpintlumi}
-%%     \label{app:lp_bkgestim}
-%%      \input{lp_bkgestim}
-
-%%      \subsection{Final limits for \lpintlumi}
-%%     \label{app:lp_limits}
-%%      \input{lp_limits}
-
-
-%%     \subsection{MVA output plots}
-%%     \label{app:lp_mvaplots}
-%%     \input{lp_mvaplots_eps}
-%%     \input{lp_mvaplots_posteps}
-%%     \input{lp_mvaplots_lp}
-%%     \input{lp_mvaplots_lp80p}
-%%     \input{lp_mvaplots_lp80m}
-
+%===================================================================================================
+% MVA output
 \clearpage
+\section{MVA output plots}
+\label{app:lp_mvaplots}
+\input{lp_mvaplots_eps}
+\input{lp_mvaplots_posteps}
+\input{lp_mvaplots_lp}
+\input{lp_mvaplots_lp80p}
+\input{lp_mvaplots_lp80m}
 
+%%%%%%%%%%%%%
+% BIBLIOGRAPHY
+\clearpage
 \input{biblio}
 
 \end{document}
