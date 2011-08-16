@@ -3,9 +3,12 @@ The rate for each background process is found to be stable in the EPS, post-EPS 
 
 \subsubsection{Drell-Yan}
 
+The Drell-Yan estimation method is based on the extrapolation of the same-flavour, opposite-charge events in the Z-peak ($N_{in}^{data}(DY)$) 
+to the signal region ($N_{out}^{data}(DY)$) based on the ratio $\langle R_{out/in} \rangle$ which is obtained from MC and cross-checked in data.
+A full description of the method is found in Section~6.4 of~\cite{epsnote}.
+
 Table~\ref{tab:routin_lp_data_0j}-\ref{tab:routin_lp_data_1j} 
 shows the results for the Drell-Yan estimation in the zero and one jet bins in the LP dataset. 
-The method is described in Section~\ref{sec:bkg_dy}.
 The scale factors obtained in the EPS, post-EPS and LP datasets are compatible within the large uncertainties (Table~\ref{tab:lp_periods_dy}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -84,13 +87,23 @@ LP       & 3.02 $\pm$ 1.84 & 2.81 $\pm$ 1.40 & 4.84 $\pm$ 1.83 \\
 
 \subsubsection{Fake-induced background}
 
-The fake-induced background estimation on the LP dataset is reported in Table~\ref{tab:lp_fake_est} 
-(see Section~\ref{sec:bkg_fakes} for details on the method).
-A summary of the rate of fake events per \ifb~of data in the EPS, post-EPS and LP 
-is reported in Table~\ref{tab:lp_periods_fake}.
-The results agree between the datasets at the 1-2 sigma level.
+Background events due to non-prompt leptons are estimated with the ``fake rate'' method as descrbed in Section~6.2 of~\cite{epsnote}.
+This method is based on the measurement of the efficiency for a fake lepton to pass the analysis cuts (``fake rate''); 
+it is measured in a background enriched sample triggered by dedicated HLT bits and is characterized as a function of the lepton $p_T$ and $\eta$. 
+In order to get the number of events surviving the full analysis cuts, the fake rate is applied to the sample where the analysis cuts are 
+inverted for one of the two leptons (``pass+fail'').
+
+For the present studies, the fake rate measured on EPS data is used.
+The fake-induced background estimation on the LP dataset is reported in Table~\ref{tab:lp_fake_est}.
 The closure test on same-sign events gives good agreement with the expectations, 
 as shown in Table~\ref{tab:lp_FakeLeptonBkgPrediction_SameSignSample}.
+
+A summary of the rate of fake events per \ifb~of data in the EPS, post-EPS and LP 
+is reported in Table~\ref{tab:lp_periods_fake}.
+The results agree between the datasets at the 1-2 sigma level, with a smaller rate of fake-induced events in the 0-jet bin 
+and a higher rate in the 1-jet bin. 
+However, with the current statistical precision, it is not possible to conclude whether this is due to a large fluctuation or to a systematic 
+difference induced by different PU conditions.
 
 \begin{table}[!htbp]
 \begin{center}
@@ -113,22 +126,6 @@ The uncertainties are statistical only.}
 
 \begin{table}[!htbp]
 \begin{center}
-\begin{tabular}{c c c c}
-\hline
-Period & 0-jet bin & 1-jet bin & 2-jet bin \\
-\hline
-EPS      & 94.4 $\pm$ 4.4 & 34.2 $\pm$ 2.9 & 13.9 $\pm$ 1.9 \\
-post-EPS & 76.5 $\pm$ 6.3 & 42.6 $\pm$ 5.3 & 16.9 $\pm$ 3.6 \\
-LP       & 89.6 $\pm$ 3.7 & 36.4 $\pm$ 2.6 & 14.6 $\pm$ 1.7 \\
-\hline
-\end{tabular}
-\caption{Comparison of the number of fake-induced events per \ifb~of data in the EPS, post-EPS and LP datasets.}
-\label{tab:lp_periods_fake}
-\end{center}
-\end{table}
-
-\begin{table}[!htbp]
-\begin{center}
 \begin{tabular}{|l|c|c|}
 \hline
 Type                                                             & Yield \\
@@ -145,10 +142,30 @@ Fake background observed                                         & $64.0\pm9.7$ 
 \end{center}
 \end{table}
 
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c c c c}
+\hline
+Period & 0-jet bin & 1-jet bin & 2-jet bin \\
+\hline
+EPS      & 94.4 $\pm$ 4.4 & 34.2 $\pm$ 2.9 & 13.9 $\pm$ 1.9 \\
+post-EPS & 76.5 $\pm$ 6.3 & 42.6 $\pm$ 5.3 & 16.9 $\pm$ 3.6 \\
+LP       & 89.6 $\pm$ 3.7 & 36.4 $\pm$ 2.6 & 14.6 $\pm$ 1.7 \\
+\hline
+\end{tabular}
+\caption{Comparison of the number of fake-induced events per \ifb~of data in the EPS, post-EPS and LP datasets.}
+\label{tab:lp_periods_fake}
+\end{center}
+\end{table}
+
 \subsubsection{Top}
 
+The top background is estimated with a technique based on a similar idea as the fake-induced background:
+the top tagging efficiency in the various jet bins is measured in top-enriched sample and then uses the number of top-tagged events to extract the top yield
+after the top veto according to the simple formula: $N_{top}^{veto}=N_{top}^{tag}(1-\epsilon_{tag})/\epsilon_{tag}$.
+Details on this method are reported in Section~6.3 of~\cite{epsnote}.
+
 Table~\ref{tab:lp_ttbar_est} summarizes the results for the top background estimation in the LP dataset. 
-The method described in details in Section~\ref{sec:bkg_top}.
 The scale factors for top background in EPS and post-EPS data are compatible within one sigma (Table~\ref{tab:lp_periods_top}).
 
 \begin{table}[!htbp]
@@ -191,9 +208,12 @@ LP       & 1.50 $\pm$ 0.24 & 1.15 $\pm$ 0.09 \\
 
 \subsubsection{WW}
 
+As described in Section~6.1 of~\cite{epsnote}, the WW background is estimated with a data-driven approach for $m_H\leq200$ \GeVcc analyses.
+The WW yield is measured in a signal-free sideband, defined as $m_{ll}>100$ \GeVcc, and then extrapolated to the signal region using the
+control-to-signal region ratio as estimated in the simulation. For $m_H>200$ \GeVcc analyses, the expected WW yield is taken from MC. 
+
 The data driven estimation of the WW background for the cut based and MVA based analyses 
 are summaried in Tables~\ref{tab:lp_wwEstimResData} and \ref{tab:lp_wwEstimResDataMVA} respectively. 
-They correspond to the full LP dataset (\lpintlumi) and follow the method described in Section~\ref{sec:bkg_ww}.
 The WW rate is stable in the EPS and post-EPS data samples (Table~\ref{tab:lp_periods_ww}).
 
 \begin{table}[!htbp]
