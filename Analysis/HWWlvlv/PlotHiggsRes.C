@@ -35,9 +35,9 @@ int    verboseLevel =   0;
 const double sigmaB = 0.35;
 
 //------------------------------------------------------------------------------
-// PlotHiggsRes_LP
+// PlotHiggsRes
 //------------------------------------------------------------------------------
-void PlotHiggsRes_LP
+void PlotHiggsRes
 (
  UInt_t  nJetsType   	 = 0,
  UInt_t  mH      	 = 300,
