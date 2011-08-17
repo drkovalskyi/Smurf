@@ -1,14 +1,7 @@
-// R. Gonzalez & G. Gomez-Ceballos
-// macro used for HWW
 #include "TStyle.h"
-// nsel = 0 --> only backgrounds
-//        1 --> only for ww cut evolution
-//        2 --> signal on top of background
-//        3 --> signal separated from background
-//        4 --> signal on top of background and showing cut evolution
-void plot_data(int nsel = 0, int ReBin = 10, char XTitle[300] = "N_{jets}", char units[300] = "", 
-                char plotName[300] = "histo_tmva_ntuples_160train_0jets_hww160_chan4", char outputName[300] = "njets",
-                bool isLogY = false, char MassH[300] = "160") {
+void plot_data(int nsel = 0, int ReBin = 10, char XTitle[300] = "MVA Output", char units[300] = "", 
+                char plotName[300] = "histo_tmva_ntuples_140train_1jets_hww140_chan5.root", char outputName[300] = "njets",
+                bool isLogY = false, char MassH[300] = "140") {
    
   gROOT->SetStyle("Plain");
   setTDRStyle();
@@ -19,7 +12,7 @@ void plot_data(int nsel = 0, int ReBin = 10, char XTitle[300] = "N_{jets}", char
   TFile *_file0;
   
   char myRootFile[300];
-  sprintf(myRootFile,"%s.root",plotName);
+  sprintf(myRootFile,"%s",plotName);
   cout << myRootFile<<endl;
   TFile *_file0 = TFile::Open(myRootFile);
 
@@ -163,8 +156,8 @@ void plot_data(int nsel = 0, int ReBin = 10, char XTitle[300] = "N_{jets}", char
   leg ->Draw();
   char myOutputFile[300];
 
-  //sprintf(myOutputFile,"plots/%s.eps",outputName);
-  //c1->SaveAs(myOutputFile);
+  sprintf(myOutputFile,"plots/%s.eps",outputName);
+  c1->SaveAs(myOutputFile);
   //sprintf(myOutputFile,"plots/%s.png",outputName);
   //c1->SaveAs(myOutputFile);
   sprintf(myOutputFile,"plots/%s.pdf",outputName);

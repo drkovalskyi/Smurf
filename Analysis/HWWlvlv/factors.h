@@ -9,6 +9,7 @@ double enhancementFactor(double mass, bool isBRFactor = false);
 double fakeRate(double pt, double eta, TH2D *fhDFRMu, TH2D *fhDFREl, int fm, int fe);
 double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, int lid, int syst = 0);
 double hzz2l_cuts(double mass, int opt);
+double nVtxScaleFactor(TH1D *fhDNvtx, int nvtx);
 
 void atributes(TH1D *histo, Char_t xtitle[], Int_t COLOR, Char_t ytitle[]){
   //InitHist(histo,xtitle,ytitle);
@@ -50,6 +51,12 @@ double Sc12_sys = 2*(sqrt(sig+bkg)-sqrt(bkg+delta_b))*fac2;
 return Sc12_sys;
 //double Sc12_sys = sig/sqrt(bkg+sigma_b*sigma_b+0.0*delta_b);
 //return Sc12_sys;
+}
+
+double nVtxScaleFactor(TH1D *fhDNvtx, int nvtx){
+  double mynvtx = TMath::Min((double)nvtx,19.499);
+  Int_t nvtxbin = fhDNvtx->GetXaxis()->FindBin(mynvtx);
+  return fhDNvtx->GetBinContent(nvtxbin);
 }
 
 double scaleFactor(double pt1, double eta1, double pt2, double eta2, int type, int nsel){
@@ -118,8 +125,8 @@ double scaleFactor(double pt1, double eta1, double pt2, double eta2, int type, i
     else if(type ==14) weight = weight * 0.09563;
     else if(type ==15) weight = weight * 0.08367;
     else if(type ==16) weight = weight * 0.05418;
-    else if(type ==17) weight = weight * 0.04891	;
-    else if(type ==18) weight = weight * 0.03515	;
+    else if(type ==17) weight = weight * 0.04891;
+    else if(type ==18) weight = weight * 0.03515;
     else if(type >=19) weight = weight * 0.01000;
   }
   else if(nsel == 3){ // momentum scale factor
@@ -237,15 +244,15 @@ double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, i
     Int_t ptbin = fhDEffMu->GetXaxis()->FindBin(mypt);
     Int_t etabin = fhDEffMu->GetYaxis()->FindBin(myeta);	 
     prob = fhDEffMu->GetBinContent(ptbin,etabin);
-    if     (syst > 0) prob += fhDEffMu->GetBinError(ptbin,etabin);
-    else if(syst < 0) prob -= fhDEffMu->GetBinError(ptbin,etabin);
+    if     (syst > 0) prob = prob + fhDEffMu->GetBinError(ptbin,etabin) + 0.01;
+    else if(syst < 0) prob = prob - fhDEffMu->GetBinError(ptbin,etabin) - 0.01;
   }
   else if(TMath::Abs(lid) == 11){
     Int_t ptbin = fhDEffEl->GetXaxis()->FindBin(mypt);
     Int_t etabin = fhDEffEl->GetYaxis()->FindBin(myeta);	 
     prob = fhDEffEl->GetBinContent(ptbin,etabin);
-    if     (syst > 0) prob += fhDEffEl->GetBinError(ptbin,etabin);
-    else if(syst < 0) prob -= fhDEffEl->GetBinError(ptbin,etabin);
+    if     (syst > 0) prob = prob + fhDEffEl->GetBinError(ptbin,etabin) + 0.01;
+    else if(syst < 0) prob = prob - fhDEffEl->GetBinError(ptbin,etabin) - 0.01;
   }
   return prob;
 }
