@@ -14,6 +14,8 @@ export WEIGHTSONLY=$3;
 
 export TAG=ntuples_${MH}train_${NJETS}jets;
 export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
+#export TAG=TEST_ntuples_${MH}train_${NJETS}jets;
+#export METHODS=KNN,Likelihood,LikelihoodD,MLPBNN,BDTG;
 
 ### Training: change done hand made, it's an expert option
 export trainMVA_smurfFile=trainMVA_smurf.C+;
@@ -36,21 +38,43 @@ if [ ${DO_TRAINING} == "1" ]; then
   mkdir -p weights;
   root -l -q -b ${trainMVA_smurfFile}\(${NJETS},\"${SIG_TRAIN}\",\"${BKG_TRAIN}\",\"${TAG}\",\"${METHODS}\",${MH}\);
 fi
-#exit;
 
 ### Fill MVA output information
 ### MVA output is available in "weights" folder
 ### an arbitrary list of samples can be added
 ### samples must be in "data" folder
-#data/data_2l.root
-#data/hww${MH}.root
-#data/background42x_spring11dy.root
-#data/background42x.root
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-data/data_2l_pmetveto_zveto.root
-data/background42x_pmetveto_zveto.root
+data/backgroundA_3l.root
+data/backgroundA.root
+data/backgroundA_skim1.root
+data/backgroundA_skim2.root
+data/backgroundB.root
+data/backgroundB_skim1.root
+data/backgroundB_skim2.root
+data/data_2fake.root
+data/data_2l.root
+data/data_2l_skim1.root
+data/data_2l_skim2.root
+data/data_lfake.root
+data/dyee.root
+data/dymm.root
+data/dytt.root
+data/ggww.root
+data/mc_l_fake_pu.root
+data/qqww.root
+data/ttbar_mg.root
+data/ttbar.root
+data/tw_ds.root
+data/tw.root
+data/wgamma.root
+data/wjets.root
+data/ww2l_pythia.root
+data/wz_py.root
+data/wz.root
+data/zz.root
 data/hww${MH}.root
+data/hzz${MH}.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf_hww.C+;

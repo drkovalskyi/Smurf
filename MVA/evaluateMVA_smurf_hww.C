@@ -21,6 +21,8 @@
 #include "TStopwatch.h"
 #include "TChain.h"
 #include "TChainElement.h"
+#include "TBranch.h"
+#include "TRandom.h"
 
 #include "Math/LorentzVector.h"
 #include "Math/VectorUtil.h"
@@ -37,6 +39,7 @@
 #include "/home/ceballos/releases/CMSSW_4_2_2/src/Smurf/Analysis/HWWlvlv/factors.h"
 #endif
 
+using namespace std;
 using namespace TMVA;
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
@@ -220,7 +223,6 @@ bool doShapes        = true
 
     // Beging Reading files, harmless if weights aren't used
     // This is for 42X
-    /*
     TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root");
     TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
     TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
@@ -229,14 +231,14 @@ bool doShapes        = true
     fLeptonEffFile->Close();
     delete fLeptonEffFile;
 
-    TFile *fLeptonFRFileM = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.root");
+    TFile *fLeptonFRFileM = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root");
     TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
     assert(fhDFRMu);
     fhDFRMu->SetDirectory(0);
     fLeptonFRFileM->Close();
     delete fLeptonFRFileM;
 
-    TFile *fLeptonFRFileE = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.root");
+    TFile *fLeptonFRFileE = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root");
     TH2D *fhDFREl = (TH2D*)(fLeptonFRFileE->Get("ElectronFakeRate_V4_ptThreshold35_PtEta"));
     assert(fhDFREl);
     fhDFREl->SetDirectory(0);
@@ -251,9 +253,21 @@ bool doShapes        = true
     fhDNvtx->SetDirectory(0);
     fNvtxFile->Close();
     delete fNvtxFile;
-    */
+
+    TFile *fPUS3File = TFile::Open("/home/ceballos/releases/CMSSW_4_2_2/src/MitPhysics/data/puWeights_PU3_68mb.root");
+    TH1D *fhDPUS3 = (TH1D*)(fPUS3File->Get("puWeights"));
+    assert(fhDPUS3);
+    fhDPUS3->SetDirectory(0);
+    delete fPUS3File;
+
+    TFile *fPUS4File = TFile::Open("/home/ceballos/releases/CMSSW_4_2_2/src/MitPhysics/data/puWeights_PU4_68mb.root");
+    TH1D *fhDPUS4 = (TH1D*)(fPUS4File->Get("puWeights"));
+    assert(fhDPUS4);
+    fhDPUS4->SetDirectory(0);
+    delete fPUS4File;
 
     // This is for 41X
+    /*
     TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/EPS/auxiliar/efficiency_results_v6.root");
     TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
     TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
@@ -284,6 +298,7 @@ bool doShapes        = true
     fhDNvtx->SetDirectory(0);
     fNvtxFile->Close();
     delete fNvtxFile;
+    */
 
     int newMH = mH;
     if(newMH == 110) newMH = 115; // there is no correction for mh=110!
@@ -459,11 +474,9 @@ bool doShapes        = true
     TChain *ch = new TChain("tree");
     ch -> Add( Form("%s" , samples.at(i)) );
 
-    TFile *f = TFile::Open( Form("%s" , samples.at(i)) );
-    assert(f);
-    TTree* t = (TTree*)f->Get("tree");
-    assert(t);
-    t->SetBranchStatus("*", 1);
+    SmurfTree smurfTree;
+    smurfTree.LoadTree(samples.at(i),-1);
+    smurfTree.InitTree(0);
 
     TString ofn(samples.at(i));
     ofn.ReplaceAll("data/","");
@@ -471,9 +484,9 @@ bool doShapes        = true
     TFile *out;
     if(outTag != "") out = TFile::Open( Form("%s/%s_%s" , mydir, outTag.Data(), ofn.Data() ) ,"RECREATE" );
     else             out = TFile::Open( Form("%s/%s"    , mydir,                ofn.Data() ) ,"RECREATE" );
-    TTree *clone;
-    clone = t->CloneTree(-1, "fast");
-   
+    out->cd();
+    TTree *clone = smurfTree.tree_->CloneTree(0);
+ 
     Float_t bdt;
     Float_t bdtd;
     Float_t nn;
@@ -482,11 +495,6 @@ bool doShapes        = true
     Float_t bdtg_aux0;
     Float_t bdtg_aux1;
     Float_t bdtg_aux2;
-    Float_t sfWeightFR   = 1.0;
-    Float_t sfWeightPU   = 1.0;
-    Float_t sfWeightEff  = 1.0;
-    Float_t sfWeightTrig = 1.0;
-    Float_t sfWeightHPt  = 1.0;
 
     TBranch* br_bdt        = 0;
     TBranch* br_bdtd       = 0;
@@ -496,11 +504,6 @@ bool doShapes        = true
     TBranch* br_bdtg_aux0  = 0;
     TBranch* br_bdtg_aux1  = 0;
     TBranch* br_bdtg_aux2  = 0;
-    TBranch* br_sfWeightFR   = clone->Branch(Form("sfWeightFR"),      &sfWeightFR     , Form("sfWeightFR/F"));
-    TBranch* br_sfWeightPU   = clone->Branch(Form("sfWeightPU"),      &sfWeightPU     , Form("sfWeightPU/F"));
-    TBranch* br_sfWeightTrig = clone->Branch(Form("sfWeightTrig"),    &sfWeightTrig   , Form("sfWeightTrig/F"));
-    TBranch* br_sfWeightEff  = clone->Branch(Form("sfWeightEff"),     &sfWeightEff    , Form("sfWeightEff/F"));
-    TBranch* br_sfWeightHPt  = clone->Branch(Form("sfWeightHPt"),     &sfWeightHPt    , Form("sfWeightHPt/F"));
 
     if(Use["BDT"])         br_bdt        = clone->Branch(Form("bdt_hww%i_%djet_ww"  ,mH,njet) , &bdt   , Form("bdt_hww%i_%djet_ww/F"   ,mH,njet) );
     if(Use["BDTD"])        br_bdtd       = clone->Branch(Form("bdtd_hww%i_%djet_ww" ,mH,njet) , &bdtd  , Form("bdtd_hww%i_%djet_ww/F"  ,mH,njet) );
@@ -527,233 +530,144 @@ bool doShapes        = true
     //   but of course you can use different ones and copy the values inside the event loop
     //
   
-    TTree *theTree     = (TTree*) ch;
-
-    std::cout << "--- Using input files: -------------------" <<  std::endl;
-
-    TObjArray *listOfFiles = ch->GetListOfFiles();
-    TIter fileIter(listOfFiles);
-    TChainElement* currentFile = 0;
-    
-    while((currentFile = (TChainElement*)fileIter.Next())) {
-      std::cout << currentFile->GetTitle() << std::endl;
-    }
-
-    UInt_t	    cuts_;
-    UInt_t	    dstype_;
-    UInt_t	    nvtx_;
-    UInt_t          event_;
-    Float_t         scale1fb_;
-    LorentzVector*  lep1_   = 0;
-    LorentzVector*  lep2_   = 0;
-    LorentzVector*  lep3_   = 0;
-    Float_t         dPhi_;
-    Float_t         dR_;
-    LorentzVector*  dilep_  = 0;
-    UInt_t          type_;
-    Float_t         pmet_;
-    Float_t         met_;
-    Float_t         mt_;
-    Float_t         mt1_;
-    Float_t         mt2_;
-    Float_t         dPhiLep1MET_;
-    Float_t         dPhiLep2MET_;
-    Float_t         dPhiDiLepMET_;
-    Float_t         dPhiDiLepJet1_;
-    Int_t	    lid1_;
-    Int_t	    lid2_;
-    Int_t	    lid3_;
-    Float_t         metPhi_;
-    Float_t         trackMet_;
-    Float_t         trackMetPhi_;
-    UInt_t          njets_;
-    LorentzVector*  jet1_ = 0;
-    Int_t	    lep1McId_;  
-    Int_t	    lep2McId_;  
-    Int_t	    lep3McId_;  
-    Int_t	    processId_; 
-    Float_t	    higgsPt_;   
-  
-    theTree->SetBranchAddress( "cuts"	      , &cuts_	       );
-    theTree->SetBranchAddress( "dstype"       , &dstype_       );
-    theTree->SetBranchAddress( "nvtx"	      , &nvtx_	       );
-    theTree->SetBranchAddress( "event"        , &event_        );
-    theTree->SetBranchAddress( "scale1fb"     , &scale1fb_     );
-    theTree->SetBranchAddress( "lep1"         , &lep1_         );
-    theTree->SetBranchAddress( "lep2"         , &lep2_         );
-    theTree->SetBranchAddress( "lep3"         , &lep3_         );
-    theTree->SetBranchAddress( "dPhi"         , &dPhi_         );
-    theTree->SetBranchAddress( "dR"           , &dR_           );
-    theTree->SetBranchAddress( "dilep"        , &dilep_        );
-    theTree->SetBranchAddress( "type"         , &type_         );
-    theTree->SetBranchAddress( "pmet"         , &pmet_         );
-    theTree->SetBranchAddress( "met"          , &met_          );
-    theTree->SetBranchAddress( "mt"           , &mt_           );
-    theTree->SetBranchAddress( "mt1"          , &mt1_          );
-    theTree->SetBranchAddress( "mt2"          , &mt2_          );
-    theTree->SetBranchAddress( "dPhiLep1MET"  , &dPhiLep1MET_  );
-    theTree->SetBranchAddress( "dPhiLep2MET"  , &dPhiLep2MET_  );
-    theTree->SetBranchAddress( "dPhiDiLepMET" , &dPhiDiLepMET_ );
-    theTree->SetBranchAddress( "dPhiDiLepJet1", &dPhiDiLepJet1_);
-    theTree->SetBranchAddress( "lid1"	      , &lid1_	       );
-    theTree->SetBranchAddress( "lid2"	      , &lid2_	       );
-    theTree->SetBranchAddress( "lid3"	      , &lid3_	       );
-    theTree->SetBranchAddress( "metPhi"       , &metPhi_       );
-    theTree->SetBranchAddress( "trackMet"     , &trackMet_     );
-    theTree->SetBranchAddress( "trackMetPhi"  , &trackMetPhi_  );
-    theTree->SetBranchAddress( "njets"        , &njets_        );
-    theTree->SetBranchAddress( "jet1"         , &jet1_         );
-    theTree->SetBranchAddress( "lep1McId"     , &lep1McId_     );
-    theTree->SetBranchAddress( "lep2McId"     , &lep2McId_     );
-    theTree->SetBranchAddress( "lep3McId"     , &lep3McId_     );
-    theTree->SetBranchAddress( "processId"    , &processId_    );
-    theTree->SetBranchAddress( "higgsPt"      , &higgsPt_      );
-
     // Efficiency calculator for cut method
     Int_t    nSelCutsGA = 0;
     Double_t effS       = 0.7;
 
     std::vector<Float_t> vecVar(4); // vector for EvaluateMVA tests
 
-    std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
+    std::cout << "--- Processing: " << smurfTree.tree_->GetEntries() << " events" << std::endl;
     TStopwatch sw;
     sw.Start();
 
     int npass   = 0;
     float yield = 0.;
 
-    for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
+    for (Long64_t ievt=0; ievt<smurfTree.tree_->GetEntries();ievt++) {
 
       if (ievt%10000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
 
-      theTree->GetEntry(ievt);
+      smurfTree.tree_->GetEntry(ievt);
 
       //--------------------------------------------------------
       // important: here we associate branches to MVA variables
       //--------------------------------------------------------
 
-      lep1pt         = lep1_->pt();   //  0
-      lep2pt         = lep2_->pt();   //  1
-      dPhi           = dPhi_;         //  2
-      dR             = dR_;           //  3
-      dilmass        = dilep_->mass();//  4
-      type           = type_;	      //  5
-      pmet           = pmet_;	      //  6
-      met            = met_;	      //  7
-      mt             = mt_;	      //  8
-      mt1            = mt1_;	      //  9
-      mt2            = mt2_;	      // 10
-      dPhiLep1MET    = dPhiLep1MET_;  // 11
-      dPhiLep2MET    = dPhiLep2MET_;  // 12
-      dPhiDiLepMET   = dPhiDiLepMET_; // 13
-      dPhiDiLepJet1  = dPhiDiLepJet1_;// 14
+      lep1pt         = smurfTree.lep1_.pt();    //  0
+      lep2pt         = smurfTree.lep2_.pt();    //  1
+      dPhi           = smurfTree.dPhi_;         //  2
+      dR             = smurfTree.dR_;           //  3
+      dilmass        = smurfTree.dilep_.mass(); //  4
+      type           = smurfTree.type_;	        //  5
+      pmet           = smurfTree.pmet_;	        //  6
+      met            = smurfTree.met_;	        //  7
+      mt             = smurfTree.mt_;	        //  8
+      mt1            = smurfTree.mt1_;	        //  9
+      mt2            = smurfTree.mt2_;	        // 10
+      dPhiLep1MET    = smurfTree.dPhiLep1MET_;  // 11
+      dPhiLep2MET    = smurfTree.dPhiLep2MET_;  // 12
+      dPhiDiLepMET   = smurfTree.dPhiDiLepMET_; // 13
+      dPhiDiLepJet1  = smurfTree.dPhiDiLepJet1_;// 14
 
       npass++;
-      yield+=scale1fb_;
+      yield+=smurfTree.scale1fb_;
 
       // --- Return the MVA outputs and weights
 
       if(doWeights == true){
-        int nFake  = 0;
-        if(dstype_ == SmurfTree::data){
-          if(((cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-          if(((cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-          if(((cuts_ & SmurfTree::Lep3LooseMuV2)  == SmurfTree::Lep3LooseMuV2)  && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
-          if(((cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-          if(((cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-          if(((cuts_ & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4) && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
-        } else { // THIS IS A HACK!
-          if(((cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-          if(((cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-          if(((cuts_ & SmurfTree::Lep3LooseMuV2)  == SmurfTree::Lep3LooseMuV2)  && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
-          if(((cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-          if(((cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-          if(((cuts_ & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4) && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
-	}
+	int nFake  = 0;
+        if(((smurfTree.cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (smurfTree.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
+        if(((smurfTree.cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (smurfTree.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+        if(((smurfTree.cuts_ & SmurfTree::Lep3LooseMuV2)  == SmurfTree::Lep3LooseMuV2)  && (smurfTree.cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
+        if(((smurfTree.cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (smurfTree.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
+        if(((smurfTree.cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (smurfTree.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+        if(((smurfTree.cuts_ & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4) && (smurfTree.cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
 	if(nFake > 2){
-          sfWeightFR   = 0.0;
-          sfWeightPU   = 0.0;
-          sfWeightEff  = 0.0;
-          sfWeightTrig = 0.0;
-          sfWeightHPt  = 0.0;
+          smurfTree.sfWeightFR_   = 0.0;
+          smurfTree.sfWeightPU_   = 0.0;
+          smurfTree.sfWeightEff_  = 0.0;
+          smurfTree.sfWeightTrig_ = 0.0;
+          smurfTree.sfWeightHPt_  = 0.0;
         }
         else if(nFake > 0){
-          if(dstype_ == SmurfTree::data){
-            sfWeightFR = 1.0;
-            sfWeightFR = sfWeightFR*fakeRate(lep1_->pt(), lep1_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
-        										  (cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
-            sfWeightFR = sfWeightFR*fakeRate(lep2_->pt(), lep2_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
-        										  (cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
-            if((cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto && lid3_ != 0)
-            sfWeightFR = sfWeightFR*fakeRate(lep3_->pt(), lep3_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep3LooseMuV2)  == SmurfTree::Lep3LooseMuV2  && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection,
-        										  (cuts_ & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4 && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection);
-            if(nFake > 1) sfWeightFR = -1.0 * sfWeightFR;
-            sfWeightPU   = 1.0;
-            sfWeightEff  = 1.0;
-            sfWeightTrig = 1.0;
-            sfWeightHPt  = 1.0;
+          if(smurfTree.dstype_ == SmurfTree::data){
+            smurfTree.sfWeightFR_ = 1.0;
+            smurfTree.sfWeightFR_ = smurfTree.sfWeightFR_*fakeRate(smurfTree.lep1_.pt(), smurfTree.lep1_.eta(), fhDFRMu, fhDFREl, (smurfTree.cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (smurfTree.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
+        										  (smurfTree.cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (smurfTree.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
+            smurfTree.sfWeightFR_ = smurfTree.sfWeightFR_*fakeRate(smurfTree.lep2_.pt(), smurfTree.lep2_.eta(), fhDFRMu, fhDFREl, (smurfTree.cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (smurfTree.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
+        										  (smurfTree.cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (smurfTree.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
+            if((smurfTree.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto && smurfTree.lid3_ != 0)
+            smurfTree.sfWeightFR_ = smurfTree.sfWeightFR_*fakeRate(smurfTree.lep3_.pt(), smurfTree.lep3_.eta(), fhDFRMu, fhDFREl, (smurfTree.cuts_ & SmurfTree::Lep3LooseMuV2)  == SmurfTree::Lep3LooseMuV2  && (smurfTree.cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection,
+        										  (smurfTree.cuts_ & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4 && (smurfTree.cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection);
+            if(nFake > 1) smurfTree.sfWeightFR_ = -1.0 * smurfTree.sfWeightFR_;
+            smurfTree.sfWeightPU_   = 1.0;
+            smurfTree.sfWeightEff_  = 1.0;
+            smurfTree.sfWeightTrig_ = 1.0;
+            smurfTree.sfWeightHPt_  = 1.0;
           }
-          else if((TMath::Abs(lep1McId_)*TMath::Abs(lep2McId_) > 0                       && (cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto) || dstype_ == SmurfTree::wgamma || 
-        	  (TMath::Abs(lep1McId_)*TMath::Abs(lep2McId_)*TMath::Abs(lep3McId_) > 0 && (cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto)){
-            sfWeightFR = 1.0;
-            sfWeightFR = sfWeightFR*fakeRate(lep1_->pt(), lep1_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
-        										  (cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
-            sfWeightFR = sfWeightFR*fakeRate(lep2_->pt(), lep2_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
-        										  (cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
-            if((cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto && lid3_ != 0)
-            sfWeightFR = sfWeightFR*fakeRate(lep3_->pt(), lep3_->eta(), fhDFRMu, fhDFREl, (cuts_ & SmurfTree::Lep3LooseMuV2)  == SmurfTree::Lep3LooseMuV2  && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection,
-        										  (cuts_ & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4 && (cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection);
-            sfWeightFR = -1.0 * sfWeightFR;
-            if(nFake > 1) sfWeightFR = -1.0 * sfWeightFR;
+          else if((TMath::Abs(smurfTree.lep1McId_)*TMath::Abs(smurfTree.lep2McId_) > 0                                 && (smurfTree.cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto) || smurfTree.dstype_ == SmurfTree::wgamma || 
+        	  (TMath::Abs(smurfTree.lep1McId_)*TMath::Abs(smurfTree.lep2McId_)*TMath::Abs(smurfTree.lep3McId_) > 0 && (smurfTree.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto)){
+            smurfTree.sfWeightFR_ = 1.0;
+            smurfTree.sfWeightFR_ = smurfTree.sfWeightFR_*fakeRate(smurfTree.lep1_.pt(), smurfTree.lep1_.eta(), fhDFRMu, fhDFREl, (smurfTree.cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (smurfTree.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
+        										  (smurfTree.cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (smurfTree.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
+            smurfTree.sfWeightFR_ = smurfTree.sfWeightFR_*fakeRate(smurfTree.lep2_.pt(), smurfTree.lep2_.eta(), fhDFRMu, fhDFREl, (smurfTree.cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (smurfTree.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
+        										  (smurfTree.cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (smurfTree.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
+            if((smurfTree.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto && smurfTree.lid3_ != 0)
+            smurfTree.sfWeightFR_ = smurfTree.sfWeightFR_*fakeRate(smurfTree.lep3_.pt(), smurfTree.lep3_.eta(), fhDFRMu, fhDFREl, (smurfTree.cuts_ & SmurfTree::Lep3LooseMuV2)  == SmurfTree::Lep3LooseMuV2  && (smurfTree.cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection,
+        										  (smurfTree.cuts_ & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4 && (smurfTree.cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection);
+            smurfTree.sfWeightFR_ = -1.0 * smurfTree.sfWeightFR_;
+            if(nFake > 1) smurfTree.sfWeightFR_ = -1.0 * smurfTree.sfWeightFR_;
 
-            sfWeightPU = nVtxScaleFactor(fhDNvtx,nvtx_);
+            //smurfTree.sfWeightPU_ = nVtxScaleFactor(fhDNvtx,nvtx_);
+            smurfTree.sfWeightPU_ = nPUScaleFactor(fhDPUS4,smurfTree.npu_);
 
-            sfWeightEff = 1.0;
-            sfWeightEff = sfWeightEff*leptonEfficiency(lep1_->pt(), lep1_->eta(), fhDEffMu, fhDEffEl, lid1_);
-            sfWeightEff = sfWeightEff*leptonEfficiency(lep2_->pt(), lep2_->eta(), fhDEffMu, fhDEffEl, lid2_);
-            if((cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto && lid3_ != 0)
-              sfWeightEff = sfWeightEff*leptonEfficiency(lep3_->pt(), lep3_->eta(), fhDEffMu, fhDEffEl, lid3_);
+            smurfTree.sfWeightEff_ = 1.0;
+            smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep1_.pt(), smurfTree.lep1_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid1_);
+            smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep2_.pt(), smurfTree.lep2_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid2_);
+            if((smurfTree.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto && smurfTree.lid3_ != 0)
+              smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep3_.pt(), smurfTree.lep3_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid3_);
 
-            sfWeightTrig = 1.0;
-            if((cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto)
-              sfWeightTrig = trigLookup.GetExpectedTriggerEfficiency(fabs(lep1_->eta()), lep1_->pt() , 
-        								fabs(lep2_->eta()), lep2_->pt(), 
-        								TMath::Abs( lid1_), TMath::Abs(lid2_));
-            sfWeightHPt     = 1.0;
+            smurfTree.sfWeightTrig_ = 1.0;
+            if((smurfTree.cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto)
+              smurfTree.sfWeightTrig_ = trigLookup.GetExpectedTriggerEfficiency(fabs(smurfTree.lep1_.eta()), smurfTree.lep1_.pt() , 
+        								fabs(smurfTree.lep2_.eta()), smurfTree.lep2_.pt(), 
+        								TMath::Abs( smurfTree.lid1_), TMath::Abs(smurfTree.lid2_));
+            smurfTree.sfWeightHPt_     = 1.0;
           }
           else {
-            sfWeightFR   = 0.0;
-            sfWeightPU   = 0.0;
-            sfWeightEff  = 0.0;
-            sfWeightTrig = 0.0;
-            sfWeightHPt  = 0.0;
+            smurfTree.sfWeightFR_   = 0.0;
+            smurfTree.sfWeightPU_   = 0.0;
+            smurfTree.sfWeightEff_  = 0.0;
+            smurfTree.sfWeightTrig_ = 0.0;
+            smurfTree.sfWeightHPt_  = 0.0;
           }
         }
-        else if(dstype_ != SmurfTree::data){
-          sfWeightFR = 1.0;
-          sfWeightPU = nVtxScaleFactor(fhDNvtx,nvtx_);
+        else if(smurfTree.dstype_ != SmurfTree::data){
+          smurfTree.sfWeightFR_ = 1.0;
+          //smurfTree.sfWeightPU_ = nVtxScaleFactor(fhDNvtx,nvtx_);
+     	  if((smurfTree.processId_==10001 && mH != 200) || 
+     	      smurfTree.processId_==24  || smurfTree.processId_==26 || 
+	      smurfTree.processId_==121 || smurfTree.processId_==122){
+     	    smurfTree.sfWeightPU_ = nPUScaleFactor(fhDPUS3,smurfTree.npu_);
+     	  }
+     	  else {smurfTree.sfWeightPU_ = nPUScaleFactor(fhDPUS4,smurfTree.npu_);}
 
-          sfWeightEff = 1.0;
-          sfWeightEff = sfWeightEff*leptonEfficiency(lep1_->pt(), lep1_->eta(), fhDEffMu, fhDEffEl, lid1_);
-          sfWeightEff = sfWeightEff*leptonEfficiency(lep2_->pt(), lep2_->eta(), fhDEffMu, fhDEffEl, lid2_);
-          if((cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto && lid3_ != 0)
-            sfWeightEff = sfWeightEff*leptonEfficiency(lep3_->pt(), lep3_->eta(), fhDEffMu, fhDEffEl, lid3_);
+          smurfTree.sfWeightEff_ = 1.0;
+          smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep1_.pt(), smurfTree.lep1_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid1_);
+          smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep2_.pt(), smurfTree.lep2_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid2_);
+          if((smurfTree.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto && smurfTree.lid3_ != 0)
+            smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep3_.pt(), smurfTree.lep3_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid3_);
 
-          sfWeightTrig = 1.0;
-          if((cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto)
-            sfWeightTrig = trigLookup.GetExpectedTriggerEfficiency(fabs(lep1_->eta()), lep1_->pt() , 
-        						      fabs(lep2_->eta()), lep2_->pt(), 
-        						      TMath::Abs( lid1_), TMath::Abs(lid2_));
-          sfWeightHPt	  = 1.0;
-          if (processId_ == 10010) {
-            sfWeightHPt = sfWeightHPt * HiggsPtKFactor->GetBinContent( HiggsPtKFactor->GetXaxis()->FindFixBin(higgsPt_));
+          smurfTree.sfWeightTrig_ = 1.0;
+          if((smurfTree.cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto)
+            smurfTree.sfWeightTrig_ = trigLookup.GetExpectedTriggerEfficiency(fabs(smurfTree.lep1_.eta()), smurfTree.lep1_.pt() , 
+        						      fabs(smurfTree.lep2_.eta()), smurfTree.lep2_.pt(), 
+        						      TMath::Abs( smurfTree.lid1_), TMath::Abs(smurfTree.lid2_));
+          smurfTree.sfWeightHPt_	  = 1.0;
+          if (smurfTree.processId_ == 10010) {
+            smurfTree.sfWeightHPt_ = smurfTree.sfWeightHPt_ * HiggsPtKFactor->GetBinContent( HiggsPtKFactor->GetXaxis()->FindFixBin(smurfTree.higgsPt_));
           }
         }
-        br_sfWeightFR  ->Fill();
-        br_sfWeightPU  ->Fill();
-        br_sfWeightEff ->Fill();
-        br_sfWeightTrig->Fill();
-        br_sfWeightHPt ->Fill();
       }
 
       if (Use["BDT"]){
@@ -778,44 +692,44 @@ bool doShapes        = true
 
 	if(doShapes == true){ // momentum scale +
 	  double corr[2] = {1.0, 1.0};
-	  if     (TMath::Abs(lid1_) == 13){
+	  if     (TMath::Abs(smurfTree.lid2_) == 13){
             corr[0] = 1.01 + gRandom->Gaus(0.00,0.01);
 	  }
-	  else if(TMath::Abs(lid1_) == 11 && TMath::Abs(lep1_->eta()) <  1.479){
+	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
             corr[0] = 1.01 + gRandom->Gaus(0.00,0.02);
 	  }
-	  else if(TMath::Abs(lid1_) == 11 && TMath::Abs(lep1_->eta()) >= 1.479){
+	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
             corr[0] = 1.06 + gRandom->Gaus(0.00,0.06);
 	  }
-	  if     (TMath::Abs(lid2_) == 13){
+	  if     (TMath::Abs(smurfTree.lid2_) == 13){
             corr[1] = 1.01 + gRandom->Gaus(0.00,0.01);
 	  }
-	  else if(TMath::Abs(lid2_) == 11 && TMath::Abs(lep2_->eta()) <  1.479){
+	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
             corr[1] = 1.01 + gRandom->Gaus(0.00,0.02);
 	  }
-	  else if(TMath::Abs(lid2_) == 11 && TMath::Abs(lep2_->eta()) >= 1.479){
+	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
             corr[1] = 1.06 + gRandom->Gaus(0.00,0.06);
 	  }
-	  lep1pt = lep1_->pt()*corr[0]; // 0
-	  lep2pt = lep2_->pt()*corr[1]; // 1
-	  double pllx  = lep1_->px()*corr[0]+lep2_->px()*corr[1];
-	  double plly  = lep1_->py()*corr[0]+lep2_->py()*corr[1];
-	  double pllz  = lep1_->pz()*corr[0]+lep2_->pz()*corr[1];
-	  double ell   = lep1_->E()*corr[0] +lep2_->E() *corr[1];
+	  lep1pt = smurfTree.lep1_.pt()*corr[0]; // 0
+	  lep2pt = smurfTree.lep2_.pt()*corr[1]; // 1
+	  double pllx  = smurfTree.lep1_.px()*corr[0]+smurfTree.lep2_.px()*corr[1];
+	  double plly  = smurfTree.lep1_.py()*corr[0]+smurfTree.lep2_.py()*corr[1];
+	  double pllz  = smurfTree.lep1_.pz()*corr[0]+smurfTree.lep2_.pz()*corr[1];
+	  double ell   = smurfTree.lep1_.E()*corr[0] +smurfTree.lep2_.E() *corr[1];
 	  double llPhi = TMath::ATan2(plly,pllx);
 	  dilmass = ell*ell -pllx*pllx -plly*plly -pllz*pllz;
 	  if(dilmass >=0) dilmass = sqrt(dilmass); else dilmass = 0.0; // 4
 	  double pllt = sqrt(pllx*pllx+plly*plly);
-          pmet  	 = pmet_; //  6
-	  met		 = met_; //  7
-	  mt  = mt_*sqrt(pllt/dilep_->pt()); // 8
-          mt1 = mt1_*sqrt(corr[0]); // 9
-          mt2 = mt2_*sqrt(corr[1]); // 10
-          dPhiLep1MET = dPhiLep1MET_; // 11
-          dPhiLep2MET = dPhiLep2MET_; // 12
-	  dPhiDiLepMET = TMath::Abs(llPhi-metPhi_);
+          pmet  	 = smurfTree.pmet_; //  6
+	  met		 = smurfTree.met_; //  7
+	  mt  = smurfTree.mt_*sqrt(pllt/smurfTree.dilep_.pt()); // 8
+          mt1 = smurfTree.mt1_*sqrt(corr[0]); // 9
+          mt2 = smurfTree.mt2_*sqrt(corr[1]); // 10
+          dPhiLep1MET = smurfTree.dPhiLep1MET_; // 11
+          dPhiLep2MET = smurfTree.dPhiLep2MET_; // 12
+	  dPhiDiLepMET = TMath::Abs(llPhi-smurfTree.metPhi_);
 	  while(dPhiDiLepMET>TMath::Pi()) dPhiDiLepMET = TMath::Abs(dPhiDiLepMET - 2*TMath::Pi()); // 14
-	  dPhiDiLepJet1 = TMath::Abs(llPhi-jet1_->phi());
+	  dPhiDiLepJet1 = TMath::Abs(llPhi-smurfTree.jet1_.phi());
 	  while(dPhiDiLepJet1>TMath::Pi()) dPhiDiLepJet1 = TMath::Abs(dPhiDiLepJet1 - 2*TMath::Pi()); // 15
 
           bdtg_aux0  = reader->EvaluateMVA( "BDTG method" );
@@ -824,44 +738,44 @@ bool doShapes        = true
 
 	if(doShapes == true){ // momentum scale -
 	  double corr[2] = {1.0, 1.0};
-	  if     (TMath::Abs(lid1_) == 13){
+	  if     (TMath::Abs(smurfTree.lid2_) == 13){
             corr[0] = 0.99 - gRandom->Gaus(0.00,0.01);
 	  }
-	  else if(TMath::Abs(lid1_) == 11 && TMath::Abs(lep1_->eta()) <  1.479){
+	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
             corr[0] = 0.99 - gRandom->Gaus(0.00,0.02);
 	  }
-	  else if(TMath::Abs(lid1_) == 11 && TMath::Abs(lep1_->eta()) >= 1.479){
+	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
             corr[0] = 0.94 - gRandom->Gaus(0.00,0.06);
 	  }
-	  if     (TMath::Abs(lid2_) == 13){
+	  if     (TMath::Abs(smurfTree.lid2_) == 13){
             corr[1] = 0.99 - gRandom->Gaus(0.00,0.01);
 	  }
-	  else if(TMath::Abs(lid2_) == 11 && TMath::Abs(lep2_->eta()) <  1.479){
+	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
             corr[1] = 0.99 - gRandom->Gaus(0.00,0.02);
 	  }
-	  else if(TMath::Abs(lid2_) == 11 && TMath::Abs(lep2_->eta()) >= 1.479){
+	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
             corr[1] = 0.94 - gRandom->Gaus(0.00,0.06);
 	  }
-	  lep1pt = lep1_->pt()*corr[0]; // 0
-	  lep2pt = lep2_->pt()*corr[1]; // 1
-	  double pllx  = lep1_->px()*corr[0]+lep2_->px()*corr[1];
-	  double plly  = lep1_->py()*corr[0]+lep2_->py()*corr[1];
-	  double pllz  = lep1_->pz()*corr[0]+lep2_->pz()*corr[1];
-	  double ell   = lep1_->E()*corr[0] +lep2_->E() *corr[1];
+	  lep1pt = smurfTree.lep1_.pt()*corr[0]; // 0
+	  lep2pt = smurfTree.lep2_.pt()*corr[1]; // 1
+	  double pllx  = smurfTree.lep1_.px()*corr[0]+smurfTree.lep2_.px()*corr[1];
+	  double plly  = smurfTree.lep1_.py()*corr[0]+smurfTree.lep2_.py()*corr[1];
+	  double pllz  = smurfTree.lep1_.pz()*corr[0]+smurfTree.lep2_.pz()*corr[1];
+	  double ell   = smurfTree.lep1_.E()*corr[0] +smurfTree.lep2_.E() *corr[1];
 	  double llPhi = TMath::ATan2(plly,pllx);
 	  dilmass = ell*ell -pllx*pllx -plly*plly -pllz*pllz;
 	  if(dilmass >=0) dilmass = sqrt(dilmass); else dilmass = 0.0; // 4
 	  double pllt = sqrt(pllx*pllx+plly*plly);
-          pmet  	 = pmet_; //  6
-	  met		 = met_; //  7
-	  mt  = mt_*sqrt(pllt/dilep_->pt()); // 8
-          mt1 = mt1_*sqrt(corr[0]); // 9
-          mt2 = mt2_*sqrt(corr[1]); // 10
-          dPhiLep1MET = dPhiLep1MET_; // 11
-          dPhiLep2MET = dPhiLep2MET_; // 12
-	  dPhiDiLepMET = TMath::Abs(llPhi-metPhi_);
+          pmet  	 = smurfTree.pmet_; //  6
+	  met		 = smurfTree.met_; //  7
+	  mt  = smurfTree.mt_*sqrt(pllt/smurfTree.dilep_.pt()); // 8
+          mt1 = smurfTree.mt1_*sqrt(corr[0]); // 9
+          mt2 = smurfTree.mt2_*sqrt(corr[1]); // 10
+          dPhiLep1MET = smurfTree.dPhiLep1MET_; // 11
+          dPhiLep2MET = smurfTree.dPhiLep2MET_; // 12
+	  dPhiDiLepMET = TMath::Abs(llPhi-smurfTree.metPhi_);
 	  while(dPhiDiLepMET>TMath::Pi()) dPhiDiLepMET = TMath::Abs(dPhiDiLepMET - 2*TMath::Pi()); // 14
-	  dPhiDiLepJet1 = TMath::Abs(llPhi-jet1_->phi());
+	  dPhiDiLepJet1 = TMath::Abs(llPhi-smurfTree.jet1_.phi());
 	  while(dPhiDiLepJet1>TMath::Pi()) dPhiDiLepJet1 = TMath::Abs(dPhiDiLepJet1 - 2*TMath::Pi()); // 15
 
           bdtg_aux1  = reader->EvaluateMVA( "BDTG method" );
@@ -870,55 +784,55 @@ bool doShapes        = true
 
 	if(doShapes == true){ // met
       	  double metx=0.0;double mety=0.0;double trkmetx=0.0;double trkmety=0.0;
-	  if	(njets_ == 0){
-      	    metx    = met_*cos(metPhi_)+gRandom->Gaus(0.0,4.8);
-      	    mety    = met_*sin(metPhi_)+gRandom->Gaus(0.0,4.8);
-      	    trkmetx = trackMet_*cos(trackMetPhi_)+gRandom->Gaus(0.0,1.4);
-      	    trkmety = trackMet_*sin(trackMetPhi_)+gRandom->Gaus(0.0,1.4);
+	  if	(smurfTree.njets_ == 0){
+      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)+gRandom->Gaus(0.0,4.8);
+      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)+gRandom->Gaus(0.0,4.8);
+      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,1.4);
+      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,1.4);
       	  }
-      	  else if(njets_ == 1){
-      	    metx    = met_*cos(metPhi_)+gRandom->Gaus(0.0,4.9);
-      	    mety    = met_*sin(metPhi_)+gRandom->Gaus(0.0,4.9);
-      	    trkmetx = trackMet_*cos(trackMetPhi_)+gRandom->Gaus(0.0,3.4);
-      	    trkmety = trackMet_*sin(trackMetPhi_)+gRandom->Gaus(0.0,3.4);
+      	  else if(smurfTree.njets_ == 1){
+      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)+gRandom->Gaus(0.0,4.9);
+      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)+gRandom->Gaus(0.0,4.9);
+      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,3.4);
+      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,3.4);
       	  }
-      	  else if(njets_ >= 2){
-      	    metx    = met_*cos(metPhi_)+gRandom->Gaus(0.0,5.0);
-      	    mety    = met_*sin(metPhi_)+gRandom->Gaus(0.0,5.0);
-      	    trkmetx = trackMet_*cos(trackMetPhi_)+gRandom->Gaus(0.0,3.8);
-      	    trkmety = trackMet_*sin(trackMetPhi_)+gRandom->Gaus(0.0,3.8);
+      	  else if(smurfTree.njets_ >= 2){
+      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)+gRandom->Gaus(0.0,5.0);
+      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)+gRandom->Gaus(0.0,5.0);
+      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,3.8);
+      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,3.8);
       	  }
       	  double newMet      = sqrt(metx*metx+mety*mety);
       	  double newTrackMet = sqrt(trkmetx*trkmetx+trkmety*trkmety);
-	  double deltaPhiA[3] = {TMath::Abs(lep1_->Phi()-TMath::ATan2(mety,metx)),TMath::Abs(lep2_->Phi()-TMath::ATan2(mety,metx)),0.0};
+	  double deltaPhiA[3] = {TMath::Abs(smurfTree.lep1_.Phi()-TMath::ATan2(mety,metx)),TMath::Abs(smurfTree.lep2_.Phi()-TMath::ATan2(mety,metx)),0.0};
 	  while(deltaPhiA[0]>TMath::Pi()) deltaPhiA[0] = TMath::Abs(deltaPhiA[0] - 2*TMath::Pi());
 	  while(deltaPhiA[1]>TMath::Pi()) deltaPhiA[1] = TMath::Abs(deltaPhiA[1] - 2*TMath::Pi());
 	  deltaPhiA[2] = TMath::Min(deltaPhiA[0],deltaPhiA[1]);
 	  double pmetA = newMet;
 	  if(deltaPhiA[2]<TMath::Pi()/2) pmetA = pmetA * sin(deltaPhiA[2]);
 
-	  double deltaPhiB[3] = {TMath::Abs(lep1_->Phi()-TMath::ATan2(trkmety,trkmetx)),TMath::Abs(lep2_->Phi()-TMath::ATan2(trkmety,trkmetx)),0.0};
+	  double deltaPhiB[3] = {TMath::Abs(smurfTree.lep1_.Phi()-TMath::ATan2(trkmety,trkmetx)),TMath::Abs(smurfTree.lep2_.Phi()-TMath::ATan2(trkmety,trkmetx)),0.0};
 	  while(deltaPhiB[0]>TMath::Pi()) deltaPhiB[0] = TMath::Abs(deltaPhiB[0] - 2*TMath::Pi());
 	  while(deltaPhiB[1]>TMath::Pi()) deltaPhiB[1] = TMath::Abs(deltaPhiB[1] - 2*TMath::Pi());
 	  deltaPhiB[2] = TMath::Min(deltaPhiB[0],deltaPhiB[1]);
 	  double pmetB = newTrackMet;
 	  if(deltaPhiB[2]<TMath::Pi()/2) pmetB = pmetB * sin(deltaPhiB[2]);
 
-	  lep1pt  = lep1_->pt(); // 0
-	  lep2pt  = lep2_->pt(); // 1
-	  dilmass = dilep_->mass();//  4
+	  lep1pt  = smurfTree.lep1_.pt(); // 0
+	  lep2pt  = smurfTree.lep2_.pt(); // 1
+	  dilmass = smurfTree.dilep_.mass();//  4
 	  pmet = pmetA; //  6
 	  met  = newMet; //  7
-          mt  = mt_*sqrt(newMet/met_); // 8
-          mt1 = mt1_*sqrt(newMet/met_); // 9
-          mt2 = mt2_*sqrt(newMet/met_); // 10
-	  dPhiLep1MET = TMath::Abs(lep1_->phi()-TMath::ATan2(mety,metx));
+          mt  = smurfTree.mt_*sqrt(newMet/smurfTree.met_); // 8
+          mt1 = smurfTree.mt1_*sqrt(newMet/smurfTree.met_); // 9
+          mt2 = smurfTree.mt2_*sqrt(newMet/smurfTree.met_); // 10
+	  dPhiLep1MET = TMath::Abs(smurfTree.lep1_.phi()-TMath::ATan2(mety,metx));
 	  while(dPhiLep1MET>TMath::Pi()) dPhiLep1MET = TMath::Abs(dPhiLep1MET - 2*TMath::Pi()); // 11
-	  dPhiLep2MET = TMath::Abs(lep2_->phi()-TMath::ATan2(mety,metx));
+	  dPhiLep2MET = TMath::Abs(smurfTree.lep2_.phi()-TMath::ATan2(mety,metx));
 	  while(dPhiLep2MET>TMath::Pi()) dPhiLep2MET = TMath::Abs(dPhiLep2MET - 2*TMath::Pi()); // 12
-	  dPhiDiLepMET = TMath::Abs(dilep_->phi()-TMath::ATan2(mety,metx));
+	  dPhiDiLepMET = TMath::Abs(smurfTree.dilep_.phi()-TMath::ATan2(mety,metx));
 	  while(dPhiDiLepMET>TMath::Pi()) dPhiDiLepMET = TMath::Abs(dPhiDiLepMET - 2*TMath::Pi()); // 13
-          dPhiDiLepJet1  = dPhiDiLepJet1_;// 14
+          dPhiDiLepJet1  = smurfTree.dPhiDiLepJet1_;// 14
 
           bdtg_aux2  = reader->EvaluateMVA( "BDTG method" );
           br_bdtg_aux2->Fill();
@@ -931,36 +845,36 @@ bool doShapes        = true
         if (passed) nSelCutsGA++;
       }
 
-      if (Use["Likelihood"   ])   histLk     ->Fill( reader->EvaluateMVA( "Likelihood method"    ) , scale1fb_);
-      if (Use["LikelihoodD"  ])   histLkD    ->Fill( reader->EvaluateMVA( "LikelihoodD method"   ) , scale1fb_);
-      if (Use["LikelihoodPCA"])   histLkPCA  ->Fill( reader->EvaluateMVA( "LikelihoodPCA method" ) , scale1fb_);
-      if (Use["LikelihoodKDE"])   histLkKDE  ->Fill( reader->EvaluateMVA( "LikelihoodKDE method" ) , scale1fb_);
-      if (Use["LikelihoodMIX"])   histLkMIX  ->Fill( reader->EvaluateMVA( "LikelihoodMIX method" ) , scale1fb_);
-      if (Use["PDERS"        ])   histPD     ->Fill( reader->EvaluateMVA( "PDERS method"         ) , scale1fb_);
-      if (Use["PDERSD"       ])   histPDD    ->Fill( reader->EvaluateMVA( "PDERSD method"        ) , scale1fb_);
-      if (Use["PDERSPCA"     ])   histPDPCA  ->Fill( reader->EvaluateMVA( "PDERSPCA method"      ) , scale1fb_);
-      if (Use["KNN"          ])   histKNN    ->Fill( reader->EvaluateMVA( "KNN method"           ) , scale1fb_);
-      if (Use["HMatrix"      ])   histHm     ->Fill( reader->EvaluateMVA( "HMatrix method"       ) , scale1fb_);
-      if (Use["Fisher"       ])   histFi     ->Fill( reader->EvaluateMVA( "Fisher method"        ) , scale1fb_);
-      if (Use["FisherG"      ])   histFiG    ->Fill( reader->EvaluateMVA( "FisherG method"       ) , scale1fb_);
-      if (Use["BoostedFisher"])   histFiB    ->Fill( reader->EvaluateMVA( "BoostedFisher method" ) , scale1fb_);
-      if (Use["LD"           ])   histLD     ->Fill( reader->EvaluateMVA( "LD method"            ) , scale1fb_);
-      if (Use["MLP"          ])   histNn     ->Fill( reader->EvaluateMVA( "MLP method"           ) , scale1fb_);
-      if (Use["MLPBFGS"      ])   histNnbfgs ->Fill( reader->EvaluateMVA( "MLPBFGS method"       ) , scale1fb_);
-      if (Use["MLPBNN"       ])   histNnbnn  ->Fill( reader->EvaluateMVA( "MLPBNN method"        ) , scale1fb_);
-      if (Use["CFMlpANN"     ])   histNnC    ->Fill( reader->EvaluateMVA( "CFMlpANN method"      ) , scale1fb_);
-      if (Use["TMlpANN"      ])   histNnT    ->Fill( reader->EvaluateMVA( "TMlpANN method"       ) , scale1fb_);
-      if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method"           ) , scale1fb_);
-      if (Use["BDTD"         ])   histBdtD   ->Fill( reader->EvaluateMVA( "BDTD method"          ) , scale1fb_);
-      if (Use["BDTG"         ])   histBdtG   ->Fill( reader->EvaluateMVA( "BDTG method"          ) , scale1fb_);
-      if (Use["RuleFit"      ])   histRf     ->Fill( reader->EvaluateMVA( "RuleFit method"       ) , scale1fb_);
-      if (Use["SVM_Gauss"    ])   histSVMG   ->Fill( reader->EvaluateMVA( "SVM_Gauss method"     ) , scale1fb_);
-      if (Use["SVM_Poly"     ])   histSVMP   ->Fill( reader->EvaluateMVA( "SVM_Poly method"      ) , scale1fb_);
-      if (Use["SVM_Lin"      ])   histSVML   ->Fill( reader->EvaluateMVA( "SVM_Lin method"       ) , scale1fb_);
-      if (Use["FDA_MT"       ])   histFDAMT  ->Fill( reader->EvaluateMVA( "FDA_MT method"        ) , scale1fb_);
-      if (Use["FDA_GA"       ])   histFDAGA  ->Fill( reader->EvaluateMVA( "FDA_GA method"        ) , scale1fb_);
-      if (Use["Category"     ])   histCat    ->Fill( reader->EvaluateMVA( "Category method"      ) , scale1fb_);
-      if (Use["Plugin"       ])   histPBdt   ->Fill( reader->EvaluateMVA( "P_BDT method"         ) , scale1fb_);
+      if (Use["Likelihood"   ])   histLk     ->Fill( reader->EvaluateMVA( "Likelihood method"    ) , smurfTree.scale1fb_);
+      if (Use["LikelihoodD"  ])   histLkD    ->Fill( reader->EvaluateMVA( "LikelihoodD method"   ) , smurfTree.scale1fb_);
+      if (Use["LikelihoodPCA"])   histLkPCA  ->Fill( reader->EvaluateMVA( "LikelihoodPCA method" ) , smurfTree.scale1fb_);
+      if (Use["LikelihoodKDE"])   histLkKDE  ->Fill( reader->EvaluateMVA( "LikelihoodKDE method" ) , smurfTree.scale1fb_);
+      if (Use["LikelihoodMIX"])   histLkMIX  ->Fill( reader->EvaluateMVA( "LikelihoodMIX method" ) , smurfTree.scale1fb_);
+      if (Use["PDERS"        ])   histPD     ->Fill( reader->EvaluateMVA( "PDERS method"         ) , smurfTree.scale1fb_);
+      if (Use["PDERSD"       ])   histPDD    ->Fill( reader->EvaluateMVA( "PDERSD method"        ) , smurfTree.scale1fb_);
+      if (Use["PDERSPCA"     ])   histPDPCA  ->Fill( reader->EvaluateMVA( "PDERSPCA method"      ) , smurfTree.scale1fb_);
+      if (Use["KNN"          ])   histKNN    ->Fill( reader->EvaluateMVA( "KNN method"           ) , smurfTree.scale1fb_);
+      if (Use["HMatrix"      ])   histHm     ->Fill( reader->EvaluateMVA( "HMatrix method"       ) , smurfTree.scale1fb_);
+      if (Use["Fisher"       ])   histFi     ->Fill( reader->EvaluateMVA( "Fisher method"        ) , smurfTree.scale1fb_);
+      if (Use["FisherG"      ])   histFiG    ->Fill( reader->EvaluateMVA( "FisherG method"       ) , smurfTree.scale1fb_);
+      if (Use["BoostedFisher"])   histFiB    ->Fill( reader->EvaluateMVA( "BoostedFisher method" ) , smurfTree.scale1fb_);
+      if (Use["LD"           ])   histLD     ->Fill( reader->EvaluateMVA( "LD method"            ) , smurfTree.scale1fb_);
+      if (Use["MLP"          ])   histNn     ->Fill( reader->EvaluateMVA( "MLP method"           ) , smurfTree.scale1fb_);
+      if (Use["MLPBFGS"      ])   histNnbfgs ->Fill( reader->EvaluateMVA( "MLPBFGS method"       ) , smurfTree.scale1fb_);
+      if (Use["MLPBNN"       ])   histNnbnn  ->Fill( reader->EvaluateMVA( "MLPBNN method"        ) , smurfTree.scale1fb_);
+      if (Use["CFMlpANN"     ])   histNnC    ->Fill( reader->EvaluateMVA( "CFMlpANN method"      ) , smurfTree.scale1fb_);
+      if (Use["TMlpANN"      ])   histNnT    ->Fill( reader->EvaluateMVA( "TMlpANN method"       ) , smurfTree.scale1fb_);
+      if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method"           ) , smurfTree.scale1fb_);
+      if (Use["BDTD"         ])   histBdtD   ->Fill( reader->EvaluateMVA( "BDTD method"          ) , smurfTree.scale1fb_);
+      if (Use["BDTG"         ])   histBdtG   ->Fill( reader->EvaluateMVA( "BDTG method"          ) , smurfTree.scale1fb_);
+      if (Use["RuleFit"      ])   histRf     ->Fill( reader->EvaluateMVA( "RuleFit method"       ) , smurfTree.scale1fb_);
+      if (Use["SVM_Gauss"    ])   histSVMG   ->Fill( reader->EvaluateMVA( "SVM_Gauss method"     ) , smurfTree.scale1fb_);
+      if (Use["SVM_Poly"     ])   histSVMP   ->Fill( reader->EvaluateMVA( "SVM_Poly method"      ) , smurfTree.scale1fb_);
+      if (Use["SVM_Lin"      ])   histSVML   ->Fill( reader->EvaluateMVA( "SVM_Lin method"       ) , smurfTree.scale1fb_);
+      if (Use["FDA_MT"       ])   histFDAMT  ->Fill( reader->EvaluateMVA( "FDA_MT method"        ) , smurfTree.scale1fb_);
+      if (Use["FDA_GA"       ])   histFDAGA  ->Fill( reader->EvaluateMVA( "FDA_GA method"        ) , smurfTree.scale1fb_);
+      if (Use["Category"     ])   histCat    ->Fill( reader->EvaluateMVA( "Category method"      ) , smurfTree.scale1fb_);
+      if (Use["Plugin"       ])   histPBdt   ->Fill( reader->EvaluateMVA( "P_BDT method"         ) , smurfTree.scale1fb_);
 
       // Retrieve also per-event error
       if (Use["PDEFoam"]) {
@@ -968,15 +882,18 @@ bool doShapes        = true
         Double_t err = reader->GetMVAError();
         histPDEFoam   ->Fill( val );
         histPDEFoamErr->Fill( err );         
-        if (err>1.e-50) histPDEFoamSig->Fill( val/err , scale1fb_);
+        if (err>1.e-50) histPDEFoamSig->Fill( val/err , smurfTree.scale1fb_);
       }         
 
       // Retrieve probability instead of MVA output
       if (Use["Fisher"])   {
-        probHistFi  ->Fill( reader->GetProba ( "Fisher method" ) , scale1fb_ );
-        rarityHistFi->Fill( reader->GetRarity( "Fisher method" ) , scale1fb_ );
+        probHistFi  ->Fill( reader->GetProba ( "Fisher method" ) , smurfTree.scale1fb_ );
+        rarityHistFi->Fill( reader->GetRarity( "Fisher method" ) , smurfTree.scale1fb_ );
       }
-    }
+
+      clone->Fill();
+
+    } // End main loop
 
     std::cout << npass << " events passing selection, yield " << yield << std::endl;
  
@@ -985,7 +902,7 @@ bool doShapes        = true
     std::cout << "--- End of event loop: "; sw.Print();
 
     // Get efficiency for cuts classifier
-    if (Use["CutsGA"]) std::cout << "--- Efficiency for CutsGA method: " << double(nSelCutsGA)/theTree->GetEntries()
+    if (Use["CutsGA"]) std::cout << "--- Efficiency for CutsGA method: " << double(nSelCutsGA)/smurfTree.tree_->GetEntries()
                                  << " (for a required signal efficiency of " << effS << ")" << std::endl;
 
     if (Use["CutsGA"]) {
@@ -1016,19 +933,9 @@ bool doShapes        = true
 
     clone->Write(); 
     out->Close();
-    f->Close();
 
     delete reader;
     
     std::cout << "==> TMVAClassificationApplication is done with sample " << samples.at(i) << endl << std::endl;
   } 
 }
-
-#include "TFile.h"
-#include "TTree.h"
-#include "TBranch.h"
-#include "TRandom.h"
-
-using namespace std;
-
-
