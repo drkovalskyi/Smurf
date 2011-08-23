@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.1 2011/06/11 06:12:41 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.3 2011/07/04 06:46:18 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -123,8 +123,10 @@ void trainMVA_smurf(
   mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
   mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
   mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
-  mvaVar[ "dPhiDiLepMET" ]	= 0;  //delta phi btw dilepton and met
-  mvaVar[ "dPhiDiLepJet1" ]	= 0;  //delta phi btw dilepton and jet1 (only for njet>0)
+  if(njetsType == 1){
+    mvaVar[ "dPhiDiLepMET" ]    = 1;
+    mvaVar[ "dPhiDiLepJet1" ]   = 1;
+  }
 
   TCut sel = "";
   
