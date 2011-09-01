@@ -40,20 +40,22 @@ export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
 ### samples must be in "data" folder
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-wjets_pythia_TL
+qqww
+ww2l_pythia
 EOF
-#data
-#hww${MH}
-#qqww
-#ggww
-#wjets
-#ttbar
-#tw
-#wz
-#zz
-#dyee
-#dymm
-#dytt
+data
+hww${MH}
+qqww
+ggww
+wjets
+ttbar
+tw
+wz
+zz
+dyee
+dymm
+dytt
+EOF
 
 # ===========================================
 # Fill the smurfntuples with the BDT and LR
@@ -62,8 +64,8 @@ EOF
 for i in `cat list_samples.txt` ; do
   sample=${i%%,*};
   echo "filling MVA information in sample: "  $sample
-  ./root-5.28.sh -q -b evaluateMVA_smurf.C++\(\"data/${sample}_ME.root\",${MH},\"${METHODS}\",\"${TAG}\"\);
-  echo "filling ME LR in sample: "  $sample
+  ./root-5.28.sh -q -b evaluateMVA_smurf.C++\(\"data/${sample}.root\",${MH},\"${METHODS}\",\"${TAG}\"\);
+#  echo "filling ME LR in sample: "  $sample
 #  root -q -b LR.C++\(${MH},\"${TAG}\",\"$sample\",\"smurfdata/\",\"output/\",-1\);
 done
 
