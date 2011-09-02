@@ -54,9 +54,9 @@ for i in `cat list_samples.txt` ; do
   dataset=${i%%,*};
   echo "filling MVA information in sample: "  $dataset
   if [ ${WEIGHTSONLY} == "1" ]; then
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\"\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"\"\);
   else
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\"\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\"\);
   fi
   
 done
