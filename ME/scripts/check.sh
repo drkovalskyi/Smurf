@@ -5,8 +5,7 @@
 PROC=$1
 
 while read LINE; do 
-
-	TEST=`echo $LINE | grep Run2011`
+	TEST=`echo $LINE | grep "tardir/cafRun"`
 	if [ ! -z "$TEST" ]; then
         	SECTION=`echo $LINE | awk '{print $3}'`
         	FILE=`ls | grep ${PROC}_ME_${SECTION}.root`
