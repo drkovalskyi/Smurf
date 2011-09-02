@@ -1,0 +1,27 @@
+#!/bin/sh
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww115 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 40 500
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww120 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 40 500
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww130 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww140 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww150 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 500
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww160 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 500
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww170 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 500
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww180 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 500
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww190 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 500
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww200 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 500
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww250 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww300 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ qqww /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 200 300
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ ggww /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 250
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ ttbar /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 1 250
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ tw /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 2 250
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ wz /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 5 250
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ zz /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 5 250
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ wjets /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 2 250
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ wgamma /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 1 250
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ dyee /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 1 250
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ dymm /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 1 250
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ dytt /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 1 250
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ wjets_data /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 250
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ wjets_PassFail /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 15 250
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ data /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 4 250
