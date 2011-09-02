@@ -42,7 +42,8 @@ fi
 ### samples must be in "data" folder
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-data/backgroundA_skim1.root
+data/hww${MH}.root
+data/qqww_py.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf_hww.C+;
