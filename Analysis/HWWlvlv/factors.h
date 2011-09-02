@@ -1,6 +1,10 @@
 #include <TROOT.h>
 #include "TH1D.h"
 #include "TH2D.h"
+#include "TMath.h"
+#include "Math/VectorUtil.h"
+#include "Math/LorentzVector.h"
+typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
 void atributes(TH1D *histo, Char_t xtitle[]="", Int_t COLOR = 1, Char_t ytitle[]="Fraction");
 double scpFast(double sig, double bkg, double sigma_b, double delta_b = 0.0);
@@ -10,6 +14,8 @@ double fakeRate(double pt, double eta, TH2D *fhDFRMu, TH2D *fhDFREl, int fm, int
 double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, int lid, int syst = 0);
 double hzz2l_cuts(double mass, int opt);
 double nVtxScaleFactor(TH1D *fhDNvtx, int nvtx);
+double nPUScaleFactor(TH1D *fhDPU, int npu);
+double mt_atlas(LorentzVector dilep, double met, double metPhi);
 
 void atributes(TH1D *histo, Char_t xtitle[], Int_t COLOR, Char_t ytitle[]){
   //InitHist(histo,xtitle,ytitle);
@@ -57,6 +63,12 @@ double nVtxScaleFactor(TH1D *fhDNvtx, int nvtx){
   double mynvtx = TMath::Min((double)nvtx,19.499);
   Int_t nvtxbin = fhDNvtx->GetXaxis()->FindBin(mynvtx);
   return fhDNvtx->GetBinContent(nvtxbin);
+}
+
+double nPUScaleFactor(TH1D *fhDPU, int npu){
+  double mynpu = TMath::Min((double)npu,39.499);
+  Int_t npuxbin = fhDPU->GetXaxis()->FindBin(mynpu);
+  return fhDPU->GetBinContent(npuxbin);
 }
 
 double scaleFactor(double pt1, double eta1, double pt2, double eta2, int type, int nsel){
@@ -108,26 +120,26 @@ double scaleFactor(double pt1, double eta1, double pt2, double eta2, int type, i
     }
   }
   else if(nsel == 2){ // luminosity scale factor
-    if     (type == 0) weight = weight * 0.00000;
-    else if(type == 1) weight = weight * 0.23111;
-    else if(type == 2) weight = weight * 0.82486;
-    else if(type == 3) weight = weight * 1.47045;
-    else if(type == 4) weight = weight * 1.83450;
-    else if(type == 5) weight = weight * 1.79663;
-    else if(type == 6) weight = weight * 1.46496;
-    else if(type == 7) weight = weight * 1.05682;
-    else if(type == 8) weight = weight * 0.70823;
-    else if(type == 9) weight = weight * 0.47386;
-    else if(type ==10) weight = weight * 0.32382;
-    else if(type ==11) weight = weight * 0.22383;
-    else if(type ==12) weight = weight * 0.17413;
-    else if(type ==13) weight = weight * 0.10930;
-    else if(type ==14) weight = weight * 0.09563;
-    else if(type ==15) weight = weight * 0.08367;
-    else if(type ==16) weight = weight * 0.05418;
-    else if(type ==17) weight = weight * 0.04891;
-    else if(type ==18) weight = weight * 0.03515;
-    else if(type >=19) weight = weight * 0.01000;
+    if     (type == 0) weight = weight * 0	    ;//0.00000;
+    else if(type == 1) weight = weight * 0.167264   ;//0.23111;
+    else if(type == 2) weight = weight * 0.821642   ;//0.82486;
+    else if(type == 3) weight = weight * 1.41359    ;//1.47045;
+    else if(type == 4) weight = weight * 1.78625    ;//1.83450;
+    else if(type == 5) weight = weight * 1.82755    ;//1.79663;
+    else if(type == 6) weight = weight * 1.62913    ;//1.46496;
+    else if(type == 7) weight = weight * 1.30361    ;//1.05682;
+    else if(type == 8) weight = weight * 0.983325   ;//0.70823;
+    else if(type == 9) weight = weight * 0.706365   ;//0.47386;
+    else if(type ==10) weight = weight * 0.496696   ;//0.32382;
+    else if(type ==11) weight = weight * 0.337684   ;//0.22383;
+    else if(type ==12) weight = weight * 0.2282     ;//0.17413;
+    else if(type ==13) weight = weight * 0.149644   ;//0.10930;
+    else if(type ==14) weight = weight * 0.0990471  ;//0.09563;
+    else if(type ==15) weight = weight * 0.0695094  ;//0.08367;
+    else if(type ==16) weight = weight * 0.0397772  ;//0.05418;
+    else if(type ==17) weight = weight * 0.0331609  ;//0.04891;
+    else if(type ==18) weight = weight * 0.0214524  ;//0.03515;
+    else if(type >=19) weight = weight * 0.0181265  ;//0.01000;
   }
   else if(nsel == 3){ // momentum scale factor
     if     (type == 10){ 
@@ -279,4 +291,15 @@ else if(opt == 3){ // max(mthiggs)
  }
 }
 return cutValue;
+}
+
+double mt_atlas(LorentzVector dilep, double met, double metPhi){
+  double deltaPhi = TMath::Abs(metPhi-dilep.Phi());
+  while(deltaPhi>TMath::Pi()) deltaPhi = TMath::Abs(deltaPhi - 2*TMath::Pi());
+  double aux = sqrt((dilep.M()*dilep.M()+dilep.Pt()*dilep.Pt())*met*met)-met*dilep.Pt()*cos(deltaPhi);
+  
+  double mt = dilep.M()*dilep.M()  + 2 * aux;
+  if(mt >= 0) mt = sqrt(mt); else mt = 0;
+  
+  return mt;
 }
