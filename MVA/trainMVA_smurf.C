@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.3 2011/07/04 06:46:18 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.4 2011/08/23 21:21:20 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -444,6 +444,9 @@ void trainMVA_smurf(
     //--------------------------------------------------
 
     if( njets != njetsType               ) continue; // select n-jet type events
+    if( mt <= 80			 ) continue; // cut on mt: [80-mh+30]
+    if( mt >= mH+10			 ) continue; // cut on mt: [80-mh+30]
+    if( dPhi*180.0/TMath::Pi() >= 120	 ) continue; // cut on dPhi
     if( dilep->mass() > dilmass_cut      ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                      ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0            ) continue; // cut on low dilepton mass
@@ -534,6 +537,9 @@ void trainMVA_smurf(
     //--------------------------------------------------
 
     if( njets != njetsType               ) continue; // select n-jet type events
+    if( mt <= 80			 ) continue; // cut on mt: [80-mh+30]
+    if( mt >= mH+10			 ) continue; // cut on mt: [80-mh+30]
+    if( dPhi*180.0/TMath::Pi() >= 120	 ) continue; // cut on dPhi
     if( dilep->mass() > dilmass_cut      ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                      ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0            ) continue; // cut on low dilepton mass
@@ -773,19 +779,19 @@ void trainMVA_smurf(
   // Boosted Decision Trees
   if (Use["BDTG"]) // Gradient Boost
     factory->BookMethod( TMVA::Types::kBDT, "BDTG",
-                         "!H:!V:NTrees=1000:BoostType=Grad:Shrinkage=0.10:UseBaggedGrad:GradBaggingFraction=0.5:nCuts=20:NNodesMax=5" );
+                         "!H:!V:NTrees=1000:BoostType=Grad:Shrinkage=0.10:UseBaggedGrad:GradBaggingFraction=0.5:nCuts=2000:NNodesMax=5" );
 
   if (Use["BDT"])  // Adaptive Boost
     factory->BookMethod(TMVA::Types::kBDT,"BDT",
-			"!H:!V:NTrees=400:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=20:PruneMethod=CostComplexity:PruneStrength=20.0");
+			"!H:!V:NTrees=400:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=2000:PruneMethod=CostComplexity:PruneStrength=20.0");
 
   if (Use["BDTB"]) // Bagging
     factory->BookMethod( TMVA::Types::kBDT, "BDTB",
-                         "!H:!V:NTrees=400:BoostType=Bagging:SeparationType=GiniIndex:nCuts=25:PruneMethod=NoPruning" );
+                         "!H:!V:NTrees=400:BoostType=Bagging:SeparationType=GiniIndex:nCuts=2000:PruneMethod=NoPruning" );
 
   if (Use["BDTD"]) // Decorrelation + Adaptive Boost
     factory->BookMethod(TMVA::Types::kBDT,"BDTD",
-                    "!H:!V:NTrees=400:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=25:PruneMethod=CostComplexity:PruneStrength=25.0:VarTransform=Decorrelate");
+                    "!H:!V:NTrees=400:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=2000:PruneMethod=CostComplexity:PruneStrength=25.0:VarTransform=Decorrelate");
 
   // RuleFit -- TMVA implementation of Friedman's method
   if (Use["RuleFit"])

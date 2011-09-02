@@ -34,9 +34,9 @@
 #include "TMVA/Tools.h"
 #include "TMVA/Reader.h"
 #include "TMVA/MethodCuts.h"
-#include "/home/ceballos/releases/CMSSW_4_2_2/src/Smurf/Core/SmurfTree.h"
-#include "/home/ceballos/releases/CMSSW_4_2_2/src/Smurf/Core/LeptonScaleLookup.h"
-#include "/home/ceballos/releases/CMSSW_4_2_2/src/Smurf/Analysis/HWWlvlv/factors.h"
+#include "../Core/SmurfTree.h"
+#include "../Core/LeptonScaleLookup.h"
+#include "../Analysis/HWWlvlv/factors.h"
 #endif
 
 using namespace std;
@@ -66,7 +66,8 @@ TString outTag       = "default",
 TString path         = "",
 int  njet            = 0,
 bool doWeights       = true,
-bool doShapes        = true
+bool doShapes        = true,
+TString InputPath    = "/data"
 ) {   
 #ifdef __CINT__
   gROOT->ProcessLine( ".O0" ); // turn off optimization in CINT
@@ -223,7 +224,7 @@ bool doShapes        = true
 
     // Beging Reading files, harmless if weights aren't used
     // This is for 42X
-    TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root");
+    TFile *fLeptonEffFile = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root",InputPath.Data()));
     TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
     TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
     fhDEffMu->SetDirectory(0);
@@ -231,36 +232,36 @@ bool doShapes        = true
     fLeptonEffFile->Close();
     delete fLeptonEffFile;
 
-    TFile *fLeptonFRFileM = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root");
+    TFile *fLeptonFRFileM = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root",InputPath.Data()));
     TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
     assert(fhDFRMu);
     fhDFRMu->SetDirectory(0);
     fLeptonFRFileM->Close();
     delete fLeptonFRFileM;
 
-    TFile *fLeptonFRFileE = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root");
+    TFile *fLeptonFRFileE = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root",InputPath.Data()));
     TH2D *fhDFREl = (TH2D*)(fLeptonFRFileE->Get("ElectronFakeRate_V4_ptThreshold35_PtEta"));
     assert(fhDFREl);
     fhDFREl->SetDirectory(0);
     fLeptonFRFileE->Close();
     delete fLeptonFRFileE;
 
-    LeptonScaleLookup trigLookup("/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root");
+    LeptonScaleLookup trigLookup(Form("%s/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root",InputPath.Data()));
 
-    TFile *fNvtxFile = TFile::Open("/data/smurf/data/LP2011/auxiliar/puReweighting.root");
+    TFile *fNvtxFile = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/puReweighting.root",InputPath.Data()));
     TH1D *fhDNvtx = (TH1D*)(fNvtxFile->Get("puWeights"));
     assert(fhDNvtx);
     fhDNvtx->SetDirectory(0);
     fNvtxFile->Close();
     delete fNvtxFile;
 
-    TFile *fPUS3File = TFile::Open("/home/ceballos/releases/CMSSW_4_2_2/src/MitPhysics/data/puWeights_PU3_68mb.root");
+    TFile *fPUS3File = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/puWeights_PU3_68mb.root",InputPath.Data()));
     TH1D *fhDPUS3 = (TH1D*)(fPUS3File->Get("puWeights"));
     assert(fhDPUS3);
     fhDPUS3->SetDirectory(0);
     delete fPUS3File;
 
-    TFile *fPUS4File = TFile::Open("/home/ceballos/releases/CMSSW_4_2_2/src/MitPhysics/data/puWeights_PU4_68mb.root");
+    TFile *fPUS4File = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root",InputPath.Data()));
     TH1D *fhDPUS4 = (TH1D*)(fPUS4File->Get("puWeights"));
     assert(fhDPUS4);
     fhDPUS4->SetDirectory(0);
@@ -268,7 +269,7 @@ bool doShapes        = true
 
     // This is for 41X
     /*
-    TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/EPS/auxiliar/efficiency_results_v6.root");
+    TFile *fLeptonEffFile = TFile::Open(Form("%s/smurf/data/EPS/auxiliar/efficiency_results_v6.root",InputPath.Data()));
     TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
     TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
     fhDEffMu->SetDirectory(0);
@@ -276,23 +277,23 @@ bool doShapes        = true
     fLeptonEffFile->Close();
     delete fLeptonEffFile;
 
-    TFile *fLeptonFRFileM = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.V4HasNod0Cut.root");
+    TFile *fLeptonFRFileM = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.V4HasNod0Cut.root",InputPath.Data()));
     TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
     assert(fhDFRMu);
     fhDFRMu->SetDirectory(0);
     fLeptonFRFileM->Close();
     delete fLeptonFRFileM;
 
-    TFile *fLeptonFRFileE = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.V4HasNod0Cut.root");
+    TFile *fLeptonFRFileE = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.V4HasNod0Cut.root",InputPath.Data()));
     TH2D *fhDFREl = (TH2D*)(fLeptonFRFileE->Get("ElectronFakeRate_V4_ptThreshold35_PtEta"));
     assert(fhDFREl);
     fhDFREl->SetDirectory(0);
     fLeptonFRFileE->Close();
     delete fLeptonFRFileE;
 
-    LeptonScaleLookup trigLookup("/data/smurf/data/EPS/auxiliar/efficiency_results_v6.root");
+    LeptonScaleLookup trigLookup("/data/smurf/data/EPS/auxiliar/efficiency_results_v6.root",InputPath.Data()));
     
-    TFile *fNvtxFile = TFile::Open("/data/smurf/data/LP2011/auxiliar/puReweighting.root");
+    TFile *fNvtxFile = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/puReweighting.root",InputPath.Data()));
     TH1D *fhDNvtx = (TH1D*)(fNvtxFile->Get("puWeights"));
     assert(fhDNvtx);
     fhDNvtx->SetDirectory(0);
@@ -303,7 +304,7 @@ bool doShapes        = true
     int newMH = mH;
     if(newMH == 110) newMH = 115; // there is no correction for mh=110!
 
-    TFile *fHiggsPtKFactorFile = TFile::Open("/data/smurf/data/EPS/auxiliar/ggHWW_KFactors_PowhegToHQT.root");
+    TFile *fHiggsPtKFactorFile = TFile::Open(Form("%s/smurf/data/EPS/auxiliar/ggHWW_KFactors_PowhegToHQT.root",InputPath.Data()));
     TH1D *HiggsPtKFactor;
     char kfactorHistName[100];
     sprintf(kfactorHistName, "KFactor_PowhegToHQT_mH%d", newMH);
@@ -544,6 +545,7 @@ bool doShapes        = true
     float yield = 0.;
 
     for (Long64_t ievt=0; ievt<smurfTree.tree_->GetEntries();ievt++) {
+    //for (Long64_t ievt=0; ievt<100;ievt++) {
 
       if (ievt%10000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
 
