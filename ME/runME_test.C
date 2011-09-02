@@ -21,7 +21,7 @@
 #include <iostream>
 #include "Math/LorentzVector.h"
 #include "Math/VectorUtil.h"
-#include "../Core/SmurfTree.h"
+#include "SmurfTree.h"
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
