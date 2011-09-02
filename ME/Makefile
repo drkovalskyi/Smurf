@@ -67,7 +67,7 @@ LinkDef_out.cxx: LinkDef.h
 clean:   
 	$(QUIET) rm -v -f \
 	processed_data.* *.list \
-	*.o *.d libME.so LinkDef_out*; echo "Done"
+	*.o *.d libME.so LinkDef_out* *_C.so; echo "Done"
 
 
 endif
