@@ -67,7 +67,7 @@ TString path         = "",
 int  njet            = 0,
 bool doWeights       = true,
 bool doShapes        = true,
-TString InputPath    = "/data"
+TString InputPath    = ""
 ) {   
 #ifdef __CINT__
   gROOT->ProcessLine( ".O0" ); // turn off optimization in CINT
