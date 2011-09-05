@@ -268,7 +268,8 @@ class SmurfTree {
  public:
   /// this is the main element
   TTree *tree_;
-
+  TFile *f_;
+  
   /// hold the names of variables to facilitate things (filled during Init)
   std::vector<std::string> variables_;
 
@@ -277,7 +278,7 @@ class SmurfTree {
     lepPtr1_(&lep1_),lepPtr2_(&lep2_),jetPtr1_(&jet1_),jetPtr2_(&jet2_),dilepPtr_(&dilep_),quadlepPtr_(&quadlep_),
     lepPtr3_(&lep3_),                 jetPtr3_(&jet3_){}
   /// default destructor
-  ~SmurfTree(){};
+  ~SmurfTree(){ f_->Close();  };
 
   /// initialize varibles and fill list of available variables
   void InitVariables();
@@ -287,13 +288,13 @@ class SmurfTree {
     // to load three different ntuples in the same job HwwTree0/1/2
     // type == 0/1/2/3 if all variables was added
     // type = -1 (default) if a minimum set of variables was added with tree as name
-    TFile* f = TFile::Open(file);
-    assert(f);
-    if     (type == 0) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree0"));
-    else if(type == 1) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree1"));
-    else if(type == 2) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree2"));
-    else if(type == 3) tree_ = dynamic_cast<TTree*>(f->Get("HwwTree3"));
-    else               tree_ = dynamic_cast<TTree*>(f->Get("tree"));
+    f_ = TFile::Open(file);
+    assert(f_);
+    if     (type == 0) tree_ = dynamic_cast<TTree*>(f_->Get("HwwTree0"));
+    else if(type == 1) tree_ = dynamic_cast<TTree*>(f_->Get("HwwTree1"));
+    else if(type == 2) tree_ = dynamic_cast<TTree*>(f_->Get("HwwTree2"));
+    else if(type == 3) tree_ = dynamic_cast<TTree*>(f_->Get("HwwTree3"));
+    else               tree_ = dynamic_cast<TTree*>(f_->Get("tree"));
     assert(tree_);
   }
 
