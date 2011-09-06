@@ -255,12 +255,6 @@ TString InputPath    = ""
     fNvtxFile->Close();
     delete fNvtxFile;
 
-    TFile *fPUS3File = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/puWeights_PU3_68mb.root",InputPath.Data()));
-    TH1D *fhDPUS3 = (TH1D*)(fPUS3File->Get("puWeights"));
-    assert(fhDPUS3);
-    fhDPUS3->SetDirectory(0);
-    delete fPUS3File;
-
     TFile *fPUS4File = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root",InputPath.Data()));
     TH1D *fhDPUS4 = (TH1D*)(fPUS4File->Get("puWeights"));
     assert(fhDPUS4);
@@ -647,12 +641,7 @@ TString InputPath    = ""
         else if(smurfTree.dstype_ != SmurfTree::data){
           smurfTree.sfWeightFR_ = 1.0;
           //smurfTree.sfWeightPU_ = nVtxScaleFactor(fhDNvtx,nvtx_);
-     	  if((smurfTree.processId_==10001 && mH != 200) || 
-     	      smurfTree.processId_==24  || smurfTree.processId_==26 || 
-	      smurfTree.processId_==121 || smurfTree.processId_==122){
-     	    smurfTree.sfWeightPU_ = nPUScaleFactor(fhDPUS3,smurfTree.npu_);
-     	  }
-     	  else {smurfTree.sfWeightPU_ = nPUScaleFactor(fhDPUS4,smurfTree.npu_);}
+     	  smurfTree.sfWeightPU_ = nPUScaleFactor(fhDPUS4,smurfTree.npu_);
 
           smurfTree.sfWeightEff_ = 1.0;
           smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep1_.pt(), smurfTree.lep1_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid1_);
@@ -674,23 +663,18 @@ TString InputPath    = ""
 
       if (Use["BDT"]){
         bdt = reader->EvaluateMVA( "BDT method" );
-        br_bdt->Fill();
       }
       if (Use["BDTD"]){
         bdtd = reader->EvaluateMVA( "BDTD method" );
-        br_bdtd->Fill();
       }
       if (Use["MLPBNN"]){
         nn  = reader->EvaluateMVA( "MLPBNN method" );
-        br_nn->Fill();
       }
       if (Use["KNN"]){
         knn  = reader->EvaluateMVA( "KNN method" );
-        br_knn->Fill();
       }
       if (Use["BDTG"]){
         bdtg  = reader->EvaluateMVA( "BDTG method" );
-        br_bdtg->Fill();
 
 	if(doShapes == true){ // momentum scale +
 	  double corr[2] = {1.0, 1.0};
@@ -735,7 +719,6 @@ TString InputPath    = ""
 	  while(dPhiDiLepJet1>TMath::Pi()) dPhiDiLepJet1 = TMath::Abs(dPhiDiLepJet1 - 2*TMath::Pi()); // 15
 
           bdtg_aux0  = reader->EvaluateMVA( "BDTG method" );
-          br_bdtg_aux0->Fill();
         }
 
 	if(doShapes == true){ // momentum scale -
@@ -781,28 +764,27 @@ TString InputPath    = ""
 	  while(dPhiDiLepJet1>TMath::Pi()) dPhiDiLepJet1 = TMath::Abs(dPhiDiLepJet1 - 2*TMath::Pi()); // 15
 
           bdtg_aux1  = reader->EvaluateMVA( "BDTG method" );
-          br_bdtg_aux1->Fill();
         }
 
 	if(doShapes == true){ // met
       	  double metx=0.0;double mety=0.0;double trkmetx=0.0;double trkmety=0.0;
 	  if	(smurfTree.njets_ == 0){
-      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)+gRandom->Gaus(0.0,4.8);
-      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)+gRandom->Gaus(0.0,4.8);
-      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,1.4);
-      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,1.4);
+      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)+gRandom->Gaus(0.0,3.2);
+      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)+gRandom->Gaus(0.0,3.2);
+      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,2.1);
+      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,2.1);
       	  }
       	  else if(smurfTree.njets_ == 1){
-      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)+gRandom->Gaus(0.0,4.9);
-      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)+gRandom->Gaus(0.0,4.9);
-      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,3.4);
-      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,3.4);
+      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)+gRandom->Gaus(0.0,3.6);
+      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)+gRandom->Gaus(0.0,3.6);
+      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,7.6);
+      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,7.6);
       	  }
       	  else if(smurfTree.njets_ >= 2){
-      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)+gRandom->Gaus(0.0,5.0);
-      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)+gRandom->Gaus(0.0,5.0);
-      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,3.8);
-      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,3.8);
+      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)+gRandom->Gaus(0.0,4.3);
+      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)+gRandom->Gaus(0.0,4.3);
+      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,12.4);
+      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,12.4);
       	  }
       	  double newMet      = sqrt(metx*metx+mety*mety);
       	  double newTrackMet = sqrt(trkmetx*trkmetx+trkmety*trkmety);
@@ -837,7 +819,6 @@ TString InputPath    = ""
           dPhiDiLepJet1  = smurfTree.dPhiDiLepJet1_;// 14
 
           bdtg_aux2  = reader->EvaluateMVA( "BDTG method" );
-          br_bdtg_aux2->Fill();
         }
       }
 
