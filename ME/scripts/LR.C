@@ -19,30 +19,32 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 using namespace std;
 
 void getProcess(int mH, TVar::Process & k, float & massCut);
-float weightME(TString fileName, TString meFDir, TString mebdtFDir, TString bdtprefix);
+float weightME(TString fileName, TString inputSmurfFDir, TString meFDir);
 
 //###################
 //# main function
 //###################
-void LR(int mH, TString bdtprefix, TString fileName, TString meFDir, TString mebdtFDir,  int nev, TVar::VerbosityLevel verbosity = TVar::INFO)  
+void LR(int mH, TString fileName, TString inputSmurfFDir, TString meFDir, int nev, float lumi, TVar::VerbosityLevel verbosity = TVar::INFO)  
 {
   
-  TVar::Process k;
-  float massCut;
-  getProcess(mH, k, massCut);
+  TString inputFileName = meFDir + fileName + ".root";
+  TFile* fin = new TFile(inputFileName);
+  std::cout << "Opening " << inputFileName << "\n";
   
-  cout << "Input File: "<< fileName << "\n"; 
-  TFile* fin = new TFile(mebdtFDir + bdtprefix + "_" + fileName + "_ME.root");
-  cout << mebdtFDir + bdtprefix + "_" + fileName + "_ME.root"<<endl;
-  TString outFileName = mebdtFDir + fileName + "_ME.root" ;
-  outFileName.ReplaceAll("_ME.root", Form("_LR_%s.root", TVar::SmurfProcessName(k).Data()));
+  TTree* ch=(TTree*)fin->Get("tree"); 
+  if (ch==0x0) { 
+    std::cout << "Error:" << inputFileName << " is not properly filled, exitting\n";
+    return; 
+  }
+
+  TString outFileName = inputFileName;
+  outFileName.ReplaceAll(".root", "_ME.root");
     
   TFile *newfile = new TFile(outFileName,"recreate");
   std::cout << "creating " << outFileName << "...\n";
 
   
-  TTree* ch=(TTree*)fin->Get("tree"); 
-  if (ch==0x0) return; 
+
   TTree* evt_tree=(TTree*) ch->CloneTree(0, "fast");
 
 
@@ -52,27 +54,27 @@ void LR(int mH, TString bdtprefix, TString fileName, TString meFDir, TString meb
   // fail the differential cross-section calcuation in the lpc grid
   double scaleME = 1.0;
   evt_tree->Branch("scaleME",  &scaleME, "scaleME/D");
-  double scalefactor = weightME(fileName, meFDir, mebdtFDir, bdtprefix);
+  double scalefactor = weightME(fileName, inputSmurfFDir, meFDir);
 
   // The variable we want to recalculate
   double LR[60];
   ch->SetBranchAddress("LR", LR);
 
   // Initialize the branches to use to calculate LR
-  double dXsecList [60];
+  double dXsec_ [60];
   int type_ = 0;
   unsigned int run_ = 0;
   unsigned int event_ = 0; 
-  LorentzVector*  lep2_ = 0;
   LorentzVector*  dilep_ = 0;
-
+  float mt_ = 0.;
+  
   ch->SetBranchAddress( "run",   &run_);
   ch->SetBranchAddress( "event", &event_);
   ch->SetBranchAddress( "type",  &type_);
-  ch->SetBranchAddress("dXsec",  &dXsecList);
-  ch->SetBranchAddress( "lep2",  &lep2_      ); 
-  ch->SetBranchAddress( "dilep", &dilep_      ); 
-
+  ch->SetBranchAddress("dXsec",  &dXsec_);
+  ch->SetBranchAddress( "dilep", &dilep_); 
+  ch->SetBranchAddress( "mt",  &mt_);
+  
   //==========================================
   // Loop All Events
   //==========================================
@@ -83,7 +85,12 @@ void LR(int mH, TString bdtprefix, TString fileName, TString meFDir, TString meb
   
   printf("Total number of events = %d\n", Ntot);
   
-  float lumi = 1000.0; 
+  
+  TVar::Process k;
+  float massCut;
+  getProcess(mH, k, massCut);
+
+
   Proc *higgs = new Proc(k, lumi, massCut, meFDir);
   Proc *ww    =  new Proc(TVar::WW, lumi, massCut, meFDir);
   Proc *wpj    = new Proc(TVar::Wp_1jet, lumi, massCut, meFDir);
@@ -99,35 +106,39 @@ if (verbosity >= TVar::DEBUG) {
   for(int ievt=0;ievt<Ntot;ievt++){
     
     ch->GetEntry(ievt);  
-
-    if(dilep_->mass() > massCut) continue;
-
+    
     if (verbosity >= TVar::DEBUG) 
       cout << "\n ** START LR Construction, run = " << run_ << "; event = " << event_ << " for Signal " << TVar::SmurfProcessName(k) << "\n"; 
     
-    // get the signal event probability
-    double numer = dXsecList[k] / (higgs->GetMCFMXsec() * higgs->GetAcceptance(type_)); 
-    if (verbosity >= TVar::DEBUG)
-      cout<< "PHWW " << TVar::SmurfProcessName(k) << " "  <<numer<< "\t dXsec "<< dXsecList[k] << "\n";
+    // calculate the LR only for the events that pass the pre-selection
+    if ( dilep_->mass() > massCut || mt_ < 80.)  
+      LR[k] = -1.;
+    else {
+      // get the signal event probability
+      double numer = dXsec_[k] / (higgs->GetMCFMXsec() * higgs->GetAcceptance(type_)); 
+      if (verbosity >= TVar::DEBUG)
+	cout<< "PHWW " << TVar::SmurfProcessName(k) << " "  <<numer<< "\t dXsec "<< dXsec_[k] << "\n";
+      
+      // get the background yields
+      double yield_bg = ww->GetYield(type_) + wpj->GetYield(type_);
+      if (verbosity >= TVar::DEBUG)
+	cout<<"bg_yield="<<yield_bg<<"\n";
+      
+      // add WW background to the denominator
+      double denom  = numer;
+      denom += dXsec_[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(type_)) * ww->GetYield(type_)/yield_bg;
+      if (verbosity >= TVar::DEBUG)
+	cout<<" PWW = "<<  dXsec_[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(type_)) * ww->GetYield(type_)/yield_bg;
+      
+      // add Wjet background combining W+jet and W-jet assume the same acceptance for Wpj and Wmj 
+      denom +=  (dXsec_[TVar::Wp_1jet ] + dXsec_[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg;
+      if (verbosity >= TVar::DEBUG)
+	cout<<" PWj = " << (dXsec_[TVar::Wp_1jet ] + dXsec_[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg << "\n";
+      
+      if(denom!=0)
+	LR[k]=numer/denom;
+    }
     
-    // get the background yields
-    double yield_bg = ww->GetYield(type_) + wpj->GetYield(type_);
-    if (verbosity >= TVar::DEBUG)
-      cout<<"bg_yield="<<yield_bg<<"\n";
-    
-    // add WW background to the denominator
-    double denom  = numer;
-    denom += dXsecList[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(type_)) * ww->GetYield(type_)/yield_bg;
-    if (verbosity >= TVar::DEBUG)
-      cout<<" PWW = "<<  dXsecList[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(type_)) * ww->GetYield(type_)/yield_bg;
-
-    // add Wjet background combining W+jet and W-jet assume the same acceptance for Wpj and Wmj 
-    denom +=  (dXsecList[TVar::Wp_1jet ] + dXsecList[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg;
-    if (verbosity >= TVar::DEBUG)
-      cout<<" PWj = " << (dXsecList[TVar::Wp_1jet ] + dXsecList[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg << "\n";
-    
-    if(denom!=0)
-      LR[k]=numer/denom;
     if (verbosity >= TVar::DEBUG) 
       cout<<"LR_HWW["<<k<<"]= "<<LR[k]<<"\n";
     
@@ -220,20 +231,22 @@ void getProcess(int mH, TVar::Process & k, float& massCut)
   }
 }
 
-float weightME(TString fileName, TString meFDir, TString mebdtFDir, TString bdtprefix)
+float weightME(TString fileName, TString inputSmurfFDir, TString meFDir)
 {
-  TFile *fin = TFile::Open(meFDir + fileName + ".root");
+  TString inputSmurfFileName = inputSmurfFDir + fileName + ".root";
+  TFile *fin = TFile::Open(inputSmurfFileName, "READ");
   if (fin == 0x0 ) {
-    std::cout << "ERROR: weightME() file " << meFDir + fileName + ".root doesn't exsit, weight set to 1....";
+    std::cout << "ERROR: weightME() file " << inputSmurfFileName + " doesn't exsit, weight set to 1....";
     return 1.0;
   }
 
   TTree *treein = (TTree*)fin->Get("tree");
   float Nin = treein->GetEntries();
   
-  TFile *fout = TFile::Open(mebdtFDir + bdtprefix + "_" + fileName + "_ME.root");
+  TString meFileName = meFDir + fileName + ".root";
+  TFile *fout = TFile::Open(meFileName, "READ");
   if (fout == 0x0 ) {
-    std::cout << "ERROR: weightME() file " << meFDir + fileName + ".root doesn't exsit, weight set to 0....";
+    std::cout << "ERROR: weightME() file " << meFileName + " doesn't exsit, weight set to 0....";
     return 1.0;
   }
   TTree *treeout = (TTree*)fout->Get("tree");
