@@ -30,10 +30,8 @@ for MH in 140; do
     echo creating directory "$SHAPESTAT"
     mkdir -p $SHAPESTAT
     # create the new cards according to njet and flavor
-    # for NJETS in 0 1; do
-    for NJETS in 0; do
-	# for FLAVOR in sf of; do
-	for FLAVOR in of; do
+    for NJETS in 0 1; do
+    	for FLAVOR in sf of; do
 	    cp $INPUTCARD/hww${FLAVOR}_${NJETS}j.input.root $SHAPESTAT/
 	    echo "Doing root -l -b -q shapeStat.C\($MH,$NJETS,\"${FLAVOR}\",\"${INPUTDIR}\"\);"
 	    root -l -b -q shapeStat.C\($MH,$NJETS,\"${FLAVOR}\",\"${INPUTDIR}\"\)
