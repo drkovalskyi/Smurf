@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include "TString.h"
 
 void shapeStat(int mH = 140, int njet = 0, const char *flavor = "of", TString inputdir = "ana_v6_1500pb_LP_FINAL/")
 { 
@@ -28,7 +29,7 @@ void writeNewCard(int mH, TString shapecard, TString newcardname)
 	{
 	  getline (inputfile,line);
 	  if (TString(line).Contains("histo_$PROCESS", TString::kExact)  && TString(line).Contains("shapes", TString::kExact)) 
-	    newcard << TString(line).ReplaceAll(Form("/%i%/", mH), Form("/%i%/shapeStat/", mH)) << " histo_$PROCESS_$SYSTEMATIC" << endl;
+	    newcard << TString(line).ReplaceAll(Form("/%i/", mH), Form("/%i/shapeStat/", mH)) << " histo_$PROCESS_$SYSTEMATIC" << endl;
 	  else if (TString(line).Contains("histo_Data", TString::kExact)  && TString(line).Contains("shapes", TString::kExact)) 
 	    newcard << TString(line).ReplaceAll(Form("/%i%/", mH), Form("/%i%/shapeStat/", mH)) << endl;
 	  else if (TString(line).Contains("stat", TString::kExact)) {
