@@ -148,9 +148,15 @@ void getbin(TH1F* & hist, int& bin, float & bincontent, float & binerror)
   
   if (bincontent <= 0) {
     // flucturate the original event count by 1...
-    float histweight = hist->Integral(0,1000)/float(hist->GetEntries());
-    bincontent = 1.*histweight;
-    binerror = 1.0;
+    if ( hist->GetEntries() == 0.) {
+      bincontent = 0.0;
+      binerror = 0.0;
+    }
+    else {
+      float histweight = hist->Integral(0,1000)/float(hist->GetEntries());
+      bincontent = 1.*histweight;
+      binerror = 1.0;
+    }
   }
   else 
     binerror = hist->GetBinError(bin) / bincontent;
