@@ -29,7 +29,7 @@ for FILE in $FILEPATH/${PROCESS}_ME_*.root; do
         fi
 done
 echo -e "\ts.SetMaxTreeSize(1e9);" >> merge.C
-echo -e "\ts.Merge(\"${OUTPUT}/${PROCESS}_ME.root\");" >> merge.C
+echo -e "\ts.Merge(\"${OUTPUT}/${PROCESS}.root\");" >> merge.C
 echo "}" >> merge.C
 
 echo "Merging $PROCESS"
