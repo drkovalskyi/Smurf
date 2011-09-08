@@ -34,8 +34,8 @@ EOF
 # Fill the smurfntuples with LR
 # ===========================================
 
-#for MH in 115 120 130 140 150 160 170 180 190 200 250 300; do 
-for MH in 130; do
+for MH in 115 120 130 140 150 160 170 180 190 200 250 300; do 
+#for MH in 130; do
     rm -f log/add_lr_$MH.log;
     echo doing $MH
     # first add the LR for the higgs sample
