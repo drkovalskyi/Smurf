@@ -1,4 +1,5 @@
 #!/bin/sh
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ data /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 4 250
 ./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww115 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 40 500
 ./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww120 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 40 500
 ./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ hww130 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
@@ -24,4 +25,4 @@
 ./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ dytt /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 1 250
 ./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ wjets_data /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 250
 ./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ wjets_PassFail /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 15 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ data /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 4 250
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_SmurfV6/src/ ww2l_pythia /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 32 250
