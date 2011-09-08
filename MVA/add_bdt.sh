@@ -1,12 +1,7 @@
 #!/bin/bash
 
-# Example:
-# ./run_mva.sh 0 130 projlumi datalumi
-#
-# 1. input files should be available in "data" folder
-#  IMPORTANT: this assumes that the data file already inclueds the differential cross-sections for ME method
+# 1. IMPORTANT: this assumes that the data file already inclueds the differential cross-sections for ME method
 #    ln -s /smurf/ceballos/tmva/weights weights
-# 
 
 # 2. To add the BDT output to the smurfntuples
 #    Use 5.28 version root, this is currently available at lxplus
@@ -15,19 +10,24 @@ export NJETS=$1;
 export MH=$2;
 export INPUTDIR=$3
 export OUTPUTDIR=$4
-
-
-if [ ! $# -eq 4 ]; then
-	echo "USAGE: ./run_limit.sh njets mH lumi
+export MEFLAG=$5
+ 
+if [ ! $# -eq 5 ]; then
+	echo "USAGE: ./add_bdt.sh njets mH inputdir outputdir meflag
         njet - njet bin e.g. 0, 1 or 2
         mH   - SM Higgs mass hypothesis e.g. 120
         inputdir - input directories.. /smurf/yygao/data/EPS/WW/
-        outputdir - input directories.. /smurf/yygao/data/EPS/WW/"
+        outputdir - input directories.. /smurf/yygao/data/EPS/WW/
+	meflag - set to 1 if analyzing the inputs from ME code"
 	exit 1
 fi
 
 # append the inputdir by the number of jets
-INPUTDIR=${INPUTDIR}/${NJETS}j/
+if [ ${NJETS} == "0" ] && [ ${MEFLAG} == "1" ]; then
+	INPUTDIR=${INPUTDIR}/${NJETS}j/ME/
+else
+    INPUTDIR=${INPUTDIR}/${NJETS}j/
+fi
 
 ### samples must be in "data" folder
 rm -f data
@@ -53,20 +53,20 @@ export METHODS=BDTG;
 ### Fill MVA output information
 ### MVA output is available in "weights" folder
 ### an arbitrary list of samples can be added
-
+# define a list of the files to analyze
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-data-met20-1092ipb
+data
 wgamma
 hww${MH}
 qqww
 ggww
+ww2l_pythia
 wjets
 wjets_data
+wjets_PassFail
 ttbar
 tw
-stop
-ttop
 wz
 zz
 dyee
@@ -74,14 +74,13 @@ dymm
 dytt
 EOF
 
-
 # ===========================================
 # Fill the smurfntuples with the BDT
 # ===========================================
 
-export evaluateMVAFile=evaluateMVA_smurf.C++;
+export evaluateMVAFile=evaluateMVA_smurf.C+;
 if [ ${NJETS} == "1" ]; then
-  export evaluateMVAFile=evaluateMVA_smurf1.C++;
+  export evaluateMVAFile=evaluateMVA_smurf1.C+;
 fi
 
 for i in `cat list_samples.txt` ; do
@@ -91,5 +90,5 @@ for i in `cat list_samples.txt` ; do
     mv $OUTPUTDIR/${TAG}_${dataset}.root $OUTPUTDIR/${dataset}_${NJETS}j.root
 done
 
-#tidy up
 rm -f list_samples.txt;
+
