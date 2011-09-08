@@ -309,12 +309,12 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     processList[ NProcessCalculate++]=TVar::HWW200;
     processList[ NProcessCalculate++]=TVar::HWW250;
     processList[ NProcessCalculate++]=TVar::HWW300;
-    //processList[ NProcessCalculate++]=TVar::HWW350;
-    //processList[ NProcessCalculate++]=TVar::HWW400;
-    //processList[ NProcessCalculate++]=TVar::HWW450;
-    //processList[ NProcessCalculate++]=TVar::HWW500;
-    //processList[ NProcessCalculate++]=TVar::HWW550;
-    //processList[ NProcessCalculate++]=TVar::HWW600;
+    processList[ NProcessCalculate++]=TVar::HWW350;
+    processList[ NProcessCalculate++]=TVar::HWW400;
+    processList[ NProcessCalculate++]=TVar::HWW450;
+    processList[ NProcessCalculate++]=TVar::HWW500;
+    processList[ NProcessCalculate++]=TVar::HWW550;
+    processList[ NProcessCalculate++]=TVar::HWW600;
     break;
   }
   
@@ -324,7 +324,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     
     // Load the MC based boost, efficiency and generator FR
     bool setMCFR = false;
-    Xcal2.SetMCHist(ProcInt, "Util.root", setMCFR, verbosity);
+    Xcal2.SetMCHist(ProcInt, "Util_HWW.root", setMCFR, verbosity);
     
     // Set the fakerate from data measurements
     if (!setMCFR && (iproc == TVar::Wp_1jet || iproc == TVar::Wm_1jet)) {
