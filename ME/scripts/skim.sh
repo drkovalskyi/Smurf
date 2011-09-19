@@ -60,7 +60,7 @@ fi
 if [ "$SELECTION" == 'WW' ]; then
 rm -f list_samples.txt
 cat > list_samples.txt <<EOF
-data_2l_met20.root
+data.root
 zz.root
 wz.root
 ttbar.root
@@ -148,3 +148,13 @@ if [ "$SELECTION" == 'PassFail' ]; then
 	root -l -q merge.C
     done
 fi
+
+
+# now add the special pass and fail cases for wjets MC 
+if [ "$SELECTION" == 'PassFail' ]; then  	    
+    for JETBIN in 0 1 2 ; do 
+	outputdir=$OUTPUTDIR/WW/${JETBIN}j/
+	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"wjets.root\",\"$outputdir\",\"$SELECTION\",$JETBIN\);
+    done
+fi
+ 
