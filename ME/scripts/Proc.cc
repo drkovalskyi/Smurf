@@ -66,7 +66,8 @@ void Proc::initYields() {
   
   for (int j=0; j<kNDilep; j++){ 
     TH1F *tmp = new TH1F("tmp", "tmp", 20, 0, 20);
-    tree->Project("tmp", "dPhi", Form("scale1fb*(type==%i&&dilep.mass()<%f&&mt>80.)", j, massCut_));
+    //tree->Project("tmp", "dPhi", Form("scale1fb*(type==%i&&dilep.mass()<%f&&mt>80.)", j, massCut_));
+    tree->Project("tmp", "dPhi", Form("scale1fb*(type==%i&&dilep.mass()<%f)", j, massCut_));
     if (tmp!= 0x0) yield_[j] = tmp->Integral(0, 9999); 
     else yield_[j]=0;
     tot_yield += yield_[j];
@@ -100,79 +101,109 @@ void Proc::initTotXsec() {
 
   case (TVar::HWW115):
     NLOXsec_ = 0.165009;
-    MCFMXsec_ = 0.04980/9.0;
+    MCFMXsec_ = 0.005534;
     break;
 
   case (TVar::HWW120):
     NLOXsec_ = 0.249642;
-    MCFMXsec_ = 0.07533/9.0;
+    MCFMXsec_ = 0.008370;
     break;
 
   case (TVar::HWW130):
     NLOXsec_ = 0.452090;
-    MCFMXsec_ = 0.1451/9.0;
+    MCFMXsec_ = 0.016125;
     break;
 
   case (TVar::HWW140):
     NLOXsec_ = 0.641773;
-    MCFMXsec_ = 0.2165/9.0;
+    MCFMXsec_ = 0.024054;
     break;
 
   case (TVar::HWW150):
     NLOXsec_ = 0.770471;
-    MCFMXsec_ = 0.2671/9.0;
+    MCFMXsec_ = 0.029674;
     break;
 
   case (TVar::HWW160):
     NLOXsec_ = 0.866443;
-    MCFMXsec_ = 0.3034/9.0;
+    MCFMXsec_ = 0.033716;
     break;
 
   case (TVar::HWW170):
     NLOXsec_ = 0.782962;
-    MCFMXsec_ = 0.2870/9.0;
+    MCFMXsec_ = 0.031889;
     break;
 
   case (TVar::HWW180):
     NLOXsec_ = 0.659328;
-    MCFMXsec_ = 0.2465/9.0;
+    MCFMXsec_ = 0.027389;
     break;
 
   case (TVar::HWW190):
     NLOXsec_ = 0.486486;
-    MCFMXsec_ = 0.1849/9.0;
+    MCFMXsec_ = 0.020545;
     break;
 
   case (TVar::HWW200):
     NLOXsec_ = 0.408305;
-    MCFMXsec_ = 0.1570/9.0;
+    MCFMXsec_ = 0.017441;
     break;
 
   case (TVar::HWW210):
     NLOXsec_ = 0.358465;
-    MCFMXsec_ =  0.1380/9.0;
+    MCFMXsec_ =  0.015340;
     break;
     
   case (TVar::HWW220):
     NLOXsec_ = 0.321398;
-    MCFMXsec_ = 0.1232/9.0;
+    MCFMXsec_ = 0.013686;
     break;
 
   case (TVar::HWW230):
     NLOXsec_ = 0.290454;
-    MCFMXsec_ = 0.1107/9.0;
+    MCFMXsec_ = 0.0123;
     break;
 
   case (TVar::HWW250):
     NLOXsec_ = 0.243724;
-    MCFMXsec_ = 0.0906/9.0;
+    MCFMXsec_ = 0.010063;
     break;
     
   case (TVar::HWW300):
-    NLOXsec_ = 0.243724;
-    MCFMXsec_ = 0.05758/9.0;
+    NLOXsec_ = 0.175652;
+    MCFMXsec_ = 0.006398;
     break;
 
+  case (TVar::HWW350):
+    NLOXsec_ = 0.160052;
+    MCFMXsec_ = 0.004251;
+    break;
+
+  case (TVar::HWW400):
+    NLOXsec_ = 0.124330;
+    MCFMXsec_ = 0.002464;
+    break;
+
+  case (TVar::HWW450):
+    NLOXsec_ = 0.078433;
+    MCFMXsec_ = 0.001637;
+    break;
+
+  case (TVar::HWW500):
+    NLOXsec_ = 0.048702;
+    MCFMXsec_ = 0.00156;
+    break;
+
+  case (TVar::HWW550):
+    NLOXsec_ = 0.030364;
+    MCFMXsec_ = 0.000848;
+    break;
+
+  case (TVar::HWW600):
+    NLOXsec_ = 0.019184;
+    MCFMXsec_ = 0.000633;
+    break;
+    
  case (TVar::HZZ250):
    NLOXsec_ = 0.03974;
    MCFMXsec_ = 0.004906;
