@@ -60,6 +60,9 @@ fi
 if [ "$SELECTION" == 'WW' ]; then
 rm -f list_samples.txt
 cat > list_samples.txt <<EOF
+wgamma_lgamma.root
+EOF
+fi
 data.root
 zz.root
 wz.root
@@ -96,8 +99,8 @@ ww_mcnlo_up.root
 ttbar_mg.root
 tw_ds.root
 qqww_py.root
-EOF
-fi
+
+
 
 if [ "$SELECTION" == 'PassFail' ]; then
 rm -f list_samples.txt
@@ -143,6 +146,7 @@ done
 if [ "$SELECTION" == 'PassFail' ]; then
     for JETBIN in 0 1 2 ; do 
 	outputdir=$OUTPUTDIR/WW/${JETBIN}j/
+	rm -f ${outputdir}/wjets_PassFail.root
 	rm  merge.C
 	touch merge.C
 	echo -e "{\tTChain s(\"tree\");" >> merge.C
