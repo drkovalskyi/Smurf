@@ -64,6 +64,8 @@ enum Selection {
 // ww-preselection information available through bits (extra cuts are needed)
 // http://www.t2.ucsd.edu/tastwiki/bin/view/Smurf/ReferenceSelections#SmurfWW_V6_with_42X
 UInt_t ww = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
+// relax met
+UInt_t ww_nomet = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|ZVeto|TopVeto|ExtraLeptonVeto;
 // relax zveto and met
 UInt_t ww_nozveto_nomet = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|TopVeto|ExtraLeptonVeto;
 // relax the lepton requirements
@@ -85,6 +87,7 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
   
   TString outputFileName = outputDir + fileName;
   if (cutstring == "PassFail")   outputFileName.ReplaceAll(".root","_PassFail.root");
+  if (cutstring == "LooseMET")   outputFileName.ReplaceAll(".root","_LooseMET.root");
   
   TFile *newfile= new TFile(outputFileName,"recreate");
   TTree* evt_tree=(TTree*) ch->CloneTree(0, "fast");
@@ -173,6 +176,15 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if ( cuts_ & Lep2FullSelection ) {
 	if ( ! ( (cuts_ & Lep1LooseEleV4) || (cuts_ & Lep1LooseMuV1) || (cuts_ & Lep1LooseMuV2)  ) ) continue;
       }
+    }
+
+
+    // select the LooseMET sample for the wjets studies
+    else if (cutstring == "LooseMET") {  
+      // select events with 20 < met < 40
+      if (TMath::Min(pmet_,pTrackMet_) < 20. ||TMath::Min(pmet_,pTrackMet_) > 40.  )  continue;
+      if ( (type_==0||type_==3) && jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
+      if ((cuts_ & ww_nomet) != ww_nomet) continue; 
     }
     
     // cuts to select the ZZ pre-selection

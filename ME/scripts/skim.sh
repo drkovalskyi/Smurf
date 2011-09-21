@@ -16,7 +16,7 @@ if [ ! $# -eq 3 ]; then
     echo "USAGE: ./skim.sh   INPUTDIR OUTPUTDIR
         INPUTDIR - location of smurf ntuples to skim (e.g. /smurf/data/Run2011_Spring11_SmurfV3/mitf-alljets/)
         OUTPUTDIR - location to output skimmed ntuples
-        SELECTION - selection, choose from ZZ, WW or PassFail "
+        SELECTION - selection, choose from ZZ, WW, PassFail, LooseMET, Wgamma"
     exit 1
 fi
 
@@ -65,8 +65,6 @@ zz.root
 wz.root
 ttbar.root
 tw.root
-ttop.root
-stop.root
 qqww.root
 ggww.root
 wjets.root
@@ -92,7 +90,12 @@ hww450.root
 hww500.root
 hww550.root
 hww600.root
-ww2l_pythia.root
+ww_mcnlo.root
+ww_mcnlo_down.root
+ww_mcnlo_up.root
+ttbar_mg.root
+tw_ds.root
+qqww_py.root
 EOF
 fi
 
@@ -110,6 +113,14 @@ wgamma.root
 EOF
 fi
 
+if [ "$SELECTION" == 'LooseMET' ]; then
+rm -f list_samples.txt
+cat > list_samples.txt <<EOF
+dyee.root
+dymm.root
+EOF
+fi
+
 
 # Do the skimming...
 for FILE in `cat list_samples.txt` ; do
@@ -118,6 +129,10 @@ for FILE in `cat list_samples.txt` ; do
 	if [ "$SELECTION" == 'PassFail' ]; then
 	    outputdir=$OUTPUTDIR/WW/${JETBIN}j/
 	fi
+	if [ "$SELECTION" == 'LooseMET' ]; then
+	    outputdir=$OUTPUTDIR/WW/${JETBIN}j/
+	fi
+	
 	mkdir -p $outputdir
 	echo doing "root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",$JETBIN\);"
 	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",$JETBIN\);
