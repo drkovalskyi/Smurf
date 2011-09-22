@@ -328,10 +328,10 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     
     // Set the fakerate from data measurements
     if (!setMCFR && (iproc == TVar::Wp_1jet || iproc == TVar::Wm_1jet)) {
-      TString elFRFile = "ElectronFakeRates_SmurfV5_V4.root";
-      TString elFRHist = "ElectronFakeRateDenominatorV4_Ele8CaloIdLCaloIsoVLCombinedSample_ptThreshold35_PtEta";
-      TString muFRFile = "MuonFakeRate_SmurfV5_M1.root";
-      TString muFRHist = "frEtaPt";
+      TString elFRFile = "FakeRates_SmurfV6.V4HasNod0Cut.root";
+      TString elFRHist = "ElectronFakeRate_V4_ptThreshold35_PtEta";
+      TString muFRFile = "FakeRates_SmurfV6.V4HasNod0Cut.root";
+      TString muFRHist = "MuonFakeRate_M2_ptThreshold15_PtEta";
       Xcal2.SetFRHist(elFRFile, elFRHist, muFRFile, muFRHist, verbosity);
     }
     if (verbosity >= TVar::DEBUG) 
