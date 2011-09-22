@@ -666,8 +666,9 @@ double getFakeRateProb(const cdf_event_type &cdf_event,  EffHist effhist, FRHist
     else {
       int xBin_genfr =  frhist.mus_part_fo->GetXaxis()->FindBin(cdf_event.p[j].Pt()) >  frhist.mus_part_fo->GetXaxis()->GetNbins() ?  frhist.mus_part_fo->GetXaxis()->GetNbins() : frhist.mus_part_fo->GetXaxis()->FindBin(cdf_event.p[j].Pt());
       int yBin_genfr =  frhist.mus_part_fo->GetYaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta())) >  frhist.mus_part_fo->GetYaxis()->GetNbins() ?  frhist.mus_part_fo->GetYaxis()->GetNbins() : frhist.mus_part_fo->GetYaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta()));
-      int xBin_fr = frhist.mus_fr->GetXaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta())) >  frhist.mus_fr->GetXaxis()->GetNbins() ?  frhist.mus_fr->GetXaxis()->GetNbins() : frhist.mus_fr->GetXaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta()));
-      int yBin_fr = frhist.mus_fr->GetYaxis()->FindBin(cdf_event.p[j].Pt()) >  frhist.mus_fr->GetYaxis()->GetNbins() ?  frhist.mus_fr->GetYaxis()->GetNbins() : frhist.mus_fr->GetYaxis()->FindBin(cdf_event.p[j].Pt());
+      int xBin_fr = frhist.mus_fr->GetXaxis()->FindBin(cdf_event.p[j].Pt()) >  frhist.mus_fr->GetXaxis()->GetNbins() ?  frhist.mus_fr->GetXaxis()->GetNbins() : frhist.mus_fr->GetXaxis()->FindBin(cdf_event.p[j].Pt());
+      int yBin_fr = frhist.mus_fr->GetYaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta())) >  frhist.mus_fr->GetYaxis()->GetNbins() ?  frhist.mus_fr->GetYaxis()->GetNbins() : frhist.mus_fr->GetYaxis()->FindBin(TMath::Abs(cdf_event.p[j].Eta()));
+
       prob *=  frhist.mus_part_fo->GetBinContent(xBin_genfr, yBin_genfr) * frhist.mus_fr->GetBinContent(xBin_fr, yBin_fr);
     }
     
