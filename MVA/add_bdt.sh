@@ -61,7 +61,6 @@ wgamma
 hww${MH}
 qqww
 ggww
-ww2l_pythia
 wjets
 wjets_data
 wjets_PassFail
