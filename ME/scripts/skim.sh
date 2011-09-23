@@ -60,9 +60,6 @@ fi
 if [ "$SELECTION" == 'WW' ]; then
 rm -f list_samples.txt
 cat > list_samples.txt <<EOF
-wgamma_lgamma.root
-EOF
-fi
 data.root
 zz.root
 wz.root
@@ -93,12 +90,8 @@ hww450.root
 hww500.root
 hww550.root
 hww600.root
-ww_mcnlo.root
-ww_mcnlo_down.root
-ww_mcnlo_up.root
-ttbar_mg.root
-tw_ds.root
-qqww_py.root
+EOF
+fi
 
 
 
