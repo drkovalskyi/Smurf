@@ -66,8 +66,7 @@ void Proc::initYields() {
   
   for (int j=0; j<kNDilep; j++){ 
     TH1F *tmp = new TH1F("tmp", "tmp", 20, 0, 20);
-    //tree->Project("tmp", "dPhi", Form("scale1fb*(type==%i&&dilep.mass()<%f&&mt>80.)", j, massCut_));
-    tree->Project("tmp", "dPhi", Form("scale1fb*(type==%i&&dilep.mass()<%f)", j, massCut_));
+    tree->Project("tmp", "dPhi", Form("scale1fb*(type==%i&&dilep.mass()<%f&&mt>80.)", j, massCut_));
     if (tmp!= 0x0) yield_[j] = tmp->Integral(0, 9999); 
     else yield_[j]=0;
     tot_yield += yield_[j];
