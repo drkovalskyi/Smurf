@@ -8,7 +8,7 @@
 
 // function to initialize BR 
 void Proc::initBR() {
-  if (proc_ == TVar::WW || (proc_ <= TVar::HWW300 && proc_ >= TVar::HWW115 )) {
+  if (proc_ == TVar::WW || (proc_ <= TVar::HWW600 && proc_ >= TVar::HWW115 )) {
     BR_[0] = (1.0+0.1736)*(1.0+0.1736)/9;
     BR_[1] = (1.0+0.1736)*(1.0+0.1784)/9;
     BR_[2] = (1.0+0.1736)*(1.0+0.1784)/9;
