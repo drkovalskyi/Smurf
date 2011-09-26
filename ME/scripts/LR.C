@@ -169,7 +169,6 @@ void getProcess(int mH, TVar::Process & k, float& massCut)
     k = TVar::HWW115;
     massCut = 70.0;
     break;
-
   case (120):
     k = TVar::HWW120;
     massCut = 70.0;
@@ -225,6 +224,10 @@ void getProcess(int mH, TVar::Process & k, float& massCut)
   case (300):
     k = TVar::HWW300;
     massCut = 300.0;
+    break;
+  case (350):
+    k = TVar::HWW350;
+    massCut = 350.0;
     break;
   case (400):
     k = TVar::HWW400;
