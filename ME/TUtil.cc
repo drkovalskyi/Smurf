@@ -520,33 +520,46 @@ double HiggsWidth(double mass){
   else 
     if (mass==110) width=0.29590E-02;
   else 
-    if (mass==120) width=0.36050E-02;
+    //if (mass==120) width=0.36050E-02;
+    if (mass==120) width=0.36000E-02;
   else 
-    if (mass==130) width=0.49630E-02;
+    //if (mass==130) width=0.49630E-02;
+    if (mass==130) width=0.50060E-02;
   else 
-    if (mass==140) width=0.81090E-02;
+    //if (mass==140) width=0.81090E-02;
+    if (mass==140) width=0.82810E-02;
   else 
-    if (mass==150) width=0.16860E-01;
+    //if (mass==150) width=0.16860E-01;
+    if (mass==150) width=0.17440E-01;
   else 
-    if (mass==160) width=0.80720E-01; 
+    //if (mass==160) width=0.80720E-01; 
+    if (mass==160) width=0.82550E-01;
   else 
-    if (mass==170) width=0.38660E+00;
+    //if (mass==170) width=0.38660E+00;
+    if (mass==170) width=0.37600E+00;
   else 
-    if (mass==180) width=0.63030E+00;
+    //if (mass==180) width=0.63030E+00;
+    if (mass==180) width=0.62910E+00;
   else 
-    if (mass==190) width=0.10400E+01;
+    //if (mass==190) width=0.10400E+01;
+    if (mass==190) width=0.10360E+01;
   else 
-    if (mass==200) width=0.14280E+01;
+    //if (mass==200) width=0.14280E+01;
+    if (mass==200) width=0.14260E+01;
   else 
-    if (mass==210) width=0.18400E+01;
+    //if (mass==210) width=0.18400E+01;
+    if (mass==210) width=0.18410E+01;
   else 
-    if (mass==220) width=2.29900E+00;
+    //if (mass==220) width=2.29900E+00;
+    if (mass==220) width=0.23010E+01;
   else 
-    if (mass==230) width=2.81500E+00;
+    //if (mass==230) width=2.81500E+00;
+    if (mass==230) width=0.28170E+01;
   else 
     if (mass==240) width=3.39700E+00;
   else
-    if (mass==250) width=4.04900E+00;
+    //if (mass==250) width=4.04900E+00;
+    if (mass==250) width= 0.40450E+01;
   else
     if (mass==260) width=4.77500E+00;
   else 
@@ -556,11 +569,24 @@ double HiggsWidth(double mass){
   else
     if (mass==290) width=7.44700E+00;
   else
-    if (mass==300) width=8.51200E+00;
+    //if (mass==300) width=8.51200E+00;
+    if (mass==300) width=0.84520E+01;
   else
-    if (mass==400) width=28.8900E+00;
+    if (mass==350) width=0.15170E+02;
   else
-    if (mass==115) width=0.3228E-02;
+    //if (mass==400) width=28.8900E+00;
+    if (mass==400) width=0.29160E+02;
+  else
+    if (mass==450) width=0.46820E+02;
+  else
+    if (mass==500) width=0.67940E+02;
+  else
+    if (mass==550) width=0.92950E+02;
+  else
+    if (mass==600) width=0.12250E+03;
+  else
+    //if (mass==115) width=0.3228E-02;
+    if (mass==115) width=0.32120E-02;
   else
     if (mass==125) width=0.4152E-02;
   else
