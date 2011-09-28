@@ -120,16 +120,16 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   if (verbosity >= TVar::INFO) printf("Total number of events = %d\n", Ntot);
   
   for(int ievt=evtstart;ievt<Ntot;ievt++){
- 
+
     if (verbosity >= TVar::INFO && (ievt % 5 == 0)) 
         std::cout << "Doing Event: " << ievt << std::endl;
- 
+
     for(int idx=0;idx<nProc;idx++) {
       dXsecList   [idx] = 0;
       dXsecErrList[idx] = 0;
     }
     
-    ch->GetEntry(ievt);            
+    ch->GetEntry(ievt);           
     
     // impose trailing electron pT > 15 GeV (obselete for SmurfV5)
     // if( (type_ == 1||type_ == 3) && lep2_->Pt()<15 ) continue;
@@ -321,7 +321,10 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     
   for(int iproc = 0; iproc < NProcessCalculate; iproc++) { 
     ProcInt=processList[iproc];
-    
+    // initialize the values
+    Xsec=0;
+    XsecErr=0;
+    Ratio=0;
     // Load the MC based boost, efficiency and generator FR
     bool setMCFR = false;
     Xcal2.SetMCHist(ProcInt, "Util_HWW.root", setMCFR, verbosity);
@@ -342,10 +345,10 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     double scale_fo = 1.0;
     if(ProcInt == TVar::Wp_1jet) {
       if( TMath::Abs(cms_event.PdgCode[1]) == 11) {
-	scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
+	scale_fo = getPtResponseFromHist(cms_event.p[1].Pt(),  Xcal2._FRhist.els_ptres);
       }
       if( TMath::Abs(cms_event.PdgCode[1]) == 13) {
-	scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
+	scale_fo = getPtResponseFromHist(cms_event.p[1].Pt(),  Xcal2._FRhist.mus_ptres);
       }
       cms_event.p[1].SetXYZM( cms_event.p[1].Px()*scale_fo, cms_event.p[1].Py()*scale_fo, cms_event.p[1].Pz()*scale_fo, 0);
     }
@@ -353,14 +356,16 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     // For W- hypothesis, assume the l+ is the FO
     if(ProcInt == TVar::Wm_1jet) {
       if( TMath::Abs(cms_event.PdgCode[0]) == 11) {
-	scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
+	scale_fo = getPtResponseFromHist(cms_event.p[0].Pt(),  Xcal2._FRhist.els_ptres);
       }
       if( TMath::Abs(cms_event.PdgCode[0]) == 13) {
-	scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
+	scale_fo = getPtResponseFromHist(cms_event.p[0].Pt(),  Xcal2._FRhist.mus_ptres);
       }	  
+      // protect the case where the response bin is empty
+      if ( scale_fo == 0 ) scale_fo = 1.0;
       cms_event.p[0].SetXYZM( cms_event.p[0].Px()*scale_fo, cms_event.p[0].Py()*scale_fo, cms_event.p[0].Pz()*scale_fo, 0);
     }
-    
+
     // -- Do the integration over unknown parameters
     if (ProcInt >= TVar::HWW115 && ProcInt <= TVar::HWW600){
       Xcal2.SetProcess(TVar::HWW);

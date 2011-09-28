@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <iostream>
+#include "TProfile.h"
 using namespace std;
 
 
@@ -708,4 +709,22 @@ void getProbFromHist(double x0, double* kX, double *wt, TH1F *hkx)
   *kX = hkx->GetXaxis()->GetXmin() + x0*c;
   *wt = hkx->GetBinContent(hkx->GetXaxis()->FindBin(*kX))/hkx->Integral(1, hkx->GetNbinsX())*c/hkx->GetBinWidth(1);
 }
+
+double getPtResponseFromHist(const double pt,  const TH2F *ptres)
+{
+  double scale_fo = 1.0;
+  int bin_ptres = ptres->GetXaxis()->FindBin(pt);
+  scale_fo = ptres->ProfileX()->GetBinContent(bin_ptres);
+  if ( scale_fo == 0.0) {
+    for ( int binx = bin_ptres; binx >= 0; binx--) {
+      if (ptres->ProfileX()->GetBinContent( binx) > 0.) {
+	scale_fo = ptres->ProfileX()->GetBinContent( binx);
+	break;
+      }
+    }
+  }
+  if ( scale_fo == 0.) scale_fo = 1.0;
+  return scale_fo;
+}
+
 
