@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.4 2011/08/23 21:21:20 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.5 2011/09/02 08:28:35 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -48,6 +48,8 @@
 
 #include "Math/LorentzVector.h"
 #include "Math/VectorUtil.h"
+
+#include "../Core/SmurfTree.h"
 
 #if not defined(__CINT__) || defined(__MAKECINT__)
 // needs to be included when makecint runs (ACLIC)
@@ -374,6 +376,8 @@ void trainMVA_smurf(
   
   std::vector<Double_t> vars( nVariables );
 
+  UInt_t          cuts;
+  UInt_t          dstype;
   UInt_t          njets;
   UInt_t          event;
   Float_t         scale1fb;
@@ -402,6 +406,8 @@ void trainMVA_smurf(
   UInt_t          nSoftMuons;
   Float_t         jet1Btag;
 
+  signal->SetBranchAddress( "cuts"         , &cuts         );
+  signal->SetBranchAddress( "dstype"       , &dstype       );
   signal->SetBranchAddress( "njets"        , &njets        );
   signal->SetBranchAddress( "event"        , &event        );
   signal->SetBranchAddress( "scale1fb"     , &scale1fb     );
@@ -443,10 +449,15 @@ void trainMVA_smurf(
     // SIGNAL EVENT SELECTION
     //--------------------------------------------------
 
+    if( mt <= 80		       ) continue; // cut on mt low
+    if( mt >= mH		       ) continue; // cut on mt high
+    //if( dPhi*180.0/TMath::Pi() >= 150 &&
+    //    mH < 210	                 ) continue; // cut on dPhi
+
+    if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
+         (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
+
     if( njets != njetsType               ) continue; // select n-jet type events
-    if( mt <= 80			 ) continue; // cut on mt: [80-mh+30]
-    if( mt >= mH+10			 ) continue; // cut on mt: [80-mh+30]
-    if( dPhi*180.0/TMath::Pi() >= 120	 ) continue; // cut on dPhi
     if( dilep->mass() > dilmass_cut      ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                      ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0            ) continue; // cut on low dilepton mass
@@ -486,7 +497,7 @@ void trainMVA_smurf(
     if (mvaVar["dPhiDiLepMET"])  vars[varCounter++] = dPhiDiLepMET;
     if (mvaVar["dPhiDiLepJet1"]) vars[varCounter++] = dPhiDiLepJet1;
 
-    if ( event%2 == 0 ){
+    if ( event%3 != 0 ){
       factory->AddSignalTrainingEvent( vars, scale1fb );
       nsigtrain++;
     }
@@ -496,6 +507,8 @@ void trainMVA_smurf(
     }
   }
 
+  background->SetBranchAddress( "cuts"         , &cuts         );
+  background->SetBranchAddress( "dstype"       , &dstype       );
   background->SetBranchAddress( "njets"        , &njets        );  
   background->SetBranchAddress( "event"        , &event        );
   background->SetBranchAddress( "scale1fb"     , &scale1fb     );
@@ -535,11 +548,22 @@ void trainMVA_smurf(
     //--------------------------------------------------
     // BACKGROUND EVENT SELECTION
     //--------------------------------------------------
+    if( mt <= 80		       ) continue; // cut on mt low
+    if( mt >= mH		       ) continue; // cut on mt high
+    //if( dPhi*180.0/TMath::Pi() >= 150 &&
+    //    mH < 210	                 ) continue; // cut on dPhi
+
+    //if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
+    //     (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
+
+    if(!(dstype == SmurfTree::qqww   || dstype == SmurfTree::ggww   ||
+    	 dstype == SmurfTree::ttbar  || dstype == SmurfTree::tw     ||
+         dstype == SmurfTree::wz     || dstype == SmurfTree::zz     ||
+         dstype == SmurfTree::wgamma || dstype == SmurfTree::wjets))  continue; // cut on dstype
+
+    //if(!(dstype == SmurfTree::wgamma || dstype == SmurfTree::wjets))  continue; // cut on dstype
 
     if( njets != njetsType               ) continue; // select n-jet type events
-    if( mt <= 80			 ) continue; // cut on mt: [80-mh+30]
-    if( mt >= mH+10			 ) continue; // cut on mt: [80-mh+30]
-    if( dPhi*180.0/TMath::Pi() >= 120	 ) continue; // cut on dPhi
     if( dilep->mass() > dilmass_cut      ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                      ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0            ) continue; // cut on low dilepton mass
@@ -579,7 +603,7 @@ void trainMVA_smurf(
     if (mvaVar["dPhiDiLepMET"])  vars[varCounter++] = dPhiDiLepMET;
     if (mvaVar["dPhiDiLepJet1"]) vars[varCounter++] = dPhiDiLepJet1;
 
-    if ( event%2 == 0 ){
+    if ( event%3 != 0 ){
       factory->AddBackgroundTrainingEvent( vars, scale1fb );
       nbkgtrain++;
     }
@@ -656,7 +680,7 @@ void trainMVA_smurf(
   // Likelihood ("naive Bayes estimator")
   if (Use["Likelihood"])
     factory->BookMethod( TMVA::Types::kLikelihood, "Likelihood",
-                         "H:!V:!TransformOutput:PDFInterpol=Spline2:NSmoothSig[0]=30:NSmoothBkg[0]=30:NSmoothBkg[1]=10:NSmooth=1:NAvEvtPerBin=40" );
+                         "H:!V:!TransformOutput:PDFInterpol=Spline2:NSmoothSig[0]=30:NSmoothBkg[0]=30:NSmoothBkg[1]=10:NSmooth=1:NAvEvtPerBin=50" );
 
   // Decorrelated likelihood
   if (Use["LikelihoodD"])
@@ -779,19 +803,19 @@ void trainMVA_smurf(
   // Boosted Decision Trees
   if (Use["BDTG"]) // Gradient Boost
     factory->BookMethod( TMVA::Types::kBDT, "BDTG",
-                         "!H:!V:NTrees=1000:BoostType=Grad:Shrinkage=0.10:UseBaggedGrad:GradBaggingFraction=0.5:nCuts=2000:NNodesMax=5" );
+                         "!H:!V:NTrees=400:BoostType=Grad:Shrinkage=0.10:UseBaggedGrad:GradBaggingFraction=0.5:nCuts=1000:NNodesMax=5" );
 
   if (Use["BDT"])  // Adaptive Boost
     factory->BookMethod(TMVA::Types::kBDT,"BDT",
-			"!H:!V:NTrees=400:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=2000:PruneMethod=CostComplexity:PruneStrength=20.0");
+			 "!H:!V:NTrees=400:BoostType=Grad:Shrinkage=0.10:UseBaggedGrad:GradBaggingFraction=0.5:nCuts=1000:NNodesMax=5:VarTransform=Decorrelate");
 
   if (Use["BDTB"]) // Bagging
     factory->BookMethod( TMVA::Types::kBDT, "BDTB",
-                         "!H:!V:NTrees=400:BoostType=Bagging:SeparationType=GiniIndex:nCuts=2000:PruneMethod=NoPruning" );
+                         "!H:!V:NTrees=400:BoostType=Bagging:SeparationType=GiniIndex:nCuts=1000:PruneMethod=NoPruning" );
 
   if (Use["BDTD"]) // Decorrelation + Adaptive Boost
     factory->BookMethod(TMVA::Types::kBDT,"BDTD",
-                    "!H:!V:NTrees=400:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=2000:PruneMethod=CostComplexity:PruneStrength=25.0:VarTransform=Decorrelate");
+                    "!H:!V:NTrees=400:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=1000:PruneMethod=CostComplexity:PruneStrength=25.0:VarTransform=Decorrelate");
 
   // RuleFit -- TMVA implementation of Friedman's method
   if (Use["RuleFit"])

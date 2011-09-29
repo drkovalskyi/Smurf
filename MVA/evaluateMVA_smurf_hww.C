@@ -67,7 +67,8 @@ TString path         = "",
 int  njet            = 0,
 bool doWeights       = true,
 bool doShapes        = true,
-TString InputPath    = ""
+TString InputPath    = "",
+TString suffix       = "ww"
 ) {   
 #ifdef __CINT__
   gROOT->ProcessLine( ".O0" ); // turn off optimization in CINT
@@ -500,21 +501,21 @@ TString InputPath    = ""
     TBranch* br_bdtg_aux1  = 0;
     TBranch* br_bdtg_aux2  = 0;
 
-    if(Use["BDT"])         br_bdt        = clone->Branch(Form("bdt_hww%i_%djet_ww"  ,mH,njet) , &bdt   , Form("bdt_hww%i_%djet_ww/F"   ,mH,njet) );
-    if(Use["BDTD"])        br_bdtd       = clone->Branch(Form("bdtd_hww%i_%djet_ww" ,mH,njet) , &bdtd  , Form("bdtd_hww%i_%djet_ww/F"  ,mH,njet) );
-    if(Use["MLPBNN"])      br_nn         = clone->Branch(Form("nn_hww%i_%djet_ww"   ,mH,njet) , &nn    , Form("nn_hww%i_%djet_ww/F"    ,mH,njet) );
-    if(Use["KNN"])         br_knn        = clone->Branch(Form("knn_hww%i_%djet_ww"  ,mH,njet) , &knn   , Form("knn_hww%i_%djet_ww/F"   ,mH,njet) );
-    if(Use["BDTG"])        br_bdtg       = clone->Branch(Form("bdtg_hww%i_%djet_ww" ,mH,njet) , &bdtg  , Form("bdtg_hww%i_%djet_ww/F"  ,mH,njet) );
+    if(Use["BDT"])         br_bdt        = clone->Branch(Form("bdt_hww%i_%djet_%s"  ,mH,njet,suffix.Data()) , &bdt   , Form("bdt_hww%i_%djet_%s/F"   ,mH,njet,suffix.Data()) );
+    if(Use["BDTD"])        br_bdtd       = clone->Branch(Form("bdtd_hww%i_%djet_%s" ,mH,njet,suffix.Data()) , &bdtd  , Form("bdtd_hww%i_%djet_%s/F"  ,mH,njet,suffix.Data()) );
+    if(Use["MLPBNN"])      br_nn         = clone->Branch(Form("nn_hww%i_%djet_%s"   ,mH,njet,suffix.Data()) , &nn    , Form("nn_hww%i_%djet_%s/F"    ,mH,njet,suffix.Data()) );
+    if(Use["Likelihood"])  br_knn        = clone->Branch(Form("knn_hww%i_%djet_%s"  ,mH,njet,suffix.Data()) , &knn   , Form("knn_hww%i_%djet_%s/F"   ,mH,njet,suffix.Data()) );
+    if(Use["BDTG"])        br_bdtg       = clone->Branch(Form("bdtg_hww%i_%djet_%s" ,mH,njet,suffix.Data()) , &bdtg  , Form("bdtg_hww%i_%djet_%s/F"  ,mH,njet,suffix.Data()) );
     if(Use["BDTG"] && doShapes == true){
-      br_bdtg_aux0	= clone->Branch(Form("bdtg_hww%i_%djet_ww_aux0",mH,njet) , &bdtg_aux0       , Form("bdtg_hww%i_%djet_ww_aux0/F",mH,njet) );
-      br_bdtg_aux1	= clone->Branch(Form("bdtg_hww%i_%djet_ww_aux1",mH,njet) , &bdtg_aux1       , Form("bdtg_hww%i_%djet_ww_aux1/F",mH,njet) );
-      br_bdtg_aux2	= clone->Branch(Form("bdtg_hww%i_%djet_ww_aux2",mH,njet) , &bdtg_aux2       , Form("bdtg_hww%i_%djet_ww_aux2/F",mH,njet) );
+      br_bdtg_aux0	= clone->Branch(Form("bdtg_hww%i_%djet_%s_aux0",mH,njet,suffix.Data()) , &bdtg_aux0       , Form("bdtg_hww%i_%djet_%s_aux0/F",mH,njet,suffix.Data()) );
+      br_bdtg_aux1	= clone->Branch(Form("bdtg_hww%i_%djet_%s_aux1",mH,njet,suffix.Data()) , &bdtg_aux1       , Form("bdtg_hww%i_%djet_%s_aux1/F",mH,njet,suffix.Data()) );
+      br_bdtg_aux2	= clone->Branch(Form("bdtg_hww%i_%djet_%s_aux2",mH,njet,suffix.Data()) , &bdtg_aux2       , Form("bdtg_hww%i_%djet_%s_aux2/F",mH,njet,suffix.Data()) );
     }
 
     if(Use["BDT"])         br_bdt       -> SetTitle(Form("BDT Output H%i_%dj"    , mH,njet));
     if(Use["BDTD"])        br_bdt       -> SetTitle(Form("BDTD Output H%i_%dj"   , mH,njet));
     if(Use["MLPBNN"])      br_nn        -> SetTitle(Form("MLPBNN Output H%i_%dj" , mH,njet));
-    if(Use["KNN"])         br_knn       -> SetTitle(Form("KNN Output H%i_%dj"    , mH,njet));
+    if(Use["Likelihood"])  br_knn       -> SetTitle(Form("KNN Output H%i_%dj"    , mH,njet));
     if(Use["BDTG"])        br_bdtg      -> SetTitle(Form("BDTG Output H%i_%dj"   , mH,njet));
 
     // --- Event loop
@@ -670,8 +671,9 @@ TString InputPath    = ""
       if (Use["MLPBNN"]){
         nn  = reader->EvaluateMVA( "MLPBNN method" );
       }
-      if (Use["KNN"]){
-        knn  = reader->EvaluateMVA( "KNN method" );
+      if (Use["Likelihood"]){
+        //knn  = reader->EvaluateMVA( "KNN method" );
+        knn  = reader->EvaluateMVA( "Likelihood method" );
       }
       if (Use["BDTG"]){
         bdtg  = reader->EvaluateMVA( "BDTG method" );
