@@ -9,7 +9,7 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 void atributes(TH1D *histo, Char_t xtitle[]="", Int_t COLOR = 1, Char_t ytitle[]="Fraction");
 double scpFast(double sig, double bkg, double sigma_b, double delta_b = 0.0);
 double scaleFactor(double pt1, double eta1, double pt2, double eta2, int type, int nsel);
-double enhancementFactor(double mass, bool isBRFactor = false);
+double enhancementFactor(double mass, int type = 0);
 double fakeRate(double pt, double eta, TH2D *fhDFRMu, TH2D *fhDFREl, int fm, int fe);
 double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, int lid, int syst = 0);
 double hzz2l_cuts(double mass, int opt);
@@ -167,9 +167,9 @@ double scaleFactor(double pt1, double eta1, double pt2, double eta2, int type, i
   return weight;
 }
 
-double enhancementFactor(double mass, bool isBRFactor){
+double enhancementFactor(double mass, int type){
 
-if(isBRFactor == false){
+if(type == 0){ // 4th-generation gg->H enhancement factor
   if     (mass==110.000) return 9.203 ;
   else if(mass==115.000) return 9.170 ;
   else if(mass==120.000) return 9.129 ;
@@ -193,7 +193,7 @@ if(isBRFactor == false){
   else if(mass==550.000) return 4.6065;
   else if(mass==600.000) return 4.837 ;
 }
-else {
+else if(type == 1){ // 4th-generation BR(H->WW) enhancement factor
   if     (mass==110.000) return 0.574;
   else if(mass==115.000) return 0.569;
   else if(mass==120.000) return 0.570;
@@ -216,6 +216,30 @@ else {
   else if(mass==500.000) return 0.991;
   else if(mass==550.000) return 0.993;
   else if(mass==600.000) return 0.996;
+}
+else if(type == 2){ // fermiophobic BR(H->WW) enhancement factor
+  if     (mass==110.000) return 8.54E-01/4.82E-02;
+  else if(mass==115.000) return 8.67E-01/8.67E-02;
+  else if(mass==120.000) return 8.70E-01/1.43E-01;
+  else if(mass==130.000) return 8.67E-01/3.05E-01;
+  else if(mass==140.000) return 8.69E-01/5.03E-01;
+  else if(mass==150.000) return 8.87E-01/6.98E-01;
+  else if(mass==160.000) return 9.52E-01/9.08E-01;
+  else if(mass==170.000) return 9.75E-01/9.64E-01;
+  else if(mass==180.000) return 9.38E-01/9.32E-01;
+  else if(mass==190.000) return 7.88E-01/7.86E-01;
+  else if(mass==200.000) return 7.42E-01/7.41E-01;
+  else if(mass==210.000) return 7.24E-01/7.23E-01;
+  else if(mass==220.000) return 7.15E-01/7.14E-01;
+  else if(mass==230.000) return 7.09E-01/7.08E-01;
+  else if(mass==250.000) return 7.02E-01/7.01E-01;
+  else if(mass==300.000) return 1.000;
+  else if(mass==350.000) return 1.000;
+  else if(mass==400.000) return 1.000;
+  else if(mass==450.000) return 1.000;
+  else if(mass==500.000) return 1.000;
+  else if(mass==550.000) return 1.000;
+  else if(mass==600.000) return 1.000;
 }
 
 return 1.0;
