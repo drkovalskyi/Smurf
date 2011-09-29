@@ -361,8 +361,6 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       if( TMath::Abs(cms_event.PdgCode[0]) == 13) {
 	scale_fo = getPtResponseFromHist(cms_event.p[0].Pt(),  Xcal2._FRhist.mus_ptres);
       }	  
-      // protect the case where the response bin is empty
-      if ( scale_fo == 0 ) scale_fo = 1.0;
       cms_event.p[0].SetXYZM( cms_event.p[0].Px()*scale_fo, cms_event.p[0].Py()*scale_fo, cms_event.p[0].Pz()*scale_fo, 0);
     }
 
