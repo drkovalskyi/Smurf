@@ -1,0 +1,104 @@
+\documentclass{cmspaper}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage[pdfborder=0 0 0,
+            colorlinks,
+            urlcolor = blue,
+            linkcolor = black,
+            citecolor = black,
+            menucolor = black,]
+           {hyperref}
+%% \usepackage[colorlinks]{hyperref}
+%% \usepackage{url}
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixname}{Appendix}
+%% \renewcommand{\appendixtocname}{List of appendices}
+
+% \input{privsym}
+\input{commands}
+
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+
+%===================================================================================================
+\begin{document}
+\begin{titlepage}
+
+  \analysisnote{2011/XXX}
+
+  \date{\today}
+
+  \title{Shape analysis for Higgs searches in di-lepton final state}
+
+  \input{authors_compact}
+
+  \begin{abstract}
+    This note describes implementation details and treatment of
+    systematic uncertainties of the multivariate shape analysis for
+    Higgs boson searches in the $\WW \to 2\ell2\nu$ and $\ZZ \to
+    2\ell2\nu$ final states.
+  \end{abstract} 
+
+\end{titlepage}
+\tableofcontents
+\listoftables
+\listoffigures
+\newpage 
+
+%===================================================================================================
+\section{Introduction}
+  \label{sec:overview}
+  \input{introduction}
+  
+\section{Statistical Methods}
+  \label{sec:methods}
+  \input{methods}
+
+\section{Implementation}
+  \label{sec:implementation}
+  \input{implementation}
+
+\clearpage
+\section{H$\to\WW \to 2\ell2\nu$ analysis}
+
+\subsection{Systematic uncertainties}
+  \label{sec:systematic_ww}
+  \input{systematic_ww}
+
+\subsection{Validation tests}
+  \label{sec:validation_ww}
+  \input{validation_ww}
+
+\subsection{Result interpretation}
+  \label{sec:results_ww}
+  \input{results_ww}
+
+\clearpage
+\section{H$\to\ZZ \to 2\ell2\nu$ analysis}
+
+\subsection{Systematic uncertainties}
+  \label{sec:systematic_zz}
+  \input{systematic_zz}
+
+\subsection{Validation tests}
+  \label{sec:validation_zz}
+  \input{validation_zz}
+
+\subsection{Result interpretation}
+  \label{sec:results_zz}
+  \input{results_zz}
+
+%===================================================================================================
+\input{biblio}
+
+%===================================================================================================
+%% \newpage 
+%% \appendix
+%% \appendixpage
+%% \section{Data Samples}
+%%   \label{app:datasets}
+%%   \input{datasets}
+\end{document}

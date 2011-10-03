@@ -1,0 +1,128 @@
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|l|ccccccccccc|}
+\hline
+ Systematic Effect & ggH & ZH & WH & qqWW & ggWW & VV & Top & Zjets & Wjets & Wgamma & Ztt \\
+\hline
+Higgs Theory       & X   & X  & X  & -    & -    & -  & -   & -     & -     & -      & - \\
+PDF                & X   & X  & X  & X    & X    & X  & -   & -     & -     & X      & - \\
+Lepton efficiency  & X   & X  & X  & X    & X    & X  & -   & -     & -     & X      & - \\
+Lepton resolution  & X   & X  & X  & X    & X    & X  & X   & -     & -     & X      & - \\
+MET resolution     & X   & X  & X  & X    & X    & X  & X   & -     & -     & X      & - \\
+Jet Energy Scale   & X   & X  & X  & X    & X    & X  & X   & X     & X     & X      & X \\
+\WW{}              & -   & -  & -  & X    & X    & -  & -   & -     & -     & -      & - \\
+Top                & -   & -  & -  & -    & -    & -  & X   & -     & -     & -      & - \\
+\dyll{}            & -   & -  & -  & -    & -    & -  & -   & X     & -     & -      & - \\
+\wjets{}           & -   & -  & -  & -    & -    & -  & -   & -     & X     & -      & - \\
+$\W\gamma$         & -   & -  & -  & -    & -    & -  & -   & -     & -     & X      & - \\
+\dytt{}            & -   & -  & -  & -    & -    & -  & -   & -     & -     & -      & X \\
+\hline
+\end{tabular}
+\caption{Summary of different systematic effects and components that they affect.}
+\end{center}
+\end{table}
+
+\subsubsection{Higgs Theoretical Uncertainties}
+Procedure:
+  \begin{itemize}
+    \item Vary the QCD renormalization ($\mu_R$) and scale ($\mu_F$) independently
+    \item Reweight the $gg\to$H component with different k-factor distributions
+    \item Only shape, since the normalization factor has its own factor
+    \item Taking ``Up'' as $\mu_R$ = 0.5mu and $\mu_F$=2.0mu and ``Down'' as $\mu_R$ = 2.0mu and $\mu_F$=0.5mu
+  \end{itemize}
+
+\subsubsection{PDF}
+Procedure:
+  \begin{itemize}
+    \item Only normalization is considered (no shape variation)
+    \item Change in normalization is $\sim$10\%
+    \item Have followed the method from AN2011/055
+  \end{itemize}
+
+\subsubsection{Lepton efficiency scale factors}
+Procedure:
+  \begin{itemize}
+    \item Apply +1sigma and -1sigma reweighting factor to the scale factor efficiencies using the efficiency tables paramtrized in eta and pt
+    \item Produce ``Up'' and ``Down'' histograms with the +1/-1 sigma factors
+  \end{itemize}
+
+\subsubsection{Lepton energy-momentum resolution and scale}
+
+Procedure:
+  \begin{itemize}
+    \item Smear the lepton momenta by a gaussian with width equal to the central value determination of the resolution + the uncertainty, and the central value resolution
+    \item Produce new BDT outputs using smeared lepton variables
+    \item Produce ``Up'' and ``Down'' histograms using the new BDT outputs
+  \end{itemize}
+
+\subsubsection{MET resolution}
+Procedure:
+  \begin{itemize}
+    \item Smear $Met_x$ and $Met_y$ components for both PFMET and trackMET
+      \begin{itemize}
+      \item $Syst_PFMet_X/Y$ = Gaus(0.0,4.8), $Syst_trackMet_X/Y$ = Gaus(0.0,3.0)
+      \end{itemize}    
+    \item Produce new BDT outputs using smeared MET variables
+    \item Produce ``Up'' and ``Down'' histograms using the new BDT outputs
+  \end{itemize}
+
+\subsubsection{Jet Energy Scale}
+Procedure:
+  \begin{itemize}
+    \item Change $\pm5$\% the jet pt and see the effect in the analysis
+  \end{itemize}
+
+\subsubsection{\WW{}}
+Procedure involves two set of histograms:
+  \begin{itemize}
+    \item compare Madgraph with MC@NLO for the Up template and the mirror of that ratio is the Down template
+    \item make the ratio between MC@NLO and MC@NLO with QCD scales up and down. Multiply the ratio of them on each bin to the default Madgraph to produce the Up/Down templates
+  \end{itemize}
+
+\subsubsection{\wjets{}}
+Procedure:
+  \begin{itemize}
+    \item Produce a new distribution by using different lepton fake rates
+      \begin{itemize}
+        \item muon fake rate using jet pt threshold at 30 GeV (instead of 15)
+        \item electron fake rate using jet pt threshold at 50 GeV (instead of 35)
+      \end{itemize}
+   \item Propagate Wjets MC closure tests uncertainty
+      \begin{itemize}
+        \item Get a scale-factor histogram from the closure test and apply it
+      \end{itemize}
+  \end{itemize}
+
+\subsubsection{Drell-Yan}
+Procedure:
+  \begin{itemize}
+    \item Use NNLO reweighting as default
+    \item Default histogram is produced with MC events with
+      min(PFMET,trackMET): [20-40] GeV, normalization is taken from
+      the signal region evaluation
+      \begin{itemize}
+        \item ``Up'' histogram is produced using the standard MC with
+          min(PFMET,trackMET) > 40 GeV
+        \item ``Down'' histogram is the mirror of the ``Up'' histogram
+          with respect to the default one
+      \end{itemize}
+  \end{itemize}
+
+\subsubsection{Top}
+Procedure:
+  \begin{itemize}
+    \item Take variation between Powheg and Madgraph as systematic uncertainty, this should cover most of the differences in the MC modeling
+  \end{itemize}
+
+\subsubsection{$\W\gamma$}
+Procedure:
+  \begin{itemize}
+    \item No shape variation, only normalization. Make sure that uncertainty is large enough
+    \item The shape is take from MC removing the conversion rejection requirements
+  \end{itemize}
+
+\subsubsection{\dytt{}}
+Procedure:
+  \begin{itemize}
+    \item 
+  \end{itemize}
