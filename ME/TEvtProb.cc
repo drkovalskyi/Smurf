@@ -288,10 +288,18 @@ void TEvtProb::SetMCHist(int proc, TString MCFileName, bool setFR, TVar::Verbosi
       _FRhist.els_fr = (TH2F*) fUtil->Get("wjets_heleFR")->Clone();
       _FRhist.mus_fr = (TH2F*) fUtil->Get("wjets_hmuFR")->Clone();
     }
-    _FRhist.els_part_fo = (TH2F*) fUtil->Get("wjets_heleGenFR")->Clone();
-    _FRhist.mus_part_fo = (TH2F*) fUtil->Get("wjets_hmuGenFR")->Clone();
-    _FRhist.els_ptres = (TH2F*) fUtil->Get("wjets_heleFOResponse")->Clone();
-    _FRhist.mus_ptres = (TH2F*) fUtil->Get("wjets_hmuFOResponse")->Clone();
+    
+    if (  fUtil->Get("wjets_heleGenFR") != 0x0 ) 
+      _FRhist.els_part_fo = (TH2F*) fUtil->Get("wjets_heleGenFR")->Clone();
+      
+    if ( fUtil->Get("wjets_hmuGenFR") != 0x0 )
+      _FRhist.mus_part_fo = (TH2F*) fUtil->Get("wjets_hmuGenFR")->Clone();
+
+    if ( fUtil->Get("wjets_heleFOResponse") != 0x0 ) 
+      _FRhist.els_ptres = (TH2F*) fUtil->Get("wjets_heleFOResponse")->Clone();
+
+    if ( fUtil->Get("wjets_hmuFOResponse") != 0x0 ) 
+      _FRhist.mus_ptres = (TH2F*) fUtil->Get("wjets_hmuFOResponse")->Clone();
 
     fUtil->Close();
 }
