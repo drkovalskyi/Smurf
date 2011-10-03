@@ -131,9 +131,6 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     
     ch->GetEntry(ievt);            
     
-    // impose trailing electron pT > 15 GeV (obselete for SmurfV5)
-    // if( (type_ == 1||type_ == 3) && lep2_->Pt()<15 ) continue;
-
     // analyse only the 0-jet bin
     if (njets_ > 0) continue;
     
@@ -196,15 +193,14 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   double Xsec=0;
   double XsecErr=0;
   double Ratio=0;
-  int HiggsMASS[30]={0,0,0,0,0,115,120,130,140,150,160,170,180,190,200,210,220,230,250,300,350,400,450,500,550,600,200,250,300,400};
+  // the mass specification is according to the Process enumeration
+  int HiggsMASS[33]={0,0,0,0,0,115,120,130,140,150,160,170,180,190,200,210,220,230,250,300,350,400,450,500,550,600,200,250,300,350,400,500,600};
   
   // The SM background processes
   int NProcessCalculate=0;
   TVar::Process processList[30];
   
   processList[ NProcessCalculate++]=TVar::WW;
-  //  processList[ NProcessCalculate++]=TVar::Wp_1jet;
-  //  processList[ NProcessCalculate++]=TVar::Wm_1jet;
   processList[ NProcessCalculate++]=TVar::ZZ;
   processList[ NProcessCalculate++]=TVar::WZ;
   
@@ -227,15 +223,29 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   case SmurfTree::vbfhww300:
     processList[ NProcessCalculate++]=TVar::HZZ300;
     break;
+  case SmurfTree::hww350:
+  case SmurfTree::vbfhww350:
+    processList[ NProcessCalculate++]=TVar::HZZ350;
+    break;
   case SmurfTree::hww400:
   case SmurfTree::vbfhww400:
     processList[ NProcessCalculate++]=TVar::HZZ400;
     break;
+  case SmurfTree::hww500:
+  case SmurfTree::vbfhww500:
+    processList[ NProcessCalculate++]=TVar::HZZ500;
+    break;
+  case SmurfTree::hww600:
+  case SmurfTree::vbfhww600:
+    processList[ NProcessCalculate++]=TVar::HZZ600;
+    break;
   default:
-    //    processList[ NProcessCalculate++]=TVar::HZZ200;
     processList[ NProcessCalculate++]=TVar::HZZ250;
     processList[ NProcessCalculate++]=TVar::HZZ300;
+    processList[ NProcessCalculate++]=TVar::HZZ350;
     processList[ NProcessCalculate++]=TVar::HZZ400;
+    processList[ NProcessCalculate++]=TVar::HZZ500;
+    processList[ NProcessCalculate++]=TVar::HZZ600;
     break;
  }
  
@@ -247,44 +257,12 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     // Load the MC based boost, efficiency and generator FR
     bool setMCFR = false;
     Xcal2.SetMCHist(ProcInt, "Util_HZZ.root", setMCFR, verbosity);
-    
-    // Set the fakerate from data measurements
-    if (!setMCFR && (iproc == TVar::Wp_1jet || iproc == TVar::Wm_1jet)) {
-      TString elFRFile = "ElectronFakeRates_SmurfV5_V4.root";
-      TString elFRHist = "ElectronFakeRateDenominatorV4_Ele8CaloIdLCaloIsoVLCombinedSample_ptThreshold35_PtEta";
-      TString muFRFile = "MuonFakeRate_SmurfV5_M1.root";
-      TString muFRHist = "frEtaPt";
-      Xcal2.SetFRHist(elFRFile, elFRHist, muFRFile, muFRHist, verbosity);
-    }
+
     if (verbosity >= TVar::DEBUG) 
       printf(" Calculate Evt %4i Run %9i Evt %8i Proc %4i %s Lep %4i %4i\n", ievt, run_, event_, ProcInt, TVar::ProcessName(ProcInt).Data(), lq1_*lep1_Type, lq2_*lep2_Type);
     
-    // -- correct the lepton fo pt for W + jet only
-    // For W+ hypothesis, assume the l- is the FO
-    double scale_fo = 1.0;
-    if(ProcInt == TVar::Wp_1jet) {
-      if( TMath::Abs(cms_event.PdgCode[1]) == 11) {
-	scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
-      }
-      if( TMath::Abs(cms_event.PdgCode[1]) == 13) {
-	scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[1].Pt()));
-      }
-      cms_event.p[1].SetXYZM( cms_event.p[1].Px()*scale_fo, cms_event.p[1].Py()*scale_fo, cms_event.p[1].Pz()*scale_fo, 0);
-    }
-    
-    // For W- hypothesis, assume the l+ is the FO
-    if(ProcInt == TVar::Wm_1jet) {
-      if( TMath::Abs(cms_event.PdgCode[0]) == 11) {
-	scale_fo = Xcal2._FRhist.els_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.els_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
-      }
-      if( TMath::Abs(cms_event.PdgCode[0]) == 13) {
-	scale_fo = Xcal2._FRhist.mus_ptres->ProfileX()->GetBinContent( Xcal2._FRhist.mus_ptres->GetXaxis()->FindBin(cms_event.p[0].Pt()));
-      }	  
-      cms_event.p[0].SetXYZM( cms_event.p[0].Px()*scale_fo, cms_event.p[0].Py()*scale_fo, cms_event.p[0].Pz()*scale_fo, 0);
-    }
-    
     // -- Do the integration over unknown parameters
-    if (ProcInt >= TVar::HZZ200 && ProcInt <= TVar::HZZ400){
+    if (ProcInt >= TVar::HZZ200 && ProcInt <= TVar::HZZ600){
       Xcal2.SetProcess(TVar::HZZ);
       Xcal2.SetHiggsMass(HiggsMASS[ProcInt]);
       Xcal2.SetNcalls(ncalls);
@@ -306,13 +284,6 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
 	cout    << "IntegrateNTrials " << " Ncalls " << Xcal2._ncalls << " " << ProcInt << " " << TVar::ProcessName(ProcInt)
 		<< " Xsec = " <<  Xsec << " +- " << XsecErr << " ( " << Ratio << " ) " << endl;
     }
-    
-    // setting back the lepton pT for the W + jet hypothesis
-    if(ProcInt == TVar::Wp_1jet) 
-      cms_event.p[1].SetXYZM( cms_event.p[1].Px()/scale_fo, cms_event.p[1].Py()/scale_fo, cms_event.p[1].Pz()/scale_fo, 0);
-    
-    if(ProcInt == TVar::Wm_1jet) 
-      cms_event.p[0].SetXYZM( cms_event.p[0].Px()/scale_fo, cms_event.p[0].Py()/scale_fo, cms_event.p[0].Pz()/scale_fo, 0);
   } 
   
   // print some event based information for debugging purposes
