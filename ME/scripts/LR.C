@@ -131,7 +131,11 @@ if (verbosity >= TVar::DEBUG) {
 	cout<<" PWW = "<<  dXsec_[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(type_)) * ww->GetYield(type_)/yield_bg;
       
       // add Wjet background combining W+jet and W-jet assume the same acceptance for Wpj and Wmj 
-      denom +=  (dXsec_[TVar::Wp_1jet ] + dXsec_[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg;
+      if ( mH < 150) {
+	denom +=  15*(dXsec_[TVar::Wp_1jet ] + dXsec_[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg;
+      }
+      else
+	denom +=  (dXsec_[TVar::Wp_1jet ] + dXsec_[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg;
       if (verbosity >= TVar::DEBUG)
 	cout<<" PWj = " << (dXsec_[TVar::Wp_1jet ] + dXsec_[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg << "\n";
       
