@@ -1,1 +1,39 @@
 Bayesian, CL$_S$-LHC, nuisance parameters, p-values etc 
+
+\subsection{Tools}
+LandS etc
+
+\subsection{Systematic uncertainties in shape analysis} 
+
+There are three different ways to account for systematic uncertainties for a given source:
+\begin{itemize}
+  \item {\bf Normalization uncertanty} - account only for the overall
+    normalization assuming that the shape is perfectly known
+  \item {\bf Statistical shape uncertainties} - account for limited
+    number of events available for the shape extraction
+  \item {\bf Shape variation uncertainties} - account for uncertainty
+    in the shape itself
+\end{itemize}
+
+Normalization uncertanties are the most straight forward ones. They
+are identical to those used in a cut-based analysis. To simplify the
+analysis in some cases such as small background contributions with
+large normalization uncertainties it can be used as the only source of
+systematic uncertainty ignoring the shape variation.
+
+Statistical uncertainties on shape extraction are often
+negligible. Only if the sample that is used for shape extraction has
+small number of events this effect may become sizable. At the moment
+only one of the two official tools used in the Higgs group supports
+this type of uncertainty. There are a few ways to address this
+issue. First we can use the tool that supports this type of
+uncertainty (LandS) to estimate the impact of this effect on final
+results. If it is small it can be ignored. If the effect is not
+negligible we can split the sample in a number of categories and
+perform multiple ``cut-based'' analyses. Both tools support that
+option, but it is a bit complicated and should be used only if really
+necessary.
+
+Shape variation uncertainties are implemented using three shapes:
+nominal, ``up''-alternative and ``down''-alternative. A single
+nuisance parameter is used for all bins simultaneously.
