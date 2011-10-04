@@ -91,10 +91,10 @@ void LR(int mH, TString fileName, TString inputSmurfFDir, TString meFDir, int ne
   getProcess(mH, k, massCut);
 
 
-  Proc *higgs = new Proc(k, lumi, massCut, meFDir);
-  Proc *ww    =  new Proc(TVar::WW, lumi, massCut, meFDir);
-  Proc *wpj    = new Proc(TVar::Wp_1jet, lumi, massCut, meFDir);
-  Proc *wmj    = new Proc(TVar::Wm_1jet, lumi, massCut, meFDir);
+  Proc *higgs = new Proc(k, lumi, massCut, meFDir, HWWANALYSIS);
+  Proc *ww    =  new Proc(TVar::WW, lumi, massCut, meFDir, HWWANALYSIS);
+  Proc *wpj    = new Proc(TVar::Wp_1jet, lumi, massCut, meFDir, HWWANALYSIS);
+  Proc *wmj    = new Proc(TVar::Wm_1jet, lumi, massCut, meFDir, HWWANALYSIS);
   
 if (verbosity >= TVar::DEBUG) {
     cout << "higgs->GetMCFMXsec() = " << higgs->GetMCFMXsec() << "\n";
