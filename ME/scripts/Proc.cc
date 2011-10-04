@@ -47,8 +47,12 @@ void Proc::CalculateAcceptance(){
 
 // function to calculate acceptance from yields
 void Proc::initYields() {
+  // hard-coded ntuple names.. fixme..
   TString fileName = TVar::SmurfProcessName(proc_);
-  if (proc_ == TVar::WW) fileName = "qqww"; 
+  if ( proc_ == TVar::WW && analysis_ == HWWANALYSIS)  fileName = "qqww"; 
+  if ( proc_ == TVar::WW && analysis_ == HZZANALYSIS)  fileName = "ww2l";
+  if ( proc_ >= TVar::HZZ200 && proc_ <= TVar::HZZ600 && analysis_ == HZZANALYSIS) fileName = "gf"+fileName;
+ 
   TFile *f = TFile::Open(TString(inputDir_ + fileName.Data() + ".root"));
       
   if(f==0x0) {
@@ -71,6 +75,12 @@ void Proc::initYields() {
     if ( analysis_ == HWWANALYSIS) {
       cutstring  =  Form("scale1fb*(type==%i&&dilep.mass()<%f&&mt>80.)", j, massCut_);
     }
+    else if ( analysis_ == HZZANALYSIS) {
+      cutstring = Form("scale1fb*(type==%i)", j);
+    }
+    else 
+      cutstring = Form("scale1fb*(type==%i)", j);
+    
     TH1F *tmp = new TH1F("tmp", "tmp", 20, 0, 20);
     tree->Project("tmp", "dPhi", cutstring);
     if (tmp!= 0x0) yield_[j] = tmp->Integral(0, 9999); 
