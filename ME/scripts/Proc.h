@@ -6,12 +6,17 @@
 
 const int kNDilep=4;
 
+enum Analysis {
+  HWWANALYSIS = 0,
+  HZZANALYSIS = 1,
+};
+
 class Proc {
   
  public:
   
-  Proc(TVar::Process proc, float lumi, float massCut, TString inputDir)
-    : proc_(proc), lumi_(lumi), massCut_(massCut), inputDir_(inputDir)
+  Proc(TVar::Process proc, float lumi, float massCut, TString inputDir, Analysis analysis)
+    : proc_(proc), lumi_(lumi), massCut_(massCut), inputDir_(inputDir), analysis_(analysis)
   {
     // call function to set total cross-sections
     initTotXsec();
@@ -40,6 +45,7 @@ class Proc {
   float BR_[kNDilep];
   float yield_[kNDilep];
   float acceptance_[kNDilep];
+  int analysis_;
 
   // function to set NLO and MCFM toal cross-sections
   void initTotXsec();  

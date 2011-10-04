@@ -4,6 +4,7 @@
 #include "TProfile.h"
 #include <iostream>
 #include "Proc.h"
+#include "TCut.h"
 
 
 // function to initialize BR 
@@ -20,7 +21,7 @@ void Proc::initBR() {
     BR_[2] = (2.0+0.1736+0.1784)/6;
     BR_[3] = (1.0+0.1784)/3;
   }
-  else if (proc_ == TVar::ZZ || ( proc_ >= TVar::HZZ200 && proc_ <= TVar::HZZ400) || proc_==TVar::WZ) {
+  else if (proc_ == TVar::ZZ || ( proc_ >= TVar::HZZ200 && proc_ <= TVar::HZZ600) || proc_==TVar::WZ) {
     BR_[0] = (1.0+0.1736*0.1736)/3;
     BR_[1] = (0.1736*0.1784)/3;
     BR_[2] = (0.1736*0.1784)/3;
@@ -64,9 +65,14 @@ void Proc::initYields() {
   double tot_yield = 0;
   std::cout<<"Yields from file "<< fileName << ".root: mm/me/em/ee:  ";
   
+  TCut cutstring;
+  
   for (int j=0; j<kNDilep; j++){ 
+    if ( analysis_ == HWWANALYSIS) {
+      cutstring  =  Form("scale1fb*(type==%i&&dilep.mass()<%f&&mt>80.)", j, massCut_);
+    }
     TH1F *tmp = new TH1F("tmp", "tmp", 20, 0, 20);
-    tree->Project("tmp", "dPhi", Form("scale1fb*(type==%i&&dilep.mass()<%f&&mt>80.)", j, massCut_));
+    tree->Project("tmp", "dPhi", cutstring);
     if (tmp!= 0x0) yield_[j] = tmp->Integral(0, 9999); 
     else yield_[j]=0;
     tot_yield += yield_[j];
@@ -203,31 +209,46 @@ void Proc::initTotXsec() {
     MCFMXsec_ = 0.000633;
     break;
     
- case (TVar::HZZ250):
-   NLOXsec_ = 0.03974;
-   MCFMXsec_ = 0.004906;
-   break;
-
- case (TVar::HZZ300):
-   NLOXsec_ = 0.02999;
-   MCFMXsec_ = 0.003274;
+  case (TVar::HZZ250):
+    NLOXsec_ = 0.03974;
+    MCFMXsec_ = 0.004908;
     break;
-
- case (TVar::HZZ400):
-   NLOXsec_ = 0.0221156;
-   MCFMXsec_ = 0.001323;
+    
+  case (TVar::HZZ300):
+    NLOXsec_ = 0.0300396;
+    MCFMXsec_ = 0.003274;
     break;
-
- case (TVar::ZZ):
+    
+  case (TVar::HZZ350):
+    NLOXsec_ = 0.0286009;
+    MCFMXsec_ = 0.002241;
+    break;
+    
+  case (TVar::HZZ400):
+    NLOXsec_ = 0.0220830;
+    MCFMXsec_ = 0.001325;
+    break;
+    
+  case (TVar::HZZ500):
+    NLOXsec_ = 0.0089522;
+    MCFMXsec_ = 0.000636;
+    break;
+    
+  case (TVar::HZZ600):
+    NLOXsec_ = 0.0035900;
+    MCFMXsec_ = 0.000353;
+    break;
+    
+  case (TVar::ZZ):
     NLOXsec_ = 0.238;
     MCFMXsec_ = 0.06644;
     break;
     
- case (TVar::WZ):
+  case (TVar::WZ):
     NLOXsec_ = 0.202;
     MCFMXsec_ = 0.060;
     break;
-
+    
   default:
     NLOXsec_ = 0.0;
     MCFMXsec_ = 0.0;
