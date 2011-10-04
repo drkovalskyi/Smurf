@@ -39,23 +39,29 @@ fi
 if [ "$SELECTION" == 'ZZ' ]; then
 rm -f list_samples.txt
 cat > list_samples.txt <<EOF
-data-met20-1092ipb.root
+zee.root
+zmm.root
+ztt.root
+data_2l.goodlumi1092ipb.root
+EOF
+fi
+gfhzz250.root
+gfhzz300.root
+gfhzz350.root
+gfhzz400.root
+gfhzz500.root
+gfhzz600.root
 zz.root
 wz.root
 ttbar.root
-tw.root
-qqww.root
+stop.root
+ttop.root
+wtop.root
+ww2l.root
 ggww.root
-wjets.root
-hzz200.root
-hzz250.root
-hzz300.root
-hzz400.root
-dyee.root
-dymm.root
-dytt.root
-EOF
-fi
+
+
+
 
 if [ "$SELECTION" == 'WW' ]; then
 rm -f list_samples.txt
@@ -92,8 +98,6 @@ hww550.root
 hww600.root
 EOF
 fi
-
-
 
 if [ "$SELECTION" == 'PassFail' ]; then
 rm -f list_samples.txt
@@ -133,6 +137,13 @@ for FILE in `cat list_samples.txt` ; do
 	echo doing "root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",$JETBIN\);"
 	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",$JETBIN\);
     done
+    # for ZZ do a special alljet bin category
+    if [ "$SELECTION" == 'ZZ' ]; then
+	outputdir=$OUTPUTDIR/$SELECTION/allj/
+	mkdir -p $outputdir
+	echo doing "root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",3\);"
+	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",3\);
+    fi
 done
 
 # if the selection is the PassFail merge all the files
