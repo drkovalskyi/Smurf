@@ -72,7 +72,7 @@ UInt_t ww_nozveto_nomet = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelecti
 UInt_t ww_lepfo = BaseLine|ChargeMatch|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
 // zz baseline selections using the bits setup in the smurfntuples
 // http://www.t2.ucsd.edu/tastwiki/bin/view/Smurf/HZZllvvEventSelections#Reference_selection_V1
-UInt_t zz_baseline = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|TopVeto|ExtraLeptonVeto;
+UInt_t zz_baseline = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|ExtraLeptonVeto;
 
 using namespace std;
 
@@ -109,7 +109,13 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
   float dPhiDiLepJet1_ = 0.;
   float met_ = 0.0;
   float trackMet_ = 0.0;
-
+  LorentzVector*  jet2_ = 0;
+  LorentzVector*  jet3_ = 0;
+  float jet1Btag_ = 0;
+  float jet2Btag_ = 0;
+  float jet3Btag_ = 0;
+  unsigned int nSoftMuons_ = 0;
+  
   ch->SetBranchAddress( "njets"     , &njets_     );     
   ch->SetBranchAddress( "cuts"      , &cuts_     );     
   ch->SetBranchAddress( "lep1"      , &lep1_      );   
@@ -123,9 +129,15 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
   ch->SetBranchAddress( "dPhi"      , &dPhi_     );     
   ch->SetBranchAddress( "mt"      , &mt_     );     
   ch->SetBranchAddress( "jet1"      , &jet1_      );   
+  ch->SetBranchAddress( "jet2"      , &jet2_      );   
+  ch->SetBranchAddress( "jet3"      , &jet3_      );   
   ch->SetBranchAddress( "dPhiDiLepJet1"      , &dPhiDiLepJet1_     );     
   ch->SetBranchAddress( "met"      , &met_     );     
   ch->SetBranchAddress( "trackMet"      , &trackMet_     );   
+  ch->SetBranchAddress( "jet1Btag"      , &jet1Btag_      );   
+  ch->SetBranchAddress( "jet2Btag"      , &jet2Btag_      );   
+  ch->SetBranchAddress( "jet3Btag"      , &jet3Btag_      );   
+  ch->SetBranchAddress( "nSoftMuons"      , &nSoftMuons_      );   
 
   float scale1fb = 0.0;
   ch->SetBranchAddress( "scale1fb"      , &scale1fb     );   
@@ -142,7 +154,15 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
     ch->GetEntry(ievt); 
 
     // select a specific jetbin
-    if (int(njets_) != jetbin ) continue;
+    if (cutstring != "ZZ") {
+      if ( jetbin <= 2 && int(njets_) != jetbin ) continue;
+    }
+    // for ZZ the 2-jet bin contains all events with njets >=2
+    else {
+      if (jetbin < 2 && int(njets_) != jetbin ) continue;
+      if ( jetbin == 2 && int(njets_) < 2 ) continue; 
+    }
+
     if ( dilep_->mass() < 12.0) continue;
     
     // cuts to select the WW pre-selection
@@ -194,9 +214,13 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if (lep1_->Pt() < 20.) continue;
       if (lep2_->Pt() < 20.) continue;
       if ( TMath::Abs(dilep_->M()-91.1876) > 15.0 ) continue;
-      if ( TMath::Min(met_, trackMet_) < 50.0) continue;
-      if ( dilep_->Pt() < 40.0) continue;
-      if ( (njets_ < 2) && (type_==0||type_==3) && jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
+      if ( met_ < 60.0 ) continue;
+      if ( dilep_->Pt() < 25.0) continue;
+      if (jet1Btag_ > 2.0 && jet1_->Pt() > 30) continue;
+      if (jet2Btag_ > 2.0 && jet2_->Pt() > 30) continue;
+      if (jet3Btag_ > 2.0 && jet3_->Pt() > 30) continue;
+      if( nSoftMuons_ != 0 ) continue;
+      
     }
     
     evt_tree->Fill();
