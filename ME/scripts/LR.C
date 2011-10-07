@@ -43,10 +43,7 @@ void LR(int mH, TString fileName, TString inputSmurfFDir, TString meFDir, int ne
   TFile *newfile = new TFile(outFileName,"recreate");
   std::cout << "creating " << outFileName << "...\n";
 
-  
-
   TTree* evt_tree=(TTree*) ch->CloneTree(0, "fast");
-
 
   // Add additional event weight to account for the possible difference 
   // between the total events before the differential cross-section calcualtion
@@ -90,11 +87,13 @@ void LR(int mH, TString fileName, TString inputSmurfFDir, TString meFDir, int ne
   float massCut;
   getProcess(mH, k, massCut);
 
-
-  Proc *higgs = new Proc(k, lumi, massCut, meFDir, HWWANALYSIS);
-  Proc *ww    =  new Proc(TVar::WW, lumi, massCut, meFDir, HWWANALYSIS);
-  Proc *wpj    = new Proc(TVar::Wp_1jet, lumi, massCut, meFDir, HWWANALYSIS);
-  Proc *wmj    = new Proc(TVar::Wm_1jet, lumi, massCut, meFDir, HWWANALYSIS);
+  // note this is completely useless for HWW, just temporary be here as not to break the hzz analysis
+  float metCut(0.0), dphiCut(0.0);
+  
+  Proc *higgs = new Proc(k, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut);
+  Proc *ww    =  new Proc(TVar::WW, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut);
+  Proc *wpj    = new Proc(TVar::Wp_1jet, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut);
+  Proc *wmj    = new Proc(TVar::Wm_1jet, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut);
   
 if (verbosity >= TVar::DEBUG) {
     cout << "higgs->GetMCFMXsec() = " << higgs->GetMCFMXsec() << "\n";
