@@ -7,13 +7,13 @@ export LUMI=1143
 if [ ! $# -eq 2 ]; then
     echo "USAGE: ./addLRHZZ.sh inputSmurfFDir meFDir
        inputSmurfFDir - the directory containing the input smurf ntuples for dXsec calculation. E.g. /smurf/yygao/data/EPSHZZV0/ZZ/allj/
-        meFDir        - the directory containing the dXsec variables. Eg. /smurf/yygao/data/EPSHZZV0/ZZ/allj/"
+        meFDir        - the directory containing the dXsec variables. Eg. /smurf/yygao/data/EPSHZZV0/ZZ/allj/ME/"
     exit 1
 fi
 
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-data
+data_2l.goodlumi1092ipb
 ww2l
 ggww
 ttbar
@@ -30,8 +30,7 @@ EOF
 # Fill the smurfntuples with LR
 # ===========================================
 
-#for MH in 250 300 350 400 500 600; do
-for MH in 250; do
+for MH in 250 300 350 400 500 600; do
     rm -f log/add_lr_$MH.log;
     echo doing $MH
     # first add the LR for the higgs sample
