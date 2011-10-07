@@ -76,7 +76,7 @@ void Proc::initYields() {
       cutstring  =  Form("scale1fb*(type==%i&&dilep.mass()<%f&&mt>80.)", j, massCut_);
     }
     else if ( analysis_ == HZZANALYSIS) {
-      cutstring = Form("scale1fb*(type==%i)", j);
+      cutstring = Form("scale1fb*(type==%i&&met>%f&&acos(cos(metPhi-jet1.Phi()))>%f)", j, metCut_, dphiCut_);
     }
     else 
       cutstring = Form("scale1fb*(type==%i)", j);
