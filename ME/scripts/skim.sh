@@ -39,12 +39,6 @@ fi
 if [ "$SELECTION" == 'ZZ' ]; then
 rm -f list_samples.txt
 cat > list_samples.txt <<EOF
-zee.root
-zmm.root
-ztt.root
-data_2l.goodlumi1092ipb.root
-EOF
-fi
 gfhzz250.root
 gfhzz300.root
 gfhzz350.root
@@ -59,6 +53,15 @@ ttop.root
 wtop.root
 ww2l.root
 ggww.root
+EOF
+fi
+
+zee.root
+zmm.root
+ztt.root
+data_2l.goodlumi1092ipb.root
+
+
 
 
 
