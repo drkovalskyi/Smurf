@@ -214,14 +214,15 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if (lep1_->Pt() < 20.) continue;
       if (lep2_->Pt() < 20.) continue;
       if ( TMath::Abs(dilep_->M()-91.1876) > 15.0 ) continue;
-      if ( met_ < 60.0 ) continue;
+      if ( met_ < 40 ) continue;
       if ( dilep_->Pt() < 25.0) continue;
       if (jet1Btag_ > 2.0 && jet1_->Pt() > 30) continue;
       if (jet2Btag_ > 2.0 && jet2_->Pt() > 30) continue;
       if (jet3Btag_ > 2.0 && jet3_->Pt() > 30) continue;
       if( nSoftMuons_ != 0 ) continue;
-      
     }
+
+    
     
     evt_tree->Fill();
   }   //nevent
