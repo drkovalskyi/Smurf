@@ -15,7 +15,7 @@ and Ztt (for $\dytt$).
 \hline
 Higgs Theory       & X   & X  & X  & X  & -    & -    & -  & -   & -	 & -	 & -	  & - \\
 PDF                & X   & X  & X  & X  & X    & X    & X  & -   & -	 & -	 & X	  & - \\
-Lepton efficiency  & X   & X  & X  & X  & X    & X    & X  & -   & -	 & -	 & X	  & X \\
+Lepton efficiency  & X   & X  & X  & X  & X    & X    & X  & X   & -	 & -	 & X	  & X \\
 Lepton resolution  & X   & X  & X  & X  & X    & X    & X  & X   & -	 & -	 & X	  & X \\
 MET resolution     & X   & X  & X  & X  & X    & X    & X  & X   & -	 & -	 & X	  & X \\
 Jet Energy Scale   & X   & X  & X  & X  & X    & X    & X  & X   & -	 & -	 & X	  & X \\
@@ -48,7 +48,7 @@ Report~\cite{LHCHiggsCrossSectionWorkingGroup:2011ti}.
 
 The procedure to take into account a possible variation 
 on the final discriminant variable due to the QCD renormalization ($\mu_R$) 
-and scale ($\mu_F$) is to reweight the ggH component with different k-factor
+and scale ($\mu_F$) is to reweight the $gg \to H$ component with different k-factor
 distributions. Since the normalization effects have their own factors, only a
 shape variation is allowed. We the the ``up" variation as 
 $\mu_R = 0.5\mu$ and $\mu_F =2.0\mu$ and the ``down" variation as 
@@ -58,7 +58,7 @@ $\mu_R = 2.0\mu$ and $\mu_F =0.5\mu$, being $\mu$ the nominal scale value.
 Parton distribution functions (PDFs) are obtained from global fits 
 to experimental data from deep in-elastic scattering, Drell-Yan, and jet 
 processes. The recommendations of the PDF4LHC group were followed to obtain the
-uncertainties due to the limited knowledge of such PDFs. From those studies, 
+uncertainties due to the limited knowledge of such PDFs. From those studies~\cite{hww_eps, hww_lp}, 
 we consider the overall normalisation uncertainty to adequately contain possible 
 variations in the uncertainty as a function of the discriminant variable.
 
@@ -68,7 +68,7 @@ well-known tag and probe method~\cite{hww_eps}, giving a scale factor to the
 simulated events as a function of the $\pt$ and $\eta$ of each lepton. The
 associated uncertainty may have some $\pt$ and $\eta$ dependence, leading to a
 possible shape variation. The procedure to estimate the uncertainty due to the
-lepton efficiency scale factor is to a $+1(-1)\sigma$ reweighting factor to the
+lepton efficiency scale factor is to apply a $+1(-1)\sigma$ reweighting factor to the
 lepton efficiency scale factor for the ``up" (``down") variation. Both
 normalization and shape are considered with this procedure.
 
@@ -76,7 +76,7 @@ normalization and shape are considered with this procedure.
 The lepton energy-momentum does not perfectly agree between data and simulated
 events with the current available sample. To assign an uncertainty, we smear 
 the lepton energy-momentum by a Gaussian with width equal to the central value 
-determination of the resolution, and the central value the observed biased in
+determination of the resolution, and the central value the observed bias in
 data. With the new four-momentum of both leptons, we build a new discriminant
 variable. We take the ``up" (``down") variation as the positive (negative) biased
 case.
@@ -87,7 +87,7 @@ to an underestimation of $\dyll$ events, where no real $\met$ from neutrinos is
 present. The background estimation from Zjets events has its own uncertainty.
 Nevertheless, other processes with neutrinos in the final state may have an
 uncertainty due to this effect. To account for it, we have smeared the X and Y
-components of both $PF\met$ and $track\met$ and produce new discriminant
+components of both $\met$ and $track-\met$ and produced new discriminant
 variables with the smeared quantities. The smeared variable is the ``up"
 variation, while we take the ``down" variation as the mirror of the difference
 between the ``up" and default variables.
@@ -98,8 +98,8 @@ there is no direct effect on the jet energy scale (JES) uncertainty, in addition
 to the normalization uncertainty due to the migration among the different jet
 bins. Nevertheless, it is observed that kinematic variables show different
 distributions depending on the jet multiplicity. To assign an uncertainty,
-we vary the transverse momentum of the jets by $\sim~5\%$ (``up" and ``down",
-respectively) and build the new discriminant variables. Onlt shape uncertainty is
+we vary the transverse momentum of the jets by $\pm 5\%$ (``up" and ``down",
+respectively) and build the new discriminant variables. Only shape uncertainties are 
 considered in this case.
 
 \subsubsection{$\WW$ Background}
@@ -114,11 +114,11 @@ produced with Madgraph generator with simulated events produced with MC@NLO
 generator, and this second sample makes the ``up" variation. The ``down"
 variation is the mirror of the ratio between both generators. Second, we consider
 the uncertainty due to the variation of the QCD scales. To perform that, we take
-the ratio between the MC@NLO samples and the ones with the scales up and down.
+the ratio between the MC@NLO samples and the ones with the QCD scales up and down.
 
 \subsubsection{$\Wjets$ Background}
 The uncertainty due to the $\Wjets$ normalization is as large as $\sim$36\%.
-Nevertheless we may have an additional uncertainty on the shape of the
+Nevertheless, we may have an additional uncertainty on the shape of the
 discriminant variable. Two sources are considered. First, we produce new
 distributions by using different lepton fake rates, this is the ``up" variation.
 The ``down" variation is the mirror of the ratio between the ``up" and default
@@ -133,7 +133,7 @@ between the ``up" and default distributions.
 
 \subsubsection{$\dymm$ and $\dyee$ Backgrounds}
 The uncertainty on the normalization of this background is rather larger, as
-discussed in~\cite{hww_eps}, nevertheless a shape uncertainty could also be
+discussed in~\cite{hww_eps}, on the other hand a shape uncertainty could also be
 important. Since the number of available simulated events after the final
 selection is rather small, the default distribution is taken from events which 
 pass all other requirements, but with Min(projected $\met$, projected
@@ -158,14 +158,14 @@ background. The only point to notice is that we take the shape of this process
 from a sample of simulated events where the conversion rejection requirements
 have been loosened, so that the amount of events used in the final discriminant
 variable is larger. We have verified that the shapes do not changed by modifying
-those veto requirements.
+those veto requirements within the statistical uncertainties.
 
 \subsubsection{$\dytt$ Background}
 The $\dytt$ background is estimated from data using the so-called $\tau$
 embedding method. The aim of this method is to create hybrid events with two 
 muons (or electrons) coming from a data $\Z$ decay replaced by two 
 (simulated) $\tau$ particles. Different techniques for creating such events
-exist: either replacing the muons at offline level, at the reconstruction 
+exist to replace the muons: either at offline level, at the reconstruction 
 level or at the digitazitation level. In addition to the use of data to a very
 large extent, this method allows for an increase on the statistical power of the
 sample leading to much smaller statistical uncertainties.
