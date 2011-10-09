@@ -1,128 +1,186 @@
+The summary of the systematic effects and components that they affect considered 
+in the $\Hi \to\WW \to 2\ell2\nu$ analysis is shown in Table~\ref{tab:hwwsyst}. 
+To simplify, the following convention names are used to identify several signal 
+and background processes: ggH (for $gg \to H$), qqWW (for $qq \to \WW$), ggWW 
+(for $gg \to\WW$), VV (for $\WZ$ plus $\Z\Z$), Top (for $\ttbar$ plus $\tw$), 
+Zjets (for $\dymm$ plus $\dyee$), Wjets (for $\Wjets$), Wgamma (for $\W+\gamma$) 
+and Ztt (for $\dytt$).
+
 \begin{table}[!ht]
 \begin{center}
-\begin{tabular}{|l|ccccccccccc|}
+{\small
+\begin{tabular}{|l|cccccccccccc|}
 \hline
- Systematic Effect & ggH & ZH & WH & qqWW & ggWW & VV & Top & Zjets & Wjets & Wgamma & Ztt \\
+ Systematic Effect & ZH  & WH & qqH& ggH& qqWW & ggWW & VV & Top & Zjets & Wjets & Wgamma & Ztt\\
 \hline
-Higgs Theory       & X   & X  & X  & -    & -    & -  & -   & -     & -     & -      & - \\
-PDF                & X   & X  & X  & X    & X    & X  & -   & -     & -     & X      & - \\
-Lepton efficiency  & X   & X  & X  & X    & X    & X  & -   & -     & -     & X      & - \\
-Lepton resolution  & X   & X  & X  & X    & X    & X  & X   & -     & -     & X      & - \\
-MET resolution     & X   & X  & X  & X    & X    & X  & X   & -     & -     & X      & - \\
-Jet Energy Scale   & X   & X  & X  & X    & X    & X  & X   & X     & X     & X      & X \\
-\WW{}              & -   & -  & -  & X    & X    & -  & -   & -     & -     & -      & - \\
-Top                & -   & -  & -  & -    & -    & -  & X   & -     & -     & -      & - \\
-\dyll{}            & -   & -  & -  & -    & -    & -  & -   & X     & -     & -      & - \\
-\wjets{}           & -   & -  & -  & -    & -    & -  & -   & -     & X     & -      & - \\
-$\W\gamma$         & -   & -  & -  & -    & -    & -  & -   & -     & -     & X      & - \\
-\dytt{}            & -   & -  & -  & -    & -    & -  & -   & -     & -     & -      & X \\
+Higgs Theory       & X   & X  & X  & X  & -    & -    & -  & -   & -	 & -	 & -	  & - \\
+PDF                & X   & X  & X  & X  & X    & X    & X  & -   & -	 & -	 & X	  & - \\
+Lepton efficiency  & X   & X  & X  & X  & X    & X    & X  & -   & -	 & -	 & X	  & X \\
+Lepton resolution  & X   & X  & X  & X  & X    & X    & X  & X   & -	 & -	 & X	  & X \\
+MET resolution     & X   & X  & X  & X  & X    & X    & X  & X   & -	 & -	 & X	  & X \\
+Jet Energy Scale   & X   & X  & X  & X  & X    & X    & X  & X   & -	 & -	 & X	  & X \\
+\WW{}              & -   & -  & -  & -  & X    & X    & -  & -   & -	 & -	 & -	  & - \\
+Top                & -   & -  & -  & -  & -    & -    & -  & X   & -	 & -	 & -	  & - \\
+\dyll{}            & -   & -  & -  & -  & -    & -    & -  & -   & X	 & -	 & -	  & - \\
+\wjets{}           & -   & -  & -  & -  & -    & -    & -  & -   & -	 & X	 & -	  & - \\
+$\W\gamma$         & -   & -  & -  & -  & -    & -    & -  & -   & -	 & -	 & X	  & - \\
+\dytt{}            & -   & -  & -  & -  & -    & -    & -  & -   & -	 & -	 & -	  & X \\
+statistics         & X   & X  & X  & X  & X    & X    & X  & X   & X	 & X	 & X	  & X \\
 \hline
 \end{tabular}
-\caption{Summary of different systematic effects and components that they affect.}
+\caption{Summary of the systematic effects and components that they affect considered in the 
+$\Hi \to\WW \to 2\ell2\nu$ analysis.}
+\label{tab:hwwsyst}
+}
 \end{center}
 \end{table}
 
 \subsubsection{Higgs Theoretical Uncertainties}
-Procedure:
-  \begin{itemize}
-    \item Vary the QCD renormalization ($\mu_R$) and scale ($\mu_F$) independently
-    \item Reweight the $gg\to$H component with different k-factor distributions
-    \item Only shape, since the normalization factor has its own factor
-    \item Taking ``Up'' as $\mu_R$ = 0.5mu and $\mu_F$=2.0mu and ``Down'' as $\mu_R$ = 2.0mu and $\mu_F$=0.5mu
-  \end{itemize}
+The theoretical systematic uncertainties on the signal yield is factorized into 
+the product of two components. The first component is the uncertainty on the 
+fraction of events categorized into the different jet bins and the effect of 
+migrations across jet bins. The second component is the uncertainty on the 
+lepton acceptance and the selection efficiency of all other cuts. The major
+effect by far comes from the uncertainty on the normalization and it has been
+described in detailed in~\cite{hww_eps, hww_lp}, following the prescriptions from
+the Higgs cross section Yellow 
+Report~\cite{LHCHiggsCrossSectionWorkingGroup:2011ti}.
 
-\subsubsection{PDF}
-Procedure:
-  \begin{itemize}
-    \item Only normalization is considered (no shape variation)
-    \item Change in normalization is $\sim$10\%
-    \item Have followed the method from AN2011/055
-  \end{itemize}
+The procedure to take into account a possible variation 
+on the final discriminant variable due to the QCD renormalization ($\mu_R$) 
+and scale ($\mu_F$) is to reweight the ggH component with different k-factor
+distributions. Since the normalization effects have their own factors, only a
+shape variation is allowed. We the the ``up" variation as 
+$\mu_R = 0.5\mu$ and $\mu_F =2.0\mu$ and the ``down" variation as 
+$\mu_R = 2.0\mu$ and $\mu_F =0.5\mu$, being $\mu$ the nominal scale value.
 
-\subsubsection{Lepton efficiency scale factors}
-Procedure:
-  \begin{itemize}
-    \item Apply +1sigma and -1sigma reweighting factor to the scale factor efficiencies using the efficiency tables paramtrized in eta and pt
-    \item Produce ``Up'' and ``Down'' histograms with the +1/-1 sigma factors
-  \end{itemize}
+\subsubsection{Parton Distribution Functions}
+Parton distribution functions (PDFs) are obtained from global fits 
+to experimental data from deep in-elastic scattering, Drell-Yan, and jet 
+processes. The recommendations of the PDF4LHC group were followed to obtain the
+uncertainties due to the limited knowledge of such PDFs. From those studies, 
+we consider the overall normalisation uncertainty to adequately contain possible 
+variations in the uncertainty as a function of the discriminant variable.
 
-\subsubsection{Lepton energy-momentum resolution and scale}
+\subsubsection{Lepton Efficiency Scale Factors}
+The lepton efficiencies are measured in data and simulated events using the 
+well-known tag and probe method~\cite{hww_eps}, giving a scale factor to the
+simulated events as a function of the $\pt$ and $\eta$ of each lepton. The
+associated uncertainty may have some $\pt$ and $\eta$ dependence, leading to a
+possible shape variation. The procedure to estimate the uncertainty due to the
+lepton efficiency scale factor is to a $+1(-1)\sigma$ reweighting factor to the
+lepton efficiency scale factor for the ``up" (``down") variation. Both
+normalization and shape are considered with this procedure.
 
-Procedure:
-  \begin{itemize}
-    \item Smear the lepton momenta by a gaussian with width equal to the central value determination of the resolution + the uncertainty, and the central value resolution
-    \item Produce new BDT outputs using smeared lepton variables
-    \item Produce ``Up'' and ``Down'' histograms using the new BDT outputs
-  \end{itemize}
+\subsubsection{Lepton Energy-Momentum Resolution and Scale}
+The lepton energy-momentum does not perfectly agree between data and simulated
+events with the current available sample. To assign an uncertainty, we smear 
+the lepton energy-momentum by a Gaussian with width equal to the central value 
+determination of the resolution, and the central value the observed biased in
+data. With the new four-momentum of both leptons, we build a new discriminant
+variable. We take the ``up" (``down") variation as the positive (negative) biased
+case.
 
-\subsubsection{MET resolution}
-Procedure:
-  \begin{itemize}
-    \item Smear $Met_x$ and $Met_y$ components for both PFMET and trackMET
-      \begin{itemize}
-      \item $Syst_PFMet_X/Y$ = Gaus(0.0,4.8), $Syst_trackMet_X/Y$ = Gaus(0.0,3.0)
-      \end{itemize}    
-    \item Produce new BDT outputs using smeared MET variables
-    \item Produce ``Up'' and ``Down'' histograms using the new BDT outputs
-  \end{itemize}
+\subsubsection{$\met$ Resolution}
+The $\met$ resolution in data is not well reproduced in simulated events leading
+to an underestimation of $\dyll$ events, where no real $\met$ from neutrinos is
+present. The background estimation from Zjets events has its own uncertainty.
+Nevertheless, other processes with neutrinos in the final state may have an
+uncertainty due to this effect. To account for it, we have smeared the X and Y
+components of both $PF\met$ and $track\met$ and produce new discriminant
+variables with the smeared quantities. The smeared variable is the ``up"
+variation, while we take the ``down" variation as the mirror of the difference
+between the ``up" and default variables.
 
 \subsubsection{Jet Energy Scale}
-Procedure:
-  \begin{itemize}
-    \item Change $\pm5$\% the jet pt and see the effect in the analysis
-  \end{itemize}
+The discriminant variables make no use of the jet energy quantities, therefore
+there is no direct effect on the jet energy scale (JES) uncertainty, in addition
+to the normalization uncertainty due to the migration among the different jet
+bins. Nevertheless, it is observed that kinematic variables show different
+distributions depending on the jet multiplicity. To assign an uncertainty,
+we vary the transverse momentum of the jets by $\sim~5\%$ (``up" and ``down",
+respectively) and build the new discriminant variables. Onlt shape uncertainty is
+considered in this case.
 
-\subsubsection{\WW{}}
-Procedure involves two set of histograms:
-  \begin{itemize}
-    \item compare Madgraph with MC@NLO for the Up template and the mirror of that ratio is the Down template
-    \item make the ratio between MC@NLO and MC@NLO with QCD scales up and down. Multiply the ratio of them on each bin to the default Madgraph to produce the Up/Down templates
-  \end{itemize}
+\subsubsection{$\WW$ Background}
+This effect considers the theoretical uncertainties on the $\WW$ background, in
+addition to the normalization uncertainty which has its own factor. The 
+$gg \to \WW$ has an uncertainty due to the QCD scales of 50\% and covers very
+well any possible shape variation.
 
-\subsubsection{\wjets{}}
-Procedure:
-  \begin{itemize}
-    \item Produce a new distribution by using different lepton fake rates
-      \begin{itemize}
-        \item muon fake rate using jet pt threshold at 30 GeV (instead of 15)
-        \item electron fake rate using jet pt threshold at 50 GeV (instead of 35)
-      \end{itemize}
-   \item Propagate Wjets MC closure tests uncertainty
-      \begin{itemize}
-        \item Get a scale-factor histogram from the closure test and apply it
-      \end{itemize}
-  \end{itemize}
+To account for possible shape variation on the $qq \to \WW$ process, two 
+separate effects are considered. First, we compare the default simulated events
+produced with Madgraph generator with simulated events produced with MC@NLO
+generator, and this second sample makes the ``up" variation. The ``down"
+variation is the mirror of the ratio between both generators. Second, we consider
+the uncertainty due to the variation of the QCD scales. To perform that, we take
+the ratio between the MC@NLO samples and the ones with the scales up and down.
 
-\subsubsection{Drell-Yan}
-Procedure:
-  \begin{itemize}
-    \item Use NNLO reweighting as default
-    \item Default histogram is produced with MC events with
-      min(PFMET,trackMET): [20-40] GeV, normalization is taken from
-      the signal region evaluation
-      \begin{itemize}
-        \item ``Up'' histogram is produced using the standard MC with
-          min(PFMET,trackMET) > 40 GeV
-        \item ``Down'' histogram is the mirror of the ``Up'' histogram
-          with respect to the default one
-      \end{itemize}
-  \end{itemize}
+\subsubsection{$\Wjets$ Background}
+The uncertainty due to the $\Wjets$ normalization is as large as $\sim$36\%.
+Nevertheless we may have an additional uncertainty on the shape of the
+discriminant variable. Two sources are considered. First, we produce new
+distributions by using different lepton fake rates, this is the ``up" variation.
+The ``down" variation is the mirror of the ratio between the ``up" and default
+distributions. The muon fake rate is built using a jet $\pt$ threshold of 30
+$\GeVc$ (instead of 15, the default value), and the electron fake rate is build
+using a jet $\pt$ threshold of 50 $\GeVc$ (instead of 35, the default value).
+Second, we propagate the Monte Carlo closure test uncertainty. To do that, we use
+the lepton plus fakeable object sample from Monte Carlo events and apply 
+the measured lepton fake rates to build a new $\Wjets$ distribution. This
+produces the ``up" variation. The ``down" variation is the mirror of the ration
+between the ``up" and default distributions.
 
-\subsubsection{Top}
-Procedure:
-  \begin{itemize}
-    \item Take variation between Powheg and Madgraph as systematic uncertainty, this should cover most of the differences in the MC modeling
-  \end{itemize}
+\subsubsection{$\dymm$ and $\dyee$ Backgrounds}
+The uncertainty on the normalization of this background is rather larger, as
+discussed in~\cite{hww_eps}, nevertheless a shape uncertainty could also be
+important. Since the number of available simulated events after the final
+selection is rather small, the default distribution is taken from events which 
+pass all other requirements, but with Min(projected $\met$, projected
+track-$\met$) between 20 and 40 $\GeV$, with the normalization obtained from the
+signal region evaluation. To have a conservative estimate of the
+uncertainty, we take the ``up" variation using the simulated events passing all
+requirements, while the mirror of the ratio between the ``up" and default
+distributions is the ``down" variation.
 
-\subsubsection{$\W\gamma$}
-Procedure:
-  \begin{itemize}
-    \item No shape variation, only normalization. Make sure that uncertainty is large enough
-    \item The shape is take from MC removing the conversion rejection requirements
-  \end{itemize}
+\subsubsection{Top Background}
+To account for possible shape uncertainties on the modelling of top simulated
+events, we compare different simulated samples with respect to the default ones 
+to build the ``up" variation, while the mirror of the ratio between the ``up" 
+and default distributions is the ``down" variation. In particular, for $\ttbar$
+events we use Madgraph simulated events (Powheg is the default generator), while
+for the $\tw$ process we use a sample with different matching procedure.
 
-\subsubsection{\dytt{}}
-Procedure:
-  \begin{itemize}
-    \item 
-  \end{itemize}
+\subsubsection{$\W+\gamma$ Background}
+The $\W+\gamma$ background is rather small after our tight preselection
+requirements, therefore we do not assign any specific uncertainty due to this
+background. The only point to notice is that we take the shape of this process
+from a sample of simulated events where the conversion rejection requirements
+have been loosened, so that the amount of events used in the final discriminant
+variable is larger. We have verified that the shapes do not changed by modifying
+those veto requirements.
+
+\subsubsection{$\dytt$ Background}
+The $\dytt$ background is estimated from data using the so-called $\tau$
+embedding method. The aim of this method is to create hybrid events with two 
+muons (or electrons) coming from a data $\Z$ decay replaced by two 
+(simulated) $\tau$ particles. Different techniques for creating such events
+exist: either replacing the muons at offline level, at the reconstruction 
+level or at the digitazitation level. In addition to the use of data to a very
+large extent, this method allows for an increase on the statistical power of the
+sample leading to much smaller statistical uncertainties.
+
+\subsubsection{Bin-By-Bin Statistical Uncertainty}
+As already stated in Section~\ref{sec:methods}, the current available official 
+framework do not support a full proper treatment of the statistical 
+uncertainties on each bin independently of the discriminant variable. A way to
+account for most of the effect is to build ``up" (``down") variation as the
++1(-1)$\sigma$ statistical uncertainty on every bin. In this way, we properly
+consider the uncertainty on every bin, although in a correlated way. As a
+cross-check, we perform the following: (a) we divide the discriminant
+variable into 3 regions (low, medium, and high values), (b) for the ``up" 
+variation we move all low points up by one $\sigma$ and all high points down 
+by one $\sigma$, (c) for the "down" variation we do the opposite. With this
+procedure we create an artificial shape variation due to the statistical
+uncertainties. It is a conservative approach, but it gives an idea of the size of
+the effect.
