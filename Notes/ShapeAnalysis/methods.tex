@@ -1,24 +1,39 @@
 Bayesian, CL$_S$-LHC, nuisance parameters, p-values etc 
 
 \subsection{Tools}
-LandS etc
+Upper limits are derived on the product of the Higgs boson
+production cross section and the $\Hi \to \WW (\Z\Z)$ branching fraction,
+$\sigma_{\rm{H}} \times $BR($\Hi \to \WW (\Z\Z))$, with respect
+to the SM expectation, i.e. $\sigma^{95\%}/\sigma^{SM}$. Two different
+statistical methods are used, both using the same likelihood function
+from the expected number of observed events modeled as a Poisson
+random variable whose mean value is the sum of the contributions from
+signal and background processes. The first method, known as $CL_{s}$,
+is based on the hybrid Frequentist-Bayesian approach~\cite{cousins},
+while the second one is based on Bayesian inference~\cite{bayesian}.
+Both methods account for systematic uncertainties. Although not
+identical, the upper limits obtained from both methods are similar. 
+To perform the computation of the limits, the software packages
+\texttt{RooStats}~\cite{rootstat} and \texttt{LandS}~\cite{lands} have 
+been used. Whenever the same result was computed with both packages, the
+results were found to agree.
 
-\subsection{Systematic uncertainties in shape analysis} 
+\subsection{Systematic Uncertainties in Shape Analyses} 
 
 There are three different ways to account for systematic uncertainties for a given source:
 \begin{itemize}
-  \item {\bf Normalization uncertanty} - account only for the overall
-    normalization assuming that the shape is perfectly known
-  \item {\bf Statistical shape uncertainties} - account for limited
-    number of events available for the shape extraction
-  \item {\bf Shape variation uncertainties} - account for uncertainty
-    in the shape itself
+  \item {\bf normalization uncertanty} - account only for the overall
+    normalization assuming that the shape is perfectly known;
+  \item {\bf statistical shape uncertainties} - account for limited
+    number of events available for the shape extraction;
+  \item {\bf shape variation uncertainties} - account for uncertainty
+    on the shape itself.
 \end{itemize}
 
-Normalization uncertanties are the most straight forward ones. They
+Normalization uncertanties are the most straightforward to treat. They
 are identical to those used in a cut-based analysis. To simplify the
-analysis in some cases such as small background contributions with
-large normalization uncertainties it can be used as the only source of
+analysis in some cases, such as background contributions with
+large normalization uncertainties, it can be used as the only source of
 systematic uncertainty ignoring the shape variation.
 
 Statistical uncertainties on shape extraction are often
