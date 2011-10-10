@@ -15,8 +15,8 @@ class Proc {
   
  public:
   
-  Proc(TVar::Process proc, float lumi, float massCut, TString inputDir, Analysis analysis, float metCut, float dphiCut)
-    : proc_(proc), lumi_(lumi), massCut_(massCut), inputDir_(inputDir), analysis_(analysis), metCut_(metCut), dphiCut_(dphiCut)
+  Proc(TVar::Process proc, float lumi, float massCut, TString inputDir, Analysis analysis, float metCut, float dphiCut, float mtCut)
+    : proc_(proc), lumi_(lumi), massCut_(massCut), inputDir_(inputDir), analysis_(analysis), metCut_(metCut), dphiCut_(dphiCut), mtCut_(mtCut)
   {
     // call function to set total cross-sections
     initTotXsec();
@@ -48,6 +48,7 @@ class Proc {
   int analysis_;
   float metCut_; // only for hzz analysis
   float dphiCut_; // only for hzz analysis
+  float mtCut_;  // only for hzz analysis
 
   // function to set NLO and MCFM toal cross-sections
   void initTotXsec();  

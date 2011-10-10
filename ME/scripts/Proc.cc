@@ -5,6 +5,9 @@
 #include <iostream>
 #include "Proc.h"
 #include "TCut.h"
+#include "Math/LorentzVector.h"
+
+typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
 
 // function to initialize BR 
@@ -54,7 +57,7 @@ void Proc::initYields() {
   if ( proc_ >= TVar::HZZ200 && proc_ <= TVar::HZZ600 && analysis_ == HZZANALYSIS) fileName = "gf"+fileName;
  
   TFile *f = TFile::Open(TString(inputDir_ + fileName.Data() + ".root"));
-      
+  
   if(f==0x0) {
     std::cout << "Proc:initYields for process " << TVar::SmurfProcessName(proc_) << "WARNING!" << TString(inputDir_ + fileName + ".root") << " doesn't exist\n";
     for (int j = 0; j < kNDilep; j++)
@@ -62,35 +65,90 @@ void Proc::initYields() {
     return;
   }
   
-  std::cout << "Proc:initYields for process " << TVar::SmurfProcessName(proc_) 
-       <<" from " << TString(inputDir_ + fileName + ".root") << std::endl; 
-  
   TTree *tree = (TTree*) f->Get("tree");
+  
+  if(tree == 0x0) {
+    std::cout << "Proc:initYields for process " << TVar::SmurfProcessName(proc_) << "WARNING!" << TString(inputDir_ + fileName + ".root") << " doesn't exist\n";
+    for (int j = 0; j < kNDilep; j++)
+      yield_[j] = 0.0;
+    return;
+  }
+  
+  std::cout << "Proc:initYields for process " << TVar::SmurfProcessName(proc_) 
+	    <<" from " << TString(inputDir_ + fileName + ".root") << std::endl; 
+
+
+  // Initialize the branches to use to calculate LR
+  int type_ = 0;
+  float scale1fb_ = 1.;
+  LorentzVector*  dilep_ = 0;
+  float mt_ = 0.;
+  float met_ = 0.;
+  LorentzVector*  jet1_ = 0;
+  LorentzVector*  jet2_ = 0;
+  LorentzVector*  jet3_ = 0;
+  float metPhi_ = 0.;
+  
+  tree->SetBranchAddress( "type",  &type_);
+  tree->SetBranchAddress( "scale1fb",  &scale1fb_);
+  tree->SetBranchAddress( "dilep", &dilep_); 
+  tree->SetBranchAddress( "mt",  &mt_);
+  tree->SetBranchAddress( "met",  &met_);
+  tree->SetBranchAddress( "jet1", &jet1_);
+  tree->SetBranchAddress( "jet2", &jet2_);
+  tree->SetBranchAddress( "jet3", &jet3_);
+  tree->SetBranchAddress( "metPhi",  &metPhi_); 
+
+  // start filling the numbers...
+  
   double tot_yield = 0;
   std::cout<<"Yields from file "<< fileName << ".root: mm/me/em/ee:  ";
+
+  TH1F *tmp[4];
   
-  TCut cutstring;
+  for ( int i = 0; i < 4 ; i ++) {
+    tmp[i] = new TH1F(Form("tmp_%i", i), Form("tmp_%i", i), 20, 0, 20);
+    tmp[i]->Sumw2();
+  }
   
-  for (int j=0; j<kNDilep; j++){ 
-    if ( analysis_ == HWWANALYSIS) {
-      cutstring  =  Form("scale1fb*(type==%i&&dilep.mass()<%f&&mt>80.)", j, massCut_);
-    }
-    else if ( analysis_ == HZZANALYSIS) {
-      cutstring = Form("scale1fb*(type==%i&&met>%f&&acos(cos(metPhi-jet1.Phi()))>%f)", j, metCut_, dphiCut_);
-    }
-    else 
-      cutstring = Form("scale1fb*(type==%i)", j);
+  // loop over the events to fill histograms
+  for(int ievt = 0; ievt< tree->GetEntries(); ievt++){
+    tree->GetEntry(ievt);  
+    bool passpresel = true;
     
-    TH1F *tmp = new TH1F("tmp", "tmp", 20, 0, 20);
-    tree->Project("tmp", "dPhi", cutstring);
-    if (tmp!= 0x0) yield_[j] = tmp->Integral(0, 9999); 
-    else yield_[j]=0;
-    tot_yield += yield_[j];
-    std::cout << Form("%.3f",yield_[j])<<" " ;
-    delete tmp;
-  } 
-  std::cout << "; total yield = " << Form("%.3f", tot_yield) << "\n"; 
+    if ( analysis_ == HWWANALYSIS) {
+      if ( dilep_->M() > massCut_ ) passpresel = false;
+      if ( mt_ < 80.) passpresel = false;
+    }
+    
+    if ( analysis_ == HZZANALYSIS) {
+      float dPhi1, dPhi2, dPhi3;
+      jet1_->Pt() > 30 ? dPhi1 = acos(cos(metPhi_ - jet1_->Phi())) : dPhi1 = 999.9;
+      jet2_->Pt() > 30 ? dPhi2 = acos(cos(metPhi_ - jet2_->Phi())) : dPhi2 = 999.9;
+      jet3_->Pt() > 30 ? dPhi3 = acos(cos(metPhi_ - jet3_->Phi())) : dPhi3 = 999.9;
+      
+      // apply the dphi Cut
+      if ( TMath::Min(dPhi1, TMath::Min(dPhi2, dPhi3)) < dphiCut_ ) passpresel = false;
+      if ( met_ < metCut_) passpresel = false;
+      if ( mt_ < mtCut_) passpresel = false;
+    }
+    
+    if ( passpresel ) 
+      tmp[type_]->Fill(mt_, scale1fb_);
+    }
+
+  // get the yields from histograms
   
+  for ( int i = 0; i < 4; i++) {
+    if (tmp[i] != 0x0 ) 
+      yield_[i] = tmp[i]->Integral(0, 9999); 
+    else 
+      yield_[i]=0;
+    tot_yield += yield_[i];
+    std::cout << Form("%.3f",yield_[i])<<" " ;
+  }
+  
+  std::cout << "; total yield = " << Form("%.3f", tot_yield) << "\n"; 
   f->Close();
 }
 
