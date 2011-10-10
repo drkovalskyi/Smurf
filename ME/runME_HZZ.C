@@ -132,7 +132,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     ch->GetEntry(ievt);            
     
     // analyse only the 0-jet bin
-    if (njets_ > 0) continue;
+    // if (njets_ > 0) continue;
     
     // Initialize the reco-level cms_event, which contains the complete event
     // for the differential cross-section calculation
