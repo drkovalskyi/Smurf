@@ -88,12 +88,12 @@ void LR(int mH, TString fileName, TString inputSmurfFDir, TString meFDir, int ne
   getProcess(mH, k, massCut);
 
   // note this is completely useless for HWW, just temporary be here as not to break the hzz analysis
-  float metCut(0.0), dphiCut(0.0);
+  float metCut(0.0), dphiCut(0.0), mtCut(0.0);
   
-  Proc *higgs = new Proc(k, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut);
-  Proc *ww    =  new Proc(TVar::WW, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut);
-  Proc *wpj    = new Proc(TVar::Wp_1jet, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut);
-  Proc *wmj    = new Proc(TVar::Wm_1jet, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut);
+  Proc *higgs = new Proc(k, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut, mtCut);
+  Proc *ww    =  new Proc(TVar::WW, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut, mtCut);
+  Proc *wpj    = new Proc(TVar::Wp_1jet, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut, mtCut);
+  Proc *wmj    = new Proc(TVar::Wm_1jet, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut, mtCut);
   
 if (verbosity >= TVar::DEBUG) {
     cout << "higgs->GetMCFMXsec() = " << higgs->GetMCFMXsec() << "\n";
