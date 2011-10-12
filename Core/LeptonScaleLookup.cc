@@ -44,6 +44,27 @@ float LeptonScaleLookup::GetEfficiency(float eta, float pt, TH2F *hist)
     return hist->GetBinContent(binX, binY);
 }
 
+float LeptonScaleLookup::GetError(float eta, float pt, TH2F *hist)
+{
+    // make sure pt to look up is in range
+    int nbins = hist->GetXaxis()->GetNbins();
+    if (pt > (hist->GetXaxis()->GetBinLowEdge(nbins) + hist->GetXaxis()->GetBinWidth(nbins)))
+        pt = hist->GetXaxis()->GetBinLowEdge(nbins) + (hist->GetXaxis()->GetBinWidth(nbins)/2.0);
+
+    // make sure eta to look up is in range
+    // eta is abs
+    eta = fabs(eta);
+    nbins = hist->GetYaxis()->GetNbins();
+    if (eta > (hist->GetYaxis()->GetBinLowEdge(nbins) + hist->GetYaxis()->GetBinWidth(nbins)))
+        eta = hist->GetYaxis()->GetBinLowEdge(nbins) + (hist->GetYaxis()->GetBinWidth(nbins)/2.0);
+
+    // look up the error
+    Int_t binX = hist->GetXaxis()->FindBin(pt);
+    Int_t binY = hist->GetYaxis()->FindBin(eta);
+    return hist->GetBinError(binX, binY);
+}
+
+
 float LeptonScaleLookup::GetExpectedTriggerEfficiency(float eta1, float pt1, float eta2, float pt2, int id1, int id2)
 {
 
@@ -107,6 +128,19 @@ float LeptonScaleLookup::GetExpectedLeptonSF(float eta, float pt, int id)
     }
     return sf;
 
+}
+
+float LeptonScaleLookup::GetExpectedLeptonSFErr(float eta, float pt, int id)
+{
+    float sferr = 0.0;
+    if (abs(id) == 11) {
+        sferr = GetError(eta, pt, h2_selection_e_);
+    } else if (abs(id) == 13) {
+        sferr = GetError(eta, pt, h2_selection_m_);
+    } else {
+        std::cout << "[LeptonScaleLookup::GetExpectedOfflineSFErr] ERROR: Invalid flavor!" << std::endl;
+    }
+    return sferr;
 }
 
 void LeptonScaleLookup::printTable(std::string name)

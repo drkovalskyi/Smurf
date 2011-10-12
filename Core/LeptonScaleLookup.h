@@ -14,8 +14,11 @@ class LeptonScaleLookup {
         ~LeptonScaleLookup();
 
         float GetEfficiency(float eta, float pt, TH2F *hist);
+        float GetError(float eta, float pt, TH2F *hist);
+
         float GetExpectedTriggerEfficiency(float eta1, float pt1, float eta2, float pt2, int id1, int id2);
         float GetExpectedLeptonSF(float eta, float pt, int id);
+        float GetExpectedLeptonSFErr(float eta, float pt, int id);
 
         void printTable(std::string name);
 
