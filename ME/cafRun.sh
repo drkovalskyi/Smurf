@@ -13,7 +13,7 @@ INPUTPATH=$3
 NEV=$4
 EVSTART=$((NEV*($1-1)))
 HIGGSMASS=$5
-
+MODE=$6
 
 cd tardir
 
@@ -22,10 +22,16 @@ echo "Copying $INPUTPATH/$ROOTFILE to the current folder"
 cp $INPUTPATH/$ROOTFILE ./
 
 echo "{" > temp.C
-echo "gSystem->CompileMacro(\"runME_test.C\");" >> temp.C
-echo "runME_test(\"./\", \"$ROOTFILE\", \"./\", 10, 1, 100000, 1.0, $NEV, $EVSTART);" >> temp.C
-#echo "gSystem->CompileMacro(\"runME_HZZ.C\");" >> temp.C
-#echo "runME_HZZ(\"./\", \"$ROOTFILE\", \"./\", 10, 1, 100000, 1.0, $NEV, $EVSTART,$HIGGSMASS);" >> temp.C
+
+if [ "${MODE}" == 'WW' ]; then
+    echo "gSystem->CompileMacro(\"runME_test.C\");" >> temp.C
+    echo "runME_test(\"./\", \"$ROOTFILE\", \"./\", 10, 1, 100000, 1.0, $NEV, $EVSTART);" >> temp.C
+fi
+
+if [ "${MODE}" == 'ZZ' ]; then
+    echo "gSystem->CompileMacro(\"runME_HZZ.C\");" >> temp.C
+    echo "runME_HZZ(\"./\", \"$ROOTFILE\", \"./\", 10, 1, 100000, 1.0, $NEV, $EVSTART,$HIGGSMASS);" >> temp.C
+fi
 echo "}" >> temp.C
 cat temp.C
 
