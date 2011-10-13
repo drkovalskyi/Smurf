@@ -263,7 +263,7 @@ void TEvtProb::SetFRHist(TString elFRFile, TString elFRHist, TString muFRFile, T
   muFRfile->Close();
 }
 
-void TEvtProb::SetMCHist(int proc, TString MCFileName, bool setFR, TVar::VerbosityLevel verbosity) {
+void TEvtProb::SetMCHist(int proc, TString MCFileName, bool setFR, int njets, TVar::VerbosityLevel verbosity) {
   
   if (verbosity >= TVar::DEBUG) std::cout << "TEvtProb::SetMCHist for process " << TVar::ProcessName(proc) << " from " << MCFileName << std::endl;
     TFile *fUtil = TFile::Open(MCFileName, "READ");
@@ -279,8 +279,20 @@ void TEvtProb::SetMCHist(int proc, TString MCFileName, bool setFR, TVar::Verbosi
     }
     else
     {
+      if ( njets == 0) {
         _boosthist.kx = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_kx"))->Clone();
         _boosthist.ky = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_ky"))->Clone();
+      }
+      if ( njets == 1) {
+	_boosthist.kx = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_kx_1jet"))->Clone();
+        _boosthist.ky = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_ky_1jet_"))->Clone();
+      }
+      if ( njets >= 2) {
+	_boosthist.kx = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_kx_2jet"))->Clone();
+        _boosthist.ky = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_ky_2jet_"))->Clone();
+      }
+      
+      
     }
 
     // fake-rate histograms

@@ -81,7 +81,7 @@ public:
   void SetHWWPhaseSpace(TVar::HWWPhaseSpace tmp){ _hwwPhaseSpace = tmp; }
   double Integrand_NeutrinoIntegration(TVar::Process proc, const cdf_event_type &cdf_event, double * r, unsigned int NDim, void * param, BoostHist boosthist, TVar::VerbosityLevel verbosity);
   
-  void SetMCHist(int proc, TString MCHistFile, bool setFR, TVar::VerbosityLevel verbosity);
+  void SetMCHist(int proc, TString MCHistFile, bool setFR, int njets, TVar::VerbosityLevel verbosity);
   void SetFRHist(TString elFRFile, TString elFRHist, TString muFRFile, TString muFRHist, TVar::VerbosityLevel verbosity);
   
   void LOXsec(double* Xsec,double* Err);

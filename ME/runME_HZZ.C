@@ -121,7 +121,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   
   for(int ievt=evtstart;ievt<Ntot;ievt++){
  
-    if (verbosity >= TVar::INFO && (ievt % 5 == 0)) 
+    if (verbosity >= TVar::INFO && (ievt % 1000 == 0)) 
         std::cout << "Doing Event: " << ievt << std::endl;
  
     for(int idx=0;idx<nProc;idx++) {
@@ -129,8 +129,8 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       dXsecErrList[idx] = 0;
     }
     
-    ch->GetEntry(ievt);            
-    
+    ch->GetEntry(ievt);         
+
     // analyse only the 0-jet bin
     // if (njets_ > 0) continue;
     
@@ -256,7 +256,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     
     // Load the MC based boost, efficiency and generator FR
     bool setMCFR = false;
-    Xcal2.SetMCHist(ProcInt, "Util_HZZ.root", setMCFR, verbosity);
+    Xcal2.SetMCHist(ProcInt, "Util_HZZ.root", setMCFR, njets_, verbosity);
 
     if (verbosity >= TVar::DEBUG) 
       printf(" Calculate Evt %4i Run %9i Evt %8i Proc %4i %s Lep %4i %4i\n", ievt, run_, event_, ProcInt, TVar::ProcessName(ProcInt).Data(), lq1_*lep1_Type, lq2_*lep2_Type);
