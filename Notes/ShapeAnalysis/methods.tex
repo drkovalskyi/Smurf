@@ -1,19 +1,64 @@
-Upper limits are derived on the product of the Higgs boson
-production cross section and the $\Hi \to \WW (\Z\Z)$ branching fraction,
-$\sigma_{\rm{H}} \times $BR($\Hi \to \WW (\Z\Z))$, with respect
-to the SM expectation, i.e. $\sigma^{95\%}/\sigma^{SM}$. Two different
-statistical methods are used, both using the same likelihood function
-from the expected number of observed events modeled as a Poisson
-random variable whose mean value is the sum of the contributions from
-signal and background processes. The first method, known as $CL_{s}$,
-is based on the hybrid Frequentist-Bayesian approach~\cite{cousins},
-while the second one is based on Bayesian inference~\cite{bayesian}.
-Both methods account for systematic uncertainties. Although not
-identical, the upper limits obtained from both methods are similar. 
-To perform the computation of the limits, the software packages
+Upper limits are derived on the product of the Higgs boson production
+cross section and the $\Hi \to \WW (\Z\Z)$ branching fraction,
+$\sigma_{\rm{H}} \times $BR($\Hi \to \WW (\Z\Z))$, with respect to the
+SM expectation, i.e. $\sigma^{95\%}/\sigma^{SM}$. Two different
+statistical methods are used to report results. The first method,
+known as $CL_{s}$, is the modified frequentist
+approach~\cite{cls1,cls2}, while the second one is based on Bayesian
+inference~\cite{bayesian}.
+
+To make results easier to compare, CMS and ATLAS collaborations have
+agreed on using the $CL_s$ method with the LHC type
+statistic~\cite{cls_lhc} to report Higgs search results. The
+likelihood function is defined as:
+\begin{eqnarray}
+  L(\rm{data}|\mu,\theta)&=&\rm{Poisson}(\rm{data}|\mu\cdot s(\theta)+b(\theta))\cdot p(\tilde{\theta}|\theta) \nonumber\\
+ &=&\prod_i\frac{(\mu s_i+b_i)^{n_i}}{n_i!}e^{-\mu s_i-b_i}\cdot p(\tilde{\theta}|\theta)
+\label{eq:likelihood}
+\end{eqnarray}
+where $\mu$ is the signal strength modifier which is often reported in
+the upper limit results as a ratio of the cross-section upper limit
+over the standard model cross-section and $\theta$ represents a full
+set of nuisance parameters that are used to incorporate systematic
+uncertainties. The test statistic for the method is defined as a
+likelihood ratio:
+\begin{equation}
+\tilde{q_\mu}=-2\log\frac{L(\rm{data}|\mu,\hat\theta_\mu)}{L(\rm{data}|\hat\mu,\hat\theta)}
+\end{equation}
+where the numerator corresponds to the maximum likelihood for given
+``data'' and $\mu$ profiling over the nuisance parameters and the
+denominator corresponds to the maximum likelihood for given ``data''
+profiling over the nuisance parameters and $\mu$. This test statistic
+differs from the ones used at LEP (no profiling of systematic errors)
+and at Tevatron (the denominator likelihood uses $\mu=0$ and only
+systematic errors are profiled).
+
+In order to perform hypothesis testing we need to determine the
+probability distribution functions (PDFs) for the test statistic for
+signal plus background and background only hypothesis keeping the
+nuisance parameters fixed to the observed values. Based on these PDFs
+we define:
+\begin{equation}
+CL_s(\mu)=\frac{p_\mu}{p_0}
+\end{equation}
+where $p_\mu$ is the probability to observe a test statistic larger or
+equal to the actual observation for a given $\mu$ for
+signal+background hypothesis, and $p_0$ is that of for background only
+hypothesis. If $\mu=1$ and $CL_s<\alpha$ we say that the signal
+hypothesis is rejected at $(1-\alpha)$ Confidence Level (C.L.).
+
+The second method (Bayesian) is based on interpreting the likelihood
+defined in Equation~\ref{eq:likelihood} as a probability distribution
+function with a flat prior for the signal strength and a set of pdfs
+for nuisance parameters, which are often approximated with the
+log-normal distribution. Integrating over the nuisance parameters we
+find the upper limit for the signal strength.
+
+The results obtained from both methods may differ but in most cases
+they are similar. To perform the computation of the limits, the
+software packages
 \texttt{RooStats}~\cite{rootstat} and \texttt{LandS}~\cite{lands} have 
-been used. Whenever the same result was computed with both packages, the
-results were found to agree.
+been used.
 
 \subsection{Systematic Uncertainties in Shape Analyses} 
 
