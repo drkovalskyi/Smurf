@@ -9,8 +9,12 @@ Higgs $\to$ \ZZ\  search. We do not have a data-driven estimate yet,
 therefore the shapes are taken from MC. 
 Similar to the \WW{} background treatment as in the $\hww$ analysis, 
 we accounts for the effects due to the therorectical uncertainties. 
-We compare the default shape simulated with the Pythia generator with an alternative generator, which was taken as the one sigma 
+We compare the default shape simulated with the Pythia generator with 
+$p_T$ spectrum reweighted to match the NLO calculation by MCFM 
+with an alternative generator, which was taken as the one sigma 
 variation histogram. In this case, we only have the MC sample form Madgraph. 
+Figure~\ref{fig:wzsyst_hzz}-\ref{fig:zzsyst_hzz} show the 
+shape variations of \WZ\  and \ZZ\  background estimated for the $m_H=250\GeVcc$ selection. 
 
 The $\wz$ background shape can be further validated with data in a control 
 region of events with 3 leptons with increasing luminosity. 
@@ -20,6 +24,35 @@ To assess the QCD scale variations to the shape, we can
 compute the event-by-event k-factor with the normalization and 
 factorization scales independently. 
        
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/WZ_WZBounding_mT_mH250_ee_lin.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/WZ_WZBounding_mT_mH250_mm_lin.pdf}}\\
+\caption{$m_T$ distribution for $\WZ$ for the ee (left) and $\mu\mu$ (right) final states. 
+The central shape is taken from pythia with $p_T$ spectrum reweighted to match 
+the NLO calcuation. The up histogram is taken from Madgraph with the down 
+histogram taken as a variation mirroring the difference between up and central. 
+}
+\label{fig:wzsyst_hzz}
+\end{center}
+%\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/ZZ_ZZBounding_mT_mH250_ee_lin.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/ZZ_ZZBounding_mT_mH250_mm_lin.pdf}}\\
+\caption{$m_T$ distribution for $\ZZ$ for the ee (left) and $\mu\mu$ (right) final states. 
+The central shape is taken from pythia with $p_T$ spectrum reweighted to match 
+the NLO calcuation. The up histogram is taken from Madgraph with the down 
+histogram taken as a variation mirroring the difference between up and central. 
+}
+\label{fig:zzsyst_hzz}
+\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \subsection{Top and \WW\   Background}
 
@@ -37,15 +70,16 @@ in all the dilepton final states. We define this as the control region
 to study the top event shape. Figure~\ref{fig:mtcompsigcontrl} 
 compares the $m_T$ distributions between the same flavor signal region and 
 the control region and found the two regions give consistent spectrum. 
-Therefore we can use the data in the control region to derive the top 
-shape and place the shapes in the signal region derived from MC as the 
-alternative. Figure~\ref{fig:mtdatamcl} shows the comparison of the $m_T$ 
+Figure~\ref{fig:mtdatamcl} shows the comparison of the $m_T$ 
 distributions between the signal MC region and the control region in both data and MC. 
-
+Therefore we can use the shapes in the signal regional derived from MC 
+as the central shape and place the shapes in the control region derived from Data as the 
+alternative, as shown in Figure~\ref{fig:topsyst_hzz} for the $m_H=250\GeVcc$ selection. 
 
 Seperating the top background, the \WW{} background shape variations can be assessed 
-in the same way as in the $\hww$ analysis described in the previous section.
-
+in the same way as in the $\hww$ analysis described in the previous section. 
+Figure~\ref{fig:wwsyst_hzz}-\ref{fig:wwnlosyst_hzz} show the variations we consider 
+for the $m_H=250\GeVcc$ selection. 
 
 %%%%%%%%%%%%%%
 \begin{figure}[!htbp]
@@ -82,6 +116,50 @@ in the same way as in the $\hww$ analysis described in the previous section.
 \end{center}
 \end{figure}
 %%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/Top_TopBounding_mT_mH250_ee_lin.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/Top_TopBounding_mT_mH250_mm_lin.pdf}}\\
+\caption{$m_T$ distribution for Top for the ee (left) and $\mu\mu$ (right) final states. 
+The central shape is taken from MC in the signal region. The up histogram is taken from 
+data in the control region, with the down 
+histogram taken as a variation mirroring the difference between up and central. 
+}
+\label{fig:topsyst_hzz}
+\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/WW_WWBounding_mT_mH250_ee_lin.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/WW_WWBounding_mT_mH250_mm_lin.pdf}}\\
+\caption{$m_T$ distribution for WW for the ee (left) and $\mu\mu$ (right) final states. 
+The central shape is taken from Pythia MC. The up histogram is taken from 
+MC@NLO, with the down histogram taken as a variation mirroring the difference between up and central. 
+}
+\label{fig:wwsyst_hzz}
+\end{center}
+%\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/WW_WWNLOBounding_mT_mH250_ee_lin.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/WW_WWNLOBounding_mT_mH250_mm_lin.pdf}}\\
+\caption{$m_T$ distribution for WW for the ee (left) and $\mu\mu$ (right) final states. 
+The central shape is taken from Pythia MC. The up/down histogram accounts for the QCD scaling up effect
+derived from MC@NLO and scaled to the central shape. 
+}
+\label{fig:wwnlosyst_hzz}
+\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{\dyll\  Background}
 
