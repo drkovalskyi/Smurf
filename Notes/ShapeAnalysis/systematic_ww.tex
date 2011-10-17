@@ -52,7 +52,23 @@ and scale ($\mu_F$) is to reweight the $gg \to H$ component with different k-fac
 distributions. Since the normalization effects have their own factors, only a
 shape variation is allowed. We the the ``up" variation as 
 $\mu_R = 0.5\mu$ and $\mu_F =2.0\mu$ and the ``down" variation as 
-$\mu_R = 2.0\mu$ and $\mu_F =0.5\mu$, being $\mu$ the nominal scale value.
+$\mu_R = 2.0\mu$ and $\mu_F =0.5\mu$, being $\mu$ the nominal scale value. 
+An example of the effect of this uncertainty is shown in Figure~\ref{fig:ggHsyst}. 
+It is possible to see that the differences among the default distribution and the 
+variations are very small.
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwof_58.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwsf_58.pdf}}
+\caption{BDT Output distribution for $H(130) \to \WW$ 0-jet bin analysis in $gg \to H$ events 
+for $\mathcal{L}~=~1.55~\pm~0.07~\ifb$. Opposite-flavor (a) and same-flavor (b) final states 
+are shown. The dots histogram is the default shape, while the dashed red histogram 
+is the ``Up" component and the dashed blue histograms is the ``Down" component, for the 
+theoretical uncertainties.}
+\label{fig:ggHsyst}
+\end{center}
+\end{figure}
 
 \subsubsection{Parton Distribution Functions}
 Parton distribution functions (PDFs) are obtained from global fits 
@@ -70,7 +86,23 @@ associated uncertainty may have some $\pt$ and $\eta$ dependence, leading to a
 possible shape variation. The procedure to estimate the uncertainty due to the
 lepton efficiency scale factor is to apply a $+1(-1)\sigma$ reweighting factor to the
 lepton efficiency scale factor for the ``up" (``down") variation. Both
-normalization and shape are considered with this procedure.
+normalization and shape are considered with this procedure. 
+An example of the effect of this uncertainty is shown in Figure~\ref{fig:qqWWeff}. 
+It is possible to see that the differences among the default distribution and the 
+variations are rather small.
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwof_20.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwsf_20.pdf}}
+\caption{BDT Output distribution for $H(130) \to \WW$ 0-jet bin analysis in $qq \to \WW$ events 
+for $\mathcal{L}~=~1.55~\pm~0.07~\ifb$. Opposite-flavor (a) and same-flavor (b) final states 
+are shown. The dots histogram is the default shape, while the dashed red histogram 
+is the ``Up" component and the dashed blue histograms is the ``Down" component, for the 
+lepton efficiency uncertainties.}
+\label{fig:qqWWeff}
+\end{center}
+\end{figure}
 
 \subsubsection{Lepton Energy-Momentum Resolution and Scale}
 The lepton energy-momentum does not perfectly agree between data and simulated
@@ -79,7 +111,21 @@ the lepton energy-momentum by a Gaussian with width equal to the central value
 determination of the resolution, and the central value the observed bias in
 data. With the new four-momentum of both leptons, we build a new discriminant
 variable. We take the ``up" (``down") variation as the positive (negative) biased
-case.
+case. 
+An example of the effect of this uncertainty is shown in Figure~\ref{fig:ggWWLepRes}. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwof_31.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwsf_31.pdf}}
+\caption{BDT Output distribution for $H(130) \to \WW$ 0-jet bin analysis in $gg \to \WW$ events 
+for $\mathcal{L}~=~1.55~\pm~0.07~\ifb$. Opposite-flavor (a) and same-flavor (b) final states 
+are shown. The dots histogram is the default shape, while the dashed red histogram 
+is the ``Up" component and the dashed blue histograms is the ``Down" component, for the 
+lepton momentum resolution and scale uncertainties.}
+\label{fig:ggWWLepRes}
+\end{center}
+\end{figure}
 
 \subsubsection{$\met$ Resolution}
 The $\met$ resolution in data is not well reproduced in simulated events leading
@@ -90,7 +136,21 @@ uncertainty due to this effect. To account for it, we have smeared the X and Y
 components of both $\met$ and $track-\met$ and produced new discriminant
 variables with the smeared quantities. The smeared variable is the ``up"
 variation, while we take the ``down" variation as the mirror of the difference
-between the ``up" and default variables.
+between the ``up" and default variables. 
+An example of the effect of this uncertainty is shown in Figure~\ref{fig:VVMetRes}. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwof_43.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwsf_43.pdf}}
+\caption{BDT Output distribution for $H(130) \to \WW$ 0-jet bin analysis in $\WZ/\Z\Z$ events 
+for $\mathcal{L}~=~1.55~\pm~0.07~\ifb$. Opposite-flavor (a) and same-flavor (b) final states 
+are shown. The dots histogram is the default shape, while the dashed red histogram 
+is the ``Up" component and the dashed blue histograms is the ``Down" component, for the 
+$\met$ uncertainties.}
+\label{fig:VVMetRes}
+\end{center}
+\end{figure}
 
 \subsubsection{Jet Energy Scale}
 The discriminant variables make no use of the jet energy quantities, therefore
@@ -100,7 +160,23 @@ bins. Nevertheless, it is observed that kinematic variables show different
 distributions depending on the jet multiplicity. To assign an uncertainty,
 we vary the transverse momentum of the jets by $\pm 5\%$ (``up" and ``down",
 respectively) and build the new discriminant variables. Only shape uncertainties are 
-considered in this case.
+considered in this case. 
+An example of the effect of this uncertainty is shown in Figure~\ref{fig:ggHJES}. 
+It is possible to see that the differences among the default distribution and the 
+variations are rather small.
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwof_50.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwsf_50.pdf}}
+\caption{BDT Output distribution for $H(130) \to \WW$ 0-jet bin analysis in $gg \to H$ events 
+for $\mathcal{L}~=~1.55~\pm~0.07~\ifb$. Opposite-flavor (a) and same-flavor (b) final states 
+are shown. The dots histogram is the default shape, while the dashed red histogram 
+is the ``Up" component and the dashed blue histograms is the ``Down" component, for the JES 
+uncertainties.}
+\label{fig:ggHJES}
+\end{center}
+\end{figure}
 
 \subsubsection{$\WW$ Background}
 This effect considers the theoretical uncertainties on the $\WW$ background, in
@@ -114,7 +190,20 @@ produced with Madgraph generator with simulated events produced with MC@NLO
 generator, and this second sample makes the ``up" variation. The ``down"
 variation is the mirror of the ratio between both generators. Second, we consider
 the uncertainty due to the variation of the QCD scales. To perform that, we take
-the ratio between the MC@NLO samples and the ones with the QCD scales up and down.
+the ratio between the MC@NLO samples and the ones with the QCD scales up and down. 
+An example of the effect of this uncertainty is shown in Figure~\ref{fig:qqWWNorn}. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwof_0.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwof_59.pdf}}
+\caption{BDT Output distribution for $H(130) \to \WW$ 0-jet bin analysis opposite-flavor final state in $qq \to \WW$ events 
+for $\mathcal{L}~=~1.55~\pm~0.07~\ifb$. The dots histogram is the default shape, while the dashed red histogram 
+is the ``Up" component and the dashed blue histograms is the ``Down" component, for the generator 
+dependence uncertainty (a) and for the QCD scale uncertainties (b).}
+\label{fig:qqWWNorn}
+\end{center}
+\end{figure}
 
 \subsubsection{$\Wjets$ Background}
 The uncertainty due to the $\Wjets$ normalization is as large as $\sim$36\%.
@@ -129,7 +218,21 @@ Second, we propagate the Monte Carlo closure test uncertainty. To do that, we us
 the lepton plus fakeable object sample from Monte Carlo events and apply 
 the measured lepton fake rates to build a new $\Wjets$ distribution. This
 produces the ``up" variation. The ``down" variation is the mirror of the ration
-between the ``up" and default distributions.
+between the ``up" and default distributions. 
+An example of the effect of this uncertainty is shown in Figure~\ref{fig:WJetsNorn}. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwof_56.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwof_57.pdf}}
+\caption{BDT Output distribution for $H(130) \to \WW$ 0-jet bin analysis opposite-flavor 
+final state in $\Wjets$ events for $\mathcal{L}~=~1.55~\pm~0.07~\ifb$. The dots histogram 
+is the default shape, while the dashed red histogram is the ``Up" component and the dashed 
+blue histograms is the ``Down" component, for the fake rate uncertainty (a) and for the 
+Monte Carlo closure test uncertainty (b).}
+\label{fig:WJetsNorn}
+\end{center}
+\end{figure}
 
 \subsubsection{$\dymm$ and $\dyee$ Backgrounds}
 The uncertainty on the normalization of this background is rather larger, as
@@ -141,7 +244,7 @@ track-$\met$) between 20 and 40 $\GeV$, with the normalization obtained from the
 signal region evaluation. To have a conservative estimate of the
 uncertainty, we take the ``up" variation using the simulated events passing all
 requirements, while the mirror of the ratio between the ``up" and default
-distributions is the ``down" variation.
+distributions is the ``down" variation. 
 
 \subsubsection{Top Background}
 To account for possible shape uncertainties on the modelling of top simulated
@@ -150,6 +253,20 @@ to build the ``up" variation, while the mirror of the ratio between the ``up"
 and default distributions is the ``down" variation. In particular, for $\ttbar$
 events we use Madgraph simulated events (Powheg is the default generator), while
 for the $\tw$ process we use a sample with different matching procedure.
+An example of the effect of this uncertainty is shown in Figure~\ref{fig:topNorm}. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwof_1.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwsf_1.pdf}}
+\caption{BDT Output distribution for $H(130) \to \WW$ 0-jet bin analysis in top events 
+for $\mathcal{L}~=~1.55~\pm~0.07~\ifb$. Opposite-flavor (a) and same-flavor (b) final states 
+are shown. The dots histogram is the default shape, while the dashed red histogram 
+is the ``Up" component and the dashed blue histograms is the ``Down" component, for top 
+shape uncertainty.}
+\label{fig:topNorm}
+\end{center}
+\end{figure}
 
 \subsubsection{$\W+\gamma$ Background}
 The $\W+\gamma$ background is rather small after our tight preselection
@@ -176,11 +293,40 @@ framework do not support a full proper treatment of the statistical
 uncertainties on each bin independently of the discriminant variable. A way to
 account for most of the effect is to build ``up" (``down") variation as the
 +1(-1)$\sigma$ statistical uncertainty on every bin. In this way, we properly
-consider the uncertainty on every bin, although in a correlated way. As a
-cross-check, we perform the following: (a) we divide the discriminant
+consider the uncertainty on every bin, although in a correlated way. 
+An example of the effect of this uncertainty is shown in Figure~\ref{fig:qqWWStat}. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwof_7.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwsf_7.pdf}}
+\caption{BDT Output distribution for $H(130) \to \WW$ 0-jet bin analysis in $qq \to \WW$ events 
+for $\mathcal{L}~=~1.55~\pm~0.07~\ifb$. Opposite-flavor (a) and same-flavor (b) final states 
+are shown. The dots histogram is the default shape, while the dashed red histogram 
+is the ``Up" component and the dashed blue histograms is the ``Down" component, for statistical 
+shape uncertainty.}
+\label{fig:qqWWStat}
+\end{center}
+\end{figure}
+
+As a cross-check, we perform the following: (a) we divide the discriminant
 variable into 3 regions (low, medium, and high values), (b) for the ``up" 
 variation we move all low points up by one $\sigma$ and all high points down 
 by one $\sigma$, (c) for the "down" variation we do the opposite. With this
 procedure we create an artificial shape variation due to the statistical
 uncertainties. It is a conservative approach, but it gives an idea of the size of
-the effect.
+the effect. 
+An example of the effect of this uncertainty is shown in Figure~\ref{fig:qqWWStatAlt}. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwof_7_alt.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/cvswwsf_7_alt.pdf}}
+\caption{BDT Output distribution for $H(130) \to \WW$ 0-jet bin analysis in $qq \to \WW$ events 
+for $\mathcal{L}~=~1.55~\pm~0.07~\ifb$. Opposite-flavor (a) and same-flavor (b) final states 
+are shown. The dots histogram is the default shape, while the dashed red histogram 
+is the ``Up" component and the dashed blue histograms is the ``Down" component, for statistical 
+shape uncertainty using an alternative approach.}
+\label{fig:qqWWStatAlt}
+\end{center}
+\end{figure}
