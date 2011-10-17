@@ -1,0 +1,50 @@
+To make maximal use of the event information we have performed a multivariate analysis 
+using a multivariate classifier based on the Boosted Decision Tree (BDT) technique. 
+The BDT is implemented using the TMVA~\cite{tmva} toolkit and has been 
+successfully applied in high energy physics to increase the 
+statistical significance of a signal extraction
+It requires less training than other multivariate classifiers and 
+it is insensitive to the inclusion of poorly discriminating input variables.
+
+In addition to the $\WW$ preselection, we apply a loose cut on the
+maximum $\mll$ to enhance the signal-to-background ratio shown in Table~\ref{tab:presel_tmva_analysis}. 
+In addition to the selection variables for the cut-based analysis, the multivariate signal extraction 
+procedure uses the following ones: 
+\begin{itemize}
+\item $\Delta R_{\Lep\Lep}\equiv\sqrt{\deletall^2 + \delphill^2}$ between the leptons, 
+with $\deletall$ the $\eta$ difference between the leptons, 
+which has similar properties as $\delphill$
+\item lepton flavors ($\mu\mu$, $ee$, $e\mu$ or $\mu e$ );
+\item finally, for the 1-jet bin, the azimutal angles between the dilepton 
+system and $\met$, and between the dilepton system and the 
+highest $\pt$ jet, are included.
+\end{itemize}
+
+The training has been carried out separately in the 0-jet and 1-jet bins 
+for different Higgs masses using the corresponding signal samples. We use the same 
+training as in~\cite{HWW2011} and the full shape of the classifier output is used 
+as final discriminant variable.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|r|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$\mHi~~~~~[\GeV]$   & 120 & 130 & 140 & 150 & 160 & 170 & 180 & 190 & 200 & 210 \\
+\hline
+$\mll<~~~[\GeV]$    &  70 &  80 &  90 & 100 & 100 & 100 & 110 & 120 & 130 & 140 \\
+\hline
+\end{tabular}
+%\vspace{0.5cm}
+\begin{tabular}{|r|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$\mHi~~~~~[\GeV]$    & 220 & 230 & 250 & 300 & 350 & 400 & 450 & 500 & 550 & 600 \\
+\hline
+$\mll<~~~[\GeV]$     & 150 & 230 & 250 & 300 & 350 & 400 & 450 & 500 & 550 & 600 \\
+\hline
+\end{tabular}
+\caption{$\mll$ upper limit requirement as a function of the Higgs mass used to 
+enrich the background datasets of signal-like events. These samples are employed 
+in the training of the multivariate classifier used for the signal 
+extraction.\label{tab:presel_tmva_analysis}}
+\end{center}
+\end{table}

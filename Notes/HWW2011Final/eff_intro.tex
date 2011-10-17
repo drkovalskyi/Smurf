@@ -1,0 +1,78 @@
+ 
+We used the tag and probe method on \dyll~events to provide an unbiased, high-purity, 
+lepton sample with which to measure both online and offline selection efficiencies.
+This method, which is now described, 
+has been used successfully in previous CMS analyses \cite{ref:tagprobe_mit_w}\cite{ref:tagprobe_snt_top}.
+
+\subsubsection{Method}
+For muons, we used the lowest threshold unprescaled single muon triggered sample from the Prompt Reco.
+For electrons we used events triggered by the dedicated double electron tag and probe trigger,
+where tight electron requirements are imposed on one leg and the other leg is a super cluster.
+
+At least one of the leptons, the {\it tag}, was required to pass the full selection criteria
+while the other lepton, the {\it probe}, was required to pass a set of identification criteria leaving 
+it unbiased with respect to the criterion under study. By requiring that the tag was able to have passed 
+the single lepton trigger on which the events were acquired, we reduced the bias due to the trigger on 
+the probe. Also, the tight criteria imposed on the tag coupled with the invariant mass requirement 
+improves the purity of the sample. Because the analysis uses the same mass window to reduce the 
+\dyll~contribution, the tag and probe sample represents an independent control sample.
+
+To extract the efficiency of the offline selection and the trigger on a per lepton basis, 
+we used two independently developed implementations of the method.
+The first implementation counts tag-probe pairs, thus 
+an event that contains two leptons meeting the tag criteria could be counted twice.
+The efficiency is then $\varepsilon=TP/(TP+TF)$, 
+where $TP$ is the number of probes that pass the criteria under study and $TF$ is the number that fail.
+To estimate and subtract any residual background contribution a simultaneous fit was performed to the $TP$ and $TF$ 
+mass distributions in the range $50<M_{ll}<130$.
+The signal model was taken from simulation, with a gaussian smearing component to take into 
+account the resolution.
+The background model is an exponential.
+This method and its associated systematics are discussed in detail in Reference \cite{ref:tagprobe_mit_w}
+
+The second implementation counts events rather than tag-probe pairs.
+This method is discussed in detail in Reference \cite{ref:tagprobe_snt_top}.
+In this case the events are divided into three categories,
+
+\begin{itemize}
+    \item 2TT: Both leptons passed the tight criteria, including the trigger. This means that either lepton could be used as a probe, 
+    so such events were counted twice.
+    \item TP: The probe passed the selection criterion but did not pass the tight criteria.
+    \item TF: The probe failed the selection criterion.
+\end{itemize}
+
+The efficiency in terms of the categories is $\varepsilon = \frac{2TT + TP}{2TT + TP + TF}$.
+If criteria tested on the probe are a subset of the tag criteria then
+this method is equivalent to counting tag-probe pairs because an event with two tags
+would be counted twice in both methods.
+The efficiency was extracted by counting the number of events in each category.
+To reduce any residual background this was done by factorising the selection in
+N steps and then measuring the efficiency of each step with respect to 
+the others.  This is referred to as the N-1 method.
+The bias on the efficiency from changing the denominator is assessed using
+simulation and propaged to the uncertainty on the efficiency extracted.
+If the bias is small or the scale factor is close to unity then the bias on
+the scale factor is very small.
+
+The offline selection results shown here use the N-1 method with simple counting.
+We split the results into the detector regions $|\eta|<1.479$ and $1.479<|\eta|<2.50$
+to reflect the divisions that define our event selections.
+In each $\eta$ bin we measured the scale factor between data and simulation
+for $10\leq p_T<15$, $15\leq p_T<20$ and $p_T\geq 20$.
+The trigger selection results are shown in the minimum number of bins required
+to capture the efficiency below the kinematic turn-on, in the region of the turn-on
+and at plateau.
+
+To produce overall data-MC scale factors to apply in the analysis, we factorise the efficiency measurements
+into two steps such that
+
+\begin{equation}
+\varepsilon_{total} = \varepsilon_{offline} \times \varepsilon_{trigger}.
+\end{equation}
+
+The offline efficiency $\varepsilon_{offline} = \varepsilon_{offline}^{l1} \times \varepsilon_{offline}^{l2}$
+is the product of the efficiencies of the two leptons and is discussed in more detail in Sections \ref{sec:eff_electron}
+and \ref{sec:eff_muon} for electrons and muons respectively.
+The trigger efficiency is measured with respect to the offline selection and
+is discussed in more detail in Section \ref{sec:eff_trigger}.
+

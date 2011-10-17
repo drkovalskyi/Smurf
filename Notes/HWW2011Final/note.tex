@@ -37,15 +37,15 @@
 
   \begin{abstract}
     This note describes a search for the Higgs boson in the $\WW \to 2\ell2\nu$ final state with
-    \intlumi of $pp$ collision data at $\sqrt s = 7~\TeV$. We search for Higgs candidate events in
+    a focus on \intlumi of $pp$ collision data at $\sqrt s = 7~\TeV$. We search for Higgs candidate events in
     $ee$, $\mu\mu$ and $e\mu$ channels with 0, 1 and 2 reconstructed jets in the final state. 
   \end{abstract} 
 
 \end{titlepage}
 \tableofcontents
-\listoftables
-\listoffigures
-\newpage 
+%\listoftables
+%\listoffigures
+%\newpage 
 
 %===================================================================================================
 \section{Introduction}
@@ -54,91 +54,78 @@
   
 \section{Event Selection}
   \label{sec:selection} 
-  \input{selection_overview}
-%%   \subsection{Trigger}
-%%     \label{sec:sel_trigger}
-%%     \input{selection_trigger}
-%%   \subsection{Primary Vertex Reconstruction}
-%%     \label{sec:sel_pv}
-%%     \input{selection_pv}
-%%   \subsection{Muon Selection} 
-%%     \label{sec:sel_muons}
-%%    \input{selection_muons}
-%%   \subsection{Electron Selection} 
-%%     \label{sec:sel_electrons}
-%%     \input{selection_electrons}
-%%   \subsection{Missing Energy} 
-%%     \label{sec:sel_met}
-%%     \input{selection_met}
-%%     \clearpage
-%%   \subsection{$Z$ Veto}
-%%     \label{sec:sel_zveto}
-%%     \input{selection_zveto}
-%%   \subsection{Jet Counting} 
-%%     \label{sec:sel_jets}
-%%     \input{selection_jets}
-\subsection{Top Tagging}
+  \input{selection_overview.tex}
+   \subsection{Trigger}
+     \label{sec:sel_trigger}
+     \input{selection_trigger.tex}
+   \subsection{Primary Vertex Reconstruction}
+     \label{sec:sel_pv}
+     \input{selection_pv.tex}
+   \subsection{Muon Selection} 
+     \label{sec:sel_muons}
+    \input{selection_muons.tex}
+   \subsection{Electron Selection} 
+     \label{sec:sel_electrons}
+     \input{selection_electrons.tex}
+   \subsection{Missing Energy} 
+     \label{sec:sel_met}
+     \input{selection_met.tex}
+   \subsection{$Z$ Veto}
+     \label{sec:sel_zveto}
+     \input{selection_zveto.tex}
+   \subsection{Jet Counting} 
+     \label{sec:sel_jets}
+     \input{selection_jets.tex}
+  \subsection{Top Tagging}
      \label{sec:sel_toptag}
-%%     \input{selection_toptag}
-%%   \subsection{Other Preselection Requirements}
-%%     \label{sec:sel_other}
-%%     \input{selection_other}
+     \input{selection_toptag.tex}
+   \subsection{Other Preselection Requirements}
+     \label{sec:sel_other}
+     \input{selection_other.tex}
 
-\section{Expected Event Yields After $\ww$ Preselection}
-  \label{sec:yields}
-%%  \input{yields_mc}
-
-\clearpage    
 \section{Higgs Signal Extraction Strategy}
    \input{selection_intro}
    \label{sec:signal_selection}
    \subsection{Cut Based Analysis}
      \label{sec:anal_cutbased}
-%%     \subsubsection{0-Jet Selection}
-%%       \label{sec:sel_zerojet}
-%%       \input{selection_zerojet}
-%%     \subsubsection{1-Jet Selection}
-%%       \label{sec:sel_onejet}
-%%       \input{selection_onejet}
-%%     \subsubsection{VBF Selection}
-%%       \label{sec:sel_vbf}
-%%       \input{selection_vbf}
-%%   \subsection{MVA Analysis}
-%%     \label{sec:anal_mva}
-%%     \input{anal_mva}
-%% %  \subsection{Matrix Element Method}
-%% %    \label{sec:anal_me}
-%% %    \input{anal_me}
+    \subsubsection{0/1-Jet Selection}
+      \label{sec:sel_zerojet}
+      \input{selection_zerojet.tex}
+     \subsubsection{VBF Selection}
+       \label{sec:sel_vbf}
+       \input{selection_vbf}
+   \subsection{MVA Analysis}
+     \label{sec:anal_mva}
+     \input{selection_mva.tex}
 
-\clearpage
 \section{Background Estimation}
-%%     \label{sec:backgrounds}
-%%     \input{bkg_intro}
-%%     \label{sec:bkg_intro}
-%%   \subsection{$\WW$ Background}
-%%     \label{sec:bkg_ww}
-%%     \input{bkg_ww}
-%%   \subsection{Jet Induced Backgrounds}
-%%     \label{sec:bkg_fakes}
-%%     \input{bkg_fakes}
-\subsection{Top Background}
+     \label{sec:backgrounds}
+     \input{bkg_intro.tex}
+     \label{sec:bkg_intro}
+   \subsection{$\WW$ Background}
+     \label{sec:bkg_ww}
+     \input{bkg_ww.tex}
+   \subsection{Jet Induced Backgrounds}
+     \label{sec:bkg_fakes}
+     \input{bkg_fakes.tex}
+  \subsection{Top Background}
      \label{sec:bkg_top}
-     \input{bkg_top}
-%%   \subsection{\dyee\ and \dymm\ Backgrounds}
-%%     \label{sec:bkg_dy}
-%%     \input{bkg_dy}
+     \input{bkg_top.tex}
+   \subsection{\dyee\ and \dymm\ Backgrounds}
+     \label{sec:bkg_dy}
+     \input{bkg_dy.tex}
 \subsection{\dytt\ Background}
      \label{sec:bkg_dytt}
-     \input{bkg_dytt}
-%%   \subsection{Other Backgrounds}
-%%     \label{sec:bkg_other}
-%%     \input{bkg_other}
+     \input{bkg_dytt.tex}
+   \subsection{Other Backgrounds}
+     \label{sec:bkg_other}
+     \input{bkg_other.tex}
 
 \section{Efficiency Measurements}
 %%     \label{sec:alleff}
 %%     \subsection{Lepton Efficiency}
 %%     \label{sec:efficiency}
-%%     \input{eff_intro}
+%%     \input{eff_intro.tex}
 %%         \subsubsection{Electron Efficiency}
 %%         \input{eff_electron}
 %%         \label{sec:eff_electron}

@@ -1,0 +1,72 @@
+The nonresonant $WW$ contribution in the signal region can be estimated from data 
+using the dilepton invariant mass distribution. For a given Higgs boson mass, 
+a $\ww$-dominated control region with a small contribution from Higgs decays 
+can be selected. The $\ww$ contribution estimated in the control region 
+is then extrapolated into the signal region using simulation. 
+
+The control region can not be defined efficiently for $m_H>200\GeVcc$. Therefore for 
+searches for a high mass Higgs we estimate the nonresonant 
+$\ww$ contributions from simulation. 
+
+For searches for low mass Higgs bosons with $m_{H}<200\GeVcc$, we define the $\ww$ control region as the events 
+with $m_{\ell\ell} > 100~\GeVcc$ that pass the full event selection, except for the requirements on 
+$m_T$ and $\Delta\phi$. This procedure has already been explained in detail in~\cite{HWW2011}, therefore only 
+a brief summary is shown here:
+
+\begin{itemize}
+\item we first measure the yields in the control region in data; 
+\item we then subtract the contamination from other backgrounds such as top and 
+$\Wjets$, which can be estimated using corresponding data-driven techniques;
+\item The resulting yield is subsequently extrapolated to the signal region, using 
+the control-to-signal region ratio estimated from the dilepton invariant mass 
+spectrum in simulation;
+\item Finally, we multiply the yields in the signal region by the 
+$m_T$ and $\Delta\phi_{ll}$ cut efficiency from simulation to get the 
+$WW$ contribution in the signal region after all cuts.
+\end{itemize}
+
+\subsubsection{Theoretical Systematic Uncertainties} 
+Since we extrapolate the WW background yield from the 0-jet bin to the 1-jet bin using Monte Carlo
+simulation, there is a systematic uncertainty associated with theoretical uncertainties in
+the prediction for the 1-jet bin yield. This uncertainty is primarily dominated by missing higher
+order corrections in the prediction for the WW+1jet cross section. To evaluate this systematic 
+uncertainty we estimate the uncertainty due to missing higher order corrections on the
+total inclusive WW production cross section ($\sigma^{\mathrm{WW}}_{\geq 0}$) and the inclusive 
+WW+1 or more jets cross section ($\sigma^{\mathrm{WW}}_{\geq 1}$), and propagating these uncertainties 
+to the WW+1 jet cross section. The procedure is described in greater detail for the Higgs signal
+in Section \ref{sec:HiggsJetBinFractionSystematics}. To evaluate the uncertainty on 
+$\sigma^{\mathrm{WW}}_{\geq 0}$, and $\sigma^{\mathrm{WW}}_{\geq 1}$ due to missing higher 
+order corrections, we use MCFM \cite{MCFMVVProduction} to compute the inclusive cross sections, 
+varying the renormalization and factorization scales. From these calculations we obtain 
+systematic uncertainties on $\sigma^{\mathrm{WW}}_{\geq 0}$, and 
+$\sigma^{\mathrm{WW}}_{\geq 1}$ of $\pm 3.4\%$ and $^{+15.2}_{-14.4} \%$ respectively. These are translated into
+log normal representation as $\kappa^{\mathrm{WW}}_{\geq 0} = 1.034$ and $\kappa^{\mathrm{WW}}_{\geq 1} = 1.16$.
+
+To propagate these uncertainties into uncertainties on the WW+1jet cross section, $\sigma^{\mathrm{WW}}_{1}$,
+we evaluate the fraction of events in the 0-jet ($f_{0}$), 1-jet($f_{1}$), and 2-jet($f_{2}$) 
+bins using the MCFM calculation and the Madgraph Monte Carlo simulation. The 0-jet fraction can be 
+evaluated from the MCFM calculation via the relation 
+$f_{0} = (\sigma^{\mathrm{WW}}_{\geq 0} - \sigma^{\mathrm{WW}}_{\geq 1}) / \sigma^{\mathrm{WW}}_{\geq 0}$.
+Since we do not have a calculation of WW + 2 or more jets at next to leading order, the same calculation 
+cannot be done for the  1jet fraction. Therefore, we use the Monte Carlo prediction and obtain 
+$f_{1} = 0.19$ and $f_{2} = 0.05$. To propagate the effect of these uncertainties to the 
+normalization of the 0-jet and 1-jet bins, we use the relations:
+
+\begin{eqnarray}
+\label{eqn:WWJetBinFractions}
+\kappa^{\mathrm{0-jet}}_{\mathrm{QCDscale\_WW}} = (\kappa^{\mathrm{WW}}_{\geq 0})^{\frac{1}{f_{0}}},                 \\
+\kappa^{\mathrm{0-jet}}_{\mathrm{QCDscale\_WW1in}} = (\kappa^{\mathrm{WW}}_{\geq 1})^{- \frac{f_{1}+f_{2}}{f_{0}}},  \\
+\kappa^{\mathrm{1-jet}}_{\mathrm{QCDscale\_WW1in}} = (\kappa^{\mathrm{WW}}_{\geq 1})^{\frac{f_{1}+f_{2}}{f_{1}}},    \\
+\end{eqnarray}
+
+where $\kappa^{\mathrm{0-jet}}_{\mathrm{QCDscale\_WW}}$, $\kappa^{\mathrm{0-jet}}_{\mathrm{QCDscale\_WW1in}}$,
+$\kappa^{\mathrm{1-jet}}_{\mathrm{QCDscale\_WW1in}}$, are the systematic uncertainties for the WW bkg normalization in 
+the 0-jet bin due to missing higher order corrections in the inclusive WW cross section calculation,
+for the WW background normalization in the 0-jet bin due to missing higher order corrections in the inclusive WW + 1 or 
+more jet cross section calculation, and for the WW background normalization in the 1-jet bin due to missing higher 
+order corrections in the inclusive WW + 1 or more jet cross section calculation, respectively. 
+$\kappa^{\mathrm{0-jet}}_{\mathrm{QCDscale\_WW}} = 1.045$ and $\kappa^{\mathrm{0-jet}}_{\mathrm{QCDscale\_WW1in}} = 0.954$
+are much smaller than the total systematic uncertainty from the data-driven estimate for the 0-jet bin and
+therefore can be ignored. $\kappa^{\mathrm{1-jet}}_{\mathrm{QCDscale\_WW1in}}$ is $1.206$, corresponding to 
+a $21\%$ systematic uncertainty on the normalization of the WW background in the 1-jet bin, and is propagated in the
+analysis.
