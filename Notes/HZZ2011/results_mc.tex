@@ -1,8 +1,17 @@
 We derive upper limits on the SM gluon-fusion Higgs boson production cross section 
-times the $\hzz\to 2\ell2\nu$ branching ratio for the $m_H$ = 250, 300 and 400\GeVcc. 
+times the $\hzz\to 2\ell2\nu$ branching ratio for the $m_H$ = 250-600\GeVcc. 
 The results are presented in terms of the ratio of the limits to the rate predicted 
 by the SM as a function of the Higgs boson mass corresponding to an integrated 
-luminosity of \intlumi\, shown in Table~\ref{tab:explimit_cut_1fb}. 
+luminosity of 5~\ifb. 
+
+In this projection, we take the signal and background predictions from the data results 
+(see Section~\ref{sec:dataresults}) and scale them to 5 $\ifb$.
+The expected upper limits at 95\% C.L. for the cut-based analysis and 
+shape analysis based on the $M_T$, matrix element and BDT outputs are 
+shown in Table~\ref{tab:mva_mtshapevscuts_withshapevar_hzz}-\ref{tab:mvashape_mevsbdt_hzz}.  
+Note that in the shape analysis we include all the systematic shape variations 
+described in Ref.~\cite{shapeananote}, while the results on the shape analysis based on 
+the matrix element and BDT outputs do not include these for the time being. 
 
 The limits are derived with a statistical method based on Bayesian
 inference~\cite{bayesian}, using a likelihood function from the
@@ -14,39 +23,106 @@ pdf. Results are reported with a flat signal {\it prior}. To perform
 the computation of the limits, the software package LandS~\cite{lands}
 is used.
 
+Using shape based on a single variation $m_T$ yield comparable performance comparing 
+to using the shape based on BDT or Matrix Element method. 
+Compared to the shape analysis using $MT$, the shape analysis based on the
+ Matrix Element outputs brings additional %$~20\%$ 
+improvement in the low higgs mass hypothesis $mH=250\GeVcc$, 
+while the shape analysis based on the BDT outputs brings additional %$25\%$ 
+improvement in all the higgs mass hypotheses above 250 \GeVcc. 
+%$ 350<=~mH~<=~400\GeVcc$ and additional $15\%$ improvement in the higher mass hypotheses
+%$mH~>~400\GeVcc$. 
+These improvements will be evaluated with shape systematics in the near future. 
+
+
+\begin{table}[!ht]
+\begin{center}
+{\normalsize
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+      &  \multicolumn{3}{c|}{Cut-and-Count Based Analysis} &\multicolumn{3}{c|}{Shape Analysis using $m_T$} \\
+\hline
+Mass  &  Median      &     68\% C.L. band &  95\% C.L. band &  Median	   &	 68\% C.L. band &  95\% C.L. band\\
+      &  Expected    &                    &                 &  Expected    &			&		 \\
+\hline
+250 & 1.81 & [1.25, 2.61] & [0.90, 3.65] & 1.71 & [1.15, 2.55] & [0.80, 3.67] \\
+300 & 1.12 & [0.79, 1.62] & [0.58, 2.24] & 0.88 & [0.62, 1.28] & [0.44, 1.80] \\
+350 & 0.73 & [0.52, 1.06] & [0.38, 1.48] & 0.64 & [0.44, 0.93] & [0.32, 1.33] \\
+400 & 0.90 & [0.63, 1.32] & [0.45, 1.85] & 0.63 & [0.44, 0.90] & [0.32, 1.27] \\
+500 & 1.36 & [0.95, 1.97] & [0.70, 2.78] & 1.06 & [0.74, 1.53] & [0.54, 2.21]\\
+600 & 2.51 & [1.77, 3.58] & [1.33, 5.14] & 2.33 & [1.63, 3.42] & [1.21, 4.77]\\
+\hline
+\end{tabular}
+}
+\caption{\fixme Comparison of the median expected cross section ratio limits as a function 
+of the Higgs mass, together with the 1/2-$\sigma$ uncertainty bands between the cut-and-count 
+analysis and the shape analysis using the transverse higgs mass. In this comparison, we include all systematics due to 
+the shape variation. }
+\label{tab:mva_mtshapevscuts_withshapevar_hzz}
+\end{center}
+%\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{table}[!ht]
+\begin{center}
+{\normalsize
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+      &  \multicolumn{3}{c|}{Shape Analysis using Matrix Element} &\multicolumn{3}{c|}{Shape Analysis using BDT} \\
+\hline
+Mass  &  Median      &     68\% C.L. band &  95\% C.L. band &  Median	   &	 68\% C.L. band &  95\% C.L. band\\
+      &  Expected    &                    &                 &  Expected    &			&		 \\
+\hline
+250 & 1.19 & [0.84, 1.69] & [0.63, 2.34] & 1.62 & [1.17, 2.35] & [0.87, 3.09] \\
+300 & 0.89 & [0.63, 1.25] & [0.46, 1.75] & 0.80 & [0.57, 1.16] & [0.42, 1.56] \\
+350 & 0.65 & [0.46, 0.93] & [0.34, 1.31] & 0.45 & [0.32, 0.64] & [0.24, 0.92] \\
+400 & 0.64 & [0.46, 0.92] & [0.34, 1.27] & 0.43 & [0.31, 0.62] & [0.23, 0.87]\\
+500 & 1.08 & [0.78, 1.52] & [0.58, 2.13] & 0.82 & [0.59, 1.14] & [0.46, 1.67] \\
+600 & 2.16 & [1.56, 3.07] & [1.18, 4.31] & 1.88 & [1.37, 2.69] & [1.04, 3.74]\\
+\hline
+\end{tabular}
+}
+\caption{\fixme Comparison of the median expected cross section ratio limits as a function 
+of the Higgs mass, together with the 1/2-$\sigma$ uncertainty bands between the cut-and-count 
+analysis and the shape analysis using the transverse higgs mass. 
+In this comparison, we do not include any systematics due to the shape variation. }
+\label{tab:mvashape_mevsbdt_hzz}
+\end{center}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}
-\begin{center}
-\begin{tabular}{c c c c c c}
-\hline\hline
- $m_H$ (GeV) & $-2\sigma$ & $-\sigma$ & median & $+1\sigma$ & $+2\sigma$ \\
-\hline
-\multicolumn{6}{c} {0-Jet bin} \\
-\hline
- 250 & 2.29 & 3.11 & 4.39 & 6.20 & 9.14 \\
- 300 & 1.96 & 2.40 & 3.27 & 4.74 & 6.69 \\
- 400 & 1.56 & 2.31 & 3.45 & 4.61 & 5.93 \\
-\hline
-\multicolumn{6}{c} {1-Jet bin} \\
-\hline
- 250 & 4.08 & 5.30 & 7.42 & 10.72 & 15.91 \\
- 300 & 3.45 & 4.47 & 5.52 & 8.50 & 11.65 \\
- 400 & 2.15 & 2.66 & 4.10 & 4.82 & 7.86 \\
-\hline
-\multicolumn{6}{c} {0/1-Jet bins combined} \\
-\hline
- 250 & 1.79 & 2.42 & 3.49 & 4.96 & 6.86 \\
- 300 & 1.29 & 1.71 & 2.36 & 3.39 & 4.85 \\
- 400 & 1.04 & 1.35 & 1.79 & 2.62 & 3.68 \\
-\hline
-\hline
-\end{tabular}
-\end{center}
-\caption{ Cut based analysis expected upper limits at 95\% C.L. for  data.}
-\label{tab:explimit_cut_1fb}
-\end{table}
+%\begin{table}
+%\begin{center}
+%\begin{tabular}{c c c c c c}
+%\hline\hline
+% $m_H$ (GeV) & $-2\sigma$ & $-\sigma$ & median & $+1\sigma$ & $+2\sigma$ \\
+%\hline
+%\multicolumn{6}{c} {0-Jet bin} \\
+%\hline
+% 250 & 2.29 & 3.11 & 4.39 & 6.20 & 9.14 \\
+% 300 & 1.96 & 2.40 & 3.27 & 4.74 & 6.69 \\
+% 400 & 1.56 & 2.31 & 3.45 & 4.61 & 5.93 \\
+%\hline
+%\multicolumn{6}{c} {1-Jet bin} \\
+%\hline
+% 250 & 4.08 & 5.30 & 7.42 & 10.72 & 15.91 \\
+% 300 & 3.45 & 4.47 & 5.52 & 8.50 & 11.65 \\
+% 400 & 2.15 & 2.66 & 4.10 & 4.82 & 7.86 \\
+%\hline
+%\multicolumn{6}{c} {0/1-Jet bins combined} \\
+%\hline
+% 250 & 1.79 & 2.42 & 3.49 & 4.96 & 6.86 \\
+% 300 & 1.29 & 1.71 & 2.36 & 3.39 & 4.85 \\
+% 400 & 1.04 & 1.35 & 1.79 & 2.62 & 3.68 \\
+%\hline
+%\hline
+%\end{tabular}
+%\end{center}
+%\caption{ Cut based analysis expected upper limits at 95\% C.L. for  data.}
+%\label{tab:explimit_cut_1fb}
+%\end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
