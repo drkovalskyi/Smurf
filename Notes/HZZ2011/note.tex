@@ -35,9 +35,10 @@
   \input{authors}
 
   \begin{abstract}
-    This note describes a search for the Higgs boson in the $\ZZ \to 2\ell2\nu$ final state with
-    $1.1\pm0.1~\ifb$ of $pp$ collision data at $\sqrt s = 7~\TeV$. We search for Higgs candidate events in
-    $ee$ and $\mu\mu$ channels with 0, 1 and 2 reconstructed jets in the final state. 
+    This note describes a search for the Higgs boson in the $\ZZ \to 2\ell2\nu$ final state with 
+    \intlumi\ of $pp$ collision data at $\sqrt s = 7~\TeV$. We search for Higgs candidate events in
+%    $ee$ and $\mu\mu$ channels with 0, 1 and 2 reconstructed jets in the final state. 
+    $ee$ and $\mu\mu$ channels in the inclusive jet bin final state. 
     %Signal and background yields are extrapolated to data corresponding to an integrated luminosity of
     %$1~\ifb$ to represent the expectations for the amount of data the CMS detector will collect by
     %the summer conferences.
@@ -67,18 +68,21 @@
   \subsection{Primary Vertex Reconstruction}
     \label{sec:sel_pv}
     \input{selection_pv}
-  \subsection{Muon Selection} 
-    \label{sec:sel_muons}
-   \input{selection_muons}
-  \subsection{Electron Selection} 
-    \label{sec:sel_electrons}
-    \input{selection_electrons}
+  \subsection{Lepton Selection} 
+    \label{sec:sel_lepton}
+   \input{selection_lepton}
+%  \subsection{Muon Selection} 
+%    \label{sec:sel_muons}
+%   \input{selection_muons}
+%  \subsection{Electron Selection} 
+%    \label{sec:sel_electrons}
+%    \input{selection_electrons}
   \subsection{Missing Energy} 
     \label{sec:sel_met}
     \input{selection_met}
-  \subsection{Jet Counting} 
-    \label{sec:sel_jets}
-    \input{selection_jets}
+%  \subsection{Jet Reconstruction}
+%    \label{sec:sel_jets}
+%    \input{selection_jets}
   \subsection{Top Tagging}
     \label{sec:sel_toptag}
     \input{selection_toptag}
@@ -87,9 +91,7 @@
     \label{sec:sel_other}
     \input{selection_other}
 
-\clearpage
-
-\section{Expected Event Yields After $\zz$ Preselection}
+\subsection{\fixme Expected Event Yields After $\zz$ Preselection}
   \label{sec:yields_mc}
   \input{yields_mc}
 \clearpage    
@@ -109,9 +111,15 @@
 %  \subsection{BDT Based Analysis}
 %    \label{sec:anal_bdt}
 
+\clearpage
+\subsection{Shape Analysis Based on the Higgs Transverse Mass}
+\label{sec:anal_mt}
+\input{anal_mt}
+\clearpage
+
 \subsection{Matrix Element Method Based Analysis}
-\label{app:anal_me}
-\input{anal_me}
+\label{sec:anal_me}
+\input{anal_me_allj}
 
  
 %      \label{sec:sel_onejet}
@@ -159,14 +167,14 @@
         \subsubsection{Trigger Efficiency}
         \input{eff_trigger}
         \label{sec:eff_trigger}
-    \subsection{Jet Counting Efficiency}
-     \input{eff_jet}
+%    \subsection{Jet Counting Efficiency}
+%     \input{eff_jet}
 
 \section{Systematic Uncertainties}
   \label{sec:systematics}
   \input{systematics}
 
-\section{Sensitivity Projections with 1~$\ifb$}
+\section{Sensitivity Projections with 5~$\ifb$}
   \label{sec:results_mc}
   \input{results_mc}
 
@@ -178,7 +186,7 @@
 
   \clearpage
 
-\section{Data Results with $1.1$~$\ifb$}
+\section{Data Results with $2.1$~$\ifb$}
   \label{sec:dataresults}
   \input{data_results}
 \clearpage
@@ -208,4 +216,10 @@
 \section{Opposite flavor method}
 \label{app:of}
 \input{appendix_of}
+
+
+
+\section{$\WZ$ and $\ZZ$ Cross-section Measurement using Matrix Element Method}
+\label{app:zzxsec_me}
+\input{appendix_zzxsec_me}
 \end{document}

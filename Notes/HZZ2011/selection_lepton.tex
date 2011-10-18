@@ -1,0 +1,72 @@
+For the lepton selections, we use the criteria defined in Ref~\cite{HZZ2011EPS}. 
+In this section, we briefly list the selections. 
+
+We select electrons using a cut-based approach consistent with the electron 
+selection criteria used for the measurement of the inclusive W and Z 
+cross-section~\cite{VBTFCrossSectionNote}. 
+The specific requirements to select good prompt electrons are the following:
+
+\begin{itemize}
+    \item Basic acceptance cuts are imposed,  $p_T>20$~GeV and $|\eta| < 2.5$
+    \item Standard electron identification is applied to barrel (endcap) electrons
+    \begin{itemize}
+        \item The latteral shower shape, $\sigma_{i\eta i\eta} < 0.01~(0.03)$
+        \item The track-cluster matching in the $\phi$-direction, $\Delta \phi_{\mathrm{in}} < 0.06~(0.03)$
+        \item The track-cluster matching in the $\eta$-direction, $\Delta \eta_{\mathrm{in}} < 0.004~(0.007)$
+        \item The relative hadronic activity, $H/E<0.04$~(0.15) 
+        \item The transverse impact parater with respect to the primary vertex, $|d_0|<0.02$ cm
+        \item The longitudinal impact parater with respect to the primary vertex, $|d_z|<0.1$ cm
+    \end{itemize}
+\end{itemize}
+
+The H/E requirement is looser in the endcap since the tighter values
+introduce noticible reconstruction efficiency drop with large pileup.
+
+Tracker and calorimeter based isolation variations are 
+used to reduce the fake muons originating from jets. 
+we require $\frac{\rm{Iso}}{\pt}~<~0.1$, where 
+$\rm{Iso} = \rm{Iso}_{\rm{Track}} + \rm{Iso}_{\rm{ECAL}} + \rm{Iso}_{\rm{HCAL}}$ 
+are calculated within a cone of $0.3$ around the electron. 
+Additional vetos have been applied to remove the tracks and ECAL crystals footprint. 
+To correct for the pileup effects, we subtract energy inside the isolation cone based 
+on the average energy density, $\rho_{\mathrm{FJ}}$ due to 
+pileup using either the Fast Jet procedure.
+
+Lastly to veto fake electrons from converted photons, 
+%we look for a reconstructed conversion vertex where one of the two tracks 
+%is compatible with the electron~\cite{ConversionNote}.
+%The vertex fit probability is required to be $>10^{-6}$.
+we require that there are no missing expected missing hits forming the electron 
+track~\cite{ConversionNote},~\cite{NExpHits}. 
+
+
+Muons in CMS are reconstructed as either $StandAloneMuons$ (track
+in the muon detector with low momentum resolution), $GlobalMuons$
+(outside-in approach seeded by a $StandAloneMuon$ with a global fit
+using hits in the muon, silicon strip and pixel 
+detectors) and $TrackerMuons$ (inside-out approach seeded by an offline 
+silicon strip track, using the muon detector only for muon identification 
+without refitting the track). Most good quality muons are reconstructed as 
+all three types at the same time and the momentum resolution is dominated by the inner
+tracker system up to about 200~$\GeVc$ in transverse momentum. 
+
+The specific requirements to select good prompt isolated muons are the following:
+\begin{itemize}
+\item the muon must be found by both the global and tracker muon algorithms;
+\item the global muon must have at least one good muon hit;
+\item the tracker muon must have at least two matches to muon segments in 
+      different muon stations;
+\item more than 10 hits in the inner tracker;
+\item at least one pixel hit;
+\item $\chi^2/{\mathrm{ndof}} < 10$ on a global fit;
+\item The transverse impact parater with respect to the primary vertex, $|d_0|<0.02$ cm
+\item The longitudinal impact parater with respect to the primary vertex, $|d_z|<0.1$ cm
+\item pseudorapidity $|\eta|$ must be smaller than 2.4;
+\item relative \pt\ resolution is better than 10\%.
+\end{itemize}
+
+The muons are required to be isolated by relative isolation cuts 
+$\frac{\rm{Iso}}{\pt}~<~0.15$ with the same procedure to correct for the 
+pileup effects. Note that we also subtract the contributions within a 
+small veto cone $\delta R < 0.01$ around the muon. 
+

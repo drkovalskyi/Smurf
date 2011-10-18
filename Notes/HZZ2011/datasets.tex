@@ -3,11 +3,9 @@ The datasets used for this analysis are summarized in
 Tables.~\ref{tab:DatasetsData} and~\ref{tab:DatasetsMC} for data and Monte 
 Carlo, respectively. The total integrated luminosity is \intlumi. 
 We used the official good run list~\cite{json}. For Monte Carlo simulation 
-we use madgraph when possible, 
-but different generators such as Pythia and Powheg 
-are also used. 
-For \wz\ and \zz\ processes we use Pythia, since MadGraph samples are mixed with $\WW$ in
-a single $VV$ sample, which is difficult to use properly. 
+we use madgraph when possible, but different generators such as Pythia and Powheg are also used. 
+%For \wz\ and \zz\ processes we use Pythia, since MadGraph samples are mixed with $\WW$ in
+%a single $VV$ sample, which is difficult to use properly. 
 For $gg \to \WW$ a dedicated generator is used. 
 
 
@@ -56,15 +54,23 @@ selecting the part the official lumis}
 \begin{tabular}{|c|c|c|}
 \hline
 \multicolumn{3}{|c|}{With Pileup: Processed dataset name is always} \\
-\multicolumn{3}{|c|}{/Spring11-PU\_S1\_START311\_V1G1-v*/AODSIM} \\
+\multicolumn{3}{|c|}{Summer11-PU\_S4\_START42\_V11-v*/AODSIM} \\
 \hline
  Dataset Description                     &   Primary Dataset Name   & cross-section (pb)\\
 \hline
-qq $\rightarrow WW$                  	 &   /VVJetsTo4L\_TuneD6T\_7TeV-madgraph-tauola                        &  43.0  \\
-gg $\rightarrow WW \to 2l 2\nu$          &   /GluGluToWWTo4L\_TuneZ2\_7TeV-gg2ww-pythia6                       &   0.153\\
-$\ttbar$                              	 &   /TTJets\_TuneZ2\_7TeV-madgraph-tauola                             & 157.5 \\
-$\singletops$                  	 	 &   /TToBLNu\_TuneZ2\_s-channel\_7TeV-madgraph                        &  1.4 \\
-$\singletopt$                  	 	 &   /TToBLNu\_TuneZ2\_t-channel\_7TeV-madgraph                        &  20.9 \\
+%qq $\rightarrow WW$                  	 &   /VVJetsTo4L\_TuneD6T\_7TeV-madgraph-tauola                        &  43.0  \\
+%$\ttbar$                              	 &   /TTJets\_TuneZ2\_7TeV-madgraph-tauola                             &  157.5 \\
+%$\singletops$                  	 	 &   /TToBLNu\_TuneZ2\_s-channel\_7TeV-madgraph                        &  1.4 \\
+%$\singletopt$                  	 	 &   /TToBLNu\_TuneZ2\_t-channel\_7TeV-madgraph                        &  20.9 \\
+%tW                                    	 &   /TToBLNu\_TuneZ2\_tW-channel\_7TeV-madgraph                       &  10.6 \\
+%WZ                               	 &   /WZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &  18.2 \\
+%ZZ                               	 &   /ZZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &  7.4\\
+%W/Z+$\gamma$                       	 &   /PhotonVJets\_7TeV-madgraph                                       &  165.0 \\
+qq $\rightarrow WW$                  	 &   /WWJetsTo2L2Nu\_TuneZ2\_7TeV-madgraph-tauola                        &  X\fixme \\
+gg $\rightarrow WW \to 2l 2\nu$          &   /GluGluToWWTo4L\_TuneZ2\_7TeV-gg2ww-pythia6                       &  0.153\\
+$\ttbar$                              	 &   /TTTo2L2Nu2B\_7TeV-powheg-pythia6/                                 &  157.5 \\
+$\singletops$                  	 	 &   /T\_TuneZ2\_s-channel\_7TeV-powheg-tauola                         &  1.4 \\
+$\singletopt$                  	 	 &   /T\_TuneZ2\_t-channel\_7TeV-powheg-tauola                         &  20.9 \\
 tW                                    	 &   /TToBLNu\_TuneZ2\_tW-channel\_7TeV-madgraph                       &  10.6 \\
 Z[20-inf] $\rightarrow ee$	  	 &   /DYToEE\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia                   &  1666.0 \\
 Z[20-inf] $\rightarrow \mu\mu$        	 &   /DYToMuMu\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia                 &  1666.0 \\
@@ -72,16 +78,15 @@ Z[20-inf] $\rightarrow \tau\tau$  	 &   /DYToTauTau\_M-20\_CT10\_TuneZ2\_7TeV-po
 Z[10-20]  $\rightarrow ee$	  	 &   /DYToEE\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia               &  3892.9 \\
 Z[10-20]  $\rightarrow \mu\mu$    	 &   /DYToMuMu\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia             &  3892.9 \\
 Z[10-20]  $\rightarrow \tau\tau$  	 &   /DYToTauTau\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia-tauola    &  3892.9 \\
-W/Z+$\gamma$                       	 &   /PhotonVJets\_7TeV-madgraph                                       &  165.0 \\
 W $\rightarrow$ $\ell\nu$           	 &   /WJetsToLNu\_TuneZ2\_7TeV-madgraph-tauola                         &  31314.0 \\
-WZ                               	 &   /WZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &  18.2 \\
-ZZ                               	 &   /ZZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &  7.4\\
+WZ                               	 &   /WZJetsTo3LNu\_TuneZ2\_7TeV-madgraph-tauola                       &  X\fixme \\
+ZZ                               	 &   ZZJetsTo2L2Nu\_TuneZ2\_7TeV-madgraph-tauola                       &  X\fixme \\
 $\gamma$ + Jets                          &   /G\_Pt\_15to3000\_TuneZ2\_Flat\_7TeV\_pythia6                     & 1.5e+07    \\
 $gg \to H \to ZZ \to 2\ell2\nu$          &   /GluGluToHToZZTo2L2Nu\_M-*\_7TeV-powheg-pythia6                   & vary \\
+$qq \to H \to ZZ \to 2\ell2\nu$          &   /VBF\_ToHToZZTo2L2NU\_M-[250-600]\_7TeV-powheg-pythia6            & vary \\
 $gg \to H \to WW \to 2\ell2\nu$          &   /GluGluToHToWWTo2L2Nu\_M-*\_7TeV-powheg-pythia6                   & vary \\
 $gg \to H \to WW \to \ell\tau2\nu$       &   /GluGluToHToWWTo2L2Nu\_M-*\_7TeV-powheg-pythia6                   & vary \\
 $gg \to H \to WW \to 2\tau2\nu$          &   /GluGluToHToWWTo2Tau2Nu\_M-*\_7TeV-powheg-pythia6                 & vary \\
-\hline
 \hline
 \end{tabular}
 }
@@ -110,7 +115,7 @@ and the NLO prediction, we apply an event-by-event k-factor parameterized in the
 for the $qq \rightarrow ZZ$ process, computed using MCFM \cite{HZZ2011EPS}. To account for the $gg \rightarrow ZZ$ 
 process we add to the ZZ cross section a term 
 $\sigma_{gg \rightarrow ZZ} = 0.12 \times \sigma_{qq \rightarrow ZZ \mathrm{ , LO}}$. 
-The total cross section for the ZZ process of $7.4\pb$ given in 
+The total cross section for the ZZ process of $X\pb$\fixme given in 
 Table \ref{tab:DatasetsMC} includes this term.
 
  
