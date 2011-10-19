@@ -46,8 +46,16 @@ the corresponding systematic uncertainty.
 
 \item {\it Higgs cross section:} these uncertainties are taken from the Higgs cross
 section working group~\cite{LHCHiggsCrossSectionWorkingGroup:2011ti}. The uncertainty 
-on the $gg \to H$ production is about 15\% and it is one of the dominant effects.
-{\bf \fixme add the higgs width related systematics for high mH case}
+on the $gg \to H$ production is about 15\% and it is one of the dominant effects. For
+Higgs mass hypotheses of 200 $\GeVcc$ and above, we include a systematic uncertainty
+for not accounting for the Higgs width when generating the Monte Carlo events. The 
+formula for this uncertainty is,
+%%%%%%%%
+\begin{equation}
+\Delta\sigma/\sigma = (150\%)\times\left(\frac{m_{H}}{1\TeVcc}\right)^3.
+\end{equation}
+%%%%%%%%
+
 
 \item {\it Jet counting and theoretical uncertainties:} 
 Since the analysis is categorized into jet bins, there are systematic uncertainties
