@@ -45,15 +45,13 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
   //*******************************************************
   // Settings 
   //*******************************************************
-  const TString format("png");
-//  const Double_t lumi = 1.545;
   const Double_t lumi = 2.121;
   enum { kMuMu, kEleEle, kEleMu, kMuEle };
   
   Int_t nmet = 1;
   if(useRecoilModel) nmet = 100;
 
-  bool isOldAna = true;
+  bool isOldAna = false;
   TString filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets";
   if(isOldAna == false){
     filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets";
@@ -86,8 +84,8 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
   //*******************************************************
   const Double_t mZ = 91.1876;
   
-  const Int_t nbins = 5;  
-  const Float_t bins[nbins+1] = {20, 22, 26, 31, 40, 50};
+  const Int_t nbins = 4;  
+  const Float_t bins[nbins+1] = {20, 25, 30, 37, 50};  
   vector<Double_t> binEdges;
   for (UInt_t k=0; k<nbins+1; ++k) binEdges.push_back(bins[k]);
   
@@ -95,7 +93,7 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
   const Double_t mH[nmass] = {0,115,120,130,140,150,160,170,180,190,200,250,300};  
 
   Double_t _Pt1[nmass]    = {	20,  20,  20,  25,  25,  27,  30,  34,  36,  38,  40,  55,  70 };
-  Double_t _Pt2[nmass]    = {	10,  10,  10,  10,  15,  25,  25,  25,  25,  25,  25,  25,  25 };
+  Double_t _Pt2[nmass]    = {	15,  15,  15,  15,  15,  25,  25,  25,  25,  25,  25,  25,  25 };
   Double_t _Mll[nmass]    = { 7000,  40,  40,  45,  45,  50,  50,  50,  60,  80,  90, 150, 200 };
   Double_t _DPhi[nmass]   = {  180, 115, 115,  90,  90,  90,  60,  60,  70,  90, 100, 140, 175 };
   Double_t _MtLow[nmass]  = {	 0,  70,  70,  75,  80,  80,  90, 110, 120, 120, 120, 120, 120 };
@@ -259,7 +257,8 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
     
 	    if(tree.lep1_.Pt() < _Pt1[imass]) continue;
 	    if(tree.lep2_.Pt() < _Pt2[imass]) continue;
-	
+            if(tree.dilep_.Pt() < 45.0) continue;
+
 	    if(tree.dPhi_ > _DPhi[imass]*TMath::Pi()/180.) continue;
 
 	    if(fabs(tree.dilep_.M() - mZ) < 15) {
@@ -279,7 +278,7 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
             }
 	
 	    if(mt < _MtLow[imass] || mt > _MtHigh[imass]) continue;
-	    if(minmet < 40) continue;
+            if(minmet < 37 + 0.5 * tree.nvtx_ ) continue;
 	
 	    if(fabs(tree.dilep_.M() - mZ) < 15) {
 	  
@@ -374,11 +373,12 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
     
 	  if(tree.lep1_.Pt() < _Pt1[imass]) continue;
 	  if(tree.lep2_.Pt() < _Pt2[imass]) continue;
-	
+          if(tree.dilep_.Pt() < 45.0) continue;
+
 	  if(tree.dPhi_ > _DPhi[imass]*TMath::Pi()/180.) continue;
 
 	  if(mt < _MtLow[imass] || mt > _MtHigh[imass]) continue;
-	  if(minmet < 40) continue;
+          if(minmet < 37 + 0.5 * tree.nvtx_ ) continue;
 	
 	  if(fabs(tree.dilep_.M() - mZ) < 15) {
 	  
