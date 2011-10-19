@@ -6,21 +6,20 @@ we test only the analysis selection part.
 
 We measure the muon selection efficiency with respect to a reconstructed Global muon
 denominator.
-% in the
-%following four detector regions according to $\eta$: barrel ($|\eta|<0.8$),
-%overlap region between DT and CSC ($0.8<|\eta|<1.2$), endcaps ($1.2<|\eta|<2.1$) and
-%most forward region ($2.1<|\eta|<2.4$).
+
 The resulting data to simulation scale factors are given in Table \ref{tab:eff_mu_offline}.
 
 \begin{table}[!ht]
 \begin{center}
 \begin{tabular}{c|c|c}
 \hline
-Measurement & Barrel ( $|\eta|<1.479$ )   & Endcap ( $|\eta|>1.479$ )  \\ 
+Measurement & Barrel ( $|\eta|<1.2$ )   & Endcap ( $1.2<|\eta|>2.4$ )  \\ 
 \hline
-%$  10<p_T<  15$ & 0.93 $\pm$ 0.02  & 0.95 $\pm$ 0.02  \\ \hline 
-%$  15<p_T<  20$ & 0.96 $\pm$ 0.01  & 0.93 $\pm$ 0.01  \\ \hline 
-$  p_T>     20$ & 1.00 $\pm$ 0.00  & 0.98 $\pm$ 0.00  \\ \hline
+$20 < p_T < 30$  & $0.9939 \pm 0.0009$ & $0.9968 \pm 0.0004$  \\ \hline
+$30 < p_T < 40$  & $0.9957 \pm 0.0004$ & $0.9947 \pm 0.0002$  \\ \hline
+$40 < p_T < 50$  & $0.9961 \pm 0.0003$ & $0.9942 \pm 0.0004$  \\ \hline
+$50 < p_T < 100$ & $0.9952 \pm 0.0004$ & $0.9917 \pm 0.0009$  \\ \hline
+$p_T > 100$      & $0.9942 \pm 0.0034$ & $1.0006 \pm 0.0078$  \\ \hline 
 \end{tabular}
 \caption{Offline selection scale factors for muons.}
 \label{tab:eff_mu_offline}
