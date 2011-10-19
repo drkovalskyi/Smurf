@@ -72,8 +72,6 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
 //   infilenamev.push_back("/data/smurf/data/LP2011/mitf/wz.root");
 //   infilenamev.push_back("/data/smurf/data/LP2011/mitf/zz.root");
 
-
-
   //*******************************************************
   //Met Corrections
   //*******************************************************
