@@ -16,8 +16,8 @@
 
 #include "Smurf/Core/RecoilCorrector.hh"
 #include "Smurf/Core/LeptonScaleLookup.h"
-#include "Smurf/Analysis/HZZllvv/PileupReweighting.h"
 #include "Smurf/Core/SmurfTree.h"
+#include "Smurf/Analysis/HWWlvlv/HWWCuts.h"
 #endif
 
 static const unsigned int basic_selection = SmurfTree::BaseLine | 
@@ -91,14 +91,15 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
   
   const Int_t nmass = 13;
   const Double_t mH[nmass] = {0,115,120,130,140,150,160,170,180,190,200,250,300};  
-
+    
   Double_t _Pt1[nmass]    = {	20,  20,  20,  25,  25,  27,  30,  34,  36,  38,  40,  55,  70 };
   Double_t _Pt2[nmass]    = {	15,  15,  15,  15,  15,  25,  25,  25,  25,  25,  25,  25,  25 };
   Double_t _Mll[nmass]    = { 7000,  40,  40,  45,  45,  50,  50,  50,  60,  80,  90, 150, 200 };
   Double_t _DPhi[nmass]   = {  180, 115, 115,  90,  90,  90,  60,  60,  70,  90, 100, 140, 175 };
   Double_t _MtLow[nmass]  = {	 0,  70,  70,  75,  80,  80,  90, 110, 120, 120, 120, 120, 120 };
   Double_t _MtHigh[nmass] = { 7000, 110, 120, 125, 130, 150, 160, 170, 180, 190, 200, 250, 300 };
-    
+
+
   //*******************************************************
   //Yields and  histograms
   //*******************************************************
@@ -255,11 +256,11 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
           //loop over Higgs masses
 	  for(Int_t imass=0; imass<nmass; imass++) {
     
-	    if(tree.lep1_.Pt() < _Pt1[imass]) continue;
-	    if(tree.lep2_.Pt() < _Pt2[imass]) continue;
-            if(tree.dilep_.Pt() < 45.0) continue;
-
-	    if(tree.dPhi_ > _DPhi[imass]*TMath::Pi()/180.) continue;
+	    if(tree.lep1_.Pt() < cutPtMaxLow(mH[imass])) continue;
+	    if(tree.lep2_.Pt() < cutPtMinLow(mH[imass],0)) continue;
+	    if(tree.dilep_.Pt() < 45.0) continue;
+	
+ 	    if(tree.dPhi_ > cutDeltaphiHigh(mH[imass])*TMath::Pi()/180.) continue;
 
 	    if(fabs(tree.dilep_.M() - mZ) < 15) {
 	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dyee) {
@@ -268,7 +269,7 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
 	      if(finalState==kMuMu   && tree.dstype_==SmurfTree::dymm) {
                 hNin_rmm_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);              	 
               }
-            } else if(tree.dilep_.M() < _Mll[imass]) {
+             } else if(tree.dilep_.M() < cutMassHigh(mH[imass])) {
 	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dyee) {
                 hNout_ree_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);	
               }
@@ -277,7 +278,7 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
               }
             }
 	
-	    if(mt < _MtLow[imass] || mt > _MtHigh[imass]) continue;
+ 	    if(mt < cutMTLow(mH[imass]) || mt > cutMTHigh(mH[imass])) continue;
             if(minmet < 37 + 0.5 * tree.nvtx_ ) continue;
 	
 	    if(fabs(tree.dilep_.M() - mZ) < 15) {
@@ -292,7 +293,7 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
 	        varin_mm_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet;
 	      }	  
 	 
-            } else if(tree.dilep_.M() < _Mll[imass]) {
+             } else if(tree.dilep_.M() < cutMassHigh(mH[imass])) {
 	  
 	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dyee) { 
 	        nout_ee_dy[ijet][imass]+=weight/(Double_t)nmet; 
@@ -304,58 +305,6 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
 	        varout_mm_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet;
 	      }
             }
-
-//*************************************************************************************************
-//*************************************************************************************************
-//          For OLD LP2011 NTUPLES
-// 	    if(fabs(tree.dilep_.M() - mZ) < 15) {
-// 	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dymm) {
-//                 hNin_ree_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);                
-//                }
-// 	      if(finalState==kMuMu   && tree.dstype_==SmurfTree::dyee) {
-//                 hNin_rmm_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);              	 
-//               }
-//             } else if(tree.dilep_.M() < _Mll[imass]) {
-// 	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dymm) {
-//                 hNout_ree_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);	
-//               }
-// 	      if(finalState==kMuMu   && tree.dstype_==SmurfTree::dyee) {
-//                 hNout_rmm_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);
-//               }
-//             }
-	
-// 	    if(mt < _MtLow[imass] || mt > _MtHigh[imass]) continue;
-// 	    if(minmet < 40) continue;
-	
-// 	    if(fabs(tree.dilep_.M() - mZ) < 15) {
-	  
-// 	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dymm) { 
-// 	        nin_ee_dy[ijet][imass]+=weight/(Double_t)nmet; 
-// 	        varin_ee_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet; 
-// 	      }	  
-	
-// 	      if(finalState==kMuMu && tree.dstype_==SmurfTree::dyee) { 
-// 	        nin_mm_dy[ijet][imass]+=weight/(Double_t)nmet; 
-// 	        varin_mm_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet;
-// 	      }	  
-	 
-//             } else if(tree.dilep_.M() < _Mll[imass]) {
-	  
-// 	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dymm) { 
-// 	        nout_ee_dy[ijet][imass]+=weight/(Double_t)nmet; 
-// 	        varout_ee_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet;
-// 	      }
-	  
-// 	      if(finalState==kMuMu && tree.dstype_==SmurfTree::dyee) { 
-// 	        nout_mm_dy[ijet][imass]+=weight/(Double_t)nmet;
-// 	        varout_mm_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet;
-// 	      }
-//             }
-//*************************************************************************************************
-//*************************************************************************************************
-
-
-
           }                
 	}
 	
@@ -371,14 +320,14 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
 	
 	for(Int_t imass=0; imass<nmass; imass++) {
     
-	  if(tree.lep1_.Pt() < _Pt1[imass]) continue;
-	  if(tree.lep2_.Pt() < _Pt2[imass]) continue;
+          if(tree.lep1_.Pt() < cutPtMaxLow(mH[imass])) continue;
+          if(tree.lep2_.Pt() < cutPtMinLow(mH[imass],0)) continue;
           if(tree.dilep_.Pt() < 45.0) continue;
 
-	  if(tree.dPhi_ > _DPhi[imass]*TMath::Pi()/180.) continue;
+           if(tree.dPhi_ > cutDeltaphiHigh(mH[imass])*TMath::Pi()/180.) continue;
 
-	  if(mt < _MtLow[imass] || mt > _MtHigh[imass]) continue;
-          if(minmet < 37 + 0.5 * tree.nvtx_ ) continue;
+           if(mt < cutMTLow(mH[imass]) || mt > cutMTHigh(mH[imass])) continue;
+	  if(minmet < 37 + 0.5 * tree.nvtx_ ) continue;
 	
 	  if(fabs(tree.dilep_.M() - mZ) < 15) {
 	  
@@ -400,7 +349,7 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
 	    if(finalState==kMuEle && tree.dstype_==SmurfTree::data) nin_me_data[ijet][imass]++;           
 	    if(finalState==kEleMu && tree.dstype_==SmurfTree::data) nin_em_data[ijet][imass]++; 
 
-          } else if(tree.dilep_.M() < _Mll[imass]) {
+          } else if(tree.dilep_.M() < cutMassHigh(mH[imass])) {
 
 	    if(finalState==kEleEle 
 	       && (tree.dstype_==SmurfTree::wz || tree.dstype_==SmurfTree::zz)
