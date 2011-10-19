@@ -64,36 +64,39 @@ void ComputeWWBkgScaleFactor (
   
   double scaleFactorLum = 2.121;
 
+  bool isOldAna = true;
+  TString effPath  = "/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
+  TString fakePath = "/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
+  if(isOldAna == false){
+    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_SmurfBDTGWithIPInfoElectrons.root";
+    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_SmurfMVAWithIPInfoElectron.root";
+  }
+  // ***********************************************************************************************
+  // Load Auxiliary Files
+  // ***********************************************************************************************
 
-// ***********************************************************************************************
-// Load Auxiliary Files
-// ***********************************************************************************************
-
-  TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root");
+  TFile *fLeptonEffFile = TFile::Open(effPath.Data());
   TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
   TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
   fhDEffMu->SetDirectory(0);
   fhDEffEl->SetDirectory(0);
   fLeptonEffFile->Close();
   delete fLeptonEffFile;
-  LeptonScaleLookup trigLookup("/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root");
+  LeptonScaleLookup trigLookup(effPath.Data());
 
-
-
-  TFile *fLeptonFRFileM = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.V4HasNod0Cut.root");
+  TFile *fLeptonFRFileM = TFile::Open(fakePath.Data());
   TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
   assert(fhDFRMu);
   fhDFRMu->SetDirectory(0);
   fLeptonFRFileM->Close();
   delete fLeptonFRFileM;
 
-  TFile *fLeptonFRFileE = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.V4HasNod0Cut.root");
+  TFile *fLeptonFRFileE = TFile::Open(fakePath.Data());
   TH2D *fhDFREl = (TH2D*)(fLeptonFRFileE->Get("ElectronFakeRate_V4_ptThreshold35_PtEta"));
   assert(fhDFREl);
   fhDFREl->SetDirectory(0);
   fLeptonFRFileE->Close();
   delete fLeptonFRFileE;
-
 
   TFile *fPUS4File = TFile::Open("/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root");
   TH1D *fhDPUS4 = (TH1D*)(fPUS4File->Get("puWeights"));

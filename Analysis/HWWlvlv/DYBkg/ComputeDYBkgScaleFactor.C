@@ -53,24 +53,22 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
   Int_t nmet = 1;
   if(useRecoilModel) nmet = 100;
 
+  bool isOldAna = true;
+  TString filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets";
+  if(isOldAna == false){
+    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets";
+  }
+
   //*******************************************************
   //Input Files
   //*******************************************************
   vector<TString> infilenamev;  
 
-  //Summer11 MC
-  infilenamev.push_back("/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets/data_2l.root");
-  infilenamev.push_back("/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets/dyee.root");
-  infilenamev.push_back("/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets/dymm.root");
-  infilenamev.push_back("/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets/wz.root");
-  infilenamev.push_back("/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets/zz.root");
-
-  //LP2011 data - synchronized with YanYan
-//   infilenamev.push_back("/data/smurf/data/LP2011/tas/data.root");
-//   infilenamev.push_back("/data/smurf/data/LP2011/mitf/dyee.root");
-//   infilenamev.push_back("/data/smurf/data/LP2011/mitf/dymm.root");
-//   infilenamev.push_back("/data/smurf/data/LP2011/mitf/wz.root");
-//   infilenamev.push_back("/data/smurf/data/LP2011/mitf/zz.root");
+  infilenamev.push_back(Form("%s/data_2l.root",filesPath.Data()));
+  infilenamev.push_back(Form("%s/dyee.root",filesPath.Data()));
+  infilenamev.push_back(Form("%s/dymm.root",filesPath.Data()));
+  infilenamev.push_back(Form("%s/wz.root",filesPath.Data()));
+  infilenamev.push_back(Form("%s/zz.root",filesPath.Data()));
 
   //*******************************************************
   //Met Corrections

@@ -33,6 +33,13 @@ void ComputeTopScaleFactors
   //*******************************************************************************
   enum { kOther, kTTBAR, kTW, kData };
   double lumi = 2.121;
+  bool isOldAna = true;
+  TString effPath  = "/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
+  TString fakePath = "/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
+  if(isOldAna == false){
+    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_SmurfBDTGWithIPInfoElectrons.root";
+    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_SmurfMVAWithIPInfoElectron.root";
+  }
 
   SmurfTree bgdEvent;
   bgdEvent.LoadTree(bgdInputFile,-1);
@@ -46,30 +53,29 @@ void ComputeTopScaleFactors
   //*******************************************************************************
   //Load Auxiliary Inputs
   //*******************************************************************************
-  TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root");
+  TFile *fLeptonEffFile = TFile::Open(effPath.Data());
   TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
   TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
   fhDEffMu->SetDirectory(0);
   fhDEffEl->SetDirectory(0);
   fLeptonEffFile->Close();
   delete fLeptonEffFile;
+  LeptonScaleLookup trigLookup(effPath.Data());
 
-  TFile *fLeptonFRFileM = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.V4HasNod0Cut.root");
+  TFile *fLeptonFRFileM = TFile::Open(fakePath.Data());
   TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
   assert(fhDFRMu);
   fhDFRMu->SetDirectory(0);
   fLeptonFRFileM->Close();
   delete fLeptonFRFileM;
 
-  TFile *fLeptonFRFileE = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.V4HasNod0Cut.root");
+  TFile *fLeptonFRFileE = TFile::Open(fakePath.Data());
   TH2D *fhDFREl = (TH2D*)(fLeptonFRFileE->Get("ElectronFakeRate_V4_ptThreshold35_PtEta"));
   assert(fhDFREl);
   fhDFREl->SetDirectory(0);
   fLeptonFRFileE->Close();
   delete fLeptonFRFileE;
-
-  LeptonScaleLookup trigLookup("/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root");
-  
+ 
   TFile *fNvtxFile = TFile::Open("/data/smurf/data/LP2011/auxiliar/puReweighting.root");
   TH1D *fhDNvtx = (TH1D*)(fNvtxFile->Get("puWeights"));
   assert(fhDNvtx);
@@ -77,18 +83,11 @@ void ComputeTopScaleFactors
   fNvtxFile->Close();
   delete fNvtxFile;
 
-  TFile *fPUS3File = TFile::Open("/data/smurf/data/LP2011/auxiliar/puWeights_PU3_68mb.root");
-  TH1D *fhDPUS3 = (TH1D*)(fPUS3File->Get("puWeights"));
-  assert(fhDPUS3);
-  fhDPUS3->SetDirectory(0);
-  delete fPUS3File;
-
   TFile *fPUS4File = TFile::Open("/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root");
   TH1D *fhDPUS4 = (TH1D*)(fPUS4File->Get("puWeights"));
   assert(fhDPUS4);
   fhDPUS4->SetDirectory(0);
   delete fPUS4File;
-
 
   //*******************************************************************************
   //Yields and Histograms
@@ -157,7 +156,7 @@ void ComputeTopScaleFactors
     else if(bgdEvent.dstype_ == SmurfTree::dymm            ) fDecay = 9;
     else if(bgdEvent.dstype_ == SmurfTree::dytt            ) fDecay = 10;
     else if(bgdEvent.dstype_ == SmurfTree::dyttDataDriven  ) fDecay = 10;
-    else if(bgdEvent.dstype_ == SmurfTree::qcd             ) fDecay = 11;
+    else if(bgdEvent.dstype_ == SmurfTree::qcd             ) fDecay = 10;
     else if(bgdEvent.dstype_ == SmurfTree::tw              ) fDecay = 13;
     else if(bgdEvent.dstype_ == SmurfTree::qqww            ) fDecay = 29;
     else if(bgdEvent.dstype_ == SmurfTree::wz              ) fDecay = 27;
