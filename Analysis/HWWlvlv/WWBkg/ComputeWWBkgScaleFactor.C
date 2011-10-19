@@ -14,7 +14,7 @@
 #include "TMath.h"
 #include "TCanvas.h"
 #include "TSystem.h"
-#include "Smurf/Core/HWWCuts.h"
+#include "Smurf/Analysis/HWWlvlv/HWWCuts.h"
 #include "Smurf/Analysis/HWWlvlv/factors.h"
 #include "Smurf/Analysis/HWWlvlv/DYBkgScaleFactors.h"
 #include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h"
@@ -30,28 +30,6 @@ void ComputeWWBkgScaleFactor (
 {
 
 // ***********************************************************************************************
-// EPS Data : Cross-checked with Giuseppe's macro
-// ***********************************************************************************************
-//   TChain *chdata = new TChain("tree");
-//   chdata->Add("/data/smurf/data/EPS/tas/data-met20-1092ipb.root");
-//   TTree *data     = (TTree*) chdata;
-
-//   TChain *chbackground = new TChain("tree");
-//   chbackground->Add("/data/smurf/data/Run2011_Spring11_SmurfV6/tas-TightLooseFullMET-alljets/qqww.root");
-//   chbackground->Add("/data/smurf/data/Run2011_Spring11_SmurfV6/tas-TightLooseFullMET-alljets/ggww.root");
-//   chbackground->Add("/data/smurf/data/Run2011_Spring11_SmurfV6/tas-TightLooseFullMET-alljets/ttbar.root");
-//   chbackground->Add("/data/smurf/data/Run2011_Spring11_SmurfV6/tas-TightLooseFullMET-alljets/tw.root");
-//   chbackground->Add("/data/smurf/data/Run2011_Spring11_SmurfV6/tas-TightLooseFullMET-alljets/dymm.root");
-//   chbackground->Add("/data/smurf/data/Run2011_Spring11_SmurfV6/tas-TightLooseFullMET-alljets/dyee.root");
-//   chbackground->Add("/data/smurf/data/Run2011_Spring11_SmurfV6/tas-TightLooseFullMET-alljets/dytt.root");
-//   chbackground->Add("/data/smurf/data/Run2011_Spring11_SmurfV6/tas-TightLooseFullMET-alljets/zz.root");
-//   chbackground->Add("/data/smurf/data/Run2011_Spring11_SmurfV6/tas-TightLooseFullMET-alljets/wz.root");
-//   chbackground->Add("/data/smurf/data/EPS/tas/data-met20-1092ipb.root");
-//   TTree *background = (TTree*) chbackground;
-//   double scaleFactorLum = 1.092;
-  
-
-// ***********************************************************************************************
 // Full Run2011A Data 
 // ***********************************************************************************************
   TChain *chdata = new TChain("tree");
@@ -64,7 +42,7 @@ void ComputeWWBkgScaleFactor (
   
   double scaleFactorLum = 2.121;
 
-  bool isOldAna = true;
+  bool isOldAna = false;
   TString effPath  = "/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
   TString fakePath = "/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
   if(isOldAna == false){
@@ -291,7 +269,7 @@ void ComputeWWBkgScaleFactor (
           passMassCut = ( dilep->mass() > 100.0 );
         }
         Bool_t passPtMaxCut = (lep1->pt() > cutPtMaxLow(mH[imass]));
-        Bool_t passPtMinCut = (lep1->pt() > cutPtMinLow(mH[imass]));
+        Bool_t passPtMinCut = (lep2->pt() > cutPtMinLow(mH[imass], type));
         Bool_t passJetBinCut = kFALSE;
         if (classIndex == kCutBasedZeroJet || classIndex == kMVAZeroJet) {
           passJetBinCut = (njets == 0);
@@ -524,7 +502,7 @@ void ComputeWWBkgScaleFactor (
           passMassCut = ( dilep->mass() > 100.0 );
         }
         Bool_t passPtMaxCut = (lep1->pt() > cutPtMaxLow(mH[imass]));
-        Bool_t passPtMinCut = (lep1->pt() > cutPtMinLow(mH[imass]));
+        Bool_t passPtMinCut = (lep2->pt() > cutPtMinLow(mH[imass],type));
         Bool_t passJetBinCut = kFALSE;
         if (classIndex == kCutBasedZeroJet || classIndex == kMVAZeroJet) {
           passJetBinCut = (njets == 0);
