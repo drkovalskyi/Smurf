@@ -45,7 +45,6 @@ void ComputeTopScaleFactors
   bgdEvent.LoadTree(bgdInputFile,-1);
   bgdEvent.InitTree(0);
 
-
   SmurfTree dataEvent;
   dataEvent.LoadTree(dataInputFile,-1);
   dataEvent.InitTree(0);
@@ -172,8 +171,10 @@ void ComputeTopScaleFactors
     double minmet = TMath::Min(bgdEvent.pmet_,bgdEvent.pTrackMet_);
     bool passMET = minmet > 20. &&
       (minmet > 40. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
-
-
+    if(isOldAna == false) {
+      passMET = minmet > 20. &&
+      (minmet > 37.+bgdEvent.nvtx_/2 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+    }
     // begin computing weights
     double theWeight = 0.0;
     double add       = 1.0;
@@ -249,6 +250,11 @@ void ComputeTopScaleFactors
       theWeight = bgdEvent.scale1fb_*lumi*add;
     }
 
+    bool passNewCuts = true;
+    if(isOldAna == false){
+     if(bgdEvent.lep2_.Pt() <= 15 && (bgdEvent.type_ == SmurfTree::mm||bgdEvent.type_ == SmurfTree::ee)) passNewCuts = false;
+     if(bgdEvent.dilep_.Pt() <= 45) passNewCuts = false;
+    }
     if(
       (((bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) ||
        ((bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
@@ -259,6 +265,7 @@ void ComputeTopScaleFactors
       bgdEvent.lep1_.Pt() > 20. &&
       bgdEvent.lep2_.Pt() > 10. &&
       passMET == true &&
+      passNewCuts == true &&
       (fabs(bgdEvent.dilep_.M()-91.1876) > 15. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me) && 
       (bgdEvent.jet1_.Pt() <= 15. || bgdEvent.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me) &&
       1 == 1
@@ -321,8 +328,6 @@ void ComputeTopScaleFactors
       }
 
     }
-
-
   } // end background loop
 
 
@@ -357,8 +362,16 @@ void ComputeTopScaleFactors
     double minmet = TMath::Min(dataEvent.pmet_,dataEvent.pTrackMet_);
     bool passMET = minmet > 20. &&
       (minmet > 40. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+    if(isOldAna == false) {
+      passMET = minmet > 20. &&
+      (minmet > 37.+dataEvent.nvtx_/2 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+    }
 
-
+    bool passNewCuts = true;
+    if(isOldAna == false){
+     if(dataEvent.lep2_.Pt() <= 15 && (dataEvent.type_ == SmurfTree::mm||dataEvent.type_ == SmurfTree::ee)) passNewCuts = false;
+     if(dataEvent.dilep_.Pt() <= 45) passNewCuts = false;
+    }
     double theWeight = 1.0;
     if(
       (dataEvent.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection &&
@@ -369,6 +382,7 @@ void ComputeTopScaleFactors
       dataEvent.lep1_.Pt() > 20. &&
       dataEvent.lep2_.Pt() > 10. &&
       passMET == true &&
+      passNewCuts == true &&
       (fabs(dataEvent.dilep_.M()-91.1876) > 15. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me) && 
       (dataEvent.jet1_.Pt() <= 15. || dataEvent.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me) &&
       1 == 1
@@ -561,8 +575,6 @@ void ComputeTopScaleFactors
   printf("**********************************************************\n");
   printf("\n\n");
 
-
-
   //*******************************************************************************
   //0-Jet Bin
   //*******************************************************************************
@@ -574,8 +586,6 @@ void ComputeTopScaleFactors
   printf("btagSFTW = %f\n",btagSFTW);
   double TopBkgScaleFactor_1Jet = btagSFTW;
   double TopBkgScaleFactorUncertainty_1Jet = estimationDA_btag_highestpt_1j_error[4]/((btag_highestpt_1j_den[1][4]+btag_highestpt_1j_den[2][4])-(btag_highestpt_1j_num[1][4]+btag_highestpt_1j_num[2][4]));
-
-
 
   double effttMC_btag_lowpt_1j[5],effttMC_btag_lowpt_1j_error[5],effttMC_btag_lowpt_tt_1j[5],effttMC_btag_lowpt_tt_1j_error[5];
   double effttDA_btag_lowpt_1j[5],effttDA_btag_lowpt_1j_error[5],effttMC_btag_lowpt_tw_1j[5],effttMC_btag_lowpt_tw_1j_error[5];
@@ -591,14 +601,12 @@ void ComputeTopScaleFactors
                                              (btag_lowpt_1j_den_error[1][i])/(btag_lowpt_1j_den[1][i]));
     effttMC_btag_lowpt_tw_1j_error[i] = sqrt((1.0-effttMC_btag_lowpt_tw_1j[i])*effttMC_btag_lowpt_tw_1j[i]/(btag_lowpt_1j_den[2][i])*
                                              (btag_lowpt_1j_den_error[2][i])/(btag_lowpt_1j_den[2][i]));
-    
 
     //Data btag efficiencies
     effttDA_btag_lowpt_1j[i]       = (btag_lowpt_1j_num[3][i]-btag_lowpt_1j_num[0][i]-btag_lowpt_1j_num[2][i]*btagSF*btagSFTW)/ (btag_lowpt_1j_den[3][i]-btag_lowpt_1j_den[0][i]-btag_lowpt_1j_den[2][i]*btagSF*btagSFTW);
     effttDA_btag_lowpt_1j_error[i] = sqrt((1-effttDA_btag_lowpt_1j[i])*effttDA_btag_lowpt_1j[i]/btag_lowpt_1j_den[3][i]);
   }
 
-  
   printf("\n\n");
   for(int i=0; i<5; i++) {
     printf("numerator(%s)   --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_lowpt_1j_num[3][i],btag_lowpt_1j_num[0][i],(btag_lowpt_1j_num[1][i]+btag_lowpt_1j_num[2][i]),btag_lowpt_1j_num[1][i],btag_lowpt_1j_num[2][i]);

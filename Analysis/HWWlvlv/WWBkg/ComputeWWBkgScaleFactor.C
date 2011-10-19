@@ -104,9 +104,6 @@ void ComputeWWBkgScaleFactor (
   fhDPUS4->SetDirectory(0);
   delete fPUS4File;
 
-
-
-
   //***********************************************************************************************
   //Define Histograms & Yields
   //***********************************************************************************************
@@ -116,13 +113,11 @@ void ComputeWWBkgScaleFactor (
   //scale factors for 4 classes of selections
   enum { kCutBasedZeroJet, kCutBasedOneJet, kMVAZeroJet, kMVAOneJet };
     
-
   vector<vector<Double_t> > Yield_WWControlRegion_Data, Yield_WWControlRegion_Bkg, Yield_WWControlRegion_WWMC; 
   vector<vector<Double_t> > YieldUncertainty_WWControlRegion_Data, YieldUncertainty_WWControlRegion_Bkg, YieldUncertainty_WWControlRegion_WWMC; 
   vector<vector<Double_t> > Yield_WWControlRegion_Top, Yield_WWControlRegion_DY, Yield_WWControlRegion_WJets, Yield_WWControlRegion_Other; 
   vector<vector<Double_t> > YieldUncertainty_WWControlRegion_Top, YieldUncertainty_WWControlRegion_DY, YieldUncertainty_WWControlRegion_WJets, YieldUncertainty_WWControlRegion_Other; 
   vector<vector<Double_t> > WWScaleFactor, WWScaleFactorUncertainty; 
-
 
   //4 classes of selections
   for(UInt_t classIndex = 0; classIndex < 4; ++classIndex) {
@@ -255,6 +250,19 @@ void ComputeWWBkgScaleFactor (
       printf("--- reading event %5d of %5d\n",i,(int)data->GetEntries());
     data->GetEntry(i);
 
+    bool passNewCuts = true;
+    if(isOldAna == false){
+     if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
+     if(dilep->pt() <= 45) passNewCuts = false;
+    }
+    double minmet = TMath::Min(pmet,pTrackMet);
+    bool passMET = minmet > 20. &&
+      (minmet > 40. || type == SmurfTree::em || type == SmurfTree::me);
+    if(isOldAna == false) {
+      passMET = minmet > 20. &&
+      (minmet > 37.+nvtx/2 || type == SmurfTree::em || type == SmurfTree::me);
+    }
+
     if (!(((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection) 
           && ((cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection))) continue;
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
@@ -262,9 +270,8 @@ void ComputeWWBkgScaleFactor (
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( TMath::Min(pmet,pTrackMet) <= 20                                 ) continue; // cut on pmet for all lepton-pair flavors
-    if( TMath::Min(pmet,pTrackMet) <= 40 && 
-      (type == SmurfTree::mm || 
-       type == SmurfTree::ee)                                            ) continue; // cut on pmet for ee/mm lepton-pair
+    if( passMET == false                                                 ) continue; // cut on pmet for ee/mm lepton-pair
+    if( passNewCuts == false                                             ) continue; // ptmin and dileppt cuts
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
@@ -272,7 +279,6 @@ void ComputeWWBkgScaleFactor (
     bool dPhiDiLepJet1Cut = jet1->pt() <= 15. ||
                            (dPhiDiLepJet1*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me);
     if( dPhiDiLepJet1Cut == false                                        ) continue; // cut on dPhiDiLepJet1
-
 
 
     for(UInt_t classIndex = 0; classIndex < 4; ++classIndex) {
@@ -359,6 +365,18 @@ void ComputeWWBkgScaleFactor (
       printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
     background->GetEntry(i);
 
+    bool passNewCuts = true;
+    if(isOldAna == false){
+     if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
+     if(dilep->pt() <= 45) passNewCuts = false;
+    }
+    double minmet = TMath::Min(pmet,pTrackMet);
+    bool passMET = minmet > 20. &&
+      (minmet > 40. || type == SmurfTree::em || type == SmurfTree::me);
+    if(isOldAna == false) {
+      passMET = minmet > 20. &&
+      (minmet > 37.+nvtx/2 || type == SmurfTree::em || type == SmurfTree::me);
+    }
 
     bool MinPreselCut = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) ||
       ((cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
@@ -369,9 +387,8 @@ void ComputeWWBkgScaleFactor (
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( TMath::Min(pmet,pTrackMet) <= 20                                 ) continue; // cut on pmet for all lepton-pair flavors
-    if( TMath::Min(pmet,pTrackMet) <= 40 && 
-      (type == SmurfTree::mm || 
-       type == SmurfTree::ee)                                            ) continue; // cut on pmet for ee/mm lepton-pair
+    if( passMET == false                                                 ) continue; // cut on pmet for ee/mm lepton-pair
+    if( passNewCuts == false                                             ) continue; // ptmin and dileppt cuts
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
