@@ -1,7 +1,7 @@
 We have taken into account the following systematic uncertainties:
 
 \begin{itemize}
-\item {\it Luminosity:} We use the official CMS result, which is $6\%$.
+\item {\it Luminosity:} We use the official CMS result, which is $4.5\%$.
 
 \item {\it Lepton identification and trigger efficiencies:} 
 We measure the efficiencies in data using the tag and probe method that is described
@@ -47,6 +47,7 @@ the corresponding systematic uncertainty.
 \item {\it Higgs cross section:} these uncertainties are taken from the Higgs cross
 section working group~\cite{LHCHiggsCrossSectionWorkingGroup:2011ti}. The uncertainty 
 on the $gg \to H$ production is about 15\% and it is one of the dominant effects.
+{\bf \fixme add the higgs width related systematics for high mH case}
 
 \item {\it Jet counting and theoretical uncertainties:} 
 Since the analysis is categorized into jet bins, there are systematic uncertainties
@@ -95,11 +96,13 @@ essentially can be neglected.
 
 
 \subsection{Summary of Systematic Uncertainties}
+
 All systematic uncertainties taken into account in this analysis
 are summarized in Table~\ref{tab:systww}.
 The total uncertainty depends on the Higgs mass and jet bin considered,
 however is typically $20\%$ on the data-driven background estimation and about $2-15\%$ 
-on the signal efficiency. These results assume an integrated luminosity of \intlumi.
+on the signal efficiency. These results assume an integrated luminosity of \intlumi. 
+The uncertainties due to the shape variation is discussed in Section 4 of Ref~\cite{shapeananote}. 
 
 \begin{table}[!ht]
 \begin{center}
@@ -111,20 +114,21 @@ on the signal efficiency. These results assume an integrated luminosity of \intl
 Source  & $\hzz$ & $WZ/ZZ$ & $\WW$ & $\ttbar$+$\tw$ & $\dyll$ & $\dytt$ & $\Wjets$ \\
 \hline
 \hline
-Luminosity                               & 6.0 & 6.0 & --- & --- & --- & --- & --- \\
+Luminosity                               & 4.5 & 4.5 & --- & --- & --- & --- & --- \\
 Trigger efficiencies                     & 1.5 & 1.5 & --- & --- & --- & --- & --- \\
 Muon efficiency                          & 1.5 & 1.5 & --- & --- & --- & --- & --- \\
 Electron id efficiency                   & 2.5 & 2.5 & --- & --- & --- & --- & --- \\
 Muon Momentum scale                      & 2.0 & 2.0 & --- & --- & --- & --- & --- \\
 Electron Energy scale                    & 5.0 & 5.0 & --- & --- & --- & --- & --- \\
-Jet counting                             & 7-20& --- & --- & --- & --- & --- & --- \\
+%Jet counting                             & 7-20& --- & --- & --- & --- & --- & --- \\
 Higgs cross section                      & 5-15& --- & --- & --- & --- & --- & --- \\
 $WZ/ZZ$ cross section                    & --- & 5.0/8.0 & --- & --- & --- & --- & --- \\
 $\WW$                                    & --- & --- & 17 & --- & --- & --- & ---      \\
 Top ($\ttbar$ + $\tw$)                   & --- & --- & --- & 17 & --- & --- & ---      \\
-$\dyll$ 0 (1)-jet                        & --- & --- & --- & --- & 25(20)  & --- & ---     \\
+$\dyll$                                  & --- & --- & --- & --- &  30  & --- & ---     \\
+%$\dyll$ 0 (1)-jet                        & --- & --- & --- & --- & 25(20)  & --- & ---     \\
 $\dytt$                                  & --- & --- & --- & --- & --- & --- & ---     \\
-$\Wjets$                                 & --- & --- & --- & --- & --- & --- & 36      \\
+%$\Wjets$                                 & --- & --- & --- & --- & --- & --- & 36      \\
 Monte Carlo statistics                   & 1.2 & 3.2/7.9 & 50 & 50 & 20-30 & --- & --- \\
 \hline
 \end{tabular}
