@@ -1,48 +1,50 @@
-We perform the analysis on a dataset corresponding to $1.1\pm0.1\ifb$ integrated luminosity. 
-In this section we document the results obtained after the $\zz$ preselection and the 
-final mass-dependent $\hzz$ selections using cut-based approach. 
+We perform the analysis on a dataset corresponding to \intlumi\ integrated luminosity. 
+In this section we document the results obtained after the $\zz$ preselection defined in 
+Section~\ref{sec:selection} and the final mass-dependent $\hzz$ selections using cut-based approach. 
 
-\subsection{Results after the $\zz$ preselection}
-The dilepton $p_T$ distribution is shown in Figure \ref{fig:zpt_zzpresel} after a very loose
-cut on the minimum of \met and track \met to be above 20 GeV to take into account data
-skimming requirements.  We select events with a dilepton $p_T$ above 40 GeV.
-A comparison of the predicted Z+jets \met and minimum of \met and track \met distributions is
-show in Figure \ref{fig:metcomparison_zzpresel}.
-The distribution of the minimum of \met and track \met is shown for the signal and backgrounds
-after the dilepton $p_T$
-cut in Figure \ref{fig:minmet_zzpresel}.  The $M_T$ distributions are shown in
-Figure \ref{fig:mt_zzpresel} after requiring the minimum of \met and track \met to be 
-greater than 50 GeV.  This is referred to as the \zz preselection.
+\subsection{Results after looser selections}
+
+We compare the data with simulation in looser selections than the signal region 
+to verfity the agreement in the key kinematic observables that we select on. 
+
+To verify the data to simulation agreement, we study the 
+Figure ~\ref{fig:zpt_zzpresel} shows the dilepton $p_T$ spectrum with a 
+very loose cut on the \met\ ($>20\GeVcc$), which is applied to account for the data skimming requirements. 
+We select on the dilepton $p_T$ to be above 25 \GeV\  to reduce the \dyll\ contributions. 
+A comparison of the predicted Z+jets \met distributions is show in Figure \ref{fig:metcomparison_zzpresel}.
+The distribution of the \met is shown for the signal and backgrounds 
+after the dilepton $p_T$ cut in Figure \ref{fig:minmet_zzpresel}.  
 
 Table~\ref{tab:zzselection_all} shows the number of events observed in
 data, comparing to the expected background contribution at the \zz
 preselection level. The background estimation was discussed at Section~\ref{sec:backgrounds}.
+The $M_T$ distributions are shown in Figure \ref{fig:mt_zzpresel} after 
+applying the \zz preselection. 
 
-%%%%%%%%
+%%%%%%%%%%%%%%%%%%
 \begin{table}[!ht]
 \begin{center}
-\begin{tabular} {c|c|c|cccccc}
+\begin{tabular}{c|c|c|c}
 \hline
-  & data & all bkg. & $\dyll$ & $\ZZ$ & $\WZ$ & $WW$ & $\ttbar+tW$ & $\Wjets$  \\
+sample 	& mm 	& ee 	 & TOTAL\\ \hline 
+WW	& 53.69 $\pm$ 2.38	& 42.35 $\pm$ 2.13	& 96.04 $\pm$ 3.19 \\
+ZZ	& 36.43 $\pm$ 0.38	& 26.21 $\pm$ 0.33	& 62.64 $\pm$ 0.50 \\
+WZ	& 31.22 $\pm$ 0.51	& 23.74 $\pm$ 0.45	& 54.96 $\pm$ 0.69 \\
+Top	& 48.30 $\pm$ 0.70	& 34.71 $\pm$ 0.62	& 83.01 $\pm$ 0.93 \\
+DYtt	& 1.68 $\pm$ 0.63	& 1.74 $\pm$ 0.65	& 3.42 $\pm$ 0.90 \\
+Zjets	& 438.72 $\pm$ 12.12	& 311.74 $\pm$ 8.29	& 750.46 $\pm$ 14.69 \\
 \hline
-\multicolumn{9}{c} {0 Jet Bin} \\
-\hline
- $\mu\mu$ &  39 & $43.4\pm0.9$ & $8.2\pm1.1$ & $14.5\pm0.3$ & $7.1\pm0.3$ & $11.6\pm0.4$ & $2.1\pm0.7$ & $0.0$ \\
- $ee$     &  31 & $31.7\pm0.8$ & $8.2\pm1.1$ & $9.7\pm0.2$  & $4.0\pm0.2$ & $7.5\pm0.3$ & $1.0\pm0.3$ & $1.3\pm0.6$ \\
-\hline
-\multicolumn{9}{c} {1 Jet Bin} \\
-\hline
- $\mu\mu$ &  21 & $22.6\pm0.8$ & $8.8\pm1.1$ & $3.7\pm0.1$ & $3.7\pm0.2$ &  $3.3\pm0.2$ & $3.1\pm0.7$ & $0.0$  \\
- $ee$     &  18 & $19.6\pm0.9$ & $8.8\pm1.1$ & $2.6\pm0.1$ & $2.5\pm0.2$ & $2.2\pm0.2$ & $3.6\pm0.8$ & $0.0$ \\
-\hline
+Total background	& 610.05 $\pm$ 12.40	& 440.49 $\pm$ 8.63	& 1050.54 $\pm$ 15.11 \\ \hline 
+DATA	& 572 	& 478	& 1050 \\ \hline 
 \end{tabular}
 \caption{Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of \intlumi  after applying the $\ZZ$ selection requirements. 
-Only statistical uncertaities are reported. }
-   \label{tab:zzselection_all}
-  \end{center}
+ integrated luminosity of \intlumi after applying the \zz preselections. Only statistical uncertaities are reported. 
+The $\Wjets$ background is neglible thus omitted in the table.}
+\label{tab:zzselection_all}
+\end{center}
 \end{table}
-%%%%%%%%
+%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%
 \begin{figure}[!hbtp]
@@ -115,132 +117,65 @@ The MC backgrounds are scaled as appropriate and the photon+jets estimate of the
 
 \clearpage
 
-\subsection{Results after the $\hzz$ final selection}
-The Higgs boson mass dependent signal selections are described in Section \ref{sec:signal_selection}. 
-In this section we summarise the results obtained in zero and one jet final states only. 
-The reasons are as follows,
-%%%%%%%%%
-\begin{itemize}
-\item The 2-Jet bin final state is sensitive to the vector-boson-fusion production mode. 
-Currently we do not have the MC samples for the $\hzz$ produced in VBF mode.
-\item The final sensistivity is driven by the zero and one jet bins as the background contribution especially from the 
-Drell-Yan processes are very much shown in Table~\ref{tab:zzselection_all}.
-\end{itemize}
-%%%%%%%%%
-We plan to include the two-jet bin final states for the next iteration of the results. 
+\subsection{Results after the $\hzz$ selection in cut-based analysis}
 
-After applying these signal selections, which differ only from the \zz preselection
-in terms of the \met and $M_T$ cuts, the resulting $M_T$ distributions are shown
-in Figures \ref{fig:mt_hzz250}, \ref{fig:mt_hzz300} and \ref{fig:mt_hzz400} respectively.
-Tables~\ref{tab:yield_hzz250}-\ref{tab:yield_hzz400} show the equivalent data yields
-and background expectations.
-%A more detailed break down of the event yields can be found in ~\ref{app:yield1fbdetail}.
+The Higgs boson mass dependent signal selections in the cut-based analysis 
+are described in Section~\ref{sec:anal_cut}. In this section we summarise 
+the results obtained all jet final states. 
+%After applying these signal selections, which differ only from the \zz preselection
+%in terms of the \met, $M_T$ and $\Delta\phi$ between the \met\ and the nearest 
+%jet. The resulting $M_T$ distributions are shown in Figures \ref{fig:mt_hzz250}-\ref{fig:mt_hzz400}, with 
+%the equivalent data yields and background expectations shown in Table~\ref{}
+Tables~\ref{tab:yield_cutbased_ee}-\ref{tab:yield_cutbased_mm} show the signal %equivalent data yields
+and background expectations in ee and $\mu\mu$ final states respectively. 
 
 
-%%%%%%%%
-%\begin{table}[!ht]
-%\begin{center}
-%\begin{tabular} {c|c|c|c|ccccc}
-%\hline
-%  & data & $HZZ$(200) & all bkg. & $\dyll$ & $\ZZ$ & $\WZ$ & $WW$ & $\ttbar+tW$ \\
-%\hline
-%\multicolumn{9}{c} {0 Jet Bin} \\
-%\hline
-% $\mu\mu$ &  12 & $0.12\pm0.01$ & $13.9\pm0.4$ & $3.34\pm0.04$ & $3.1\pm0.1$ & $2.1\pm0.2$ & $4.8\pm0.2$ & $0.5\pm0.3$ \\
-% $ee$     &  14 & $0.07\pm0.01$ & $9.9\pm0.3$  & $3.34\pm0.04$ & $2.0\pm0.1$ & $1.2\pm0.1$ & $3.1\pm0.2$ & $0.2\pm0.2$ \\
-%\hline
-%\multicolumn{9}{c} {1 Jet Bin} \\
-%\hline
-% $\mu\mu$ &  0 & $0.02\pm0.00$ & $0.34\pm0.10$ & $0.12\pm0.01$ & $0.02\pm0.01$ & $0.01\pm0.01$ & $0.07\pm0.03$ & $0.13\pm0.09$ \\
-% $ee$     &  0 & $0.01\pm0.00$ & $0.20\pm0.03$ & $0.12\pm0.01$ & $0.01\pm0.01$ & $0.02\pm0.01$ & $0.05\pm0.02$ & $0.0$ \\
-%\hline
-%\end{tabular}
-%\caption{Expected number of signal and background events from the data-driven methods for an 
-%  integrated luminosity of \intlumi  after applying the $\hzz$ ($m_H=200\GeVcc$) selection requirements. 
-%Only statistical uncertaities are reported. The $\Wjets$ background is neglible thus omitted in the table.}
-%   \label{tab:yield_hzz200}
-%  \end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}
+{\footnotesize
+ \begin{center}
+ \begin{tabular}{l | c c | c c c c c c c }
+ \hline
+ process & qqH & ggH & ZZ & WZ & WW & Top & Zjets & DYtt & $\sum$Bkg \\
+ \hline
+250 & $0.0\pm0.0$ & $12.7\pm1.7$ & $32.4\pm3.2$ & $17.2\pm2.0$ & $15.0\pm1.8$ & $33.6\pm4.1$ & $18.7\pm4.7$ & $0.1\pm0.0$ & $129.7\pm7.7$ \\
+300 & $0.0\pm0.0$ & $15.5\pm2.1$ & $39.3\pm3.9$ & $20.1\pm2.4$ & $15.4\pm1.9$ & $34.0\pm4.2$ & $22.2\pm5.6$ & $0.1\pm0.0$ & $146.7\pm8.8$ \\
+350 & $0.0\pm0.0$ & $16.2\pm2.1$ & $34.2\pm3.4$ & $15.2\pm1.8$ & $10.3\pm1.3$ & $27.1\pm3.3$ & $15.8\pm4.0$ & $0.1\pm0.0$ & $118.9\pm6.9$ \\
+400 & $0.0\pm0.0$ & $13.2\pm1.7$ & $28.0\pm2.8$ & $11.6\pm1.4$ & $4.8\pm0.6$ & $10.8\pm1.3$ & $9.4\pm2.3$ & $0.0\pm0.0$ & $77.7\pm4.5$ \\
+500 & $0.0\pm0.0$ & $5.5\pm0.8$ & $21.7\pm2.2$ & $7.6\pm0.9$ & $1.0\pm0.1$ & $6.4\pm0.8$ & $6.6\pm1.7$ & $0.0\pm0.0$ & $48.9\pm3.1$ \\
+600 & $0.0\pm0.0$ & $2.2\pm0.3$ & $14.8\pm1.5$ & $4.3\pm0.5$ & $0.8\pm0.1$ & $3.3\pm0.4$ & $4.9\pm1.2$ & $0.0\pm0.0$ & $30.3\pm2.1$ \\
+\hline
+\end{tabular}
+\label{tab:yield_cutbased_ee}
+\end{center}
+}
+\caption{\fixme Expected number of signal and background events for an 
+  integrated luminosity of \intlumi after applying the higgs selections in the cut-based analysis in the ee final state. 
+  Only Monte Carlo statistical uncertainties are included. }
 %\end{table}
-%%%%%%%%
-
-
-%%%%%%%%
-\begin{table}[!ht]
-\begin{center}
-\begin{tabular} {c|c|c|c|ccccc}
-\hline
-  & data & $HZZ$(250) & all bkg. & $\dyll$ & $\ZZ$ & $\WZ$ & $WW$ & $\ttbar+tW$ \\
-\hline
-\multicolumn{9}{c} {0 Jet Bin} \\
-\hline
- $\mu\mu$ &  20 & $2.12\pm0.04$ & $16.7\pm0.7$ & $3.4\pm0.3$ & $5.3\pm0.2$ & $2.7\pm0.2$ & $4.0\pm0.2$ & $1.4\pm0.6$ \\
- $ee$     &  7 & $1.57\pm0.03$ & $12.7\pm0.6$ & $3.4\pm0.3$ & $3.5\pm0.1$ & $1.6\pm0.1$ & $2.9\pm0.2$ & $0.5\pm0.2$ \\
-\hline
-\multicolumn{9}{c} {1 Jet Bin} \\
-\hline
- $\mu\mu$ &  5 & $1.02\pm0.02$ & $9.1\pm0.6$ & $2.4\pm0.3$ & $1.4\pm0.1$ & $1.8\pm0.2$ & $1.7\pm0.1$ & $1.8\pm0.5$ \\
- $ee$     &  8 & $0.70\pm0.02$ & $8.6\pm0.8$ & $2.4\pm0.3$ & $1.1\pm0.1$ & $1.1\pm0.1$ & $1.2\pm0.1$ & $2.9\pm0.8$ \\
+%\begin{table}
+{\footnotesize
+ \begin{center}
+ \begin{tabular}{l | c c |  c c c c c c c }
+ \hline
+ process & qqH & ggH & ZZ & WZ & WW & Top & Zjets & DYtt & $\sum$Bkg \\
+ \hline
+250 & $0.0\pm0.0$ & $18.0\pm2.3$ & $47.2\pm4.0$ & $26.9\pm2.9$ & $25.9\pm3.2$ & $42.3\pm5.2$ & $31.8\pm7.9$ & $0.0\pm0.0$ & $192.0\pm11.4$ \\
+300 & $0.0\pm0.0$ & $21.9\pm2.7$ & $56.5\pm4.9$ & $32.2\pm3.4$ & $26.0\pm3.2$ & $44.0\pm5.4$ & $35.6\pm8.9$ & $0.0\pm0.0$ & $216.2\pm12.7$ \\
+350 & $0.0\pm0.0$ & $22.8\pm2.8$ & $48.6\pm4.2$ & $26.3\pm2.8$ & $15.6\pm1.9$ & $37.2\pm4.5$ & $23.9\pm6.0$ & $0.0\pm0.0$ & $174.5\pm9.6$ \\
+400 & $0.0\pm0.0$ & $18.4\pm2.2$ & $41.7\pm3.6$ & $20.0\pm2.1$ & $6.8\pm0.8$ & $16.5\pm2.0$ & $14.5\pm3.6$ & $0.0\pm0.0$ & $117.9\pm6.3$ \\
+500 & $0.0\pm0.0$ & $7.6\pm1.0$ & $31.9\pm2.7$ & $13.2\pm1.4$ & $2.5\pm0.3$ & $8.7\pm1.1$ & $8.7\pm2.2$ & $0.0\pm0.0$ & $72.7\pm4.1$ \\
+600 & $0.0\pm0.0$ & $3.0\pm0.4$ & $22.3\pm1.9$ & $7.0\pm0.7$ & $0.9\pm0.1$ & $5.2\pm0.6$ & $6.6\pm1.6$ & $0.0\pm0.0$ & $44.9\pm2.7$ \\
 \hline
 \end{tabular}
-\caption{Expected number of signal and background events from the data-driven methods for an 
-  integrated luminosity of \intlumi  after applying the $\hzz$ ($m_H=250\GeVcc$) selection requirements. 
-Only statistical uncertaities are reported. The $\Wjets$ background is neglible thus omitted in the table.}
-   \label{tab:yield_hzz250}
-  \end{center}
+\label{tab:yield_cutbased_mm}
+\end{center}
+}
+\caption{\fixme Expected number of signal and background events for an 
+  integrated luminosity of \intlumi after applying the higgs selections in the cut-based analysis in the $\mu\mu$ final state. 
+  Only Monte Carlo statistical uncertainties are included. }
 \end{table}
-%%%%%%%%
-%%%%%%%%
-\begin{table}[!ht]
-\begin{center}
-\begin{tabular} {c|c|c|c|ccccc}
-\hline
-  & data & $HZZ$(300) & all bkg. & $\dyll$ & $\ZZ$ & $\WZ$ & $WW$ & $\ttbar+tW$ \\
-\hline
-\multicolumn{9}{c} {0 Jet Bin} \\
-\hline
- $\mu\mu$ &  3 & $1.67\pm0.03$ & $5.4\pm0.2$ & $0.26\pm0.11$ & $2.9\pm0.1$ & $1.3\pm0.1$ & $0.8\pm0.1$ & $0.09\pm0.05$ \\
- $ee$     &  4 & $1.18\pm0.02$ & $3.6\pm0.2$ & $0.26\pm0.11$ & $2.2\pm0.1$ & $0.6\pm0.1$ & $0.4\pm0.1$ & $0.14\pm0.14$ \\
-\hline
-\multicolumn{9}{c} {1 Jet Bin} \\
-\hline
- $\mu\mu$ &  1 & $0.60\pm0.01$ & $1.3\pm0.2$ & $0.16\pm0.11$ & $0.47\pm0.05$ & $0.26\pm0.06$ & $0.14\pm0.04$ & $0.25\pm0.22$ \\
- $ee$     &  2 & $0.43\pm0.01$ & $0.9\pm0.1$ & $0.16\pm0.11$ & $0.34\pm0.04$ & $0.15\pm0.04$ & $0.13\pm0.03$ & $0.08\pm0.08$ \\
-\hline
-\end{tabular}
-\caption{Expected number of signal and background events from the data-driven methods for an  
-integrated luminosity of \intlumi  after applying the $\hzz$ ($m_H=300\GeVcc$) selection requirements. 
-Only statistical uncertaities are reported. The $\Wjets$ background is neglible thus omitted in the table.}
-   \label{tab:yield_hzz300}
-  \end{center}
-\end{table}
-%%%%%%%%
-%%%%%%%%
-\begin{table}[!ht]
-\begin{center}
-\begin{tabular} {c|c|c|c|ccccc}
-\hline
-  & data & $HZZ$(400) & all bkg. & $\dyll$ & $\ZZ$ & $\WZ$ & $WW$ & $\ttbar+tW$ \\
-\hline
-\multicolumn{9}{c} {0 Jet Bin} \\
-\hline
- $\mu\mu$ &  1 & $1.29\pm0.02$ & $2.3\pm0.1$ & $0.00\pm0.05$ & $1.7\pm0.1$ & $0.55\pm0.08$ & $0$ & $0$ \\
- $ee$     &  2 & $0.94\pm0.02$ & $1.4\pm0.1$ & $0.00\pm0.05$ & $1.1\pm0.1$ & $0.25\pm0.06$ & $0$ & $0$ \\
-\hline
-\multicolumn{9}{c} {1 Jet Bin} \\
-\hline
- $\mu\mu$ &  2 & $0.97\pm0.02$ & $1.5\pm0.1$ & $0.43\pm0.07$ & $0.68\pm0.06$ & $0.37\pm0.07$ & $0.05\pm0.02$ & $0$ \\
- $ee$     &  3 & $0.70\pm0.01$ & $1.1\pm0.1$ & $0.43\pm0.07$ & $0.46\pm0.05$ & $0.21\pm0.05$ & $0.04\pm0.01$ & $0$ \\
-\hline
-\end{tabular}
-\caption{Expected number of signal and background events from the data-driven methods for an 
-integrated luminosity of \intlumi  after applying the $\hzz$ ($m_H=400\GeVcc$) selection requirements. 
-Only statistical uncertaities are reported. The $\Wjets$ background is neglible thus omitted in the table.}
-   \label{tab:yield_hzz400}
-  \end{center}
-\end{table}
-%%%%%%%%
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%
@@ -291,3 +226,58 @@ The MC backgrounds are scaled as appropriate and the photon+jets estimate of the
 \end{figure}
 %%%%%%%%
 
+\subsection{Results after shape analysis selections}
+
+The Higgs boson mass dependent signal selections are described in Section~\ref{sec:signal_selection}. 
+In this section we summarise the results obtained all jet final states. 
+%After applying these signal selections, which differ only from the \zz preselection
+%in terms of the \met and $M_T$ cuts, 
+Tables~\ref{tab:yield_shapebased_ee}-\ref{tab:yield_shapebased_mm} show the signal %equivalent data yields
+and background expectations in ee and $\mu\mu$ final states respectively. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}
+{\footnotesize
+ \begin{center}
+ \begin{tabular}{l | c c | c c c c c c c }
+ \hline
+ process & qqH & ggH & ZZ & WZ & WW & Top & Zjets & DYtt & $\sum$Bkg \\
+ \hline
+250 & $0.0\pm0.0$ & $12.7\pm1.7$ & $32.4\pm3.2$ & $17.2\pm2.0$ & $15.0\pm1.8$ & $33.6\pm4.1$ & $18.7\pm4.7$ & $0.1\pm0.0$ & $129.7\pm7.7$ \\
+300 & $0.0\pm0.0$ & $15.5\pm2.1$ & $39.3\pm3.9$ & $20.1\pm2.4$ & $15.4\pm1.9$ & $34.0\pm4.2$ & $22.2\pm5.6$ & $0.1\pm0.0$ & $146.7\pm8.8$ \\
+350 & $0.0\pm0.0$ & $16.2\pm2.1$ & $34.2\pm3.4$ & $15.2\pm1.8$ & $10.3\pm1.3$ & $27.1\pm3.3$ & $15.8\pm4.0$ & $0.1\pm0.0$ & $118.9\pm6.9$ \\
+400 & $0.0\pm0.0$ & $13.2\pm1.7$ & $28.0\pm2.8$ & $11.6\pm1.4$ & $4.8\pm0.6$ & $10.8\pm1.3$ & $9.4\pm2.3$ & $0.0\pm0.0$ & $77.7\pm4.5$ \\
+500 & $0.0\pm0.0$ & $5.5\pm0.8$ & $21.7\pm2.2$ & $7.6\pm0.9$ & $1.0\pm0.1$ & $6.4\pm0.8$ & $6.6\pm1.7$ & $0.0\pm0.0$ & $48.9\pm3.1$ \\
+600 & $0.0\pm0.0$ & $2.2\pm0.3$ & $14.8\pm1.5$ & $4.3\pm0.5$ & $0.8\pm0.1$ & $3.3\pm0.4$ & $4.9\pm1.2$ & $0.0\pm0.0$ & $30.3\pm2.1$ \\
+\hline
+\end{tabular}
+\end{center}
+\label{tab:yield_shapebased_ee}
+}
+\caption{\fixme Expected number of signal and background events for an 
+  integrated luminosity of \intlumi after applying the higgs selections in the shape-based analysis in the ee final state. 
+  Only Monte Carlo statistical uncertainties are included. }
+%\end{table}
+%\begin{table}
+{\footnotesize
+ \begin{center}
+ \begin{tabular}{l | c c |  c c c c c c c }
+ \hline
+ process & qqH & ggH & ZZ & WZ & WW & Top & Zjets & DYtt & $\sum$Bkg \\
+ \hline
+250 & $0.0\pm0.0$ & $18.0\pm2.3$ & $47.2\pm4.0$ & $26.9\pm2.9$ & $25.9\pm3.2$ & $42.3\pm5.2$ & $31.8\pm7.9$ & $0.0\pm0.0$ & $192.0\pm11.4$ \\
+300 & $0.0\pm0.0$ & $21.9\pm2.7$ & $56.5\pm4.9$ & $32.2\pm3.4$ & $26.0\pm3.2$ & $44.0\pm5.4$ & $35.6\pm8.9$ & $0.0\pm0.0$ & $216.2\pm12.7$ \\
+350 & $0.0\pm0.0$ & $22.8\pm2.8$ & $48.6\pm4.2$ & $26.3\pm2.8$ & $15.6\pm1.9$ & $37.2\pm4.5$ & $23.9\pm6.0$ & $0.0\pm0.0$ & $174.5\pm9.6$ \\
+400 & $0.0\pm0.0$ & $18.4\pm2.2$ & $41.7\pm3.6$ & $20.0\pm2.1$ & $6.8\pm0.8$ & $16.5\pm2.0$ & $14.5\pm3.6$ & $0.0\pm0.0$ & $117.9\pm6.3$ \\
+500 & $0.0\pm0.0$ & $7.6\pm1.0$ & $31.9\pm2.7$ & $13.2\pm1.4$ & $2.5\pm0.3$ & $8.7\pm1.1$ & $8.7\pm2.2$ & $0.0\pm0.0$ & $72.7\pm4.1$ \\
+600 & $0.0\pm0.0$ & $3.0\pm0.4$ & $22.3\pm1.9$ & $7.0\pm0.7$ & $0.9\pm0.1$ & $5.2\pm0.6$ & $6.6\pm1.6$ & $0.0\pm0.0$ & $44.9\pm2.7$ \\
+\hline
+\end{tabular}
+\end{center}
+}
+\caption{\fixme Expected number of signal and background events for an 
+  integrated luminosity of \intlumi after applying the higgs selections in the shape-based analysis in the $\mu\mu$ final state. 
+  Only Monte Carlo statistical uncertainties are included. }
+\label{tab:yield_shapebased_mm}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%
