@@ -1,0 +1,410 @@
+\documentclass{cmspaper}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage[pdfborder=0 0 0,
+            colorlinks,
+            urlcolor = blue,
+            linkcolor = black,
+            citecolor = black,
+            menucolor = black,]
+           {hyperref}
+%% \usepackage[colorlinks]{hyperref}
+%% \usepackage{url}
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixname}{Appendix}
+%% \renewcommand{\appendixtocname}{List of appendices}
+
+% \input{privsym}
+\input{commands}
+
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+
+%===================================================================================================
+\begin{document}
+\begin{titlepage}
+
+  \analysisnote{2011/XXX}
+
+  \date{\today}
+
+  \title{Electron Identification Using Multivariate Methods }
+
+  \input{authors_compact.tex}
+
+  \begin{abstract}
+    In this note we implement and study the performance of various multivariate approaches to 
+electron identification. A comparison of the performance is made using the Higgs to WW analysis 
+as a benchmark. We find overall improvement of $40-50\%$ over the simple cut based electron 
+selections used in the past. 
+  \end{abstract} 
+
+\end{titlepage}
+\tableofcontents
+%\listoftables
+%\listoffigures
+\newpage 
+
+%===================================================================================================
+\section{Introduction}
+  \label{sec:introduction}
+With more than 1\ifb of integrated luminosity we have a sufficiently large \zee\ control sample to obtain a comprehensive understanding of the response of the detector to the presence of real electrons. Through the use of the electron fake rate triggers described in detail in reference \cite{hww_eps}, we also obtain a large enough sample of background electrons from jets to have a good understanding of their behavior. It is natural to try to make use of this new knowledge to gain additional discrimination between signal and background. We make use of standard methods from the TMVA toolkit \cite{tmva} in order to improve discrimination between signal and background electrons. 
+
+To establish a baseline result for performance comparison, we begin with an MVA which uses the following observables, also used in the simple cut based electron selection that has been used in CMS in the past \cite{hww_eps,VBTFCrossSectionNote,ElectronID} :
+
+\begin{itemize}
+    \item $\sigma_{i\eta i\eta}$,
+    \item $\Delta \eta_{\mathrm{in}}$, 
+    \item $\Delta \phi_{\mathrm{in}}$,
+    \item $f_{\mathrm{brem}}$ (the fraction of the total momentum carried away by bremstrahlung),
+    \item $\sigma_{i\phi i\phi}$,
+    \item Number of additional clusters from bremstrahlung,
+    \item $1/E_{\mathrm{supercluster}} - 1/p_{\mathrm{GSF\ Track}}$.
+\end{itemize}
+
+In this note, the performance is always compared with the cut based electron selection used in the \hww\ analysis for the Lepton Photon 2011 results \cite{hww_lp}.
+
+\section{Data Samples and MVA Training}
+\label{sec:training}
+There are known differences in a number of important discriminating variables between data and simulation. To ensure that performance of the MVA discriminators is not compromised, we use signal and background electrons from data for the training. In order to avoid complications from trigger inefficiencies, we apply the following set of loose selections on electron candidates that are intended to mimic the high level trigger requirements but applied on offline electron quantities before training:
+
+\begin{itemize}
+  \item $\sigma_{i\eta i\eta} < 0.01/0.03$ (barrel/endcap),
+  \item $|\Delta\phi_{in}| < 0.15/0.10$,
+  \item $|\Delta\eta_{in}| < 0.007/0.009$,
+  \item $H/E< 0.12/0.10$,
+  \item vertexing conversion rejection,
+  \item $|d_{0}| < 0.02$~cm,
+  \item $\frac{\sum_{\rm trk}\Et}{\pt^{\rm ele}}<0.2$,
+  \item $\frac{\sum_{\rm ECAL}\Et}{\pt^{\rm ele}}<0.2$,
+  \item $\frac{\sum_{\rm HCAL}\Et}{\pt^{\rm ele}}<0.2$,
+\end{itemize}
+
+These pre-selection cuts are identical to the cuts that define the loose (denominator / fakeable object) electrons used to estimate the fake electron background in the \hww\ analysis\cite{hww_eps}. 
+
+On top of this denominator selection, we apply a loose isolation cut, requiring that the particle flow isolation for electrons defined in the \hww\ analysis is less than $0.20$.  The intention is to factorize the electron identification requirements from the isolation requirements, accounting for correlations by imposing an appropriate isolation cut at the pre-selection level.
+
+Due to qualitative differences in different pseudorapidity regions of the detector, mainly due to differences in the material distribution, we perform the training in three different bins of $\eta$: $|\eta| < 1.0$, $1.0 \le |\eta| < 1.5$, and $1.5 \le |\eta| < 2.5$. Due to dependencies of the electron observables on \pt\ we also divide the training sample into two bins of \pt: $10\ \GeV\ \le \pt < 20\GeV $, and $\pt > 20 \GeV $. Thus, the training of the MVA is performed in a total of 6 bins.
+
+Since data events are used to train the MVA, one must be careful to explicitly split the dataset into training and test samples. We use electrons only from even numbered event numbers for training. Tests of performance and measurements of efficiencies and fake rates are performed only on electrons from odd numbered event numbers. This is an important detail in order to avoid measurement biases.
+
+\subsection{Signal Electron Training Sample}
+The signal electron sample is obtained from the DoubleElectron primary dataset, requiring a logical OR of the signal double electron trigger and the tag-and-probe triggers given below:
+
+\begin{itemize}
+  \item HLT\_Ele17\_CaloIdL\_CaloIsoVL\_Ele8\_CaloIdL\_CaloIsoVL,
+  \item HLT\_Ele17\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL\_Ele8\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL,
+  \item HLT\_Ele32\_CaloIdL\_CaloIsoVL\_SC17,
+  \item HLT\_Ele17\_CaloIdVT\_CaloIsoVT\_TrkIdT\_TrkIsoVT\_SC8\_Mass30.
+\end{itemize}
+
+We select events with two electrons passing the denominator selection and isolation requirement given above, and require that the dielectron mass is between $75$ \GeV\ and $105$ \GeV. These requirements reduce the residual background to a negligible level. The mass requirement as well as the trigger selection biases the \pt\ spectrum of such electrons significantly toward the typical \pt\ spectrum for leptons from the decay of a \Z\ boson. In order to arrive at an MVA discriminator that is reasonably optimal for the \hww\ analysis, we reweight this \pt\ spectrum to the spectrum obtained from the \hww\ Monte Carlo simulation with a mass hypothesis of $115$ \GeV. The unweighted and weighted spectra are shown in Figure \ref{fig:SignalPtSpectrum}. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[Unweighted]{\includegraphics[width=0.45\textwidth]{figures/SignalPt_Source.pdf}}
+\subfigure[Weighted]{\includegraphics[width=0.45\textwidth]{figures/SignalPt_Target.pdf}}
+\caption{The unweighted and weight \pt\ spectrum of the signal electron training sample.}
+\label{fig:SignalPtSpectrum}
+\end{center}
+\end{figure}
+
+
+
+\subsection{Background Electron Training Sample}
+
+The background electron sample is obtained also from the DoubleElectron primary dataset, by requiring the logical OR of the following single electron fake rate triggers:
+
+\begin{itemize}
+  \item HLT\_Ele8\_CaloIdL\_CaloIsoVL,
+  \item HLT\_Ele17\_CaloIdL\_CaloIsoVL,
+  \item HLT\_Ele8\_CaloIdL\_CaloIsoVL\_Jet40.
+\end{itemize}
+
+These are the same triggers used to measure the fake rates for estimating fake electron background. We require that the event has $\met<20$\GeV\ in order to suppress real electrons from \W\ boson decays, and we require that there is no other GSF electron candidate with \pt\ larger than $10$\GeV\ in order to suppress signal electrons from $\Z/\gamma^{\ast}$ decays. After these requirements the residual contamination from signal type electrons is below the few percent level, and does not significantly affect the optimization.
+
+Due to the fact that the above triggers are all prescaled by different multiples, the sample has a significant bias in the \pt\ spectrum as in the signal electron training sample. We reweight this \pt\ spectrum to the \pt\ spectrum of the loose electron in the ``tight+fail'' sample of the \hww\ analysis\cite{hww_eps}, shown in Figure \ref{fig:BkgPtSpectrum}.
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[Unweighted]{\includegraphics[width=0.45\textwidth]{figures/BkgPt_Source.pdf}}
+\subfigure[Weighted]{\includegraphics[width=0.45\textwidth]{figures/BkgPt_Target.pdf}}
+\caption{The unweighted and weight \pt\ spectrum of the background electron training sample.}
+\label{fig:BkgPtSpectrum}
+\end{center}
+\end{figure}
+
+\section{Comparison of different MVA Methods}
+
+To establish a baseline understanding of the input observables we begin with the standard projective likelihood method implemented in the TMVA toolkit. In Figure \ref{fig:ROC_TMVALHVsStandardLH} we compare the performance of this projective likelihood with the standard likelihood implemented in CMSSW \cite{EleLikelihood}, by plotting the signal efficiency versus background efficiency curve in the six different detector region and \pt\ bins. We observe that in all bins the re-trained projective likelihood performs similarly to the standard likelihood or in some cases better. This is expected since the standard likelihood has been built using Monte Carlo samples from an older release, which can exhibit differences to the current samples under study. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[$10 \le \pt < 20$, $|\eta| < 1.0$]{\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_TMVALHVsStandardLH_Subdet0LowPt.pdf}}
+\subfigure[$10 \le \pt < 20$, $1.0 \le |\eta| < 1.5$]{\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_TMVALHVsStandardLH_Subdet1LowPt.pdf}}
+\subfigure[$10 \le \pt < 20$, $1.5 \le |\eta| < 2.5$]{\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_TMVALHVsStandardLH_Subdet2LowPt.pdf}}
+\subfigure[$\pt \ge 20$, $|\eta| < 1.0$]{\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_TMVALHVsStandardLH_Subdet0HighPt.pdf}}
+\subfigure[$\pt \ge 20$, $1.0 \le |\eta| < 1.5$]{\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_TMVALHVsStandardLH_Subdet1HighPt.pdf}}
+\subfigure[$\pt \ge 20$, $1.5 \le |\eta| < 2.5$]{\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_TMVALHVsStandardLH_Subdet2HighPt.pdf}}
+\caption{Comparison of the ROC curves for the projective likelihood using the TMVA implementation and the likelihood implemented in CMSSW.}
+\label{fig:ROC_TMVALHVsStandardLH}
+\end{center}
+\end{figure}
+
+Next, we compare the performance between the projective likelihood and the boosted decision tree (BDT), one of the standard multivariate discrimination methods demonstrated to have robust performance in other contexts. In Figure \ref{fig:ROC_BDTvsLH} we show the signal efficiency versus background efficiency curves for the projective likelihood and the BDT for the electrons with $10 \le \pt < 20$ and $|\eta| < 1.0$. We observe that for every choice of working point the BDT has slightly better performance than the projective likelihood. For the same signal efficiency, we reject approximately $10\%$ more background. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_BDTvsLH_Subdet0LowPt.pdf}
+\caption{Comparison of the ROC curves for projective likelihood and boosted decision tree (BDT)
+for electrons in the bin with $10 \le \pt < 20$ and $|\eta| < 1.0$. The working point used for 
+the cut based electron selection is shown in the green cross.}
+\label{fig:ROC_BDTvsLH}
+\end{center}
+\end{figure}
+
+Next we study the performance for a variety of different multivariate discrimination methods implemented in TMVA. Two variations of the boosted decision tree is tested, implementing two different boosting methods. In the adaptive boost method (BDT), an exponential loss function is used to parameterize the degree of learning while in the gradient boost method (BDTG) a binomial log likelihood loss function is used which is expected to be more robust in the presence of outliers in the training sample. Two neural network implementations (MLP and MLPBNN) are tested as well as the k-nearest neighbour (kNN) method. From Figure \ref{fig:ROC_CompareAllMVAMethods} we observe that the gradient boost version of the BDT and the MLPBNN performs the best. In practice since the BDT training is much faster, in subsequent results we only report results for the BDTG classifier. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_CompareAllMVAMethods_Subdet0LowPt.pdf}
+\caption{Comparison of the ROC curves for a number of different multivariate discriminators for electrons
+in the bin with $10 \le \pt < 20$ and $|\eta| < 1.0$. The working point used for the cut based electron
+selection is shown in the green cross.}
+\label{fig:ROC_CompareAllMVAMethods}
+\end{center}
+\end{figure}
+
+Some attempt was made to tune the training parameters of the BDTG algorithm on the current training sample. It was observed that with the $4.0.7$ version of TMVA, the bagging option was causing a degradation of performance by roughly $10\%$ and is therefore turned off. The number of trees used in the training, the maximum depth of the trees, and the minimum number of events in one leaf node were found to have no effect on the performance with the current training sample. 
+
+Finally, we investigated two different methods to combine the results of different multivariate discriminators. In the first method we construct a new discriminator formed by the product of the signal likelihood with an assumed signal to background ratio of $1$ of each MVA discriminator. Using this ``combined'' discriminator generally does not yield any improvements but rather follows the performance of the best single discriminator. In the second method we feed each MVA discriminator output as input to train a new MVA discriminator, typically referred to as the committee method. This method is expected to yield improved performance if the different MVA discriminators are not too highly correlated. We observe worse performance with the current training sample, likely due to the limited size of our training samples. These conclusions are demonstrated in Figure \ref{fig:ROC_CompareCombinedMVA}.
+
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_CompareCombinedMVA_Subdet0LowPt.pdf}
+\caption{Comparison of the ROC curves for a number of different multivariate discriminators for electrons
+in the bin with $10 \le \pt < 20$ and $|\eta| < 1.0$. The working point used for the cut based electron
+selection is shown in the green cross.}
+\label{fig:ROC_CompareCombinedMVA}
+\end{center}
+\end{figure}
+
+
+\section{Improvement Through Additional Observables}
+Having established the BDTG method as the best available multivariate discriminator, we investigate performance gains as additional observables are added to the training. We add additional observables in two stages. In the first stage we add the following discriminating variables:
+
+\begin{itemize}
+  \item $E_{\mathrm{supercluster}} / p_{\mathrm{gsf\ track}}$,
+  \item $E_{\mathrm{seed\ cluster}} / p_{\mathrm{out}}$,
+  \item $E_{\mathrm{seed\ cluster}} / p_{\mathrm{in}}$.
+\end{itemize}
+
+Since there are no observables related to the impact parameter, this version is intended to be more generally applicable to lepton analyses.
+
+In the second stage we add these additional impact parameter observables to the MVA training:
+
+\begin{itemize}
+  \item $d_{0}$,
+  \item 3D impact parameter,
+  \item 3D impact parameter significance.
+\end{itemize}
+
+This MVA discriminator is expected to give better performance for the \hww\ analysis, but may be not optimal for selecting leptons resulting from the decay of a particle with a naturally larger decay length, such as tau leptons. 
+
+The comparison of the baseline MVA discriminator with these two improved MVA discriminators is shown in Figure \ref{fig:ROC_BaselineV1V2} for the bin with $10 \le \pt < 20$ and $|\eta| < 1.0$. We observe that adding the additional variables without impact parameter information adds roughly $15\%$ in additional background rejection, and adding the impact parameter observables gives another $25\%$ improvement on top. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_BaselineV1V2_Subdet0LowPt.pdf}
+\caption{Comparison of the ROC curves for the baseline BDT discriminator and 
+the two improved BDT discriminators which make use of additional observables. 
+The working point used for the cut based electron selection is shown in the green cross.}
+\label{fig:ROC_BaselineV1V2}
+\end{center}
+\end{figure}
+
+The same trend is exhibited in the remaining five kinematic bins shown collectively in Figure \ref{fig:ROC_Performance}. We choose new working points for the electron selection which give the same signal efficiency as the cut based selection used for the Lepton Photon 2011 \hww\ analysis. Using these working points, we reject approximately $40\%$ to $50\%$ more background than the cut based selection. For the low $\pt$ electrons, the addition of the impact parameter gives an improvement of roughly $20\%$, while for high $\pt$ electrons it does not give any significant improvement. 
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[$10 \le \pt < 20$, $|\eta| < 1.0$]{\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_WithAndWithoutIPInfoSubdet0LowPt_HWW115.pdf}}
+\subfigure[$10 \le \pt < 20$, $1.0 \le |\eta| < 1.5$]{\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_WithAndWithoutIPInfoSubdet1LowPt_HWW115.pdf}}
+\subfigure[$10 \le \pt < 20$, $1.5 \le |\eta| < 2.5$]{\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_WithAndWithoutIPInfoSubdet2LowPt_HWW115.pdf}}
+\subfigure[$\pt \ge 20$, $|\eta| < 1.0$]{\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_WithAndWithoutIPInfoSubdet0HighPt_HWW115.pdf}}
+\subfigure[$\pt \ge 20$, $1.0 \le |\eta| < 1.5$]{\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_WithAndWithoutIPInfoSubdet1HighPt_HWW115.pdf}}
+\subfigure[$\pt \ge 20$, $1.5 \le |\eta| < 2.5$]{\includegraphics[width=0.45\textwidth]{figures/ROCGraphs_ElectronIDMVA_WithAndWithoutIPInfoSubdet2HighPt_HWW115.pdf}}
+\caption{ROC curves for the BDT discriminator with and without the impact parameter
+variables. The signal efficiency is computed from the \hww\ signal Monte Carlo
+sample with a Higgs mass hypothesis of $115\GeV$. 
+The working point used for the cut based electron selection is shown in the green cross.
+The red and black crosses show the new proposed working points for the BDT discriminator 
+with and without the impact parameter variables respectively.
+}
+\label{fig:ROC_Performance} 
+\end{center}
+\end{figure}
+ 
+\section{Application to the \hww\ Analysis}
+The newly defined working point for the BDT discriminator that includes the impact parameter variables is summarized in Table \ref{tab:BDTWithIPWorkingPoint}. We verify its performance gain by applying this electron selection for the \hww\ analysis. 
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+    Electron Bin                              &        BDT Cut Value  \\
+ \hline
+    $10 \le \pt < 20$, $|\eta| < 1.0$         &        BDT $> 0.139$  \\ 
+ \hline
+    $10 \le \pt < 20$, $1.0 \le |\eta| < 1.5$ &        BDT $> 0.525$  \\ 
+ \hline
+    $10 \le \pt < 20$, $1.5 \le |\eta| < 2.5$ &        BDT $> 0.543$  \\ 
+ \hline
+    $\pt \ge 20$, $|\eta| < 1.0$              &        BDT $> 0.947$  \\ 
+ \hline
+    $\pt \ge 20$, $1.0 \le |\eta| < 1.5$      &        BDT $> 0.950$  \\ 
+ \hline
+    $\pt \ge 20$, $1.5 \le |\eta| < 2.5$      &        BDT $> 0.884$  \\ 
+ \hline
+\end{tabular}
+\caption{Cut values on the BDT output in each kinematic region for the newly defined working point using the BDT that includes impact parameter information. }
+\label{tab:BDTWithIPWorkingPoint}
+\end{center}
+\end{table}
+
+
+Fake rates extracted using the procedure defined in reference \cite{hww_eps}, are summarized numerically in Table \ref{tab:FakeRates}. They are compared with the fake rate for the cut based electron selection in Figure \ref{fig:FakeRates} as a function of \pt\ and $\eta$.
+
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+                       &        $0<\eta<0.5$      &        $1<\eta<1.5$      &        $1.5<\eta<2$      &        $2<\eta<2.5$       \\
+ \hline
+    $10 < p_{T} <= 15$ &        $0.060 +/- 0.009$ &        $0.041 +/- 0.009$ &        $0.018 +/- 0.006$ &        $0.032 +/- 0.010$  \\ 
+ \hline
+    $15 < p_{T} <= 20$ &        $0.072 +/- 0.009$ &        $0.045 +/- 0.009$ &        $0.015 +/- 0.005$ &        $0.041 +/- 0.009$  \\ 
+ \hline
+    $20 < p_{T} <= 25$ &        $0.082 +/- 0.009$ &        $0.051 +/- 0.009$ &        $0.050 +/- 0.008$ &        $0.044 +/- 0.008$  \\ 
+ \hline
+    $25 < p_{T} <= 30$ &        $0.070 +/- 0.009$ &        $0.052 +/- 0.010$ &        $0.036 +/- 0.008$ &        $0.058 +/- 0.010$  \\ 
+ \hline
+    $30 < p_{T} <= 35$ &        $0.074 +/- 0.011$ &        $0.089 +/- 0.015$ &        $0.074 +/- 0.012$ &        $0.054 +/- 0.011$  \\ 
+ \hline
+\end{tabular}
+\caption{Electron fake rate in $\eta$-$p_T$ using data from the Lepton Photon 2011 dataset. 
+Uncertainties are statistical only. A combination of the {\bf Ele8\_CaloIdL\_CaloIsoVL}, {\bf Ele17\_CaloIdL\_CaloIsoVL}, 
+{\bf Ele8\_CaloIdL\_CaloIsoVL\_Jet40} triggers are used, with a $p_{T}$ threshold on the leading jet in
+the event of $35$ GeV. }
+\label{tab:FakeRates}
+\end{center}
+\end{table}
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[Fake rates as a function of \pt]{\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_CutBasedVsMVA_Pt.pdf}}
+\subfigure[Fake rates as a function of $\eta$]{\includegraphics[width=0.45\textwidth]{figures/ElectronFakeRate_CutBasedVsMVA_Eta.pdf}}
+\caption{Fake rates as a function of \pt\ and $\eta$ for the cut based electron selection and the two BDT selections.}
+\label{fig:FakeRates}
+\end{center}
+\end{figure}
+
+We also measure the data to Monte Carlo efficiency scale factors for the new working point. The results are summarized in Table \ref{tab:EfficiencyScaleFactors}, and show that the Monte Carlo to data corrections are small. This fact is also evident from Figure \ref{fig:BDT_Distributions} which show the comparison of the BDT discriminator distribution between data and signal Monte Carlo.
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Bin                                        & Monte Carlo Efficiency & Data Efficiency     & Scale Factor           \\ 
+\hline
+$10 \le \pt < 15$, $0 \le |\eta| < 1.479$    & 0.417 $\pm$ 0.004      & 0.418 $\pm$ 0.002   & 1.003 $\pm$ 0.011    \\ 
+$10 \le \pt < 15$, $1.479 \le |\eta| < 2.5$  & 0.193 $\pm$ 0.003      & 0.204 $\pm$ 0.010   & 1.054 $\pm$ 0.055    \\ 
+$15 \le \pt < 20$, $0 \le |\eta| < 1.479$    & 0.556 $\pm$ 0.003      & 0.536 $\pm$ 0.003   & 0.965 $\pm$ 0.006    \\ 
+$15 \le \pt < 20$, $1.479 \le |\eta| < 2.5$  & 0.301 $\pm$ 0.003      & 0.299 $\pm$ 0.007   & 0.993 $\pm$ 0.026    \\ 
+$20 \le \pt $, $0 \le |\eta| < 1.479$        & 0.8384 $\pm$ 0.0003    & 0.8262 $\pm$ 0.0007 & 0.9854 $\pm$ 0.0009  \\ 
+$20 \le \pt $, $1.479 \le |\eta| < 2.5$      & 0.6565 $\pm$ 0.0006    & 0.6673 $\pm$ 0.0006 & 1.0164 $\pm$ 0.0009  \\ 
+\hline
+\end{tabular}
+\caption{Data to Monte Carlo efficiency scale factors for the new BDT working point.}
+\label{tab:EfficiencyScaleFactors}
+\end{center}
+\end{table}
+
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[$10 \le \pt < 20$, $|\eta| < 1.0$]{\includegraphics[width=0.45\textwidth]{figures/EleBDTGV2_Subdet0LowPt_Real.pdf}}
+\subfigure[$10 \le \pt < 20$, $1.0 \le |\eta| < 1.5$]{\includegraphics[width=0.45\textwidth]{figures/EleBDTGV2_Subdet1LowPt_Real.pdf}}
+\subfigure[$10 \le \pt < 20$, $1.5 \le |\eta| < 2.5$]{\includegraphics[width=0.45\textwidth]{figures/EleBDTGV2_Subdet2LowPt_Real.pdf}}
+\subfigure[$\pt \ge 20$, $|\eta| < 1.0$]{\includegraphics[width=0.45\textwidth]{figures/EleBDTGV2_Subdet0LowPt_Real.pdf}}
+\subfigure[$\pt \ge 20$, $1.0 \le |\eta| < 1.5$]{\includegraphics[width=0.45\textwidth]{figures/EleBDTGV2_Subdet1LowPt_Real.pdf}}
+\subfigure[$\pt \ge 20$, $1.5 \le |\eta| < 2.5$]{\includegraphics[width=0.45\textwidth]{figures/EleBDTGV2_Subdet2LowPt_Real.pdf}}
+\caption{A comparison of the BDT discriminator distribution between data and signal Monte Carlo, separately for electrons in each of the six $\pt$ and $\eta$ bins.
+}
+\label{fig:BDT_Distributions} 
+\end{center}
+\end{figure}
+
+
+Using the efficiency and fake rate measurements above we perform the full \hww\ analysis for the $120$\GeV\ mass hypothesis. The yields for the signal and the W+jets background the $m_{\mathrm{H}} = 120$\GeV\ analysis are shown in Table \ref{tab:HWW120Yield} for the cut based selection and the BDT selection. We see that for roughly the same signal yield, we reduce the fake electron background by $45\%$ and the total W+jets background by $25\%$. 
+
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{ 0 Jet Bin }               \\ 
+\hline
+Process                                      & Yields using cut based electron selection & Yields using BDT electron selection \\ 
+\hline
+W+Jets           & 31.6 (16.3)     & 23.8 (9.0) \\ 
+HWW 120 Signal   & 11.7            & 11.4       \\ 
+\hline
+\multicolumn{3}{|c|}{ 1 Jet Bin }               \\ 
+\hline
+Process                                      & Yields using cut based electron selection & Yields using BDT electron selection \\ 
+\hline
+W+Jets           & 9.7 (4.4)       & 8.1 (2.5)  \\ 
+HWW 120 Signal   & 4.1             & 3.8        \\ 
+\hline
+\multicolumn{3}{|c|}{ 2 Jet Bin }               \\ 
+\hline
+Process                                      & Yields using cut based electron selection & Yields using BDT electron selection \\ 
+\hline
+W+Jets           & 0.9             & 0.6        \\ 
+HWW 120 Signal   & 0.6             & 0.6        \\ 
+\hline
+\end{tabular}
+\caption{Data to Monte Carlo efficiency scale factors for the new BDT working point.}
+\label{tab:HWW120Yield}
+\end{center}
+\end{table}
+
+
+\section{Future Improvements}
+
+A number of additional observables may be added to the BDT to further increase signal to background discrimination. One of the important variables that has not been used is the hadronic to electromagnetic energy ratio (H/E) due to its sensitivity to pileup. Future modifications of the exact algorithm used to compute this observable should render it insensitive to pileup, and therefore should give additional discrimination between electrons and charged pions and kaons. Use of the measured electron charge in combination with shower shape variables or $\Delta \phi_{\mathrm{in}}$ can give added discriminatory power as background and signal behave differently with respect to them. 
+
+Use of the preshower detector could give additional discrimination between conversion electrons from neutral pion decays and prompt electrons. The matching in $\eta$ and $\phi$ between the cluster position and the electron track extrapolated to the calorimeter may give additional performance gains, as well as the $\chi^{2}$/degree of freedom for the electron GSF track. Additional shower shape information in the form of the $\eta$-width and $\phi$-width of the supercluster can also give additional discrimination power. Finally, adding single crystal information to the MVA in order to allow it to make use of the correlations can yield gains in performance. However, the inclusion of additional information may require larger training samples in order for the multivariate methods to properly make use of them.
+
+Another outstanding question that is left unanswered is whether the performance can be improved with larger training samples. This can be tested in the future by varying the size of the training sample and observing whether there are significant changes in performance. 
+
+\section{Conclusions}
+  \label{sec:summary}
+We have implemented a multivariate approach to electron identification using a boosted decision tree and studied the performance gain over the simple cut based approach. We observe an improvement of roughly $40\%$ to $50\%$ in the background rejection at the same signal efficiency as the cut based working point used for the \hww\ analysis. Fake rates and signal efficiency measurements were made verifying that the Monte Carlo simulation description of the BDT discriminator is reasonably accurate. The application of this BDT based electron selection on the \hww\ analysis with a signal mass hypothesis of $120$ \GeV\ shows that one can reduce the fake electron background by $45\%$ and the total W+Jets background by about $25\%$.
+
+
+
+%===================================================================================================
+\input{biblio.tex}
+
+%===================================================================================================
+%% \newpage 
+%% \appendix
+%% \appendixpage
+%% \section{Data Samples}
+%%   \label{app:datasets}
+%%   \input{datasets}
+\end{document}
