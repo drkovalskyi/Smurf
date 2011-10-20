@@ -33,7 +33,7 @@ void ComputeTopScaleFactors
   //*******************************************************************************
   enum { kOther, kTTBAR, kTW, kData };
   double lumi = 2.121;
-  bool isOldAna = true;
+  bool isOldAna = false;
   TString effPath  = "/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
   TString fakePath = "/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
   if(isOldAna == false){
@@ -226,6 +226,7 @@ void ComputeTopScaleFactors
     }
     else if(bgdEvent.dstype_ == SmurfTree::qcd) { //Z->tautau embedded sample
       theWeight = 0.0189712*lumi;
+      if(isOldAna == false) theWeight = 0.0191994*lumi;
     }
     else if(bgdEvent.dstype_ != SmurfTree::data){
       double add1 = nPUScaleFactor(fhDPUS4,bgdEvent.npu_);
