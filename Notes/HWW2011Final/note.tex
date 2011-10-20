@@ -18,7 +18,7 @@
 %% \renewcommand{\appendixtocname}{List of appendices}
 
 % \input{privsym}
-\input{commands}
+\input{commands.tex}
 
 \setcounter{topnumber}{1}
 \setcounter{bottomnumber}{1}
@@ -31,7 +31,7 @@
 
   \date{\today}
 
-  \title{A Higgs Boson Search in the Fully Leptonic $W^+W^-$ Final State}
+  \title{A Higgs Boson Search in the Fully Leptonic $W^+W^-$ Final State with the Full 2011 Dataset}
 
   \input{authors.tex}
 
@@ -142,15 +142,9 @@
    \label{sec:systematics}
    \input{systematics.tex}
 
-%%\section{Sensitivity Projections}
-%%   \label{sec:results}
-%%   \input{results}
-  
-%%   \clearpage
-
 \section{Data Results with \intlumi}
-%%   \label{sec:dataresults}
-%%   \input{data_results}
+   \label{sec:dataresults}
+   \input{results.tex}
 
 \section{Summary}
      \label{sec:summary}
@@ -160,149 +154,10 @@
 \input{biblio}
 
 %===================================================================================================
-\newpage 
-\appendix
-\appendixpage
-\section{Data Samples}
-  \label{app:datasets}
-  \input{datasets}
-  
-%%   \section{Primary Vertex Reweighting}
-%%      \label{app:vertex_reweight}
-%%      \input{appendix_vertex_reweight}
-%%   \clearpage
-%%   \section{Electron Selection Optimization}
-%%      \label{app:els}
-%%      \input{appendix_els}
-%%   \clearpage
-%%   \section{Muon Selection Optimization}
-%%      \label{app:mus}
-%%      \input{appendix_mus}
-%%   \clearpage
-%% %  \section{$\met$ Options}
-%% %     \label{app:met}
-%% %     \input{appendix_met}
-%%   \clearpage
-%%   \section{Online vs Offline Selection}
-%%      \label{app:online_vs_offline}
-%%      \input{appendix_online_vs_offline}
-%%   \clearpage
-%%   \section{Fake Rate Studies}
-%%      \label{app:fake_rate_studies}
-%%      \input{appendix_muon_fakes}
-%%      \input{appendix_electron_fakes}
-
-%%   \clearpage
-%%   \section{Lepton Isolation}
-%%      \label{app:lepton_isolation}
-%%      \input{appendix_pfisoStudy}
-%%   \clearpage
-
-%%  \section{ Systematic Uncertainties in the Shape Analysis}
-%%   \subsection{Statistical Uncertainty Treatment in Shape Analysis}
-%%      \label{app:uncert_shapeanalysis}
-%%      \input{appendix_shapeuncert}
-%%   \subsection{H $\rightarrow$ \WW Shape}
-%%      \label{app:uncert_signalshape}
-%%      \input{appendix_signalshape}
-%%   \subsection{$\WW$ Shape}
-%%      \label{app:uncert_wwbkgshape}
-%%      \input{appendix_wwbkgshape}
-%%   \subsection{$\Wjets$ Shape}
-%%      \label{app:uncert_wjetshape}
-%%      \input{appendix_wjetsshape}
-%%   \subsection{Top Background Shape}
-%%      \label{app:uncert_topshape}
-%%      \input{appendix_topshape}
-%%   \clearpage
-
-%% %  \section{Pileup Effect on Isolation}
-%% %     \label{app:PUIso}
-%% %     \input{appendix_PUIso}
-%% %
-%% %  \clearpage
-%% %  \section{Isolation Studies}
-%% %     \label{app:isolationStudy}
-%% %     \input{appendix_pfisoStudy.tex}
-
-
-
-
-%% %%   \section{Electron selection details}\label{sec:eledetail}
-%% %%     \input{electron_detail}
-%% %%   \section{Using the transverse mass of the $W$ for
-%% %%     \dytt\ suppression}\label{sec:mt} 
-%% %%     \input{mt}
-%% %%   \section{Jet Veto at high $\eta$}
-%% %%     \input{higheta}
-%% %%   \section{Jet Veto using $b$ tagging}
-%% %%     \input{btagging}
-%% %%   \section{Application of the Drell-Yan estimate method}
-%% %%     \label{app:dy22X}
-%% %%     \input{drell_yan_appendix}
-%% %%   \section{Event yields in other samples}
-%% %%     \label{app:othersamples}
-%% %%     \input{alt_samples}
-%% %%   \section{Estimating the sensitivity to observe \ww\ in 100/pb}
-%% %%     \label{app:significance}
-%% %%     \input{significance}
-%% %%   \section{QCD multi jet background estimation}
-%% %%     \label{app:qcd}
-%% %%     \input{qcd}
-%% %% \input{biblio}
-
-%%   \section{Matrix Element Method}
-%%      \label{app:matrixelement}
-%%      \input{appendix_me}
-%%   \clearpage
-%%   \section{Signal \& Background Distributions}
-%%      \label{app:mvaplots}
-%%      \input{mvaplots.tex}
-%%   \clearpage
-%%   \section{Drell-Yan update for Higgs to WW analysis}
-%%      \label{app:dy_writeup}
-%%      \input{dy_writeup.tex}
-
-%%   \clearpage
-%%   \section{Lepton-Photon Reload}
-%%      \label{app:lp_reload}
-%%      \subsection{Introduction}
-%%      \input{lp_intro}
-%%      \subsection{Definition of Reload}
-%%     \label{app:lp_technical_changes}
-%%      \input{lp_technical_changes}
-
-%%      \subsection{Post-EPS Data Validation}
-%%      \label{app:lp_validation}
-%%      \subsubsection{Lepton and Trigger Efficiency}
-%%      \input{lp_tagnprobe}
-%%      \subsubsection{PU reweighting}
-%%      \input{lp_pureweight}
-%%     \subsubsection{Summary of Data Validation}
-%%     \input{lp_datavalidation}
-
-%%      \subsection{Background Estimation for \lpintlumi}
-%%     \label{app:lp_bkgestim}
-%%      \input{lp_bkgestim}
-
-%%      \subsection{Final limits for \lpintlumi}
-%%     \label{app:lp_limits}
-%%      \input{lp_limits}
-
-%%      \subsection{Conclusions}
-%%      \input{lp_conclusions}
-
-%%     \subsection{Data Validation}
-%%     \label{app:lp_postEPSdist}
-%%     \input{lp_postEPSdist}
-
-%%     \subsection{MVA output plots}
-%%     \label{app:lp_mvaplots}
-%%     \input{lp_mvaplots_eps}
-%%     \input{lp_mvaplots_posteps}
-%%     \input{lp_mvaplots_lp}
-%%     \input{lp_mvaplots_lp80p}
-%%     \input{lp_mvaplots_lp80m}
-
-  \clearpage
+%\newpage 
+%\appendix
+%\appendixpage
+%\section{Data Samples}
+%  \label{app:datasets}
+%  \input{datasets}
 \end{document}
