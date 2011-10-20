@@ -22,17 +22,20 @@ The estimation of this background relies on the measurement on data of the top-t
 The procedure deployed in \cite{HWW2011} in the case of the 0-Jet bin proceeds accordingly to the following steps:
 \begin{enumerate}
 \item A top enriched region is defined requiring exactly one b-tagged jet with \pt larger than $30$ GeV (denumerator). 
-Those events among this sample with at least one b-tagged jets with $7<\ensuremath{p_\mathrm{T}}<30$ GeV 
+Those events among this sample with at least one b-tagged jets with $10<\ensuremath{p_\mathrm{T}}<30$ GeV 
 or one soft muon defines the numerator. The ratio of the yields in the numerator and denumerator properly corrected
 from other backgrounds contamination provides the top-tagging efficiency 
 for one ``top-taggable'' leg, $\epsilon_{1leg}^{data}$. 
-\item The actual top-tagging efficiency, $\epsilon_{topTag}^{data}$, is computed accounting for 
+\item The actual top-tagging efficiency in the 0-jet bin, $\epsilon_{topTag}^{data}$, is computed accounting for 
 the \ttbar fraction of the top background ($f_{t\bar{t}}^{MC}$) accordingly to the formula:
 \begin{equation} \label{eq:oldTopTagEff}
 \epsilon_{topTag}^{data} = f_{t\bar{t}}^{MC}(1-(1-\epsilon_{1leg}^{data})^2) + (1-f_{t\bar{t}}^{MC})\epsilon_{1leg}^{data}
 \end{equation} 
 where the first term on the right accounts for \ttbar (two taggable legs) and the second term for \tw 
-(one taggable leg). The value $f_{t\bar{t}}^{MC}$ is determined from Monte Carlo in the 0-Jet bin 
+(one taggable leg). 
+Basically this formula computes the tagging efficiency with two b-jets below the threshold from the 
+measured efficiency with one b-jet with $\ensuremath{p_\mathrm{T}}<30$ ($\epsilon_{1leg}^{data}$). 
+The value $f_{t\bar{t}}^{MC}$ is determined from Monte Carlo in the 0-Jet bin 
 at the \WW preselection level, removing the anti top-tagging.
 \item A dedicated control region is defined in the 0-Jet bin by requiring top-tagged events. 
 The data yields in this region corrected for the other backgrounds contaminations are then used
@@ -65,7 +68,7 @@ Equation \ref{eq:oldTopTagEff} thus becomes:
 \begin{equation} \label{eq:newTopTagEff}
 \epsilon_{topTag}^{data} = (f_{t\bar{t}}^{MC} + x(1-f_{t\bar{t}}^{MC}) )(1-(1-\epsilon_{1leg}^{data})^2) + (1-f_{t\bar{t}}^{MC})(1-x)\epsilon_{1leg}^{data}
 \end{equation} 
-The fraction $x$ matches the value of $\epsilon_{1leg}$ estimated from the \tw Monte Carlo. 
+We assume $x=0.15$, matching the value of $\epsilon_{1leg}$ estimated from the \tw Monte Carlo. 
 We consider this a good approximation as $\epsilon_{1leg}$ is the fraction of events 
 with one b-tagged jet with \pt larger than 30 GeV (the first ``top-taggable'' leg) and top-tagged leg
 (a b-tagged jets below 30 GeV or a soft muon).
