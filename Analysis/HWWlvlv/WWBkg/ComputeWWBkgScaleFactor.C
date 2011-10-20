@@ -452,6 +452,7 @@ void ComputeWWBkgScaleFactor (
     }
     else if(dstype == SmurfTree::qcd) { //Z->tautau embedded sample
       myWeight = 0.0189712*scaleFactorLum;
+      if(isOldAna == false) myWeight = 0.0191994*scaleFactorLum;
     }
     else if(dstype != SmurfTree::data){
 
