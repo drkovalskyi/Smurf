@@ -25,6 +25,7 @@
 #include "TMath.h"
 #include "TCut.h"
 
+
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
 // steal from ../../Core/SmurfTree.h
@@ -66,8 +67,6 @@ enum Selection {
 UInt_t ww = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
 // relax met
 UInt_t ww_nomet = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|ZVeto|TopVeto|ExtraLeptonVeto;
-// relax zveto and met
-UInt_t ww_nozveto_nomet = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|TopVeto|ExtraLeptonVeto;
 // relax the lepton requirements
 UInt_t ww_lepfo = BaseLine|ChargeMatch|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
 // zz baseline selections using the bits setup in the smurfntuples
@@ -115,34 +114,35 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
   float jet2Btag_ = 0;
   float jet3Btag_ = 0;
   unsigned int nSoftMuons_ = 0;
+  unsigned int nvtx_ = 0;
   
-  ch->SetBranchAddress( "njets"     , &njets_     );     
-  ch->SetBranchAddress( "cuts"      , &cuts_     );     
-  ch->SetBranchAddress( "lep1"      , &lep1_      );   
-  ch->SetBranchAddress( "lep2"      , &lep2_      );   
-  ch->SetBranchAddress( "dilep"      , &dilep_      );   
-  ch->SetBranchAddress( "type"      , &type_     );     
-  ch->SetBranchAddress( "pmet"      , &pmet_     );     
-  ch->SetBranchAddress( "pTrackMet"      , &pTrackMet_     );   
-  ch->SetBranchAddress( "run"     , &run_     );     
-  ch->SetBranchAddress( "lumi"     , &lumi_     );     
-  ch->SetBranchAddress( "dPhi"      , &dPhi_     );     
-  ch->SetBranchAddress( "mt"      , &mt_     );     
-  ch->SetBranchAddress( "jet1"      , &jet1_      );   
-  ch->SetBranchAddress( "jet2"      , &jet2_      );   
-  ch->SetBranchAddress( "jet3"      , &jet3_      );   
-  ch->SetBranchAddress( "dPhiDiLepJet1"      , &dPhiDiLepJet1_     );     
-  ch->SetBranchAddress( "met"      , &met_     );     
+  ch->SetBranchAddress( "njets"         , &njets_     );     
+  ch->SetBranchAddress( "cuts"          , &cuts_     );     
+  ch->SetBranchAddress( "lep1"          , &lep1_      );   
+  ch->SetBranchAddress( "lep2"          , &lep2_      );   
+  ch->SetBranchAddress( "dilep"         , &dilep_      );   
+  ch->SetBranchAddress( "type"          , &type_     );     
+  ch->SetBranchAddress( "pmet"          , &pmet_     );     
+  ch->SetBranchAddress( "pTrackMet"     , &pTrackMet_     );   
+  ch->SetBranchAddress( "run"           , &run_     );     
+  ch->SetBranchAddress( "lumi"          , &lumi_     );     
+  ch->SetBranchAddress( "dPhi"          , &dPhi_     );     
+  ch->SetBranchAddress( "mt"            , &mt_     );     
+  ch->SetBranchAddress( "jet1"          , &jet1_      );   
+  ch->SetBranchAddress( "jet2"          , &jet2_      );   
+  ch->SetBranchAddress( "jet3"          , &jet3_      );   
+  ch->SetBranchAddress( "dPhiDiLepJet1" , &dPhiDiLepJet1_     );     
+  ch->SetBranchAddress( "met"           , &met_     );     
   ch->SetBranchAddress( "trackMet"      , &trackMet_     );   
   ch->SetBranchAddress( "jet1Btag"      , &jet1Btag_      );   
   ch->SetBranchAddress( "jet2Btag"      , &jet2Btag_      );   
   ch->SetBranchAddress( "jet3Btag"      , &jet3Btag_      );   
-  ch->SetBranchAddress( "nSoftMuons"      , &nSoftMuons_      );   
+  ch->SetBranchAddress( "nSoftMuons"    , &nSoftMuons_      );   
+  ch->SetBranchAddress( "nvtx"          , &nvtx_      );   
 
   float scale1fb = 0.0;
   ch->SetBranchAddress( "scale1fb"      , &scale1fb     );   
   
-
   
   //==========================================
   // Loop All Events
@@ -168,14 +168,15 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
     // cuts to select the WW pre-selection
     if (cutstring == "WW") {
       if ((cuts_ & ww) != ww) continue;
-      if ( (type_==0||type_==3) && TMath::Min(pmet_,pTrackMet_) < 40.) continue;
+      if (TMath::Min(pmet_,pTrackMet_) < 20.)  continue;
+      if ( (type_==0||type_==3) && TMath::Min(pmet_,pTrackMet_) < 37.) continue;
       if ( (type_==0||type_==3) && jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
     }
     
     // select the PassFail sample for the wjets studies
     else if (cutstring == "PassFail") {  
       if (TMath::Min(pmet_,pTrackMet_) < 20.)  continue;
-      if ( (type_==0||type_==3) && TMath::Min(pmet_,pTrackMet_) < 40.) continue;
+      if ( (type_==0||type_==3) && TMath::Min(pmet_,pTrackMet_) < 37.) continue;
       if ( (type_==0||type_==3) && jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
       if ( (cuts_ & ww_lepfo) != ww_lepfo) continue;
 
@@ -201,19 +202,17 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
 
     // select the LooseMET sample for the wjets studies
     else if (cutstring == "LooseMET") {  
-      // select events with 20 < met < 40
-      if (TMath::Min(pmet_,pTrackMet_) < 20. ||TMath::Min(pmet_,pTrackMet_) > 40.  )  continue;
+      if (TMath::Min(pmet_,pTrackMet_) < 20. ||TMath::Min(pmet_,pTrackMet_) > (37.+nvtx_/2.)  )  continue;
       if ( (type_==0||type_==3) && jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
       if ((cuts_ & ww_nomet) != ww_nomet) continue; 
     }
     
     // cuts to select the ZZ pre-selection
     else if (cutstring == "ZZ") {
-      if (type_ != 0 && type_ !=3 ) continue; 
+      if ( TMath::Abs(dilep_->M()-91.1876) > 15.0 ) continue;
       if ( (cuts_ & zz_baseline) != zz_baseline) continue;
       if (lep1_->Pt() < 20.) continue;
       if (lep2_->Pt() < 20.) continue;
-      if ( TMath::Abs(dilep_->M()-91.1876) > 15.0 ) continue;
       if ( met_ < 40 ) continue;
       if ( dilep_->Pt() < 25.0) continue;
       if (jet1Btag_ > 2.0 && jet1_->Pt() > 30) continue;
@@ -222,7 +221,20 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if( nSoftMuons_ != 0 ) continue;
     }
 
-    
+    else if (cutstring == "ZZBTAG" ) {
+      if ( (cuts_ & zz_baseline) != zz_baseline) continue;
+      if ( TMath::Abs(dilep_->M()-91.1876) > 15.0 ) continue;
+      if (lep1_->Pt() < 20.) continue;
+      if (lep2_->Pt() < 20.) continue;
+      if ( met_ < 60 ) continue;
+      if ( dilep_->Pt() < 25.0) continue;
+      bool btag = false;
+      if ( jet1Btag_ > 2.0 && jet1_->Pt() > 30) btag = true;
+      if ( jet2Btag_ > 2.0 && jet2_->Pt() > 30) btag = true;
+      if ( jet3Btag_ > 2.0 && jet3_->Pt() > 30) btag = true;
+      if ( nSoftMuons_ != 0 ) btag = true;
+      if ( !btag ) continue;
+    }
     
     evt_tree->Fill();
   }   //nevent
