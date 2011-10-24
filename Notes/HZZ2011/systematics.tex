@@ -57,23 +57,27 @@ formula for this uncertainty is,
 %%%%%%%%
 
 
-\item {\it Jet counting and theoretical uncertainties:} 
-Since the analysis is categorized into jet bins, there are systematic uncertainties
-associated with events migrating from one jet bin to the next one due to 
-experimental and theoretical uncertainties. The experimental jet counting efficiency is 
-measured in data using $\dyll$ events. The effect of the statistical uncertainty 
-of the jet energy correction measurement on the extrapolation
-of the jet counting efficiency from $\dyll$ events to Higgs signal
-events is propagated and accounted for as the experimental 
-systematic uncertainty.
+%\item {\it Jet counting and theoretical uncertainties:} 
+%Since the analysis is categorized into jet bins, there are systematic uncertainties
+%associated with events migrating from one jet bin to the next one due to 
+%experimental and theoretical uncertainties. The experimental jet counting efficiency is 
+%measured in data using $\dyll$ events. The effect of the statistical uncertainty 
+%of the jet energy correction measurement on the extrapolation
+%of the jet counting efficiency from $\dyll$ events to Higgs signal
+%events is propagated and accounted for as the experimental 
+%systematic uncertainty.
 
+\item {\it Theoretical uncertainties:} 
 We consider the theoretical uncertainties on the Parton Distribution Functions (PDFs), 
 the uncertainty due to higher order corrections and the effect of the fragmentation and 
-hadronization process. The overall uncertainties on the signal efficiency are 
-about $7\%$, $10\%$ and $20\%$ for the 0-jet, 1-jet and 2-jet bins, respectively.
-Correlations between different jet bins are taken into account when computing
-the upper limits. A detailed discussion of the method and procedures for estimating
-theoretical uncertainties on the signal yield can be found in Ref.~\cite{HWW2011AN}. 
+hadronization process. These uncertainties were taken from the Higgs cross
+section working group~\cite{LHCHiggsCrossSectionWorkingGroup:2011ti}. 
+
+%The overall uncertainties on the signal efficiency are 
+%about $7\%$, $10\%$ and $20\%$ for the 0-jet, 1-jet and 2-jet bins, respectively.
+%Correlations between different jet bins are taken into account when computing
+%the upper limits. A detailed discussion of the method and procedures for estimating
+%theoretical uncertainties on the signal yield can be found in Ref.~\cite{HWW2011AN}. 
 
 \item {\it Monte Carlo statistics:} We also take into account the 
 size of the simulated event samples. 
@@ -108,7 +112,7 @@ essentially can be neglected.
 All systematic uncertainties taken into account in this analysis
 are summarized in Table~\ref{tab:systww}.
 The total uncertainty depends on the Higgs mass and jet bin considered,
-however is typically $20\%$ on the data-driven background estimation and about $2-15\%$ 
+however is typically $20\%$ on the data-driven background estimation and about $6-35\%$ 
 on the signal efficiency. These results assume an integrated luminosity of \intlumi. 
 The uncertainties due to the shape variation is discussed in Section 4 of Ref~\cite{shapeananote}. 
 
@@ -117,27 +121,30 @@ The uncertainties due to the shape variation is discussed in Section 4 of Ref~\c
 \caption{\label{tab:systww} Summary of all systematic uncertainties (relative).}
 \vspace{5pt}
 {\footnotesize
-\begin{tabular}{l|c|c|c|c|c|c|c}
+\begin{tabular}{l|c|c|c|c|c|c}
 \hline
-Source  & $\hzz$ & $WZ/ZZ$ & $\WW$ & $\ttbar$+$\tw$ & $\dyll$ & $\dytt$ & $\Wjets$ \\
+Source  & $\hzz$ & $WZ/ZZ$ & $\WW$ & $\ttbar$+$\tw$ & $\dyll$ & $\dytt$ \\
 \hline
 \hline
-Luminosity                               & 4.5 & 4.5 & --- & --- & --- & --- & --- \\
-Trigger efficiencies                     & 1.5 & 1.5 & --- & --- & --- & --- & --- \\
-Muon efficiency                          & 1.5 & 1.5 & --- & --- & --- & --- & --- \\
-Electron id efficiency                   & 2.5 & 2.5 & --- & --- & --- & --- & --- \\
-Muon Momentum scale                      & 2.0 & 2.0 & --- & --- & --- & --- & --- \\
-Electron Energy scale                    & 5.0 & 5.0 & --- & --- & --- & --- & --- \\
-%Jet counting                             & 7-20& --- & --- & --- & --- & --- & --- \\
-Higgs cross section                      & 5-15& --- & --- & --- & --- & --- & --- \\
-$WZ/ZZ$ cross section                    & --- & 5.0/8.0 & --- & --- & --- & --- & --- \\
-$\WW$                                    & --- & --- & 17 & --- & --- & --- & ---      \\
-Top ($\ttbar$ + $\tw$)                   & --- & --- & --- & 17 & --- & --- & ---      \\
-$\dyll$                                  & --- & --- & --- & --- &  30  & --- & ---     \\
-%$\dyll$ 0 (1)-jet                        & --- & --- & --- & --- & 25(20)  & --- & ---     \\
-$\dytt$                                  & --- & --- & --- & --- & --- & --- & ---     \\
-%$\Wjets$                                 & --- & --- & --- & --- & --- & --- & 36      \\
-Monte Carlo statistics                   & 1.2 & 3.2/7.9 & 50 & 50 & 20-30 & --- & --- \\
+Luminosity                               & 4.5 & 4.5 & --- & --- & --- & --- \\
+Trigger efficiencies                     & 1.5 & 1.5 & --- & --- & --- & --- \\
+Muon efficiency                          & 1.5 & 1.5 & --- & --- & --- & --- \\
+Electron id efficiency                   & 2.5 & 2.5 & --- & --- & --- & --- \\
+Muon Momentum scale                      & 2.0 & 2.0 & --- & --- & --- & --- \\
+Electron Energy scale                    & 5.0 & 5.0 & --- & --- & --- & --- \\
+%Jet counting                             & 7-20& --- & --- & --- & --- & --- \\
+Higgs cross section                      & 5-15& --- & --- & --- & --- & --- \\
+Higgs wdith                              & 2-32& --- & --- & --- & --- & --- \\
+$WZ/ZZ$ cross section                    & --- & 5.0/8.0 & --- & --- & --- & --- \\
+%$\WW$                                    & --- & --- & 17 & --- & --- & --- & ---      \\
+$\WW$                                    & --- & --- & 9 & --- & --- & --- \\
+Top ($\ttbar$ + $\tw$)                   & --- & --- & --- & 7 & --- & --- \\
+%Top ($\ttbar$ + $\tw$)                   & --- & --- & --- & 17 & --- & --- \\
+$\dyll$                                  & --- & --- & --- & --- &  25  & --- \\
+%$\dyll$ 0 (1)-jet                        & --- & --- & --- & --- & 25(20)  & --- \\
+$\dytt$                                  & --- & --- & --- & --- & --- & 9 \\
+%$\Wjets$                                 & --- & --- & --- & --- & --- & --- \\
+Monte Carlo statistics                   & 1.2 & 3.2/7.9 & 50 & 50 & 20-30 & --- \\
 \hline
 \end{tabular}
 }
