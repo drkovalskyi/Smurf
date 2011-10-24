@@ -279,7 +279,10 @@ class SmurfTree {
     lepPtr1_(&lep1_),lepPtr2_(&lep2_),jetPtr1_(&jet1_),jetPtr2_(&jet2_),dilepPtr_(&dilep_),quadlepPtr_(&quadlep_),
     lepPtr3_(&lep3_),                 jetPtr3_(&jet3_){}
   /// default destructor
-  ~SmurfTree(){ f_->Close();  };
+  ~SmurfTree(){ 
+    if (tree_) tree_->Delete();  
+    if (f_) f_->Close();  
+  };
 
   /// initialize varibles and fill list of available variables
   void InitVariables();
