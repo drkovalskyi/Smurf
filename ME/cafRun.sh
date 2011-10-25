@@ -30,7 +30,7 @@ fi
 
 if [ "${MODE}" == 'ZZ' ]; then
     echo "gSystem->CompileMacro(\"runME_HZZ.C\");" >> temp.C
-    echo "runME_HZZ(\"./\", \"$ROOTFILE\", \"./\", 10, 1, 100000, 1.0, $NEV, $EVSTART,$HIGGSMASS);" >> temp.C
+    echo "runME_HZZ(\"./\", \"$ROOTFILE\", \"./\", 10, 1, 100000, 1.0, $NEV, $EVSTART);" >> temp.C
 fi
 echo "}" >> temp.C
 cat temp.C
