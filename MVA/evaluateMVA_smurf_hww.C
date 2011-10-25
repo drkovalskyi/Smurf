@@ -224,8 +224,15 @@ TString suffix       = "ww"
     //    reader->AddVariable( "var4",                &var4 );
 
     // Beging Reading files, harmless if weights aren't used
+    bool isOldAna = false;
+    TString effPath  = "/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
+    TString fakePath = "/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
+    if(isOldAna == false){
+      effPath  = "/smurf/data/Winter11/auxiliar/efficiency_results_SmurfBDTGWithIPInfoElectrons.root";
+      fakePath = "/smurf/data/Winter11/auxiliar/FakeRates_SmurfMVAWithIPInfoElectron.root";
+    }
     // This is for 42X
-    TFile *fLeptonEffFile = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root",InputPath.Data()));
+    TFile *fLeptonEffFile = TFile::Open(Form("%s%s",InputPath.Data(),effPath.Data()));
     TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
     TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
     fhDEffMu->SetDirectory(0);
@@ -233,21 +240,21 @@ TString suffix       = "ww"
     fLeptonEffFile->Close();
     delete fLeptonEffFile;
 
-    TFile *fLeptonFRFileM = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root",InputPath.Data()));
+    TFile *fLeptonFRFileM = TFile::Open(Form("%s%s",InputPath.Data(),fakePath.Data()));
     TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
     assert(fhDFRMu);
     fhDFRMu->SetDirectory(0);
     fLeptonFRFileM->Close();
     delete fLeptonFRFileM;
 
-    TFile *fLeptonFRFileE = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root",InputPath.Data()));
+    TFile *fLeptonFRFileE = TFile::Open(Form("%s%s",InputPath.Data(),fakePath.Data()));
     TH2D *fhDFREl = (TH2D*)(fLeptonFRFileE->Get("ElectronFakeRate_V4_ptThreshold35_PtEta"));
     assert(fhDFREl);
     fhDFREl->SetDirectory(0);
     fLeptonFRFileE->Close();
     delete fLeptonFRFileE;
 
-    LeptonScaleLookup trigLookup(Form("%s/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root",InputPath.Data()));
+    LeptonScaleLookup trigLookup(Form("%s%s",InputPath.Data(),effPath.Data()));
 
     TFile *fNvtxFile = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/puReweighting.root",InputPath.Data()));
     TH1D *fhDNvtx = (TH1D*)(fNvtxFile->Get("puWeights"));
