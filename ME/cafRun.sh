@@ -12,8 +12,7 @@ ROOTFILE=$2.root
 INPUTPATH=$3
 NEV=$4
 EVSTART=$((NEV*($1-1)))
-HIGGSMASS=$5
-MODE=$6
+MODE=$5
 
 cd tardir
 
