@@ -327,7 +327,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     Ratio=0;
     // Load the MC based boost, efficiency and generator FR
     bool setMCFR = false;
-    Xcal2.SetMCHist(ProcInt, "Util_HWW.root", setMCFR, verbosity);
+    Xcal2.SetMCHist(ProcInt, "Util_HWW.root", setMCFR, 0, verbosity);
     
     // Set the fakerate from data measurements
     if (!setMCFR && (iproc == TVar::Wp_1jet || iproc == TVar::Wm_1jet)) {
