@@ -8,7 +8,8 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 
 double DileptonMassPreselectionCut( double mH ) {
   float dilmass_cut = 10000;   
-  if     ( mH == 115 ) dilmass_cut =  70.0;
+  if     ( mH == 110 ||
+           mH == 115 ) dilmass_cut =  70.0;
   else if( mH == 120 ) dilmass_cut =  70.0;
   else if( mH == 130 ) dilmass_cut =  80.0;
   else if( mH == 140 ) dilmass_cut =  90.0;
@@ -30,7 +31,8 @@ int HiggsMassIndex ( double mH ) {
 
   int channel = 0;
   if     (mH == 0)   channel = 0;
-  else if(mH == 115) channel = 1;
+  else if(mH == 110 ||
+          mH == 115) channel = 1;
   else if(mH == 120) channel = 2;
   else if(mH == 130) channel = 3;
   else if(mH == 140) channel = 4;
