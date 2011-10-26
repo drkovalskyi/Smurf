@@ -39,22 +39,36 @@ TGraphErrors* MakeRoutinGraph(const TH1F *hout, const TH1F *hin, string graphnam
 
 //=== MAIN MACRO =================================================================================================
 
-void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
+void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE)
 {
 
   //*******************************************************
   // Settings 
   //*******************************************************
-  const Double_t lumi = 2.121;
+  const Double_t lumi = 1;
+  TString filesPath   = "dummy";
+  unsigned int minRun = 0;
+  unsigned int maxRun = 999999;
   enum { kMuMu, kEleEle, kEleMu, kMuEle };
   
   Int_t nmet = 1;
   if(useRecoilModel) nmet = 100;
 
-  bool isOldAna = false;
-  TString filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets";
-  if(isOldAna == false){
-    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets";
+  if     (period == 0){ // Run2011A
+    lumi = 2.1;minRun =      0;maxRun = 173692;
+    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets_Run2011A";
+  }
+  else if(period == 1){ // Run2011B
+    lumi = 1.9;minRun = 173693;maxRun = 999999;
+    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets_Run2011B";
+  }
+  else if(period == 2){ // Full2011
+    lumi = 4.0;minRun =      0;maxRun = 999999;
+    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets_Full2011";
+  }
+  else {
+    printf("Wrong period(%d)\n",period);
+    return;
   }
 
   //*******************************************************
@@ -185,7 +199,6 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
   //*******************************************************
   const Double_t vzNormSystematic = 0.10; //10% systematic on the VZ cross section inside Z window
 
-
   //*******************************************************
   //Event Loop
   //*******************************************************
@@ -199,6 +212,9 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
       tree.tree_->GetEntry(ientry);
         
       if (ientry % 100000 == 0) cout << "Event " << ientry << endl;
+
+      if(tree.dstype_ == SmurfTree::data && tree.run_ <  minRun) continue;
+      if(tree.dstype_ == SmurfTree::data && tree.run_ >  maxRun) continue;
 
       if(!((tree.cuts_ & basic_selection) == basic_selection)) continue;
       if(tree.dilep_.M() < 12) continue;
@@ -370,8 +386,6 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
     }
   }
 
-  
-  
   //--------------------------------------------------------------------------------------------------------------
   // Summary print out
   //============================================================================================================== 
@@ -379,8 +393,6 @@ void ComputeDYBkgScaleFactor(Bool_t useRecoilModel = kFALSE)
   vector<vector<Double_t> > DYBkgScaleFactorHiggsSelectionErr;
   vector<Double_t> DYBkgScaleFactorWWPreselection;
   vector<Double_t> DYBkgScaleFactorWWPreselectionErr;
-
-
 
   for(UInt_t jetIndex = 0; jetIndex < 3; ++jetIndex) {
     vector<Double_t> tmpDYBkgScaleFactorHiggsSelection;

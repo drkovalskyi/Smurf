@@ -23,22 +23,44 @@ const int verboseLevel =   1;
 //------------------------------------------------------------------------------
 void ComputeTopScaleFactors
 (
- TString bgdInputFile    = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets/backgroundA_skim1.root",
- TString dataInputFile   = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets/data_2l_skim1.root"
+ Int_t period = 2,
+ TString bgdInputFile    = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Full2011/backgroundA_skim1.root",
+ TString dataInputFile   = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Full2011/data_2l_skim1.root"
  )
 {
 
   //*******************************************************************************
   //Settings 
   //*******************************************************************************
+  double lumi = 1;
   enum { kOther, kTTBAR, kTW, kData };
-  double lumi = 2.121;
-  bool isOldAna = false;
+
   TString effPath  = "/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
   TString fakePath = "/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
-  if(isOldAna == false){
-    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_SmurfBDTGWithIPInfoElectrons.root";
-    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_SmurfMVAWithIPInfoElectron.root";
+  TString puPath   = "/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
+  unsigned int minRun = 0;
+  unsigned int maxRun = 999999;
+  if	 (period == 0){ // Run2011A
+    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Run2011A.root";
+    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
+    lumi     = 2.1;minRun =      0;maxRun = 173692;
+  }
+  else if(period == 1){ // Run2011B
+    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Run2011B.root";
+    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
+    lumi     = 1.9;minRun = 173693;maxRun = 999999;
+  }
+  else if(period == 2){ // Full2011
+    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Full2011.root";
+    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
+    lumi     = 4.0;minRun =      0;maxRun = 999999;
+  }
+  else {
+    printf("Wrong period(%d)\n",period);
+    return;
   }
 
   SmurfTree bgdEvent;
@@ -75,14 +97,7 @@ void ComputeTopScaleFactors
   fLeptonFRFileE->Close();
   delete fLeptonFRFileE;
  
-  TFile *fNvtxFile = TFile::Open("/data/smurf/data/LP2011/auxiliar/puReweighting.root");
-  TH1D *fhDNvtx = (TH1D*)(fNvtxFile->Get("puWeights"));
-  assert(fhDNvtx);
-  fhDNvtx->SetDirectory(0);
-  fNvtxFile->Close();
-  delete fNvtxFile;
-
-  TFile *fPUS4File = TFile::Open("/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root");
+  TFile *fPUS4File = TFile::Open(Form("%s",puPath.Data()));
   TH1D *fhDPUS4 = (TH1D*)(fPUS4File->Get("puWeights"));
   assert(fhDPUS4);
   fhDPUS4->SetDirectory(0);
@@ -132,10 +147,7 @@ void ComputeTopScaleFactors
       btag_highestpt_1j_num_error.push_back(tmpbtag_highestpt_1j_num_error);       
   }
 
-
-  unsigned int patternTopVeto         = SmurfTree::TopVeto;
   unsigned int patternTopTagNotInJets = SmurfTree::TopTagNotInJets;
-
 
   //*******************************************************************************
   //Background Events
@@ -147,6 +159,8 @@ void ComputeTopScaleFactors
       printf("--- reading event %5d of %5d\n",i,nBgd);
     bgdEvent.tree_->GetEntry(i);
     if((bgdEvent.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue;
+    if(bgdEvent.dstype_ == SmurfTree::data && bgdEvent.run_ <  minRun) continue;
+    if(bgdEvent.dstype_ == SmurfTree::data && bgdEvent.run_ >  maxRun) continue;
 
     int fDecay = 0;
     if     (bgdEvent.dstype_ == SmurfTree::wjets           ) fDecay = 3;
@@ -170,11 +184,12 @@ void ComputeTopScaleFactors
 
     double minmet = TMath::Min(bgdEvent.pmet_,bgdEvent.pTrackMet_);
     bool passMET = minmet > 20. &&
-      (minmet > 40. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
-    if(isOldAna == false) {
-      passMET = minmet > 20. &&
-      (minmet > 37.+bgdEvent.nvtx_/2 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
-    }
+         	  (minmet > 37.+bgdEvent.nvtx_/2 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+
+    bool passNewCuts = true;
+    if(bgdEvent.lep2_.Pt() <= 15 && (bgdEvent.type_ == SmurfTree::mm||bgdEvent.type_ == SmurfTree::ee)) passNewCuts = false;
+    if(bgdEvent.dilep_.Pt() <= 45) passNewCuts = false;
+
     // begin computing weights
     double theWeight = 0.0;
     double add       = 1.0;
@@ -220,13 +235,8 @@ void ComputeTopScaleFactors
 	theWeight	       = -1.0 * bgdEvent.scale1fb_*lumi*add;
       }
     }
-    else if(bgdEvent.dstype_ == SmurfTree::dyttDataDriven) {
-      //do not apply any MC->data scale factors for data driven dy->tautau 
-      theWeight = bgdEvent.scale1fb_*lumi;
-    }
-    else if(bgdEvent.dstype_ == SmurfTree::qcd) { //Z->tautau embedded sample
-      theWeight = 0.0189712*lumi;
-      if(isOldAna == false) theWeight = 0.0191994*lumi;
+    else if(bgdEvent.dstype_ == SmurfTree::dyttDataDriven || bgdEvent.dstype_ == SmurfTree::qcd) {
+      theWeight = 0.019*lumi;
     }
     else if(bgdEvent.dstype_ != SmurfTree::data){
       double add1 = nPUScaleFactor(fhDPUS4,bgdEvent.npu_);
@@ -251,11 +261,6 @@ void ComputeTopScaleFactors
       theWeight = bgdEvent.scale1fb_*lumi*add;
     }
 
-    bool passNewCuts = true;
-    if(isOldAna == false){
-     if(bgdEvent.lep2_.Pt() <= 15 && (bgdEvent.type_ == SmurfTree::mm||bgdEvent.type_ == SmurfTree::ee)) passNewCuts = false;
-     if(bgdEvent.dilep_.Pt() <= 45) passNewCuts = false;
-    }
     if(
       (((bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) ||
        ((bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
@@ -331,8 +336,6 @@ void ComputeTopScaleFactors
     }
   } // end background loop
 
-
-
   //*******************************************************************************
   //Data Events
   //*******************************************************************************
@@ -344,6 +347,8 @@ void ComputeTopScaleFactors
     dataEvent.tree_->GetEntry(i);
 
     if((dataEvent.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue;
+    if(dataEvent.dstype_ == SmurfTree::data && dataEvent.run_ <  minRun) continue;
+    if(dataEvent.dstype_ == SmurfTree::data && dataEvent.run_ >  maxRun) continue;
 
     int charge = (int)(dataEvent.lq1_ + dataEvent.lq2_);
 
@@ -359,20 +364,14 @@ void ComputeTopScaleFactors
        ((dataEvent.jet1_.Eta()-dataEvent.lep2_.Eta() > 0 && dataEvent.jet2_.Eta()-dataEvent.lep2_.Eta() < 0) ||
         (dataEvent.jet2_.Eta()-dataEvent.lep2_.Eta() > 0 && dataEvent.jet1_.Eta()-dataEvent.lep2_.Eta() < 0))) centrality = 1; 
 
-
     double minmet = TMath::Min(dataEvent.pmet_,dataEvent.pTrackMet_);
     bool passMET = minmet > 20. &&
-      (minmet > 40. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
-    if(isOldAna == false) {
-      passMET = minmet > 20. &&
-      (minmet > 37.+dataEvent.nvtx_/2 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
-    }
+                  (minmet > 37.+dataEvent.nvtx_/2 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
 
     bool passNewCuts = true;
-    if(isOldAna == false){
-     if(dataEvent.lep2_.Pt() <= 15 && (dataEvent.type_ == SmurfTree::mm||dataEvent.type_ == SmurfTree::ee)) passNewCuts = false;
-     if(dataEvent.dilep_.Pt() <= 45) passNewCuts = false;
-    }
+    if(dataEvent.lep2_.Pt() <= 15 && (dataEvent.type_ == SmurfTree::mm||dataEvent.type_ == SmurfTree::ee)) passNewCuts = false;
+    if(dataEvent.dilep_.Pt() <= 45) passNewCuts = false;
+
     double theWeight = 1.0;
     if(
       (dataEvent.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection &&

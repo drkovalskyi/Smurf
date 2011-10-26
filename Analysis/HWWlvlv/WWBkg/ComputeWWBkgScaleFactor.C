@@ -24,6 +24,7 @@
 //------------------------------------------------------------------------------
 // GF  == 10010, WBF == 10001, WH == 26, ZH == 24, ttH=121/122
 void ComputeWWBkgScaleFactor (
+  Int_t period = -1,
   char* bgdInputFile    = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets/backgroundA_skim1.root",
   char* dataInputFile   = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets/data_2l_skim1.root"
 )
@@ -40,15 +41,36 @@ void ComputeWWBkgScaleFactor (
   chbackground->Add(bgdInputFile);
   TTree *background = (TTree*) chbackground;
   
-  double scaleFactorLum = 2.121;
+  double scaleFactorLum = 1.0;
 
-  bool isOldAna = false;
   TString effPath  = "/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
   TString fakePath = "/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
-  if(isOldAna == false){
-    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_SmurfBDTGWithIPInfoElectrons.root";
-    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_SmurfMVAWithIPInfoElectron.root";
+  TString puPath   = "/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
+  unsigned int minRun = 0;
+  unsigned int maxRun = 999999;
+  if	 (period == 0){ // Run2011A
+    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Run2011A.root";
+    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
+    scaleFactorLum     = 2.1;minRun =      0;maxRun = 173692;
   }
+  else if(period == 1){ // Run2011B
+    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Run2011B.root";
+    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
+    scaleFactorLum     = 1.9;minRun = 173693;maxRun = 999999;
+  }
+  else if(period == 2){ // Full2011
+    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Full2011.root";
+    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
+    scaleFactorLum     = 4.0;minRun =      0;maxRun = 999999;
+  }
+  else {
+    printf("Wrong period(%d)\n",period);
+    return;
+  }
+
   // ***********************************************************************************************
   // Load Auxiliary Files
   // ***********************************************************************************************
@@ -76,7 +98,7 @@ void ComputeWWBkgScaleFactor (
   fLeptonFRFileE->Close();
   delete fLeptonFRFileE;
 
-  TFile *fPUS4File = TFile::Open("/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root");
+  TFile *fPUS4File = TFile::Open(Form("%s",puPath.Data()));
   TH1D *fhDPUS4 = (TH1D*)(fPUS4File->Get("puWeights"));
   assert(fhDPUS4);
   fhDPUS4->SetDirectory(0);
@@ -228,18 +250,16 @@ void ComputeWWBkgScaleFactor (
       printf("--- reading event %5d of %5d\n",i,(int)data->GetEntries());
     data->GetEntry(i);
 
-    bool passNewCuts = true;
-    if(isOldAna == false){
-     if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
-     if(dilep->pt() <= 45) passNewCuts = false;
-    }
+    if(dstype == SmurfTree::data && run <  minRun) continue;
+    if(dstype == SmurfTree::data && run >  maxRun) continue;
+
     double minmet = TMath::Min(pmet,pTrackMet);
     bool passMET = minmet > 20. &&
-      (minmet > 40. || type == SmurfTree::em || type == SmurfTree::me);
-    if(isOldAna == false) {
-      passMET = minmet > 20. &&
-      (minmet > 37.+nvtx/2 || type == SmurfTree::em || type == SmurfTree::me);
-    }
+                  (minmet > 37.+nvtx/2 || type == SmurfTree::em || type == SmurfTree::me);
+
+    bool passNewCuts = true;
+    if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
+    if(dilep->pt() <= 45) passNewCuts = false;
 
     if (!(((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection) 
           && ((cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection))) continue;
@@ -343,18 +363,16 @@ void ComputeWWBkgScaleFactor (
       printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
     background->GetEntry(i);
 
-    bool passNewCuts = true;
-    if(isOldAna == false){
-     if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
-     if(dilep->pt() <= 45) passNewCuts = false;
-    }
+    if(dstype == SmurfTree::data && run <  minRun) continue;
+    if(dstype == SmurfTree::data && run >  maxRun) continue;
+
     double minmet = TMath::Min(pmet,pTrackMet);
     bool passMET = minmet > 20. &&
-      (minmet > 40. || type == SmurfTree::em || type == SmurfTree::me);
-    if(isOldAna == false) {
-      passMET = minmet > 20. &&
-      (minmet > 37.+nvtx/2 || type == SmurfTree::em || type == SmurfTree::me);
-    }
+                  (minmet > 37.+nvtx/2 || type == SmurfTree::em || type == SmurfTree::me);
+
+    bool passNewCuts = true;
+    if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
+    if(dilep->pt() <= 45) passNewCuts = false;
 
     bool MinPreselCut = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) ||
       ((cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
@@ -446,16 +464,10 @@ void ComputeWWBkgScaleFactor (
       }
     }
     else if(dstype == SmurfTree::data) myWeight = 0.0;
-    else if(dstype== SmurfTree::dyttDataDriven) {
-      //do not apply any MC->data scale factors for data driven dy->tautau 
-      myWeight = scale1fb*scaleFactorLum;
-    }
-    else if(dstype == SmurfTree::qcd) { //Z->tautau embedded sample
-      myWeight = 0.0189712*scaleFactorLum;
-      if(isOldAna == false) myWeight = 0.0191994*scaleFactorLum;
+    else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
+      myWeight = 0.019*scaleFactorLum;
     }
     else if(dstype != SmurfTree::data){
-
       //normal MC
       //require both leptons pass full selection
       if (!(((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection) 
@@ -491,7 +503,6 @@ void ComputeWWBkgScaleFactor (
     }
 
     if(myWeight == 0) continue;
-
 
     for(UInt_t classIndex = 0; classIndex < 4; ++classIndex) {
       for(Int_t imass=0; imass<nmass; imass++) {
@@ -545,9 +556,6 @@ void ComputeWWBkgScaleFactor (
 
       }
     }
-
-
-
   }
 
   //********************************************************
