@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.5 2011/09/02 08:28:35 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.6 2011/09/29 09:08:05 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -134,7 +134,8 @@ void trainMVA_smurf(
   
   float dilmass_cut = 10000;
    
-  if     ( mH == 115 ) dilmass_cut =  70.0;
+  if     ( mH == 110 ||
+           mH == 115 ) dilmass_cut =  70.0;
   else if( mH == 120 ) dilmass_cut =  70.0;
   else if( mH == 130 ) dilmass_cut =  80.0;
   else if( mH == 140 ) dilmass_cut =  90.0;
@@ -449,7 +450,7 @@ void trainMVA_smurf(
     // SIGNAL EVENT SELECTION
     //--------------------------------------------------
 
-    if( mt <= 80		       ) continue; // cut on mt low
+    //if( mt <= 80		       ) continue; // cut on mt low
     if( mt >= mH		       ) continue; // cut on mt high
     //if( dPhi*180.0/TMath::Pi() >= 150 &&
     //    mH < 210	                 ) continue; // cut on dPhi
@@ -548,7 +549,7 @@ void trainMVA_smurf(
     //--------------------------------------------------
     // BACKGROUND EVENT SELECTION
     //--------------------------------------------------
-    if( mt <= 80		       ) continue; // cut on mt low
+    //if( mt <= 80		       ) continue; // cut on mt low
     if( mt >= mH		       ) continue; // cut on mt high
     //if( dPhi*180.0/TMath::Pi() >= 150 &&
     //    mH < 210	                 ) continue; // cut on dPhi

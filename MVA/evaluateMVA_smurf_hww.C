@@ -68,6 +68,7 @@ int  njet            = 0,
 bool doWeights       = true,
 bool doShapes        = true,
 TString InputPath    = "",
+int period           = 0,
 TString suffix       = "ww"
 ) {   
 #ifdef __CINT__
@@ -224,14 +225,25 @@ TString suffix       = "ww"
     //    reader->AddVariable( "var4",                &var4 );
 
     // Beging Reading files, harmless if weights aren't used
-    bool isOldAna = false;
     TString effPath  = "/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
     TString fakePath = "/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
-    if(isOldAna == false){
-      effPath  = "/smurf/data/Winter11/auxiliar/efficiency_results_SmurfBDTGWithIPInfoElectrons.root";
-      fakePath = "/smurf/data/Winter11/auxiliar/FakeRates_SmurfMVAWithIPInfoElectron.root";
+    TString puPath   = "/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
+    if     (period == 0){ // Run2011A
+      effPath  = "/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Run2011A.root";
+      fakePath = "/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+      puPath   = "/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
     }
-    // This is for 42X
+    else if(period == 1){ // Run2011B
+      effPath  = "/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Run2011B.root";
+      fakePath = "/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+      puPath   = "/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
+    }
+    else if(period == 2){ // Full2011
+      effPath  = "/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Full2011.root";
+      fakePath = "/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+      puPath   = "/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
+    }
+
     TFile *fLeptonEffFile = TFile::Open(Form("%s%s",InputPath.Data(),effPath.Data()));
     TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
     TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
@@ -256,52 +268,11 @@ TString suffix       = "ww"
 
     LeptonScaleLookup trigLookup(Form("%s%s",InputPath.Data(),effPath.Data()));
 
-    TFile *fNvtxFile = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/puReweighting.root",InputPath.Data()));
-    TH1D *fhDNvtx = (TH1D*)(fNvtxFile->Get("puWeights"));
-    assert(fhDNvtx);
-    fhDNvtx->SetDirectory(0);
-    fNvtxFile->Close();
-    delete fNvtxFile;
-
-    TFile *fPUS4File = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root",InputPath.Data()));
+    TFile *fPUS4File = TFile::Open(Form("%s%s",InputPath.Data(),puPath.Data()));
     TH1D *fhDPUS4 = (TH1D*)(fPUS4File->Get("puWeights"));
     assert(fhDPUS4);
     fhDPUS4->SetDirectory(0);
     delete fPUS4File;
-
-    // This is for 41X
-    /*
-    TFile *fLeptonEffFile = TFile::Open(Form("%s/smurf/data/EPS/auxiliar/efficiency_results_v6.root",InputPath.Data()));
-    TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
-    TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
-    fhDEffMu->SetDirectory(0);
-    fhDEffEl->SetDirectory(0);
-    fLeptonEffFile->Close();
-    delete fLeptonEffFile;
-
-    TFile *fLeptonFRFileM = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.V4HasNod0Cut.root",InputPath.Data()));
-    TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
-    assert(fhDFRMu);
-    fhDFRMu->SetDirectory(0);
-    fLeptonFRFileM->Close();
-    delete fLeptonFRFileM;
-
-    TFile *fLeptonFRFileE = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.V4HasNod0Cut.root",InputPath.Data()));
-    TH2D *fhDFREl = (TH2D*)(fLeptonFRFileE->Get("ElectronFakeRate_V4_ptThreshold35_PtEta"));
-    assert(fhDFREl);
-    fhDFREl->SetDirectory(0);
-    fLeptonFRFileE->Close();
-    delete fLeptonFRFileE;
-
-    LeptonScaleLookup trigLookup("/data/smurf/data/EPS/auxiliar/efficiency_results_v6.root",InputPath.Data()));
-    
-    TFile *fNvtxFile = TFile::Open(Form("%s/smurf/data/LP2011/auxiliar/puReweighting.root",InputPath.Data()));
-    TH1D *fhDNvtx = (TH1D*)(fNvtxFile->Get("puWeights"));
-    assert(fhDNvtx);
-    fhDNvtx->SetDirectory(0);
-    fNvtxFile->Close();
-    delete fNvtxFile;
-    */
 
     int newMH = mH;
     if(newMH == 110) newMH = 115; // there is no correction for mh=110!
@@ -622,7 +593,6 @@ TString suffix       = "ww"
             smurfTree.sfWeightFR_ = -1.0 * smurfTree.sfWeightFR_;
             if(nFake > 1) smurfTree.sfWeightFR_ = -1.0 * smurfTree.sfWeightFR_;
 
-            //smurfTree.sfWeightPU_ = nVtxScaleFactor(fhDNvtx,nvtx_);
             smurfTree.sfWeightPU_ = nPUScaleFactor(fhDPUS4,smurfTree.npu_);
 
             smurfTree.sfWeightEff_ = 1.0;
@@ -648,7 +618,6 @@ TString suffix       = "ww"
         }
         else if(smurfTree.dstype_ != SmurfTree::data){
           smurfTree.sfWeightFR_ = 1.0;
-          //smurfTree.sfWeightPU_ = nVtxScaleFactor(fhDNvtx,nvtx_);
      	  smurfTree.sfWeightPU_ = nPUScaleFactor(fhDPUS4,smurfTree.npu_);
 
           smurfTree.sfWeightEff_ = 1.0;
