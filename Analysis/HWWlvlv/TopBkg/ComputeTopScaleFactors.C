@@ -469,16 +469,12 @@ void ComputeTopScaleFactors
                                                  (btag_highestpt_2j_den_error[2][i])/(btag_highestpt_2j_den[2][i]));
     effttMC_btag_highestpt_2j_error[i]    = sqrt((1.0-effttMC_btag_highestpt_2j[i])*effttMC_btag_highestpt_2j[i]/(btag_highestpt_2j_den[1][i]+btag_highestpt_2j_den[2][i])*
                                                  (btag_highestpt_2j_den_error[1][i]+btag_highestpt_2j_den_error[2][i])/(btag_highestpt_2j_den[1][i]+btag_highestpt_2j_den[2][i]));
-    
-
 
     //Data efficiencies
     effttDA_btag_highestpt_2j[i] = (btag_highestpt_2j_num[3][i]-btag_highestpt_2j_num[0][i]-btag_highestpt_2j_num[2][i]*btagSF)/
       (btag_highestpt_2j_den[3][i]-btag_highestpt_2j_den[0][i]-btag_highestpt_2j_den[2][i]*btagSF);    
     effttDA_btag_highestpt_2j_error[i] = sqrt((1-effttDA_btag_highestpt_2j[i])*effttDA_btag_highestpt_2j[i]/btag_highestpt_2j_den[3][i]);
-    
   }
-
 
   for(int i=0; i<5; i++) {
     printf("numerator  (%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_highestpt_2j_num[3][i],btag_highestpt_2j_num[0][i],(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]),btag_highestpt_2j_num[1][i],btag_highestpt_2j_num[2][i]);
@@ -499,7 +495,6 @@ void ComputeTopScaleFactors
   printf("****************************************************************************************************************************************\n");
   printf("\n\n");
   printf("\n\n");
-    
 
   //*******************************************************************************
   //1-Jet Bin : BTag Efficiency for highest pt jet

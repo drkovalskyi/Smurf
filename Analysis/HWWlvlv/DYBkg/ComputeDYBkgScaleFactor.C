@@ -35,7 +35,7 @@ Double_t projectedMET(const Double_t met, const Double_t metPhi, const Double_t 
 
 // compute systematic uncertainty
 Double_t computeSyst(const TH1F *hout, const TH1F *hin, Int_t binUsed);
-TGraphErrors* MakeRoutinGraph(const TH1F *hout, const TH1F *hin, string graphname, vector<Double_t> bins);
+TGraphErrors* MakeRoutinGraph(const TH1F *hout, const TH1F *hin, string graphname);
 
 //=== MAIN MACRO =================================================================================================
 
@@ -45,7 +45,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE)
   //*******************************************************
   // Settings 
   //*******************************************************
-  const Double_t lumi = 1;
+  Double_t lumi = 1;
   TString filesPath   = "dummy";
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
@@ -56,15 +56,15 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE)
 
   if     (period == 0){ // Run2011A
     lumi = 2.1;minRun =      0;maxRun = 173692;
-    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets_Run2011A";
+    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Run2011A";
   }
   else if(period == 1){ // Run2011B
     lumi = 1.9;minRun = 173693;maxRun = 999999;
-    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets_Run2011B";
+    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Run2011B";
   }
   else if(period == 2){ // Full2011
     lumi = 4.0;minRun =      0;maxRun = 999999;
-    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets_Full2011";
+    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Full2011";
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -106,14 +106,6 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE)
   const Int_t nmass = 13;
   const Double_t mH[nmass] = {0,115,120,130,140,150,160,170,180,190,200,250,300};  
     
-  Double_t _Pt1[nmass]    = {	20,  20,  20,  25,  25,  27,  30,  34,  36,  38,  40,  55,  70 };
-  Double_t _Pt2[nmass]    = {	15,  15,  15,  15,  15,  25,  25,  25,  25,  25,  25,  25,  25 };
-  Double_t _Mll[nmass]    = { 7000,  40,  40,  45,  45,  50,  50,  50,  60,  80,  90, 150, 200 };
-  Double_t _DPhi[nmass]   = {  180, 115, 115,  90,  90,  90,  60,  60,  70,  90, 100, 140, 175 };
-  Double_t _MtLow[nmass]  = {	 0,  70,  70,  75,  80,  80,  90, 110, 120, 120, 120, 120, 120 };
-  Double_t _MtHigh[nmass] = { 7000, 110, 120, 125, 130, 150, 160, 170, 180, 190, 200, 250, 300 };
-
-
   //*******************************************************
   //Yields and  histograms
   //*******************************************************
@@ -756,7 +748,7 @@ Double_t computeSyst(const TH1F *hout, const TH1F *hin, Int_t binUsed)
   return dr;
 }
 
-TGraphErrors* MakeRoutinGraph(const TH1F *hout, const TH1F *hin, string graphname, vector<Double_t> bins) {
+TGraphErrors* MakeRoutinGraph(const TH1F *hout, const TH1F *hin, string graphname) {
 
   Int_t nbins = hout->GetNbinsX();
   assert(nbins <= 200);

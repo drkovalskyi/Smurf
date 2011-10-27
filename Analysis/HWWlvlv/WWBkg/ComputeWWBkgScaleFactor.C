@@ -622,7 +622,7 @@ void ComputeWWBkgScaleFactor (
 
       //if (!(classIndex == kCutBasedZeroJet && imass == 1)) continue;
 
-      cout << "mH = 120 Analysis : WW Control Region" << endl;
+      cout << "mH = << " << imass << " Analysis : WW Control Region" << endl;
       cout << "Data Yield : " << Yield_WWControlRegion_Data[classIndex][imass] 
            << " +/- " << YieldUncertainty_WWControlRegion_Data[classIndex][imass] << endl;
       cout << "DY Bkg : " 
