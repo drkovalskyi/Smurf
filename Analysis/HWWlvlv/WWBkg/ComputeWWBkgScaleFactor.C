@@ -154,8 +154,6 @@ void ComputeWWBkgScaleFactor (
     WWScaleFactorUncertainty.push_back(tmpWWScaleFactorUncertainty);
   }
 
-
-
   //----------------------------------------------------------------------------
   UInt_t          cuts;
   UInt_t          dstype;

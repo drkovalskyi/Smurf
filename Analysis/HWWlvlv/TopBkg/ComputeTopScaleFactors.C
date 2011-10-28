@@ -476,11 +476,17 @@ void ComputeTopScaleFactors
     effttDA_btag_highestpt_2j_error[i] = sqrt((1-effttDA_btag_highestpt_2j[i])*effttDA_btag_highestpt_2j[i]/btag_highestpt_2j_den[3][i]);
   }
 
+  for(int i=0; i<5; i++) printf("scaleFactor2j(%d) --> %6.3f +/- %6.3f\n",i,
+             (btag_highestpt_2j_num[3][i]-btag_highestpt_2j_num[0][i])/(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]),
+             sqrt(btag_highestpt_2j_num[3][i])/(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]));
+  double TopBkgScaleFactor_2Jet = (btag_highestpt_2j_num[3][4]-btag_highestpt_2j_num[0][4])/(btag_highestpt_2j_num[1][4]+btag_highestpt_2j_num[2][4]);
+  double TopBkgScaleFactorUncertainty_2Jet = sqrt(btag_highestpt_2j_num[3][4])/(btag_highestpt_2j_num[1][4]+btag_highestpt_2j_num[2][4]);
+
   for(int i=0; i<5; i++) {
     printf("numerator  (%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_highestpt_2j_num[3][i],btag_highestpt_2j_num[0][i],(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]),btag_highestpt_2j_num[1][i],btag_highestpt_2j_num[2][i]);
     printf("denominator(%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_highestpt_2j_den[3][i],btag_highestpt_2j_den[0][i],(btag_highestpt_2j_den[1][i]+btag_highestpt_2j_den[2][i]),btag_highestpt_2j_den[1][i],btag_highestpt_2j_den[2][i]);
   }
-  printf("\n\n");
+
   printf("channel         eff_tttw             eff_tt                eff_tw               eff_data                         ScaleFactor\n");
   for(int i=0; i<5; i++) {
     printf("eff (%s): %6.3f +/- %6.3f  %6.3f +/- %6.3f  %6.3f +/- %6.3f --> %6.3f +/- %6.3f      : scaleFactor2j(%s) --> %6.3f +/- %6.3f\n",classLabel[i],
@@ -491,10 +497,8 @@ void ComputeTopScaleFactors
 //     printf("scaleFactor2j(%s) --> %6.3f +/- %6.3f\n",classLabel[i],(btag_highestpt_2j_num[3][i]-btag_highestpt_2j_num[0][i])/(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]),
 //            sqrt(btag_highestpt_2j_num[3][i])/(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]));    
   }
-  printf("\n\n");
+
   printf("****************************************************************************************************************************************\n");
-  printf("\n\n");
-  printf("\n\n");
 
   //*******************************************************************************
   //1-Jet Bin : BTag Efficiency for highest pt jet
@@ -526,7 +530,7 @@ void ComputeTopScaleFactors
     printf("numerator  (%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_highestpt_1j_num[3][i],btag_highestpt_1j_num[0][i],(btag_highestpt_1j_num[1][i]+btag_highestpt_1j_num[2][i]),btag_highestpt_1j_num[1][i],btag_highestpt_1j_num[2][i]);
     printf("denominator(%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_highestpt_1j_den[3][i],btag_highestpt_1j_den[0][i],(btag_highestpt_1j_den[1][i]+btag_highestpt_1j_den[2][i]),btag_highestpt_1j_den[1][i],btag_highestpt_1j_den[2][i]);
   }
-  printf("\n\n");
+
   printf("channel       eff_tttw           eff_tt              eff_tw               eff_data              \n");
   for(int i=0; i<5; i++) {
     printf("eff (%d): %6.3f +/- %6.3f  %6.3f +/- %6.3f  %6.3f +/- %6.3f --> %6.3f +/- %6.3f  \n",i,
@@ -540,7 +544,6 @@ void ComputeTopScaleFactors
   double estimationDA_btag_highestpt_1j[5]; 
   double estimationDA_btag_highestpt_1j_error[5]; 
 
-
   for(int i=0; i<5; i++) {
     estimationMC_btag_highestpt_1j[i] = (1-effttMC_btag_highestpt_2j[4])/effttMC_btag_highestpt_2j[4]*(btag_highestpt_1j_num[1][i]+btag_highestpt_1j_num[2][i]);
     estimationMC_btag_highestpt_1j_err[i] = effttMC_btag_highestpt_tt_1j_error[i]/effttMC_btag_highestpt_2j[4]/effttMC_btag_highestpt_2j[4]*(btag_highestpt_1j_num[1][i]+btag_highestpt_1j_num[2][i]);
@@ -553,8 +556,6 @@ void ComputeTopScaleFactors
     
   }
 
-
-  printf("\n\n");
   printf("Predicted ttbar+tW background for 1jet analysis (fails btag):  top background scale factor\n");
   printf("               MC(tt + tW)     Predicted from MC     | Prediction from Data   |    Scale Factor \n");
   for(int i=0; i<5; i++) {
@@ -566,9 +567,7 @@ void ComputeTopScaleFactors
            estimationDA_btag_highestpt_1j_error[i]/((btag_highestpt_1j_den[1][i]+btag_highestpt_1j_den[2][i])-(btag_highestpt_1j_num[1][i]+btag_highestpt_1j_num[2][i])));
   }
 
-  printf("\n\n");
   printf("**********************************************************\n");
-  printf("\n\n");
 
   //*******************************************************************************
   //0-Jet Bin
@@ -602,12 +601,11 @@ void ComputeTopScaleFactors
     effttDA_btag_lowpt_1j_error[i] = sqrt((1-effttDA_btag_lowpt_1j[i])*effttDA_btag_lowpt_1j[i]/btag_lowpt_1j_den[3][i]);
   }
 
-  printf("\n\n");
   for(int i=0; i<5; i++) {
     printf("numerator(%s)   --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_lowpt_1j_num[3][i],btag_lowpt_1j_num[0][i],(btag_lowpt_1j_num[1][i]+btag_lowpt_1j_num[2][i]),btag_lowpt_1j_num[1][i],btag_lowpt_1j_num[2][i]);
     printf("denominator(%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_lowpt_1j_den[3][i],btag_lowpt_1j_den[0][i],(btag_lowpt_1j_den[1][i]+btag_lowpt_1j_den[2][i]),btag_lowpt_1j_den[1][i],btag_lowpt_1j_den[2][i]);
   }
-  printf("\n\n");
+
   printf("channel       eff_tttw         eff_tt            eff_tw           eff_data              \n");
   for(int i=0; i<5; i++) {
     printf("eff (%d): %6.3f +/- %6.3f  %6.3f +/- %6.3f  %6.3f +/- %6.3f --> %6.3f +/- %6.3f\n",i,
@@ -615,11 +613,7 @@ void ComputeTopScaleFactors
            effttMC_btag_lowpt_tw_1j[i],effttMC_btag_lowpt_tw_1j_error[i],effttDA_btag_lowpt_1j[i],effttDA_btag_lowpt_1j_error[i]);
   }
 
-  printf("\n\n");
   printf("**********************************************************\n");
-  printf("\n\n");
-
-
 
   //*******************************************************************************
   //Closure Test 0-Jet Bin
@@ -631,9 +625,6 @@ void ComputeTopScaleFactors
     ftw_b[i] = effttMC_btag_lowpt_tw_1j[i];
     printf("ftw_b(%d) = %5.3f \n",i,ftw_b[i]);
   }
-  printf("\n");
-  printf("\n");
-
 
   double N_top_expected_0j[5]; 
   double fttbar[5]; 
@@ -644,8 +635,6 @@ void ComputeTopScaleFactors
 // fttbar[i] = btag_lowpt_0j_den[1][i]/(btag_lowpt_0j_den[1][i]+btag_lowpt_0j_den[2][i]);
   }
 
-
-   
   double effMC_btag_lowpt_tt_0j_expected[5];  
   double effMC_btag_lowpt_tw_0j_expected[5];  
   double effMC_btag_lowpt_tt_0j[5];           
@@ -663,10 +652,7 @@ void ComputeTopScaleFactors
     printf("(%s),                  %5.3f/%5.3f                                              %5.3f/%5.3f\n",
            classLabel[i],effMC_btag_lowpt_tt_0j_expected[i],effMC_btag_lowpt_tt_0j[i],effMC_btag_lowpt_tw_0j_expected[i],effMC_btag_lowpt_tw_0j[i]);
   }
-  printf("\n");
-  printf("\n");
 
-    
   // begin get closure test closing!!!!!!!!!!!!!!!
   // double ftw_2b[5];
   // for(int i=0; i<5; i++) {
@@ -705,8 +691,6 @@ void ComputeTopScaleFactors
            effMC_btag_lowpt_0j[i],effMC_btag_lowpt_0j_error[i],
            effDA_btag_lowpt_0j[i],effDA_btag_lowpt_0j_error[i]);
   }
-  printf("\n");
-  printf("\n");
 
   double sigma_0f_bck = 0.20;
   double estimationMC_btag_lowpt_0j[5]; 
@@ -749,7 +733,7 @@ void ComputeTopScaleFactors
   outf << "  Double_t TopBkgScaleFactor[3] = { " 
        << TopBkgScaleFactor_0Jet << ", "
        << TopBkgScaleFactor_1Jet << ", "
-       << 1.188 << " "
+       << TopBkgScaleFactor_2Jet << "  "
        << " };" << endl;
   outf << "  return TopBkgScaleFactor[jetBin];" << endl;
   outf << "}" << endl;
@@ -762,7 +746,7 @@ void ComputeTopScaleFactors
   outf << "  Double_t TopBkgScaleFactorKappa[3] = { " 
        << (1.0 + TopBkgScaleFactorUncertainty_0Jet/TopBkgScaleFactor_0Jet) << ", "
        << (1.0 + TopBkgScaleFactorUncertainty_1Jet/TopBkgScaleFactor_1Jet) << ", "
-       << (1.0 + 0.50) << " "
+       << (1.0 + TopBkgScaleFactorUncertainty_2Jet/TopBkgScaleFactor_2Jet) << "  "
        << " };" << endl;
 
   outf << "  return TopBkgScaleFactorKappa[jetBin];" << endl;
