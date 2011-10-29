@@ -1,0 +1,128 @@
+
+In the $M_T$-Shape based analysis, we separate the $WW$ and $Top$ backgrounds,
+in order to better quantify the relevant shape systematics.
+We do so by deriving simulation-to-data scale factors separately for the two backgrounds.
+
+\subsubsection{Top Background Estimate}
+
+Top quarks decay via $t\rightarrow bW$ with almost certainty.  
+We explout this to estimate the background by counting events where $b$-quarks were produced. 
+If the counted events are dominated by $t\bar{t}$ events, 
+
+The true number of $t\bar{t}$ events containing exactly one $b$-quark within the geometric acceptance 
+of the detector and exactly two $b$-quarks within the same acceptance are denoted $N_{1}$ and $N_{2}$.  
+These are related to the observed numbers of events, $n_{1}$ and $n_{2}$, 
+through the efficiency with which a jet originating from a $b$-quark 
+is reconstructed and tagged, $\varepsilon_{b}$, by 
+
+\begin{eqnarray}
+n_{1} = N_{1}\varepsilon_{b} + 2N_{2}\varepsilon_{b}(1-\varepsilon_{b}) \label{eqn:analysis_bTagEff1_n1},\\
+n_{2} = N_{2}\varepsilon_{b}^{2} \label{eqn:analysis_bTagEff1_n2}.
+\end{eqnarray}
+
+To determine the value of $\varepsilon_{b}$ the unknown values of $N_{1}$ and $N_{2}$ 
+can be eliminated by relating each to the true number of $t\bar{t}$ events, $N$, 
+through the geometric acceptances, $A_1$ and $A_2$, for exactly one and exactly two $b$ quarks 
+respectively in the case where the W bosons decay to the appropriate lepton flavor. 
+This is expressed by
+
+\begin{eqnarray}
+N_{1} = N\cdot A_{1}, \\
+N_{2} = N\cdot A_{2}.
+\end{eqnarray}
+
+Eliminating the unknowns, the value of $\varepsilon_{b}$ is related to the observed numbers of events through 
+
+\begin{equation}
+\label{eqn:analysis_bTagEff}
+\varepsilon_{b} = \frac{(A_{1}/A_{2} + 2)}{(n_{1}/n_{2}+ 2)}.
+\end{equation}
+
+The values of $A_1$ and $A_2$ are computed using both $t\bar{t}$ and single top simulated events
+in the appropriate proportion according to their cross sections. The values are found to be
+$A_1=0.117$ and $A_2=0.876$ with respect to the following denominator 
+(TODO: these are sort of arbitrary and need to be repeated):
+
+\begin{itemize}
+    \item Reconstructed MET $> 55$ GeV
+    \item Two reconstructed 20 GeV leptons
+    \item At least one good primary vertex
+    \item Dilepton pT $> 25$ GeV
+    \item Generated $b$-quarks counted if pT$>5$ GeV and $|\eta|$ < 2.4
+\end{itemize}
+
+Then finally the number of top events expected after applying the Top veto is found
+by scaling the $n_{1}$ sample by the expected efficiencies and acceptances:
+
+TODO: Insert equation here
+
+We extract the scale factor between the number of events predicted in data at the 
+preselection level and the number predicted by Top simulation.
+The systematic uncertainty comes from applying the method consistently on
+Top simulation (MC closure test).
+
+$SF = 1.24 +/- 0.08 +/- 0.08 syst$
+
+\subsubsection{WW Background Estimate}
+
+We extract the scale factor for the $WW$ process by comparing the
+yield at the preselection level, but requiring $e\mu$ events instead
+of same flavor. 
+In this case, to increase the statistical precision of the scale factor,
+we relax the mass window to $>12$ GeV.
+We subtract the expected Top yield using Top simulation, which is 
+corrected for the scale factor for this process.  Other non-$WW$
+backgrounds are subtracted from simulation.
+We take the $WW$ scale factor from the $Met>50$ region
+to be $1.29 \pm 0.13$.
+
+\begin{table}[!ht]
+\begin{center}
+ \tiny{
+\begin{tabular}{c|c|c|c|c|c|c|c}
+\hline
+Sample & Top & WW & ZZ & WZ & DYtt & DATA & SF \\ \hline
+Met $> 20.00$ & $92.76 \pm 8.52$ & $330.71 \pm 1.97$ & $0.16 \pm 0.01$ & $6.88 \pm 0.12$ & $23.69 \pm 2.51$ & $576.00 \pm 24.00$ & $1.37 \pm 0.08$ \\ \hline
+Met $> 30.00$ & $86.52 \pm 7.95$ & $293.46 \pm 1.85$ & $0.15 \pm 0.01$ & $6.05 \pm 0.11$ & $17.40 \pm 2.18$ & $513.00 \pm 22.65$ & $1.37 \pm 0.08$ \\ \hline
+Met $> 40.00$ & $77.74 \pm 7.15$ & $238.56 \pm 1.67$ & $0.14 \pm 0.01$ & $4.74 \pm 0.10$ & $12.00 \pm 1.82$ & $400.00 \pm 20.00$ & $1.28 \pm 0.09$ \\ \hline
+Met $> 50.00$ & $66.46 \pm 6.12$ & $175.62 \pm 1.43$ & $0.12 \pm 0.01$ & $3.41 \pm 0.08$ & $6.49 \pm 1.34$ & $316.00 \pm 17.78$ & $1.36 \pm 0.11$ \\ \hline
+Met $> 60.00$ & $53.10 \pm 4.90$ & $118.13 \pm 1.17$ & $0.10 \pm 0.01$ & $2.28 \pm 0.07$ & $3.74 \pm 1.01$ & $217.00 \pm 14.73$ & $1.34 \pm 0.13$ \\ \hline
+\end{tabular}
+\caption{Zero jet bin WW Scale Factor}
+\label{tab:yield_of_0jet_wwsf}}
+\end{center}
+\end{table}
+
+\subsubsection{Preselection level cross-check}
+
+To verify the scale factors for WW and Top, we compare the predicted yields with the prediction
+for the sum of the two processes derived using the opposite flavor counting method
+as in the cut based analysis.
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c}
+sample  & mm    & ee     & TOTAL\\ \hline 
+WWTop(OF)   & 104.58 $\pm$ 7.83 & 77.95 $\pm$ 5.83  & 182.53 $\pm$ 9.77 \\ \hline 
+WW$\times$SF  & 56.67 $\pm$ 0.94  & 39.60 $\pm$ 0.79  & 96.27 $\pm$ 1.23 \\ \hline 
+Top$\times$SF & 53.67 $\pm$ 0.76  & 37.59 $\pm$ 0.65  & 91.25 $\pm$ 1.00 \\ \hline 
+\end{tabular}
+\caption{Validation of WW and Top Scale Factors}
+\label{tab:yield_presel_ofsfval}
+\end{center}
+\end{table}
+
+The Scale Factor method predicts 110.3 WW+Top events in the $mm$ channel 
+compared to 104.6 events predicted by the OF method.
+Likewise the Scale factor method predicts 77.2 events in the $ee$ channel
+compared to 77.95 events predicted by the OF method.
+
+\begin{itemize}
+    \item TO DO:
+    \begin{itemize}
+        \item This can be used to set a systematic uncertainty on the SF.
+        \item comparing the SF prediction and emu counting can be used as the cuts get tighter for the higher mH points
+to determine the uncertainty on the scale factors extrapolating from the control region to tighter cuts.
+    \end{itemize}
+\end{itemize}
+
