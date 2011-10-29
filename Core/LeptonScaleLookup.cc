@@ -14,6 +14,9 @@ LeptonScaleLookup::LeptonScaleLookup(std::string filename)
     h2_selection_e_ = (TH2F*)file_->Get("h2_results_electron_selection");
     h2_selection_m_ = (TH2F*)file_->Get("h2_results_muon_selection");
 
+    h2_selection_eff_e_ = (TH2F*)file_->Get("h2_results_electron_dataeff");
+    h2_selection_eff_m_ = (TH2F*)file_->Get("h2_results_muon_dataeff");
+
 }
 
 LeptonScaleLookup::~LeptonScaleLookup()
@@ -113,6 +116,19 @@ float LeptonScaleLookup::GetExpectedTriggerEfficiency(float eta1, float pt1, flo
     // return it
     return evt_eff;        
 
+}
+
+float LeptonScaleLookup::GetExpectedLeptonEff(float eta, float pt, int id)
+{
+    float eff = 0.0;
+    if (abs(id) == 11) {
+        eff = GetEfficiency(eta, pt, h2_selection_eff_e_);
+    } else if (abs(id) == 13) {
+        eff = GetEfficiency(eta, pt, h2_selection_eff_m_);
+    } else {
+        std::cout << "[LeptonScaleLookup::GetExpectedLeptonEff] ERROR: Invalid flavor!" << std::endl;
+    }
+    return eff;
 }
 
 float LeptonScaleLookup::GetExpectedLeptonSF(float eta, float pt, int id)

@@ -19,19 +19,27 @@ class LeptonScaleLookup {
         float GetExpectedTriggerEfficiency(float eta1, float pt1, float eta2, float pt2, int id1, int id2);
         float GetExpectedLeptonSF(float eta, float pt, int id);
         float GetExpectedLeptonSFErr(float eta, float pt, int id);
+        float GetExpectedLeptonEff(float eta, float pt, int id);
 
         void printTable(std::string name);
 
     private:
         TFile *file_;
+
         TH2F *h2_double_e_;
         TH2F *h2_single_e_;
         TH2F *h2_double_m_;
         TH2F *h2_single_m_;
         TH2F *h2_cross_m_;
         TH2F *h2_cross_e_;
+
+        // scale factors
         TH2F *h2_selection_e_;
         TH2F *h2_selection_m_;
+
+        // efficiencies
+        TH2F *h2_selection_eff_e_;
+        TH2F *h2_selection_eff_m_;
 };
 
 void LoopupAll(std::string file);
