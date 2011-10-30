@@ -29,20 +29,29 @@ These are described in Table~\ref{tab:triggers_mm}.
 %%%%%%%%%
 \begin{table}[!ht]
   \caption{Analysis triggers for the $ee$ final state. 
-The identification and isolation requirements are described in Ref.~\cite{HWW2011AN}.}
+The identification and isolation requirements are described in Ref.~\cite{HWW2011AN}.
+Triggers marked (*) are also used for efficiency studies.}
     \vspace{5pt}
    \label{tab:triggers_ee}
   \begin{center}
  {\small
-  \begin{tabular} {l|l|l|c}
+  \begin{tabular} {l|l|c}
 \hline
-  Dataset & Trigger name & L1 seed & Description\\
+  Dataset & Trigger name & Description\\
   \hline \hline
-  \multirow{2}{*}{DoubleElectron} & HLT\_Ele17\_CaloIdL\_CaloIsoVL\_&  L1\_SingleEG12  & $p_T>17,8~\GeVc$ \\
-                                  & Ele8\_CaloIdL\_CaloIsoVL &                  & \\
+  \multirow{2}{*}{DoubleElectron} & HLT\_Ele17\_CaloIdL\_CaloIsoVL\_                         & $p_T>17,8~\GeVc$ \\
+                                  & Ele8\_CaloIdL\_CaloIsoVL                  & \\
 
-  \multirow{2}{*}{DoubleElectron} & HLT\_Ele17\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL\_ &  L1\_SingleEG12  & $p_T>17,8~\GeVc$ \\
-                                  & Ele8\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL &                  & \\
+  \multirow{2}{*}{DoubleElectron} & HLT\_Ele17\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL\_      & $p_T>17,8~\GeVc$ \\
+                                  & Ele8\_CaloIdT\_TrkIdVL\_CaloIsoVL\_TrkIsoVL &  \\
+
+  \multirow{2}{*}{DoubleElectron} & HLT\_Ele17\_CaloIdVT\_TrkIdT\_CaloIsoVT\_TrkIsoVT\_      & $p_T>17,8~\GeVc$ \\
+                                  & SC8\_Mass30 (*) &  \\
+  \multirow{2}{*}{DoubleElectron} & HLT\_Ele17\_CaloIdVT\_TrkIdT\_CaloIsoVT\_TrkIsoVT\_      & $p_T>17,8~\GeVc$ \\
+                                  & Ele8\_Mass30 (*) &  \\
+  DoubleElectron                  & HLT\_Ele32\_CaloIdL\_CaloIsoVL\_SC17 (*)                 & $p_T>32,17~\GeVc$ \\
+  DoubleElectron                  & HLT\_Ele32\_CaloIdT\_TrkIdT\_CaloIsoT\_TrkIsoT\_SC17 (*) & $p_T>32,17~\GeVc$ \\
+				  
   \hline
   \end{tabular}
 }
@@ -52,43 +61,52 @@ The identification and isolation requirements are described in Ref.~\cite{HWW201
 
 %%%%%%%%%
 \begin{table}[!ht]
-  \caption{Analysis triggers for the $\mu\mu$ final state. Triggers marked (*) are also used for efficiency studies.}
+  \caption{Analysis triggers for the $\mu\mu$ final state. }
     \vspace{5pt}
    \label{tab:triggers_mm}
   \begin{center}
  {\small
-  \begin{tabular} {l|l|l|c}
+  \begin{tabular} {l|l|c}
 \hline
-  Dataset & Trigger name & L1 seed & Description\\
+  Dataset & Trigger name & Description\\
   \hline \hline
-  DoubleMu & HLT\_DoubleMu6 & L1\_DoubleMu3  & $p_T>6,6~\GeVc$\\
-  DoubleMu & HLT\_DoubleMu7 & L1\_DoubleMu3  & $p_T>7,7~\GeVc$ \\
-  DoubleMu & HLT\_Mu13\_Mu8 & L1\_DoubleMu3  & $p_T>13,8~\GeVc$ \\
-  DoubleMu & HLT\_Mu17\_Mu8 & L1\_DoubleMu3  & $p_T>17,8~\GeVc$ \\
+  DoubleMu & HLT\_DoubleMu7 & $p_T>7,7~\GeVc$ \\
+  DoubleMu & HLT\_Mu13\_Mu8 & $p_T>13,8~\GeVc$ \\
+  DoubleMu & HLT\_Mu17\_Mu8 & $p_T>17,8~\GeVc$ \\
   \hline
   \end{tabular}
 }
   \end{center}
 \end{table}
 %%%%%%%%%
-
+		  
 %%%%%
 \begin{table}[!ht]
-  \caption{Single lepton triggers to recover lost efficiency. These trigges are also used for efficiency studies.
+  \caption{Single lepton triggers used for efficiency studies.
 The identification and isolation requirements for electrons are described in Ref.~\cite{HWW2011AN}. }
     \vspace{5pt}
    \label{tab:triggers_single}
   \begin{center}
  {\small
-  \begin{tabular} {l|l|l|c}
+  \begin{tabular} {l|l|c}
 \hline
-  Dataset & Trigger name & L1 seed & Description\\
+  Dataset & Trigger name & Description\\
   \hline \hline
-  SingleEle & HLT\_Ele27\_CaloIdVT\_CaloIsoT\_TrkIdT\_TrkIsoT & L1\_SingleEG15  & $p_T>27~\GeVc$ \\
+  SingleEle & HLT\_Ele27\_CaloIdVT\_CaloIsoT\_TrkIdT\_TrkIsoT & $p_T>27~\GeVc$ \\
+  SingleEle & HLT\_Ele32\_CaloIdVT\_CaloIsoT\_TrkIdT\_TrkIsoT & $p_T>32~\GeVc$ \\
+  SingleEle & HLT\_Ele52\_CaloIdVT\_TrkIdT                    & $p_T>52~\GeVc$ \\
+  SingleEle & HLT\_Ele65\_CaloIdVT\_TrkIdT                    & $p_T>65~\GeVc$ \\  
+  
   \hline \hline
-  SingleMu & HLT\_IsoMu12   & L1\_SingleMu7  & $p_T>12~\GeVc$ \\
-  SingleMu & HLT\_IsoMu17   & L1\_SingleMu10 & $p_T>17~\GeVc$ \\
-  SingleMu & HLT\_Mu15      & L1\_SingleMu10 & $p_T>15~\GeVc$ \\
+  SingleMu & HLT\_IsoMu17         & $p_T>17~\GeVc$ \\
+  SingleMu & HLT\_IsoMu17\_eta2p1 & $p_T>17~\GeVc, |\eta|<2.1$ \\
+  SingleMu & HLT\_IsoMu20         & $p_T>20~\GeVc$ \\
+  SingleMu & HLT\_IsoMu24         & $p_T>24~\GeVc$ \\
+  SingleMu & HLT\_Mu15            & $p_T>15~\GeVc$ \\
+  SingleMu & HLT\_Mu24            & $p_T>24~\GeVc$ \\
+  SingleMu & HLT\_Mu30            & $p_T>30~\GeVc$ \\
+  SingleMu & HLT\_Mu40            & $p_T>40~\GeVc$ \\
+  SingleMu & HLT\_Mu40\_eta2p1    & $p_T>40~\GeVc, |\eta|<2.1$ \\
   \hline 
   \end{tabular}
 }
@@ -120,12 +138,13 @@ The identification and isolation requirements for electrons are described in Ref
    \label{tab:triggers_em}
   \begin{center}
  {\small
-  \begin{tabular} {l|l|l|c}
+  \begin{tabular} {l|l|c}
 \hline
-  Dataset & Trigger name & L1 seed & Description\\
+  Dataset & Trigger name & Description\\
   \hline \hline
-  MuEG & HLT\_Mu17\_Ele8\_CaloIdL & L1\_Mu3\_EG5 & $p_T>17,8~\GeVc$ \\
-  MuEG & HLT\_Mu8\_Ele17\_CaloIdL & L1\_Mu3\_EG5 & $p_T>8,17~\GeVc$ \\
+  MuEG & HLT\_Mu17\_Ele8\_CaloIdL            & $p_T>17,8~\GeVc$ \\
+  MuEG & HLT\_Mu8\_Ele17\_CaloIdL            & $p_T>8,17~\GeVc$ \\
+  MuEG & HLT\_Mu8\_Ele17\_CaloIdT\_CaloIsoVL & $p_T>8,17~\GeVc$ \\
  \hline
   \end{tabular}
 }
@@ -157,19 +176,19 @@ $\dyll$ plus jets.
    \label{tab:triggers_photon}
   \begin{center}
  {\small
-  \begin{tabular} {l|l|c}
+  \begin{tabular} {l}
 \hline
-  Trigger name & pre-scale & rate \\
+  Trigger name \\
   \hline \hline
-HLT\_Photon20\_CaloIdVL\_IsoL\_v5 & prescale 1790 & 0.5Hz \\
-HLT\_Photon30\_CaloIdVL\_IsoL\_v6 & prescale 360 & 0.5Hz \\
-HLT\_Photon30\_CaloIdVL\_v6 & prescale 720 & 0.7Hz \\
-HLT\_Photon50\_CaloIdVL\_IsoL\_v5 & prescale 85 & 0.3Hz \\
-HLT\_Photon50\_CaloIdVL\_v3 & prescale 180 & 0.4Hz \\
-HLT\_Photon75\_CaloIdVL\_IsoL\_v6 & Prescale 7 & 0.8Hz \\
-HLT\_Photon75\_CaloIdVL\_v6 & Prescale 30 & 0.5Hz \\
-HLT\_Photon90\_CaloIdVL\_IsoL\_v3 & Unprescaled & 3Hz \\
-HLT\_Photon90\_CaloIdVL\_v3 & prescaled 15 & 0.5Hz\\
+HLT\_Photon20\_CaloIdVL\_IsoL \\
+HLT\_Photon30\_CaloIdVL\_IsoL \\
+HLT\_Photon30\_CaloIdVL \\
+HLT\_Photon50\_CaloIdVL\_IsoL \\
+HLT\_Photon50\_CaloIdVL \\
+HLT\_Photon75\_CaloIdVL\_IsoL \\
+HLT\_Photon75\_CaloIdVL \\
+HLT\_Photon90\_CaloIdVL\_IsoL \\
+HLT\_Photon90\_CaloIdVL \\
   \hline 
   \end{tabular}
 }
