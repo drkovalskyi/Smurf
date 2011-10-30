@@ -15,11 +15,15 @@
 #include "Math/VectorUtil.h"
 #include "TH1D.h"
 #include "TH2D.h"
-#include "/home/ceballos/releases/CMSSW_4_2_2/src/Smurf/Core/SmurfTree.h"
+#include "/home/ceballos/releases/CMSSW_4_2_8_patch4/src/Smurf/Core/SmurfTree.h"
 #include "factors.h"
 #include "HiggsQCDScaleSystematics.h"
 #include "PSUESystematics.h"
-#include "/home/ceballos/releases/CMSSW_4_2_2/src/Smurf/Core/LeptonScaleLookup.h"
+#include "/home/ceballos/releases/CMSSW_4_2_8_patch4/src/Smurf/Core/LeptonScaleLookup.h"
+#include "DYBkgScaleFactors.h"
+#include "TopBkgScaleFactors.h"
+#include "WWBkgScaleFactors.h"
+#include "HWWCuts.h"
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
@@ -48,11 +52,12 @@ void PlotHiggsRes
  Int_t   wwDecay         = 0,
  bool fillInfoNote       = false,
  TString systInputFile   = "",
+ int period              = 2,
  int  TheVerboseLevel    = 0
  )
 {
   verboseLevel = TheVerboseLevel;
-  bool useZjetsTemplates   = true;
+  bool useZjetsTemplates   = false;
   bool useWWTemplates      = true;
   bool useStatTemplates    = true;
   bool useExpTemplates     = true;
@@ -62,12 +67,24 @@ void PlotHiggsRes
   bool useTopTemplates     = true;
   bool useggHTemplates     = true;
   bool useWgammaTemplates  = true;
+  if(nJetsType != 0 && nJetsType != 1){
+    useZjetsTemplates	= false;
+    useWWTemplates	= false;
+    useStatTemplates	= false;
+    useExpTemplates	= false;
+    useJESTemplates	= false;
+    useWJetsTemplates	= false;
+    useWJetsMCTemplates = false;
+    useTopTemplates	= false;
+    useggHTemplates	= false;
+    useWgammaTemplates  = false;
+  }
   int rebinMVAHist = 10;
 
   bool makeZjetsTemplates = false;
   if(makeZjetsTemplates == true) useZjetsTemplates = false;
 
-  bool useAlternativeStatTemplates = false;
+  bool useAlternativeStatTemplates = true;
 
   if(wwDecay != 0 && wwDecay != 3 && wwDecay != 5) useZjetsTemplates = false;
 
@@ -93,47 +110,11 @@ void PlotHiggsRes
 
   unsigned int patternTopTag = SmurfTree::TopTag;
 
-  int channel = -1;
-  if     (mH == 115) channel = 0;
-  else if(mH == 120) channel = 1;
-  else if(mH == 130) channel = 2;
-  else if(mH == 140) channel = 3;
-  else if(mH == 150) channel = 4;
-  else if(mH == 160) channel = 5;
-  else if(mH == 170) channel = 6;
-  else if(mH == 180) channel = 7;
-  else if(mH == 190) channel = 8;
-  else if(mH == 200) channel = 9;
-  else if(mH == 210) channel = 10;
-  else if(mH == 220) channel = 11;
-  else if(mH == 230) channel = 12;
-  else if(mH == 250) channel = 13;
-  else if(mH == 300) channel = 14;
-  else if(mH == 350) channel = 15;
-  else if(mH == 400) channel = 16;
-  else if(mH == 450) channel = 17;
-  else if(mH == 500) channel = 18;
-  else if(mH == 550) channel = 19;
-  else if(mH == 600) channel = 20;
+  int channel = HiggsMassIndex(mH)-1;
 
   if(channel == -1) return;
 
-  float dilmass_cut = 10000;
-   
-  if     ( mH == 115 ) dilmass_cut =  70.0;
-  else if( mH == 120 ) dilmass_cut =  70.0;
-  else if( mH == 130 ) dilmass_cut =  80.0;
-  else if( mH == 140 ) dilmass_cut =  90.0;
-  else if( mH == 150 ) dilmass_cut = 100.0;
-  else if( mH == 160 ) dilmass_cut = 100.0;
-  else if( mH == 165 ) dilmass_cut = 100.0;
-  else if( mH == 170 ) dilmass_cut = 100.0;
-  else if( mH == 180 ) dilmass_cut = 110.0;
-  else if( mH == 190 ) dilmass_cut = 120.0;
-  else if( mH == 200 ) dilmass_cut = 130.0;
-  else if( mH == 210 ) dilmass_cut = 140.0;
-  else if( mH == 220 ) dilmass_cut = 150.0;
-  else                 dilmass_cut = mH;
+  float dilmass_cut = DileptonMassPreselectionCut(mH);
 
   char finalStateName[10];
   sprintf(finalStateName,"ll");
@@ -144,30 +125,6 @@ void PlotHiggsRes
   else if(wwDecay == 5) sprintf(finalStateName,"sf");
   else if(wwDecay == 6) sprintf(finalStateName,"of");
 
-  double wwScaleFactor0jCut[21] = {1.07,1.07,1.07,1.05,0.98,0.99,0.98,0.98,0.99,0.98,
-                                   1,1,1,1,1,1,1,1,1,1,1};
-  double wwScaleFactor0jMVA[21] = {1.07,1.07,1.07,1.07,1.07,1.07,1.07,1.07,1.07,1.07,
-                                   1,1,1,1,1,1,1,1,1,1,1};
-  double wwScaleFactor1jCut[21] = {1.11,1.11,1.12,1.11,1.09,1.09,1.10,1.12,1.12,1.14,
-                                   1,1,1,1,1,1,1,1,1,1,1};
-  double wwScaleFactor1jMVA[21] = {1.11,1.11,1.11,1.11,1.11,1.11,1.11,1.11,1.11,1.11,
-                                   1,1,1,1,1,1,1,1,1,1,1};
-
-  double zjScaleFactor[3][21] = {
-  {1.675, 1.536, 1.013, 1.126, 0.520, 0.755, 1.265, 2.132, 0.795, 0.460, 1.000, 1.000, 1.000, 0.159, 0.788, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000},
-  {0.381, 0.658, 0.438, 0.374, 0.847, 0.811, 1.498, 0.698, 1.416, 1.730, 1.000, 1.000, 1.000, 1.295, 1.278, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000},
-  {1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000}
-  };
-  double zjScaleFactorE[3][21] = {
-  {2.893, 2.909, 2.307, 1.932, 5.153, 1.952, 2.691, 2.102, 3.029, 6.022, 1.000, 1.000, 7.083, 5.063, 0.609, 0.609, 0.609, 0.609, 0.609, 0.609, 0.609},
-  {2.262, 2.243, 3.837, 2.743, 1.861, 1.259, 1.033, 1.388, 1.623, 1.451, 1.000, 1.000, 1.000, 0.319, 1.270, 0.498, 0.498, 0.498, 0.498, 0.498, 0.498},
-  {0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378, 0.378}
-  };
-  double zjScaleFactorWWE[3] = {
-   0.609,
-   0.498,
-   0.378
-  };
   double ZXS_E[3] = {0.0, 0.0, 0.0};
   double DYXS[3]  = {0.0, 0.0, 0.0};
   double VVXS[3]  = {0.0, 0.0, 0.0};
@@ -202,7 +159,36 @@ void PlotHiggsRes
   // 7: -+
   // 8: +-
 
-  TFile *fLeptonEffFile = TFile::Open("/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root");
+  TString effPath  = "/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
+  TString fakePath = "/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
+  TString puPath   = "/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
+  unsigned int minRun = 0;
+  unsigned int maxRun = 999999;
+  double scaleFactorLum = 2.121;
+  if	 (period == 0){ // Run2011A
+    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Run2011A.root";
+    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
+    scaleFactorLum     = 2.1;minRun =      0;maxRun = 173692;
+  }
+  else if(period == 1){ // Run2011B
+    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Run2011B.root";
+    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
+    scaleFactorLum     = 1.9;minRun = 173693;maxRun = 999999;
+  }
+  else if(period == 2){ // Full2011
+    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Full2011.root";
+    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
+    scaleFactorLum     = 4.0;minRun =      0;maxRun = 999999;
+  }
+  else {
+    printf("Wrong period(%d)\n",period);
+    return;
+  }
+
+  TFile *fLeptonEffFile = TFile::Open(effPath.Data());
   TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
   TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
   fhDEffMu->SetDirectory(0);
@@ -210,23 +196,23 @@ void PlotHiggsRes
   fLeptonEffFile->Close();
   delete fLeptonEffFile;
 
-  TFile *fLeptonFRFileM = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root");
+  TFile *fLeptonFRFileM = TFile::Open(fakePath.Data());
   TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
   assert(fhDFRMu);
   fhDFRMu->SetDirectory(0);
   fLeptonFRFileM->Close();
   delete fLeptonFRFileM;
 
-  TFile *fLeptonFRFileE = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root");
+  TFile *fLeptonFRFileE = TFile::Open(fakePath.Data());
   TH2D *fhDFREl = (TH2D*)(fLeptonFRFileE->Get("ElectronFakeRate_V4_ptThreshold35_PtEta"));
   assert(fhDFREl);
   fhDFREl->SetDirectory(0);
   fLeptonFRFileE->Close();
   delete fLeptonFRFileE;
 
-  LeptonScaleLookup trigLookup("/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root");
+  LeptonScaleLookup trigLookup(effPath.Data());
 
-  TFile *fPUS4File = TFile::Open("/home/ceballos/releases/CMSSW_4_2_2/src/MitPhysics/data/puWeights_PU4_68mb.root");
+  TFile *fPUS4File = TFile::Open(puPath.Data());
   TH1D *fhDPUS4 = (TH1D*)(fPUS4File->Get("puWeights"));
   assert(fhDPUS4);
   fhDPUS4->SetDirectory(0);
@@ -247,7 +233,7 @@ void PlotHiggsRes
   fHiggsPtKFactorFile->Close();
   delete fHiggsPtKFactorFile;
 
-  TFile *fLeptonFRFileSyst = TFile::Open("/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root");
+  TFile *fLeptonFRFileSyst = TFile::Open(fakePath.Data());
   TH2D *fhDFRMuSyst = (TH2D*)(fLeptonFRFileSyst->Get("MuonFakeRate_M2_ptThreshold30_PtEta"));
   TH2D *fhDFRElSyst = (TH2D*)(fLeptonFRFileSyst->Get("ElectronFakeRate_V4_ptThreshold50_PtEta"));
   assert(fhDFRMuSyst);
@@ -277,10 +263,6 @@ void PlotHiggsRes
     }
   }
 
-  double scaleFactorLum = 1.545;
-  //double scaleFactorLum = 1.143;
-  //double scaleFactorLum = 0.402;
-
   //----------------------------------------------------------------------------
   double cutMassHigh[21]      = { 40, 40, 45, 45, 50, 50, 50, 60, 80, 90,110,120,130,150,200,250,300,350,400,450,500};
   double cutPtMaxLow[21]      = { 20, 20, 25, 25, 27, 30, 34, 36, 38, 40, 44, 48, 52, 55, 70, 80, 90,110,120,130,140};
@@ -288,6 +270,7 @@ void PlotHiggsRes
   double cutDeltaphilHigh[21] = {115,115, 90, 90, 90, 60, 60, 70, 90,100,110,120,130,140,175,175,175,175,175,175,175};
   double cutMTLow[21]         = { 70, 70, 75, 80, 80, 90,110,120,120,120,120,120,120,120,120,120,120,120,120,120,120};
   double cutMTHigh[21]        = {110,120,125,130,150,160,170,180,190,200,210,220,230,250,300,350,400,450,500,550,600};
+  double cutDilepPt[21]       = {  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
 
   //----------------------------------------------------------------------------
   const int nHist = 6;
@@ -724,7 +707,7 @@ void PlotHiggsRes
   Float_t         bdtg_aux2 = 0.0;
   Float_t         higgsPt = -999;
   Float_t         bdtg_wjets = 0.0;
-  Float_t         knn_wjets = 0.0;
+  //Float_t         knn_wjets = 0.0;
 
   signal->SetBranchAddress( "cuts"         , &cuts         );
   signal->SetBranchAddress( "dstype"       , &dstype       );
@@ -772,8 +755,8 @@ void PlotHiggsRes
   signal->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux1",mH,nJetsType), &bdtg_aux1  );
   signal->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux2",mH,nJetsType), &bdtg_aux2  );
   signal->SetBranchAddress( "higgsPt"      , &higgsPt      );
-  signal->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
-  signal->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
+  //signal->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
+  //signal->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
 
   float nSigAcc[6]  = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   float nSigCut[6]  = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -794,6 +777,16 @@ void PlotHiggsRes
     if(nJetsType == 2 && jet2->pt()*1.05 > 30 && jet3->pt()*1.05 < 30 && TMath::Abs(jet2->eta()) < 5.0 && TMath::Abs(jet3->eta()) < 5.0) passJetCut[1] = true;
     if(nJetsType == 2 && jet2->pt()*0.95 > 30 && jet3->pt()*0.95 < 30 && TMath::Abs(jet2->eta()) < 5.0 && TMath::Abs(jet3->eta()) < 5.0) passJetCut[2] = true;
 
+    double minmet = TMath::Min(pmet,pTrackMet);
+    bool passMET = minmet > 20. &&
+                  (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
+
+    bool passNewCuts = true;
+    //if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
+    //if(dilep->pt() <= 45) passNewCuts = false;
+
+    if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
+
     // WW Preselection
     if( passJetCut[0]==false&&passJetCut[1]==false&&passJetCut[2]==false ) continue; // select n-jet type events
     if( dilep->mass() > dilmass_cut 					 ) continue; // cut on dilepton mass
@@ -801,12 +794,8 @@ void PlotHiggsRes
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
-    if( TMath::Min(pmet,pTrackMet) <= 20                                 ) continue; // cut on pmet for all lepton-pair flavors
-    bool failMETVeto = TMath::Min(pmet,pTrackMet) <= 40;
-    if( makeZjetsTemplates == true) failMETVeto = TMath::Min(pmet,pTrackMet) <= 20 || TMath::Min(pmet,pTrackMet) > 40;
-    if( failMETVeto && 
-      (type == SmurfTree::mm || 
-       type == SmurfTree::ee)                                            ) continue; // cut on pmet for ee/mm lepton-pair
+    if( passNewCuts == false                                             ) continue; // cut on new pt cuts
+    if( passMET == false                                                 ) continue; // cut on pmet
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
@@ -841,6 +830,7 @@ void PlotHiggsRes
     // bdtg = (bdtg+bdtg_wjets)/2.0;
     //if(nJetsType == 0 && bdtg_wjets <= 0.8) continue;
     //if(nJetsType == 1 && bdtg_wjets <= 0.9) continue;
+    //bdtg = TMath::Min(knn-0.5,0.999)/0.5;
 
     double add = 1.0;
     add = add*nPUScaleFactor(fhDPUS4,npu);
@@ -887,6 +877,7 @@ void PlotHiggsRes
         	       lep1->pt()	     > cutPtMaxLow[channel] &&
         	       lep2->pt()	     > cutPtMinLow[channel] &&
         	       dPhi*180.0/TMath::Pi()< cutDeltaphilHigh[channel] &&
+		       dilep->pt()           > cutDilepPt[channel] &&
 		       passJetCut[0]==true;
     if(nJetsType == 2){
       int centrality = 0;
@@ -1076,8 +1067,8 @@ void PlotHiggsRes
   background->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux0",mH,nJetsType), &bdtg_aux0  );
   background->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux1",mH,nJetsType), &bdtg_aux1  );
   background->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux2",mH,nJetsType), &bdtg_aux2  );
-  background->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
-  background->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
+  //background->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
+  //background->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
 
   float nBgdAcc = 0.0;
   float nBgdCut = 0.0;
@@ -1096,10 +1087,8 @@ void PlotHiggsRes
     background->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
 
-    //if(dstype == SmurfTree::data &&
-    //  (cuts & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
-    //if(dstype == SmurfTree::data && run >= 170826) continue;
-    //if(dstype == SmurfTree::data && run <  170826) continue;
+    if(dstype == SmurfTree::data && run <  minRun) continue;
+    if(dstype == SmurfTree::data && run >  maxRun) continue;
 
     bool passJetCut[3] = {njets == nJetsType, false, false};
     if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
@@ -1108,6 +1097,16 @@ void PlotHiggsRes
     if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[2] = true;
     if(nJetsType == 2 && jet2->pt()*1.05 > 30 && jet3->pt()*1.05 < 30 && TMath::Abs(jet2->eta()) < 5.0 && TMath::Abs(jet3->eta()) < 5.0) passJetCut[1] = true;
     if(nJetsType == 2 && jet2->pt()*0.95 > 30 && jet3->pt()*0.95 < 30 && TMath::Abs(jet2->eta()) < 5.0 && TMath::Abs(jet3->eta()) < 5.0) passJetCut[2] = true;
+
+    double minmet = TMath::Min(pmet,pTrackMet);
+    bool passMET = minmet > 20. &&
+                  (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
+
+    bool passNewCuts = true;
+    //if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
+    //if(dilep->pt() <= 45) passNewCuts = false;
+
+    if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
     // WW Preselection
     bool MinPreselCut = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) ||
@@ -1121,12 +1120,8 @@ void PlotHiggsRes
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
-    if( TMath::Min(pmet,pTrackMet) <= 20                                 ) continue; // cut on pmet for all lepton-pair flavors
-    bool failMETVeto = TMath::Min(pmet,pTrackMet) <= 40;
-    if( makeZjetsTemplates == true) failMETVeto = TMath::Min(pmet,pTrackMet) <= 20 || TMath::Min(pmet,pTrackMet) > 40;
-    if( failMETVeto && 
-      (type == SmurfTree::mm || 
-       type == SmurfTree::ee)                                            ) continue; // cut on pmet for ee/mm lepton-pair
+    if( passNewCuts == false                                             ) continue; // cut on new pt cuts
+    if( passMET == false                                                 ) continue; // cut on pmet
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
@@ -1143,18 +1138,20 @@ void PlotHiggsRes
     if( dPhiDiLepJet1Cut == false                                        ) continue; // cut on dPhiDiLepJet1
 
     int fDecay = 0;
-    if     (dstype == SmurfTree::wjets ) fDecay = 5;
-    else if(dstype == SmurfTree::ttbar ) fDecay = 3;
-    else if(dstype == SmurfTree::dyee  ) fDecay = 4;
-    else if(dstype == SmurfTree::dymm  ) fDecay = 4;
-    else if(dstype == SmurfTree::dytt  ) fDecay = 7;
-    else if(dstype == SmurfTree::tw    ) fDecay = 3;
-    else if(dstype == SmurfTree::qqww  ) fDecay = 0;
-    else if(dstype == SmurfTree::wz    ) fDecay = 2;
-    else if(dstype == SmurfTree::zz    ) fDecay = 2;
-    else if(dstype == SmurfTree::ggww  ) fDecay = 1;
-    else if(dstype == SmurfTree::wgamma) fDecay = 6;
-    else if(dstype == SmurfTree::data  ) fDecay = 5;
+    if     (dstype == SmurfTree::wjets  	 ) fDecay = 5;
+    else if(dstype == SmurfTree::ttbar  	 ) fDecay = 3;
+    else if(dstype == SmurfTree::dyee   	 ) fDecay = 4;
+    else if(dstype == SmurfTree::dymm   	 ) fDecay = 4;
+    else if(dstype == SmurfTree::dytt   	 ) fDecay = 7;
+    else if(dstype == SmurfTree::tw     	 ) fDecay = 3;
+    else if(dstype == SmurfTree::qqww   	 ) fDecay = 0;
+    else if(dstype == SmurfTree::wz     	 ) fDecay = 2;
+    else if(dstype == SmurfTree::zz     	 ) fDecay = 2;
+    else if(dstype == SmurfTree::ggww   	 ) fDecay = 1;
+    else if(dstype == SmurfTree::wgamma 	 ) fDecay = 6;
+    else if(dstype == SmurfTree::data   	 ) fDecay = 5;
+    else if(dstype == SmurfTree::dyttDataDriven  ) fDecay = 7;
+    else if(dstype == SmurfTree::qcd             ) fDecay = 7;
     else                                 {printf("bad dstype: %d\n",dstype); assert(0);}
     if(dstype == SmurfTree::wz || dstype == SmurfTree::zz) {
       if(lep1MotherMcId == 23 && lep2MotherMcId == 23) {
@@ -1181,6 +1178,7 @@ void PlotHiggsRes
     // bdtg = (bdtg+bdtg_wjets)/2.0;
     //if(nJetsType == 0 && bdtg_wjets <= 0.8) continue;
     //if(nJetsType == 1 && bdtg_wjets <= 0.9) continue;
+    //bdtg = TMath::Min(knn-0.5,0.999)/0.5;
 
     double myWeight = 1.0;
     double add      = 1.0;
@@ -1238,6 +1236,9 @@ void PlotHiggsRes
       }
     }
     else if(dstype == SmurfTree::data) myWeight = 0.0;
+    else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
+      myWeight = 0.019*scaleFactorLum;
+    }
     else if(dstype != SmurfTree::data){
       add = 1.0;
       add = add*nPUScaleFactor(fhDPUS4,npu);
@@ -1250,21 +1251,21 @@ void PlotHiggsRes
     							TMath::Abs( lid1), TMath::Abs(lid2));
       if(fDecay == 4  && (type   == SmurfTree::mm   || type   == SmurfTree::ee)
                       && (dstype == SmurfTree::dyee || dstype == SmurfTree::dymm)) {
-    	if(njets == 0) add=add*3.02; 
-    	if(njets == 1) add=add*2.81; 
-    	if(njets >= 2) add=add*4.84; 
+    	if(njets == 0) add=add*DYBkgScaleFactor(0,0); 
+    	if(njets == 1) add=add*DYBkgScaleFactor(0,1); 
+    	if(njets >= 2) add=add*DYBkgScaleFactor(0,2); 
       }
       if(fDecay == 3) {
-    	if(njets == 0) add=add*1.164;
-    	if(njets == 1) add=add*1.121; 
-    	if(njets >= 2) add=add*1.188; 
+    	if(njets == 0) add=add*TopBkgScaleFactor(0);
+    	if(njets == 1) add=add*TopBkgScaleFactor(1); 
+    	if(njets >= 2) add=add*TopBkgScaleFactor(2); 
       }
       if(fDecay == 5) {
     	add=add*1.95; 
       }
       if((fDecay == 0 || fDecay == 1)){     
-        if(njets == 0) add=add*wwScaleFactor0jMVA[channel]; 
-        else	       add=add*wwScaleFactor1jMVA[channel]; 
+        if(njets == 0) add=add*WWBkgScaleFactorMVA(mH,0); 
+        else	       add=add*WWBkgScaleFactorMVA(mH,1); 
       }
       // CAREFUL HERE, no data-driven corrections, just Higgs k-factors
       // add = 1.0;
@@ -1279,6 +1280,7 @@ void PlotHiggsRes
         	       lep1->pt()	     > cutPtMaxLow[channel] &&
         	       lep2->pt()	     > cutPtMinLow[channel] &&
         	       dPhi*180.0/TMath::Pi()< cutDeltaphilHigh[channel] &&
+		       dilep->pt()           > cutDilepPt[channel] &&
 		       passJetCut[0]==true;
     if(nJetsType == 2){
       int centrality = 0;
@@ -1295,12 +1297,12 @@ void PlotHiggsRes
     if(passAllCuts == true) {
       double newWeight = myWeight;
       if((fDecay == 0 || fDecay == 1)){ // only for WW
-	if(njets == 0) newWeight=newWeight*wwScaleFactor0jCut[channel]/wwScaleFactor0jMVA[channel];
-	else           newWeight=newWeight*wwScaleFactor1jCut[channel]/wwScaleFactor1jMVA[channel];      
+	if(njets == 0) newWeight=newWeight*WWBkgScaleFactorCutBased(mH,0)/WWBkgScaleFactorMVA(mH,0);
+	else           newWeight=newWeight*WWBkgScaleFactorCutBased(mH,1)/WWBkgScaleFactorMVA(mH,1);	   
       }
       if((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
          (type   == SmurfTree::mm   || type   == SmurfTree::ee)){     
-        newWeight=newWeight*zjScaleFactor[TMath::Min((int)nJetsType,2)][channel];
+        newWeight=newWeight*DYBkgScaleFactor(mH,TMath::Min((int)nJetsType,2))/DYBkgScaleFactor(0,TMath::Min((int)nJetsType,2));
 	DYXS[1] += newWeight;
       }
       else if(fDecay == 4){
@@ -1549,8 +1551,8 @@ void PlotHiggsRes
   treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux0",mH,nJetsType), &bdtg_aux0  );
   treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux1",mH,nJetsType), &bdtg_aux1  );
   treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux2",mH,nJetsType), &bdtg_aux2  );
-  treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
-  treeSyst->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
+  //treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
+  //treeSyst->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
   printf("--- Finished treeSyst loop\n");
 
   float nSystAcc  = 0.0;
@@ -1562,6 +1564,9 @@ void PlotHiggsRes
     treeSyst->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)treeSyst->GetEntries());
 
+    if(dstype == SmurfTree::data && run <  minRun) continue;
+    if(dstype == SmurfTree::data && run >  maxRun) continue;
+
     bool passJetCut[3] = {njets == nJetsType, false, false};
     if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
     if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[2] = true;
@@ -1569,6 +1574,16 @@ void PlotHiggsRes
     if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[2] = true;
     if(nJetsType == 2 && jet2->pt()*1.05 > 30 && jet3->pt()*1.05 < 30 && TMath::Abs(jet2->eta()) < 5.0 && TMath::Abs(jet3->eta()) < 5.0) passJetCut[1] = true;
     if(nJetsType == 2 && jet2->pt()*0.95 > 30 && jet3->pt()*0.95 < 30 && TMath::Abs(jet2->eta()) < 5.0 && TMath::Abs(jet3->eta()) < 5.0) passJetCut[2] = true;
+
+    double minmet = TMath::Min(pmet,pTrackMet);
+    bool passMET = minmet > 20. &&
+                  (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
+
+    bool passNewCuts = true;
+    //if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
+    //if(dilep->pt() <= 45) passNewCuts = false;
+
+    if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
     // WW Preselection
     bool MinPreselCut = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) ||
@@ -1582,12 +1597,8 @@ void PlotHiggsRes
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
-    if( TMath::Min(pmet,pTrackMet) <= 20                                 ) continue; // cut on pmet for all lepton-pair flavors
-    bool failMETVeto = TMath::Min(pmet,pTrackMet) <= 40;
-    if( makeZjetsTemplates == true) failMETVeto = TMath::Min(pmet,pTrackMet) <= 20 || TMath::Min(pmet,pTrackMet) > 40;
-    if( failMETVeto && 
-      (type == SmurfTree::mm || 
-       type == SmurfTree::ee)                                            ) continue; // cut on pmet for ee/mm lepton-pair
+    if( passNewCuts == false                                             ) continue; // cut on new pt cuts
+    if( passMET == false                                                 ) continue; // cut on pmet
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
@@ -1599,19 +1610,21 @@ void PlotHiggsRes
     if( dPhiDiLepJet1Cut == false                                        ) continue; // cut on dPhiDiLepJet1
 
     int fDecay = 0;
-    if     (dstype == SmurfTree::wjets ) fDecay = 5;
-    else if(dstype == SmurfTree::ttbar ) fDecay = 3;
-    else if(dstype == SmurfTree::dyee  ) fDecay = 4;
-    else if(dstype == SmurfTree::dymm  ) fDecay = 4;
-    else if(dstype == SmurfTree::dytt  ) fDecay = 7;
-    else if(dstype == SmurfTree::ggzz  ) fDecay = 8;
-    else if(dstype == SmurfTree::tw    ) fDecay = 3;
-    else if(dstype == SmurfTree::qqww  ) fDecay = 0;
-    else if(dstype == SmurfTree::wz    ) fDecay = 2;
-    else if(dstype == SmurfTree::zz    ) fDecay = 2;
-    else if(dstype == SmurfTree::ggww  ) fDecay = 1;
-    else if(dstype == SmurfTree::wgamma) fDecay = 6;
-    else if(dstype == SmurfTree::data  ) fDecay = 5;
+    if     (dstype == SmurfTree::wjets  	 ) fDecay = 5;
+    else if(dstype == SmurfTree::ttbar  	 ) fDecay = 3;
+    else if(dstype == SmurfTree::dyee   	 ) fDecay = 4;
+    else if(dstype == SmurfTree::dymm   	 ) fDecay = 4;
+    else if(dstype == SmurfTree::dytt   	 ) fDecay = 7;
+    else if(dstype == SmurfTree::ggzz   	 ) fDecay = 8;
+    else if(dstype == SmurfTree::tw     	 ) fDecay = 3;
+    else if(dstype == SmurfTree::qqww   	 ) fDecay = 0;
+    else if(dstype == SmurfTree::wz     	 ) fDecay = 2;
+    else if(dstype == SmurfTree::zz     	 ) fDecay = 2;
+    else if(dstype == SmurfTree::ggww   	 ) fDecay = 1;
+    else if(dstype == SmurfTree::wgamma 	 ) fDecay = 6;
+    else if(dstype == SmurfTree::data   	 ) fDecay = 5;
+    else if(dstype == SmurfTree::dyttDataDriven  ) fDecay = 7;
+    else if(dstype == SmurfTree::qcd             ) fDecay = 7;
     else                                 {printf("bad dstype: %d\n",dstype); assert(0);}
     if(dstype == SmurfTree::wz || dstype == SmurfTree::zz) {
       if(lep1MotherMcId == 23 && lep2MotherMcId == 23) {
@@ -1638,6 +1651,7 @@ void PlotHiggsRes
     // bdtg = (bdtg+bdtg_wjets)/2.0;
     //if(nJetsType == 0 && bdtg_wjets <= 0.8) continue;
     //if(nJetsType == 1 && bdtg_wjets <= 0.9) continue;
+    //bdtg = TMath::Min(knn-0.5,0.999)/0.5;
 
     double myWeight = 1.0;
     double add      = 1.0;
@@ -1718,6 +1732,9 @@ void PlotHiggsRes
       }
     }
     else if(dstype == SmurfTree::data) myWeight = 0.0;
+    else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
+      myWeight = 0.019*scaleFactorLum;
+    }
     else if(dstype != SmurfTree::data){
       add = 1.0;
       add = add*nPUScaleFactor(fhDPUS4,npu);
@@ -1730,21 +1747,21 @@ void PlotHiggsRes
     							TMath::Abs( lid1), TMath::Abs(lid2));
       if(fDecay == 4  && (type   == SmurfTree::mm   || type   == SmurfTree::ee)
                       && (dstype == SmurfTree::dyee || dstype == SmurfTree::dymm)) {
-    	if(njets == 0) add=add*3.02; 
-    	if(njets == 1) add=add*2.81; 
-    	if(njets >= 2) add=add*4.84; 
+    	if(njets == 0) add=add*DYBkgScaleFactor(0,0); 
+    	if(njets == 1) add=add*DYBkgScaleFactor(0,1); 
+    	if(njets >= 2) add=add*DYBkgScaleFactor(0,2); 
       }
       if(fDecay == 3) {
-    	if(njets == 0) add=add*1.164;
-    	if(njets == 1) add=add*1.121; 
-    	if(njets >= 2) add=add*1.188; 
+    	if(njets == 0) add=add*TopBkgScaleFactor(0);
+    	if(njets == 1) add=add*TopBkgScaleFactor(1); 
+    	if(njets >= 2) add=add*TopBkgScaleFactor(2); 
       }
       if(fDecay == 5) {
     	add=add*1.00; 
       }
       if((fDecay == 0 || fDecay == 1)){     
-        if(njets == 0) add=add*wwScaleFactor0jMVA[channel]; 
-        else	       add=add*wwScaleFactor1jMVA[channel]; 
+        if(njets == 0) add=add*WWBkgScaleFactorMVA(mH,0); 
+        else	       add=add*WWBkgScaleFactorMVA(mH,1); 
       }
       // CAREFUL HERE, no data-driven corrections, just Higgs k-factors
       // add = 1.0;
@@ -1842,8 +1859,8 @@ void PlotHiggsRes
   data->SetBranchAddress(Form("nn_hww%i_%djet_ww"	,mH,nJetsType), &nn	    );
   data->SetBranchAddress(Form("knn_hww%i_%djet_ww"	,mH,nJetsType), &knn	    );
   data->SetBranchAddress(Form("bdtg_hww%i_%djet_ww"	,mH,nJetsType), &bdtg	    );
-  data->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
-  data->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
+  //data->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
+  //data->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
 
   float nDatAcc = 0.0;
   float nDatCut = 0.0;
@@ -1853,12 +1870,20 @@ void PlotHiggsRes
     data->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)data->GetEntries());
 
-    //if((cuts & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
-    //if(dstype == SmurfTree::data && run >= 170826) continue;
-    //if(dstype == SmurfTree::data && run <  170826) continue;
-    //if(event==582505290||event==325565599) continue;
+    if(dstype == SmurfTree::data && run <  minRun) continue;
+    if(dstype == SmurfTree::data && run >  maxRun) continue;
 
     bool passJetCut[1] = {njets == nJetsType};
+
+    double minmet = TMath::Min(pmet,pTrackMet);
+    bool passMET = minmet > 20. &&
+                  (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
+
+    bool passNewCuts = true;
+    //if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
+    //if(dilep->pt() <= 45) passNewCuts = false;
+
+    if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
     // WW Preselection
     if( passJetCut[0]==false                                             ) continue; // select n-jet type events
@@ -1867,12 +1892,8 @@ void PlotHiggsRes
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
-    if( TMath::Min(pmet,pTrackMet) <= 20                                 ) continue; // cut on pmet for all lepton-pair flavors
-    bool failMETVeto = TMath::Min(pmet,pTrackMet) <= 40;
-    if( makeZjetsTemplates == true) failMETVeto = TMath::Min(pmet,pTrackMet) <= 20 || TMath::Min(pmet,pTrackMet) > 40;
-    if( failMETVeto && 
-      (type == SmurfTree::mm || 
-       type == SmurfTree::ee)                                            ) continue; // cut on pmet for ee/mm lepton-pair
+    if( passNewCuts == false                                             ) continue; // cut on new pt cuts
+    if( passMET == false                                                 ) continue; // cut on pmet
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
@@ -1907,6 +1928,7 @@ void PlotHiggsRes
     // bdtg = (bdtg+bdtg_wjets)/2.0;
     //if(nJetsType == 0 && bdtg_wjets <= 0.8) continue;
     //if(nJetsType == 1 && bdtg_wjets <= 0.9) continue;
+    //bdtg = TMath::Min(knn-0.5,0.999)/0.5;
 
     double myWeight = 1.0;
 
@@ -1915,7 +1937,8 @@ void PlotHiggsRes
         	       mt		     < cutMTHigh[channel] &&
         	       lep1->pt()	     > cutPtMaxLow[channel] &&
         	       lep2->pt()	     > cutPtMinLow[channel] &&
-        	       dPhi*180.0/TMath::Pi()< cutDeltaphilHigh[channel];
+        	       dPhi*180.0/TMath::Pi()< cutDeltaphilHigh[channel] &&
+		       dilep->pt()           > cutDilepPt[channel];
     if(nJetsType == 2){
       int centrality = 0;
       if(((jet1->eta()-lep1->eta() > 0 && jet2->eta()-lep1->eta() < 0) ||
@@ -2027,11 +2050,11 @@ void PlotHiggsRes
   if(TMath::Abs(DYXS[0]+VVXS[0]-nBgdAccDecays[4]) > 0.01) {printf("Problem: %f %f %f\n",DYXS[0],VVXS[0],nBgdAccDecays[4]); assert(0);}
   if(TMath::Abs(DYXS[1]+VVXS[1]-nBgdCutDecays[4]) > 0.01) {printf("Problem: %f %f %f\n",DYXS[1],VVXS[1],nBgdCutDecays[4]); assert(0);}
   if(TMath::Abs(DYXS[2]+VVXS[2]-nBgdMVADecays[4]) > 0.01) {printf("Problem: %f %f %f\n",DYXS[2],VVXS[2],nBgdMVADecays[4]); assert(0);}
-  if(nBgdAccDecays[4] > 0.0) ZXS_E[0] = sqrt(DYXS[0]*DYXS[0]*zjScaleFactorWWE[TMath::Min((int)nJetsType,2)]*zjScaleFactorWWE[TMath::Min((int)nJetsType,2)]+
+  if(nBgdAccDecays[4] > 0.0) ZXS_E[0] = sqrt(DYXS[0]*DYXS[0]*(DYBkgScaleFactorKappa( 0,TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorKappa( 0,TMath::Min((int)nJetsType,2))-1.0)+
                                              VVXS[0]*VVXS[0]*0.10*0.10)/nBgdAccDecays[4]; else ZXS_E[0] = 0;
-  if(nBgdCutDecays[4] > 0.0) ZXS_E[1] = sqrt(DYXS[1]*DYXS[1]*zjScaleFactorE[TMath::Min((int)nJetsType,2)][channel]*zjScaleFactorE[TMath::Min((int)nJetsType,2)][channel]+
+  if(nBgdCutDecays[4] > 0.0) ZXS_E[1] = sqrt(DYXS[1]*DYXS[1]*(DYBkgScaleFactorKappa(mH,TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorKappa(mH,TMath::Min((int)nJetsType,2))-1.0)+
                                              VVXS[1]*VVXS[1]*0.10*0.10)/nBgdCutDecays[4]; else ZXS_E[1] = 0;
-  if(nBgdMVADecays[4] > 0.0) ZXS_E[2] = sqrt(DYXS[2]*DYXS[2]*zjScaleFactorE[TMath::Min((int)nJetsType,2)][channel]*zjScaleFactorE[TMath::Min((int)nJetsType,2)][channel]+
+  if(nBgdMVADecays[4] > 0.0) ZXS_E[2] = sqrt(DYXS[2]*DYXS[2]*(DYBkgScaleFactorKappa(mH,TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorKappa(mH,TMath::Min((int)nJetsType,2))-1.0)+
                                              VVXS[2]*VVXS[2]*0.10*0.10)/nBgdMVADecays[4]; else ZXS_E[2] = 0;
   //----------------------------------------------------------------------------
   // Drawing part - c1
@@ -2657,8 +2680,9 @@ void PlotHiggsRes
     double theoryUncXS_HighMH = 1.0;
     if(mH >= 200) theoryUncXS_HighMH = 1.0+1.5*(mH/1000.0)*(mH/1000.0)*(mH/1000.0);
     double jeteff_E 	     = 1.02;
-    double topXS_E  	     = 1.28;
-    double wwXS_E            = 1.15;
+    double topXS_E  	     = TopBkgScaleFactorKappa(nJetsType);
+    double wwXS_E_MVA        = WWBkgScaleFactorKappaMVA     (mH,TMath::Min((int)nJetsType,1));
+    double wwXS_E_Cut        = WWBkgScaleFactorKappaCutBased(mH,TMath::Min((int)nJetsType,1));
     double wwXS_E_jet_extrap = 0.954;
     double XS_QCDscale_ggH[3];
     double UEPS  = HiggsSignalPSUESystematics(mH,nJetsType);
@@ -2667,14 +2691,10 @@ void PlotHiggsRes
     XS_QCDscale_ggH[2] = HiggsSignalQCDScaleKappa("QCDscale_ggH2in",mH,nJetsType);
     if     (nJetsType == 1) {
       jeteff_E  	= 1.05;
-      topXS_E   	= 1.09;
-      wwXS_E    	= 1.30;
       wwXS_E_jet_extrap = 1.206;
     }
     else if(nJetsType == 2) {
       jeteff_E  	= 1.10;
-      topXS_E   	= 1.50;
-      wwXS_E    	= 1.30;
       wwXS_E_jet_extrap = 1.00;
     }
     for(int i=0; i<8; i++) if(nBgdAccDecays[i] < 0) nBgdAccDecays[i] = 0.0;
@@ -2830,7 +2850,7 @@ void PlotHiggsRes
       newcardShape << Form("QCDscale_VH_ACCEPT               lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");
       newcardShape << Form("CMS_hww_%1dj_ttbar               lnN   -     -     -     -     -     -     -   %5.3f   -     -     -     -  \n",nJetsType,topXS_E); 	
       newcardShape << Form("CMS_hww%s_%1dj_Z                 lnN   -     -     -     -     -     -     -     -   %5.3f   -     -     -  \n",finalStateName,nJetsType,ZXS_E[0]+1.0);			
-      newcardShape << Form("CMS_hww_%1dj_WW                  lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",nJetsType,wwXS_E,wwXS_E);				
+      newcardShape << Form("CMS_hww_%1dj_WW                  lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",nJetsType,wwXS_E_MVA,wwXS_E_MVA);				
       if(useZjetsTemplates == true){
         newcardShape << Form("CMS_MVAZBounding_hww%s_%1dj           shape   -     -      -    -      -     -	 -     -    1.0    -	 -     -   \n",finalStateName,nJetsType);			  
       }
@@ -2915,7 +2935,7 @@ void PlotHiggsRes
     newcardCut << Form("QCDscale_VH_ACCEPT    	   lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");
     newcardCut << Form("CMS_hww_%1dj_ttbar	   lnN   -     -     -     -     -     -     -   %5.3f   -     -     -     -  \n",nJetsType,topXS_E);	 
     newcardCut << Form("CMS_hww%s_%1dj_Z           lnN   -     -     -     -     -     -     -     -   %5.3f   -     -     -  \n",finalStateName,nJetsType,ZXS_E[1]+1.0);		 
-    newcardCut << Form("CMS_hww_%1dj_WW            lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",nJetsType,wwXS_E,wwXS_E);		      
+    newcardCut << Form("CMS_hww_%1dj_WW            lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",nJetsType,wwXS_E_Cut,wwXS_E_Cut);		      
     newcardCut << Form("CMS_hww%s_stat_%1dj_ZH	   lnN %5.3f   -     -     -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigECut[2]/TMath::Max((double)nSigCut[2],0.00001)+1.0);
     newcardCut << Form("CMS_hww%s_stat_%1dj_WH	   lnN   -   %5.3f   -     -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigECut[3]/TMath::Max((double)nSigCut[3],0.00001)+1.0);
     newcardCut << Form("CMS_hww%s_stat_%1dj_qqH	   lnN   -     -   %5.3f   -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigECut[4]/TMath::Max((double)nSigCut[4],0.00001)+1.0);
@@ -2970,7 +2990,7 @@ void PlotHiggsRes
     newcardMVA << Form("QCDscale_VH_ACCEPT    	   lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");
     newcardMVA << Form("CMS_hww_%1dj_ttbar	   lnN   -     -     -     -     -     -     -   %5.3f   -     -     -     -  \n",nJetsType,topXS_E);	 
     newcardMVA << Form("CMS_hww%s_%1dj_Z           lnN   -     -     -     -     -     -     -     -   %5.3f   -     -     -  \n",finalStateName,nJetsType,ZXS_E[2]+1.0);		 
-    newcardMVA << Form("CMS_hww_%1dj_WW            lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",nJetsType,wwXS_E,wwXS_E);		      
+    newcardMVA << Form("CMS_hww_%1dj_WW            lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",nJetsType,wwXS_E_Cut,wwXS_E_Cut);		      
     newcardMVA << Form("CMS_hww%s_stat_%1dj_ZH	   lnN %5.3f   -     -     -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigEMVA[2]/TMath::Max((double)nSigMVA[2],0.00001)+1.0);
     newcardMVA << Form("CMS_hww%s_stat_%1dj_WH	   lnN   -   %5.3f   -     -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigEMVA[3]/TMath::Max((double)nSigMVA[3],0.00001)+1.0);
     newcardMVA << Form("CMS_hww%s_stat_%1dj_qqH	   lnN   -     -   %5.3f   -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigEMVA[4]/TMath::Max((double)nSigMVA[4],0.00001)+1.0);
