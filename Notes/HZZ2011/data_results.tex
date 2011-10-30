@@ -7,16 +7,15 @@ Section~\ref{sec:selection} and the final mass-dependent $\hzz$ selections using
 We compare the data with simulation in looser selections than the signal region 
 to verfity the agreement in the key kinematic observables that we select on. 
 
-To verify the data to simulation agreement, we study the 
-Figure ~\ref{fig:zpt_zzpresel} shows the dilepton $p_T$ spectrum with a 
-very loose cut on the \met\ ($>20\GeVcc$), which is applied to account for the data skimming requirements. 
+Figures~\ref{fig:zpt_zzpresel_mm} and~\ref{fig:zpt_zzpresel_ee} show the dilepton $p_T$ spectrum with a 
+very loose cut on the \met ($>50\GeV$) and $M_T$ ($>150\GeVcc$). 
 We select on the dilepton $p_T$ to be above 25 \GeV\  to reduce the \dyll\ contributions. 
-A comparison of the predicted Z+jets \met distributions is show in Figure \ref{fig:metcomparison_zzpresel}.
+A comparison of the predicted Z+jets \met distributions is shown in Figures~\ref{fig:met_zzpresel_mm} and~\ref{fig:met_zzpresel_ee}.
 
 Table~\ref{tab:zzselection_all} shows the number of events observed in
 data, comparing to the expected background contribution at the \zz
 preselection level. The background estimation was discussed at Section~\ref{sec:backgrounds}.
-The $M_T$ distributions are shown in Figure \ref{fig:mt_zzpresel} after 
+The $M_T$ distributions are shown in Figures~\ref{fig:mt_zzpresel_mm} and~\ref{fig:mt_zzpresel_ee} after 
 applying the \zz preselection. 
 
 %%%%%%%%%%%%%%%%%%
@@ -43,20 +42,17 @@ The $\Wjets$ background is neglible thus omitted in the table.}
 \end{table}
 %%%%%%%%%%%%%%%%%%
 
-
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:zpt_zzpresel}
-\subfigure[0-Jet]{\label{subfig:zpt_0j}
-\includegraphics[width=.3\textwidth]{figures/Hm300_preselection_0jets_zpt.pdf}}
-\subfigure[1-Jet]{\label{subfig:zpt_1j}
-\includegraphics[width=.3\textwidth]{figures/Hm300_preselection_1jet_zpt.pdf}}
-\subfigure[$\geq$2 Jets]{\label{subfig:zpt_2j}
-\includegraphics[width=.3\textwidth]{figures/Hm300_preselection_2jets_zpt.pdf}}
-\caption{Dilepton $p_T$ distribution after the $\ZZ$ preselection observed in data corresponding to $1092\pm7$~\ipb data in 0-Jet~\subref{subfig:zpt_0j}, 1-Jet~\subref{subfig:zpt_1j}
-and 2-Jet~\subref{subfig:zpt_2j} bins, compared to the expected from simulation for signal and background.
-The MC backgrounds are scaled as appropriate and the photon+jets estimate of the Z+jets background is added to the stack.}
+\label{fig:npv}
+\subfigure[Inclusive]{\label{subfig:npv_mm}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_npv.pdf}}
+\subfigure[1-Jet]{\label{subfig:npv_ee}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_npv.pdf}}
+\caption{Distribution for the number of reconstructed primary vertices after the $\ZZ$ preselection observed in data corresponding 
+to $2.1$~\ifb data in the muon~\subref{subfig:npv_mm} and electron~\subref{subfig:npv_ee} channels, compared to the expected from simulation for signal 
+and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the Z+jets background is added to the stack.}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -64,16 +60,19 @@ The MC backgrounds are scaled as appropriate and the photon+jets estimate of the
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:metcomparison_zzpresel}
-\subfigure[0-Jet]{\label{subfig:metcomparison_0j}
-\includegraphics[width=.3\textwidth]{figures/presel_hzz300_metcomparison_0j_log.pdf}}
-\subfigure[1-Jet]{\label{subfig:metcomparison_1j}
-\includegraphics[width=.3\textwidth]{figures/presel_hzz300_metcomparison_1j_log.pdf}}
-\subfigure[$\geq$2 Jets]{\label{subfig:metcomparison_2j}
-\includegraphics[width=.3\textwidth]{figures/presel_hzz300_metcomparison_2j_log.pdf}}
-\caption{Comparison of the photon+jets estimate of the \met and minimum of \met and track \met distributions
-after the $\ZZ$ preselection observed in data corresponding to $1092\pm7$~\ipb in 0-Jet~\subref{subfig:zpt_0j}, 1-Jet~\subref{subfig:zpt_1j}
-and 2-Jet~\subref{subfig:zpt_2j} bins.}
+\label{fig:zmass_zzpresel_mm}
+\subfigure[Inclusive]{\label{subfig:zmass_mm_incl}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_mass_incl.pdf}}
+\subfigure[0-Jet]{\label{subfig:zmass_mm_0j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_mass_0j.pdf}} \\
+\subfigure[1-Jet]{\label{subfig:zmass_mm_1j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_mass_1j.pdf}}
+\subfigure[$\geq$2 Jets]{\label{subfig:zmass_mm_2j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_mass_2j.pdf}}
+\caption{Dilepton mass distribution in the muon channel after the $\ZZ$ preselection observed in data corresponding to $2.1$~\ifb data in 
+the Inclusive~\subref{subfig:zmass_mm_incl}, 0-Jet~\subref{subfig:zmass_mm_0j}, 1-Jet~\subref{subfig:zmass_mm_1j} and 2-Jet~\subref{subfig:zmass_mm_2j} bins, 
+compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
+Z+jets background is added to the stack.}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -81,16 +80,175 @@ and 2-Jet~\subref{subfig:zpt_2j} bins.}
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:mt_zzpresel}
-\subfigure[0-Jet]{\label{subfig:mt_0j}
-\includegraphics[width=.3\textwidth]{figures/Hm300_preselection_0jets_mt.pdf}}
-\subfigure[1-Jet]{\label{subfig:mt_1j}
-\includegraphics[width=.3\textwidth]{figures/Hm300_preselection_1jet_mt.pdf}}
-\subfigure[$\geq$2 Jets]{\label{subfig:mt_2j}
-\includegraphics[width=.3\textwidth]{figures/Hm300_preselection_2jets_mt.pdf}}
-\caption{Transverse mass $m_T$ distribution after the $\ZZ$ preselection observed in data corresponding to $1092\pm7$~\ipb data in 0-Jet~\subref{subfig:mt_0j}, 1-Jet~\subref{subfig:mt_1j} 
-and 2-Jet~\subref{subfig:mt_2j} bins, compared to the expected from simulation for signal and background. 
-The MC backgrounds are scaled as appropriate and the photon+jets estimate of the Z+jets background is added to the stack.}
+\label{fig:zmass_zzpresel_ee}
+\subfigure[Inclusive]{\label{subfig:zmass_ee_incl}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_mass_incl.pdf}}
+\subfigure[0-Jet]{\label{subfig:zmass_ee_0j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_mass_0j.pdf}} \\
+\subfigure[1-Jet]{\label{subfig:zmass_ee_1j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_mass_1j.pdf}}
+\subfigure[$\geq$2 Jets]{\label{subfig:zmass_ee_2j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_mass_2j.pdf}}
+\caption{Dilepton mass distribution in the electron channel after the $\ZZ$ preselection observed in data corresponding to $2.1$~\ifb data in 
+the Inclusive~\subref{subfig:zmass_ee_incl}, 0-Jet~\subref{subfig:zmass_ee_0j}, 1-Jet~\subref{subfig:zmass_ee_1j} and 2-Jet~\subref{subfig:zmass_ee_2j} bins, 
+compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
+Z+jets background is added to the stack.}
+\end{center}
+\end{figure}
+%%%%%%%%
+
+%%%%%%%%
+\begin{figure}[!hbtp]
+\begin{center}
+\label{fig:zpt_zzpresel_mm}
+\subfigure[Inclusive]{\label{subfig:zpt_mm_incl}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_dileppt_incl.pdf}}
+\subfigure[0-Jet]{\label{subfig:zpt_mm_0j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_dileppt_0j.pdf}} \\
+\subfigure[1-Jet]{\label{subfig:zpt_mm_1j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_dileppt_1j.pdf}}
+\subfigure[$\geq$2 Jets]{\label{subfig:zpt_mm_2j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_dileppt_2j.pdf}}
+\caption{Dilepton $p_T$ distribution in the muon channel after the $\ZZ$ preselection observed in data corresponding to $2.1$~\ifb data in 
+the Inclusive~\subref{subfig:zpt_mm_incl}, 0-Jet~\subref{subfig:zpt_mm_0j}, 1-Jet~\subref{subfig:zpt_mm_1j} and 2-Jet~\subref{subfig:zpt_mm_2j} bins, 
+compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
+Z+jets background is added to the stack.}
+\end{center}
+\end{figure}
+%%%%%%%%
+
+%%%%%%%%
+\begin{figure}[!hbtp]
+\begin{center}
+\label{fig:zpt_zzpresel_ee}
+\subfigure[Inclusive]{\label{subfig:zpt_ee_incl}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_dileppt_incl.pdf}}
+\subfigure[0-Jet]{\label{subfig:zpt_ee_0j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_dileppt_0j.pdf}} \\
+\subfigure[1-Jet]{\label{subfig:zpt_ee_1j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_dileppt_1j.pdf}}
+\subfigure[$\geq$2 Jets]{\label{subfig:zpt_ee_2j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_dileppt_2j.pdf}}
+\caption{Dilepton $p_T$ distribution in the electron channel after the $\ZZ$ preselection observed in data corresponding to $2.1$~\ifb data in 
+the Inclusive~\subref{subfig:zpt_ee_incl}, 0-Jet~\subref{subfig:zpt_ee_0j}, 1-Jet~\subref{subfig:zpt_ee_1j} and 2-Jet~\subref{subfig:zpt_ee_2j} bins, 
+compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
+Z+jets background is added to the stack.}
+\end{center}
+\end{figure}
+%%%%%%%%
+
+%%%%%%%%
+\begin{figure}[!hbtp]
+\begin{center}
+\label{fig:met_zzpresel_mm}
+\subfigure[Inclusive]{\label{subfig:met_mm_incl}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_metlog_incl.pdf}}
+\subfigure[0-Jet]{\label{subfig:met_mm_0j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_metlog_0j.pdf}} \\
+\subfigure[1-Jet]{\label{subfig:met_mm_1j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_metlog_1j.pdf}}
+\subfigure[$\geq$2 Jets]{\label{subfig:met_mm_2j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_metlog_2j.pdf}}
+\caption{Missing transverse energy distribution in the muon channel after the $\ZZ$ preselection observed in data corresponding to $2.1$~\ifb data in 
+the Inclusive~\subref{subfig:met_mm_incl}, 0-Jet~\subref{subfig:met_mm_0j}, 1-Jet~\subref{subfig:met_mm_1j} and 2-Jet~\subref{subfig:met_mm_2j} bins, 
+compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
+Z+jets background is added to the stack.}
+\end{center}
+\end{figure}
+%%%%%%%%
+
+%%%%%%%%
+\begin{figure}[!hbtp]
+\begin{center}
+\label{fig:met_zzpresel_ee}
+\subfigure[Inclusive]{\label{subfig:met_ee_incl}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_metlog_incl.pdf}}
+\subfigure[0-Jet]{\label{subfig:met_ee_0j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_metlog_0j.pdf}} \\
+\subfigure[1-Jet]{\label{subfig:met_ee_1j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_metlog_1j.pdf}}
+\subfigure[$\geq$2 Jets]{\label{subfig:met_ee_2j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_metlog_2j.pdf}}
+\caption{Missing transverse energy distribution in the electron channel after the $\ZZ$ preselection observed in data corresponding to $2.1$~\ifb data in 
+the Inclusive~\subref{subfig:met_ee_incl}, 0-Jet~\subref{subfig:met_ee_0j}, 1-Jet~\subref{subfig:met_ee_1j} and 2-Jet~\subref{subfig:met_ee_2j} bins, 
+compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
+Z+jets background is added to the stack.}
+\end{center}
+\end{figure}
+%%%%%%%%
+
+%%%%%%%%
+\begin{figure}[!hbtp]
+\begin{center}
+\label{fig:mt_zzpresel_mm}
+\subfigure[Inclusive]{\label{subfig:mt_mm_incl}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_mt_incl.pdf}}
+\subfigure[0-Jet]{\label{subfig:mt_mm_0j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_mt_0j.pdf}} \\
+\subfigure[1-Jet]{\label{subfig:mt_mm_1j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_mt_1j.pdf}}
+\subfigure[$\geq$2 Jets]{\label{subfig:mt_mm_2j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_mt_2j.pdf}}
+\caption{Transverse mass distribution in the muon channel after the $\ZZ$ preselection observed in data corresponding to $2.1$~\ifb data in 
+the Inclusive~\subref{subfig:mt_mm_incl}, 0-Jet~\subref{subfig:mt_mm_0j}, 1-Jet~\subref{subfig:mt_mm_1j} and 2-Jet~\subref{subfig:mt_mm_2j} bins, 
+compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
+Z+jets background is added to the stack.}
+\end{center}
+\end{figure}
+%%%%%%%%
+
+%%%%%%%%
+\begin{figure}[!hbtp]
+\begin{center}
+\label{fig:mt_zzpresel_ee}
+\subfigure[Inclusive]{\label{subfig:mt_ee_incl}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_mt_incl.pdf}}
+\subfigure[0-Jet]{\label{subfig:mt_ee_0j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_mt_0j.pdf}} \\
+\subfigure[1-Jet]{\label{subfig:mt_ee_1j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_mt_1j.pdf}}
+\subfigure[$\geq$2 Jets]{\label{subfig:mt_ee_2j}
+\includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_mt_2j.pdf}}
+\caption{Transverse mass distribution in the electron channel after the $\ZZ$ preselection observed in data corresponding to $2.1$~\ifb data in 
+the Inclusive~\subref{subfig:mt_ee_incl}, 0-Jet~\subref{subfig:mt_ee_0j}, 1-Jet~\subref{subfig:mt_ee_1j} and 2-Jet~\subref{subfig:mt_ee_2j} bins, 
+compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
+Z+jets background is added to the stack.}
+\end{center}
+\end{figure}
+%%%%%%%%
+
+%%%%%%%%
+\begin{figure}[!hbtp]
+\begin{center}
+\label{fig:dphijetmet_zzpresel_mm}
+\subfigure[Inclusive]{\label{subfig:dphijetmet_mm_incl}
+\includegraphics[width=.3\textwidth]{figures/presel_mH250_mm_dphijetmet_incl.pdf}}
+\subfigure[1-Jet]{\label{subfig:dphijetmet_mm_1j}
+\includegraphics[width=.3\textwidth]{figures/presel_mH250_mm_dphijetmet_1j.pdf}}
+\subfigure[$\geq$2 Jets]{\label{subfig:dphijetmet_mm_2j}
+\includegraphics[width=.3\textwidth]{figures/presel_mH250_mm_dphijetmet_2j.pdf}}
+\caption{Azimuthal angle separation between \met and the closest jet in the muon channel after the $\ZZ$ preselection observed in data corresponding 
+to $2.1$~\ifb data in the Inclusive~\subref{subfig:dphijetmet_mm_incl}, 1-Jet~\subref{subfig:dphijetmet_mm_1j} and 
+2-Jet~\subref{subfig:dphijetmet_mm_2j} bins, compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and 
+the photon+jets estimate of the Z+jets background is added to the stack.}
+\end{center}
+\end{figure}
+%%%%%%%%
+
+%%%%%%%%
+\begin{figure}[!hbtp]
+\begin{center}
+\label{fig:dphijetmet_zzpresel_ee}
+\subfigure[Inclusive]{\label{subfig:dphijetmet_ee_incl}
+\includegraphics[width=.3\textwidth]{figures/presel_mH250_ee_dphijetmet_incl.pdf}}
+\subfigure[1-Jet]{\label{subfig:dphijetmet_ee_1j}
+\includegraphics[width=.3\textwidth]{figures/presel_mH250_ee_dphijetmet_1j.pdf}}
+\subfigure[$\geq$2 Jets]{\label{subfig:dphijetmet_ee_2j}
+\includegraphics[width=.3\textwidth]{figures/presel_mH250_ee_dphijetmet_2j.pdf}}
+\caption{Azimuthal angle separation between \met and the closest jet in the electron channel after the $\ZZ$ preselection observed in data corresponding 
+to $2.1$~\ifb data in the Inclusive~\subref{subfig:dphijetmet_mm_incl}, 1-Jet~\subref{subfig:dphijetmet_mm_1j} and 
+2-Jet~\subref{subfig:dphijetmet_mm_2j} bins, compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and 
+the photon+jets estimate of the Z+jets background is added to the stack.}
 \end{center}
 \end{figure}
 %%%%%%%%
