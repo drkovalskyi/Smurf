@@ -7,16 +7,25 @@ Section~\ref{sec:selection} and the final mass-dependent $\hzz$ selections using
 We compare the data with simulation in looser selections than the signal region 
 to verfity the agreement in the key kinematic observables that we select on. 
 
-Figures~\ref{fig:zpt_zzpresel_mm} and~\ref{fig:zpt_zzpresel_ee} show the dilepton $p_T$ spectrum with a 
-very loose cut on the \met ($>50\GeV$) and $M_T$ ($>150\GeVcc$). 
-We select on the dilepton $p_T$ to be above 25 \GeV\  to reduce the \dyll\ contributions. 
-A comparison of the predicted Z+jets \met distributions is shown in Figures~\ref{fig:met_zzpresel_mm} and~\ref{fig:met_zzpresel_ee}.
+Figure~\ref{fig:npv} shows the number of primary vertices in $ee$ and $\mu\mu$ final states 
+after the $\ZZ$ preselections, comparing data to the simulation which was reweighted to match the data distributions. 
+This is a validation of the reweighting procedure. 
+Figures~\ref{fig:zmass_zzpresel_mm}-\ref{fig:zmass_zzpresel_ee} show the dilepton mass distributions 
+after applying all $\ZZ$ preselections except for the dilepton mass cuts, comparing data 
+with simulation for the $\mu\mu$ amd $ee$ final states respectively in different jet 
+bin final states. We observe in general a good agreement, except for a slight shift in the 
+$\mu\mu$ final states. Figures~\ref{fig:zpt_zzpresel_mm} and~\ref{fig:zpt_zzpresel_ee} 
+show the dilepton $p_T$ spectrum after the $\ZZ$ preselections for $\mu\mu$ and $ee$ final states. 
+This provides an initial validation of the $\dyll$ background estimation. 
 
 Table~\ref{tab:zzselection_all_2fb} shows the number of events observed in
 data, comparing to the expected background contribution at the \zz
-preselection level. The background estimation was discussed at Section~\ref{sec:backgrounds}.
-The $M_T$ distributions are shown in Figures~\ref{fig:mt_zzpresel_mm} and~\ref{fig:mt_zzpresel_ee} after 
-applying the \zz preselection. 
+preselection level. The background estimation was discussed at Section~\ref{sec:backgrounds}. 
+We validate the observables that are used in the higgs signal extraction at the 
+$\ZZ$ preselection level. 
+Figures~\ref{fig:met_zzpresel_mm}-\ref{fig:dphijetmet_zzpresel_ee} show 
+the data to simulation comparions of the $\met$, $m_T$ and $\Delta\phi(jet,met)$ distributions. 
+Good agreement between data and simulation is observed. 
 
 %%%%%%%%%%%%%%%%%%
 \begin{table}[!ht]
@@ -37,15 +46,14 @@ integrated luminosity of \intlumi after applying the \zz preselections.
 Only statistical uncertaities are reported. The $\Wjets$ background is neglible thus omitted in the table.
 The background predictions do not have the data-to-simulation scale factors applied. 
 }
-\end{center}
 \label{tab:zzselection_all_2fb}
+\end{center}
 \end{table}
 %%%%%%%%%%%%%%%%%%
 
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:npv}
 \subfigure[Inclusive]{\label{subfig:npv_mm}
 \includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_npv.pdf}}
 \subfigure[1-Jet]{\label{subfig:npv_ee}
@@ -53,6 +61,7 @@ The background predictions do not have the data-to-simulation scale factors appl
 \caption{Distribution for the number of reconstructed primary vertices after the $\ZZ$ preselection observed in data corresponding 
 to $2.1$~\ifb data in the muon~\subref{subfig:npv_mm} and electron~\subref{subfig:npv_ee} channels, compared to the expected from simulation for signal 
 and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the Z+jets background is added to the stack.}
+\label{fig:npv}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -60,7 +69,6 @@ and background. The MC backgrounds are scaled as appropriate and the photon+jets
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:zmass_zzpresel_mm}
 \subfigure[Inclusive]{\label{subfig:zmass_mm_incl}
 \includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_mass_incl.pdf}}
 \subfigure[0-Jet]{\label{subfig:zmass_mm_0j}
@@ -73,6 +81,7 @@ and background. The MC backgrounds are scaled as appropriate and the photon+jets
 the Inclusive~\subref{subfig:zmass_mm_incl}, 0-Jet~\subref{subfig:zmass_mm_0j}, 1-Jet~\subref{subfig:zmass_mm_1j} and 2-Jet~\subref{subfig:zmass_mm_2j} bins, 
 compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
 Z+jets background is added to the stack.}
+\label{fig:zmass_zzpresel_mm}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -80,7 +89,6 @@ Z+jets background is added to the stack.}
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:zmass_zzpresel_ee}
 \subfigure[Inclusive]{\label{subfig:zmass_ee_incl}
 \includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_mass_incl.pdf}}
 \subfigure[0-Jet]{\label{subfig:zmass_ee_0j}
@@ -93,6 +101,7 @@ Z+jets background is added to the stack.}
 the Inclusive~\subref{subfig:zmass_ee_incl}, 0-Jet~\subref{subfig:zmass_ee_0j}, 1-Jet~\subref{subfig:zmass_ee_1j} and 2-Jet~\subref{subfig:zmass_ee_2j} bins, 
 compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
 Z+jets background is added to the stack.}
+\label{fig:zmass_zzpresel_ee}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -100,7 +109,6 @@ Z+jets background is added to the stack.}
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:zpt_zzpresel_mm}
 \subfigure[Inclusive]{\label{subfig:zpt_mm_incl}
 \includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_dileppt_incl.pdf}}
 \subfigure[0-Jet]{\label{subfig:zpt_mm_0j}
@@ -113,6 +121,7 @@ Z+jets background is added to the stack.}
 the Inclusive~\subref{subfig:zpt_mm_incl}, 0-Jet~\subref{subfig:zpt_mm_0j}, 1-Jet~\subref{subfig:zpt_mm_1j} and 2-Jet~\subref{subfig:zpt_mm_2j} bins, 
 compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
 Z+jets background is added to the stack.}
+\label{fig:zpt_zzpresel_mm}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -120,7 +129,6 @@ Z+jets background is added to the stack.}
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:zpt_zzpresel_ee}
 \subfigure[Inclusive]{\label{subfig:zpt_ee_incl}
 \includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_dileppt_incl.pdf}}
 \subfigure[0-Jet]{\label{subfig:zpt_ee_0j}
@@ -133,6 +141,7 @@ Z+jets background is added to the stack.}
 the Inclusive~\subref{subfig:zpt_ee_incl}, 0-Jet~\subref{subfig:zpt_ee_0j}, 1-Jet~\subref{subfig:zpt_ee_1j} and 2-Jet~\subref{subfig:zpt_ee_2j} bins, 
 compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
 Z+jets background is added to the stack.}
+\label{fig:zpt_zzpresel_ee}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -140,7 +149,6 @@ Z+jets background is added to the stack.}
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:met_zzpresel_mm}
 \subfigure[Inclusive]{\label{subfig:met_mm_incl}
 \includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_metlog_incl.pdf}}
 \subfigure[0-Jet]{\label{subfig:met_mm_0j}
@@ -153,6 +161,7 @@ Z+jets background is added to the stack.}
 the Inclusive~\subref{subfig:met_mm_incl}, 0-Jet~\subref{subfig:met_mm_0j}, 1-Jet~\subref{subfig:met_mm_1j} and 2-Jet~\subref{subfig:met_mm_2j} bins, 
 compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
 Z+jets background is added to the stack.}
+\label{fig:met_zzpresel_mm}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -160,7 +169,6 @@ Z+jets background is added to the stack.}
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:met_zzpresel_ee}
 \subfigure[Inclusive]{\label{subfig:met_ee_incl}
 \includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_metlog_incl.pdf}}
 \subfigure[0-Jet]{\label{subfig:met_ee_0j}
@@ -173,6 +181,7 @@ Z+jets background is added to the stack.}
 the Inclusive~\subref{subfig:met_ee_incl}, 0-Jet~\subref{subfig:met_ee_0j}, 1-Jet~\subref{subfig:met_ee_1j} and 2-Jet~\subref{subfig:met_ee_2j} bins, 
 compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
 Z+jets background is added to the stack.}
+\label{fig:met_zzpresel_ee}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -180,7 +189,6 @@ Z+jets background is added to the stack.}
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:mt_zzpresel_mm}
 \subfigure[Inclusive]{\label{subfig:mt_mm_incl}
 \includegraphics[width=.4\textwidth]{figures/presel_mH250_mm_mt_incl.pdf}}
 \subfigure[0-Jet]{\label{subfig:mt_mm_0j}
@@ -193,6 +201,7 @@ Z+jets background is added to the stack.}
 the Inclusive~\subref{subfig:mt_mm_incl}, 0-Jet~\subref{subfig:mt_mm_0j}, 1-Jet~\subref{subfig:mt_mm_1j} and 2-Jet~\subref{subfig:mt_mm_2j} bins, 
 compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
 Z+jets background is added to the stack.}
+\label{fig:mt_zzpresel_mm}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -200,7 +209,6 @@ Z+jets background is added to the stack.}
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:mt_zzpresel_ee}
 \subfigure[Inclusive]{\label{subfig:mt_ee_incl}
 \includegraphics[width=.4\textwidth]{figures/presel_mH250_ee_mt_incl.pdf}}
 \subfigure[0-Jet]{\label{subfig:mt_ee_0j}
@@ -213,6 +221,7 @@ Z+jets background is added to the stack.}
 the Inclusive~\subref{subfig:mt_ee_incl}, 0-Jet~\subref{subfig:mt_ee_0j}, 1-Jet~\subref{subfig:mt_ee_1j} and 2-Jet~\subref{subfig:mt_ee_2j} bins, 
 compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and the photon+jets estimate of the 
 Z+jets background is added to the stack.}
+\label{fig:mt_zzpresel_ee}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -220,7 +229,6 @@ Z+jets background is added to the stack.}
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:dphijetmet_zzpresel_mm}
 \subfigure[Inclusive]{\label{subfig:dphijetmet_mm_incl}
 \includegraphics[width=.3\textwidth]{figures/presel_mH250_mm_dphijetmet_incl.pdf}}
 \subfigure[1-Jet]{\label{subfig:dphijetmet_mm_1j}
@@ -231,6 +239,7 @@ Z+jets background is added to the stack.}
 to $2.1$~\ifb data in the Inclusive~\subref{subfig:dphijetmet_mm_incl}, 1-Jet~\subref{subfig:dphijetmet_mm_1j} and 
 2-Jet~\subref{subfig:dphijetmet_mm_2j} bins, compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and 
 the photon+jets estimate of the Z+jets background is added to the stack.}
+\label{fig:dphijetmet_zzpresel_mm}
 \end{center}
 \end{figure}
 %%%%%%%%
@@ -238,7 +247,6 @@ the photon+jets estimate of the Z+jets background is added to the stack.}
 %%%%%%%%
 \begin{figure}[!hbtp]
 \begin{center}
-\label{fig:dphijetmet_zzpresel_ee}
 \subfigure[Inclusive]{\label{subfig:dphijetmet_ee_incl}
 \includegraphics[width=.3\textwidth]{figures/presel_mH250_ee_dphijetmet_incl.pdf}}
 \subfigure[1-Jet]{\label{subfig:dphijetmet_ee_1j}
@@ -249,6 +257,7 @@ the photon+jets estimate of the Z+jets background is added to the stack.}
 to $2.1$~\ifb data in the Inclusive~\subref{subfig:dphijetmet_mm_incl}, 1-Jet~\subref{subfig:dphijetmet_mm_1j} and 
 2-Jet~\subref{subfig:dphijetmet_mm_2j} bins, compared to the expected from simulation for signal and background. The MC backgrounds are scaled as appropriate and 
 the photon+jets estimate of the Z+jets background is added to the stack.}
+\label{fig:dphijetmet_zzpresel_ee}
 \end{center}
 \end{figure}
 %%%%%%%%
