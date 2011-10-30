@@ -26,21 +26,24 @@ Here we summarize the systematic uncertainties associated with the methods used.
 We assign systmeatic uncertainties on their cross-sections as $8\%$ and $5\%$ respectively, 
 augmentated by the luminosity normalisation uncertainty. 
   \item Top background: this background is estimated using the opposite flavor events in the $e\mu$ final states 
-described in section~\ref{sec:bkg_of}. 
-    The associated systematic uncertainties are $2\%$ and $5\%$ for the 0 and 1 jet bins respectively, evaluated 
-from the MC closure tests. The statistical 
-uncertainties are about $13\%$ and $16\%$ for the 0 and 1 jet bins respectively. 
+described in section~\ref{sec:bkg_of_cut}-\ref{sec:bkg_of_mva}. The systematic uncertainties in the cut-based 
+analysis is reflected by the statistical uncertainties on the $e\mu$ event counting, modelled by 
+gamma functions. The systematic uncertainties in the shape based analysis are around 20\% for most of the 
+higgs hypotheses ( see Table~\ref{tab:shape_sf_emu}).  
+%    The associated systematic uncertainties are $2\%$ and $5\%$ for the 0 and 1 jet bins respectively, evaluated 
+%from the MC closure tests. The statistical 
+%uncertainties are about $13\%$ and $16\%$ for the 0 and 1 jet bins respectively. 
   \item Drell-Yan background: The uncertainty arises from the photon reweighting method described in Section~\ref{sec:bkg_dy}. 
-    The systematic uncertainty is evaluated from the MC closure test and a cross check at intermediate \met~in data to be 25\%
-    and 20\% in the 0 and 1 jet bins respectively.
+    The systematic uncertainty is evaluated from the MC closure test and a cross check at intermediate \met~in data to be 25\%.
+%    and 20\% in the 0 and 1 jet bins respectively.
   \item Other backgrounds: the background contribution from $\Wjets$ are estimated from the 
         fake rate method, with a $36\%$ systematic uncertainty.
   \end{itemize}
 
 \item {\it Pileup:} an incorrect modeling of the pileup in the Monte Carlo samples 
 can bias the expected event yields. As described in section~\ref{sec:sel_pv}, 
-the Monte Carlo events have been re-weighted on the basis of the number of reconstructed
-primary vertices. The re-weighting procedure affects only slightly the results of the analysis,
+the Monte Carlo events have been re-weighted on the basis of expected pile up events for a 
+given instanenous luminosity. The re-weighting procedure affects only slightly the results of the analysis,
 the event yields changing by $\sim1\%$. The latter is conservatively assumed as 
 the corresponding systematic uncertainty. 
 
@@ -84,7 +87,11 @@ size of the simulated event samples.
 This contributes an uncertainty of about $2-3\%$ to the signal
 efficiencies, but it is as large as $50\%$ for some background components on specific
 Higgs mass points.
+
+\item {\it Shape variations:} In the shape based analysis, we estimate the 
+uncertainties due to the shape variations. The strategy is described in detail in Ref.~\cite{shapeananote}.
 \end{itemize}
+
 
 
 \subsection{Lepton Acceptance and Selection Efficiency }
@@ -111,10 +118,10 @@ essentially can be neglected.
 
 All systematic uncertainties taken into account in this analysis
 are summarized in Table~\ref{tab:systww}.
-The total uncertainty depends on the Higgs mass and jet bin considered,
+The total uncertainty depends on the Higgs mass, %and jet bin considered,
 however is typically $20\%$ on the data-driven background estimation and about $6-35\%$ 
 on the signal efficiency. These results assume an integrated luminosity of \intlumi. 
-The uncertainties due to the shape variation is discussed in Section 4 of Ref~\cite{shapeananote}. 
+%The uncertainties due to the shape variation is discussed in Section 4 of Ref~\cite{shapeananote}. 
 
 \begin{table}[!ht]
 \begin{center}
