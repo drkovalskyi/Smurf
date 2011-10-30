@@ -184,7 +184,7 @@ void ComputeTopScaleFactors
 
     double minmet = TMath::Min(bgdEvent.pmet_,bgdEvent.pTrackMet_);
     bool passMET = minmet > 20. &&
-         	  (minmet > 37.+bgdEvent.nvtx_/2 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+         	  (minmet > 37.+bgdEvent.nvtx_/2.0 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
 
     bool passNewCuts = true;
     if(bgdEvent.lep2_.Pt() <= 15 && (bgdEvent.type_ == SmurfTree::mm||bgdEvent.type_ == SmurfTree::ee)) passNewCuts = false;
@@ -366,7 +366,7 @@ void ComputeTopScaleFactors
 
     double minmet = TMath::Min(dataEvent.pmet_,dataEvent.pTrackMet_);
     bool passMET = minmet > 20. &&
-                  (minmet > 37.+dataEvent.nvtx_/2 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+                  (minmet > 37.+dataEvent.nvtx_/2.0 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
 
     bool passNewCuts = true;
     if(dataEvent.lep2_.Pt() <= 15 && (dataEvent.type_ == SmurfTree::mm||dataEvent.type_ == SmurfTree::ee)) passNewCuts = false;

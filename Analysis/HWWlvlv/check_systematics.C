@@ -1,10 +1,151 @@
-void check_systematics(TString inputFilewwof = "hwwof_1j.input.root",
-                       TString inputFilewwsf = "hwwsf_1j.input.root" ){
-
+void check_systematics(TString inputFilewwof = "hwwof_0j.input.root",
+                       TString inputFilewwsf = "hwwsf_0j.input.root" ){
+gInterpreter->ExecuteMacro("/home/ceballos/root/macros/MITStyle.C");
+gStyle->SetOptStat(0);
 TFile *fInputFilewwof = TFile::Open(inputFilewwof,"READ");
 fInputFilewwof->cd();
 TCanvas* cvswwof[90];
 for(int i=0; i<90; i++) cvswwof[i] = new TCanvas(Form("cwwof_%d",i),Form("cwwof_%d",i),100,100,700,700);
+// Begin making nice histograms
+atributes(histo_ggH,"BDT Output",1,"Events",1);
+atributes(histo_ggWW,"BDT Output",1,"Events",1);
+atributes(histo_qqH,"BDT Output",1,"Events",1);
+atributes(histo_qqWW,"BDT Output",1,"Events",1);
+atributes(histo_Top,"BDT Output",1,"Events",1);
+atributes(histo_ttH,"BDT Output",1,"Events",1);
+atributes(histo_VV,"BDT Output",1,"Events",1);
+atributes(histo_Wgamma,"BDT Output",1,"Events",1);
+atributes(histo_WH,"BDT Output",1,"Events",1);
+atributes(histo_Wjets,"BDT Output",1,"Events",1);
+atributes(histo_ZH,"BDT Output",1,"Events",1);
+atributes(histo_Zjets,"BDT Output",1,"Events",1);
+atributes(histo_Ztt,"BDT Output",1,"Events",1);
+
+atributes(histo_ggH_CMS_MVAggHBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggH_CMS_MVAggHStatBounding_hwwof_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggH_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggH_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggH_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggH_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggWW_CMS_MVAggWWStatBounding_hwwof_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggWW_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggWW_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggWW_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggWW_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqH_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqH_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqH_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqH_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqH_CMS_MVAqqHStatBounding_hwwof_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVAqqWWStatBounding_hwwof_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVAWWBounding_hwwUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVAWWNLOBounding_hwwUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Top_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Top_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Top_CMS_MVATopBounding_hwwUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Top_CMS_MVATopStatBounding_hwwof_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ttH_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ttH_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ttH_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ttH_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ttH_CMS_MVAttHStatBounding_hwwof_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_VV_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_VV_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_VV_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_VV_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_VV_CMS_MVAVVStatBounding_hwwof_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wgamma_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wgamma_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wgamma_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wgamma_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wgamma_CMS_MVAWgammaStatBounding_hwwof_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_WH_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_WH_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_WH_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_WH_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_WH_CMS_MVAWHStatBounding_hwwof_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wjets_CMS_MVAWBounding_hwwUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wjets_CMS_MVAWjetsStatBounding_hwwof_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wjets_CMS_MVAWMCBounding_hwwUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ZH_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ZH_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ZH_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ZH_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ZH_CMS_MVAZHStatBounding_hwwof_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Zjets_CMS_MVAZjetsStatBounding_hwwof_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Ztt_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Ztt_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Ztt_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Ztt_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Ztt_CMS_MVAZttStatBounding_hwwof_0jUp  ,"BDT Output",2,"Events",2);
+
+atributes(histo_ggH_CMS_MVAggHBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggH_CMS_MVAggHStatBounding_hwwof_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_ggH_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggH_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggH_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggH_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggWW_CMS_MVAggWWStatBounding_hwwof_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_ggWW_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggWW_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggWW_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggWW_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqH_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqH_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqH_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqH_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqH_CMS_MVAqqHStatBounding_hwwof_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVAqqWWStatBounding_hwwof_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVAWWBounding_hwwDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVAWWNLOBounding_hwwDown,"BDT Output",4,"Events",4);
+atributes(histo_Top_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Top_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Top_CMS_MVATopBounding_hwwDown,"BDT Output",4,"Events",4);
+atributes(histo_Top_CMS_MVATopStatBounding_hwwof_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_ttH_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ttH_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ttH_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ttH_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ttH_CMS_MVAttHStatBounding_hwwof_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_VV_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_VV_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_VV_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_VV_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_VV_CMS_MVAVVStatBounding_hwwof_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_Wgamma_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Wgamma_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Wgamma_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Wgamma_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Wgamma_CMS_MVAWgammaStatBounding_hwwof_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_WH_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_WH_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_WH_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_WH_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_WH_CMS_MVAWHStatBounding_hwwof_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_Wjets_CMS_MVAWBounding_hwwDown,"BDT Output",4,"Events",4);
+atributes(histo_Wjets_CMS_MVAWjetsStatBounding_hwwof_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_Wjets_CMS_MVAWMCBounding_hwwDown,"BDT Output",4,"Events",4);
+atributes(histo_ZH_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ZH_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ZH_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ZH_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ZH_CMS_MVAZHStatBounding_hwwof_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_Zjets_CMS_MVAZjetsStatBounding_hwwof_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_Ztt_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Ztt_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Ztt_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Ztt_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Ztt_CMS_MVAZttStatBounding_hwwof_0jDown,"BDT Output",4,"Events",4);
+// End making nice histograms
+
 // WW syst1
 cvswwof[0]->cd();
 histo_qqWW_CMS_MVAWWBounding_hwwUp  ->Draw("hist");
@@ -19,68 +160,68 @@ histo_Top->Draw("e,same");
 
 // stat. syst
 cvswwof[2]->cd();
-histo_ttH_CMS_MVAttHStatBounding_hwwof_1jUp  ->Draw("hist");
-histo_ttH_CMS_MVAttHStatBounding_hwwof_1jDown->Draw("hist,same");
+histo_ttH_CMS_MVAttHStatBounding_hwwof_0jUp  ->Draw("hist");
+histo_ttH_CMS_MVAttHStatBounding_hwwof_0jDown->Draw("hist,same");
 histo_ttH->Draw("e,same");
 
 cvswwof[3]->cd();
-histo_ZH_CMS_MVAZHStatBounding_hwwof_1jUp  ->Draw("hist");
-histo_ZH_CMS_MVAZHStatBounding_hwwof_1jDown->Draw("hist,same");
+histo_ZH_CMS_MVAZHStatBounding_hwwof_0jUp  ->Draw("hist");
+histo_ZH_CMS_MVAZHStatBounding_hwwof_0jDown->Draw("hist,same");
 histo_ZH->Draw("e,same");
 
 cvswwof[4]->cd();
-histo_WH_CMS_MVAWHStatBounding_hwwof_1jUp  ->Draw("hist");
-histo_WH_CMS_MVAWHStatBounding_hwwof_1jDown->Draw("hist,same");
+histo_WH_CMS_MVAWHStatBounding_hwwof_0jUp  ->Draw("hist");
+histo_WH_CMS_MVAWHStatBounding_hwwof_0jDown->Draw("hist,same");
 histo_WH->Draw("e,same");
 
 cvswwof[5]->cd();
-histo_qqH_CMS_MVAqqHStatBounding_hwwof_1jUp  ->Draw("hist");
-histo_qqH_CMS_MVAqqHStatBounding_hwwof_1jDown->Draw("hist,same");
+histo_qqH_CMS_MVAqqHStatBounding_hwwof_0jUp  ->Draw("hist");
+histo_qqH_CMS_MVAqqHStatBounding_hwwof_0jDown->Draw("hist,same");
 histo_qqH->Draw("e,same");
 
 cvswwof[6]->cd();
-histo_ggH_CMS_MVAggHStatBounding_hwwof_1jUp  ->Draw("hist");
-histo_ggH_CMS_MVAggHStatBounding_hwwof_1jDown->Draw("hist,same");
+histo_ggH_CMS_MVAggHStatBounding_hwwof_0jUp  ->Draw("hist");
+histo_ggH_CMS_MVAggHStatBounding_hwwof_0jDown->Draw("hist,same");
 histo_ggH->Draw("e,same");
 
 cvswwof[7]->cd();
-histo_qqWW_CMS_MVAqqWWStatBounding_hwwof_1jUp  ->Draw("hist");
-histo_qqWW_CMS_MVAqqWWStatBounding_hwwof_1jDown->Draw("hist,same");
+histo_qqWW_CMS_MVAqqWWStatBounding_hwwof_0jUp  ->Draw("hist");
+histo_qqWW_CMS_MVAqqWWStatBounding_hwwof_0jDown->Draw("hist,same");
 histo_qqWW->Draw("e,same");
 
 cvswwof[8]->cd();
-histo_ggWW_CMS_MVAggWWStatBounding_hwwof_1jUp  ->Draw("hist");
-histo_ggWW_CMS_MVAggWWStatBounding_hwwof_1jDown->Draw("hist,same");
+histo_ggWW_CMS_MVAggWWStatBounding_hwwof_0jUp  ->Draw("hist");
+histo_ggWW_CMS_MVAggWWStatBounding_hwwof_0jDown->Draw("hist,same");
 histo_ggWW->Draw("e,same");
 
 cvswwof[9]->cd();
-histo_VV_CMS_MVAVVStatBounding_hwwof_1jUp  ->Draw("hist");
-histo_VV_CMS_MVAVVStatBounding_hwwof_1jDown->Draw("hist,same");
+histo_VV_CMS_MVAVVStatBounding_hwwof_0jUp  ->Draw("hist");
+histo_VV_CMS_MVAVVStatBounding_hwwof_0jDown->Draw("hist,same");
 histo_VV->Draw("e,same");
 
 cvswwof[10]->cd();
-histo_Top_CMS_MVATopStatBounding_hwwof_1jUp  ->Draw("hist");
-histo_Top_CMS_MVATopStatBounding_hwwof_1jDown->Draw("hist,same");
+histo_Top_CMS_MVATopStatBounding_hwwof_0jUp  ->Draw("hist");
+histo_Top_CMS_MVATopStatBounding_hwwof_0jDown->Draw("hist,same");
 histo_Top->Draw("e,same");
 
 cvswwof[11]->cd();
-histo_Zjets_CMS_MVAZjetsStatBounding_hwwof_1jUp  ->Draw("hist");
-histo_Zjets_CMS_MVAZjetsStatBounding_hwwof_1jDown->Draw("hist,same");
+histo_Zjets_CMS_MVAZjetsStatBounding_hwwof_0jUp  ->Draw("hist");
+histo_Zjets_CMS_MVAZjetsStatBounding_hwwof_0jDown->Draw("hist,same");
 histo_Zjets->Draw("e,same");
 
 cvswwof[12]->cd();
-histo_Wjets_CMS_MVAWjetsStatBounding_hwwof_1jUp  ->Draw("hist");
-histo_Wjets_CMS_MVAWjetsStatBounding_hwwof_1jDown->Draw("hist,same");
+histo_Wjets_CMS_MVAWjetsStatBounding_hwwof_0jUp  ->Draw("hist");
+histo_Wjets_CMS_MVAWjetsStatBounding_hwwof_0jDown->Draw("hist,same");
 histo_Wjets->Draw("e,same");
 
 cvswwof[13]->cd();
-histo_Wgamma_CMS_MVAWgammaStatBounding_hwwof_1jUp  ->Draw("hist");
-histo_Wgamma_CMS_MVAWgammaStatBounding_hwwof_1jDown->Draw("hist,same");
+histo_Wgamma_CMS_MVAWgammaStatBounding_hwwof_0jUp  ->Draw("hist");
+histo_Wgamma_CMS_MVAWgammaStatBounding_hwwof_0jDown->Draw("hist,same");
 histo_Wgamma->Draw("e,same");
 
 cvswwof[14]->cd();
-histo_Ztt_CMS_MVAZttStatBounding_hwwof_1jUp  ->Draw("hist");
-histo_Ztt_CMS_MVAZttStatBounding_hwwof_1jDown->Draw("hist,same");
+histo_Ztt_CMS_MVAZttStatBounding_hwwof_0jUp  ->Draw("hist");
+histo_Ztt_CMS_MVAZttStatBounding_hwwof_0jDown->Draw("hist,same");
 histo_Ztt->Draw("e,same");
 
 // Lep eff syst
@@ -316,10 +457,157 @@ histo_qqWW_CMS_MVAWWNLOBounding_hwwUp  ->Draw("hist");
 histo_qqWW_CMS_MVAWWNLOBounding_hwwDown->Draw("hist,same");
 histo_qqWW->Draw("e,same");
 
+cvswwof[60]->cd();
+histo_Top_CMS_MVAJESBoundingUp  ->Draw("hist");
+histo_Top_CMS_MVAJESBoundingDown->Draw("hist,same");
+histo_Top->Draw("e,same");
+
 TFile *fInputFilewwsf = TFile::Open(inputFilewwsf,"READ");
 fInputFilewwsf->cd();
 TCanvas* cvswwsf[90];
 for(int i=0; i<90; i++) cvswwsf[i] = new TCanvas(Form("cwwsf_%d",i),Form("cwwsf_%d",i),100,100,700,700);
+// Begin making nice histograms
+atributes(histo_ggH,"BDT Output",1,"Events",1);
+atributes(histo_ggWW,"BDT Output",1,"Events",1);
+atributes(histo_qqH,"BDT Output",1,"Events",1);
+atributes(histo_qqWW,"BDT Output",1,"Events",1);
+atributes(histo_Top,"BDT Output",1,"Events",1);
+atributes(histo_ttH,"BDT Output",1,"Events",1);
+atributes(histo_VV,"BDT Output",1,"Events",1);
+atributes(histo_Wgamma,"BDT Output",1,"Events",1);
+atributes(histo_WH,"BDT Output",1,"Events",1);
+atributes(histo_Wjets,"BDT Output",1,"Events",1);
+atributes(histo_ZH,"BDT Output",1,"Events",1);
+atributes(histo_Zjets,"BDT Output",1,"Events",1);
+atributes(histo_Ztt,"BDT Output",1,"Events",1);
+
+atributes(histo_ggH_CMS_MVAggHBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggH_CMS_MVAggHStatBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggH_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggH_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggH_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggH_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggWW_CMS_MVAggWWStatBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggWW_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggWW_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggWW_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ggWW_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqH_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqH_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqH_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqH_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqH_CMS_MVAqqHStatBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVAqqWWStatBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVAWWBounding_hwwUp  ,"BDT Output",2,"Events",2);
+atributes(histo_qqWW_CMS_MVAWWNLOBounding_hwwUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Top_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Top_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Top_CMS_MVATopBounding_hwwUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Top_CMS_MVATopStatBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ttH_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ttH_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ttH_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ttH_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ttH_CMS_MVAttHStatBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_VV_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_VV_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_VV_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_VV_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_VV_CMS_MVAVVStatBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wgamma_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wgamma_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wgamma_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wgamma_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wgamma_CMS_MVAWgammaStatBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_WH_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_WH_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_WH_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_WH_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_WH_CMS_MVAWHStatBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wjets_CMS_MVAWBounding_hwwUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wjets_CMS_MVAWjetsStatBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Wjets_CMS_MVAWMCBounding_hwwUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ZH_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ZH_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ZH_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ZH_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_ZH_CMS_MVAZHStatBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Zjets_CMS_MVAZBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Zjets_CMS_MVAZjetsStatBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Ztt_CMS_MVAJESBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Ztt_CMS_MVALepEffBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Ztt_CMS_MVALepResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Ztt_CMS_MVAMETResBoundingUp  ,"BDT Output",2,"Events",2);
+atributes(histo_Ztt_CMS_MVAZttStatBounding_hwwsf_0jUp  ,"BDT Output",2,"Events",2);
+
+atributes(histo_ggH_CMS_MVAggHBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggH_CMS_MVAggHStatBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_ggH_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggH_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggH_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggH_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggWW_CMS_MVAggWWStatBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_ggWW_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggWW_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggWW_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ggWW_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqH_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqH_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqH_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqH_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqH_CMS_MVAqqHStatBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVAqqWWStatBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVAWWBounding_hwwDown,"BDT Output",4,"Events",4);
+atributes(histo_qqWW_CMS_MVAWWNLOBounding_hwwDown,"BDT Output",4,"Events",4);
+atributes(histo_Top_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Top_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Top_CMS_MVATopBounding_hwwDown,"BDT Output",4,"Events",4);
+atributes(histo_Top_CMS_MVATopStatBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_ttH_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ttH_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ttH_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ttH_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ttH_CMS_MVAttHStatBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_VV_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_VV_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_VV_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_VV_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_VV_CMS_MVAVVStatBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_Wgamma_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Wgamma_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Wgamma_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Wgamma_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Wgamma_CMS_MVAWgammaStatBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_WH_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_WH_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_WH_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_WH_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_WH_CMS_MVAWHStatBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_Wjets_CMS_MVAWBounding_hwwDown,"BDT Output",4,"Events",4);
+atributes(histo_Wjets_CMS_MVAWjetsStatBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_Wjets_CMS_MVAWMCBounding_hwwDown,"BDT Output",4,"Events",4);
+atributes(histo_ZH_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ZH_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ZH_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ZH_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_ZH_CMS_MVAZHStatBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_Zjets_CMS_MVAZBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_Zjets_CMS_MVAZjetsStatBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+atributes(histo_Ztt_CMS_MVAJESBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Ztt_CMS_MVALepEffBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Ztt_CMS_MVALepResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Ztt_CMS_MVAMETResBoundingDown,"BDT Output",4,"Events",4);
+atributes(histo_Ztt_CMS_MVAZttStatBounding_hwwsf_0jDown,"BDT Output",4,"Events",4);
+// End making nice histograms
+
 // WW syst
 cvswwsf[0]->cd();
 histo_qqWW_CMS_MVAWWBounding_hwwUp  ->Draw("hist");
@@ -334,68 +622,68 @@ histo_Top->Draw("e,same");
 
 // stat. syst
 cvswwsf[2]->cd();
-histo_ttH_CMS_MVAttHStatBounding_hwwsf_1jUp  ->Draw("hist");
-histo_ttH_CMS_MVAttHStatBounding_hwwsf_1jDown->Draw("hist,same");
+histo_ttH_CMS_MVAttHStatBounding_hwwsf_0jUp  ->Draw("hist");
+histo_ttH_CMS_MVAttHStatBounding_hwwsf_0jDown->Draw("hist,same");
 histo_ttH->Draw("e,same");
 
 cvswwsf[3]->cd();
-histo_ZH_CMS_MVAZHStatBounding_hwwsf_1jUp  ->Draw("hist");
-histo_ZH_CMS_MVAZHStatBounding_hwwsf_1jDown->Draw("hist,same");
+histo_ZH_CMS_MVAZHStatBounding_hwwsf_0jUp  ->Draw("hist");
+histo_ZH_CMS_MVAZHStatBounding_hwwsf_0jDown->Draw("hist,same");
 histo_ZH->Draw("e,same");
 
 cvswwsf[4]->cd();
-histo_WH_CMS_MVAWHStatBounding_hwwsf_1jUp  ->Draw("hist");
-histo_WH_CMS_MVAWHStatBounding_hwwsf_1jDown->Draw("hist,same");
+histo_WH_CMS_MVAWHStatBounding_hwwsf_0jUp  ->Draw("hist");
+histo_WH_CMS_MVAWHStatBounding_hwwsf_0jDown->Draw("hist,same");
 histo_WH->Draw("e,same");
 
 cvswwsf[5]->cd();
-histo_qqH_CMS_MVAqqHStatBounding_hwwsf_1jUp  ->Draw("hist");
-histo_qqH_CMS_MVAqqHStatBounding_hwwsf_1jDown->Draw("hist,same");
+histo_qqH_CMS_MVAqqHStatBounding_hwwsf_0jUp  ->Draw("hist");
+histo_qqH_CMS_MVAqqHStatBounding_hwwsf_0jDown->Draw("hist,same");
 histo_qqH->Draw("e,same");
 
 cvswwsf[6]->cd();
-histo_ggH_CMS_MVAggHStatBounding_hwwsf_1jUp  ->Draw("hist");
-histo_ggH_CMS_MVAggHStatBounding_hwwsf_1jDown->Draw("hist,same");
+histo_ggH_CMS_MVAggHStatBounding_hwwsf_0jUp  ->Draw("hist");
+histo_ggH_CMS_MVAggHStatBounding_hwwsf_0jDown->Draw("hist,same");
 histo_ggH->Draw("e,same");
 
 cvswwsf[7]->cd();
-histo_qqWW_CMS_MVAqqWWStatBounding_hwwsf_1jUp  ->Draw("hist");
-histo_qqWW_CMS_MVAqqWWStatBounding_hwwsf_1jDown->Draw("hist,same");
+histo_qqWW_CMS_MVAqqWWStatBounding_hwwsf_0jUp  ->Draw("hist");
+histo_qqWW_CMS_MVAqqWWStatBounding_hwwsf_0jDown->Draw("hist,same");
 histo_qqWW->Draw("e,same");
 
 cvswwsf[8]->cd();
-histo_ggWW_CMS_MVAggWWStatBounding_hwwsf_1jUp  ->Draw("hist");
-histo_ggWW_CMS_MVAggWWStatBounding_hwwsf_1jDown->Draw("hist,same");
+histo_ggWW_CMS_MVAggWWStatBounding_hwwsf_0jUp  ->Draw("hist");
+histo_ggWW_CMS_MVAggWWStatBounding_hwwsf_0jDown->Draw("hist,same");
 histo_ggWW->Draw("e,same");
 
 cvswwsf[9]->cd();
-histo_VV_CMS_MVAVVStatBounding_hwwsf_1jUp  ->Draw("hist");
-histo_VV_CMS_MVAVVStatBounding_hwwsf_1jDown->Draw("hist,same");
+histo_VV_CMS_MVAVVStatBounding_hwwsf_0jUp  ->Draw("hist");
+histo_VV_CMS_MVAVVStatBounding_hwwsf_0jDown->Draw("hist,same");
 histo_VV->Draw("e,same");
 
 cvswwsf[10]->cd();
-histo_Top_CMS_MVATopStatBounding_hwwsf_1jUp  ->Draw("hist");
-histo_Top_CMS_MVATopStatBounding_hwwsf_1jDown->Draw("hist,same");
+histo_Top_CMS_MVATopStatBounding_hwwsf_0jUp  ->Draw("hist");
+histo_Top_CMS_MVATopStatBounding_hwwsf_0jDown->Draw("hist,same");
 histo_Top->Draw("e,same");
 
 cvswwsf[11]->cd();
-histo_Zjets_CMS_MVAZjetsStatBounding_hwwsf_1jUp  ->Draw("hist");
-histo_Zjets_CMS_MVAZjetsStatBounding_hwwsf_1jDown->Draw("hist,same");
+histo_Zjets_CMS_MVAZjetsStatBounding_hwwsf_0jUp  ->Draw("hist");
+histo_Zjets_CMS_MVAZjetsStatBounding_hwwsf_0jDown->Draw("hist,same");
 histo_Zjets->Draw("e,same");
 
 cvswwsf[12]->cd();
-histo_Wjets_CMS_MVAWjetsStatBounding_hwwsf_1jUp  ->Draw("hist");
-histo_Wjets_CMS_MVAWjetsStatBounding_hwwsf_1jDown->Draw("hist,same");
+histo_Wjets_CMS_MVAWjetsStatBounding_hwwsf_0jUp  ->Draw("hist");
+histo_Wjets_CMS_MVAWjetsStatBounding_hwwsf_0jDown->Draw("hist,same");
 histo_Wjets->Draw("e,same");
 
 cvswwsf[13]->cd();
-histo_Wgamma_CMS_MVAWgammaStatBounding_hwwsf_1jUp  ->Draw("hist");
-histo_Wgamma_CMS_MVAWgammaStatBounding_hwwsf_1jDown->Draw("hist,same");
+histo_Wgamma_CMS_MVAWgammaStatBounding_hwwsf_0jUp  ->Draw("hist");
+histo_Wgamma_CMS_MVAWgammaStatBounding_hwwsf_0jDown->Draw("hist,same");
 histo_Wgamma->Draw("e,same");
 
 cvswwsf[14]->cd();
-histo_Ztt_CMS_MVAZttStatBounding_hwwsf_1jUp  ->Draw("hist");
-histo_Ztt_CMS_MVAZttStatBounding_hwwsf_1jDown->Draw("hist,same");
+histo_Ztt_CMS_MVAZttStatBounding_hwwsf_0jUp  ->Draw("hist");
+histo_Ztt_CMS_MVAZttStatBounding_hwwsf_0jDown->Draw("hist,same");
 histo_Ztt->Draw("e,same");
 
 // Lep eff syst
@@ -626,17 +914,43 @@ histo_ggH_CMS_MVAggHBoundingDown->Draw("hist,same");
 histo_ggH->Draw("e,same");
 
 // WW syst2
-cvswwof[59]->cd();
+cvswwsf[59]->cd();
 histo_qqWW_CMS_MVAWWNLOBounding_hwwUp  ->Draw("hist");
 histo_qqWW_CMS_MVAWWNLOBounding_hwwDown->Draw("hist,same");
 histo_qqWW->Draw("e,same");
 
-// Zjets syst
 cvswwsf[60]->cd();
-histo_Zjets_CMS_MVAZBounding_hwwsf_1jUp  ->Draw("hist");
-histo_Zjets_CMS_MVAZBounding_hwwsf_1jDown->Draw("hist,same");
+histo_Top_CMS_MVAJESBoundingUp  ->Draw("hist");
+histo_Top_CMS_MVAJESBoundingDown->Draw("hist,same");
+histo_Top->Draw("e,same");
+
+// Zjets syst
+cvswwsf[61]->cd();
+histo_Zjets_CMS_MVAZBounding_hwwsf_0jUp  ->Draw("hist");
+histo_Zjets_CMS_MVAZBounding_hwwsf_0jDown->Draw("hist,same");
 histo_Zjets->Draw("e,same");
 
-for(int i=0; i<60; i++) cvswwof[i]->SaveAs(Form("plots/cvswwof_%d.eps",i));
-for(int i=0; i<61; i++) cvswwsf[i]->SaveAs(Form("plots/cvswwsf_%d.eps",i));
+for(int i=0; i<=60; i++) cvswwof[i]->SaveAs(Form("plots/cvswwof_%d.pdf",i));
+for(int i=0; i<=61; i++) cvswwsf[i]->SaveAs(Form("plots/cvswwsf_%d.pdf",i));
+for(int i=0; i<=60; i++) cvswwof[i]->SaveAs(Form("plots/cvswwof_%d.eps",i));
+for(int i=0; i<=61; i++) cvswwsf[i]->SaveAs(Form("plots/cvswwsf_%d.eps",i));
+}
+void atributes(TH1D *histo, Char_t xtitle[]="", Int_t COLOR = 1, Char_t ytitle[]="Fraction", Int_t style = 1){
+  histo->ResetAttLine();
+  histo->ResetAttFill();
+  histo->ResetAttMarker();
+  histo->GetYaxis()->SetNdivisions(505);
+  histo->GetXaxis()->SetNdivisions(505);
+  histo->SetTitle("");
+  histo->SetMarkerStyle(20);
+  histo->SetMarkerSize(0.8);
+  histo->SetLineStyle(style);
+  histo->SetLineWidth(4);
+  histo->SetLineColor(COLOR);
+  histo->SetMarkerStyle(kFullDotLarge);
+  histo->GetXaxis()->SetTitle(xtitle);
+  histo->GetXaxis()->SetTitleOffset(1.);
+  histo->GetYaxis()->SetTitleOffset(1.3*histo->GetYaxis()->GetTitleOffset());
+  histo->GetYaxis()->SetTitle(ytitle);
+  histo->GetYaxis()->CenterTitle(kTRUE);
 }

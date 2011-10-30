@@ -253,7 +253,7 @@ void ComputeWWBkgScaleFactor (
 
     double minmet = TMath::Min(pmet,pTrackMet);
     bool passMET = minmet > 20. &&
-                  (minmet > 37.+nvtx/2 || type == SmurfTree::em || type == SmurfTree::me);
+                  (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
 
     bool passNewCuts = true;
     if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
@@ -366,7 +366,7 @@ void ComputeWWBkgScaleFactor (
 
     double minmet = TMath::Min(pmet,pTrackMet);
     bool passMET = minmet > 20. &&
-                  (minmet > 37.+nvtx/2 || type == SmurfTree::em || type == SmurfTree::me);
+                  (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
 
     bool passNewCuts = true;
     if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
