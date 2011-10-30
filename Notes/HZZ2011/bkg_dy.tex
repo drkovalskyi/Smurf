@@ -6,7 +6,6 @@
 We find the uncertainty of around 15\% which seems a little bit small.  
 Early this week the closure test will be repeated with the 42X MC, which should have
 higher statistics and we can push the met cut a little higher and see how things evolve.
-    \item check and update photon selection details - now it is the HZZ rather than Hgg ID that we use.
 \end{itemize}
 \end{itemize}
 
@@ -22,7 +21,7 @@ is expected to be small since we select events within a fairly tight (within $15
 around the $Z$ boson pole mass. The background due to mismeasurement of the hadronic
 recoil is the main source of Drell-Yan events contributing to the selected signal region.
 
-The estimation of residual Drell-Yan background in the signal region depends highly 
+The estimation of residual Drell-Yan background in the signal region depends highly on
 our understanding of the \met tails which is sensitive to many factors such as 
 the jet energy corrections, the number of pileup interactions, and energy from out of time
 contributions. These effects are difficult to model precisely in the simulation.
@@ -39,10 +38,8 @@ is well measured and does not contribute to the \met.
 The photon data sample is selected by requiring one and only one photon passing reaonsably tight
 identification and isolation requirements, summarized in Table \ref{tab:PhotonSelection} below 
 \cite{MITHggNote}. 
-An electron veto is imposed on the photon, requiring that no GSF electron which does not match to 
-one leg of a well reconstructed conversion is sharing the same supercluster as the photon
-candidate. This is intended to reduce contributions from W bosons decaying to electrons, misidentified
-as photons. To reduce contamination from $W$+$\gamma$ events, we veto any events with one or 
+An electron veto is imposed on the photon, requiring that the photon is not matched to a pixel seed.
+To reduce contamination from $W$+$\gamma$ events, we veto any events with one or 
 more well identified leptons.
 
 
@@ -122,12 +119,17 @@ $p_T > 95$      & HLT\_Photon90\_* \\
 Since the fake \met is due to mismeasurement of the hadronic recoil, we parameterize the 
 modelling of the \met distribution in the $p_{T}$ of the photon / dilepton system and 
 the number of counted jets. Both variables are highly correlated with the behavior 
-of the hadronic recoil. Reweighting factors are computed in bins of the number of counted jets
-and the dilepton $p_{T}$ by dividing the corresponding two dimensional distributions
+of the hadronic recoil. Additionally, since the photon triggers are prescaled
+the photon events are sampling the pile-up conditions differently than the events which
+pass selection. To address this, we parametrize also in the vertex multiplicity.
+Reweighting factors are computed in bins of the number of counted jets
+and the dilepton $p_{T}$, and in the number of primary vertices,
+by dividing the corresponding two dimensional distributions
 in the $\gamma$+jets data sample and the dilepton data sample:
 
 \begin{eqnarray}
-  w(p_{T},\mathrm{njet}) = \frac{\mathrm{N}_{\gamma+\mathrm{jets}}(p_{T},\mathrm{njet})}{\mathrm{N}_{\mathrm{Z+jets}}(p_{T},\mathrm{njet})}.
+  w(p_{T},\mathrm{njet}) = \frac{\mathrm{N}_{\gamma+\mathrm{jets}}(p_{T},\mathrm{njet})}{\mathrm{N}_{\mathrm{Z+jets}}(p_{T},\mathrm{njet})}
+  \times\frac{\mathrm{N}_{\gamma+\mathrm{jets}}(\mathrm{npv})}{\mathrm{N}_{\mathrm{Z+jets}}(\mathrm{npv})}.
 \end{eqnarray}
 
 In order for these reweighting factors to be insensitive to the presence of signal or backgrounds with 
@@ -137,7 +139,7 @@ the full $H \to ZZ$ preselection is imposed, including the top veto and the thir
 
 Finally, to model the \met distribution for the final selection we select $\gamma$+jets events
 as above, imposing the preselection requirement that the photon $p_{T}$ is greater than $25$ GeV,
-and associate the corresponding weight factor $w(p_{T},\mathrm{njet})$ to each such event. 
+and associate the corresponding weight factor $w(p_{T},\mathrm{njet},\mathrm{npv})$ to each such event. 
 To model the transverse mass distribution, we draw a random number from a pre-determined dilepton
 mass distribution and build the $m_{T}$ observable as in Eqn \ref{eq:MTHZZ}. The dilepton mass distribution
 is constructed from data imposing all preselection cuts except the $\met\ $ requirement.
