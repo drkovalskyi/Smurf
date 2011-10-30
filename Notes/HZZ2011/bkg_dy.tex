@@ -49,30 +49,38 @@ more well identified leptons.
 \hline
 Cut           & Requirement                                                                           \\
 \hline
+\multicolumn{2}{|c|}{Photon is not pixel seeded}                                                      \\
+\hline
 $\eta$        & $|\eta| < 1.4442$                                                                     \\ 
 \hline
 H/E           & H/E $< 0.05$                                                                          \\
+$\sigma_{i\phi i\phi}$ & $\sigma_{i\phi i\phi} > 0.001$                                           \\
+$\sigma_{i\eta i\eta}$ & $0.001 < \sigma_{i\eta i\eta} < 0.013$                                   \\
 \hline
-Electron Veto & Photon is rejected if it shares the supercluster with an electron that does not       \\
-              & match to one leg of a conversion with $\mathrm{L}_{\mathrm{xy}} < 2.0$, fit           \\
-              & probability  $> 10^{-6}$, and no hits behind the fitted vertex                        \\
+EcalIso       & EcalIso $<  4.2 + 0.0060\times p_{T}$   \\
+HcalIso       & HcalIso $<  2.2 + 0.0025\times p_{T}$  \\
+TrkIso        & TrkIso  $<  2.0 + 0.0010\times p_{T}$     \\
 \hline
-\hline
-\multicolumn{2}{|c|}{Conversion ID (if matched to a conversion with $\mathrm{L}_{\mathrm{xy}} < 2.0$,}\\
-\multicolumn{2}{|c|}{fit probability $> 10^{-6}$, and at most one hit before the fitted vertex on }   \\
-\multicolumn{2}{|c|}{either of the tracks forming the conversion) }                                   \\
-\hline
-E/P            & E/P $< 2.0 $                                                                         \\
+%Electron Veto & Photon is rejected if it shares the supercluster with an electron that does not       \\
+%              & match to one leg of a conversion with $\mathrm{L}_{\mathrm{xy}} < 2.0$, fit           \\
+%              & probability  $> 10^{-6}$, and no hits behind the fitted vertex                        \\
+%\hline
+%\hline
+%\multicolumn{2}{|c|}{Conversion ID (if matched to a conversion with $\mathrm{L}_{\mathrm{xy}} < 2.0$,}\\
+%\multicolumn{2}{|c|}{fit probability $> 10^{-6}$, and at most one hit before the fitted vertex on }   \\
+%\multicolumn{2}{|c|}{either of the tracks forming the conversion) }                                   \\
+%\hline
+%E/P            & E/P $< 2.0 $                                                                         \\
 %$\Delta\eta$  & $|\Delta\eta| < 0.01 for Endcap only$ \\
 %$\Delta\phi$  & $|\Delta\phi| < 0.01 for Endcap only$ \\
-\hline
-\hline
-\multicolumn{2}{|c|}{Isolation}                                                                       \\
-\hline
-EcalIso       & EcalIso $ - \rho\times \mathrm{A}_{\mathrm{eff Ecal}}$ $<  2.0 + 0.006\times p_{T}$   \\
-HcalIso       & HcalIso $ - \rho\times \mathrm{A}_{\mathrm{eff Hcal}}$ $<  2.0 + 0.0025\times p_{T}$  \\
-TrkIso        & TrkIso $ - \rho\times \mathrm{A}_{\mathrm{eff Trk}}$ $<  1.5 + 0.001\times p_{T}$     \\
-\hline
+%\hline
+%\hline
+%\multicolumn{2}{|c|}{Isolation}                                                                       \\
+%\hline
+%EcalIso       & EcalIso $ - \rho\times \mathrm{A}_{\mathrm{eff Ecal}}$ $<  2.0 + 0.006\times p_{T}$   \\
+%HcalIso       & HcalIso $ - \rho\times \mathrm{A}_{\mathrm{eff Hcal}}$ $<  2.0 + 0.0025\times p_{T}$  \\
+%TrkIso        & TrkIso $ - \rho\times \mathrm{A}_{\mathrm{eff Trk}}$ $<  1.5 + 0.001\times p_{T}$     \\
+%\hline
 
 %\hline
 %SpikeKilling & \\
@@ -81,11 +89,30 @@ TrkIso        & TrkIso $ - \rho\times \mathrm{A}_{\mathrm{eff Trk}}$ $<  1.5 + 0
 %$\sigma_{i\eta i\eta}$     & $\sigma_{i\eta i\eta} > 0.001$          \\
 %$\sigma_{i\phi i\phi}$     & $\sigma_{i\phi i\phi} > 0.001$          \\
 %\hline
-
-\hline
 \end{tabular}
 \caption{The selection criteira on the photons.
 \label{tab:PhotonSelection}}
+\end{center}
+\end{table}
+
+To ensure the photon is well-measured in both the online HLT reconstruction as well as the offline reconstruction, we require that photons in
+various $p_T$ ranges be accepted by specific triggers as listed in Table~\ref{tab:PhotonTriggerPtBins}. The $p_T$ bins are motivated by the
+desire to avoid the turn-on regions of the various triggers.
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|c|c|} 
+\hline
+$p_T$ range     & Trigger requirement \\
+\hline
+$25 < p_T < 35$ & HLT\_Photon20\_* \\
+$35 < p_T < 55$ & HLT\_Photon30\_* \\
+$55 < p_T < 80$ & HLT\_Photon50\_* \\
+$80 < p_T < 95$ & HLT\_Photon75\_* \\
+$p_T > 95$      & HLT\_Photon90\_* \\
+\hline
+\end{tabular}
+\caption{The selection criteira on the photons.
+\label{tab:PhotonTriggerPtBins}}
 \end{center}
 \end{table}
 
