@@ -1,13 +1,15 @@
 To validate the procedures discussed in the previous section, detailed studies 
 have been carried out using simulated events from the Spring11 CMSSW\_4\_1\_X production.
 The basic object selections are taken from the Ref~\cite{hzz}-~\cite{hzzlppas}. 
-We evaluate the effects on the expected limits projected to $\mathcal{L}~=~5~\pm~0.22~\ifb$. 
-The data to simulation scale factors for the Top and \WW{} background are derived using 
-a dataset corresponding to $\mathcal{L}~=~1.1~\pm~0.05~\ifb$. 
-The Drell-Yan background are derived using the photon jet method based on 
-$\mathcal{L}~=~1.1~\pm~0.05~\ifb$, which is then scaled to $5~\ifb$ assuming 
-the same systematic uncertainty. In all the test, we run 10000 toymc to estimate the 
-effects on the median expected cross-section ration limits and the 1/2-$\sigma$ 
+We evaluate the effects on the expected limits projected to $\mathcal{L}~=~2.1~\pm~0.1~\ifb$. 
+The Top and \WW{} background are estimated using data-driven techinques documented in 
+Ref.~\cite{hzz}. 
+%The data to simulation scale factors for the Top and \WW{} background are derived using 
+%a dataset corresponding to $\mathcal{L}~=~2.1~\pm~0.05~\ifb$. 
+%The Drell-Yan background are derived using the photon jet method based on 
+%$\mathcal{L}~=~2.1~\pm~0.05~\ifb$, which is then scaled to $5~\ifb$ assuming 
+%the same systematic uncertainty. 
+In all the test, we run 10000 toymc to estimate the  effects on the median expected cross-section ration limits and the 1/2-$\sigma$ 
 uncertainty bands with a statistical precision about 0.01. 
 
 
@@ -19,11 +21,11 @@ Table~\ref{tab:mva_mtshapevscuts_hzz}-\ref{tab:mvashape_mevsbdt_hzz}.
 
 In the case of the $H\to ZZ$ analysis, using shape based on a single variation $m_T$ yield 
 comparable performance comparing to using the shape based on BDT or Matrix Element method. 
-The shape analysis based on the Matrix Element outputs brings additional $20\%$ improvement 
+The shape analysis based on the Matrix Element outputs brings additional $X\%$ improvement 
 compared to the shape analysis based on $m_T$ for the low higgs mass hypothesis $mH=250\GeVcc$. 
 Compared to the shape analysis based on $m_T$, the shape analysis based on the BDT outputs 
-brings additional $25\%$ improvement in the intermediate higgs mass hypotheses 
-$ 350<=~mH~<=~400\GeVcc$ and additional $15\%$ improvement in the higher mass hypotheses
+brings additional $X\%$ improvement in the intermediate higgs mass hypotheses 
+$ 350<=~mH~<=~400\GeVcc$ and additional $X\%$ improvement in the higher mass hypotheses
 $mH~>~400\GeVcc$. 
 
 In the following validations, we use the $m_T$ based shape analysis as an example 
@@ -40,12 +42,12 @@ to demonstrate the effects due to the shape systematics.
 Mass  &  Median      &     68\% C.L. band &  95\% C.L. band &  Median	   &	 68\% C.L. band &  95\% C.L. band\\
       &  Expected    &                    &                 &  Expected    &			&		 \\
 \hline
-250 & 1.81 & [1.25, 2.61] & [0.90, 3.65] & 1.48 & [1.05, 2.13] & [0.76, 2.96] \\
-300 & 1.12 & [0.79, 1.62] & [0.58, 2.24] & 0.80 & [0.57, 1.13] & [0.42, 1.56] \\
-350 & 0.73 & [0.52, 1.06] & [0.38, 1.48] & 0.59 & [0.42, 0.84] & [0.31, 1.19]\\
-400 & 0.90 & [0.63, 1.32] & [0.45, 1.85] & 0.59 & [0.41, 0.83] & [0.31, 1.18]\\
-500 & 1.36 & [0.95, 1.97] & [0.70, 2.78] & 1.00 & [0.71, 1.41] & [0.54, 1.97]\\
-600 & 2.51 & [1.77, 3.58] & [1.33, 5.14] & 2.20 & [1.57, 3.12] & [1.21, 4.29]\\
+250 & 2.10 & [1.46, 3.03] & [1.07, 4.19] & 1.87 & [1.32, 2.66] & [0.97, 3.67] \\
+300 & 1.49 & [1.04, 2.14] & [0.77, 3.00] & 1.29 & [0.91, 1.83] & [0.68, 2.54] \\
+350 & 1.04 & [0.75, 1.54] & [0.56, 2.18] & 0.95 & [0.69, 1.36] & [0.51, 1.88] \\
+400 & 1.03 & [0.77, 1.55] & [0.56, 2.17] & 0.99 & [0.71, 1.42] & [0.53, 1.97] \\
+500 & 1.93 & [1.38, 2.91] & [1.09, 4.07] & 1.87 & [1.35, 2.68] & [1.03, 3.75] \\
+600 & 3.93 & [2.90, 5.88] & [2.17, 8.87] & 4.31 & [3.09, 6.19] & [2.42, 8.83] \\
 \hline
 \end{tabular}
 }
@@ -77,7 +79,8 @@ Mass  &  Median      &     68\% C.L. band &  95\% C.L. band &  Median	   &	 68\%
 \hline
 \end{tabular}
 }
-\caption{Comparison of the median expected cross section ratio limits as a function 
+\caption{\fixme {\bf still use the 5/fb based on 41XMC} 
+Comparison of the median expected cross section ratio limits as a function 
 of the Higgs mass, together with the 1/2-$\sigma$ uncertainty bands between the cut-and-count 
 analysis and the shape analysis using the transverse higgs mass. 
 In this comparison, we do not include any systematics due to the shape variation. }
@@ -105,16 +108,19 @@ The effects due to the lepton efficiency and scale variations are neglible and w
 the normalization uncertainties. 
 
 Table~\ref{tab:mva_mtshapewithwithout_hzz} shows the effect on the results by including such uncertainties. 
-Including the systematics for shape variations, we see the performance degrade by 5-15\% compared 
+Including the systematics for shape variations, we see the performance degrade by about 2\% compared 
 to the results obtained without shape systematics. 
 The largest effect is on the $m_H=250\GeVcc$ hypothesis mainly due to the $\WZ$ shape variation.
 Table~\ref{tab:mva_mtshapevscuts_withshapevar_hzz} compares the cut-based results and the one using 
 shape analysis including all systematics due to shape variation. 
-Overall we see on average 8-30\% gain in the performance. 
-The improvements in the intermediate mass range between 300 and 500 $\GeVcc$ 
-are larger, about $20-30\%$. 
+Overall we see on average 7-11\% gain in the performance 
+in the intermediate mass range between 300 and 400 $\GeVcc$. The 
+performance at the $mH=500\GeVcc$ is consistent with the cut-based approach. 
+The performance at the $mH=600\GeVcc$ is worse than teh cut-based approach. This 
+is mainly because of the loose pre-selections. 
 To understand the effects of the individual source of the uncertainties, 
 we also compare the results by adding each source progressively, shown in Table~\ref{tab:mva_mtshape_detail}. 
+Among all the shape systematics, the statistical uncertainty on the template is the leading effect. 
 
 
 
@@ -129,12 +135,13 @@ we also compare the results by adding each source progressively, shown in Table~
 Mass  &  Median      &     68\% C.L. band &  95\% C.L. band &  Median	   &	 68\% C.L. band &  95\% C.L. band\\
       &  Expected    &                    &                 &  Expected    &			&		 \\
 \hline
-250 & 1.48 & [1.05, 2.13] & [0.76, 2.96] & 1.71 & [1.15, 2.55] & [0.80, 3.67] \\
-300 & 0.80 & [0.57, 1.13] & [0.42, 1.56] & 0.88 & [0.62, 1.28] & [0.44, 1.80] \\
-350 & 0.59 & [0.42, 0.84] & [0.31, 1.19] & 0.64 & [0.44, 0.93] & [0.32, 1.33] \\
-400 & 0.59 & [0.41, 0.83] & [0.31, 1.18] & 0.63 & [0.44, 0.90] & [0.32, 1.27]\\
-500 & 1.00 & [0.71, 1.41] & [0.54, 1.97] & 1.06 & [0.74, 1.53] & [0.54, 2.21]\\
-600 & 2.20 & [1.57, 3.12] & [1.21, 4.29] & 2.33 & [1.63, 3.42] & [1.21, 4.77]\\
+250 & 1.87 & [1.32, 2.66] & [0.97, 3.67] & 1.92 & [1.36, 2.75] & [1.01, 3.84] \\
+300 & 1.29 & [0.91, 1.83] & [0.68, 2.54] & 1.32 & [0.94, 1.90] & [0.70, 2.63] \\
+350 & 0.95 & [0.69, 1.36] & [0.51, 1.88] & 0.97 & [0.70, 1.40] & [0.52, 1.96] \\
+400 & 0.99 & [0.71, 1.42] & [0.53, 1.97] & 1.00 & [0.72, 1.45] & [0.54, 2.03] \\
+500 & 1.87 & [1.35, 2.68] & [1.03, 3.75] & 1.91 & [1.37, 2.76] & [1.05, 3.91] \\
+600 & 4.31 & [3.09, 6.19] & [2.42, 8.83] & 4.41 & [3.15, 6.40] & [2.42, 9.09] \\
+
 \hline
 \end{tabular}
 }
@@ -156,12 +163,13 @@ The results are presented as a function of the Higgs mass. }
 Mass  &  Median      &     68\% C.L. band &  95\% C.L. band &  Median	   &	 68\% C.L. band &  95\% C.L. band\\
       &  Expected    &                    &                 &  Expected    &			&		 \\
 \hline
-250 & 1.81 & [1.25, 2.61] & [0.90, 3.65] & 1.71 & [1.15, 2.55] & [0.80, 3.67] \\
-300 & 1.12 & [0.79, 1.62] & [0.58, 2.24] & 0.88 & [0.62, 1.28] & [0.44, 1.80] \\
-350 & 0.73 & [0.52, 1.06] & [0.38, 1.48] & 0.64 & [0.44, 0.93] & [0.32, 1.33] \\
-400 & 0.90 & [0.63, 1.32] & [0.45, 1.85] & 0.63 & [0.44, 0.90] & [0.32, 1.27] \\
-500 & 1.36 & [0.95, 1.97] & [0.70, 2.78] & 1.06 & [0.74, 1.53] & [0.54, 2.21]\\
-600 & 2.51 & [1.77, 3.58] & [1.33, 5.14] & 2.33 & [1.63, 3.42] & [1.21, 4.77]\\
+250 & 2.10 & [1.46, 3.03] & [1.07, 4.19] & 1.92 & [1.36, 2.75] & [1.01, 3.84] \\
+300 & 1.49 & [1.04, 2.14] & [0.77, 3.00] & 1.32 & [0.94, 1.90] & [0.70, 2.63] \\
+350 & 1.04 & [0.75, 1.54] & [0.56, 2.18] & 0.97 & [0.70, 1.40] & [0.52, 1.96] \\
+400 & 1.03 & [0.77, 1.55] & [0.56, 2.17] & 1.00 & [0.72, 1.45] & [0.54, 2.03] \\
+500 & 1.93 & [1.38, 2.91] & [1.09, 4.07] & 1.91 & [1.37, 2.76] & [1.05, 3.91] \\
+600 & 3.93 & [2.90, 5.88] & [2.17, 8.87] & 4.41 & [3.15, 6.40] & [2.42, 9.09] \\
+
 \hline
 \end{tabular}
 }
@@ -183,12 +191,12 @@ the shape variation. }
 mH  &  without     & template        &  $H\to ZZ$   &  Top         &  WW          & WZ          & ZZ \\
       &  shape syst. & stat. uncert.   &  QCD effect &  shape syst. &  shape syst. & shape syst. & shape syst. \\
 \hline
-250 & 1.48 & 1.58 & 1.58 & 1.57 & 1.62 & 1.70 & 1.71 \\
-300 & 0.80 & 0.84 & 0.84 & 0.86 & 0.87 & 0.88 & 0.88 \\
-350 & 0.59 & 0.61 & 0.62 & 0.64 & 0.63 & 0.64 & 0.64 \\
-400 & 0.59 & 0.62 & 0.62 & 0.63 & 0.62 & 0.63 & 0.63 \\
-500 & 1.00 & 1.03 & 1.04 & 1.06 & 1.06 & 1.06 & 1.06 \\
-600 & 2.20 & 2.30 & 2.29 & 2.34 & 2.31 & 2.32 & 2.33 \\
+250 & 1.87 & 1.92 & 1.93 & 1.93 & 1.93 & 1.91 & 1.92 \\
+300 & 1.29 & 1.31 & 1.31 & 1.31 & 1.32 & 1.31 & 1.32 \\
+350 & 0.95 & 0.96 & 0.97 & 0.97 & 0.98 & 0.97 & 0.97 \\
+400 & 0.99 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
+500 & 1.87 & 1.91 & 1.89 & 1.90 & 1.91 & 1.93 & 1.91 \\
+600 & 4.31 & 4.42 & 4.37 & 4.36 & 4.38 & 4.40 & 4.41 \\
 \hline
 \end{tabular}
 }

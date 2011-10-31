@@ -2,50 +2,41 @@ Systematic uncertainties treatment for \ZZ\ analysis is similar to the
 \WW\ one. This section describes only systematic effects that are
 different from \WW{}.
 
-\subsection{\WZ\ and \ZZ\ background}
+\subsection{\ZZ\ and \WZ\ background}
 
-$\wz$ and $\zz$ background are the ireducible background to the 
+The $\wz$ and $\zz$ backgrounds are the ireducible backgrounds to the 
 Higgs $\to$ \ZZ\  search. We do not have a data-driven estimate yet, 
-therefore the shapes are taken from MC. 
+the shapes are taken from MC. 
 Similar to the \WW{} background treatment as in the $\hww$ analysis, 
-we accounts for the effects due to the therorectical uncertainties. 
-We compare the default shape simulated with the Pythia generator with 
-$p_T$ spectrum reweighted to match the NLO calculation by MCFM 
-with an alternative generator, which was taken as the one sigma 
-variation histogram. In this case, we only have the MC sample form Madgraph. 
-Figure~\ref{fig:wzsyst_hzz}-\ref{fig:zzsyst_hzz} show the 
-shape variations of \WZ\  and \ZZ\  background estimated for the $m_H=250\GeVcc$ selection. 
+we accounts for the effects of therorectical uncertainties due to the 
+missing higher order calculations. 
 
-The $\wz$ background shape can be further validated with data in a control 
-region of events with 3 leptons with increasing luminosity. 
-For the $\zz$ background we reweight the $\pt$ spectrum of Z to the NLO 
-prediction by applying the event-by-event kfactors computed from MCFM. 
-To assess the QCD scale variations to the shape, we can 
+For the $\zz$ background, the central shape is simulated with 
+Madgraph generator with the event-by-event reweighting in the 
+$\Z$ boson $p_T$ spectrum to match the NLO calculation by MCFM.
+We assess the effects of QCD scales by comparing the central shape 
+with an alternative generator available in CMS, which is Pythia. 
+As an alternative approach, we can also assess the QCD scale variations of $\ZZ$ background by 
 compute the event-by-event k-factor with the normalization and 
-factorization scales independently. 
-       
+factorization scales independently. Figure~\ref{fig:zzsyst_hzz} show the 
+shape variations of \ZZ\  background estimated for the $m_H=250\GeVcc$ selection. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}[!htbp]
-\begin{center}
-\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/WZ_WZBounding_mT_mH250_ee_lin.pdf}}
-\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/WZ_WZBounding_mT_mH250_mm_lin.pdf}}\\
-\caption{$m_T$ distribution for $\WZ$ for the ee (left) and $\mu\mu$ (right) final states. 
-The central shape is taken from pythia with $p_T$ spectrum reweighted to match 
-the NLO calcuation. The up histogram is taken from Madgraph with the down 
-histogram taken as a variation mirroring the difference between up and central. 
-}
-\label{fig:wzsyst_hzz}
-\end{center}
-\end{figure}
+Similarly, the central shape of $\wz$ background is simulated with 
+Madgraph. We compare the shapes to the ones generated with Pythia to 
+assess the theoretical uncertainties. 
+On the other hand, the $\WZ$ shapes can be further validated with data in 
+a control region of events with 3 leptons with increasing luminosity. 
+Figure~\ref{fig:wzsyst_hzz} show the shape variations of \WZ\ 
+background estimated for the $m_H=250\GeVcc$ selection. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!htbp]
 \begin{center}
 \subfigure[]{\includegraphics[width=0.49\textwidth]{figures/ZZ_ZZBounding_mT_mH250_ee_lin.pdf}}
 \subfigure[]{\includegraphics[width=0.49\textwidth]{figures/ZZ_ZZBounding_mT_mH250_mm_lin.pdf}}\\
 \caption{$m_T$ distribution for $\ZZ$ for the ee (left) and $\mu\mu$ (right) final states. 
-The central shape is taken from pythia with $p_T$ spectrum reweighted to match 
-the NLO calcuation. The up histogram is taken from Madgraph with the down 
+The central shape is taken from Madgraph with $p_T$ spectrum reweighted to match 
+the NLO calcuation. The up histogram is taken from Pythia with the down 
 histogram taken as a variation mirroring the difference between up and central. 
 }
 \label{fig:zzsyst_hzz}
@@ -53,7 +44,20 @@ histogram taken as a variation mirroring the difference between up and central.
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/WZ_WZBounding_mT_mH250_ee_lin.pdf}}
+\subfigure[]{\includegraphics[width=0.49\textwidth]{figures/WZ_WZBounding_mT_mH250_mm_lin.pdf}}\\
+\caption{$m_T$ distribution for $\WZ$ for the ee (left) and $\mu\mu$ (right) final states. 
+The central shape is taken from Madgraph with $p_T$ spectrum reweighted to match 
+the NLO calcuation. The up histogram is taken from Pythia with the down 
+histogram taken as a variation mirroring the difference between up and central. 
+}
+\label{fig:wzsyst_hzz}
+\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Top and \WW\   Background}
 
 For the Top and \WW{} background involving the $\mu^+\mu^-$, $e^+\mu^-$ and 
@@ -65,9 +69,11 @@ need to apply the same selections in the signal region. The
 statistics is rather limited after the $\met$ preselections and 
 b-tagging veto as shown in Fig.~\ref{fig:mtemdatamc}. 
 
-The top background statisitcs can be enriched by relaxing the btag requirement 
-in all the dilepton final states. We define this as the control region 
-to study the top event shape. Figure~\ref{fig:mtcompsigcontrl} 
+However the top background $m_T$ distributions are not sensitive to the 
+tagging of the b-quark or the dilepton flavors to the first approximation. 
+Therefore, we can enrich top background statisitcs by defining a 
+top enriched control region, where we relaxing the btag requirement 
+in all the dilepton final states. Figure~\ref{fig:mtcompsigcontrl} 
 compares the $m_T$ distributions between the same flavor signal region and 
 the control region and found the two regions give consistent spectrum. 
 Figure~\ref{fig:mtdatamcl} shows the comparison of the $m_T$ 
