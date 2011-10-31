@@ -53,7 +53,9 @@ void Proc::initYields() {
   // hard-coded ntuple names.. fixme..
   TString fileName = TVar::SmurfProcessName(proc_);
   if ( proc_ == TVar::WW && analysis_ == HWWANALYSIS)  fileName = "qqww"; 
-  if ( proc_ == TVar::WW && analysis_ == HZZANALYSIS)  fileName = "ww2l";
+  if ( proc_ == TVar::WW && analysis_ == HZZANALYSIS)  fileName = "ww-madgraph";
+  if ( proc_ == TVar::WZ && analysis_ == HZZANALYSIS)  fileName = "wz3l-madgraph";
+  if ( proc_ == TVar::ZZ && analysis_ == HZZANALYSIS)  fileName = "zz2l-madgraph";
   if ( proc_ >= TVar::HZZ200 && proc_ <= TVar::HZZ600 && analysis_ == HZZANALYSIS) fileName = "gf"+fileName;
  
   TFile *f = TFile::Open(TString(inputDir_ + fileName.Data() + ".root"));
