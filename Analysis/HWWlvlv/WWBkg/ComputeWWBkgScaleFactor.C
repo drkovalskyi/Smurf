@@ -272,10 +272,11 @@ void ComputeWWBkgScaleFactor (
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
-    bool dPhiDiLepJet1Cut = jet1->pt() <= 15. ||
-                           (dPhiDiLepJet1*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me);
-    if( dPhiDiLepJet1Cut == false                                        ) continue; // cut on dPhiDiLepJet1
 
+    bool dPhiDiLepJetCut = true;
+    if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.        || type == SmurfTree::em || type == SmurfTree::me;
+    else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+    if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
     for(UInt_t classIndex = 0; classIndex < 4; ++classIndex) {
       for(Int_t imass=0; imass<nmass; imass++) {
@@ -388,10 +389,11 @@ void ComputeWWBkgScaleFactor (
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & SmurfTree::TopTag) == SmurfTree::TopTag                  ) continue; // cut on btagging
-    bool dPhiDiLepJet1Cut = jet1->pt() <= 15. ||
-                           (dPhiDiLepJet1*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me);
-    if( dPhiDiLepJet1Cut == false                                        ) continue; // cut on dPhiDiLepJet1
 
+    bool dPhiDiLepJetCut = true;
+    if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
+    else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+    if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
     int BkgType = 0;
     if(dstype == SmurfTree::qqww                 ) BkgType = 0;

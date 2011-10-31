@@ -6,6 +6,7 @@
 #include "Math/LorentzVector.h"
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
+double DeltaPhi(double phi1, double phi2);
 void atributes(TH1D *histo, Char_t xtitle[]="", Int_t COLOR = 1, Char_t ytitle[]="Fraction");
 double scpFast(double sig, double bkg, double sigma_b, double delta_b = 0.0);
 double scaleFactor(double pt1, double eta1, double pt2, double eta2, int type, int nsel);
@@ -17,6 +18,14 @@ double nVtxScaleFactor(TH1D *fhDNvtx, int nvtx);
 double nPUScaleFactor(TH1D *fhDPU, int npu);
 double mt_atlas(LorentzVector dilep, double met, double metPhi);
 
+double DeltaPhi(double phi1, double phi2)
+{
+  // Compute DeltaPhi between two given angles. Results is in [-pi/2,pi/2].
+  double dphi = TMath::Abs(phi1-phi2);
+  while (dphi>TMath::Pi())
+    dphi = TMath::Abs(dphi - TMath::TwoPi());
+  return(dphi);
+}
 void atributes(TH1D *histo, Char_t xtitle[], Int_t COLOR, Char_t ytitle[]){
   //InitHist(histo,xtitle,ytitle);
 

@@ -18,6 +18,7 @@
 #include "Smurf/Core/LeptonScaleLookup.h"
 #include "Smurf/Core/SmurfTree.h"
 #include "Smurf/Analysis/HWWlvlv/HWWCuts.h"
+#include "Smurf/Analysis/HWWlvlv/factors.h"
 #endif
 
 static const unsigned int basic_selection = SmurfTree::BaseLine | 
@@ -239,7 +240,10 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE)
         if(finalState==kMuMu)	nin_kmm_data[ijet]++;
       }
       
-      if(tree.jet1_.Pt()>15 && tree.dPhiDiLepJet1_>165.*TMath::Pi()/180.) continue;
+      bool dPhiDiLepJetCut = true;
+      if(tree.njets_ <= 1) dPhiDiLepJetCut = tree.jet1_.Pt() <= 15. || tree.dPhiDiLepJet1_*180.0/TMath::Pi() < 165.        || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me;
+      else                 dPhiDiLepJetCut = DeltaPhi((tree.jet1_+tree.jet2_).phi(),tree.dilep_.phi())*180.0/TMath::Pi() < 165. || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me;
+      if( dPhiDiLepJetCut == false ) continue; // cut on dPhiDiLepJetCut
 
       //For Z->mm/ee MC
       if(tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm) {

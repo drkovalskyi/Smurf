@@ -261,6 +261,11 @@ void ComputeTopScaleFactors
       theWeight = bgdEvent.scale1fb_*lumi*add;
     }
 
+    bool dPhiDiLepJetCut = true;
+    if(bgdEvent.njets_ <= 1) dPhiDiLepJetCut = bgdEvent.jet1_.Pt() <= 15. || bgdEvent.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || 
+	                                       bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me;
+    else                     dPhiDiLepJetCut = DeltaPhi((bgdEvent.jet1_+bgdEvent.jet2_).Phi(),bgdEvent.dilep_.Phi())*180.0/TMath::Pi() < 165. || 
+	                                       bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me;
     if(
       (((bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) ||
        ((bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
@@ -273,7 +278,7 @@ void ComputeTopScaleFactors
       passMET == true &&
       passNewCuts == true &&
       (fabs(bgdEvent.dilep_.M()-91.1876) > 15. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me) && 
-      (bgdEvent.jet1_.Pt() <= 15. || bgdEvent.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me) &&
+      dPhiDiLepJetCut == true &&
       1 == 1
       ){
       int classType = kOther;
@@ -372,6 +377,11 @@ void ComputeTopScaleFactors
     if(dataEvent.lep2_.Pt() <= 15 && (dataEvent.type_ == SmurfTree::mm||dataEvent.type_ == SmurfTree::ee)) passNewCuts = false;
     if(dataEvent.dilep_.Pt() <= 45) passNewCuts = false;
 
+    bool dPhiDiLepJetCut = true;
+    if(dataEvent.njets_ <= 1) dPhiDiLepJetCut = dataEvent.jet1_.Pt() <= 15. || dataEvent.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || 
+	                                       dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me;
+    else                     dPhiDiLepJetCut = DeltaPhi((dataEvent.jet1_+dataEvent.jet2_).Phi(),dataEvent.dilep_.Phi())*180.0/TMath::Pi() < 165. || 
+	                                       dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me;
     double theWeight = 1.0;
     if(
       (dataEvent.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection &&
@@ -384,7 +394,7 @@ void ComputeTopScaleFactors
       passMET == true &&
       passNewCuts == true &&
       (fabs(dataEvent.dilep_.M()-91.1876) > 15. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me) && 
-      (dataEvent.jet1_.Pt() <= 15. || dataEvent.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me) &&
+      dPhiDiLepJetCut == true &&
       1 == 1
       ) {
       int classType = kData;

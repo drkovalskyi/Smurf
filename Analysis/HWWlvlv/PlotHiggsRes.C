@@ -807,9 +807,10 @@ void PlotHiggsRes
     //if( jet2Btag >= 2.1             					 ) continue; // cut on jet2Btag
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    bool dPhiDiLepJet1Cut = jet1->pt() <= 15. ||
-                           (dPhiDiLepJet1*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me);
-    if( dPhiDiLepJet1Cut == false                                        ) continue; // cut on dPhiDiLepJet1
+    bool dPhiDiLepJetCut = true;
+    if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
+    else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+    if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
     bool wwDecayCut = true;
     if     (wwDecay == 0) wwDecayCut = (type == SmurfTree::mm);
@@ -1133,9 +1134,10 @@ void PlotHiggsRes
     //if( jet2Btag >= 2.1             					 ) continue; // cut on jet2Btag
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    bool dPhiDiLepJet1Cut = jet1->pt() <= 15. ||
-                           (dPhiDiLepJet1*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me);
-    if( dPhiDiLepJet1Cut == false                                        ) continue; // cut on dPhiDiLepJet1
+    bool dPhiDiLepJetCut = true;
+    if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
+    else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+    if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
     int fDecay = 0;
     if     (dstype == SmurfTree::wjets  	 ) fDecay = 5;
@@ -1605,9 +1607,10 @@ void PlotHiggsRes
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    bool dPhiDiLepJet1Cut = jet1->pt() <= 15. ||
-                           (dPhiDiLepJet1*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me);
-    if( dPhiDiLepJet1Cut == false                                        ) continue; // cut on dPhiDiLepJet1
+    bool dPhiDiLepJetCut = true;
+    if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
+    else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+    if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
     int fDecay = 0;
     if     (dstype == SmurfTree::wjets  	 ) fDecay = 5;
@@ -1905,9 +1908,10 @@ void PlotHiggsRes
     //if( jet2Btag >= 2.1             					 ) continue; // cut on jet2Btag
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    bool dPhiDiLepJet1Cut = jet1->pt() <= 15. ||
-                           (dPhiDiLepJet1*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me);
-    if( dPhiDiLepJet1Cut == false                                        ) continue; // cut on dPhiDiLepJet1
+    bool dPhiDiLepJetCut = true;
+    if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
+    else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+    if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
     bool wwDecayCut = true;
     if     (wwDecay == 0) wwDecayCut = (type == SmurfTree::mm);
@@ -3139,16 +3143,4 @@ TGraphErrors* makeGraphFromHists(TH1D* hsig, TH1D* hbgd, const char* name)
   TGraphErrors* g = new TGraphErrors(i, xs, ys, dxs, dys);
   g->SetName(name);
   return g;
-}
-
-//------------------------------------------------------------------------------
-// DeltaPhi
-//------------------------------------------------------------------------------
-double DeltaPhi(double phi1, double phi2)
-{
-  // Compute DeltaPhi between two given angles. Results is in [-pi/2,pi/2].
-  double dphi = TMath::Abs(phi1-phi2);
-  while (dphi>TMath::Pi())
-    dphi = TMath::Abs(dphi - TMath::TwoPi());
-  return(dphi);
 }
