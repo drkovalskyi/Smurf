@@ -379,9 +379,9 @@ void ComputeTopScaleFactors
 
     bool dPhiDiLepJetCut = true;
     if(dataEvent.njets_ <= 1) dPhiDiLepJetCut = dataEvent.jet1_.Pt() <= 15. || dataEvent.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || 
-	                                       dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me;
-    else                     dPhiDiLepJetCut = DeltaPhi((dataEvent.jet1_+dataEvent.jet2_).Phi(),dataEvent.dilep_.Phi())*180.0/TMath::Pi() < 165. || 
-	                                       dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me;
+	                                        dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me;
+    else                      dPhiDiLepJetCut = DeltaPhi((dataEvent.jet1_+dataEvent.jet2_).Phi(),dataEvent.dilep_.Phi())*180.0/TMath::Pi() < 165. || 
+	                                        dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me;
     double theWeight = 1.0;
     if(
       (dataEvent.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection &&

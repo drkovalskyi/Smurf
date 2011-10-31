@@ -241,7 +241,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE)
       }
       
       bool dPhiDiLepJetCut = true;
-      if(tree.njets_ <= 1) dPhiDiLepJetCut = tree.jet1_.Pt() <= 15. || tree.dPhiDiLepJet1_*180.0/TMath::Pi() < 165.        || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me;
+      if(tree.njets_ <= 1) dPhiDiLepJetCut = tree.jet1_.Pt() <= 15. || tree.dPhiDiLepJet1_*180.0/TMath::Pi() < 165.             || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me;
       else                 dPhiDiLepJetCut = DeltaPhi((tree.jet1_+tree.jet2_).phi(),tree.dilep_.phi())*180.0/TMath::Pi() < 165. || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me;
       if( dPhiDiLepJetCut == false ) continue; // cut on dPhiDiLepJetCut
 
