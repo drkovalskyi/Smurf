@@ -782,8 +782,8 @@ void PlotHiggsRes
                   (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
 
     bool passNewCuts = true;
-    //if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
-    //if(dilep->pt() <= 45) passNewCuts = false;
+    if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
+    if(dilep->pt() <= 45) passNewCuts = false;
 
     if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
@@ -1104,8 +1104,8 @@ void PlotHiggsRes
                   (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
 
     bool passNewCuts = true;
-    //if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
-    //if(dilep->pt() <= 45) passNewCuts = false;
+    if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
+    if(dilep->pt() <= 45) passNewCuts = false;
 
     if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
@@ -1582,8 +1582,8 @@ void PlotHiggsRes
                   (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
 
     bool passNewCuts = true;
-    //if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
-    //if(dilep->pt() <= 45) passNewCuts = false;
+    if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
+    if(dilep->pt() <= 45) passNewCuts = false;
 
     if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
@@ -1883,8 +1883,8 @@ void PlotHiggsRes
                   (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
 
     bool passNewCuts = true;
-    //if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
-    //if(dilep->pt() <= 45) passNewCuts = false;
+    if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
+    if(dilep->pt() <= 45) passNewCuts = false;
 
     if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
