@@ -45,10 +45,12 @@ Double_t computeSyst(const TH1F *hout, const TH1F *hin, Int_t binUsed);
 // --- ZWindowSubtractionMethod == 0 : Opposite Flavor Background Subtraction
 // --- ZWindowSubtractionMethod == 1 : Data Corrected MC Background Subtraction
 // 
-// --- ZWindowSize : Size of the "in" z-window around the z pole mass
+// --- MassCutLow  : lower  mass cut with respect to z pole mass
+// --- MassCutHigh : higher mass cut with respect to z pole mass
 //
 
-void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, Int_t ZWindowSubtractionMethod = 0, Double_t ZWindowSize = 7.5)
+void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, Int_t ZWindowSubtractionMethod = 0, 
+                             Double_t MassCutLow = 10, Double_t MassCutHigh = 5)
 {
 
   //*******************************************************
@@ -271,7 +273,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
       if(!((tree.cuts_ & SmurfTree::ChargeMatch) == SmurfTree::ChargeMatch)      ) continue;
       if( (tree.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
       if( !((tree.cuts_ & SmurfTree::TopVeto) == SmurfTree::TopVeto)             ) continue; // cut on btagging
-      if(tree.dilep_.M() < 12) continue;
+      if(tree.dilep_.M() < 20) continue;
         
       Int_t ijet = tree.njets_;
       if(ijet>2) continue;
@@ -380,7 +382,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
       if(tree.type_==SmurfTree::em) finalState=kEleMu;
       assert(finalState > -1);
     
-      if(tree.dstype_==SmurfTree::data && fabs(tree.dilep_.M() - mZ)<ZWindowSize) {
+      if(tree.dstype_==SmurfTree::data && mZ - tree.dilep_.M() < MassCutLow && tree.dilep_.M() - mZ < MassCutHigh) {
         if(finalState==kEleEle) nin_kee_data[ijet]++;
         if(finalState==kMuMu)	nin_kmm_data[ijet]++;
       }
@@ -422,7 +424,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
 	
  	    if(tree.dPhi_ > cutDeltaphiHigh(mH[imass])*TMath::Pi()/180.) continue;
 
-	    if(fabs(tree.dilep_.M() - mZ) < ZWindowSize) {
+	    if(mZ - tree.dilep_.M() < MassCutLow && tree.dilep_.M() - mZ < MassCutHigh) {
 	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dyee) {
                 hNin_ree_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);                
               }
@@ -441,7 +443,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
  	    if(mt < cutMTLow(mH[imass]) || mt > cutMTHigh(mH[imass])) continue;
             if(minmet < 37 + 0.5 * tree.nvtx_ ) continue;
 	
-	    if(fabs(tree.dilep_.M() - mZ) < ZWindowSize) {
+	    if(mZ - tree.dilep_.M() < MassCutLow && tree.dilep_.M() - mZ < MassCutHigh) {
 	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dyee) { 
 	        nin_ee_dy[ijet][imass]+=weight/(Double_t)nmet; 
 	        varin_ee_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet; 
@@ -493,7 +495,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
           //Count Yields
           //*********************************************************************
           //In Z peak region
-	  if(fabs(tree.dilep_.M() - mZ) < ZWindowSize) {
+	  if(mZ - tree.dilep_.M() < MassCutLow && tree.dilep_.M() - mZ < MassCutHigh) {
 	  
             //first one 
             if(finalState==kEleEle) {
