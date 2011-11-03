@@ -50,7 +50,7 @@ Double_t computeSyst(const TH1F *hout, const TH1F *hin, Int_t binUsed);
 //
 
 void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, Int_t ZWindowSubtractionMethod = 0, 
-                             Double_t MassCutLow = 10, Double_t MassCutHigh = 5)
+                             Double_t MassCutLow = 7.5, Double_t MassCutHigh = 7.5)
 {
 
   //*******************************************************
