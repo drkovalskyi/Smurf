@@ -132,7 +132,17 @@ void Proc::initYields() {
       // apply the dphi Cut
       if ( TMath::Min(dPhi1, TMath::Min(dPhi2, dPhi3)) < dphiCut_ ) passpresel = false;
       if ( met_ < metCut_) passpresel = false;
-      if ( mt_ < mtCut_) passpresel = false;
+
+      float termA = sqrt( dilep_->Pt()*dilep_->Pt() + dilep_->M()*dilep_->M() );
+      float termB = sqrt( met_*met_ + dilep_->M()*dilep_->M() );
+      float newX = dilep_->Px() + met_ * cos(metPhi_);
+      float newY = dilep_->Py() + met_ * sin(metPhi_);
+      float termC = newX*newX + newY*newY;
+      float mt = sqrt( pow(termA + termB, 2) - termC );
+      
+      if ( mt < mtCut_) passpresel = false;
+
+      if ( dilep_->Pt() < 55) passpresel = false;
     }
     
     if ( passpresel ) 
