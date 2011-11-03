@@ -2,7 +2,7 @@
 
 export INPUTSMURFFDIR=$1
 export MEFDIR=$2
-export LUMI=1143
+export LUMI=2100
 
 if [ ! $# -eq 2 ]; then
     echo "USAGE: ./addLRHZZ.sh inputSmurfFDir meFDir
@@ -13,17 +13,27 @@ fi
 
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-data_2l.goodlumi1092ipb
-ww2l
-ggww
-ttbar
-wtop
-ttop
-wz
-zz
-zee
-zmm
-ztt
+data_2l.goodlumiRun2011A
+data_2l.goodlumiRun2011A_BTAG
+ttbar2l-powheg_BTAG
+wtop-powheg_BTAG
+wtopb-powheg_BTAG
+ww-madgraph
+ww-mcatnlo
+wwup-mcatnlo
+wwdown-mcatnlo
+ttbar2l-powheg
+wtop-powheg
+ttop-powheg
+wtopb-powheg
+ttopb-powheg
+wz3l-madgraph
+wz3l-pythia
+zz2l-pythia
+zz2l-madgraph
+zee-powheg
+zmm-powheg
+ztt-powheg
 EOF
 
 # ===========================================
@@ -36,6 +46,8 @@ for MH in 250 300 350 400 500 600; do
     # first add the LR for the higgs sample
     root -q -l LR_HZZ.C+\(${MH},\"gfhzz${MH}\",\"${INPUTSMURFFDIR}\",\"${MEFDIR}\",-1,${LUMI}\) >> log/add_lr_$MH.log
     mv ${MEFDIR}/gfhzz${MH}_ME.root ${MEFDIR}/gfhzz${MH}.root 
+    root -q -l LR_HZZ.C+\(${MH},\"vbfhzz${MH}\",\"${INPUTSMURFFDIR}\",\"${MEFDIR}\",-1,${LUMI}\) >> log/add_lr_$MH.log
+    mv ${MEFDIR}/vbfhzz${MH}_ME.root ${MEFDIR}/vbfhzz${MH}.root 
     # add the LR for the backgrounds
     for i in `cat list_samples.txt` ; do
 	sample=${i%%,*};
