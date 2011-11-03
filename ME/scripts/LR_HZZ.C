@@ -128,8 +128,8 @@ if (verbosity >= TVar::DEBUG) {
     jet2_->Pt() > 30 ? dPhi2 = acos(cos(metPhi_ - jet2_->Phi())) : dPhi2 = 999.9;
     jet3_->Pt() > 30 ? dPhi3 = acos(cos(metPhi_ - jet3_->Phi())) : dPhi3 = 999.9;
     
-    // apply the dphi Cut
-    if ( TMath::Min(dPhi1, TMath::Min(dPhi2, dPhi3)) < dphiCut ) {
+    // apply the dphi and dilepton pT cuts
+    if ( TMath::Min(dPhi1, TMath::Min(dPhi2, dPhi3)) < dphiCut || dilep_->Pt() < 55) {
       LR[k] = -1.; 
       LR[TVar::ZZ] = -1;
     }
@@ -241,39 +241,33 @@ void getProcess(int mH, TVar::Process & k, float & metCut, float & dphiCut, floa
     break;
   case (250):
     k = TVar::HZZ250;
-    metCut = 60;
+    metCut = 70;
     dphiCut = 0.5;
-    mtCut = 0.0;
     break;
   case (300):
     k = TVar::HZZ300;
-    metCut = 70;
+    metCut = 80;
     dphiCut = 0.5;
-    mtCut = 0.0;
     break;
   case (350):
     k = TVar::HZZ350;
     metCut = 80;
     dphiCut = 0.5;
-    mtCut = 0.0;
     break;
   case (400):
     k = TVar::HZZ400;
     metCut = 80;
     dphiCut = 0.5;
-    mtCut = 0.0;
     break;
   case (500):
     k = TVar::HZZ500;
-    metCut = 100.;
+    metCut = 80.;
     dphiCut = 0.5;
-    mtCut = 0.0;
     break;
   case (600):
     k = TVar::HZZ600;
-    metCut = 120.;
+    metCut = 80.;
     dphiCut = 0.5;
-    mtCut = 0.0;
     break;
   default:
     break;
