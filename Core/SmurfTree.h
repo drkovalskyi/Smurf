@@ -177,7 +177,9 @@ class SmurfTree {
     vbfhww115,
     ggzz,
     www,
-    dyttDataDriven
+    dyttDataDriven,
+    wgstar
+
   };
 
   /// variables
@@ -232,7 +234,6 @@ class SmurfTree {
   int            jet2McId_;
   TNamed         info_;
 
-  // Additional variables
   LorentzVector  lep3_;
   int            lq3_;
   int            lid3_;
@@ -264,7 +265,8 @@ class SmurfTree {
   unsigned int   npu_;
   unsigned int   npuPlusOne_;
   unsigned int   npuMinusOne_;
-    
+
+  float          auxVar0_;
 
  public:
   /// this is the main element
@@ -279,10 +281,7 @@ class SmurfTree {
     lepPtr1_(&lep1_),lepPtr2_(&lep2_),jetPtr1_(&jet1_),jetPtr2_(&jet2_),dilepPtr_(&dilep_),quadlepPtr_(&quadlep_),
     lepPtr3_(&lep3_),                 jetPtr3_(&jet3_){}
   /// default destructor
-  ~SmurfTree(){ 
-    if (tree_) tree_->Delete();  
-    if (f_) f_->Close();  
-  };
+  ~SmurfTree(){ f_->Close();  };
 
   /// initialize varibles and fill list of available variables
   void InitVariables();
@@ -396,6 +395,8 @@ class SmurfTree {
     tree_->Branch("npu",           &npu_,           "npu/i");
     tree_->Branch("npuPlusOne",    &npuPlusOne_,    "npuPlusOne/i");
     tree_->Branch("npuMinusOne",   &npuMinusOne_,   "npuMinusOne/i");
+
+    tree_->Branch("auxVar0",	   &auxVar0_	  ,   "auxVar0/F");
   }
 
   // initialze a SmurfTree
@@ -490,6 +491,8 @@ class SmurfTree {
     tree_->SetBranchAddress("npu",	     &npu_);
     tree_->SetBranchAddress("npuPlusOne",    &npuPlusOne_);
     tree_->SetBranchAddress("npuMinusOne",   &npuMinusOne_);
+
+    tree_->SetBranchAddress("auxVar0",       &auxVar0_);
 
     gErrorIgnoreLevel = currentState;
   }
@@ -706,6 +709,8 @@ SmurfTree::InitVariables(){
   npu_           = -999;
   npuPlusOne_    = -999;
   npuMinusOne_   = -999;
+
+  auxVar0_	 = -999;
 }
 
 inline double
@@ -784,6 +789,8 @@ SmurfTree::Get(std::string value)
   if(value=="npu"	    ) { return this->npu_;           } 
   if(value=="npuPlusOne"    ) { return this->npuPlusOne_;    } 
   if(value=="npuMinusOne"   ) { return this->npuMinusOne_;   } 
+
+  if(value=="auxVar0"	    ) { return this->auxVar0_;       }
 
   return -9999.; 
 }
