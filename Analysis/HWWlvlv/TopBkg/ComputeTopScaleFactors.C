@@ -1,6 +1,7 @@
 #include "Smurf/Core/SmurfTree.h"
 #include "Smurf/Analysis/HWWlvlv/factors.h"
 #include "Smurf/Core/LeptonScaleLookup.h"
+#include "Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors.h"
 #include "Smurf/Analysis/HWWlvlv/DYBkgScaleFactors.h"
 #include <TROOT.h>
 #include <TFile.h>
@@ -176,9 +177,9 @@ void ComputeTopScaleFactors
     else if(bgdEvent.dstype_ == SmurfTree::zz              ) fDecay = 28;
     else if(bgdEvent.dstype_ == SmurfTree::ggww            ) fDecay = 30;
     else if(bgdEvent.dstype_ == SmurfTree::wgamma          ) fDecay = 19;
+    else if(bgdEvent.dstype_ == SmurfTree::wgstar          ) fDecay = 20;
     else if(bgdEvent.dstype_ == SmurfTree::data            ) fDecay =  1;
     else {fDecay = 0;cout << bgdEvent.dstype_ << endl;assert(0);}
-
 
     int charge = (int)(bgdEvent.lq1_ + bgdEvent.lq2_);
 
@@ -236,7 +237,7 @@ void ComputeTopScaleFactors
       }
     }
     else if(bgdEvent.dstype_ == SmurfTree::dyttDataDriven || bgdEvent.dstype_ == SmurfTree::qcd) {
-      theWeight = 0.019*lumi;
+      theWeight = ZttScaleFactor(bgdEvent.nvtx_,period);
     }
     else if(bgdEvent.dstype_ != SmurfTree::data){
       double add1 = nPUScaleFactor(fhDPUS4,bgdEvent.npu_);
@@ -254,10 +255,8 @@ void ComputeTopScaleFactors
         if(bgdEvent.njets_ == 1) add=add*DYBkgScaleFactor(0,1);
         if(bgdEvent.njets_ >= 2) add=add*DYBkgScaleFactor(0,2);
       }
-      if(fDecay == 3) {
-        //for wjets MC
-        add=add*1.95; 
-      }
+      if(fDecay == 3)  add=add*WJetsMCScaleFactor();
+      if(bgdEvent.dstype_ == SmurfTree::wgstar) add = add*WGstarScaleFactor();
       theWeight = bgdEvent.scale1fb_*lumi*add;
     }
 
@@ -271,6 +270,7 @@ void ComputeTopScaleFactors
        ((bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
        bgdEvent.dstype_ != SmurfTree::data) &&
       bgdEvent.dilep_.M()   > 12 &&
+     (bgdEvent.dilep_.M()   > 20 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me) &&
       (bgdEvent.cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto &&
       charge == 0 &&
       bgdEvent.lep1_.Pt() > 20. &&
@@ -387,6 +387,7 @@ void ComputeTopScaleFactors
       (dataEvent.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection &&
       (dataEvent.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection &&
       dataEvent.dilep_.M()   > 12 &&
+     (dataEvent.dilep_.M()   > 20 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me) &&
       (dataEvent.cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto &&
       charge == 0 &&
       dataEvent.lep1_.Pt() > 20. &&
@@ -448,9 +449,7 @@ void ComputeTopScaleFactors
       }
     }
 
-
   } // End loop data
-
 
   //*******************************************************************************
   //Print Summary 

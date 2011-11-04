@@ -16,6 +16,7 @@
 #include "TSystem.h"
 #include "Smurf/Analysis/HWWlvlv/HWWCuts.h"
 #include "Smurf/Analysis/HWWlvlv/factors.h"
+#include "Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors.h"
 #include "Smurf/Analysis/HWWlvlv/DYBkgScaleFactors.h"
 #include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h"
 
@@ -263,6 +264,9 @@ void ComputeWWBkgScaleFactor (
           && ((cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection))) continue;
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
+    if( dilep->mass() <= 20.0  &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)      					 ) continue; // cut on low dilepton mass for ee/mm
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( TMath::Min(pmet,pTrackMet) <= 20                                 ) continue; // cut on pmet for all lepton-pair flavors
@@ -379,6 +383,9 @@ void ComputeWWBkgScaleFactor (
     if( MinPreselCut == false                                            ) continue; // cut on MinPreselCut
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
+    if( dilep->mass() <= 20.0  &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)      					 ) continue; // cut on low dilepton mass for ee/mm
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( TMath::Min(pmet,pTrackMet) <= 20                                 ) continue; // cut on pmet for all lepton-pair flavors
@@ -406,10 +413,12 @@ void ComputeWWBkgScaleFactor (
     else if(dstype == SmurfTree::dymm            ) BkgType = 3;
     else if(dstype == SmurfTree::wjets           ) BkgType = 4;
     else if(dstype == SmurfTree::data            ) BkgType = 4;
+    else if(dstype == SmurfTree::wgstar          ) BkgType = 5;
     else if(dstype == SmurfTree::wgamma          ) BkgType = 5;
     else if(dstype == SmurfTree::dytt            ) BkgType = 5;
     else if(dstype == SmurfTree::dyttDataDriven  ) BkgType = 5;
     else if(dstype == SmurfTree::qcd             ) BkgType = 5;
+    else {cout << dstype << endl;assert(0);}
 
 
     double myWeight = 1.0;
@@ -465,7 +474,7 @@ void ComputeWWBkgScaleFactor (
     }
     else if(dstype == SmurfTree::data) myWeight = 0.0;
     else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
-      myWeight = 0.019*scaleFactorLum;
+      myWeight = ZttScaleFactor(nvtx,period);
     }
     else if(dstype != SmurfTree::data){
       //normal MC
@@ -496,6 +505,9 @@ void ComputeWWBkgScaleFactor (
     	if(njets == 1) add=add*TopBkgScaleFactor(1); 
     	if(njets >= 2) add=add*TopBkgScaleFactor(2); 
       }
+
+      //WG* Scale Factor
+      if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor();
 
       // CAREFUL HERE, no data-driven corrections, just Higgs k-factors
       // add = 1.0;
@@ -551,9 +563,7 @@ void ComputeWWBkgScaleFactor (
             Yield_WWControlRegion_Other[classIndex][imass] += myWeight;
             YieldUncertainty_WWControlRegion_Other[classIndex][imass] += myWeight*myWeight;
           }
-
         }
-
       }
     }
   }
@@ -567,7 +577,6 @@ void ComputeWWBkgScaleFactor (
       YieldUncertainty_WWControlRegion_DY[classIndex][imass] += pow( (1.00 * Yield_WWControlRegion_DY[classIndex][imass]) , 2);
       YieldUncertainty_WWControlRegion_Top[classIndex][imass] += pow( (0.20 * Yield_WWControlRegion_Top[classIndex][imass]) , 2);
       YieldUncertainty_WWControlRegion_Other[classIndex][imass] += pow( (0.20 * Yield_WWControlRegion_Other[classIndex][imass]) , 2);
-
     }
   }
 

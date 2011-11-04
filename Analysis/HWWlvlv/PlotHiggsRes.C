@@ -23,6 +23,7 @@
 #include "DYBkgScaleFactors.h"
 #include "TopBkgScaleFactors.h"
 #include "WWBkgScaleFactors.h"
+#include "OtherBkgScaleFactors.h"
 #include "HWWCuts.h"
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
@@ -792,6 +793,9 @@ void PlotHiggsRes
     if( dilep->mass() > dilmass_cut 					 ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
+    if( dilep->mass() <= 20.0  &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)      					 ) continue; // cut on low dilepton mass for ee/mm
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( passNewCuts == false                                             ) continue; // cut on new pt cuts
@@ -1119,6 +1123,9 @@ void PlotHiggsRes
     if( dilep->mass() > dilmass_cut 					 ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
+    if( dilep->mass() <= 20.0  &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)      					 ) continue; // cut on low dilepton mass for ee/mm
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( passNewCuts == false                                             ) continue; // cut on new pt cuts
@@ -1151,6 +1158,7 @@ void PlotHiggsRes
     else if(dstype == SmurfTree::zz     	 ) fDecay = 2;
     else if(dstype == SmurfTree::ggww   	 ) fDecay = 1;
     else if(dstype == SmurfTree::wgamma 	 ) fDecay = 6;
+    else if(dstype == SmurfTree::wgstar 	 ) fDecay = 6;
     else if(dstype == SmurfTree::data   	 ) fDecay = 5;
     else if(dstype == SmurfTree::dyttDataDriven  ) fDecay = 7;
     else if(dstype == SmurfTree::qcd             ) fDecay = 7;
@@ -1239,7 +1247,7 @@ void PlotHiggsRes
     }
     else if(dstype == SmurfTree::data) myWeight = 0.0;
     else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
-      myWeight = 0.019*scaleFactorLum;
+      myWeight = ZttScaleFactor(nvtx,period);
     }
     else if(dstype != SmurfTree::data){
       add = 1.0;
@@ -1262,9 +1270,10 @@ void PlotHiggsRes
     	if(njets == 1) add=add*TopBkgScaleFactor(1); 
     	if(njets >= 2) add=add*TopBkgScaleFactor(2); 
       }
-      if(fDecay == 5) {
-    	add=add*1.95; 
-      }
+      if(fDecay == 5) add=add*WJetsMCScaleFactor(); 
+
+      if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor();
+
       if((fDecay == 0 || fDecay == 1)){     
         if(njets == 0) add=add*WWBkgScaleFactorMVA(mH,0); 
         else	       add=add*WWBkgScaleFactorMVA(mH,1); 
@@ -1597,6 +1606,9 @@ void PlotHiggsRes
     if( dilep->mass() > dilmass_cut 					 ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
+    if( dilep->mass() <= 20.0  &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)      					 ) continue; // cut on low dilepton mass for ee/mm
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( passNewCuts == false                                             ) continue; // cut on new pt cuts
@@ -1736,7 +1748,7 @@ void PlotHiggsRes
     }
     else if(dstype == SmurfTree::data) myWeight = 0.0;
     else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
-      myWeight = 0.019*scaleFactorLum;
+      myWeight = ZttScaleFactor(nvtx,period);
     }
     else if(dstype != SmurfTree::data){
       add = 1.0;
@@ -1759,9 +1771,10 @@ void PlotHiggsRes
     	if(njets == 1) add=add*TopBkgScaleFactor(1); 
     	if(njets >= 2) add=add*TopBkgScaleFactor(2); 
       }
-      if(fDecay == 5) {
-    	add=add*1.00; 
-      }
+      if(fDecay == 5) add=add*WJetsMCScaleFactor(); 
+
+      if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor();
+
       if((fDecay == 0 || fDecay == 1)){     
         if(njets == 0) add=add*WWBkgScaleFactorMVA(mH,0); 
         else	       add=add*WWBkgScaleFactorMVA(mH,1); 
@@ -1893,6 +1906,9 @@ void PlotHiggsRes
     if( dilep->mass() > dilmass_cut 					 ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
+    if( dilep->mass() <= 20.0  &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)      					 ) continue; // cut on low dilepton mass for ee/mm
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( passNewCuts == false                                             ) continue; // cut on new pt cuts
@@ -2846,7 +2862,7 @@ void PlotHiggsRes
       newcardShape << Form("QCDscale_qqH	             lnN   -     -   1.010   -     -     -     -     -     -     -     -     -  \n");
       newcardShape << Form("QCDscale_VH 	             lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");			 
       newcardShape << Form("QCDscale_VV           	     lnN   -     -     -     -     -     -   1.040   -     -     -     -     -  \n");
-      newcardShape << Form("QCDscale_V           	     lnN   -     -     -     -     -     -     -     -     -     -   1.300 1.100\n");
+      newcardShape << Form("QCDscale_V           	     lnN   -     -     -     -     -     -     -     -     -     -   %5.3f %5.3f\n",1.30,ZttScaleFactorKappa());
       newcardShape << Form("QCDscale_ggVV	             lnN   -     -     -     -     -   1.500   -     -     -     -     -     -  \n");
       newcardShape << Form("CMS_QCDscale_WW_EXTRAP           lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
       newcardShape << Form("QCDscale_ggH_ACCEPT              lnN   -     -     -   1.020   -     -     -     -     -     -     -     -  \n");
@@ -2931,7 +2947,7 @@ void PlotHiggsRes
     newcardCut << Form("QCDscale_qqH          	   lnN   -     -   1.010   -     -     -     -     -     -     -     -     -  \n");
     newcardCut << Form("QCDscale_VH           	   lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");		    
     newcardCut << Form("QCDscale_VV           	   lnN   -     -     -     -     -     -   1.040   -     -     -     -     -  \n");
-    newcardCut << Form("QCDscale_V           	   lnN   -     -     -     -     -     -     -     -     -     -   1.300 1.100\n");
+    newcardCut << Form("QCDscale_V           	   lnN   -     -     -     -     -     -     -     -     -     -   %5.3f %5.3f\n",1.30,ZttScaleFactorKappa());
     newcardCut << Form("QCDscale_ggVV         	   lnN   -     -     -     -     -   1.500   -     -     -     -     -     -  \n");
     newcardCut << Form("CMS_QCDscale_WW_EXTRAP     lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
     newcardCut << Form("QCDscale_ggH_ACCEPT   	   lnN   -     -     -   1.020   -     -     -     -     -     -     -     -  \n");
@@ -2986,7 +3002,7 @@ void PlotHiggsRes
     newcardMVA << Form("QCDscale_qqH          	   lnN   -     -   1.010   -     -     -     -     -     -     -     -     -  \n");
     newcardMVA << Form("QCDscale_VH           	   lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");		    
     newcardMVA << Form("QCDscale_VV           	   lnN   -     -     -     -     -     -   1.040   -     -     -     -     -  \n");
-    newcardMVA << Form("QCDscale_V           	   lnN   -     -     -     -     -     -   1.040   -     -     -   1.300 1.100\n");
+    newcardMVA << Form("QCDscale_V           	   lnN   -     -     -     -     -     -   1.040   -     -     -   %5.3f %5.3f\n",1.30,ZttScaleFactorKappa());
     newcardMVA << Form("QCDscale_ggVV         	   lnN   -     -     -     -     -   1.500   -     -     -     -     -     -  \n");
     newcardMVA << Form("CMS_QCDscale_WW_EXTRAP     lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
     newcardMVA << Form("QCDscale_ggH_ACCEPT   	   lnN   -     -     -   1.020   -     -     -     -     -     -     -     -  \n");
