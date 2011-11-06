@@ -10,13 +10,16 @@ use warnings;
 
 
 my $lands = "../../LandS/test/lands.exe";
-my $expectLimitCommand = "-tB 1000 -tPB 30 -t 1000 -M Bayesian --doExpectation 1";
-#my $expectLimitCommand = "-tB 1000 -tPB 30 -t 100 -M Bayesian --doExpectation 1";
-# my $observedLimitCommand = "-tB 100000 -M Bayesian";
+# my $expectLimitCommand = "-M Hybrid --freq --ExpectationHints Asymptotic --scanRs 1 --freq --nToysForCLsb 1500 --nToysForCLb 500"; 
+# my $expectLimitCommand = "-M Hybrid --freq --ExpectationHints Asymptotic --scanRs 1 --freq --nToysForCLsb 1000 --nToysForCLb 500"; 
+# my $expectLimitCommand = "-M Hybrid --freq --ExpectationHints Asymptotic --scanRs 1 --freq --nToysForCLsb 4000 --nToysForCLb 2000"; 
+# my $expectLimitCommand = "-M Hybrid --freq --ExpectationHints Bayesian --scanRs 1 --freq --nToysForCLsb 10000 --nToysForCLb 5000"; 
+# my $expectLimitCommand = "-tB 1000 -tPB 30 -t 1000 -M Bayesian --doExpectation 1";
+my $expectLimitCommand = "-tB 1000 -tPB 30 -t 100 -M Bayesian --doExpectation 1";
 my $observedLimitCommand = "-tB 10000 -M Bayesian";
 # my $observedLimitCommand = "-tB 100000 -M Hybrid";
 my $useLSF = 1; 
-my $doObserved = 1;
+my $doObserved = 0;
 my $doExpected = 1;
 my $nJobsPerMassPoint = 10;
 
@@ -65,13 +68,13 @@ EOF
 }
 
 system("mkdir $dir/output") unless -d "$dir/output";
-foreach my $mass(sort {$a<=>$b} keys %cards){
-    my $cards = "";
-    foreach my $card(@{$cards{$mass}}){
-	$cards .= " $dir/$card";
-    }
-    foreach (1..$nJobsPerMassPoint){
-	my $seed = seed();
+foreach my $job(1..$nJobsPerMassPoint){
+    my $seed = seed();
+    foreach my $mass(sort {$a<=>$b} keys %cards){
+	my $cards = "";
+	foreach my $card(@{$cards{$mass}}){
+	    $cards .= " $dir/$card";
+	}
 	my $n = "$name-$mass-$seed";
 	if ( $doExpected ) {
 	    if ($useLSF){
@@ -80,10 +83,10 @@ foreach my $mass(sort {$a<=>$b} keys %cards){
 		system("nice $lands $expectLimitCommand --seed $seed --name $dir/output/$n -d$cards>$dir/output/$n.log 2>&1 &");
 	    }
 	}
-    }
-    if ( $doObserved ) {
-	print "nice $lands $observedLimitCommand -d$cards>$dir/output/$name-$mass.observed 2>&1 &\n";
-	system("nice $lands $observedLimitCommand -d$cards>$dir/output/$name-$mass.observed 2>&1 &");
+	if ( $doObserved  && $job==1) {
+	    print "nice $lands $observedLimitCommand -d$cards>$dir/output/$name-$mass.observed 2>&1 &\n";
+	    system("nice $lands $observedLimitCommand -d$cards>$dir/output/$name-$mass.observed 2>&1 &");
+	}
     }
 }
 
