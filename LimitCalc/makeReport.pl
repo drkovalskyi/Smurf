@@ -39,7 +39,8 @@ sub FilterColumns{
 
 my $tableBegin = << 'EOF';
 \begin{table}
-{\footnotesize
+{%\footnotesize
+ \tiny
  \begin{center}
  \begin{tabular}{SEPARATORS}
  \hline
@@ -66,8 +67,12 @@ EOF
 # print "Number of mass points to process: ", scalar keys %cards,"\n";
 foreach my $card(0..$nCardsPerMassPoint-1){
     my $title;
+    my @names = ("") x $nCardsPerMassPoint;
     foreach my $mass( sort {$a<=>$b} keys %cards ){
-	my $file = "$dir/".$cards{$mass}->[$card];
+	my $cardname = $cards{$mass}->[$card];
+	my $file = "$dir/$cardname";
+	$cardname =~ s/(\d+\/)//;
+	$names[$card] = $cardname;
 	# print "$file\n";
 	my @columns;
 	my @errors2;
@@ -132,9 +137,9 @@ foreach my $card(0..$nCardsPerMassPoint-1){
 	print OUT join(" & ",@columns)." \\\\\n";
     }
     my $tab = $tableEnd;
-    my $label = $name;
+    my $label = $names[$card];
     $label =~ s/_/\\_/g;
-    $tab =~ s/TEXT/Summary of card $label-$card/m;
+    $tab =~ s/TEXT/Summary of card $label/m;
     print OUT $tab;
 }
 print OUT '\end{document}'."\n";
