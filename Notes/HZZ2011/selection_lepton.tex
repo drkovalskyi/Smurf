@@ -28,15 +28,14 @@ we require $\frac{\rm{Iso}}{\pt}~<~0.1$, where
 $\rm{Iso} = \rm{Iso}_{\rm{Track}} + \rm{Iso}_{\rm{ECAL}} + \rm{Iso}_{\rm{HCAL}}$ 
 are calculated within a cone of $0.3$ around the electron. 
 Additional vetos have been applied to remove the tracks and ECAL crystals footprint. 
-To correct for the pileup effects, we subtract energy inside the isolation cone based 
-on the average energy density, $\rho_{\mathrm{FJ}}$ due to 
-pileup using either the Fast Jet procedure.
+We correct for the average energy density, $\rho_{\mathrm{FJ}}$, due to 
+pileup using the Fast Jet procedure.
 
 Lastly to veto fake electrons from converted photons, 
 %we look for a reconstructed conversion vertex where one of the two tracks 
 %is compatible with the electron~\cite{ConversionNote}.
 %The vertex fit probability is required to be $>10^{-6}$.
-we require that there are no missing expected missing hits forming the electron 
+we require that there are no missing expected hits forming the electron 
 track~\cite{ConversionNote},~\cite{NExpHits}. 
 
 
@@ -44,7 +43,7 @@ Muons in CMS are reconstructed as either $StandAloneMuons$ (track
 in the muon detector with low momentum resolution), $GlobalMuons$
 (outside-in approach seeded by a $StandAloneMuon$ with a global fit
 using hits in the muon, silicon strip and pixel 
-detectors) and $TrackerMuons$ (inside-out approach seeded by an offline 
+detectors) or $TrackerMuons$ (inside-out approach seeded by an offline 
 silicon strip track, using the muon detector only for muon identification 
 without refitting the track). Most good quality muons are reconstructed as 
 all three types at the same time and the momentum resolution is dominated by the inner
@@ -58,7 +57,7 @@ The specific requirements to select good prompt isolated muons are the following
       different muon stations;
 \item more than 10 hits in the inner tracker;
 \item at least one pixel hit;
-\item $\chi^2/{\mathrm{ndof}} < 10$ on a global fit;
+\item $\chi^2/{\mathrm{ndof}} < 10$ on the global fit;
 \item The transverse impact parater with respect to the primary vertex, $|d_0|<0.02$ cm
 \item The longitudinal impact parater with respect to the primary vertex, $|d_z|<0.1$ cm
 \item pseudorapidity $|\eta|$ must be smaller than 2.4;
