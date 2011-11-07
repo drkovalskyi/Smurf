@@ -95,7 +95,7 @@ Z[20-inf] $\rightarrow \tau\tau$  	 &   /DYToTauTau\_M-20\_CT10\_TuneZ2\_7TeV-po
 %Z[10-20]  $\rightarrow \tau\tau$  	 &   /DYToTauTau\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia-tauola    &  3892.9 \\
 W $\rightarrow$ $\ell\nu$           	 &   /WJetsToLNu\_TuneZ2\_7TeV-madgraph-tauola                         &  31314.0 \\
 WZ                               	 &   /WZJetsTo3LNu\_TuneZ2\_7TeV-madgraph-tauola                       &  0.857 \\
-ZZ                               	 &   /ZZJetsTo2L2Nu\_TuneZ2\_7TeV-madgraph-tauola                      &  0.299 \\
+ZZ                               	 &   /ZZJetsTo2L2Nu\_TuneZ2\_7TeV-madgraph-tauola                      &  0.179 \\%0.299 \\
 $\gamma$ + Jets                          &   /G\_Pt\_15to3000\_TuneZ2\_Flat\_7TeV\_pythia6                     & 1.5e+07    \\
 $gg \to H(250) \to ZZ \to 2\ell2\nu$     &   /GluGluToHToZZTo2L2Nu\_M-250\_7TeV-powheg-pythia6                 & 0.03974 \\
 $qq \to H(250) \to ZZ \to 2\ell2\nu$     &   /VBF\_ToHToZZTo2L2NU\_M-250\_7TeV-powheg-pythia6                  & 0.0051643 \\
@@ -136,18 +136,20 @@ Higgs $\pt$ to match the spectrum obtained in NNLO calculation.
 This is done on the event-by-event level for both $gg \to H \to ZZ$ and 
 $gg \to H \to WW$ processes. 
 
-To account for the difference in the $p_{T}$ spectrum of the Z between the leading order Monte Carlo prediction
-and the NLO prediction, we apply an event-by-event k-factor parameterized in the $p_{T}$ of the Z, given by:
-
+For the $\qq\rightarrow ZZ$ process, the cross section listed in 
+Table \ref{tab:DatasetsMC} corresponds to the LO calculation. 
+We account for the NLO effects by applying an event-by-event k-factor parameterized in the $p_{T}$ of the Z, given by:
 \begin{eqnarray}
-  \mathrm{KFactor}(p_{T\mathrm{ Z}}) = ( 1.108 + 0.002429 \times p_{T\mathrm{ Z}} - 1.655\times10^{-06} \times p_{T\mathrm{ Z}}^{2} ),
+  \mathrm{KFactor}(p_{T\mathrm{ Z}}) = ( 1.108 + 0.002429 \times p_{T\mathrm{ Z}} - 1.655\times10^{-6} \times p_{T\mathrm{ Z}}^{2} ).
 \end{eqnarray}
+%for the $qq \rightarrow ZZ$ process, computed using MCFM \cite{HZZ2011EPS}. 
+We do not have the MC for the $gg\rightarrow ZZ$ process. The contribution in the 
+LO is about $12\%$ of the $qq\rightarrow ZZ$ process. We assign a large theoretical 
+uncertainties as $20\%$. 
+%The $gg \rightarrow ZZ$ process we add to the ZZ cross section a term 
+%$\sigma_{gg \rightarrow ZZ} = 0.12 \times \sigma_{qq \rightarrow ZZ \mathrm{ , LO}}$. 
 
-for the $qq \rightarrow ZZ$ process, computed using MCFM \cite{HZZ2011EPS}. 
-To account for the $gg \rightarrow ZZ$ process we add to the ZZ cross section a term 
-$\sigma_{gg \rightarrow ZZ} = 0.12 \times \sigma_{qq \rightarrow ZZ \mathrm{ , LO}}$. 
-Accouting for the efficiency loss in the NLO terms, the contribution of the $gg\rightarrow ZZ$ reduces to 
-$0.12/1.277$. The total cross section for the ZZ process of $7.4\pb$ given in 
-Table \ref{tab:DatasetsMC} includes this term.
+%Accouting for the efficiency loss in the NLO terms, the contribution of the $gg\rightarrow ZZ$ reduces to 
+%$0.12/1.277$. 
 
  
