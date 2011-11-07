@@ -25,19 +25,20 @@ class LeptonScaleLookup {
 
     private:
         TFile *file_;
-
-        TH2F *h2_double_e_;
         TH2F *h2_single_e_;
-        TH2F *h2_double_m_;
         TH2F *h2_single_m_;
-        TH2F *h2_cross_m_;
-        TH2F *h2_cross_e_;
-
-        // scale factors
-        TH2F *h2_selection_e_;
-        TH2F *h2_selection_m_;
+        TH2F *h2_double_e_LeadingLeg_;
+        TH2F *h2_double_e_TrailingLeg_;
+        TH2F *h2_double_m_LeadingLeg_;
+        TH2F *h2_double_m_TrailingLeg_;
+        TH2F *h2_cross_e_LeadingLeg_;
+        TH2F *h2_cross_e_TrailingLeg_;
+        TH2F *h2_cross_m_LeadingLeg_;
+        TH2F *h2_cross_m_TrailingLeg_;
 
         // efficiencies
+        TH2F *h2_selection_e_;
+        TH2F *h2_selection_m_;
         TH2F *h2_selection_eff_e_;
         TH2F *h2_selection_eff_m_;
 };

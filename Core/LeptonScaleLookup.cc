@@ -4,27 +4,50 @@
 LeptonScaleLookup::LeptonScaleLookup(std::string filename)
 {
     file_ = new TFile(filename.c_str(), "READ");
-    h2_double_e_ = (TH2F*)file_->Get("h2_results_electron_double");
     h2_single_e_ = (TH2F*)file_->Get("h2_results_electron_single");
-    h2_double_m_ = (TH2F*)file_->Get("h2_results_muon_double");
     h2_single_m_ = (TH2F*)file_->Get("h2_results_muon_single");
-    h2_cross_m_ = (TH2F*)h2_double_m_->Clone("h2_cross_m");
-    h2_cross_e_ = (TH2F*)h2_double_e_->Clone("h2_cross_e");
+    h2_double_e_LeadingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_leadingleg");
+    h2_double_e_TrailingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_trailingleg");
+    h2_double_m_LeadingLeg_ = (TH2F*)file_->Get("h2_results_muon_double_leadingleg");
+    h2_double_m_TrailingLeg_ = (TH2F*)file_->Get("h2_results_muon_double_trailingleg");
+
+    h2_cross_e_LeadingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_leadingleg");
+    h2_cross_e_TrailingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_trailingleg");
+    h2_cross_m_LeadingLeg_ = (TH2F*)file_->Get("h2_results_muon_double_leadingleg");
+    h2_cross_m_TrailingLeg_ = (TH2F*)file_->Get("h2_results_muon_double_trailingleg");
+
 
     h2_selection_e_ = (TH2F*)file_->Get("h2_results_electron_selection");
     h2_selection_m_ = (TH2F*)file_->Get("h2_results_muon_selection");
+    h2_selection_eff_e_ = (TH2F*)file_->Get("h2_results_electron_selection");
+    h2_selection_eff_m_ = (TH2F*)file_->Get("h2_results_muon_selection");
 
-    h2_selection_eff_e_ = (TH2F*)file_->Get("h2_results_electron_dataeff");
-    h2_selection_eff_m_ = (TH2F*)file_->Get("h2_results_muon_dataeff");
+    assert(h2_single_e_);
+    assert(h2_single_m_);
+    assert(h2_double_e_LeadingLeg_);
+    assert(h2_double_e_TrailingLeg_);
+    assert(h2_double_m_LeadingLeg_);
+    assert(h2_double_m_TrailingLeg_);
+    assert(h2_cross_e_LeadingLeg_);
+    assert(h2_cross_e_TrailingLeg_);
+    assert(h2_cross_m_LeadingLeg_);
+    assert(h2_cross_m_TrailingLeg_);
+
 
 }
 
 LeptonScaleLookup::~LeptonScaleLookup()
 {
-    delete h2_cross_m_;
-    delete h2_cross_e_;
-    file_->Close();
-    delete file_;
+  if (h2_single_e_) delete h2_single_e_;
+  if (h2_single_m_) delete h2_single_m_;
+  if (h2_double_e_LeadingLeg_) delete h2_double_e_LeadingLeg_;
+  if (h2_double_e_TrailingLeg_) delete h2_double_e_TrailingLeg_;
+  if (h2_double_m_LeadingLeg_) delete h2_double_m_LeadingLeg_;
+  if (h2_double_m_TrailingLeg_) delete h2_double_m_TrailingLeg_;
+  if (h2_selection_eff_e_) delete h2_selection_eff_e_;
+  if (h2_selection_eff_m_) delete h2_selection_eff_m_;
+  file_->Close();
+  delete file_;
 }
 
 float LeptonScaleLookup::GetEfficiency(float eta, float pt, TH2F *hist) 
@@ -42,8 +65,8 @@ float LeptonScaleLookup::GetEfficiency(float eta, float pt, TH2F *hist)
         eta = hist->GetYaxis()->GetBinLowEdge(nbins) + (hist->GetYaxis()->GetBinWidth(nbins)/2.0);
 
     // look up the efficiency
-    Int_t binX = hist->GetXaxis()->FindBin(pt);
-    Int_t binY = hist->GetYaxis()->FindBin(eta);
+    Int_t binX = hist->GetXaxis()->FindFixBin(pt);
+    Int_t binY = hist->GetYaxis()->FindFixBin(eta);
     return hist->GetBinContent(binX, binY);
 }
 
@@ -62,8 +85,8 @@ float LeptonScaleLookup::GetError(float eta, float pt, TH2F *hist)
         eta = hist->GetYaxis()->GetBinLowEdge(nbins) + (hist->GetYaxis()->GetBinWidth(nbins)/2.0);
 
     // look up the error
-    Int_t binX = hist->GetXaxis()->FindBin(pt);
-    Int_t binY = hist->GetYaxis()->FindBin(eta);
+    Int_t binX = hist->GetXaxis()->FindFixBin(pt);
+    Int_t binY = hist->GetYaxis()->FindFixBin(eta);
     return hist->GetBinError(binX, binY);
 }
 
@@ -74,34 +97,44 @@ float LeptonScaleLookup::GetExpectedTriggerEfficiency(float eta1, float pt1, flo
     unsigned int f1 = abs(id1);
     unsigned int f2 = abs(id2);
 
-    float eff_sgl_1, eff_sgl_2;
-    float eff_dbl_1, eff_dbl_2;
+    float eff_sgl_1, eff_sgl_2;    
+    float eff_dbl_1_leadingleg, eff_dbl_2_leadingleg;
+    float eff_dbl_1_trailingleg, eff_dbl_2_trailingleg;
+    
 
     // get individual leg efficiencies
 
     if (f1 == 11 && f2 == 11) {
         eff_sgl_1 = GetEfficiency(eta1, pt1, h2_single_e_);
         eff_sgl_2 = GetEfficiency(eta2, pt2, h2_single_e_);
-        eff_dbl_1 = GetEfficiency(eta1, pt1, h2_double_e_);
-        eff_dbl_2 = GetEfficiency(eta2, pt2, h2_double_e_);
+        eff_dbl_1_leadingleg = GetEfficiency(eta1, pt1, h2_double_e_LeadingLeg_);
+        eff_dbl_2_leadingleg = GetEfficiency(eta2, pt2, h2_double_e_LeadingLeg_);
+        eff_dbl_1_trailingleg = GetEfficiency(eta1, pt1, h2_double_e_TrailingLeg_);
+        eff_dbl_2_trailingleg = GetEfficiency(eta2, pt2, h2_double_e_TrailingLeg_);
     }
     else if (f1 == 13 && f2 == 13) {
         eff_sgl_1 = GetEfficiency(eta1, pt1, h2_single_m_);
         eff_sgl_2 = GetEfficiency(eta2, pt2, h2_single_m_);
-        eff_dbl_1 = GetEfficiency(eta1, pt1, h2_double_m_);
-        eff_dbl_2 = GetEfficiency(eta2, pt2, h2_double_m_);
+        eff_dbl_1_leadingleg = GetEfficiency(eta1, pt1, h2_double_m_LeadingLeg_);
+        eff_dbl_2_leadingleg = GetEfficiency(eta2, pt2, h2_double_m_LeadingLeg_);
+        eff_dbl_1_trailingleg = GetEfficiency(eta1, pt1, h2_double_m_TrailingLeg_);
+        eff_dbl_2_trailingleg = GetEfficiency(eta2, pt2, h2_double_m_TrailingLeg_);
     }
     else if (f1 == 13 && f2 == 11) {
         eff_sgl_1 = GetEfficiency(eta1, pt1, h2_single_m_);
         eff_sgl_2 = GetEfficiency(eta2, pt2, h2_single_e_);
-        eff_dbl_1 = GetEfficiency(eta1, pt1, h2_cross_m_);
-        eff_dbl_2 = GetEfficiency(eta2, pt2, h2_cross_e_);
+        eff_dbl_1_leadingleg = GetEfficiency(eta1, pt1, h2_cross_m_LeadingLeg_);
+        eff_dbl_2_leadingleg = GetEfficiency(eta2, pt2, h2_cross_e_LeadingLeg_);
+        eff_dbl_1_trailingleg = GetEfficiency(eta1, pt1, h2_cross_m_TrailingLeg_);
+        eff_dbl_2_trailingleg = GetEfficiency(eta2, pt2, h2_cross_e_TrailingLeg_);
     }
     else if (f1 == 11 && f2 == 13) {
         eff_sgl_1 = GetEfficiency(eta1, pt1, h2_single_e_);
         eff_sgl_2 = GetEfficiency(eta2, pt2, h2_single_m_);
-        eff_dbl_1 = GetEfficiency(eta1, pt1, h2_cross_e_);
-        eff_dbl_2 = GetEfficiency(eta2, pt2, h2_cross_m_);
+        eff_dbl_1_leadingleg = GetEfficiency(eta1, pt1, h2_cross_e_LeadingLeg_);
+        eff_dbl_2_leadingleg = GetEfficiency(eta2, pt2, h2_cross_m_LeadingLeg_);
+        eff_dbl_1_trailingleg = GetEfficiency(eta1, pt1, h2_cross_e_TrailingLeg_);
+        eff_dbl_2_trailingleg = GetEfficiency(eta2, pt2, h2_cross_m_TrailingLeg_);
     }
     else {
         std::cout << "[LeptonScaleLookup::GetExpectedTriggerEfficiency] ERROR: Invalid flavor combination!" << std::endl;
@@ -109,14 +142,18 @@ float LeptonScaleLookup::GetExpectedTriggerEfficiency(float eta1, float pt1, flo
     }
 
     // calculate event efficiency
-    float evt_eff = eff_dbl_1*eff_dbl_2 
-                        + eff_sgl_2*(1-eff_dbl_1)
-                        + eff_sgl_1*(1-eff_dbl_2);
+    float evt_eff = 
+      1 - ( (1-eff_dbl_1_leadingleg)*(1-eff_dbl_2_leadingleg) + 
+            eff_dbl_1_leadingleg*(1-eff_dbl_2_trailingleg) + 
+            eff_dbl_2_leadingleg*(1-eff_dbl_1_trailingleg))
+      + eff_sgl_2*(1-eff_dbl_1_trailingleg)
+      + eff_sgl_1*(1-eff_dbl_2_trailingleg);
 
     // return it
     return evt_eff;        
 
 }
+
 
 float LeptonScaleLookup::GetExpectedLeptonEff(float eta, float pt, int id)
 {
@@ -131,14 +168,15 @@ float LeptonScaleLookup::GetExpectedLeptonEff(float eta, float pt, int id)
     return eff;
 }
 
+
 float LeptonScaleLookup::GetExpectedLeptonSF(float eta, float pt, int id)
 {
 
     float sf = 0.0;
     if (abs(id) == 11) {
-        sf = GetEfficiency(eta, pt, h2_selection_e_);
+        sf = GetEfficiency(eta, pt, h2_selection_eff_e_);
     } else if (abs(id) == 13) {
-        sf = GetEfficiency(eta, pt, h2_selection_m_);
+        sf = GetEfficiency(eta, pt, h2_selection_eff_m_);
     } else {
         std::cout << "[LeptonScaleLookup::GetExpectedOfflineSF] ERROR: Invalid flavor!" << std::endl;
     }
@@ -150,9 +188,9 @@ float LeptonScaleLookup::GetExpectedLeptonSFErr(float eta, float pt, int id)
 {
     float sferr = 0.0;
     if (abs(id) == 11) {
-        sferr = GetError(eta, pt, h2_selection_e_);
+        sferr = GetError(eta, pt, h2_selection_eff_e_);
     } else if (abs(id) == 13) {
-        sferr = GetError(eta, pt, h2_selection_m_);
+        sferr = GetError(eta, pt, h2_selection_eff_m_);
     } else {
         std::cout << "[LeptonScaleLookup::GetExpectedOfflineSFErr] ERROR: Invalid flavor!" << std::endl;
     }
@@ -217,9 +255,15 @@ void LoopupAll(std::string file) {
     lookup.printTable("h2_results_muon_selection");
     printf("\\clearpage\n");
     lookup.printTable("h2_results_electron_single");
-    lookup.printTable("h2_results_electron_double");
+    lookup.printTable("h2_results_electron_double_leadingleg");
+    lookup.printTable("h2_results_electron_double_trailingleg");
     lookup.printTable("h2_results_muon_single");
-    lookup.printTable("h2_results_muon_double");
+    lookup.printTable("h2_results_muon_double_leadingleg");
+    lookup.printTable("h2_results_muon_double_trailingleg");
+    lookup.printTable("h2_results_electron_cross_leadingleg");
+    lookup.printTable("h2_results_electron_cross_trailingleg");
+    lookup.printTable("h2_results_muon_cross_leadingleg");
+    lookup.printTable("h2_results_muon_cross_trailingleg");
 
     printf("\\end{document}\n");
 
