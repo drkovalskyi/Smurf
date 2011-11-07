@@ -8,6 +8,10 @@ setenv MAKEINPUTS $3;
 
 #setenv TAG       winterWW_ntuples_${MH}train_${NJETS}jets_winterWjets_ntuples_${MH}train_${NJETS}jets;
 setenv TAG       ntuples_${MH}train_${NJETS}jets;
+if ($MH == 0) then
+  setenv TAG       ntuples_115train_${NJETS}jets;
+endif
+
 if ($NJETS == 2) then
   setenv TAG       ntuples_${MH}train_1jets;
 endif

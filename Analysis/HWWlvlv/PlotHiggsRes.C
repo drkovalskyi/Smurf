@@ -57,6 +57,9 @@ void PlotHiggsRes
  int  TheVerboseLevel    = 0
  )
 {
+  bool wwPresel = false;
+  if(mH == 0) {wwPresel = true; mH = 115;}
+
   verboseLevel = TheVerboseLevel;
   bool useZjetsTemplates   = false;
   bool useWWTemplates      = true;
@@ -116,6 +119,7 @@ void PlotHiggsRes
   if(channel == -1) return;
 
   float dilmass_cut = DileptonMassPreselectionCut(mH);
+  if(wwPresel == true) dilmass_cut = 99999.;
 
   char finalStateName[10];
   sprintf(finalStateName,"ll");
@@ -905,8 +909,7 @@ void PlotHiggsRes
       sigMVA[5][nSigBin]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), myWeight);
     }
 
-    //bool passMVAPreselCuts = mt > 80 && mt < mH && (dPhi*180.0/TMath::Pi() < 150 || mH >= 210);
-    bool passMVAPreselCuts = mt > 80 && mt < mH;
+    bool passMVAPreselCuts = mt > 80 && mt < mH; if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       nSigAcc[0]  = nSigAcc[0]  + myWeight;
       nSigEAcc[0] = nSigEAcc[0] + myWeight*myWeight;
@@ -1327,8 +1330,7 @@ void PlotHiggsRes
       bgdMVADecays[5][fDecay]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), newWeight);
     }
 
-    //bool passMVAPreselCuts = mt > 80 && mt < mH && (dPhi*180.0/TMath::Pi() < 150 || mH >= 210);
-    bool passMVAPreselCuts = mt > 80 && mt < mH;
+    bool passMVAPreselCuts = mt > 80 && mt < mH; if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       nBgdAcc  = nBgdAcc  + myWeight;
       nBgdEAcc = nBgdEAcc + myWeight*myWeight;
@@ -1786,8 +1788,7 @@ void PlotHiggsRes
 
     if(myWeight == 0) continue;
 
-    //bool passMVAPreselCuts = mt > 80 && mt < mH && (dPhi*180.0/TMath::Pi() < 150 || mH >= 210);
-    bool passMVAPreselCuts = mt > 80 && mt < mH;
+    bool passMVAPreselCuts = mt > 80 && mt < mH; if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       nSystAcc  = nSystAcc  + myWeight;
       nSystEAcc = nSystEAcc + myWeight*myWeight;
@@ -1975,8 +1976,7 @@ void PlotHiggsRes
       datMVA[5]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), myWeight);
     }
 
-    //bool passMVAPreselCuts = mt > 80 && mt < mH && (dPhi*180.0/TMath::Pi() < 150 || mH >= 210);
-    bool passMVAPreselCuts = mt > 80 && mt < mH;
+    bool passMVAPreselCuts = mt > 80 && mt < mH; if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true){
       nDatAcc = nDatAcc + myWeight;
       if     (useVar == 0) histo5->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),       myWeight);
