@@ -68,7 +68,7 @@ int  njet            = 0,
 bool doWeights       = true,
 bool doShapes        = true,
 TString InputPath    = "",
-int period           = 0,
+int period           = 2,
 TString suffix       = "ww"
 ) {   
 #ifdef __CINT__
