@@ -50,7 +50,7 @@ void drawofmtbtag()
 
   drawsingle(ch_top, 250, "Top", 70, 230, 300, 0);
   drawsingle(ch_top, 250, "Top", 70, 230, 300, 3);
-  
+    
   drawsingle(ch_top, 300, "Top", 80, 250, 350, 0);
   drawsingle(ch_top, 300, "Top", 80, 250, 350, 3);
 
@@ -151,9 +151,9 @@ void drawsingle(TChain *& ch, int mH, TString type, float metcut, float min, flo
 
      bool btag = false;
      int nbtag = 0;
-     if (jet1Btag_ > 2.0 ) {
-       if ( jet1_->Pt() > 30) 	 btag = true;
-       if ( jet1_->Pt() > 10)       nbtag++;
+     if (jet1Btag_ > 2.0  && jet1_->Pt() > 30) {
+       btag = true;
+       nbtag++;
      }
      
      if (jet2Btag_ > 2.0 && jet2_->Pt() > 30) { 
@@ -264,8 +264,9 @@ void drawdatamc(TString dirName, int mH, float metcut, float min, float max, int
   
   TChain *ch = new TChain("tree");
   
-  ch->Add(dirName + "data_2l.goodlumiRun2011A_BTAG.root");
-  ch->Add(dirName + "data_2l.goodlumi.Run2011B_BTAG.root");
+  //ch->Add(dirName + "data_2l.goodlumiRun2011A_BTAG.root");
+  //ch->Add(dirName + "data_2l.goodlumi.Run2011B_BTAG.root");
+  ch->Add(dirName + "data_2l.goodlumiRun2011AB_BTAG.root");
 
   ch->Add(dirName + "/ttbar2l-powheg_BTAG.root");
   ch->Add(dirName + "/wtop-powheg_BTAG.root");
@@ -391,6 +392,8 @@ void drawdatamc(TString dirName, int mH, float metcut, float min, float max, int
   hist_mc_sig->SetLineColor(kRed);
   hist_mc_sig->SetMarkerColor(kRed);
   hist_mc->SetLineStyle(2);
+  hist_mc->SetLineWidth(3);
+
 
 
   
@@ -403,7 +406,7 @@ void drawdatamc(TString dirName, int mH, float metcut, float min, float max, int
   TLegend *leg = new TLegend(0.5, 0.8, 0.9, 0.92);
   leg->SetFillColor(0);
   leg->AddEntry(hist_data, "Data (ee/mm/em) Btag ");
-  leg->AddEntry(hist_mc, "MC (ee/mmem) Btag");
+  leg->AddEntry(hist_mc, "MC (ee/mm/em) Btag", "l");
   leg->AddEntry(hist_mc_sig, Form("MC (%s) non-Btag", dilName.Data()));
 
 
