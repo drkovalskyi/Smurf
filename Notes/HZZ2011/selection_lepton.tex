@@ -15,21 +15,20 @@ The specific requirements to select good prompt electrons are the following:
         \item The track-cluster matching in the $\eta$-direction, $\Delta \eta_{\mathrm{in}} < 0.004~(0.007)$
         \item The relative hadronic activity, $H/E<0.04$~(0.15) 
         \item The transverse impact parater with respect to the primary vertex, $|d_0|<0.02$ cm
-        \item The longitudinal impact parater with respect to the primary vertex, $|d_z|<0.1$ cm
+        \item The longitudinal impact parameter with respect to the primary vertex, $|d_z|<0.1$ cm
     \end{itemize}
 \end{itemize}
 
 The H/E requirement is looser in the endcap since the tighter values
-introduce noticible reconstruction efficiency drop with large pileup.
+introduce noticeable reconstruction efficiency drop with large pileup.
 
 Tracker and calorimeter based isolation variations are 
 used to reduce the fake muons originating from jets. 
-we require $\frac{\rm{Iso}}{\pt}~<~0.1$, where 
-$\rm{Iso} = \rm{Iso}_{\rm{Track}} + \rm{Iso}_{\rm{ECAL}} + \rm{Iso}_{\rm{HCAL}}$ 
+we require $\rm{Iso}/\pt~<~0.1$, where 
+$\rm{Iso} = \rm{Iso}_{\rm{Track}} + \rm{Iso}_{\rm{ECAL}} + \rm{Iso}_{\rm{HCAL}} - \rho_{\mathrm{FJ}}\cdot\pi\cdot 0.3^2$ 
 are calculated within a cone of $0.3$ around the electron. 
-Additional vetos have been applied to remove the tracks and ECAL crystals footprint. 
 We correct for the average energy density, $\rho_{\mathrm{FJ}}$, due to 
-pileup using the Fast Jet procedure.
+pileup using the Fast Jet procedure. Additional vetos have been applied to remove the tracks and ECAL crystals footprint.
 
 Lastly to veto fake electrons from converted photons, 
 %we look for a reconstructed conversion vertex where one of the two tracks 
@@ -65,7 +64,7 @@ The specific requirements to select good prompt isolated muons are the following
 \end{itemize}
 
 The muons are required to be isolated by relative isolation cuts 
-$\frac{\rm{Iso}}{\pt}~<~0.15$ with the same procedure to correct for the 
+$\rm{Iso}/\pt~<~0.15$ with the same procedure to correct for the 
 pileup effects. Note that we also subtract the contributions within a 
-small veto cone $\delta R < 0.01$ around the muon. 
+small veto cone $\Delta R < 0.01$ around the muon. 
 
