@@ -1,6 +1,37 @@
 \label{app:efficiency_studies_muon}
 
-The muon efficiencies measured in Monte Carlo simulation and data as well as the scale 
+The efficiency of reconstructing global or tracker muons with respect to a track was measured to be consistent with
+$100\%$ for the Run2011A dataset. In the Run2011B data taking period, there were certain problems with the readout 
+in the CSC detectors inducing some muon reconstruction inefficiency. Most of the inefficiency is recovered by the 
+tracker muon algorithm and as a result we measure muon reconstruction efficiencies of roughly $99\%$, summarized
+in Table \ref{tab:eff_mu_reco_Run2011B}. The global muon reconstruction efficiency is significantly lower at $95\%$ for the same period.
+Averaging over the full 2011 dataset, we have a total inefficiency of roughly $0.5\%$. 
+
+ \begin{table}[!ht]
+ \begin{center} 
+ \begin{tabular}{|c|c|c|c|}
+ \hline
+ $p_{T}$ / $\eta$ bin    &  Monte Carlo Efficiency    &  Data Efficiency   &  MC to Data Scale Factor \\   \hline           
+$ 10.0 < p_{T} \le  15.0$ , $  0.0  \le |\eta| <   1.5$   &       0.9993 +/- 0.0001   &       0.9963 +/- 0.0044   &       0.9970 +/- 0.0044   \\   
+\hline
+$ 10.0 < p_{T} \le  15.0$ , $  1.5  \le |\eta| <   2.4$   &       0.9995 +/- 0.0001   &       0.9982 +/- 0.0041   &       0.9987 +/- 0.0041   \\   
+\hline
+$ 15.0 < p_{T} \le  20.0$ , $  0.0  \le |\eta| <   1.5$   &       0.9996 +/- 0.0001   &       0.9992 +/- 0.0009   &       0.9996 +/- 0.0009   \\   
+\hline
+$ 15.0 < p_{T} \le  20.0$ , $  1.5  \le |\eta| <   2.4$   &       0.9994 +/- 0.0001   &       0.9897 +/- 0.0020   &       0.9903 +/- 0.0020   \\   
+\hline
+$ 20.0 < p_{T} $ , $  0.0  \le |\eta| <   1.5$   &       0.9996 +/- 0.0000   &       0.9988 +/- 0.0000   &       0.9992 +/- 0.0000   \\   
+\hline
+$ 20.0 < p_{T} $ , $  1.5  \le |\eta| <   2.4$   &       0.9996 +/- 0.0000   &       0.9935 +/- 0.0002   &       0.9939 +/- 0.0002   \\   
+\hline
+\end{tabular}
+\caption{Efficiency to reconstruct a global muon or a tracker muon for the Run2011B dataset.}
+\label{tab:eff_mu_reco_Run2011B}
+\end{center}
+\end{table}
+
+
+The muon offline selection efficiencies measured in Monte Carlo simulation and data as well as the scale 
 factor are shown in Table \ref{tab:eff_mu_offline_Full2011} for the full 2011 data and in Tables 
 \ref{tab:eff_mu_offline_Run2011A} and \ref{tab:eff_mu_offline_Run2011B} for 
 the Run2011A and Run2011B datasets respectively. Figures \ref{fig:mu_selectionEfficiency_massfits_lowPt}
