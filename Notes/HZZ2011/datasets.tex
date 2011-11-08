@@ -1,17 +1,17 @@
 %UPDATEME%
 The datasets used for this analysis are summarized in 
-Tables.~\ref{tab:DatasetsData} and~\ref{tab:DatasetsMC} for data and Monte 
+Tables~\ref{tab:DatasetsData} and~\ref{tab:DatasetsMC} for data and Monte 
 Carlo, respectively. The total integrated luminosity is \intlumi. 
 We used the official good run list~\cite{json}. For Monte Carlo simulation 
-we use madgraph when possible, but different generators such as Pythia and Powheg are also used. 
+we use MadGraph when available, but different generators such as Pythia and Powheg are also used. 
 %For \wz\ and \zz\ processes we use Pythia, since MadGraph samples are mixed with $\WW$ in
 %a single $VV$ sample, which is difficult to use properly. 
-For $gg \to \WW$ a dedicated generator is used. 
+%For $gg \to \WW$ a dedicated generator is used. 
 
 
 \begin{table}[!ht]
 \begin{center}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 \hline
  Dataset Description                   &   Dataset Name   \\
 \hline
@@ -41,6 +41,12 @@ Run2011A DiMuon PromptReco          &  /DoubleMu/Run2011A-PromptReco-v6/AOD   \\
 Run2011A MuEl PromptReco            &  /MuEG/Run2011A-PromptReco-v6/AOD   \\
 Run2011A SingleMuon PromptReco      &  /SingleMu/Run2011A-PromptReco-v6/AOD   \\
 Run2011A SingleElectron PromptReco  &  /SingleElectron/Run2011A-PromptReco-v6/AOD   \\
+
+Run2011B DiElectron PromptReco      &  /DoubleElectron/Run2011B-PromptReco-v1/AOD   \\
+Run2011B DiMuon PromptReco          &  /DoubleMu/Run2011B-PromptReco-v1/AOD   \\
+Run2011B MuEl PromptReco            &  /MuEG/Run2011B-PromptReco-v1/AOD   \\
+Run2011B SingleMuon PromptReco      &  /SingleMu/Run2011B-PromptReco-v1/AOD   \\
+Run2011B SingleElectron PromptReco  &  /SingleElectron/Run2011B-PromptReco-v1/AOD   \\
 \hline
 \hline
 \multicolumn{2}{|c|}{Photon+Jets Samples} \\
@@ -49,6 +55,7 @@ Run2011A Photon May10ReReco         & /Photon/Run2011A-May10ReReco-v1/AOD \\
 Run2011A Photon PromptReco          & /Photon/Run2011A-PromptReco-v4/AOD \\
 Run2011A Photon May10ReReco         & /Photon/Run2011A-05Aug2011-v1/AOD \\
 Run2011A Photon PromptReco          & /Photon/Run2011A-PromptReco-v6/AOD \\
+Run2011B Photon PromptReco          & /Photon/Run2011B-PromptReco-v1/AOD \\
 
 \hline
 \end{tabular}
@@ -144,8 +151,8 @@ We account for the NLO effects by applying an event-by-event k-factor parameteri
 \end{eqnarray}
 %for the $qq \rightarrow ZZ$ process, computed using MCFM \cite{HZZ2011EPS}. 
 We do not have the MC for the $gg\rightarrow ZZ$ process. The contribution in the 
-LO is about $12\%$ of the $qq\rightarrow ZZ$ process. We assign a large theoretical 
-uncertainties as $20\%$. 
+LO is about $12\%$ of the $qq\rightarrow ZZ$ process. We assign a theoretical 
+uncertainty of $20\%$. 
 %The $gg \rightarrow ZZ$ process we add to the ZZ cross section a term 
 %$\sigma_{gg \rightarrow ZZ} = 0.12 \times \sigma_{qq \rightarrow ZZ \mathrm{ , LO}}$. 
 
