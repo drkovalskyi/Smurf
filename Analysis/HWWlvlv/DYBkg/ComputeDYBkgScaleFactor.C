@@ -858,12 +858,11 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
       // out-yield data/MC scale factor
       //
       Double_t sfout_ee     = nout_ee_pre/nout_ee_dy[jetIndex][imass];
-      Double_t sfout_ee_err = sfout_ee*sqrt(nout_ee_err*nout_ee_err/nout_ee_pre/nout_ee_pre + varout_ee_dy[jetIndex][imass]/nout_ee_dy[jetIndex][imass]/nout_ee_dy[jetIndex][imass]);
+      Double_t sfout_ee_err = sfout_ee*sqrt(nout_ee_err*nout_ee_err/nout_ee_pre/nout_ee_pre );
       Double_t sfout_mm     = nout_mm_pre/nout_mm_dy[jetIndex][imass];
-      Double_t sfout_mm_err = sfout_mm*sqrt(nout_mm_err*nout_mm_err/nout_mm_pre/nout_mm_pre + varout_mm_dy[jetIndex][imass]/nout_mm_dy[jetIndex][imass]/nout_mm_dy[jetIndex][imass]);
+      Double_t sfout_mm_err = sfout_mm*sqrt(nout_mm_err*nout_mm_err/nout_mm_pre/nout_mm_pre );
       Double_t sfout_ll     = nout_ll_pre/(nout_ee_dy[jetIndex][imass]+nout_mm_dy[jetIndex][imass]);
-      Double_t sfout_ll_err = sfout_ll*sqrt(nout_ll_err*nout_ll_err/nout_ll_pre/nout_ll_pre 
-                                            + (varout_ee_dy[jetIndex][imass]+varout_mm_dy[jetIndex][imass])/(nout_ee_dy[jetIndex][imass]+nout_mm_dy[jetIndex][imass])/(nout_ee_dy[jetIndex][imass]+nout_mm_dy[jetIndex][imass]));
+      Double_t sfout_ll_err = sfout_ll*sqrt(nout_ll_err*nout_ll_err/nout_ll_pre/nout_ll_pre);
     
       sprintf(buffer,"%.2f +/- %.2f",sfout_ll,sfout_ll_err);
 //    sprintf(buffer,"%.2f +/- %.2f",sfout_ee,sfout_ee_err);
