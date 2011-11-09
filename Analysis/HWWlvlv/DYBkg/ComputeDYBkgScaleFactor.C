@@ -116,10 +116,6 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
   
   const Int_t nbins = 4;  
   const Float_t bins[nbins+1] = {20, 25, 30, 37, 50};  
-//   const Int_t nbins = 4;  
-//   const Float_t bins[nbins+1] = {10, 15, 20, 25, 30, 37, 50};  
-//   const Float_t LHBins[nbins+1] = {0.2487, 0.7123, 0.9301, 0.9611, 0.9939};  
-//   const Float_t LHRatioBins[nbins+1] = {-1.102, 0.91, 2.59, 3.21, 5.086};  
 
   vector<Double_t> binEdges;
   for (UInt_t k=0; k<nbins+1; ++k) binEdges.push_back(bins[k]);
@@ -269,6 +265,10 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
       if(tree.dstype_ == SmurfTree::data && tree.run_ <  minRun) continue;
       if(tree.dstype_ == SmurfTree::data && tree.run_ >  maxRun) continue;
 
+      //apply trigger requirement
+      if(tree.dstype_ == SmurfTree::data)
+        if ( (tree.cuts_ & SmurfTree::Trigger) != SmurfTree::Trigger ) continue; 
+        
       if(!((tree.cuts_ & SmurfTree::BaseLine) == SmurfTree::BaseLine)            ) continue;
       if(!((tree.cuts_ & SmurfTree::ChargeMatch) == SmurfTree::ChargeMatch)      ) continue;
       if( (tree.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
@@ -348,10 +348,10 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
 
         weight *= lumi*tree.scale1fb_*tree.sfWeightPU_*tree.sfWeightEff_*tree.sfWeightTrig_;
       } else {
+
         //tight+tight data
         if (!(((tree.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection) 
               && ((tree.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection))) continue;
-        
       }
 
 
@@ -386,8 +386,6 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
         if(finalState==kEleEle) nin_kee_data[ijet]++;
         if(finalState==kMuMu)	nin_kmm_data[ijet]++;
       }
-      
-      if(tree.jet1_.Pt()>15 && tree.dPhiDiLepJet1_>165.*TMath::Pi()/180.) continue;
       
       bool dPhiDiLepJetCut = true;
       if(tree.njets_ <= 1) 
