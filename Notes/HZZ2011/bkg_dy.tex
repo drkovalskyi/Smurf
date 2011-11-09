@@ -1,14 +1,4 @@
 
-\begin{itemize}
-\item TODO:
-\begin{itemize}
-    \item closure test has been repeated for pfmet in the inclusive jet bin.  
-We find the uncertainty of around 15\% which seems a little bit small.  
-Early this week the closure test will be repeated with the 42X MC, which should have
-higher statistics and we can push the met cut a little higher and see how things evolve.
-\end{itemize}
-\end{itemize}
-
 Since the production cross-section for Drell-Yan is several orders of magnitude 
 higher than the $H \to ZZ$ signal, the Drell-Yan background poses a significant 
 challenge. To the leading order, the Drell-Yan process does not contain \met\,  
@@ -159,10 +149,10 @@ the $\gamma$+jet generated prediction and the $Z$+jet simulation.
 
 \begin{figure}[!htbp]
 \begin{center}
-\subfigure[0-Jet]{\includegraphics[width=0.49\textwidth]{figures/results_met_41X_MC_all_0j_met.pdf}}
-\subfigure[1-Jet]{\includegraphics[width=0.49\textwidth]{figures/results_met_41X_MC_all_1j_met.pdf}}
-\subfigure[2-Jet]{\includegraphics[width=0.49\textwidth]{figures/results_met_41X_MC_all_2j_met.pdf}}
-\subfigure[Inclusive]{\includegraphics[width=0.49\textwidth]{figures/results_met_41X_MC_all_incl_met.pdf}}
+\subfigure[0-Jet]{\includegraphics[width=0.40\textwidth]{figures/results_met_41X_MC_all_0j_met.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.40\textwidth]{figures/results_met_41X_MC_all_1j_met.pdf}}
+\subfigure[2-Jet]{\includegraphics[width=0.40\textwidth]{figures/results_met_41X_MC_all_2j_met.pdf}}
+\subfigure[Inclusive]{\includegraphics[width=0.40\textwidth]{figures/results_met_41X_MC_all_incl_met.pdf}}
 \caption{Comparison of the particle flow \met\  prediction from the reweighted MC $\gamma$+jets 
 events and the simulation prediction from the $Z$+jets sample. }
 \label{fig:PhotonJetsClosureTest}
@@ -172,9 +162,9 @@ events and the simulation prediction from the $Z$+jets sample. }
 \begin{figure}[!htbp]
 \begin{center}
 %\subfigure[0-Jet]{\includegraphics[width=0.4\textwidth]{figures/results_met_41X_MC_all_0j_dphi.pdf}}
-\subfigure[1-Jet]{\includegraphics[width=0.49\textwidth]{figures/results_met_41X_MC_all_1j_dphi.pdf}}
-\subfigure[2-Jet]{\includegraphics[width=0.49\textwidth]{figures/results_met_41X_MC_all_2j_dphi.pdf}}
-\subfigure[Inclusive]{\includegraphics[width=0.49\textwidth]{figures/results_met_41X_MC_all_incl_dphi.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.40\textwidth]{figures/results_met_41X_MC_all_1j_dphi.pdf}}
+\subfigure[2-Jet]{\includegraphics[width=0.40\textwidth]{figures/results_met_41X_MC_all_2j_dphi.pdf}}
+\subfigure[Inclusive]{\includegraphics[width=0.40\textwidth]{figures/results_met_41X_MC_all_incl_dphi.pdf}}
 \caption{Comparison of the minimum $\Delta\phi$ between the \met and the closest jet with $p_{T}>30$ GeV
 in the event between the reweighted MC $\gamma$+jets sample and the 
 simulation prediction from the $Z$+jets sample.}
@@ -202,10 +192,10 @@ The predicted shape and the simulation shape are again in reasonable agreement.
 
 \begin{figure}[!htbp]
 \begin{center}
-\subfigure[0-Jet]{\includegraphics[width=0.49\textwidth]{figures/results_met_41X_MC_all_0j_mt_met50.pdf}}
-\subfigure[1-Jet]{\includegraphics[width=0.49\textwidth]{figures/results_met_41X_MC_all_1j_mt_met50.pdf}}
-\subfigure[2-Jet]{\includegraphics[width=0.49\textwidth]{figures/results_met_41X_MC_all_2j_mt_met50.pdf}}
-\subfigure[Inclusive]{\includegraphics[width=0.49\textwidth]{figures/results_met_41X_MC_all_incl_mt_met50.pdf}}
+\subfigure[0-Jet]{\includegraphics[width=0.40\textwidth]{figures/results_met_41X_MC_all_0j_mt_met50.pdf}}
+\subfigure[1-Jet]{\includegraphics[width=0.40\textwidth]{figures/results_met_41X_MC_all_1j_mt_met50.pdf}}
+\subfigure[2-Jet]{\includegraphics[width=0.40\textwidth]{figures/results_met_41X_MC_all_2j_mt_met50.pdf}}
+\subfigure[Inclusive]{\includegraphics[width=0.40\textwidth]{figures/results_met_41X_MC_all_incl_mt_met50.pdf}}
 \caption{Comparison of the transverse mass prediction from the reweighted $\gamma$+jets sample 
 and the simulation prediction from the $Z$+jets sample, where the minimum \met is required to be larger than 
 $40$ GeV.}
@@ -220,15 +210,11 @@ $40$ GeV.}
 We account for the intrinsic systematic uncertainty on the method by comparing
 the predicted and observed \met~distribution in the closure test described above.
 This is illustrated in Figure \ref{fig:PhotonJetsClosureTest}. 
-From this we conclude a systematic uncertainty of 14\% in the inslusive bin, relevant for this analysis.
+This study is currently being finalised with 42X based simulation
+and the results will be updated at the same time as the next reload 
+to the full 2011A+B dataset corresponding to $4.7$fb$^{-1}$.
+In the results presented here, we maintain a value of $25\%$.
 
-\begin{itemize}
-    \item TODO:
-    \begin{itemize}
-        \item this systematic uncertainty is itself fairly uncertain.
-As mentioned before, to be repeated in 42X MC.  For now old value of 25\% still used in cards.
-    \end{itemize}
-\end{itemize}
 
 %\begin{figure}[!htbp]
 %\begin{center}
@@ -263,7 +249,7 @@ As mentioned before, to be repeated in 42X MC.  For now old value of 25\% still 
 %Higgs Mass      &  0-jet bin             & 1-jet bin             & 2-jet bin             & Total                \\
 %\hline
 %ZZ Preselection &  $16.34\pm1.59\pm4.1$  & $17.57\pm1.59\pm3.51$      & $99.10\pm1.60\pm20.81$ & $133.0\pm2.76\pm21.50$ \\ \hline
-%250             &  $6.73\pm0.39\pm1.68$  & $4.76\pm0.38\pm0.95$       & N/A                    & $11.49\pm0.54\pm1.93$\\
+%250             &  $6.73\pm0.39\pm1.68$  & $4.76\pm0.38\pm0.95$       & N/A                    & $11.40\pm0.54\pm1.93$\\
 %300             &  $0.51\pm0.16\pm0.13$  & $0.33\pm0.15\pm0.06$       & N/A                    & $0.84\pm0.22\pm0.14$\\
 %400             &  $0.00\pm0.07\pm0.00$  & $0.87\pm0.10\pm0.17$       & N/A                    & $0.87\pm0.12\pm0.17$\\
 %\hline
