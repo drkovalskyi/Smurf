@@ -1,5 +1,6 @@
 void makeZJetsTemplates(){
 
+TFile* file110_0 = new TFile("histo_tmva_ntuples_110train_0jets_hww110_chan5.root", "read");
 TFile* file115_0 = new TFile("histo_tmva_ntuples_115train_0jets_hww115_chan5.root", "read");
 TFile* file120_0 = new TFile("histo_tmva_ntuples_120train_0jets_hww120_chan5.root", "read");
 TFile* file130_0 = new TFile("histo_tmva_ntuples_130train_0jets_hww130_chan5.root", "read");
@@ -18,6 +19,7 @@ TFile* file450_0 = new TFile("histo_tmva_ntuples_450train_0jets_hww450_chan5.roo
 TFile* file500_0 = new TFile("histo_tmva_ntuples_500train_0jets_hww500_chan5.root", "read");
 TFile* file550_0 = new TFile("histo_tmva_ntuples_550train_0jets_hww550_chan5.root", "read");
 TFile* file600_0 = new TFile("histo_tmva_ntuples_600train_0jets_hww600_chan5.root", "read");
+TFile* file110_1 = new TFile("histo_tmva_ntuples_110train_1jets_hww110_chan5.root", "read");
 TFile* file115_1 = new TFile("histo_tmva_ntuples_115train_1jets_hww115_chan5.root", "read");
 TFile* file120_1 = new TFile("histo_tmva_ntuples_120train_1jets_hww120_chan5.root", "read");
 TFile* file130_1 = new TFile("histo_tmva_ntuples_130train_1jets_hww130_chan5.root", "read");
@@ -37,6 +39,7 @@ TFile* file500_1 = new TFile("histo_tmva_ntuples_500train_1jets_hww500_chan5.roo
 TFile* file550_1 = new TFile("histo_tmva_ntuples_550train_1jets_hww550_chan5.root", "read");
 TFile* file600_1 = new TFile("histo_tmva_ntuples_600train_1jets_hww600_chan5.root", "read");
 
+file110_0->cd(); TH1D* hDZjets110_0 = histo1->Clone("hDZjets110_0");hDZjets110_0->SetDirectory(0);
 file115_0->cd(); TH1D* hDZjets115_0 = histo1->Clone("hDZjets115_0");hDZjets115_0->SetDirectory(0);
 file120_0->cd(); TH1D* hDZjets120_0 = histo1->Clone("hDZjets120_0");hDZjets120_0->SetDirectory(0);
 file130_0->cd(); TH1D* hDZjets130_0 = histo1->Clone("hDZjets130_0");hDZjets130_0->SetDirectory(0);
@@ -55,6 +58,7 @@ file450_0->cd(); TH1D* hDZjets450_0 = histo1->Clone("hDZjets450_0");hDZjets450_0
 file500_0->cd(); TH1D* hDZjets500_0 = histo1->Clone("hDZjets500_0");hDZjets500_0->SetDirectory(0);
 file550_0->cd(); TH1D* hDZjets550_0 = histo1->Clone("hDZjets550_0");hDZjets550_0->SetDirectory(0);
 file600_0->cd(); TH1D* hDZjets600_0 = histo1->Clone("hDZjets600_0");hDZjets600_0->SetDirectory(0);
+file110_1->cd(); TH1D* hDZjets110_1 = histo1->Clone("hDZjets110_1");hDZjets110_1->SetDirectory(0);
 file115_1->cd(); TH1D* hDZjets115_1 = histo1->Clone("hDZjets115_1");hDZjets115_1->SetDirectory(0);
 file120_1->cd(); TH1D* hDZjets120_1 = histo1->Clone("hDZjets120_1");hDZjets120_1->SetDirectory(0);
 file130_1->cd(); TH1D* hDZjets130_1 = histo1->Clone("hDZjets130_1");hDZjets130_1->SetDirectory(0);
@@ -74,6 +78,7 @@ file500_1->cd(); TH1D* hDZjets500_1 = histo1->Clone("hDZjets500_1");hDZjets500_1
 file550_1->cd(); TH1D* hDZjets550_1 = histo1->Clone("hDZjets550_1");hDZjets550_1->SetDirectory(0);
 file600_1->cd(); TH1D* hDZjets600_1 = histo1->Clone("hDZjets600_1");hDZjets600_1->SetDirectory(0);
 
+hDZjets110_0->Scale(1./hDZjets110_0->GetSumOfWeights());
 hDZjets115_0->Scale(1./hDZjets115_0->GetSumOfWeights());
 hDZjets120_0->Scale(1./hDZjets120_0->GetSumOfWeights());
 hDZjets130_0->Scale(1./hDZjets130_0->GetSumOfWeights());
@@ -92,6 +97,7 @@ hDZjets450_0->Scale(1./hDZjets450_0->GetSumOfWeights());
 hDZjets500_0->Scale(1./hDZjets500_0->GetSumOfWeights());
 hDZjets550_0->Scale(1./hDZjets550_0->GetSumOfWeights());
 hDZjets600_0->Scale(1./hDZjets600_0->GetSumOfWeights());
+hDZjets110_1->Scale(1./hDZjets110_1->GetSumOfWeights());
 hDZjets115_1->Scale(1./hDZjets115_1->GetSumOfWeights());
 hDZjets120_1->Scale(1./hDZjets120_1->GetSumOfWeights());
 hDZjets130_1->Scale(1./hDZjets130_1->GetSumOfWeights());
@@ -113,6 +119,7 @@ hDZjets600_1->Scale(1./hDZjets600_1->GetSumOfWeights());
 
 TFile* fileZjets = new TFile("histo_Zjets_Templates.root", "recreate");
 fileZjets->cd();
+hDZjets110_0->Write();
 hDZjets115_0->Write();
 hDZjets120_0->Write();
 hDZjets130_0->Write();
@@ -131,6 +138,7 @@ hDZjets450_0->Write();
 hDZjets500_0->Write();
 hDZjets550_0->Write();
 hDZjets600_0->Write();
+hDZjets110_1->Write();
 hDZjets115_1->Write();
 hDZjets120_1->Write();
 hDZjets130_1->Write();
