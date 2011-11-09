@@ -42,22 +42,22 @@ void ComputeTopScaleFactors
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
   if	 (period == 0){ // Run2011A
-    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Run2011A.root";
-    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-    puPath   = "/data/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Run2011A.root";
+    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
     lumi     = 2.1;minRun =      0;maxRun = 173692;
   }
   else if(period == 1){ // Run2011B
-    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Run2011B.root";
-    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-    puPath   = "/data/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Run2011B.root";
+    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
     lumi     = 1.9;minRun = 173693;maxRun = 999999;
   }
   else if(period == 2){ // Full2011
-    effPath  = "/data/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Full2011.root";
-    fakePath = "/data/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-    puPath   = "/data/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
-    lumi     = 4.0;minRun =      0;maxRun = 999999;
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
+    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
+    lumi     = 4.7;minRun =      0;maxRun = 999999;
   }
   else {
     printf("Wrong period(%d)\n",period);

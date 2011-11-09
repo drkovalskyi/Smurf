@@ -74,8 +74,8 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
     filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Run2011B";
   }
   else if(period == 2){ // Full2011
-    lumi = 4.0;minRun =      0;maxRun = 999999;
-    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Full2011";
+    lumi = 4.7;minRun =      0;maxRun = 999999;
+    filesPath  = "/data/smurf/data/Run2011_Summer11_SmurfV7_42X/mitf-alljets";
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -93,7 +93,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
    infilenamev.push_back(Form("%s/dyee.root",filesPath.Data()));
    infilenamev.push_back(Form("%s/dymm.root",filesPath.Data()));
    infilenamev.push_back(Form("%s/wz.root",filesPath.Data()));
-   infilenamev.push_back(Form("%s/zz.root",filesPath.Data()));
+   infilenamev.push_back(Form("%s/zz_py.root",filesPath.Data()));
   } else if (ZWindowSubtractionMethod == 1) {
     infilenamev.push_back(Form("%s/backgroundC.root",filesPath.Data()));
   }
