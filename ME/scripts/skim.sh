@@ -154,6 +154,7 @@ if [ "$SELECTION" == 'PassFail' ]; then
     for JETBIN in 0 1 2 ; do 
 	outputdir=$OUTPUTDIR/WW/${JETBIN}j/
 	rm -f ${outputdir}/wjets_PassFail.root
+	rm -f ${outputdir}/wgamma_lgamma_PassFail.root
 	rm  merge.C
 	touch merge.C
 	echo -e "{\tTChain s(\"tree\");" >> merge.C
@@ -172,6 +173,7 @@ if [ "$SELECTION" == 'PassFail' ]; then
 	echo "}" >> merge.C
 	echo "Merging $PROCESS"
 	root -l -q merge.C
+	rm -f ${outputdir}/*_PassFail.root
     done
 fi
 
@@ -181,6 +183,7 @@ if [ "$SELECTION" == 'PassFail' ]; then
     for JETBIN in 0 1 2 ; do 
 	outputdir=$OUTPUTDIR/WW/${JETBIN}j/
 	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"wjets.root\",\"$outputdir\",\"$SELECTION\",$JETBIN\);
+	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"wgamma_lgamma.root\",\"$outputdir\",\"$SELECTION\",$JETBIN\);
     done
 fi
  
