@@ -573,9 +573,13 @@ void ComputeWWBkgScaleFactor (
   //********************************************************
   for(UInt_t classIndex = 0; classIndex < 4; ++classIndex) {
     for(Int_t imass=0; imass<nmass; imass++) {
+      Int_t jetBin = -1;
+      if (classIndex == kCutBasedZeroJet || classIndex == kMVAZeroJet) jetBin == 0;
+      if (classIndex == kCutBasedOneJet || classIndex == kMVAOneJet) jetBin == 1;
+
       YieldUncertainty_WWControlRegion_WJets[classIndex][imass] += pow( (0.36 * Yield_WWControlRegion_WJets[classIndex][imass]) , 2);
-      YieldUncertainty_WWControlRegion_DY[classIndex][imass] += pow( (1.00 * Yield_WWControlRegion_DY[classIndex][imass]) , 2);
-      YieldUncertainty_WWControlRegion_Top[classIndex][imass] += pow( (0.20 * Yield_WWControlRegion_Top[classIndex][imass]) , 2);
+      YieldUncertainty_WWControlRegion_DY[classIndex][imass] += pow( (DYBkgScaleFactorKappa(0,jetBin)-1.0) * Yield_WWControlRegion_DY[classIndex][imass] , 2);
+      YieldUncertainty_WWControlRegion_Top[classIndex][imass] += pow( (TopBkgScaleFactorKappa(jetBin)-1.0) * Yield_WWControlRegion_Top[classIndex][imass] , 2);
       YieldUncertainty_WWControlRegion_Other[classIndex][imass] += pow( (0.20 * Yield_WWControlRegion_Other[classIndex][imass]) , 2);
     }
   }
@@ -589,6 +593,7 @@ void ComputeWWBkgScaleFactor (
       YieldUncertainty_WWControlRegion_DY[classIndex][imass] = TMath::Sqrt(YieldUncertainty_WWControlRegion_DY[classIndex][imass]);
       YieldUncertainty_WWControlRegion_Top[classIndex][imass] = TMath::Sqrt(YieldUncertainty_WWControlRegion_Top[classIndex][imass]);
       YieldUncertainty_WWControlRegion_Other[classIndex][imass] = TMath::Sqrt(YieldUncertainty_WWControlRegion_Other[classIndex][imass]);
+      YieldUncertainty_WWControlRegion_WWMC[classIndex][imass] = TMath::Sqrt(YieldUncertainty_WWControlRegion_WWMC[classIndex][imass]);
 
     }
   }
