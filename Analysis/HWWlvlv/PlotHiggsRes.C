@@ -774,6 +774,9 @@ void PlotHiggsRes
     signal->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)signal->GetEntries());
 
+    if(dstype == SmurfTree::data &&
+      (cuts & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
+
     bool passJetCut[3] = {njets == nJetsType, false, false};
     if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
     if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[2] = true;
@@ -1095,6 +1098,8 @@ void PlotHiggsRes
     background->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
 
+    if(dstype == SmurfTree::data &&
+      (cuts & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
     if(dstype == SmurfTree::data && run <  minRun) continue;
     if(dstype == SmurfTree::data && run >  maxRun) continue;
 
@@ -1277,7 +1282,7 @@ void PlotHiggsRes
 
       if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor();
 
-      if((fDecay == 0 || fDecay == 1)){     
+      if((fDecay == 0 || fDecay == 1) && wwPresel == false){     
         if(njets == 0) add=add*WWBkgScaleFactorMVA(mH,0); 
         else	       add=add*WWBkgScaleFactorMVA(mH,1); 
       }
@@ -1310,7 +1315,7 @@ void PlotHiggsRes
     }
     if(passAllCuts == true) {
       double newWeight = myWeight;
-      if((fDecay == 0 || fDecay == 1)){ // only for WW
+      if((fDecay == 0 || fDecay == 1) && wwPresel == false){ // only for WW
 	if(njets == 0) newWeight=newWeight*WWBkgScaleFactorCutBased(mH,0)/WWBkgScaleFactorMVA(mH,0);
 	else           newWeight=newWeight*WWBkgScaleFactorCutBased(mH,1)/WWBkgScaleFactorMVA(mH,1);	   
       }
@@ -1577,6 +1582,8 @@ void PlotHiggsRes
     treeSyst->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)treeSyst->GetEntries());
 
+    if(dstype == SmurfTree::data &&
+      (cuts & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
     if(dstype == SmurfTree::data && run <  minRun) continue;
     if(dstype == SmurfTree::data && run >  maxRun) continue;
 
@@ -1777,7 +1784,7 @@ void PlotHiggsRes
 
       if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor();
 
-      if((fDecay == 0 || fDecay == 1)){     
+      if((fDecay == 0 || fDecay == 1) && wwPresel == false){     
         if(njets == 0) add=add*WWBkgScaleFactorMVA(mH,0); 
         else	       add=add*WWBkgScaleFactorMVA(mH,1); 
       }
@@ -1887,6 +1894,8 @@ void PlotHiggsRes
     data->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)data->GetEntries());
 
+    if(dstype == SmurfTree::data &&
+      (cuts & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
     if(dstype == SmurfTree::data && run <  minRun) continue;
     if(dstype == SmurfTree::data && run >  maxRun) continue;
 

@@ -14,6 +14,9 @@ endif
 
 if ($NJETS == 2) then
   setenv TAG       ntuples_${MH}train_1jets;
+  if ($MH == 0) then
+    setenv TAG       ntuples_115train_1jets;
+  endif
 endif
 
 #setenv SIG_TEST data_LP_42x/${TAG}_hww${MH}.root
