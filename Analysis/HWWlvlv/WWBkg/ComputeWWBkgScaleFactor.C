@@ -612,7 +612,6 @@ void ComputeWWBkgScaleFactor (
     }
   }
 
-
   //********************************************************
   // Print Summary
   //********************************************************
@@ -621,10 +620,10 @@ void ComputeWWBkgScaleFactor (
 
       double SF = (Yield_WWControlRegion_Data[classIndex][imass] - Yield_WWControlRegion_Bkg[classIndex][imass]) / Yield_WWControlRegion_WWMC[classIndex][imass];
       double SFUncertainty = SF*TMath::Sqrt( 
-        ( Yield_WWControlRegion_Data[classIndex][imass] + pow(YieldUncertainty_WWControlRegion_Bkg[classIndex][imass],2)) / 
+           (Yield_WWControlRegion_Data[classIndex][imass] + pow(YieldUncertainty_WWControlRegion_Bkg[classIndex][imass],2)) / 
         pow(Yield_WWControlRegion_Data[classIndex][imass] - Yield_WWControlRegion_Bkg[classIndex][imass] ,2) 
         +
-        pow( YieldUncertainty_WWControlRegion_Bkg[classIndex][imass] / Yield_WWControlRegion_WWMC[classIndex][imass] , 2)
+        pow( YieldUncertainty_WWControlRegion_WWMC[classIndex][imass] / Yield_WWControlRegion_WWMC[classIndex][imass] , 2)
         );
       WWScaleFactor[classIndex][imass] = SF;
       WWScaleFactorUncertainty[classIndex][imass] = SFUncertainty;
@@ -658,7 +657,6 @@ void ComputeWWBkgScaleFactor (
            << WWScaleFactorUncertainty[classIndex][imass] << endl;
     }
   }
-  
 
   //********************************************************
   // Output WW Scale Factor
