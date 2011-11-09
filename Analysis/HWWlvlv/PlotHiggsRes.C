@@ -61,7 +61,7 @@ void PlotHiggsRes
   if(mH == 0) {wwPresel = true; mH = 115;}
 
   verboseLevel = TheVerboseLevel;
-  bool useZjetsTemplates   = false;
+  bool useZjetsTemplates   = true;
   bool useWWTemplates      = true;
   bool useStatTemplates    = true;
   bool useExpTemplates     = true;
@@ -88,7 +88,7 @@ void PlotHiggsRes
   bool makeZjetsTemplates = false;
   if(makeZjetsTemplates == true) useZjetsTemplates = false;
 
-  bool useAlternativeStatTemplates = true;
+  bool useAlternativeStatTemplates = false;
 
   if(wwDecay != 0 && wwDecay != 3 && wwDecay != 5) useZjetsTemplates = false;
 
@@ -223,12 +223,14 @@ void PlotHiggsRes
   fhDPUS4->SetDirectory(0);
   delete fPUS4File;
 
+  int newMH = mH;
+  if(newMH == 110) newMH = 115; // there is no correction for mh=110!
   TFile *fHiggsPtKFactorFile = TFile::Open("/data/smurf/data/EPS/auxiliar/ggHWW_KFactors_PowhegToHQT.root");
   TH1D *HiggsPtKFactor,*HiggsPtKFactorSyst[8];
   char kfactorHistName[100];
-  sprintf(kfactorHistName, "KFactor_PowhegToHQT_mH%d", mH);
+  sprintf(kfactorHistName, "KFactor_PowhegToHQT_mH%d", newMH);
   HiggsPtKFactor = (TH1D*)(fHiggsPtKFactorFile->Get(kfactorHistName));
-  for(int i=0; i<8; i++) HiggsPtKFactorSyst[i] = (TH1D*)(fHiggsPtKFactorFile->Get(Form("KFactor_PowhegToHQT_mH%d_QCDscaleSys%1d",mH,i+1)));
+  for(int i=0; i<8; i++) HiggsPtKFactorSyst[i] = (TH1D*)(fHiggsPtKFactorFile->Get(Form("KFactor_PowhegToHQT_mH%d_QCDscaleSys%1d",newMH,i+1)));
   if (HiggsPtKFactor) {
     HiggsPtKFactor->SetDirectory(0);
     for(int i=0; i<8; i++) HiggsPtKFactorSyst[i]->SetDirectory(0);
@@ -252,7 +254,7 @@ void PlotHiggsRes
   if(useZjetsTemplates == true) printf("***********useZjetsTemplates = true***************\n");
   else                          printf("***********useZjetsTemplates = false***************\n");
   if(useZjetsTemplates == true){
-    TFile *fZjetsTemplatesFile = TFile::Open("/data/smurf/data/EPS/auxiliar/histo_Zjets_Templates.root");
+    TFile *fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/histo_Zjets_Templates.root");
     char ZjetsHistName[100];
     sprintf(ZjetsHistName, "hDZjets%d_%d", mH,TMath::Min((int)nJetsType,1));
     hDZjetsTemplate = (TH1D*)(fZjetsTemplatesFile->Get(ZjetsHistName));
