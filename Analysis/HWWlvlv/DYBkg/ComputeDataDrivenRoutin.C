@@ -1298,7 +1298,7 @@ void ComputeDataDrivenRoutin(Int_t period = 2, Bool_t useRecoilModel = kFALSE, I
   }
   rvalueOutfile << "} };" << endl;
 
-  rvalueOutfile << "  if(mH == 0) return RoutinValuesHiggsSelection[jetBin];" << endl;
+  rvalueOutfile << "  if(mH == 0) return RoutinValuesWWPreselection[jetBin];" << endl;
   
   rvalueOutfile << "  Int_t massIndex = -1;" << endl;
   rvalueOutfile << "  for (UInt_t m=0; m < " << nmass-1 << " ; ++m) {" << endl;
