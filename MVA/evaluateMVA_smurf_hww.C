@@ -229,19 +229,19 @@ TString suffix       = "ww"
     TString fakePath = "/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
     TString puPath   = "/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
     if     (period == 0){ // Run2011A
-      effPath  = "/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Run2011A.root";
-      fakePath = "/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-      puPath   = "/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
+      effPath  = "/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Run2011A.root";
+      fakePath = "/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+      puPath   = "/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
     }
     else if(period == 1){ // Run2011B
-      effPath  = "/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Run2011B.root";
-      fakePath = "/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-      puPath   = "/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
+      effPath  = "/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Run2011B.root";
+      fakePath = "/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+      puPath   = "/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
     }
     else if(period == 2){ // Full2011
-      effPath  = "/smurf/data/Winter11/auxiliar/efficiency_results_v7_42x_Full2011.root";
-      fakePath = "/smurf/data/Winter11/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-      puPath   = "/smurf/data/Winter11/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
+      effPath  = "/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
+      fakePath = "/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+      puPath   = "/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
     }
 
     TFile *fLeptonEffFile = TFile::Open(Form("%s%s",InputPath.Data(),effPath.Data()));
