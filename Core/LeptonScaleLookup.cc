@@ -33,19 +33,10 @@ LeptonScaleLookup::LeptonScaleLookup(std::string filename)
     assert(h2_cross_m_LeadingLeg_);
     assert(h2_cross_m_TrailingLeg_);
 
-
 }
 
 LeptonScaleLookup::~LeptonScaleLookup()
 {
-  if (h2_single_e_) delete h2_single_e_;
-  if (h2_single_m_) delete h2_single_m_;
-  if (h2_double_e_LeadingLeg_) delete h2_double_e_LeadingLeg_;
-  if (h2_double_e_TrailingLeg_) delete h2_double_e_TrailingLeg_;
-  if (h2_double_m_LeadingLeg_) delete h2_double_m_LeadingLeg_;
-  if (h2_double_m_TrailingLeg_) delete h2_double_m_TrailingLeg_;
-  if (h2_selection_eff_e_) delete h2_selection_eff_e_;
-  if (h2_selection_eff_m_) delete h2_selection_eff_m_;
   file_->Close();
   delete file_;
 }
