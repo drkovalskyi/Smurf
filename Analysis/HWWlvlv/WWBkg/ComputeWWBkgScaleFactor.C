@@ -21,7 +21,7 @@
 #include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h"
 
 //------------------------------------------------------------------------------
-// optimalCuts_42x
+// WW control region macro
 //------------------------------------------------------------------------------
 // GF  == 10010, WBF == 10001, WH == 26, ZH == 24, ttH=121/122
 void ComputeWWBkgScaleFactor (
@@ -293,6 +293,10 @@ void ComputeWWBkgScaleFactor (
         }
         Bool_t passPtMaxCut = (lep1->pt() > cutPtMaxLow(mH[imass]));
         Bool_t passPtMinCut = (lep2->pt() > cutPtMinLow(mH[imass], type));
+	if (classIndex == kMVAZeroJet || classIndex == kMVAOneJet) {
+	  passPtMaxCut = kTRUE; passPtMinCut = kTRUE;
+	}
+
         Bool_t passJetBinCut = kFALSE;
         if (classIndex == kCutBasedZeroJet || classIndex == kMVAZeroJet) {
           passJetBinCut = (njets == 0);
@@ -527,6 +531,10 @@ void ComputeWWBkgScaleFactor (
         }
         Bool_t passPtMaxCut = (lep1->pt() > cutPtMaxLow(mH[imass]));
         Bool_t passPtMinCut = (lep2->pt() > cutPtMinLow(mH[imass],type));
+	if (classIndex == kMVAZeroJet || classIndex == kMVAOneJet) {
+	  passPtMaxCut = kTRUE; passPtMinCut = kTRUE;
+	}
+
         Bool_t passJetBinCut = kFALSE;
         if (classIndex == kCutBasedZeroJet || classIndex == kMVAZeroJet) {
           passJetBinCut = (njets == 0);
