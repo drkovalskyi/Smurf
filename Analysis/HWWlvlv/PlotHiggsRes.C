@@ -1269,7 +1269,7 @@ void PlotHiggsRes
     }
     else if(dstype == SmurfTree::data) myWeight = 0.0;
     else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
-      myWeight = ZttScaleFactor(nvtx,period);
+      myWeight = ZttScaleFactor(nvtx,period)*scaleFactorLum;
     }
     else if(dstype != SmurfTree::data){
       add = 1.0;
@@ -1773,7 +1773,7 @@ void PlotHiggsRes
     }
     else if(dstype == SmurfTree::data) myWeight = 0.0;
     else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
-      myWeight = ZttScaleFactor(nvtx,period);
+      myWeight = ZttScaleFactor(nvtx,period)*scaleFactorLum;
     }
     else if(dstype != SmurfTree::data){
       add = 1.0;
