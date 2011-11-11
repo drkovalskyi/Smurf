@@ -14,21 +14,60 @@ for the Higgs boson in the $\Hi\To\WW \To \Lep\Lprime\Nu\Nubar$
 channel, for Higgs boson masses in the range of $115-600~\GeVcc$ using
 full 2011 dataset.
     
-The main analysis strategy is to select events with two opposite
-charged leptons, large missing energy and little jet activity. The two
-leptons are required to be isolated electrons or muons, of moderately
-high transverse momenta ($\pt$) and with a small opening angle in the
-transverse plane. The analysis is based on the analysis peformed with
-the early 2011 data~\cite{HWW2011}. Several modifications and
-improvements have been added, both to cope with the more difficult
-conditions due to the higher instantaneous luminosity regime in 2011,
-and also to extend the sensitivity.
+%% The main analysis strategy is to select events with two opposite
+%% charged leptons, large missing energy and little jet activity. The two
+%% leptons are required to be isolated electrons or muons, of moderately
+%% high transverse momenta ($\pt$) and with a small opening angle in the
+%% transverse plane.
+The study is based on the analysis peformed with the early 2011
+data~\cite{HWW2011}. Several modifications and improvements have been
+added, both to cope with the more difficult conditions due to the
+higher instantaneous luminosity regime in 2011, and also to extend the
+sensitivity.
+
+If you are already familiar with the analysis you may want to skip the
+event selection (Sec.~\ref{sec:selection}), signal extraction
+(Sec.~\ref{sec:signal_selection}) and background estimation
+techniques (Sec.~\ref{sec:backgrounds}). Here is a list of
+important changes with respect to the summer 2011 analysis:
 \begin{itemize}
-\item Revised top background estimation procedure to take into account NLO effects of \tw\ production.
-\item New electron identification selection based on multivariate techniques.
-\item Re-optimized top tagging selection to reduce the dependence on pile-up.
-\item Re-optimized $\met$ requirement to reduce the $\dyll$ contamination.
-\item Data-driven \dytt\ background estimation.
-\item Re-optimized cut-based analysis for better sensitivy at low mass.
-\item Detail shape analysis systematic.
+\item 
+New electron identification selection based on multivariate
+techniques~\cite{MVAElId}.
+\item 
+Re-optimized top tagging selection to reduce the dependence on
+pile-up (Sec.~\ref{sec:sel_toptag}).
+\item 
+Adapted $\met$ selection requirements to changing pile-up conditions by
+introducing a threshold that depends on the number of primary vertices
+in the event (Sec.~\ref{sec:sel_met}).
+\item 
+Revised top background estimation procedure to take into account NLO
+effects of \tw\ production (Sec.~\ref{sec:bkg_top}).
+\item 
+Refined $\dyll$ background estimation procedure (Sec.~\ref{sec:bkg_dy}).
+\item 
+Data-driven \dytt\ background estimation (Sec.~\ref{sec:bkg_dytt}).
+\item 
+Re-optimized cut-based analysis for better sensitivy at low mass.
+\item Detail shape analysis systematic~\cite{MVASyst}.
 \end{itemize}
+
+Since the last update of the analysis, total amount of usable data
+increased by a factor of 3 (4.7~\ifb{}). With 4~\ifb\ of data
+available we performed a study of the detector performance under the
+new machine conditions. In this study we compared results for two
+independent datasets corresponding to Run2011A and Run2011B data
+taking periods. This also allowed us to review and refine our
+background estimation techniques. The details of the study can be
+found in Appendix~\ref{app:a_vs_b}.
+
+After a detail review of the pile conditions
+(Sec.~\ref{sec:pileupReweighting}), efficiency measurements
+(Sec.~\ref{sec:alleff}) and general description of the systematic
+uncertainties (Sec.~\ref{sec:systematics}) we show full 2011 data
+results (Sec.~\ref{sec:dataresults}). In that section we summarize all
+the background estimations and the expected background yields for all
+Higgs mass hypothesis. The data card used for the final limits are
+shown there as well. The section ends with final results on the Higgs
+search and a summary (Sec.~\ref{sec:summary}).
