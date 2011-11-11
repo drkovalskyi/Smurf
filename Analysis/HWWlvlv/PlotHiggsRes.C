@@ -70,7 +70,7 @@ void PlotHiggsRes
   bool useWJetsMCTemplates = true;
   bool useTopTemplates     = true;
   bool useggHTemplates     = true;
-  bool useWgammaTemplates  = true;
+  bool useWgammaTemplates  = false; // this is intentional
   if(nJetsType != 0 && nJetsType != 1){
     useZjetsTemplates	= false;
     useWWTemplates	= false;
@@ -476,7 +476,13 @@ void PlotHiggsRes
   int useVar = 0; // which MVA to be used
   double useCut = -999.0;
   if    (nJetsType == 0){
-    if     (mH == 115){
+    if     (mH == 110){
+      //useVar = 2;
+      //useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
+      useVar = 4;
+      useCut = 0.405-datMVA[useVar]->GetBinWidth(0)/2.0;
+    }	
+    else if(mH == 115){
       //useVar = 2;
       //useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
       useVar = 4;
@@ -586,7 +592,11 @@ void PlotHiggsRes
     }	
   }
   else if(nJetsType == 1){
-    if     (mH == 115){
+    if     (mH == 110){
+      useVar = 4;
+      useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
+    }	
+    else if(mH == 115){
       useVar = 4;
       useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
     }	
@@ -861,13 +871,15 @@ void PlotHiggsRes
     double addggHSyst[8] = {1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
     // CAREFUL HERE, no data-driven corrections, just Higgs k-factors
     // add = 1.0;
-    // add = add * enhancementFactor(mH,1);
+    bool isFermioPhobic = false;
+    if(isFermioPhobic == true) add = add * enhancementFactor(mH,2);
     if (processId == 10010) {
       float theMax = 0.00;
       addggH = HiggsPtKFactor->GetBinContent( HiggsPtKFactor->GetXaxis()->FindFixBin(TMath::Max(higgsPt, theMax)));
       // addggH = addggH * enhancementFactor(mH,0);
       for(int ns=0; ns<8; ns++) addggHSyst[ns] = HiggsPtKFactorSyst[ns]->GetBinContent( HiggsPtKFactorSyst[ns]->GetXaxis()->FindFixBin(TMath::Max(higgsPt, theMax)));
       // for(int ns=0; ns<8; ns++) addggHSyst[ns] = addggHSyst[ns] * enhancementFactor(mH,0);
+      if(isFermioPhobic == true) addggH = 0.0;
     }
 
     add = add*addggH;
@@ -1285,8 +1297,8 @@ void PlotHiggsRes
       if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor();
 
       if((fDecay == 0 || fDecay == 1) && wwPresel == false){     
-        if(njets == 0) add=add*WWBkgScaleFactorMVA(mH,0); 
-        else	       add=add*WWBkgScaleFactorMVA(mH,1); 
+        if(njets == 0) add=add*WWBkgScaleFactorMVA(TMath::Max((int)mH,115),0); 
+        else	       add=add*WWBkgScaleFactorMVA(TMath::Max((int)mH,115),1); 
       }
       // CAREFUL HERE, no data-driven corrections, just Higgs k-factors
       // add = 1.0;
@@ -1318,12 +1330,14 @@ void PlotHiggsRes
     if(passAllCuts == true) {
       double newWeight = myWeight;
       if((fDecay == 0 || fDecay == 1) && wwPresel == false){ // only for WW
-	if(njets == 0) newWeight=newWeight*WWBkgScaleFactorCutBased(mH,0)/WWBkgScaleFactorMVA(mH,0);
-	else           newWeight=newWeight*WWBkgScaleFactorCutBased(mH,1)/WWBkgScaleFactorMVA(mH,1);	   
+	if(njets == 0) newWeight=newWeight*WWBkgScaleFactorCutBased(TMath::Max((int)mH,115),0)/WWBkgScaleFactorMVA(TMath::Max((int)mH,115),0);
+	else           newWeight=newWeight*WWBkgScaleFactorCutBased(TMath::Max((int)mH,115),1)/WWBkgScaleFactorMVA(TMath::Max((int)mH,115),1);	   
       }
       if((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
-         (type   == SmurfTree::mm   || type   == SmurfTree::ee)){     
-        newWeight=newWeight*DYBkgScaleFactor(mH,TMath::Min((int)nJetsType,2))/DYBkgScaleFactor(0,TMath::Min((int)nJetsType,2));
+         (type   == SmurfTree::mm   || type   == SmurfTree::ee)){
+	if(nJetsType != 2){
+          newWeight=newWeight*DYBkgScaleFactor(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))/DYBkgScaleFactor(0,TMath::Min((int)nJetsType,2));
+	}
 	DYXS[1] += newWeight;
       }
       else if(fDecay == 4){
@@ -1787,8 +1801,8 @@ void PlotHiggsRes
       if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor();
 
       if((fDecay == 0 || fDecay == 1) && wwPresel == false){     
-        if(njets == 0) add=add*WWBkgScaleFactorMVA(mH,0); 
-        else	       add=add*WWBkgScaleFactorMVA(mH,1); 
+        if(njets == 0) add=add*WWBkgScaleFactorMVA(TMath::Max((int)mH,115),0); 
+        else	       add=add*WWBkgScaleFactorMVA(TMath::Max((int)mH,115),1); 
       }
       // CAREFUL HERE, no data-driven corrections, just Higgs k-factors
       // add = 1.0;
@@ -2083,9 +2097,9 @@ void PlotHiggsRes
   if(TMath::Abs(DYXS[2]+VVXS[2]-nBgdMVADecays[4]) > 0.01) {printf("Problem: %f %f %f\n",DYXS[2],VVXS[2],nBgdMVADecays[4]); assert(0);}
   if(nBgdAccDecays[4] > 0.0) ZXS_E[0] = sqrt(DYXS[0]*DYXS[0]*(DYBkgScaleFactorKappa( 0,TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorKappa( 0,TMath::Min((int)nJetsType,2))-1.0)+
                                              VVXS[0]*VVXS[0]*0.10*0.10)/nBgdAccDecays[4]; else ZXS_E[0] = 0;
-  if(nBgdCutDecays[4] > 0.0) ZXS_E[1] = sqrt(DYXS[1]*DYXS[1]*(DYBkgScaleFactorKappa(mH,TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorKappa(mH,TMath::Min((int)nJetsType,2))-1.0)+
+  if(nBgdCutDecays[4] > 0.0) ZXS_E[1] = sqrt(DYXS[1]*DYXS[1]*(DYBkgScaleFactorKappa(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorKappa(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))-1.0)+
                                              VVXS[1]*VVXS[1]*0.10*0.10)/nBgdCutDecays[4]; else ZXS_E[1] = 0;
-  if(nBgdMVADecays[4] > 0.0) ZXS_E[2] = sqrt(DYXS[2]*DYXS[2]*(DYBkgScaleFactorKappa(mH,TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorKappa(mH,TMath::Min((int)nJetsType,2))-1.0)+
+  if(nBgdMVADecays[4] > 0.0) ZXS_E[2] = sqrt(DYXS[2]*DYXS[2]*(DYBkgScaleFactorKappa(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorKappa(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))-1.0)+
                                              VVXS[2]*VVXS[2]*0.10*0.10)/nBgdMVADecays[4]; else ZXS_E[2] = 0;
   //----------------------------------------------------------------------------
   // Drawing part - c1
@@ -2217,7 +2231,6 @@ void PlotHiggsRes
     TH1D *histo_Zjets  = (TH1D*) bgdMVADecays[useVar][4]->Clone("histo_Zjets");
     TH1D *histo_Wjets  = (TH1D*) bgdMVADecays[useVar][5]->Clone("histo_Wjets");
     if(useWgammaTemplates == true){
-      if(histo_Wgamma->GetSumOfWeights() == 0 && bgdMVADecays[useVar][6]->GetSumOfWeights() != 0) assert(0);
       double scaleWg = histo_Wgamma->GetSumOfWeights();
       if(scaleWg > 0){
       	histo_Wgamma->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
@@ -2227,6 +2240,16 @@ void PlotHiggsRes
       	  histo_Wgamma_CMS_MVALepResBoundingUp  ->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
       	  histo_Wgamma_CMS_MVALepResBoundingDown->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
       	  histo_Wgamma_CMS_MVAMETResBoundingUp  ->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
+      	}
+      }
+      else {
+      	histo_Wgamma->Add(bgdMVADecays[useVar][6]);
+      	if(useExpTemplates == true){ // Allow for different normalization
+      	  histo_Wgamma_CMS_MVALepEffBoundingUp  ->Add(bgdMVADecays[useVar][6]);
+      	  histo_Wgamma_CMS_MVALepEffBoundingDown->Add(bgdMVADecays[useVar][6]);
+      	  histo_Wgamma_CMS_MVALepResBoundingUp  ->Add(bgdMVADecays[useVar][6]);
+      	  histo_Wgamma_CMS_MVALepResBoundingDown->Add(bgdMVADecays[useVar][6]);
+      	  histo_Wgamma_CMS_MVAMETResBoundingUp  ->Add(bgdMVADecays[useVar][6]);
       	}
       }
     }
@@ -2712,9 +2735,9 @@ void PlotHiggsRes
     if(mH >= 200) theoryUncXS_HighMH = 1.0+1.5*(mH/1000.0)*(mH/1000.0)*(mH/1000.0);
     double jeteff_E 	     = 1.02;
     double topXS_E  	     = TopBkgScaleFactorKappa(nJetsType);
-    double wwXS_E_MVA        = WWBkgScaleFactorKappaMVA     (mH,TMath::Min((int)nJetsType,1));
-    double wwXS_E_Cut        = WWBkgScaleFactorKappaCutBased(mH,TMath::Min((int)nJetsType,1));
-    double wwXS_E_jet_extrap = 0.954;
+    double wwXS_E_MVA        = WWBkgScaleFactorKappaMVA     (TMath::Max((int)mH,115),TMath::Min((int)nJetsType,1));if(mH>=200) wwXS_E_MVA = 1.15;
+    double wwXS_E_Cut        = WWBkgScaleFactorKappaCutBased(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,1));if(mH>=200) wwXS_E_Cut = 1.15;
+    double wwXS_E_jet_extrap = 1.000; if(mH>=200) wwXS_E_jet_extrap = 0.95;
     double XS_QCDscale_ggH[3];
     double UEPS  = HiggsSignalPSUESystematics(mH,nJetsType);
     XS_QCDscale_ggH[0] = HiggsSignalQCDScaleKappa("QCDscale_ggH",mH,nJetsType);
@@ -2722,12 +2745,18 @@ void PlotHiggsRes
     XS_QCDscale_ggH[2] = HiggsSignalQCDScaleKappa("QCDscale_ggH2in",mH,nJetsType);
     if     (nJetsType == 1) {
       jeteff_E  	= 1.05;
-      wwXS_E_jet_extrap = 1.206;
+      wwXS_E_jet_extrap = 1.000; if(mH>=200) wwXS_E_jet_extrap = 1.12;
     }
     else if(nJetsType == 2) {
       jeteff_E  	= 1.10;
-      wwXS_E_jet_extrap = 1.00;
+      wwXS_E_jet_extrap = 1.42;
     }
+    double lumiErr = 1.000; if(mH>=200) lumiErr = 1.045;
+
+    // Additional 6% for the uncertainty in the extrapolation
+    wwXS_E_MVA = sqrt((wwXS_E_MVA-1.0)*(wwXS_E_MVA-1.0)+0.06*0.06)+1.0;
+    wwXS_E_Cut = sqrt((wwXS_E_Cut-1.0)*(wwXS_E_Cut-1.0)+0.06*0.06)+1.0;
+
     for(int i=0; i<8; i++) if(nBgdAccDecays[i] < 0) nBgdAccDecays[i] = 0.0;
     for(int i=0; i<8; i++) if(nBgdCutDecays[i] < 0) nBgdCutDecays[i] = 0.0;
     for(int i=0; i<8; i++) if(nBgdMVADecays[i] < 0) nBgdMVADecays[i] = 0.0;
@@ -2834,7 +2863,7 @@ void PlotHiggsRes
       newcardShape << Form("process ZH WH qqH ggH qqWW ggWW VV Top Zjets Wjets Wgamma Ztt\n");
       newcardShape << Form("process -3 -2 -1 0 1 2 3 4 5 6 7 8\n");
       newcardShape << Form("rate  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f\n",yield[1],yield[2],yield[3],yield[4],yield[5],yield[6],yield[7],yield[8],yield[9],TMath::Max((double)yield[10],0.0),yield[11],yield[12]);
-      newcardShape << Form("lumi                             lnN 1.045 1.045 1.045 1.045   -     -   1.045   -     -     -   1.045 1.045\n");				 
+      newcardShape << Form("lumi                             lnN 1.045 1.045 1.045 1.045 %5.3f %5.3f 1.045   -     -     -   1.045 1.045\n",lumiErr,lumiErr);				 
       if(useExpTemplates == true){
       newcardShape << Form("CMS_MVALepEffBounding          shape   %s   %s   1.000 1.000 1.000 1.000 1.000   -     -     -   %s %s\n",theZHString,theWHString,theWgammaString,theZttString);			   
       newcardShape << Form("CMS_MVALepResBounding          shape   %s   %s   1.000 1.000 1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theWgammaString,theZttString);			   
@@ -2873,8 +2902,8 @@ void PlotHiggsRes
       newcardShape << Form("QCDscale_qqH	             lnN   -     -   1.010   -     -     -     -     -     -     -     -     -  \n");
       newcardShape << Form("QCDscale_VH 	             lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");			 
       newcardShape << Form("QCDscale_VV           	     lnN   -     -     -     -     -     -   1.040   -     -     -     -     -  \n");
-      newcardShape << Form("QCDscale_V           	     lnN   -     -     -     -     -     -     -     -     -     -   %5.3f %5.3f\n",1.30,ZttScaleFactorKappa());
-      newcardShape << Form("QCDscale_ggVV	             lnN   -     -     -     -     -   1.500   -     -     -     -     -     -  \n");
+      newcardShape << Form("QCDscale_V           	     lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",1.30);
+      newcardShape << Form("QCDscale_ggVV	             lnN   -     -     -     -     -   1.300   -     -     -     -     -     -  \n");
       newcardShape << Form("CMS_QCDscale_WW_EXTRAP           lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
       newcardShape << Form("QCDscale_ggH_ACCEPT              lnN   -     -     -   1.020   -     -     -     -     -     -     -     -  \n");
       newcardShape << Form("QCDscale_qqH_ACCEPT              lnN   -     -   1.020   -     -     -     -     -     -     -     -     -  \n");
@@ -2882,6 +2911,7 @@ void PlotHiggsRes
       newcardShape << Form("CMS_hww_%1dj_ttbar               lnN   -     -     -     -     -     -     -   %5.3f   -     -     -     -  \n",nJetsType,topXS_E); 	
       newcardShape << Form("CMS_hww%s_%1dj_Z                 lnN   -     -     -     -     -     -     -     -   %5.3f   -     -     -  \n",finalStateName,nJetsType,ZXS_E[0]+1.0);			
       newcardShape << Form("CMS_hww_%1dj_WW                  lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",nJetsType,wwXS_E_MVA,wwXS_E_MVA);				
+      newcardShape << Form("CMS_hww_Ztt           	     lnN   -     -     -     -     -     -     -     -     -     -     -   %5.3f\n",ZttScaleFactorKappa());
       if(useZjetsTemplates == true){
         newcardShape << Form("CMS_MVAZBounding_hww%s_%1dj           shape   -     -      -    -      -     -	 -     -    1.0    -	 -     -   \n",finalStateName,nJetsType);			  
       }
@@ -2958,8 +2988,8 @@ void PlotHiggsRes
     newcardCut << Form("QCDscale_qqH          	   lnN   -     -   1.010   -     -     -     -     -     -     -     -     -  \n");
     newcardCut << Form("QCDscale_VH           	   lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");		    
     newcardCut << Form("QCDscale_VV           	   lnN   -     -     -     -     -     -   1.040   -     -     -     -     -  \n");
-    newcardCut << Form("QCDscale_V           	   lnN   -     -     -     -     -     -     -     -     -     -   %5.3f %5.3f\n",1.30,ZttScaleFactorKappa());
-    newcardCut << Form("QCDscale_ggVV         	   lnN   -     -     -     -     -   1.500   -     -     -     -     -     -  \n");
+    newcardCut << Form("QCDscale_V           	   lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",1.30);
+    newcardCut << Form("QCDscale_ggVV         	   lnN   -     -     -     -     -   1.300   -     -     -     -     -     -  \n");
     newcardCut << Form("CMS_QCDscale_WW_EXTRAP     lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
     newcardCut << Form("QCDscale_ggH_ACCEPT   	   lnN   -     -     -   1.020   -     -     -     -     -     -     -     -  \n");
     newcardCut << Form("QCDscale_qqH_ACCEPT   	   lnN   -     -   1.020   -     -     -     -     -     -     -     -     -  \n");
@@ -2967,6 +2997,7 @@ void PlotHiggsRes
     newcardCut << Form("CMS_hww_%1dj_ttbar	   lnN   -     -     -     -     -     -     -   %5.3f   -     -     -     -  \n",nJetsType,topXS_E);	 
     newcardCut << Form("CMS_hww%s_%1dj_Z           lnN   -     -     -     -     -     -     -     -   %5.3f   -     -     -  \n",finalStateName,nJetsType,ZXS_E[1]+1.0);		 
     newcardCut << Form("CMS_hww_%1dj_WW            lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",nJetsType,wwXS_E_Cut,wwXS_E_Cut);		      
+    newcardCut << Form("CMS_hww_Ztt                lnN   -     -     -     -     -     -     -     -     -     -     -   %5.3f\n",ZttScaleFactorKappa());
     newcardCut << Form("CMS_hww%s_stat_%1dj_ZH	   lnN %5.3f   -     -     -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigECut[2]/TMath::Max((double)nSigCut[2],0.00001)+1.0);
     newcardCut << Form("CMS_hww%s_stat_%1dj_WH	   lnN   -   %5.3f   -     -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigECut[3]/TMath::Max((double)nSigCut[3],0.00001)+1.0);
     newcardCut << Form("CMS_hww%s_stat_%1dj_qqH	   lnN   -     -   %5.3f   -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigECut[4]/TMath::Max((double)nSigCut[4],0.00001)+1.0);
@@ -3013,8 +3044,8 @@ void PlotHiggsRes
     newcardMVA << Form("QCDscale_qqH          	   lnN   -     -   1.010   -     -     -     -     -     -     -     -     -  \n");
     newcardMVA << Form("QCDscale_VH           	   lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");		    
     newcardMVA << Form("QCDscale_VV           	   lnN   -     -     -     -     -     -   1.040   -     -     -     -     -  \n");
-    newcardMVA << Form("QCDscale_V           	   lnN   -     -     -     -     -     -   1.040   -     -     -   %5.3f %5.3f\n",1.30,ZttScaleFactorKappa());
-    newcardMVA << Form("QCDscale_ggVV         	   lnN   -     -     -     -     -   1.500   -     -     -     -     -     -  \n");
+    newcardMVA << Form("QCDscale_V           	   lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",1.30);
+    newcardMVA << Form("QCDscale_ggVV         	   lnN   -     -     -     -     -   1.300   -     -     -     -     -     -  \n");
     newcardMVA << Form("CMS_QCDscale_WW_EXTRAP     lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
     newcardMVA << Form("QCDscale_ggH_ACCEPT   	   lnN   -     -     -   1.020   -     -     -     -     -     -     -     -  \n");
     newcardMVA << Form("QCDscale_qqH_ACCEPT   	   lnN   -     -   1.020   -     -     -     -     -     -     -     -     -  \n");
@@ -3022,6 +3053,7 @@ void PlotHiggsRes
     newcardMVA << Form("CMS_hww_%1dj_ttbar	   lnN   -     -     -     -     -     -     -   %5.3f   -     -     -     -  \n",nJetsType,topXS_E);	 
     newcardMVA << Form("CMS_hww%s_%1dj_Z           lnN   -     -     -     -     -     -     -     -   %5.3f   -     -     -  \n",finalStateName,nJetsType,ZXS_E[2]+1.0);		 
     newcardMVA << Form("CMS_hww_%1dj_WW            lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",nJetsType,wwXS_E_Cut,wwXS_E_Cut);		      
+    newcardMVA << Form("CMS_hww_Ztt                lnN   -     -     -     -     -     -     -     -     -     -     -   %5.3f\n",ZttScaleFactorKappa());
     newcardMVA << Form("CMS_hww%s_stat_%1dj_ZH	   lnN %5.3f   -     -     -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigEMVA[2]/TMath::Max((double)nSigMVA[2],0.00001)+1.0);
     newcardMVA << Form("CMS_hww%s_stat_%1dj_WH	   lnN   -   %5.3f   -     -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigEMVA[3]/TMath::Max((double)nSigMVA[3],0.00001)+1.0);
     newcardMVA << Form("CMS_hww%s_stat_%1dj_qqH	   lnN   -     -   %5.3f   -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigEMVA[4]/TMath::Max((double)nSigMVA[4],0.00001)+1.0);
