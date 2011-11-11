@@ -4,13 +4,14 @@
 # usage
 #
 
-if [ ! $# -eq 5 ]; then
+if [ ! $# -eq 6 ]; then
     echo "USAGE: ./batchSubmit.sh   ME_CODE_LOCATION PROCESS   ME_NTUPLE_LOCATION   NSECTIONS   NEVT_PER_SECTION
 	ME_CODE_LOCATION   - location of ME code (e.g. /uscms/home/dlevans/CMSSW_3_11_3_ME_Smurf/src)
 	PROCESS            - name of input smurf ntuple (e.g. ww)
 	ME_NTUPLE_LOCATION - location of input smurf ntuple (e.g. /uscms/home/dlevans/smurf/data/Run2011_Spring11_SmurfV3/tas-zerojet/)
 	NSECTIONS          - number of jobs to submit
-	NEVT_PER_SECTION   - number of events per job"
+	NEVT_PER_SECTION   - number of events per job
+	Mode               - WW or ZZ"
     exit 1
 fi
 
@@ -19,6 +20,7 @@ PROCESS=$2
 ME_NTUPLE_LOCATION=$3
 NSECTIONS=$4
 NEVT_PER_SECTION=$5
+MODE=$6
 
 #
 # make a tar of the ME code
@@ -50,11 +52,11 @@ echo "
 - copycommand = cp
 
 # Sections listed
-# arguments of cafRun.sh: section number, process, input directory, number of events to run" > commands_${PROCESS}.cmd
+# arguments of cafRun.sh: section number, process, input directory, number of events to run mode" > commands_${PROCESS}.cmd
 
 for (( SECTION=1; SECTION<=$NSECTIONS; SECTION++)) 
 do
-	echo "output_\$(JID)         tardir/cafRun.sh $SECTION $PROCESS $ME_NTUPLE_LOCATION $NEVT_PER_SECTION 0" >> commands_${PROCESS}.cmd
+  echo "output_\$(JID)         tardir/cafRun.sh $SECTION $PROCESS $ME_NTUPLE_LOCATION $NEVT_PER_SECTION $MODE" >> commands_${PROCESS}.cmd
 done
 
 #
