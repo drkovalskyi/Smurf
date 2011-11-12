@@ -1,25 +1,96 @@
-We derive upper limits on the SM gluon-fusion Higgs boson production cross section 
-times the $\hww\to 2\ell2\nu$ branching ratio in the $115 < m_H < 600 \GeVcc$ mass range. 
-The results are presented in terms of the ratio of the limits to the rate predicted 
-by the SM as a function of the Higgs boson mass corresponding to an integrated 
-luminosity of $\intlumi$. Only expected limits are shown for the time being.
+\subsection{Methods for result interpretations}
+We derive upper limits on the product of the Higgs boson production
+cross section and the $\Hi \to \WW$ branching fraction,
+$\sigma_{\rm{H}} \times $BR($\Hi \to \WW)$, with respect to the SM
+expectation, i.e. $\sigma^{95\%}/\sigma^{SM}$. Two different
+statistical methods are used to report results. The first method is
+based on Bayesian inference~\cite{bayesian} and the second one, known
+as $CL_{s}$, is the modified frequentist approach~\cite{cls1,cls2}.
 
-The limits are derived with a statistical method based on Bayesian
-inference~\cite{bayesian}, using a likelihood function from the
-expected number of observed events modeled as a Poisson random
-variable whose mean value is the sum of the contributions from signal
-and background processes. We account for systematic
-uncertainties in a form of nuisance parameters with a log-normal
-pdf. Results are reported with a flat signal {\it prior}. To perform
-the computation of the limits, the software package LandS~\cite{lands}
-is used.
+The likelihood function is defined as:
+\begin{eqnarray}
+  L(\rm{data}|\mu,\theta)&=&\rm{Poisson}(\rm{data}|\mu\cdot s(\theta)+b(\theta))\cdot p(\tilde{\theta}|\theta) \nonumber\\
+ &=&\prod_i\frac{(\mu s_i+b_i)^{n_i}}{n_i!}e^{-\mu s_i-b_i}\cdot p(\tilde{\theta}|\theta)
+\label{eq:likelihood}
+\end{eqnarray}
+where $\mu$ is the signal strength modifier which is often reported in
+the upper limit results as a ratio of the cross-section upper limit
+over the standard model cross-section and $\theta$ represents a full
+set of nuisance parameters that are used to incorporate systematic
+uncertainties. 
 
-The estimation of the backgrounds follows the strategies described in 
+The first method (Bayesian) is based on interpreting the likelihood
+(Eq.~\ref{eq:likelihood}) as a probability distribution function with
+a flat prior for the signal strength and a set of pdfs for nuisance
+parameters, which are often approximated with the log-normal
+distribution. Integrating over the nuisance parameters we find the
+upper limit for the signal strength.
+
+For $CL_{s}$ method the test statistic is defined as a likelihood
+ratio:
+\begin{equation}
+\tilde{q_\mu}=-2\log\frac{L(\rm{data}|\mu,\hat\theta_\mu)}{L(\rm{data}|\hat\mu,\hat\theta)}
+\end{equation}
+where the numerator corresponds to the maximum likelihood for given
+``data'' and $\mu$ profiling over the nuisance parameters and the
+denominator corresponds to the maximum likelihood for given ``data''
+profiling over the nuisance parameters and $\mu$. This test statistic
+differs from the ones used at LEP (no profiling of systematic errors)
+and at Tevatron (the denominator likelihood uses $\mu=0$ and only
+systematic errors are profiled).
+
+The results obtained using the two methods may differ but in most cases
+they are very close. To perform the computation of the limits, the
+software packages
+\texttt{RooStats}~\cite{rootstat} and \texttt{LandS}~\cite{lands} have 
+been used.
+
+\subsection{Background estimation}
+
+The estimation of the backgrounds follows the strategies described in
 Section~\ref{sec:backgrounds}. 
-First we estimate the $\dyll$ (Table~\ref{tab:dy}), the fake-induced (Table~\ref{tab:fake_est}) 
-and the top background (Table~\ref{tab:ttbar_est}).
-With these results, we compare the yields and the most relevant variables after the $\WW$ preselection in data and MC 
-Table~\ref{tab:wwselection_all} and Figures~\ref{fig:ww_ptmax}-\ref{fig:ww_deltaphi} show that the predictions and the data are in good agreement.
+
+First we estimate the $\dyll$ (Table~\ref{tab:dy}). As it was seen
+before the simulation significantly underestimates this type of
+background. Thanks to the revised Drell-Yan estimation procedure and
+increased di-lepton mass cut ($m_{ll}>20$~\GeV{}) the data-driven
+estimation for this background is more stable. In general we see
+roughly a factor of 3 to 4 more Drell-Yan background than predicted by
+Monte-Carlo. It is important to keep in mind that \WZ\ and \ZZ\
+contributions in the Z-peak region are sizable, so the method depends
+on the Monte Carlo simulation of these processes. It is not a problem
+since the uncertainties on these di-boson contributions in the Z-peak
+region are small compared with the systematic uncertainties of the
+R-value extraction and the statistical uncertainties on the number of
+the events in Z-peak region.
+
+The fake background contribution is estimated next
+(Table~\ref{tab:fake_est}). The observed values are a factor of 2-2.5
+larger than the Monte Carlo predictions. The same sign closure test
+find 65 events in data with the expected $81\pm10$.
+
+The top background estimation is shown in
+Table~\ref{tab:ttbar_est}. The tagging efficiency looks very stable in
+Run2011A vs Run2011B. The observed scale factors are of the order of
+1.1-1.4 with fairly large uncertainties. Overall we see a bit more top
+background in Run2011B.
+
+With these results, we compare the yields after the $\WW$ preselection
+in data and MC Table~\ref{tab:wwselection_all}.  Higgs contribution
+at \WW\ selection level is negligible for not excluded Higgs mass
+hypotheses. In this case \WW\ yield is taken directly from Monte
+Carlo. For the signal extraction we estimate the \WW\ background
+contribution in data looking at events with large di-lepton mass, i.e.
+$m_{ll}>100$~\GeV{} (Table~\ref{tab:ww_est}). We find roughly 15\%
+more \WW\ events in data than in Monte Carlo. This discrepancy is
+consistent with the yields at \WW\ selection level where we see a
+small deficit of events if we do not correct \WW\ Monte Carlo
+contribution.
+
+Figures~\ref{fig:ww_ptmax}-\ref{fig:ww_deltaphi} show a few key
+distributions at \WW\ selection level. The predictions and the data
+are in good agreement, keeping in mind the 15\% underestimation
+of \WW\ contribution in these plots.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -266,8 +337,6 @@ MC is scaled to data-driven estimates.}
 \end{figure}
 
 \clearpage
-
-Then, we evaluate the $\WW$ contribution in the signal region (Table~\ref{tab:ww_est}).
 
 \begin{table}[ht!]
 \begin{center}
