@@ -1,33 +1,42 @@
 #!/bin/sh
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ data /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 4 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ qqww /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 200 300
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ ggww /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ ttbar /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 1 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ tw /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 2 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ wz /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 5 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ zz /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 5 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ wjets /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 2 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ wgamma /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 1 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ dyee /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 1 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ dymm /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 1 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ dytt /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 1 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ wjets_data /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ wjets_PassFail /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 15 250
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww115 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 40 500
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww120 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 40 500
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww130 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
-./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww140 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww150 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww160 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww170 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww180 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww190 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww200 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 60 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww250 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww300 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww350 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww400 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww450 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww500 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww550 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
-#./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww600 /uscms/home/ygao/smurf/data/SmurfV6/WW/LP2011/ 50 500
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ data /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 3 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ data-emb-tau123 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 1 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ qqww /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 104 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ ww_mcnlo /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 50 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ ww_mcnlo_up /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 50 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ ww_mcnlo_down /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 49 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ ggww /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 19 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ ttbar /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 19 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ ttbar_mg /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 1 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ tw /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 3 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ tw_ds /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 3 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ wz /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 16 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ zz_py /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 4 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ wjets /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 1 500 WW                             
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ wjets_data /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 37 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ wjets_PassFail /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 2 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ wgamma /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 1 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ wg3l /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 1 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ dyee /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 1 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ dymm /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 1 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ dytt /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 1 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ dyee_LooseMET /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 1 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ dymm_LooseMET /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 2 500 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww115 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 7 1000 WW                          
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww120 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 8 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww130 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 12 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww140 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 15 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww150 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 18 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww160 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 23 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww170 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 25 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww180 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 24 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww190 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 23 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww200 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 22 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww250 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 19 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww300 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 19 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww350 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 19 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww400 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 19 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww450 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 19 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww500 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 19 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww550 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 19 1000 WW
+./batchSubmit.sh /uscms/home/ygao/WWAnalyzsis/CMSSW_4_2_3_ME_Head/src/ hww600 /uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ 19 1000 WW
