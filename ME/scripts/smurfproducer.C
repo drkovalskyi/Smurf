@@ -170,15 +170,29 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if ((cuts_ & ww) != ww) continue;
       if (TMath::Min(pmet_,pTrackMet_) < 20.)  continue;
       if ( (type_==0||type_==3) && TMath::Min(pmet_,pTrackMet_) < 37.) continue;
-      if ( (type_==0||type_==3) && jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
+
+      bool dPhiDiLepJetCut = true;
+      if(njets_ <= 1) 
+	dPhiDiLepJetCut = jet1_->pt() <= 15. || dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || type_ == 1 || type_ == 2;
+      else           
+	dPhiDiLepJetCut = ROOT::Math::VectorUtil::DeltaPhi((*jet1_+*jet2_), *dilep_)*180.0/TMath::Pi() < 165. || type_ == 1 || type_ == 2;
+      if( dPhiDiLepJetCut == false) continue;
+      
+      if ( dilep_->Pt() < 45) continue;
     }
     
     // select the PassFail sample for the wjets studies
     else if (cutstring == "PassFail") {  
       if (TMath::Min(pmet_,pTrackMet_) < 20.)  continue;
       if ( (type_==0||type_==3) && TMath::Min(pmet_,pTrackMet_) < 37.) continue;
-      if ( (type_==0||type_==3) && jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
       if ( (cuts_ & ww_lepfo) != ww_lepfo) continue;
+
+      bool dPhiDiLepJetCut = true;
+      if(njets_ <= 1) 
+	dPhiDiLepJetCut = jet1_->pt() <= 15. || dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || type_ == 1 || type_ == 2;
+      else           
+	dPhiDiLepJetCut = ROOT::Math::VectorUtil::DeltaPhi((*jet1_+*jet2_), *dilep_)*180.0/TMath::Pi() < 165. || type_ == 1 || type_ == 2;
+      if( dPhiDiLepJetCut == false) continue;
 
       // skip events with no lepton pass the full selection
       if ( ( (cuts_ & Lep1FullSelection) != Lep1FullSelection)  &&  
@@ -197,14 +211,21 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if ( cuts_ & Lep2FullSelection ) {
 	if ( ! ( (cuts_ & Lep1LooseEleV4) || (cuts_ & Lep1LooseMuV1) || (cuts_ & Lep1LooseMuV2)  ) ) continue;
       }
+      if ( dilep_->Pt() < 45) continue;
     }
 
 
     // select the LooseMET sample for the wjets studies
     else if (cutstring == "LooseMET") {  
       if (TMath::Min(pmet_,pTrackMet_) < 20. ||TMath::Min(pmet_,pTrackMet_) > (37.+nvtx_/2.)  )  continue;
-      if ( (type_==0||type_==3) && jet1_->Pt() > 15 && dPhiDiLepJet1_ > 165.*TMath::Pi()/180.0) continue;
       if ((cuts_ & ww_nomet) != ww_nomet) continue; 
+      if ( dilep_->Pt() < 45) continue;
+      bool dPhiDiLepJetCut = true;
+      if(njets_ <= 1) 
+	dPhiDiLepJetCut = jet1_->pt() <= 15. || dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || type_ == 1 || type_ == 2;
+      else           
+	dPhiDiLepJetCut = ROOT::Math::VectorUtil::DeltaPhi((*jet1_+*jet2_), *dilep_)*180.0/TMath::Pi() < 165. || type_ == 1 || type_ == 2;
+      if( dPhiDiLepJetCut == false) continue;
     }
     
     // cuts to select the ZZ pre-selection
@@ -214,7 +235,7 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if (lep1_->Pt() < 20.) continue;
       if (lep2_->Pt() < 20.) continue;
       if ( met_ < 40 ) continue;
-      if ( dilep_->Pt() < 25.0) continue;
+      if ( dilep_->Pt() < 55.0) continue;
       if (jet1Btag_ > 2.0 && jet1_->Pt() > 30) continue;
       if (jet2Btag_ > 2.0 && jet2_->Pt() > 30) continue;
       if (jet3Btag_ > 2.0 && jet3_->Pt() > 30) continue;
@@ -227,7 +248,7 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if (lep1_->Pt() < 20.) continue;
       if (lep2_->Pt() < 20.) continue;
       if ( met_ < 60 ) continue;
-      if ( dilep_->Pt() < 25.0) continue;
+      if ( dilep_->Pt() < 55.0) continue;
       bool btag = false;
       if ( jet1Btag_ > 2.0 && jet1_->Pt() > 30) btag = true;
       if ( jet2Btag_ > 2.0 && jet2_->Pt() > 30) btag = true;
