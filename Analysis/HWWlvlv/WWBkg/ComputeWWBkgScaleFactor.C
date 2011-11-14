@@ -287,7 +287,8 @@ void ComputeWWBkgScaleFactor (
 
         Bool_t passMassCut = kFALSE;        
         if (classIndex == kMVAZeroJet || classIndex == kMVAOneJet) {
-          passMassCut = ( dilep->mass() > DileptonMassPreselectionCut(mH[imass]));
+          passMassCut = ( dilep->mass() > 100.0 && dilep->mass() > DileptonMassPreselectionCut(mH[imass]));
+ //          passMassCut = ( dilep->mass() > DileptonMassPreselectionCut(mH[imass]));
         } else {
           passMassCut = ( dilep->mass() > 100.0 );
         }
@@ -525,7 +526,8 @@ void ComputeWWBkgScaleFactor (
 
         Bool_t passMassCut = kFALSE;        
         if (classIndex == kMVAZeroJet || classIndex == kMVAOneJet) {
-          passMassCut = ( dilep->mass() > DileptonMassPreselectionCut(mH[imass]));
+          passMassCut = ( dilep->mass() > 100.0 && dilep->mass() > DileptonMassPreselectionCut(mH[imass]));
+//           passMassCut = ( dilep->mass() > DileptonMassPreselectionCut(mH[imass]));
         } else {
           passMassCut = ( dilep->mass() > 100.0 );
         }
