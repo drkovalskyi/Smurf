@@ -1,21 +1,32 @@
 
 #include "LeptonScaleLookup.h"
 
-LeptonScaleLookup::LeptonScaleLookup(std::string filename)
+LeptonScaleLookup::LeptonScaleLookup(std::string filename, int lookupType)
 {
     file_ = new TFile(filename.c_str(), "READ");
+
+    if (lookupType == -1) {
+        h2_double_e_LeadingLeg_ = (TH2F*)file_->Get("h2_results_electron_double");
+        h2_double_e_TrailingLeg_ = (TH2F*)file_->Get("h2_results_electron_double");
+        h2_double_m_LeadingLeg_ = (TH2F*)file_->Get("h2_results_muon_double");
+        h2_double_m_TrailingLeg_ = (TH2F*)file_->Get("h2_results_muon_double");
+        h2_cross_e_LeadingLeg_ = (TH2F*)file_->Get("h2_results_electron_double");
+        h2_cross_e_TrailingLeg_ = (TH2F*)file_->Get("h2_results_electron_double");
+        h2_cross_m_LeadingLeg_ = (TH2F*)file_->Get("h2_results_muon_double");
+        h2_cross_m_TrailingLeg_ = (TH2F*)file_->Get("h2_results_muon_double");
+    } else {
+        h2_double_e_LeadingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_leadingleg");
+        h2_double_e_TrailingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_trailingleg");
+        h2_double_m_LeadingLeg_ = (TH2F*)file_->Get("h2_results_muon_double_leadingleg");
+        h2_double_m_TrailingLeg_ = (TH2F*)file_->Get("h2_results_muon_double_trailingleg");
+        h2_cross_e_LeadingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_leadingleg");
+        h2_cross_e_TrailingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_trailingleg");
+        h2_cross_m_LeadingLeg_ = (TH2F*)file_->Get("h2_results_muon_double_leadingleg");
+        h2_cross_m_TrailingLeg_ = (TH2F*)file_->Get("h2_results_muon_double_trailingleg");
+    }
+
     h2_single_e_ = (TH2F*)file_->Get("h2_results_electron_single");
     h2_single_m_ = (TH2F*)file_->Get("h2_results_muon_single");
-    h2_double_e_LeadingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_leadingleg");
-    h2_double_e_TrailingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_trailingleg");
-    h2_double_m_LeadingLeg_ = (TH2F*)file_->Get("h2_results_muon_double_leadingleg");
-    h2_double_m_TrailingLeg_ = (TH2F*)file_->Get("h2_results_muon_double_trailingleg");
-
-    h2_cross_e_LeadingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_leadingleg");
-    h2_cross_e_TrailingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_trailingleg");
-    h2_cross_m_LeadingLeg_ = (TH2F*)file_->Get("h2_results_muon_double_leadingleg");
-    h2_cross_m_TrailingLeg_ = (TH2F*)file_->Get("h2_results_muon_double_trailingleg");
-
 
     h2_selection_e_ = (TH2F*)file_->Get("h2_results_electron_selection");
     h2_selection_m_ = (TH2F*)file_->Get("h2_results_muon_selection");
@@ -145,6 +156,20 @@ float LeptonScaleLookup::GetExpectedTriggerEfficiency(float eta1, float pt1, flo
 
 }
 
+float LeptonScaleLookup::GetExpectedLeptonDoubleTriggerEff(float eta, float pt, int id, bool leading)
+{
+    float eff = 0.0;
+    if (abs(id) == 11) {
+        if (leading) eff = GetEfficiency(eta, pt, h2_double_e_LeadingLeg_);
+        else         eff = GetEfficiency(eta, pt, h2_double_e_TrailingLeg_);
+    } else if (abs(id) == 13) {
+        if (leading) eff = GetEfficiency(eta, pt, h2_double_m_LeadingLeg_);
+        else         eff = GetEfficiency(eta, pt, h2_double_m_TrailingLeg_);
+    } else {
+        std::cout << "[LeptonScaleLookup::GetExpectedLeptonDoubleTriggerEff] ERROR: Invalid flavor!" << std::endl;
+    }
+    return eff;
+}
 
 float LeptonScaleLookup::GetExpectedLeptonEff(float eta, float pt, int id)
 {
@@ -158,7 +183,6 @@ float LeptonScaleLookup::GetExpectedLeptonEff(float eta, float pt, int id)
     }
     return eff;
 }
-
 
 float LeptonScaleLookup::GetExpectedLeptonSF(float eta, float pt, int id)
 {

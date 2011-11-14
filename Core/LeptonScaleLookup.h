@@ -10,7 +10,7 @@ class LeptonScaleLookup {
 
     public:
 
-        LeptonScaleLookup(std::string filename);
+        LeptonScaleLookup(std::string filename, int lookupType = 0);
         ~LeptonScaleLookup();
 
         float GetEfficiency(float eta, float pt, TH2F *hist);
@@ -20,6 +20,8 @@ class LeptonScaleLookup {
         float GetExpectedLeptonSF(float eta, float pt, int id);
         float GetExpectedLeptonSFErr(float eta, float pt, int id);
         float GetExpectedLeptonEff(float eta, float pt, int id);
+        float GetExpectedLeptonDoubleTriggerEff(float eta, float pt, int id, bool leading = true);
+
 
         void printTable(std::string name);
 
