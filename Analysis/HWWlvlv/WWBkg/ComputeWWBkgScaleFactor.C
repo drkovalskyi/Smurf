@@ -478,7 +478,7 @@ void ComputeWWBkgScaleFactor (
     }
     else if(dstype == SmurfTree::data) myWeight = 0.0;
     else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
-      myWeight = ZttScaleFactor(nvtx,period);
+      myWeight = ZttScaleFactor(nvtx,period)*scaleFactorLum;
     }
     else if(dstype != SmurfTree::data){
       //normal MC

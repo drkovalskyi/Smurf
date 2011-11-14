@@ -276,6 +276,14 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
       if(tree.dilep_.M() < 20) continue;
         
       Int_t ijet = tree.njets_;
+      if(ijet >= 2){
+        if(tree.jet3_.Pt() <= 30)					                       ijet = 2;
+        else if(tree.jet3_.Pt() > 30 && (
+    	  (tree.jet1_.Eta()-tree.jet3_.Eta() > 0 && tree.jet2_.Eta()-tree.jet3_.Eta() < 0) ||
+    	  (tree.jet2_.Eta()-tree.jet3_.Eta() > 0 && tree.jet1_.Eta()-tree.jet3_.Eta() < 0)))   ijet = 3;
+        else							                               ijet = 2;
+        if(tree.njets_ < 2 || tree.njets_ > 3)                                                 ijet = 3;
+      }
       if(ijet>2) continue;
 
       if(tree.lep1_.Pt() < 20) continue;

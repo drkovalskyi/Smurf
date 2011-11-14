@@ -275,7 +275,7 @@ void PlotHiggsRes
   double cutPtMaxLow[21]      = { 20, 20, 25, 25, 27, 30, 34, 36, 38, 40, 44, 48, 52, 55, 70, 80, 90,110,120,130,140};
   double cutPtMinLow[21]      = { 10, 10, 10, 15, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
   double cutDeltaphilHigh[21] = {115,115, 90, 90, 90, 60, 60, 70, 90,100,110,120,130,140,175,175,175,175,175,175,175};
-  double cutMTLow[21]         = { 70, 70, 75, 80, 80, 90,110,120,120,120,120,120,120,120,120,120,120,120,120,120,120};
+  double cutMTLow[21]         = { 80, 80, 80, 80, 80, 90,110,120,120,120,120,120,120,120,120,120,120,120,120,120,120};
   double cutMTHigh[21]        = {110,120,125,130,150,160,170,180,190,200,210,220,230,250,300,350,400,450,500,550,600};
   double cutDilepPt[21]       = {  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
 
@@ -789,13 +789,20 @@ void PlotHiggsRes
     if(dstype == SmurfTree::data &&
       (cuts & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
 
-    bool passJetCut[3] = {njets == nJetsType, false, false};
+    unsigned int Njet3 = njets;
+    if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
+      if(jet3->pt() <= 30)					         Njet3 = 2;
+      else if(jet3->pt() > 30 && (
+    	(jet1->eta()-jet3->eta() > 0 && jet2->eta()-jet3->eta() < 0) ||
+    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))   Njet3 = 0;
+      else							         Njet3 = 2;
+      if(njets < 2 || njets > 3)                                         Njet3 = 0;
+    }
+    bool passJetCut[3] = {Njet3 == nJetsType, false, false};
     if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
     if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[2] = true;
     if(nJetsType == 1 && jet1->pt()*1.05 > 30 && jet2->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[1] = true;
     if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[2] = true;
-    if(nJetsType == 2 && jet2->pt()*1.05 > 30 && jet3->pt()*1.05 < 30 && TMath::Abs(jet2->eta()) < 5.0 && TMath::Abs(jet3->eta()) < 5.0) passJetCut[1] = true;
-    if(nJetsType == 2 && jet2->pt()*0.95 > 30 && jet3->pt()*0.95 < 30 && TMath::Abs(jet2->eta()) < 5.0 && TMath::Abs(jet3->eta()) < 5.0) passJetCut[2] = true;
 
     double minmet = TMath::Min(pmet,pTrackMet);
     bool passMET = minmet > 20. &&
@@ -1117,13 +1124,20 @@ void PlotHiggsRes
     if(dstype == SmurfTree::data && run <  minRun) continue;
     if(dstype == SmurfTree::data && run >  maxRun) continue;
 
-    bool passJetCut[3] = {njets == nJetsType, false, false};
+    unsigned int Njet3 = njets;
+    if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
+      if(jet3->pt() <= 30)					         Njet3 = 2;
+      else if(jet3->pt() > 30 && (
+    	(jet1->eta()-jet3->eta() > 0 && jet2->eta()-jet3->eta() < 0) ||
+    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))   Njet3 = 0;
+      else							         Njet3 = 2;
+      if(njets < 2 || njets > 3)                                         Njet3 = 0;
+    }
+    bool passJetCut[3] = {Njet3 == nJetsType, false, false};
     if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
     if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[2] = true;
     if(nJetsType == 1 && jet1->pt()*1.05 > 30 && jet2->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[1] = true;
     if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[2] = true;
-    if(nJetsType == 2 && jet2->pt()*1.05 > 30 && jet3->pt()*1.05 < 30 && TMath::Abs(jet2->eta()) < 5.0 && TMath::Abs(jet3->eta()) < 5.0) passJetCut[1] = true;
-    if(nJetsType == 2 && jet2->pt()*0.95 > 30 && jet3->pt()*0.95 < 30 && TMath::Abs(jet2->eta()) < 5.0 && TMath::Abs(jet3->eta()) < 5.0) passJetCut[2] = true;
 
     double minmet = TMath::Min(pmet,pTrackMet);
     bool passMET = minmet > 20. &&
@@ -1428,7 +1442,7 @@ void PlotHiggsRes
                 								  (cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
     	addFRS=addFRS*fakeRate(lep2->pt(), lep2->eta(), fhDFRMuSyst, fhDFRElSyst, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
                 								  (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
-        histo_Wjets_CMS_MVAWBoundingUp       ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addFRS/addFR);
+        histo_Wjets_CMS_MVAWBoundingUp       ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addFRS/addFR);
       }
       if(useExpTemplates == true){
         double addLepEffUp = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1,1)*
@@ -1603,13 +1617,20 @@ void PlotHiggsRes
     if(dstype == SmurfTree::data && run <  minRun) continue;
     if(dstype == SmurfTree::data && run >  maxRun) continue;
 
-    bool passJetCut[3] = {njets == nJetsType, false, false};
+    unsigned int Njet3 = njets;
+    if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
+      if(jet3->pt() <= 30)					         Njet3 = 2;
+      else if(jet3->pt() > 30 && (
+    	(jet1->eta()-jet3->eta() > 0 && jet2->eta()-jet3->eta() < 0) ||
+    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))   Njet3 = 0;
+      else							         Njet3 = 2;
+      if(njets < 2 || njets > 3)                                         Njet3 = 0;
+    }
+    bool passJetCut[3] = {Njet3 == nJetsType, false, false};
     if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
     if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[2] = true;
     if(nJetsType == 1 && jet1->pt()*1.05 > 30 && jet2->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[1] = true;
     if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[2] = true;
-    if(nJetsType == 2 && jet2->pt()*1.05 > 30 && jet3->pt()*1.05 < 30 && TMath::Abs(jet2->eta()) < 5.0 && TMath::Abs(jet3->eta()) < 5.0) passJetCut[1] = true;
-    if(nJetsType == 2 && jet2->pt()*0.95 > 30 && jet3->pt()*0.95 < 30 && TMath::Abs(jet2->eta()) < 5.0 && TMath::Abs(jet3->eta()) < 5.0) passJetCut[2] = true;
 
     double minmet = TMath::Min(pmet,pTrackMet);
     bool passMET = minmet > 20. &&
@@ -1915,7 +1936,16 @@ void PlotHiggsRes
     if(dstype == SmurfTree::data && run <  minRun) continue;
     if(dstype == SmurfTree::data && run >  maxRun) continue;
 
-    bool passJetCut[1] = {njets == nJetsType};
+    unsigned int Njet3 = njets;
+    if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
+      if(jet3->pt() <= 30)					         Njet3 = 2;
+      else if(jet3->pt() > 30 && (
+    	(jet1->eta()-jet3->eta() > 0 && jet2->eta()-jet3->eta() < 0) ||
+    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))   Njet3 = 0;
+      else							         Njet3 = 2;
+      if(njets < 2 || njets > 3)                                         Njet3 = 0;
+    }
+    bool passJetCut[1] = {Njet3 == nJetsType};
 
     double minmet = TMath::Min(pmet,pTrackMet);
     bool passMET = minmet > 20. &&

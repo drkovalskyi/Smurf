@@ -237,7 +237,7 @@ void ComputeTopScaleFactors
       }
     }
     else if(bgdEvent.dstype_ == SmurfTree::dyttDataDriven || bgdEvent.dstype_ == SmurfTree::qcd) {
-      theWeight = ZttScaleFactor(bgdEvent.nvtx_,period);
+      theWeight = ZttScaleFactor(bgdEvent.nvtx_,period)*lumi;
     }
     else if(bgdEvent.dstype_ != SmurfTree::data){
       double add1 = nPUScaleFactor(fhDPUS4,bgdEvent.npu_);

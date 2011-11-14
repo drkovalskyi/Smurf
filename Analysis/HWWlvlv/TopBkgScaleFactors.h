@@ -1,6 +1,6 @@
 Double_t TopBkgScaleFactor(Int_t jetBin) {
   assert(jetBin >=0 && jetBin <= 2);
-  Double_t TopBkgScaleFactor[3] = { 1.39442, 1.09648, 1.19488   };
+  Double_t TopBkgScaleFactor[3] = { 1.39428, 1.09687, 1.19495   };
   return TopBkgScaleFactor[jetBin];
 }
 
