@@ -14,6 +14,9 @@ LeptonScaleLookup::LeptonScaleLookup(std::string filename, int lookupType)
         h2_cross_e_TrailingLeg_ = (TH2F*)file_->Get("h2_results_electron_double");
         h2_cross_m_LeadingLeg_ = (TH2F*)file_->Get("h2_results_muon_double");
         h2_cross_m_TrailingLeg_ = (TH2F*)file_->Get("h2_results_muon_double");
+        h2_selection_eff_e_ = (TH2F*)file_->Get("h2_results_electron_dataeff");
+        h2_selection_eff_m_ = (TH2F*)file_->Get("h2_results_muon_dataeff");
+
     } else {
         h2_double_e_LeadingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_leadingleg");
         h2_double_e_TrailingLeg_ = (TH2F*)file_->Get("h2_results_electron_double_trailingleg");
@@ -30,8 +33,6 @@ LeptonScaleLookup::LeptonScaleLookup(std::string filename, int lookupType)
 
     h2_selection_e_ = (TH2F*)file_->Get("h2_results_electron_selection");
     h2_selection_m_ = (TH2F*)file_->Get("h2_results_muon_selection");
-    h2_selection_eff_e_ = (TH2F*)file_->Get("h2_results_electron_selection");
-    h2_selection_eff_m_ = (TH2F*)file_->Get("h2_results_muon_selection");
 
     assert(h2_single_e_);
     assert(h2_single_m_);
@@ -189,9 +190,9 @@ float LeptonScaleLookup::GetExpectedLeptonSF(float eta, float pt, int id)
 
     float sf = 0.0;
     if (abs(id) == 11) {
-        sf = GetEfficiency(eta, pt, h2_selection_eff_e_);
+        sf = GetEfficiency(eta, pt, h2_selection_e_);
     } else if (abs(id) == 13) {
-        sf = GetEfficiency(eta, pt, h2_selection_eff_m_);
+        sf = GetEfficiency(eta, pt, h2_selection_m_);
     } else {
         std::cout << "[LeptonScaleLookup::GetExpectedOfflineSF] ERROR: Invalid flavor!" << std::endl;
     }
@@ -203,9 +204,9 @@ float LeptonScaleLookup::GetExpectedLeptonSFErr(float eta, float pt, int id)
 {
     float sferr = 0.0;
     if (abs(id) == 11) {
-        sferr = GetError(eta, pt, h2_selection_eff_e_);
+        sferr = GetError(eta, pt, h2_selection_e_);
     } else if (abs(id) == 13) {
-        sferr = GetError(eta, pt, h2_selection_eff_m_);
+        sferr = GetError(eta, pt, h2_selection_m_);
     } else {
         std::cout << "[LeptonScaleLookup::GetExpectedOfflineSFErr] ERROR: Invalid flavor!" << std::endl;
     }
