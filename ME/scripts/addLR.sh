@@ -14,26 +14,37 @@ fi
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
 data
+data-emb-tau123
 wgamma
+wg3l
 qqww
 ggww
+ww_mcnlo
+ww_mcnlo_up
+ww_mcnlo_down
 wjets
 wjets_data
 wjets_PassFail
 ttbar
+ttbar_mg
 tw
+tw_ds
 wz
-zz
+zz_py
 dyee
 dymm
 dytt
+dyee_LooseMET
+dymm_LooseMET
 EOF
 
 # ===========================================
 # Fill the smurfntuples with LR
 # ===========================================
 
-for MH in 115 120 130 140 150 160 170 180 190 200 250 300 350 400 450 500 550 600; do 
+#for MH in 115 120 130 140 150 160 170 180 190 200 250 300 350 400 450 500 550 600; do 
+#for MH in 115; do
+for MH in 120 130 140 150 160 170 180 190 200 250 300 350 400 450 500 550 600; do 
     rm -f log/add_lr_$MH.log;
     echo doing $MH
     # first add the LR for the higgs sample

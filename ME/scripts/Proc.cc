@@ -90,16 +90,24 @@ void Proc::initYields() {
   LorentzVector*  jet2_ = 0;
   LorentzVector*  jet3_ = 0;
   float metPhi_ = 0.;
+  unsigned int nvtx_ = 0;
+  float pmet_ = 0.;
+  float pTrackMet_ = 0.;
+  LorentzVector*  lep2_ = 0;
   
+  tree->SetBranchAddress( "nvtx",  &nvtx_);
   tree->SetBranchAddress( "type",  &type_);
   tree->SetBranchAddress( "scale1fb",  &scale1fb_);
   tree->SetBranchAddress( "dilep", &dilep_); 
   tree->SetBranchAddress( "mt",  &mt_);
   tree->SetBranchAddress( "met",  &met_);
+  tree->SetBranchAddress( "pmet",  &pmet_);
+  tree->SetBranchAddress( "pTrackMet",  &pTrackMet_);
   tree->SetBranchAddress( "jet1", &jet1_);
   tree->SetBranchAddress( "jet2", &jet2_);
   tree->SetBranchAddress( "jet3", &jet3_);
   tree->SetBranchAddress( "metPhi",  &metPhi_); 
+  tree->SetBranchAddress( "lep2", &lep2_); 
 
   // start filling the numbers...
   
@@ -121,6 +129,12 @@ void Proc::initYields() {
     if ( analysis_ == HWWANALYSIS) {
       if ( dilep_->M() > massCut_ ) passpresel = false;
       if ( mt_ < 80.) passpresel = false;
+      if ( dilep_->Pt() < 45) passpresel = false;
+      if ( type_ == 0 || type_ == 3) {
+	if ( dilep_->M() < 20) passpresel = false;
+	if (TMath::Min(pmet_,pTrackMet_) < (37.+nvtx_/2.)  ) passpresel = false;
+	if ( lep2_->Pt() < 15) passpresel = false;
+      }
     }
     
     if ( analysis_ == HZZANALYSIS) {

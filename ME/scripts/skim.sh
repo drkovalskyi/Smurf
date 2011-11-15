@@ -36,51 +36,29 @@ fi
 # loop over root files in input dir
 # and do the skim root script
 
-if [ "$SELECTION" == 'ZZ' ]; then
-rm -f list_samples.txt
-cat > list_samples.txt <<EOF
-gfhzz250.root
-gfhzz300.root
-gfhzz350.root
-gfhzz400.root
-gfhzz500.root
-gfhzz600.root
-zz.root
-wz.root
-ttbar.root
-stop.root
-ttop.root
-wtop.root
-ww2l.root
-ggww.root
-EOF
-fi
-
-zee.root
-zmm.root
-ztt.root
-data_2l.goodlumi1092ipb.root
-
-
-
-
-
-
 if [ "$SELECTION" == 'WW' ]; then
 rm -f list_samples.txt
 cat > list_samples.txt <<EOF
 data.root
-zz.root
+data-emb-tau123.root
+zz_py.root
 wz.root
 ttbar.root
 tw.root
 qqww.root
 ggww.root
 wjets.root
-wgamma.root    
+wgamma.root
+wg3l.root    
 dyee.root
 dymm.root
 dytt.root
+ww_mcnlo_down.root
+ww_mcnlo_up.root
+ww_mcnlo.root
+ttbar_mg.root
+tw_ds.root
+hww110.root
 hww115.root
 hww120.root
 hww130.root
@@ -106,13 +84,14 @@ if [ "$SELECTION" == 'PassFail' ]; then
 rm -f list_samples.txt
 cat > list_samples.txt <<EOF
 data.root
-zz.root
+zz_py.root
 wz.root
 ttbar.root
 tw.root
 qqww.root
 ggww.root
 wgamma.root
+wg3l.root
 EOF
 fi
 
@@ -140,13 +119,6 @@ for FILE in `cat list_samples.txt` ; do
 	echo doing "root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",$JETBIN\);"
 	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",$JETBIN\);
     done
-    # for ZZ do a special alljet bin category
-    if [ "$SELECTION" == 'ZZ' ]; then
-	outputdir=$OUTPUTDIR/$SELECTION/allj/
-	mkdir -p $outputdir
-	echo doing "root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",3\);"
-	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",3\);
-    fi
 done
 
 # if the selection is the PassFail merge all the files
@@ -154,7 +126,6 @@ if [ "$SELECTION" == 'PassFail' ]; then
     for JETBIN in 0 1 2 ; do 
 	outputdir=$OUTPUTDIR/WW/${JETBIN}j/
 	rm -f ${outputdir}/wjets_PassFail.root
-	rm -f ${outputdir}/wgamma_lgamma_PassFail.root
 	rm  merge.C
 	touch merge.C
 	echo -e "{\tTChain s(\"tree\");" >> merge.C
@@ -183,7 +154,6 @@ if [ "$SELECTION" == 'PassFail' ]; then
     for JETBIN in 0 1 2 ; do 
 	outputdir=$OUTPUTDIR/WW/${JETBIN}j/
 	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"wjets.root\",\"$outputdir\",\"$SELECTION\",$JETBIN\);
-	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"wgamma_lgamma.root\",\"$outputdir\",\"$SELECTION\",$JETBIN\);
     done
 fi
  
