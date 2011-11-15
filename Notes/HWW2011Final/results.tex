@@ -85,8 +85,8 @@ in data and MC Table~\ref{tab:wwselection_all}.  Higgs contribution at
 \WW\ selection level is negligible for not excluded Higgs mass
 hypotheses. For the signal extraction we estimate the \WW\ background
 contribution in data looking at events with large di-lepton mass, i.e.
-$m_{ll}>100$~\GeV{} (Table~\ref{tab:ww_est}). We find roughly
-15\%(25\%) more \WW\ events in data than in Monte Carlo for 0(1)-jet
+$m_{ll}>100$~\GeV{} (Table~\ref{tab:ww_est}). 
+We find roughly 15\%(25\%) more \WW\ events in data than in Monte Carlo for 0(1)-jet
 case. As you can see at the \WW\ selection level the observed and
 expected yields match very well. Only in 1-jet case we over-estimate a
 bit the \WW\ scale-factor, but taking into account the uncertainty on
@@ -94,6 +94,16 @@ the scale factor the results are fully
 consistent. Figures~\ref{fig:ww_ptmax}-\ref{fig:ww_deltaphi} show a
 few key distributions at \WW\ selection level.
 
+We performed a few basic cross-checks to verify the consistency of
+our backgound estimates.
+First we check that the Drell-Yan background is under control by looking at the 
+Z-peak: after applying the derived scale factor to the \dyll MC, the mass 
+shape at \WW level (removing the Z veto) is in reasonable agreement 
+with the data (Fig.~\ref{fig:ww_dilmass_nozveto}).
+Also, given that we normalize the \WW background in the
+high mass sideband and then we scale it by the $m_T$ and $\Delta\phi$ cut 
+efficiencies from MC, we verify that these variables are reasonably described
+in the control region (Table~\ref{tab:wweffside}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}
@@ -341,27 +351,6 @@ MC is scaled to data-driven estimates.}
 \clearpage
 
 
-\begin{figure}[!hbtp]
-\centering
-\subfigure[]{
-\centering
-\label{subfig:ww_dilmass_0j_nozveto}
-\includegraphics[width=.4\textwidth]{figures/dilepmass_mh0_nj0_nozveto.pdf}}
-\subfigure[]{
-\centering
-\label{subfig:ww_dilmass_1j_nozveto}
-\includegraphics[width=.4\textwidth]{figures/dilepmass_mh0_nj1_nozveto.pdf}}
-\subfigure[]{
-\centering
-\label{subfig:ww_dilmass_2j_nozveto}
-\includegraphics[width=.4\textwidth]{figures/dilepmass_mh0_nj2_nozveto.pdf}}\\
-\caption{Invariant dilepton mass distribution after WW selection wihtou applying the Z veto for \intlumi of data in the 0-jet \subref{subfig:ww_dilmass_0j_nozveto}, 
-1-jet \subref{subfig:ww_dilmass_1j_nozveto} and 2-jet \subref{subfig:ww_dilmass_2j_nozveto} bin analyses. 
-MC is scaled to data-driven estimates. In the 2-jet bin, the difference between data and MC under the Z peak is 
-covered by the unceratinty on the scale factor.}
-\label{fig:ww_dilmass_nozveto}
-\end{figure}
-
 \begin{table}[ht!]
 \begin{center}
 \begin{tabular}{c | c c c | c c c} 
@@ -384,6 +373,65 @@ mass [\GeVcc] & data estimate & MC prediction & scale factor & data estimate & M
 \label{tab:ww_est}
 \end{center}
 \end{table}
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[]{
+\centering
+\label{subfig:ww_dilmass_0j_nozveto}
+\includegraphics[width=.4\textwidth]{figures/dilepmass_mh0_nj0_nozveto.pdf}}
+\subfigure[]{
+\centering
+\label{subfig:ww_dilmass_1j_nozveto}
+\includegraphics[width=.4\textwidth]{figures/dilepmass_mh0_nj1_nozveto.pdf}}
+\subfigure[]{
+\centering
+\label{subfig:ww_dilmass_2j_nozveto}
+\includegraphics[width=.4\textwidth]{figures/dilepmass_mh0_nj2_nozveto.pdf}}\\
+\caption{Invariant dilepton mass distribution after WW selection wihtou applying the Z veto for \intlumi of data in the 0-jet \subref{subfig:ww_dilmass_0j_nozveto}, 
+1-jet \subref{subfig:ww_dilmass_1j_nozveto} and 2-jet \subref{subfig:ww_dilmass_2j_nozveto} bin analyses. 
+MC is scaled to data-driven estimates. In the 2-jet bin, the difference between data and MC under the Z peak is 
+covered by the unceratinty on the scale factor.}
+\label{fig:ww_dilmass_nozveto}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[!hbp]
+\begin{center}
+\begin{tabular}{c c c c c c}
+\hline
+\vspace{-3mm} && \\
+ Selection [\GeVcc] &  Region   &  MC Yield & MC effic. [\%] & Data Yield & Data effic. [\%] \\
+\vspace{-3mm} && \\
+\hline
+\multirow{3}{*}{$m_H$=120} & ww sideband  & 317.1 $\pm$   2.4 &  -  &  380.3 $\pm$  27.8 &  - \\
+                                  & + 70$<m_T<$120  & 138.3 $\pm$   1.6 &   43.6 $\pm$   0.4 & 168.6 $\pm$  16.4 &   44.3 $\pm$   2.5 \\
+                           & + $\Delta\phi<$115  &  37.2 $\pm$   0.8 &   26.9 $\pm$   0.5 & 60.8 $\pm$   9.4 &   36.0 $\pm$   3.7 \\
+\hline
+\multirow{3}{*}{$m_H$=130} & ww sideband  &  317.1 $\pm$   2.4 &  - & 380.3 $\pm$  27.8 &  - \\                                 
+                                   & + 75$<m_T<$125  &  156.9 $\pm$   1.7 &   49.5 $\pm$   0.4 & 180.3 $\pm$  17.6 &   47.4 $\pm$   2.6 \\
+                            & + $\Delta\phi<$90  &   17.7 $\pm$   0.6 &   11.3 $\pm$   0.3 &  16.5 $\pm$   7.3 &    9.2 $\pm$   2.1 \\
+\hline                                                                                                                                
+\multirow{3}{*}{$m_H$=140} & ww sideband  &  314.6 $\pm$   2.4 &  - & 379.5 $\pm$  27.5 &  - \\                                
+                                   & + 80$<m_T<$130  &  171.5 $\pm$   1.8 &   54.5 $\pm$   0.4 & 197.7 $\pm$  18.4 &   52.1 $\pm$   2.6 \\
+                            & + $\Delta\phi<$90  &   21.3 $\pm$   0.6 &   12.4 $\pm$   0.3 &  20.5 $\pm$   7.1 &   10.4 $\pm$   2.2 \\
+\hline                                                                                                                                
+\multirow{3}{*}{$m_H$=150} & ww sideband  &  284.9 $\pm$   2.3 &  - & 337.8 $\pm$  26.0 &  - \\                                
+                                   & + 80$<m_T<$150  &  211.5 $\pm$   2.0 &   74.2 $\pm$   0.4 & 256.0 $\pm$  20.0 &   75.8 $\pm$   2.3 \\
+                            & + $\Delta\phi<$90  &   25.1 $\pm$   0.7 &   11.9 $\pm$   0.3 &  29.4 $\pm$   6.4 &   11.5 $\pm$   2.0 \\
+\hline                                                                                                                                
+\multirow{3}{*}{$m_H$=160} & ww sideband  &  284.4 $\pm$   2.3 &  - & 338.0 $\pm$  26.0 &  - \\                                
+                                   & + 90$<m_T<$160  &  217.2 $\pm$   2.0 &   76.4 $\pm$   0.3 & 257.4 $\pm$  20.7 &   76.1 $\pm$   2.3 \\
+                            & + $\Delta\phi<$60  &   11.7 $\pm$   0.5 &    5.4 $\pm$   0.2 &  14.7 $\pm$   4.1 &    5.7 $\pm$   1.4 \\
+\hline
+\end{tabular}
+\caption{Comaparison of $m_T$ and $\Delta\phi$ (N-1) cut efficiencies in the WW control region in Data and in Monte Carlo for various Higgs mass analyses in the 0-jet bin.
+Data yields are quoted after data-driven subtraction of non-WW backgrounds.
+Uncertainties on the efficiency are binomial and do not account for systematic unceratinties on backgrounds in data.}
+\label{tab:wweffside}
+\end{center}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \clearpage
 \subsection{Final Results for the Higgs Search with \intlumi{}}
@@ -551,4 +599,3 @@ Figure~\ref{fig:uls}.
 \end{center}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
