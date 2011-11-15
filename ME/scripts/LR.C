@@ -64,14 +64,22 @@ void LR(int mH, TString fileName, TString inputSmurfFDir, TString meFDir, int ne
   unsigned int event_ = 0; 
   LorentzVector*  dilep_ = 0;
   float mt_ = 0.;
-  
+  float pmet_ = 0.;
+  float pTrackMet_ = 0.;
+  unsigned int nvtx_ = 0;
+  LorentzVector*  lep2_ = 0;
+
   ch->SetBranchAddress( "run",   &run_);
   ch->SetBranchAddress( "event", &event_);
   ch->SetBranchAddress( "type",  &type_);
   ch->SetBranchAddress("dXsec",  &dXsec_);
   ch->SetBranchAddress( "dilep", &dilep_); 
+  ch->SetBranchAddress( "lep2", &lep2_); 
   ch->SetBranchAddress( "mt",  &mt_);
-  
+  ch->SetBranchAddress( "pmet"          , &pmet_     );     
+  ch->SetBranchAddress( "pTrackMet"     , &pTrackMet_     );   
+  ch->SetBranchAddress( "nvtx"          , &nvtx_      );   
+
   //==========================================
   // Loop All Events
   //==========================================
@@ -110,8 +118,10 @@ if (verbosity >= TVar::DEBUG) {
       cout << "\n ** START LR Construction, run = " << run_ << "; event = " << event_ << " for Signal " << TVar::SmurfProcessName(k) << "\n"; 
     
     // calculate the LR only for the events that pass the pre-selection
-    if ( dilep_->mass() > massCut || mt_ < 80.)  
-      LR[k] = -1.;
+    if ( dilep_->mass() > massCut || mt_ < 80. || dilep_->Pt() < 45. 
+	 || ( (type_ == 0 || type_ == 3) && (dilep_->mass() < 20 || lep2_->Pt() < 15 || TMath::Min(pmet_,pTrackMet_) < (37.+nvtx_/2.) ) )
+	 )
+      LR[k] = 0.;
     else {
       // get the signal event probability
       double numer = dXsec_[k] / (higgs->GetMCFMXsec() * higgs->GetAcceptance(type_)); 
@@ -130,16 +140,22 @@ if (verbosity >= TVar::DEBUG) {
 	cout<<" PWW = "<<  dXsec_[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(type_)) * ww->GetYield(type_)/yield_bg;
       
       // add Wjet background combining W+jet and W-jet assume the same acceptance for Wpj and Wmj 
-      if ( mH < 150) {
-	denom +=  15*(dXsec_[TVar::Wp_1jet ] + dXsec_[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg;
+
+      if ( wpj->GetAcceptance(type_) > 0) {
+	if ( mH < 150) {
+	  denom +=  15*(dXsec_[TVar::Wp_1jet ] + dXsec_[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg;
+	}
+	else
+	  denom +=  (dXsec_[TVar::Wp_1jet ] + dXsec_[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg;
+	if (verbosity >= TVar::DEBUG) {
+	  cout<<" PWj = " << (dXsec_[TVar::Wp_1jet ] + dXsec_[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg << "\n";
+	}
       }
-      else
-	denom +=  (dXsec_[TVar::Wp_1jet ] + dXsec_[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg;
-      if (verbosity >= TVar::DEBUG)
-	cout<<" PWj = " << (dXsec_[TVar::Wp_1jet ] + dXsec_[TVar::Wm_1jet]) /( ( wpj->GetMCFMXsec() + wmj->GetMCFMXsec()) * wpj->GetAcceptance(type_)) * wpj->GetYield(type_)/yield_bg << "\n";
       
       if(denom!=0)
 	LR[k]=numer/denom;
+      else 
+	LR[k] = 0.0;
     }
     
     if (verbosity >= TVar::DEBUG) 
