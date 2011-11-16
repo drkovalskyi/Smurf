@@ -87,6 +87,7 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
   TString outputFileName = outputDir + fileName;
   if (cutstring == "PassFail")   outputFileName.ReplaceAll(".root","_PassFail.root");
   if (cutstring == "LooseMET")   outputFileName.ReplaceAll(".root","_LooseMET.root");
+  if (cutstring == "ZZBTAG")   outputFileName.ReplaceAll(".root","_BTAG.root");
   
   TFile *newfile= new TFile(outputFileName,"recreate");
   TTree* evt_tree=(TTree*) ch->CloneTree(0, "fast");
