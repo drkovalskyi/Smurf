@@ -119,7 +119,7 @@ if (verbosity >= TVar::DEBUG) {
     
     // calculate the LR only for the events that pass the pre-selection
     if ( dilep_->mass() > massCut || mt_ < 80. || dilep_->Pt() < 45. 
-	 || ( (type_ == 0 || type_ == 3) && (dilep_->mass() < 20 || lep2_->Pt() < 15 || TMath::Min(pmet_,pTrackMet_) < (37.+nvtx_/2.) ) )
+	 || ( (type_ == 0 || type_ == 3) && (dilep_->mass() < 20 || lep2_->Pt() < 15 ) ) 
 	 )
       LR[k] = 0.;
     else {
