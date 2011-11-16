@@ -1,27 +1,7 @@
 #!/bin/bash
-./merge.sh ./ data data/
-./merge.sh ./ ggww data/
-./merge.sh ./ qqww data/
-./merge.sh ./ ttbar data/
-./merge.sh ./ tw data/
-./merge.sh ./ dyee data/
-./merge.sh ./ dymm data/
-./merge.sh ./ dytt data/
-./merge.sh ./ wz data/
-./merge.sh ./ zz data/
-./merge.sh ./ wjets data/
-./merge.sh ./ wjets_data data/
-./merge.sh ./ wjets_PassFail data/
-./merge.sh ./ wgamma data/
-./merge.sh ./ hww115 data/
-./merge.sh ./ hww120 data/
-./merge.sh ./ hww130 data/
-./merge.sh ./ hww140 data/
-./merge.sh ./ hww150 data/
-./merge.sh ./ hww160 data/
-./merge.sh ./ hww170 data/
-./merge.sh ./ hww180 data/
-./merge.sh ./ hww190 data/
-./merge.sh ./ hww200 data/
-./merge.sh ./ hww250 data/
-./merge.sh ./ hww300 data/
+
+export OUTPUTDIR=/uscms_data/d2/ygao/Run2011_Summer11_SmurfV7_42X/mitf-alljets/WW/0j/ME/
+for PROC in data data-emb-tau123 hww115 hww120 hww130 hww140 hww150 hww160 hww170 hww180 hww190 hww200 hww250 hww300 hww350 hww400 hww450 hww500 hww500 hww550 hww600 qqww ggww wjets wjets_data wjets_PassFail ttbar tw dyee dymm dytt wgamma wz zz_py ttbar_mg tw_ds wg3l dyee_LooseMET dymm_LooseMET ww_mcnlo ww_mcnlo_up ww_mcnlo_down; do
+    echo "Merging " $PROC
+    ./merge.sh ./ $PROC $OUTPUTDIR
+done
