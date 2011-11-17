@@ -107,25 +107,39 @@ void ComputeTopScaleFactors
   //*******************************************************************************
   //Yields and Histograms
   //*******************************************************************************
-  vector<vector<double> >  btag_lowpt_1j_den;
+  vector<vector<double> > btag_central_2j_den,btag_central_2j_num,btag_central_2j_den_error,btag_central_2j_num_error;
+  vector<vector<double> > btag_vbf_2j_den,btag_vbf_2j_num,btag_vbf_2j_den_error,btag_vbf_2j_num_error;
+  vector<vector<double> > btag_lowpt_1j_den;
   vector<vector<double> > btag_lowpt_1j_num;
   vector<vector<double> > btag_lowpt_0j_den;
   vector<vector<double> > btag_lowpt_0j_num;
-  vector<vector<double> >  btag_highestpt_2j_den,btag_highestpt_2j_num,btag_highestpt_1j_den,btag_highestpt_1j_num;
-  vector<vector<double> >  btag_lowpt_1j_den_error,btag_lowpt_1j_num_error,btag_lowpt_0j_den_error,btag_lowpt_0j_num_error;
-  vector<vector<double> >  btag_highestpt_2j_den_error,btag_highestpt_2j_num_error,btag_highestpt_1j_den_error,btag_highestpt_1j_num_error;
+  vector<vector<double> > btag_highestpt_2j_den,btag_highestpt_2j_num,btag_highestpt_1j_den,btag_highestpt_1j_num;
+  vector<vector<double> > btag_lowpt_1j_den_error,btag_lowpt_1j_num_error,btag_lowpt_0j_den_error,btag_lowpt_0j_num_error;
+  vector<vector<double> > btag_highestpt_2j_den_error,btag_highestpt_2j_num_error,btag_highestpt_1j_den_error,btag_highestpt_1j_num_error;
 
   for(int i=0; i<4; i++){
+    vector<double> tmpbtag_central_2j_den,tmpbtag_central_2j_num,tmpbtag_central_2j_den_error,tmpbtag_central_2j_num_error;
+    vector<double> tmpbtag_vbf_2j_den,tmpbtag_vbf_2j_num,tmpbtag_vbf_2j_den_error,tmpbtag_vbf_2j_num_error;
     vector<double> tmpbtag_lowpt_1j_den,tmpbtag_lowpt_1j_num,tmpbtag_lowpt_0j_den,tmpbtag_lowpt_0j_num;
     vector<double> tmpbtag_highestpt_2j_den,tmpbtag_highestpt_2j_num,tmpbtag_highestpt_1j_den,tmpbtag_highestpt_1j_num;
     vector<double> tmpbtag_lowpt_1j_den_error,tmpbtag_lowpt_1j_num_error,tmpbtag_lowpt_0j_den_error,tmpbtag_lowpt_0j_num_error;
     vector<double> tmpbtag_highestpt_2j_den_error,tmpbtag_highestpt_2j_num_error,tmpbtag_highestpt_1j_den_error,tmpbtag_highestpt_1j_num_error;
     for(int j=0; j<5; j++){
+      tmpbtag_central_2j_den.push_back(0),tmpbtag_central_2j_num.push_back(0),tmpbtag_central_2j_den_error.push_back(0),tmpbtag_central_2j_num_error.push_back(0);
+      tmpbtag_vbf_2j_den.push_back(0),tmpbtag_vbf_2j_num.push_back(0),tmpbtag_vbf_2j_den_error.push_back(0),tmpbtag_vbf_2j_num_error.push_back(0);
       tmpbtag_lowpt_1j_den.push_back(0),tmpbtag_lowpt_1j_num.push_back(0),tmpbtag_lowpt_0j_den.push_back(0),tmpbtag_lowpt_0j_num.push_back(0);
       tmpbtag_highestpt_2j_den.push_back(0),tmpbtag_highestpt_2j_num.push_back(0),tmpbtag_highestpt_1j_den.push_back(0),tmpbtag_highestpt_1j_num.push_back(0);
       tmpbtag_lowpt_1j_den_error.push_back(0),tmpbtag_lowpt_1j_num_error.push_back(0),tmpbtag_lowpt_0j_den_error.push_back(0),tmpbtag_lowpt_0j_num_error.push_back(0);
       tmpbtag_highestpt_2j_den_error.push_back(0),tmpbtag_highestpt_2j_num_error.push_back(0),tmpbtag_highestpt_1j_den_error.push_back(0),tmpbtag_highestpt_1j_num_error.push_back(0);
     }
+    btag_central_2j_den.push_back(tmpbtag_central_2j_den),
+      btag_central_2j_num.push_back(tmpbtag_central_2j_num);
+    btag_central_2j_den_error.push_back(tmpbtag_central_2j_den_error),
+      btag_central_2j_num_error.push_back(tmpbtag_central_2j_num_error);
+    btag_vbf_2j_den.push_back(tmpbtag_vbf_2j_den),
+      btag_vbf_2j_num.push_back(tmpbtag_vbf_2j_num);
+    btag_vbf_2j_den_error.push_back(tmpbtag_vbf_2j_den_error),
+      btag_vbf_2j_num_error.push_back(tmpbtag_vbf_2j_num_error);
 
     btag_lowpt_1j_den.push_back(tmpbtag_lowpt_1j_den),
       btag_lowpt_1j_num.push_back(tmpbtag_lowpt_1j_num),
@@ -338,6 +352,38 @@ void ComputeTopScaleFactors
         }
       }
 
+      Double_t etaMin = TMath::Abs(bgdEvent.jet1_.Eta()); Double_t bTagMax[2] = {bgdEvent.jet1Btag_, bgdEvent.jet2Btag_};
+      if(etaMin > TMath::Abs(bgdEvent.jet2_.Eta())) {
+        etaMin = TMath::Abs(bgdEvent.jet2_.Eta());
+	bTagMax[0] = bgdEvent.jet2Btag_; bTagMax[1] = bgdEvent.jet1Btag_;
+      }
+      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 2.1 && bgdEvent.njets_ == 2){
+        int nEta = TMath::Min(etaMin,2.499)/2.5*5;
+        btag_central_2j_den[classType][nEta] 	     += theWeight;
+        btag_central_2j_den_error[classType][nEta]   += theWeight*theWeight;
+        if(bTagMax[0] >= 2.1){
+          btag_central_2j_num[classType][nEta]	     += theWeight;
+          btag_central_2j_num_error[classType][nEta] += theWeight*theWeight;
+        }
+      }
+
+      int centrality = 0;
+      if(((bgdEvent.jet1_.Eta()-bgdEvent.lep1_.Eta() > 0 && bgdEvent.jet2_.Eta()-bgdEvent.lep1_.Eta() < 0) ||
+          (bgdEvent.jet2_.Eta()-bgdEvent.lep1_.Eta() > 0 && bgdEvent.jet1_.Eta()-bgdEvent.lep1_.Eta() < 0)) &&
+         ((bgdEvent.jet1_.Eta()-bgdEvent.lep2_.Eta() > 0 && bgdEvent.jet2_.Eta()-bgdEvent.lep2_.Eta() < 0) ||
+          (bgdEvent.jet2_.Eta()-bgdEvent.lep2_.Eta() > 0 && bgdEvent.jet1_.Eta()-bgdEvent.lep2_.Eta() < 0))) centrality = 1; 
+      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 2.1 && bgdEvent.njets_ == 2 && 
+         (bgdEvent.jet1_+bgdEvent.jet2_).M() > 450. && TMath::Abs(bgdEvent.jet1_.Eta()-bgdEvent.jet2_.Eta()) > 3.5 && centrality == 1){
+        int nEta = TMath::Min(etaMin,2.499)/2.5*5;
+        if(bTagMax[0] >= 2.1){
+          btag_vbf_2j_num[classType][nEta]	 += theWeight;
+          btag_vbf_2j_num_error[classType][nEta] += theWeight*theWeight;
+        } else {
+          btag_vbf_2j_den[classType][nEta] 	 += theWeight;
+          btag_vbf_2j_den_error[classType][nEta] += theWeight*theWeight;
+	}
+      }
+
     }
   } // end background loop
 
@@ -363,11 +409,6 @@ void ComputeTopScaleFactors
       (dataEvent.jet1_.Eta()-dataEvent.jet3_.Eta() > 0 && dataEvent.jet2_.Eta()-dataEvent.jet3_.Eta() < 0) ||
       (dataEvent.jet2_.Eta()-dataEvent.jet3_.Eta() > 0 && dataEvent.jet1_.Eta()-dataEvent.jet3_.Eta() < 0))) Njet3 = 2;
     else												     Njet3 = 1;
-    int centrality = 0;
-    if(((dataEvent.jet1_.Eta()-dataEvent.lep1_.Eta() > 0 && dataEvent.jet2_.Eta()-dataEvent.lep1_.Eta() < 0) ||
-        (dataEvent.jet2_.Eta()-dataEvent.lep1_.Eta() > 0 && dataEvent.jet1_.Eta()-dataEvent.lep1_.Eta() < 0)) &&
-       ((dataEvent.jet1_.Eta()-dataEvent.lep2_.Eta() > 0 && dataEvent.jet2_.Eta()-dataEvent.lep2_.Eta() < 0) ||
-        (dataEvent.jet2_.Eta()-dataEvent.lep2_.Eta() > 0 && dataEvent.jet1_.Eta()-dataEvent.lep2_.Eta() < 0))) centrality = 1; 
 
     double minmet = TMath::Min(dataEvent.pmet_,dataEvent.pTrackMet_);
     bool passMET = minmet > 20. &&
@@ -411,6 +452,7 @@ void ComputeTopScaleFactors
           btag_lowpt_1j_num_error[classType][dataEvent.type_] += theWeight*theWeight;
         }
       }
+
       if(dataEvent.njets_ == 0){
         btag_lowpt_0j_den[classType][4]		  += theWeight;
         btag_lowpt_0j_den[classType][dataEvent.type_] += theWeight;
@@ -423,6 +465,7 @@ void ComputeTopScaleFactors
           btag_lowpt_0j_num_error[classType][dataEvent.type_] += theWeight*theWeight;
         }
       }
+
       if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && dataEvent.jet2Btag_ >= 2.1 && dataEvent.njets_ == 2){
         btag_highestpt_2j_den[classType][4] 	      += theWeight;
         btag_highestpt_2j_den[classType][dataEvent.type_] += theWeight;
@@ -435,6 +478,7 @@ void ComputeTopScaleFactors
           btag_highestpt_2j_num_error[classType][dataEvent.type_] += theWeight*theWeight;
         }
       }
+
       if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && dataEvent.njets_ == 1){
         btag_highestpt_1j_den[classType][4] 	      += theWeight;
         btag_highestpt_1j_den[classType][dataEvent.type_] += theWeight;
@@ -447,6 +491,39 @@ void ComputeTopScaleFactors
           btag_highestpt_1j_num_error[classType][dataEvent.type_] += theWeight*theWeight;
         }
       }
+
+      Double_t etaMin = TMath::Abs(dataEvent.jet1_.Eta()); Double_t bTagMax[2] = {dataEvent.jet1Btag_, dataEvent.jet2Btag_};
+      if(etaMin > TMath::Abs(dataEvent.jet2_.Eta())) {
+        etaMin = TMath::Abs(dataEvent.jet2_.Eta());
+	bTagMax[0] = dataEvent.jet2Btag_; bTagMax[1] = dataEvent.jet1Btag_;
+      }
+      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 2.1 && dataEvent.njets_ == 2){
+        int nEta = TMath::Min(etaMin,2.499)/2.5*5;
+        btag_central_2j_den[classType][nEta] 	     += theWeight;
+        btag_central_2j_den_error[classType][nEta]   += theWeight*theWeight;
+        if(bTagMax[0] >= 2.1){
+          btag_central_2j_num[classType][nEta]	     += theWeight;
+          btag_central_2j_num_error[classType][nEta] += theWeight*theWeight;
+        }
+      }
+
+      int centrality = 0;
+      if(((dataEvent.jet1_.Eta()-dataEvent.lep1_.Eta() > 0 && dataEvent.jet2_.Eta()-dataEvent.lep1_.Eta() < 0) ||
+          (dataEvent.jet2_.Eta()-dataEvent.lep1_.Eta() > 0 && dataEvent.jet1_.Eta()-dataEvent.lep1_.Eta() < 0)) &&
+         ((dataEvent.jet1_.Eta()-dataEvent.lep2_.Eta() > 0 && dataEvent.jet2_.Eta()-dataEvent.lep2_.Eta() < 0) ||
+          (dataEvent.jet2_.Eta()-dataEvent.lep2_.Eta() > 0 && dataEvent.jet1_.Eta()-dataEvent.lep2_.Eta() < 0))) centrality = 1; 
+      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 2.1 && dataEvent.njets_ == 2 && 
+         (dataEvent.jet1_+dataEvent.jet2_).M() > 450. && TMath::Abs(dataEvent.jet1_.Eta()-dataEvent.jet2_.Eta()) > 3.5 && centrality == 1){
+        int nEta = TMath::Min(etaMin,2.499)/2.5*5;
+        if(bTagMax[0] >= 2.1){
+          btag_vbf_2j_num[classType][nEta]	 += theWeight;
+          btag_vbf_2j_num_error[classType][nEta] += theWeight*theWeight;
+        } else {
+          btag_vbf_2j_den[classType][nEta] 	 += theWeight;
+          btag_vbf_2j_den_error[classType][nEta] += theWeight*theWeight;
+	}
+      }
+
     }
 
   } // End loop data
@@ -458,6 +535,69 @@ void ComputeTopScaleFactors
 
   double btagSF = 1.0;
 
+  //*******************************************************************************
+  //2-Jet Bin : BTag Efficiency for central jet
+  //*******************************************************************************
+  printf("**********eff central jet 2-j**********\n");
+  double effttMC_btag_central_2j[5],effttMC_btag_central_2j_error[5],effttMC_btag_central_tt_2j[5],effttMC_btag_central_tt_2j_error[5];
+  double effttDA_btag_central_2j[5],effttDA_btag_central_2j_error[5],effttMC_btag_central_tw_2j[5],effttMC_btag_central_tw_2j_error[5];
+  double TopBkgScaleFactor_2Jet_central,TopBkgScaleFactorUncertainty_2Jet_central;
+  for(int i=0; i<5; i++) {
+
+    //MC efficiencies
+    effttMC_btag_central_tt_2j[i] = (btag_central_2j_num[1][i])/(btag_central_2j_den[1][i]);
+    effttMC_btag_central_tw_2j[i] = (btag_central_2j_num[2][i])/(btag_central_2j_den[2][i]);
+    effttMC_btag_central_2j[i]    = (btag_central_2j_num[1][i] + btag_central_2j_num[2][i]) / (btag_central_2j_den[1][i] + btag_central_2j_den[2][i]);
+    
+    effttMC_btag_central_tt_2j_error[i] = sqrt((1.0-effttMC_btag_central_tt_2j[i])*effttMC_btag_central_tt_2j[i]/(btag_central_2j_den[1][i])*
+                                                 (btag_central_2j_den_error[1][i])/(btag_central_2j_den[1][i]));    
+    effttMC_btag_central_tw_2j_error[i] = sqrt((1.0-effttMC_btag_central_tw_2j[i])*effttMC_btag_central_tw_2j[i]/(btag_central_2j_den[2][i])*
+                                                 (btag_central_2j_den_error[2][i])/(btag_central_2j_den[2][i]));
+    effttMC_btag_central_2j_error[i]    = sqrt((1.0-effttMC_btag_central_2j[i])*effttMC_btag_central_2j[i]/(btag_central_2j_den[1][i]+btag_central_2j_den[2][i])*
+                                                 (btag_central_2j_den_error[1][i]+btag_central_2j_den_error[2][i])/(btag_central_2j_den[1][i]+btag_central_2j_den[2][i]));
+
+    //Data efficiencies
+    effttDA_btag_central_2j[i] = (btag_central_2j_num[3][i]-btag_central_2j_num[0][i]-btag_central_2j_num[2][i])/
+                                 (btag_central_2j_den[3][i]-btag_central_2j_den[0][i]-btag_central_2j_den[2][i]);    
+    effttDA_btag_central_2j_error[i] = sqrt((1-effttDA_btag_central_2j[i])*effttDA_btag_central_2j[i]/btag_central_2j_den[3][i]);
+
+  }
+  printf("channel                      eff_data              eff_tt            ScaleFactor\n");
+  for(int i=0; i<5; i++) {
+    TopBkgScaleFactor_2Jet_central = effttDA_btag_central_2j[i]/effttMC_btag_central_tt_2j[i];
+    TopBkgScaleFactorUncertainty_2Jet_central = effttDA_btag_central_2j_error[i]/effttMC_btag_central_tt_2j[i];
+    printf("scaleFactor_central(%d) --> %6.3f +/- %6.3f | %6.3f +/- %6.3f | %6.3f +/- %6.3f\n",i,
+                           effttDA_btag_central_2j[i],effttDA_btag_central_2j_error[i],effttMC_btag_central_tt_2j[i],effttMC_btag_central_tt_2j_error[i],
+			   TopBkgScaleFactor_2Jet_central,TopBkgScaleFactorUncertainty_2Jet_central);
+  }
+
+  //*******************************************************************************
+  //2-Jet Bin : BTag Efficiency for vbf jet
+  //*******************************************************************************
+  printf("**********eff vbf jet 2-j**********\n");
+  double evtMC_vbf_2j[5],evtMC_vbf_2j_error[5],evtDA_vbf_2j[5],evtDA_vbf_2j_error[5];
+  double TopBkgScaleFactor_2Jet_vbf,TopBkgScaleFactorUncertainty_2Jet_vbf;
+  for(int i=0; i<5; i++) {
+
+    evtMC_vbf_2j[i] = (btag_vbf_2j_num[1][i]+btag_vbf_2j_num[2][i])*(1.0-effttMC_btag_central_tt_2j[i])/effttMC_btag_central_tt_2j[i];
+    evtDA_vbf_2j[i] = (btag_vbf_2j_num[3][i]-btag_vbf_2j_num[0][i])*(1.0-effttDA_btag_central_2j[i])/effttDA_btag_central_2j[i];
+
+    evtMC_vbf_2j_error[i] = (btag_vbf_2j_num[1][i]+btag_vbf_2j_num[2][i])*effttMC_btag_central_tt_2j_error[i]/effttMC_btag_central_tt_2j[i]/effttMC_btag_central_tt_2j[i];
+    double errDa[2] = {sqrt(btag_vbf_2j_num[3][i])*(1.0-effttDA_btag_central_2j[i])/effttDA_btag_central_2j[i],
+                       (btag_vbf_2j_num[3][i]-btag_vbf_2j_num[0][i])*effttDA_btag_central_2j_error[i]/effttDA_btag_central_2j[i]/effttDA_btag_central_2j[i]};
+    evtDA_vbf_2j_error[i] = sqrt(errDa[0]*errDa[0]+errDa[1]*errDa[1]);
+  }
+  for(int i=0; i<5; i++) printf("eventsTaggedVBF(%d) --> top: %6.3f  data: %5d  bck:%6.3f\n",i,btag_vbf_2j_num[1][i]+btag_vbf_2j_num[2][i],
+                         (int)btag_vbf_2j_num[3][i],btag_vbf_2j_num[0][i]);
+  for(int i=0; i<5; i++) printf("eventsNonTaggedVBF(%d) --> %6.3f  --> %6.3f +/- %6.3f | %6.3f +/- %6.3f\n",i,btag_vbf_2j_den[1][i]+btag_vbf_2j_den[2][i],
+             evtMC_vbf_2j[i],evtMC_vbf_2j_error[i],evtDA_vbf_2j[i],evtDA_vbf_2j_error[i]);
+
+  double NonTaggedTopMC = 0; for(int i=0; i<5; i++) NonTaggedTopMC = NonTaggedTopMC + btag_vbf_2j_den[1][i]+btag_vbf_2j_den[2][i];
+  double NonTaggedTopDA = 0; for(int i=0; i<5; i++) NonTaggedTopDA = NonTaggedTopDA + evtDA_vbf_2j[i];
+  double NonTaggedTopDA_error = 0; for(int i=0; i<5; i++) NonTaggedTopDA_error = NonTaggedTopDA_error + evtDA_vbf_2j_error[i]*evtDA_vbf_2j_error[i];
+  TopBkgScaleFactor_2Jet_vbf = NonTaggedTopDA/NonTaggedTopMC;
+  TopBkgScaleFactorUncertainty_2Jet_vbf = sqrt(NonTaggedTopDA_error)/NonTaggedTopMC;
+  printf("scaleFactorVBF: %6.3f +/- %6.3f\n",TopBkgScaleFactor_2Jet_vbf,TopBkgScaleFactorUncertainty_2Jet_vbf);
   //*******************************************************************************
   //2-Jet Bin : BTag Efficiency for highest pt jet
   //*******************************************************************************
@@ -488,8 +628,8 @@ void ComputeTopScaleFactors
   for(int i=0; i<5; i++) printf("scaleFactor2j(%d) --> %6.3f +/- %6.3f\n",i,
              (btag_highestpt_2j_num[3][i]-btag_highestpt_2j_num[0][i])/(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]),
              sqrt(btag_highestpt_2j_num[3][i])/(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]));
-  double TopBkgScaleFactor_2Jet = (btag_highestpt_2j_num[3][4]-btag_highestpt_2j_num[0][4])/(btag_highestpt_2j_num[1][4]+btag_highestpt_2j_num[2][4]);
-  double TopBkgScaleFactorUncertainty_2Jet = sqrt(btag_highestpt_2j_num[3][4])/(btag_highestpt_2j_num[1][4]+btag_highestpt_2j_num[2][4]);
+  //double TopBkgScaleFactor_2Jet = (btag_highestpt_2j_num[3][4]-btag_highestpt_2j_num[0][4])/(btag_highestpt_2j_num[1][4]+btag_highestpt_2j_num[2][4]);
+  //double TopBkgScaleFactorUncertainty_2Jet = sqrt(btag_highestpt_2j_num[3][4])/(btag_highestpt_2j_num[1][4]+btag_highestpt_2j_num[2][4]);
 
   for(int i=0; i<5; i++) {
     printf("numerator  (%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_highestpt_2j_num[3][i],btag_highestpt_2j_num[0][i],(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]),btag_highestpt_2j_num[1][i],btag_highestpt_2j_num[2][i]);
@@ -742,7 +882,7 @@ void ComputeTopScaleFactors
   outf << "  Double_t TopBkgScaleFactor[3] = { " 
        << TopBkgScaleFactor_0Jet << ", "
        << TopBkgScaleFactor_1Jet << ", "
-       << TopBkgScaleFactor_2Jet << "  "
+       << TopBkgScaleFactor_2Jet_vbf << "  "
        << " };" << endl;
   outf << "  return TopBkgScaleFactor[jetBin];" << endl;
   outf << "}" << endl;
@@ -755,7 +895,7 @@ void ComputeTopScaleFactors
   outf << "  Double_t TopBkgScaleFactorKappa[3] = { " 
        << (1.0 + TopBkgScaleFactorUncertainty_0Jet/TopBkgScaleFactor_0Jet) << ", "
        << (1.0 + TopBkgScaleFactorUncertainty_1Jet/TopBkgScaleFactor_1Jet) << ", "
-       << (1.0 + TopBkgScaleFactorUncertainty_2Jet/TopBkgScaleFactor_2Jet) << "  "
+       << (1.0 + TopBkgScaleFactorUncertainty_2Jet_vbf/TopBkgScaleFactor_2Jet_vbf) << "  "
        << " };" << endl;
 
   outf << "  return TopBkgScaleFactorKappa[jetBin];" << endl;
