@@ -19,6 +19,7 @@
 #include "factors.h"
 #include "HiggsQCDScaleSystematics.h"
 #include "PSUESystematics.h"
+#include "PDFgHHSystematics.h"
 #include "/home/ceballos/releases/CMSSW_4_2_8_patch4/src/Smurf/Core/LeptonScaleLookup.h"
 #include "DYBkgScaleFactors.h"
 #include "TopBkgScaleFactors.h"
@@ -791,12 +792,13 @@ void PlotHiggsRes
 
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
-      if(jet3->pt() <= 30)					         Njet3 = 2;
+      if(jet3->pt() <= 30)					           Njet3 = 2;
       else if(jet3->pt() > 30 && (
     	(jet1->eta()-jet3->eta() > 0 && jet2->eta()-jet3->eta() < 0) ||
-    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))   Njet3 = 0;
-      else							         Njet3 = 2;
-      if(njets < 2 || njets > 3)                                         Njet3 = 0;
+    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))     Njet3 = 0;
+      else							           Njet3 = 2;
+      if(njets < 2 || njets > 3)                                           Njet3 = 0;
+      if(TMath::Abs(jet1->eta()) >= 4.5 || TMath::Abs(jet2->eta()) >= 4.5) Njet3 = 0;
     }
     bool passJetCut[3] = {Njet3 == nJetsType, false, false};
     if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
@@ -1126,12 +1128,13 @@ void PlotHiggsRes
 
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
-      if(jet3->pt() <= 30)					         Njet3 = 2;
+      if(jet3->pt() <= 30)					           Njet3 = 2;
       else if(jet3->pt() > 30 && (
     	(jet1->eta()-jet3->eta() > 0 && jet2->eta()-jet3->eta() < 0) ||
-    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))   Njet3 = 0;
-      else							         Njet3 = 2;
-      if(njets < 2 || njets > 3)                                         Njet3 = 0;
+    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))     Njet3 = 0;
+      else							           Njet3 = 2;
+      if(njets < 2 || njets > 3)                                           Njet3 = 0;
+      if(TMath::Abs(jet1->eta()) >= 4.5 || TMath::Abs(jet2->eta()) >= 4.5) Njet3 = 0;
     }
     bool passJetCut[3] = {Njet3 == nJetsType, false, false};
     if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
@@ -1619,12 +1622,13 @@ void PlotHiggsRes
 
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
-      if(jet3->pt() <= 30)					         Njet3 = 2;
+      if(jet3->pt() <= 30)					           Njet3 = 2;
       else if(jet3->pt() > 30 && (
     	(jet1->eta()-jet3->eta() > 0 && jet2->eta()-jet3->eta() < 0) ||
-    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))   Njet3 = 0;
-      else							         Njet3 = 2;
-      if(njets < 2 || njets > 3)                                         Njet3 = 0;
+    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))     Njet3 = 0;
+      else							           Njet3 = 2;
+      if(njets < 2 || njets > 3)                                           Njet3 = 0;
+      if(TMath::Abs(jet1->eta()) >= 4.5 || TMath::Abs(jet2->eta()) >= 4.5) Njet3 = 0;
     }
     bool passJetCut[3] = {Njet3 == nJetsType, false, false};
     if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
@@ -1938,12 +1942,13 @@ void PlotHiggsRes
 
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
-      if(jet3->pt() <= 30)					         Njet3 = 2;
+      if(jet3->pt() <= 30)					           Njet3 = 2;
       else if(jet3->pt() > 30 && (
     	(jet1->eta()-jet3->eta() > 0 && jet2->eta()-jet3->eta() < 0) ||
-    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))   Njet3 = 0;
-      else							         Njet3 = 2;
-      if(njets < 2 || njets > 3)                                         Njet3 = 0;
+    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))     Njet3 = 0;
+      else							           Njet3 = 2;
+      if(njets < 2 || njets > 3)                                           Njet3 = 0;
+      if(TMath::Abs(jet1->eta()) >= 4.5 || TMath::Abs(jet2->eta()) >= 4.5) Njet3 = 0;
     }
     bool passJetCut[1] = {Njet3 == nJetsType};
 
@@ -2763,11 +2768,18 @@ void PlotHiggsRes
 
     double theoryUncXS_HighMH = 1.0;
     if(mH >= 200) theoryUncXS_HighMH = 1.0+1.5*(mH/1000.0)*(mH/1000.0)*(mH/1000.0);
+    double wwXS_E_jet_extrap = 1.060;
     double jeteff_E 	     = 1.02;
     double topXS_E  	     = TopBkgScaleFactorKappa(nJetsType);
-    double wwXS_E_MVA        = WWBkgScaleFactorKappaMVA     (TMath::Max((int)mH,115),TMath::Min((int)nJetsType,1));if(mH>=200) wwXS_E_MVA = 1.15;
-    double wwXS_E_Cut        = WWBkgScaleFactorKappaCutBased(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,1));if(mH>=200) wwXS_E_Cut = 1.15;
-    double wwXS_E_jet_extrap = 1.000; if(mH>=200) wwXS_E_jet_extrap = 0.95;
+    double wwXS_E_MVA        = WWBkgScaleFactorKappaMVA     (TMath::Max((int)mH,115),TMath::Min((int)nJetsType,1)); if(mH>=200) wwXS_E_MVA = 1.000;
+    double wwXS_E_Cut        = WWBkgScaleFactorKappaCutBased(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,1)); if(mH>=200) wwXS_E_Cut = 1.000;
+    char theWWThString[20]; sprintf(theWWThString,"CMS_hww_%1dj_WW",nJetsType); if(mH>=200) sprintf(theWWThString,"CMS_hww_WW");
+
+    double XS_QCDscale_WW[3] = {1.0, 1.0, 1.0};
+    if(mH>=200) {XS_QCDscale_WW[0] = 1.042; XS_QCDscale_WW[1] = 0.978; XS_QCDscale_WW[2] = 1.000;}
+
+    double pdf_ggH = PDFgHHSystematics(mH);
+
     double XS_QCDscale_ggH[3];
     double UEPS  = HiggsSignalPSUESystematics(mH,nJetsType);
     XS_QCDscale_ggH[0] = HiggsSignalQCDScaleKappa("QCDscale_ggH",mH,nJetsType);
@@ -2775,17 +2787,13 @@ void PlotHiggsRes
     XS_QCDscale_ggH[2] = HiggsSignalQCDScaleKappa("QCDscale_ggH2in",mH,nJetsType);
     if     (nJetsType == 1) {
       jeteff_E  	= 1.05;
-      wwXS_E_jet_extrap = 1.000; if(mH>=200) wwXS_E_jet_extrap = 1.12;
+      if(mH>=200) {XS_QCDscale_WW[0] = 1.000; XS_QCDscale_WW[1] = 1.076; XS_QCDscale_WW[2] = 0.914;}
     }
     else if(nJetsType == 2) {
       jeteff_E  	= 1.10;
-      wwXS_E_jet_extrap = 1.42;
+      if(mH>=200) {XS_QCDscale_WW[0] = 1.000; XS_QCDscale_WW[1] = 1.000; XS_QCDscale_WW[2] = 1.420;}
     }
     double lumiErr = 1.000; if(mH>=200) lumiErr = 1.045;
-
-    // Additional 6% for the uncertainty in the extrapolation
-    wwXS_E_MVA = sqrt((wwXS_E_MVA-1.0)*(wwXS_E_MVA-1.0)+0.06*0.06)+1.0;
-    wwXS_E_Cut = sqrt((wwXS_E_Cut-1.0)*(wwXS_E_Cut-1.0)+0.06*0.06)+1.0;
 
     for(int i=0; i<8; i++) if(nBgdAccDecays[i] < 0) nBgdAccDecays[i] = 0.0;
     for(int i=0; i<8; i++) if(nBgdCutDecays[i] < 0) nBgdCutDecays[i] = 0.0;
@@ -2858,10 +2866,10 @@ void PlotHiggsRes
 	nData     = (int)nDatAcc;
       }
       if(nTotalBins != 1){
-        sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape_bin%d.txt",outTag.Data(),nJetsType,wwDecay,mH,i);     
+        sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape_bin%d.txt",outTag.Data(),nJetsType,wwDecay,mH,i);
       }
       else {
-        sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape.txt",outTag.Data(),nJetsType,wwDecay,mH);     
+        sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape.txt",outTag.Data(),nJetsType,wwDecay,mH);
       }
       char theZttString[20];
       if(histo_Ztt->GetSumOfWeights() > 0) sprintf(theZttString,"1.000");
@@ -2924,23 +2932,26 @@ void PlotHiggsRes
       }
       newcardShape << Form("UEPS 		             lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",UEPS);
       newcardShape << Form("theoryUncXS_HighMH               lnN %5.3f %5.3f %5.3f %5.3f   -     -     -     -	   -     -     -     -  \n",theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH);
-      newcardShape << Form("pdf_gg		             lnN   -     -     -   1.100   -   1.040   -     -     -     -     -     -  \n");
+      newcardShape << Form("pdf_gg		             lnN   -     -     -   %5.3f   -   1.040   -     -     -     -     -     -  \n",pdf_ggH);
       newcardShape << Form("pdf_qqbar                        lnN 1.050 1.050 1.050   -   1.040   -   1.040   -     -     -   1.040 1.040\n");
       newcardShape << Form("QCDscale_ggH	             lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[0]);  
       newcardShape << Form("QCDscale_ggH1in	             lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[1]);  
       newcardShape << Form("QCDscale_ggH2in	             lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[2]);  
       newcardShape << Form("QCDscale_qqH	             lnN   -     -   1.010   -     -     -     -     -     -     -     -     -  \n");
       newcardShape << Form("QCDscale_VH 	             lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");			 
+      newcardShape << Form("QCDscale_WW	                     lnN   -     -     -     -   %5.3f   -     -     -     -	 -     -     -  \n",XS_QCDscale_WW[0]);  
+      newcardShape << Form("QCDscale_WW1in		     lnN   -	 -     -     -	 %5.3f	 -     -     -	   -	 -     -     -  \n",XS_QCDscale_WW[1]);  
+      newcardShape << Form("QCDscale_WW2in		     lnN   -	 -     -     -	 %5.3f	 -     -     -	   -	 -     -     -  \n",XS_QCDscale_WW[2]);  
       newcardShape << Form("QCDscale_VV           	     lnN   -     -     -     -     -     -   1.040   -     -     -     -     -  \n");
       newcardShape << Form("QCDscale_V           	     lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",1.30);
       newcardShape << Form("QCDscale_ggVV	             lnN   -     -     -     -     -   1.300   -     -     -     -     -     -  \n");
-      newcardShape << Form("CMS_QCDscale_WW_EXTRAP           lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
+      newcardShape << Form("QCDscale_WW_EXTRAP               lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
       newcardShape << Form("QCDscale_ggH_ACCEPT              lnN   -     -     -   1.020   -     -     -     -     -     -     -     -  \n");
       newcardShape << Form("QCDscale_qqH_ACCEPT              lnN   -     -   1.020   -     -     -     -     -     -     -     -     -  \n");
       newcardShape << Form("QCDscale_VH_ACCEPT               lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");
       newcardShape << Form("CMS_hww_%1dj_ttbar               lnN   -     -     -     -     -     -     -   %5.3f   -     -     -     -  \n",nJetsType,topXS_E); 	
       newcardShape << Form("CMS_hww%s_%1dj_Z                 lnN   -     -     -     -     -     -     -     -   %5.3f   -     -     -  \n",finalStateName,nJetsType,ZXS_E[0]+1.0);			
-      newcardShape << Form("CMS_hww_%1dj_WW                  lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",nJetsType,wwXS_E_MVA,wwXS_E_MVA);				
+      newcardShape << Form("%s                               lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",theWWThString,wwXS_E_MVA,wwXS_E_MVA);				
       newcardShape << Form("CMS_hww_Ztt           	     lnN   -     -     -     -     -     -     -     -     -     -     -   %5.3f\n",ZttScaleFactorKappa());
       if(useZjetsTemplates == true){
         newcardShape << Form("CMS_MVAZBounding_hww%s_%1dj           shape   -     -      -    -      -     -	 -     -    1.0    -	 -     -   \n",finalStateName,nJetsType);			  
@@ -3010,23 +3021,26 @@ void PlotHiggsRes
     newcardCut << Form("FakeRate              	   lnN   -     -     -     -     -     -     -     -     -   1.360   -     -  \n");
     newcardCut << Form("UEPS 		           lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",UEPS);
     newcardCut << Form("theoryUncXS_HighMH         lnN %5.3f %5.3f %5.3f %5.3f   -     -     -     -	 -     -     -     -  \n",theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH);
-    newcardCut << Form("pdf_gg                	   lnN   -     -     -   1.100   -   1.040   -     -     -     -     -     -  \n");
+    newcardCut << Form("pdf_gg                	   lnN   -     -     -   %5.3f   -   1.040   -     -     -     -     -     -  \n",pdf_ggH);
     newcardCut << Form("pdf_qqbar             	   lnN 1.050 1.050 1.050   -   1.040   -   1.040   -     -     -   1.040 1.040\n");
     newcardCut << Form("QCDscale_ggH          	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[0]);  
     newcardCut << Form("QCDscale_ggH1in       	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[1]);  
     newcardCut << Form("QCDscale_ggH2in       	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[2]);  
     newcardCut << Form("QCDscale_qqH          	   lnN   -     -   1.010   -     -     -     -     -     -     -     -     -  \n");
     newcardCut << Form("QCDscale_VH           	   lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");		    
+    newcardCut << Form("QCDscale_WW		   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[0]);  
+    newcardCut << Form("QCDscale_WW1in  	   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[1]);  
+    newcardCut << Form("QCDscale_WW2in  	   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[2]);  
     newcardCut << Form("QCDscale_VV           	   lnN   -     -     -     -     -     -   1.040   -     -     -     -     -  \n");
     newcardCut << Form("QCDscale_V           	   lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",1.30);
     newcardCut << Form("QCDscale_ggVV         	   lnN   -     -     -     -     -   1.300   -     -     -     -     -     -  \n");
-    newcardCut << Form("CMS_QCDscale_WW_EXTRAP     lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
+    newcardCut << Form("QCDscale_WW_EXTRAP         lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
     newcardCut << Form("QCDscale_ggH_ACCEPT   	   lnN   -     -     -   1.020   -     -     -     -     -     -     -     -  \n");
     newcardCut << Form("QCDscale_qqH_ACCEPT   	   lnN   -     -   1.020   -     -     -     -     -     -     -     -     -  \n");
     newcardCut << Form("QCDscale_VH_ACCEPT    	   lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");
     newcardCut << Form("CMS_hww_%1dj_ttbar	   lnN   -     -     -     -     -     -     -   %5.3f   -     -     -     -  \n",nJetsType,topXS_E);	 
     newcardCut << Form("CMS_hww%s_%1dj_Z           lnN   -     -     -     -     -     -     -     -   %5.3f   -     -     -  \n",finalStateName,nJetsType,ZXS_E[1]+1.0);		 
-    newcardCut << Form("CMS_hww_%1dj_WW            lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",nJetsType,wwXS_E_Cut,wwXS_E_Cut);		      
+    newcardCut << Form("%s                         lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",theWWThString,wwXS_E_Cut,wwXS_E_Cut);		      
     newcardCut << Form("CMS_hww_Ztt                lnN   -     -     -     -     -     -     -     -     -     -     -   %5.3f\n",ZttScaleFactorKappa());
     newcardCut << Form("CMS_hww%s_stat_%1dj_ZH	   lnN %5.3f   -     -     -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigECut[2]/TMath::Max((double)nSigCut[2],0.00001)+1.0);
     newcardCut << Form("CMS_hww%s_stat_%1dj_WH	   lnN   -   %5.3f   -     -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigECut[3]/TMath::Max((double)nSigCut[3],0.00001)+1.0);
@@ -3066,23 +3080,26 @@ void PlotHiggsRes
     newcardMVA << Form("FakeRate              	   lnN   -     -     -     -     -     -     -     -     -   1.360   -     -  \n");
     newcardMVA << Form("UEPS 		           lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",UEPS);
     newcardMVA << Form("theoryUncXS_HighMH         lnN %5.3f %5.3f %5.3f %5.3f   -     -     -     -	 -     -     -     -  \n",theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH);
-    newcardMVA << Form("pdf_gg                	   lnN   -     -     -   1.100   -   1.040   -     -     -     -     -     -  \n");
+    newcardMVA << Form("pdf_gg                	   lnN   -     -     -   %5.3f   -   1.040   -     -     -     -     -     -  \n",pdf_ggH);
     newcardMVA << Form("pdf_qqbar             	   lnN 1.050 1.050 1.050   -   1.040   -   1.040   -     -     -   1.040 1.040\n");
     newcardMVA << Form("QCDscale_ggH          	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[0]);  
     newcardMVA << Form("QCDscale_ggH1in       	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[1]);  
     newcardMVA << Form("QCDscale_ggH2in       	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[2]);  
     newcardMVA << Form("QCDscale_qqH          	   lnN   -     -   1.010   -     -     -     -     -     -     -     -     -  \n");
     newcardMVA << Form("QCDscale_VH           	   lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");		    
+    newcardMVA << Form("QCDscale_WW		   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[0]);  
+    newcardMVA << Form("QCDscale_WW1in  	   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[1]);  
+    newcardMVA << Form("QCDscale_WW2in  	   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[2]);  
     newcardMVA << Form("QCDscale_VV           	   lnN   -     -     -     -     -     -   1.040   -     -     -     -     -  \n");
     newcardMVA << Form("QCDscale_V           	   lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",1.30);
     newcardMVA << Form("QCDscale_ggVV         	   lnN   -     -     -     -     -   1.300   -     -     -     -     -     -  \n");
-    newcardMVA << Form("CMS_QCDscale_WW_EXTRAP     lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
+    newcardMVA << Form("QCDscale_WW_EXTRAP         lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
     newcardMVA << Form("QCDscale_ggH_ACCEPT   	   lnN   -     -     -   1.020   -     -     -     -     -     -     -     -  \n");
     newcardMVA << Form("QCDscale_qqH_ACCEPT   	   lnN   -     -   1.020   -     -     -     -     -     -     -     -     -  \n");
     newcardMVA << Form("QCDscale_VH_ACCEPT    	   lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -  \n");
     newcardMVA << Form("CMS_hww_%1dj_ttbar	   lnN   -     -     -     -     -     -     -   %5.3f   -     -     -     -  \n",nJetsType,topXS_E);	 
     newcardMVA << Form("CMS_hww%s_%1dj_Z           lnN   -     -     -     -     -     -     -     -   %5.3f   -     -     -  \n",finalStateName,nJetsType,ZXS_E[2]+1.0);		 
-    newcardMVA << Form("CMS_hww_%1dj_WW            lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",nJetsType,wwXS_E_Cut,wwXS_E_Cut);		      
+    newcardMVA << Form("%s                         lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",theWWThString,wwXS_E_Cut,wwXS_E_Cut);		      
     newcardMVA << Form("CMS_hww_Ztt                lnN   -     -     -     -     -     -     -     -     -     -     -   %5.3f\n",ZttScaleFactorKappa());
     newcardMVA << Form("CMS_hww%s_stat_%1dj_ZH	   lnN %5.3f   -     -     -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigEMVA[2]/TMath::Max((double)nSigMVA[2],0.00001)+1.0);
     newcardMVA << Form("CMS_hww%s_stat_%1dj_WH	   lnN   -   %5.3f   -     -     -     -     -     -     -     -     -     -  \n",finalStateName,nJetsType,nSigEMVA[3]/TMath::Max((double)nSigMVA[3],0.00001)+1.0);

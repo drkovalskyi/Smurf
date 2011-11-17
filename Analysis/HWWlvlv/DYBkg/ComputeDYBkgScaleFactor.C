@@ -283,6 +283,8 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
     	  (tree.jet2_.Eta()-tree.jet3_.Eta() > 0 && tree.jet1_.Eta()-tree.jet3_.Eta() < 0)))   ijet = 3;
         else							                               ijet = 2;
         if(tree.njets_ < 2 || tree.njets_ > 3)                                                 ijet = 3;
+
+	if(TMath::Abs(tree.jet1_.Eta()) >= 4.5 ||TMath::Abs(tree.jet2_.Eta()) >= 4.5)          ijet = 3;
       }
       if(ijet>2) continue;
 
@@ -404,7 +406,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
       
       //For Z->mm/ee MC
       if(tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm) {
-        
+
         //sample Met model many times (nmet times)
         for(Int_t imet=0; imet<nmet; imet++) {
           
