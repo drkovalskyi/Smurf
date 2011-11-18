@@ -24,7 +24,7 @@ float weightME(TString fileName, TString inputSmurfFDir, TString meFDir);
 //###################
 //# main function
 //###################
-void LR_HZZ(int mH, TString fileName, TString inputSmurfFDir, TString meFDir, int nev, float lumi, TVar::VerbosityLevel verbosity = TVar::DEBUG)  
+void LR_HZZ(int mH, TString fileName, TString inputSmurfFDir, TString meFDir, int nev, float lumi, TVar::VerbosityLevel verbosity = TVar::INFO)  
 {
   
   TString inputFileName = meFDir + fileName + ".root";
@@ -120,9 +120,14 @@ if (verbosity >= TVar::DEBUG) {
     
     ch->GetEntry(ievt);  
     
-    if (verbosity >= TVar::DEBUG) 
+    int diltype = type_;
+    
+    if ( type_ == 1 || type_ == 2) diltype = 0;
+    
+    if (verbosity >= TVar::DEBUG) {
       cout << "\n ** START LR Construction, run = " << run_ << "; event = " << event_ << " for Signal " << TVar::SmurfProcessName(k) << "\n"; 
-
+      cout << "Event kinematics type == " << type_ << "\n";
+    }
     float dPhi1, dPhi2, dPhi3;
     jet1_->Pt() > 30 ? dPhi1 = acos(cos(metPhi_ - jet1_->Phi())) : dPhi1 = 999.9;
     jet2_->Pt() > 30 ? dPhi2 = acos(cos(metPhi_ - jet2_->Phi())) : dPhi2 = 999.9;
@@ -139,14 +144,18 @@ if (verbosity >= TVar::DEBUG) {
       // ==== Construct HZZ LR
       // get the signal event probability
       double numer = 0.0;
-      
-      if ( higgs->GetMCFMXsec() * higgs->GetAcceptance(type_) > 0.)
-	numer = dXsec_[k] / (higgs->GetMCFMXsec() * higgs->GetAcceptance(type_)); 
+      if (verbosity >= TVar::DEBUG) {
+	std::cout << " higgs->GetMCFMXsec() = " << higgs->GetMCFMXsec() << "\n";
+	std::cout << " higgs->GetAcceptance(" << diltype << ") = " << higgs->GetAcceptance(diltype) << "\n";
+      } 
+	
+      if ( higgs->GetMCFMXsec() * higgs->GetAcceptance(diltype) > 0.)
+	numer = dXsec_[k] / (higgs->GetMCFMXsec() * higgs->GetAcceptance(diltype)); 
       if (verbosity >= TVar::DEBUG)
-	cout<< "PHWW " << TVar::SmurfProcessName(k) << " "  <<numer<< "\t dXsec "<< dXsec_[k] << "\n";
+	cout<< "PHZZ " << TVar::SmurfProcessName(k) << " "  <<numer<< "\t dXsec "<< dXsec_[k] << "\n";
       
       // get the background yields 
-      double yield_bg = ww->GetYield(type_) + wz->GetYield(type_) +  zz->GetYield(type_);
+      double yield_bg = ww->GetYield(diltype) + wz->GetYield(diltype) +  zz->GetYield(diltype);
       if (verbosity >= TVar::DEBUG)
 	cout<<"bg_yield="<<yield_bg<<"\n";
       
@@ -154,22 +163,22 @@ if (verbosity >= TVar::DEBUG) {
       double denom  = numer;
       float bkgconst = 4.0;
       
-      if ( ww->GetMCFMXsec() * ww->GetAcceptance(type_) > 0.) 
-	denom += bkgconst*dXsec_[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(type_)) * ww->GetYield(type_)/yield_bg;
+      if ( ww->GetMCFMXsec() * ww->GetAcceptance(diltype) > 0.) 
+	denom += bkgconst*dXsec_[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(diltype)) * ww->GetYield(diltype)/yield_bg;
       if (verbosity >= TVar::DEBUG)
-	cout<<" PWW = "<<  dXsec_[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(type_)) * ww->GetYield(type_)/yield_bg;
+	cout<<" PWW = "<<  dXsec_[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(diltype)) * ww->GetYield(diltype)/yield_bg;
       
       // add WZ to the denominator
-      if ( wz->GetMCFMXsec() * wz->GetAcceptance(type_) > 0.) 
-	denom += bkgconst*dXsec_[TVar::WZ] / (wz->GetMCFMXsec() * wz->GetAcceptance(type_)) * wz->GetYield(type_)/yield_bg;
+      if ( wz->GetMCFMXsec() * wz->GetAcceptance(diltype) > 0.) 
+	denom += bkgconst*dXsec_[TVar::WZ] / (wz->GetMCFMXsec() * wz->GetAcceptance(diltype)) * wz->GetYield(diltype)/yield_bg;
       if (verbosity >= TVar::DEBUG)
-	cout<<" PWZ = "<<  dXsec_[TVar::WZ] / (wz->GetMCFMXsec() * wz->GetAcceptance(type_)) * wz->GetYield(type_)/yield_bg;
+	cout<<" PWZ = "<<  dXsec_[TVar::WZ] / (wz->GetMCFMXsec() * wz->GetAcceptance(diltype)) * wz->GetYield(diltype)/yield_bg;
       
       // add ZZ to the denominator
-      if ( zz->GetMCFMXsec() * zz->GetAcceptance(type_) > 0.) 
-	denom += bkgconst*dXsec_[TVar::ZZ] / (zz->GetMCFMXsec() * zz->GetAcceptance(type_)) * zz->GetYield(type_)/yield_bg;
+      if ( zz->GetMCFMXsec() * zz->GetAcceptance(diltype) > 0.) 
+	denom += bkgconst*dXsec_[TVar::ZZ] / (zz->GetMCFMXsec() * zz->GetAcceptance(diltype)) * zz->GetYield(diltype)/yield_bg;
       if (verbosity >= TVar::DEBUG)
-	cout<<" PZZ = "<<  dXsec_[TVar::ZZ] / (zz->GetMCFMXsec() * zz->GetAcceptance(type_)) * zz->GetYield(type_)/yield_bg;
+	cout<<" PZZ = "<<  dXsec_[TVar::ZZ] / (zz->GetMCFMXsec() * zz->GetAcceptance(diltype)) * zz->GetYield(diltype)/yield_bg;
       
       
       if(denom!=0)
@@ -182,26 +191,26 @@ if (verbosity >= TVar::DEBUG) {
       // initialize the numerator
       numer = 0.0;
       // redefining the numerator and denumerator
-      if ( zz->GetMCFMXsec() * zz->GetAcceptance(type_) > 0.) 
-	numer = dXsec_[TVar::ZZ] / (zz->GetMCFMXsec() * zz->GetAcceptance(type_)); 
+      if ( zz->GetMCFMXsec() * zz->GetAcceptance(diltype) > 0.) 
+	numer = dXsec_[TVar::ZZ] / (zz->GetMCFMXsec() * zz->GetAcceptance(diltype)); 
       if (verbosity >= TVar::DEBUG)
-	cout<<" PZZ = "<<  dXsec_[TVar::ZZ] / (zz->GetMCFMXsec() * zz->GetAcceptance(type_));
-      if ( wz->GetMCFMXsec() * wz->GetAcceptance(type_) > 0.) 
-	numer += dXsec_[TVar::WZ] / (wz->GetMCFMXsec() * wz->GetAcceptance(type_)); 
+	cout<<" PZZ = "<<  dXsec_[TVar::ZZ] / (zz->GetMCFMXsec() * zz->GetAcceptance(diltype));
+      if ( wz->GetMCFMXsec() * wz->GetAcceptance(diltype) > 0.) 
+	numer += dXsec_[TVar::WZ] / (wz->GetMCFMXsec() * wz->GetAcceptance(diltype)); 
       if (verbosity >= TVar::DEBUG)
-	cout<<" PWZ = "<<  dXsec_[TVar::WZ] / (wz->GetMCFMXsec() * wz->GetAcceptance(type_));
+	cout<<" PWZ = "<<  dXsec_[TVar::WZ] / (wz->GetMCFMXsec() * wz->GetAcceptance(diltype));
       
       // get the background yields
-      yield_bg = ww->GetYield(type_);
+      yield_bg = ww->GetYield(diltype);
       if (verbosity >= TVar::DEBUG)
 	cout<<"bg_yield="<<yield_bg<<"\n";
       
       // add WW background to the denominator
       denom  = numer;
-      if ( ww->GetMCFMXsec() * ww->GetAcceptance(type_) > 0.) 
-	denom += dXsec_[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(type_)) * ww->GetYield(type_)/yield_bg;
+      if ( ww->GetMCFMXsec() * ww->GetAcceptance(diltype) > 0.) 
+	denom += dXsec_[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(diltype)) * ww->GetYield(diltype)/yield_bg;
       if (verbosity >= TVar::DEBUG)
-	cout<<" PWW = "<<  dXsec_[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(type_)) * ww->GetYield(type_)/yield_bg;
+	cout<<" PWW = "<<  dXsec_[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(diltype)) * ww->GetYield(diltype)/yield_bg;
       
       if(denom!=0)
 	LR[TVar::ZZ]=numer/denom;
@@ -251,22 +260,22 @@ void getProcess(int mH, TVar::Process & k, float & metCut, float & dphiCut, floa
     break;
   case (350):
     k = TVar::HZZ350;
-    metCut = 80;
+    metCut = 90;
     dphiCut = 0.5;
     break;
   case (400):
     k = TVar::HZZ400;
-    metCut = 80;
+    metCut = 90;
     dphiCut = 0.5;
     break;
   case (500):
     k = TVar::HZZ500;
-    metCut = 80.;
+    metCut = 100.;
     dphiCut = 0.5;
     break;
   case (600):
     k = TVar::HZZ600;
-    metCut = 80.;
+    metCut = 120.;
     dphiCut = 0.5;
     break;
   default:
