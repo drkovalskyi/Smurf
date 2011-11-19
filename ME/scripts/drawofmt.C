@@ -47,21 +47,20 @@ void drawofmt()
   }
   
   drawsingle(ch_top, 250, "OF", 70, 230, 300);
-  drawdatamc(dirName, 250, 70, 230, 300);
+  drawdatamc(dirName, 250, 70, 230, 300);  
   /*
   drawsingle(ch_top, 300, "OF", 80, 250, 350);
   drawsingle(ch_top, 350, "OF", 80, 250, 400);
-  drawsingle(ch_top, 400, "OF", 80, 250, 500);
+  drawsingle(ch_top, 400, "OF", 80, 250, 450);
   drawsingle(ch_top, 500, "OF", 80, 250, 600);
   drawsingle(ch_top, 600, "OF", 80, 300, 750);
 
-  
-  drawdatamc(dirName, 250, 70, 230, 300);
+
   drawdatamc(dirName, 300, 80, 250, 350);
   drawdatamc(dirName, 350, 80, 250, 400);
   drawdatamc(dirName, 400, 80, 250, 450);
   drawdatamc(dirName, 500, 80, 250, 600);
-  drawdatamc(dirName, 600, 80, 350, 700);
+  drawdatamc(dirName, 600, 80, 250, 700);
   */
   delete ch_top;
   
@@ -118,20 +117,17 @@ void drawsingle(TChain *& ch, int mH, TString type, float metcut, float min, flo
      ch->GetEntry(ievt);  
      if ( met_ < metcut) continue;
      if ( TMath::Abs(dilep_->M() - 91.1876) > 15) continue;
-     if ( dilep_->Pt() < 25.0) continue;
+     if ( dilep_->Pt() < 55.0) continue;
      
-     /*
      if (jet1Btag_ > 2.0 && jet1_->Pt() > 30) continue;
      if (jet2Btag_ > 2.0 && jet2_->Pt() > 30) continue;
      if (jet3Btag_ > 2.0 && jet3_->Pt() > 30) continue;
      if ( nSoftMuons_ != 0) continue;     
-     */
+     
+     
      // dphi cut
      
-     float dphiCut = 0.;
-     if ( mH == 250 ) dphiCut = 0.617;
-     if ( mH == 300 ) dphiCut = 0.282;
-     if ( mH == 350 ) dphiCut = 0.144;
+     float dphiCut = 0.5;
      
      float dPhi1, dPhi2, dPhi3;
      jet1_->Pt() > 30 ? dPhi1 = acos(cos(metPhi_ - jet1_->Phi())) : dPhi1 = 999.9;
@@ -227,23 +223,16 @@ void drawdatamc(TString dirName, int mH, float metcut, float min, float max)
 
   TChain *ch = new TChain("tree");
 
-  ch->Add(dirName + "data_2l.goodlumiRun2011A.root");
+  ch->Add(dirName + "data_2l.goodlumiRun2011AB.root");
   ch->Add(dirName + "/ttbar2l-powheg.root");
   ch->Add(dirName + "/wtop-powheg.root");
   ch->Add(dirName + "/wtopb-powheg.root");
-  ch->Add(dirName + "/ww2l-pythia.root");
+  ch->Add(dirName + "/ww-madgraph.root");
 
   if ( ch == 0x0 ) {
     std::cout << " ch is not filled exiting\n";
     return;
   }
-  
-  /*
-    ch->Add(dirName + "/ttbar2l-powheg.root");
-    ch->Add(dirName + "/wtopb-powheg.root");
-    ch->Add(dirName + "/ggww2l.root");
-    ch->Add(dirName + "/ww2l-pythia.root");
-  */
   
   TH1F *hist_data = new TH1F("hist_data", "hist_data", 10, min, max);
   hist_data->Sumw2();
@@ -283,14 +272,12 @@ void drawdatamc(TString dirName, int mH, float metcut, float min, float max)
      ch->GetEntry(ievt);  
      if ( met_ < metcut) continue;
      if ( TMath::Abs(dilep_->M() - 91.1876) > 15) continue;
+     if ( TMath::Abs(dilep_->Pt() < 55)) continue;
      if ( type_ == 0 ) continue;
      if ( type_ == 3) continue;
  
      // dphi cut
-     float dphiCut = 0.;
-     if ( mH == 250 ) dphiCut = 0.617;
-     if ( mH == 300 ) dphiCut = 0.282;
-     if ( mH == 350 ) dphiCut = 0.144;
+     float dphiCut = 0.5;
      
      float dPhi1, dPhi2, dPhi3;
      jet1_->Pt() > 30 ? dPhi1 = acos(cos(metPhi_ - jet1_->Phi())) : dPhi1 = 999.9;

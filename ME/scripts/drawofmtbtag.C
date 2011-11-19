@@ -50,7 +50,7 @@ void drawofmtbtag()
 
   drawsingle(ch_top, 250, "Top", 70, 230, 300, 0);
   drawsingle(ch_top, 250, "Top", 70, 230, 300, 3);
-    
+
   drawsingle(ch_top, 300, "Top", 80, 250, 350, 0);
   drawsingle(ch_top, 300, "Top", 80, 250, 350, 3);
 
@@ -66,9 +66,9 @@ void drawofmtbtag()
   drawsingle(ch_top, 600, "Top", 80, 300, 750, 0);
   drawsingle(ch_top, 600, "Top", 80, 300, 750, 3);
 
-  
   drawdatamc(dirName, 250, 70, 230, 300, 0);
   drawdatamc(dirName, 250, 70, 230, 300, 3);
+
   drawdatamc(dirName, 300, 80, 250, 350, 0);
   drawdatamc(dirName, 300, 80, 250, 350, 3);
 
@@ -81,8 +81,9 @@ void drawofmtbtag()
   drawdatamc(dirName, 500, 80, 250, 600, 0);
   drawdatamc(dirName, 500, 80, 250, 600, 3);
 
-  drawdatamc(dirName, 600, 80, 300, 750, 0);
-  drawdatamc(dirName, 600, 80, 300, 750, 3);
+  drawdatamc(dirName, 600, 80, 250, 750, 0);
+  drawdatamc(dirName, 600, 80, 250, 750, 3);
+
 
   delete ch_top;
 
@@ -146,28 +147,23 @@ void drawsingle(TChain *& ch, int mH, TString type, float metcut, float min, flo
      ch->GetEntry(ievt); 
      if ( met_ < metcut) continue;
      if ( TMath::Abs(dilep_->M() - 91.1876) > 15) continue;
-     if ( dilep_->Pt() < 25.0) continue; 
+     if ( dilep_->Pt() < 55.0) continue; 
      // if ( type_ != diltype) continue;
 
      bool btag = false;
-     int nbtag = 0;
      if (jet1Btag_ > 2.0  && jet1_->Pt() > 30) {
        btag = true;
-       nbtag++;
      }
      
      if (jet2Btag_ > 2.0 && jet2_->Pt() > 30) { 
        btag = true;
-       nbtag++;
      }
      if (jet3Btag_ > 2.0 && jet3_->Pt() > 30) {
        btag = true;
-       nbtag++;
      }
      
      if ( nSoftMuons_ != 0 ) {
        btag = true;
-       nbtag++;
      }
      
      // dphi cut
@@ -190,7 +186,7 @@ void drawsingle(TChain *& ch, int mH, TString type, float metcut, float min, flo
 
      if ( mt > max || mt < min) continue;
 
-     if ( nbtag < 3 && nbtag > 0 ) hist_btag->Fill(mt, scale1fb_);
+     if ( btag ) hist_btag->Fill(mt, scale1fb_);
      if ( !btag && type_ == diltype) hist_nonbtag->Fill(mt, scale1fb_);
      
    }
@@ -264,8 +260,6 @@ void drawdatamc(TString dirName, int mH, float metcut, float min, float max, int
   
   TChain *ch = new TChain("tree");
   
-  //ch->Add(dirName + "data_2l.goodlumiRun2011A_BTAG.root");
-  //ch->Add(dirName + "data_2l.goodlumi.Run2011B_BTAG.root");
   ch->Add(dirName + "data_2l.goodlumiRun2011AB_BTAG.root");
 
   ch->Add(dirName + "/ttbar2l-powheg_BTAG.root");
@@ -322,7 +316,7 @@ void drawdatamc(TString dirName, int mH, float metcut, float min, float max, int
      ch->GetEntry(ievt);  
      if ( met_ < metcut) continue;
      if ( TMath::Abs(dilep_->M() - 91.1876) > 15) continue;
-     
+     if ( dilep_->Pt() < 55.0) continue; 
      // dphi cut
      float dphiCut = 0.5;
      float dPhi1, dPhi2, dPhi3;
@@ -334,25 +328,20 @@ void drawdatamc(TString dirName, int mH, float metcut, float min, float max, int
      if ( TMath::Min(dPhi1, TMath::Min(dPhi2, dPhi3)) < dphiCut ) continue;
 
      bool btag = false;
-     int nbtag = 0;
 
      if (jet1Btag_ > 2.0 && jet1_->Pt() > 30) {
        btag = true;
-       nbtag++;
      }
      
      if (jet2Btag_ > 2.0 && jet2_->Pt() > 30) { 
        btag = true;
-       nbtag++;
      }
      if (jet3Btag_ > 2.0 && jet3_->Pt() > 30) {
        btag = true;
-       nbtag++;
      }
      
      if ( nSoftMuons_ != 0 ) {
        btag = true;
-       nbtag++;
      }
      
      // calculate mT
@@ -365,7 +354,8 @@ void drawdatamc(TString dirName, int mH, float metcut, float min, float max, int
      if ( mt > max || mt < min) continue;
 
      
-     if ( nbtag > 0 && nbtag < 3) {
+     //if ( nbtag > 0 && nbtag < 3) {
+     if ( btag) {
        if ( dstype_ == 0) 
 	 hist_data->Fill(mt);
        else
