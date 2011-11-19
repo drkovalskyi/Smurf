@@ -13,11 +13,8 @@ fi
 
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
+data_2l.goodlumiFull2011
 data_2l.goodlumiRun2011A
-data_2l.goodlumiRun2011A_BTAG
-ttbar2l-powheg_BTAG
-wtop-powheg_BTAG
-wtopb-powheg_BTAG
 ww-madgraph
 ww-mcatnlo
 wwup-mcatnlo
