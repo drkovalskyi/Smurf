@@ -26,20 +26,11 @@ void zzskim()
 
   // data 
   smurfproducer("/smurf/ksung/ntuples/", "data_2l.goodlumi.Run2011B.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZ",3);
-  smurfproducer("/smurf/ksung/ntuples/", "data_2l.goodlumi.Run2011B.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZBTAG",3);
-
   smurfproducer("/smurf/ksung/ntuples/", "data_2l.goodlumiRun2011AB.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZ",3);
-  smurfproducer("/smurf/ksung/ntuples/", "data_2l.goodlumiRun2011AB.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZBTAG",3);
-
   smurfproducer("/smurf/ksung/ntuples/", "data_2l.goodlumiFull2011.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZ",3);
-  smurfproducer("/smurf/ksung/ntuples/", "data_2l.goodlumiFull2011.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZBTAG",3);
 
   smurfproducer("/smurf/ksung/ntuples/", "data_2l.goodlumiRun2011A.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZ",3);
-  smurfproducer("/smurf/ksung/ntuples/", "data_2l.goodlumiRun2011A.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZBTAG",3);
-  
   smurfproducer("/smurf/ksung/ntuples/", "data_2l.goodlumi.Run2011B.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZ",3);
-  smurfproducer("/smurf/ksung/ntuples/", "data_2l.goodlumi.Run2011B.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZBTAG",3);
-  
 
   // gg->H->ZZ
   smurfproducer("/smurf/ksung/ntuples/", "gfhzz250.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZ",3);
@@ -79,17 +70,6 @@ void zzskim()
   smurfproducer("/smurf/ksung/ntuples/", "zmm-powheg.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZ",3);
   smurfproducer("/smurf/ksung/ntuples/", "ztt-powheg.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZ",3);
   smurfproducer("/smurf/ksung/ntuples/", "zll-madgraph.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZ",3);
-
- 
-  // BTAG samples
-  smurfproducer("/smurf/ksung/ntuples/", "ttbar2l-powheg.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZBTAG",3);
-  smurfproducer("/smurf/ksung/ntuples/", "wtop-powheg.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZBTAG",3);
-  smurfproducer("/smurf/ksung/ntuples/", "wtopb-powheg.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZBTAG",3);
-  smurfproducer("/smurf/ksung/ntuples/", "ttop-powheg.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZBTAG",3);
-  smurfproducer("/smurf/ksung/ntuples/", "ttopb-powheg.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZBTAG",3);
-  smurfproducer("/smurf/ksung/ntuples/", "stop-powheg.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZBTAG",3);
-  smurfproducer("/smurf/ksung/ntuples/", "stopb-powheg.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZBTAG",3);
-  
 
   // shape variation samples
   smurfproducer("/smurf/ksung/ntuples/", "ww-mcatnlo.root", "/smurf/yygao/data/HZZ2011A/ZZ/allj/", "ZZ",3);
