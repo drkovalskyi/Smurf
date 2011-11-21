@@ -118,7 +118,7 @@ double getObservedLimit(const char* file)
 void AddLimits_Bayesian(std::vector<LimitInfo>& limits, const char* dir, const char* name, double mass)
 {
   TChain* chain = new TChain("T");
-  chain->Add(Form("%s/output/%s-%.0f*_limits_tree.root",dir,name,mass));
+  chain->Add(Form("%s/output/%s-%.0f-bayesian*_limits_tree.root",dir,name,mass));
   double result(0);
   chain->SetBranchAddress("brT", &result);
   Long64_t nentries = chain->GetEntries();
@@ -154,7 +154,7 @@ void AddLimits_Bayesian(std::vector<LimitInfo>& limits, const char* dir, const c
   limit.exp_p1sig  = values.at(values.size()-int(prob1S*values.size()));
   limit.exp_p2sig  = values.at(values.size()-int(prob2S*values.size()));
 
-  limit.observed = getObservedLimit(Form("%s/output/%s-%.0f.observed",dir,name,mass));
+  limit.observed = getObservedLimit(Form("%s/output/%s-%.0f-bayesian.observed",dir,name,mass));
   printf("observed: %f\n",limit.observed);
   limits.push_back(limit);
 }
