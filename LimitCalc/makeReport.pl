@@ -29,9 +29,11 @@ die "0 cards is found\n" unless $nCardsPerMassPoint>0;
 sub FilterColumns{
     my @input = @_;
     if ($input[1] =~ /lnN/){
-	@input = @input[0,5..$#input];
-    } else {
+#	@input = @input[0,5..$#input];
 	@input = @input[0,4..$#input];
+    } else {
+#	@input = @input[0,4..$#input];
+	@input = @input[0,3..$#input];
     }
     return @input;
 }
@@ -85,7 +87,7 @@ foreach my $card(0..$nCardsPerMassPoint-1){
 		@titleColumns = FilterColumns(@titleColumns);
 		push @titleColumns, "\$\\sum\$Bkg";
 		push @titleColumns, "Data";
-		my $separators = "l ".("c "x(@titleColumns - 1));
+		my $separators = "l | c c | ".("c "x(@titleColumns - 5))." | c c";
 		$title = join(" & ",@titleColumns);
 		$title .= " \\\\";
 		my $tab = $tableBegin;
@@ -126,7 +128,7 @@ foreach my $card(0..$nCardsPerMassPoint-1){
 	my $sum = 0;
 	my $sumErr2 = 0;
 	foreach my $i(1..$#columns){
-	    if ($i>1){
+	    if ($i>2){ # skip first two columns, which are qqH and ggH
 		$sum += $columns[$i];
 		$sumErr2 += $errors2[$i]*$columns[$i]*$columns[$i];
 	    }

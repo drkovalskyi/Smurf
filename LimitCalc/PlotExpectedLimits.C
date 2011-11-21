@@ -24,6 +24,7 @@
 #include "../../LandS/include/PlotUtilities.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 using namespace std;
 // #include "../../LandS/include/CRandom.h"
 // #include "../../LandS/include/CountingModel.h"
@@ -95,6 +96,7 @@ double getObservedLimit(const char* file)
   // cout << file << endl;
   string line;
   ifstream myfile (file);
+  double observed(-1);
   if (myfile.is_open())
     {
       while ( myfile.good() )
@@ -105,19 +107,18 @@ double getObservedLimit(const char* file)
 	  TObjArray* matches = pattern.MatchS(line.c_str());
 	  if (matches && matches->GetLast()==1){
 	    TString result(((TObjString*)matches->At(1))->GetString());
-	    myfile.close();
-	    return atof(result.Data());
+	    observed = atof(result.Data());
 	  }
 	}
       myfile.close();   
     }
-  return -1;
+  return observed;
 }
 
-void AddLimits(std::vector<LimitInfo>& limits, const char* dir, const char* name, double mass)
+void AddLimits_Bayesian(std::vector<LimitInfo>& limits, const char* dir, const char* name, double mass)
 {
   TChain* chain = new TChain("T");
-  chain->Add(Form("%s/output/%s-%.0f-*_limits_tree.root",dir,name,mass));
+  chain->Add(Form("%s/output/%s-%.0f*_limits_tree.root",dir,name,mass));
   double result(0);
   chain->SetBranchAddress("brT", &result);
   Long64_t nentries = chain->GetEntries();
@@ -158,6 +159,41 @@ void AddLimits(std::vector<LimitInfo>& limits, const char* dir, const char* name
   limits.push_back(limit);
 }
 
+void AddLimits_CLs_Asymptotic(std::vector<LimitInfo>& limits, const char* dir, const char* name, double mass)
+{
+  LimitInfo limit;
+  limit.mass = mass;
+  limit.observed = getObservedLimit(Form("%s/output/%s-%.0f-cls_asym.observed",dir,name,mass));
+  printf("observed: %f\n",limit.observed);
+
+  const char* file = Form("%s/output/%s-%.0f-cls_asym.log",dir,name,mass);
+  string line;
+  ifstream myfile (file);
+  if (myfile.is_open())
+    {
+      while ( myfile.good() )
+        {
+          getline (myfile,line);
+          TPRegexp pattern("BANDS");
+          if (pattern.Match(line.c_str())){
+	    // std::cout << line << std::endl;
+	    stringstream ss;
+	    ss << line;
+	    std::string s;
+	    ss >> s;
+	    ss >> limit.exp_m2sig >> limit.exp_m1sig >> limit.exp_mean >> limit.exp_p1sig >> limit.exp_p2sig >> limit.exp_median;
+	    // std::cout << r2m << " : " << r1m << " : " << r1p << " : " << r2p << std::endl;
+	    // break;
+            // TString result(((TObjString*)matches->At(1))->GetString());
+            // myfile.close();
+            // return atof(result.Data());
+          }
+        }
+      myfile.close();
+    }
+  limits.push_back(limit);
+}
+
 
 void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
   if (limits.empty()){
@@ -195,7 +231,8 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
     lb = new lands::PlotWithBelts(limits_m1s, limits_p1s, limits_m2s, limits_p2s,
 				  limits_mean, observed, limits.size(), mass_points, 
 				  "limits", pt,
-				  100, 305, 0, yMax, false, 
+				  // 100, 305, 0, yMax, false, 
+				  100, 605, 0, yMax, false, 
 				  // 100, 205, 0, yMax, false, 
 				  ";Higgs mass, m_{H} [GeV/c^{2}]; 95% CL Limit on #sigma/#sigma_{SM}; observed ");
     lb->plot();
@@ -273,28 +310,18 @@ void PlotExpectedLimits(const char* file, const char* title)
 }
 
 void PlotExpectedLimits(const char* dir, const char* name, 
-			const char* title)
+			const char* title, const char* type=0)
 {
   std::vector<LimitInfo> limits;
-  AddLimits(limits, dir, name, 115);
-  AddLimits(limits, dir, name, 120);
-  AddLimits(limits, dir, name, 130);
-  AddLimits(limits, dir, name, 140);
-  AddLimits(limits, dir, name, 150);
-  AddLimits(limits, dir, name, 160);
-  AddLimits(limits, dir, name, 170);
-  AddLimits(limits, dir, name, 180);
-  AddLimits(limits, dir, name, 190);
-  AddLimits(limits, dir, name, 200);
-  AddLimits(limits, dir, name, 250);
-  AddLimits(limits, dir, name, 300);
-  AddLimits(limits, dir, name, 350);
-  AddLimits(limits, dir, name, 400);
-  AddLimits(limits, dir, name, 450);
-  AddLimits(limits, dir, name, 500);
-  AddLimits(limits, dir, name, 550);
-  AddLimits(limits, dir, name, 600);
-  
+  const unsigned int npoints = 19;
+  unsigned int points[npoints] = 
+    {110,115,120,130,140,150,160,170,180,190,200,250,300,350,400,450,500,550,600};
+  for(unsigned i=0; i<npoints; ++i){
+    if (type==0 || strcmp(type,"Bayesian")==0)
+      AddLimits_Bayesian(limits, dir, name, points[i]);
+    if (strcmp(type,"CLs-asymptotic")==0)
+      AddLimits_CLs_Asymptotic(limits, dir, name, points[i]);
+  }
   PlotExpectedLimits(limits,title);
   ReportLimits(limits,title,dir,name);
   /*
