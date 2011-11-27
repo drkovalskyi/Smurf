@@ -9,22 +9,44 @@ the hadronic recoil or momentum mismeasurement of the selected leptons.
 The contribution of events with fake \met due to the lepton momentum mismeasurement 
 is expected to be small since we select events within a fairly tight (within $15$ GeV) window 
 around the $Z$ boson pole mass. The background due to mismeasurement of the hadronic
-recoil is the main source of Drell-Yan events contributing to the selected signal region.
+recoil is the main source of Drell-Yan events contributing to the selected signal region. 
+As we select events with dilepton $p_T$ greater than 55 \GeV, the Drell-Yan events 
+are dominated by events with jet $p_T>15$\GeV, shown in Figure~\ref{fig:zjetsptmc} 
+for events after the $ZZ$ pre-selections , relaxing the topological cut on $\delphijetmet$. 
 
 The estimation of residual Drell-Yan background in the signal region depends highly on
 our understanding of the \met tails which is sensitive to many factors such as 
 the jet energy corrections, the number of pileup interactions, and energy from out of time
 contributions. These effects are difficult to model precisely in the simulation.
-Therfore we employ a data-driven method to estimate the \met distribution for the 
-Drell-Yan background. For events without natural \met\, under the assumption that 
-the fake \met is only resulting from mismeasurement of the hadronic recoil, we can use
+Therfore we employ two data-driven methods to estimate the residual Drell-Yan background, 
+detailed in the following sections. 
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{\includegraphics[width=0.40\textwidth]{figures/zjetpt_metcut50_mc.pdf}}
+\caption{The leading jet $p_T$ distribution from Drell-Yan MC, with $ZZ$ preselections.}
+\label{fig:zjetsptmc}
+\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%
+
+
+\subsubsection{Photon Jets Method}
+\label{sec:photonjets}
+
+In one method, referred to as photon jet method, we can use
 $\gamma$+jets events as a control sample to predict the \met distribution in $Z$+jets
-background events. If parameterized correctly in an observable that is highly correlated 
+background events. 
+If parameterized correctly in an observable that is highly correlated 
 with the source of fake \met, one expects $\gamma$+jets events to provide an accurate
 model of the \met distribution for $Z$+jets events, provided that the photon
-is well measured and does not contribute to the \met.
+is well measured and does not contribute to the \met. Details are given in Section~\ref{sec:photonjets}. 
 
-\subsubsection{Photon Selection and Reweighting Procedure}
+
 The photon data sample is selected by requiring one and only one photon passing reaonsably tight
 identification and isolation requirements, summarized in Table \ref{tab:PhotonSelection} below 
 \cite{MITHggNote}. 
@@ -134,7 +156,8 @@ To model the transverse mass distribution, we draw a random number from a pre-de
 mass distribution and build the $m_{T}$ observable as in Eqn \ref{eq:MTHZZ}. The dilepton mass distribution
 is constructed from data imposing all preselection cuts except the $\met\ $ requirement.
 
-\subsubsection{Monte Carlo Closure Test}
+\subsubsection{Monte Carlo Closure Test in Photon Jets Method}
+\label{sec:photonjetsmcclosure}
 
 In order to verify that the procedure models the $Z$+jet background well, we test it
 in $\gamma$+jets and $Z$+jets Monte Carlo simulation. The reweighting factors are 
@@ -203,9 +226,50 @@ $40$ GeV.}
 \end{center}
 \end{figure}
 
+\subsubsection{The $\lambda$ Method}
+\label{sec:zjetslambda}
+
+In another method, referred to as the ``$\lambda$ method'', we make use of 
+Drell-Yan enriched dilepton events where $\delphijetmet <0.5$, which 
+is vetoed in the analysis. 
+The ratio of Drell-Yan contribution in the signal region to the value in the 
+control region, referred to as $\lambda$, can be estimated in events with 
+lower $\met$ selection ( $\met > 50\GeV$) where Drell-Yan background dominate. 
+In estimating the Drell-Yan events we subtract the other background such as 
+Top/$WW$/$WZ$/$ZZ$. The Top and $WW$ contribution is estimated from data 
+using $e\mu$ events detailed in Section~\ref{sec:bkg_of}. The 
+$WZ/ZZ$ background is estimated from MC, considering the 
+theoretical and luminosity uncertainties. 
+
+The systematic uncertainties in this method arises from the $\met$ dependence of 
+$\lambda$. We estimate this effect in MC. Table~\ref{tab:lambdametdep} shows 
+the $\lambda$ estimated with different $\met$ cut in all jetbins. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[!htbp]
+\begin{center}
+{
+\begin{tabular}{|l|c|c|c|}
+\hline
+$\met$ cut      &  0-jet bin             & 1-jet bin             & 2-jet bin  \\
+\hline
+$> 50$\GeV & $0.67\pm0.17$ & $0.71\pm 0.05$ & $0.43\pm0.05$ \\
+$> 60$\GeV & $0.64\pm0.33$ & $0.42\pm 0.05$ & $0.30\pm 0.05$ \\
+$> 70$\GeV & $0.64\pm0.33$ & $0.33\pm 0.06$ & $0.29\pm 0.07$ \\
+\hline
+\end{tabular}
+}
+\caption{Summary of $\lambda$ evaluated with different $\met$ cuts in different 
+jet-bin final states from Drell-Yan MC. The $\lambda$ is defined as the ratio of the 
+events in the Drell-Yan enriched region with $\delphijetmet < 0.5$ 
+to the value in the signal region with $\delphijetmet > 0.5$. }
+\label{tab:lambdametdep}
+\end{center}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %
-\subsubsection{Systematic Uncertainties}
+\subsubsection{Systematic Uncertainties in Drell-Yan Background}
 
 We account for the intrinsic systematic uncertainty on the method by comparing
 the predicted and observed \met~distribution in the closure test described above.
