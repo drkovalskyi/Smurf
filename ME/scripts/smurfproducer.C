@@ -235,7 +235,7 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if ( (cuts_ & zz_baseline) != zz_baseline) continue;
       if (lep1_->Pt() < 20.) continue;
       if (lep2_->Pt() < 20.) continue;
-      if ( met_ < 40 ) continue;
+      if ( met_ < 50 ) continue;
       if ( dilep_->Pt() < 55.0) continue;
       if (jet1Btag_ > 2.0 && jet1_->Pt() > 30) continue;
       if (jet2Btag_ > 2.0 && jet2_->Pt() > 30) continue;
@@ -248,7 +248,7 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if ( TMath::Abs(dilep_->M()-91.1876) > 15.0 ) continue;
       if (lep1_->Pt() < 20.) continue;
       if (lep2_->Pt() < 20.) continue;
-      if ( met_ < 60 ) continue;
+      if ( met_ < 70 ) continue;
       if ( dilep_->Pt() < 55.0) continue;
       bool btag = false;
       if ( jet1Btag_ > 2.0 && jet1_->Pt() > 30) btag = true;
