@@ -12,15 +12,18 @@ M_{T}^{2} = \left( \sqrt{p_{T\mathrm{ ll}}^{2} + M_{ll}^{2}} + \sqrt{(\met)^{2} 
 \label{eq:MTHZZ}
 \end{equation}
 
-\item $\Delta\phi$ between the $\met$ and the nearest jet if the jet $\Et > 30\ \GeV$, referred to as $\Delta\phi(jet,\met)$.
+\item $\Delta\phi$ between the $\met$ and the nearest jet if the jet 
+$\Et > 30\ \GeV$ (or $15 < \Et < 30\ \GeV$ for 0-jet events), referred to as $\Delta\phi(jet,\met)$.
 Expected distribution at the preselection level is shown in Figure \ref{fig:mtemloosesel}.
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%
 
 The selection on the $\Delta\phi(jet,\met)$ is introduced to reduce the \dyll\ background, where the 
-\met\, is mainly due to the jet mis-measurement. The optimization of the selections on the 
-above three variables are described in Ref.~\cite{HZZ2011EPS}, with the lateset 
+\met\, is mainly due to the jet mis-measurement. The optimization of the selections
+is described in Ref.~\cite{HZZ2011EPS}, with the lateset 
 values shown in Ref.~\cite{hzzcutbase} and in Table \ref{tab:cut_selection}.
+To reduce the \dyll\ background further, a constant cut of $\Delta\phi(jet,\met)>0.5$ is 
+applied for every mass point in 0, 1 and 2-jet events.  
 %Tables \ref{tab:HiggsSelectionCutBased} shows the expected 
 
 %%%%%%%%%%%%%%%
@@ -43,8 +46,8 @@ The overflow bin represents those events with zero jets.}
 \begin{tabular}{c|cccccc}\hline
 Mass & 250 & 300 & 350 & 400 & 500 & 600 \\ \hline 
 Met & $>   70$ & $>   79$ & $>   95$ & $>  115$ & $>  150$ & $>  161$ \\ 
- $M_T$ & [$ 222$,~$ 272$] & [$ 264$,~$ 331$] & [$ 298$,~$ 393$] & [$ 327$,~$ 460$] & [$ 382$,~$ 605$] & [$ 452$,~$ 767$] \\ 
- $\Delta\phi(\mathrm{Jet}, \mathrm{MET})$ & $> 0.47$ & $> 0.33$ & $> 0.21$ & $> 0.12$ & $> 0.01$ & $> 0.00$ \\ \hline
+ $M_T$ & [$ 222$,~$ 272$] & [$ 264$,~$ 331$] & [$ 298$,~$ 393$] & [$ 327$,~$ 460$] & [$ 382$,~$ 605$] & [$ 452$,~$ 767$] \\ \hline
+% $\Delta\phi(\mathrm{Jet}, \mathrm{MET})$ & $> 0.5$ & $> 0.5$ & $> 0.5$ & $> 0.5$ & $> 0.5$ & $> 0.5$ \\ \hline
  \end{tabular}
 \caption{Table of cuts as a function of Higgs boson mass in the cut-based analysis.}
 \label{tab:cut_selection}
