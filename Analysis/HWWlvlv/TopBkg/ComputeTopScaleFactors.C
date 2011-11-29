@@ -59,6 +59,12 @@ void ComputeTopScaleFactors
     puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
     lumi     = 4.7;minRun =      0;maxRun = 999999;
   }
+  else if(period == 3){ // Full2011-Fall11
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
+    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
+    lumi     = 4.63;minRun =      0;maxRun = 999999;
+  }
   else {
     printf("Wrong period(%d)\n",period);
     return;
@@ -251,7 +257,7 @@ void ComputeTopScaleFactors
       }
     }
     else if(bgdEvent.dstype_ == SmurfTree::dyttDataDriven || bgdEvent.dstype_ == SmurfTree::qcd) {
-      theWeight = ZttScaleFactor(bgdEvent.nvtx_,period)*lumi;
+      theWeight = ZttScaleFactor(bgdEvent.nvtx_,period,bgdEvent.scale1fb_)*lumi;
     }
     else if(bgdEvent.dstype_ != SmurfTree::data){
       double add1 = nPUScaleFactor(fhDPUS4,bgdEvent.npu_);
@@ -542,6 +548,7 @@ void ComputeTopScaleFactors
   double effttMC_btag_central_2j[5],effttMC_btag_central_2j_error[5],effttMC_btag_central_tt_2j[5],effttMC_btag_central_tt_2j_error[5];
   double effttDA_btag_central_2j[5],effttDA_btag_central_2j_error[5],effttMC_btag_central_tw_2j[5],effttMC_btag_central_tw_2j_error[5];
   double TopBkgScaleFactor_2Jet_central,TopBkgScaleFactorUncertainty_2Jet_central;
+  printf("channel               (data/background/top)-num             (data/background/top)-den\n");
   for(int i=0; i<5; i++) {
 
     //MC efficiencies
@@ -559,8 +566,13 @@ void ComputeTopScaleFactors
     //Data efficiencies
     effttDA_btag_central_2j[i] = (btag_central_2j_num[3][i]-btag_central_2j_num[0][i]-btag_central_2j_num[2][i])/
                                  (btag_central_2j_den[3][i]-btag_central_2j_den[0][i]-btag_central_2j_den[2][i]);    
+    //effttDA_btag_central_2j[i] = (btag_central_2j_num[3][i]-btag_central_2j_num[0][i])/
+    //                             (btag_central_2j_den[3][i]-btag_central_2j_den[0][i]);    
     effttDA_btag_central_2j_error[i] = sqrt((1-effttDA_btag_central_2j[i])*effttDA_btag_central_2j[i]/btag_central_2j_den[3][i]);
 
+    printf("details_central(%d) --> %5.0f/%7.2f/%7.2f  - %5.0f/%7.2f/%7.2f\n",i,
+           btag_central_2j_num[3][i],btag_central_2j_num[0][i],btag_central_2j_num[1][i],
+	   btag_central_2j_den[3][i],btag_central_2j_den[0][i],btag_central_2j_den[1][i]);
   }
   printf("channel                      eff_data              eff_tt            ScaleFactor\n");
   for(int i=0; i<5; i++) {

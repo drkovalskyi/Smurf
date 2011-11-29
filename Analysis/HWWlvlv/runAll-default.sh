@@ -42,7 +42,7 @@ setenv SYS_TEST data/${TAG}_hww_syst_skim3.root;
  #root -l -q -b PlotHiggsRes.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",6,1,0,\"$SYS_TEST\"\); --> of
 
 if ($MAKEINPUTS == "") then
-  setenv INPUTDIR /data/smurf/ceballos/inputLimits/ana_v7_Full2011
+  setenv INPUTDIR /data/smurf/ceballos/inputLimits/ana_v7_test
   mkdir -p ${INPUTDIR}/${MH}
   if ($NJETS == 0) then
    root -l -q -b PlotHiggsRes.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",5,1,\"$SYS_TEST\"\);

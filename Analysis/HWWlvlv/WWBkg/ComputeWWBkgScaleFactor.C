@@ -67,6 +67,12 @@ void ComputeWWBkgScaleFactor (
     puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
     scaleFactorLum     = 4.7;minRun =      0;maxRun = 999999;
   }
+  else if(period == 3){ // Full2011-Fall11
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
+    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
+    scaleFactorLum     = 4.63;minRun =      0;maxRun = 999999;
+  }
   else {
     printf("Wrong period(%d)\n",period);
     return;
@@ -479,7 +485,7 @@ void ComputeWWBkgScaleFactor (
     }
     else if(dstype == SmurfTree::data) myWeight = 0.0;
     else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
-      myWeight = ZttScaleFactor(nvtx,period)*scaleFactorLum;
+      myWeight = ZttScaleFactor(nvtx,period,scale1fb)*scaleFactorLum;
     }
     else if(dstype != SmurfTree::data){
       //normal MC
