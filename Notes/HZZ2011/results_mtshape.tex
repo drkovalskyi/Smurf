@@ -1,6 +1,6 @@
 moThe Higgs boson mass dependent signal selections are described in Section~\ref{sec:signal_selection}. 
 In this section we summarise the results obtained all jet final states. 
-Tables~\ref{tab:yield_shapebased} shows the signal and 
+Tables~\ref{tab:yield_mt_shapebased} shows the signal and 
 equivalent data yields and background expectations in ee and $\mu\mu$ final states respectively. 
 Figure~\ref{fig:histo_mt_250_5fb}-\ref{fig:histo_mt_600_5fb} show the $M_T$ distribution 
 after the higgs mass dependent selections, for the mass hypothesis between 250 and 600 $\GeV$, 
@@ -8,13 +8,6 @@ corresponding to \intlumi. In these figures the background normalizations are sc
 each individual data-to-mc scale factors to account for the data and MC difference in 
 background estimation described in section~\ref{sec:backgrounds}, 
 lepton efficiency and the pileup reweighting. 
-
-The expected cross section ratio limits as a function of the Higgs mass, together with the 1/2-$\sigma$ uncertainty 
-bands are shown in Table~\ref{tab:limits_mtshape_4fb} and Figure~\ref{fig:limits_4fb}. 
-Performing shape analysis based on the $M_T$ variable only 
-improves the search sensitivity by about $10-15\%$, ignoring the systematics due to the 
-uncertainties of shape variations. Including the uncertainties due to the shape variations 
-degrades the performance degrade by up to 6\%. 
 
 We consider the following uncertainties due to the shape variations, 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -34,41 +27,48 @@ we also compare the results by adding each source progressively, shown in Table~
 Among all the shape systematics, the statistical uncertainty on the template is the leading effect. 
 The details are documented in Ref.~\cite{shapeananote}. 
 
+The expected cross section ratio limits as a function of the Higgs mass, together with the 1/2-$\sigma$ uncertainty 
+bands are shown in Table~\ref{tab:limits_mtshape_5fb} and Figure~\ref{fig:limits_5fb}. 
+The observed exclusion region for the Standard Model Higgs in [275,455]~\GeV{} at 95\%C.L., 
+compared to the expected exclusion region as obic Higgs in [290,490]~\GeV{} at 95\%C.L.
+Compared to the cut-based analysis, the shape analysis based on the $M_T$ variable improves the search sensitivity 
+by upto $10\%$ considering all the shape variation systematics. 
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[!ht]
-{\scriptsize
+{\small
  \begin{center}
- \begin{tabular}{l | c c | c c c c c c c | c}
+ \begin{tabular}{l | c c | c c c c c c  | c}
  \hline\hline
- $mH$ & qqH & ggH & ZZ & ggZZ & WZ & WW & Top & Zjets & $\sum$Bkg & Data \\
+ $mH$ & qqH & ggH & ZZ & ggZZ & WZ & WW/Top & Zjets & $\sum$Bkg & Data \\
  \hline
 \multicolumn{10}{c} {ee} \\ 
 \hline
-250 & $0.7\pm0.1$ & $7.3\pm1.1$ & $14.8\pm1.6$ & $1.4\pm0.3$ & $10.4\pm1.3$ & $11.2\pm1.6$ & $13.2\pm1.9$ & $14.6\pm4.1$ & $65.6\pm5.2$ & 52 \\
-300 & $0.9\pm0.1$ & $8.7\pm1.3$ & $12.3\pm1.3$ & $1.1\pm0.2$ & $7.4\pm0.9$ & $5.9\pm1.1$ & $9.3\pm1.7$ & $7.1\pm1.9$ & $43.1\pm3.2$ & 34 \\
-350 & $0.9\pm0.1$ & $10.0\pm1.6$ & $14.2\pm1.5$ & $1.2\pm0.3$ & $8.2\pm1.0$ & $5.9\pm1.1$ & $9.4\pm1.7$ & $7.6\pm2.0$ & $46.6\pm3.4$ & 38 \\
-400 & $0.6\pm0.1$ & $8.4\pm1.5$ & $15.2\pm1.6$ & $1.3\pm0.3$ & $8.6\pm1.1$ & $5.9\pm1.1$ & $9.4\pm1.7$ & $7.8\pm2.1$ & $48.3\pm3.5$ & 42 \\
-500 & $0.4\pm0.1$ & $3.9\pm0.9$ & $16.3\pm1.7$ & $1.4\pm0.3$ & $9.0\pm1.1$ & $5.9\pm1.1$ & $9.3\pm1.7$ & $8.2\pm2.2$ & $50.2\pm3.7$ & 42 \\
-600 & $0.2\pm0.1$ & $1.6\pm0.6$ & $16.6\pm1.8$ & $1.4\pm0.3$ & $9.0\pm1.1$ & $5.9\pm1.1$ & $9.3\pm1.7$ & $8.3\pm2.2$ & $50.6\pm3.7$ & 42 \\
+250 & $0.8\pm0.1$ & $7.6\pm1.1$ & $15.4\pm1.6$ & $1.4\pm0.3$ & $11.0\pm1.4$ & $30.1\pm3.7$ & $6.0\pm6.0$ & $64.0\pm7.4$ & 60 \\
+300 & $1.0\pm0.1$ & $9.1\pm1.4$ & $12.9\pm1.4$ & $1.1\pm0.3$ & $7.8\pm1.0$ & $17.0\pm2.8$ & $4.4\pm4.4$ & $43.2\pm5.5$ & 32 \\
+350 & $1.0\pm0.1$ & $10.4\pm1.7$ & $14.9\pm1.6$ & $1.3\pm0.3$ & $8.7\pm1.1$ & $17.0\pm2.8$ & $5.0\pm5.0$ & $46.8\pm6.0$ & 35 \\
+400 & $0.7\pm0.1$ & $8.8\pm1.5$ & $15.9\pm1.7$ & $1.4\pm0.3$ & $9.1\pm1.2$ & $17.0\pm2.8$ & $5.2\pm5.2$ & $48.5\pm6.2$ & 39 \\
+500 & $0.4\pm0.1$ & $4.0\pm1.0$ & $17.0\pm1.8$ & $1.5\pm0.3$ & $9.4\pm1.2$ & $17.0\pm2.8$ & $5.4\pm5.4$ & $50.3\pm6.5$ & 39 \\
+600 & $0.3\pm0.1$ & $1.7\pm0.6$ & $17.3\pm1.8$ & $1.5\pm0.3$ & $9.5\pm1.2$ & $17.0\pm2.8$ & $5.4\pm5.4$ & $50.8\pm6.5$ & 39 \\
 \hline
 \multicolumn{10}{c} {$\mu\mu$} \\ 
 \hline
-250 & $1.0\pm0.1$ & $9.7\pm1.4$ & $21.0\pm2.0$ & $1.9\pm0.4$ & $14.5\pm1.7$ & $13.0\pm1.8$ & $17.4\pm2.4$ & $21.5\pm5.9$ & $89.3\pm7.2$ & 78 \\
-300 & $1.2\pm0.1$ & $11.7\pm1.7$ & $17.2\pm1.7$ & $1.5\pm0.3$ & $10.1\pm1.2$ & $7.4\pm1.4$ & $11.5\pm2.1$ & $12.3\pm3.3$ & $60.0\pm4.6$ & 53 \\
-350 & $1.1\pm0.1$ & $13.5\pm2.1$ & $19.6\pm1.9$ & $1.7\pm0.4$ & $11.2\pm1.3$ & $7.4\pm1.4$ & $11.5\pm2.1$ & $13.0\pm3.5$ & $64.5\pm4.9$ & 55 \\
-400 & $0.8\pm0.1$ & $11.4\pm2.0$ & $21.1\pm2.1$ & $1.8\pm0.4$ & $11.7\pm1.4$ & $7.4\pm1.4$ & $11.5\pm2.1$ & $13.4\pm3.6$ & $66.9\pm5.0$ & 59 \\
-500 & $0.5\pm0.1$ & $4.9\pm1.2$ & $22.6\pm2.2$ & $2.0\pm0.4$ & $12.1\pm1.4$ & $7.4\pm1.4$ & $11.5\pm2.1$ & $13.9\pm3.7$ & $69.6\pm5.2$ & 62 \\
-600 & $0.3\pm0.1$ & $2.1\pm0.7$ & $23.0\pm2.2$ & $2.0\pm0.4$ & $12.2\pm1.4$ & $7.4\pm1.4$ & $11.5\pm2.1$ & $14.0\pm3.7$ & $70.1\pm5.2$ & 62 \\
+250 & $1.1\pm0.1$ & $10.7\pm1.5$ & $23.0\pm2.2$ & $2.1\pm0.5$ & $16.1\pm1.9$ & $37.5\pm4.5$ & $9.6\pm9.6$ & $88.4\pm11.1$ & 85 \\
+300 & $1.4\pm0.1$ & $12.9\pm1.9$ & $18.8\pm1.8$ & $1.7\pm0.4$ & $11.2\pm1.3$ & $21.2\pm3.4$ & $7.0\pm7.0$ & $59.9\pm8.2$ & 60 \\
+350 & $1.3\pm0.1$ & $14.8\pm2.3$ & $21.5\pm2.1$ & $1.9\pm0.4$ & $12.5\pm1.5$ & $21.2\pm3.4$ & $7.9\pm7.9$ & $65.0\pm9.0$ & 62 \\
+400 & $1.0\pm0.1$ & $12.6\pm2.2$ & $23.1\pm2.3$ & $2.0\pm0.4$ & $13.1\pm1.5$ & $21.2\pm3.4$ & $8.2\pm8.2$ & $67.6\pm9.3$ & 65 \\
+500 & $0.6\pm0.1$ & $5.5\pm1.3$ & $24.9\pm2.4$ & $2.2\pm0.5$ & $13.5\pm1.6$ & $21.2\pm3.4$ & $8.5\pm8.5$ & $70.2\pm9.6$ & 70 \\
+600 & $0.3\pm0.1$ & $2.3\pm0.8$ & $25.3\pm2.5$ & $2.2\pm0.5$ & $13.6\pm1.6$ & $21.2\pm3.4$ & $8.6\pm8.6$ & $70.8\pm9.7$ & 70 \\
 \hline\hline
 \end{tabular}
 \end{center}
 }
 \caption{Expected number of signal and background events for an 
   integrated luminosity of \intlumi after applying the higgs selections in the shape-based analysis in the ee final state. 
-  Both statistical and systematic uncertainties are included. The $\ww$ and Top processes are shown separately as they are treated differently (see Section~\ref{sec:bkg_of}). }
-\label{tab:yield_shapebased}
+  Both statistical and systematic uncertainties are included. }
+\label{tab:yield_mt_shapebased}
 \end{table}
 
 \begin{table}
@@ -81,12 +81,12 @@ The details are documented in Ref.~\cite{shapeananote}.
 Mass  &  Median      &     68\% C.L. band &  95\% C.L. band &  Median	   &	 68\% C.L. band &  95\% C.L. band\\
       &  Expected    &                    &                 &  Expected    &			&		 \\
 \hline
-250 & 1.62 & [1.14, 2.34] & [0.82, 3.26] & 1.71 & [1.19, 2.51] & [0.86, 3.58] \\
-300 & 1.00 & [0.71, 1.44] & [0.53, 2.02] & 1.06 & [0.74, 1.51] & [0.53, 2.14] \\
-350 & 0.70 & [0.49, 1.00] & [0.37, 1.39] & 0.72 & [0.51, 1.04] & [0.38, 1.47] \\
-400 & 0.70 & [0.49, 0.99] & [0.37, 1.37] & 0.71 & [0.50, 1.01] & [0.38, 1.41] \\
-500 & 1.26 & [0.90, 1.81] & [0.68, 2.54] & 1.30 & [0.92, 1.88] & [0.69, 2.65] \\
-600 & 2.79 & [1.99, 4.03] & [1.53, 5.77] & 2.87 & [2.02, 4.22] & [1.54, 6.09] \\
+250 & 1.40 & [1.01, 1.94] & [0.76, 2.58] & 1.48 & [1.06, 2.05] & [0.80, 2.72] \\
+300 & 0.92 & [0.66, 1.28] & [0.50, 1.69] & 0.93 & [0.67, 1.29] & [0.51, 1.72] \\
+350 & 0.62 & [0.45, 0.86] & [0.34, 1.15] & 0.63 & [0.45, 0.87] & [0.34, 1.16] \\
+400 & 0.63 & [0.45, 0.87] & [0.34, 1.16] & 0.63 & [0.46, 0.88] & [0.34, 1.17] \\
+500 & 1.06 & [0.76, 1.47] & [0.57, 1.95] & 1.08 & [0.78, 1.50] & [0.58, 1.99] \\
+600 & 2.20 & [1.59, 3.06] & [1.19, 4.06] & 2.23 & [1.61, 3.10] & [1.21, 4.12] \\
 \hline
 \end{tabular}
 }
@@ -94,7 +94,7 @@ Mass  &  Median      &     68\% C.L. band &  95\% C.L. band &  Median	   &	 68\%
 \caption{The median expected cross section ratio limits as a function 
 of the Higgs mass, together with the 1/2-$\sigma$ uncertainty bands obtained in the shape analysis based on $M_T$, 
 corresponding to an integrated luminosity of \intlumi}
-\label{tab:limits_mtshape_4fb}
+\label{tab:limits_mtshape_5fb}
 \end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -170,26 +170,26 @@ The distributions are normalized to \intlumi with the background scaled by the d
 \begin{table}[!ht]
 \begin{center}
 {\normalsize
-\begin{tabular}{|l|c|cccccc|}
+\begin{tabular}{|l|c|ccccc|}
 \hline
-      &  Analysis    & adding          &  adding      &  adding      &  adding      & adding      & adding \\
-mH  &  without     & template        &  $H\to ZZ$   &  Top         &  WW          & WZ          & ZZ \\
-      &  shape syst. & stat. uncert.   &  QCD effect &  shape syst. &  shape syst. & shape syst. & shape syst. \\
+      &  Analysis    & adding          &  adding      &  adding      & adding      & adding \\
+mH  &  without     & template        &  $H\to ZZ$   &  Top/WW             & WZ          & ZZ \\
+      &  shape syst. & stat. uncert.   &  QCD effect &  shape syst. & shape syst. & shape syst. \\
 \hline
-250 & 1.62 & 1.71 & 1.69 & 1.70 & 1.73 & 1.72 & 1.71 \\   
-300 & 1.00 & 1.03 & 1.02 & 1.06 & 1.05 & 1.06 & 1.06 \\ 
-350 & 0.70 & 0.71 & 0.71 & 0.72 & 0.72 & 0.72 & 0.72 \\
-400 & 0.70 & 0.70 & 0.70 & 0.70 & 0.70 & 0.71 & 0.71 \\
-500 & 1.26 & 1.28 & 1.28 & 1.28 & 1.29 & 1.29 & 1.30 \\
-600 & 2.79 & 2.88 & 2.84 & 2.84 & 2.86 & 2.88 & 2.87 \\
+250 & 1.40 & 1.40 & 1.40 & 1.48 & 1.48 & 1.48 \\   
+300 & 0.92 & 0.92 & 0.92 & 0.92 & 0.93 & 0.93 \\ 
+350 & 0.62 & 0.62 & 0.62 & 0.63 & 0.63 & 0.63 \\
+400 & 0.63 & 0.63 & 0.63 & 0.63 & 0.63 & 0.63 \\
+500 & 1.06 & 1.06 & 1.06 & 1.06 & 1.08 & 1.08 \\
+600 & 2.20 & 2.21 & 2.21 & 2.20 & 2.23 & 2.23 \\
 \hline
 \end{tabular}
 }
 \caption{Comparison of the median expected cross section ratio limits as a function 
 of the Higgs mass between shape analysis without and with accouting for the 
 shape variation systematics. The results on the various sources are added sequentially 
-to study the impact of each source. Note that the statistical precision on the limits 
-here are around 1\%. }
+to study the impact of each source. } %Note that the statistical precision on the limits 
+%here are around 1\%. }
 \label{tab:mva_mtshape_detail}
 \end{center}
 \end{table}
@@ -198,10 +198,10 @@ here are around 1\%. }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!htbp]
 \begin{center}
-   \includegraphics[width=0.49\textwidth]{figures/limits_cut_4fb.pdf}
-   \includegraphics[width=0.49\textwidth]{figures/limits_mtshape_4fb.pdf}
-   \caption{ The expected upper limits at 95\% C.L. for \intlumi\ of data for the cut-based (left) and $M_T$ shape based (right) analyses. The $M_T$ shape analysis includes all the shape systematics. }
-   \label{fig:limits_4fb}
+   \includegraphics[width=0.8\textwidth]{figures/limits_mtshape_5fb.pdf}
+   \caption{ The expected upper limits at 95\% C.L. for \intlumi\ of data for the shape based
+    analyses. The $M_T$ shape analysis includes all the shape systematics. }
+   \label{fig:limits_5fb}
 \end{center}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%

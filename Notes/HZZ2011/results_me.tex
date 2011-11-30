@@ -11,30 +11,12 @@ background estimation described in section~\ref{sec:backgrounds},
 lepton efficiency and the pileup reweighting. 
 
 
-
-We consider the following uncertainties due to the shape variations, 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itemize}
-\item {Statistic uncertainties in the template}
-\item {QCD scale variations to the Higgs process}
-\item {Top shape variations}
-\item {WW shape variations}
-\item {WZ shape variations}
-\item {ZZ shape variations}.
-\end{itemize}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The effects due to the lepton efficiency and scale variations are neglible and we assign only 
-the normalization uncertainties. 
-%To understand the effects of the individual source of the uncertainties, 
-%we also compare the results by adding each source progressively, shown in Table~\ref{tab:mva_meshape_detail}. 
-%Among all the shape systematics, the statistical uncertainty on the template is the leading effect. 
-The details are documented in Ref.~\cite{shapeananote}. 
-
 The expected cross section ratio limits as a function of the Higgs mass, together with the 1/2-$\sigma$ uncertainty 
 bands are shown in Table~\ref{tab:limits_meshape_5fb} and Figure~\ref{fig:limits_meshape_5fb}. 
 The observed exclusion region for the Standard Model Higgs in [300,500]~\GeV{} at 95\%C.L., 
 compared to the expected exclusion region as obic Higgs in [280,480]~\GeV{} at 95\%C.L.
-
+Compared to the cut-based analysis, performing shape analysis based on the matrix element output 
+improves the search sensitivity by upto $20\%$. 
 
 %Performing shape analysis based on the matrix element output variable 
 %improves the search sensitivity by about $10-15\%$, ignoring the systematics due to the 
@@ -83,12 +65,12 @@ shape-based analysis based on matrix element output. Both statistical and system
 \begin{tabular}{ccccc}
 \hline\hline
 Mass & Observed & Median Expected & [-$\sigma$, +$\sigma$] & [-2$\sigma$, +2$\sigma$]\\\hline
-250 & 1.20 & 1.31 & [0.95, 1.82] & [0.71, 2.42] \\
-300 & 1.00 & 0.87 & [0.63, 1.21] & [0.47, 1.61] \\
+250 & 1.21 & 1.31 & [0.95, 1.82] & [0.71, 2.42] \\
+300 & 0.99 & 0.87 & [0.63, 1.21] & [0.47, 1.61] \\
 350 & 0.63 & 0.64 & [0.46, 0.88] & [0.35, 1.17] \\
 400 & 0.56 & 0.64 & [0.46, 0.89] & [0.35, 1.19] \\
-500 & 1.00 & 1.13 & [0.82, 1.57] & [0.61, 2.09] \\
-600 & 1.98 & 2.39 & [1.72, 3.32] & [1.30, 4.41] \\
+500 & 1.00 & 1.13 & [0.81, 1.57] & [0.61, 2.08] \\
+600 & 1.96 & 2.43 & [1.75, 3.37] & [1.32, 4.48] \\
 \hline\hline
 \end{tabular}
 \end{center}
@@ -233,7 +215,7 @@ The distributions are normalized to \intlumi with the background scaled by the d
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!htbp]
 \begin{center}
-   \includegraphics[width=1.0\textwidth]{figures/limits_meshape_5fb.pdf}
+   \includegraphics[width=0.8\textwidth]{figures/limits_meshape_5fb.pdf}
    \caption{ The expected upper limits at 95\% C.L. for \intlumi\ of data for the matrix element output shape based (right) analyses. 
 	The matrix element output shape analysis includes all the shape systematics. }
    \label{fig:limits_meshape_5fb}
