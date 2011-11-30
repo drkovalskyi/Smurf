@@ -2,7 +2,8 @@ Triggering on Higgs boson decays in the dilepton final state becomes more and mo
 challenging with increasing instantaenous luminosity.
 Single lepton triggers can only be sustained with very tight identification and
 isolation requirements and large transverse momentum thresholds.
-This means that double lepton triggers are the only sustainable option. 
+This means that double lepton triggers are the only sustainable option. In the muon case,
+the $p_T$ thresholds are low enough such that they can still be used to gain about 5\% more yield.
 %to maintain sensitivity to a low mass Higgs boson, where the leptons transverse momentum
 %can be small.
 We use a suite of signal and control triggers designed in the $H \to \WW$ analysis~\cite{HWW2011AN}. 
@@ -69,9 +70,13 @@ Triggers marked (*) are also used for efficiency studies.}
 \hline
   Dataset & Trigger name & Description\\
   \hline \hline
-  DoubleMu & HLT\_DoubleMu7 & $p_T>7,7~\GeVc$ \\
-  DoubleMu & HLT\_Mu13\_Mu8 & $p_T>13,8~\GeVc$ \\
-  DoubleMu & HLT\_Mu17\_Mu8 & $p_T>17,8~\GeVc$ \\
+  DoubleMu & HLT\_DoubleMu7   & $p_T>7,7~\GeVc$ \\
+  DoubleMu & HLT\_Mu13\_Mu8   & $p_T>13,8~\GeVc$ \\
+  DoubleMu & HLT\_Mu17\_TkMu8 & $p_T>17,8~\GeVc$ \\
+  \hline
+  SingleMu & HLT\_IsoMu17         & $p_T>17~\GeVc$ \\
+  SingleMu & HLT\_IsoMu24         & $p_T>24~\GeVc$ \\
+  SingleMu & HLT\_IsoMu30\_eta2p1 & $p_T>30~\GeVc, |\eta|<2.1$ \\
   \hline
   \end{tabular}
 }
@@ -179,9 +184,6 @@ $\dyll$ plus jets.
 \hline
   Trigger name \\
   \hline \hline
-HLT\_Photon20\_CaloIdVL\_IsoL \\
-HLT\_Photon30\_CaloIdVL\_IsoL \\
-HLT\_Photon30\_CaloIdVL \\
 HLT\_Photon50\_CaloIdVL\_IsoL \\
 HLT\_Photon50\_CaloIdVL \\
 HLT\_Photon75\_CaloIdVL\_IsoL \\
