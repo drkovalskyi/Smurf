@@ -1,8 +1,25 @@
 In order to achieve better discrimination between the Higgs boson signal and the SM backgrounds
 compared to simple cuts we employ a Matrix Element technique. 
-Compared to the selections applied in the $M_T$ analysis described in Section~\ref{sec:anal_mt}, we 
-apply the same Higgs dependent selections except for the $M_T$ window cuts. 
-
+%Compared to the selections applied in the $M_T$ analysis described in Section~\ref{sec:anal_mt}, we 
+%apply the same Higgs dependent selections except for the $M_T$ window cuts. 
+The preselections for the matrix element is different from the $M_T$ shape based analysis. 
+This is because in the matrix element approach, we do not select events based on the $M_T$. 
+To reduce the Drell-Yan background, we apply the following higgs-mass dependent $\met$ selections.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular} {l|cccccc}
+\hline
+Mass          & 250 & 300 & 350 & 400 & 500 & 600 \\
+\hline
+$\met>$      &  70 &  80 &  90 &  90 & 100 & 120 \\
+\hline
+\end{tabular}
+\label{tab:metmvapresel}
+\caption{The $\met$ preselections for shape analysis based on the matrix element output. }
+\end{center}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 This method has been previously used in precision
 measurements of the top quark mass \cite{ref:CDFTopMass,ref:D0TopMass} and cross-section, 
@@ -166,8 +183,9 @@ Because signal events are expected to have $P_s>P_b$ and vice-versa for backgrou
 the value of $LR$ is close to one for signal and zero for background processes.
 The calculation of $P_s$ is a function of Higgs mass, so the likelihood ratio
 shape depends on $m_H$. This is true for both signal and background templates of $LR$. 
-%Figure~\ref{fig:lrstacks} shows the likelihood ratio distributions for $m_H$~=~130, 160, and 200 $\GeVcc$, 
-%corresponding to 1~$\ifb$. 
+Figure~\ref{fig:histo_me_250_5fb}-\ref{fig:histo_me_600_5fb} show the matrix element output distribution 
+after the higgs mass dependent selections, for the mass hypothesis between 250 and 600 $\GeV$, 
+corresponding to \intlumi.
 %Note that the backgrounds peak near $LR~=~0$ while the signal peaks near $LR~=~1$. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{figure}[!hbtp]
