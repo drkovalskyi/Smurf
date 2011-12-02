@@ -649,8 +649,15 @@ void ComputeWWBkgScaleFactor (
       WWScaleFactorUncertainty[classIndex][imass] = SFUncertainty;
 
       //if (!(classIndex == kCutBasedZeroJet && imass == 1)) continue;
+      
+      string classLabel = "";
+      if (classIndex == kCutBasedZeroJet) classLabel = "CutBased 0-Jet Bin";
+      if (classIndex == kCutBasedOneJet) classLabel = "CutBased 1-Jet Bin";
+      if (classIndex == kMVAZeroJet) classLabel = "MVA Shape 0-Jet Bin";
+      if (classIndex == kMVAOneJet) classLabel = "MVA Shape 1-Jet Bin";
 
-      cout << "mH = << " << imass << " Analysis : WW Control Region" << endl;
+      cout << "******************************************************************\n";
+      cout << "mH = << " << mH[imass] << " Analysis : " << classLabel << " : WW Control Region" << endl;
       cout << "Data Yield : " << Yield_WWControlRegion_Data[classIndex][imass] 
            << " +/- " << YieldUncertainty_WWControlRegion_Data[classIndex][imass] << endl;
       cout << "DY Bkg : " 
@@ -668,13 +675,17 @@ void ComputeWWBkgScaleFactor (
       cout << "Total Bkg : " 
            << Yield_WWControlRegion_Bkg[classIndex][imass] << " +/- " 
            << YieldUncertainty_WWControlRegion_Bkg[classIndex][imass] << endl;
-      cout << "******************************************************************\n";
+      cout << "------------------------------------------------------------------\n";
+      cout << "Background Subtracted WW Yield from Data : "
+           << Yield_WWControlRegion_Data[classIndex][imass] - Yield_WWControlRegion_Bkg[classIndex][imass] << " +/- "
+           << TMath::Sqrt(Yield_WWControlRegion_Data[classIndex][imass] + pow(YieldUncertainty_WWControlRegion_Bkg[classIndex][imass],2)) << endl;
       cout << "WW Yield from MC : " 
            << Yield_WWControlRegion_WWMC[classIndex][imass] << " +/- " 
            << YieldUncertainty_WWControlRegion_WWMC[classIndex][imass] << endl;
       cout << "ScaleFactor : " 
            << WWScaleFactor[classIndex][imass] << " +/- " 
            << WWScaleFactorUncertainty[classIndex][imass] << endl;
+      cout << "******************************************************************\n";
     }
   }
 
