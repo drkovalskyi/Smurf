@@ -1,14 +1,28 @@
-In this section we compare results of the old analysis used for EPS
-2011 conference~\cite{HWW2011} and the current analysis with all the
-improvements including refined background estimations. The dataset is
-the one used for EPS 2011 and it corresponds to $1.1\pm0.1\ifb$. 
-We also show the results for the dataset corresponding to the full data
-sample except the EPS one, so-called Post-EPS sample.
+The shape analysis results presented at EPS 2011 conference showed a
+noticeable excess at low Higgs mass. Currently we have a factor of 4
+more data and we can understand better the nature of the EPS
+excess. 
 
-The expected and observed upper limits at 95\% C.L. for the cut-based and
-multivariate analyses using the EPS sample are shown in 
-Tables~\ref{tab:cutbase_uls_eps} and~\ref{tab:mvabase_uls_eps}, respectively. 
-The corresponding exclusion limits are shown in Figure~\ref{fig:uls_eps}.
+First, we compare results of the old shape analysis used for EPS 2011
+conference~\cite{HWW2011} and the current analysis with all the
+improvements including refined background estimations.  The dataset is
+the one used for EPS 2011 and it corresponds to $1.1\ifb$ of
+integrated luminosity. The expected and observed upper limits at 95\%
+C.L. for the cut-based and multivariate analyses are shown in
+Tables~\ref{tab:cutbase_uls_eps} and~\ref{tab:mvabase_uls_eps},
+respectively. Based on these results we can conclude that the excess
+is still present in the new analysis. Small differences can be
+attributed to the fact that the new analysis uses a bit tighter
+selection requirements.
+
+Second, we look at results derived from the post EPS data that
+corresponds to $3.5\ifb$. The exclusion limits are shown in
+Figure~\ref{fig:uls_eps}. Tables~\ref{} and~\ref{} show results for
+the post-EPS data. We observe much better agreement between expected
+and observed limits compared with the full 2011 dataset.  This
+indicates that the excess observed in EPS results is partially
+responsible for the overall excess that we see in the current analysis
+performed with the full 2011 dataset.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[hbp!]
@@ -76,6 +90,7 @@ The corresponding exclusion limits are shown in Figure~\ref{fig:uls_eps}.
 500 & 3.0 / 2.3 & 3.8 / 3.4 & [2.7, 5.3] / [2.4, 4.7]& [2.0, 7.1] / [1.8, 6.3] \\
 550 & 4.2 / 3.6 & 5.2 / 4.8 & [3.7, 7.2] / [3.4, 6.6]& [2.8, 9.7] / [2.6, 8.9] \\
 600 & 5.9 / 4.9 & 7.6 / 6.9 & [5.5, 10.6] / [4.9, 9.5]& [4.1, 14.2] / [3.7, 12.8]\\
+
 \hline
 \end{tabular}
 \caption{Expected and observed upper limits for SM Higgs using the
@@ -86,23 +101,28 @@ The corresponding exclusion limits are shown in Figure~\ref{fig:uls_eps}.
 
 \begin{figure}[!hbtp]
 \centering
-\subfigure[SM Higgs (cut-based)]{
+\subfigure[EPS new analysis (cut-based)]{
 \centering
-\label{subfig:sm_cut}
 \includegraphics[width=.45\textwidth]{figures/limits_nj_cut-CLs-asymptotic_EPS.pdf}}
-\subfigure[SM Higgs (shape-based)]{
+\subfigure[EPS new analysis (shape-based)]{
 \centering
-\label{subfig:sm_cut_zoom}
-\includegraphics[width=.45\textwidth]{figures/limits_nj_shape-CLs-asymptotic_EPS.pdf}}
+\includegraphics[width=.45\textwidth]{figures/limits_nj_shape-CLs-asymptotic_EPS.pdf}}\\
+\subfigure[EPS old analysis (cut-based)]{
+\centering
+\includegraphics[width=.45\textwidth]{figures/limits_nj_cut-CLs-asymptotic_EPS_oldana.pdf}}
+\subfigure[EPS old analysis (shape-based)]{
+\centering
+\includegraphics[width=.45\textwidth]{figures/limits_nj_shape-CLs-asymptotic_EPS_oldana.pdf}}\\
+\subfigure[post-EPS new analysis (cut-based)]{
+\centering
+\includegraphics[width=.45\textwidth]{figures/limits_nj_cut-CLs-asymptotic_PostEPS.pdf}}
+\subfigure[post-EPS new analysis (shape-based)]{
+\centering
+\includegraphics[width=.45\textwidth]{figures/limits_nj_shape-CLs-asymptotic_PostEPS.pdf}}\\
 
-\caption{Expected and observed upper limits on the SM using EPS dataset.}
+\caption{Expected and observed upper limits on the SM Higgs using EPS and post-EPS datasets.}
 \label{fig:uls_eps}
 \end{figure}
-
-The expected and observed upper limits at 95\% C.L. for the cut-based and
-multivariate analyses using the Post-EPS sample are shown in 
-Tables~\ref{tab:cutbase_uls_posteps} and~\ref{tab:mvabase_uls_posteps}, respectively. 
-The corresponding exclusion limits are shown in Figure~\ref{fig:uls_posteps}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[hbp!]
@@ -135,11 +155,10 @@ The corresponding exclusion limits are shown in Figure~\ref{fig:uls_posteps}.
 \hline
 \end{tabular}
 \caption{Expected and observed upper limits for SM Higgs using the
-  {\bf cut-based} analysis using Post-EPS dataset.}
+  {\bf cut-based} analysis using {\bf post-EPS} dataset.}
 \label{tab:cutbase_uls_posteps}
 \end{center}
 \end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[hbp!]
@@ -172,23 +191,7 @@ The corresponding exclusion limits are shown in Figure~\ref{fig:uls_posteps}.
 \hline
 \end{tabular}
 \caption{Expected and observed upper limits for SM Higgs using the
-  {\bf shape-based} analysis using Post-EPS dataset.}
+  {\bf shape-based} analysis using {\bf post-EPS} dataset.}
 \label{tab:mvabase_uls_posteps}
 \end{center}
 \end{table}
-
-\begin{figure}[!hbtp]
-\centering
-\subfigure[SM Higgs (cut-based)]{
-\centering
-\label{subfig:sm_cut}
-\includegraphics[width=.45\textwidth]{figures/limits_nj_cut-CLs-asymptotic_PostEPS.pdf}}
-\subfigure[SM Higgs (shape-based)]{
-\centering
-\label{subfig:sm_cut_zoom}
-\includegraphics[width=.45\textwidth]{figures/limits_nj_shape-CLs-asymptotic_PostEPS.pdf}}
-
-\caption{Expected and observed upper limits on the SM using Post-EPS dataset.}
-\label{fig:uls_posteps}
-\end{figure}
-
