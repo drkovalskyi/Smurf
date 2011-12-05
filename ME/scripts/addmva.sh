@@ -21,7 +21,7 @@ fi
 
 
 #  self-protection, the ME code is invoked only for the 0-jet bin
-if [ ${NJETS} == "0" ] && [ ${ADDME} == "1" ]; then
+if [ ${ADDME} == "1" ]; then
     export MEFLAG=1
 else
     export MEFLAG=0
@@ -36,8 +36,7 @@ fi
 
 ## add bdt
 echo "adding the BDT..."
-#for MASS in 115 120 130 140 150 160 170 180 190 200 250 300 350 400 450 500 550 600; do
-for MASS in 120 130 140 150 160 170 180 190 200 250 300 350 400 450 500 550 600; do
+for MASS in 115 120 130 140 150 160 170 180 190 200 250 300 350 400 450 500 550 600; do
     echo doing $MASS
     cd ../../MVA
     nohup ./add_bdt_42X.sh $NJETS $MASS $INPUTDIR $OUTPUTDIR $MEFLAG >& ../ME/scripts/log/addbdt_${MASS}_${NJETS}j.log 
