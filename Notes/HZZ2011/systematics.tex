@@ -112,6 +112,190 @@ influenced via the Higgs $p_{T}$ spectrum. This effect is much smaller in
 magnitude than the effect on the jet bin fractions in any case, and 
 essentially can be neglected.
 
+\subsection{Shape Systematics}
+
+Shape analysis relies on a good understanding of the signal and background distributions. 
+As such, additional shape systematic uncertainties must be evaluated
+on top of the background normalisation uncertainties. 
+We now describe the procedures used to evaluate these uncertainties,
+which are described in more detail in Section 4 of Reference \cite{shapeananote}.	
+
+There are three different ways to account for systematic uncertainties for a
+given source:
+
+\begin{itemize}
+  \item {\bf normalization uncertanty} - account only for the overall
+    normalization assuming that the shape is perfectly known;
+  \item {\bf uncorrelated normalization and shape uncertainties} - this is
+    the most common case considered here;
+  \item {\bf correlated normalization and shape uncertainties} - in cases 
+    such as bin-by-bin statistical variation and lepton efficiencies,
+    both the normalization and the shape must be treated as correlated.
+\end{itemize}
+
+Normalization uncertanties are the most straightforward to treat. They
+are identical to those used in a cut-based analysis. To simplify the
+analysis in some cases, such as background contributions with
+large normalization uncertainties, it can be used as the only source of
+systematic uncertainty ignoring the shape variation.
+
+The current available official software framework does not support a full proper treatment of the statistical
+shape uncertainties on each bin independently. 
+Thus to account for most of the effect, we build ``up" (``down") variations as the
++1(-1)$\sigma$ statistical uncertainty on every bin. In this way, we
+consider the uncertainty on every bin in a correlated way.
+
+We assess the variation on the shape of each process by constructing alternate simulation
+and data bounding shapes as appropriate or available for each process.
+The sources of these alternate shapes are now described:
+
+\begin{itemize}
+
+    \item {{$H\rightarrow ZZ$ Signal}}:
+    \begin{itemize}
+        \item Central Shape: Powheg MC with Higgs boson $p_T$ dependent NLO k-Factor.
+        \item Alternate Shapes: We include the shape uncertainty from the variation of 
+the QCD scales, which are found the effect the expected limits at the percent level.
+Shape variation based on the PDF uncertainty is expected to be contained within the
+existing PDF normalisation uncertainties. Experimental effects from variation of the lepton
+efficiencies and momentum scale are negligible.
+    \end{itemize}
+
+    \item {{$ZZ$}} (normalisation from MC): 
+    \begin{itemize}
+        \item Central Shape: Madgraph MC with dilepton $p_T$ dependent NLO k-Factor.
+        \item Alternate Shapes: We compare the $p_T$ re-weighted Madgraph shape
+with the other available Pythia MC sample, with equivalent $p_T$ reweighting. 
+%shown in Figure \ref{fig:zzsyst_hzz}.
+    \end{itemize}
+
+    \item {{$WZ$}} (normalisation from MC):
+    \begin{itemize}
+        \item Central Shape: Madgraph MC.
+        \item Alternate Shapes: We compare the Madgraph shape
+with the other available Pythia MC sample.%, shown in Figure \ref{fig:wzsyst_hzz}.
+We cross check the $WZ$ shape using data events with three leptons,
+however this is not used as an alternate shape in the current analysis due to low statistics.
+    \end{itemize}
+
+    \item {{Top/WW}} (normalisation from $e\mu$ data):
+    \begin{itemize}
+        \item Central Shape: $e\mu$ events passing the selection for shape analysis. Since 
+the $e\mu$ sample is statistically limited the $M_{T}$ is smoothened out. 
+        \item Alternate Shapes: The alternate shape is taken by combining Top and WW events 
+in Monte Carlo
+%The alternate shapes are shown in Figure \ref{fig:topsyst_hzz}.
+    \end{itemize}
+
+    \item Z+jets (normalisation from $\gamma$+jets data):
+    \begin{itemize}
+        \item Central Shape: From $\gamma$+jets data.
+        \item Alternate Shapes: Intrinsic differences between the $\gamma$+jets and Z+jets processes
+are taken into account by the assigned normalisation uncertainty, which is 100\%.
+    \end{itemize}
+
+\vspace{15pt}
+
+To understand the effects of the individual source of the uncertainties,
+we compare the results by adding each source progressively, shown in Table~\ref{tab:mva_mtshape_detail}.
+Among all the shape systematics, the statistical uncertainty on the template is the leading effect.
+The degradation in the expected limit by adding shape systematics is found to be up to $6\%$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[!ht]
+\begin{center}
+{\normalsize
+\begin{tabular}{|l|c|ccccc|}
+\hline
+      &  Analysis    & adding          &  adding      &  adding      & adding      & adding \\
+mH  &  without     & template        &  $H\to ZZ$   &  Top/WW             & WZ          & ZZ \\
+      &  shape syst. & stat. uncert.   &  QCD effect &  shape syst. & shape syst. & shape syst. \\
+\hline
+250 & 1.38 & 1.38 & 1.38 & 1.45 & 1.38 & 1.38 \\   
+300 & 0.92 & 0.92 & 0.92 & 0.92 & 0.93 & 0.93 \\ 
+350 & 0.62 & 0.62 & 0.62 & 0.63 & 0.63 & 0.63 \\
+400 & 0.63 & 0.63 & 0.63 & 0.63 & 0.63 & 0.63 \\
+500 & 1.06 & 1.06 & 1.06 & 1.06 & 1.08 & 1.08 \\
+600 & 2.20 & 2.21 & 2.21 & 2.20 & 2.23 & 2.23 \\
+\hline
+\end{tabular}
+}
+\caption{Comparison of the median expected cross section ratio limits as a function 
+of the Higgs mass between shape analysis without and with accouting for the 
+shape variation systematics. The results on the various sources are added sequentially 
+to study the impact of each source. } 
+\label{tab:mva_mtshape_detail}
+\end{center}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{itemize}
+
+Table~\ref{tab:limits_mtshape_uncert_5fb}-\ref{tab:limits_meshape_uncert_5fb} show the 
+expected limits as a function of the higgs mass for the shape analyses based on 
+the $M_T$ variable and matrix element output, comparing the effects of including the 
+shape systematics. Overall, the effects due to the shape systematics are small. This 
+is mainly because of the large overall normalization uncertainties present. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[!htbp]
+\begin{center}
+{\normalsize
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+      &  \multicolumn{3}{c|}{ without shape uncertainty} &\multicolumn{3}{c|}{ with shape uncertainty} \\
+\hline
+Mass  &  Median      &     68\% C.L. band &  95\% C.L. band &  Median	   &	 68\% C.L. band &  95\% C.L. band\\
+      &  Expected    &                    &                 &  Expected    &			&		 \\
+\hline
+250 & 1.38 & [1.00, 1.92] & [0.75, 2.55] & 1.38 & [1.00, 1.92] & [0.75, 2.56] \\
+300 & 0.92 & [0.66, 1.28] & [0.50, 1.69] & 0.93 & [0.67, 1.29] & [0.51, 1.72] \\
+350 & 0.62 & [0.45, 0.86] & [0.34, 1.15] & 0.63 & [0.45, 0.87] & [0.34, 1.16] \\
+400 & 0.63 & [0.45, 0.87] & [0.34, 1.16] & 0.63 & [0.46, 0.88] & [0.34, 1.17] \\
+500 & 1.06 & [0.76, 1.47] & [0.57, 1.95] & 1.08 & [0.78, 1.50] & [0.58, 1.99] \\
+600 & 2.20 & [1.59, 3.06] & [1.19, 4.06] & 2.23 & [1.61, 3.10] & [1.21, 4.12] \\
+\hline
+\end{tabular}
+}
+\end{center}
+\caption{The median expected cross section ratio limits as a function 
+of the Higgs mass, together with the 1/2-$\sigma$ uncertainty bands obtained in the shape analysis based on $M_T$, 
+corresponding to an integrated luminosity of \intlumi}
+\label{tab:limits_mtshape_uncert_5fb}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[!htbp]
+\begin{center}
+{\normalsize
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+      &  \multicolumn{3}{c|}{ without shape uncertainty} &\multicolumn{3}{c|}{ with shape uncertainty} \\
+\hline
+Mass  &  Median      &     68\% C.L. band &  95\% C.L. band &  Median	   &	 68\% C.L. band &  95\% C.L. band\\
+      &  Expected    &                    &                 &  Expected    &			&		 \\
+\hline
+250 & 1.33 & [0.96, 1.84] & [0.72, 2.44] & 1.31 & [0.95, 1.83] & [0.71, 2.43] \\
+300 & 0.85 & [0.61, 1.18] & [0.46, 1.57] & 0.87 & [0.63, 1.21] & [0.47, 1.60] \\
+350 & 0.64 & [0.46, 0.88] & [0.35, 1.18] & 0.64 & [0.46, 0.88] & [0.35, 1.17] \\
+400 & 0.64 & [0.46, 0.89] & [0.35, 1.18] & 0.64 & [0.46, 0.89] & [0.35, 1.19] \\
+500 & 1.13 & [0.82, 1.57] & [0.61, 2.09] & 1.13 & [0.82, 1.57] & [0.61, 2.09] \\
+600 & 2.71 & [1.95, 3.76] & [1.47, 5.00] & 2.43 & [1.75, 3.37] & [1.32, 4.48] \\
+\hline
+\end{tabular}
+}
+\end{center}
+\caption{The median expected cross section ratio limits as a function 
+of the Higgs mass, together with the 1/2-$\sigma$ uncertainty bands obtained in the shape analysis based on matrix element output, 
+corresponding to an integrated luminosity of \intlumi}
+\label{tab:limits_meshape_uncert_5fb}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 
 \subsection{Summary of Systematic Uncertainties}
