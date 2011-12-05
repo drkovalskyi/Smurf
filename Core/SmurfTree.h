@@ -178,8 +178,19 @@ class SmurfTree {
     ggzz,
     www,
     dyttDataDriven,
-    wgstar
-
+    wgstar,
+    hww118,
+    hww122,
+    hww124,
+    hww126,
+    hww128,
+    hww135,
+    vbfhww118,
+    vbfhww122,
+    vbfhww124,
+    vbfhww126,
+    vbfhww128,
+    vbfhww135
   };
 
   /// variables
