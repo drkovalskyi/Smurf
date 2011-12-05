@@ -4,13 +4,20 @@ containing an additional lepton satisfying the previously described selection re
 with $\pt > 10~\GeVc$.
 
 At the leading order $\dyll$ processes do not have $\met$. 
-However $\dyll$ background contribute to the signal region due to the 
-fake $\met$ arising from the jet mis-measurement. 
-Therefore for those residual $\dyll$ background, the 
-$\met$ is along the direction of the mis-measured jet. 
-Figure~\ref{fig:dphijetmetmc} shows the the angle between the $\met$ 
-and the jet that is closest to the $\met$. 
-We veto events with the $\delphijetmet < 0.5$. 
+However the $\dyll$ process can contribute to the signal region
+through fake $\met$, arising through either mis-measurement or
+loss outside the geometric acceptance of the detector of a recoiling jet.
+The latter effect was investigated using the MCFM program.
+The probability to produce a high $p_{T}$ Z+$\met$  that would pass our selection
+by the loss of a parton with sufficient $p_{T}$ beyond $|\eta|>5$ 
+was found to be negligible.
+Thus for the $\dyll$ background, the 
+$\met$ is expected to be along the direction of the mis-measured jet. 
+Figure~\ref{fig:dphijetmetmc} (a) shows the the angle between the $\met$ 
+and the jet that is closest to the $\met$ in Drell-Yan MC at the ZZ preselection level. 
+Figure~\ref{fig:dphijetmetmc} (b) shows the same distribution in data.
+To reduce the $\dyll$ background
+we veto events with $\delphijetmet < 0.5$. 
 This selection is only applied if the jet $\pt>15\GeVc$. 
 %Figure~\ref{fig:dphidilepjet_zzpresel} shows the variable 
 %$\Delta\phi(\vec{p}_{\ell}, \text{leading jet})$ in data at
@@ -21,10 +28,13 @@ This selection is only applied if the jet $\pt>15\GeVc$.
 \begin{figure}[!hbtp]
 \begin{center}
 \label{fig:dphijetmetmc}
-\subfigure[]{
-\includegraphics[width=0.5\textwidth]{figures/dphijetmet_metcut50_mc.pdf}}
-\caption{The $\delphijetmet$ distribution after the other $\ZZ$ preselection requirements 
-for Drell-Yan MC.}	
+\subfigure[]{\includegraphics[width=0.4\textwidth]{figures/dphijetmet_metcut50_mc.pdf}}
+\subfigure[]{\includegraphics[width=0.4\textwidth]{figures/dphi_jet_met_0j_met50.pdf}}
+\caption{The $\delphijetmet$ distribution for jets with $15<E_{T}<30$ GeV
+after the other $\ZZ$ preselection requirements for Drell-Yan MC is shown in (a),
+and for data in (b). The absence of an excess over the background predictions in
+the overflow bin, which represents events with no jet with $E_{T}>15$ GeV
+validates the hypothesis that real Drell-Yan events should not populate this region.}
 \end{center}
 \end{figure}
 %%%%%%%%
