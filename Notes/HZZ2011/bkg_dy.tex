@@ -11,8 +11,10 @@ is expected to be small since we select events within a fairly tight (within $15
 around the $Z$ boson pole mass. The background due to mismeasurement of the hadronic
 recoil is the main source of Drell-Yan events contributing to the selected signal region. 
 As we select events with dilepton $p_T$ greater than 55 \GeV, the Drell-Yan events 
-are dominated by events with jet $p_T>15$\GeV, shown in Figure~\ref{fig:zjetsptmc} 
-for events after the $ZZ$ pre-selections , relaxing the topological cut on $\delphijetmet$. 
+are dominated by events with jet $p_T>15$\GeV.
+Thus in the zero counted jets bin of the photon+jets sample, 
+we require at least one jet with $p_T>15$\GeV.
+This is discussed further in Section \ref{sec:zjets_contamination}.
 
 The estimation of residual Drell-Yan background in the signal region depends highly on
 our understanding of the \met tails which is sensitive to many factors such as 
@@ -20,18 +22,6 @@ the jet energy corrections, the number of pileup interactions, and energy from o
 contributions. These effects are difficult to model precisely in the simulation.
 Therfore we employ two data-driven methods to estimate the residual Drell-Yan background, 
 detailed in the following sections. 
-
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{figure}[!htbp]
-\begin{center}
-\subfigure[]{\includegraphics[width=0.40\textwidth]{figures/zjetpt_metcut50_mc.pdf}}
-\caption{The leading jet $p_T$ distribution from Drell-Yan MC, with $ZZ$ preselections.}
-\label{fig:zjetsptmc}
-\end{center}
-\end{figure}
-%%%%%%%%%%%%%%%%%%%%
-
 
 \subsubsection{Photon Jets Method}
 \label{sec:photonjets}
@@ -222,62 +212,74 @@ $40$ GeV.}
 \end{center}
 \end{figure}
 
-\subsubsection{The $\lambda$ Method}
-\label{sec:zjetslambda}
+\subsubsection{Contamination from processes with real MET}
+\label{sec:zjets_contamination}
 
-In another method, referred to as the ``$\lambda$ method'', we make use of 
-Drell-Yan enriched dilepton events where $\delphijetmet <0.5$, which 
-is vetoed in the analysis. 
-The ratio of Drell-Yan contribution in the signal region to the value in the 
-control region, referred to as $\lambda$, can be estimated in events with 
-lower $\met$ selection ( $\met > 50\GeV$) where Drell-Yan background dominate. 
-In estimating the Drell-Yan events we subtract the other background such as 
-Top/$WW$/$WZ$/$ZZ$. The Top and $WW$ contribution is estimated from data 
-using $e\mu$ events detailed in Section~\ref{sec:bkg_of}. The 
-$WZ/ZZ$ background is estimated from MC, considering the 
-theoretical and luminosity uncertainties. 
+In data, the $\gamma$+jets
+control sample can be contaminated by processes with real MET.
+Such contributions can arrise from the $Z\rightarrow\nu\nu+\gamma$ process or
+the $W+jets$ processes, where the jet can be reconstructed as a photon and the lepton
+lose from the detector.
 
-Using \intlumi data we estimate the $\lambda$ as $0.54\pm0.26$ (0-Jet), 
-$0.67\pm 0.05$ (1-Jet) and $0.49\pm0.04$ (2-Jet). 
+To reduce the contamination of the $\gamma$+jets sample,
+we begin by asserting that there are two
+ways a real $\gamma$+jet event can generate large MET:
 
-The systematic uncertainties in this method arises from the $\met$ dependence of 
-$\lambda$. We estimate this effect in MC. Table~\ref{tab:lambdametdep} shows 
-the $\lambda$ estimated with different $\met$ cut in all jetbins. 
-Based on the trend observed, we assign $50\%$ systematic errors on $\lambda$. 
+\begin{itemize}
+    \item A jet is lost out of the acceptance of the detector ($|\eta| > 5.0$).
+    \item A jet is mismeasured.
+\end{itemize}
 
-%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[!htbp]
+Studies using MCFM to calculate the cross section for the production of
+$Z$+jet events with a high $p_T$ jet outside the acceptance indicate
+an expected background of much less than one event in the data sample considered.
+As we select events with dilepton $p_T$ greater than 55 \GeV, the Drell-Yan events
+are dominated by events with jet $p_T>15$\GeV, shown in Figure~\ref{fig:zjetsptmc} (a)
+for events after the $ZZ$ pre-selections, relaxing the topological cut on $\Delta\phi(Jet, MET)$.
+This is confirmed in data in Figure~\ref{fig:zjetsptmc} (b), where the $\gamma$+jets prediction
+is compared with the dilepton data in events with zero counted jets and MET $>50$ GeV.
+The good agreement in the overflow bin indicates there is no source of background
+with jets below $15$ GeV that is not accounted for by the existing background estimates.
+
+Thus we conclude that events in the $\gamma$+jets sample with no jet above $p_T>15$\GeV
+are not consistent with either the $\gamma$+jets process or the $Z$+jets process we wish to predict.
+We remove these events from the $\gamma$+jets control sample.
+
+Because residual contamination of the $\gamma$+jets sample can only lead to an over prediction
+of the $Z$+jets background at high MET, the prediction from this method is considered
+as an upper limit.  The systematic uncertainty on the prediction is set to $^{+0}_{-100}$\%.
+
+\begin{figure}[!htbp]
 \begin{center}
-{
-\begin{tabular}{|l|c|c|c|}
-\hline
-$\met$ cut      &  0-jet bin             & 1-jet bin             & 2-jet bin  \\
-\hline
-$> 50$\GeV & $0.67\pm0.17$ & $0.71\pm 0.05$ & $0.43\pm0.05$ \\
-$> 60$\GeV & $0.64\pm0.33$ & $0.42\pm 0.05$ & $0.30\pm 0.05$ \\
-$> 70$\GeV & $0.61\pm0.45$ & $0.33\pm 0.06$ & $0.29\pm 0.07$ \\
-\hline
-\end{tabular}
-}
-\caption{Summary of $\lambda$ evaluated with different $\met$ cuts in different 
-jet-bin final states from Drell-Yan MC. The $\lambda$ is defined as the ratio of the 
-events in the Drell-Yan enriched region with $\delphijetmet < 0.5$ 
-to the value in the signal region with $\delphijetmet > 0.5$. }
-\label{tab:lambdametdep}
+\subfigure[]{\includegraphics[width=0.40\textwidth]{figures/zjetpt_metcut50_mc.pdf}}
+\subfigure[]{\includegraphics[width=0.40\textwidth]{figures/dphi_jet_met_0j_met50.pdf}}
+\caption{The leading jet $p_T$ distribution from Drell-Yan MC, with $ZZ$ preselections (a)
+and the $\Delta\phi(Jet, MET)$ in data for events with MET $> 50$ GeV and zero counted jets (b).
+The overflow bin represents events with no jet above 15 GeV.}
+\label{fig:zjetsptmc}
 \end{center}
-\end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%
+\end{figure}
+
+%
 %
 %
 \subsubsection{Systematic Uncertainties in Drell-Yan Background}
 
-We account for the intrinsic systematic uncertainty on the method by comparing
-the predicted and observed \met~distribution in the closure test described above.
-This is illustrated in Figure \ref{fig:PhotonJetsClosureTest}. 
-This study is currently being finalised with 42X based simulation
-and the results will be updated at the same time as the next reload 
-to the full 2011A+B dataset corresponding to $4.7$fb$^{-1}$.
-In the results presented here, we maintain a value of $25\%$.
+The closure test described in Section~\ref{sec:photonjetsmcclosure}
+implies an intrinsic systematic uncertainty on the prediction
+of around $25\%$.
+However, we currently use the estimate from the 
+photon+jets method as an upper bound on the Z+jets background,
+the additional systematic from the closure test is neglected compared 
+to the $100\%$ contamination systematic.
+
+%We account for the intrinsic systematic uncertainty on the method by comparing
+%the predicted and observed \met~distribution in the closure test described above.
+%This is illustrated in Figure \ref{fig:PhotonJetsClosureTest}. 
+%This study is currently being finalised with 42X based simulation
+%and the results will be updated at the same time as the next reload 
+%to the full 2011A+B dataset corresponding to $4.7$fb$^{-1}$.
+%In the results presented here, we maintain a value of $25\%$.
 
 
 %\begin{figure}[!htbp]
