@@ -243,6 +243,11 @@ TString suffix       = "ww"
       fakePath = "/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
       puPath   = "/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
     }
+    else if(period == 3){ // Full2011-Fall11
+      effPath  = "/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
+      fakePath = "/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+      puPath   = "/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
+    }
 
     TFile *fLeptonEffFile = TFile::Open(Form("%s%s",InputPath.Data(),effPath.Data()));
     TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
@@ -277,7 +282,7 @@ TString suffix       = "ww"
     int newMH = mH;
     if(newMH == 110) newMH = 115; // there is no correction for mh=110!
 
-    TFile *fHiggsPtKFactorFile = TFile::Open(Form("%s/smurf/data/EPS/auxiliar/ggHWW_KFactors_PowhegToHQT.root",InputPath.Data()));
+    TFile *fHiggsPtKFactorFile = TFile::Open(Form("%s/smurf/data/Winter11_4700ipb/auxiliar/ggHWW_KFactors_PowhegToHQT_WithAdditionalMassPoints.root",InputPath.Data()));
     TH1D *HiggsPtKFactor;
     char kfactorHistName[100];
     sprintf(kfactorHistName, "KFactor_PowhegToHQT_mH%d", newMH);

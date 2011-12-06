@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.6 2011/09/29 09:08:05 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.7 2011/10/26 09:30:17 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -451,7 +451,7 @@ void trainMVA_smurf(
     //--------------------------------------------------
 
     //if( mt <= 80		       ) continue; // cut on mt low
-    if( mt >= mH		       ) continue; // cut on mt high
+    //if( mt >= mH		       ) continue; // cut on mt high
     //if( dPhi*180.0/TMath::Pi() >= 150 &&
     //    mH < 210	                 ) continue; // cut on dPhi
 
@@ -498,7 +498,7 @@ void trainMVA_smurf(
     if (mvaVar["dPhiDiLepMET"])  vars[varCounter++] = dPhiDiLepMET;
     if (mvaVar["dPhiDiLepJet1"]) vars[varCounter++] = dPhiDiLepJet1;
 
-    if ( event%3 != 0 ){
+    if ( event%2 != 0 ){
       factory->AddSignalTrainingEvent( vars, scale1fb );
       nsigtrain++;
     }
@@ -550,7 +550,7 @@ void trainMVA_smurf(
     // BACKGROUND EVENT SELECTION
     //--------------------------------------------------
     //if( mt <= 80		       ) continue; // cut on mt low
-    if( mt >= mH		       ) continue; // cut on mt high
+    //if( mt >= mH		       ) continue; // cut on mt high
     //if( dPhi*180.0/TMath::Pi() >= 150 &&
     //    mH < 210	                 ) continue; // cut on dPhi
 
@@ -604,7 +604,7 @@ void trainMVA_smurf(
     if (mvaVar["dPhiDiLepMET"])  vars[varCounter++] = dPhiDiLepMET;
     if (mvaVar["dPhiDiLepJet1"]) vars[varCounter++] = dPhiDiLepJet1;
 
-    if ( event%3 != 0 ){
+    if ( event%2 != 0 ){
       factory->AddBackgroundTrainingEvent( vars, scale1fb );
       nbkgtrain++;
     }
