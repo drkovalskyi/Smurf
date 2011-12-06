@@ -66,12 +66,15 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
   if(useRecoilModel) nmet = 100;
 
   if     (period == 0){ // Run2011A
-    lumi = 2.1;minRun =      0;maxRun = 173692;
+    //lumi = 2.1;minRun =      0;maxRun = 173692;
+    lumi = 1.1;minRun =      0;maxRun = 167913;
     filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Run2011A";
   }
   else if(period == 1){ // Run2011B
-    lumi = 1.9;minRun = 173693;maxRun = 999999;
-    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Run2011B";
+    //lumi = 1.9;minRun = 173693;maxRun = 999999;
+    //filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Run2011B";
+    lumi = 3.6;minRun = 167914;maxRun = 999999;
+    filesPath  = "/data/smurf/data/Run2011_Summer11_SmurfV7_42X/mitf-alljets";
   }
   else if(period == 2){ // Full2011
     lumi = 4.7;minRun =      0;maxRun = 999999;
@@ -124,8 +127,8 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
   vector<Double_t> binEdges;
   for (UInt_t k=0; k<nbins+1; ++k) binEdges.push_back(bins[k]);
   
-  const Int_t nmass = 13;
-  const Double_t mH[nmass] = {0,115,120,130,140,150,160,170,180,190,200,250,300};  
+  const Int_t nmass = 19;
+  const Double_t mH[nmass] = {0,115,118,120,122,124,126,128,130,135,140,150,160,170,180,190,200,250,300};  
     
   //*******************************************************
   //Yields and  histograms

@@ -172,16 +172,19 @@ void PlotHiggsRes
   unsigned int maxRun = 999999;
   double scaleFactorLum = 2.121;
   if	 (period == 0){ // Run2011A
-    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Run2011A.root";
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
-    scaleFactorLum     = 2.1;minRun =      0;maxRun = 173692;
+    //scaleFactorLum     = 2.1;minRun =      0;maxRun = 173692;
+    scaleFactorLum     = 1.1;minRun =      0;maxRun = 167913;
   }
   else if(period == 1){ // Run2011B
-    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Run2011B.root";
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
-    scaleFactorLum     = 1.9;minRun = 173693;maxRun = 999999;
+    //puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
+    //scaleFactorLum     = 1.9;minRun = 173693;maxRun = 999999;
+    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
+    scaleFactorLum     = 3.6;minRun = 167914;maxRun = 999999;
   }
   else if(period == 2){ // Full2011
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
@@ -226,7 +229,7 @@ void PlotHiggsRes
 
   int newMH = mH;
   if(newMH == 110) newMH = 115; // there is no correction for mh=110!
-  TFile *fHiggsPtKFactorFile = TFile::Open("/data/smurf/data/EPS/auxiliar/ggHWW_KFactors_PowhegToHQT.root");
+  TFile *fHiggsPtKFactorFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/ggHWW_KFactors_PowhegToHQT_WithAdditionalMassPoints.root");
   TH1D *HiggsPtKFactor,*HiggsPtKFactorSyst[8];
   char kfactorHistName[100];
   sprintf(kfactorHistName, "KFactor_PowhegToHQT_mH%d", newMH);
@@ -234,10 +237,10 @@ void PlotHiggsRes
   for(int i=0; i<8; i++) HiggsPtKFactorSyst[i] = (TH1D*)(fHiggsPtKFactorFile->Get(Form("KFactor_PowhegToHQT_mH%d_QCDscaleSys%1d",newMH,i+1)));
   if (HiggsPtKFactor) {
     HiggsPtKFactor->SetDirectory(0);
-    for(int i=0; i<8; i++) HiggsPtKFactorSyst[i]->SetDirectory(0);
+    for(int i=0; i<8; i++) if(HiggsPtKFactorSyst[i]) HiggsPtKFactorSyst[i]->SetDirectory(0);
   }
   assert(HiggsPtKFactor);
-  for(int i=0; i<8; i++) assert(HiggsPtKFactorSyst[i]);
+  //for(int i=0; i<8; i++) assert(HiggsPtKFactorSyst[i]); // only 1 and 6 are available currently (0 and 5 in c++ version)
   fHiggsPtKFactorFile->Close();
   delete fHiggsPtKFactorFile;
 
@@ -272,13 +275,11 @@ void PlotHiggsRes
   }
 
   //----------------------------------------------------------------------------
-  double cutMassHigh[21]      = { 40, 40, 45, 45, 50, 50, 50, 60, 80, 90,110,120,130,150,200,250,300,350,400,450,500};
-  double cutPtMaxLow[21]      = { 20, 20, 25, 25, 27, 30, 34, 36, 38, 40, 44, 48, 52, 55, 70, 80, 90,110,120,130,140};
-  double cutPtMinLow[21]      = { 10, 10, 10, 15, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
-  double cutDeltaphilHigh[21] = {115,115, 90, 90, 90, 60, 60, 70, 90,100,110,120,130,140,175,175,175,175,175,175,175};
-  double cutMTLow[21]         = { 80, 80, 80, 80, 80, 90,110,120,120,120,120,120,120,120,120,120,120,120,120,120,120};
-  double cutMTHigh[21]        = {110,120,125,130,150,160,170,180,190,200,210,220,230,250,300,350,400,450,500,550,600};
-  double cutDilepPt[21]       = {  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+  double theCutMassHigh	     = cutMassHigh (mH);
+  double theCutPtMaxLow	     = cutPtMaxLow (mH);
+  double theCutDeltaphilHigh = cutDeltaphiHigh (mH);
+  double theCutMTLow         = cutMTLow (mH);
+  double theCutMTHigh        = cutMTHigh (mH);
 
   //----------------------------------------------------------------------------
   const int nHist = 6;
@@ -483,7 +484,7 @@ void PlotHiggsRes
       useVar = 4;
       useCut = 0.405-datMVA[useVar]->GetBinWidth(0)/2.0;
     }	
-    else if(mH == 115){
+    else if(mH == 115 || mH == 118 ||  mH == 122 || mH == 124 || mH == 126 || mH == 128 || mH == 135){
       //useVar = 2;
       //useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
       useVar = 4;
@@ -597,7 +598,7 @@ void PlotHiggsRes
       useVar = 4;
       useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
     }	
-    else if(mH == 115){
+    else if(mH == 115 || mH == 118 ||  mH == 122 || mH == 124 || mH == 126 || mH == 128 || mH == 135){
       useVar = 4;
       useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
     }	
@@ -726,6 +727,9 @@ void PlotHiggsRes
   Float_t         higgsPt = -999;
   Float_t         bdtg_wjets = 0.0;
   //Float_t         knn_wjets = 0.0;
+  Float_t         sfWeightPU;
+  Float_t         sfWeightEff;
+  Float_t         sfWeightTrig;
 
   signal->SetBranchAddress( "cuts"         , &cuts         );
   signal->SetBranchAddress( "dstype"       , &dstype       );
@@ -775,6 +779,9 @@ void PlotHiggsRes
   signal->SetBranchAddress( "higgsPt"      , &higgsPt      );
   //signal->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
   //signal->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
+  signal->SetBranchAddress( "sfWeightPU"     , &sfWeightPU     );
+  signal->SetBranchAddress( "sfWeightEff"    , &sfWeightEff    );
+  signal->SetBranchAddress( "sfWeightTrig"   , &sfWeightTrig   );
 
   float nSigAcc[6]  = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   float nSigCut[6]  = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -877,6 +884,10 @@ void PlotHiggsRes
     add = add*trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
         					      fabs(lep2->eta()), lep2->pt(), 
         					      TMath::Abs( lid1), TMath::Abs(lid2));
+    // This is tricky, we have Fall11 samples only
+    if(mH == 118 || mH == 122 || mH == 124 || mH == 126 || mH == 128 || mH == 135) {
+      add = sfWeightPU*sfWeightEff*sfWeightTrig;
+    }
 
     double addggH = 1.0;
     double addggHSyst[8] = {1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
@@ -888,7 +899,7 @@ void PlotHiggsRes
       float theMax = 0.00;
       addggH = HiggsPtKFactor->GetBinContent( HiggsPtKFactor->GetXaxis()->FindFixBin(TMath::Max(higgsPt, theMax)));
       // addggH = addggH * enhancementFactor(mH,0);
-      for(int ns=0; ns<8; ns++) addggHSyst[ns] = HiggsPtKFactorSyst[ns]->GetBinContent( HiggsPtKFactorSyst[ns]->GetXaxis()->FindFixBin(TMath::Max(higgsPt, theMax)));
+      for(int ns=0; ns<8; ns++) if(HiggsPtKFactorSyst[ns]) addggHSyst[ns] = HiggsPtKFactorSyst[ns]->GetBinContent( HiggsPtKFactorSyst[ns]->GetXaxis()->FindFixBin(TMath::Max(higgsPt, theMax)));
       // for(int ns=0; ns<8; ns++) addggHSyst[ns] = addggHSyst[ns] * enhancementFactor(mH,0);
       if(isFermioPhobic == true) addggH = 0.0;
     }
@@ -908,13 +919,13 @@ void PlotHiggsRes
     else if(processId==10010) nSigBin = 5;
     else  {return;}
 
-    bool passAllCuts = dilep->mass()         < cutMassHigh[channel] &&
-        	       mt		     > cutMTLow[channel] &&
-        	       mt		     < cutMTHigh[channel] &&
-        	       lep1->pt()	     > cutPtMaxLow[channel] &&
-        	       lep2->pt()	     > cutPtMinLow[channel] &&
-        	       dPhi*180.0/TMath::Pi()< cutDeltaphilHigh[channel] &&
-		       dilep->pt()           > cutDilepPt[channel] &&
+    double theCutPtMinLow = cutPtMinLow (mH, type);
+    bool passAllCuts = dilep->mass()         < theCutMassHigh &&
+        	       mt		     > theCutMTLow &&
+        	       mt		     < theCutMTHigh &&
+        	       lep1->pt()	     > theCutPtMaxLow &&
+        	       lep2->pt()	     > theCutPtMinLow &&
+        	       dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh &&
 		       passJetCut[0]==true;
     if(nJetsType == 2){
       int centrality = 0;
@@ -1006,8 +1017,8 @@ void PlotHiggsRes
       }
       // WARNING, THIS IS ONLY GOOD FOR BDTG!
       if(useggHTemplates == true && nSigBin == 5 && addggH != 0){
-	histo_ggH_CMS_MVAggHBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addggHSyst[6]/addggH);
-	histo_ggH_CMS_MVAggHBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addggHSyst[7]/addggH);
+	histo_ggH_CMS_MVAggHBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addggHSyst[0]/addggH);
+	histo_ggH_CMS_MVAggHBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addggHSyst[5]/addggH);
       }
       bool passFinalCut = false;
       if     (useVar == 0 && bdt	> useCut) {nSigMVA[0] += myWeight; nSigEMVA[0] += myWeight*myWeight; passFinalCut = true;}
@@ -1328,13 +1339,13 @@ void PlotHiggsRes
 
     if(myWeight == 0) continue;
 
-    bool passAllCuts = dilep->mass()         < cutMassHigh[channel] &&
-        	       mt		     > cutMTLow[channel] &&
-        	       mt		     < cutMTHigh[channel] &&
-        	       lep1->pt()	     > cutPtMaxLow[channel] &&
-        	       lep2->pt()	     > cutPtMinLow[channel] &&
-        	       dPhi*180.0/TMath::Pi()< cutDeltaphilHigh[channel] &&
-		       dilep->pt()           > cutDilepPt[channel] &&
+    double theCutPtMinLow = cutPtMinLow (mH, type);
+    bool passAllCuts = dilep->mass()         < theCutMassHigh &&
+        	       mt		     > theCutMTLow &&
+        	       mt		     < theCutMTHigh &&
+        	       lep1->pt()	     > theCutPtMaxLow &&
+        	       lep2->pt()	     > theCutPtMinLow &&
+        	       dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh &&
 		       passJetCut[0]==true;
     if(nJetsType == 2){
       int centrality = 0;
@@ -2021,13 +2032,13 @@ void PlotHiggsRes
 
     double myWeight = 1.0;
 
-    bool passAllCuts = dilep->mass()         < cutMassHigh[channel] &&
-        	       mt		     > cutMTLow[channel] &&
-        	       mt		     < cutMTHigh[channel] &&
-        	       lep1->pt()	     > cutPtMaxLow[channel] &&
-        	       lep2->pt()	     > cutPtMinLow[channel] &&
-        	       dPhi*180.0/TMath::Pi()< cutDeltaphilHigh[channel] &&
-		       dilep->pt()           > cutDilepPt[channel];
+    double theCutPtMinLow = cutPtMinLow (mH, type);
+    bool passAllCuts = dilep->mass()         < theCutMassHigh &&
+        	       mt		     > theCutMTLow &&
+        	       mt		     < theCutMTHigh &&
+        	       lep1->pt()	     > theCutPtMaxLow &&
+        	       lep2->pt()	     > theCutPtMinLow &&
+        	       dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh;
     if(nJetsType == 2){
       int centrality = 0;
       if(((jet1->eta()-lep1->eta() > 0 && jet2->eta()-lep1->eta() < 0) ||

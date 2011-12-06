@@ -50,16 +50,19 @@ void ComputeWWBkgScaleFactor (
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
   if	 (period == 0){ // Run2011A
-    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Run2011A.root";
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
-    scaleFactorLum     = 2.1;minRun =      0;maxRun = 173692;
+    //scaleFactorLum     = 2.1;minRun =      0;maxRun = 173692;
+    scaleFactorLum     = 1.1;minRun =      0;maxRun = 167913;
   }
   else if(period == 1){ // Run2011B
-    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Run2011B.root";
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
-    scaleFactorLum     = 1.9;minRun = 173693;maxRun = 999999;
+    //puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
+    //scaleFactorLum     = 1.9;minRun = 173693;maxRun = 999999;
+    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
+    scaleFactorLum     = 3.6;minRun = 167914;maxRun = 999999;
   }
   else if(period == 2){ // Full2011
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
@@ -115,8 +118,8 @@ void ComputeWWBkgScaleFactor (
   //Define Histograms & Yields
   //***********************************************************************************************
 
-   const Int_t nmass = 9;
-  const Double_t mH[nmass] = {115,120,130,140,150,160,170,180,190};  
+   const Int_t nmass = 15;
+  const Double_t mH[nmass] = {115,118,120,122,124,126,128,130,135,140,150,160,170,180,190};  
   //scale factors for 4 classes of selections
   enum { kCutBasedZeroJet, kCutBasedOneJet, kMVAZeroJet, kMVAOneJet };
     
@@ -649,15 +652,8 @@ void ComputeWWBkgScaleFactor (
       WWScaleFactorUncertainty[classIndex][imass] = SFUncertainty;
 
       //if (!(classIndex == kCutBasedZeroJet && imass == 1)) continue;
-      
-      string classLabel = "";
-      if (classIndex == kCutBasedZeroJet) classLabel = "CutBased 0-Jet Bin";
-      if (classIndex == kCutBasedOneJet) classLabel = "CutBased 1-Jet Bin";
-      if (classIndex == kMVAZeroJet) classLabel = "MVA Shape 0-Jet Bin";
-      if (classIndex == kMVAOneJet) classLabel = "MVA Shape 1-Jet Bin";
 
-      cout << "******************************************************************\n";
-      cout << "mH = << " << mH[imass] << " Analysis : " << classLabel << " : WW Control Region" << endl;
+      cout << "mH = << " << imass << " Analysis : WW Control Region" << endl;
       cout << "Data Yield : " << Yield_WWControlRegion_Data[classIndex][imass] 
            << " +/- " << YieldUncertainty_WWControlRegion_Data[classIndex][imass] << endl;
       cout << "DY Bkg : " 
@@ -675,17 +671,13 @@ void ComputeWWBkgScaleFactor (
       cout << "Total Bkg : " 
            << Yield_WWControlRegion_Bkg[classIndex][imass] << " +/- " 
            << YieldUncertainty_WWControlRegion_Bkg[classIndex][imass] << endl;
-      cout << "------------------------------------------------------------------\n";
-      cout << "Background Subtracted WW Yield from Data : "
-           << Yield_WWControlRegion_Data[classIndex][imass] - Yield_WWControlRegion_Bkg[classIndex][imass] << " +/- "
-           << TMath::Sqrt(Yield_WWControlRegion_Data[classIndex][imass] + pow(YieldUncertainty_WWControlRegion_Bkg[classIndex][imass],2)) << endl;
+      cout << "******************************************************************\n";
       cout << "WW Yield from MC : " 
            << Yield_WWControlRegion_WWMC[classIndex][imass] << " +/- " 
            << YieldUncertainty_WWControlRegion_WWMC[classIndex][imass] << endl;
       cout << "ScaleFactor : " 
            << WWScaleFactor[classIndex][imass] << " +/- " 
            << WWScaleFactorUncertainty[classIndex][imass] << endl;
-      cout << "******************************************************************\n";
     }
   }
 
