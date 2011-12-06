@@ -1,0 +1,69 @@
+We validate the performance of our implementation of the Matrix Element technique in $H\rightarrow ZZ$ by measuring
+the $WZ+ZZ$ cross-section in events with two charged leptons and missing transverse energy. We perform this measurement
+in dataset corresponding to 1.1 fb$^{-1}$ of integrated luminosity.
+ 
+After the preselection cuts, the only relevant background in this measurement is non-resonant $WW$ production.
+Therefore, the main challenge is to discriminate $ZZ$ and $WZ$ events from $WW$.
+In order to achieve this, we construct a new likelihood $LR_{ZZ+WZ}$, defined as:
+\begin{equation}
+\label{eqn:LRZZ}
+LR_{ZZ+WZ} = \frac { P_{ZZ}+P_{WZ}} { P_{ZZ} + P_{WZ} + P_{WW} },
+\end{equation}
+where $P_{WZ}$ is evaluated with the assumption that the two charged leptons originated from a $Z$-boson, while 
+the $W$ decays leptonically but the lepton is not reconstructed. The distributions of LR$_{ZZ+WZ}$ for data and 
+the predicted backgrounds and signal are shown in Figure \ref{fig:lrzz}. One can see that the shape of the distribution
+in data is well-modeled.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!htbp]
+\begin{center}
+\subfigure[]{                                                                                                 
+\centering   
+\label{subfig:lr_wzzz_ee}
+\includegraphics[width=0.45\textwidth]{figures/ME_WZZZ_mH0_mm_stack_lin.png}}
+\subfigure[]{                                                                                                 
+\centering   
+\label{subfig:lr_wzzz_mm}
+\includegraphics[width=0.45\textwidth]{figures/ME_WZZZ_mH0_ee_stack_lin.png}}
+\caption{$LR_{ZZ/WZ}$ in a 1.1 fb$^{-1}$ data sample compared to the expected backgrounds and the expected
+$ZZ+WZ$ signal for $e-e$~\ref{subfig:lr_wzzz_mm} and $\mu-\mu$~\ref{subfig:lr_wzzz_ee} events. $ZZ$ and $WZ$ are shown twice, stacked and overlayed.}
+\label{fig:lrzz}
+\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A precise measurement of the cross-section requires a clean sample of signal events. We, therefore, further select events
+that pass the requirement $LR_{ZZ+WZ}>0.75$.  The expected yields for each process as well as the observed data count
+are  shown in Table~\ref{tab:ZZWZselection}.
+Assuming a 100$\%$ systematic unceratainty on the backgrounds, we estimate the $ZZ+WZ$ 
+cross-section to be $22.8 \pm 3.5$ pb, which is in agreement with theoretical predictions of $26.2$ pb.
+
+\begin{table}[!hbtp]
+  \begin{center}
+  \begin{tabular} {c|c|c}
+ \hline
+  Process & $\mu-\mu$ events  & $e-e$ events \\
+  \hline
+  \hline
+  $WW$                  &  0.2 $\pm$  0.1 &  0.2 $\pm$   0.1 \\
+  $tt + tW$             &  0.6 $\pm$  0.1 &  0.1 $\pm$   0.1 \\
+  $Z  + jets$           &  0.8 $\pm$  0.1 &  0.5 $\pm$   0.1\\
+  $Z\rightarrow \tau\tau$& 0.0 $\pm$  0.1 &  0.0 $\pm$   0.1\\
+  \hline
+  Total Background      &  1.6 $\pm$  0.2 &  0.8 $\pm$   0.2\\
+  \hline
+  $ZZ$                  &  7.7 $\pm$  0.2 &  4.8 $\pm$   0.1\\
+  $WZ$                  &  3.5  $\pm$ 0.1 &  1.9 $\pm$   0.1\\
+ \hline
+  Total Signal          &  11.2 $\pm$ 0.3 &  6.7 $\pm$   0.2\\
+ \hline
+  Data                  &  9               &   9              \\
+ \hline
+  \end{tabular}
+
+  \caption{Expected number of signal and background events for a data sample with an 
+  integrated luminosity of 1.1 fb$^{-1}$ after applying the $LR_{ZZ/WZ}>0.75$ requirement. 
+ Uncertainties are statistical only.}
+   \label{tab:ZZWZselection}
+  \end{center}
+\end{table}

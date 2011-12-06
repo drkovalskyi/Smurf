@@ -1,0 +1,31 @@
+The kinematic properties of Higgs boson events tend to be different from those of events produced in background processes.
+Namely, due to spin correlations, Higgs events produced via gluon fusion tend to have a small angular separation between 
+leptons, with large missing transverse energy recoiling against the dilepton pair. Background events typically have significantly
+larger dilepton angular separation.  Moreover,  the transverse momenta of leptons produced in Higgs decays tend to be smaller
+than those produced in most of the backgrounds. As a consequence of this, the dilepton invariant mass is on average smaller for Higgs events
+than for $q\bar{q} \rightarrow WW$ events, which dominate the background.
+
+While a cut-based approach attempts to find an optimal set requirements on lepton $p_{T}$, lepton pair azimuthal separation ($\Delta\phi_{ll}$), 
+dilepton invariant mass  ($m_{ll}$) and \met, it is beneficial to use all the information about event kinematics in a correlated way. 
+For example, if the value of $\Delta\phi_{ll}$ in an event is Higgs-like for a certain $m_{H}$ hypothesis, then other parameters, such as  
+\met, should be consistent with this same hypothesis. By building a multivariate discriminant, which explores the full event kinematics
+in a correlated way, one can achieve better signal versus background separation than with a standard cut-based approach and, 
+therefore, improve the analysis sensitivity to a standard model Higgs boson signal.
+
+One way to create such a discriminant is by employing a Matrix Element method. This method has been previously used in precision
+measurements of the top quark mass \cite{ref:CDFTopMass,ref:D0TopMass} and cross-section, diboson cross section \cite{ref:CDFDiboson}, 
+as well as searches for single top \cite{ref:CDFSingleTop,ref:D0SingleTop} and Higgs boson production at the Tevatron \cite{ref:CDFHiggs,ref:D0Higgs}.
+
+In this method we calculate the probability for each recorded event to originate from a specific physics process.  
+This is done by comparing the differential cross section predicted by a Matrix Element calculation for the signal and background processes given the kinematic observables
+on an event-by-event basis. The discriminating power arises because the differential cross sections for signal and background
+events are largest in different regions of the available phase space. The principal difference between the ME technique and other
+multivariate approaches (Artificial Neural Networks, Boosted Decision Trees, etc.) is that the final discriminant is based on the results
+of physics calculations rather than various statistical methods used to solve regression problems. It is free of potential ``over-training''
+dangers and can be tested on processes other than Higgs production, with larger cross-sections. However, it does have its own complication - 
+theoretical Matrix Element calculations are performed at the parton level, while we reconstruct events at the detector level. 
+Therefore, to achieve better discrimination, it is necessary to implement transfer functions as well as detector resolution functions for
+reconstructed objects in the ME-based discriminant.
+
+The fully leptonic $H\rightarrow WW$ final state consists of two isolated leptons and large missing energy from the two undetectable neutrinos. 
+The event selections are documented in Ref.~\cite{ref:HWW2011smurf}
