@@ -58,6 +58,7 @@ class Proc {
   void initBR();
   // function to calculate acceptance from yields
   void CalculateAcceptance();
-
+  // function to translate the process to the mass
+  float getHiggsMass(TVar::Process & k);
   
 };

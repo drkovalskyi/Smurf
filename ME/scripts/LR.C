@@ -118,8 +118,8 @@ if (verbosity >= TVar::DEBUG) {
       cout << "\n ** START LR Construction, run = " << run_ << "; event = " << event_ << " for Signal " << TVar::SmurfProcessName(k) << "\n"; 
     
     // calculate the LR only for the events that pass the pre-selection
-    if ( dilep_->mass() > massCut || mt_ < 80. || dilep_->Pt() < 45. 
-	 || ( (type_ == 0 || type_ == 3) && (dilep_->mass() < 20 || lep2_->Pt() < 15 ) ) 
+    if ( dilep_->mass() > massCut || mt_ < 80. || mt_ > mH || dilep_->Pt() < 45. 
+	 || ( (type_ == 0 || type_ == 3) && (dilep_->mass() < 20 || lep2_->Pt() < 15))
 	 )
       LR[k] = 0.;
     else {
@@ -297,3 +297,5 @@ float weightME(TString fileName, TString inputSmurfFDir, TString meFDir)
   fout->Close();
   return Nin/Nout;
 }
+
+
