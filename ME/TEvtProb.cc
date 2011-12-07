@@ -285,11 +285,11 @@ void TEvtProb::SetMCHist(int proc, TString MCFileName, bool setFR, int njets, TV
       }
       if ( njets == 1) {
 	_boosthist.kx = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_kx_1jet"))->Clone();
-        _boosthist.ky = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_ky_1jet_"))->Clone();
+        _boosthist.ky = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_ky_1jet"))->Clone();
       }
       if ( njets >= 2) {
 	_boosthist.kx = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_kx_2jet"))->Clone();
-        _boosthist.ky = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_ky_2jet_"))->Clone();
+        _boosthist.ky = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_ky_2jet"))->Clone();
       }
       
       
