@@ -43,7 +43,8 @@ while read LINE; do
 	TEST=`echo $LINE | grep "tardir/cafRun"`
 	if [ ! -z "$TEST" ]; then
         	SECTION=`echo $LINE | awk '{print $3}'`
-        	FILE=`ls | grep ${PROC}_ME_${SECTION}.root`
+        	FILE=`ls | grep ^${PROC}_ME_${SECTION}.root`
+		echo "$FILE"
         	if [ -z "$FILE" ]; then
 		    echo $LINE >>  commands_${PROC}_resubmit.cmd
 		    echo Found missing files in ${PROC} in Job ${SECTION}..
@@ -55,6 +56,6 @@ done < commands_${PROC}.cmd
 
 if [ ${RESUBMIT} == "1" ]; then
     echo python runManySections.py --submitCondor commands_${PROC}_resubmit.cmd
-    python runManySections.py --submitCondor commands_${PROC}_resubmit.cmd
+#    python runManySections.py --submitCondor commands_${PROC}_resubmit.cmd
 fi
 
