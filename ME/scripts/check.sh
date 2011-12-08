@@ -44,8 +44,7 @@ while read LINE; do
 	if [ ! -z "$TEST" ]; then
         	SECTION=`echo $LINE | awk '{print $3}'`
         	FILE=`ls | grep ^${PROC}_ME_${SECTION}.root`
-		echo "$FILE"
-        	if [ -z "$FILE" ]; then
+		if [ -z "$FILE" ]; then
 		    echo $LINE >>  commands_${PROC}_resubmit.cmd
 		    echo Found missing files in ${PROC} in Job ${SECTION}..
 		    RESUBMIT=1
