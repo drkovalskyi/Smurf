@@ -61,6 +61,8 @@ void PlotHiggsRes
   bool wwPresel = false;
   if(mH == 0) {wwPresel = true; mH = 115;}
 
+  bool signalInjection = false;
+
   verboseLevel = TheVerboseLevel;
   bool useZjetsTemplates   = true;
   bool useWWTemplates      = true;
@@ -730,6 +732,7 @@ void PlotHiggsRes
   Float_t         sfWeightPU;
   Float_t         sfWeightEff;
   Float_t         sfWeightTrig;
+  Float_t         sfWeightHPt;
 
   signal->SetBranchAddress( "cuts"         , &cuts         );
   signal->SetBranchAddress( "dstype"       , &dstype       );
@@ -782,6 +785,7 @@ void PlotHiggsRes
   signal->SetBranchAddress( "sfWeightPU"     , &sfWeightPU     );
   signal->SetBranchAddress( "sfWeightEff"    , &sfWeightEff    );
   signal->SetBranchAddress( "sfWeightTrig"   , &sfWeightTrig   );
+  signal->SetBranchAddress( "sfWeightHPt"    , &sfWeightHPt   );
 
   float nSigAcc[6]  = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   float nSigCut[6]  = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -1943,6 +1947,10 @@ void PlotHiggsRes
   data->SetBranchAddress(Form("bdtg_hww%i_%djet_ww"	,mH,nJetsType), &bdtg	    );
   //data->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
   //data->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
+  data->SetBranchAddress( "sfWeightPU"     , &sfWeightPU     );
+  data->SetBranchAddress( "sfWeightEff"    , &sfWeightEff    );
+  data->SetBranchAddress( "sfWeightTrig"   , &sfWeightTrig   );
+  data->SetBranchAddress( "sfWeightHPt"    , &sfWeightHPt   );
 
   float nDatAcc = 0.0;
   float nDatCut = 0.0;
@@ -2031,6 +2039,9 @@ void PlotHiggsRes
     //if(bdtg<=0) bdtg = 0.001; if(bdtg>=1) bdtg = 0.999; bdtg = (bdtg-0.5)*2.0;
 
     double myWeight = 1.0;
+    if(signalInjection == true) {
+      myWeight = sfWeightPU*sfWeightEff*sfWeightTrig*sfWeightHPt*scaleFactorLum*scale1fb;
+    }
 
     double theCutPtMinLow = cutPtMinLow (mH, type);
     bool passAllCuts = dilep->mass()         < theCutMassHigh &&
@@ -2330,6 +2341,18 @@ void PlotHiggsRes
     }
     // We need to renormalize
     if(bgdMVADecays[useVar][5]->GetSumOfWeights() > 0) histo_Wjets->Scale(bgdMVADecays[useVar][5]->GetSumOfWeights()/histo_Wjets ->GetSumOfWeights());
+
+    if(signalInjection == true){
+      for(int i=1; i<=histo_Data->GetNbinsX(); i++){
+        double SplusB = histo_Data->GetBinContent(i)+
+	                histo_qqWW->GetBinContent(i)+histo_ggWW->GetBinContent(i)+
+	                histo_VV->GetBinContent(i)+histo_Top->GetBinContent(i)+
+	                histo_Zjets->GetBinContent(i)+histo_Wjets->GetBinContent(i)+
+	                histo_Wgamma->GetBinContent(i)+histo_Ztt->GetBinContent(i);
+        histo_Data->SetBinContent(i,(int)(SplusB+0.5));
+        histo_Data->SetBinError(i,sqrt((int)(SplusB+0.5)));
+      }
+    }
 
     char outputLimits[200];
     //sprintf(outputLimits,"output/histo_limits_%s_%dj_chan%d_mh%d.root",outTag.Data(),nJetsType,wwDecay,mH);     
@@ -2898,6 +2921,15 @@ void PlotHiggsRes
 	yield[11]  = nBgdAccDecays[6];
 	yield[12]  = nBgdAccDecays[7];
 	nData     = (int)nDatAcc;
+	if(signalInjection == true){
+	  nData = (int)histo_Data->GetSumOfWeights();
+	}
+	else {
+	  if(histo_Data->GetSumOfWeights() != nDatAcc) {
+	    printf("histo_Data != nDatAcc\n");
+	    assert(0);
+	  }
+	}
       }
       if(nTotalBins != 1){
         sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape_bin%d.txt",outTag.Data(),nJetsType,wwDecay,mH,i);
@@ -3031,6 +3063,11 @@ void PlotHiggsRes
       }
       newcardShape.close();
     }
+    if(signalInjection == true){
+      nDatCut = (nDatCut+
+                 nBgdCutDecays[0]+nBgdCutDecays[1]+nBgdCutDecays[2]+nBgdCutDecays[3]+
+		 nBgdCutDecays[4]+nBgdCutDecays[5]+nBgdCutDecays[6]+nBgdCutDecays[7])+0.5;
+    }
     //********CUT*******************
     char outputLimitsCut[200];
     sprintf(outputLimitsCut,"output/histo_limits_%s_%dj_chan%d_mh%d_cut.txt",outTag.Data(),nJetsType,wwDecay,mH);     
@@ -3040,7 +3077,6 @@ void PlotHiggsRes
     newcardCut << Form("jmax * number of background\n");
     newcardCut << Form("kmax * number of nuisance parameters\n");
     newcardCut << Form("Observation %d\n",(int)nDatCut);
-    //newcardCut << Form("Observation %d\n",(int)(nBgdCutDecays[0]+nBgdCutDecays[1]+nBgdCutDecays[2]+nBgdCutDecays[3]+nBgdCutDecays[4]+nBgdCutDecays[5]+nBgdCutDecays[6]));
     newcardCut << Form("bin j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s\n",nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName);
     newcardCut << Form("process ZH WH qqH ggH qqWW ggWW VV Top Zjets Wjets Wgamma Ztt\n");
     newcardCut << Form("process -3 -2 -1 0 1 2 3 4 5 6 7 8\n");
@@ -3090,6 +3126,11 @@ void PlotHiggsRes
     newcardCut << Form("CMS_hww%s_stat_%1dj_Ztt    lnN   -     -     -     -     -     -     -     -     -     -     -   %5.3f\n",finalStateName,nJetsType,nBgdECutDecays[7]+1.0);
     newcardCut.close();
 
+    if(signalInjection == true){
+      nDatMVA = (nDatMVA+
+                 nBgdMVADecays[0]+nBgdMVADecays[1]+nBgdMVADecays[2]+nBgdMVADecays[3]+
+		 nBgdMVADecays[4]+nBgdMVADecays[5]+nBgdMVADecays[6]+nBgdMVADecays[7])+0.5;
+    }
     //***********MVA***************
     char outputLimitsMVA[200];
     sprintf(outputLimitsMVA,"output/histo_limits_%s_%dj_chan%d_mh%d_mva.txt",outTag.Data(),nJetsType,wwDecay,mH);     
@@ -3099,7 +3140,6 @@ void PlotHiggsRes
     newcardMVA << Form("jmax * number of background\n");
     newcardMVA << Form("kmax * number of nuisance parameters\n");
     newcardMVA << Form("Observation %d\n",(int)nDatMVA);
-    //newcardMVA << Form("Observation %d\n",(int)(nBgdMVADecays[0]+nBgdMVADecays[1]+nBgdMVADecays[2]+nBgdMVADecays[3]+nBgdMVADecays[4]+nBgdMVADecays[5]+nBgdMVADecays[6]));
     newcardMVA << Form("bin j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s j%1d%s\n",nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName);
     newcardMVA << Form("process ZH WH qqH ggH qqWW ggWW VV Top Zjets Wjets Wgamma Ztt\n");
     newcardMVA << Form("process -3 -2 -1 0 1 2 3 4 5 6 7 8\n");

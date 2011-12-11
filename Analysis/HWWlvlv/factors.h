@@ -229,8 +229,14 @@ else if(type == 1){ // 4th-generation BR(H->WW) enhancement factor
 else if(type == 2){ // fermiophobic BR(H->WW) enhancement factor
   if     (mass==110.000) return 8.54E-01/4.82E-02;
   else if(mass==115.000) return 8.67E-01/8.67E-02;
+  else if(mass==118.000) return 8.70E-01/1.18E-01 ;
   else if(mass==120.000) return 8.70E-01/1.43E-01;
+  else if(mass==122.000) return 8.70E-01/1.70E-01;
+  else if(mass==124.000) return 8.69E-01/2.00E-01;
+  else if(mass==126.000) return 8.69E-01/2.33E-01;
+  else if(mass==128.000) return 8.68E-01/2.68E-01;
   else if(mass==130.000) return 8.67E-01/3.05E-01;
+  else if(mass==135.000) return 8.67E-01/4.03E-01;
   else if(mass==140.000) return 8.69E-01/5.03E-01;
   else if(mass==150.000) return 8.87E-01/6.98E-01;
   else if(mass==160.000) return 9.52E-01/9.08E-01;
@@ -249,6 +255,7 @@ else if(type == 2){ // fermiophobic BR(H->WW) enhancement factor
   else if(mass==500.000) return 1.000;
   else if(mass==550.000) return 1.000;
   else if(mass==600.000) return 1.000;
+  else assert(0);
 }
 
 return 1.0;
