@@ -1,7 +1,12 @@
 #!/bin/bash
 
-# 1. IMPORTANT: this assumes that the data file already inclueds the differential cross-sections for ME method
+# Example:
+# ./run_mva.sh 0 130 projlumi datalumi
+#
+# 1. input files should be available in "data" folder
+#  IMPORTANT: this assumes that the data file already inclueds the differential cross-sections for ME method
 #    ln -s /smurf/ceballos/tmva/weights weights
+# 
 
 # 2. To add the BDT output to the smurfntuples
 #    Use 5.28 version root, this is currently available at lxplus
@@ -23,7 +28,7 @@ if [ ! $# -eq 5 ]; then
 fi
 
 # append the inputdir by the number of jets
-if [ ${NJETS} == "0" ] && [ ${MEFLAG} == "1" ]; then
+if [ ${MEFLAG} == "1" ]; then
 	INPUTDIR=${INPUTDIR}/${NJETS}j/ME/
 else
     INPUTDIR=${INPUTDIR}/${NJETS}j/
@@ -57,29 +62,30 @@ export METHODS=BDTG;
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
 data
-wgamma
-hww${MH}
+data-emb-tau123
 qqww
-ggww
-ttbar
-tw
-wz
-zz
-dyee
-dymm
-dytt
-wjets
-wjets_data
-wjets_PassFail
-dyee_LooseMET
-dymm_LooseMET
 ww_mcnlo
 ww_mcnlo_up
 ww_mcnlo_down
+ggww
+wjets
+wjets_data
+wjets_PassFail
+ttbar
 ttbar_mg
+tw
 tw_ds
-qqww_py
+wz
+zz_py
+dyee
+dymm
+dytt
+dyee_LooseMET
+dymm_LooseMET
+wgamma
+wg3l
 EOF
+
 
 # ===========================================
 # Fill the smurfntuples with the BDT
@@ -89,9 +95,17 @@ export evaluateMVAFile=evaluateMVA_smurf_hww.C+;
 for i in `cat list_samples.txt` ; do
     dataset=${i%%,*};
     echo "filling MVA information in sample: "  $sample
-    ./root-5.28.sh -q -b ${evaluateMVAFile}\(\"data/${dataset}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\"\);
+    ./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/${dataset}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",2\);
     mv $OUTPUTDIR/${TAG}_${dataset}.root $OUTPUTDIR/${dataset}_${NJETS}j.root
 done
+
+if [ ${MH} == "118" ] || [ ${MH} == "122" ] || [ ${MH} == "124" ] || [ ${MH} == "126" ] || [ ${MH} == "128" ] || [ ${MH} == "135" ]; then
+    echo "choose special period now..."
+    ./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/hww${MH}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",3\);
+else
+    ./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/hww${MH}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",2\);
+fi
+mv $OUTPUTDIR/${TAG}_hww${MH}.root $OUTPUTDIR/hww${MH}_${NJETS}j.root
 
 rm -f list_samples.txt;
 
