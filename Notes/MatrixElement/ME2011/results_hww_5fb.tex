@@ -1,12 +1,15 @@
+\subsubsection{Observed and expected upper limits corresponding to $\intlumi$ data}
+
 In this section, we document the results on the upper-limits using shape analysis based on 
 the matrix element output, described in Section~\ref{sec:LR}. 
 %The matrix element output has been evaluated for 18 different values of $m_H$ between 115 and 600 \GeVcc.
-Figure~\ref{fig:me_115_4700pb}-\ref{me_200_4700} shows the likelihood ratio distributions for $m_H$~=~115, 120, 130, 140, 160 and 200\GeVcc,               
+Figure~\ref{fig:me_115_4700pb}-\ref{fig:me_200_4700} shows the likelihood ratio distributions for $m_H$~=~115, 120, 130, 140, 160 and 200\GeVcc, 
 corresponding to 4.7~fb$^{-1}$. 
 Note that the majority of backgrounds peak near $LR~=~0$ while the signal peaks near $LR~=~1$.  
 It was noted in Sec.~\ref{sec:EvtSelWW} that we apply a dilepton invariant mass requirement prior to constructing the likelihood ratio. 
 Figure~\ref{fig:LR_noMll} shows the likelihood ratio distribution assuming $m_{H}=160$ \GeVcc without the invariant mass requirements.
 One can see from the peak at $LR~=~0$ that the Matrix Element method successfully identifies high invariant mass events as background-like, so the cut is not essential. However, by applying the cut we lose less than $1\%$ of the signal and gain significantly in processing time needed for differential cross-section calculations.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!hbtp]                                                                                         
@@ -17,7 +20,6 @@ for $m_H$=160 \GeVcc}
 \label{fig:LR_noMll}                                                                                          
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 
 
@@ -210,18 +212,47 @@ however methods to account for them are discussed separately in \cite{ref:ShapeS
 The expected and observed upper limits at 95\%C.L., for the dataset corresponding to $\intlumi$ for 
 the shape analysis based on the matrix element outputs are shown in Table~\ref{tab:me_results_5fb} and 
 Figure~\ref{fig:me_results_5fb} for the 0/1/2 jet bins combined. 
-The limits are obtained using the CLs asymptotic methods. 
-The sensitivity performance of the matrix element method and the observed limits are 
-consistent with the BDT-based approach. 
-
+%The limits are obtained using the CLs asymptotic methods. 
 We also compare the performance for the 4 sub-channels individually, shown in 
 Table~\ref{tab:me_results_5fb_0jsf}-\ref{tab:me_results_5fb_1jof} and Figure~\ref{fig:me_results_5fb_subchannel}. 
 %Table~\ref{tab:me_results_5fb_0j}-\ref{tab:me_results_5fb_1j} show the comparison of the performance 
 %in the 0 and 1 jet bins respectively. 
 
-%To summarize, using matrix element based approach in $H\rightarrow WW \rightarrow l^{+}l^{-}\nu\bar{\nu}$ 
-%we exclude Standard Model Higgs boson in the 128--X GeV mass range, with expected exclusion range of 128--X GeV at 95\% C.L. 
-%For comparison, BDT expected and observed exclusion ranges in the 0-jet channel are similar: 128--X GeV and 128--X GeV, respectively.  
+
+The sensitivity performance of the matrix element method is consistent with the BDT-based approach. 
+However there is a difference in the observed limits in the low Higgs mass cases. 
+The BDT shape analysis shows an excess about 1$\sigma$ for the region $m_H<=130$\GeV, which 
+is not present in the ME based shape analysis. 
+To compare those two results, it is important to note that the two methods are different in 
+both the kinematic inputs and also in the method. 
+The inputs to the BDT are documented in detail in Ref.~\cite{ref:HWW2011smurf}. 
+The correlations of the final discriminant have different correlations 
+to the input kinematic observables shown in Table~\ref{tab:bdt_me_corr}. 
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c c c}
+\hline
+Kinematic Observables & BDT & Matrix Element \\
+\hline
+$m_{ll}$ & 0.74 & 0.50 \\
+leading lepton $p_T$ & 0.06 & 0.23 \\
+trailing lepton $p_T$ & 0.42 & 0.57 \\
+dilepton $\delta\phi$ & 0.45 & 0.15 \\
+$\met$  & 0.07 & 0.13 \\ 
+\hline
+\end{tabular}
+\end{center}
+\label{tab:bdt_me_corr}
+\caption{The absolute linear correlations between the BDT and matrix-element discriminants and the 
+event observables based on the Higgs MC events with mass of 120 \GeV. }
+\end{table}
+
+
+
+To summarize, using matrix element based approach in $H\rightarrow WW \rightarrow l^{+}l^{-}\nu\bar{\nu}$ 
+we exclude Standard Model Higgs boson in the range about [128,350] GeV, with expected exclusion range of 128--300 GeV at 95\% C.L. 
+For comparison, BDT expected and observed exclusion ranges in the 0-jet channel are similar: [128-300] GeV and [128-300] GeV, respectively.  
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -235,7 +266,10 @@ Table~\ref{tab:me_results_5fb_0jsf}-\ref{tab:me_results_5fb_1jof} and Figure~\re
 \centering
 \label{subfig:me}
 \includegraphics[width=.45\textwidth]{figures/limit_nj_shape_me-CLs-asymptotic.pdf}}
-\caption{ Shape analysis upper limits based on the BDT and matrix element outputs at 95\% C.L. for $\intlumi$ data. }
+\caption{The expected and observed upper limits on the SM Higgs for the shape analysis based 
+the BDT and matrix element outputs~\subref{subfig:me} at 95\% C.L. for $\intlumi$ data. 
+The limits are obtained combining all sub-channels in 0, 1 and 2 jet bins, 
+calculated with the asymptotic CLs method}
 \label{fig:me_results_5fb}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -336,9 +370,9 @@ for $\intlumi$ data using the BDT and matrix element outputs for the {\bf combin
 \centering
 \label{subfig:me_1jof}
 \includegraphics[width=.42\textwidth]{figures/limit_1jof_shape_me-CLs-asymptotic.pdf}}
-\caption{ Shape analysis upper limits based on the BDT and matrix element outputs at 95\% C.L. for $\intlumi$ data. 
-Limits are presented separately for the 4 sub-channels for each method. }
-%1) 0-Jet bin same flavor; 2) 0-Jet bin opposite flavor; 3) 1-Jet bin same flavor; 4) 1-Jet bin opposite flavor.}
+\caption{The expected and observed upper limits on the SM Higgs for the shape analysis based 
+the BDT and matrix element outputs~\subref{subfig:me} at 95\% C.L. for $\intlumi$ data. 
+Limits are presented separately for the 4 sub-channels for each method. All limits are calculated with the asymptotic CLs method}
 \label{fig:me_results_5fb_subchannel}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -443,5 +477,40 @@ Limits are presented separately for the 4 sub-channels for each method. }
 %\label{tab:me_results_5fb_1j}
 %\end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %
+
+\subsubsection{Signal injection studies}
+
+Motivated by the excess observed in data in the $H\to\gamma\gamma$ channel, the upper limits on the SM Higgs have been 
+recalculated after the injection of the MC signal with 
+$m_H=124$\GeV. In each data card, we substitute the nubmer of 
+observed events with the expected events combining the SM 
+background and signal. As shown in Figure~\ref{fig:me_results_hww124_5fb}, 
+we observe a wide excess between 1 and 2 $\sigma$ between [115-150]\GeV, consistently 
+using the cut-based analysis and shape analysis using both BDT and 
+matrix element outputs. This is expected as the mass resolution of the 
+$H\to WW$ is as large as 20\%. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!hbtp]
+\centering
+\subfigure[Cut Based]{
+\label{subfig:cut}
+\includegraphics[width=.45\textwidth]{figures/limit_nj_cut_hww124-CLs-asymptotic.pdf}} \\
+\centering
+\subfigure[BDT]{
+\centering
+\label{subfig:bdt}
+\includegraphics[width=.45\textwidth]{figures/limit_nj_shape_bdt_hww124-CLs-asymptotic.pdf}}
+\subfigure[ME]{ 
+\centering
+\label{subfig:me}
+\includegraphics[width=.45\textwidth]{figures/limit_nj_shape_me_hww124-CLs-asymptotic.pdf}}
+\caption{ expected and observed upper limits on the SM Higgs for cut-based~\subref{subfig:cut} and 
+shape analysis based the BDT~\subref{subfig:bdt} and matrix element outputs~\subref{subfig:me} 
+at 95\% C.L. after the injection of $m_H=124$\GeVcc signal. All limits are calculated with the 
+asymptotic CLs method}
+\label{fig:me_results_hww124_5fb}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
