@@ -3,10 +3,10 @@
 In this section, we document the results on the upper-limits using shape analysis based on 
 the matrix element output, described in Section~\ref{sec:LR}. 
 %The matrix element output has been evaluated for 18 different values of $m_H$ between 115 and 600 \GeVcc.
-Figure~\ref{fig:me_115_4700pb}-\ref{fig:me_200_4700} shows the likelihood ratio distributions for $m_H$~=~115, 120, 130, 140, 160 and 200\GeVcc, 
+Figure~\ref{fig:me_115_4700pb}-\ref{fig:me_200_4700pb} shows the likelihood ratio distributions for $m_H$~=~115, 120, 130, 140, 160 and 200\GeVcc, 
 corresponding to 4.7~fb$^{-1}$. 
 Note that the majority of backgrounds peak near $LR~=~0$ while the signal peaks near $LR~=~1$.  
-It was noted in Sec.~\ref{sec:EvtSelWW} that we apply a dilepton invariant mass requirement prior to constructing the likelihood ratio. 
+It was noted in Section~\ref{sec:EvtSelWW} that we apply a dilepton invariant mass requirement prior to constructing the likelihood ratio. 
 Figure~\ref{fig:LR_noMll} shows the likelihood ratio distribution assuming $m_{H}=160$ \GeVcc without the invariant mass requirements.
 One can see from the peak at $LR~=~0$ that the Matrix Element method successfully identifies high invariant mass events as background-like, so the cut is not essential. However, by applying the cut we lose less than $1\%$ of the signal and gain significantly in processing time needed for differential cross-section calculations.
 
@@ -218,41 +218,9 @@ Table~\ref{tab:me_results_5fb_0jsf}-\ref{tab:me_results_5fb_1jof} and Figure~\re
 %Table~\ref{tab:me_results_5fb_0j}-\ref{tab:me_results_5fb_1j} show the comparison of the performance 
 %in the 0 and 1 jet bins respectively. 
 
-
-The sensitivity performance of the matrix element method is consistent with the BDT-based approach. 
-However there is a difference in the observed limits in the low Higgs mass cases. 
-The BDT shape analysis shows an excess about 1$\sigma$ for the region $m_H<=130$\GeV, which 
-is not present in the ME based shape analysis. 
-To compare those two results, it is important to note that the two methods are different in 
-both the kinematic inputs and also in the method. 
-The inputs to the BDT are documented in detail in Ref.~\cite{ref:HWW2011smurf}. 
-The correlations of the final discriminant have different correlations 
-to the input kinematic observables shown in Table~\ref{tab:bdt_me_corr}. 
-
-\begin{table}[!htbp]
-\begin{center}
-\begin{tabular}{c c c}
-\hline
-Kinematic Observables & BDT & Matrix Element \\
-\hline
-$m_{ll}$ & 0.74 & 0.50 \\
-leading lepton $p_T$ & 0.06 & 0.23 \\
-trailing lepton $p_T$ & 0.42 & 0.57 \\
-dilepton $\delta\phi$ & 0.45 & 0.15 \\
-$\met$  & 0.07 & 0.13 \\ 
-\hline
-\end{tabular}
-\end{center}
-\label{tab:bdt_me_corr}
-\caption{The absolute linear correlations between the BDT and matrix-element discriminants and the 
-event observables based on the Higgs MC events with mass of 120 \GeV. }
-\end{table}
-
-
-
-To summarize, using matrix element based approach in $H\rightarrow WW \rightarrow l^{+}l^{-}\nu\bar{\nu}$ 
-we exclude Standard Model Higgs boson in the range about [128,350] GeV, with expected exclusion range of 128--300 GeV at 95\% C.L. 
-For comparison, BDT expected and observed exclusion ranges in the 0-jet channel are similar: [128-300] GeV and [128-300] GeV, respectively.  
+Using matrix element based approach in $H\rightarrow WW \rightarrow l^{+}l^{-}\nu\bar{\nu}$ 
+we exclude the Standard Model Higgs boson in the mass range [128,350] GeV, with an expected exclusion range of [128,300] GeV at 95\% C.L. 
+For comparison, BDT expected and observed exclusion ranges are similar: [128-300] GeV and [128-300] GeV, respectively.  
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -479,6 +447,41 @@ Limits are presented separately for the 4 sub-channels for each method. All limi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 
+\subsubsection{Correlation of BDT and ME results}
+\label{sec:mebdt_correlations}
+
+The sensitivity of the matrix element method to a Higgs boson signal
+is consistent with the BDT-based approach.
+However we observe a difference in the observed limit from the two methods
+ at low Higgs boson mass.     
+The BDT shape analysis finds an excess of about 1$\sigma$ in the region $m_H<=130$\GeV,
+which is not present in the matrix element based shape analysis.
+When comparing these two results, we note that the two methods use different kinematic
+inputs and are expected to weight the observable properties of a Higgs boson signal differently.
+The inputs to the BDT are documented in detail in Ref.~\cite{ref:HWW2011smurf}.
+The correlations between the BDT and Matrix Element based discriminants and the
+relevant kinematic observables are shown in Table~\ref{tab:bdt_me_corr}.
+
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c c c}
+\hline
+Kinematic Observables & BDT & Matrix Element \\
+\hline
+$m_{ll}$ & 0.74 & 0.50 \\
+leading lepton $p_T$ & 0.06 & 0.23 \\
+trailing lepton $p_T$ & 0.42 & 0.57 \\
+dilepton $\delta\phi$ & 0.45 & 0.15 \\
+$\met$  & 0.07 & 0.13 \\
+\hline
+\end{tabular}
+\end{center}
+\label{tab:bdt_me_corr}
+\caption{The absolute linear correlations between the BDT and matrix-element discriminants and the
+event observables based on the Higgs MC events with mass of 120 \GeV. }
+\end{table}
+
 \subsubsection{Signal injection studies}
 
 Motivated by the excess observed in data in the $H\to\gamma\gamma$ channel, the upper limits on the SM Higgs have been 
@@ -491,6 +494,12 @@ using the cut-based analysis and shape analysis using both BDT and
 matrix element outputs. This is expected as the mass resolution of the 
 $H\to WW$ is as large as 20\%. 
 
+We thus conclude that the observed limits in the case of the presence of signal,
+as well as the expected limits in the absence of signal, should respond
+similarly in the BDT and matrix element methods. Because 
+the output of the two methods correlates differently with the 
+event observables as described in Section~\ref{sec:mebdt_correlations}, 
+the two methods can be used to cross check each other.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!hbtp]
