@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.7 2011/10/26 09:30:17 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.8 2011/12/06 16:43:08 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -557,10 +557,12 @@ void trainMVA_smurf(
     //if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
     //     (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
 
-    if(!(dstype == SmurfTree::qqww   || dstype == SmurfTree::ggww   ||
-    	 dstype == SmurfTree::ttbar  || dstype == SmurfTree::tw     ||
-         dstype == SmurfTree::wz     || dstype == SmurfTree::zz     ||
-         dstype == SmurfTree::wgamma || dstype == SmurfTree::wjets))  continue; // cut on dstype
+    if(!(dstype == SmurfTree::qqww   || dstype == SmurfTree::ggww ))  continue; // cut on dstype
+
+    //if(!(dstype == SmurfTree::qqww   || dstype == SmurfTree::ggww   ||
+    //	 dstype == SmurfTree::ttbar  || dstype == SmurfTree::tw     ||
+    //     dstype == SmurfTree::wz     || dstype == SmurfTree::zz     ||
+    //     dstype == SmurfTree::wgamma || dstype == SmurfTree::wjets))  continue; // cut on dstype
 
     //if(!(dstype == SmurfTree::wgamma || dstype == SmurfTree::wjets))  continue; // cut on dstype
 

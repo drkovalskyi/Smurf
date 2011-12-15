@@ -12,8 +12,8 @@ export NJETS=$1;
 export MH=$2;
 export WEIGHTSONLY=$3;
 
-#export TAG=ntuplesNoMZCut_${MH}train_${NJETS}jets;
-#export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
+#export TAG=TEST_${MH}train_${NJETS}jets;
+#export METHODS=BDTG;
 export TAG=ntuples_${MH}train_${NJETS}jets;
 export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
 #export TAG=TEST_ntuples_${MH}train_${NJETS}jets;
