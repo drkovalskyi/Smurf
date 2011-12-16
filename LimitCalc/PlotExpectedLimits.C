@@ -42,54 +42,6 @@ struct LimitInfo{
   double mass;
   double observed;
 };
-// void AddLimits(std::vector<LimitInfo>& limits, const char* card, double mass){
-//   if (gSystem->AccessPathName(card)){
-//     std::cout << "Card " << card << " doesn't exist, skip it" << std::endl;
-//     return;
-//   }
-//   int seed = 1234;
-//   int noutcomes = 1000;
-//   int nexps = 20000;
-//   CRandom *rdm = new CRandom(seed);  //initilize a random generator
-//   // set up couting model
-//   CountingModel *cms=new CountingModel();
-//   cms->SetRdm(rdm);
-//   ConfigureModel(cms, card); 
-//   cms->SetUseSystematicErrors(true);
-//   cms->UseAsimovData(-1);
-//   // cms->Print(0);
-//   cms->RemoveChannelsWithExpectedSignal0orBkg0();
-//   // cms->Print(0);
-
-//   lands::BayesianBase bys(cms, 0.05, 1.e-3);
-//   bys.SetNumToys(nexps);
-//   bys.SetDebug(0);
-//   // if(XSprior==20)
-//   // bys.SetCrossSectionPrior(corr);
-//   // else 
-//   bys.SetCrossSectionPrior(flat);
-//   // double rtmp;
-//   // rtmp = bys.Limit();
-//   // cout<<"------------------------------------------------------------"<<endl;
-//   // cout<<"Observed Upper Limit on the ratio R at 95\% CL = "<<rtmp<<endl;
-//   // cout<<"------------------------------------------------------------"<<endl;
-
-//   cms->SetSignalScaleFactor(1.);
-  
-//   lands::LimitBands lb(&bys, cms);	
-//   lb.SetDebug(0);
-//   lb.BysLimitBands(0.05, noutcomes, nexps);
-  
-//   LimitInfo limit;
-//   limit.mass = mass;
-//   limit.exp_m2sig = lb.GetBysLimit(-2);
-//   limit.exp_m1sig = lb.GetBysLimit(-1);
-//   limit.exp_mean  = lb.GetBysLimitMean();
-//   limit.exp_p1sig = lb.GetBysLimit(+1);
-//   limit.exp_p2sig = lb.GetBysLimit(+2);
-
-//   limits.push_back(limit);
-// }
 double getObservedLimit(const char* file)
 {
   if (! file) return -1;
@@ -223,8 +175,14 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
   gStyle->SetCanvasDefH      (600);
   gStyle->SetCanvasDefW      (800);
   gStyle->SetTitleOffset( 1, "y");
-  TPaveText *pt = lands::SetTPaveText(0.5, 0.95, 0.8, 0.95); //SetTPaveText(0.5, 0.95, 0.8, 0.95)
+  TPaveText *pt = lands::SetTPaveText(0.2, 0.85, 0.5, 0.70);
+  pt->AddText("CMS Preliminary");
+  pt->AddText("H #rightarrow WW #rightarrow 2l2#nu");
   pt->AddText(title);
+  pt->SetTextSize(0.03);
+
+  // TPaveText *pt = lands::SetTPaveText(0.5, 0.95, 0.8, 0.95); //SetTPaveText(0.5, 0.95, 0.8, 0.95)
+  // pt->AddText(title);
   lands::PlotWithBelts* lb = 0;
   float yMax = 10; 
   if (showObserved){
@@ -232,11 +190,11 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
 				  limits_mean, observed, limits.size(), mass_points, 
 				  "limits", pt,
 				  // 100, 305, 0, yMax, false, 
-				  100, 605, 0, yMax, false, 
-				  // 100, 205, 0, yMax, false, 
+				  // 100, 605, 0, yMax, false, 
+				  105, 205, 0, yMax, false, 
 				  ";Higgs mass, m_{H} [GeV/c^{2}]; 95% CL Limit on #sigma/#sigma_{SM}; observed ");
     lb->plot();
-    lb->drawLegend("95% CL exclusion: median","95% CL exclusion: 68% band", "95% CL exclusion: 95% band", "observed");
+    lb->drawLegend("Median Expected","Expected 68% band", "Expected 95% band", "Observed");
   } else {
     lb = new lands::PlotWithBelts(limits_m1s, limits_p1s, limits_m2s, limits_p2s,
 				  limits_mean, limits.size(), mass_points, 
@@ -247,8 +205,8 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
     lb->plot();
     lb->drawLegend("95% CL exclusion: median","95% CL exclusion: 68% band", "95% CL exclusion: 95% band");
   }
-  // lb->drawLegend("95% CL exclusion: mean","95% CL exclusion: 68% band", "95% CL exclusion: 95% band");
-  lands::MoveLegend(lb->getLegend(),0.45,0.7);
+  lb->getLegend()->SetTextSize(0.03);
+  lands::MoveLegend(lb->getLegend(),0.55,0.7);
   // lands::MoveLegend(lb->getLegend(),0.18,0.7);
   lb->getMeanGraph()->SetLineWidth(2);
   lb->getMeanGraph()->SetMarkerStyle(20);
@@ -301,6 +259,7 @@ void PlotExpectedLimits(const char* file, const char* title)
     LimitInfo limit;
     fin >> limit.mass >> limit.observed >> limit.exp_m2sig >> limit.exp_m1sig
 	>> limit.exp_median >> limit.exp_p1sig >> limit.exp_p2sig;
+    if (!fin.good()) continue;
     std::cout << limit.mass << "\t" << limit.observed << "\t" << limit.exp_m2sig << "\t" 
 	      << limit.exp_m1sig << "\t" << limit.exp_median << "\t" 
 	      << limit.exp_p1sig << "\t" << limit.exp_p2sig << std::endl;

@@ -57,7 +57,7 @@ if ( $type eq "CLs" ){
     $nJobsPerMassPoint = 100;
     $jobname = "cls";
     # GOOD $expectLimitCommand   = "-M Hybrid --freq --ExpectationHints Asymptotic --scanRs 1 --nToysForCLsb 50 --nToysForCLb 25 --minuitSTRATEGY 1 --maximumFunctionCallsInAFit 50000 -rMin 0.01 -rMax 20"; 
-    $expectLimitCommand   = "-M Hybrid --freq -vR \"[0.2,5.0,0.2] [6.0,15.0,1]\" --scanRs 1 --nToysForCLsb 20 --nToysForCLb 10 --minuitSTRATEGY 1 --maximumFunctionCallsInAFit 50000"; 
+    $expectLimitCommand   = "-M Hybrid --freq -vR \"[0.1,2,0.1] [2.2,5.0,0.2] [6.0,15.0,1]\" --scanRs 1 --nToysForCLsb 50 --nToysForCLb 30 --minuitSTRATEGY 1 --maximumFunctionCallsInAFit 50000"; 
     $observedLimitCommand = "-M Hybrid --freq --nToysForCLsb 10000 --nToysForCLb 5000 --minuitSTRATEGY 1 --maximumFunctionCallsInAFit 50000 -rMin 0.01 -rMax 20";
     $doObserved = 0;
 }
