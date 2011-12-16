@@ -292,7 +292,9 @@ class SmurfTree {
     lepPtr1_(&lep1_),lepPtr2_(&lep2_),jetPtr1_(&jet1_),jetPtr2_(&jet2_),dilepPtr_(&dilep_),quadlepPtr_(&quadlep_),
     lepPtr3_(&lep3_),                 jetPtr3_(&jet3_){}
   /// default destructor
-  ~SmurfTree(){ f_->Close();  };
+  ~SmurfTree(){ 
+    if (f_) f_->Close();  
+  };
 
   /// initialize varibles and fill list of available variables
   void InitVariables();
@@ -323,6 +325,7 @@ class SmurfTree {
     else if(type == 2) tree_ = new TTree("HwwTree2","Smurf ntuples");
     else if(type == 3) tree_ = new TTree("HwwTree3","Smurf ntuples");
     else               tree_ = new TTree("tree","Smurf ntuples");
+    f_ = 0;
     InitVariables();
     //book the branches
     tree_->Branch("event"        , &event_        ,   "event/i");
