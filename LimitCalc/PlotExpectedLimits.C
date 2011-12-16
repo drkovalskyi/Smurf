@@ -221,7 +221,7 @@ void PlotExpectedLimits(std::vector<LimitInfo>& limits, const char* title){
   lb->save();
 }
 
-void ReportLimits(std::vector<LimitInfo>& limits, const char* title, const char* dir, const char* name){
+void ReportLimits(std::vector<LimitInfo>& limits){
   if (limits.empty()){
     std::cout << "No limits to plot." << std::endl;
     return;
@@ -232,7 +232,7 @@ void ReportLimits(std::vector<LimitInfo>& limits, const char* title, const char*
 //   }
   printf("Mass \tObserved \tMedian Expected \t68%% C.L. band \t95%% C.L. band\n");
   for(unsigned int i=0; i<limits.size(); ++i){
-    printf("%.0f \t%0.1f \t%0.1f \t[%0.1f, %0.1f] \t[%0.1f, %0.1f]\n",
+    printf("%.0f \t%0.2f \t%0.2f \t[%0.2f, %0.2f] \t[%0.2f, %0.2f]\n",
 	   limits.at(i).mass,
 	   limits.at(i).observed, limits.at(i).exp_median, 
 	   limits.at(i).exp_m1sig, limits.at(i).exp_p1sig,
@@ -240,7 +240,7 @@ void ReportLimits(std::vector<LimitInfo>& limits, const char* title, const char*
   }
   // print latex format
   for(unsigned int i=0; i<limits.size(); ++i){
-    printf("%.0f & %0.1f & %0.1f & [%0.1f, %0.1f] & [%0.1f, %0.1f] \\\\\n",
+    printf("%.0f & %0.2f & %0.2f & [%0.2f, %0.2f] & [%0.2f, %0.2f] \\\\\n",
 	   limits.at(i).mass,
 	   limits.at(i).observed, limits.at(i).exp_median, 
 	   limits.at(i).exp_m1sig, limits.at(i).exp_p1sig,
@@ -266,6 +266,7 @@ void PlotExpectedLimits(const char* file, const char* title)
     limits.push_back(limit);
   }
   PlotExpectedLimits(limits,title);
+  ReportLimits(limits);
 }
 
 void PlotExpectedLimits(const char* dir, const char* name, 
@@ -282,7 +283,7 @@ void PlotExpectedLimits(const char* dir, const char* name,
       AddLimits_CLs_Asymptotic(limits, dir, name, points[i]);
   }
   PlotExpectedLimits(limits,title);
-  ReportLimits(limits,title,dir,name);
+  ReportLimits(limits);
   /*
 
   TCanvas* c1 = new TCanvas("c1","A Simple Graph with error bars",200,10,700,500);
