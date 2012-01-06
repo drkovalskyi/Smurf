@@ -661,13 +661,13 @@ TString suffix       = "ww"
 
 	if(doShapes == true){ // momentum scale +
 	  double corr[2] = {1.0, 1.0};
-	  if     (TMath::Abs(smurfTree.lid2_) == 13){
+	  if     (TMath::Abs(smurfTree.lid1_) == 13){
             corr[0] = 1.01 + gRandom->Gaus(0.00,0.01);
 	  }
-	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
+	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
             corr[0] = 1.01 + gRandom->Gaus(0.00,0.02);
 	  }
-	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
+	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
             corr[0] = 1.06 + gRandom->Gaus(0.00,0.06);
 	  }
 	  if     (TMath::Abs(smurfTree.lid2_) == 13){
@@ -706,13 +706,13 @@ TString suffix       = "ww"
 
 	if(doShapes == true){ // momentum scale -
 	  double corr[2] = {1.0, 1.0};
-	  if     (TMath::Abs(smurfTree.lid2_) == 13){
+	  if     (TMath::Abs(smurfTree.lid1_) == 13){
             corr[0] = 0.99 - gRandom->Gaus(0.00,0.01);
 	  }
-	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
+	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
             corr[0] = 0.99 - gRandom->Gaus(0.00,0.02);
 	  }
-	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
+	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
             corr[0] = 0.94 - gRandom->Gaus(0.00,0.06);
 	  }
 	  if     (TMath::Abs(smurfTree.lid2_) == 13){

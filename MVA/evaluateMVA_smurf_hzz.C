@@ -778,6 +778,4 @@ TString path         = "")
 #include "TBranch.h"
 #include "TRandom.h"
 
-using namespace std;
-
-
+using namespace std
