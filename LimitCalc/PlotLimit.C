@@ -78,9 +78,10 @@ void PlotLimit(string LimitFiles = "ana_v7_Full2011_limits_nj_shape.txt",
     cerr << "Error: file could not be opened" << endl;
     return;
   }
-  while ( indata >> Mass >> ObsLimit >> MeanExpLimit >> MedianExpLimit >> ExpLim95Down >> ExpLim68Down >> ExpLim68Up >> ExpLim95Up )  {
+  // while ( indata >> Mass >> ObsLimit >> MeanExpLimit >> MedianExpLimit >> ExpLim95Down >> ExpLim68Down >> ExpLim68Up >> ExpLim95Up )  {
+  while ( indata >> Mass >> ObsLimit >> ExpLim95Down >> ExpLim68Down >> MedianExpLimit >> ExpLim68Up >> ExpLim95Up )  {
     cout << Mass << " " << ObsLimit  << " " << MedianExpLimit <<" "<< ExpLim68Down <<" "<< ExpLim68Up <<" "<< ExpLim95Down <<" "<< ExpLim95Up << endl;
-
+    MeanExpLimit = 0;
     vMass           .push_back(Mass           );
     vObsLimit       .push_back(ObsLimit       ); 
     vMeanExpLimit   .push_back(MeanExpLimit   ); 
@@ -226,9 +227,10 @@ void PlotLimit(string LimitFiles = "ana_v7_Full2011_limits_nj_shape.txt",
           return;
         }
         int npt(0);
-        while ( indatacomp >> Mass >> ObsLimit >> MeanExpLimit >> MedianExpLimit >> ExpLim95Down >> ExpLim68Down >> ExpLim68Up >> ExpLim95Up )  {
+        // while ( indatacomp >> Mass >> ObsLimit >> MeanExpLimit >> MedianExpLimit >> ExpLim95Down >> ExpLim68Down >> ExpLim68Up >> ExpLim95Up )  {
+        while ( indatacomp >> Mass >> ObsLimit >> ExpLim95Down >> ExpLim68Down >> MedianExpLimit >> ExpLim68Up >> ExpLim95Up )  {
           cout << Mass << " " << ObsLimit  << " " << MedianExpLimit <<" "<< ExpLim68Down <<" "<< ExpLim68Up <<" "<< ExpLim95Down <<" "<< ExpLim95Up << endl;
-
+	  
           xcomp[ifile][npt] = Mass           ;
           ycomp[ifile][npt] = ObsLimit;
           ycompe[ifile][npt] = MedianExpLimit;
