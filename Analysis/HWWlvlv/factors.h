@@ -129,26 +129,29 @@ double scaleFactor(double pt1, double eta1, double pt2, double eta2, int type, i
     }
   }
   else if(nsel == 2){ // luminosity scale factor
-    if     (type == 0) weight = weight * 0	    ;//0.00000;
-    else if(type == 1) weight = weight * 0.167264   ;//0.23111;
-    else if(type == 2) weight = weight * 0.821642   ;//0.82486;
-    else if(type == 3) weight = weight * 1.41359    ;//1.47045;
-    else if(type == 4) weight = weight * 1.78625    ;//1.83450;
-    else if(type == 5) weight = weight * 1.82755    ;//1.79663;
-    else if(type == 6) weight = weight * 1.62913    ;//1.46496;
-    else if(type == 7) weight = weight * 1.30361    ;//1.05682;
-    else if(type == 8) weight = weight * 0.983325   ;//0.70823;
-    else if(type == 9) weight = weight * 0.706365   ;//0.47386;
-    else if(type ==10) weight = weight * 0.496696   ;//0.32382;
-    else if(type ==11) weight = weight * 0.337684   ;//0.22383;
-    else if(type ==12) weight = weight * 0.2282     ;//0.17413;
-    else if(type ==13) weight = weight * 0.149644   ;//0.10930;
-    else if(type ==14) weight = weight * 0.0990471  ;//0.09563;
-    else if(type ==15) weight = weight * 0.0695094  ;//0.08367;
-    else if(type ==16) weight = weight * 0.0397772  ;//0.05418;
-    else if(type ==17) weight = weight * 0.0331609  ;//0.04891;
-    else if(type ==18) weight = weight * 0.0214524  ;//0.03515;
-    else if(type >=19) weight = weight * 0.0181265  ;//0.01000;
+    if     (type == 0) weight = weight * 0	;
+    else if(type == 1) weight = weight * 0.14306;
+    else if(type == 2) weight = weight * 0.47351;
+    else if(type == 3) weight = weight * 0.65951;
+    else if(type == 4) weight = weight * 0.87082;
+    else if(type == 5) weight = weight * 0.97577;
+    else if(type == 6) weight = weight * 1.02573;
+    else if(type == 7) weight = weight * 1.01917;
+    else if(type == 8) weight = weight * 1.09291;
+    else if(type == 9) weight = weight * 1.17922;
+    else if(type ==10) weight = weight * 1.31628;
+    else if(type ==11) weight = weight * 1.56301;
+    else if(type ==12) weight = weight * 1.86699;
+    else if(type ==13) weight = weight * 2.54774;
+    else if(type ==14) weight = weight * 3.13798;
+    else if(type ==15) weight = weight * 4.33400;
+    else if(type ==16) weight = weight * 5.11852;
+    else if(type ==17) weight = weight * 8.05315;
+    else if(type ==18) weight = weight * 10.1783;
+    else if(type ==19) weight = weight * 12.7989;
+    else if(type ==20) weight = weight * 18.2182;
+    else if(type ==21) weight = weight * 33.3586;
+    else if(type ==22) weight = weight * 43.8323;
   }
   else if(nsel == 3){ // momentum scale factor
     if     (type == 10){ 
@@ -229,7 +232,7 @@ else if(type == 1){ // 4th-generation BR(H->WW) enhancement factor
 else if(type == 2){ // fermiophobic BR(H->WW) enhancement factor
   if     (mass==110.000) return 8.54E-01/4.82E-02;
   else if(mass==115.000) return 8.67E-01/8.67E-02;
-  else if(mass==118.000) return 8.70E-01/1.18E-01 ;
+  else if(mass==118.000) return 8.70E-01/1.18E-01;
   else if(mass==120.000) return 8.70E-01/1.43E-01;
   else if(mass==122.000) return 8.70E-01/1.70E-01;
   else if(mass==124.000) return 8.69E-01/2.00E-01;
