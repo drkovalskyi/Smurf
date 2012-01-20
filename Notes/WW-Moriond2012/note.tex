@@ -31,7 +31,8 @@
 
   \date{\today}
 
-  \title{WW Cross Section Measurement}
+  \title{Measurement of the WW Production Cross Section\\
+        and Limits on Anomalous Couplings}
 
   \input{authors}
 
@@ -48,92 +49,91 @@
 %===================================================================================================
 \section{Introduction}
   \label{sec:overview}
-  %\input{introduction}
+  \input{introduction}
   
 \section{Data Samples}
   \label{sec:datasets}
-  %\input{datasets}
+  \input{datasets}
   
 \section{Event Selection}
   \label{sec:selection} 
-  %\input{selection_introduction}
-  \subsection{Trigger}
-    \label{sec:sel_trigger}
-    %\input{selection_trigger}
-  \subsection{Primary Vertex Reconstruction}
-    \label{sec:sel_pv}
-    %\input{selection_pv}
-  \subsection{Muon Selection} 
-    \label{sec:sel_muons}
-   %\input{selection_muons}
-  \subsection{Electron Selection} 
-    \label{sec:sel_electrons}
-    %\input{selection_electrons}
-  \subsection{Missing Energy} 
-    \label{sec:sel_met}
-    %\input{selection_met}
-    \clearpage
-  \subsection{$Z$ Veto}
-    \label{sec:sel_zveto}
-    %\input{selection_zveto}
-  \subsection{Jet Counting} 
-    \label{sec:sel_jets}
-    %\input{selection_jets}
+  \input{selection_overview.tex}
+   \subsection{Trigger}
+     \label{sec:sel_trigger}
+     \input{selection_trigger.tex}
+   \subsection{Primary Vertex Reconstruction}
+     \label{sec:sel_pv}
+     \input{selection_pv.tex}
+   \subsection{Muon Selection}
+     \label{sec:sel_muons}
+    \input{selection_muons.tex}
+   \subsection{Electron Selection}
+     \label{sec:sel_electrons}
+     \input{selection_electrons.tex}
+   \subsection{Missing Energy}
+     \label{sec:sel_met}
+     \input{selection_met.tex}
+   \subsection{$Z$ Veto}
+     \label{sec:sel_zveto}
+     \input{selection_zveto.tex}
+   \subsection{Jet Veto}
+     \label{sec:sel_jets}
+     \input{selection_jets.tex}
   \subsection{Top Tagging}
-    \label{sec:sel_toptag}
-    %\input{selection_toptag}
-  \subsection{Other Preselection Requirements}
-    \label{sec:sel_other}
-    %\input{selection_other}
-
-\section{Expected Event Yields}
-  \label{sec:yields}
-  %\input{yields_mc}
+     \label{sec:sel_toptag}
+     \input{selection_toptag.tex} 
+   \subsection{Other Preselection Requirements}
+     \label{sec:sel_other}
+     \input{selection_other.tex}
 
 \clearpage
 \section{Background Estimation}
     \label{sec:backgrounds}
-    %\input{bkg_intro}
+    \input{bkg_intro}
     \label{sec:bkg_intro}
   \subsection{Jet Induced Backgrounds}
     \label{sec:bkg_fakes}
-    %\input{bkg_fakes}
+    \input{bkg_fakes}
   \subsection{Top Background}
     \label{sec:bkg_top}
-    %\input{bkg_top}
+    \input{bkg_top}
   \subsection{Drell-Yan Background}
     \label{sec:bkg_dy}
     \input{bkg_dy}
   \subsection{Other Backgrounds}
     \label{sec:bkg_other}
-    %\input{bkg_other}
+    \input{bkg_other}
 
 \section{Efficiency Measurements}
     \label{sec:alleff}
     \subsection{Lepton Efficiency}
     \label{sec:efficiency}
-    %\input{eff_intro}
+    \input{eff_intro}
         \subsubsection{Electron Efficiency}
-        %\input{eff_electron}
+        \input{eff_electron}
         \label{sec:eff_electron}
         \subsubsection{Muon Efficiency}
-        %\input{eff_muon}
+        \input{eff_muon}
         \label{sec:eff_muon}
         \subsubsection{Trigger Efficiency}
-        %\input{eff_trigger}
+        \input{eff_trigger}
         \label{sec:eff_trigger}
-    \subsection{Jet Counting Efficiency}
-    %\input{eff_jet}
+    \subsection{Jet Veto Efficiency}
+    \input{eff_jet}
 
 \section{Systematic Uncertainties}
   \label{sec:systematics}
-  %\input{systematics}
+  \input{systematics}
 
   \clearpage
 
-\section{Data Results with \intlumi}
-  \label{sec:dataresults}
-  %\input{data_results}
+\section{Cross Section Measurement}
+  \label{sec:xsec}
+  \input{data_xsec}
+
+\section{Anomalous Couplings}
+  \label{sec:atgc}
+  \input{data_atgc}
 
 \section{Summary}
     \label{sec:summary}

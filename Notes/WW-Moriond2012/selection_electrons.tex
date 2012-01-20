@@ -1,0 +1,38 @@
+We identify electrons using a multivariate approach optimized 
+for this analysis~\cite{MVAElId}. In addition, we require some minimal 
+requirements to make sure the electron candidate is as tight as the 
+trigger selection:
+
+\begin{itemize}
+  \item $p_T>10$~GeV and $|\eta| < 2.5$
+  \item $\sigma_{i\eta i\eta} < 0.01/0.03$ (barrel/endcap)
+  \item $|\Delta\phi_{in}| < 0.15/0.10$
+  \item $|\Delta\eta_{in}| < 0.007/0.009$
+  \item $H/E< 0.12/0.10$ (barrel/endcap)
+  \item $\frac{\sum_{\rm trk}\Et}{\pt^{\rm ele}}<0.2$
+  \item $\frac{\sum_{\rm ECAL}\Et}{\pt^{\rm ele}}<0.2$
+  \item $\frac{\sum_{\rm HCAL}\Et}{\pt^{\rm ele}}<0.2$
+\end{itemize}
+
+Isolation requirements are then imposed by computing the particle flow isolation,
+defined as the scalar sum of the \pt\ of the particle flow candidates satisfying 
+the following requirements:
+
+\begin{itemize}
+\item $\Delta R~<~0.4$ to the electron in the $\eta \times \phi$ plane,
+\item for neutral hadron PF candidates, require that it is outside the footprint veto region of $\Delta R~<~0.07$,
+\item for photon and electron PF candidates, require that it is outside the footprint veto region of $|\Delta\eta|<0.025$,
+\item $|d_{z}(\mathrm{PF~candidate}) - d_{z}(\mathrm{muon})| < 0.1$~cm, if the PF candidate is charged,
+\item \pt $>1.0$ GeV, if the PF candidate is classified as a neutral hadron or a photon.
+\end{itemize}
+
+We require $\frac{\rm{Iso}_{PF}}{\pt}~<~0.13~(0.09)$ for electrons in the barrel (endcap).
+
+In order to veto fake electrons from converted photons, 
+we look for a reconstructed conversion vertex where one of the two tracks 
+is compatible with the electron~\cite{ConversionNote}.
+The vertex fit probability is required to be $>10^{-6}$.
+We then require that there are no missing expected missing hits forming the electron track~\cite{ConversionNote},~\cite{NExpHits}. 
+Finally to reduce fake electrons from non-prompt sources,
+we require the transverse and longitudinal impact parameters with
+respect to the primary vertex to be less than $0.02$ and $0.1$~cm respectively.
