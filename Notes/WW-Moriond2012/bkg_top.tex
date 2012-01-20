@@ -26,10 +26,10 @@ proceeds accordingly to the following steps:
 \begin{enumerate}
 \item 
 A top enriched region is defined requiring exactly one b-tagged jet
-with \pt larger than $30$ GeV (denumerator).  Those events among this
+with \pt larger than $30$ GeV (denominator).  Those events among this
 sample with at least one b-tagged jets with
 $10<\ensuremath{p_\mathrm{T}}<30$ GeV or one soft muon defines the
-numerator. The ratio of the yields in the numerator and denumerator
+numerator. The ratio of the yields in the numerator and denominator
 properly corrected from other backgrounds contamination provides the
 top-tagging efficiency for one ``top-taggable'' leg,
 $\epsilon_{1leg}^{data}$.
@@ -100,8 +100,30 @@ is now defined by Eq. \ref{eq:newTopTagEff}.
 
 The plots in Figure \ref{fig:jetLowBtag} show the distribution of the
 b-tag discrimiator for the jet with $\pt$ lower than 30 GeV and the
-highest b-tag discriminator in the 1-Jet (denumerator and numerator)
-and 0-Jet bins control region.
+highest b-tag discriminator in the denominator and numerator of the
+control region.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{table}[ht!]
+\begin{center} 
+\begin{tabular}{l c}
+\hline
+                             Parameter      & Value             \\
+\hline
+       Estimated top events in simulation   & 92.9  $\pm$ 1.7   \\
+                   tagging efficiency (\%)  & 51.9  $\pm$ 3.4   \\
+                top-tagged events in data   & 165.0 $\pm$ 12.8  \\
+      background events in control region   & 32.0  $\pm$ 13.4  \\
+      Data-driven top background estimate   & 123.4 $\pm$ 24.0  \\
+                            Scale factors   & 1.33  $\pm$ 0.26  \\
+\hline
+\end{tabular}  
+\caption{Monte Carlo to data scale factor for the top background contribution for $\intlumi$.}  
+\label{tab:ttbar_est}
+\end{center}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \begin{figure}[hbt]
 \begin{center}
@@ -110,7 +132,7 @@ and 0-Jet bins control region.
 \includegraphics[width=0.3\linewidth]{figures/jetLowBtag_topTag_dr.png}
 \caption{\label{fig:jetLowBtag}\protect b-tag discrimiator distribution for 
 the jet with $p_T<30$ GeV and the highest b-tag discriminator in the
-1-Jet (denumerator, left and numerator, center) and 0-Jet bins control
+1-Jet (denominator, left and numerator, center) and 0-Jet bins control
 region (right).}
 \end{center}
 \end{figure}
