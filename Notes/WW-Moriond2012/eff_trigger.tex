@@ -14,22 +14,18 @@ probe the other lepton.
 %\subsubsection{Electron triggers}
 %%%%%% double
 The double electron trigger requires the higher $p_T$ leg to be seeded at Level-1.
-The efficiency of the seeded leading leg with respect to an electron passing
+The efficiency of the seeded and unseeded legs with respect to an electron passing
 offline selection is tabulated in 
-Table \ref{tab:eff_trigger_doubleEle_leadingleg} of Appendix 
-\ref{app:efficiency_studies_trigger}. The efficiency for the trailing 
-unseeded leg is given in Table \ref{tab:eff_trigger_doubleEle_trailingleg}. 
+Table \ref{tab:eff_trigger_doubleEle}.
 The efficiency of the single electron trigger with respect to
 an electron passing offline selection is given in Table \ref{tab:eff_trigger_singleEle}.
 The listed values represent the overall efficiencies averaged over the run range
 of the dataset, absorbing changes in thresholds and seeding requirements
 over time.
-
 The efficiency of the leading and trailing legs of the double muon trigger
-is summarized in Tables \ref{tab:eff_trigger_doubleMu_leadingleg} and
-\ref{tab:eff_trigger_doubleMu_trailingleg}. The efficiency of the single
+is summarized in Table \ref{tab:eff_trigger_doubleMu}.
+The efficiency of the single
 muon trigger is given in Table \ref{tab:eff_trigger_singleMu}.
-
 
 In the case of the $e\mu$ triggers, we cross check the trigger efficiency 
 against the leading and trailing legs of the double electron and
@@ -42,9 +38,101 @@ single muon trigger. They are found to be consistent within statistical
 uncertainties. We thus take the single leg efficiencies from the double
 electron and double muon triggers for the cross triggers as well.
 
-%The leading and trailing legs of the electron muon cross triggers are given in Tables 
-%\ref{} and \ref{} for muons and in Tables \ref{} and \ref{} for electrons. 
+ \begin{table}[!ht]
+ \begin{center}
+ \begin{tabular}{|c|c|c|}
+ \hline
+ Measurement &  $  0.0  \le |\eta| <   1.5$ & $  1.5  \le |\eta| <   2.5$ \\
+ \hline
+\multicolumn{3}{c}{Leading leg requirement.} \\
+\hline
+$ 20.0 < p_{T} \le  30.0$ &     0.9849 +/- 0.0003  &      0.9774 +/- 0.0007 \\
+\hline
+$ 30.0 < p_{T} $ &     0.9928 +/- 0.0001  &      0.9938 +/- 0.0001 \\
+\hline
+\multicolumn{3}{c}{Trailing leg requirement.} \\
+ \hline
+$ 20.0 < p_{T} \le  30.0$ &     0.9923 +/- 0.0002  &      0.9953 +/- 0.0003 \\
+\hline
+$ 30.0 < p_{T} $ &     0.9948 +/- 0.0001  &      0.9956 +/- 0.0001 \\
+\hline
+\end{tabular}
+\caption{The per leg efficiency of the double electron trigger, averaged over the full 2011 dataset.}
+\label{tab:eff_trigger_doubleEle}
+\end{center}
+\end{table}
 
+ \begin{table}[!ht]
+ \begin{center}
+ \begin{tabular}{|c|c|c|}
+ \hline
+ Measurement &  $  0.0  \le |\eta| <   1.5$ & $  1.5  \le |\eta| <   2.5$ \\
+ \hline
+$ 20.0 < p_{T} \le  25.0$ &     0.0002 +/- 0.0001  &      0.0001 +/- 0.0002 \\
+\hline
+$ 25.0 < p_{T} \le  30.0$ &     0.0314 +/- 0.0006  &      0.0144 +/- 0.0007 \\
+\hline
+$ 30.0 < p_{T} \le  35.0$ &     0.1511 +/- 0.0009  &      0.1303 +/- 0.0016 \\
+\hline
+$ 35.0 < p_{T} \le  40.0$ &     0.2318 +/- 0.0008  &      0.2496 +/- 0.0017 \\
+\hline
+$ 40.0 < p_{T} \le  50.0$ &     0.2342 +/- 0.0006  &      0.2327 +/- 0.0011 \\
+\hline
+$ 50.0 < p_{T} \le  65.0$ &     0.2899 +/- 0.0013  &      0.2502 +/- 0.0022 \\
+\hline
+$ 65.0 < p_{T} \le  80.0$ &     0.8170 +/- 0.0027  &      0.5012 +/- 0.0065 \\
+\hline
+$ 80.0 < p_{T} $ &     0.9470 +/- 0.0020  &      0.9193 +/- 0.0048 \\
+\hline
+\end{tabular}
+\caption{The efficiency of the single electron trigger, averaged over the full 2011 dataset.}
+\label{tab:eff_trigger_singleEle}
+\end{center}
+\end{table}
+
+ \begin{table}[!ht]
+ \begin{center}
+ \begin{tabular}{|c|c|c|c|c|}
+ \hline
+ Measurement &  $  0.0  \le |\eta| <   0.8$ & $  0.8  \le |\eta| <   1.2$ & $  1.2  \le |\eta| <   2.1$ & $  2.1  \le |\eta| <   2.4$ \\
+ \hline
+\multicolumn{5}{c}{Leading leg requirement.} \\
+\hline
+$ 20.0 < p_{T} \le  30.0$ &     0.9648 +/- 0.0007  &      0.9516 +/- 0.0013  &      0.9480 +/- 0.0009  &      0.8757 +/- 0.0026 \\
+\hline
+$ 30.0 < p_{T} $ &     0.9666 +/- 0.0003  &      0.9521 +/- 0.0005  &      0.9485 +/- 0.0004  &      0.8772 +/- 0.0012 \\
+\hline
+\multicolumn{5}{c}{Trailing leg requirement.} \\
+ \hline
+$ 20.0 < p_{T} \le  30.0$ &     0.9655 +/- 0.0007  &      0.9535 +/- 0.0013  &      0.9558 +/- 0.0009  &      0.9031 +/- 0.0023 \\
+\hline
+$ 30.0 < p_{T} $ &     0.9670 +/- 0.0003  &      0.9537 +/- 0.0005  &      0.9530 +/- 0.0004  &      0.8992 +/- 0.0011 \\
+\hline
+\end{tabular}
+\caption{The per leg efficiency of the double muon trigger, averaged over the full 2011 dataset.}
+\label{tab:eff_trigger_doubleMu}
+\end{center}
+\end{table}
+
+ \begin{table}[!ht]
+ \begin{center}
+ \begin{tabular}{|c|c|c|c|c|}
+ \hline
+ Measurement &  $  0.0  \le |\eta| <   0.8$ & $  0.8  \le |\eta| <   1.5$ & $  1.5  \le |\eta| <   2.1$ & $  2.1  \le |\eta| <   2.4$ \\
+ \hline
+$ 15.0 < p_{T} \le  24.0$ &     0.2799 +/- 0.0022  &      0.2723 +/- 0.0023  &      0.2706 +/- 0.0024  &      0.2264 +/- 0.0034 \\
+\hline
+$ 24.0 < p_{T} \le  30.0$ &     0.4659 +/- 0.0016  &      0.4449 +/- 0.0019  &      0.4549 +/- 0.0021  &      0.3294 +/- 0.0030 \\
+\hline
+$ 30.0 < p_{T} \le  40.0$ &     0.9002 +/- 0.0005  &      0.8352 +/- 0.0008  &      0.8266 +/- 0.0009  &      0.3345 +/- 0.0019 \\
+\hline
+$ 40.0 < p_{T} $ &     0.9440 +/- 0.0003  &      0.8821 +/- 0.0005  &      0.8611 +/- 0.0007  &      0.3453 +/- 0.0017 \\
+\hline
+\end{tabular}
+\caption{The efficiency of the single muon trigger, averaged over the full 2011 dataset.}
+\label{tab:eff_trigger_singleMu}
+\end{center}
+\end{table}
 
 
 Having measured the per lepton trigger efficiencies 
@@ -71,7 +159,6 @@ efficiency of the trailing leg of the appropriate double trigger.
                &   & +~\varepsilon_{S}(p_T,\:\eta)(1-\varepsilon_{\mathrm{D,trailing}}(p_T',\:\eta'))
 \end{eqnarray}
 
-The procedure of Equation \ref{eqn:evteff} is applied to simulated Higgs boson decays to obtain an event-by-event weight factor. We find a 
-trigger efficiency with respect to the offline selection of $98\%$ for a Higgs boson mass of $115\:\GeVcc$ and this increases with larger
-mass hypotheses to higher than $99\%$ for masses above $160\:\GeVcc$.
+The procedure of Equation \ref{eqn:evteff} is applied to simulated $\WW$ decays to obtain an event-by-event weight factor. We find a 
+trigger efficiency with respect to the offline selection of $98\%$ for both the $qq\to\WW$ and $qq\to\WW$ processes.
 

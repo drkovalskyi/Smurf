@@ -1,5 +1,73 @@
 
-Table \ref{tab:systww} to be updated with correct values!
+FIXME: Table \ref{tab:systww} values to be confirmed still 
+appropriate for WW.
+
+We have taken into account the following systematic uncertainties:
+
+\begin{itemize}
+\item {\it Luminosity:} We assume an uncertainty of 4.5\% since at this moment there are some
+concerns about the actual luminosity measurements at CMS.
+
+\item {\it Lepton identification and trigger efficiencies:}
+We measure the efficiencies in data using the tag and probe method that is described
+in detail in Section~\ref{sec:efficiency}.
+The estimated uncertainty is about $2\%$ per lepton leg.
+
+\item {\it Momentum scale:}
+Due to several factors, the energy scale for electrons and the momentum
+scale for muons have relatively large uncertainties in the current data
+processing.
+We assign a systematic uncertainty by varying the transverse momentum of the muons by $1\%$,
+and $2\%$ and $5\%$ for electrons in the barrel and the endcap, respectively.
+The contribution to the uncertainty on the dilepton efficiency is about $1.5\%$.
+
+\item {\it $\met$ modeling:} We use a data-driven method to estimate the $\dyll$
+background, which is affected by the $\met$ resolution.
+Events with neutrinos giving real $\met$ in the final state also have a small uncertainty.
+We assess this uncertainty on the event selection efficiency by varying the $\met$ in signal events
+by an additional $10\%$. We find an uncertainty on the event selection efficiency of around 2\%.
+
+\item {\it Background estimation:}
+The methods to estimate the different backgrounds are explained in
+Section~\ref{sec:backgrounds}.
+Here we summarize the systematic uncertainties associated with the methods used.
+
+  \begin{itemize}
+  \item Jet induced backgrounds, $\Wjets$ and $QCD$: the associated systematic
+    uncertainty is 36\%.
+  \item Top background: this background is estimated using $b$-tagged events and
+    the $b$-tagging efficiency, which is measured in control regions in data.
+    The associated systematic uncertainties are below $5\%$,
+    while the statistical component is about $25\%$ for $\intlumi$.
+  \item Drell-Yan background: The uncertainty arises from the limited knowledge of
+    events with large $\met$ tails.
+    We conservatively quantify such uncertainty from the variation of the ratio $R_{out/in}$
+    (Eq.\ref{eq:dyest}) as a function of the $\met$ requirement,
+    leading to an estimate of about $125\%$.
+    As very few $\dyll$ events are selected, this has anyhow a small affect on the final analysis results ($\sim xxx\%$).
+  \item Other backgrounds: The sub-dominant backgrounds are estimated from simulation
+    with appropriate systematic uncertainties on their cross section.
+    We take $3\%$ for $\WZ$ and $\ZZ$ events and $10\%$ for $W+\gamma$ events.
+    These uncertainties must be augmented by the luminosity normalization uncertainty.
+  \end{itemize}
+
+\item {\it Pileup:} an incorrect modeling of the pileup in the Monte Carlo samples
+can bias the expected event yields. The simulated events have been re-weighted
+on the basis of the number of reconstructed
+primary vertices. The re-weighting procedure affects only slightly the results of the analysis,
+the event yields changing by $\sim1\%$. The latter is conservatively assumed as
+the corresponding systematic uncertainty.
+
+\item {\it Jet veto efficiency:}
+FIXME - update references in jet veto section.
+This is dominated by the theoretical uncertainty, and is found to be 5.4\%.
+
+\item {\it Theoretical uncertainties:}
+FIXME - need to evaluate the PDF uncertainty on the WW signal acceptance
+
+\item {\it Monte Carlo statistics:} We also take into account the
+size of the simulated event samples. 
+\end{itemize}
 
 \begin{table}[ht!]
 \begin{center}
@@ -19,17 +87,13 @@ Muon efficiency               & 1.5 & 1.5 & 1.5 & --- & --- & --- &  1.5  \\
 Electron id efficiency        & 2.5 & 2.5 & 2.5 & --- & --- & --- &  2.5  \\
 Momentum scale                & 1.5 & 1.5 & 1.5 & --- & --- & --- &  1.5  \\
 $\met$ resolution             & 2.0 & 2.0 & 2.0 & 2.0 & 3.0 & --- &  1.0  \\
-Jet counting                  & --- & 5.4 & 5.4 & --- & --- & --- &  5.4  \\
-Higgs cross section           & --- & --- & --- & --- & --- & --- &  ---  \\
-$WZ/ZZ$ cross section         & --- & --- & 3.0 & --- & --- & --- &  ---  \\
-$qq \to WW$ norm.             &  10 & --- & --- & --- & --- & --- &  ---  \\
-$gg \to WW$ norm.             & --- &  50 & --- & --- & --- & --- &  ---  \\
+Jet veto                      & --- & 5.4 & 5.4 & --- & --- & --- &  5.4  \\
 $\Wjets$ norm.                & --- & --- & --- & --- & --- &  36&   ---  \\
 top  norm.                    & --- & --- & --- &  15 & --- & --- &  ---  \\
 $\dyll$ norm.                 & --- & --- & --- & --- &  50 & --- &  ---  \\
 $WZ/ZZ$ cross section         & --- & --- & 3.0 & --- & --- & --- &  ---  \\
 $W+\gamma$ cross section      & --- & --- & 3.0 & --- & --- & --- &  30   \\
-Monte Carlo statistics        &   1 &   1 &   4 &   6 &  20 &  20 &  10   \\
+Monte Carlo statistics        &   1 &   1 &   2 &   2 &  20 &  20 &  10   \\
 \hline
 \end{tabular}
 }
