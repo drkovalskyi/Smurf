@@ -56,6 +56,10 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
   //*******************************************************
   // Settings 
   //*******************************************************
+  bool WWXSSel = false;
+  double ptLepMin = 10.0;
+  if(WWXSSel == true) ptLepMin = 20.;
+
   Double_t lumi = 1;
   TString filesPath   = "dummy";
   unsigned int minRun = 0;
@@ -296,7 +300,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
       if(ijet>2) continue;
 
       if(tree.lep1_.Pt() < 20) continue;
-      if(tree.lep2_.Pt() < 10) continue;
+      if(tree.lep2_.Pt() < ptLepMin) continue;
  
 
       //*******************************************************

@@ -33,6 +33,10 @@ void ComputeTopScaleFactors
   //*******************************************************************************
   //Settings 
   //*******************************************************************************
+  bool WWXSSel = false;
+  double ptLepMin = 10.0;
+  if(WWXSSel == true) ptLepMin = 20.;
+
   double lumi = 1;
   enum { kOther, kTTBAR, kTW, kData };
 
@@ -297,7 +301,7 @@ void ComputeTopScaleFactors
       (bgdEvent.cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto &&
       charge == 0 &&
       bgdEvent.lep1_.Pt() > 20. &&
-      bgdEvent.lep2_.Pt() > 10. &&
+      bgdEvent.lep2_.Pt() > ptLepMin &&
       passMET == true &&
       passNewCuts == true &&
       (fabs(bgdEvent.dilep_.M()-91.1876) > 15. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me) && 
@@ -441,7 +445,7 @@ void ComputeTopScaleFactors
       (dataEvent.cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto &&
       charge == 0 &&
       dataEvent.lep1_.Pt() > 20. &&
-      dataEvent.lep2_.Pt() > 10. &&
+      dataEvent.lep2_.Pt() > ptLepMin &&
       passMET == true &&
       passNewCuts == true &&
       (fabs(dataEvent.dilep_.M()-91.1876) > 15. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me) && 
