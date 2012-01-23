@@ -1,5 +1,3 @@
-#include "Smurf/Core/SmurfTree.h"
-#include "Smurf/Core/LeptonScaleLookup.h"
 #include <TROOT.h>
 #include <TFile.h>
 #include <TTree.h>
@@ -17,7 +15,9 @@
 #include "Math/VectorUtil.h"
 #include "TH1D.h"
 #include "TH2D.h"
+#include "Smurf/Core/SmurfTree.h"
 #include "Smurf/Analysis/HWWlvlv/factors.h"
+#include "Smurf/Core/LeptonScaleLookup.h"
 #include "Smurf/Analysis/HWWlvlv/DYBkgScaleFactors.h"
 #include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h"
 #include "Smurf/Analysis/HWWlvlv/WWBkgScaleFactors.h"
@@ -38,8 +38,8 @@ void SummarizeFakeLeptonBkgPrediction
 (
 //  UInt_t  nJetsType   	 = 0,
  UInt_t  mH      	 = 0,
- TString wjetsMCInputFile = "/data/smurf/data/Run2011_Summer11_SmurfV7_42X/mitf-alljets_mva/ntuples_130train_0jets_hww_syst_skim3.root",
- TString bgdInputFile    = "/data/smurf/data/Run2011_Summer11_SmurfV7_42X/mitf-alljets_mva/ntuples_130train_0jets_backgroundC_skim2.root",
+ TString wjetsMCInputFile = "/data/smurf/sixie/data/Thesis/Run2011_Summer11_SmurfV7_42X/mitf-alljets_mva/ntuples_130train_0jets_hww_syst_skim3.root",
+ TString bgdInputFile    = "/data/smurf/sixie/data/Thesis/Run2011_Summer11_SmurfV7_42X/mitf-alljets_mva/ntuples_130train_0jets_backgroundC_skim2.root",
  int period              = 2
  )
 {
@@ -94,6 +94,12 @@ void SummarizeFakeLeptonBkgPrediction
     puPath   = "/build/sixie/Thesis/auxiliar/Winter11_4700ipb/PileupReweighting.Summer11DYmm_To_Full2011.root";
     scaleFactorLum     = 4.7;minRun =      0;maxRun = 999999;
   }
+  else if(period == 12){ // Full2011 with MVAIDIsoCombinedSameSigWP Lepton Selection
+    effPath  = "/data/smurf/sixie/data/Run2011_Fall11_MVAIDIsoCombinedSameSigWP/auxiliar/efficiency_results_MVAIDIsoCombinedSameSigWP_Full2011.root";
+    fakePath = "/data/smurf/sixie/data/Run2011_Fall11_MVAIDIsoCombinedSameSigWP/auxiliar/FakeRates_MVAIDIsoCombinedSameSigWP.root";
+    puPath   = "/data/smurf/sixie/data/Run2011_Fall11_MVAIDIsoCombinedSameSigWP/auxiliar/PileupReweighting.Fall11DYmm_To_Run2011B.root";
+    scaleFactorLum     = 4.6;minRun =      0;maxRun = 999999;
+  }
   else {
     printf("Wrong period(%d)\n",period);
     return;
@@ -131,12 +137,18 @@ void SummarizeFakeLeptonBkgPrediction
 
 
   TFile *fLeptonFRFileSyst = TFile::Open(fakePath.Data());
-  TH2D *fhDFRMuSyst = (TH2D*)(fLeptonFRFileSyst->Get("MuonFakeRate_M2_ptThreshold30_PtEta"));
-  TH2D *fhDFRElSyst = (TH2D*)(fLeptonFRFileSyst->Get("ElectronFakeRate_V4_ptThreshold50_PtEta"));
-  assert(fhDFRMuSyst);
-  assert(fhDFRElSyst);
-  fhDFRMuSyst->SetDirectory(0);
-  fhDFRElSyst->SetDirectory(0);
+  TH2D *fhDFRMuSystUp = (TH2D*)(fLeptonFRFileSyst->Get("MuonFakeRate_M2_ptThreshold30_PtEta"));
+  TH2D *fhDFRMuSystDown = (TH2D*)(fLeptonFRFileSyst->Get("MuonFakeRate_M2_ptThreshold0_PtEta"));
+  TH2D *fhDFRElSystUp = (TH2D*)(fLeptonFRFileSyst->Get("ElectronFakeRate_V4_ptThreshold50_PtEta"));
+  TH2D *fhDFRElSystDown = (TH2D*)(fLeptonFRFileSyst->Get("ElectronFakeRate_V4_ptThreshold20_PtEta"));
+  assert(fhDFRMuSystUp);
+  assert(fhDFRMuSystDown);
+  assert(fhDFRElSystUp);
+  assert(fhDFRElSystDown);
+  fhDFRMuSystUp->SetDirectory(0);
+  fhDFRMuSystDown->SetDirectory(0);
+  fhDFRElSystUp->SetDirectory(0);
+  fhDFRElSystDown->SetDirectory(0);
   fLeptonFRFileSyst->Close();
   delete fLeptonFRFileSyst;
 
@@ -161,7 +173,6 @@ void SummarizeFakeLeptonBkgPrediction
   double minHis[nHist]  = {-1.0, -1.0, -1.0, -0.0, -1.0,  0.0};
   double maxHis[nHist]  = { 1.0,  1.0,  1.0,  1.0,  1.0,200.0};
 
-  cout << "here01\n";
 
   //****************************************************************************
   // Yields and Histograms
@@ -174,36 +185,51 @@ void SummarizeFakeLeptonBkgPrediction
   //[Fake Electron/Muon][Final State][Jet Bin][Pt/Eta Bin]
   vector<vector<vector<vector<double> > > > FakeLeptonBkgYields;
   vector<vector<vector<vector<double> > > > FakeLeptonBkgYieldsErrSqr;
+  vector<vector<vector<vector<double> > > > FakeLeptonBkgYieldsSystUp;
+  vector<vector<vector<vector<double> > > > FakeLeptonBkgYieldsSystUpErrSqr;
+  vector<vector<vector<vector<double> > > > FakeLeptonBkgYieldsSystDown;
+  vector<vector<vector<vector<double> > > > FakeLeptonBkgYieldsSystDownErrSqr;
 
   //[Fake Electron/Muon][Final State][Jet Bin][Variable]
   vector<vector<vector<vector<TH1F*> > > > FakeLeptonBkgHists_Data;
   vector<vector<vector<vector<TH1F*> > > > FakeLeptonBkgHists_MC;
 
-  cout << "here02\n";
   for(UInt_t i = 0; i < 3; ++i) {
     vector<vector<vector<double> > > FakeLeptonBkgYields_tmp1;
     vector<vector<vector<double> > > FakeLeptonBkgYieldsErrSqr_tmp1;
+    vector<vector<vector<double> > > FakeLeptonBkgYieldsSystUp_tmp1;
+    vector<vector<vector<double> > > FakeLeptonBkgYieldsSystUpErrSqr_tmp1;
+    vector<vector<vector<double> > > FakeLeptonBkgYieldsSystDown_tmp1;
+    vector<vector<vector<double> > > FakeLeptonBkgYieldsSystDownErrSqr_tmp1;
     vector<vector<vector<TH1F*> > > FakeLeptonBkgHists_Data_tmp1;    
     vector<vector<vector<TH1F*> > > FakeLeptonBkgHists_MC_tmp1;    
-    cout << "here03\n";
     for(UInt_t j = 0; j < 7; ++j) {
     vector<vector<double> > FakeLeptonBkgYields_tmp2;
     vector<vector<double> > FakeLeptonBkgYieldsErrSqr_tmp2;
+    vector<vector<double> > FakeLeptonBkgYieldsSystUp_tmp2;
+    vector<vector<double> > FakeLeptonBkgYieldsSystUpErrSqr_tmp2;
+    vector<vector<double> > FakeLeptonBkgYieldsSystDown_tmp2;
+    vector<vector<double> > FakeLeptonBkgYieldsSystDownErrSqr_tmp2;
     vector<vector<TH1F*> > FakeLeptonBkgHists_Data_tmp2;    
     vector<vector<TH1F*> > FakeLeptonBkgHists_MC_tmp2;    
-    cout << "here04\n";
       for(UInt_t k = 0; k < 3; ++k) {
         vector<double> FakeLeptonBkgYields_tmp3;
         vector<double> FakeLeptonBkgYieldsErrSqr_tmp3;
+        vector<double> FakeLeptonBkgYieldsSystUp_tmp3;
+        vector<double> FakeLeptonBkgYieldsSystUpErrSqr_tmp3;
+        vector<double> FakeLeptonBkgYieldsSystDown_tmp3;
+        vector<double> FakeLeptonBkgYieldsSystDownErrSqr_tmp3;
         vector<TH1F*> FakeLeptonBkgHists_Data_tmp3;    
 
-        cout << "here05\n";
         for(UInt_t l = 0; l < 7; ++l) {
           FakeLeptonBkgYields_tmp3.push_back(0.0);
           FakeLeptonBkgYieldsErrSqr_tmp3.push_back(0.0);
+          FakeLeptonBkgYieldsSystUp_tmp3.push_back(0.0);
+          FakeLeptonBkgYieldsSystUpErrSqr_tmp3.push_back(0.0);
+          FakeLeptonBkgYieldsSystDown_tmp3.push_back(0.0);
+          FakeLeptonBkgYieldsSystDownErrSqr_tmp3.push_back(0.0);
         }
         
-        cout << "here06 : " << i << " " << j << " " << k << " " << endl;
         string fakeLeptonLabel; 
         string finalStateLabel;
         string jetbinLabel;
@@ -224,7 +250,6 @@ void SummarizeFakeLeptonBkgPrediction
         else if (k==2) jetbinLabel = "VBFBin"; 
         else { cout << "jet bin index not recognized.\n"; assert(0); }
 
-        cout << "here061 : " << i << " " << j << " " << k << " " << endl;
         char hname[50];
         sprintf(hname,"hMVA_FakeLeptonBkg_Data_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());           FakeLeptonBkgHists_Data_tmp3.push_back(new TH1F(hname,"", 20, -1, 1));  FakeLeptonBkgHists_Data_tmp3[0]->Sumw2();
         sprintf(hname,"hFakeLeptonPt_FakeLeptonBkg_Data_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());  FakeLeptonBkgHists_Data_tmp3.push_back(new TH1F(hname,"", 10, 0, 100)); FakeLeptonBkgHists_Data_tmp3[1]->Sumw2();
@@ -238,44 +263,43 @@ void SummarizeFakeLeptonBkgPrediction
 
         vector<TH1F*> FakeLeptonBkgHists_MC_tmp3;    
 
-        cout << "size: " << FakeLeptonBkgHists_MC_tmp3.size() << " " << FakeLeptonBkgHists_Data_tmp3.size() << endl;
-        cout << "here062 : " << i << " " << j << " " << k << " " << FakeLeptonBkgHists_MC_tmp3.size() << endl;
-        sprintf(hname,"hMVA_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());      
-//         cout << "1 " << hname << "\n";  TH1F* tmp = new TH1F(hname,"", 20, -1, 1); cout << "11 " << tmp->GetName() << " " << FakeLeptonBkgHists_MC_tmp3.size() << endl; FakeLeptonBkgHists_MC_tmp3.push_back(tmp);  cout << "12\n"; 
-        FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 20, -1, 1));  cout << "2\n";  FakeLeptonBkgHists_MC_tmp3[0]->Sumw2(); cout << "3\n"; 
-        cout << "here063 : " << i << " " << j << " " << k << " " << FakeLeptonBkgHists_MC_tmp3.size() << endl;
-        sprintf(hname,"hFakeLeptonPt_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());  FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 10, 0, 100)); FakeLeptonBkgHists_MC_tmp3[1]->Sumw2();
-        cout << "here064 : " << i << " " << j << " " << k << " " << endl;
-        sprintf(hname,"hFakeLeptonEta_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str()); FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 10, 0, 2.5)); FakeLeptonBkgHists_MC_tmp3[2]->Sumw2();
-        cout << "here065 : " << i << " " << j << " " << k << " " << endl;
-        sprintf(hname,"hPtMax_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());         FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 10, 0, 100)); FakeLeptonBkgHists_MC_tmp3[3]->Sumw2();
-        cout << "here066 : " << i << " " << j << " " << k << " " << endl;
-        sprintf(hname,"hPtMin_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());         FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 10, 0, 100)); FakeLeptonBkgHists_MC_tmp3[4]->Sumw2();
-        cout << "here067 : " << i << " " << j << " " << k << " " << endl;
-        sprintf(hname,"hMet_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());           FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 15, 0, 150)); FakeLeptonBkgHists_MC_tmp3[5]->Sumw2();
-        cout << "here068 : " << i << " " << j << " " << k << " " << endl;
-        sprintf(hname,"hDeltaPhi_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());      FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 15, 0, 180)); FakeLeptonBkgHists_MC_tmp3[6]->Sumw2();
-        cout << "here069 : " << i << " " << j << " " << k << " " << endl;
-        sprintf(hname,"hDileptonMass_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());  FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 20, 0, 200)); FakeLeptonBkgHists_MC_tmp3[7]->Sumw2();
-        cout << "here0610 : " << i << " " << j << " " << k << " " << endl;
-        sprintf(hname,"hMtHiggs_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());       FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 20, 0, 200)); FakeLeptonBkgHists_MC_tmp3[8]->Sumw2();
-       
-        
-  cout << "here07\n";
 
+        sprintf(hname,"hMVA_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());      
+        FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 20, -1, 1));  cout << "2\n";  FakeLeptonBkgHists_MC_tmp3[0]->Sumw2(); cout << "3\n"; 
+        sprintf(hname,"hFakeLeptonPt_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());  FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 10, 0, 100)); FakeLeptonBkgHists_MC_tmp3[1]->Sumw2();
+        sprintf(hname,"hFakeLeptonEta_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str()); FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 10, 0, 2.5)); FakeLeptonBkgHists_MC_tmp3[2]->Sumw2();
+        sprintf(hname,"hPtMax_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());         FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 10, 0, 100)); FakeLeptonBkgHists_MC_tmp3[3]->Sumw2();
+        sprintf(hname,"hPtMin_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());         FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 10, 0, 100)); FakeLeptonBkgHists_MC_tmp3[4]->Sumw2();
+        sprintf(hname,"hMet_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());           FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 15, 0, 150)); FakeLeptonBkgHists_MC_tmp3[5]->Sumw2();
+        sprintf(hname,"hDeltaPhi_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());      FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 15, 0, 180)); FakeLeptonBkgHists_MC_tmp3[6]->Sumw2();
+        sprintf(hname,"hDileptonMass_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());  FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 20, 0, 200)); FakeLeptonBkgHists_MC_tmp3[7]->Sumw2();
+        sprintf(hname,"hMtHiggs_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());       FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 20, 0, 200)); FakeLeptonBkgHists_MC_tmp3[8]->Sumw2();
+              
         FakeLeptonBkgYields_tmp2.push_back(FakeLeptonBkgYields_tmp3);
         FakeLeptonBkgYieldsErrSqr_tmp2.push_back(FakeLeptonBkgYieldsErrSqr_tmp3);
+        FakeLeptonBkgYieldsSystUp_tmp2.push_back(FakeLeptonBkgYieldsSystUp_tmp3);
+        FakeLeptonBkgYieldsSystUpErrSqr_tmp2.push_back(FakeLeptonBkgYieldsSystUpErrSqr_tmp3);
+        FakeLeptonBkgYieldsSystDown_tmp2.push_back(FakeLeptonBkgYieldsSystDown_tmp3);
+        FakeLeptonBkgYieldsSystDownErrSqr_tmp2.push_back(FakeLeptonBkgYieldsSystDownErrSqr_tmp3);
         FakeLeptonBkgHists_Data_tmp2.push_back(FakeLeptonBkgHists_Data_tmp3);
         FakeLeptonBkgHists_MC_tmp2.push_back(FakeLeptonBkgHists_MC_tmp3);
       }
       FakeLeptonBkgYields_tmp1.push_back(FakeLeptonBkgYields_tmp2);
       FakeLeptonBkgYieldsErrSqr_tmp1.push_back(FakeLeptonBkgYieldsErrSqr_tmp2);
+      FakeLeptonBkgYieldsSystUp_tmp1.push_back(FakeLeptonBkgYieldsSystUp_tmp2);
+      FakeLeptonBkgYieldsSystUpErrSqr_tmp1.push_back(FakeLeptonBkgYieldsSystUpErrSqr_tmp2);
+      FakeLeptonBkgYieldsSystDown_tmp1.push_back(FakeLeptonBkgYieldsSystDown_tmp2);
+      FakeLeptonBkgYieldsSystDownErrSqr_tmp1.push_back(FakeLeptonBkgYieldsSystDownErrSqr_tmp2);
       FakeLeptonBkgHists_Data_tmp1.push_back(FakeLeptonBkgHists_Data_tmp2);
       FakeLeptonBkgHists_MC_tmp1.push_back(FakeLeptonBkgHists_MC_tmp2);
       
     }
     FakeLeptonBkgYields.push_back(FakeLeptonBkgYields_tmp1);
     FakeLeptonBkgYieldsErrSqr.push_back(FakeLeptonBkgYieldsErrSqr_tmp1);
+    FakeLeptonBkgYieldsSystUp.push_back(FakeLeptonBkgYieldsSystUp_tmp1);
+    FakeLeptonBkgYieldsSystUpErrSqr.push_back(FakeLeptonBkgYieldsSystUpErrSqr_tmp1);
+    FakeLeptonBkgYieldsSystDown.push_back(FakeLeptonBkgYieldsSystDown_tmp1);
+    FakeLeptonBkgYieldsSystDownErrSqr.push_back(FakeLeptonBkgYieldsSystDownErrSqr_tmp1);
     FakeLeptonBkgHists_Data.push_back(FakeLeptonBkgHists_Data_tmp1);
     FakeLeptonBkgHists_MC.push_back(FakeLeptonBkgHists_MC_tmp1);
   }
@@ -345,7 +369,7 @@ void SummarizeFakeLeptonBkgPrediction
 
 //   Int_t nJetsType = 0;
 //   {
-//    for (Int_t nJetsType=0; nJetsType < 1; nJetsType++) {
+//     for (Int_t nJetsType=0; nJetsType < 1; nJetsType++) {
   for (Int_t nJetsType=0; nJetsType < 3; nJetsType++) {
     
     background->SetBranchAddress( "cuts"          , &cuts 	  );
@@ -442,18 +466,18 @@ void SummarizeFakeLeptonBkgPrediction
       if( MinPreselCut == false                                            ) continue; // cut on MinPreselCut
       if( passJetCut[0]==false&&passJetCut[1]==false&&passJetCut[2]==false ) continue; // select n-jet type events
       if( dilep->mass() > dilmass_cut 					 ) continue; // cut on dilepton mass
-      if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
-      if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
+       if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
+       if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
       if( dilep->mass() <= 20.0  &&
           (type == SmurfTree::mm || 
            type == SmurfTree::ee)      					 ) continue; // cut on low dilepton mass for ee/mm
-      if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
-      if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
-      if( passNewCuts == false                                             ) continue; // cut on new pt cuts
-      if( passMET == false                                                 ) continue; // cut on pmet
-      if(fabs(dilep->mass()-91.1876) <= 15 &&
-         (type == SmurfTree::mm || 
-          type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
+       if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
+       if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
+       if( passNewCuts == false                                             ) continue; // cut on new pt cuts
+       if( passMET == false                                                 ) continue; // cut on pmet
+       if(fabs(dilep->mass()-91.1876) <= 15 &&
+          (type == SmurfTree::mm || 
+           type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
       //if( lid3 != 0	                                                 ) continue; // cut on dileptons
       if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
       //if( jetLowBtag >= 2.1	    					 ) continue; // cut on anti b-tagging
@@ -506,7 +530,11 @@ void SummarizeFakeLeptonBkgPrediction
       Int_t FakeLeptonPtEtaBin = -1;
 
       double myWeight = 1.0;
+      double myWeightSystUp = 1.0;
+      double myWeightSystDown = 1.0;
       double add      = 1.0;
+      double addSystUp      = 1.0;
+      double addSystDown      = 1.0;
       int nFake = 0;
       if(dstype == SmurfTree::data ){
         if(((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
@@ -524,8 +552,12 @@ void SummarizeFakeLeptonBkgPrediction
          (TMath::Abs(lep2McId) == 11 || TMath::Abs(lep2McId) == 13)) isRealLepton = true;
       double addLepEff = 1.0;
       double addFR     = 1.0;
+      double addFRSystUp     = 1.0;
+      double addFRSystDown     = 1.0;
       if(nFake > 1){
         myWeight = 0.0;
+        myWeightSystUp = 0.0;
+        myWeightSystDown = 0.0;
       }
       else if(nFake == 1){
         if(dstype == SmurfTree::data){
@@ -534,8 +566,23 @@ void SummarizeFakeLeptonBkgPrediction
           addFR = addFR*fakeRate(lep2->pt(), lep2->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
                                  (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
           add = addFR;
+
+
+          addFRSystUp =       fakeRate(lep1->pt(), lep1->eta(), fhDFRMuSystUp, fhDFRElSystUp, (cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
+                                 (cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
+          addFRSystUp = addFRSystUp*fakeRate(lep2->pt(), lep2->eta(), fhDFRMuSystUp, fhDFRElSystUp, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
+                                 (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
+          addSystUp = addFRSystUp;
+          addFRSystDown =       fakeRate(lep1->pt(), lep1->eta(), fhDFRMuSystDown, fhDFRElSystDown, (cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
+                                 (cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
+          addFRSystDown = addFRSystDown*fakeRate(lep2->pt(), lep2->eta(), fhDFRMuSystDown, fhDFRElSystDown, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
+                                 (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
+          addSystDown = addFRSystDown;
+
           fDecay  	      = 5;
           myWeight	      = add;
+          myWeightSystUp      = addSystUp;
+          myWeightSystDown    = addSystDown;
 
         }
         else if(isRealLepton == true || dstype == SmurfTree::wgamma){
@@ -544,34 +591,88 @@ void SummarizeFakeLeptonBkgPrediction
           addFR = addFR*fakeRate(lep2->pt(), lep2->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
                                  (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
 
+
+          addFRSystUp =       fakeRate(lep1->pt(), lep1->eta(), fhDFRMuSystUp, fhDFRElSystUp, (cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
+                                 (cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
+          addFRSystUp = addFRSystUp*fakeRate(lep2->pt(), lep2->eta(), fhDFRMuSystUp, fhDFRElSystUp, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
+                                 (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
+          addFRSystDown =       fakeRate(lep1->pt(), lep1->eta(), fhDFRMuSystDown, fhDFRElSystDown, (cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
+                                 (cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
+          addFRSystDown = addFRSystDown*fakeRate(lep2->pt(), lep2->eta(), fhDFRMuSystDown, fhDFRElSystDown, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
+                                 (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
+
+
           add = addFR;
+          addSystUp = addFRSystUp;
+          addSystDown = addFRSystDown;
           add = add*nPUScaleFactor(fhDPUS4,npu);
+          addSystUp = addSystUp*nPUScaleFactor(fhDPUS4,npu);
+          addSystDown = addSystDown*nPUScaleFactor(fhDPUS4,npu);
 
           addLepEff = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1)*
             leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
           add = add*addLepEff;
+          addSystUp   = addSystUp*addLepEff;
+          addSystDown = addSystDown*addLepEff;
 
           add = add*trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
                                                             fabs(lep2->eta()), lep2->pt(), 
                                                             TMath::Abs( lid1), TMath::Abs(lid2));
+          addSystUp = addSystUp*trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
+                                                            fabs(lep2->eta()), lep2->pt(), 
+                                                            TMath::Abs( lid1), TMath::Abs(lid2));
+          addSystDown = addSystDown*trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
+                                                            fabs(lep2->eta()), lep2->pt(), 
+                                                            TMath::Abs( lid1), TMath::Abs(lid2));
           fDecay  	       = 5;
           myWeight	       = -1.0 * scale1fb*scaleFactorLum*add;
+          myWeightSystUp       = -1.0 * scale1fb*scaleFactorLum*addSystUp;
+          myWeightSystDown     = -1.0 * scale1fb*scaleFactorLum*addSystDown;
 
 
 
         }
         else {
           myWeight = 0.0;
+          myWeightSystUp = 0.0;
+          myWeightSystDown = 0.0;
         }
 
 
 
- //        if (myWeight > 0) {
+        if (myWeight > 0) {
 //           cout << dstype << " : " << myWeight << " : " << scale1fb*scaleFactorLum << " " << add << " : " 
 //                << fakeRate(lep1->pt(), lep1->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, (cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) << " " 
 //                << fakeRate(lep2->pt(), lep2->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection, (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) << " "
 //                << endl;
-//         }
+
+
+
+//           cout << "CUTS: " 
+//                << ( MinPreselCut == false                                            )  << " "
+//                << ( passJetCut[0]==false&&passJetCut[1]==false&&passJetCut[2]==false )  << " "
+//                << ( dilep->mass() > dilmass_cut 					 )  << " "
+//                << ( lq1*lq2 > 0                 					 )  << " "
+//                << ( dilep->mass() <= 12.0       					 )  << " "
+//                << ( dilep->mass() <= 20.0  &&
+//                     (type == SmurfTree::mm || 
+//                      type == SmurfTree::ee)      					 )  << " "
+//                << ( lep1->pt() <= 20	    					 )  << " "
+//                << ( lep2->pt() <= 10	    					 )  << " "
+//                << ( passNewCuts == false                                             )  << " "
+//                << ( passMET == false                                                 )  << " "
+//                << (fabs(dilep->mass()-91.1876) <= 15 &&
+//                    (type == SmurfTree::mm || 
+//                     type == SmurfTree::ee)                                            )  << " "
+//                << ( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto)  << " "
+//                << ( (cuts & patternTopTag) == patternTopTag                          )  << " "
+//                << ( dPhiDiLepJetCut == false                                         )  << " "
+//                << endl;
+
+//           cout << pmet << " " << pTrackMet << " : " << minmet << " -- " << type << " : " << passMET << endl;
+
+
+         }
 
 
         //*********************************
@@ -643,12 +744,20 @@ void SummarizeFakeLeptonBkgPrediction
         }
     
       }
-      else if(dstype == SmurfTree::data) myWeight = 0.0;
+      else if(dstype == SmurfTree::data) {
+        myWeight = 0.0;
+        myWeightSystUp   = 0.0;
+        myWeightSystDown = 0.0;
+      }
       else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
         myWeight = 0.0;
+        myWeightSystUp   = 0.0;
+        myWeightSystDown = 0.0;
       }
       else if(dstype != SmurfTree::data){
         myWeight = 0.0;
+        myWeightSystUp   = 0.0;
+        myWeightSystDown = 0.0;
      }
 
       if(myWeight == 0) continue;
@@ -677,15 +786,27 @@ void SummarizeFakeLeptonBkgPrediction
 
       if(passAllCuts == true) {
         double newWeight = myWeight;
+        double newWeightSystUp = myWeightSystUp;
+        double newWeightSystDown = myWeightSystDown;
 
         if((fDecay == 0 || fDecay == 1) && wwPresel == false){ // only for WW
-          if(njets == 0) newWeight=newWeight*WWBkgScaleFactorCutBased(TMath::Max((int)mH,115),0)/WWBkgScaleFactorMVA(TMath::Max((int)mH,115),0);
-          else           newWeight=newWeight*WWBkgScaleFactorCutBased(TMath::Max((int)mH,115),1)/WWBkgScaleFactorMVA(TMath::Max((int)mH,115),1);	   
+          if(njets == 0) {
+            newWeight=newWeight*WWBkgScaleFactorCutBased(TMath::Max((int)mH,115),0)/WWBkgScaleFactorMVA(TMath::Max((int)mH,115),0);
+            newWeightSystUp=newWeightSystUp*WWBkgScaleFactorCutBased(TMath::Max((int)mH,115),0)/WWBkgScaleFactorMVA(TMath::Max((int)mH,115),0);
+            newWeightSystDown=newWeightSystDown*WWBkgScaleFactorCutBased(TMath::Max((int)mH,115),0)/WWBkgScaleFactorMVA(TMath::Max((int)mH,115),0);
+          }
+          else {
+            newWeight=newWeight*WWBkgScaleFactorCutBased(TMath::Max((int)mH,115),1)/WWBkgScaleFactorMVA(TMath::Max((int)mH,115),1);	   
+            newWeightSystUp=newWeightSystUp*WWBkgScaleFactorCutBased(TMath::Max((int)mH,115),1)/WWBkgScaleFactorMVA(TMath::Max((int)mH,115),1);	   
+            newWeightSystDown=newWeightSystDown*WWBkgScaleFactorCutBased(TMath::Max((int)mH,115),1)/WWBkgScaleFactorMVA(TMath::Max((int)mH,115),1);	   
+          }
         }
         if((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
            (type   == SmurfTree::mm   || type   == SmurfTree::ee)){
           if(nJetsType != 2){
             newWeight=newWeight*DYBkgScaleFactor(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))/DYBkgScaleFactor(0,TMath::Min((int)nJetsType,2));
+            newWeightSystUp=newWeightSystUp*DYBkgScaleFactor(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))/DYBkgScaleFactor(0,TMath::Min((int)nJetsType,2));
+            newWeightSystDown=newWeightSystDown*DYBkgScaleFactor(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))/DYBkgScaleFactor(0,TMath::Min((int)nJetsType,2));
           }
         }
         else if(fDecay == 4){
@@ -706,6 +827,32 @@ void SummarizeFakeLeptonBkgPrediction
           FakeLeptonBkgYieldsErrSqr[kFakeLepton][kMuMu][JetBinIndex][0] += newWeight*newWeight;
           FakeLeptonBkgYieldsErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeight*newWeight;
           FakeLeptonBkgYieldsErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeight*newWeight;
+
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kMuMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kMuMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kMuMu][JetBinIndex][0] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kMuMu][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kMuMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kMuMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kMuMu][JetBinIndex][0] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kMuMu][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+
         }
         if (type == SmurfTree::ee) {
           FakeLeptonBkgYields[kFakeLepton][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
@@ -720,6 +867,31 @@ void SummarizeFakeLeptonBkgPrediction
           FakeLeptonBkgYieldsErrSqr[kFakeLepton][kEleEle][JetBinIndex][0] += newWeight*newWeight;
           FakeLeptonBkgYieldsErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeight*newWeight;
           FakeLeptonBkgYieldsErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeight*newWeight;
+
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kEleEle][JetBinIndex][0] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kEleEle][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kEleEle][JetBinIndex][0] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kEleEle][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
         }
         if (type == SmurfTree::em) {
           FakeLeptonBkgYields[kFakeLepton][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
@@ -734,6 +906,31 @@ void SummarizeFakeLeptonBkgPrediction
           FakeLeptonBkgYieldsErrSqr[kFakeLepton][kEleMu][JetBinIndex][0] += newWeight*newWeight;
           FakeLeptonBkgYieldsErrSqr[kFakeLepton][kDifferentFlavor][JetBinIndex][0] += newWeight*newWeight;
           FakeLeptonBkgYieldsErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeight*newWeight;
+
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kEleMu][JetBinIndex][0] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kEleMu][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kEleMu][JetBinIndex][0] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kEleMu][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
         }
         if (type == SmurfTree::me) {
           FakeLeptonBkgYields[kFakeLepton][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
@@ -748,6 +945,31 @@ void SummarizeFakeLeptonBkgPrediction
           FakeLeptonBkgYieldsErrSqr[kFakeLepton][kMuEle][JetBinIndex][0] += newWeight*newWeight;
           FakeLeptonBkgYieldsErrSqr[kFakeLepton][kDifferentFlavor][JetBinIndex][0] += newWeight*newWeight;
           FakeLeptonBkgYieldsErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeight*newWeight;
+
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kMuEle][JetBinIndex][0] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUp[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kMuEle][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystUpErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kMuEle][JetBinIndex][0] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDown[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kMuEle][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+          FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
         }
 
 
@@ -766,6 +988,31 @@ void SummarizeFakeLeptonBkgPrediction
             FakeLeptonBkgYieldsErrSqr[kFakeElectron][kMuMu][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeight*newWeight;
+
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kMuMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kMuMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kMuMu][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kMuMu][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kMuMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kMuMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kMuMu][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kMuMu][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
           }
           if (type == SmurfTree::ee) {
             FakeLeptonBkgYields[kFakeElectron][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
@@ -780,7 +1027,32 @@ void SummarizeFakeLeptonBkgPrediction
             FakeLeptonBkgYieldsErrSqr[kFakeElectron][kEleEle][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeight*newWeight;
-          }
+ 
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kEleEle][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kEleEle][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kEleEle][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kEleEle][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+         }
           if (type == SmurfTree::em) {
             FakeLeptonBkgYields[kFakeElectron][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
             FakeLeptonBkgYields[kFakeElectron][kDifferentFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
@@ -794,7 +1066,32 @@ void SummarizeFakeLeptonBkgPrediction
             FakeLeptonBkgYieldsErrSqr[kFakeElectron][kEleMu][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeElectron][kDifferentFlavor][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeight*newWeight;
-          }
+ 
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kEleMu][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kEleMu][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kEleMu][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kEleMu][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+         }
           if (type == SmurfTree::me) {
             FakeLeptonBkgYields[kFakeElectron][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
             FakeLeptonBkgYields[kFakeElectron][kDifferentFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
@@ -808,6 +1105,31 @@ void SummarizeFakeLeptonBkgPrediction
             FakeLeptonBkgYieldsErrSqr[kFakeElectron][kMuEle][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeElectron][kDifferentFlavor][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeight*newWeight;
+
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kMuEle][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kMuEle][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kMuEle][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kMuEle][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kSameFlavor][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
           }
         }
         if (FakeLeptonType == 13) {
@@ -824,6 +1146,31 @@ void SummarizeFakeLeptonBkgPrediction
             FakeLeptonBkgYieldsErrSqr[kFakeMuon][kMuMu][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeight*newWeight;
+
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kMuMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kMuMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kMuMu][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kMuMu][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kMuMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kMuMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kMuMu][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kMuMu][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
           }
           if (type == SmurfTree::ee) {
             FakeLeptonBkgYields[kFakeMuon][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
@@ -838,6 +1185,31 @@ void SummarizeFakeLeptonBkgPrediction
             FakeLeptonBkgYieldsErrSqr[kFakeMuon][kEleEle][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeight*newWeight;
+
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kEleEle][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kEleEle][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kEleEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kEleEle][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kEleEle][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
           }
           if (type == SmurfTree::em) {
             FakeLeptonBkgYields[kFakeMuon][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
@@ -852,6 +1224,31 @@ void SummarizeFakeLeptonBkgPrediction
             FakeLeptonBkgYieldsErrSqr[kFakeMuon][kEleMu][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeMuon][kDifferentFlavor][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeight*newWeight;
+
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kEleMu][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kEleMu][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kEleMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kEleMu][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kEleMu][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
           }
           if (type == SmurfTree::me) {
             FakeLeptonBkgYields[kFakeMuon][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
@@ -866,6 +1263,31 @@ void SummarizeFakeLeptonBkgPrediction
             FakeLeptonBkgYieldsErrSqr[kFakeMuon][kMuEle][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeMuon][kDifferentFlavor][JetBinIndex][0] += newWeight*newWeight;
             FakeLeptonBkgYieldsErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeight*newWeight;
+
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kMuEle][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kMuEle][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystUp*newWeightSystUp;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kMuEle][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kMuEle][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kSameFlavor][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
+            FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
           }
         }
 
@@ -2145,6 +2567,223 @@ void SummarizeFakeLeptonBkgPrediction
 
 
 
+
+
+
+  ofstream fResultSystTexTable("FakeLeptonBkgEstimateJetPtSpectrumSystematics.tex");
+
+  fResultSystTexTable << "**************\n" 
+                      << "Fake Muons \n"
+                      << "**************\n";
+  fResultSystTexTable << setw(45) << left << "JetBin"
+                  << setw(3) << left << "&"   
+                  << setw(20) << left << "0-Jet"
+                  << setw(3) << left << "&"   
+                  << setw(20) << left << "1-Jet"
+                  << setw(3) << left << "&"   
+                  << setw(20) << left << "2-Jet"
+                  << " \\\\"
+                  << endl;
+
+  fResultSystTexTable << "\\hline" << endl;
+
+  fResultSystTexTable << setw(45) << left << "Nominal Fake Rates"
+                  << setw(3) << left << "&";
+  
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kZeroJetBin][0],TMath::Sqrt(FakeLeptonBkgYieldsErrSqr[kFakeMuon][kAllFinalStates][kZeroJetBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kOneJetBin][0],TMath::Sqrt(FakeLeptonBkgYieldsErrSqr[kFakeMuon][kAllFinalStates][kOneJetBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kVBFBin][0],TMath::Sqrt(FakeLeptonBkgYieldsErrSqr[kFakeMuon][kAllFinalStates][kVBFBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << " \\\\"
+                  << endl;
+
+  fResultSystTexTable << setw(45) << left << "Jet pT Spectrum Systematics Up"
+                  << setw(3) << left << "&";
+  
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][kZeroJetBin][0],TMath::Sqrt(FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kAllFinalStates][kZeroJetBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][kOneJetBin][0],TMath::Sqrt(FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kAllFinalStates][kOneJetBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][kVBFBin][0],TMath::Sqrt(FakeLeptonBkgYieldsSystUpErrSqr[kFakeMuon][kAllFinalStates][kVBFBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << " \\\\"
+                  << endl;
+
+  fResultSystTexTable << setw(45) << left << "Jet pT Spectrum Systematics Down"
+                  << setw(3) << left << "&";
+  
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][kZeroJetBin][0],TMath::Sqrt(FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kAllFinalStates][kZeroJetBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][kOneJetBin][0],TMath::Sqrt(FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kAllFinalStates][kOneJetBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][kVBFBin][0],TMath::Sqrt(FakeLeptonBkgYieldsSystDownErrSqr[kFakeMuon][kAllFinalStates][kVBFBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << " \\\\"
+                  << endl;
+
+
+
+  fResultSystTexTable << setw(45) << left << "Systematic Uncertainty"
+                  << setw(3) << left << "&";
+  
+  sprintf(buffer,"+ %.0f\% - %.0f\%", 
+          100*fabs(FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][kZeroJetBin][0] - 
+               FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kZeroJetBin][0])
+          /FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kZeroJetBin][0],
+          100*fabs(FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][kZeroJetBin][0] - 
+               FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kZeroJetBin][0])
+          /FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kZeroJetBin][0]
+    );
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"+%.0f\% - %.0f\%", 
+          100*fabs(FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][kOneJetBin][0] - 
+               FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kOneJetBin][0])
+          /FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kOneJetBin][0],
+          100*fabs(FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][kOneJetBin][0] - 
+               FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kOneJetBin][0])
+          /FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kOneJetBin][0]
+    );
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"+%.0f\% - %.0f\%", 
+          100*fabs(FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][kVBFBin][0] - 
+               FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kVBFBin][0])
+          /FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kVBFBin][0],
+          100*fabs(FakeLeptonBkgYieldsSystDown[kFakeMuon][kAllFinalStates][kVBFBin][0] - 
+               FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kVBFBin][0])
+          /FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kVBFBin][0]
+    );
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << " \\\\"
+                  << endl;
+
+
+
+
+
+  fResultSystTexTable << "**************\n" 
+                      << "Fake Electrons \n"
+                      << "**************\n";
+  fResultSystTexTable << setw(45) << left << "JetBin"
+                  << setw(3) << left << "&"   
+                  << setw(20) << left << "0-Jet"
+                  << setw(3) << left << "&"   
+                  << setw(20) << left << "1-Jet"
+                  << setw(3) << left << "&"   
+                  << setw(20) << left << "2-Jet"
+                  << " \\\\"
+                  << endl;
+
+  fResultSystTexTable << "\\hline" << endl;
+
+  fResultSystTexTable << setw(45) << left << "Nominal Fake Rates"
+                  << setw(3) << left << "&";
+  
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kZeroJetBin][0],TMath::Sqrt(FakeLeptonBkgYieldsErrSqr[kFakeElectron][kAllFinalStates][kZeroJetBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kOneJetBin][0],TMath::Sqrt(FakeLeptonBkgYieldsErrSqr[kFakeElectron][kAllFinalStates][kOneJetBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kVBFBin][0],TMath::Sqrt(FakeLeptonBkgYieldsErrSqr[kFakeElectron][kAllFinalStates][kVBFBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << " \\\\"
+                  << endl;
+
+  fResultSystTexTable << setw(45) << left << "Jet pT Spectrum Systematics Up"
+                  << setw(3) << left << "&";
+  
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][kZeroJetBin][0],TMath::Sqrt(FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kAllFinalStates][kZeroJetBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][kOneJetBin][0],TMath::Sqrt(FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kAllFinalStates][kOneJetBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][kVBFBin][0],TMath::Sqrt(FakeLeptonBkgYieldsSystUpErrSqr[kFakeElectron][kAllFinalStates][kVBFBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << " \\\\"
+                  << endl;
+
+  fResultSystTexTable << setw(45) << left << "Jet pT Spectrum Systematics Down"
+                  << setw(3) << left << "&";
+  
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][kZeroJetBin][0],TMath::Sqrt(FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kAllFinalStates][kZeroJetBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][kOneJetBin][0],TMath::Sqrt(FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kAllFinalStates][kOneJetBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"%.1f +/- %.1f",FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][kVBFBin][0],TMath::Sqrt(FakeLeptonBkgYieldsSystDownErrSqr[kFakeElectron][kAllFinalStates][kVBFBin][0]));
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << " \\\\"
+                  << endl;
+
+
+
+  fResultSystTexTable << setw(45) << left << "Systematic Uncertainty"
+                  << setw(3) << left << "&";
+  
+  sprintf(buffer,"+%.0f\% - %.0f\%", 
+          100*fabs(FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][kZeroJetBin][0] - 
+               FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kZeroJetBin][0])
+          /FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kZeroJetBin][0],
+          100*fabs(FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][kZeroJetBin][0] - 
+               FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kZeroJetBin][0])
+          /FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kZeroJetBin][0]
+    );
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"+%.0f\% - %.0f\%", 
+          100*fabs(FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][kOneJetBin][0] - 
+               FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kOneJetBin][0])
+          /FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kOneJetBin][0],
+          100*fabs(FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][kOneJetBin][0] - 
+               FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kOneJetBin][0])
+          /FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kOneJetBin][0]
+    );
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << setw(3) << left << "&" ;
+
+  sprintf(buffer,"+%.0f\% - %.0f\%", 
+          100*fabs(FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][kVBFBin][0] - 
+               FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kVBFBin][0])
+          /FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kVBFBin][0],
+          100*fabs(FakeLeptonBkgYieldsSystDown[kFakeElectron][kAllFinalStates][kVBFBin][0] - 
+               FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kVBFBin][0])
+          /FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kVBFBin][0]
+    );
+  fResultSystTexTable << setw(20) << left << buffer;
+  fResultSystTexTable << " \\\\"
+                  << endl;
+
+
+
+
+    
 
 }
 
