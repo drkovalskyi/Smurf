@@ -69,6 +69,10 @@ void ComputeDataDrivenRoutin(Int_t period = 2, Bool_t useRecoilModel = kFALSE, I
   //*******************************************************
   // Settings 
   //*******************************************************
+  bool WWXSSel = false;
+  double ptLepMin = 10.0;
+  if(WWXSSel == true) ptLepMin = 20.;
+
   Double_t lumi = 1;
   TString filesPath   = "dummy";
   unsigned int minRun = 0;
@@ -89,6 +93,14 @@ void ComputeDataDrivenRoutin(Int_t period = 2, Bool_t useRecoilModel = kFALSE, I
   else if(period == 2){ // Full2011
     lumi = 4.0;minRun =      0;maxRun = 999999;
     filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Full2011";
+  }
+  else if(period == 3){ // Full2011-Fall11
+    lumi = 4.63;minRun =      0;maxRun = 999999;
+    filesPath  = "/data/smurf/data/Run2011_Fall11_SmurfV7_42X/mitf-alljets";
+  }
+  else if(period == 13){ // Full2011-Fall11
+    lumi = 4.63;minRun =      0;maxRun = 999999;
+    filesPath  = "/data/smurf/sixie/data/Run2011_Fall11_MVAIDIsoCombinedSameSigWP/mitf-alljets";
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -348,6 +360,10 @@ void ComputeDataDrivenRoutin(Int_t period = 2, Bool_t useRecoilModel = kFALSE, I
       if(tree.dstype_ == SmurfTree::data && tree.run_ <  minRun) continue;
       if(tree.dstype_ == SmurfTree::data && tree.run_ >  maxRun) continue;
 
+      //apply trigger requirement
+      if(tree.dstype_ == SmurfTree::data)
+        if ( (tree.cuts_ & SmurfTree::Trigger) != SmurfTree::Trigger ) continue; 
+
       if(!((tree.cuts_ & SmurfTree::BaseLine) == SmurfTree::BaseLine)            ) continue;
       if(!((tree.cuts_ & SmurfTree::ChargeMatch) == SmurfTree::ChargeMatch)      ) continue;
       if( (tree.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
@@ -358,7 +374,7 @@ void ComputeDataDrivenRoutin(Int_t period = 2, Bool_t useRecoilModel = kFALSE, I
       if(ijet>2) continue;
      
       if(tree.lep1_.Pt() < 20) continue;
-      if(tree.lep2_.Pt() < 10) continue;
+      if(tree.lep2_.Pt() < ptLepMin) continue;
  
 
       //*******************************************************
