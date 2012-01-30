@@ -56,7 +56,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
   //*******************************************************
   // Settings 
   //*******************************************************
-  bool WWXSSel = false
+  bool WWXSSel = false;
   double ptLepMin = 10.0;
   if(WWXSSel == true) ptLepMin = 20.;
 
