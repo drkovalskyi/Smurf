@@ -40,7 +40,7 @@ Double_t nVtxScaleFactorZtt(Int_t nvtx, Int_t period){
 }
 
 Double_t ZttScaleFactor(Int_t nvtx, Int_t period, Double_t scale1fb) {
-  if(period == 3) return 0.0165173*scale1fb;
+  if(period == 3) return 0.0167654*scale1fb;
   return 0.019*nVtxScaleFactorZtt(nvtx, period);
 }
 
