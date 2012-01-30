@@ -68,7 +68,7 @@ void ComputeWWBkgScaleFactor (
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
-    scaleFactorLum     = 4.7;minRun =      0;maxRun = 999999;
+    scaleFactorLum     = 4.63;minRun =      0;maxRun = 999999;
   }
   else if(period == 3){ // Full2011-Fall11
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
