@@ -86,7 +86,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
   }
   else if(period == 3){ // Full2011-Fall11
     lumi = 4.63;minRun =      0;maxRun = 999999;
-    filesPath  = "/data/smurf/data/Run2011_Fall11_SmurfV7_42X/mitf-alljets";
+    filesPath  = "/data/smurf/data/Run2011_Fall11_SmurfV7_42X/mitf2-alljets";
   }
   else {
     printf("Wrong period(%d)\n",period);
