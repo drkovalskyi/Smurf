@@ -71,7 +71,7 @@ void ComputeWWBkgScaleFactor (
     scaleFactorLum     = 4.63;minRun =      0;maxRun = 999999;
   }
   else if(period == 3){ // Full2011-Fall11
-    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
     scaleFactorLum     = 4.63;minRun =      0;maxRun = 999999;
