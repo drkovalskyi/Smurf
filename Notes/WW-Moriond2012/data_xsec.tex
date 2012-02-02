@@ -7,74 +7,41 @@ We now calculate the $\WW$ production cross section according to equation \ref{e
 \end{equation}
 
 Where $N_{data}$ is the number of events observed in data, $N_{bkg}$ is the estimated number
-of background events, $\epsilon$ is the efficiency to select $\sigma_{WW \to 2\ell 2\nu}$
-candidates, $\cal{L}$ is the integrated luminosity and $BR(WW \to \ell \nu \ell \nu)$ is the 
-branching ratio for the $\ell \nu \ell \nu$ final state considered.
-The number of events observed in data and the estimated number of events from the different
-backgrounds are summarised in Table \ref{tab:data_yields}.
-The efficiency, $\varepsilon$ is computed as the weighted mean of
-the $qq\to\WW$ and $gg\to\WW$ efficiencies in simulation, assuming a 3\%
-contribution from the $gg$ process.
+of background events, which are summarised with their uncertainties in Table \ref{tab:data_yields}.
+The efficiency to select $\sigma_{WW \to 2\ell 2\nu}$
+candidates, $\varepsilon$, is computed as the weighted mean of
+the $qq\to\WW$ and $gg\to\WW$ efficiencies in simulation.
+Assuming a 3\% contribution from the $gg$ process, 
+$\varepsilon$ is found to be $(3.412 \pm 0.235)\%$.
+The integrated luminosity of the data sample used, ${\cal{L}}$ is 4630 pb$^{-1}$,
+and the branching ratio for the $\ell \nu \ell \nu$, $BR(WW \to \ell \nu \ell \nu)$ is $0.1080 \pm 0.0009$.
 
 \begin{table}[ht!]
   \begin{center}
- {\small
-  \begin{tabular} {|c|c|c|c|c|c|c|}
+  \begin{tabular} {|c|c|}
 \hline
-          &   data & all bkg. & $qq \to \WW$ & $gg \to \WW$ &  $\ttbar+tW$   & $\Wjets$    \\
-  \hline
-  \hline
- $ee+\mu\mu$ &  462 & 96.27 $\pm$ 6.54 & 279.29 $\pm$ 4.11 & 16.65 $\pm$ 0.58 & 45.13 $\pm$ 2.26 & 16.40 $\pm$ 3.93 \\ 
-  $e\mu + \mu e$ &  668 & 148.28 $\pm$ 4.69 & 449.10 $\pm$ 3.23 & 26.57 $\pm$ 0.46 & 80.14 $\pm$ 1.81 & 43.21 $\pm$ 3.20 \\ 
-  Total & 1130 & 244.55 $\pm$ 6.54 & 728.40 $\pm$ 4.11 & 43.22 $\pm$ 0.58 & 125.27 $\pm$ 2.26 & 59.61 $\pm$ 3.93 \\ 
- \hline
- \hline
-  \end{tabular}
-  \begin{tabular} {|c|c|c|c|c|c|}
-\hline
-       & $WZ$/$ZZ$ not included in the $\dyll$ & $\dyll+WZ+ZZ$ & $W+\gamma$ & \dytt \\
-  \hline
-  \hline
- $ee+\mu\mu$ & 4.97 $\pm$ 0.14 & 24.79 $\pm$ 3.46 & 4.97 $\pm$ 1.31 & 0.00 $\pm$ 0.00 \\ 
- $e\mu + \mu e$ & 9.58 $\pm$ 0.20 & 0.99 $\pm$ 0.24 & 13.64 $\pm$ 2.90 & 0.72 $\pm$ 0.22 \\ 
- Total & 14.55 $\pm$ 0.25 & 25.78 $\pm$ 3.47 & 18.62 $\pm$ 3.18 & 0.72 $\pm$ 0.22 \\ 
- \hline
-  \end{tabular}
-  }
+Sample                & Yield $\pm$ stat $\pm$ syst \\ \hline \hline
+$qqWW$                & 728.40 $\pm$ 4.11 $\pm$ 45.57 \\ \hline
+$ggWW$                & 43.22 $\pm$ 0.58 $\pm$ 2.70 \\ \hline
+$t\bar{t} + tW$       & 125.27 $\pm$ 2.26 $\pm$ 24.43 \\ \hline
+$W+jets$              & 59.61 $\pm$ 3.93 $\pm$ 21.46 \\ \hline
+$WZ$/$ZZ$             & 27.37 $\pm$ 0.42 $\pm$ 2.02 \\ \hline
+$Z/\gamma*$           & 12.72 $\pm$ 3.44 $\pm$ 5.47 \\ \hline
+$W\gamma*/W+\gamma$   & 18.62 $\pm$ 3.18 $\pm$ 4.27 \\ \hline \hline
+Total Bkgd.           & 244.31 $\pm$ 6.54 $\pm$ 33.31 \\ \hline \hline
+Total Bkgd.+Signal    & 1015.93 $\pm$ 7.75 $\pm$ 56.51 \\ \hline \hline
+Data                  & 1130 \\ \hline
+\end{tabular}
   \caption{Expected number of signal and background events from the data-driven methods for
-  an integrated luminosity of \intlumi after applying the selection requirements.
-  Statistical uncertainties only.}
+  an integrated luminosity of \intlumi after applying the selection requirements.}
    \label{tab:data_yields}
   \end{center}
 \end{table}
 
-\begin{table}[!ht]
-\begin{center}
-\begin{tabular}{|c|c|c|}
-\hline
- variable      &  value & uncertainty \\
-\hline
-$N_{data}$     & $1130$ & ---\\
-\hline
-$N_{bkg}$      & $244.55$ & $6.54~\mathrm{(stat.)} \pm 33.52~\mathrm{(syst.)}$ \\
-\hline
-$\epsilon$ (\%) & $3.378$ & $0.233$  \\
-\hline
-$\cal{L}$ ($pb$) & $4630$ & $208$ \\
-\hline
-$BR(W \to \ell \nu)$ & $0.1080$ & $0.0009$ \\
-\hline
-\end{tabular}
-\caption{Summary of the pieces to compute the $WW$ cross-section and its uncertainty.}
-  \label{tab:xs_summary}
-\end{center}
-\end{table}
-
-The final inputs to Equation \ref{eq:mainformula} are given in
-Table \ref{tab:xs_summary}.  Using these we obtain the following 
-$WW$ cross-section measurement:
+Using the inputs described previously and Equation \ref{eq:mainformula},
+we obtain the following $WW$ cross-section measurement:
 
 \begin{equation*}
-\sigma_{WW}  = 53.93 \pm 2.05~\mathrm{(stat.)} \pm 4.26~\mathrm{(syst.)} \pm 2.43~\mathrm{(lumi.)~pb}.
+\sigma_{WW}  = 53.41 \pm 2.03~\mathrm{(stat.)} \pm 5.36~\mathrm{(syst.)} \pm 2.40~\mathrm{(lumi.)~pb}.
 \end{equation*}
 
