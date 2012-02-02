@@ -64,9 +64,9 @@ This $\dyll$ estimation method relies on the assumption that
 the dependence of the ratio $R_{out/in}$ on the $\met$ cut is well
 modelled by simulation and is relatively flat. 
 The variations in the $R_{out/in}$ in different $\met$ regions are assigned as systematics. 
-The $\met$ regions considered are [20, 25], [25-30], [30-37] and [37, above]. 
+The $\met$ regions considered are [20, 23], [23-28], [28-37] and [37, above]. 
 As we do not see any statistically difference between the ee and $\mu\mu$ final states,
- we combine the two final states to gain statistical stability.
+ we combine the two final states to gain statistical stability. 
 
 We cross-checked the $R_{out/in}$ value in data as well. Background processes
 contribute equally to $ee$, $e\mu$, $\mu e$ and $\mu\mu$ final states
@@ -75,26 +75,57 @@ $ee$ and $\mu\mu$. Therefore we can subtract $e\mu$ and $\mu e$
 contribtutions from $ee$ and $\mu\mu$ ones to get an estimate of
 Drell-Yan. We have found good agreement between data and MC in the 
 Drell-Yan dominated regions, shown in Figure~\ref{fig:dyr_ww}. 
+We do not observe a trend in the dependence of $R$ with the $\met$ cuts. 
+For the final estimate, we choose the $R$ value obtained in the 
+$\met$ regions of [28-37] GeV which contains more statistics then the signal region. 
+The largest difference of $R$ in other $\met$ regions from the nominal value 
+is assigned as the systematic error. 
 
-Table~\ref{tab:dy} shows the estimation of the Drell-Yan background. 
+Table~\ref{tab:dy} shows the results of Drell-Yan background estimation 
+for the $\intlumi$ data. 
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{table}
+%\begin{center}
+%\begin{tabular}{c c c c c}
+%\hline
+%      $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)      & $N_{out}$(MC)        & SF(Data/MC)     \\
+%\hline
+%\vspace{-3mm} && \\
+%       91.5 $\pm$ 21.2 &  0.14 $\pm$ 0.02 $\pm$ 0.06  & 12.7 $\pm$ 3.3 $\pm$ 5.4  &  4.2 $\pm$ 1.1  &  3.1 $\pm$ 1.5  \\
+   
+%\hline
+%\end{tabular}
+%\caption{The Drell-Yan estimation in the same flavor final state.
+%\label{tab:dy}}
+%\end{center}
+%\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}
 \begin{center}
-\begin{tabular}{c c c c c}
+\begin{tabular}{l|cccc}
 \hline
-      $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)      & $N_{out}$(MC)        & SF(Data/MC)     \\
+Final State & $N(\ell\ell)_{\textrm{control}}^{\textrm{data}}$  & $N_{\textrm{control}}^{\textrm{ZV, sim.}}$ & $R_{out/in}$ & $N_{out}$ (data) \\ 
 \hline
-\vspace{-3mm} && \\
-       89.52 $\pm$ 21.33 &  0.11 $\pm$ 0.02 $\pm$ 0.14  & 10.13 $\pm$ 2.91 $\pm$ 12.34  &  4.18 $\pm$ 1.13  &  2.43 $\pm$ 3.03  \\
-    
+ee  & 108  &  $48.3\pm 0.7 \pm 4.8$ &  $0.12\pm0.02\pm0.06$ & $7.7\pm 2.5\pm 3.3$ \\
+$\mu\mu$ & 151 &  $69.5 \pm 0.8 \pm 7.0$ & $0.15\pm0.02\pm0.07$ & $4.9\pm1.6\pm2.4$ \\
+$e\mu$  & 48  & - & - & -\\ 
+\hline
+$ee$ and $\mu\mu$ combined & 259 & $117.8\pm 1.0\pm 11.8$ & $0.14\pm0.02\pm0.06$ & $12.7\pm 3.3\pm 5.4$ \\
 \hline
 \end{tabular}
-\caption{The Drell-Yan estimation in the same flavor final state.
-\label{tab:dy}}
 \end{center}
+\caption{ Predictions of the off-peak $Z/\gamma^*$ contribution 
+for events passing all $WW$ selections. Both statistical and systematic uncertainties 
+are displayed. For the $VZ$ contribution in the control region, we assign 10\% systematics due to the 
+uncertainty in the cross-sections. }
+\label{tab:dy}
 \end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
 
@@ -104,15 +135,15 @@ Table~\ref{tab:dy} shows the estimation of the Drell-Yan background.
 \subfigure[ee]{
 \centering
 \label{subfig:dyr_ee_0j}
-\includegraphics[width=.3\textwidth]{figures/Routin_ee_0Jet_mH0_4700pb_dy.pdf}}
+\includegraphics[width=.3\textwidth]{figures/Routin_ee_0Jet_mH0_4630pb_dy.pdf}}
 \subfigure[mm]{
 \centering
 \label{subfig:dyr_mm_0j}
-\includegraphics[width=.3\textwidth]{figures/Routin_mm_0Jet_mH0_4700pb_dy.pdf}}
+\includegraphics[width=.3\textwidth]{figures/Routin_mm_0Jet_mH0_4630pb_dy.pdf}}
 \subfigure[ee/mm combined]{
 \centering
 \label{subfig:dyr_mm_0j}
-\includegraphics[width=.3\textwidth]{figures/Routin_0Jet_mH0_4700pb_dy.pdf}}
+\includegraphics[width=.3\textwidth]{figures/Routin_0Jet_mH0_4630pb_dy.pdf}}
 \caption{
  The \routin\, as a function of MET measured from data (black solid dots) 
 and MC (red open circles) for the Drell-Yan processes. The measurements 
