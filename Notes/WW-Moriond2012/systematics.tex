@@ -43,11 +43,12 @@ Here we summarize the systematic uncertainties associated with the methods used.
     events with large $\met$ tails.
     We conservatively quantify such uncertainty from the variation of the ratio $R_{out/in}$
     (Eq.\ref{eq:dyest}) as a function of the $\met$ requirement,
-    leading to an estimate of about $125\%$.
-    As very few $\dyll$ events are selected, this has anyhow a small affect on the final analysis results ($\sim xxx\%$).
+    leading to an estimate of about $43\%$.
+%    As very few $\dyll$ events are selected, this has anyhow a small affect on the final analysis results ($\sim xxx\%$).
   \item Other backgrounds: The sub-dominant backgrounds are estimated from simulation
     with appropriate systematic uncertainties on their cross section.
-    We take $3\%$ for $\WZ$ and $\ZZ$ events and $10\%$ for $W+\gamma$ events.
+    The theoretical uncertainties on the $\WZ$ and $\ZZ$ are estimated the same way as in the signal detailed in below. 
+%    We take $3\%$ for $\WZ$ and $\ZZ$ events and $10\%$ for $W+\gamma$ events.
     These uncertainties must be augmented by the luminosity normalization uncertainty.
   \end{itemize}
 
@@ -59,11 +60,42 @@ the event yields changing by $\sim1\%$. The latter is conservatively assumed as
 the corresponding systematic uncertainty.
 
 \item {\it Jet veto efficiency:}
-FIXME - update references in jet veto section.
-This is dominated by the theoretical uncertainty, and is found to be 5.4\%.
+This is dominated by the theoretical uncertainty, and is found to be 4.6\%. We add in 
+quardrature another 1\% coming from the difference of jet veto efficiency measured in data 
+from simulation. 
 
 \item {\it Theoretical uncertainties:}
-FIXME - need to evaluate the PDF uncertainty on the WW signal acceptance
+
+We evalute the theoretical uncertainties due to the uncertainties in the PDFs and 
+QCD high order effects to the selection efficiency and normalizations 
+for the $WW$ signal and the backgrounds that are evaluated from MC ($WZ$ and $ZZ$). 
+
+In order to assign systematic uncertainties due to PDFs, 
+we follow the strategy defined by the CMS Generator 
+Group described in~\cite{XS}, which is consistent with the latest 
+PDF4LHC recommendations~\cite{PDF4LHC}. The 68\% CL of the positive and negative uncertainties 
+obtained with CTEQ66~\cite{Nadolsky:2008zw}, MSTW2008NLO~\cite{Martin:2009iq} and
+NNPDF2.0~\cite{Ball:2010de} sets are considered, adopting the 
+specific recommended recipes in each case. The final assigned systematic uncertainties
+corresponds to half of the maximum difference observed between positive and 
+negative variations for any combination of the three sets. The maximum 
+difference corresponds to a positive variation from one set minus a negative 
+variation from a different set, since central values from different sets are 
+typically of the size of the uncertainties within a set. Uncertainties due 
+to $\alpha_s$ are also considered. An uncertainty of about 2.3\% has been estimated for the signal. 
+
+We have also computed the change of the acceptance of having two lepton in 
+the fiducial region when varying renormalization and factorization QCD scales. 
+The test serves to estimate the accuracy of the cross-section via the stability of the perturbative 
+expansion. In this course it is common to vary the renormalization and 
+factorization scales around some default scale choice, which is usually 
+chosen to be at the order of the scale of the hard-scattering process. 
+For each process we thus define some default scale $ \mu_0$, which is the mass
+of the boson or particle under study, and vary 
+in the range $ \mu_0/2 < \mu_F=\mu_R < 2\times\mu_0$. 
+We find an uncertainty due to the change on the kinematical requirements of about 
+1.5\% percent due these effects to the $WW$ signal. 
+
 
 \item {\it Monte Carlo statistics:} We also take into account the
 size of the simulated event samples. 
@@ -74,26 +106,33 @@ size of the simulated event samples.
 \caption{\label{tab:systww} Summary of all systematic uncertainties (relative).}
 \vspace{5pt}
 {\small
-\begin{tabular}{l|c|c|c|c|c|c|c}
+\begin{tabular}{l|c|c|c|c|c|c|c|c}
 \hline
-\multirow{2}{*}{Source} & $qq \to$ & $gg \to$  & non-$\Z$ resonant & top & DY & $\Wjets$ & $V(W/Z)+\gamma$    \\
-                        & $\WW$    & $\WW$       & $VV$              &     &         &          &                     \\
+%\multirow{2}{*}{Source} & $qq \to$ & $gg \to$  & non-$\Z$ resonant & top & DY & $\Wjets$ & $V(W/Z)+\gamma$    \\
+%                        & $\WW$    & $\WW$       & $VV$              &     &         &          &                     \\
+\multirow{2}{*}{Source} & $qq \to$ & $gg \to$  & $WZ$ & $ZZ$  & top & $Z/\gamma^*$ & $\Wjets$ & $W+\gamma$    \\
+                        & $\WW$    & $\WW$     &      &       &     &              &          &               \\
 \hline
 
 \hline
-Luminosity                    & --- & --- & 4.5 & --- & --- & --- &  4.5  \\
-Trigger efficiencies          & 1.5 & 1.5 & 1.5 & --- & --- & --- &  1.5  \\
-Muon efficiency               & 1.5 & 1.5 & 1.5 & --- & --- & --- &  1.5  \\
-Electron id efficiency        & 2.5 & 2.5 & 2.5 & --- & --- & --- &  2.5  \\
-Momentum scale                & 1.5 & 1.5 & 1.5 & --- & --- & --- &  1.5  \\
-$\met$ resolution             & 2.0 & 2.0 & 2.0 & 2.0 & 3.0 & --- &  1.0  \\
-Jet veto                      & --- & 5.4 & 5.4 & --- & --- & --- &  5.4  \\
-$\Wjets$ norm.                & --- & --- & --- & --- & --- &  36&   ---  \\
-top  norm.                    & --- & --- & --- &  15 & --- & --- &  ---  \\
-$\dyll$ norm.                 & --- & --- & --- & --- &  50 & --- &  ---  \\
-$WZ/ZZ$ cross section         & --- & --- & 3.0 & --- & --- & --- &  ---  \\
-$W+\gamma$ cross section      & --- & --- & 3.0 & --- & --- & --- &  30   \\
-Monte Carlo statistics        &   1 &   1 &   2 &   2 &  20 &  20 &  10   \\
+Luminosity                    & 4.5 & 4.5 & 4.5 & 4.5 & --- & --- &  --- & ---  \\
+Trigger efficiencies          & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- &  --- & --- \\
+Muon efficiency               & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- &  --- & --- \\
+Electron id efficiency        & 2.5 & 2.5 & 2.5 & 2.5 & --- & --- &  --- & --- \\
+Momentum scale                & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- &  --- & --- \\
+$\met$ resolution             & 2.0 & 2.0 & 2.0 & 2.0 & --- & --- &  --- & --- \\
+Jet veto                      & 4.7 & 4.7 & 4.7 & 4.7 & --- & --- &  --- & --- \\
+PDF uncertainties             & 2.3 & 2.3 & 10.6& 4.8 & --- & --- &  --- & --- \\
+QCD scale uncertainties       & 1.5 & 1.5 & 4.2 & 1.8 & --- & --- &  --- & --- \\
+Pile up                       & 1.0 & 1.0 & 1.0 & 1.0 & --- & --- &  --- & --- \\
+$\Wjets$ norm.                & --- & --- & --- & --- & --- & --- &  36  & --- \\
+top  norm.                    & --- & --- & --- & --- & 15  & --- &  --- & --- \\
+$\dyll$ norm.                 & --- & --- & --- & --- & --- &  43 &  --- & --- \\
+%$WZ/ZZ$ cross section         & --- & --- & 3.0 & 3.0 & --- & --- &  --- & --- \\
+$W+\gamma$ cross section      & --- & --- & --- & --- & --- & --- &  --- & 30 \\
+Monte Carlo statistics        &   1 &   1 &   2 &  2  & --- & --- &  --- & --- \\
+\hline 
+Total systematic uncertainty  &  X  &   X &   X &  X  & 15  &  43  & 36  & 30 \\ 
 \hline
 \end{tabular}
 }
