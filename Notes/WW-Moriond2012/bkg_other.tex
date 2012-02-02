@@ -1,11 +1,8 @@
-There are three processes which need to be estimated from Monte Carlo 
-simulation, after applying the proper data corrections for lepton, trigger 
-and jet veto efficiencies, in this low luminosity regime: $WZ$, 
-$ZZ$, and $W+\gamma$.
-
-$WZ$ and $ZZ$ events with lepton pairs from a resonant $Z$ boson are suppressed by the  
-$Z$ veto. The remaining contribution is expected to be well modeled in the simulation
-and thus the Monte Carlo prediction is used.
+The $WZ$ and $ZZ$ events with lepton pairs from a resonant $Z$ boson are suppressed 
+by the $Z$ veto. The remaining contribution is estimated from simulation, 
+after applying the proper data to simulation correction factors for the 
+lepton and trigger efficiencies. 
+%
 
 The $W+\gamma$ background, where the $\gamma$ fakes an electron through
 an asymmetric conversion is difficult to estimate from data. Additional
@@ -14,3 +11,25 @@ For instance, applying the same standard selection, but requiring two same-sign
 leptons, gives a sample dominated by $\Wjets$ and $W+\gamma$ events. Again, the 
 expected contribution is very small, due to stringent $\gamma$ conversion 
 requirements explained in Sec.~\ref{sec:sel_electrons}.
+
+The electroweak process \Wgstar\ enters the signal region if one of the leptons 
+from the $\gamma^*$ is lost. This background is normally covered in Monte Carlo
+simulations as a part of the \WZ\ process. However in the simulation, 
+there is a generator level cut of $m_{\gamma^*}>12$ GeV, and there is
+significant rate of events at lower values~\cite{wgstar}. 
+A dedicated $W\gamma^*$ sample is simulated in Madgraph 
+with $m_{\gamma^*} < 12$ GeV. The prediction from this simulation is then normalized to 
+data according to the rate in the $W\gamma^*$ enriched region, as 
+detailed in Ref.~\cite{HWW2011Final}. 
+
+
+The $\dytt$ background is suppressed signficiantly by the 
+projected $\met$ requirements as the $\met$ tend to be aligned with 
+one of the leptons. However the large amount of pileup interactions 
+may lead to fake \met\ that is larger than the natural \met\
+in \dytt\ events. Given that the fake \met\ can not be reliably 
+estimated in simulation, we developped two data-driven methods to estimate the 
+$\dytt$ background as documented in Ref.~\cite{HWW2011Final}. 
+Both methods find that the \dytt\ rate in data is a factor of 4 larger than 
+the value predicted by simulation. 
+
