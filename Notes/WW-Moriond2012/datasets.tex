@@ -2,12 +2,10 @@ The datasets used for this analysis are summarized in
 Tables.~\ref{tab:DatasetsData} and~\ref{tab:DatasetsMC} for data and Monte 
 Carlo, respectively. The total integrated luminosity is \intlumi. 
 We used the official good run list~\cite{json}. For Monte Carlo simulation 
-we use madgraph when possible, 
-but different generators such as Pythia and Powheg 
-are also used. 
-For $gg \to \WW$ a dedicated generator is used. For \wz\ and \zz\
-processes we use Pythia, since MadGraph samples are mixed with $\WW$ in
-a single $VV$ sample, which is difficult to use properly.
+we use madgraph when possible, but different generators such as Pythia and Powheg are also used. 
+For $gg \to \WW$ a dedicated generator is used. For \zz\ process we use Pythia, 
+since MadGraph sample has a generator level cut on the dilepton invariant mass of 
+50 \GeV. 
 
 \begin{table}[!ht]
 \begin{center}
@@ -22,12 +20,19 @@ Run2011A MuEl PromptReco            &  /MuEG/Run2011A-PromptReco-v*/AOD   \\
 Run2011A DiMuon PromptReco          &  /DoubleMu/Run2011A-PromptReco-v*/AOD   \\
 Run2011A SingleMuon PromptReco      &  /SingleMu/Run2011A-PromptReco-v*/AOD   \\
 Run2011A DiElectron PromptReco      &  /DoubleElectron/Run2011A-PromptReco-v*/AOD   \\
+Run2011B DiElectron PromptReco      &  /DoubleElectron/Run2011B-PromptReco-v1/AOD   \\
+Run2011B DiMuon PromptReco          &  /DoubleMu/Run2011B-PromptReco-v1/AOD   \\
+Run2011B MuEl PromptReco            &  /MuEG/Run2011B-PromptReco-v1/AOD   \\
+Run2011B SingleMuon PromptReco      &  /SingleMu/Run2011B-PromptReco-v1/AOD   \\
+Run2011B SingleElectron PromptReco  &  /SingleElectron/Run2011B-PromptReco-v1/AOD   \\
 \hline
 \hline
 \multicolumn{2}{|c|}{Fake Rate Measurement Samples} \\
 \hline
 Run2010A Jet  PromptReco            & /Jet/Run2011A-PromptReco-v*/AOD	\\
-Run2010B Photon PromptReco          & /Photon/Run2011A-PromptReco-v*/AOD \\
+Run2010B Jet  PromptReco            & /Jet/Run2011B-PromptReco-v*/AOD	\\
+Run2011A Photon PromptReco          & /Photon/Run2011A-PromptReco-v4/AOD \\
+Run2011B Photon PromptReco          & /Photon/Run2011B-PromptReco-v1/AOD \\
 \hline
 \end{tabular}
 \caption{Summary of data datasets used.\label{tab:DatasetsData}}
@@ -40,26 +45,37 @@ Run2010B Photon PromptReco          & /Photon/Run2011A-PromptReco-v*/AOD \\
 \begin{tabular}{|c|c|c|}
 \hline
 \multicolumn{3}{|c|}{With Pileup: Processed dataset name is always} \\
-\multicolumn{3}{|c|}{/Spring11-PU\_S1\_START311\_V1G1-v*/AODSIM} \\
+\multicolumn{3}{|c|}{Summer11-PU\_S4\_START42\_V11-v*/AODSIM} \\
 \hline
  Dataset Description                     &   Primary Dataset Name   & cross-section (pb)\\
 \hline
-qq $\rightarrow WW$                  	 &   /VVJetsTo4L\_TuneD6T\_7TeV-madgraph-tauola                        &  43.0  \\
+qq $\rightarrow WW$                  	 &   /WWJetsTo2L2Nu\_TuneZ2\_7TeV-madgraph-tauola                      &  4.783 \\
 gg $\rightarrow WW \to 2l 2\nu$          &   /GluGluToWWTo4L\_TuneZ2\_7TeV-gg2ww-pythia6                       &   0.153\\
-$\ttbar$                              	 &   /TTJets\_TuneZ2\_7TeV-madgraph-tauola                             & 157.5 \\
-$\singletops$                  	 	 &   /TToBLNu\_TuneZ2\_s-channel\_7TeV-madgraph                        &  1.4 \\
-$\singletopt$                  	 	 &   /TToBLNu\_TuneZ2\_t-channel\_7TeV-madgraph                        &  20.9 \\
-tW                                    	 &   /TToBLNu\_TuneZ2\_tW-channel\_7TeV-madgraph                       &  10.6 \\
+%$\ttbar$                              	 &   /TTJets\_TuneZ2\_7TeV-madgraph-tauola                             & 157.5 \\
+$\ttbar$                              	 &   /TTTo2L2Nu2B\_7TeV-powheg-pythia6/                                &  157.5 \\
+$t$ ($s$-chan)                 	 	 &   /T\_TuneZ2\_s-channel\_7TeV-powheg-tauola                         &  3.19 \\
+$\bar{t}$ ($s$-chan)                 	 &   /Tbar\_TuneZ2\_s-channel\_7TeV-powheg-tauola                      &  1.44 \\
+$t$ ($t$-chan)             	 	 &   /T\_TuneZ2\_t-channel\_7TeV-powheg-tauola                         &  41.92 \\
+$\bar{t}$ ($t$-chan)                 	 &   /Tbar\_TuneZ2\_t-channel\_7TeV-powheg-tauola                      &  22.65 \\
+$tW$                                     &   /T\_TuneZ2\_tW-channel-DR\_7TeV-powheg-tauola                     &  7.87 \\
+%$\bar{t}W$                               &   /Tbar\_TuneZ2\_tW-channel-DR\_7TeV-powheg-tauola                  &  7.87 \\
+%$\singletops$                  	 	 &   /TToBLNu\_TuneZ2\_s-channel\_7TeV-madgraph                        &  1.4 \\
+%$\singletopt$                  	 	 &   /TToBLNu\_TuneZ2\_t-channel\_7TeV-madgraph                        &  20.9 \\
+%tW                                    	 &   /TToBLNu\_TuneZ2\_tW-channel\_7TeV-madgraph                       &  10.6 \\
 Z[20-inf] $\rightarrow ee$	  	 &   /DYToEE\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia                   &  1666.0 \\
 Z[20-inf] $\rightarrow \mu\mu$        	 &   /DYToMuMu\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia                 &  1666.0 \\	       
 Z[20-inf] $\rightarrow \tau\tau$  	 &   /DYToTauTau\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia-tauola        &  1666.0 \\
 Z[10-20]  $\rightarrow ee$	  	 &   /DYToEE\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia               &  3892.9 \\
 Z[10-20]  $\rightarrow \mu\mu$    	 &   /DYToMuMu\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia             &  3892.9 \\
 Z[10-20]  $\rightarrow \tau\tau$  	 &   /DYToTauTau\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia-tauola    &  3892.9 \\
-W/Z+$\gamma$                       	 &   /PhotonVJets\_7TeV-madgraph                                       &  165.0 \\
+% W/Z+$\gamma$                       	 &   /PhotonVJets\_7TeV-madgraph                                       &  165.0 \\
 W $\rightarrow$ $\ell\nu$           	 &   /WJetsToLNu\_TuneZ2\_7TeV-madgraph-tauola                         &  31314.0 \\
-WZ                               	 &   /WZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &  18.2 \\
-ZZ                               	 &   /ZZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &   5.9\\
+%WZ                               	 &   /WZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &  18.2 \\
+WZ                               	 &   /WZJetsTo3LNu\_TuneZ2\_7TeV-madgraph-tauola                       &  0.857 \\
+%ZZ                               	 &   /ZZtoAnything\_TuneZ2\_7TeV-pythia6-tauola                        &   5.9\\
+ZZ                               	 &   /ZZ\_TuneZ2\_7TeV\_pythia6\_tauola/                               &  7.406 \\
+$W\gamma^{*}\rightarrow l\mu\mu$         &   /WGstarToLNu2Mu\_TuneZ2\_7TeV-madgraph-tauola                     &  1.60 \\ 
+$W\gamma^{*}\rightarrow lee$             &   /WGstarToLNu2E\_TuneZ2\_7TeV-madgraph-tauola                      &  5.55 \\ 
 \hline
 \hline
 \end{tabular}
