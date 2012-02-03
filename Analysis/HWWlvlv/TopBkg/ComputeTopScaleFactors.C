@@ -187,6 +187,8 @@ void ComputeTopScaleFactors
       printf("--- reading event %5d of %5d\n",i,nBgd);
     bgdEvent.tree_->GetEntry(i);
     if((bgdEvent.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue;
+    if(bgdEvent.dstype_ == SmurfTree::data &&
+      (bgdEvent.cuts_ & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
     if(bgdEvent.dstype_ == SmurfTree::data && bgdEvent.run_ <  minRun) continue;
     if(bgdEvent.dstype_ == SmurfTree::data && bgdEvent.run_ >  maxRun) continue;
 
@@ -411,6 +413,7 @@ void ComputeTopScaleFactors
     dataEvent.tree_->GetEntry(i);
 
     if((dataEvent.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue;
+    if((dataEvent.cuts_ & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
     if(dataEvent.dstype_ == SmurfTree::data && dataEvent.run_ <  minRun) continue;
     if(dataEvent.dstype_ == SmurfTree::data && dataEvent.run_ >  maxRun) continue;
 
@@ -883,7 +886,7 @@ void ComputeTopScaleFactors
   printf("Channel    top-tagged region    bkgs top-tagged          MC tt+tW              MC top            Data top   \n");
   printf("              Event Count       region (non-top)    non-top-tagged count     estimation         estimation  \n");
   for(int i=0; i<5; i++) {
-    printf("(%s)              %2d               %6.3f                %6.3f             %6.3f +/- %6.3f    %6.3f +/- %6.3f\n",
+    printf("(%s)              %3d               %6.3f                %6.3f             %6.3f +/- %6.3f    %6.3f +/- %6.3f\n",
            classLabel[i],
            (int)btag_lowpt_0j_num[3][i],btag_lowpt_0j_num[0][i],N_top_expected_0j[i],
            estimationMC_btag_lowpt_0j[i],estimationMC_btag_lowpt_0j_error[i],
