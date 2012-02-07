@@ -182,52 +182,58 @@ double scaleFactor(double pt1, double eta1, double pt2, double eta2, int type, i
 double enhancementFactor(double mass, int type){
 
 if(type == 0){ // 4th-generation gg->H enhancement factor
-  if     (mass==110.000) return 9.203 ;
-  else if(mass==115.000) return 9.170 ;
-  else if(mass==120.000) return 9.129 ;
-  else if(mass==130.000) return 9.053 ;
-  else if(mass==140.000) return 8.966 ;
-  else if(mass==150.000) return 8.867 ;
-  else if(mass==160.000) return 8.768 ;
-  else if(mass==170.000) return 8.675 ;
-  else if(mass==180.000) return 8.562 ;
-  else if(mass==190.000) return 8.454 ;
-  else if(mass==200.000) return 8.337 ;
-  else if(mass==210.000) return 8.218 ;
-  else if(mass==220.000) return 8.096 ;
-  else if(mass==230.000) return 7.962 ;
-  else if(mass==250.000) return 7.685 ;
-  else if(mass==300.000) return 6.824 ;
-  else if(mass==350.000) return 5.304 ;
-  else if(mass==400.000) return 4.498 ;
-  else if(mass==450.000) return 4.3895;
-  else if(mass==500.000) return 4.450 ;
-  else if(mass==550.000) return 4.6065;
-  else if(mass==600.000) return 4.837 ;
+  if     (mass==110.000) return 10.0302;
+  else if(mass==115.000) return 9.97602;
+  else if(mass==118.000) return 9.94350;
+  else if(mass==120.000) return 9.92183;
+  else if(mass==122.000) return 9.89214;
+  else if(mass==124.000) return 9.86245;
+  else if(mass==126.000) return 9.83275;
+  else if(mass==128.000) return 9.80306;
+  else if(mass==130.000) return 9.77337;
+  else if(mass==135.000) return 9.70944;
+  else if(mass==140.000) return 9.64551;
+  else if(mass==150.000) return 9.44762;
+  else if(mass==160.000) return 9.30617;
+  else if(mass==170.000) return 9.44495;
+  else if(mass==180.000) return 9.36341;
+  else if(mass==190.000) return 9.36228;
+  else if(mass==200.000) return 9.25891;
+  else if(mass==250.000) return 8.36353;
+  else if(mass==300.000) return 7.26672;
+  else if(mass==350.000) return 5.68083;
+  else if(mass==400.000) return 4.71949;
+  else if(mass==450.000) return 4.45017;
+  else if(mass==500.000) return 4.35756;
+  else if(mass==550.000) return 4.28314;
+  else if(mass==600.000) return 4.28528;
 }
 else if(type == 1){ // 4th-generation BR(H->WW) enhancement factor
-  if     (mass==110.000) return 0.574;
-  else if(mass==115.000) return 0.569;
-  else if(mass==120.000) return 0.570;
-  else if(mass==130.000) return 0.600;
-  else if(mass==140.000) return 0.672;
-  else if(mass==150.000) return 0.781;
-  else if(mass==160.000) return 0.931;
-  else if(mass==170.000) return 0.981;
-  else if(mass==180.000) return 0.986;
-  else if(mass==190.000) return 0.988;
-  else if(mass==200.000) return 0.988;
-  else if(mass==210.000) return 0.989;
-  else if(mass==220.000) return 0.990;
-  else if(mass==230.000) return 0.991;
-  else if(mass==250.000) return 0.991;
-  else if(mass==300.000) return 0.993;
-  else if(mass==350.000) return 0.992;
-  else if(mass==400.000) return 0.989;
-  else if(mass==450.000) return 0.989;
-  else if(mass==500.000) return 0.991;
-  else if(mass==550.000) return 0.993;
-  else if(mass==600.000) return 0.996;
+  if     (mass==110.000) return 0.149378;
+  else if(mass==115.000) return 0.154060;
+  else if(mass==118.000) return 0.156868;
+  else if(mass==120.000) return 0.158741;
+  else if(mass==122.000) return 0.164829;
+  else if(mass==124.000) return 0.170917;
+  else if(mass==126.000) return 0.177004;
+  else if(mass==128.000) return 0.183092;
+  else if(mass==130.000) return 0.189180;
+  else if(mass==135.000) return 0.222820;
+  else if(mass==140.000) return 0.256461;
+  else if(mass==150.000) return 0.393983;
+  else if(mass==160.000) return 0.748899;
+  else if(mass==170.000) return 0.923237;
+  else if(mass==180.000) return 0.946352;
+  else if(mass==190.000) return 0.966921;
+  else if(mass==200.000) return 0.968961;
+  else if(mass==250.000) return 0.988588;
+  else if(mass==300.000) return 0.988439;
+  else if(mass==350.000) return 0.933432;
+  else if(mass==400.000) return 0.642612;
+  else if(mass==450.000) return 0.592928;
+  else if(mass==500.000) return 0.589744;
+  else if(mass==550.000) return 0.601272;
+  else if(mass==600.000) return 0.620072;
 }
 else if(type == 2){ // fermiophobic BR(H->WW) enhancement factor
   if     (mass==110.000) return 8.54E-01/4.82E-02;
@@ -259,6 +265,33 @@ else if(type == 2){ // fermiophobic BR(H->WW) enhancement factor
   else if(mass==550.000) return 1.000;
   else if(mass==600.000) return 1.000;
   else assert(0);
+}
+else if(type == 3){ // 4th-generation BR(H->tautau) enhancement factor
+  if     (mass==110.000) return 0.706983;
+  else if(mass==115.000) return 0.726027;
+  else if(mass==118.000) return 0.737453;
+  else if(mass==120.000) return 0.745070;
+  else if(mass==122.000) return 0.771968;
+  else if(mass==124.000) return 0.798867;
+  else if(mass==126.000) return 0.825765;
+  else if(mass==128.000) return 0.852664;
+  else if(mass==130.000) return 0.879562;
+  else if(mass==135.000) return 1.028770;
+  else if(mass==140.000) return 1.177970;
+  else if(mass==150.000) return 1.797750;
+  else if(mass==160.000) return 3.257580;
+  else if(mass==170.000) return 4.113170;
+  else if(mass==180.000) return 4.293020;
+  else if(mass==190.000) return 4.361700;
+  else if(mass==200.000) return 4.425090;
+  else if(mass==250.000) return 4.637800;
+  else if(mass==300.000) return 4.741140;
+  else if(mass==350.000) return 4.642860;
+  else if(mass==400.000) return 3.038730;
+  else if(mass==450.000) return 2.740000;
+  else if(mass==500.000) return 2.718950;
+  else if(mass==550.000) return 2.772360;
+  else if(mass==600.000) return 2.862750;
 }
 
 return 1.0;
