@@ -133,6 +133,15 @@ void PlotHiggsRes
   else if(wwDecay == 5) sprintf(finalStateName,"sf");
   else if(wwDecay == 6) sprintf(finalStateName,"of");
 
+  //----------------------------------------------------------------------------
+  // These are used to compute the DY Bkg systematics uncertainties
+  // DYXS, VVXS give the normalization for the DY Bkg and the WW,WZ Bkg's
+  // ZXS_E is the systematic uncertainty in the normalization
+  // The indices parameterize the different versions of the analysis:
+  // [0] : MVA Shape Analysis
+  // [1] : Cut-Based Analysis
+  // [2] : MVA Cut Analysis
+  //----------------------------------------------------------------------------
   double ZXS_E[3] = {0.0, 0.0, 0.0};
   double DYXS[3]  = {0.0, 0.0, 0.0};
   double VVXS[3]  = {0.0, 0.0, 0.0};
@@ -198,13 +207,19 @@ void PlotHiggsRes
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
-    lumi     = 4.63;minRun =      0;maxRun = 999999;
+    scaleFactorLum     = 4.63;minRun =      0;maxRun = 999999;
   }
   else {
     printf("Wrong period(%d)\n",period);
     return;
   }
 
+
+  //----------------------------------------------------------------------------
+  // Lepton Efficiency Scale Factors, Fake Rates, 
+  // Trigger Efficiencies
+  // Pileup Weights
+  //----------------------------------------------------------------------------
   TFile *fLeptonEffFile = TFile::Open(effPath.Data());
   TH2D *fhDEffMu = (TH2D*)(fLeptonEffFile->Get("h2_results_muon_selection"));
   TH2D *fhDEffEl = (TH2D*)(fLeptonEffFile->Get("h2_results_electron_selection"));
@@ -235,6 +250,21 @@ void PlotHiggsRes
   fhDPUS4->SetDirectory(0);
   delete fPUS4File;
 
+  //Fake rate systematics
+  TFile *fLeptonFRFileSyst = TFile::Open(fakePath.Data());
+  TH2D *fhDFRMuSyst = (TH2D*)(fLeptonFRFileSyst->Get("MuonFakeRate_M2_ptThreshold30_PtEta"));
+  TH2D *fhDFRElSyst = (TH2D*)(fLeptonFRFileSyst->Get("ElectronFakeRate_V4_ptThreshold50_PtEta"));
+  assert(fhDFRMuSyst);
+  assert(fhDFRElSyst);
+  fhDFRMuSyst->SetDirectory(0);
+  fhDFRElSyst->SetDirectory(0);
+  fLeptonFRFileSyst->Close();
+  delete fLeptonFRFileSyst;
+
+
+  //----------------------------------------------------------------------------
+  // ggH pT spectrum Weights
+  //----------------------------------------------------------------------------
   int newMH = mH;
   if(newMH == 110) newMH = 115; // there is no correction for mh=110!
   TFile *fHiggsPtKFactorFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/ggHWW_KFactors_PowhegToHQT_WithAdditionalMassPoints.root");
@@ -252,16 +282,13 @@ void PlotHiggsRes
   fHiggsPtKFactorFile->Close();
   delete fHiggsPtKFactorFile;
 
-  TFile *fLeptonFRFileSyst = TFile::Open(fakePath.Data());
-  TH2D *fhDFRMuSyst = (TH2D*)(fLeptonFRFileSyst->Get("MuonFakeRate_M2_ptThreshold30_PtEta"));
-  TH2D *fhDFRElSyst = (TH2D*)(fLeptonFRFileSyst->Get("ElectronFakeRate_V4_ptThreshold50_PtEta"));
-  assert(fhDFRMuSyst);
-  assert(fhDFRElSyst);
-  fhDFRMuSyst->SetDirectory(0);
-  fhDFRElSyst->SetDirectory(0);
-  fLeptonFRFileSyst->Close();
-  delete fLeptonFRFileSyst;
-
+  //----------------------------------------------------------------------------
+  // Load MVA distribution histograms for the DY bkg systematics from file
+  // These are produced separately and saved into a file, and loaded when 
+  // it is needed.
+  // The nominal MVA shape is taken from the MET sideband 
+  // (20 < Met < norminal met cut)
+  //----------------------------------------------------------------------------
   TH1D *hDZjetsTemplate;
   if(useZjetsTemplates == true) printf("***********useZjetsTemplates = true***************\n");
   else                          printf("***********useZjetsTemplates = false***************\n");
@@ -283,6 +310,8 @@ void PlotHiggsRes
   }
 
   //----------------------------------------------------------------------------
+  // Define m_Higgs dependant cuts
+  //----------------------------------------------------------------------------
   double theCutMassHigh	     = cutMassHigh (mH);
   double theCutPtMaxLow	     = cutPtMaxLow (mH);
   double theCutDeltaphilHigh = cutDeltaphiHigh (mH);
@@ -290,11 +319,15 @@ void PlotHiggsRes
   double theCutMTHigh        = cutMTHigh (mH);
 
   //----------------------------------------------------------------------------
+  // Define Histogram ranges
+  //----------------------------------------------------------------------------
   const int nHist = 6;
   int    nBinHis[nHist] = { 200,  200,  200,  200,  200,  200};
   double minHis[nHist]  = {-1.0, -1.0, -1.0, -0.0, -1.0,  0.0};
   double maxHis[nHist]  = { 1.0,  1.0,  1.0,  1.0,  1.0,200.0};
 
+  //----------------------------------------------------------------------------
+  // Define MVA output histograms
   //----------------------------------------------------------------------------
   TH1D* sigMVA[nHist][6];
   TH1D* bgdMVA[nHist];
@@ -331,6 +364,11 @@ void PlotHiggsRes
   histo3->Scale(0.0);
   histo4->Scale(0.0);
   histo5->Scale(0.0);
+
+
+  //----------------------------------------------------------------------------
+  // Define MVA output systematics histograms
+  //----------------------------------------------------------------------------
   TH1D* histo_Zjets_CMS_MVAZBounding     = (TH1D*) histo1->Clone("histo_Zjets_CMS_MVAZBounding");
   TH1D* histo_Zjets_CMS_MVAZBoundingUp   = (TH1D*) histo1->Clone(Form("histo_Zjets_CMS_MVAZBounding_hww%s_%1djUp",finalStateName,nJetsType));
   TH1D* histo_Zjets_CMS_MVAZBoundingDown = (TH1D*) histo1->Clone(Form("histo_Zjets_CMS_MVAZBounding_hww%s_%1djDown",finalStateName,nJetsType));
@@ -480,9 +518,11 @@ void PlotHiggsRes
   histoB->Sumw2();
   histoD->Sumw2();
 
-  //----------------------------------------------------------------------------
 
-  // TMVA cuts (known a posteriori)
+
+  //----------------------------------------------------------------------------
+  // Define MVA cut values (known a posteriori)
+  //----------------------------------------------------------------------------
   int useVar = 0; // which MVA to be used
   double useCut = -999.0;
   if    (nJetsType == 0){
@@ -683,6 +723,9 @@ void PlotHiggsRes
   }
   //useVar = 5;
   //----------------------------------------------------------------------------
+
+
+
   UInt_t          cuts;
   UInt_t          dstype;
   UInt_t          nvtx;
@@ -739,6 +782,13 @@ void PlotHiggsRes
   Float_t         sfWeightEff;
   Float_t         sfWeightTrig;
   Float_t         sfWeightHPt;
+
+
+  //****************************************************************************
+  //
+  // Loop Over Signal Sample
+  //
+  //****************************************************************************
 
   signal->SetBranchAddress( "cuts"         , &cuts         );
   signal->SetBranchAddress( "dstype"       , &dstype       );
@@ -804,9 +854,20 @@ void PlotHiggsRes
     signal->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)signal->GetEntries());
 
+    //----------------------------------------------------------------------------
+    //for data require that the event fired one of the designated signal triggers
+    //----------------------------------------------------------------------------
     if(dstype == SmurfTree::data &&
       (cuts & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
 
+    //----------------------------------------------------------------------------
+    //define jet bin. 
+    //For 2-Jet Bin:
+    //  - apply "central jet veto"
+    //    ie. no third jet above 30 GeV that lies between the 
+    //    first two jets in pseudorapidity
+    //  - VBF jets must have |eta| < 4.5 (instead of 5.0)
+    //----------------------------------------------------------------------------
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
       if(jet3->pt() <= 30)					           Njet3 = 2;
@@ -817,6 +878,10 @@ void PlotHiggsRes
       if(njets < 2 || njets > 3)                                           Njet3 = 0;
       if(TMath::Abs(jet1->eta()) >= 4.5 || TMath::Abs(jet2->eta()) >= 4.5) Njet3 = 0;
     }
+
+    //----------------------------------------------------------------------------
+    //For Jet Energy scale systematics
+    //----------------------------------------------------------------------------
     bool passJetCut[3] = {Njet3 == nJetsType, false, false};
     if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
     if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[2] = true;
@@ -831,9 +896,15 @@ void PlotHiggsRes
     if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
     if(dilep->pt() <= 45) passNewCuts = false;
 
+    //----------------------------------------------------------------------------
+    //To create the DY bkg systematics MVA shapes (makeZjetsTemplates == true)
+    //we loosen the MET cut to "minmet > 20 GeV". 
+    //----------------------------------------------------------------------------
     if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
+    //----------------------------------------------------------------------------
     // WW Preselection
+    //----------------------------------------------------------------------------
     if( passJetCut[0]==false&&passJetCut[1]==false&&passJetCut[2]==false ) continue; // select n-jet type events
     if( dilep->mass() > dilmass_cut 					 ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
@@ -861,6 +932,12 @@ void PlotHiggsRes
     else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
     if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
+
+    //----------------------------------------------------------------------------
+    // Define Final States:
+    // 5: Same Flavor
+    // 6: Opposite Flavor
+    //----------------------------------------------------------------------------
     bool wwDecayCut = true;
     if     (wwDecay == 0) wwDecayCut = (type == SmurfTree::mm);
     else if(wwDecay == 1) wwDecayCut = (type == SmurfTree::ee);
@@ -869,6 +946,7 @@ void PlotHiggsRes
     else if(wwDecay == 5) wwDecayCut = (type == SmurfTree::mm || type == SmurfTree::ee);
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
+
 
     //if(nJetsType == 0) bdtg = (bdtg+1.2)*TMath::Max(TMath::Min((double)knn_wjets,0.99999),0.00001)-1.0;
     //else               bdtg = (bdtg+1.0)*TMath::Max(TMath::Min((double)bdtg_wjets+1,1.99999),0.00001)/2.0-1.0;
@@ -884,6 +962,10 @@ void PlotHiggsRes
     //bdtg = (dilep->mass()-12.0)/(dilmass_cut-12.0);
     //if(bdtg<=0) bdtg = 0.001; if(bdtg>=1) bdtg = 0.999; bdtg = (bdtg-0.5)*2.0;
 
+    //----------------------------------------------------------------------------
+    // Define event weights    
+    // Apply lepton efficiency scale factors, trigger efficiencies
+    //----------------------------------------------------------------------------
     double add = 1.0;
     add = add*nPUScaleFactor(fhDPUS4,npu);
 
@@ -894,24 +976,42 @@ void PlotHiggsRes
     add = add*trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
         					      fabs(lep2->eta()), lep2->pt(), 
         					      TMath::Abs( lid1), TMath::Abs(lid2));
+
+    //----------------------------------------------------------------------------
     // This is tricky, we have Fall11 samples only
+    // For these mass points we have only Fall11, so we do not apply the Summer11
+    // pileup reweighting
+    // Later, we will have consistent samples and then we don't need to do this
+    //----------------------------------------------------------------------------
     if(mH == 118 || mH == 122 || mH == 124 || mH == 126 || mH == 128 || mH == 135) {
       add = sfWeightPU*sfWeightEff*sfWeightTrig;
     }
 
+    //----------------------------------------------------------------------------
+    // Define gluon fusion Higgs production weights for nominal and systematics
+    //----------------------------------------------------------------------------
     double addggH = 1.0;
     double addggHSyst[8] = {1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
     // CAREFUL HERE, no data-driven corrections, just Higgs k-factors
     // add = 1.0;
+    
+    //----------------------------------------------------------------------------
+    // For FermioPhobic Higgs, enhance VBF and associated production rate
+    // and set gluon Fusion production rate to 0
+    //----------------------------------------------------------------------------
     bool isFermioPhobic = false;
     if(isFermioPhobic == true) add = add * enhancementFactor(mH,2);
+    
+    //----------------------------------------------------------------------------
+    // Gluon Fusion Weights
+    //----------------------------------------------------------------------------
     if (processId == 10010) {
       float theMax = 0.00;
       addggH = HiggsPtKFactor->GetBinContent( HiggsPtKFactor->GetXaxis()->FindFixBin(TMath::Max(higgsPt, theMax)));
-      // addggH = addggH * enhancementFactor(mH,0);
+      // addggH = addggH * enhancementFactor(mH,0); //These are used for SM4 scenario (4th quark generation) only
       for(int ns=0; ns<8; ns++) if(HiggsPtKFactorSyst[ns]) addggHSyst[ns] = HiggsPtKFactorSyst[ns]->GetBinContent( HiggsPtKFactorSyst[ns]->GetXaxis()->FindFixBin(TMath::Max(higgsPt, theMax)));
-      // for(int ns=0; ns<8; ns++) addggHSyst[ns] = addggHSyst[ns] * enhancementFactor(mH,0);
-      if(isFermioPhobic == true) addggH = 0.0;
+      // for(int ns=0; ns<8; ns++) addggHSyst[ns] = addggHSyst[ns] * enhancementFactor(mH,0); //These are used for SM4 scenario (4th quark generation) only
+      if(isFermioPhobic == true) addggH = 0.0; 
     }
 
     add = add*addggH;
@@ -919,6 +1019,9 @@ void PlotHiggsRes
 
     if(myWeight == 0) continue;
 
+    //----------------------------------------------------------------------------
+    // Classify Signal Events by production mechanism
+    //----------------------------------------------------------------------------
     int nSigBin = -1;
     // GF  == 10010, WBF == 10001, WH == 26, ZH == 24, ttH=121/122
     if     (processId==121 ||
@@ -929,6 +1032,12 @@ void PlotHiggsRes
     else if(processId==10010) nSigBin = 5;
     else  {return;}
 
+
+    //----------------------------------------------------------------------------
+    //
+    // Higgs Signal Selection Cuts
+    //
+    //----------------------------------------------------------------------------
     double theCutPtMinLow = cutPtMinLow (mH, type);
     bool passAllCuts = dilep->mass()         < theCutMassHigh &&
         	       mt		     > theCutMTLow &&
@@ -937,6 +1046,10 @@ void PlotHiggsRes
         	       lep2->pt()	     > theCutPtMinLow &&
         	       dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh &&
 		       passJetCut[0]==true;
+
+    //----------------------------------------------------------------------------
+    // VBF selection cuts for 2-Jet bin
+    //----------------------------------------------------------------------------
     if(nJetsType == 2){
       int centrality = 0;
       if(((jet1->eta()-lep1->eta() > 0 && jet2->eta()-lep1->eta() < 0) ||
@@ -949,6 +1062,10 @@ void PlotHiggsRes
 		    centrality == 1 &&
 		    passJetCut[0]==true;
     }
+
+    //----------------------------------------------------------------------------
+    // Add signal yields for Cut-Based analysis
+    //----------------------------------------------------------------------------
     if(passAllCuts == true) {
       nSigCut[0]  = nSigCut[0]  + myWeight;
       nSigECut[0] = nSigECut[0] + myWeight*myWeight;
@@ -958,6 +1075,10 @@ void PlotHiggsRes
       sigMVA[5][nSigBin]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), myWeight);
     }
 
+    //----------------------------------------------------------------------------
+    // Add signal yields and fill MVA output distributions for MVA Shape analysis
+    // Apply mT_Higgs cut for MVA Shape analysis
+    //----------------------------------------------------------------------------
     bool passMVAPreselCuts = mt > 80 && mt < mH; if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       nSigAcc[0]  = nSigAcc[0]  + myWeight;
@@ -985,6 +1106,13 @@ void PlotHiggsRes
       
       // WARNING, THIS IS ONLY GOOD FOR BDTG!
       if(useExpTemplates == true){
+
+        //----------------------------------------------------------------------------
+        // MVA Shape systematics for:
+        // 1: Lepton efficiencies
+        // 2: Lepton Resolution (bdtg_aux0,bdtg_aux1 branch)
+        // 2: Met Resolution    (bdtg_aux2 branch)
+        //----------------------------------------------------------------------------
         double addLepEffUp = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1,1)*
                              leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2,1);
         double addLepEffDown = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1,-1)*
@@ -1025,11 +1153,21 @@ void PlotHiggsRes
 	  histo_ggH_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	}
       }
+
       // WARNING, THIS IS ONLY GOOD FOR BDTG!
+      //----------------------------------------------------------------------------
+      // MVA Shape systematics for:
+      // Gluon Fusion Higgs Missing Higher Order Corrections (weights [0] & [5])
+      //----------------------------------------------------------------------------
       if(useggHTemplates == true && nSigBin == 5 && addggH != 0){
 	histo_ggH_CMS_MVAggHBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addggHSyst[0]/addggH);
 	histo_ggH_CMS_MVAggHBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addggHSyst[5]/addggH);
       }
+
+
+      //----------------------------------------------------------------------------
+      // Add signal yields for MVA Cut analysis
+      //----------------------------------------------------------------------------
       bool passFinalCut = false;
       if     (useVar == 0 && bdt	> useCut) {nSigMVA[0] += myWeight; nSigEMVA[0] += myWeight*myWeight; passFinalCut = true;}
       else if(useVar == 1 && bdtd	> useCut) {nSigMVA[0] += myWeight; nSigEMVA[0] += myWeight*myWeight; passFinalCut = true;}
@@ -1047,6 +1185,12 @@ void PlotHiggsRes
         histoS->Fill(myVar,myWeight);
       }
     } // passMVAPreselCuts
+
+
+    //----------------------------------------------------------------------------
+    // MVA Shape systematics for:
+    // Jet Energy Scale
+    //----------------------------------------------------------------------------
     if(passMVAPreselCuts == true && useJESTemplates == true && (passJetCut[1] == true || passJetCut[2] == true)){ // Begin JES
       if     (nSigBin == 1){
         if(passJetCut[1] == true) histo_ttH_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
@@ -1069,11 +1213,21 @@ void PlotHiggsRes
         if(passJetCut[2] == true) histo_ggH_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
     } // End JES
-  }
+  } //end loop over signal events
+
   for(int i=0; i<6; i++) nSigEAcc[i] = sqrt(nSigEAcc[i]);
   for(int i=0; i<6; i++) nSigECut[i] = sqrt(nSigECut[i]);
   for(int i=0; i<6; i++) nSigEMVA[i] = sqrt(nSigEMVA[i]);
   printf("--- Finished Signal loop\n");
+
+
+
+
+  //****************************************************************************
+  //
+  // Loop Over Background Sample
+  //
+  //****************************************************************************
 
   background->SetBranchAddress( "cuts"          , &cuts 	  );
   background->SetBranchAddress( "dstype"        , &dstype	  );
@@ -1144,11 +1298,22 @@ void PlotHiggsRes
     background->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
 
+    //----------------------------------------------------------------------------
+    //for data require that the event fired one of the designated signal triggers
+    //----------------------------------------------------------------------------
     if(dstype == SmurfTree::data &&
       (cuts & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
     if(dstype == SmurfTree::data && run <  minRun) continue;
     if(dstype == SmurfTree::data && run >  maxRun) continue;
 
+    //----------------------------------------------------------------------------
+    //define jet bin. 
+    //For 2-Jet Bin:
+    //  - apply "central jet veto"
+    //    ie. no third jet above 30 GeV that lies between the 
+    //    first two jets in pseudorapidity
+    //  - VBF jets must have |eta| < 4.5 (instead of 5.0)
+    //----------------------------------------------------------------------------
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
       if(jet3->pt() <= 30)					           Njet3 = 2;
@@ -1159,6 +1324,10 @@ void PlotHiggsRes
       if(njets < 2 || njets > 3)                                           Njet3 = 0;
       if(TMath::Abs(jet1->eta()) >= 4.5 || TMath::Abs(jet2->eta()) >= 4.5) Njet3 = 0;
     }
+
+    //----------------------------------------------------------------------------
+    //For Jet Energy scale systematics
+    //----------------------------------------------------------------------------
     bool passJetCut[3] = {Njet3 == nJetsType, false, false};
     if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
     if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[2] = true;
@@ -1173,9 +1342,15 @@ void PlotHiggsRes
     if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
     if(dilep->pt() <= 45) passNewCuts = false;
 
+    //----------------------------------------------------------------------------
+    //To create the DY bkg systematics MVA shapes (makeZjetsTemplates == true)
+    //we loosen the MET cut to "minmet > 20 GeV". 
+    //----------------------------------------------------------------------------
     if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
+    //----------------------------------------------------------------------------
     // WW Preselection
+    //----------------------------------------------------------------------------
     bool MinPreselCut = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) ||
                         ((cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
                          dstype != SmurfTree::data;
@@ -1208,6 +1383,17 @@ void PlotHiggsRes
     else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
     if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
+    //----------------------------------------------------------------------------
+    // Define Background Type
+    // 0 : qqWW
+    // 1 : ggWW
+    // 2 : WZ,ZZ
+    // 3 : Top (ttbar, tW)
+    // 4 : DY
+    // 5 : W+Jets (fakes)
+    // 6 : W+gamma , W+gamma*
+    // 7 : DY->tautau
+    //----------------------------------------------------------------------------
     int fDecay = 0;
     if     (dstype == SmurfTree::wjets  	 ) fDecay = 5;
     else if(dstype == SmurfTree::ttbar  	 ) fDecay = 3;
@@ -1225,12 +1411,18 @@ void PlotHiggsRes
     else if(dstype == SmurfTree::dyttDataDriven  ) fDecay = 7;
     else if(dstype == SmurfTree::qcd             ) fDecay = 7;
     else                                 {printf("bad dstype: %d\n",dstype); assert(0);}
+    //Si : Why do we still do this? I thought for DY we subtracted the on-shell Z component
     if(dstype == SmurfTree::wz || dstype == SmurfTree::zz) {
       if(lep1MotherMcId == 23 && lep2MotherMcId == 23) {
         fDecay = 4;
       }
     }
 
+    //----------------------------------------------------------------------------
+    // Define Final States:
+    // 5: Same Flavor
+    // 6: Opposite Flavor
+    //----------------------------------------------------------------------------
     bool wwDecayCut = true;
     if     (wwDecay == 0) wwDecayCut = (type == SmurfTree::mm);
     else if(wwDecay == 1) wwDecayCut = (type == SmurfTree::ee);
@@ -1254,8 +1446,15 @@ void PlotHiggsRes
     //bdtg = (dilep->mass()-12.0)/(dilmass_cut-12.0);
     //if(bdtg<=0) bdtg = 0.001; if(bdtg>=1) bdtg = 0.999; bdtg = (bdtg-0.5)*2.0;
 
+    //----------------------------------------------------------------------------
+    // Define event weights    
+    //----------------------------------------------------------------------------
     double myWeight = 1.0;
     double add      = 1.0;
+
+    //----------------------------------------------------------------------------
+    // First classify event into tight+tight, tight+fail, fail+fail 
+    //----------------------------------------------------------------------------
     int nFake = 0;
     if(dstype == SmurfTree::data ){
       if(((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
@@ -1273,10 +1472,23 @@ void PlotHiggsRes
        (TMath::Abs(lep2McId) == 11 || TMath::Abs(lep2McId) == 13)) isRealLepton = true;
     double addLepEff = 1.0;
     double addFR     = 1.0;
+
+
+    //----------------------------------------------------------------------------
+    // Explicitly neglect fail+fail events
+    //----------------------------------------------------------------------------
     if(nFake > 1){
       myWeight = 0.0;
     }
+
+    //----------------------------------------------------------------------------
+    // Tight+Fail events
+    //----------------------------------------------------------------------------
     else if(nFake == 1){
+
+      //----------------------------------------------------------------------------
+      // For data, apply fake rate to generate bkg prediction
+      //----------------------------------------------------------------------------
       if(dstype == SmurfTree::data){
         addFR =       fakeRate(lep1->pt(), lep1->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
         							          (cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
@@ -1286,6 +1498,12 @@ void PlotHiggsRes
 	fDecay  	      = 5;
         myWeight	      = add;
       }
+
+      //----------------------------------------------------------------------------
+      // For real lepton or w+gamma:
+      // apply fake rates, and give negative weight to subtract non jet-fake
+      // contamination in the tight+fail sample
+      //----------------------------------------------------------------------------
       else if(isRealLepton == true || dstype == SmurfTree::wgamma){
     	addFR =       fakeRate(lep1->pt(), lep1->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
     		        						  (cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
@@ -1305,15 +1523,36 @@ void PlotHiggsRes
         fDecay  	       = 5;
         myWeight	       = -1.0 * scale1fb*scaleFactorLum*add;
       }
+
+      //----------------------------------------------------------------------------
+      // Neglect fake lepton events in MC
+      //----------------------------------------------------------------------------
       else {
         myWeight = 0.0;
       }
     }
+
+    //----------------------------------------------------------------------------
+    // Neglect any tight+tight events from data
+    //----------------------------------------------------------------------------
     else if(dstype == SmurfTree::data) myWeight = 0.0;
+
+    //----------------------------------------------------------------------------
+    // DY->TauTau Embedded sample events: apply normalization weight.
+    //----------------------------------------------------------------------------
     else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
       myWeight = ZttScaleFactor(nvtx,period,scale1fb)*scaleFactorLum;
     }
+
+    //----------------------------------------------------------------------------
+    // Regular Tight+Tight events from Monte Carlo
+    //----------------------------------------------------------------------------
     else if(dstype != SmurfTree::data){
+
+      //----------------------------------------------------------------------------      
+      // Apply lepton efficiency scale factors, trigger efficiencies,
+      // Pileup weights
+      //----------------------------------------------------------------------------
       add = 1.0;
       add = add*nPUScaleFactor(fhDPUS4,npu);
 
@@ -1323,21 +1562,40 @@ void PlotHiggsRes
       add = add*trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
     							fabs(lep2->eta()), lep2->pt(), 
     							TMath::Abs( lid1), TMath::Abs(lid2));
+
+      //----------------------------------------------------------------------------      
+      // Apply DY Bkg Scale Factors
+      //----------------------------------------------------------------------------
       if(fDecay == 4  && (type   == SmurfTree::mm   || type   == SmurfTree::ee)
                       && (dstype == SmurfTree::dyee || dstype == SmurfTree::dymm)) {
     	if(njets == 0) add=add*DYBkgScaleFactor(0,0); 
     	if(njets == 1) add=add*DYBkgScaleFactor(0,1); 
     	if(njets >= 2) add=add*DYBkgScaleFactor(0,2); 
       }
+
+      //----------------------------------------------------------------------------      
+      // Apply Top Bkg Scale Factors
+      //----------------------------------------------------------------------------
       if(fDecay == 3) {
     	if(njets == 0) add=add*TopBkgScaleFactor(0);
     	if(njets == 1) add=add*TopBkgScaleFactor(1); 
     	if(njets >= 2) add=add*TopBkgScaleFactor(2); 
       }
+
+      //----------------------------------------------------------------------------      
+      // Apply W+Jets Bkg Scale Factor for MC (not nominally used)
+      //----------------------------------------------------------------------------
       if(fDecay == 5) add=add*WJetsMCScaleFactor(); 
 
+      //----------------------------------------------------------------------------      
+      // Apply W+gamma* normalization scale factor
+      //----------------------------------------------------------------------------
       if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor();
 
+      //----------------------------------------------------------------------------      
+      // Apply WW Bkg Scale Factors 
+      // Don't do this for the WW selection (wwPresel == true)
+      //----------------------------------------------------------------------------
       if((fDecay == 0 || fDecay == 1) && wwPresel == false){     
         if(njets == 0) add=add*WWBkgScaleFactorMVA(TMath::Max((int)mH,115),0); 
         else	       add=add*WWBkgScaleFactorMVA(TMath::Max((int)mH,115),1); 
@@ -1347,8 +1605,17 @@ void PlotHiggsRes
       myWeight = scale1fb*scaleFactorLum*add;
     }
 
+    //----------------------------------------------------------------------------      
+    // Explicitly neglect events with 0 weight
+    //----------------------------------------------------------------------------
     if(myWeight == 0) continue;
 
+
+    //----------------------------------------------------------------------------
+    //
+    // Higgs Signal Selection Cuts
+    //
+    //----------------------------------------------------------------------------
     double theCutPtMinLow = cutPtMinLow (mH, type);
     bool passAllCuts = dilep->mass()         < theCutMassHigh &&
         	       mt		     > theCutMTLow &&
@@ -1357,6 +1624,10 @@ void PlotHiggsRes
         	       lep2->pt()	     > theCutPtMinLow &&
         	       dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh &&
 		       passJetCut[0]==true;
+
+    //----------------------------------------------------------------------------
+    // VBF selection cuts for 2-Jet bin
+    //----------------------------------------------------------------------------
     if(nJetsType == 2){
       int centrality = 0;
       if(((jet1->eta()-lep1->eta() > 0 && jet2->eta()-lep1->eta() < 0) ||
@@ -1369,21 +1640,38 @@ void PlotHiggsRes
 		    centrality == 1 &&
 		    passJetCut[0]==true;
     }
+
+
+    //----------------------------------------------------------------------------
+    // Add bkg yields for Cut-Based analysis
+    //----------------------------------------------------------------------------
     if(passAllCuts == true) {
       double newWeight = myWeight;
+
+      //----------------------------------------------------------------------------
+      // For Cut-Based Analysis, use Cut-based analysis specfic 
+      // scale factors for WW Bkg. We originally applied WW scale factors for MVA
+      // selection, and correct it by the ratio here
+      //----------------------------------------------------------------------------      
       if((fDecay == 0 || fDecay == 1) && wwPresel == false){ // only for WW
 	if(njets == 0) newWeight=newWeight*WWBkgScaleFactorCutBased(TMath::Max((int)mH,115),0)/WWBkgScaleFactorMVA(TMath::Max((int)mH,115),0);
 	else           newWeight=newWeight*WWBkgScaleFactorCutBased(TMath::Max((int)mH,115),1)/WWBkgScaleFactorMVA(TMath::Max((int)mH,115),1);	   
       }
+
+      //----------------------------------------------------------------------------
+      // For Cut-Based Analysis, use mass dependant  
+      // scale factors for DY Bkg. We originally applied DY scale factors for the
+      // WW pre-selection, and correct it by the ratio here.
+      //----------------------------------------------------------------------------      
       if((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
          (type   == SmurfTree::mm   || type   == SmurfTree::ee)){
 	if(nJetsType != 2){
           newWeight=newWeight*DYBkgScaleFactor(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))/DYBkgScaleFactor(0,TMath::Min((int)nJetsType,2));
 	}
-	DYXS[1] += newWeight;
+	DYXS[1] += newWeight; 
       }
       else if(fDecay == 4){
-	VVXS[1] += newWeight;
+	VVXS[1] += newWeight; 
       }
       nBgdCut  = nBgdCut  + newWeight;
       nBgdECut = nBgdECut + newWeight*newWeight;
@@ -1393,6 +1681,10 @@ void PlotHiggsRes
       bgdMVADecays[5][fDecay]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), newWeight);
     }
 
+    //----------------------------------------------------------------------------
+    // Add bkg yields and fill MVA output distributions for MVA Shape analysis
+    // Apply mT_Higgs cut for MVA Shape analysis
+    //----------------------------------------------------------------------------
     bool passMVAPreselCuts = mt > 80 && mt < mH; if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       nBgdAcc  = nBgdAcc  + myWeight;
@@ -1400,6 +1692,11 @@ void PlotHiggsRes
       nBgdAccDecays[fDecay]  = nBgdAccDecays[fDecay]  + myWeight;
       nBgdEAccDecays[fDecay] = nBgdEAccDecays[fDecay] + myWeight*myWeight;
       double myWeightMVA = myWeight;
+
+      //----------------------------------------------------------------------------
+      // The systematics shape for the DY Bkg is derived from the MC with the
+      // nominal MET cut.
+      //----------------------------------------------------------------------------
       if((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
 	 (type   == SmurfTree::mm   || type   == SmurfTree::ee)){
 	DYXS[0] += myWeight;
@@ -1410,6 +1707,12 @@ void PlotHiggsRes
 	histoVV->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);
       }
 
+
+      //----------------------------------------------------------------------------
+      // For DY Bkg
+      // When makeZjetsTemplates == true, we use only the DY->ee/mm samples
+      // Otherwise, include the DY->tautau bkg into "histo1" as well
+      //----------------------------------------------------------------------------
       if      (((fDecay == 4 || fDecay == 7) && makeZjetsTemplates == false) ||
                ((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
 	        (type   == SmurfTree::mm   || type   == SmurfTree::ee) && makeZjetsTemplates == true)){ // Z+jets
@@ -1420,7 +1723,11 @@ void PlotHiggsRes
 	else if(useVar == 4) histo1->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
 	else if(useVar == 5) histo1->Fill(TMath::Max(TMath::Min((double)bdtg_wjets,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
       }
-      else if(fDecay == 3){ // ttbar
+
+      //----------------------------------------------------------------------------
+      // For Top Bkg
+      //----------------------------------------------------------------------------
+      else if(fDecay == 3){ 
 	if     (useVar == 0) histo2->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
 	else if(useVar == 1) histo2->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
 	else if(useVar == 2) histo2->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),    myWeightMVA);
@@ -1428,7 +1735,11 @@ void PlotHiggsRes
 	else if(useVar == 4) histo2->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
 	else if(useVar == 5) histo2->Fill(TMath::Max(TMath::Min((double)bdtg_wjets,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
       }
-      else if(fDecay == 2){ // WZ/ZZ
+
+      //----------------------------------------------------------------------------
+      // For WZ,ZZ Bkg
+      //----------------------------------------------------------------------------
+      else if(fDecay == 2){ 
 	if     (useVar == 0) histo3->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
 	else if(useVar == 1) histo3->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
 	else if(useVar == 2) histo3->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),    myWeightMVA);
@@ -1436,7 +1747,11 @@ void PlotHiggsRes
 	else if(useVar == 4) histo3->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
 	else if(useVar == 5) histo3->Fill(TMath::Max(TMath::Min((double)bdtg_wjets,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
       }
-      else if(fDecay == 5 || fDecay == 6){ // W+X
+
+      //----------------------------------------------------------------------------
+      // For W+Jets, W+gamma, W+gamma* Bkg
+      //----------------------------------------------------------------------------
+      else if(fDecay == 5 || fDecay == 6){ 
 	if     (useVar == 0) histo4->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
 	else if(useVar == 1) histo4->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
 	else if(useVar == 2) histo4->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),    myWeightMVA);
@@ -1444,6 +1759,10 @@ void PlotHiggsRes
 	else if(useVar == 4) histo4->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
 	else if(useVar == 5) histo4->Fill(TMath::Max(TMath::Min((double)bdtg_wjets,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
       }
+
+      //----------------------------------------------------------------------------
+      // For WW Bkg
+      //----------------------------------------------------------------------------
       else if(fDecay == 0 || fDecay == 1){ // WW
 	if     (useVar == 0) histo0->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
 	else if(useVar == 1) histo0->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
@@ -1453,6 +1772,9 @@ void PlotHiggsRes
 	else if(useVar == 5) histo0->Fill(TMath::Max(TMath::Min((double)bdtg_wjets,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
       }
 
+      //----------------------------------------------------------------------------
+      // For all backgrounds together     
+      //----------------------------------------------------------------------------
       bgdMVA[0]->Fill(TMath::Max(TMath::Min((double)bdt,maxHis[0]-0.001),minHis[0]+0.001),    myWeightMVA);
       bgdMVA[1]->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),   myWeightMVA);
       bgdMVA[2]->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),     myWeightMVA);
@@ -1464,7 +1786,15 @@ void PlotHiggsRes
       bgdMVADecays[3][fDecay]->Fill(TMath::Max(TMath::Min((double)knn,maxHis[3]-0.001),minHis[3]+0.001),    myWeightMVA);
       bgdMVADecays[4][fDecay]->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),   myWeightMVA);
 
+
+      //----------------------------------------------------------------------------
       // WARNING, THIS IS ONLY GOOD FOR BDTG!
+      //----------------------------------------------------------------------------
+
+      //----------------------------------------------------------------------------
+      // W+Jet Bkg systematics:
+      // Jet pT spectrum systematics shape 
+      //----------------------------------------------------------------------------
       if(useWJetsTemplates == true && fDecay == 5){
         double addFRS=fakeRate(lep1->pt(), lep1->eta(), fhDFRMuSyst, fhDFRElSyst, (cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
                 								  (cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
@@ -1472,7 +1802,15 @@ void PlotHiggsRes
                 								  (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
         histo_Wjets_CMS_MVAWBoundingUp       ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addFRS/addFR);
       }
+
       if(useExpTemplates == true){
+
+        //----------------------------------------------------------------------------
+        // MVA Shape systematics for:
+        // 1: Lepton efficiencies
+        // 2: Lepton Resolution (bdtg_aux0,bdtg_aux1 branch)
+        // 2: Met Resolution    (bdtg_aux2 branch)
+        //----------------------------------------------------------------------------
         double addLepEffUp = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1,1)*
                              leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2,1);
         double addLepEffDown = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1,-1)*
@@ -1513,7 +1851,7 @@ void PlotHiggsRes
 	  histo_Wgamma_CMS_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	  histo_Wgamma_CMS_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	  histo_Wgamma_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	}
+	}        
         else if(fDecay == 7){
 	  histo_Ztt_CMS_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
 	  histo_Ztt_CMS_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
@@ -1523,6 +1861,9 @@ void PlotHiggsRes
 	}
       }
 
+      //----------------------------------------------------------------------------
+      // Add signal yields for MVA Cut analysis
+      //----------------------------------------------------------------------------
       bool passFinalCut = false;
       if     (useVar == 0 && bdt        > useCut) {nBgdMVA += myWeight; nBgdEMVA += myWeight*myWeight; nBgdMVADecays[fDecay]  += myWeight; nBgdEMVADecays[fDecay]  += myWeight*myWeight; passFinalCut = true;}
       else if(useVar == 1 && bdtd       > useCut) {nBgdMVA += myWeight; nBgdEMVA += myWeight*myWeight; nBgdMVADecays[fDecay]  += myWeight; nBgdEMVADecays[fDecay]  += myWeight*myWeight; passFinalCut = true;}
@@ -1542,7 +1883,13 @@ void PlotHiggsRes
 	histoB->Fill(myVar,myWeight);
       }
     } // passMVAPreselCuts
-    if(passMVAPreselCuts == true && useJESTemplates == true && (passJetCut[1] == true || passJetCut[2] == true)){ // Begin JES
+
+
+    //----------------------------------------------------------------------------
+    // MVA Shape systematics for:
+    // Jet Energy Scale
+    //----------------------------------------------------------------------------
+    if(passMVAPreselCuts == true && useJESTemplates == true && (passJetCut[1] == true || passJetCut[2] == true)){ 
       if     (fDecay == 0){
         if(passJetCut[1] == true) histo_qqWW_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
         if(passJetCut[2] == true) histo_qqWW_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
@@ -1572,11 +1919,20 @@ void PlotHiggsRes
         if(passJetCut[2] == true) histo_Ztt_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
     } // End JES
-  }
+  } //end loop over bkg events
+
   nBgdEAcc = sqrt(nBgdEAcc);
   nBgdECut = sqrt(nBgdECut);
   nBgdEMVA = sqrt(nBgdEMVA);
   printf("--- Finished Bgdnal loop\n");
+
+
+
+  //****************************************************************************
+  //
+  // Loop Over Background Systematics Sample
+  //
+  //****************************************************************************
 
   treeSyst->SetBranchAddress( "cuts"          , &cuts 	  	);
   treeSyst->SetBranchAddress( "dstype"        , &dstype	  	);
@@ -1640,11 +1996,22 @@ void PlotHiggsRes
     treeSyst->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)treeSyst->GetEntries());
 
+    //----------------------------------------------------------------------------
+    //for data require that the event fired one of the designated signal triggers
+    //----------------------------------------------------------------------------
     if(dstype == SmurfTree::data &&
       (cuts & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
     if(dstype == SmurfTree::data && run <  minRun) continue;
     if(dstype == SmurfTree::data && run >  maxRun) continue;
 
+    //----------------------------------------------------------------------------
+    //define jet bin. 
+    //For 2-Jet Bin:
+    //  - apply "central jet veto"
+    //    ie. no third jet above 30 GeV that lies between the 
+    //    first two jets in pseudorapidity
+    //  - VBF jets must have |eta| < 4.5 (instead of 5.0)
+    //----------------------------------------------------------------------------
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
       if(jet3->pt() <= 30)					           Njet3 = 2;
@@ -1655,6 +2022,10 @@ void PlotHiggsRes
       if(njets < 2 || njets > 3)                                           Njet3 = 0;
       if(TMath::Abs(jet1->eta()) >= 4.5 || TMath::Abs(jet2->eta()) >= 4.5) Njet3 = 0;
     }
+
+    //----------------------------------------------------------------------------
+    //For Jet Energy scale systematics
+    //----------------------------------------------------------------------------
     bool passJetCut[3] = {Njet3 == nJetsType, false, false};
     if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
     if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[2] = true;
@@ -1669,9 +2040,15 @@ void PlotHiggsRes
     if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
     if(dilep->pt() <= 45) passNewCuts = false;
 
+    //----------------------------------------------------------------------------
+    //To create the DY bkg systematics MVA shapes (makeZjetsTemplates == true)
+    //we loosen the MET cut to "minmet > 20 GeV". 
+    //----------------------------------------------------------------------------
     if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
+    //----------------------------------------------------------------------------
     // WW Preselection
+    //----------------------------------------------------------------------------
     bool MinPreselCut = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) ||
                         ((cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
                          dstype != SmurfTree::data;
@@ -1699,6 +2076,20 @@ void PlotHiggsRes
     else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
     if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
+    //----------------------------------------------------------------------------
+    // Define Background Type
+    // We have used a trick to resuse the dstype variable for systematics samples
+    // 0 : MC@NLO qqWW nominal
+    // 1 : MC@NLO qqWW Up
+    // 8 : MC@NLO qqWW Down
+    // 2 : WZ,ZZ
+    // 3 : Top (ttbar, tW)
+    // 4 : DY
+    // 5 : W+Jets (fakes)
+    // 6 : W+gamma , W+gamma*
+    // 7 : DY->tautau
+    // 
+    //----------------------------------------------------------------------------
     int fDecay = 0;
     if     (dstype == SmurfTree::wjets  	 ) fDecay = 5;
     else if(dstype == SmurfTree::ttbar  	 ) fDecay = 3;
@@ -1722,6 +2113,11 @@ void PlotHiggsRes
       }
     }
 
+    //----------------------------------------------------------------------------
+    // Define Final States:
+    // 5: Same Flavor
+    // 6: Opposite Flavor
+    //----------------------------------------------------------------------------
     bool wwDecayCut = true;
     if     (wwDecay == 0) wwDecayCut = (type == SmurfTree::mm);
     else if(wwDecay == 1) wwDecayCut = (type == SmurfTree::ee);
@@ -1745,8 +2141,15 @@ void PlotHiggsRes
     //bdtg = (dilep->mass()-12.0)/(dilmass_cut-12.0);
     //if(bdtg<=0) bdtg = 0.001; if(bdtg>=1) bdtg = 0.999; bdtg = (bdtg-0.5)*2.0;
 
+    //----------------------------------------------------------------------------
+    // Define event weights    
+    //----------------------------------------------------------------------------
     double myWeight = 1.0;
     double add      = 1.0;
+
+    //----------------------------------------------------------------------------
+    // First classify event into tight+tight, tight+fail, fail+fail 
+    //----------------------------------------------------------------------------
     int nFake = 0;
     if(dstype == SmurfTree::data ){
       if(((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
@@ -1764,10 +2167,22 @@ void PlotHiggsRes
     bool isRealLepton = false;
     if((TMath::Abs(lep1McId) == 11 || TMath::Abs(lep1McId) == 13) &&
        (TMath::Abs(lep2McId) == 11 || TMath::Abs(lep2McId) == 13)) isRealLepton = true;
+
+    //----------------------------------------------------------------------------
+    // Explicitly neglect fail+fail events
+    //----------------------------------------------------------------------------
     if(nFake > 1){
       myWeight = 0.0;
     }
+
+    //----------------------------------------------------------------------------
+    // Tight+Fail events
+    //----------------------------------------------------------------------------
     else if(nFake == 1){
+
+      //----------------------------------------------------------------------------
+      // For data, apply fake rate to generate bkg prediction
+      //----------------------------------------------------------------------------
       if(dstype == SmurfTree::data){
         addFR =       fakeRate(lep1->pt(), lep1->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
         							          (cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
@@ -1777,7 +2192,14 @@ void PlotHiggsRes
 	fDecay  	      = 5;
         myWeight	      = add;
       }
+
+      //----------------------------------------------------------------------------
       // THIS IS SPECIAL FOR WGAMMA SYSTEMATICS OR WJETS SYSTEMATICS!!!
+      // Apply nominal fake rates from data to W+jets MC
+      //
+      // This is not used at the moment. Eventually we want to do photon->electron
+      // fake rates, but this is not implemented yet.
+      //----------------------------------------------------------------------------
       else if((dstype == SmurfTree::wgamma && useWgammaTemplates == true ) ||
               (dstype == SmurfTree::wjets  && useWJetsMCTemplates == true)){
     	addFR =       fakeRate(lep1->pt(), lep1->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
@@ -1800,6 +2222,12 @@ void PlotHiggsRes
 	else				     assert(0); 
         myWeight	       = 1.0 * scale1fb*scaleFactorLum*add;
       }
+ 
+      //----------------------------------------------------------------------------
+      // For real lepton or w+gamma:
+      // apply fake rates, and give negative weight to subtract non jet-fake
+      // contamination in the tight+fail sample
+      //----------------------------------------------------------------------------
       else if(isRealLepton == true || (dstype == SmurfTree::wgamma && useWgammaTemplates == false)){
     	addFR =       fakeRate(lep1->pt(), lep1->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
     		        						  (cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
@@ -1819,15 +2247,36 @@ void PlotHiggsRes
         fDecay  	       = 5;
         myWeight	       = -1.0 * scale1fb*scaleFactorLum*add;
       }
+
+      //----------------------------------------------------------------------------
+      // Neglect fake lepton events in MC
+      //----------------------------------------------------------------------------
       else {
         myWeight = 0.0;
       }
     }
+
+    //----------------------------------------------------------------------------
+    // Neglect any tight+tight events from data
+    //----------------------------------------------------------------------------
     else if(dstype == SmurfTree::data) myWeight = 0.0;
+
+    //----------------------------------------------------------------------------
+    // DY->TauTau Embedded sample events: apply normalization weight.
+    //----------------------------------------------------------------------------
     else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
       myWeight = ZttScaleFactor(nvtx,period,scale1fb)*scaleFactorLum;
     }
+
+    //----------------------------------------------------------------------------
+    // Regular Tight+Tight events from Monte Carlo
+    //----------------------------------------------------------------------------
     else if(dstype != SmurfTree::data){
+
+      //----------------------------------------------------------------------------      
+      // Apply lepton efficiency scale factors, trigger efficiencies,
+      // Pileup weights
+      //----------------------------------------------------------------------------
       add = 1.0;
       add = add*nPUScaleFactor(fhDPUS4,npu);
 
@@ -1837,21 +2286,40 @@ void PlotHiggsRes
       add = add*trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
     							fabs(lep2->eta()), lep2->pt(), 
     							TMath::Abs( lid1), TMath::Abs(lid2));
+
+      //----------------------------------------------------------------------------      
+      // Apply DY Bkg Scale Factors
+      //----------------------------------------------------------------------------
       if(fDecay == 4  && (type   == SmurfTree::mm   || type   == SmurfTree::ee)
                       && (dstype == SmurfTree::dyee || dstype == SmurfTree::dymm)) {
     	if(njets == 0) add=add*DYBkgScaleFactor(0,0); 
     	if(njets == 1) add=add*DYBkgScaleFactor(0,1); 
     	if(njets >= 2) add=add*DYBkgScaleFactor(0,2); 
       }
+
+      //----------------------------------------------------------------------------      
+      // Apply Top Bkg Scale Factors
+      //----------------------------------------------------------------------------
       if(fDecay == 3) {
     	if(njets == 0) add=add*TopBkgScaleFactor(0);
     	if(njets == 1) add=add*TopBkgScaleFactor(1); 
     	if(njets >= 2) add=add*TopBkgScaleFactor(2); 
       }
+
+      //----------------------------------------------------------------------------      
+      // Apply W+Jets Bkg Scale Factor for MC (not nominally used)
+      //----------------------------------------------------------------------------
       if(fDecay == 5) add=add*WJetsMCScaleFactor(); 
 
+      //----------------------------------------------------------------------------      
+      // Apply W+gamma* normalization scale factor
+      //----------------------------------------------------------------------------
       if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor();
 
+      //----------------------------------------------------------------------------      
+      // Apply WW Bkg Scale Factors 
+      // Don't do this for the WW selection (wwPresel == true)
+      //----------------------------------------------------------------------------
       if((fDecay == 0 || fDecay == 1) && wwPresel == false){     
         if(njets == 0) add=add*WWBkgScaleFactorMVA(TMath::Max((int)mH,115),0); 
         else	       add=add*WWBkgScaleFactorMVA(TMath::Max((int)mH,115),1); 
@@ -1861,25 +2329,48 @@ void PlotHiggsRes
       myWeight = scale1fb*scaleFactorLum*add;
     }
 
+    //----------------------------------------------------------------------------      
+    // Explicitly neglect events with 0 weight
+    //----------------------------------------------------------------------------
     if(myWeight == 0) continue;
 
+    //----------------------------------------------------------------------------
+    // Add bkg yields and fill MVA output distributions for MVA Shape analysis
+    // Apply mT_Higgs cut for MVA Shape analysis
+    //----------------------------------------------------------------------------
     bool passMVAPreselCuts = mt > 80 && mt < mH; if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       nSystAcc  = nSystAcc  + myWeight;
       nSystEAcc = nSystEAcc + myWeight*myWeight;
       nSystAccDecays[fDecay]  = nSystAccDecays[fDecay]  + myWeight;
       nSystEAccDecays[fDecay] = nSystEAccDecays[fDecay] + myWeight*myWeight;
+
+      //----------------------------------------------------------------------------
+      //systematics shapes for WW bkg (MC@NLO nominal, up, and down)
+      //----------------------------------------------------------------------------
       if(useWWTemplates == true){
         if     (fDecay == 1) histo_qqWW_CMS_MVAWWNLOBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);
 	else if(fDecay == 8) histo_qqWW_CMS_MVAWWNLOBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);
 	else if(fDecay == 0) histo_qqWW_CMS_MVAWWBoundingUp     ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);
       }
+
+      //----------------------------------------------------------------------------
+      //systematics shapes for Top bkg (Madgraph ttbar+jets)
+      //----------------------------------------------------------------------------
       if(useTopTemplates == true && fDecay == 3){
         histo_Top_CMS_MVATopBoundingUp->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);
       }
+
+      //----------------------------------------------------------------------------
+      //systematics shapes for WJets bkg (Madgraph W+jets MC)
+      //----------------------------------------------------------------------------
       if(useWJetsMCTemplates == true && fDecay == 5){
         histo_Wjets_CMS_MVAWMCBoundingUp->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);
       }
+
+      //----------------------------------------------------------------------------
+      //systematics shapes for Wgamma bkg
+      //----------------------------------------------------------------------------
       if(useWgammaTemplates == true && fDecay == 6){
         histo_Wgamma->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);
 	if(useExpTemplates == true){
@@ -1895,19 +2386,31 @@ void PlotHiggsRes
         }
       }
     } // passMVAPreselCuts
-    if(passMVAPreselCuts == true && useJESTemplates == true && (passJetCut[1] == true || passJetCut[2] == true)){ // Begin JES
+
+    //----------------------------------------------------------------------------
+    //Jet energy scale systematics shapes for Wgamma bkg
+    //----------------------------------------------------------------------------
+    if(passMVAPreselCuts == true && useJESTemplates == true && (passJetCut[1] == true || passJetCut[2] == true)){ 
       if(fDecay == 6 && useWgammaTemplates == true){
         if(passJetCut[1] == true) histo_Wgamma_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
         if(passJetCut[2] == true) histo_Wgamma_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
-    } // End JES
-  }
+    } 
+  } //end loop over systematics bkg events
+
   nSystEAcc = sqrt(nSystEAcc);
   for(int i=0; i<nChan+1; i++) nSystEAccDecays[i] = sqrt(nSystEAccDecays[i]);
   printf("---\tacceptedSystPresel  %8.3f +/- %8.3f events\n",nSystAcc,nSystEAcc);
   printf("              qqww     ggww     VV       top      dyll     wjets    vg       Ztautau    ggZZ\n");
   printf("CLsSystAcc : %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f\n",nSystAccDecays[0],nSystAccDecays[1],nSystAccDecays[2],nSystAccDecays[3],nSystAccDecays[4],nSystAccDecays[5],nSystAccDecays[6],nSystAccDecays[7],nSystAccDecays[8]);
   printf("CLsSystEAcc: %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f\n",nSystEAccDecays[0],nSystEAccDecays[1],nSystEAccDecays[2],nSystEAccDecays[3],nSystEAccDecays[4],nSystEAccDecays[5],nSystEAccDecays[6],nSystEAccDecays[7],nSystEAccDecays[8]);
+
+
+  //****************************************************************************
+  //
+  // Loop Over Data Sample
+  //
+  //****************************************************************************
 
   data->SetBranchAddress( "cuts"         , &cuts         );
   data->SetBranchAddress( "dstype"       , &dstype	 );
@@ -1966,11 +2469,22 @@ void PlotHiggsRes
     data->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)data->GetEntries());
 
+    //----------------------------------------------------------------------------
+    //for data require that the event fired one of the designated signal triggers
+    //----------------------------------------------------------------------------
     if(dstype == SmurfTree::data &&
       (cuts & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
     if(dstype == SmurfTree::data && run <  minRun) continue;
     if(dstype == SmurfTree::data && run >  maxRun) continue;
 
+    //----------------------------------------------------------------------------
+    //define jet bin. 
+    //For 2-Jet Bin:
+    //  - apply "central jet veto"
+    //    ie. no third jet above 30 GeV that lies between the 
+    //    first two jets in pseudorapidity
+    //  - VBF jets must have |eta| < 4.5 (instead of 5.0)
+    //----------------------------------------------------------------------------
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
       if(jet3->pt() <= 30)					           Njet3 = 2;
@@ -1991,9 +2505,15 @@ void PlotHiggsRes
     if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
     if(dilep->pt() <= 45) passNewCuts = false;
 
+    //----------------------------------------------------------------------------
+    //To create the DY bkg systematics MVA shapes (makeZjetsTemplates == true)
+    //we loosen the MET cut to "minmet > 20 GeV". 
+    //----------------------------------------------------------------------------
     if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
+    //----------------------------------------------------------------------------
     // WW Preselection
+    //----------------------------------------------------------------------------
     if( passJetCut[0]==false                                             ) continue; // select n-jet type events
     if( dilep->mass() > dilmass_cut 					 ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
@@ -2021,6 +2541,12 @@ void PlotHiggsRes
     else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
     if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
+
+    //----------------------------------------------------------------------------
+    // Define Final States:
+    // 5: Same Flavor
+    // 6: Opposite Flavor
+    //----------------------------------------------------------------------------
     bool wwDecayCut = true;
     if     (wwDecay == 0) wwDecayCut = (type == SmurfTree::mm);
     else if(wwDecay == 1) wwDecayCut = (type == SmurfTree::ee);
@@ -2044,11 +2570,20 @@ void PlotHiggsRes
     //bdtg = (dilep->mass()-12.0)/(dilmass_cut-12.0);
     //if(bdtg<=0) bdtg = 0.001; if(bdtg>=1) bdtg = 0.999; bdtg = (bdtg-0.5)*2.0;
 
+
+    //----------------------------------------------------------------------------
+    // Weights for signal injection study
+    //----------------------------------------------------------------------------
     double myWeight = 1.0;
     if(signalInjection == true) {
       myWeight = sfWeightPU*sfWeightEff*sfWeightTrig*sfWeightHPt*scaleFactorLum*scale1fb;
     }
 
+    //----------------------------------------------------------------------------
+    //
+    // Higgs Signal Selection Cuts
+    //
+    //----------------------------------------------------------------------------
     double theCutPtMinLow = cutPtMinLow (mH, type);
     bool passAllCuts = dilep->mass()         < theCutMassHigh &&
         	       mt		     > theCutMTLow &&
@@ -2056,6 +2591,10 @@ void PlotHiggsRes
         	       lep1->pt()	     > theCutPtMaxLow &&
         	       lep2->pt()	     > theCutPtMinLow &&
         	       dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh;
+
+    //----------------------------------------------------------------------------
+    // VBF selection cuts for 2-Jet bin
+    //----------------------------------------------------------------------------
     if(nJetsType == 2){
       int centrality = 0;
       if(((jet1->eta()-lep1->eta() > 0 && jet2->eta()-lep1->eta() < 0) ||
@@ -2063,15 +2602,23 @@ void PlotHiggsRes
          ((jet1->eta()-lep2->eta() > 0 && jet2->eta()-lep2->eta() < 0) ||
           (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
       passAllCuts = (*jet1+*jet2).M() > 450. &&
-                    TMath::Abs(jet1->eta()-jet2->eta()) > 3.5 &&
-		    (mH > 200 || dilep->mass()< 100.) &&
-		    centrality == 1;
+        TMath::Abs(jet1->eta()-jet2->eta()) > 3.5 &&
+        (mH > 200 || dilep->mass()< 100.) &&
+        centrality == 1;
     }
+
+    //----------------------------------------------------------------------------
+    // Data yields for Cut-Based analysis
+    //----------------------------------------------------------------------------
     if(passAllCuts == true) {
       nDatCut = nDatCut + myWeight;
       datMVA[5]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), myWeight);
     }
 
+    //----------------------------------------------------------------------------
+    // Data yields and fill MVA output distributions for MVA Shape analysis
+    // Apply mT_Higgs cut for MVA Shape analysis
+    //----------------------------------------------------------------------------
     bool passMVAPreselCuts = mt > 80 && mt < mH; if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true){
       nDatAcc = nDatAcc + myWeight;
@@ -2086,7 +2633,11 @@ void PlotHiggsRes
       datMVA[1]->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),   myWeight);
       datMVA[2]->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),     myWeight);
       datMVA[3]->Fill(TMath::Max(TMath::Min((double)knn,maxHis[3]-0.001),minHis[3]+0.001),    myWeight);
-      datMVA[4]->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+      datMVA[4]->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),   myWeight);
+
+      //----------------------------------------------------------------------------
+      // Data yields for MVA Cut analysis
+      //----------------------------------------------------------------------------
       bool passFinalCut = false;
       if     (useVar == 0 && bdt        > useCut) {nDatMVA += myWeight; passFinalCut = true;}
       else if(useVar == 1 && bdtd       > useCut) {nDatMVA += myWeight; passFinalCut = true;}
@@ -2099,7 +2650,15 @@ void PlotHiggsRes
 	histoD->Fill(myVar,myWeight);
       }
     } // passMVAPreselCuts
-  }
+  } //end loop over data events
+
+
+
+  //****************************************************************************
+  //
+  // Print Summary Information
+  //
+  //****************************************************************************
 
   printf("--- Finished Data loop\n");
   printf("---\tacceptedSPresel  %8.3f +/- %8.3f events\n",nSigAcc[0],nSigEAcc[0]);
@@ -2127,21 +2686,42 @@ void PlotHiggsRes
   printf("CLsECut: %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f\n",nSigECut[0]/nSigCut[0],nBgdECutDecays[0],nBgdECutDecays[1],nBgdECutDecays[2],nBgdECutDecays[3],nBgdECutDecays[4],nBgdECutDecays[5],nBgdECutDecays[6],nBgdECutDecays[7]);
   printf("CLsEMVA: %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f\n",nSigEMVA[0]/nSigMVA[0],nBgdEMVADecays[0],nBgdEMVADecays[1],nBgdEMVADecays[2],nBgdEMVADecays[3],nBgdEMVADecays[4],nBgdEMVADecays[5],nBgdEMVADecays[6],nBgdEMVADecays[7]);
 
-  // uncertainties for DY
+
+  //----------------------------------------------------------------------------
+  // Systematic Uncertainties for DY
   // VERY CAREFUL HERE!!!, if we don't use bdtd or change binning!,it has to be changed
+  // 
+  //----------------------------------------------------------------------------
   if(useZjetsTemplates == true){
-    hDZjetsTemplate->Scale(DYXS[0]); // normalize for DY background
+    
+    //----------------------------------------------------------------------------
+    // hDZjetsTemplate is the nominal MVA shape for the DY bkg
+    // normalize the histogram to the predicted DY background yield
+    // 
+    // histo_Zjets_CMS_MVAZBounding   : nominal MVA shape
+    // histo_Zjets_CMS_MVAZBoundingUp : systematics shape (with Met>20 cut)
+    //----------------------------------------------------------------------------
+    hDZjetsTemplate->Scale(DYXS[0]); 
     histo_Zjets_CMS_MVAZBounding->Add(hDZjetsTemplate);
+
+    //Check that nominal shape and systematics shape has the same normalization
     if(TMath::Abs(histo_Zjets_CMS_MVAZBounding->GetSumOfWeights()-histo_Zjets_CMS_MVAZBoundingUp->GetSumOfWeights())/
                   histo_Zjets_CMS_MVAZBounding->GetSumOfWeights() > 0.00001) 
       {printf("Different Zjets norm %f - %f!\n",histo_Zjets_CMS_MVAZBounding  ->GetSumOfWeights(),
                                                 histo_Zjets_CMS_MVAZBoundingUp->GetSumOfWeights()); return;}
 
+    //rebin the MVA shape histograms
     histo_Zjets_CMS_MVAZBounding->Rebin(rebinMVAHist);
     histo_Zjets_CMS_MVAZBoundingUp->Rebin(rebinMVAHist);
     histo_Zjets_CMS_MVAZBoundingDown->Rebin(rebinMVAHist);
     if(histo_Zjets_CMS_MVAZBoundingUp->GetNbinsX() != histo_Zjets_CMS_MVAZBounding->GetNbinsX()) {printf("Different binning in Zjets!\n"); return;}
 
+    
+    //----------------------------------------------------------------------------
+    // Construct Opposite Bounding Shape
+    // histo_Zjets_CMS_MVAZBoundingDown: mirror the difference between nominal 
+    //                                   shape and the systematics shape
+    //----------------------------------------------------------------------------
     for(int i=1; i<=histo_Zjets_CMS_MVAZBounding->GetNbinsX(); i++){
       double mean = histo_Zjets_CMS_MVAZBounding  ->GetBinContent(i);
       double up   = histo_Zjets_CMS_MVAZBoundingUp->GetBinContent(i);
@@ -2152,6 +2732,10 @@ void PlotHiggsRes
     if(histo_Zjets_CMS_MVAZBoundingDown->GetSumOfWeights() > 0)
        histo_Zjets_CMS_MVAZBoundingDown->Scale(histo_Zjets_CMS_MVAZBoundingUp->GetSumOfWeights()/histo_Zjets_CMS_MVAZBoundingDown->GetSumOfWeights());
 
+    //----------------------------------------------------------------------------
+    // Add in the WZ,ZZ to the "Zjets" MVA shape, 
+    // but leave them as the nominal shape
+    //----------------------------------------------------------------------------
     printf("VV norm %f\n",histoVV->GetSumOfWeights());
     histoVV->Rebin(rebinMVAHist);
     histo_Zjets_CMS_MVAZBoundingUp  ->Add(histoVV);
@@ -2163,6 +2747,9 @@ void PlotHiggsRes
     printf("Zjets norm up/default/down: %f/%f/%f\n",histo_Zjets_CMS_MVAZBoundingUp->GetSumOfWeights(),bgdMVADecays[4][4]->GetSumOfWeights(),histo_Zjets_CMS_MVAZBoundingDown->GetSumOfWeights());
   }
 
+  //----------------------------------------------------------------------------
+  // Compute DY Bkg Uncertainties on the yield
+  //----------------------------------------------------------------------------
   if(TMath::Abs(DYXS[0]+VVXS[0]-nBgdAccDecays[4]) > 0.01) {printf("Problem: %f %f %f\n",DYXS[0],VVXS[0],nBgdAccDecays[4]); assert(0);}
   if(TMath::Abs(DYXS[1]+VVXS[1]-nBgdCutDecays[4]) > 0.01) {printf("Problem: %f %f %f\n",DYXS[1],VVXS[1],nBgdCutDecays[4]); assert(0);}
   if(TMath::Abs(DYXS[2]+VVXS[2]-nBgdMVADecays[4]) > 0.01) {printf("Problem: %f %f %f\n",DYXS[2],VVXS[2],nBgdMVADecays[4]); assert(0);}
@@ -2172,6 +2759,8 @@ void PlotHiggsRes
                                              VVXS[1]*VVXS[1]*0.10*0.10)/nBgdCutDecays[4]; else ZXS_E[1] = 0;
   if(nBgdMVADecays[4] > 0.0) ZXS_E[2] = sqrt(DYXS[2]*DYXS[2]*(DYBkgScaleFactorKappa(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorKappa(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))-1.0)+
                                              VVXS[2]*VVXS[2]*0.10*0.10)/nBgdMVADecays[4]; else ZXS_E[2] = 0;
+
+
   //----------------------------------------------------------------------------
   // Drawing part - c1
   //----------------------------------------------------------------------------
@@ -2360,11 +2949,21 @@ void PlotHiggsRes
       }
     }
 
+
+    //----------------------------------------------------------------------------
+    //
+    // Fill Data Cards and generate MVA shape histograms
+    // 
+    //----------------------------------------------------------------------------
     char outputLimits[200];
     //sprintf(outputLimits,"output/histo_limits_%s_%dj_chan%d_mh%d.root",outTag.Data(),nJetsType,wwDecay,mH);     
     sprintf(outputLimits,"hww%s_%dj.input.root",finalStateName,nJetsType);     
     TFile* outFileLimits = new TFile(outputLimits,"recreate");
     outFileLimits->cd();
+
+    //----------------------------------------------------------------------------
+    // Nominal Shapes
+    //----------------------------------------------------------------------------
     histo_ggH	 ->Write();
     histo_qqH	 ->Write();
     histo_WH	 ->Write();
@@ -2392,10 +2991,21 @@ void PlotHiggsRes
     cout << histo_Wjets ->GetSumOfWeights() << " ";
     cout << histo_Wgamma->GetSumOfWeights() << " ";
     cout << histo_Ztt   ->GetSumOfWeights() << endl;
+
+    //----------------------------------------------------------------------------
+    // DY Bkg systematics shapes
+    //----------------------------------------------------------------------------
     if(useZjetsTemplates == true){
       histo_Zjets_CMS_MVAZBoundingUp->Write();
       histo_Zjets_CMS_MVAZBoundingDown->Write();
     }
+
+    //----------------------------------------------------------------------------
+    // WW Bkg systematics shapes
+    // Rebin, normalize histograms to nominal WW bkg yield
+    // MVAWWBounding : mirror the difference between nominal shape (Madgraph) and 
+    //                 systematics shape (MC@NLO)
+    //----------------------------------------------------------------------------
     if(useWWTemplates == true){
       histo_qqWW_CMS_MVAWWBoundingUp  ->Rebin(rebinMVAHist);
       histo_qqWW_CMS_MVAWWBoundingDown->Rebin(rebinMVAHist);
@@ -2424,6 +3034,13 @@ void PlotHiggsRes
       histo_qqWW_CMS_MVAWWNLOBoundingUp  ->Write();
       histo_qqWW_CMS_MVAWWNLOBoundingDown->Write();
     }
+
+    //----------------------------------------------------------------------------
+    // Top Bkg systematics shapes
+    // Rebin, normalize histograms to nominal WW bkg yield
+    // MVATopBounding : mirror the difference between nominal shape (POWHEG) and 
+    //                 systematics shape (Madgraph)
+    //----------------------------------------------------------------------------
     if(useTopTemplates == true){
       histo_Top_CMS_MVATopBoundingUp  ->Scale(histo_Top->GetSumOfWeights()/histo_Top_CMS_MVATopBoundingUp  ->GetSumOfWeights());
       histo_Top_CMS_MVATopBoundingUp  ->Rebin(rebinMVAHist);
@@ -2439,6 +3056,11 @@ void PlotHiggsRes
       histo_Top_CMS_MVATopBoundingUp  ->Write();
       histo_Top_CMS_MVATopBoundingDown->Write();
     }
+
+    //----------------------------------------------------------------------------
+    // Systematics Shapes due to MC statistics
+    // Left 1/3 increases by 1sigma, right 1/3 decreases by 1sigma
+    //----------------------------------------------------------------------------
     if(useStatTemplates == true){
       histo_ttH_CMS_MVAttHStatBoundingUp	 ->Rebin(rebinMVAHist);
       histo_ttH_CMS_MVAttHStatBoundingDown       ->Rebin(rebinMVAHist);
@@ -2528,6 +3150,15 @@ void PlotHiggsRes
       histo_Ztt_CMS_MVAZttStatBoundingUp	 ->Write();
       histo_Ztt_CMS_MVAZttStatBoundingDown       ->Write();
     }
+
+
+    //----------------------------------------------------------------------------
+    // W+Jets Bkg Systematics Shapes 
+    // MVAWBounding   : jet pt spectrum systematics, mirror the difference between
+    //                  the nominal and the "up" systematic fake rates
+    // MVAWMCBounding : MC closure test, mirror difference between the nominal and
+    //                  the shape from W+Jets MC with data fake rate applied
+    //----------------------------------------------------------------------------
     if(useWJetsTemplates == true){
       histo_Wjets_CMS_MVAWBoundingUp 	 ->Rebin(rebinMVAHist);
       histo_Wjets_CMS_MVAWBoundingDown	 ->Rebin(rebinMVAHist);
@@ -2563,6 +3194,11 @@ void PlotHiggsRes
       histo_Wjets_CMS_MVAWMCBoundingUp  ->Write();
       histo_Wjets_CMS_MVAWMCBoundingDown->Write();
     }
+
+
+    //----------------------------------------------------------------------------
+    // ggH Systematics Shapes : missing higher order corrections
+    //----------------------------------------------------------------------------
     if(useggHTemplates == true){
       histo_ggH_CMS_MVAggHBoundingUp  ->Rebin(rebinMVAHist);
       histo_ggH_CMS_MVAggHBoundingDown->Rebin(rebinMVAHist);
@@ -2571,6 +3207,13 @@ void PlotHiggsRes
       histo_ggH_CMS_MVAggHBoundingUp  ->Write();
       histo_ggH_CMS_MVAggHBoundingDown->Write();
     }
+ 
+    //----------------------------------------------------------------------------
+    // Systematics Shapes from 
+    // - Lepton Efficiencies
+    // - Lepton Resolution
+    // - MET Resolution
+    //----------------------------------------------------------------------------
     if(useExpTemplates == true){
       histo_ttH_CMS_MVALepEffBoundingUp 	 ->Rebin(rebinMVAHist);
       histo_ttH_CMS_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
@@ -2781,6 +3424,11 @@ void PlotHiggsRes
       histo_Ztt_CMS_MVAMETResBoundingUp 	 ->Write();
       histo_Ztt_CMS_MVAMETResBoundingDown	 ->Write();
     }
+
+    //----------------------------------------------------------------------------
+    // Systematics Shapes from 
+    // - Jet Energy Scale 
+    //----------------------------------------------------------------------------
     if(useJESTemplates == true){
       histo_ttH_CMS_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist);
       histo_ttH_CMS_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
@@ -2829,6 +3477,12 @@ void PlotHiggsRes
     }
     outFileLimits->Close();
 
+
+    //----------------------------------------------------------------------------
+    // 
+    // Systematics For Yields
+    //
+    //----------------------------------------------------------------------------
     double theoryUncXS_HighMH = 1.0;
     if(mH >= 200) theoryUncXS_HighMH = 1.0+1.5*(mH/1000.0)*(mH/1000.0)*(mH/1000.0);
     double wwXS_E_jet_extrap = 1.060;
@@ -2867,7 +3521,11 @@ void PlotHiggsRes
     double yieldE[13],yield[13];
     int nData;
     int nTotalBins = 1; // histo_VH->GetNbinsX();
-    //********SHAPE*******************
+
+
+    //----------------------------------------------------------------------------
+    // Yields for MVA Shape Analysis
+    //----------------------------------------------------------------------------
     char outputLimitsShape[200];
     for(int i=1; i<=nTotalBins; i++){
       if(nTotalBins != 1){
@@ -2955,6 +3613,10 @@ void PlotHiggsRes
       char theWgammaString[20];
       if(histo_Wgamma->GetSumOfWeights() > 0) sprintf(theWgammaString,"1.000");
       else                                    sprintf(theWgammaString,"  -  ");
+
+      //----------------------------------------------------------------------------
+      // Produce output cards for MVA Shape analysis
+      //----------------------------------------------------------------------------
       ofstream newcardShape;
       newcardShape.open(outputLimitsShape);
       newcardShape << Form("imax 1 number of channels\n");
@@ -3074,7 +3736,13 @@ void PlotHiggsRes
                  nBgdCutDecays[0]+nBgdCutDecays[1]+nBgdCutDecays[2]+nBgdCutDecays[3]+
 		 nBgdCutDecays[4]+nBgdCutDecays[5]+nBgdCutDecays[6]+nBgdCutDecays[7])+0.5;
     }
-    //********CUT*******************
+
+
+
+
+    //----------------------------------------------------------------------------
+    // Produce output cards for cut-based analysis
+    //----------------------------------------------------------------------------
     char outputLimitsCut[200];
     sprintf(outputLimitsCut,"output/histo_limits_%s_%dj_chan%d_mh%d_cut.txt",outTag.Data(),nJetsType,wwDecay,mH);     
     ofstream newcardCut;
@@ -3137,7 +3805,10 @@ void PlotHiggsRes
                  nBgdMVADecays[0]+nBgdMVADecays[1]+nBgdMVADecays[2]+nBgdMVADecays[3]+
 		 nBgdMVADecays[4]+nBgdMVADecays[5]+nBgdMVADecays[6]+nBgdMVADecays[7])+0.5;
     }
-    //***********MVA***************
+
+    //----------------------------------------------------------------------------
+    // Produce output cards for MVA cut analysis
+    //----------------------------------------------------------------------------
     char outputLimitsMVA[200];
     sprintf(outputLimitsMVA,"output/histo_limits_%s_%dj_chan%d_mh%d_mva.txt",outTag.Data(),nJetsType,wwDecay,mH);     
     ofstream newcardMVA;
