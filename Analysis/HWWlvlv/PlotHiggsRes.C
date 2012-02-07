@@ -3708,7 +3708,7 @@ void PlotHiggsRes
     newcardCut << Form("QCDscale_ggH1in       	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[1]);  
     newcardCut << Form("QCDscale_ggH2in       	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[2]);  
     newcardCut << Form("QCDscale_qqH          	   lnN   -     -   %5.3f   -	 -     -     -     -	 -     -     -     -  \n",XS_QCDscale_qqH);
-    newcardCut << Form("QCDscale_VH           	   lnN %5.3f %5.3f   -     -	 -     -     -     -	 -     -     -     -  \n",XS_QCDscale_VH);		   
+    newcardCut << Form("QCDscale_VH           	   lnN %5.3f %5.3f   -     -	 -     -     -     -	 -     -     -     -  \n",XS_QCDscale_VH,XS_QCDscale_VH);		   
     newcardCut << Form("QCDscale_WW		   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[0]);  
     newcardCut << Form("QCDscale_WW1in  	   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[1]);  
     newcardCut << Form("QCDscale_WW2in  	   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[2]);  
@@ -3774,7 +3774,7 @@ void PlotHiggsRes
     newcardMVA << Form("QCDscale_ggH1in       	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[1]);  
     newcardMVA << Form("QCDscale_ggH2in       	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[2]);  
     newcardMVA << Form("QCDscale_qqH          	   lnN   -     -   %5.3f   -	 -     -     -     -	 -     -     -     -  \n",XS_QCDscale_qqH);
-    newcardMVA << Form("QCDscale_VH           	   lnN %5.3f %5.3f   -     -	 -     -     -     -	 -     -     -     -  \n",XS_QCDscale_VH);		    
+    newcardMVA << Form("QCDscale_VH           	   lnN %5.3f %5.3f   -     -	 -     -     -     -	 -     -     -     -  \n",XS_QCDscale_VH,XS_QCDscale_VH);		    
     newcardMVA << Form("QCDscale_WW		   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[0]);  
     newcardMVA << Form("QCDscale_WW1in  	   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[1]);  
     newcardMVA << Form("QCDscale_WW2in  	   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[2]);  
