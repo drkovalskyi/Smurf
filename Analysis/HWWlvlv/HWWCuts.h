@@ -8,7 +8,8 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 
 double DileptonMassPreselectionCut( double mH ) {
   float dilmass_cut = 10000;   
-  if     ( mH >= 110 &&
+  if     ( mH == 0) dilmass_cut = 14000;
+  else if( mH >= 110 &&
            mH <  118 ) dilmass_cut =  70.0;
   else if( mH >= 118 &&
            mH <  125 ) dilmass_cut =  70.0;
