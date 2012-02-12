@@ -1,4 +1,4 @@
-//root -l -q -b WWBkg/MakeWWControlRegionPlots.C+\(0,\"default\",\"data/backgroundC_skim2.root\"\,\"data/data_2l_skim2.root\",4,13\) ;
+//root -l -q -b WWControlRegion/MakeWWControlRegionPlots.C+\(0,\"default\",\"data/backgroundC_skim2.root\"\,\"data/data_2l_skim2.root\",4,13\) ;
 
 #include <TROOT.h>
 #include <TFile.h>
@@ -28,7 +28,7 @@
 #include "WWBkgScaleFactors.h"
 #include "OtherBkgScaleFactors.h"
 #include "HWWCuts.h"
-#include "/home/sixie/CMSSW_analysis/src/EWKAna/Thesis/Selection/StandardPlot.C"
+#include "StandardPlot.C"
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
