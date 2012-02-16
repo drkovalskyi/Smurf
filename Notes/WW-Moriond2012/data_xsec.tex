@@ -8,6 +8,8 @@ We now calculate the $\WW$ production cross section according to equation \ref{e
 
 Where $N_{data}$ is the number of events observed in data, $N_{bkg}$ is the estimated number
 of background events, which are summarised with their uncertainties in Table \ref{tab:data_yields}.
+The distributions of the $p_{T}$ of the leading and trailing leptons, and the dilepton $p_{T}$ 
+and invariant mass are shown in Figure \ref{fig:inclplots}.
 The efficiency to select $\sigma_{WW \to 2\ell 2\nu}$
 candidates, $\varepsilon$, is computed as the weighted mean of
 the $qq\to\WW$ and $gg\to\WW$ efficiencies in simulation.
@@ -18,40 +20,53 @@ and the branching ratio $BR(WW \to \ell \nu) =$ 0.1080 $\pm$ 0.0009~\cite{pdg}.
 
 \begin{table}[ht!]
   \begin{center}
-  \begin{tabular} {|c|c|c|c|}
+  \begin{tabular} {|c|c|}
 \hline
-Sample                & Total Yield $\pm$ stat $\pm$ syst & $ee/\mu\mu$  & $e\mu/\mu e$ \\ \hline \hline
-%$qqWW$                & 728.40 $\pm$ 4.11 $\pm$ 45.57 \\ \hline
-%$ggWW$                & 43.22 $\pm$ 0.58 $\pm$ 2.70 \\ \hline
-%$t\bar{t} + tW$       & 125.27 $\pm$ 2.26 $\pm$ 24.43 \\ \hline
-%$W+jets$              & 59.61 $\pm$ 3.93 $\pm$ 21.46 \\ \hline
-%$WZ$/$ZZ$             & 27.37 $\pm$ 0.42 $\pm$ 2.02 \\ \hline
-%$Z/\gamma*$           & 12.72 $\pm$ 3.44 $\pm$ 5.47 \\ \hline
-%$W\gamma*/W+\gamma$   & 18.62 $\pm$ 3.18 $\pm$ 4.27 \\ \hline \hline
-%Total Bkgd.           & 244.31 $\pm$ 6.54 $\pm$ 33.31 \\ \hline \hline
-%Total Bkgd.+Signal    & 1015.93 $\pm$ 7.75 $\pm$ 56.51 \\ \hline \hline
-%Data                  & 1130 \\ \hline
-$qqWW$                & 728.40 $\pm$ 4.11 $\pm$ 43.42   & 279.29 $\pm$ 2.55 $\pm$ 16.65   & 449.10 $\pm$ 3.23 $\pm$ 26.77 \\ \hline
-$ggWW$                & 43.22 $\pm$ 0.58 $\pm$ 13.20   & 16.65 $\pm$ 0.36 $\pm$ 5.08   & 26.57 $\pm$ 0.46 $\pm$ 8.11 \\ \hline\hline
-$t\bar{t} + tW$       & 125.27 $\pm$ 2.26 $\pm$ 24.43   & 45.13 $\pm$ 1.35 $\pm$ 8.80   & 80.14 $\pm$ 1.81 $\pm$ 15.63 \\ \hline
-$W+jets$              & 59.61 $\pm$ 3.93 $\pm$ 21.46   & 16.40 $\pm$ 2.28 $\pm$ 5.91   & 43.21 $\pm$ 3.20 $\pm$ 15.55 \\ \hline
-$WZ$/$ZZ$             & 27.37 $\pm$ 0.42 $\pm$ 2.02   & 17.05 $\pm$ 0.36 $\pm$ 1.16   & 10.32 $\pm$ 0.22 $\pm$ 1.01 \\ \hline
-$Z/\gamma*$           & 12.72 $\pm$ 3.44 $\pm$ 5.47   & 12.72 $\pm$ 3.44 $\pm$ 5.47   & 0.00 $\pm$ 0.00 $\pm$ 0.00 \\ \hline
-$W\gamma*/W+\gamma$   & 18.62 $\pm$ 3.18 $\pm$ 4.38   & 4.97 $\pm$ 1.31 $\pm$ 1.17   & 13.64 $\pm$ 2.90 $\pm$ 3.21 \\ \hline \hline
-Total Bkgd.           & 244.31 $\pm$ 6.54 $\pm$ 33.32   & 96.27 $\pm$ 4.55 $\pm$ 12.04   & 148.04 $\pm$ 4.69 $\pm$ 22.30 \\ \hline \hline
-Total Bkgd.+Signal    & 1015.93 $\pm$ 7.75 $\pm$ 56.52   & 392.21 $\pm$ 5.23 $\pm$ 21.24   & 623.72 $\pm$ 5.71 $\pm$ 35.91 \\ \hline \hline
-Data                  & 1130                             & 462                             & 668 \\ \hline
+Sample                & Yield $\pm$ stat $\pm$ syst \\ \hline \hline
+$qqWW$                & 728.4 $\pm$  4.1 $\pm$ 46.0  \\ \hline
+$ggWW$                & 43.2 $\pm$  0.6 $\pm$ 13.2  \\ \hline
+$t\bar{t} + tW$      & 125.3 $\pm$  2.3 $\pm$ 23.4  \\ \hline
+$W+jets$              & 59.6 $\pm$  3.9 $\pm$ 21.5  \\ \hline
+$WZ$/$ZZ$             & 27.4 $\pm$  0.4 $\pm$  2.1  \\ \hline
+$Z/\gamma*$          & 12.7 $\pm$  3.4 $\pm$  5.5  \\ \hline
+$W\gamma*/W+\gamma$ & 18.6 $\pm$  3.2 $\pm$  4.4  \\ \hline \hline
+Total Bkgd.           & 244.3 $\pm$  6.5 $\pm$ 32.6  \\ \hline \hline
+Total Bkgd.+Signal    & 1015.9 $\pm$  7.7 $\pm$ 57.9  \\ \hline \hline
+Data                  & 1130 \\ \hline
 \end{tabular}
   \caption{Expected number of signal and background events from the data-driven methods for
-  an integrated luminosity of \intlumi after applying the selection requirements.}
+  an integrated luminosity of \intlumi after applying the selection requirements 
+in the $\mu\mu$, $\mu{e}$, $e\mu$ and $ee$  channels.}
    \label{tab:data_yields}
   \end{center}
 \end{table}
+
+%%%%%%%%
+\begin{figure}[!hbtp]
+\begin{center}
+\subfigure[Leading lepton $p_{T}$]{\label{subfig:fig_inclplots_pt1}
+\includegraphics[width=.45\textwidth]{figures/pas_pt1_incl.pdf}}
+\subfigure[Trailing lepton $p_{T}$]{\label{subfig:fig_inclplots_pt2}
+\includegraphics[width=.45\textwidth]{figures/pas_pt2_incl.pdf}}
+\subfigure[Dilepton system $p_{T}$]{\label{subfig:fig_inclplots_ptll}
+\includegraphics[width=.45\textwidth]{figures/pas_ptll_incl.pdf}}
+\subfigure[Dilepton system invariant mass]{\label{subfig:fig_inclplots_M}
+\includegraphics[width=.45\textwidth]{figures/pas_mll_incl.pdf}}
+\caption{Kinematic distributions for expected and observed events in the  $\mu\mu$, $\mu{e}$, $e\mu$ and $ee$ channels.
+The dilepton system invariant mass distribution has the $Z$ mass veto relaxed.
+The uncertainty on the expected events includes both statistical and systematic components.}
+\label{fig:inclplots}
+\end{center}
+\end{figure}
+%%%%%%%%
+
 
 Using the inputs described previously and Equation \ref{eq:mainformula},
 we obtain the following $WW$ cross-section measurement:
 
 \begin{equation*}
-\sigma_{WW}  = 53.95 \pm 2.05~\mathrm{(stat.)} \pm 4.32~\mathrm{(syst.)} \pm 2.43~\mathrm{(lumi.)~pb}.
+\sigma_{WW}  = 53.95 \pm 2.05~\mathrm{(stat.)} \pm 4.30~\mathrm{(syst.)} \pm 2.43~\mathrm{(lumi.)~pb}.
 \end{equation*}
+
+The cross section obtained in each dilepton channel is documented in Appendix \ref{sec:xsec_per_channel}.
 
