@@ -3,6 +3,7 @@
 
 #include "TFile.h"
 #include "TTree.h"
+#include "TError.h"
 
 
 //
@@ -18,17 +19,27 @@ class LeptonTree {
   /// bit map
   /// DON'T CHANGE ORDER
   enum LeptonSelection {
+
     PassEleSC                       = 1UL<<0,  // 
     PassEleReco                     = 1UL<<1,  // 
-    PassEleDenominatorV4            = 1UL<<2,  // 
-    PassEleMVAWithIPInfo            = 1UL<<3,  // 
-    PassEleMVAIDIsoCombined         = 1UL<<4,  // 
-    PassEleTrigDoubleEleLeadingLeg  = 1UL<<5,  // 
-    PassEleTrigDoubleEleTrailingLeg = 1UL<<6,  // 
-    PassEleTrigSingleEle            = 1UL<<7,  // 
-    PassEleTrigMuEGEleLeadingLeg    = 1UL<<8,  // 
-    PassEleTrigMuEGEleTrailingLeg   = 1UL<<9,  // 
 
+    PassEleFOV4                     = 1UL<<2,  // 
+    PassEleMVA                      = 1UL<<3,  // 
+    PassEleIso                      = 1UL<<5,  //
+
+    PassEleTrigDoubleEleLeadingLeg  = 1UL<<6,  // 
+    PassEleTrigDoubleEleTrailingLeg = 1UL<<7,  // 
+    PassEleTrigSingleEle            = 1UL<<8,  // 
+    PassEleTrigMuEGEleLeadingLeg    = 1UL<<9,  // 
+    PassEleTrigMuEGEleTrailingLeg   = 1UL<<10,  // 
+
+    PassMuFOV1                      = 1UL<<11, //
+    PassMuFOV2                      = 1UL<<11, //
+    PassMuID                        = 1UL<<11, //
+    PassMuIso                       = 1UL<<11, //
+
+
+/*
     PassMuCTFTrack                  = 1UL<<10,  // 
     PassMuGlobalOrTrackerMuon       = 1UL<<11,  // 
     PassMuDenominatorM2             = 1UL<<12,  // 
@@ -39,6 +50,7 @@ class LeptonTree {
     PassMuTrigSingleMu              = 1UL<<17,  // 
     PassMuTrigMuEGMuLeadingLeg      = 1UL<<18,  // 
     PassMuTrigMuEGMuTrailingLeg     = 1UL<<19,  // 
+*/
 
   };
 
@@ -72,7 +84,7 @@ class LeptonTree {
   float          eta_;
   float          phi_;
   float          q_;
-  float          weight_;
+  float          scale1fb_;
   float          leadingAwayJetPt_;
 
  public:
@@ -119,7 +131,7 @@ class LeptonTree {
     tree_->Branch("eta"              , &eta_              ,   "eta/F");
     tree_->Branch("phi"              , &phi_              ,   "phi/F");
     tree_->Branch("q"                , &q_                ,   "q/F");
-    tree_->Branch("weight"           , &weight_           ,   "weight/F");
+    tree_->Branch("scale1fb"           , &scale1fb_           ,   "scale1fb/F");
     tree_->Branch("leadingAwayJetPt"        , &leadingAwayJetPt_        ,   "leadingAwayJetPt/F");
   }
 
@@ -145,7 +157,7 @@ class LeptonTree {
     tree_->SetBranchAddress("eta",          &eta_);
     tree_->SetBranchAddress("phi",          &phi_);
     tree_->SetBranchAddress("q",          &q_);
-    tree_->SetBranchAddress("weight",          &weight_);
+    tree_->SetBranchAddress("scale1fb",          &scale1fb_);
     tree_->SetBranchAddress("leadingAwayJetPt",          &leadingAwayJetPt_);
 
     gErrorIgnoreLevel = currentState;
@@ -178,7 +190,7 @@ LeptonTree::InitVariables(){
     variables_.push_back(std::string("eta" ));
     variables_.push_back(std::string("phi" ));
     variables_.push_back(std::string("q"   ));
-    variables_.push_back(std::string("weight"  ));
+    variables_.push_back(std::string("scale1fb"  ));
     variables_.push_back(std::string("leadingAwayJetPt" ));
 
   }
@@ -195,7 +207,7 @@ LeptonTree::InitVariables(){
   eta_              = -999;
   phi_              = -999;
   q_                = 0;
-  weight_           = 0;
+  scale1fb_           = 0;
   leadingAwayJetPt_        = 0;
 
 }
@@ -215,7 +227,7 @@ LeptonTree::Get(std::string value)
   if(value=="eta"             ) { return this->eta_;	          }
   if(value=="phi"             ) { return this->phi_;              }
   if(value=="q"               ) { return this->q_;	          }
-  if(value=="weight"          ) { return this->weight_;	          }
+  if(value=="scale1fb"          ) { return this->scale1fb_;	          }
   if(value=="leadingAwayJetPt" ) { return this->leadingAwayJetPt_; }
 
   return -9999.; 
