@@ -67,10 +67,10 @@ void PlotHiggsRes
   bool isSM4          = false;
 
   verboseLevel = TheVerboseLevel;
-  bool useZjetsTemplates   = true;
+  bool useZjetsTemplates   = true; // default is true
   bool useWWTemplates      = true;
   bool useStatTemplates    = true;
-  bool useExpTemplates     = true;
+  bool useExpTemplates     = true; // default is true
   bool useJESTemplates     = true;
   bool useWJetsTemplates   = true;
   bool useWJetsMCTemplates = true;
@@ -295,6 +295,10 @@ void PlotHiggsRes
   else                          printf("***********useZjetsTemplates = false***************\n");
   if(useZjetsTemplates == true){
     TFile *fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/histo_Zjets_Templates.root");
+    //TFile *fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/histo_Zjets_Templates_razor.root");
+    //TFile *fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/histo_Zjets_Templates_mll.root");
+    //TFile *fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/histo_Zjets_Templates_mt.root");
+    //TFile *fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/histo_Zjets_Templates_bdtg_razor.root");
     char ZjetsHistName[100];
     sprintf(ZjetsHistName, "hDZjets%d_%d", mH,TMath::Min((int)nJetsType,1));
     hDZjetsTemplate = (TH1D*)(fZjetsTemplatesFile->Get(ZjetsHistName));
@@ -511,9 +515,9 @@ void PlotHiggsRes
   TH1D* histo_ggH_CMS_MVAggHBoundingUp             = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVAggHBoundingUp"));    
   TH1D* histo_ggH_CMS_MVAggHBoundingDown           = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVAggHBoundingDown"));    
 
-  TH1D* histoS = new TH1D("histoS", "histoS", 50, 0, 5);
-  TH1D* histoB = new TH1D("histoB", "histoB", 50, 0, 5);
-  TH1D* histoD = new TH1D("histoD", "histoD", 50, 0, 5);
+  TH1D* histoS = new TH1D("histoS", "histoS", 180, 0, 180);
+  TH1D* histoB = new TH1D("histoB", "histoB", 180, 0, 180);
+  TH1D* histoD = new TH1D("histoD", "histoD", 180, 0, 180);
   histoS->Sumw2();
   histoB->Sumw2();
   histoD->Sumw2();
@@ -941,9 +945,13 @@ void PlotHiggsRes
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    //if(nJetsType == 0) bdtg = (bdtg+1.2)*TMath::Max(TMath::Min((double)knn_wjets,0.99999),0.00001)-1.0;
-    //else               bdtg = (bdtg+1.0)*TMath::Max(TMath::Min((double)bdtg_wjets+1,1.99999),0.00001)/2.0-1.0;
-
+    //bdtg = ((CalcGammaMRstar(*lep1,*lep2)-50.0)/(dilmass_cut-20.0)-0.5)*2.0;
+    //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
+    //bdtg = ((mt-80.0)/(mH-80.0)-0.5)*2.0;
+    //bdtg = (knn-0.5)*2.0;
+    if(bdtg < -1.0) bdtg = -0.999;
+    if(bdtg > +1.0) bdtg =  0.999;
+    
     //bdtg = TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)*
     //       TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)+
     //	   TMath::Max(TMath::Min((bdtg_wjets+1.0)/2.0,1.0),0.0)*
@@ -1061,6 +1069,8 @@ void PlotHiggsRes
       nSigECut[nSigBin] = nSigECut[nSigBin] + myWeight*myWeight;
       sigMVA[5][0]      ->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), myWeight);
       sigMVA[5][nSigBin]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), myWeight);
+      double myVar = dPhi*180.0/TMath::Pi(); myVar = mt;
+      histoS->Fill(myVar,myWeight);
     }
 
     //----------------------------------------------------------------------------
@@ -1164,11 +1174,6 @@ void PlotHiggsRes
       else if(useVar == 2 && nn 	> useCut) {nSigMVA[nSigBin] += myWeight; nSigEMVA[nSigBin] += myWeight*myWeight; passFinalCut = true;}
       else if(useVar == 3 && knn	> useCut) {nSigMVA[nSigBin] += myWeight; nSigEMVA[nSigBin] += myWeight*myWeight; passFinalCut = true;}
       else if(useVar == 4 && bdtg	> useCut) {nSigMVA[nSigBin] += myWeight; nSigEMVA[nSigBin] += myWeight*myWeight; passFinalCut = true;}
-      if(passFinalCut == true){
-        double myVar = dR;
-        //if(jet1->pt()>15&&jet2->pt()>15) myVar = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi();
-        histoS->Fill(myVar,myWeight);
-      }
     } // passMVAPreselCuts
 
     //----------------------------------------------------------------------------
@@ -1411,8 +1416,12 @@ void PlotHiggsRes
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    //if(nJetsType == 0) bdtg = (bdtg+1.2)*TMath::Max(TMath::Min((double)knn_wjets,0.99999),0.00001)-1.0;
-    //else               bdtg = (bdtg+1.0)*TMath::Max(TMath::Min((double)bdtg_wjets+1,1.99999),0.00001)/2.0-1.0;
+    //bdtg = ((CalcGammaMRstar(*lep1,*lep2)-50.0)/(dilmass_cut-20.0)-0.5)*2.0;
+    //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
+    //bdtg = ((mt-80.0)/(mH-80.0)-0.5)*2.0;
+    //bdtg = (knn-0.5)*2.0;
+    if(bdtg < -1.0) bdtg = -0.999;
+    if(bdtg > +1.0) bdtg =  0.999;
 
     //bdtg = TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)*
     //       TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)+
@@ -1649,6 +1658,8 @@ void PlotHiggsRes
       nBgdECutDecays[fDecay] = nBgdECutDecays[fDecay] + newWeight*newWeight;
       bgdMVA[5]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), newWeight);
       bgdMVADecays[5][fDecay]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), newWeight);
+      double myVar = dPhi*180.0/TMath::Pi(); myVar = mt;
+      histoB->Fill(myVar,myWeight);
     }
 
     //----------------------------------------------------------------------------
@@ -1841,9 +1852,6 @@ void PlotHiggsRes
 	else if(fDecay == 4){
 	  VVXS[2] += myWeight;
 	}
-	double myVar = dR;
-	//if(jet1->pt()>15&&jet2->pt()>15) myVar = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi();
-	histoB->Fill(myVar,myWeight);
       }
     } // passMVAPreselCuts
 
@@ -2086,8 +2094,12 @@ void PlotHiggsRes
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    //if(nJetsType == 0) bdtg = (bdtg+1.2)*TMath::Max(TMath::Min((double)knn_wjets,0.99999),0.00001)-1.0;
-    //else               bdtg = (bdtg+1.0)*TMath::Max(TMath::Min((double)bdtg_wjets+1,1.99999),0.00001)/2.0-1.0;
+    //bdtg = ((CalcGammaMRstar(*lep1,*lep2)-50.0)/(dilmass_cut-20.0)-0.5)*2.0;
+    //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
+    //bdtg = ((mt-80.0)/(mH-80.0)-0.5)*2.0;
+    //bdtg = (knn-0.5)*2.0;
+    if(bdtg < -1.0) bdtg = -0.999;
+    if(bdtg > +1.0) bdtg =  0.999;
 
     //bdtg = TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)*
     //       TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)+
@@ -2505,8 +2517,12 @@ void PlotHiggsRes
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    //if(nJetsType == 0) bdtg = (bdtg+1.2)*TMath::Max(TMath::Min((double)knn_wjets,0.99999),0.00001)-1.0;
-    //else               bdtg = (bdtg+1.0)*TMath::Max(TMath::Min((double)bdtg_wjets+1,1.99999),0.00001)/2.0-1.0;
+    //bdtg = ((CalcGammaMRstar(*lep1,*lep2)-50.0)/(dilmass_cut-20.0)-0.5)*2.0;
+    //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
+    //bdtg = ((mt-80.0)/(mH-80.0)-0.5)*2.0;
+    //bdtg = (knn-0.5)*2.0;
+    if(bdtg < -1.0) bdtg = -0.999;
+    if(bdtg > +1.0) bdtg =  0.999;
 
     //bdtg = TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)*
     //       TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)+
@@ -2561,6 +2577,8 @@ void PlotHiggsRes
     if(passAllCuts == true) {
       nDatCut = nDatCut + myWeight;
       datMVA[5]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), myWeight);
+      double myVar = dPhi*180.0/TMath::Pi(); myVar = mt;
+      histoD->Fill(myVar,myWeight);
     }
 
     //----------------------------------------------------------------------------
@@ -2592,11 +2610,6 @@ void PlotHiggsRes
       else if(useVar == 2 && nn         > useCut) {nDatMVA += myWeight; passFinalCut = true;}
       else if(useVar == 3 && knn        > useCut) {nDatMVA += myWeight; passFinalCut = true;}
       else if(useVar == 4 && bdtg       > useCut) {nDatMVA += myWeight; passFinalCut = true;}
-      if(passFinalCut == true){
-	double myVar = dR;
-	//if(jet1->pt()>15&&jet2->pt()>15) myVar = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi();
-	histoD->Fill(myVar,myWeight);
-      }
     } // passMVAPreselCuts
   } // end loop over data events
 
@@ -3440,8 +3453,9 @@ void PlotHiggsRes
     XS_QCDscale_ggH[1] = HiggsSignalQCDScaleKappa("QCDscale_ggH1in",mH,nJetsType);
     XS_QCDscale_ggH[2] = HiggsSignalQCDScaleKappa("QCDscale_ggH2in",mH,nJetsType);
     
+    double XS_PDF_VH = 1.05; 
     double XS_QCDscale_qqH = 1.01; double XS_QCDscale_VH = 1.02; 
-    if(isFermioPhobic == true) {XS_QCDscale_qqH += 0.05; XS_QCDscale_VH += 0.05;}
+    if(isFermioPhobic == true) {XS_QCDscale_qqH += 0.05; XS_QCDscale_VH += 0.05; XS_PDF_VH += 0.00;}
     
     if     (nJetsType == 1) {
       jeteff_E  	= 1.05;
@@ -3607,7 +3621,7 @@ void PlotHiggsRes
       newcardShape << Form("UEPS 		             lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",UEPS);
       newcardShape << Form("theoryUncXS_HighMH               lnN %5.3f %5.3f %5.3f %5.3f   -     -     -     -	   -     -     -     -  \n",theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH);
       newcardShape << Form("pdf_gg		             lnN   -     -     -   %5.3f   -   1.040   -     -     -     -     -     -  \n",pdf_ggH);
-      newcardShape << Form("pdf_qqbar                        lnN 1.050 1.050 1.050   -   1.040   -   1.040   -     -     -   1.040 1.040\n");
+      newcardShape << Form("pdf_qqbar                        lnN %5.3f %5.3f %5.3f   -   1.040   -   1.040   -     -     -   1.040 1.040\n",XS_PDF_VH,XS_PDF_VH,XS_PDF_VH);
       newcardShape << Form("QCDscale_ggH	             lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[0]);  
       newcardShape << Form("QCDscale_ggH1in	             lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[1]);  
       newcardShape << Form("QCDscale_ggH2in	             lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[2]);  
@@ -3703,7 +3717,7 @@ void PlotHiggsRes
     newcardCut << Form("UEPS 		           lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",UEPS);
     newcardCut << Form("theoryUncXS_HighMH         lnN %5.3f %5.3f %5.3f %5.3f   -     -     -     -	 -     -     -     -  \n",theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH);
     newcardCut << Form("pdf_gg                	   lnN   -     -     -   %5.3f   -   1.040   -     -     -     -     -     -  \n",pdf_ggH);
-    newcardCut << Form("pdf_qqbar             	   lnN 1.050 1.050 1.050   -   1.040   -   1.040   -     -     -   1.040 1.040\n");
+    newcardCut << Form("pdf_qqbar             	   lnN %5.3f %5.3f %5.3f   -   1.040   -   1.040   -     -     -   1.040 1.040\n",XS_PDF_VH,XS_PDF_VH,XS_PDF_VH);
     newcardCut << Form("QCDscale_ggH          	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[0]);  
     newcardCut << Form("QCDscale_ggH1in       	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[1]);  
     newcardCut << Form("QCDscale_ggH2in       	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[2]);  
@@ -3769,7 +3783,7 @@ void PlotHiggsRes
     newcardMVA << Form("UEPS 		           lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",UEPS);
     newcardMVA << Form("theoryUncXS_HighMH         lnN %5.3f %5.3f %5.3f %5.3f   -     -     -     -	 -     -     -     -  \n",theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH);
     newcardMVA << Form("pdf_gg                	   lnN   -     -     -   %5.3f   -   1.040   -     -     -     -     -     -  \n",pdf_ggH);
-    newcardMVA << Form("pdf_qqbar             	   lnN 1.050 1.050 1.050   -   1.040   -   1.040   -     -     -   1.040 1.040\n");
+    newcardMVA << Form("pdf_qqbar             	   lnN %5.3f %5.3f %5.3f   -   1.040   -   1.040   -     -     -   1.040 1.040\n",XS_PDF_VH,XS_PDF_VH,XS_PDF_VH);
     newcardMVA << Form("QCDscale_ggH          	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[0]);  
     newcardMVA << Form("QCDscale_ggH1in       	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[1]);  
     newcardMVA << Form("QCDscale_ggH2in       	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[2]);  
