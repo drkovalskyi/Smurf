@@ -5,7 +5,6 @@
 #include "TTree.h"
 #include "TError.h"
 
-
 //
 // Ntuple structure:
 //
@@ -23,34 +22,29 @@ class LeptonTree {
     PassEleSC                       = 1UL<<0,  // 
     PassEleReco                     = 1UL<<1,  // 
 
-    PassEleFOV4                     = 1UL<<2,  // 
-    PassEleMVA                      = 1UL<<3,  // 
-    PassEleIso                      = 1UL<<5,  //
+    PassEleFO                       = 1UL<<2,  // 
+    PassEleID                       = 1UL<<3,  // 
+    PassEleIso                      = 1UL<<4,  //
 
-    PassEleTrigDoubleEleLeadingLeg  = 1UL<<6,  // 
-    PassEleTrigDoubleEleTrailingLeg = 1UL<<7,  // 
-    PassEleTrigSingleEle            = 1UL<<8,  // 
-    PassEleTrigMuEGEleLeadingLeg    = 1UL<<9,  // 
-    PassEleTrigMuEGEleTrailingLeg   = 1UL<<10,  // 
+    PassEleTrigDoubleEleLeadingLeg  = 1UL<<5,  // 
+    PassEleTrigDoubleEleTrailingLeg = 1UL<<6,  // 
+    PassEleTrigSingleEle            = 1UL<<7,  // 
+    PassEleTrigMuEGEleLeadingLeg    = 1UL<<8,  // 
+    PassEleTrigMuEGEleTrailingLeg   = 1UL<<9,  // 
 
-    PassMuFOV1                      = 1UL<<11, //
-    PassMuFOV2                      = 1UL<<11, //
-    PassMuID                        = 1UL<<11, //
-    PassMuIso                       = 1UL<<11, //
+    PassMuCTFTrack                  = 1UL<<10, // 
+    PassMuGlobalOrTrackerMuon       = 1UL<<11, // 
 
+    PassMuFO                        = 1UL<<12, //
+    PassMuID                        = 1UL<<13, //
+    PassMuIso                       = 1UL<<14, //
 
-/*
-    PassMuCTFTrack                  = 1UL<<10,  // 
-    PassMuGlobalOrTrackerMuon       = 1UL<<11,  // 
-    PassMuDenominatorM2             = 1UL<<12,  // 
-    PassMuCutBased                  = 1UL<<13,  // 
-    PassMuMVAIDIsoCombined          = 1UL<<14,  // 
     PassMuTrigDoubleMuLeadingLeg    = 1UL<<15,  // 
     PassMuTrigDoubleMuTrailingLeg   = 1UL<<16,  // 
     PassMuTrigSingleMu              = 1UL<<17,  // 
     PassMuTrigMuEGMuLeadingLeg      = 1UL<<18,  // 
     PassMuTrigMuEGMuTrailingLeg     = 1UL<<19,  // 
-*/
+    
 
   };
 
