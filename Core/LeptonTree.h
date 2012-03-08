@@ -48,6 +48,8 @@ class LeptonTree {
     PassMuTrigMuEGMuLeadingLeg      = 1UL<<18,  // 
     PassMuTrigMuEGMuTrailingLeg     = 1UL<<19,  // 
     
+    PassPhotonID                    = 1UL<<20,  //
+    PassPhotonIso                   = 1UL<<20,  //
 
   };
 
@@ -65,6 +67,7 @@ class LeptonTree {
     QCDFakeMu15                     = 1UL<<10,  // 
     ZJetsFakeEleSelection           = 1UL<<11,  // 
     ZJetsFakeMuSelection            = 1UL<<12,  // 
+    PhotonSelection                 = 1UL<<13,  //
   };
 
 
@@ -83,6 +86,11 @@ class LeptonTree {
   float          q_;
   float          scale1fb_;
   float          leadingAwayJetPt_;
+  float          met_;
+  float          metPhi_;
+  float          trackMet_;
+  float          trackMetPhi_;
+  unsigned int   njets_;
 
  public:
   /// this is the main element
@@ -128,8 +136,14 @@ class LeptonTree {
     tree_->Branch("eta"              , &eta_              ,   "eta/F");
     tree_->Branch("phi"              , &phi_              ,   "phi/F");
     tree_->Branch("q"                , &q_                ,   "q/F");
-    tree_->Branch("scale1fb"           , &scale1fb_           ,   "scale1fb/F");
-    tree_->Branch("leadingAwayJetPt"        , &leadingAwayJetPt_        ,   "leadingAwayJetPt/F");
+    tree_->Branch("scale1fb"         , &scale1fb_         ,   "scale1fb/F");
+    tree_->Branch("leadingAwayJetPt" , &leadingAwayJetPt_ ,   "leadingAwayJetPt/F");
+    tree_->Branch("met"              , &met_              ,   "met/F");
+    tree_->Branch("metPhi"           , &metPhi_           ,   "metPhi/F");
+    tree_->Branch("trackMet"         , &trackMet_         ,   "trackMet/F");
+    tree_->Branch("trackMetPhi"      , &trackMetPhi_      ,   "trackMetPhi/F");
+    tree_->Branch("njets"            , &njets_            ,   "njets/F");
+
   }
 
   // initialze a LeptonTree
@@ -142,20 +156,25 @@ class LeptonTree {
     Int_t currentState = gErrorIgnoreLevel;
     // gErrorIgnoreLevel = kError;
     gErrorIgnoreLevel = kBreak;
-    tree_->SetBranchAddress("event",         &event_);
-    tree_->SetBranchAddress("run",           &run_);
-    tree_->SetBranchAddress("lumi",          &lumi_);
-    tree_->SetBranchAddress("nvtx",          &nvtx_);
-    tree_->SetBranchAddress("leptonSelection",          &leptonSelection_);
-    tree_->SetBranchAddress("eventSelection",          &eventSelection_);
-    tree_->SetBranchAddress("rho",          &rho_);
-    tree_->SetBranchAddress("tagAndProbeMass",          &tagAndProbeMass_);
-    tree_->SetBranchAddress("pt",          &pt_);
-    tree_->SetBranchAddress("eta",          &eta_);
-    tree_->SetBranchAddress("phi",          &phi_);
-    tree_->SetBranchAddress("q",          &q_);
-    tree_->SetBranchAddress("scale1fb",          &scale1fb_);
-    tree_->SetBranchAddress("leadingAwayJetPt",          &leadingAwayJetPt_);
+    tree_->SetBranchAddress("event",            &event_);
+    tree_->SetBranchAddress("run",              &run_);
+    tree_->SetBranchAddress("lumi",             &lumi_);
+    tree_->SetBranchAddress("nvtx",             &nvtx_);
+    tree_->SetBranchAddress("leptonSelection",  &leptonSelection_);
+    tree_->SetBranchAddress("eventSelection",   &eventSelection_);
+    tree_->SetBranchAddress("rho",              &rho_);
+    tree_->SetBranchAddress("tagAndProbeMass",  &tagAndProbeMass_);
+    tree_->SetBranchAddress("pt",               &pt_);
+    tree_->SetBranchAddress("eta",              &eta_);
+    tree_->SetBranchAddress("phi",              &phi_);
+    tree_->SetBranchAddress("q",                &q_);
+    tree_->SetBranchAddress("scale1fb",         &scale1fb_);
+    tree_->SetBranchAddress("leadingAwayJetPt", &leadingAwayJetPt_);
+    tree_->SetBranchAddress("met",              &met_);
+    tree_->SetBranchAddress("metPhi",           &metPhi_);
+    tree_->SetBranchAddress("trackMet",         &trackMet_);
+    tree_->SetBranchAddress("trackMetPhi",      &trackMetPhi_);
+    tree_->SetBranchAddress("njets",            &njets_);
 
     gErrorIgnoreLevel = currentState;
   }
@@ -175,57 +194,73 @@ LeptonTree::InitVariables(){
   // create list of available variables
   if(variables_.empty()){
     //make sure that this is only done once
-    variables_.push_back(std::string("event" ));
-    variables_.push_back(std::string("run"   ));
-    variables_.push_back(std::string("lumi"  ));
-    variables_.push_back(std::string("nvtx"  ));
-    variables_.push_back(std::string("leptonSelection" ));
-    variables_.push_back(std::string("eventSelection"  ));
-    variables_.push_back(std::string("rho" ));
-    variables_.push_back(std::string("tagAndProbeMass" ));
-    variables_.push_back(std::string("pt"  ));
-    variables_.push_back(std::string("eta" ));
-    variables_.push_back(std::string("phi" ));
-    variables_.push_back(std::string("q"   ));
-    variables_.push_back(std::string("scale1fb"  ));
+    variables_.push_back(std::string("event"            ));
+    variables_.push_back(std::string("run"              ));
+    variables_.push_back(std::string("lumi"             ));
+    variables_.push_back(std::string("nvtx"             ));
+    variables_.push_back(std::string("leptonSelection"  ));
+    variables_.push_back(std::string("eventSelection"   ));
+    variables_.push_back(std::string("rho"              ));
+    variables_.push_back(std::string("tagAndProbeMass"  ));
+    variables_.push_back(std::string("pt"               ));
+    variables_.push_back(std::string("eta"              ));
+    variables_.push_back(std::string("phi"              ));
+    variables_.push_back(std::string("q"                ));
+    variables_.push_back(std::string("scale1fb"         ));
     variables_.push_back(std::string("leadingAwayJetPt" ));
+    variables_.push_back(std::string("met"              ));
+    variables_.push_back(std::string("metPhi"           ));
+    variables_.push_back(std::string("trackMet"         ));
+    variables_.push_back(std::string("trackMetPhi"      ));
+    variables_.push_back(std::string("njets"            ));
+
 
   }
   // inizialize variables
-  event_         = 0;
-  run_           = 0;
-  lumi_          = 0;
-  nvtx_          = 0;
-  leptonSelection_  = 0;
-  eventSelection_   = 0;
-  rho_              = 0;
-  tagAndProbeMass_  = 0;
-  pt_               = 0;
-  eta_              = -999;
-  phi_              = -999;
-  q_                = 0;
-  scale1fb_           = 0;
-  leadingAwayJetPt_        = 0;
+  event_                = 0;
+  run_                  = 0;
+  lumi_                 = 0;
+  nvtx_                 = -999;
+  leptonSelection_      = 0;
+  eventSelection_       = 0;
+  rho_                  = -999;
+  tagAndProbeMass_      = -999;
+  pt_                   = -999;
+  eta_                  = -999;
+  phi_                  = -999;
+  q_                    = -999;
+  scale1fb_             = 0;
+  leadingAwayJetPt_     = -999;
+  met_                  = -999;
+  metPhi_               = -999;
+  trackMet_             = -999;
+  trackMetPhi_          = -999;
+  njets_                = -999;
 
 }
 
 inline double
 LeptonTree::Get(std::string value)
 {
-  if(value=="event"           ) { return this->event_;	          }
-  if(value=="run"             ) { return this->run_;	          }
-  if(value=="lumi"            ) { return this->lumi_;	          }
-  if(value=="nvtx"            ) { return this->nvtx_;	          }
-  if(value=="leptonSelection" ) { return this->leptonSelection_;  }
-  if(value=="eventSelection"  ) { return this->eventSelection_;   }
-  if(value=="rho"             ) { return this->rho_;	          }
-  if(value=="tagAndProbeMass" ) { return this->tagAndProbeMass_;  }
-  if(value=="pt"              ) { return this->pt_;	          }
-  if(value=="eta"             ) { return this->eta_;	          }
-  if(value=="phi"             ) { return this->phi_;              }
-  if(value=="q"               ) { return this->q_;	          }
-  if(value=="scale1fb"          ) { return this->scale1fb_;	          }
+  if(value=="event"            ) { return this->event_;	           }
+  if(value=="run"              ) { return this->run_;	           }
+  if(value=="lumi"             ) { return this->lumi_;	           }
+  if(value=="nvtx"             ) { return this->nvtx_;	           }
+  if(value=="leptonSelection"  ) { return this->leptonSelection_;  }
+  if(value=="eventSelection"   ) { return this->eventSelection_;   }
+  if(value=="rho"              ) { return this->rho_;	           }
+  if(value=="tagAndProbeMass"  ) { return this->tagAndProbeMass_;  }
+  if(value=="pt"               ) { return this->pt_;	           }
+  if(value=="eta"              ) { return this->eta_;	           }
+  if(value=="phi"              ) { return this->phi_;              }
+  if(value=="q"                ) { return this->q_;	               }
+  if(value=="scale1fb"         ) { return this->scale1fb_;	       }
   if(value=="leadingAwayJetPt" ) { return this->leadingAwayJetPt_; }
+  if(value=="met"              ) { return this->met_;              }
+  if(value=="metPhi"           ) { return this->metPhi_;           }
+  if(value=="trackMet"         ) { return this->trackMet_;         }
+  if(value=="trackMetPhi"      ) { return this->trackMetPhi_;      }
+  if(value=="njets"            ) { return this->njets_;            }
 
   return -9999.; 
 }
