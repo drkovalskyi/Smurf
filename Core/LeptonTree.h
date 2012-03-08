@@ -49,7 +49,7 @@ class LeptonTree {
     PassMuTrigMuEGMuTrailingLeg     = 1UL<<19,  // 
     
     PassPhotonID                    = 1UL<<20,  //
-    PassPhotonIso                   = 1UL<<20,  //
+    PassPhotonIso                   = 1UL<<20   //
 
   };
 
@@ -67,7 +67,7 @@ class LeptonTree {
     QCDFakeMu15                     = 1UL<<10,  // 
     ZJetsFakeEleSelection           = 1UL<<11,  // 
     ZJetsFakeMuSelection            = 1UL<<12,  // 
-    PhotonSelection                 = 1UL<<13,  //
+    PhotonSelection                 = 1UL<<13   //
   };
 
 
