@@ -5,6 +5,9 @@
 #include "TTree.h"
 #include "TError.h"
 
+#include <cmath>
+#include "assert.h"
+
 //
 // Ntuple structure:
 //
