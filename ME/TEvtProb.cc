@@ -55,7 +55,7 @@ void   TEvtProb::NeutrinoIntegrate(TVar::Process proc,
     //qx,qy
     if (_smearLevel >= 1) NDim+=2;
     //dE1,dE2
-    if (_smearLevel >= 2) NDim+=2;
+    if (_smearLevel >= 2 && proc != TVar::Wp_1jet && proc != TVar::Wm_1jet) NDim+=2;
 
 
     if (verbosity >= TVar::DEBUG) {
