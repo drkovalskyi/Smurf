@@ -1,8 +1,16 @@
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process("SMURF")
+
+
 process.load("FWCore.MessageService.MessageLogger_cfi")
+#process.load("TrackingTools/TransientTrack/TransientTrackBuilder_cfi")
+TransientTrackBuilderESProducer = cms.ESProducer("TransientTrackBuilderESProducer",
+    ComponentName = cms.string('TransientTrackBuilder')
+)
+
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+
 
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
@@ -36,6 +44,10 @@ process.leptonTreeMaker = cms.EDProducer('LeptonTreeMaker',
     primaryVertexInputTag  =  cms.InputTag('offlinePrimaryVertices'),
     rhoInputTag            =  cms.InputTag('kt6PFJetsDeterministicIso', 'rho'),
     pfCandsInputTag        =  cms.InputTag('particleFlow'),
+    metInputTag            =  cms.InputTag('pfMet'),
+    jetsInputTag           =  cms.InputTag('ak5PFJets'),
+
+    pfJetCorrectorL1FastL2L3 = cms.string('ak5PFL1FastL2L3'),
 
     #
     # define triggers

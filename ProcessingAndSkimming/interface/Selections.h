@@ -7,6 +7,8 @@
 #include "DataFormats/Candidate/interface/Candidate.h"
 #include "DataFormats/ParticleFlowCandidate/interface/PFCandidate.h"
 #include "DataFormats/VertexReco/interface/Vertex.h"
+#include "DataFormats/JetReco/interface/PFJet.h"
+#include "JetMETCorrections/Objects/interface/JetCorrector.h"
 
 namespace smurfselections {
 
@@ -25,6 +27,12 @@ float electronIsoValuePF(const reco::PFCandidateCollection &pfCandCollection,
 float muonIsoValuePF(const reco::PFCandidateCollection &pfCandCollection,
         const reco::Muon& mu, const reco::Vertex& vtx, 
         float coner, float minptn, float dzcut, int filterId);
+std::vector<std::pair<reco::PFJet, float> > goodJets(const edm::Event& iEvent, const edm::EventSetup& iSetup,
+        const edm::Handle<edm::View<reco::PFJet> > &jets_h, const reco::Candidate &cand1, const reco::Candidate &cand2,
+        const JetCorrector *corrector);
+std::vector<std::pair<reco::PFJet, float> > goodJets(const edm::Event& iEvent, const edm::EventSetup& iSetup,
+        const edm::Handle<edm::View<reco::PFJet> > &jets_h, const reco::Candidate &cand,
+        const JetCorrector *corrector);
 
 //
 // 2011 selections

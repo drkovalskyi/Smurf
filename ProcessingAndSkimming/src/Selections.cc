@@ -4,6 +4,7 @@
 #include "RecoEgamma/EgammaTools/interface/ConversionTools.h"
 #include "DataFormats/MuonReco/interface/MuonSelectors.h"
 #include "DataFormats/GsfTrackReco/interface/GsfTrack.h"
+#include "DataFormats/Math/interface/deltaR.h"
 
 #include <algorithm>
 
@@ -21,6 +22,63 @@ float smurfselections::dzVertex(const reco::Candidate &cand, const Point &vertex
     float dz = (cand.vz() - vertex.z()) - 
         ((cand.vx() - vertex.x()) * cand.px() + (cand.vy() - vertex.y()) * cand.py()) / cand.pt() * cand.pz()/cand.pt();
     return dz;
+}
+
+std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm::Event& iEvent, const edm::EventSetup& iSetup,
+        const edm::Handle<edm::View<reco::PFJet> > &jets_h, const reco::Candidate &cand1, const reco::Candidate &cand2,
+        const JetCorrector *corrector)
+{
+
+    std::vector<std::pair<reco::PFJet, float> > goodJets;
+    edm::View<reco::PFJet> jetsCollection = *(jets_h.product());
+    edm::View<reco::PFJet>::const_iterator jet;
+    for (jet = jetsCollection.begin(); jet != jetsCollection.end(); ++jet) {
+
+        // jec
+        int idx = jet - jets_h->begin();
+        edm::RefToBase<reco::Jet> jetRef(edm::Ref<edm::View<reco::PFJet> >(jets_h, idx));
+        float jec = corrector->correction(*jet, jetRef, iEvent, iSetup);
+
+        // cuts
+        if (jet->pt() * jec <= 30.0) continue;
+        if (fabs(jet->eta()) >= 5.0) continue;
+        if (reco::deltaR(jet->eta(), jet->phi(), cand1.eta(), cand1.phi()) < 0.3) continue;
+        if (reco::deltaR(jet->eta(), jet->phi(), cand2.eta(), cand2.phi()) < 0.3) continue;
+
+        // push back
+        goodJets.push_back(std::make_pair<reco::PFJet, float>(*jet, jec));
+
+    }
+
+    return goodJets;
+}
+
+std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm::Event& iEvent, const edm::EventSetup& iSetup,
+        const edm::Handle<edm::View<reco::PFJet> > &jets_h, const reco::Candidate &cand, 
+        const JetCorrector *corrector)
+{
+
+    std::vector<std::pair<reco::PFJet, float> > goodJets;
+    edm::View<reco::PFJet> jetsCollection = *(jets_h.product());
+    edm::View<reco::PFJet>::const_iterator jet;
+    for (jet = jetsCollection.begin(); jet != jetsCollection.end(); ++jet) {
+
+        // jec
+        int idx = jet - jets_h->begin();
+        edm::RefToBase<reco::Jet> jetRef(edm::Ref<edm::View<reco::PFJet> >(jets_h, idx));
+        float jec = corrector->correction(*jet, jetRef, iEvent, iSetup);
+
+        // cuts
+        if (jet->pt() * jec <= 30.0) continue;
+        if (fabs(jet->eta()) >= 5.0) continue;
+        if (reco::deltaR(jet->eta(), jet->phi(), cand.eta(), cand.phi()) < 0.3) continue;
+
+        // push back
+        goodJets.push_back(std::make_pair<reco::PFJet, float>(*jet, jec));
+
+    }
+
+    return goodJets;
 }
 
 float smurfselections::electronIsoValuePF(const reco::PFCandidateCollection &pfCandCollection,

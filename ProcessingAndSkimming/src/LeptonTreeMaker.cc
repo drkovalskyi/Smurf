@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.1 2012/03/11 12:36:15 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.2 2012/03/12 13:30:18 dlevans Exp $
 //
 //
 
@@ -35,6 +35,8 @@ Implementation:
 #include "DataFormats/EgammaCandidates/interface/Photon.h"
 #include "DataFormats/VertexReco/interface/Vertex.h"
 #include "DataFormats/EgammaCandidates/interface/Conversion.h"
+#include "DataFormats/METReco/interface/PFMET.h"
+#include "DataFormats/JetReco/interface/PFJet.h"
 #include "HLTrigger/HLTcore/interface/HLTConfigProvider.h"
 #include "DataFormats/HLTReco/interface/TriggerEvent.h"
 #include "DataFormats/Common/interface/TriggerResults.h"
@@ -83,14 +85,14 @@ class LeptonTreeMaker : public edm::EDProducer {
         void fillMuonTagAndProbeTree(const edm::Event& iEvent);
 
         // fake rates
-        void fillElectronFakeRateTree(const edm::Event& iEvent,
+        void fillElectronFakeRateTree(const edm::Event& iEvent, const edm::EventSetup &iSetup,
                 const TransientTrackBuilder *ttBuilder, 
                 const EcalClusterLazyTools *clusterTools);
 
-        void fillMuonFakeRateTree(const edm::Event& iEvent);
+        void fillMuonFakeRateTree(const edm::Event& iEvent, const edm::EventSetup &iSetup);
 
         // photons
-        void fillPhotonTree(const edm::Event& iEvent);
+        void fillPhotonTree(const edm::Event& iEvent, const edm::EventSetup &iSetup);
 
         // common variables
         void fillCommonVariables(const edm::Event& iEvent);
@@ -111,6 +113,11 @@ class LeptonTreeMaker : public edm::EDProducer {
         edm::InputTag primaryVertexInputTag_;
         edm::InputTag rhoInputTag_;
         edm::InputTag pfCandsInputTag_;
+        edm::InputTag metInputTag_;
+        edm::InputTag jetsInputTag_;
+
+        // jet corrections
+        std::string pfJetCorrectorL1FastL2L3_;
 
         // trigger names
         std::vector<std::string> electronTPTriggerNames_;
@@ -155,6 +162,10 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
     primaryVertexInputTag_  =  iConfig.getParameter<edm::InputTag>("primaryVertexInputTag");
     rhoInputTag_            =  iConfig.getParameter<edm::InputTag>("rhoInputTag");
     pfCandsInputTag_        =  iConfig.getParameter<edm::InputTag>("pfCandsInputTag");
+    metInputTag_            =  iConfig.getParameter<edm::InputTag>("metInputTag");
+    jetsInputTag_           =  iConfig.getParameter<edm::InputTag>("jetsInputTag");
+
+    pfJetCorrectorL1FastL2L3_ = iConfig.getParameter<std::string>("pfJetCorrectorL1FastL2L3");
 
     electronTPTriggerNames_ =  iConfig.getUntrackedParameter<std::vector<std::string> >("electronTPTriggerNames");
     muonTPTriggerNames_     =  iConfig.getUntrackedParameter<std::vector<std::string> >("muonTPTriggerNames"); 
@@ -183,6 +194,14 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
     //
 
     electronIDMVA_ = new ElectronIDMVA();
+    electronIDMVA_->Initialize("BDTG method",
+            "data/Subdet0LowPt_WithIPInfo_BDTG.weights.xml",
+            "data/Subdet1LowPt_WithIPInfo_BDTG.weights.xml",
+            "data/Subdet2LowPt_WithIPInfo_BDTG.weights.xml",
+            "data/Subdet0HighPt_WithIPInfo_BDTG.weights.xml",
+            "data/Subdet1HighPt_WithIPInfo_BDTG.weights.xml",
+            "data/Subdet2HighPt_WithIPInfo_BDTG.weights.xml" ,                
+            ElectronIDMVA::kWithIPInfo);
 
 }
 
@@ -265,15 +284,15 @@ LeptonTreeMaker::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
     bool passPhotonTrigger      = eventPassTrigger(photonTriggerNames_);
 
     // fake rates
-    if (passElectronFRTrigger)  fillElectronFakeRateTree(iEvent, ttBuilder, clusterTools);
-    if (passMuonFRTrigger)      fillMuonFakeRateTree(iEvent);
+    if (passElectronFRTrigger)  fillElectronFakeRateTree(iEvent, iSetup, ttBuilder, clusterTools);
+    if (passMuonFRTrigger)      fillMuonFakeRateTree(iEvent, iSetup);
 
     // efficiency
     if (passElectronTPTrigger)  fillElectronTagAndProbeTree(iEvent, ttBuilder, clusterTools);
     if (passMuonTPTrigger)      fillMuonTagAndProbeTree(iEvent);
 
     // photons
-    if (passPhotonTrigger)      fillPhotonTree(iEvent);
+    if (passPhotonTrigger)      fillPhotonTree(iEvent, iSetup);
 
     //
     // tidy up
@@ -483,7 +502,7 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent)
 
 }
 
-void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent,
+void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const edm::EventSetup& iSetup,
                 const TransientTrackBuilder *ttBuilder,
                 const EcalClusterLazyTools *clusterTools)
 {
@@ -516,10 +535,21 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent,
     iEvent.getByLabel(rhoInputTag_, rho_h);
     double rho = *(rho_h.product());
 
+    // met
+    edm::Handle<edm::View<reco::PFMET> > met_h;
+    iEvent.getByLabel(metInputTag_, met_h);
+    float met = met_h->front().et();
+    if (met > 20.0) return;
+
     // pf candidates
     edm::Handle<reco::PFCandidateCollection> pfCand_h;
     iEvent.getByLabel(pfCandsInputTag_, pfCand_h);
     const reco::PFCandidateCollection pfCandCollection = *(pfCand_h.product());
+
+    // jets
+    edm::Handle<edm::View<reco::PFJet> > jets_h;
+    iEvent.getByLabel(jetsInputTag_, jets_h);
+    const JetCorrector* corrector = JetCorrector::getJetCorrector(pfJetCorrectorL1FastL2L3_, iSetup);
 
     // look for a good FO
     edm::View<reco::GsfElectron>::const_iterator it;
@@ -549,12 +579,18 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent,
         if (smurfselections::passElectronIso2011(fo, pfCandCollection, pv))
             leptonTree_->leptonSelection_ |= (LeptonTree::PassEleIso);
 
+        // jets
+        std::vector<std::pair<reco::PFJet, float> > jets = smurfselections::goodJets(iEvent, iSetup, jets_h, *fo, corrector);
+        leptonTree_->njets_ = jets.size();
+        if (jets.size() > 0)
+            leptonTree_->leadingAwayJetPt_ = jets.at(0).first.pt() * jets.at(0).second;
+
         leptonTree_->tree_->Fill();
     }
 
 }
 
-void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent)
+void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 
     // vertices
@@ -575,6 +611,17 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent)
     edm::Handle<reco::PFCandidateCollection> pfCand_h;
     iEvent.getByLabel(pfCandsInputTag_, pfCand_h);
     const reco::PFCandidateCollection pfCandCollection = *(pfCand_h.product());
+
+    // met
+    edm::Handle<edm::View<reco::PFMET> > met_h;
+    iEvent.getByLabel(metInputTag_, met_h);
+    float met = met_h->front().et();
+    if (met > 20.0) return;
+
+    // jets
+    edm::Handle<edm::View<reco::PFJet> > jets_h;
+    iEvent.getByLabel(jetsInputTag_, jets_h);
+    const JetCorrector* corrector = JetCorrector::getJetCorrector(pfJetCorrectorL1FastL2L3_, iSetup);
 
     // look for a good FO
     edm::View<reco::Muon>::const_iterator it;
@@ -601,12 +648,18 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent)
         if (smurfselections::passMuonID2011(fo, pv.position()))         leptonTree_->leptonSelection_ |= (LeptonTree::PassMuID);
         if (smurfselections::passMuonIso2011(fo, pfCandCollection, pv)) leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIso);
 
+        // jets
+        std::vector<std::pair<reco::PFJet, float> > jets = smurfselections::goodJets(iEvent, iSetup, jets_h, *fo, corrector);
+        leptonTree_->njets_ = jets.size();
+        if (jets.size() > 0)
+            leptonTree_->leadingAwayJetPt_ = jets.at(0).first.pt() * jets.at(0).second;
+
         leptonTree_->tree_->Fill();
     }
 
 }
 
-void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent)
+void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 
     // photons
@@ -614,6 +667,17 @@ void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent)
     iEvent.getByLabel(photonsInputTag_, pho_h);
     edm::View<reco::Photon> photonCollection = *(pho_h.product());
     if (photonCollection.size() < 1) return;
+
+    // met
+    edm::Handle<edm::View<reco::PFMET> > met_h;
+    iEvent.getByLabel(metInputTag_, met_h);
+    float met = met_h->front().et();
+    float metPhi = met_h->front().phi();
+    
+    // jets
+    edm::Handle<edm::View<reco::PFJet> > jets_h;
+    iEvent.getByLabel(jetsInputTag_, jets_h);
+    const JetCorrector* corrector = JetCorrector::getJetCorrector(pfJetCorrectorL1FastL2L3_, iSetup);
 
     // look for a good photon
     edm::View<reco::Photon>::const_iterator it;
@@ -634,7 +698,16 @@ void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent)
         leptonTree_->pt_                 = photon->pt();
         leptonTree_->eta_                = photon->eta();
         leptonTree_->phi_                = photon->phi();
+        leptonTree_->met_                = met;
+        leptonTree_->metPhi_             = metPhi;
         leptonTree_->tree_->Fill();
+
+        // jets
+        std::vector<std::pair<reco::PFJet, float> > jets = smurfselections::goodJets(iEvent, iSetup, jets_h, *photon, corrector);
+        leptonTree_->njets_ = jets.size();
+        if (jets.size() > 0)
+            leptonTree_->leadingAwayJetPt_ = jets.at(0).first.pt() * jets.at(0).second;
+
     }
 
 }
