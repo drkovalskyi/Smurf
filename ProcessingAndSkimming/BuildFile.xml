@@ -6,6 +6,7 @@
 <use   name="DataFormats/EgammaCandidates"/>
 <use   name="HLTrigger/HLTcore"/>
 <use   name="HiggsAnalysis/HiggsToWW2Leptons"/>
+<use   name="RecoEgamma/EgammaTools"/>
 
 <use   name="clhep"/>
 

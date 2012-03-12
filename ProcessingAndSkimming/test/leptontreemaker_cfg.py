@@ -35,6 +35,7 @@ process.leptonTreeMaker = cms.EDProducer('LeptonTreeMaker',
     photonsInputTag        =  cms.InputTag('photons'),
     primaryVertexInputTag  =  cms.InputTag('offlinePrimaryVertices'),
     rhoInputTag            =  cms.InputTag('kt6PFJetsDeterministicIso', 'rho'),
+    pfCandsInputTag        =  cms.InputTag('particleFlow'),
 
     #
     # define triggers
