@@ -194,6 +194,7 @@ float smurfselections::muonIsoValuePF(const reco::PFCandidateCollection &pfCandC
             } 
         }
     } 
+
     return pfciso+pfniso;
 }
 
@@ -203,20 +204,26 @@ float smurfselections::muonIsoValuePF(const reco::PFCandidateCollection &pfCandC
 
 bool smurfselections::passMuonFO2011(const edm::View<reco::Muon>::const_iterator &muon, const Point &vertex)
 {
-    float d0 = fabs(d0Vertex(muon->innerTrack()->d0(), muon->innerTrack()->phi(), vertex));
-    float dz = fabs(dzVertex(*muon, vertex));
 
-    if (fabs(muon->eta()) > 2.4)                                        return false;
-    if (muon->innerTrack()->numberOfValidHits() < 11)                   return false;
-    if (dz >= 0.1)                                                      return false;
-    if (d0 >= 0.02)                                                     return false;
-    if (muon->innerTrack()->hitPattern().numberOfValidPixelHits() == 0) return false;
+    const reco::TrackRef siTrack = muon->innerTrack();
+    float d0 = siTrack.isNonnull() ? d0Vertex(muon->innerTrack()->d0(), muon->innerTrack()->phi(), vertex)          : 999.9;
+    unsigned int nValidHits = siTrack.isNonnull()      ?  muon->innerTrack()->numberOfValidHits()                   : 0;
+    unsigned int nValidPixelHits = siTrack.isNonnull() ?  muon->innerTrack()->hitPattern().numberOfValidPixelHits() : 0;
+    float dz = fabs(dzVertex(*muon, vertex));
+    if (fabs(muon->eta()) > 2.4)    return false;
+    if (nValidHits < 11)            return false;
+    if (dz >= 0.1)                  return false;
+    if (d0 >= 0.02)                 return false;
+    if (nValidPixelHits == 0)       return false;
 
     bool goodGlobalMuon = true;
     if (muon->isGlobalMuon()) {
-        if (muon->numberOfMatches() < 2)                                    goodGlobalMuon = false;
-        if (muon->globalTrack()->chi2()/muon->globalTrack()->ndof() >= 10)  goodGlobalMuon = false;
-        if (muon->globalTrack()->hitPattern().numberOfValidMuonHits() == 0) goodGlobalMuon = false;
+        const reco::TrackRef globalTrack = muon->globalTrack();
+        float nValidMuonHits = globalTrack.isNonnull()   ? globalTrack->hitPattern().numberOfValidMuonHits() : 0;
+        float chi2ndof       = globalTrack.isNonnull()   ? globalTrack->chi2()/globalTrack->ndof()           : 999.9;
+        if (muon->numberOfMatches() < 2)    goodGlobalMuon = false;
+        if (chi2ndof >= 10)                 goodGlobalMuon = false;
+        if (nValidMuonHits == 0)            goodGlobalMuon = false;
     } else goodGlobalMuon = false;
 
     bool goodTrackerMuon = true;
@@ -238,7 +245,9 @@ bool smurfselections::passMuonID2011(const edm::View<reco::Muon>::const_iterator
     if (!passMuonFO2011(muon, vertex))      return false;
 
     // only additional ID is tighter d0 cut
-    float d0 = fabs(d0Vertex(muon->innerTrack()->d0(), muon->innerTrack()->phi(), vertex));
+    const reco::TrackRef siTrack = muon->innerTrack();
+    float d0 = siTrack.isNonnull() ? 
+        d0Vertex(muon->innerTrack()->d0(), muon->innerTrack()->phi(), vertex) : 999.9;
     if (muon->pt() > 20.0 && d0 >= 0.01)    return false;
     else if (d0 >= 0.02)                    return false;
 
