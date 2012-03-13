@@ -5,6 +5,8 @@
 #include "TTree.h"
 #include "TError.h"
 
+#include "Math/LorentzVector.h"
+
 #include <cmath>
 #include "assert.h"
 
@@ -16,7 +18,10 @@
 
 
 class LeptonTree {
+
  public:
+  /// float doesn't have dictionary by default, so use double
+  typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 
   /// bit map
   /// DON'T CHANGE ORDER
@@ -80,10 +85,10 @@ class LeptonTree {
   unsigned int   eventSelection_;
   float          rho_;
   float          tagAndProbeMass_;
-  float          pt_;
-  float          eta_;
-  float          phi_;
-  float          q_;
+  LorentzVector  tag_;
+  LorentzVector  probe_;
+  float          qTag_;
+  float          qProbe_;
   float          scale1fb_;
   float          leadingAwayJetPt_;
   float          met_;
@@ -101,7 +106,7 @@ class LeptonTree {
   std::vector<std::string> variables_;
 
   /// default constructor  
-  LeptonTree(){}
+  LeptonTree() : tagPtr_(&tag_), probePtr_(&probe_) {}
   /// default destructor
   ~LeptonTree(){ 
     if (f_) f_->Close();  
@@ -132,10 +137,10 @@ class LeptonTree {
     tree_->Branch("eventSelection"   , &eventSelection_   ,   "eventSelection/i");
     tree_->Branch("rho"              , &rho_              ,   "rho/F");
     tree_->Branch("tagAndProbeMass"  , &tagAndProbeMass_  ,   "tagAndProbeMass/F");
-    tree_->Branch("pt"               , &pt_               ,   "pt/F");
-    tree_->Branch("eta"              , &eta_              ,   "eta/F");
-    tree_->Branch("phi"              , &phi_              ,   "phi/F");
-    tree_->Branch("q"                , &q_                ,   "q/F");
+    tree_->Branch("tag"              , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &tagPtr_);
+    tree_->Branch("probe"            , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &probePtr_);
+    tree_->Branch("qTag"             , &qTag_             ,   "qTag/F");
+    tree_->Branch("qProbe"           , &qProbe_           ,   "qProbe/F");
     tree_->Branch("scale1fb"         , &scale1fb_         ,   "scale1fb/F");
     tree_->Branch("leadingAwayJetPt" , &leadingAwayJetPt_ ,   "leadingAwayJetPt/F");
     tree_->Branch("met"              , &met_              ,   "met/F");
@@ -164,10 +169,10 @@ class LeptonTree {
     tree_->SetBranchAddress("eventSelection",   &eventSelection_);
     tree_->SetBranchAddress("rho",              &rho_);
     tree_->SetBranchAddress("tagAndProbeMass",  &tagAndProbeMass_);
-    tree_->SetBranchAddress("pt",               &pt_);
-    tree_->SetBranchAddress("eta",              &eta_);
-    tree_->SetBranchAddress("phi",              &phi_);
-    tree_->SetBranchAddress("q",                &q_);
+    tree_->SetBranchAddress("tag",              &tagPtr_);
+    tree_->SetBranchAddress("probe",            &probePtr_);
+    tree_->SetBranchAddress("qTag",             &qTag_);
+    tree_->SetBranchAddress("qProbe",           &qProbe_);
     tree_->SetBranchAddress("scale1fb",         &scale1fb_);
     tree_->SetBranchAddress("leadingAwayJetPt", &leadingAwayJetPt_);
     tree_->SetBranchAddress("met",              &met_);
@@ -187,6 +192,9 @@ class LeptonTree {
 
   private:
 
+  LorentzVector *tagPtr_;
+  LorentzVector *probePtr_;
+
 }; 
 
 inline void 
@@ -202,10 +210,10 @@ LeptonTree::InitVariables(){
     variables_.push_back(std::string("eventSelection"   ));
     variables_.push_back(std::string("rho"              ));
     variables_.push_back(std::string("tagAndProbeMass"  ));
-    variables_.push_back(std::string("pt"               ));
-    variables_.push_back(std::string("eta"              ));
-    variables_.push_back(std::string("phi"              ));
-    variables_.push_back(std::string("q"                ));
+    variables_.push_back(std::string("tag"              ));
+    variables_.push_back(std::string("probe"            ));
+    variables_.push_back(std::string("qTag"             ));
+    variables_.push_back(std::string("qProbe"           ));
     variables_.push_back(std::string("scale1fb"         ));
     variables_.push_back(std::string("leadingAwayJetPt" ));
     variables_.push_back(std::string("met"              ));
@@ -225,10 +233,10 @@ LeptonTree::InitVariables(){
   eventSelection_       = 0;
   rho_                  = -999;
   tagAndProbeMass_      = -999;
-  pt_                   = -999;
-  eta_                  = -999;
-  phi_                  = -999;
-  q_                    = -999;
+  tag_                  = LorentzVector();
+  probe_                = LorentzVector();
+  qTag_                 = -999;
+  qProbe_               = -999;
   scale1fb_             = 0;
   leadingAwayJetPt_     = -999;
   met_                  = -999;
@@ -250,10 +258,8 @@ LeptonTree::Get(std::string value)
   if(value=="eventSelection"   ) { return this->eventSelection_;   }
   if(value=="rho"              ) { return this->rho_;	           }
   if(value=="tagAndProbeMass"  ) { return this->tagAndProbeMass_;  }
-  if(value=="pt"               ) { return this->pt_;	           }
-  if(value=="eta"              ) { return this->eta_;	           }
-  if(value=="phi"              ) { return this->phi_;              }
-  if(value=="q"                ) { return this->q_;	               }
+  if(value=="qTag"             ) { return this->qTag_;	           }
+  if(value=="qProbe"           ) { return this->qProbe_;           }
   if(value=="scale1fb"         ) { return this->scale1fb_;	       }
   if(value=="leadingAwayJetPt" ) { return this->leadingAwayJetPt_; }
   if(value=="met"              ) { return this->met_;              }
