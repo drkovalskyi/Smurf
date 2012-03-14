@@ -54,7 +54,7 @@ class LeptonTree {
     PassMuTrigMuEGMuTrailingLeg     = 1UL<<19,  // 
     
     PassPhotonID                    = 1UL<<20,  //
-    PassPhotonIso                   = 1UL<<20   //
+    PassPhotonIso                   = 1UL<<21   //
 
   };
 
