@@ -203,6 +203,7 @@ class SmurfTree {
   float          met_;
   float          metPhi_;
   float          sumet_;
+  float          metSig_;
   float          genmet_;
   float          genmetPhi_;
   Type           type_;
@@ -337,6 +338,7 @@ class SmurfTree {
     tree_->Branch("met"          , &met_          ,   "met/F");
     tree_->Branch("metPhi"       , &metPhi_       ,   "metPhi/F");
     tree_->Branch("sumet"        , &sumet_        ,   "sumet/F");
+    tree_->Branch("metSig"       , &metSig_       ,   "metSig/F");
     tree_->Branch("genmet"       , &genmet_       ,   "genmet/F");
     tree_->Branch("genmetPhi"    , &genmetPhi_    ,   "genmetPhi/F");
     tree_->Branch("type"         , &type_         ,   "type/I");
@@ -433,6 +435,7 @@ class SmurfTree {
     tree_->SetBranchAddress("met",           &met_);
     tree_->SetBranchAddress("metPhi",        &metPhi_);
     tree_->SetBranchAddress("sumet",         &sumet_);
+    tree_->SetBranchAddress("metSig",        &metSig_);
     tree_->SetBranchAddress("genmet",        &genmet_);
     tree_->SetBranchAddress("genmetPhi",     &genmetPhi_);
     tree_->SetBranchAddress("type",          &type_);
@@ -606,6 +609,7 @@ SmurfTree::InitVariables(){
     variables_.push_back(std::string("met"           ));
     variables_.push_back(std::string("metPhi"        ));
     variables_.push_back(std::string("sumet"         ));
+    variables_.push_back(std::string("metSig"        ));
     variables_.push_back(std::string("genmet"        ));
     variables_.push_back(std::string("genmetPhi"     ));
     variables_.push_back(std::string("type"          ));
@@ -651,6 +655,7 @@ SmurfTree::InitVariables(){
   met_           = -999.;
   metPhi_        = -999.;
   sumet_         = -999.;
+  metSig_        = -999.;
   genmet_        = 0;
   genmetPhi_     = 0;
   type_          = mm;
@@ -739,6 +744,7 @@ SmurfTree::Get(std::string value)
   if(value=="met"           ) { return this->met_;	     }
   if(value=="metPhi"        ) { return this->metPhi_;	     }
   if(value=="sumet"         ) { return this->sumet_;	     }
+  if(value=="metSig"        ) { return this->metSig_;	     }
   if(value=="genmet"        ) { return this->genmet_;	     }
   if(value=="genmetPhi"     ) { return this->genmetPhi_;     }
   if(value=="type"          ) { return this->type_;	     }
