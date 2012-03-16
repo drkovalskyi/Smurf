@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.4 2012/03/13 20:09:00 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.5 2012/03/16 13:52:36 cerati Exp $
 //
 //
 
@@ -125,6 +125,8 @@ class LeptonTreeMaker : public edm::EDProducer {
         // jet corrections
         std::string pfJetCorrectorL1FastL2L3_;
 
+        std::string pathToBDTWeights_;
+
         // trigger names
         std::vector<std::string> electronTPTriggerNames_;
         std::vector<std::string> muonTPTriggerNames_;
@@ -184,6 +186,8 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
 
     pfJetCorrectorL1FastL2L3_ = iConfig.getParameter<std::string>("pfJetCorrectorL1FastL2L3");
 
+    pathToBDTWeights_       = iConfig.getParameter<std::string>("pathToBDTWeights");
+
     electronTPTriggerNames_ =  iConfig.getUntrackedParameter<std::vector<std::string> >("electronTPTriggerNames");
     muonTPTriggerNames_     =  iConfig.getUntrackedParameter<std::vector<std::string> >("muonTPTriggerNames"); 
     electronFRTriggerNames_ =  iConfig.getUntrackedParameter<std::vector<std::string> >("electronFRTriggerNames");
@@ -212,12 +216,12 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
 
     electronIDMVA_ = new ElectronIDMVA();
     electronIDMVA_->Initialize("BDTG method",
-            "data/Subdet0LowPt_WithIPInfo_BDTG.weights.xml",
-            "data/Subdet1LowPt_WithIPInfo_BDTG.weights.xml",
-            "data/Subdet2LowPt_WithIPInfo_BDTG.weights.xml",
-            "data/Subdet0HighPt_WithIPInfo_BDTG.weights.xml",
-            "data/Subdet1HighPt_WithIPInfo_BDTG.weights.xml",
-            "data/Subdet2HighPt_WithIPInfo_BDTG.weights.xml" ,                
+            pathToBDTWeights_+"/Subdet0LowPt_WithIPInfo_BDTG.weights.xml",
+            pathToBDTWeights_+"/Subdet1LowPt_WithIPInfo_BDTG.weights.xml",
+            pathToBDTWeights_+"/Subdet2LowPt_WithIPInfo_BDTG.weights.xml",
+            pathToBDTWeights_+"/Subdet0HighPt_WithIPInfo_BDTG.weights.xml",
+            pathToBDTWeights_+"/Subdet1HighPt_WithIPInfo_BDTG.weights.xml",
+            pathToBDTWeights_+"/Subdet2HighPt_WithIPInfo_BDTG.weights.xml" ,                
             ElectronIDMVA::kWithIPInfo);
 
 }

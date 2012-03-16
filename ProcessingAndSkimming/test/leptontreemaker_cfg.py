@@ -117,6 +117,10 @@ process.leptonTreeMaker = cms.EDProducer('LeptonTreeMaker',
 
     pfJetCorrectorL1FastL2L3 = cms.string('ak5PFL1FastL2L3'),
 
+    #this works for crab jobs, can be changed for local submission
+    pathToBDTWeights = cms.string('src/Smurf/ProcessingAndSkimming/data'),
+    #pathToBDTWeights = cms.string('data'),
+
     #
     # define triggers
     #
