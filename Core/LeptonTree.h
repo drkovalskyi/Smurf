@@ -69,10 +69,15 @@ class LeptonTree {
     QCDFakeEle8VLJet40              = 1UL<<7,  // 
     QCDFakeEle8WithTrkIDIso         = 1UL<<8,  // 
     QCDFakeMu8                      = 1UL<<9,  // 
-    QCDFakeMu15                     = 1UL<<10,  // 
-    ZJetsFakeEleSelection           = 1UL<<11,  // 
-    ZJetsFakeMuSelection            = 1UL<<12,  // 
-    PhotonSelection                 = 1UL<<13   //
+    QCDFakeMu15                     = 1UL<<10, // 
+    ZJetsFakeEleSelection           = 1UL<<11, // 
+    ZJetsFakeMuSelection            = 1UL<<12, // 
+    PhotonSelection                 = 1UL<<13, //
+    Photon20CaloIdVLIsoL            = 1UL<<14, //
+    Photon30CaloIdVLIsoL            = 1UL<<15, //
+    Photon50CaloIdVLIsoL            = 1UL<<16, //
+    Photon75CaloIdVLIsoL            = 1UL<<17, //
+    Photon90CaloIdVLIsoL            = 1UL<<18  //
   };
 
 
@@ -90,7 +95,7 @@ class LeptonTree {
   float          qTag_;
   float          qProbe_;
   float          scale1fb_;
-  float          leadingAwayJetPt_;
+  LorentzVector  leadingAwayJet_;
   float          met_;
   float          metPhi_;
   float          trackMet_;
@@ -142,7 +147,7 @@ class LeptonTree {
     tree_->Branch("qTag"             , &qTag_             ,   "qTag/F");
     tree_->Branch("qProbe"           , &qProbe_           ,   "qProbe/F");
     tree_->Branch("scale1fb"         , &scale1fb_         ,   "scale1fb/F");
-    tree_->Branch("leadingAwayJetPt" , &leadingAwayJetPt_ ,   "leadingAwayJetPt/F");
+    tree_->Branch("leadingAwayJet" , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &leadingAwayJet_);
     tree_->Branch("met"              , &met_              ,   "met/F");
     tree_->Branch("metPhi"           , &metPhi_           ,   "metPhi/F");
     tree_->Branch("trackMet"         , &trackMet_         ,   "trackMet/F");
@@ -174,7 +179,7 @@ class LeptonTree {
     tree_->SetBranchAddress("qTag",             &qTag_);
     tree_->SetBranchAddress("qProbe",           &qProbe_);
     tree_->SetBranchAddress("scale1fb",         &scale1fb_);
-    tree_->SetBranchAddress("leadingAwayJetPt", &leadingAwayJetPt_);
+    tree_->SetBranchAddress("leadingAwayJet",   &leadingAwayJet_);
     tree_->SetBranchAddress("met",              &met_);
     tree_->SetBranchAddress("metPhi",           &metPhi_);
     tree_->SetBranchAddress("trackMet",         &trackMet_);
@@ -215,7 +220,7 @@ LeptonTree::InitVariables(){
     variables_.push_back(std::string("qTag"             ));
     variables_.push_back(std::string("qProbe"           ));
     variables_.push_back(std::string("scale1fb"         ));
-    variables_.push_back(std::string("leadingAwayJetPt" ));
+    variables_.push_back(std::string("leadingAwayJet" ));
     variables_.push_back(std::string("met"              ));
     variables_.push_back(std::string("metPhi"           ));
     variables_.push_back(std::string("trackMet"         ));
@@ -238,7 +243,7 @@ LeptonTree::InitVariables(){
   qTag_                 = -999;
   qProbe_               = -999;
   scale1fb_             = 0;
-  leadingAwayJetPt_     = -999;
+  leadingAwayJet_       = LorentzVector();
   met_                  = -999;
   metPhi_               = -999;
   trackMet_             = -999;
@@ -260,8 +265,7 @@ LeptonTree::Get(std::string value)
   if(value=="tagAndProbeMass"  ) { return this->tagAndProbeMass_;  }
   if(value=="qTag"             ) { return this->qTag_;	           }
   if(value=="qProbe"           ) { return this->qProbe_;           }
-  if(value=="scale1fb"         ) { return this->scale1fb_;	       }
-  if(value=="leadingAwayJetPt" ) { return this->leadingAwayJetPt_; }
+  if(value=="scale1fb"         ) { return this->scale1fb_;         }
   if(value=="met"              ) { return this->met_;              }
   if(value=="metPhi"           ) { return this->metPhi_;           }
   if(value=="trackMet"         ) { return this->trackMet_;         }

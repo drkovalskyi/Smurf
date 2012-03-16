@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.3 2012/03/12 17:07:25 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.4 2012/03/13 20:09:00 dlevans Exp $
 //
 //
 
@@ -119,6 +119,9 @@ class LeptonTreeMaker : public edm::EDProducer {
         edm::InputTag metInputTag_;
         edm::InputTag jetsInputTag_;
 
+        edm::InputTag conversionsInputTag_;
+        edm::InputTag beamSpotInputTag_;
+
         // jet corrections
         std::string pfJetCorrectorL1FastL2L3_;
 
@@ -175,6 +178,9 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
     pfCandsInputTag_        =  iConfig.getParameter<edm::InputTag>("pfCandsInputTag");
     metInputTag_            =  iConfig.getParameter<edm::InputTag>("metInputTag");
     jetsInputTag_           =  iConfig.getParameter<edm::InputTag>("jetsInputTag");
+
+    conversionsInputTag_    =  iConfig.getParameter<edm::InputTag>("conversionsInputTag");
+    beamSpotInputTag_       =  iConfig.getParameter<edm::InputTag>("beamSpotInputTag");
 
     pfJetCorrectorL1FastL2L3_ = iConfig.getParameter<std::string>("pfJetCorrectorL1FastL2L3");
 
@@ -405,11 +411,11 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent,
 
     // conversions
     edm::Handle<reco::ConversionCollection> conversions_h;
-    iEvent.getByLabel("trackerOnlyConversions", conversions_h);
+    iEvent.getByLabel(conversionsInputTag_, conversions_h);
 
     // beamspot
     edm::Handle<reco::BeamSpot> beamspot_h;
-    iEvent.getByLabel("offlineBeamSpot", beamspot_h);
+    iEvent.getByLabel(beamSpotInputTag_, beamspot_h);
     const reco::BeamSpot &thebs = *(beamspot_h.product());
 
     // look for tag and probe
@@ -525,11 +531,11 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
     
     // conversions
     edm::Handle<reco::ConversionCollection> conversions_h;
-    iEvent.getByLabel("trackerOnlyConversions", conversions_h);
+    iEvent.getByLabel(conversionsInputTag_, conversions_h);
 
     // beamspot
     edm::Handle<reco::BeamSpot> beamspot_h;
-    iEvent.getByLabel("offlineBeamSpot", beamspot_h);
+    iEvent.getByLabel(beamSpotInputTag_, beamspot_h);
     const reco::BeamSpot &thebs = *(beamspot_h.product());
     
     // met
@@ -577,7 +583,7 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         std::vector<std::pair<reco::PFJet, float> > jets = smurfselections::goodJets(iEvent, iSetup, jets_h, *fo, corrector);
         leptonTree_->njets_ = jets.size();
         if (jets.size() > 0)
-            leptonTree_->leadingAwayJetPt_ = jets.at(0).first.pt() * jets.at(0).second;
+            leptonTree_->leadingAwayJet_ = jets.at(0).first.p4() * jets.at(0).second;
 
         leptonTree_->tree_->Fill();
     }
@@ -634,7 +640,7 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
         std::vector<std::pair<reco::PFJet, float> > jets = smurfselections::goodJets(iEvent, iSetup, jets_h, *fo, corrector);
         leptonTree_->njets_ = jets.size();
         if (jets.size() > 0)
-            leptonTree_->leadingAwayJetPt_ = jets.at(0).first.pt() * jets.at(0).second;
+            leptonTree_->leadingAwayJet_ = jets.at(0).first.p4() * jets.at(0).second;
 
         leptonTree_->tree_->Fill();
     }
@@ -673,6 +679,8 @@ void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent, const edm::EventS
         if (eta > 3.0)                      continue;
         if (it->hasPixelSeed())             continue;
         if (it->hadronicOverEm() >= 0.05)   continue;
+	//r9 cut
+        if (it->r9() < 0.9)   continue;
 
         if (eta <= 1.479) {
             if (it->sigmaIetaIeta() >= 0.011)   continue;
@@ -700,11 +708,25 @@ void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent, const edm::EventS
         leptonTree_->met_                = met;
         leptonTree_->metPhi_             = metPhi;
 
+	const reco::Candidate* phocand = &(*photon);
+	std::vector<const reco::Candidate*> phos;
+ 	phos.push_back(phocand);
+	std::pair<double,double> tkmet = smurfselections::trackerMET(phos, 0.1, pfCandCollection_, pv_);
+	leptonTree_->trackMet_           = tkmet.first;
+	leptonTree_->trackMetPhi_        = tkmet.second;
+
         // jets
         std::vector<std::pair<reco::PFJet, float> > jets = smurfselections::goodJets(iEvent, iSetup, jets_h, *photon, corrector);
         leptonTree_->njets_ = jets.size();
         if (jets.size() > 0)
-            leptonTree_->leadingAwayJetPt_ = jets.at(0).first.pt() * jets.at(0).second;
+            leptonTree_->leadingAwayJet_ = jets.at(0).first.p4() * jets.at(0).second;
+
+	//trigger info
+        if (eventPassTrigger("HLT_Photon20_CaloIdVL_IsoL_v*")) leptonTree_->eventSelection_ |= LeptonTree::Photon20CaloIdVLIsoL;
+        if (eventPassTrigger("HLT_Photon30_CaloIdVL_IsoL_v*")) leptonTree_->eventSelection_ |= LeptonTree::Photon30CaloIdVLIsoL;
+        if (eventPassTrigger("HLT_Photon50_CaloIdVL_IsoL_v*")) leptonTree_->eventSelection_ |= LeptonTree::Photon50CaloIdVLIsoL;
+        if (eventPassTrigger("HLT_Photon75_CaloIdVL_IsoL_v*")) leptonTree_->eventSelection_ |= LeptonTree::Photon75CaloIdVLIsoL;
+        if (eventPassTrigger("HLT_Photon90_CaloIdVL_IsoL_v*")) leptonTree_->eventSelection_ |= LeptonTree::Photon90CaloIdVLIsoL;
 
         leptonTree_->tree_->Fill();
 

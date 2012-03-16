@@ -341,3 +341,34 @@ bool smurfselections::passElectronIso2011(const edm::View<reco::GsfElectron>::co
     return true;
 }
 
+std::pair<double,double> smurfselections::trackerMET(std::vector<const reco::Candidate*>& objs, double deltaZCut, 
+						     const reco::PFCandidateCollection &pfCandCollection,
+						     const reco::Vertex &vertex) 
+{
+  double pX(0), pY(0);
+  for (unsigned int it_o=0;it_o<objs.size();it_o++) {
+    pX -= objs[it_o]->px();
+    pY -= objs[it_o]->py();
+  }
+  reco::PFCandidateCollection::const_iterator pf;
+  for (pf = pfCandCollection.begin(); pf != pfCandCollection.end(); ++pf) {
+    //reject neutrals
+    if (pf->charge()==0) continue;
+    //avoid overlap with object under test
+    bool overlap = false;
+    for (unsigned int it_o=0;it_o<objs.size();it_o++) {
+      float dR = reco::deltaR(pf->eta(), pf->phi(), objs[it_o]->eta(), objs[it_o]->phi());
+      if ( fabs(dR)<0.1 ) overlap = true;
+    }
+    if (overlap) continue;
+    //dz cut
+    const reco::TrackRef pfTrack  = pf->trackRef();
+    if (pfTrack.isNonnull()==false) continue;
+    if( fabs(pfTrack->dz(vertex.position()))>deltaZCut ) continue;
+    pX -= pf->px();
+    pY -= pf->py();
+  }
+  double met    = sqrt(pX * pX + pY * pY);
+  double metphi = atan2(pY, pX);
+  return std::make_pair<double,double>(met,metphi);
+}

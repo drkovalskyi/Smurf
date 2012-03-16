@@ -33,6 +33,11 @@ std::vector<std::pair<reco::PFJet, float> > goodJets(const edm::Event& iEvent, c
 std::vector<std::pair<reco::PFJet, float> > goodJets(const edm::Event& iEvent, const edm::EventSetup& iSetup,
         const edm::Handle<edm::View<reco::PFJet> > &jets_h, const reco::Candidate &cand,
         const JetCorrector *corrector);
+//trackerMET: the objs vector should contain the two leptons or the photon or whatever you do not want to be taken from the PFCandidateCollection
+std::pair<double,double> trackerMET(std::vector<const reco::Candidate*>& objs, 
+				    double deltaZCut, 
+				    const reco::PFCandidateCollection &pfCandCollection,
+				    const reco::Vertex &vertex);
 
 //
 // 2011 selections
