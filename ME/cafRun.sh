@@ -24,7 +24,7 @@ echo "{" > temp.C
 
 if [ "${MODE}" == 'WW' ]; then
     echo "gSystem->CompileMacro(\"runME_test.C\");" >> temp.C
-    echo "runME_test(\"./\", \"$ROOTFILE\", \"./\", 10, 1, 100000, 1.0, $NEV, $EVSTART);" >> temp.C
+    echo "runME_test(\"./\", \"$ROOTFILE\", \"./\", 10, 2, 100000, 1.0, $NEV, $EVSTART);" >> temp.C
 fi
 
 if [ "${MODE}" == 'ZZ' ]; then

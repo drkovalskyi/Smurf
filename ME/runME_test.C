@@ -375,7 +375,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       else
 	Xcal2.SetHWWPhaseSpace(TVar::MHMW);
       // increase the number of steps for the HWW115 and HWW120 to 5 time the nominal value
-      if ( HiggsMASS[ProcInt] <= 130 )   
+      if ( HiggsMASS[ProcInt] <= 160 )   
 	Xcal2.SetNcalls(5*ncalls);
       else  
 	Xcal2.SetNcalls(ncalls);
