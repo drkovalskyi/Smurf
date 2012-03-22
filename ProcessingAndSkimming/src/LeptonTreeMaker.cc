@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.5 2012/03/16 13:52:36 cerati Exp $
+// $Id: LeptonTreeMaker.cc,v 1.6 2012/03/16 18:05:48 cerati Exp $
 //
 //
 
@@ -44,6 +44,7 @@ Implementation:
 #include "TrackingTools/Records/interface/TransientTrackRecord.h"
 #include "RecoEcal/EgammaCoreTools/interface/EcalClusterLazyTools.h"
 #include "HiggsAnalysis/HiggsToWW2Leptons/interface/ElectronIDMVA.h"
+#include "SimDataFormats/PileupSummaryInfo/interface/PileupSummaryInfo.h"
 
 // user include files
 #include "Smurf/Core/LeptonTree.h"
@@ -584,10 +585,15 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
             leptonTree_->leptonSelection_ |= (LeptonTree::PassEleIso);
 
         // jets
-        std::vector<std::pair<reco::PFJet, float> > jets = smurfselections::goodJets(iEvent, iSetup, jets_h, *fo, corrector);
-        leptonTree_->njets_ = jets.size();
-        if (jets.size() > 0)
-            leptonTree_->leadingAwayJet_ = jets.at(0).first.p4() * jets.at(0).second;
+        leptonTree_->jet1_ = LorentzVector(0,0,0,0);
+        leptonTree_->jet2_ = LorentzVector(0,0,0,0);
+        leptonTree_->jet3_ = LorentzVector(0,0,0,0);
+        std::vector<std::pair<reco::PFJet, float> > jets30 = smurfselections::goodJets(iEvent, iSetup, jets_h, *fo, corrector, 30.);
+        leptonTree_->njets_ = jets30.size();
+        std::vector<std::pair<reco::PFJet, float> > jets15 = smurfselections::goodJets(iEvent, iSetup, jets_h, *fo, corrector, 15.);
+        if (jets15.size() > 0) leptonTree_->jet1_ = jets15.at(0).first.p4() * jets15.at(0).second;
+        if (jets15.size() > 1) leptonTree_->jet2_ = jets15.at(1).first.p4() * jets15.at(1).second;
+        if (jets15.size() > 2) leptonTree_->jet3_ = jets15.at(2).first.p4() * jets15.at(2).second;
 
         leptonTree_->tree_->Fill();
     }
@@ -641,10 +647,15 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
         if (smurfselections::passMuonIso2011(fo, pfCandCollection_, pv_)) leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIso);
 
         // jets
-        std::vector<std::pair<reco::PFJet, float> > jets = smurfselections::goodJets(iEvent, iSetup, jets_h, *fo, corrector);
-        leptonTree_->njets_ = jets.size();
-        if (jets.size() > 0)
-            leptonTree_->leadingAwayJet_ = jets.at(0).first.p4() * jets.at(0).second;
+        leptonTree_->jet1_ = LorentzVector(0,0,0,0);
+        leptonTree_->jet2_ = LorentzVector(0,0,0,0);
+        leptonTree_->jet3_ = LorentzVector(0,0,0,0);
+        std::vector<std::pair<reco::PFJet, float> > jets30 = smurfselections::goodJets(iEvent, iSetup, jets_h, *fo, corrector, 30.);
+        leptonTree_->njets_ = jets30.size();
+        std::vector<std::pair<reco::PFJet, float> > jets15 = smurfselections::goodJets(iEvent, iSetup, jets_h, *fo, corrector, 15.);
+        if (jets15.size() > 0) leptonTree_->jet1_ = jets15.at(0).first.p4() * jets15.at(0).second;
+        if (jets15.size() > 1) leptonTree_->jet2_ = jets15.at(1).first.p4() * jets15.at(1).second;
+        if (jets15.size() > 2) leptonTree_->jet3_ = jets15.at(2).first.p4() * jets15.at(2).second;
 
         leptonTree_->tree_->Fill();
     }
@@ -688,6 +699,7 @@ void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent, const edm::EventS
 
         if (eta <= 1.479) {
             if (it->sigmaIetaIeta() >= 0.011)   continue;
+            if (it->sigmaIetaIeta() <  0.001)   continue;
             if (it->trkSumPtHollowConeDR04()  >= 2.0 + 0.001*pt + 0.0167*rhoIso_)     continue;
             if (it->ecalRecHitSumEtConeDR04() >= 4.2 + 0.006*pt + 0.183*rhoIso_)      continue;
             if (it->hcalTowerSumEtConeDR04()  >= 2.2 + 0.0025*pt + 0.062*rhoIso_)     continue;
@@ -720,10 +732,15 @@ void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent, const edm::EventS
 	leptonTree_->trackMetPhi_        = tkmet.second;
 
         // jets
-        std::vector<std::pair<reco::PFJet, float> > jets = smurfselections::goodJets(iEvent, iSetup, jets_h, *photon, corrector);
-        leptonTree_->njets_ = jets.size();
-        if (jets.size() > 0)
-            leptonTree_->leadingAwayJet_ = jets.at(0).first.p4() * jets.at(0).second;
+        leptonTree_->jet1_ = LorentzVector(0,0,0,0);
+        leptonTree_->jet2_ = LorentzVector(0,0,0,0);
+        leptonTree_->jet3_ = LorentzVector(0,0,0,0);
+        std::vector<std::pair<reco::PFJet, float> > jets30 = smurfselections::goodJets(iEvent, iSetup, jets_h, *photon, corrector, 30.);
+        leptonTree_->njets_ = jets30.size();
+        std::vector<std::pair<reco::PFJet, float> > jets15 = smurfselections::goodJets(iEvent, iSetup, jets_h, *photon, corrector, 15.);
+        if (jets15.size() > 0) leptonTree_->jet1_ = jets15.at(0).first.p4() * jets15.at(0).second;
+        if (jets15.size() > 1) leptonTree_->jet2_ = jets15.at(1).first.p4() * jets15.at(1).second;
+        if (jets15.size() > 2) leptonTree_->jet3_ = jets15.at(2).first.p4() * jets15.at(2).second;
 
 	//trigger info
         if (eventPassTrigger("HLT_Photon20_CaloIdVL_IsoL_v*")) leptonTree_->eventSelection_ |= LeptonTree::Photon20CaloIdVLIsoL;
@@ -747,6 +764,16 @@ void LeptonTreeMaker::fillCommonVariables(const edm::Event& iEvent)
     leptonTree_->lumi_      = iEvent.luminosityBlock() ;
     leptonTree_->rho_       = rhoIso_                  ;
     leptonTree_->nvtx_      = vertexCollection_.size()  ;
+
+    edm::Handle<std::vector<PileupSummaryInfo> > puInfoH;
+    bool bPuInfo=iEvent.getByLabel("addPileupInfo", puInfoH);
+    if(bPuInfo) {
+      for (std::vector<PileupSummaryInfo>::const_iterator itr = puInfoH->begin(); itr != puInfoH->end(); ++itr ){
+	if (itr->getBunchCrossing()== 0) leptonTree_->npu_         = itr->getPU_NumInteractions();
+	if (itr->getBunchCrossing()==+1) leptonTree_->npuPlusOne_  = itr->getPU_NumInteractions();
+	if (itr->getBunchCrossing()==-1) leptonTree_->npuMinusOne_ = itr->getPU_NumInteractions();
+      }
+    }
 
 }
 

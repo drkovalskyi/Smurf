@@ -24,9 +24,13 @@ float smurfselections::dzVertex(const reco::Candidate &cand, const Point &vertex
     return dz;
 }
 
+bool smurfselections::compareJetPt(std::pair<reco::PFJet, float> lv1, std::pair<reco::PFJet, float> lv2) {
+  return lv1.first.pt()*lv1.second > lv2.first.pt()*lv2.second;
+}
+
 std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm::Event& iEvent, const edm::EventSetup& iSetup,
         const edm::Handle<edm::View<reco::PFJet> > &jets_h, const reco::Candidate &cand1, const reco::Candidate &cand2,
-        const JetCorrector *corrector)
+	const JetCorrector *corrector, float ptCut)
 {
 
     std::vector<std::pair<reco::PFJet, float> > goodJets;
@@ -40,7 +44,7 @@ std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm:
         float jec = corrector->correction(*jet, jetRef, iEvent, iSetup);
 
         // cuts
-        if (jet->pt() * jec <= 30.0) continue;
+        if (jet->pt() * jec <= ptCut) continue;
         if (fabs(jet->eta()) >= 5.0) continue;
         if (reco::deltaR(jet->eta(), jet->phi(), cand1.eta(), cand1.phi()) < 0.3) continue;
         if (reco::deltaR(jet->eta(), jet->phi(), cand2.eta(), cand2.phi()) < 0.3) continue;
@@ -50,12 +54,13 @@ std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm:
 
     }
 
+    std::sort(goodJets.begin(), goodJets.end(), compareJetPt);
     return goodJets;
 }
 
 std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm::Event& iEvent, const edm::EventSetup& iSetup,
         const edm::Handle<edm::View<reco::PFJet> > &jets_h, const reco::Candidate &cand, 
-        const JetCorrector *corrector)
+	const JetCorrector *corrector, float ptCut)
 {
 
     std::vector<std::pair<reco::PFJet, float> > goodJets;
@@ -69,7 +74,7 @@ std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm:
         float jec = corrector->correction(*jet, jetRef, iEvent, iSetup);
 
         // cuts
-        if (jet->pt() * jec <= 30.0) continue;
+        if (jet->pt() * jec <= ptCut) continue;
         if (fabs(jet->eta()) >= 5.0) continue;
         if (reco::deltaR(jet->eta(), jet->phi(), cand.eta(), cand.phi()) < 0.3) continue;
 
@@ -78,6 +83,7 @@ std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm:
 
     }
 
+    std::sort(goodJets.begin(), goodJets.end(), compareJetPt);
     return goodJets;
 }
 

@@ -27,12 +27,13 @@ float electronIsoValuePF(const reco::PFCandidateCollection &pfCandCollection,
 float muonIsoValuePF(const reco::PFCandidateCollection &pfCandCollection,
         const reco::Muon& mu, const reco::Vertex& vtx, 
         float coner, float minptn, float dzcut, int filterId);
+ bool compareJetPt(std::pair<reco::PFJet, float> lv1, std::pair<reco::PFJet, float> lv2);
 std::vector<std::pair<reco::PFJet, float> > goodJets(const edm::Event& iEvent, const edm::EventSetup& iSetup,
         const edm::Handle<edm::View<reco::PFJet> > &jets_h, const reco::Candidate &cand1, const reco::Candidate &cand2,
-        const JetCorrector *corrector);
+        const JetCorrector *corrector, float ptCut);
 std::vector<std::pair<reco::PFJet, float> > goodJets(const edm::Event& iEvent, const edm::EventSetup& iSetup,
         const edm::Handle<edm::View<reco::PFJet> > &jets_h, const reco::Candidate &cand,
-        const JetCorrector *corrector);
+	const JetCorrector *corrector, float ptCut);
 //trackerMET: the objs vector should contain the two leptons or the photon or whatever you do not want to be taken from the PFCandidateCollection
 std::pair<double,double> trackerMET(std::vector<const reco::Candidate*>& objs, 
 				    double deltaZCut, 
