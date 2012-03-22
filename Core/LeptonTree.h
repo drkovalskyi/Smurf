@@ -86,6 +86,9 @@ class LeptonTree {
   unsigned int   run_;
   unsigned int   lumi_;
   unsigned int   nvtx_;
+  unsigned int   npu_;
+  unsigned int   npuPlusOne_;
+  unsigned int   npuMinusOne_;
   unsigned int   leptonSelection_;
   unsigned int   eventSelection_;
   float          rho_;
@@ -95,7 +98,9 @@ class LeptonTree {
   float          qTag_;
   float          qProbe_;
   float          scale1fb_;
-  LorentzVector  leadingAwayJet_;
+  LorentzVector  jet1_;
+  LorentzVector  jet2_;
+  LorentzVector  jet3_;
   float          met_;
   float          metPhi_;
   float          trackMet_;
@@ -138,6 +143,9 @@ class LeptonTree {
     tree_->Branch("run"              , &run_              ,   "run/i");
     tree_->Branch("lumi"             , &lumi_             ,   "lumi/i");
     tree_->Branch("nvtx"             , &nvtx_             ,   "nvtx/i");
+    tree_->Branch("npu"              , &npu_              ,   "npu/i");
+    tree_->Branch("npuPlusOne"       , &npuPlusOne_       ,   "npuPlusOne/i");
+    tree_->Branch("npuMinusOne"      , &npuMinusOne_      ,   "npuMinusOne/i");
     tree_->Branch("leptonSelection"  , &leptonSelection_  ,   "leptonSelection/i");
     tree_->Branch("eventSelection"   , &eventSelection_   ,   "eventSelection/i");
     tree_->Branch("rho"              , &rho_              ,   "rho/F");
@@ -147,12 +155,14 @@ class LeptonTree {
     tree_->Branch("qTag"             , &qTag_             ,   "qTag/F");
     tree_->Branch("qProbe"           , &qProbe_           ,   "qProbe/F");
     tree_->Branch("scale1fb"         , &scale1fb_         ,   "scale1fb/F");
-    tree_->Branch("leadingAwayJet" , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &leadingAwayJet_);
+    tree_->Branch("jet1"             , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet1_);
+    tree_->Branch("jet2"             , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet2_);
+    tree_->Branch("jet3"             , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet3_);
     tree_->Branch("met"              , &met_              ,   "met/F");
     tree_->Branch("metPhi"           , &metPhi_           ,   "metPhi/F");
     tree_->Branch("trackMet"         , &trackMet_         ,   "trackMet/F");
     tree_->Branch("trackMetPhi"      , &trackMetPhi_      ,   "trackMetPhi/F");
-    tree_->Branch("njets"            , &njets_            ,   "njets/F");
+    tree_->Branch("njets"            , &njets_            ,   "njets/i");
 
   }
 
@@ -170,6 +180,9 @@ class LeptonTree {
     tree_->SetBranchAddress("run",              &run_);
     tree_->SetBranchAddress("lumi",             &lumi_);
     tree_->SetBranchAddress("nvtx",             &nvtx_);
+    tree_->SetBranchAddress("npu",              &npu_);
+    tree_->SetBranchAddress("npuPlusOne",       &npuPlusOne_);
+    tree_->SetBranchAddress("npuMinusOne",      &npuMinusOne_);
     tree_->SetBranchAddress("leptonSelection",  &leptonSelection_);
     tree_->SetBranchAddress("eventSelection",   &eventSelection_);
     tree_->SetBranchAddress("rho",              &rho_);
@@ -179,7 +192,9 @@ class LeptonTree {
     tree_->SetBranchAddress("qTag",             &qTag_);
     tree_->SetBranchAddress("qProbe",           &qProbe_);
     tree_->SetBranchAddress("scale1fb",         &scale1fb_);
-    tree_->SetBranchAddress("leadingAwayJet",   &leadingAwayJet_);
+    tree_->SetBranchAddress("jet1",             &jet1_);
+    tree_->SetBranchAddress("jet2",             &jet2_);
+    tree_->SetBranchAddress("jet3",             &jet3_);
     tree_->SetBranchAddress("met",              &met_);
     tree_->SetBranchAddress("metPhi",           &metPhi_);
     tree_->SetBranchAddress("trackMet",         &trackMet_);
@@ -211,6 +226,9 @@ LeptonTree::InitVariables(){
     variables_.push_back(std::string("run"              ));
     variables_.push_back(std::string("lumi"             ));
     variables_.push_back(std::string("nvtx"             ));
+    variables_.push_back(std::string("npu"              ));
+    variables_.push_back(std::string("npuPlusOne"       ));
+    variables_.push_back(std::string("npuMinusOne"      ));
     variables_.push_back(std::string("leptonSelection"  ));
     variables_.push_back(std::string("eventSelection"   ));
     variables_.push_back(std::string("rho"              ));
@@ -220,7 +238,9 @@ LeptonTree::InitVariables(){
     variables_.push_back(std::string("qTag"             ));
     variables_.push_back(std::string("qProbe"           ));
     variables_.push_back(std::string("scale1fb"         ));
-    variables_.push_back(std::string("leadingAwayJet" ));
+    variables_.push_back(std::string("jet1"             ));
+    variables_.push_back(std::string("jet2"             ));
+    variables_.push_back(std::string("jet3"             ));
     variables_.push_back(std::string("met"              ));
     variables_.push_back(std::string("metPhi"           ));
     variables_.push_back(std::string("trackMet"         ));
@@ -233,7 +253,10 @@ LeptonTree::InitVariables(){
   event_                = 0;
   run_                  = 0;
   lumi_                 = 0;
-  nvtx_                 = -999;
+  nvtx_                 = 0;
+  npu_                  = 0;
+  npuPlusOne_           = 0;
+  npuMinusOne_          = 0;
   leptonSelection_      = 0;
   eventSelection_       = 0;
   rho_                  = -999;
@@ -243,12 +266,14 @@ LeptonTree::InitVariables(){
   qTag_                 = -999;
   qProbe_               = -999;
   scale1fb_             = 0;
-  leadingAwayJet_       = LorentzVector();
+  jet1_                 = LorentzVector();
+  jet2_                 = LorentzVector();
+  jet3_                 = LorentzVector();
   met_                  = -999;
   metPhi_               = -999;
   trackMet_             = -999;
   trackMetPhi_          = -999;
-  njets_                = -999;
+  njets_                = 0;
 
 }
 
@@ -259,6 +284,9 @@ LeptonTree::Get(std::string value)
   if(value=="run"              ) { return this->run_;	           }
   if(value=="lumi"             ) { return this->lumi_;	           }
   if(value=="nvtx"             ) { return this->nvtx_;	           }
+  if(value=="npu"              ) { return this->npu_;	           }
+  if(value=="npuPlusOne"       ) { return this->npuPlusOne_;	   }
+  if(value=="npuMinusOne"      ) { return this->npuMinusOne_;	   }
   if(value=="leptonSelection"  ) { return this->leptonSelection_;  }
   if(value=="eventSelection"   ) { return this->eventSelection_;   }
   if(value=="rho"              ) { return this->rho_;	           }
