@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.1 2012/01/17 11:16:34 dlevans Exp $
+# $Id: Makefile,v 1.1 2012/03/23 10:10:45 dlevans Exp $
 
 DVIPS = dvips
 DVIPSPREFLAGS = -t letter
@@ -13,7 +13,7 @@ LATEXFLAGS =
 
 DVI = $(TEXSOURCES:.tex=.dvi)
 
-SORCE = note.pdf
+SORCE = tagprobenote.pdf
 
 ALLTEX = $(wildcard *.tex)
 RERUN = '(No file .*\.toc|There were undefined references)'
