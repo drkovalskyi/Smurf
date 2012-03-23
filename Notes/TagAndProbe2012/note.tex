@@ -1,0 +1,221 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage[pdfborder=0 0 0,
+            colorlinks,
+            urlcolor = blue,
+            linkcolor = black,
+            citecolor = black,
+            menucolor = black,]
+           {hyperref}
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixname}{Appendix}
+\setlength\parindent{0pt}
+
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+
+%===================================================================================================
+\begin{document}
+
+%\begin{titlepage}
+\title{Tag and Probe Methodology}
+\author{A.~Yagil, D.~Evans, S.~Xie}
+%\end{titlepage}
+
+\maketitle
+
+\tableofcontents
+\newpage 
+
+%===================================================================================================
+\section{Methodology}
+
+\subsection{Triggers}
+{\it Which trigger paths should be used for which run ranges?}\\
+
+\begin{itemize}
+    \item For 2011 data, I think the tag and probe trigger is easier because it's
+always existing while the single electron trigger fluctuated a lot
+sometimes disappearing altogether from the menu.
+    \item For the 2012 data, it would be nice if we can get this proposed single ele
+unprescaled at 60Hz. Using this trigger is the obvious simplest choice.
+\end{itemize}
+
+{\it Do we need to take into account prescaling?}\\
+
+\begin{itemize}
+    \item For 2011 data, there is no problem if using  Ele32\_SC17 because
+this trigger was always unprescaled (we think).  This trigger should not
+require prescaling in the future if the tag leg is kept tight.  There may be issues
+for the triggers with a lower $p_{T}$ leg.  If necessary the control dataset 
+can be re-weighted to the analysis dataset according to the number of reconstructed
+vertices.
+    \item In general if the prescale is constant accross the entire dataset
+to be analysed then no additional re-weighting is required.  It is better to have a 
+trigger with a constant prescale rather than an initially small but growing prescale.
+\end{itemize}
+
+
+{\it Do we introduce special treatment of double L1-seeded signal triggers?}\\
+\begin{itemize}
+    \item If the L1 decision is required simultaneously on two legs then there is 
+a correlation between the two legs and the tag must be picked a-priori to
+avoid bias.  Reference somewhere what we did for muons.  It is the same problem.
+\end{itemize}
+
+
+\subsection{Binning}
+
+{\it Set of variables in which we bin the probes} \\
+{\it 1D, 2D, multi-dimensional?} \\
+{\it Bin boundaries} \\
+
+\begin{itemize}
+    \item These are all analysis dependent.
+\end{itemize}
+
+\subsection{Tag and probe selection}
+
+{\it The exact selection for the tag} \\
+{\it Requirements for the probe (for efficiency demonimnator)} \\
+{\it Require opposite sign for the tag-probe pair?} \\
+{\it Invariant mass requirement} \\
+
+\begin{itemize}    
+    \item Fix the overall window within which events are selected (including
+side-bands for background fitting/extraction) to 60-120 GeV.  
+The low mass threshold is motivated by avoiding kinematic turn-on effects.
+    \item Also there is the subtle issue of which window you use to make the
+efficiency measurement (as opposed to the window used to fit). That
+question is extremely delicate and is very analysis dependent.
+\end{itemize}
+
+{\it How to choose between multiple tag-probe pairs (closest to mZ / random / use all)?} \\
+
+\begin{itemize}
+    \item As long as same procedure is used in data and simulation, in principle the 
+effect on extracted scale factors should be small.  
+\end{itemize}
+
+
+\subsection{MC treatment}
+
+{\it generator level matching requirements}\\
+
+\begin{itemize}
+    \item It is not clear the generator level matching is required.  
+The fraction of probes in simulation from fake leptons from additional jets
+is likely to be small.  If absolutely necessary, an anti-matching could
+be performed between partons and the reconstructed probe.
+\end{itemize}
+
+{for efficiency not binned in PU, how is the difference in PU between data and MC is taken care of?}\\
+
+\begin{itemize}
+    \item Run on the same dataset you are using in your analysis if possible (see above point 
+in case prescale of control triggers changes).
+\end{itemize}
+
+{\it Which efficiencies are computed from counting and which from fits?}
+
+\subsection{Fitting}
+
+{\it Fit range} \\
+
+\begin{itemize}
+    \item Probably a common sense recommendation can be made.
+\end{itemize}
+
+
+{\it Binned or unbinned} \\
+
+\begin{itemize}
+    \item It's a technical choice. As long as 
+you apply the same fit in both data and simulation either is fine
+If speed is not an issue unbinned fit may be preferred.
+\end{itemize}
+
+{\it simultaneous pass+fail or separate}
+
+\begin{itemize}
+    \item The simultaneous fit is probably better, since correlated uncertainties
+can be better handled, and the result (efficiency) can be constrained to be 
+less than or equal to one.
+\end{itemize}
+
+{\it The exact definition of signal PDF} \\
+
+\begin{itemize}
+    \item It is necessary to take into account the expected signal shape 
+from simulation with an additional smearing term to take into account difference in 
+resolution and energy scale between data and simulation.
+\end{itemize}
+
+
+{\it The exact definition of background PDF} \\
+
+\begin{itemize}
+    \item  It has been shown (citation?) that there is no significant difference to
+the result between exponential and exponential*linear models.  Other models 
+could be tested as part of systematics
+\end{itemize}
+
+
+\subsection{Systematic uncertainties}
+
+{\it Extrapolation of efficiencies from electrons to photons} \\
+
+\begin{itemize}    
+    \item We have not considered this.
+\end{itemize}
+
+{\it Dependence on tag selection} \\
+
+\begin{itemize}
+    \item Changing the tag will probably not have any effect, unless it is a
+proxy for a background normalisation/modelling uncertainty.
+\end{itemize}
+
+{\it Dependence on choice of fit functions} \\
+
+\begin{itemize}
+    \item Probably should be investigated.
+\end{itemize}
+
+{\it Background subtraction when counting is used instead of a fit} \\
+
+\begin{itemize}    
+    \item This question is mis-phrased. if there is background it has to be
+subtracted using an appropriate method. if the background is negligible,
+then it's irrelvant. If there is background and you don't subtract it
+then it's clearly biased, and then you have to cover the bias with a systematic error.
+\end{itemize}
+
+{\it Are the biases in measuring efficiency as a function of pT from Z->ee?} \\
+
+\begin{itemize}    
+    \item We are not clear what this question is referring to?  Isolation efficiency
+extraction at low $p_{T}$?
+\end{itemize}
+
+\section{Central Measurements}
+
+\begin{itemize}
+    \item The only measurement it makes sense to do centrally with a standard
+definition is the one that is common to everyone - the reconstruction
+efficiency.  In other cases the definition of tag and probe is motivated
+by the analysis selection used.
+\end{itemize}
+
+
+%===================================================================================================
+\input{biblio}
+%===================================================================================================
+
+\end{document}
+
