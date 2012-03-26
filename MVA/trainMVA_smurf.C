@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.8 2011/12/06 16:43:08 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.9 2011/12/15 12:15:36 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -50,6 +50,8 @@
 #include "Math/VectorUtil.h"
 
 #include "../Core/SmurfTree.h"
+#include "../Analysis/HWWlvlv/factors.h"
+#include "../Analysis/HWWlvlv/HWWCuts.h"
 
 #if not defined(__CINT__) || defined(__MAKECINT__)
 // needs to be included when makecint runs (ACLIC)
@@ -125,30 +127,17 @@ void trainMVA_smurf(
   mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
   mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
   mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
+  mvaVar[ "dPhiDiLepMET" ]	= 0;  //delta phi btw dilepton and met
+  mvaVar[ "dPhiDiLepJet1" ]	= 0;  //delta phi btw dilepton and jet1 (only for njet>0)
   if(njetsType == 1){
     mvaVar[ "dPhiDiLepMET" ]    = 1;
     mvaVar[ "dPhiDiLepJet1" ]   = 1;
   }
+  mvaVar[ "razor" ]             = 0;  //razor
 
   TCut sel = "";
   
-  float dilmass_cut = 10000;
-   
-  if     ( mH == 110 ||
-           mH == 115 ) dilmass_cut =  70.0;
-  else if( mH == 120 ) dilmass_cut =  70.0;
-  else if( mH == 130 ) dilmass_cut =  80.0;
-  else if( mH == 140 ) dilmass_cut =  90.0;
-  else if( mH == 150 ) dilmass_cut = 100.0;
-  else if( mH == 160 ) dilmass_cut = 100.0;
-  else if( mH == 165 ) dilmass_cut = 100.0;
-  else if( mH == 170 ) dilmass_cut = 100.0;
-  else if( mH == 180 ) dilmass_cut = 110.0;
-  else if( mH == 190 ) dilmass_cut = 120.0;
-  else if( mH == 200 ) dilmass_cut = 130.0;
-  else if( mH == 210 ) dilmass_cut = 140.0;
-  else if( mH == 220 ) dilmass_cut = 150.0;
-  else                 dilmass_cut = mH;
+  float dilmass_cut = DileptonMassPreselectionCut(mH);
 
   cout << "Using dilepton mass < " << dilmass_cut << endl;
 
@@ -306,6 +295,7 @@ void trainMVA_smurf(
   if (mvaVar["dPhiLep2MET"])  factory->AddVariable( "dPhiLep2MET",   "dphi(lep2,MET)",      "GeV", 'F' );
   if (mvaVar["dPhiDiLepMET"]) factory->AddVariable( "dPhiDiLepMET",  "dphi(dilep,MET)",     "",    'F' );
   if (mvaVar["dPhiDiLepJet1"])factory->AddVariable( "dPhiDiLepJet1", "dphi(dilep,jet)",     "",    'F' );
+  if (mvaVar["razor"])        factory->AddVariable( "razor",         "razor",               "",    'F' );
 
   int nVariablesTemp = 0;
 
@@ -324,6 +314,7 @@ void trainMVA_smurf(
   if (mvaVar["dPhiLep2MET"])  { cout << "Adding variable to MVA training: dPhiLep2MET"    << endl; nVariablesTemp++; }
   if (mvaVar["dPhiDiLepMET"]) { cout << "Adding variable to MVA training: dPhiDiLepMET"   << endl; nVariablesTemp++; }
   if (mvaVar["dPhiDiLepJet1"]){ cout << "Adding variable to MVA training: dPhiDiLepJet1"  << endl; nVariablesTemp++; }
+  if (mvaVar["razor"])        { cout << "Adding variable to MVA training: razor"          << endl; nVariablesTemp++; }
 
   const unsigned int nVariables = nVariablesTemp;
   cout << "Using " << nVariables << " variables for MVA training" << endl;
@@ -479,6 +470,7 @@ void trainMVA_smurf(
     bool dPhiDiLepJet1Cut = njets != 1 ||
                            (dPhiDiLepJet1*180.0/TMath::Pi() < 165. || type == em || type == me);
     if( dPhiDiLepJet1Cut == false        ) continue; // cut on dPhiDiLepJet1
+    if( njets >= 1 && dPhiDiLepJet1 > 100) continue; // cut on impossible dPhiDiLepJet1
 
     int varCounter = 0;
     
@@ -497,6 +489,7 @@ void trainMVA_smurf(
     if (mvaVar["dPhiLep2MET"])   vars[varCounter++] = dPhiLep2MET;
     if (mvaVar["dPhiDiLepMET"])  vars[varCounter++] = dPhiDiLepMET;
     if (mvaVar["dPhiDiLepJet1"]) vars[varCounter++] = dPhiDiLepJet1;
+    if (mvaVar["razor"])         vars[varCounter++] = CalcGammaMRstar(*lep1,*lep2);
 
     if ( event%2 != 0 ){
       factory->AddSignalTrainingEvent( vars, scale1fb );
@@ -557,12 +550,11 @@ void trainMVA_smurf(
     //if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
     //     (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
 
-    if(!(dstype == SmurfTree::qqww   || dstype == SmurfTree::ggww ))  continue; // cut on dstype
+    //if(!(dstype == SmurfTree::qqww   || dstype == SmurfTree::ggww ))  continue; // cut on dstype
 
-    //if(!(dstype == SmurfTree::qqww   || dstype == SmurfTree::ggww   ||
-    //	 dstype == SmurfTree::ttbar  || dstype == SmurfTree::tw     ||
-    //     dstype == SmurfTree::wz     || dstype == SmurfTree::zz     ||
-    //     dstype == SmurfTree::wgamma || dstype == SmurfTree::wjets))  continue; // cut on dstype
+    if(!(dstype == SmurfTree::qqww   || dstype == SmurfTree::ggww ||
+         dstype == SmurfTree::ttbar  || dstype == SmurfTree::tw	  ||
+    	 dstype == SmurfTree::wz     || dstype == SmurfTree::zz     ))  continue; // cut on dstype
 
     //if(!(dstype == SmurfTree::wgamma || dstype == SmurfTree::wjets))  continue; // cut on dstype
 
@@ -587,6 +579,7 @@ void trainMVA_smurf(
     bool dPhiDiLepJet1Cut = njets != 1 ||
                            (dPhiDiLepJet1*180.0/TMath::Pi() < 165. || type == em || type == me);
     if( dPhiDiLepJet1Cut == false        ) continue; // cut on dPhiDiLepJet1
+    if( njets >= 1 && dPhiDiLepJet1 > 100) continue; // cut on impossible dPhiDiLepJet1
 
     int varCounter = 0;
     
@@ -605,6 +598,7 @@ void trainMVA_smurf(
     if (mvaVar["dPhiLep2MET"])   vars[varCounter++] = dPhiLep2MET;
     if (mvaVar["dPhiDiLepMET"])  vars[varCounter++] = dPhiDiLepMET;
     if (mvaVar["dPhiDiLepJet1"]) vars[varCounter++] = dPhiDiLepJet1;
+    if (mvaVar["razor"])         vars[varCounter++] = CalcGammaMRstar(*lep1,*lep2);
 
     if ( event%2 != 0 ){
       factory->AddBackgroundTrainingEvent( vars, scale1fb );

@@ -109,6 +109,7 @@ TString suffix       = "ww"
     mvaVar[ "dPhiDiLepMET" ]   = 1;
     mvaVar[ "dPhiDiLepJet1" ]  = 1;
   }
+  mvaVar[ "razor" ]             = 0;  //razor
   //---------------------------------------------------------------
   // specifies the selection applied to events in the training
   //---------------------------------------------------------------
@@ -244,7 +245,7 @@ TString suffix       = "ww"
       puPath   = "/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
     }
     else if(period == 3){ // Full2011-Fall11
-      effPath  = "/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
+      effPath  = "/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
       fakePath = "/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
       puPath   = "/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
     }
@@ -310,6 +311,7 @@ TString suffix       = "ww"
     Float_t dPhiLep2MET;
     Float_t dPhiDiLepMET;
     Float_t dPhiDiLepJet1;
+    Float_t razor;
 
     if (mvaVar["lep1pt"])        reader->AddVariable( "lep1pt",        &lep1pt       );
     if (mvaVar["lep2pt"])        reader->AddVariable( "lep2pt",        &lep2pt       );
@@ -326,6 +328,7 @@ TString suffix       = "ww"
     if (mvaVar["dPhiLep2MET"])   reader->AddVariable( "dPhiLep2MET",   &dPhiLep2MET  );
     if (mvaVar["dPhiDiLepMET"])  reader->AddVariable( "dPhiDiLepMET",  &dPhiDiLepMET );
     if (mvaVar["dPhiDiLepJet1"]) reader->AddVariable( "dPhiDiLepJet1", &dPhiDiLepJet1);
+    if (mvaVar["razor"])         reader->AddVariable( "razor",         &razor        );
  
     // Spectator variables declared in the training have to be added to the reader, too
     //    Float_t spec1,spec2;
@@ -548,6 +551,7 @@ TString suffix       = "ww"
       dPhiLep2MET    = smurfTree.dPhiLep2MET_;  // 12
       dPhiDiLepMET   = smurfTree.dPhiDiLepMET_; // 13
       dPhiDiLepJet1  = smurfTree.dPhiDiLepJet1_;// 14
+      razor          = CalcGammaMRstar(smurfTree.lep1_,smurfTree.lep2_);// 15
 
       npass++;
       yield+=smurfTree.scale1fb_;
