@@ -211,13 +211,17 @@ class SmurfTree {
   LorentzVector  lep1_;
   int            lq1_;
   int            lid1_;
+  float          lmva1_;
   LorentzVector  lep2_;
   int            lq2_;
   int            lid2_;
+  float          lmva2_;
   LorentzVector  jet1_;
   float          jet1Btag_;
+  float          jet1ProbBtag_;
   LorentzVector  jet2_;
   float          jet2Btag_;
+  float          jet2ProbBtag_;
   unsigned int   njets_;
   LorentzVector  dilep_;
   LorentzVector  quadlep_;
@@ -249,11 +253,17 @@ class SmurfTree {
   LorentzVector  lep3_;
   int            lq3_;
   int            lid3_;
+  float          lmva3_;
   LorentzVector  jet3_;
   float          jet3Btag_;
+  float          jet3ProbBtag_;
+  LorentzVector  jet4_;
+  float          jet4Btag_;
+  float          jet4ProbBtag_;
   int            lep3McId_;
   int            lep3MotherMcId_;
   int            jet3McId_;
+  int            jet4McId_;
   float          dPhiLep3Jet1_;
   float          dRLep3Jet1_;
   float          dPhiLep3MET_;
@@ -291,7 +301,7 @@ class SmurfTree {
   /// default constructor  
   SmurfTree():info_("info","Smurf ntuple"),
     lepPtr1_(&lep1_),lepPtr2_(&lep2_),jetPtr1_(&jet1_),jetPtr2_(&jet2_),dilepPtr_(&dilep_),quadlepPtr_(&quadlep_),
-    lepPtr3_(&lep3_),                 jetPtr3_(&jet3_){}
+    lepPtr3_(&lep3_),                 jetPtr3_(&jet3_),jetPtr4_(&jet4_){}
   /// default destructor
   ~SmurfTree(){ 
     if (f_) f_->Close();  
@@ -346,13 +356,17 @@ class SmurfTree {
     tree_->Branch("lep1"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr1_);
     tree_->Branch("lq1"          , &lq1_          ,   "lq1/I");
     tree_->Branch("lid1"         , &lid1_         ,   "lid1/I");
+    tree_->Branch("lmva1"        , &lmva1_        ,   "lmva1/F");
     tree_->Branch("lep2"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr2_);
     tree_->Branch("lq2"          , &lq2_          ,   "lq2/I");
     tree_->Branch("lid2"         , &lid2_         ,   "lid2/I");
+    tree_->Branch("lmva2"        , &lmva2_        ,   "lmva2/F");
     tree_->Branch("jet1"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr1_);
     tree_->Branch("jet1Btag"     , &jet1Btag_     ,   "jet1Btag/F");
+    tree_->Branch("jet1ProbBtag" , &jet1ProbBtag_ ,   "jet1ProbBtag/F");
     tree_->Branch("jet2"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr2_);
     tree_->Branch("jet2Btag"     , &jet2Btag_     ,   "jet2Btag/F");
+    tree_->Branch("jet2ProbBtag" , &jet2ProbBtag_ ,   "jet2ProbBtag/F");
     tree_->Branch("njets"        , &njets_        ,   "njets/i");
     tree_->Branch("dilep"        , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &dilepPtr_);
     tree_->Branch("quadlep"      , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &quadlepPtr_);
@@ -390,11 +404,17 @@ class SmurfTree {
     tree_->Branch("lep3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr3_);
     tree_->Branch("lq3",           &lq3_,          "lq3/I");
     tree_->Branch("lid3",          &lid3_,         "lid3/I");
+    tree_->Branch("lmva3",         &lmva3_,        "lmva3/F");
     tree_->Branch("jet3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr3_);
     tree_->Branch("jet3Btag",      &jet3Btag_,      "jet3Btag/F");
+    tree_->Branch("jet3ProbBtag",  &jet3ProbBtag_,  "jet3ProbBtag/F");
+    tree_->Branch("jet4", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr4_);
+    tree_->Branch("jet4Btag",      &jet4Btag_,      "jet4Btag/F");
+    tree_->Branch("jet4ProbBtag",  &jet4ProbBtag_,  "jet4ProbBtag/F");
     tree_->Branch("lep3McId",      &lep3McId_,      "lep3McId/I");
     tree_->Branch("lep3MotherMcId",&lep3MotherMcId_,"lep3MotherMcId/I");
     tree_->Branch("jet3McId",      &jet3McId_,      "jet3McId/I");
+    tree_->Branch("jet4McId",      &jet4McId_,      "jet4McId/I");
     tree_->Branch("dPhiLep3Jet1",  &dPhiLep3Jet1_,  "dPhiLep3Jet1/F");
     tree_->Branch("dRLep3Jet1",    &dRLep3Jet1_,    "dRLep3Jet1/F");
     tree_->Branch("dPhiLep3MET",   &dPhiLep3MET_,   "dPhiLep3MET/F");
@@ -443,13 +463,17 @@ class SmurfTree {
     tree_->SetBranchAddress("lep1",          &lepPtr1_);
     tree_->SetBranchAddress("lq1",           &lq1_);
     tree_->SetBranchAddress("lid1",          &lid1_);
+    tree_->SetBranchAddress("lmva1",         &lmva1_);
     tree_->SetBranchAddress("lep2",          &lepPtr2_);
     tree_->SetBranchAddress("lq2",           &lq2_);
     tree_->SetBranchAddress("lid2",          &lid2_);
+    tree_->SetBranchAddress("lmva2",         &lmva2_);
     tree_->SetBranchAddress("jet1",          &jetPtr1_);
     tree_->SetBranchAddress("jet1Btag",      &jet1Btag_);
+    tree_->SetBranchAddress("jet1ProbBtag",  &jet1ProbBtag_);
     tree_->SetBranchAddress("jet2",          &jetPtr2_);
     tree_->SetBranchAddress("jet2Btag",      &jet2Btag_);
+    tree_->SetBranchAddress("jet2ProbBtag",  &jet2ProbBtag_);
     tree_->SetBranchAddress("njets",         &njets_);
     tree_->SetBranchAddress("dilep",         &dilepPtr_);
     tree_->SetBranchAddress("quadlep",       &quadlepPtr_);
@@ -487,11 +511,17 @@ class SmurfTree {
     tree_->SetBranchAddress("lep3",	     &lepPtr3_);
     tree_->SetBranchAddress("lq3",	     &lq3_);
     tree_->SetBranchAddress("lid3",	     &lid3_);
+    tree_->SetBranchAddress("lmva3",	     &lmva3_);
     tree_->SetBranchAddress("jet3",	     &jetPtr3_);
     tree_->SetBranchAddress("jet3Btag",      &jet3Btag_);
+    tree_->SetBranchAddress("jet3ProbBtag",  &jet3ProbBtag_);
+    tree_->SetBranchAddress("jet4",	     &jetPtr4_);
+    tree_->SetBranchAddress("jet4Btag",      &jet4Btag_);
+    tree_->SetBranchAddress("jet4ProbBtag",  &jet4ProbBtag_);
     tree_->SetBranchAddress("lep3McId",      &lep3McId_);
     tree_->SetBranchAddress("lep3MotherMcId",&lep3MotherMcId_);
     tree_->SetBranchAddress("jet3McId",      &jet3McId_);
+    tree_->SetBranchAddress("jet4McId",      &jet4McId_);
     tree_->SetBranchAddress("dPhiLep3Jet1",  &dPhiLep3Jet1_);
     tree_->SetBranchAddress("dRLep3Jet1",    &dRLep3Jet1_);
     tree_->SetBranchAddress("dPhiLep3MET",   &dPhiLep3MET_);
@@ -594,6 +624,7 @@ class SmurfTree {
   LorentzVector* quadlepPtr_;
   LorentzVector* lepPtr3_;
   LorentzVector* jetPtr3_;
+  LorentzVector* jetPtr4_;
 }; 
 
 inline void 
@@ -616,10 +647,14 @@ SmurfTree::InitVariables(){
     variables_.push_back(std::string("dstype"        ));
     variables_.push_back(std::string("lq1"           ));
     variables_.push_back(std::string("lid1"          ));
+    variables_.push_back(std::string("lmva1"         ));
     variables_.push_back(std::string("lq2"           ));
     variables_.push_back(std::string("lid2"          ));
+    variables_.push_back(std::string("lmva2"         ));
     variables_.push_back(std::string("jet1Btag"      ));
+    variables_.push_back(std::string("jet1ProbBtag"  ));
     variables_.push_back(std::string("jet2Btag"      ));
+    variables_.push_back(std::string("jet2ProbBtag"  ));
     variables_.push_back(std::string("njets"         ));
     variables_.push_back(std::string("trackMet"      ));
     variables_.push_back(std::string("trackMetPhi"   ));
@@ -662,10 +697,14 @@ SmurfTree::InitVariables(){
   dstype_        = data;
   lq1_           = 0;
   lid1_          = 0;
+  lmva1_         = 0.0;
   lq2_           = 0;
   lid2_          = 0;
+  lmva2_         = 0.0;
   jet1Btag_      = -999.;
+  jet1ProbBtag_  = -999.;
   jet2Btag_      = -999.;
+  jet2ProbBtag_  = -999.;
   njets_         = 0;
   trackMet_      = -999.;
   trackMetPhi_   = -999.;
@@ -699,12 +738,18 @@ SmurfTree::InitVariables(){
 
   lep3_       	 = LorentzVector();
   lq3_  	 = 0;
-  lid3_ 	 = 0;
+  lid3_ 	 = 0.0;
+  lmva3_ 	 = 0.0;
   jet3_       	 = LorentzVector();
   jet3Btag_	 = -999.;
+  jet3ProbBtag_	 = -999.;
+  jet4_       	 = LorentzVector();
+  jet4Btag_	 = -999.;
+  jet4ProbBtag_	 = -999.;
   lep3McId_	 = 0;
   lep3MotherMcId_= 0;
   jet3McId_	 = 0;
+  jet4McId_	 = 0;
   dPhiLep3Jet1_  = -999.;
   dRLep3Jet1_	 = -999.;
   dPhiLep3MET_   = -999.;
@@ -751,10 +796,14 @@ SmurfTree::Get(std::string value)
   if(value=="dstype"        ) { return this->dstype_;	     }
   if(value=="lq1"           ) { return this->lq1_;	     }
   if(value=="lid1"          ) { return this->lid1_;	     }
+  if(value=="lmva1"         ) { return this->lmva1_;	     }
   if(value=="lq2"           ) { return this->lq2_;	     }
   if(value=="lid2"          ) { return this->lid2_;	     }
+  if(value=="lmva2"         ) { return this->lmva2_;	     }
   if(value=="jet1Btag"      ) { return this->jet1Btag_;      }
+  if(value=="jet1ProbBtag"  ) { return this->jet1ProbBtag_;  }
   if(value=="jet2Btag"      ) { return this->jet2Btag_;      }
+  if(value=="jet2ProbBtag"  ) { return this->jet2ProbBtag_;  }
   if(value=="njets"         ) { return this->njets_;	     }
   if(value=="trackMet"      ) { return this->trackMet_;      }
   if(value=="trackMetPhi"   ) { return this->trackMetPhi_;   }
@@ -782,10 +831,15 @@ SmurfTree::Get(std::string value)
 
   if(value=="lq3"	    ) { return this->lq3_;	     } 
   if(value=="lid3"	    ) { return this->lid3_;	     } 
+  if(value=="lmva3"	    ) { return this->lmva3_;	     } 
   if(value=="jet3Btag"	    ) { return this->jet3Btag_;      } 
+  if(value=="jet3ProbBtag"  ) { return this->jet3ProbBtag_;  } 
+  if(value=="jet4Btag"	    ) { return this->jet4Btag_;      } 
+  if(value=="jet4ProbBtag"  ) { return this->jet4ProbBtag_;  } 
   if(value=="lep3McId"	    ) { return this->lep3McId_;      } 
   if(value=="lep3MotherMcId") { return this->lep3MotherMcId_;} 
   if(value=="jet3McId"	    ) { return this->jet3McId_;      } 
+  if(value=="jet4McId"	    ) { return this->jet4McId_;      } 
   if(value=="dPhiLep3Jet1"  ) { return this->dPhiLep3Jet1_;  } 
   if(value=="dRLep3Jet1"    ) { return this->dRLep3Jet1_;    } 
   if(value=="dPhiLep3MET"   ) { return this->dPhiLep3MET_;   } 
