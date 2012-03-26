@@ -1,12 +1,12 @@
 Double_t TopBkgScaleFactor(Int_t jetBin) {
   assert(jetBin >=0 && jetBin <= 2);
-  Double_t TopBkgScaleFactor[3] = { 1.39426, 1.09693, 1.12014   };
+  Double_t TopBkgScaleFactor[3] = { 1.29202, 1.03659, 0.887956   };
   return TopBkgScaleFactor[jetBin];
 }
 
 Double_t TopBkgScaleFactorKappa(Int_t jetBin) {
   assert(jetBin >=0 && jetBin <= 2);
-  Double_t TopBkgScaleFactorKappa[3] = { 1.21003, 1.06076, 1.34503   };
+  Double_t TopBkgScaleFactorKappa[3] = { 1.21207, 1.06113, 1.30699   };
   return TopBkgScaleFactorKappa[jetBin];
 }
 

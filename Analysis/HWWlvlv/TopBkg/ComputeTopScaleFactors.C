@@ -64,13 +64,13 @@ void ComputeTopScaleFactors
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
-    lumi     = 4.63;minRun =      0;maxRun = 999999;
+    lumi     = 4.924;minRun =      0;maxRun = 999999;
   }
   else if(period == 3){ // Full2011-Fall11
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
-    lumi     = 4.63;minRun =      0;maxRun = 999999;
+    lumi     = 4.924;minRun =      0;maxRun = 999999;
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -121,6 +121,7 @@ void ComputeTopScaleFactors
   //Yields and Histograms
   //*******************************************************************************
   vector<vector<double> > btag_central_2j_den,btag_central_2j_num,btag_central_2j_den_error,btag_central_2j_num_error;
+  vector<double>          btag_central_All_2j_den,btag_central_All_2j_num,btag_central_All_2j_den_error,btag_central_All_2j_num_error;
   vector<vector<double> > btag_vbf_2j_den,btag_vbf_2j_num,btag_vbf_2j_den_error,btag_vbf_2j_num_error;
   vector<vector<double> > btag_lowpt_1j_den;
   vector<vector<double> > btag_lowpt_1j_num;
@@ -130,13 +131,19 @@ void ComputeTopScaleFactors
   vector<vector<double> > btag_lowpt_1j_den_error,btag_lowpt_1j_num_error,btag_lowpt_0j_den_error,btag_lowpt_0j_num_error;
   vector<vector<double> > btag_highestpt_2j_den_error,btag_highestpt_2j_num_error,btag_highestpt_1j_den_error,btag_highestpt_1j_num_error;
 
+  for(int j=0; j<5; j++){
+    btag_central_All_2j_den.push_back(0),btag_central_All_2j_num.push_back(0),btag_central_All_2j_den_error.push_back(0),btag_central_All_2j_num_error.push_back(0);
+  }
+
   for(int i=0; i<4; i++){
     vector<double> tmpbtag_central_2j_den,tmpbtag_central_2j_num,tmpbtag_central_2j_den_error,tmpbtag_central_2j_num_error;
+    vector<double> tmpbtag_central_All_2j_den,tmpbtag_central_All_2j_num,tmpbtag_central_All_2j_den_error,tmpbtag_central_All_2j_num_error;
     vector<double> tmpbtag_vbf_2j_den,tmpbtag_vbf_2j_num,tmpbtag_vbf_2j_den_error,tmpbtag_vbf_2j_num_error;
     vector<double> tmpbtag_lowpt_1j_den,tmpbtag_lowpt_1j_num,tmpbtag_lowpt_0j_den,tmpbtag_lowpt_0j_num;
     vector<double> tmpbtag_highestpt_2j_den,tmpbtag_highestpt_2j_num,tmpbtag_highestpt_1j_den,tmpbtag_highestpt_1j_num;
     vector<double> tmpbtag_lowpt_1j_den_error,tmpbtag_lowpt_1j_num_error,tmpbtag_lowpt_0j_den_error,tmpbtag_lowpt_0j_num_error;
     vector<double> tmpbtag_highestpt_2j_den_error,tmpbtag_highestpt_2j_num_error,tmpbtag_highestpt_1j_den_error,tmpbtag_highestpt_1j_num_error;
+    
     for(int j=0; j<5; j++){
       tmpbtag_central_2j_den.push_back(0),tmpbtag_central_2j_num.push_back(0),tmpbtag_central_2j_den_error.push_back(0),tmpbtag_central_2j_num_error.push_back(0);
       tmpbtag_vbf_2j_den.push_back(0),tmpbtag_vbf_2j_num.push_back(0),tmpbtag_vbf_2j_den_error.push_back(0),tmpbtag_vbf_2j_num_error.push_back(0);
@@ -380,6 +387,12 @@ void ComputeTopScaleFactors
           btag_central_2j_num[classType][nEta]	     += theWeight;
           btag_central_2j_num_error[classType][nEta] += theWeight*theWeight;
         }
+        btag_central_All_2j_den[classType]	     += theWeight;
+        btag_central_All_2j_den_error[classType]     += theWeight*theWeight;
+        if(bTagMax[0] >= 2.1){
+          btag_central_All_2j_num[classType]         += theWeight;
+          btag_central_All_2j_num_error[classType]   += theWeight*theWeight;
+        }
       }
 
       int centrality = 0;
@@ -521,6 +534,12 @@ void ComputeTopScaleFactors
           btag_central_2j_num[classType][nEta]	     += theWeight;
           btag_central_2j_num_error[classType][nEta] += theWeight*theWeight;
         }
+        btag_central_All_2j_den[classType]	     += theWeight;
+        btag_central_All_2j_den_error[classType]     += theWeight*theWeight;
+        if(bTagMax[0] >= 2.1){
+          btag_central_All_2j_num[classType]         += theWeight;
+          btag_central_All_2j_num_error[classType]   += theWeight*theWeight;
+        }
       }
 
       int centrality = 0;
@@ -592,6 +611,34 @@ void ComputeTopScaleFactors
                            effttDA_btag_central_2j[i],effttDA_btag_central_2j_error[i],effttMC_btag_central_tt_2j[i],effttMC_btag_central_tt_2j_error[i],
 			   TopBkgScaleFactor_2Jet_central,TopBkgScaleFactorUncertainty_2Jet_central);
   }
+
+  // Overall
+  double effttMC_btag_central_All_2j,effttMC_btag_central_All_2j_error,effttMC_btag_central_All_tt_2j,effttMC_btag_central_All_tt_2j_error;
+  double effttDA_btag_central_All_2j,effttDA_btag_central_All_2j_error,effttMC_btag_central_All_tw_2j,effttMC_btag_central_All_tw_2j_error;
+  effttMC_btag_central_All_tt_2j = (btag_central_All_2j_num[1])/(btag_central_All_2j_den[1]);
+  effttMC_btag_central_All_tw_2j = (btag_central_All_2j_num[2])/(btag_central_All_2j_den[2]);
+  effttMC_btag_central_All_2j    = (btag_central_All_2j_num[1] + btag_central_All_2j_num[2]) / (btag_central_All_2j_den[1] + btag_central_All_2j_den[2]);
+  
+  effttMC_btag_central_All_tt_2j_error = sqrt((1.0-effttMC_btag_central_All_tt_2j)*effttMC_btag_central_All_tt_2j/(btag_central_All_2j_den[1])*
+  					       (btag_central_All_2j_den_error[1])/(btag_central_All_2j_den[1]));    
+  effttMC_btag_central_All_tw_2j_error = sqrt((1.0-effttMC_btag_central_All_tw_2j)*effttMC_btag_central_All_tw_2j/(btag_central_All_2j_den[2])*
+  					       (btag_central_All_2j_den_error[2])/(btag_central_All_2j_den[2]));
+  effttMC_btag_central_All_2j_error    = sqrt((1.0-effttMC_btag_central_All_2j)*effttMC_btag_central_All_2j/(btag_central_All_2j_den[1]+btag_central_All_2j_den[2])*
+  					       (btag_central_All_2j_den_error[1]+btag_central_All_2j_den_error[2])/(btag_central_All_2j_den[1]+btag_central_All_2j_den[2]));
+  effttDA_btag_central_All_2j = (btag_central_All_2j_num[3]-btag_central_All_2j_num[0]-btag_central_All_2j_num[2])/
+  			       (btag_central_All_2j_den[3]-btag_central_All_2j_den[0]-btag_central_All_2j_den[2]);    
+  //effttDA_btag_central_All_2j = (btag_central_All_2j_num[3]-btag_central_All_2j_num[0])/
+  //				 (btag_central_All_2j_den[3]-btag_central_All_2j_den[0]);    
+  effttDA_btag_central_All_2j_error = sqrt((1-effttDA_btag_central_All_2j)*effttDA_btag_central_All_2j/btag_central_All_2j_den[3]);
+
+  printf("details_central(all)         --> %5.0f/%7.2f/%7.2f  - %5.0f/%7.2f/%7.2f\n",
+  	 btag_central_All_2j_num[3],btag_central_All_2j_num[0],btag_central_All_2j_num[1],
+         btag_central_All_2j_den[3],btag_central_All_2j_den[0],btag_central_All_2j_den[1]);
+  double TopBkgScaleFactor_2Jet_central_All = effttDA_btag_central_All_2j/effttMC_btag_central_All_tt_2j;
+  double TopBkgScaleFactorUncertainty_2Jet_central_All = effttDA_btag_central_All_2j_error/effttMC_btag_central_All_tt_2j;
+  printf("scaleFactor_central_All(all) --> %6.3f +/- %6.3f | %6.3f +/- %6.3f | %6.3f +/- %6.3f\n",
+  			 effttDA_btag_central_All_2j,effttDA_btag_central_All_2j_error,effttMC_btag_central_All_tt_2j,effttMC_btag_central_All_tt_2j_error,
+        		 TopBkgScaleFactor_2Jet_central_All,TopBkgScaleFactorUncertainty_2Jet_central_All);
 
   //*******************************************************************************
   //2-Jet Bin : BTag Efficiency for vbf jet

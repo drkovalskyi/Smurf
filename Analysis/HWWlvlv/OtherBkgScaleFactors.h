@@ -84,3 +84,39 @@ Double_t reweightBToA(Int_t nvtx){
   else if(mynvtx >=19) return  0.00667;
   return 1.0;
 }
+
+Double_t TopMCScaleFactor_VHqqll(int nJetsType) {
+  if     (nJetsType == 2) return 2.214;
+  else if(nJetsType == 1) return 3.336;
+  else                    assert(0);
+  return 1.0;
+}
+
+Double_t TopMCScaleFactor_VHqqll_Kappa(int nJetsType) {
+  if     (nJetsType == 2) return 1.347;
+  else if(nJetsType == 1) return 1.207;
+  else                    assert(0);
+  return 1.0;
+}
+
+Double_t WrongChargeScaleFactor_VHqqll() {
+  return 0.9977;
+}
+
+Double_t WrongChargeScaleFactor_VHqqll_Kappa() {
+  return 1.0359;
+}
+
+Double_t DYMCScaleFactor_VHqqll(int nJetsType) {
+  if     (nJetsType == 2) return 1.700;
+  else if(nJetsType == 1) return 1.000;
+  else                    assert(0);
+  return 1.0;
+}
+
+Double_t DYMCScaleFactor_VHqqll_Kappa(int nJetsType) {
+  if     (nJetsType == 2) return 1.400;
+  else if(nJetsType == 1) return 1.400;
+  else                    assert(0);
+  return 1.0;
+}

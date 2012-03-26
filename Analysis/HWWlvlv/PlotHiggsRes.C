@@ -204,13 +204,13 @@ void PlotHiggsRes
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
-    scaleFactorLum     = 4.70;minRun =      0;maxRun = 999999;
+    scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
   }
   else if(period == 3){ // Full2011-Fall11
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
-    scaleFactorLum     = 4.63;minRun =      0;maxRun = 999999;
+    scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -3465,7 +3465,7 @@ void PlotHiggsRes
       jeteff_E  	= 1.10;
       if(mH>=200) {XS_QCDscale_WW[0] = 1.000; XS_QCDscale_WW[1] = 1.000; XS_QCDscale_WW[2] = 1.420;}
     }
-    double lumiErr = 1.000; if(mH>=200) lumiErr = 1.045;
+    double lumiErr = 1.000; if(mH>=200) lumiErr = 1.022;
 
     for(int i=0; i<8; i++) if(nBgdAccDecays[i] < 0) nBgdAccDecays[i] = 0.0;
     for(int i=0; i<8; i++) if(nBgdCutDecays[i] < 0) nBgdCutDecays[i] = 0.0;
@@ -3589,7 +3589,7 @@ void PlotHiggsRes
       newcardShape << Form("process ZH WH qqH ggH qqWW ggWW VV Top Zjets Wjets Wgamma Ztt\n");
       newcardShape << Form("process -3 -2 -1 0 1 2 3 4 5 6 7 8\n");
       newcardShape << Form("rate  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f\n",yield[1],yield[2],yield[3],yield[4],yield[5],yield[6],yield[7],yield[8],yield[9],TMath::Max((double)yield[10],0.0),yield[11],yield[12]);
-      newcardShape << Form("lumi                             lnN 1.045 1.045 1.045 1.045 %5.3f %5.3f 1.045   -     -     -   1.045 1.045\n",lumiErr,lumiErr);				 
+      newcardShape << Form("lumi                             lnN 1.022 1.022 1.022 1.022 %5.3f %5.3f 1.022   -     -     -   1.022 1.022\n",lumiErr,lumiErr);				 
       if(useExpTemplates == true){
       newcardShape << Form("CMS_MVALepEffBounding          shape   %s   %s   1.000 1.000 1.000 1.000 1.000   -     -     -   %s %s\n",theZHString,theWHString,theWgammaString,theZttString);			   
       newcardShape << Form("CMS_MVALepResBounding          shape   %s   %s   1.000 1.000 1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theWgammaString,theZttString);			   
@@ -3706,7 +3706,7 @@ void PlotHiggsRes
     newcardCut << Form("process ZH WH qqH ggH qqWW ggWW VV Top Zjets Wjets Wgamma Ztt\n");
     newcardCut << Form("process -3 -2 -1 0 1 2 3 4 5 6 7 8\n");
     newcardCut << Form("rate  %6.3f %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f\n",nSigCut[2],nSigCut[3],nSigCut[4],nSigCut[5],nBgdCutDecays[0],nBgdCutDecays[1],nBgdCutDecays[2],nBgdCutDecays[3],nBgdCutDecays[4],TMath::Max((double)nBgdCutDecays[5],0.0),nBgdCutDecays[6],nBgdCutDecays[7]);
-    newcardCut << Form("lumi                  	   lnN 1.045 1.045 1.045 1.045   -     -   1.045   -     -     -   1.045 1.045\n");			   
+    newcardCut << Form("lumi                  	   lnN 1.022 1.022 1.022 1.022   -     -   1.022   -     -     -   1.022 1.022\n");			   
     newcardCut << Form("CMS_eff_m             	   lnN 1.030 1.030 1.030 1.030 1.030 1.030 1.030   -     -     -   1.030 1.030\n");			   
     newcardCut << Form("CMS_eff_e             	   lnN 1.040 1.040 1.040 1.040 1.040 1.040 1.040   -     -     -   1.040 1.040\n");			   
     newcardCut << Form("CMS_scale_m           	   lnN 1.015 1.015 1.015 1.015 1.015 1.015 1.015   -     -     -   1.015 1.015\n");			   
@@ -3772,7 +3772,7 @@ void PlotHiggsRes
     newcardMVA << Form("process ZH WH qqH ggH qqWW ggWW VV Top Zjets Wjets Wgamma Ztt\n");
     newcardMVA << Form("process -3 -2 -1 0 1 2 3 4 5 6 7 8\n");
     newcardMVA << Form("rate  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f\n",nSigMVA[2],nSigMVA[3],nSigMVA[4],nSigMVA[5],nBgdMVADecays[0],nBgdMVADecays[1],nBgdMVADecays[2],nBgdMVADecays[3],nBgdMVADecays[4],TMath::Max((double)nBgdMVADecays[5],0.0),nBgdMVADecays[6],nBgdMVADecays[7]);
-    newcardMVA << Form("lumi                  	   lnN 1.045 1.045 1.045 1.045   -     -   1.045   -     -     -   1.045 1.045\n");
+    newcardMVA << Form("lumi                  	   lnN 1.022 1.022 1.022 1.022   -     -   1.022   -     -     -   1.022 1.022\n");
     newcardMVA << Form("CMS_eff_m             	   lnN 1.030 1.030 1.030 1.030 1.030 1.030 1.030   -     -     -   1.030 1.030\n");			    
     newcardMVA << Form("CMS_eff_e             	   lnN 1.040 1.040 1.040 1.040 1.040 1.040 1.040   -     -     -   1.040 1.040\n");			    
     newcardMVA << Form("CMS_scale_m           	   lnN 1.015 1.015 1.015 1.015 1.015 1.015 1.015   -     -     -   1.015 1.015\n");			    
