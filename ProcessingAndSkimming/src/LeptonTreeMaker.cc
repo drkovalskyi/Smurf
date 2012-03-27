@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.6 2012/03/16 18:05:48 cerati Exp $
+// $Id: LeptonTreeMaker.cc,v 1.7 2012/03/22 17:19:56 cerati Exp $
 //
 //
 
@@ -101,6 +101,7 @@ class LeptonTreeMaker : public edm::EDProducer {
         // did any trigger pass
         bool eventPassTrigger(const std::vector<std::string> &trigNames);
         bool eventPassTrigger(const std::string &trigName);
+        double getTriggerPrescale(const edm::Event& iEvent, const edm::EventSetup& iSetup, const std::string &trigName);
         void triggerObjects();
 
         // ----------member data ---------------------------
@@ -136,9 +137,10 @@ class LeptonTreeMaker : public edm::EDProducer {
         std::vector<std::string> photonTriggerNames_;
 
         // trigger related
-        HLTConfigProvider       hltConfig_;
-        std::string             processName_;
-
+        HLTConfigProvider          hltConfig_;
+        std::string                processName_;
+        const edm::TriggerResults* triggerResults_;
+  
         // electron id related
         ElectronIDMVA *electronIDMVA_;
 
@@ -277,9 +279,10 @@ LeptonTreeMaker::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
     if (!triggerResults_h.isValid()) {
         throw cms::Exception("LeptonTreeMaker][produce] Error getting TriggerResults product from Event!");
     }
+    triggerResults_=triggerResults_h.product();
 
     // sanity check
-    assert(triggerResults_h->size() == hltConfig_.size());
+    assert(triggerResults_->size() == hltConfig_.size());
 
     //  
     // set up tools
@@ -743,11 +746,27 @@ void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent, const edm::EventS
         if (jets15.size() > 2) leptonTree_->jet3_ = jets15.at(2).first.p4() * jets15.at(2).second;
 
 	//trigger info
-        if (eventPassTrigger("HLT_Photon20_CaloIdVL_IsoL_v*")) leptonTree_->eventSelection_ |= LeptonTree::Photon20CaloIdVLIsoL;
-        if (eventPassTrigger("HLT_Photon30_CaloIdVL_IsoL_v*")) leptonTree_->eventSelection_ |= LeptonTree::Photon30CaloIdVLIsoL;
-        if (eventPassTrigger("HLT_Photon50_CaloIdVL_IsoL_v*")) leptonTree_->eventSelection_ |= LeptonTree::Photon50CaloIdVLIsoL;
-        if (eventPassTrigger("HLT_Photon75_CaloIdVL_IsoL_v*")) leptonTree_->eventSelection_ |= LeptonTree::Photon75CaloIdVLIsoL;
-        if (eventPassTrigger("HLT_Photon90_CaloIdVL_IsoL_v*")) leptonTree_->eventSelection_ |= LeptonTree::Photon90CaloIdVLIsoL;
+	//here the order matters: need hltPrescale to store the lowest prescale of fired triggers
+        if (eventPassTrigger("HLT_Photon20_CaloIdVL_IsoL_v*")) {
+	  leptonTree_->eventSelection_ |= LeptonTree::Photon20CaloIdVLIsoL;
+	  leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon20_CaloIdVL_IsoL_v*");
+	}
+	if (eventPassTrigger("HLT_Photon30_CaloIdVL_IsoL_v*")) {
+	  leptonTree_->eventSelection_ |= LeptonTree::Photon30CaloIdVLIsoL;
+	  leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon30_CaloIdVL_IsoL_v*");
+	}
+	if (eventPassTrigger("HLT_Photon50_CaloIdVL_IsoL_v*")) {
+	  leptonTree_->eventSelection_ |= LeptonTree::Photon50CaloIdVLIsoL;
+	  leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon50_CaloIdVL_IsoL_v*");
+	}
+	if (eventPassTrigger("HLT_Photon75_CaloIdVL_IsoL_v*")) {
+	  leptonTree_->eventSelection_ |= LeptonTree::Photon75CaloIdVLIsoL;
+	  leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon75_CaloIdVL_IsoL_v*");
+	}
+	if (eventPassTrigger("HLT_Photon90_CaloIdVL_IsoL_v*")) {
+	  leptonTree_->eventSelection_ |= LeptonTree::Photon90CaloIdVLIsoL;
+	  leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon90_CaloIdVL_IsoL_v*");
+	}
 
         leptonTree_->tree_->Fill();
 
@@ -790,6 +809,8 @@ bool LeptonTreeMaker::eventPassTrigger(const std::string &trigName)
 {
 
   for(unsigned int i = 0; i<hltConfig_.size(); i++) {
+      bool result = triggerResults_->accept(i);
+      if (!result) continue;
       TString hltTrigName(hltConfig_.triggerName(i));
       TString pattern(trigName);
       hltTrigName.ToLower();
@@ -797,7 +818,23 @@ bool LeptonTreeMaker::eventPassTrigger(const std::string &trigName)
       TRegexp reg(Form("%s", pattern.Data()), true);
       if (hltTrigName.Index(reg) >= 0) return true;
   }
-    return false;
+  return false;
+}
+
+double LeptonTreeMaker::getTriggerPrescale(const edm::Event& iEvent, const edm::EventSetup& iSetup, const std::string &trigName)
+{
+
+  for(unsigned int i = 0; i<hltConfig_.size(); i++) {
+      bool result = triggerResults_->accept(i);
+      if (!result) continue;
+      TString hltTrigName(hltConfig_.triggerName(i));
+      TString pattern(trigName);
+      hltTrigName.ToLower();
+      pattern.ToLower();
+      TRegexp reg(Form("%s", pattern.Data()), true);
+      if (hltTrigName.Index(reg) >= 0) return hltConfig_.prescaleValue(iEvent, iSetup, hltConfig_.triggerName(i));
+  }
+  return 0.;
 }
 
 void LeptonTreeMaker::triggerObjects()
