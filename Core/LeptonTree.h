@@ -106,6 +106,7 @@ class LeptonTree {
   float          trackMet_;
   float          trackMetPhi_;
   unsigned int   njets_;
+  float          hltPrescale_;
 
  public:
   /// this is the main element
@@ -163,6 +164,7 @@ class LeptonTree {
     tree_->Branch("trackMet"         , &trackMet_         ,   "trackMet/F");
     tree_->Branch("trackMetPhi"      , &trackMetPhi_      ,   "trackMetPhi/F");
     tree_->Branch("njets"            , &njets_            ,   "njets/i");
+    tree_->Branch("hltPrescale"      , &hltPrescale_      ,   "hltPrescale/F");
 
   }
 
@@ -200,6 +202,7 @@ class LeptonTree {
     tree_->SetBranchAddress("trackMet",         &trackMet_);
     tree_->SetBranchAddress("trackMetPhi",      &trackMetPhi_);
     tree_->SetBranchAddress("njets",            &njets_);
+    tree_->SetBranchAddress("hltPrescale",      &hltPrescale_);
 
     gErrorIgnoreLevel = currentState;
   }
@@ -246,6 +249,7 @@ LeptonTree::InitVariables(){
     variables_.push_back(std::string("trackMet"         ));
     variables_.push_back(std::string("trackMetPhi"      ));
     variables_.push_back(std::string("njets"            ));
+    variables_.push_back(std::string("hltPrescale"      ));
 
 
   }
@@ -274,6 +278,7 @@ LeptonTree::InitVariables(){
   trackMet_             = -999;
   trackMetPhi_          = -999;
   njets_                = 0;
+  hltPrescale_          = 1;
 
 }
 
@@ -299,6 +304,7 @@ LeptonTree::Get(std::string value)
   if(value=="trackMet"         ) { return this->trackMet_;         }
   if(value=="trackMetPhi"      ) { return this->trackMetPhi_;      }
   if(value=="njets"            ) { return this->njets_;            }
+  if(value=="hltPrescale"      ) { return this->hltPrescale_;      }
 
   return -9999.; 
 }
