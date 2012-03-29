@@ -71,37 +71,37 @@ class SmurfTree {
   /// bit map
   /// DON'T CHANGE ORDER
   enum Selection {
-    BaseLine          = 1UL<<0,  // pt(reco)>20/10, acceptance,!STA muon, mll>12
-    ChargeMatch       = 1UL<<1,  // q1*q2<0
-    Lep1FullSelection = 1UL<<2,  // full id, isolation, d0, dz etc
-    Lep1LooseEleV1    = 1UL<<3,  // electron fakeable object selection is passed V1
-    Lep1LooseEleV2    = 1UL<<4,  // electron fakeable object selection is passed V2
-    Lep1LooseEleV3    = 1UL<<5,  // electron fakeable object selection is passed V3
-    Lep1LooseEleV4    = 1UL<<6,  // electron fakeable object selection is passed V4
-    Lep1LooseMuV1     = 1UL<<7,  // muon fakeable object selection (relIso<1.0)
-    Lep1LooseMuV2     = 1UL<<8,  // muon fakeable object selection (relIso<0.4)
-    Lep2FullSelection = 1UL<<9,  // full id, isolation, d0, dz etc
-    Lep2LooseEleV1    = 1UL<<10, // electron fakeable object selection is passed V1
-    Lep2LooseEleV2    = 1UL<<11, // electron fakeable object selection is passed V2
-    Lep2LooseEleV3    = 1UL<<12, // electron fakeable object selection is passed V3
-    Lep2LooseEleV4    = 1UL<<13, // electron fakeable object selection is passed V4
-    Lep2LooseMuV1     = 1UL<<14, // muon fakeable object selection (relIso<1.0)
-    Lep2LooseMuV2     = 1UL<<15, // muon fakeable object selection (relIso<0.4)
-    FullMET           = 1UL<<16, // full met selection
-    ZVeto             = 1UL<<17, // event is not in the Z-mass peak for ee/mm final states
-    TopTag            = 1UL<<18, // soft muon and b-jet tagging for the whole event regardless of n-jets (non-zero means tagged)
-    TopVeto           = 1UL<<19, // soft muon and b-jet tagging for the whole event regardless of n-jets (zero means tagged)
-    OneBJet           = 1UL<<20, // 1-jet events, where the jet is b-tagged (top control sample with one b-quark missing)
-    TopTagNotInJets   = 1UL<<21, // soft muon and b-jet tagging for areas outside primary jets (non-zero means tagged)
-    ExtraLeptonVeto   = 1UL<<22, // extra lepton veto, DR(muon-electron)>=0.3
-    Lep3FullSelection = 1UL<<23,  // full id, isolation, d0, dz etc
-    Lep3LooseEleV1    = 1UL<<24, // electron fakeable object selection is passed V1
-    Lep3LooseEleV2    = 1UL<<25, // electron fakeable object selection is passed V2
-    Lep3LooseEleV3    = 1UL<<26, // electron fakeable object selection is passed V3
-    Lep3LooseEleV4    = 1UL<<27, // electron fakeable object selection is passed V4
-    Lep3LooseMuV1     = 1UL<<28, // muon fakeable object selection (relIso<1.0)
-    Lep3LooseMuV2     = 1UL<<29, // muon fakeable object selection (relIso<0.4)
-    Trigger           = 1UL<<30  // passed a set of triggers
+    BaseLine           = 1UL<<0,  // pt(reco)>20/10, acceptance,!STA muon, mll>12
+    ChargeMatch        = 1UL<<1,  // q1*q2<0
+    Lep1FullSelection  = 1UL<<2,  // full id, isolation, d0, dz etc
+    Lep1LooseEleV1     = 1UL<<3,  // electron fakeable object selection is passed V1
+    Lep1LooseEleV2     = 1UL<<4,  // electron fakeable object selection is passed V2
+    Lep1LooseEleV3     = 1UL<<5,  // electron fakeable object selection is passed V3
+    Lep1LooseEleV4     = 1UL<<6,  // electron fakeable object selection is passed V4
+    Lep1LooseMuV1      = 1UL<<7,  // muon fakeable object selection (relIso<1.0)
+    Lep1LooseMuV2      = 1UL<<8,  // muon fakeable object selection (relIso<0.4)
+    Lep2FullSelection  = 1UL<<9,  // full id, isolation, d0, dz etc
+    Lep2LooseEleV1     = 1UL<<10, // electron fakeable object selection is passed V1
+    Lep2LooseEleV2     = 1UL<<11, // electron fakeable object selection is passed V2
+    Lep2LooseEleV3     = 1UL<<12, // electron fakeable object selection is passed V3
+    Lep2LooseEleV4     = 1UL<<13, // electron fakeable object selection is passed V4
+    Lep2LooseMuV1      = 1UL<<14, // muon fakeable object selection (relIso<1.0)
+    Lep2LooseMuV2      = 1UL<<15, // muon fakeable object selection (relIso<0.4)
+    FullMET            = 1UL<<16, // full met selection
+    ZVeto              = 1UL<<17, // event is not in the Z-mass peak for ee/mm final states
+    TopTag             = 1UL<<18, // soft muon and b-jet tagging for the whole event regardless of n-jets (non-zero means tagged)
+    TopVeto            = 1UL<<19, // soft muon and b-jet tagging for the whole event regardless of n-jets (zero means tagged)
+    OneBJet            = 1UL<<20, // 1-jet events, where the jet is b-tagged (top control sample with one b-quark missing)
+    TopTagNotInJets    = 1UL<<21, // soft muon and b-jet tagging for areas outside primary jets (non-zero means tagged)
+    ExtraLeptonVeto    = 1UL<<22, // extra lepton veto, DR(muon-electron)>=0.3
+    Lep3FullSelection  = 1UL<<23,  // full id, isolation, d0, dz etc
+    Lep3LooseEleV1     = 1UL<<24, // electron fakeable object selection is passed V1
+    Lep3LooseEleV2     = 1UL<<25, // electron fakeable object selection is passed V2
+    Lep3LooseEleV3     = 1UL<<26, // electron fakeable object selection is passed V3
+    Lep3LooseEleV4     = 1UL<<27, // electron fakeable object selection is passed V4
+    Lep3LooseMuV1      = 1UL<<28, // muon fakeable object selection (relIso<1.0)
+    Lep3LooseMuV2      = 1UL<<29, // muon fakeable object selection (relIso<0.4)
+    Trigger            = 1UL<<30  // passed a set of triggers
   };
 
   static const unsigned int FullSelection = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
@@ -738,7 +738,7 @@ SmurfTree::InitVariables(){
 
   lep3_       	 = LorentzVector();
   lq3_  	 = 0;
-  lid3_ 	 = 0.0;
+  lid3_ 	 = 0;
   lmva3_ 	 = 0.0;
   jet3_       	 = LorentzVector();
   jet3Btag_	 = -999.;
