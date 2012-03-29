@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.7 2012/03/22 17:19:56 cerati Exp $
+// $Id: LeptonTreeMaker.cc,v 1.8 2012/03/27 14:14:23 cerati Exp $
 //
 //
 
@@ -726,6 +726,8 @@ void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent, const edm::EventS
         leptonTree_->qProbe_             = 0;
         leptonTree_->met_                = met;
         leptonTree_->metPhi_             = metPhi;
+        leptonTree_->sumet_              = met_h->front().sumEt();
+        leptonTree_->metSig_             = met_h->front().significance();
 
 	const reco::Candidate* phocand = &(*photon);
 	std::vector<const reco::Candidate*> phos;
