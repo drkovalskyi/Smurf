@@ -55,7 +55,7 @@ void   TEvtProb::NeutrinoIntegrate(TVar::Process proc,
     //qx,qy
     if (_smearLevel >= 1) NDim+=2;
     //dE1,dE2
-    if (_smearLevel >= 2 && proc != TVar::Wp_1jet && proc != TVar::Wm_1jet) NDim+=2;
+    if (_smearLevel >= 2) NDim+=2;
 
 
     if (verbosity >= TVar::DEBUG) {
@@ -94,16 +94,17 @@ void   TEvtProb::NeutrinoIntegrate(TVar::Process proc,
         count_PS++;
         myRandom.RndmArray(NDim,r); // generate NDim random numbers and set the first NDim entries of r arrary
         double dXsec=0;
-        dXsec=Integrand_NeutrinoIntegration(proc, cdf_event, r,NDim,0, _boosthist, verbosity)*probAcceptanceEfficiency;
+        dXsec=Integrand_NeutrinoIntegration(proc, cdf_event, r, NDim, 0, _boosthist, verbosity)*probAcceptanceEfficiency;
         
 	if (dXsec<=0) continue;
         sumW  += dXsec;
         sumW2 += dXsec*dXsec;
+
     }
 
     *Xsec = sumW/count_PS;
 
-    *XsecErr = sumW2/count_PS-sumW/count_PS*sumW/count_PS;
+    *XsecErr = fabs(sumW2/count_PS-sumW/count_PS*sumW/count_PS);
     if(*XsecErr>0.0) *XsecErr = sqrt(*XsecErr/count_PS);
     else             *XsecErr = -1;  
 
@@ -216,13 +217,17 @@ double TEvtProb::Integrand_NeutrinoIntegration(TVar::Process proc, const cdf_eve
         if(My_eventcuts(proc, mcfm_event, cdf_event)){ mcfm_event.pswt=0; continue;}
         double flavor_msq[nmsq][nmsq];
         double msqjk = SumMatrixElementPDF(proc, &mcfm_event, flavor_msq, &flux);
+
         if(msqjk<=0){ mcfm_event.pswt=0; continue;}
 
+	//	cout<<"msqjk = "<<msqjk<<"\n";
         //npart_ means number of final state particles. 
         //Don't forget the first two are 2 initial state particles
         //for(int ipt=2;ipt<npart_.npart+2;ipt++) msqjk = msqjk/mcfm_event.p[ipt].Energy();
 
         flux=fbGeV2/(mcfm_event.p[0].Energy()*mcfm_event.p[1].Energy())	/(4*W);
+	
+	//	cout<<"pswt = "<<mcfm_event.pswt<<"\n";
         dXsec=msqjk*flux*mcfm_event.pswt;
 
         if (dXsec>0.0){
@@ -273,10 +278,13 @@ void TEvtProb::SetMCHist(int proc, TString MCFileName, bool setFR, int njets, TV
     _effhist.els_eff_mc = (TH2F*) fUtil->Get("ww_heleEff")->Clone();
     _effhist.mus_eff_mc = (TH2F*) fUtil->Get("ww_hmuEff")->Clone();
 
+
     if (TVar::SmurfProcessName(proc) == "wjets") {
         _boosthist.kx = (TH1F*) fUtil->Get(TString("ww_kx"))->Clone();
         _boosthist.ky = (TH1F*) fUtil->Get(TString("ww_ky"))->Clone();
     }
+    else 
+      if (TVar::SmurfProcessName(proc) == "dyll") {}
     else
     {
       if ( njets == 0) {

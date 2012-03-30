@@ -149,6 +149,7 @@ class TVar{
   else if(temp==TVar::Wm_1jet ) return TString("wjets");
   else if(temp==TVar::ZZ      ) return TString("zz");
   else if(temp==TVar::WZ      ) return TString("wz");
+  else if(temp==TVar::Z_2l    ) return TString("dyll");
   else if(temp==TVar::ttbar   ) return TString("ttbar");
   else if(temp==TVar::HWW115  ) return TString("hww115");
   else if(temp==TVar::HWW120  ) return TString("hww120");

@@ -205,7 +205,9 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   processList[ NProcessCalculate++]=TVar::WW;
   processList[ NProcessCalculate++]=TVar::Wp_1jet;
   processList[ NProcessCalculate++]=TVar::Wm_1jet;
+  processList[ NProcessCalculate++]=TVar::Z_2l;
   
+
   // adjust the number of processes to run according to the datatype
   // run single higgs mass hypothesis for those hww MC
   // This is kind of dangerous, as we reply on the smurfntuples 
@@ -375,7 +377,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
       else
 	Xcal2.SetHWWPhaseSpace(TVar::MHMW);
       // increase the number of steps for the HWW115 and HWW120 to 5 time the nominal value
-      if ( HiggsMASS[ProcInt] <= 160 )   
+      if ( HiggsMASS[ProcInt] <= 130 )   
 	Xcal2.SetNcalls(5*ncalls);
       else  
 	Xcal2.SetNcalls(ncalls);

@@ -306,8 +306,8 @@ bool My_eventcuts(TVar::Process process, const mcfm_event_type &mcfm_evt, const 
         const TLorentzVector* nu =  &mcfm_evt.p[nu_idx];
         const TLorentzVector* ep =  &mcfm_evt.p[ep_idx];
 
-        if(ep->Pt()    <5 ) return true; //em
-        if(nu->Pt()    <5 ) return true; //ep
+        if(ep->Pt()    <0 ) return true; //em
+        if(nu->Pt()    <0 ) return true; //ep
 
     }
  
@@ -337,7 +337,7 @@ void EtGaus(double* rand, double mean, double sigma,double* results, double* wgt
 
 bool My_masscuts(double s[][12],TVar::Process process){
 
- double minZmassSqr=15*15;
+ double minZmassSqr=1*1;
 
  if(process==TVar::WZ || process==TVar::WpZ_lostW || process==TVar::WpZ_lostZ){
    if(s[4][5]< minZmassSqr) return true;
@@ -388,12 +388,9 @@ bool My_smalls(double s[][12],int npart){
        )
 
      )
-     {
-
+       
       return true;
      
-     }
-
      return false;
 }
 
@@ -462,12 +459,10 @@ double SumMatrixElementPDF(TVar::Process process, mcfm_event_type* mcfm_event,do
     }
 
 
-
     //remove events has small invariant mass
     if(My_masscuts(s,process)) return 0.0;
     if(My_smalls(s,npart_.npart)) return 0.0;
 
-	   
            //Calculate Pdf
            //Always pass address through fortran function
            fdist_ (&density_.ih1, &xx[0], &scale_.scale, fx1); //P+=> W+->e+nu

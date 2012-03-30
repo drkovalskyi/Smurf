@@ -109,7 +109,7 @@ void genMHiggsYHiggs(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_eve
 
 void genMHiggs(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type* PSList, BoostHist boosthist) {
 
-    double wt[8];
+    double wt[6];
      
     double nu_X,nu_Y,nu_Z;
     EtExponential(20.,r[0],&nu_X,&wt[0]);  
@@ -134,30 +134,6 @@ void genMHiggs(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_typ
       // cout << "; " << wt[4] << "; " << wt[5] ;  
     }
     
-    if(SmearLevel >= 2) {
-      // set the smearing for the first lepton
-      if ( TMath::Abs(cdf_event.PdgCode[0]) == 11 ) {
-	if ( TMath::Abs(cdf_event.p[0].Eta()) < 1.479 ) 
-	  wt[6] = 1 + gRandom->Gaus(0, 0.02);
-	else 
-	  wt[6] = 1 + gRandom->Gaus(0, 0.06);
-      }
-      if ( TMath::Abs(cdf_event.PdgCode[0]) == 13 ) wt[6] = 1 + gRandom->Gaus(0, 0.01);
-
-      // set the smearing for the first lepton
-      if ( TMath::Abs(cdf_event.PdgCode[1]) == 11 ) {
-	if ( TMath::Abs(cdf_event.p[1].Eta()) < 1.479 ) 
-	  wt[7] = 1 + gRandom->Gaus(0, 0.02);
-	else 
-	  wt[7] = 1 + gRandom->Gaus(0, 0.06);
-      }
-      if ( TMath::Abs(cdf_event.PdgCode[1]) == 13 ) wt[7] = 1 + gRandom->Gaus(0, 0.01);
-      // std::cout << "wt[6] = " << wt[6] << "\t wt[7] = " << wt[7] << "\n";
-      // applied the smearing factors to the individual leptons
-      cdf_event.p[0].SetXYZM( cdf_event.p[0].Px()*wt[6], cdf_event.p[0].Py()*wt[6], cdf_event.p[0].Pz()*wt[6], 0);    
-      cdf_event.p[1].SetXYZM( cdf_event.p[1].Px()*wt[7], cdf_event.p[1].Py()*wt[7], cdf_event.p[1].Pz()*wt[7], 0);    
-    }
-   
     // cout << "\n" ;
 
     // cout << "PhaseSpace::genMHiggs = " << qX <<"; qY = " <<qY <<endl;
@@ -189,7 +165,7 @@ void genMHiggs(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_typ
 
 void genMHiggsMw1(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type* PSList,  BoostHist boosthist) {
 
-    double wt[8];
+    double wt[6];
      
     double nu_X,nu_Y;
     EtExponential(20.,r[0],&nu_X,&wt[0]);  
@@ -221,30 +197,7 @@ void genMHiggsMw1(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_
 	PSWeight = PSWeight*wt[4]*wt[5];
       }
 
-      if(SmearLevel >= 2) {
-	// set the smearing for the first lepton
-	if ( TMath::Abs(cdf_event.PdgCode[0]) == 11 ) {
-	  if ( TMath::Abs(cdf_event.p[0].Eta()) < 1.479 ) 
-	    wt[6] = 1 + gRandom->Gaus(0, 0.02);
-	  else 
-	    wt[6] = 1 + gRandom->Gaus(0, 0.06);
-	}
-	if ( TMath::Abs(cdf_event.PdgCode[0]) == 13 ) wt[6] = 1 + gRandom->Gaus(0, 0.01);
-	
-	// set the smearing for the first lepton
-	if ( TMath::Abs(cdf_event.PdgCode[1]) == 11 ) {
-	  if ( TMath::Abs(cdf_event.p[1].Eta()) < 1.479 ) 
-	    wt[7] = 1 + gRandom->Gaus(0, 0.02);
-	  else 
-	    wt[7] = 1 + gRandom->Gaus(0, 0.06);
-	}
-	if ( TMath::Abs(cdf_event.PdgCode[1]) == 13 ) wt[7] = 1 + gRandom->Gaus(0, 0.01);
-	// std::cout << "wt[6] = " << wt[6] << "\t wt[7] = " << wt[7] << "\n";
-	// applied the smearing factors to the individual leptons
-	cdf_event.p[0].SetXYZM( cdf_event.p[0].Px()*wt[6], cdf_event.p[0].Py()*wt[6], cdf_event.p[0].Pz()*wt[6], 0);    
-	cdf_event.p[1].SetXYZM( cdf_event.p[1].Px()*wt[7], cdf_event.p[1].Py()*wt[7], cdf_event.p[1].Pz()*wt[7], 0);    
-      }
-      
+
     WWL1L2Sol_MHiggsMw1( &cdf_event,
                       qX, qY, msqHiggs, msqW, nu_X, nu_Y,
                       PSList);
@@ -276,8 +229,8 @@ void genDY(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type* P
 
     double PSWeight=1;
     //System Pt
-      double qX=cdf_event.p[0].Px()+cdf_event.p[1].Px();
-      double qY=cdf_event.p[0].Py()+cdf_event.p[1].Py();
+    double qX=cdf_event.p[0].Px()+cdf_event.p[1].Px();
+    double qY=cdf_event.p[0].Py()+cdf_event.p[1].Py();
 
    
    mcfm_event_type& solevent = PSList[0];
@@ -296,11 +249,11 @@ void genDY(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type* P
    solevent.p[2] = cdf_event.p[0];
    solevent.p[3] = cdf_event.p[1];
        
-   solevent.pswt = PSWeight/solevent.p[2].Energy()
-			   /solevent.p[3].Energy()
+   solevent.pswt = PSWeight/solevent.p[2].Energy()/EBEAM
+			   /solevent.p[3].Energy()/EBEAM
                            /four_2Pi_to_2;
 
-
+   
    if(x0 > 1 || x1>1 || x0<=xmin_.xmin || x1 <=xmin_.xmin) {
      solevent.pswt=-1;
    }
@@ -314,7 +267,7 @@ void genDY(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type* P
 //============================================
 
 void genMw1Mw2(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type* PSList, BoostHist boosthist) {
-    double wt[8];
+    double wt[6];
     double nu_Z,nb_Z;
     EtExponential(80.,r[0],&nu_Z,&wt[0]);  
     EtExponential(80.,r[1],&nb_Z,&wt[1]);
@@ -340,31 +293,7 @@ void genMw1Mw2(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_typ
     }
     //    cout << "\n" ;
     
-    if(SmearLevel >= 2) {
-      // set the smearing for the first lepton
-      if ( TMath::Abs(cdf_event.PdgCode[0]) == 11 ) {
-	if ( TMath::Abs(cdf_event.p[0].Eta()) < 1.479 ) 
-	  wt[6] = 1 + gRandom->Gaus(0, 0.02);
-	else 
-	  wt[6] = 1 + gRandom->Gaus(0, 0.06);
-      }
-      if ( TMath::Abs(cdf_event.PdgCode[0]) == 13 ) wt[6] = 1 + gRandom->Gaus(0, 0.01);
-      
-      // set the smearing for the first lepton
-      if ( TMath::Abs(cdf_event.PdgCode[1]) == 11 ) {
-	if ( TMath::Abs(cdf_event.p[1].Eta()) < 1.479 ) 
-	  wt[7] = 1 + gRandom->Gaus(0, 0.02);
-	else 
-	  wt[7] = 1 + gRandom->Gaus(0, 0.06);
-      }
-      if ( TMath::Abs(cdf_event.PdgCode[1]) == 13 ) wt[7] = 1 + gRandom->Gaus(0, 0.01);
-      // std::cout << "wt[6] = " << wt[6] << "\t wt[7] = " << wt[7] << "\n";
-      // applied the smearing factors to the individual leptons
-      cdf_event.p[0].SetXYZM( cdf_event.p[0].Px()*wt[6], cdf_event.p[0].Py()*wt[6], cdf_event.p[0].Pz()*wt[6], 0);    
-      cdf_event.p[1].SetXYZM( cdf_event.p[1].Px()*wt[7], cdf_event.p[1].Py()*wt[7], cdf_event.p[1].Pz()*wt[7], 0);    
-    }
 
-    
 //nu_Z=-0.62694; nb_Z=16.8335;
 //Mw1=81.0633; Mw2=78.2776;
     WWL1L2Sol_Mw1Mw2( &cdf_event,
@@ -600,7 +529,7 @@ void genMzNu3(double* r,int SmearLevel,cdf_event_type cdf_event, mcfm_event_type
 	PSWeight = PSWeight*wt[4]*wt[5];
       }
 
-      
+
 //nu_Z=-0.62694; nb_Z=16.8335;
 //Mw1=81.0633; Mw2=78.2776;
     WWL1L2Sol_MzNu3( &cdf_event,
