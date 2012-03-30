@@ -24,7 +24,7 @@ void Proc::initBR() {
     BR_[2] = (2.0+0.1736+0.1784)/6;
     BR_[3] = (1.0+0.1784)/3;
   }
-  else if (proc_ == TVar::ZZ || ( proc_ >= TVar::HZZ200 && proc_ <= TVar::HZZ600) || proc_==TVar::WZ) {
+  else if (proc_ == TVar::ZZ || ( proc_ >= TVar::HZZ200 && proc_ <= TVar::HZZ600) || proc_==TVar::WZ || proc_==TVar::Z_2l) {
     BR_[0] = (1.0+0.1736*0.1736)/3;
     BR_[1] = (0.1736*0.1784)/3;
     BR_[2] = (0.1736*0.1784)/3;
@@ -129,7 +129,6 @@ void Proc::initYields() {
     if ( analysis_ == HWWANALYSIS) {
       if ( dilep_->M() > massCut_ ) passpresel = false;
       if ( mt_ < 80.) passpresel = false;
-      if ( mt_ > getHiggsMass(proc_) ) passpresel = false;
       if ( dilep_->Pt() < 45) passpresel = false;
       if ( type_ == 0 || type_ == 3) {
 	if ( dilep_->M() < 20) passpresel = false;
@@ -343,58 +342,16 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.202;
     MCFMXsec_ = 0.060;
     break;
-    
+
+  case (TVar::Z_2l):
+    NLOXsec_ = 2.0*1666.0;
+    MCFMXsec_ = 6440.0;
+    break;    
+
   default:
     NLOXsec_ = 0.0;
     MCFMXsec_ = 0.0;
     break;
   }
     
-}
-
-float Proc::getHiggsMass(TVar::Process & k)
-{
-  
-  if ( k == TVar::HWW115) 
-    return 115.;
-  else if ( k == TVar::HWW120) 
-    return 120.;
-  else if ( k == TVar::HWW130) 
-    return 130.;
-  else if ( k == TVar::HWW140) 
-    return 140.;
-  else if ( k == TVar::HWW150) 
-    return 150.;
-  else if ( k == TVar::HWW160) 
-    return 160.;
-  else if ( k == TVar::HWW170) 
-    return 170.;
-  else if ( k == TVar::HWW180) 
-    return 180.;
-  else if ( k == TVar::HWW190) 
-    return 190.;
-  else if ( k == TVar::HWW200) 
-    return 200.;
-  else if ( k == TVar::HWW250) 
-    return 250.;
-  else if ( k == TVar::HWW300) 
-    return 300.;
-  else if ( k == TVar::HWW350) 
-    return 350.;
-  else if ( k == TVar::HWW400) 
-    return 400.;
-  else if ( k == TVar::HWW350) 
-    return 350.;
-  else if ( k == TVar::HWW400) 
-    return 400.;
-  else if ( k == TVar::HWW450) 
-    return 450.;
-  else if ( k == TVar::HWW500) 
-    return 500.;
-  else if ( k == TVar::HWW550) 
-    return 550.;
-  else if ( k == TVar::HWW600) 
-    return 600.;
-  else
-    return 999999;
 }

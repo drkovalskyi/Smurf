@@ -42,9 +42,13 @@ EOF
 # Fill the smurfntuples with LR
 # ===========================================
 
+# merge dyee and dymm files for the proper acceptance calculation
+hadd -f ${INPUTSMURFFDIR}/dyll.root  ${INPUTSMURFFDIR}/dyee.root ${INPUTSMURFFDIR}/dymm.root
+cp ${INPUTSMURFFDIR}/dyll.root  ${MEFDIR}/dyll.root
+
 #for MH in 115 120 130 140 150 160 170 180 190 200 250 300 350 400 450 500 550 600; do 
-#for MH in 115; do
-for MH in 120 130 140 150 160 170 180 190 200 250 300 350 400 450 500 550 600; do 
+#for MH in 115 120 130 140;  do
+for MH in 115 120 130 140 150 160 170 180 190 200 250 300 350 400 450 500 550 600; do 
     rm -f log/add_lr_$MH.log;
     echo doing $MH
     # first add the LR for the higgs sample
