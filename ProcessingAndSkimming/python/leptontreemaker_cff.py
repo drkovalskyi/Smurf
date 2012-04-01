@@ -32,7 +32,6 @@ fastJetSequence = cms.Sequence(kt6PFJets * kt6PFJetsDeterministicIso * kt6PFJets
 
 # lepton maker
 from Smurf.ProcessingAndSkimming.leptontreemaker_cfi import *
-
 # filters
 from Smurf.ProcessingAndSkimming.filters_cfi import *
 
@@ -40,7 +39,19 @@ from Smurf.ProcessingAndSkimming.filters_cfi import *
 leptonTreeMakerSequenceMC   = cms.Sequence(fastJetSequence * leptonTreeMaker)
 leptonTreeMakerSequenceData = cms.Sequence(hltHighLevel * leptonTreeMakerSequenceMC)
 
+# filter sequences
+# photons
 photonFilters = cms.Sequence(highPtPhotons * highPtPhotonFilter * centralPhotons * centralPhotonFilter)
-
 leptonTreeMakerSequenceForPhotonMC   = cms.Sequence(photonFilters * leptonTreeMakerSequenceMC)
 leptonTreeMakerSequenceForPhotonData = cms.Sequence(photonFilters * leptonTreeMakerSequenceData)
+
+# electrons
+electronFilters = cms.Sequence(highPtElectrons * highPtElectronFilter)
+leptonTreeMakerSequenceForElectronMC   = cms.Sequence(electronFilters * leptonTreeMakerSequenceMC)
+leptonTreeMakerSequenceForElectronData = cms.Sequence(electronFilters * leptonTreeMakerSequenceData)
+
+# muons
+muonFilters = cms.Sequence(highPtMuons * highPtMuonFilter)
+leptonTreeMakerSequenceForMuonMC   = cms.Sequence(muonFilters * leptonTreeMakerSequenceMC)
+leptonTreeMakerSequenceForMuonData = cms.Sequence(muonFilters * leptonTreeMakerSequenceData)
+

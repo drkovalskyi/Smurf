@@ -1,5 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
+#
+# photon filters
+#
+
 highPtPhotons = cms.EDFilter("CandViewSelector",
 src = cms.InputTag("photons"),
 cut = cms.string("pt > 40.0")
@@ -11,7 +15,7 @@ minNumber = cms.uint32(1),
 )
 
 centralPhotons = cms.EDFilter("CandViewSelector",
-src = cms.InputTag("photons"),
+src = cms.InputTag("highPtPhotons"),
 cut = cms.string("abs(eta)<1.479")
 )
 
@@ -19,6 +23,38 @@ centralPhotonFilter = cms.EDFilter("CandViewCountFilter",
 src = cms.InputTag("centralPhotons"),
 minNumber = cms.uint32(1),
 )
+
+#
+# electron filters
+#
+
+highPtElectrons = cms.EDFilter("CandViewSelector",
+srs = cms.InputTag("gsfElectrons"),
+cut = cms.string("pt > 20.0")
+)
+
+highPtElectronFilter = cms.EDFilter("CandViewCountFilter",
+src = cms.InputTag("highPtElectrons"),
+minNumber = cms.uint32(1)
+)
+
+#
+# muon filters
+#
+
+highPtMuons = cms.EDFilter("CandViewSelector",
+srs = cms.InputTag("muons"),
+cut = cms.string("pt > 20.0")
+)
+
+highPtMuonFilter = cms.EDFilter("CandViewCountFilter",
+src = cms.InputTag("highPtMuons"),
+minNumber = cms.uint32(1)
+)
+
+#
+# hlt filters
+#
 
 hltHighLevel = cms.EDFilter("HLTHighLevel",
     TriggerResultsTag = cms.InputTag("TriggerResults","","HLT"),
