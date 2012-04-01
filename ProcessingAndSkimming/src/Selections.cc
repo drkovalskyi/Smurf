@@ -7,6 +7,7 @@
 #include "DataFormats/Math/interface/deltaR.h"
 
 #include <algorithm>
+#include <utility>
 
 //
 // utilities
@@ -50,7 +51,7 @@ std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm:
         if (reco::deltaR(jet->eta(), jet->phi(), cand2.eta(), cand2.phi()) < 0.3) continue;
 
         // push back
-        goodJets.push_back(std::make_pair<reco::PFJet, float>(*jet, jec));
+        goodJets.push_back(std::make_pair(*jet, jec));
 
     }
 
@@ -79,7 +80,7 @@ std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm:
         if (reco::deltaR(jet->eta(), jet->phi(), cand.eta(), cand.phi()) < 0.3) continue;
 
         // push back
-        goodJets.push_back(std::make_pair<reco::PFJet, float>(*jet, jec));
+        goodJets.push_back(std::make_pair(*jet, jec));
 
     }
 
@@ -380,7 +381,10 @@ std::pair<double,double> smurfselections::trackerMET(std::vector<const reco::Can
     pX -= pf->px();
     pY -= pf->py();
   }
+
   double met    = sqrt(pX * pX + pY * pY);
   double metphi = atan2(pY, pX);
-  return std::make_pair<double,double>(met,metphi);
+  return std::make_pair(met, metphi);
+
 }
+
