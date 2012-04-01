@@ -29,7 +29,7 @@ minNumber = cms.uint32(1),
 #
 
 highPtElectrons = cms.EDFilter("CandViewSelector",
-srs = cms.InputTag("gsfElectrons"),
+src = cms.InputTag("gsfElectrons"),
 cut = cms.string("pt > 20.0")
 )
 
