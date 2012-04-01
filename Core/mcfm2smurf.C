@@ -73,6 +73,7 @@ bool mcfm2smurf::FillProcess(SmurfTree& tree, int mcfm_process_id){
       if (tree.lep1_.pt() < tree.lep2_.pt()) std::swap(tree.lep1_,tree.lep2_);
       tree.met_ = (nu1+nu2).pt();
       tree.metPhi_ = (nu1+nu2).phi();
+      tree.dstype_ = SmurfTree::qqww;
     }
     break;
   case 71:
@@ -114,6 +115,7 @@ bool mcfm2smurf::FillProcess(SmurfTree& tree, int mcfm_process_id){
 	tree.njets_ = 0;
       tree.met_ = met.pt();
       tree.metPhi_ = met.phi();
+      tree.dstype_ = SmurfTree::wz;
     }
     break;
   default:
@@ -157,9 +159,10 @@ void mcfm2smurf::MakeSmurfNtuple(const char* filename, int mcfm_process_id)
       tree.dilep_ = tree.lep1_ + tree.lep2_;
       tree.dPhi_ = fabs(ROOT::Math::VectorUtil::DeltaPhi(tree.lep1_,tree.lep2_));
       tree.dR_ = ROOT::Math::VectorUtil::DeltaR(tree.lep1_,tree.lep2_);
-      tree.weight_ = wt_ALL;
+      tree.scale1fb_ = wt_ALL;
       // tree.type_ = SmurfTree::Type(gen.Uniform(4));
       tree.type_ = SmurfTree::Type(0);
+      tree.cuts_ = SmurfTree::FullSelection;
       
       tree.trackMet_ = tree.met_;
       tree.trackMetPhi_ = tree.metPhi_;
