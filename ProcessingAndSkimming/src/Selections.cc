@@ -298,13 +298,13 @@ bool smurfselections::passElectronFO2011(const edm::View<reco::GsfElectron>::con
     if (conv)           return false;
 
     if (electron->isEB()) {
-        if (electron->scSigmaIEtaIEta()                             > 0.01)  return false;
+        //if (electron->sigmaIEtaIEta()                             > 0.01)  return false;
         if (electron->deltaEtaSuperClusterTrackAtVtx()              > 0.007) return false;
         if (electron->deltaPhiSuperClusterTrackAtVtx()              > 0.15)  return false;
         if (electron->hadronicOverEm()                              > 0.12)  return false; 
         if (std::max(electron->dr03EcalRecHitSumEt() - 1.0, 0.0)/pt > 0.2)   return false;
     } else {
-        if (electron->scSigmaIEtaIEta()                             > 0.03)  return false;
+        //if (electron->sigmaIEtaIEta()                             > 0.03)  return false;
         if (electron->deltaEtaSuperClusterTrackAtVtx()              > 0.009) return false;
         if (electron->deltaPhiSuperClusterTrackAtVtx()              > 0.10)  return false;
         if (electron->hadronicOverEm()                              > 0.10)  return false;
@@ -331,6 +331,12 @@ bool smurfselections::passElectronID2011(const edm::View<reco::GsfElectron>::con
         if (eta >= 0.0 && eta < 1.0 &&      mvaValue <= 0.947)     return false;
         if (eta >= 1.0 && eta < 1.479 &&    mvaValue <= 0.950)     return false;
         if (eta >= 1.479 && eta < 2.5 &&    mvaValue <= 0.884)     return false;
+    }
+
+    if (electron->isEB()) {
+        if (electron->sigmaIetaIeta()                             > 0.01)  return false;
+    } else {
+        if (electron->sigmaIetaIeta()                             > 0.03)  return false;
     }
 
     if (!passElectronFO2011(electron, vertex, beamspot, conversions))   return false;

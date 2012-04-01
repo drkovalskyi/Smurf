@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.8 2012/03/27 14:14:23 cerati Exp $
+// $Id: LeptonTreeMaker.cc,v 1.9 2012/03/29 08:50:50 cerati Exp $
 //
 //
 
@@ -44,6 +44,8 @@ Implementation:
 #include "TrackingTools/Records/interface/TransientTrackRecord.h"
 #include "RecoEcal/EgammaCoreTools/interface/EcalClusterLazyTools.h"
 #include "HiggsAnalysis/HiggsToWW2Leptons/interface/ElectronIDMVA.h"
+#include "RecoEgamma/EgammaTools/interface/ConversionTools.h"
+#include "RecoEcal/EgammaCoreTools/interface/EcalClusterLazyTools.h"
 #include "SimDataFormats/PileupSummaryInfo/interface/PileupSummaryInfo.h"
 
 // user include files
@@ -88,7 +90,7 @@ class LeptonTreeMaker : public edm::EDProducer {
         // fake rates
         void fillElectronFakeRateTree(const edm::Event& iEvent, const edm::EventSetup &iSetup,
                 const TransientTrackBuilder *ttBuilder, 
-                const EcalClusterLazyTools *clusterTools);
+                EcalClusterLazyTools *clusterTools);
 
         void fillMuonFakeRateTree(const edm::Event& iEvent, const edm::EventSetup &iSetup);
 
@@ -120,7 +122,6 @@ class LeptonTreeMaker : public edm::EDProducer {
         edm::InputTag pfCandsInputTag_;
         edm::InputTag metInputTag_;
         edm::InputTag jetsInputTag_;
-
         edm::InputTag conversionsInputTag_;
         edm::InputTag beamSpotInputTag_;
 
@@ -183,12 +184,10 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
     pfCandsInputTag_        =  iConfig.getParameter<edm::InputTag>("pfCandsInputTag");
     metInputTag_            =  iConfig.getParameter<edm::InputTag>("metInputTag");
     jetsInputTag_           =  iConfig.getParameter<edm::InputTag>("jetsInputTag");
-
     conversionsInputTag_    =  iConfig.getParameter<edm::InputTag>("conversionsInputTag");
     beamSpotInputTag_       =  iConfig.getParameter<edm::InputTag>("beamSpotInputTag");
 
     pfJetCorrectorL1FastL2L3_ = iConfig.getParameter<std::string>("pfJetCorrectorL1FastL2L3");
-
     pathToBDTWeights_       = iConfig.getParameter<std::string>("pathToBDTWeights");
 
     electronTPTriggerNames_ =  iConfig.getUntrackedParameter<std::vector<std::string> >("electronTPTriggerNames");
@@ -297,10 +296,6 @@ LeptonTreeMaker::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
     EcalClusterLazyTools *clusterTools = new EcalClusterLazyTools(iEvent, iSetup, 
         edm::InputTag("reducedEcalRecHitsEB"), 
         edm::InputTag("reducedEcalRecHitsEE"));
-
-    //
-    // common products  
-    //
 
     // rho for jec
     edm::Handle<double> rhoJEC_h;
@@ -411,6 +406,8 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent,
                 EcalClusterLazyTools *clusterTools)
 {
 
+    leptonTree_->InitVariables();
+
     // electrons
     edm::Handle<edm::View<reco::GsfElectron> > els_h;
     iEvent.getByLabel(electronsInputTag_, els_h);
@@ -477,6 +474,8 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent,
 void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent)
 {
 
+    leptonTree_->InitVariables();
+
     // muons
     edm::Handle<edm::View<reco::Muon> > mus_h;
     iEvent.getByLabel(muonsInputTag_, mus_h);
@@ -528,8 +527,10 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent)
 
 void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const edm::EventSetup& iSetup,
                 const TransientTrackBuilder *ttBuilder,
-                const EcalClusterLazyTools *clusterTools)
+                EcalClusterLazyTools *clusterTools)
 {
+
+    leptonTree_->InitVariables();
 
     // electrons
     edm::Handle<edm::View<reco::GsfElectron> > els_h;
@@ -606,6 +607,8 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
 void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 
+    leptonTree_->InitVariables();
+
     // muons
     edm::Handle<edm::View<reco::Muon> > mus_h;
     iEvent.getByLabel(muonsInputTag_, mus_h);
@@ -667,6 +670,8 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
 
 void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
+
+    leptonTree_->InitVariables();
 
     // photons
     edm::Handle<edm::View<reco::Photon> > pho_h;
