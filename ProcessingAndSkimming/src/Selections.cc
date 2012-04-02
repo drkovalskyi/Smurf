@@ -42,7 +42,12 @@ std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm:
         // jec
         int idx = jet - jets_h->begin();
         edm::RefToBase<reco::Jet> jetRef(edm::Ref<edm::View<reco::PFJet> >(jets_h, idx));
+
+        #ifdef RELEASE_4XY
         float jec = corrector->correction(*jet, jetRef, iEvent, iSetup);
+        #else
+        float jec = corrector->correction(*jet, iEvent, iSetup);
+        #endif
 
         // cuts
         if (jet->pt() * jec <= ptCut) continue;
@@ -72,7 +77,12 @@ std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm:
         // jec
         int idx = jet - jets_h->begin();
         edm::RefToBase<reco::Jet> jetRef(edm::Ref<edm::View<reco::PFJet> >(jets_h, idx));
+
+        #ifdef RELEASE_4XY
         float jec = corrector->correction(*jet, jetRef, iEvent, iSetup);
+        #else
+        float jec = corrector->correction(*jet, iEvent, iSetup);
+        #endif
 
         // cuts
         if (jet->pt() * jec <= ptCut) continue;

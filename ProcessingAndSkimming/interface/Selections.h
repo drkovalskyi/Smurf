@@ -1,6 +1,14 @@
 #ifndef SMURF_PROCESSINGANDSKIMMING_SELECTIONS_H
 #define SMURF_PROCESSINGANDSKIMMING_SELECTIONS_H
 
+//
+// Get around backward incompatibility in
+// interface for JetCorrector::correction
+//#define RELEASE_52X
+#define RELEASE_4XY
+//
+//
+
 #include "DataFormats/PatCandidates/interface/Electron.h"
 #include "DataFormats/MuonReco/interface/Muon.h"
 #include "DataFormats/EgammaCandidates/interface/Conversion.h"
