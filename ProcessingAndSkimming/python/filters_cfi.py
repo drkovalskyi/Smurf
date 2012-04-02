@@ -43,7 +43,7 @@ minNumber = cms.uint32(1)
 #
 
 highPtMuons = cms.EDFilter("CandViewSelector",
-srs = cms.InputTag("muons"),
+src = cms.InputTag("muons"),
 cut = cms.string("pt > 20.0")
 )
 
