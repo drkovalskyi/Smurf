@@ -1,0 +1,10 @@
+wwfit.C
+	nEvents - expected number of WW events
+	PDF parameters:
+	    Nbins = 18; - no need to have too many bins. You need to capture the shape, not to make it beautiful
+	    minPt = 20;
+	    maxPt = 200; - make sure it's not too big, i.e. that you have non-zero yield for all reference aTGC distributions
+
+Data samples:
+  UserCode/JRibnik/CMS2/NtupleMacros/WW/fit/samples - last year Sherpa samples
+  smurf - directory with smurf ntuples
