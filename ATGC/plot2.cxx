@@ -7,5 +7,5 @@
   setDefaults();
   setSigPdf_LZ_KG();
   // ww1DFits();
-  ww1DFits("samples/qqww.root",true);
+  ww1DFits("smurf/qqww.root",true);
 }

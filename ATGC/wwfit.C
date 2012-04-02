@@ -835,7 +835,7 @@ void sensitivity()
 }
 */
 
-void ww1DFits(const char* file = "samples/qqww.root", bool smurfFormat=true, int N=-1)
+void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N=-1)
 {
   RooAbsData* dataset(0);
   if (!smurfFormat){
@@ -1291,7 +1291,7 @@ void compareDistributions()
   h1->SetLineColor(kBlue);
   h1->SetLineWidth(2);
   h1->Draw("hist");
-//   TH1* h2 = MakePlot(MakeDataset("samples/qqww.root","qqww1"),"Madgraph-FullSim");
+//   TH1* h2 = MakePlot(MakeDataset("smurf/qqww.root","qqww1"),"Madgraph-FullSim");
 //   h2->SetLineColor(kBlack);
 //   h2->SetLineWidth(2);
 //   //  h2->Draw("same hist c");
