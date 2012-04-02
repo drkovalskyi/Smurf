@@ -1,0 +1,77 @@
+\documentclass{cmspaper}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[pdfborder=0 0 0,
+            colorlinks,
+            urlcolor = blue,
+            linkcolor = black,
+            citecolor = black,
+            menucolor = black,]
+           {hyperref}
+%% \usepackage[colorlinks]{hyperref}
+%% \usepackage{url}
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixname}{Appendix}
+%% \renewcommand{\appendixtocname}{List of appendices}
+
+\input{commands}
+\input{privsym}
+
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+
+\begin{document}
+\begin{titlepage}
+
+  \analysisnote{2012/XXX}
+
+  \date{\today}
+
+  \title{Constraining Anomalous Triple Gauge Couplings in WW dilepton final state}
+  
+  \input{authors}
+
+  \begin{abstract}
+    This note describes the extraction of anomalous triple gauge
+    couplings in the $WW$ di-lepton analysis using $\intlumi$ of data
+    collected in the 2011 Run at $\sqrt{s} = $ 7~TeV center of mass
+    energy. An unbinned maximum likelihood fit is used to fit for the
+    leading lepton pt. At 95\% C.L. $\lambda_{Z}: [-0.XXX,0.YYY]$,
+    $\Delta g^Z_1: [-0.XXX,0.YYY]$ and $\Delta\kappa_{\gamma}:
+    [-0.XXX,0.YYY]$. The results are consistent with the Standard
+    Model expectations.
+  \end{abstract} 
+
+\end{titlepage}
+\tableofcontents
+\listoftables
+\listoffigures
+\newpage 
+
+\section{Introduction}
+   \label{sec:introduction}
+   \input{introduction}
+\section{The method}
+   \label{sec:method}
+   \input{method}
+\section{Existing limits}
+   \label{sec:limits}
+   \input{limits}
+\section{Monte Carlo modeling of anomalous couplings}
+   \label{sec:modeling}
+   \input{modeling}
+\section{Standard Model \ww\ yields}
+   \label{sec:smww}
+   \input{smww}
+\section{Fit validation}
+   \label{sec:validation}
+   \input{validation}
+\section{Results}
+   \label{sec:results}
+   \input{results}
+\section{Conclusion}
+   \input{conclusion}
+\clearpage
+\input{biblio}
+\end{document}

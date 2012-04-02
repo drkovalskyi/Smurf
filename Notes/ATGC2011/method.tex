@@ -1,0 +1,106 @@
+In order to fit for anomalous couplings we used a maximum likelihood fit in
+the RooFit framework. Differences between the Standard Model
+and anomalous couplings are established in the leading lepton
+\pt\ distribution and the overall \ww\ event yield. The combined PDF for the
+leading lepton \pt\ distribution is:
+\begin{equation}
+  P(\pt) = \frac{N^\mathrm{exp}_\mathrm{sig}}{N^\mathrm{exp}}P_\mathrm{sig}(\pt) + 
+  \frac{N^\mathrm{exp}_\mathrm{bkg}}{N^\mathrm{exp}}P_\mathrm{bkg}(\pt) 
+\end{equation}
+where $P_\mathrm{sig}$ and $P_\mathrm{bkg}$ are signal and background PDFs of the
+leading lepton \pt{}, $N^\mathrm{exp}_\mathrm{sig}$ and $N^\mathrm{exp}_\mathrm{bkg}$ are the expected
+number of signal and background events and
+$N^\mathrm{exp}=N^\mathrm{exp}_\mathrm{sig}+N^\mathrm{exp}_\mathrm{bkg}$.
+
+The Likelihood is defined as a product of Poisson PDFs for the observed
+number of events and the combined PDF for each event:
+\begin{equation}
+  L = e^{-N^\mathrm{exp}}(N^\mathrm{exp})^{N^\mathrm{obs}}\displaystyle\prod_{i=1}^{N^\mathrm{obs}}P(\pt)
+\end{equation}
+
+To account for statistical and systematic uncertainties in the
+luminosity, cross-section and background estimation we assume
+Gaussian distributions for the uncertainties and add corresponding
+constraints to the Likelihood.
+
+The signal PDF allows for parameterization of the leading lepton \pt\
+PDF and the cross-section as functions of the anomalous
+couplings. Since the effective Lagrangian is linear in the couplings
+we can parametrize the leading lepton differential cross-section with
+a 2D or 3D parabola ~\cite{ref:atgc_method}. In the fit the expected
+number of signal events is taken from that parameterization. The
+expected background yield is taken from the background estimation of
+the \ww\ analysis~\cite{ref:wwnote}. Table~\ref{tab:xsections} shows
+the reference points and the corresponding cross-sections used in the
+model.
+
+\begin{table}[!ht]
+  \begin{center}
+  \begin{tabular} {|c c c|c c|c|}
+\hline
+  $\lambda_Z$ & $\Delta g^Z_1$ & $\Delta\kappa_{\gamma}$ & $\Delta\kappa_Z$ & $\lambda_{\gamma}$ & $\sigma$ \\
+  \hline
+  0           & 0              & 0                       & 0                & 0                  & $547.541\pm1.947$~fb \\
+  0           & 0              & $+0.7$                  & $-0.2205$        & 0                  & $617.147\pm1.604$~fb \\
+  0           & 0              & $-0.7$                  & $+0.2205$        & 0                  & $633.939\pm1.671$~fb \\
+  $+0.5$      & 0              & 0                       & 0                & $+0.5$             & $1223.832\pm3.414$~fb \\
+  $-0.5$      & 0              & 0                       & 0                & $-0.5$             & $1193.115\pm3.026$~fb \\
+  $+0.2$      & 0              & 0                       & 0                & $+0.2$             & $661.276\pm1.837$~fb \\
+  $-0.2$      & 0              & 0                       & 0                & $-0.2$             & $648.021\pm1.630$~fb \\
+  $+0.5$      & 0              & $+0.7$                  & $-0.2205$        & $+0.5$             & $1295.486\pm3.224$~fb \\
+  $-0.5$      & 0              & $+0.7$                  & $-0.2205$        & $-0.5$             & $1267.807\pm2.971$~fb \\
+  $-0.5$      & 0              & $-0.7$                  & $+0.2205$        & $-0.5$             & $1279.312\pm2.999$~fb \\
+  $+0.5$      & 0              & $-0.7$                  & $+0.2205$        & $+0.5$             & $1319.705\pm2.920$~fb \\
+  0           & $+0.75$        & 0                       & $+0.75$          & 0                  & $1284.979\pm2.875$~fb \\
+  0           & $-0.75$        & 0                       & $-0.75$          & 0                  & $1370.808\pm2.905$~fb \\
+  $+0.5$      & $-0.75$        & 0                       & $-0.75$          & $+0.5$             & $1766.015\pm4.324$~fb \\
+  $-0.5$      & $-0.75$        & 0                       & $-0.75$          & $-0.5$             & $2295.906\pm4.985$~fb \\
+  $-0.5$      & $+0.75$        & 0                       & $+0.75$          & $-0.5$             & $1644.440\pm4.276$~fb \\
+  $+0.5$      & $+0.75$        & 0                       & $+0.75$          & $+0.5$             & $2245.131\pm5.315$~fb \\
+
+ \hline
+  \end{tabular}
+
+  \caption{Exclusive cross-section for $\WW\to\mu\mu$ with anomalous
+  couplings. Inclusive Standard Model \WW\ cross-section is
+  $0.548/(0.108)^2=47.0$pb.}
+
+   \label{tab:xsections}
+  \end{center}
+\end{table}
+
+
+Figure~\ref{fig:pdfs} shows the result of the signal PDF
+parameterization using non-parametric PDFs based on histograms. It
+reveals reasonable agreement between the initial PDFs from the
+generated samples and the final parametrized PDFs made with Keys
+PDF~\cite{ref:keys}.
+
+\begin{figure}[tp]
+  \centerline{
+    \includegraphics[width=1.0\textwidth]{figures/pdfs}
+  }
+
+  \caption[PDF parameterization] {Leading lepton \pt\ distributions
+  for \ww\ events with and without aTGCs. The black histogram is the
+  true \pt\ distribution for Monte Carlo events that passed the final
+  selection. The red curve is a smoothed distribution created with Keys
+  PDF. The blue curve shows the \pt\ distribution from the model used to
+  parametrize the anomalous coupling effects across different values
+  of the couplings.}
+\label{fig:pdfs}
+\end{figure}
+
+Figure~\ref{fig:bkgpdfs} (\fixme{Update plots for 2011}) shows the leading lepton \pt\ PDFs
+for background events. It is important to note that some of the major
+backgrounds have harder leading lepton \pt\ distributions than Standard
+Model $WW$, which may bias the result if not handled properly.
+
+\begin{figure}[tp]
+  \centerline{
+    \includegraphics[width=1.0\textwidth]{figures/bkgpdfs}
+  }
+
+  \caption[Background PDFs] {Leading lepton \pt\ PDFs for background events after full event selection}
+  \label{fig:bkgpdfs}
+\end{figure}
