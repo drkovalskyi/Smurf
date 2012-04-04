@@ -110,6 +110,11 @@ TString suffix       = "ww"
     mvaVar[ "dPhiDiLepJet1" ]  = 1;
   }
   mvaVar[ "razor" ]             = 0;  //razor
+  if (njet == 2) {
+    mvaVar[ "mjj" ]             = 1;  //invariant mass of the dijet
+    mvaVar[ "detajj" ]          = 1;  //deta of the dijet
+    mvaVar[ "jet1eta" ]         = 1;  // leading jet eta
+  }
   //---------------------------------------------------------------
   // specifies the selection applied to events in the training
   //---------------------------------------------------------------
@@ -317,6 +322,9 @@ TString suffix       = "ww"
     Float_t dPhiDiLepMET;
     Float_t dPhiDiLepJet1;
     Float_t razor;
+    Float_t mjj;
+    Float_t detajj;
+    Float_t jet1eta;
 
     if (mvaVar["lep1pt"])        reader->AddVariable( "lep1pt",        &lep1pt       );
     if (mvaVar["lep2pt"])        reader->AddVariable( "lep2pt",        &lep2pt       );
@@ -334,7 +342,9 @@ TString suffix       = "ww"
     if (mvaVar["dPhiDiLepMET"])  reader->AddVariable( "dPhiDiLepMET",  &dPhiDiLepMET );
     if (mvaVar["dPhiDiLepJet1"]) reader->AddVariable( "dPhiDiLepJet1", &dPhiDiLepJet1);
     if (mvaVar["razor"])         reader->AddVariable( "razor",         &razor        );
- 
+    if (mvaVar["mjj"])           reader->AddVariable( "mjj",           &mjj        );
+    if (mvaVar["detajj"])        reader->AddVariable( "detajj",        &detajj        );
+    if (mvaVar["jet1eta"])       reader->AddVariable( "jet1eta",       &jet1eta        );
     // Spectator variables declared in the training have to be added to the reader, too
     //    Float_t spec1,spec2;
     //    reader->AddSpectator( "spec1 := var1*2",   &spec1 );
@@ -482,6 +492,8 @@ TString suffix       = "ww"
     Float_t bdtg_aux0;
     Float_t bdtg_aux1;
     Float_t bdtg_aux2;
+    Float_t bdtg_aux3;
+    Float_t bdtg_aux4;
 
     TBranch* br_bdt        = 0;
     TBranch* br_bdtd       = 0;
@@ -491,6 +503,8 @@ TString suffix       = "ww"
     TBranch* br_bdtg_aux0  = 0;
     TBranch* br_bdtg_aux1  = 0;
     TBranch* br_bdtg_aux2  = 0;
+    TBranch* br_bdtg_aux3  = 0;
+    TBranch* br_bdtg_aux4  = 0;
 
     if(Use["BDT"])         br_bdt        = clone->Branch(Form("bdt_hww%i_%djet_%s"  ,mH,njet,suffix.Data()) , &bdt   , Form("bdt_hww%i_%djet_%s/F"   ,mH,njet,suffix.Data()) );
     if(Use["BDTD"])        br_bdtd       = clone->Branch(Form("bdtd_hww%i_%djet_%s" ,mH,njet,suffix.Data()) , &bdtd  , Form("bdtd_hww%i_%djet_%s/F"  ,mH,njet,suffix.Data()) );
@@ -501,6 +515,8 @@ TString suffix       = "ww"
       br_bdtg_aux0	= clone->Branch(Form("bdtg_hww%i_%djet_%s_aux0",mH,njet,suffix.Data()) , &bdtg_aux0       , Form("bdtg_hww%i_%djet_%s_aux0/F",mH,njet,suffix.Data()) );
       br_bdtg_aux1	= clone->Branch(Form("bdtg_hww%i_%djet_%s_aux1",mH,njet,suffix.Data()) , &bdtg_aux1       , Form("bdtg_hww%i_%djet_%s_aux1/F",mH,njet,suffix.Data()) );
       br_bdtg_aux2	= clone->Branch(Form("bdtg_hww%i_%djet_%s_aux2",mH,njet,suffix.Data()) , &bdtg_aux2       , Form("bdtg_hww%i_%djet_%s_aux2/F",mH,njet,suffix.Data()) );
+      br_bdtg_aux3	= clone->Branch(Form("bdtg_hww%i_%djet_%s_aux3",mH,njet,suffix.Data()) , &bdtg_aux3       , Form("bdtg_hww%i_%djet_%s_aux3/F",mH,njet,suffix.Data()) );
+      br_bdtg_aux4	= clone->Branch(Form("bdtg_hww%i_%djet_%s_aux4",mH,njet,suffix.Data()) , &bdtg_aux4       , Form("bdtg_hww%i_%djet_%s_aux4/F",mH,njet,suffix.Data()) );
     }
 
     if(Use["BDT"])         br_bdt       -> SetTitle(Form("BDT Output H%i_%dj"    , mH,njet));
@@ -557,7 +573,9 @@ TString suffix       = "ww"
       dPhiDiLepMET   = smurfTree.dPhiDiLepMET_; // 13
       dPhiDiLepJet1  = smurfTree.dPhiDiLepJet1_;// 14
       razor          = CalcGammaMRstar(smurfTree.lep1_,smurfTree.lep2_);// 15
-
+      mjj            = (smurfTree.jet1_+smurfTree.jet2_).M(); // 16
+      detajj         = TMath::Abs(smurfTree.jet1_.Eta() - smurfTree.jet2_.Eta()); // 17
+      jet1eta        = smurfTree.jet1_.Eta(); // 18
       npass++;
       yield+=smurfTree.scale1fb_;
 
@@ -812,6 +830,67 @@ TString suffix       = "ww"
 
           bdtg_aux2  = reader->EvaluateMVA( "BDTG method" );
         }
+	
+	if(doShapes == true && smurfTree.njets_ > 1){ // jes + 
+	  double corr[2] = {1.0, 1.0};
+	  //corr[0] = gRandom->Gaus(0.00,0.05);
+	  //corr[1] = gRandom->Gaus(0.00,0.05);
+	  corr[0] = 1.05;
+	  corr[1] = 1.05;
+	  
+	  lep1pt         = smurfTree.lep1_.pt();    //  0
+	  lep2pt         = smurfTree.lep2_.pt();    //  1
+	  dPhi           = smurfTree.dPhi_;         //  2
+	  dR             = smurfTree.dR_;           //  3
+	  dilmass        = smurfTree.dilep_.mass(); //  4
+	  type           = smurfTree.type_;	        //  5
+	  pmet           = smurfTree.pmet_;	        //  6
+	  met            = smurfTree.met_;	        //  7
+	  mt             = smurfTree.mt_;	        //  8
+	  mt1            = smurfTree.mt1_;	        //  9
+	  mt2            = smurfTree.mt2_;	        // 10
+	  dPhiLep1MET    = smurfTree.dPhiLep1MET_;  // 11
+	  dPhiLep2MET    = smurfTree.dPhiLep2MET_;  // 12
+	  dPhiDiLepMET   = smurfTree.dPhiDiLepMET_; // 13
+	  dPhiDiLepJet1  = smurfTree.dPhiDiLepJet1_;// 14
+	  razor          = CalcGammaMRstar(smurfTree.lep1_,smurfTree.lep2_);// 15
+	  mjj            = (smurfTree.jet1_*corr[0]+smurfTree.jet2_*corr[1]).M(); // 16
+	  detajj         = TMath::Abs(smurfTree.jet1_.Eta() - smurfTree.jet2_.Eta()); // 17
+	  jet1eta        = smurfTree.jet1_.Eta(); // 18
+          
+	  bdtg_aux3  = reader->EvaluateMVA( "BDTG method" );
+        }
+	
+	if(doShapes == true && smurfTree.njets_ > 1){ // jes - 
+	  double corr[2] = {1.0, 1.0};
+	  //corr[0] = gRandom->Gaus(0.00,0.05);
+	  //corr[1] = gRandom->Gaus(0.00,0.05);
+	  corr[0] = 0.95;
+	  corr[1] = 0.95;
+	  
+	  lep1pt         = smurfTree.lep1_.pt();    //  0
+	  lep2pt         = smurfTree.lep2_.pt();    //  1
+	  dPhi           = smurfTree.dPhi_;         //  2
+	  dR             = smurfTree.dR_;           //  3
+	  dilmass        = smurfTree.dilep_.mass(); //  4
+	  type           = smurfTree.type_;	        //  5
+	  pmet           = smurfTree.pmet_;	        //  6
+	  met            = smurfTree.met_;	        //  7
+	  mt             = smurfTree.mt_;	        //  8
+	  mt1            = smurfTree.mt1_;	        //  9
+	  mt2            = smurfTree.mt2_;	        // 10
+	  dPhiLep1MET    = smurfTree.dPhiLep1MET_;  // 11
+	  dPhiLep2MET    = smurfTree.dPhiLep2MET_;  // 12
+	  dPhiDiLepMET   = smurfTree.dPhiDiLepMET_; // 13
+	  dPhiDiLepJet1  = smurfTree.dPhiDiLepJet1_;// 14
+	  razor          = CalcGammaMRstar(smurfTree.lep1_,smurfTree.lep2_);// 15
+	  mjj            = (smurfTree.jet1_*corr[0]+smurfTree.jet2_*corr[1]).M(); // 16
+	  detajj         = TMath::Abs(smurfTree.jet1_.Eta() - smurfTree.jet2_.Eta()); // 17
+	  jet1eta        = smurfTree.jet1_.Eta(); // 18
+          
+	  bdtg_aux4  = reader->EvaluateMVA( "BDTG method" );
+        }
+
       }
 
       if (Use["CutsGA"]) {

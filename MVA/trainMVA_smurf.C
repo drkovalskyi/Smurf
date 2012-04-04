@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.9 2011/12/15 12:15:36 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.10 2012/03/26 08:52:57 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -135,6 +135,11 @@ void trainMVA_smurf(
   }
   mvaVar[ "razor" ]             = 0;  //razor
 
+  if(njetsType == 2){
+    mvaVar[ "mjj" ]    = 1; // di-jet invariant mass 
+    mvaVar[ "detajj" ]    = 1; // delta btw the two leading jets 
+    mvaVar[ "jet1eta" ]    = 1; // leading jet eta
+  }
   TCut sel = "";
   
   float dilmass_cut = DileptonMassPreselectionCut(mH);
@@ -296,6 +301,9 @@ void trainMVA_smurf(
   if (mvaVar["dPhiDiLepMET"]) factory->AddVariable( "dPhiDiLepMET",  "dphi(dilep,MET)",     "",    'F' );
   if (mvaVar["dPhiDiLepJet1"])factory->AddVariable( "dPhiDiLepJet1", "dphi(dilep,jet)",     "",    'F' );
   if (mvaVar["razor"])        factory->AddVariable( "razor",         "razor",               "",    'F' );
+  if (mvaVar["mjj"])          factory->AddVariable( "mjj",           "mjj",                 "",    'F' );
+  if (mvaVar["detajj"])       factory->AddVariable( "detajj",        "detajj",              "",    'F' );
+  if (mvaVar["jet1eta"])      factory->AddVariable( "jet1eta",       "jet1eta",             "",    'F' );
 
   int nVariablesTemp = 0;
 
@@ -315,6 +323,9 @@ void trainMVA_smurf(
   if (mvaVar["dPhiDiLepMET"]) { cout << "Adding variable to MVA training: dPhiDiLepMET"   << endl; nVariablesTemp++; }
   if (mvaVar["dPhiDiLepJet1"]){ cout << "Adding variable to MVA training: dPhiDiLepJet1"  << endl; nVariablesTemp++; }
   if (mvaVar["razor"])        { cout << "Adding variable to MVA training: razor"          << endl; nVariablesTemp++; }
+  if (mvaVar["mjj"])          { cout << "Adding variable to MVA training: mjj"            << endl; nVariablesTemp++; }
+  if (mvaVar["detajj"])       { cout << "Adding variable to MVA training: detajj"         << endl; nVariablesTemp++; }
+  if (mvaVar["jet1eta"])      { cout << "Adding variable to MVA training: jet1eta"        << endl; nVariablesTemp++; }
 
   const unsigned int nVariables = nVariablesTemp;
   cout << "Using " << nVariables << " variables for MVA training" << endl;
@@ -377,6 +388,7 @@ void trainMVA_smurf(
   LorentzVector*  lep2  = 0;
   LorentzVector*  jet1  = 0;
   LorentzVector*  jet2  = 0;
+  LorentzVector*  jet3  = 0;
   Float_t         dPhi;
   Float_t         dR;
   LorentzVector*  dilep = 0;
@@ -407,6 +419,7 @@ void trainMVA_smurf(
   signal->SetBranchAddress( "lep2"         , &lep2         );
   signal->SetBranchAddress( "jet1"         , &jet1         );
   signal->SetBranchAddress( "jet2"         , &jet2         );
+  signal->SetBranchAddress( "jet3"         , &jet3         );
   signal->SetBranchAddress( "dPhi"         , &dPhi         );
   signal->SetBranchAddress( "dR"           , &dR           );
   signal->SetBranchAddress( "dilep"        , &dilep        );
@@ -449,7 +462,7 @@ void trainMVA_smurf(
     if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
          (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
 
-    if( njets != njetsType               ) continue; // select n-jet type events
+    if( njetsType < 2 && njets != njetsType ) continue; // select n-jet type events
     if( dilep->mass() > dilmass_cut      ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                      ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0            ) continue; // cut on low dilepton mass
@@ -471,6 +484,25 @@ void trainMVA_smurf(
                            (dPhiDiLepJet1*180.0/TMath::Pi() < 165. || type == em || type == me);
     if( dPhiDiLepJet1Cut == false        ) continue; // cut on dPhiDiLepJet1
     if( njets >= 1 && dPhiDiLepJet1 > 100) continue; // cut on impossible dPhiDiLepJet1
+    // VBF Cuts
+    if ( njetsType == 2 ) {
+      if( njets < 2 || njets > 3       ) continue; // select 2 or 3 jets    
+      if ( TMath::Abs(jet1->Eta()) >= 4.5 || TMath::Abs(jet2->Eta()) >= 4.5 ) continue;
+      if ( cuts & SmurfTree::TopTag )  continue; // veto events top-tagged 
+      // centrality cut
+      float largestEta = jet1->Eta();
+      float smallestEta = jet2->Eta();
+      if (jet2->Eta() > jet1->Eta()) {
+	largestEta = jet2->Eta();
+	smallestEta = jet1->Eta();
+      }
+      if (! (lep1->Eta() > smallestEta && lep1->Eta() < largestEta)) continue;
+      if (! (lep2->Eta() > smallestEta && lep2->Eta() < largestEta)) continue;
+      if( njets == 3 ) {
+	if ( jet3->Eta() > smallestEta && jet3->Eta() < largestEta ) continue;
+      }
+    }
+
 
     int varCounter = 0;
     
@@ -490,6 +522,10 @@ void trainMVA_smurf(
     if (mvaVar["dPhiDiLepMET"])  vars[varCounter++] = dPhiDiLepMET;
     if (mvaVar["dPhiDiLepJet1"]) vars[varCounter++] = dPhiDiLepJet1;
     if (mvaVar["razor"])         vars[varCounter++] = CalcGammaMRstar(*lep1,*lep2);
+    if (mvaVar["mjj"])           vars[varCounter++] = (*jet1+*jet2).M();
+    if (mvaVar["detajj"])        vars[varCounter++] = TMath::Abs(jet1->Eta() - jet2->Eta());
+    if (mvaVar["jet1eta"])       vars[varCounter++] = jet1->Eta();
+
 
     if ( event%2 != 0 ){
       factory->AddSignalTrainingEvent( vars, scale1fb );
@@ -510,6 +546,7 @@ void trainMVA_smurf(
   background->SetBranchAddress( "lep2"         , &lep2         );
   background->SetBranchAddress( "jet1"         , &jet1         );
   background->SetBranchAddress( "jet2"         , &jet2         );
+  background->SetBranchAddress( "jet3"         , &jet3         );
   background->SetBranchAddress( "dPhi"         , &dPhi         );
   background->SetBranchAddress( "dR"           , &dR           );
   background->SetBranchAddress( "dilep"        , &dilep        );
@@ -558,7 +595,7 @@ void trainMVA_smurf(
 
     //if(!(dstype == SmurfTree::wgamma || dstype == SmurfTree::wjets))  continue; // cut on dstype
 
-    if( njets != njetsType               ) continue; // select n-jet type events
+    if( njetsType < 2 && njets != njetsType   ) continue; // select n-jet type events
     if( dilep->mass() > dilmass_cut      ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                      ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0            ) continue; // cut on low dilepton mass
@@ -580,6 +617,24 @@ void trainMVA_smurf(
                            (dPhiDiLepJet1*180.0/TMath::Pi() < 165. || type == em || type == me);
     if( dPhiDiLepJet1Cut == false        ) continue; // cut on dPhiDiLepJet1
     if( njets >= 1 && dPhiDiLepJet1 > 100) continue; // cut on impossible dPhiDiLepJet1
+    // VBF Cuts
+    if ( njetsType == 2 ) {
+      if( njets < 2 || njets > 3       ) continue; // select 2 or 3 jets    
+      if ( TMath::Abs(jet1->Eta()) >= 4.5 || TMath::Abs(jet2->Eta()) >= 4.5 ) continue;
+      if ( cuts & SmurfTree::TopTag )  continue; // veto events top-tagged 
+      // centrality cut
+      float largestEta = jet1->Eta();
+      float smallestEta = jet2->Eta();
+      if (jet2->Eta() > jet1->Eta()) {
+	largestEta = jet2->Eta();
+	smallestEta = jet1->Eta();
+      }
+      if (! (lep1->Eta() > smallestEta && lep1->Eta() < largestEta)) continue;
+      if (! (lep2->Eta() > smallestEta && lep2->Eta() < largestEta)) continue;
+      if( njets == 3 ) {
+	if ( jet3->Eta() > smallestEta && jet3->Eta() < largestEta ) continue;
+      }
+    }
 
     int varCounter = 0;
     
@@ -599,6 +654,9 @@ void trainMVA_smurf(
     if (mvaVar["dPhiDiLepMET"])  vars[varCounter++] = dPhiDiLepMET;
     if (mvaVar["dPhiDiLepJet1"]) vars[varCounter++] = dPhiDiLepJet1;
     if (mvaVar["razor"])         vars[varCounter++] = CalcGammaMRstar(*lep1,*lep2);
+    if (mvaVar["mjj"])           vars[varCounter++] = (*jet1+*jet2).M();
+    if (mvaVar["detajj"])        vars[varCounter++] = TMath::Abs(jet1->Eta() - jet2->Eta());
+    if (mvaVar["jet1eta"])       vars[varCounter++] = jet1->Eta();
 
     if ( event%2 != 0 ){
       factory->AddBackgroundTrainingEvent( vars, scale1fb );
