@@ -52,8 +52,27 @@ ln -s $OUTPUTDIR output
 
 # this is the prefix added to the BDT added ntuples
 export TAG=ntuples_${MH}train_${NJETS}jets;
+#export TAG=ntuples_summer11_novbfcuts_${MH}train_${NJETS}jets;
 #export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
 export METHODS=BDTG;
+
+
+# If do the training...
+export DO_TRAINING=0;
+export trainMVA_smurfFile=trainMVA_smurf.C+;
+if [ ${DO_TRAINING} == "1" ]; then
+    export SIG_TRAIN=data/hww${MH}.root;
+    export BKG_TRAIN=data/qqww${MH}.root;
+    if [ ${NJETS} == "2" ]; then
+	export SIG_TRAIN=data/hww${MH}.root;
+	export BKG_TRAIN=data/top.root;
+    fi  
+    if [ ! -d $weights ]; then
+	mkdir -p weights;
+    fi
+    ./root-5.28.sh -l -q -b ${trainMVA_smurfFile}\(${NJETS},\"${SIG_TRAIN}\",\"${BKG_TRAIN}\",\"${TAG}\",\"${METHODS}\",${MH}\);
+fi
+
 
 ### Fill MVA output information
 ### MVA output is available in "weights" folder
@@ -80,10 +99,10 @@ zz_py
 dyee
 dymm
 dytt
-dyee_LooseMET
-dymm_LooseMET
 wgamma
 wg3l
+dyee_LooseMET
+dymm_LooseMET
 EOF
 
 
@@ -96,14 +115,14 @@ for i in `cat list_samples.txt` ; do
     dataset=${i%%,*};
     echo "filling MVA information in sample: "  $sample
     ./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/${dataset}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",2\);
-    mv $OUTPUTDIR/${TAG}_${dataset}.root $OUTPUTDIR/${dataset}_${NJETS}j.root
+	mv $OUTPUTDIR/${TAG}_${dataset}.root $OUTPUTDIR/${dataset}_${NJETS}j.root
 done
 
 if [ ${MH} == "118" ] || [ ${MH} == "122" ] || [ ${MH} == "124" ] || [ ${MH} == "126" ] || [ ${MH} == "128" ] || [ ${MH} == "135" ]; then
     echo "choose special period now..."
     ./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/hww${MH}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",3\);
 else
-    ./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/hww${MH}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",2\);
+   ./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/hww${MH}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",2\);
 fi
 mv $OUTPUTDIR/${TAG}_hww${MH}.root $OUTPUTDIR/hww${MH}_${NJETS}j.root
 
