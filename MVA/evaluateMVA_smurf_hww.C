@@ -244,10 +244,15 @@ TString suffix       = "ww"
       fakePath = "/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
       puPath   = "/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
     }
-    else if(period == 3){ // Full2011-Fall11
+    else if(period == 33){ // Full2011-Fall11-V7
       effPath  = "/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
       fakePath = "/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
       puPath   = "/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
+    }
+    else if(period == 3){ // Full2011-Fall11-V8
+      effPath  = "/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
+      fakePath = "/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
+      puPath   = "/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
     }
 
     TFile *fLeptonEffFile = TFile::Open(Form("%s%s",InputPath.Data(),effPath.Data()));
