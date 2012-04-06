@@ -163,7 +163,7 @@ float smurfselections::electronIsoValuePF(const reco::PFCandidateCollection &pfC
             }
         } 
     }
-    return pfciso+pfniso-pffootprint-pfjurveto-pfjurvetoq;
+    return (pfciso+pfniso-pffootprint-pfjurveto-pfjurvetoq)/el.pt();
 }
 
 float smurfselections::muonIsoValuePF(const reco::PFCandidateCollection &pfCandCollection,
@@ -212,7 +212,7 @@ float smurfselections::muonIsoValuePF(const reco::PFCandidateCollection &pfCandC
         }
     } 
 
-    return pfciso+pfniso;
+    return (pfciso+pfniso)/mu.pt();
 }
 
 //
