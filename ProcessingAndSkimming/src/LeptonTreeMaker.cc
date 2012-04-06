@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.9 2012/03/29 08:50:50 cerati Exp $
+// $Id: LeptonTreeMaker.cc,v 1.10 2012/04/01 18:32:15 dlevans Exp $
 //
 //
 
@@ -790,6 +790,7 @@ void LeptonTreeMaker::fillCommonVariables(const edm::Event& iEvent)
     leptonTree_->lumi_      = iEvent.luminosityBlock() ;
     leptonTree_->rho_       = rhoIso_                  ;
     leptonTree_->nvtx_      = vertexCollection_.size()  ;
+    leptonTree_->scale1fb_  = 1.0;
 
     edm::Handle<std::vector<PileupSummaryInfo> > puInfoH;
     bool bPuInfo=iEvent.getByLabel("addPileupInfo", puInfoH);
