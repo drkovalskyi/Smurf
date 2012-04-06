@@ -3,4 +3,5 @@ The following extra packages need to be checked out
 
 cvs co HiggsAnalysis/HiggsToWW2Leptons/
 cvs co -d Smurf/ProcessingAndSkimming/data/ UserCode/MitPhysics/data/ElectronMVAWeights/
+cvs co -d EGamma/EGammaAnalysisTools UserCode/EGamma/EGammaAnalysisTools
 
