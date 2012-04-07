@@ -54,12 +54,15 @@ void PlotHiggsRes
  Int_t   wwDecay         = 0,
  bool fillInfoNote       = false,
  TString systInputFile   = "",
- int period              = 2,
+ int period              = 3,
  int  TheVerboseLevel    = 0
  )
 {
   bool wwPresel = false;
   if(mH == 0) {wwPresel = true; mH = 115;}
+
+  int category = 0;
+  if(period > 3) {period = period - 10; category = 1;}
 
   bool signalInjection = false;
 
@@ -115,7 +118,7 @@ void PlotHiggsRes
 
   TString output = sigFile1;
   output.ReplaceAll("data/","histo_tmva_");
-  sprintf(replace,"_chan%d.root",wwDecay);
+  sprintf(replace,"_chan%d.root",wwDecay+10*category);
   output.ReplaceAll(".root",replace);
 
   unsigned int patternTopTag = SmurfTree::TopTag;
@@ -135,6 +138,7 @@ void PlotHiggsRes
   else if(wwDecay == 3) sprintf(finalStateName,"ee");
   else if(wwDecay == 5) sprintf(finalStateName,"sf");
   else if(wwDecay == 6) sprintf(finalStateName,"of");
+  if(category == 1) sprintf(finalStateName,"%slt",finalStateName);
 
   //----------------------------------------------------------------------------
   // These are used to compute the DY Bkg systematics uncertainties
@@ -206,10 +210,16 @@ void PlotHiggsRes
     puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
     scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
   }
-  else if(period == 3){ // Full2011-Fall11
+  else if(period == 33){ // Full2011-Fall11-V7
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
+    scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 3){ // Full2011-Fall11-V8
+    effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
+    fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
+    puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
     scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
   }
   else {
@@ -294,11 +304,9 @@ void PlotHiggsRes
   if(useZjetsTemplates == true) printf("***********useZjetsTemplates = true***************\n");
   else                          printf("***********useZjetsTemplates = false***************\n");
   if(useZjetsTemplates == true){
-    TFile *fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/histo_Zjets_Templates.root");
-    //TFile *fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/histo_Zjets_Templates_razor.root");
-    //TFile *fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/histo_Zjets_Templates_mll.root");
-    //TFile *fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/histo_Zjets_Templates_mt.root");
-    //TFile *fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/histo_Zjets_Templates_bdtg_razor.root");
+    TFile *fZjetsTemplatesFile;
+    if(period != 3) fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/histo_Zjets_Templates.root");
+    else            fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/histo_Zjets_Templates.root");
     char ZjetsHistName[100];
     sprintf(ZjetsHistName, "hDZjets%d_%d", mH,TMath::Min((int)nJetsType,1));
     hDZjetsTemplate = (TH1D*)(fZjetsTemplatesFile->Get(ZjetsHistName));
@@ -852,6 +860,11 @@ void PlotHiggsRes
     
     signal->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)signal->GetEntries());
+
+    bool lId = (cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection;
+    if(category == 1) lId = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2LooseEleV1)    == SmurfTree::Lep2LooseEleV1   ) ||
+    			    ((cuts & SmurfTree::Lep1LooseEleV1)    == SmurfTree::Lep1LooseEleV1    && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection);
+    if(!lId) continue;
 
     //----------------------------------------------------------------------------
     //for data require that the event fired one of the designated signal triggers
@@ -1444,17 +1457,16 @@ void PlotHiggsRes
     // First classify event into tight+tight, tight+fail, fail+fail 
     //----------------------------------------------------------------------------
     int nFake = 0;
-    if(dstype == SmurfTree::data ){
-      if(((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-    } else {
-      if(((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+    if(((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
+    if(((cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+    if(((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
+    if(((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+    if(category == 1) {
+      if(((cuts & SmurfTree::Lep1LooseEleV1)  == SmurfTree::Lep1LooseEleV1)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake--;
+      if(((cuts & SmurfTree::Lep2LooseEleV1)  == SmurfTree::Lep2LooseEleV1)  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake--;
     }
+    if(nFake < 0) assert(0);
+
     bool isRealLepton = false;
     if((TMath::Abs(lep1McId) == 11 || TMath::Abs(lep1McId) == 13) &&
        (TMath::Abs(lep2McId) == 11 || TMath::Abs(lep2McId) == 13)) isRealLepton = true;
@@ -1480,6 +1492,7 @@ void PlotHiggsRes
     	addFR = addFR*fakeRate(lep2->pt(), lep2->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
         							          (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
         add = addFR;
+	if(category == 1) add = add*1.10; // HACK!!!
 	fDecay  	      = 5;
         myWeight	      = add;
       }
@@ -1504,6 +1517,7 @@ void PlotHiggsRes
     	add = add*trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
     							  fabs(lep2->eta()), lep2->pt(), 
     							  TMath::Abs( lid1), TMath::Abs(lid2));
+	if(category == 1) add = add*1.10; // HACK!!!
         fDecay  	       = 5;
         myWeight	       = -1.0 * scale1fb*scaleFactorLum*add;
       }
@@ -1552,7 +1566,7 @@ void PlotHiggsRes
                       && (dstype == SmurfTree::dyee || dstype == SmurfTree::dymm)) {
     	if(njets == 0) add=add*DYBkgScaleFactor(0,0); 
     	if(njets == 1) add=add*DYBkgScaleFactor(0,1); 
-    	if(njets >= 2) add=add*DYBkgScaleFactor(0,2); 
+    	if(njets >= 2) add=add*DYBkgScaleFactor(0,2);
       }
 
       //----------------------------------------------------------------------------      
@@ -1587,6 +1601,12 @@ void PlotHiggsRes
       myWeight = scale1fb*scaleFactorLum*add;
     }
 
+    if(category == 1){
+      bool passCuts = (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection ||
+                      (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection;
+      if(passCuts == false) myWeight = 0;
+    }
+ 
     //----------------------------------------------------------------------------      
     // Explicitly neglect events with 0 weight
     //----------------------------------------------------------------------------
@@ -1642,8 +1662,8 @@ void PlotHiggsRes
       // scale factors for DY Bkg. We originally applied DY scale factors for the
       // WW pre-selection, and correct it by the ratio here.
       //----------------------------------------------------------------------------      
-      if((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
-         (type   == SmurfTree::mm   || type   == SmurfTree::ee)){
+      if(fDecay == 4&& (dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
+                       (type   == SmurfTree::mm   || type   == SmurfTree::ee)){
 	if(nJetsType != 2){
           newWeight=newWeight*DYBkgScaleFactor(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))/DYBkgScaleFactor(0,TMath::Min((int)nJetsType,2));
 	}
@@ -1678,13 +1698,13 @@ void PlotHiggsRes
       // The systematics shape for the DY Bkg is derived from the MC with the
       // nominal MET cut.
       //----------------------------------------------------------------------------
-      if((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
-	 (type   == SmurfTree::mm   || type   == SmurfTree::ee)){
-	DYXS[0] += myWeight;
+      if(fDecay == 4 && (dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
+	                (type   == SmurfTree::mm   || type   == SmurfTree::ee)){
+	DYXS[0] = DYXS[0] + myWeight;
 	if(useZjetsTemplates == true) {histo_Zjets_CMS_MVAZBoundingUp->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);myWeightMVA = 0.0;}
       }
       else if(fDecay == 4){
-	VVXS[0] += myWeight;
+	VVXS[0] = VVXS[0] + myWeight;
 	histoVV->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);
       }
 
@@ -1845,8 +1865,8 @@ void PlotHiggsRes
       else if(useVar == 3 && knn        > useCut) {nBgdMVA += myWeight; nBgdEMVA += myWeight*myWeight; nBgdMVADecays[fDecay]  += myWeight; nBgdEMVADecays[fDecay]  += myWeight*myWeight; passFinalCut = true;}
       else if(useVar == 4 && bdtg       > useCut) {nBgdMVA += myWeight; nBgdEMVA += myWeight*myWeight; nBgdMVADecays[fDecay]  += myWeight; nBgdEMVADecays[fDecay]  += myWeight*myWeight; passFinalCut = true;}
       if(passFinalCut == true){
-	if((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
-           (type   == SmurfTree::mm   || type   == SmurfTree::ee)){     
+	if(fDecay == 4 && (dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
+                          (type   == SmurfTree::mm   || type   == SmurfTree::ee)){     
 	  DYXS[2] += myWeight;
 	}
 	else if(fDecay == 4){
@@ -2122,17 +2142,16 @@ void PlotHiggsRes
     // First classify event into tight+tight, tight+fail, fail+fail 
     //----------------------------------------------------------------------------
     int nFake = 0;
-    if(dstype == SmurfTree::data ){
-      if(((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-    } else {
-      if(((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+    if(((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
+    if(((cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+    if(((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
+    if(((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+    if(category == 1) {
+      if(((cuts & SmurfTree::Lep1LooseEleV1)  == SmurfTree::Lep1LooseEleV1)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake--;
+      if(((cuts & SmurfTree::Lep2LooseEleV1)  == SmurfTree::Lep2LooseEleV1)  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake--;
     }
+    if(nFake < 0) assert(0);
+
     double addLepEff = 1.0;
     double addFR     = 1.0;
     bool isRealLepton = false;
@@ -2159,6 +2178,7 @@ void PlotHiggsRes
     	addFR = addFR*fakeRate(lep2->pt(), lep2->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
         							          (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
         add = addFR;
+	if(category == 1) add = add*1.10; // HACK!!!
 	fDecay  	      = 5;
         myWeight	      = add;
       }
@@ -2190,6 +2210,7 @@ void PlotHiggsRes
         if     (dstype == SmurfTree::wgamma) fDecay = 6;
 	else if(dstype == SmurfTree::wjets)  fDecay = 5;
 	else				     assert(0); 
+	if(category == 1) add = add*1.10; // HACK!!!
         myWeight	       = 1.0 * scale1fb*scaleFactorLum*add;
       }
  
@@ -2214,6 +2235,7 @@ void PlotHiggsRes
     	add = add*trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
     							  fabs(lep2->eta()), lep2->pt(), 
     							  TMath::Abs( lid1), TMath::Abs(lid2));
+	if(category == 1) add = add*1.10; // HACK!!!
         fDecay  	       = 5;
         myWeight	       = -1.0 * scale1fb*scaleFactorLum*add;
       }
@@ -2298,6 +2320,12 @@ void PlotHiggsRes
       myWeight = scale1fb*scaleFactorLum*add;
     }
 
+    if(category == 1){
+      bool passCuts = (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection ||
+                      (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection;
+      if(passCuts == false) myWeight = 0;
+    }
+ 
     //----------------------------------------------------------------------------      
     // Explicitly neglect events with 0 weight
     //----------------------------------------------------------------------------
@@ -2435,6 +2463,11 @@ void PlotHiggsRes
     
     data->GetEntry(i);
     if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)data->GetEntries());
+
+    bool lId = (cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection;
+    if(category == 1) lId = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2LooseEleV1)    == SmurfTree::Lep2LooseEleV1   ) ||
+    			    ((cuts & SmurfTree::Lep1LooseEleV1)    == SmurfTree::Lep1LooseEleV1    && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection);
+    if(!lId) continue;
 
     //----------------------------------------------------------------------------
     //for data require that the event fired one of the designated signal triggers
@@ -2793,8 +2826,6 @@ void PlotHiggsRes
   leg4->Draw("same");
   c4->SaveAs(c2Name);
 
-  //char output[200];
-  //sprintf(output,"histo_tmva_%s_%dj_chan%d_mh%d.root",outTag.Data(),nJetsType,wwDecay,mH);     
   TFile* outFilePlotsNote = new TFile(output,"recreate");
   outFilePlotsNote->cd();
   for(int i=0; i<nHist; i++) {
@@ -2910,8 +2941,7 @@ void PlotHiggsRes
     // 
     //----------------------------------------------------------------------------
     char outputLimits[200];
-    //sprintf(outputLimits,"output/histo_limits_%s_%dj_chan%d_mh%d.root",outTag.Data(),nJetsType,wwDecay,mH);     
-    sprintf(outputLimits,"hww%s_%dj.input.root",finalStateName,nJetsType);     
+    sprintf(outputLimits,"hww%s_%dj.input.root",finalStateName,nJetsType);
     TFile* outFileLimits = new TFile(outputLimits,"recreate");
     outFileLimits->cd();
 
@@ -3403,10 +3433,16 @@ void PlotHiggsRes
       histo_Wgamma_CMS_MVAJESBoundingDown->Rebin(rebinMVAHist);
       histo_Ztt_CMS_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist);
       histo_Ztt_CMS_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
+      if(histo_ttH_CMS_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_ttH_CMS_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
+      if(histo_ttH_CMS_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_ttH_CMS_MVAJESBoundingDown->SetBinContent(1,0.000001);}
       histo_ttH_CMS_MVAJESBoundingUp 	 ->Write();
       histo_ttH_CMS_MVAJESBoundingDown	 ->Write();
+      if(histo_ZH_CMS_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_ZH_CMS_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
+      if(histo_ZH_CMS_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_ZH_CMS_MVAJESBoundingDown->SetBinContent(1,0.000001);}
       histo_ZH_CMS_MVAJESBoundingUp  	 ->Write();
       histo_ZH_CMS_MVAJESBoundingDown	 ->Write();
+      if(histo_WH_CMS_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_WH_CMS_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
+      if(histo_WH_CMS_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_WH_CMS_MVAJESBoundingDown->SetBinContent(1,0.000001);}
       histo_WH_CMS_MVAJESBoundingUp  	 ->Write();
       histo_WH_CMS_MVAJESBoundingDown	 ->Write();
       histo_qqH_CMS_MVAJESBoundingUp 	 ->Write();
@@ -3421,6 +3457,8 @@ void PlotHiggsRes
       histo_VV_CMS_MVAJESBoundingDown	 ->Write();
       histo_Top_CMS_MVAJESBoundingUp 	 ->Write();
       histo_Top_CMS_MVAJESBoundingDown	 ->Write();
+      if(histo_Wgamma_CMS_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_Wgamma_CMS_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
+      if(histo_Wgamma_CMS_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_Wgamma_CMS_MVAJESBoundingDown->SetBinContent(1,0.000001);}
       histo_Wgamma_CMS_MVAJESBoundingUp	 ->Write();
       histo_Wgamma_CMS_MVAJESBoundingDown->Write();
       histo_Ztt_CMS_MVAJESBoundingUp 	 ->Write();
@@ -3551,9 +3589,11 @@ void PlotHiggsRes
       }
       if(nTotalBins != 1){
         sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape_bin%d.txt",outTag.Data(),nJetsType,wwDecay,mH,i);
+	if(category == 1) sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape_bin%d_lt.txt",outTag.Data(),nJetsType,wwDecay,mH,i);
       }
       else {
         sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape.txt",outTag.Data(),nJetsType,wwDecay,mH);
+	if(category == 1) sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape_lt.txt",outTag.Data(),nJetsType,wwDecay,mH);
       }
       char theZttString[20];
       if(histo_Ztt->GetSumOfWeights() > 0) sprintf(theZttString,"1.000");
@@ -3695,7 +3735,8 @@ void PlotHiggsRes
     // Produce output cards for cut-based analysis
     //----------------------------------------------------------------------------
     char outputLimitsCut[200];
-    sprintf(outputLimitsCut,"output/histo_limits_%s_%dj_chan%d_mh%d_cut.txt",outTag.Data(),nJetsType,wwDecay,mH);     
+    sprintf(outputLimitsCut,"output/histo_limits_%s_%dj_chan%d_mh%d_cut.txt",outTag.Data(),nJetsType,wwDecay,mH); 
+    if(category == 1) sprintf(outputLimitsCut,"output/histo_limits_%s_%dj_chan%d_mh%d_cut_lt.txt",outTag.Data(),nJetsType,wwDecay,mH);  
     ofstream newcardCut;
     newcardCut.open(outputLimitsCut);
     newcardCut << Form("imax 1 number of channels\n");
@@ -3761,7 +3802,8 @@ void PlotHiggsRes
     // Produce output cards for MVA cut analysis
     //----------------------------------------------------------------------------
     char outputLimitsMVA[200];
-    sprintf(outputLimitsMVA,"output/histo_limits_%s_%dj_chan%d_mh%d_mva.txt",outTag.Data(),nJetsType,wwDecay,mH);     
+    sprintf(outputLimitsMVA,"output/histo_limits_%s_%dj_chan%d_mh%d_mva.txt",outTag.Data(),nJetsType,wwDecay,mH);
+    if(category == 1)    sprintf(outputLimitsMVA,"output/histo_limits_%s_%dj_chan%d_mh%d_mva_lt.txt",outTag.Data(),nJetsType,wwDecay,mH);
     ofstream newcardMVA;
     newcardMVA.open(outputLimitsMVA);
     newcardMVA << Form("imax 1 number of channels\n");

@@ -29,10 +29,11 @@ void ComputeSSScaleFactors
  TString dataInputFile   = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Full2011/data_2l_skim1.root"
  )
 {
-
   //*******************************************************************************
   //Settings 
   //*******************************************************************************
+  int category = 0;
+  if(period > 3) {period = period - 10; category = 1;}
   double lumi = 1;
   enum { kOther, kTTBAR, kTW, kData };
   unsigned int patternTopVeto = SmurfTree::TopVeto;
@@ -63,10 +64,16 @@ void ComputeSSScaleFactors
     puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
     lumi     = 4.924;minRun =      0;maxRun = 999999;
   }
-  else if(period == 3){ // Full2011-Fall11
+  else if(period == 33){ // Full2011-Fall11-V7
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
+    lumi     = 4.924;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 3){ // Full2011-Fall11-V8
+    effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
+    fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
+    puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
     lumi     = 4.924;minRun =      0;maxRun = 999999;
   }
   else {
@@ -157,6 +164,13 @@ void ComputeSSScaleFactors
     if(bgdEvent.lep2_.Pt() <= 10.0) continue;
     if(bgdEvent.dilep_.M() <= 12) continue;
 
+    bool passIdCuts = true;
+    if(category == 1){
+      passIdCuts = (bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection ||
+                   (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection;
+    }
+    if(passIdCuts == false) continue;
+
     int fDecay = 0;
     if     (bgdEvent.dstype_ == SmurfTree::wjets           ) fDecay = 3;
     else if(bgdEvent.dstype_ == SmurfTree::ttbar           ) fDecay = 5;
@@ -187,17 +201,18 @@ void ComputeSSScaleFactors
     double theWeight = 0.0;
     double add       = 1.0;
     int nFake = 0;
-    if(bgdEvent.dstype_ == SmurfTree::data ){
-      if(((bgdEvent.cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((bgdEvent.cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-      if(((bgdEvent.cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((bgdEvent.cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-    } else {
-      if(((bgdEvent.cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((bgdEvent.cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-      if(((bgdEvent.cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((bgdEvent.cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+    if(((bgdEvent.cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
+    if(((bgdEvent.cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+    if(((bgdEvent.cuts_ & SmurfTree::Lep3LooseMuV2)  == SmurfTree::Lep3LooseMuV2)  && (bgdEvent.cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
+    if(((bgdEvent.cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
+    if(((bgdEvent.cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+    if(((bgdEvent.cuts_ & SmurfTree::Lep3LooseEleV4) == SmurfTree::Lep3LooseEleV4) && (bgdEvent.cuts_ & SmurfTree::Lep3FullSelection) != SmurfTree::Lep3FullSelection) nFake++;
+    if(category == 1) {
+      if(((bgdEvent.cuts_ & SmurfTree::Lep1LooseEleV1)  == SmurfTree::Lep1LooseEleV1)  && (bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake--;
+      if(((bgdEvent.cuts_ & SmurfTree::Lep2LooseEleV1)  == SmurfTree::Lep2LooseEleV1)  && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake--;
     }
+    if(nFake < 0) assert(0);
+
     bool isRealLepton = false;
     if((TMath::Abs(bgdEvent.lep1McId_) == 11 || TMath::Abs(bgdEvent.lep1McId_) == 13) &&
        (TMath::Abs(bgdEvent.lep2McId_) == 11 || TMath::Abs(bgdEvent.lep2McId_) == 13)) isRealLepton = true;
@@ -210,6 +225,7 @@ void ComputeSSScaleFactors
         										(bgdEvent.cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
     	add = add*fakeRate(bgdEvent.lep2_.Pt(), bgdEvent.lep2_.Eta(), fhDFRMu, fhDFREl, (bgdEvent.cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
         										(bgdEvent.cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
+	if(category == 1) add = add*1.10; // HACK!!!!
 	theWeight	       = add;
       }
       else if(isRealLepton == true || bgdEvent.dstype_ == SmurfTree::wgamma){
@@ -224,6 +240,7 @@ void ComputeSSScaleFactors
 	        					         fabs(bgdEvent.lep2_.Eta()), bgdEvent.lep2_.Pt(), 
 							         TMath::Abs( bgdEvent.lid1_), TMath::Abs(bgdEvent.lid2_));
         add = add*trigEff;
+	if(category == 1) add = add*1.10; // HACK!!!!
 	fDecay  	       = 3;
 	theWeight	       = -1.0 * bgdEvent.scale1fb_*lumi*add;
       }
@@ -410,6 +427,11 @@ void ComputeSSScaleFactors
     if (i%10000 == 0 && verboseLevel > 0)
       printf("--- reading event %5d of %5d\n",i,nData);
     dataEvent.tree_->GetEntry(i);
+
+    bool lId = (dataEvent.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (dataEvent.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection;
+    if(category == 1) lId = ((dataEvent.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (dataEvent.cuts_ & SmurfTree::Lep2LooseEleV1)    == SmurfTree::Lep2LooseEleV1   ) ||
+    			    ((dataEvent.cuts_ & SmurfTree::Lep1LooseEleV1)    == SmurfTree::Lep1LooseEleV1    && (dataEvent.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection);
+    if(!lId) continue;
 
     if((dataEvent.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue;
     if((dataEvent.cuts_ & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
@@ -666,7 +688,7 @@ void ComputeSSScaleFactors
   effZMC_qcharge_zsel_avg,effZMC_qcharge_zsel_error_avg,effZDA_qcharge_zsel_avg/effZMC_qcharge_zsel_avg,effZDA_qcharge_zsel_avg/effZMC_qcharge_zsel_avg*
   sqrt(TMath::Power(effZDA_qcharge_zsel_error_avg/effZDA_qcharge_zsel_avg,2)+TMath::Power(effZMC_qcharge_zsel_error_avg/effZMC_qcharge_zsel_avg,2)));
 
-  vhselNjet2_num[1]+=0.130;
+  //vhselNjet2_num[1]+=0.130;
   printf("                          tt                tw                data                 bck\n");
   printf("top-like btag,q1*q2<0  --> %8.3f +/- %6.3f  - %8.3f +/- %6.3f - %8.3f +/ %6.3f - %8.3f +/- %6.3f\n",
          vhselNjet2_den[1],sqrt(vhselNjet2_den_error[1]),vhselNjet2_den[2],sqrt(vhselNjet2_den_error[2]),
@@ -714,7 +736,7 @@ void ComputeSSScaleFactors
   effZMC_qcharge_zsel_avg,effZMC_qcharge_zsel_error_avg,effZDA_qcharge_zsel_avg/effZMC_qcharge_zsel_avg,effZDA_qcharge_zsel_avg/effZMC_qcharge_zsel_avg*
   sqrt(TMath::Power(effZDA_qcharge_zsel_error_avg/effZDA_qcharge_zsel_avg,2)+TMath::Power(effZMC_qcharge_zsel_error_avg/effZMC_qcharge_zsel_avg,2)));
 
-  vhselNjet1_num[1]+=0.488;
+  //vhselNjet1_num[1]+=0.488;
   printf("                          tt                tw                data                 bck\n");
   printf("top-like btag,q1*q2<0  --> %8.3f +/- %6.3f  - %8.3f +/- %6.3f - %8.3f +/ %6.3f - %8.3f +/- %6.3f\n",
          vhselNjet1_den[1],sqrt(vhselNjet1_den_error[1]),vhselNjet1_den[2],sqrt(vhselNjet1_den_error[2]),

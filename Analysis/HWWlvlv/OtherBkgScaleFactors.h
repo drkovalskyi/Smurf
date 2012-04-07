@@ -40,7 +40,7 @@ Double_t nVtxScaleFactorZtt(Int_t nvtx, Int_t period){
 }
 
 Double_t ZttScaleFactor(Int_t nvtx, Int_t period, Double_t scale1fb) {
-  if(period == 3) return 0.0167654*scale1fb;
+  if(period == 3) return 0.0164079*scale1fb;
   return 0.019*nVtxScaleFactorZtt(nvtx, period);
 }
 
@@ -86,30 +86,30 @@ Double_t reweightBToA(Int_t nvtx){
 }
 
 Double_t TopMCScaleFactor_VHqqll(int nJetsType) {
-  if     (nJetsType == 2) return 2.214;
-  else if(nJetsType == 1) return 3.336;
+  if     (nJetsType == 2) return 4.670;
+  else if(nJetsType == 1) return 1.703;
   else                    assert(0);
   return 1.0;
 }
 
 Double_t TopMCScaleFactor_VHqqll_Kappa(int nJetsType) {
-  if     (nJetsType == 2) return 1.347;
-  else if(nJetsType == 1) return 1.207;
+  if     (nJetsType == 2) return 1.298;
+  else if(nJetsType == 1) return 1.334;
   else                    assert(0);
   return 1.0;
 }
 
 Double_t WrongChargeScaleFactor_VHqqll() {
-  return 0.9977;
+  return 0.9000;
 }
 
 Double_t WrongChargeScaleFactor_VHqqll_Kappa() {
-  return 1.0359;
+  return 1.0346;
 }
 
 Double_t DYMCScaleFactor_VHqqll(int nJetsType) {
   if     (nJetsType == 2) return 1.700;
-  else if(nJetsType == 1) return 1.000;
+  else if(nJetsType == 1) return 1.400;
   else                    assert(0);
   return 1.0;
 }

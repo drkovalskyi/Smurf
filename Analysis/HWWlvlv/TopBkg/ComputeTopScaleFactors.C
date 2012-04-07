@@ -66,10 +66,16 @@ void ComputeTopScaleFactors
     puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
     lumi     = 4.924;minRun =      0;maxRun = 999999;
   }
-  else if(period == 3){ // Full2011-Fall11
+  else if(period == 33){ // Full2011-Fall11-V7
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
+    lumi     = 4.924;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 3){ // Full2011-Fall11-V8
+    effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
+    fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
+    puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
     lumi     = 4.924;minRun =      0;maxRun = 999999;
   }
   else {
@@ -425,6 +431,8 @@ void ComputeTopScaleFactors
       printf("--- reading event %5d of %5d\n",i,nData);
     dataEvent.tree_->GetEntry(i);
 
+    if(!((dataEvent.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (dataEvent.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue;
+
     if((dataEvent.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue;
     if((dataEvent.cuts_ & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
     if(dataEvent.dstype_ == SmurfTree::data && dataEvent.run_ <  minRun) continue;
@@ -454,8 +462,6 @@ void ComputeTopScaleFactors
 	                                        dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me;
     double theWeight = 1.0;
     if(
-      (dataEvent.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection &&
-      (dataEvent.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection &&
       dataEvent.dilep_.M()   > 12 &&
      (dataEvent.dilep_.M()   > 20 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me) &&
       (dataEvent.cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto &&

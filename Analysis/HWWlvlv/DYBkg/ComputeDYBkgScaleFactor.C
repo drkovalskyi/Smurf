@@ -84,9 +84,9 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
     lumi = 4.924;minRun =      0;maxRun = 999999;
     filesPath  = "/data/smurf/data/Run2011_Summer11_SmurfV7_42X/mitf-alljets";
   }
-  else if(period == 3){ // Full2011-Fall11
+  else if(period == 3){ // Full2011-Fall11-V8
     lumi = 4.924;minRun =      0;maxRun = 999999;
-    filesPath  = "/data/smurf/data/Run2011_Fall11_SmurfV7_42X/mitf2-alljets";
+    filesPath  = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/mitf-alljets";
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -98,7 +98,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
   //*******************************************************
   vector<TString> infilenamev;  
 
-  infilenamev.push_back(Form("%s/data_2l.root",filesPath.Data()));
+  infilenamev.push_back(Form("%s/data.root",filesPath.Data()));
 
   if (ZWindowSubtractionMethod == 0) {
    infilenamev.push_back(Form("%s/dyee.root",filesPath.Data()));
@@ -106,7 +106,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
    infilenamev.push_back(Form("%s/wz.root",filesPath.Data()));
    infilenamev.push_back(Form("%s/zz_py.root",filesPath.Data()));
   } else if (ZWindowSubtractionMethod == 1) {
-    infilenamev.push_back(Form("%s/backgroundC.root",filesPath.Data()));
+    infilenamev.push_back(Form("%s/backgroundD.root",filesPath.Data()));
   }
 
   //*******************************************************
@@ -365,16 +365,14 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useRecoilModel = kFALSE, 
         //normal MC
         //require both leptons pass full selection
         if (!(((tree.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection) 
-              && ((tree.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection))) continue;
+           && ((tree.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection))) continue;
 
         weight *= lumi*tree.scale1fb_*tree.sfWeightPU_*tree.sfWeightEff_*tree.sfWeightTrig_;
       } else {
-
         //tight+tight data
         if (!(((tree.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection) 
-              && ((tree.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection))) continue;
+           && ((tree.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection))) continue;
       }
-
 
       //*******************************************************
       //Data Driven Normalization Scale Factors
