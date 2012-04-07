@@ -202,6 +202,9 @@ class SmurfTree {
   float          scale1fb_;
   float          met_;
   float          metPhi_;
+  float          metMVA_;
+  float          metMVAPhi_;
+  float          pmetMVA_;
   float          sumet_;
   float          metSig_;
   float          genmet_;
@@ -347,6 +350,9 @@ class SmurfTree {
     tree_->Branch("scale1fb"     , &scale1fb_     ,   "scale1fb/F");
     tree_->Branch("met"          , &met_          ,   "met/F");
     tree_->Branch("metPhi"       , &metPhi_       ,   "metPhi/F");
+    tree_->Branch("metMVA"       , &metMVA_	  ,   "metMVA/F");
+    tree_->Branch("metMVAPhi"    , &metMVAPhi_    ,   "metMVAPhi/F");
+    tree_->Branch("pmetMVA"      , &pmetMVA_      ,   "pmetMVA/F");
     tree_->Branch("sumet"        , &sumet_        ,   "sumet/F");
     tree_->Branch("metSig"       , &metSig_       ,   "metSig/F");
     tree_->Branch("genmet"       , &genmet_       ,   "genmet/F");
@@ -454,6 +460,9 @@ class SmurfTree {
     tree_->SetBranchAddress("scale1fb",      &scale1fb_);
     tree_->SetBranchAddress("met",           &met_);
     tree_->SetBranchAddress("metPhi",        &metPhi_);
+    tree_->SetBranchAddress("metMVA",        &metMVA_);
+    tree_->SetBranchAddress("metMVAPhi",     &metMVAPhi_);
+    tree_->SetBranchAddress("pmetMVA",       &pmetMVA_);
     tree_->SetBranchAddress("sumet",         &sumet_);
     tree_->SetBranchAddress("metSig",        &metSig_);
     tree_->SetBranchAddress("genmet",        &genmet_);
@@ -689,6 +698,9 @@ SmurfTree::InitVariables(){
   scale1fb_      = 0;
   met_           = -999.;
   metPhi_        = -999.;
+  metMVA_        = -999.;
+  metMVAPhi_     = -999.;
+  pmetMVA_       = -999.;
   sumet_         = -999.;
   metSig_        = -999.;
   genmet_        = 0;
@@ -788,6 +800,9 @@ SmurfTree::Get(std::string value)
   if(value=="scale1fb"      ) { return this->scale1fb_;      }
   if(value=="met"           ) { return this->met_;	     }
   if(value=="metPhi"        ) { return this->metPhi_;	     }
+  if(value=="metMVA"        ) { return this->metMVA_;        }
+  if(value=="metMVAPhi"     ) { return this->metMVAPhi_;     }
+  if(value=="pmetMVA"       ) { return this->pmetMVA_;       }
   if(value=="sumet"         ) { return this->sumet_;	     }
   if(value=="metSig"        ) { return this->metSig_;	     }
   if(value=="genmet"        ) { return this->genmet_;	     }
