@@ -16,6 +16,10 @@ leptonTreeMaker = cms.EDProducer('LeptonTreeMaker',
     metInputTag            =  cms.InputTag('pfMet'),
     jetsInputTag           =  cms.InputTag('ak5PFJets'),
 
+    isoValInputTags         = cms.VInputTag(cms.InputTag('elPFIsoValueCharged03PFIdPFIso'),
+                                            cms.InputTag('elPFIsoValueGamma03PFIdPFIso'),
+                                            cms.InputTag('elPFIsoValueNeutral03PFIdPFIso')),
+
     conversionsInputTag      =  cms.InputTag('allConversions'),
     beamSpotInputTag      =  cms.InputTag('offlineBeamSpot'),
 
