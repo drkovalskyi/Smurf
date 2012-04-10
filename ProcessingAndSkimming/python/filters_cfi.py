@@ -56,7 +56,7 @@ minNumber = cms.uint32(1)
 # hlt filters
 #
 
-hltHighLevel = cms.EDFilter("HLTHighLevel",
+hltHighLevel2011 = cms.EDFilter("HLTHighLevel",
     TriggerResultsTag = cms.InputTag("TriggerResults","","HLT"),
 
   # provide list of HLT paths (or patterns) you want
@@ -89,3 +89,28 @@ hltHighLevel = cms.EDFilter("HLTHighLevel",
     andOr = cms.bool(True),                 # how to deal with multiple triggers: True (OR) accept if ANY is true, False (AND) accept if ALL are true
     throw = cms.bool(False)                  # throw exception on unknown path names
 )
+
+hltHighLevel2012 = cms.EDFilter("HLTHighLevel",
+    TriggerResultsTag = cms.InputTag("TriggerResults","","HLT"),
+
+  # provide list of HLT paths (or patterns) you want
+    HLTPaths = cms.vstring(
+        "HLT_Ele17_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_Ele8_Mass50_v*",
+        "HLT_IsoMu17_v*",
+        "HLT_Ele8_CaloIdL_CaloIsoVL_v*",
+        "HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_v*",
+        "HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*",
+        "HLT_Ele8_CaloIdT_TrkIdVL_v*",
+        "HLT_Mu8_v*",
+        "HLT_Photon22_R9Id90_HE10_Iso40_EBOnly_v*",
+        "HLT_Photon36_R9Id90_HE10_Iso40_EBOnly_v*",
+        "HLT_Photon50_R9Id90_HE10_Iso40_EBOnly_v*",
+        "HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_v*",
+        "HLT_Photon90_R9Id90_HE10_Iso40_EBOnly_v*"),
+
+    eventSetupPathsKey = cms.string(''),    # not empty => use read paths from AlCaRecoTriggerBitsRcd via this key
+    andOr = cms.bool(True),                 # how to deal with multiple triggers: True (OR) accept if ANY is true, False (AND) accept if ALL are true
+    throw = cms.bool(False)                  # throw exception on unknown path names
+)
+
+

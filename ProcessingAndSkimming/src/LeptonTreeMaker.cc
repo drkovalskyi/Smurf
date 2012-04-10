@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.11 2012/04/06 20:32:04 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.12 2012/04/10 12:32:37 dlevans Exp $
 //
 //
 
@@ -44,6 +44,7 @@ Implementation:
 #include "TrackingTools/Records/interface/TransientTrackRecord.h"
 #include "RecoEcal/EgammaCoreTools/interface/EcalClusterLazyTools.h"
 #include "HiggsAnalysis/HiggsToWW2Leptons/interface/ElectronIDMVA.h"
+#include "HiggsAnalysis/HiggsToWW2Leptons/interface/MuonIDMVA.h"
 #include "RecoEgamma/EgammaTools/interface/ConversionTools.h"
 #include "RecoEcal/EgammaCoreTools/interface/EcalClusterLazyTools.h"
 #include "SimDataFormats/PileupSummaryInfo/interface/PileupSummaryInfo.h"
@@ -150,6 +151,7 @@ class LeptonTreeMaker : public edm::EDProducer {
 
         // electron id related
         ElectronIDMVA *electronIDMVA_;
+        MuonIDMVA     *muonIDMVA_;
 
         // common products
         double rhoJEC_;
@@ -197,8 +199,8 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
 
     isoValInputTags_        =  iConfig.getParameter<std::vector<edm::InputTag> >("isoValInputTags");
 
-    pfJetCorrectorL1FastL2L3_ = iConfig.getParameter<std::string>("pfJetCorrectorL1FastL2L3");
-    pathToBDTWeights_       = iConfig.getParameter<std::string>("pathToBDTWeights");
+    pfJetCorrectorL1FastL2L3_   = iConfig.getParameter<std::string>("pfJetCorrectorL1FastL2L3");
+    pathToBDTWeights_           = iConfig.getParameter<std::string>("pathToBDTWeights");
 
     electronTPTriggerNames_ =  iConfig.getUntrackedParameter<std::vector<std::string> >("electronTPTriggerNames");
     muonTPTriggerNames_     =  iConfig.getUntrackedParameter<std::vector<std::string> >("muonTPTriggerNames"); 
@@ -233,11 +235,20 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
             pathToBDTWeights_+"/Subdet2LowPt_WithIPInfo_BDTG.weights.xml",
             pathToBDTWeights_+"/Subdet0HighPt_WithIPInfo_BDTG.weights.xml",
             pathToBDTWeights_+"/Subdet1HighPt_WithIPInfo_BDTG.weights.xml",
-            pathToBDTWeights_+"/Subdet2HighPt_WithIPInfo_BDTG.weights.xml" ,                
+            pathToBDTWeights_+"/Subdet2HighPt_WithIPInfo_BDTG.weights.xml",                
             ElectronIDMVA::kWithIPInfo);
 
-}
+    //muonIDMVA_ = new MuonIDMVA();
+    //muonIDMVA_->Initialize("BDTG method",
+    //        pathToBDTWeights_+"/Subdet0LowPt_WithIPInfo_BDTG.weights.xml",
+    //        pathToBDTWeights_+"/Subdet1LowPt_WithIPInfo_BDTG.weights.xml",
+    //        pathToBDTWeights_+"/Subdet2LowPt_WithIPInfo_BDTG.weights.xml",
+    //        pathToBDTWeights_+"/Subdet0HighPt_WithIPInfo_BDTG.weights.xml",
+    //        pathToBDTWeights_+"/Subdet1HighPt_WithIPInfo_BDTG.weights.xml",
+    //        pathToBDTWeights_+"/Subdet2HighPt_WithIPInfo_BDTG.weights.xml",
+    //        ElectronIDMVA::kIDIsoCombinedDetIso);
 
+}
 
 LeptonTreeMaker::~LeptonTreeMaker()
 {
@@ -246,7 +257,8 @@ LeptonTreeMaker::~LeptonTreeMaker()
     // tidy up
     //
 
-    if (electronIDMVA_) delete electronIDMVA_;
+    if (electronIDMVA_)     delete electronIDMVA_;
+    if (muonIDMVA_)         delete muonIDMVA_;
 
     //
     // save and close lepton tree
@@ -256,7 +268,6 @@ LeptonTreeMaker::~LeptonTreeMaker()
     leptonTree_->tree_->Write();
     leptonFile_->Close();
 }
-
 
 //
 // member functions

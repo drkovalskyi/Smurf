@@ -38,5 +38,5 @@ process.source = cms.Source("PoolSource",
 )
 
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
-process.p = cms.Path(process.leptonTreeMakerSequenceForElectronMC)
+process.p = cms.Path(process.electronFilters * process.leptonTreeMakerSequenceMC * process.leptonTreeMaker2012)
 

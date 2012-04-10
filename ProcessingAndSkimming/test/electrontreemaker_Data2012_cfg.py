@@ -31,11 +31,5 @@ process.source = cms.Source("PoolSource",
 )
 
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
-
-#
-# note: using the MC sequence for testing
-# this does not contain any HLT filtering
-#
-
-process.p = cms.Path(process.leptonTreeMakerSequenceForElectronMC)
+process.p = cms.Path(process.electronFilters * process.leptonTreeMakerSequenceData * process.leptonTreeMaker2012)
 
