@@ -15,6 +15,7 @@
 #include "DataFormats/Candidate/interface/Candidate.h"
 #include "DataFormats/ParticleFlowCandidate/interface/PFCandidate.h"
 #include "DataFormats/VertexReco/interface/Vertex.h"
+#include "DataFormats/VertexReco/interface/VertexFwd.h"
 #include "DataFormats/JetReco/interface/PFJet.h"
 #include "JetMETCorrections/Objects/interface/JetCorrector.h"
 
@@ -26,8 +27,8 @@ typedef math::XYZPoint Point;
 // utilities
 //
 
-float d0Vertex(const float &d0, const float &phi, const Point &vertex);
-float dzVertex(const reco::Candidate &cand, const Point &vertex);
+float d0Vertex(const float &d0, const float &phi, const reco::Vertex &vertex);
+float dzVertex(const reco::Candidate &cand, const reco::Vertex &vertex);
 float electronIsoValuePF(const reco::PFCandidateCollection &pfCandCollection,
         const reco::GsfElectron& el, const reco::Vertex& vtx, 
         float coner, float minptn, float dzcut,
@@ -53,27 +54,33 @@ std::pair<double,double> trackerMET(std::vector<const reco::Candidate*>& objs,
 //
 
 bool passMuonFO2011(const edm::View<reco::Muon>::const_iterator &muon, 
-        const Point &vertex);
+        const reco::Vertex &vertex);
 bool passMuonID2011(const edm::View<reco::Muon>::const_iterator &muon,
-        const Point &vertex);
+        const reco::Vertex &vertex);
 bool passMuonIso2011(const edm::View<reco::Muon>::const_iterator &muon,
         const reco::PFCandidateCollection &pfCandCollection,
         const reco::Vertex &vertex);
 
-bool passElectronFO2011(const edm::View<reco::GsfElectron>::const_iterator &electron, 
-        const Point &vertex, const Point &beamspot,  
+bool passElectronFO2011(const reco::GsfElectronRef &electron, 
+        const reco::Vertex &vertex, const Point &beamspot,  
         const edm::Handle<reco::ConversionCollection> &conversions);
-bool passElectronID2011(const edm::View<reco::GsfElectron>::const_iterator &electron,
-        const Point &vertex, const Point &beamspot,  
+bool passElectronID2011(const reco::GsfElectronRef &electron,
+        const reco::Vertex &vertex, const Point &beamspot,  
         const edm::Handle<reco::ConversionCollection> &conversions, 
         const float &mvaValue);
-bool passElectronIso2011(const edm::View<reco::GsfElectron>::const_iterator &electron,
+bool passElectronIso2011(const reco::GsfElectronRef &electron,
         const reco::PFCandidateCollection &pfCandCollection,
         const reco::Vertex &vertex);
 
 //
 // 2012 selections
 //
+
+// for 2012 pf isolation
+int chargedHadronVertex(const reco::PFCandidate& pfcand, const edm::Handle<reco::VertexCollection> &vertexHandle);
+void PFIsolation2012(const reco::GsfElectron& el, const reco::PFCandidateCollection &pfCands, 
+    const edm::Handle<reco::VertexCollection> &vertexHandle,
+    const int vertexIndex, const float &R, float &pfiso_ch, float &pfiso_em, float &pfiso_nh);
 
 }
 

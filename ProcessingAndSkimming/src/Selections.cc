@@ -13,12 +13,12 @@
 // utilities
 //
 
-float smurfselections::d0Vertex(const float &d0, const float &phi, const Point &vertex)
+float smurfselections::d0Vertex(const float &d0, const float &phi, const reco::Vertex &vertex)
 {
     return (d0 - vertex.x() * sin(phi) + vertex.y() * cos(phi));
 }
 
-float smurfselections::dzVertex(const reco::Candidate &cand, const Point &vertex)
+float smurfselections::dzVertex(const reco::Candidate &cand, const reco::Vertex &vertex)
 {
     float dz = (cand.vz() - vertex.z()) - 
         ((cand.vx() - vertex.x()) * cand.px() + (cand.vy() - vertex.y()) * cand.py()) / cand.pt() * cand.pz()/cand.pt();
@@ -205,7 +205,7 @@ float smurfselections::muonIsoValuePF(const reco::PFCandidateCollection &pfCandC
             }
             //then check anything that has a ctf track
             if (pfTrack.isNonnull()) {//charged (with a ctf track)
-                if(fabs( pfTrack->dz(vtx.position()) - mudz )<dzcut) {//dz cut
+                if( fabs(pfTrack->dz(vtx.position()) - mudz) <dzcut) {//dz cut
                     pfciso+=pfpt;
                 }
             } 
@@ -219,14 +219,14 @@ float smurfselections::muonIsoValuePF(const reco::PFCandidateCollection &pfCandC
 // 2011 selections
 //
 
-bool smurfselections::passMuonFO2011(const edm::View<reco::Muon>::const_iterator &muon, const Point &vertex)
+bool smurfselections::passMuonFO2011(const edm::View<reco::Muon>::const_iterator &muon, const reco::Vertex &vertex)
 {
 
     const reco::TrackRef siTrack = muon->innerTrack();
-    float d0 = siTrack.isNonnull() ? d0Vertex(muon->innerTrack()->d0(), muon->innerTrack()->phi(), vertex)          : 999.9;
+    float d0 = siTrack.isNonnull() ? muon->innerTrack()->dxy(vertex.position())    : 999.9;
+    float dz = siTrack.isNonnull() ? muon->innerTrack()->dz(vertex.position())     : 999.9;
     unsigned int nValidHits = siTrack.isNonnull()      ?  muon->innerTrack()->numberOfValidHits()                   : 0;
     unsigned int nValidPixelHits = siTrack.isNonnull() ?  muon->innerTrack()->hitPattern().numberOfValidPixelHits() : 0;
-    float dz = fabs(dzVertex(*muon, vertex));
     if (fabs(muon->eta()) > 2.4)    return false;
     if (nValidHits < 11)            return false;
     if (dz >= 0.1)                  return false;
@@ -255,7 +255,7 @@ bool smurfselections::passMuonFO2011(const edm::View<reco::Muon>::const_iterator
 
 }
 
-bool smurfselections::passMuonID2011(const edm::View<reco::Muon>::const_iterator &muon, const Point &vertex)
+bool smurfselections::passMuonID2011(const edm::View<reco::Muon>::const_iterator &muon, const reco::Vertex &vertex)
 {
 
     // muon must pass FO
@@ -263,8 +263,7 @@ bool smurfselections::passMuonID2011(const edm::View<reco::Muon>::const_iterator
 
     // only additional ID is tighter d0 cut
     const reco::TrackRef siTrack = muon->innerTrack();
-    float d0 = siTrack.isNonnull() ? 
-        d0Vertex(muon->innerTrack()->d0(), muon->innerTrack()->phi(), vertex) : 999.9;
+    float d0 = siTrack.isNonnull() ? muon->innerTrack()->dxy(vertex.position()) : 999.9;
     if (muon->pt() > 20.0 && d0 >= 0.01)    return false;
     else if (d0 >= 0.02)                    return false;
 
@@ -290,14 +289,14 @@ bool smurfselections::passMuonIso2011(const edm::View<reco::Muon>::const_iterato
     return true;
 }
 
-bool smurfselections::passElectronFO2011(const edm::View<reco::GsfElectron>::const_iterator &electron, 
-        const Point &vertex, const Point &beamspot, 
+bool smurfselections::passElectronFO2011(const reco::GsfElectronRef &electron, 
+        const reco::Vertex &vertex, const Point &beamspot, 
         const edm::Handle<reco::ConversionCollection> &conversions)
 {
 
     float pt = electron->pt();
-    float d0 = fabs(d0Vertex(electron->gsfTrack()->d0(), electron->gsfTrack()->phi(), vertex));
-    float dz = fabs(dzVertex(*electron, vertex));
+    float d0 = fabs(electron->gsfTrack()->dxy(vertex.position()));
+    float dz = fabs(electron->gsfTrack()->dz(vertex.position()));
     if (electron->dr03TkSumPt()/pt      > 0.2)      return false;
     if (electron->dr03HcalTowerSumEt()  > 0.2)      return false;
     if (d0 > 0.02)                                  return false;
@@ -325,8 +324,8 @@ bool smurfselections::passElectronFO2011(const edm::View<reco::GsfElectron>::con
     return true;
 }
 
-bool smurfselections::passElectronID2011(const edm::View<reco::GsfElectron>::const_iterator &electron,
-        const Point &vertex, const Point &beamspot,  
+bool smurfselections::passElectronID2011(const reco::GsfElectronRef &electron,
+        const reco::Vertex &vertex, const Point &beamspot,  
         const edm::Handle<reco::ConversionCollection> &conversions,
         const float &mvaValue)
 {
@@ -354,7 +353,7 @@ bool smurfselections::passElectronID2011(const edm::View<reco::GsfElectron>::con
     return true;
 }
 
-bool smurfselections::passElectronIso2011(const edm::View<reco::GsfElectron>::const_iterator &electron,
+bool smurfselections::passElectronIso2011(const reco::GsfElectronRef &electron,
         const reco::PFCandidateCollection &pfCandCollection,
         const reco::Vertex &vertex)
 {
@@ -395,6 +394,81 @@ std::pair<double,double> smurfselections::trackerMET(std::vector<const reco::Can
   double met    = sqrt(pX * pX + pY * pY);
   double metphi = atan2(pY, pX);
   return std::make_pair(met, metphi);
+
+}
+
+//
+// 2012 selections
+//
+
+void smurfselections::PFIsolation2012(const reco::GsfElectron& el, const reco::PFCandidateCollection &pfCands, const edm::Handle<reco::VertexCollection> &vertexHandle,
+        const int vertexIndex, const float &R, float &pfiso_ch, float &pfiso_em, float &pfiso_nh)
+{   
+
+    // isolation sums
+    pfiso_ch = 0.0;
+    pfiso_em = 0.0; 
+    pfiso_nh = 0.0;
+       
+    // loop on pfcandidates
+    reco::PFCandidateCollection::const_iterator pf = pfCands.begin();
+    for (pf = pfCands.begin(); pf != pfCands.end(); ++pf) {
+            
+        // skip electrons and muons
+        if (pf->particleId() == reco::PFCandidate::e)     continue;
+        if (pf->particleId() == reco::PFCandidate::mu)    continue;
+    
+        // deltaR between electron and cadidate
+        const float dR = deltaR(pf->eta(), pf->phi(), el.eta(), el.phi());
+        if (dR > R)                             continue;
+
+        // charged hadrons closest vertex
+        // should be the primary vertex
+        if (pf->particleId() == reco::PFCandidate::h) {
+            int pfVertexIndex = chargedHadronVertex(*pf, vertexHandle);
+            if (pfVertexIndex != vertexIndex) continue;
+        }
+
+        // endcap region
+        if (!el.isEB()) {
+            if (pf->particleId() == reco::PFCandidate::h      && dR <= 0.015)   continue;
+            if (pf->particleId() == reco::PFCandidate::gamma  && dR <= 0.08)    continue;
+        }
+
+        // add to isolation sum
+        if (pf->particleId() == reco::PFCandidate::h)       pfiso_ch += pf->pt();
+        if (pf->particleId() == reco::PFCandidate::gamma)   pfiso_em += pf->pt();
+        if (pf->particleId() == reco::PFCandidate::h0)      pfiso_nh += pf->pt();
+
+    }
+
+}
+
+int smurfselections::chargedHadronVertex(const reco::PFCandidate& pfcand, const edm::Handle<reco::VertexCollection> &vertexHandle)
+{
+
+    double  dzmin = 10000;
+    bool    found = false;
+    int     iVertex = -1;
+
+    // loop on vertices
+    int n = vertexHandle->size();
+    for (int index = 0; index < n; ++index) {
+
+        // find the dz
+        reco::VertexRef vertexRef(vertexHandle, index);
+        double dz = fabs(pfcand.vertex().z() - vertexRef->z());
+
+        // find the closest dz
+        if (dz < dzmin) {
+            dzmin = dz;
+            iVertex = index;
+            found = true;
+        }
+    }
+
+    if (found) return iVertex;
+    return -1;
 
 }
 
