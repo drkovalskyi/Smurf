@@ -10,14 +10,8 @@ kt6PFJets.doRhoFastjet  = True                # Turn-on the FastJet density calc
 #
 
 from RecoJets.JetProducers.kt4PFJets_cfi import *
-kt6PFJetsDeterministicIso = kt4PFJets.clone(
-    rParam = 0.6,
-    doAreaFastjet = True,
-    doRhoFastjet = True,
-    voronoiRfact = 0.9,
-    Rho_EtaMax = 2.5,
-    Ghost_EtaMax = 2.5
-)
+kt6PFJetsDeterministicIso = kt4PFJets.clone( rParam = 0.6, doRhoFastjet = True )
+kt6PFJetsDeterministicIso.Rho_EtaMax = cms.double(2.5)
 
 kt6PFJetsDeterministicJEC = kt4PFJets.clone(
     rParam = 0.6,
