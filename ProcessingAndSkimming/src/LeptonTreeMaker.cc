@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.12 2012/04/10 12:32:37 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.13 2012/04/10 19:14:04 dlevans Exp $
 //
 //
 
@@ -151,7 +151,7 @@ class LeptonTreeMaker : public edm::EDProducer {
 
         // electron id related
         ElectronIDMVA *electronIDMVA_;
-        MuonIDMVA     *muonIDMVA_;
+        //MuonIDMVA     *muonIDMVA_;
 
         // common products
         double rhoJEC_;
@@ -258,7 +258,7 @@ LeptonTreeMaker::~LeptonTreeMaker()
     //
 
     if (electronIDMVA_)     delete electronIDMVA_;
-    if (muonIDMVA_)         delete muonIDMVA_;
+    //if (muonIDMVA_)         delete muonIDMVA_;
 
     //
     // save and close lepton tree
