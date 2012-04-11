@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.13 2012/04/10 19:14:04 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.14 2012/04/10 20:57:33 dlevans Exp $
 //
 //
 
@@ -529,7 +529,7 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent,
             leptonTree_->dphiin_    = probe->deltaPhiSuperClusterTrackAtVtx();
             leptonTree_->sieie_     = probe->sigmaIetaIeta();
             leptonTree_->hoe_       = probe->hadronicOverEm();
-            leptonTree_->ooemoop_   = (1.0/probe->superCluster()->energy() - 1.0/probe->p());
+            leptonTree_->ooemoop_   = (1.0/probe->ecalEnergy() - probe->eSuperClusterOverP()/probe->ecalEnergy());
             leptonTree_->d0vtx_     = probe->gsfTrack()->dxy(pv_.position());
             leptonTree_->dzvtx_     = probe->gsfTrack()->dz(pv_.position());
             leptonTree_->vfitprob_  = ConversionTools::hasMatchedConversion(*probe, conversions_h, thebs.position());
@@ -713,7 +713,7 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         leptonTree_->dphiin_    = fo->deltaPhiSuperClusterTrackAtVtx();
         leptonTree_->sieie_     = fo->sigmaIetaIeta();
         leptonTree_->hoe_       = fo->hadronicOverEm();
-        leptonTree_->ooemoop_   = (1.0/fo->superCluster()->energy() - 1.0/fo->p());
+        leptonTree_->ooemoop_   = (1.0/fo->ecalEnergy() - fo->eSuperClusterOverP()/fo->ecalEnergy());
         leptonTree_->d0vtx_     = fo->gsfTrack()->dxy(pv_.position());
         leptonTree_->dzvtx_     = fo->gsfTrack()->dz(pv_.position());
         leptonTree_->vfitprob_  = ConversionTools::hasMatchedConversion(*fo, conversions_h, thebs.position());
