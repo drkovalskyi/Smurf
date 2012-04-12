@@ -29,32 +29,27 @@ class LeptonTree {
 
             PassEleSC                       = 1UL<<0,  // 
             PassEleReco                     = 1UL<<1,  // 
-
             PassEleFO                       = 1UL<<2,  // 
             PassEleID                       = 1UL<<3,  // 
             PassEleIso                      = 1UL<<4,  //
-
             PassEleTrigDoubleEleLeadingLeg  = 1UL<<5,  // 
             PassEleTrigDoubleEleTrailingLeg = 1UL<<6,  // 
             PassEleTrigSingleEle            = 1UL<<7,  // 
             PassEleTrigMuEGEleLeadingLeg    = 1UL<<8,  // 
             PassEleTrigMuEGEleTrailingLeg   = 1UL<<9,  // 
-
             PassMuCTFTrack                  = 1UL<<10, // 
             PassMuGlobalOrTrackerMuon       = 1UL<<11, // 
-
             PassMuFO                        = 1UL<<12, //
             PassMuID                        = 1UL<<13, //
             PassMuIso                       = 1UL<<14, //
-
             PassMuTrigDoubleMuLeadingLeg    = 1UL<<15,  // 
             PassMuTrigDoubleMuTrailingLeg   = 1UL<<16,  // 
-            PassMuTrigSingleMu              = 1UL<<17,  // 
-            PassMuTrigMuEGMuLeadingLeg      = 1UL<<18,  // 
-            PassMuTrigMuEGMuTrailingLeg     = 1UL<<19,  // 
-
-            PassPhotonID                    = 1UL<<20,  //
-            PassPhotonIso                   = 1UL<<21   //
+            PassMuTrigSingleMu24            = 1UL<<17,  // 
+            PassMuTrigSingleMu30            = 1UL<<18,  //
+            PassMuTrigMuEGMuLeadingLeg      = 1UL<<19,  // 
+            PassMuTrigMuEGMuTrailingLeg     = 1UL<<20,  // 
+            PassPhotonID                    = 1UL<<21,  //
+            PassPhotonIso                   = 1UL<<22   //
 
         };
 
@@ -64,20 +59,27 @@ class LeptonTree {
             OniaEETagAndProbe               = 1UL<<2,  // 
             OniaMuMuTagAndProbe             = 1UL<<3,  // 
             QCDFakeEle8                     = 1UL<<4,  // 
-            QCDFakeEle8VL                   = 1UL<<5,  // 
-            QCDFakeEle17VL                  = 1UL<<6,  // 
-            QCDFakeEle8VLJet40              = 1UL<<7,  // 
-            QCDFakeEle8WithTrkIDIso         = 1UL<<8,  // 
+            QCDFakeEle17                    = 1UL<<5,  // 
+            QCDFakeEle8Jet40                = 1UL<<6,  // 
+            QCDFakeEle8Jet30                = 1UL<<7,  //
+            QCDFakeEle17Jet30               = 1UL<<8,  //
             QCDFakeMu8                      = 1UL<<9,  // 
             QCDFakeMu15                     = 1UL<<10, // 
-            ZJetsFakeEleSelection           = 1UL<<11, // 
-            ZJetsFakeMuSelection            = 1UL<<12, // 
-            PhotonSelection                 = 1UL<<13, //
-            Photon20CaloIdVLIsoL            = 1UL<<14, //
-            Photon30CaloIdVLIsoL            = 1UL<<15, //
-            Photon50CaloIdVLIsoL            = 1UL<<16, //
-            Photon75CaloIdVLIsoL            = 1UL<<17, //
-            Photon90CaloIdVLIsoL            = 1UL<<18  //
+            QCDFakeMu17                     = 1UL<<11, //
+            ZJetsFakeEleSelection           = 1UL<<12, // 
+            ZJetsFakeMuSelection            = 1UL<<13, // 
+            PhotonSelection                 = 1UL<<14, //
+            Photon20CaloIdVLIsoL            = 1UL<<15, //
+            Photon30CaloIdVLIsoL            = 1UL<<16, //
+            Photon50CaloIdVLIsoL            = 1UL<<17, //
+            Photon75CaloIdVLIsoL            = 1UL<<18, //
+            Photon90CaloIdVLIsoL            = 1UL<<19, //
+            Photon22R9Id90HE10Iso40EB       = 1UL<<20, //
+            Photon36R9Id90HE10Iso40EB       = 1UL<<21, //
+            Photon50R9Id90HE10Iso40EB       = 1UL<<22, //
+            Photon75R9Id90HE10Iso40EB       = 1UL<<23, //
+            Photon90R9Id90HE10Iso40EB       = 1UL<<24  //
+
         };
 
 
@@ -111,6 +113,17 @@ class LeptonTree {
         float          metSig_;
 
         //
+        // MVA IDs
+        //
+
+        // HWW MVAs
+        float electronMVA_;
+        float muonMVA_;
+
+        // POG MVAs
+        float egammaMVA_;
+
+        //
         // for electron studies with new data
         //    
 
@@ -123,6 +136,7 @@ class LeptonTree {
         // input variables
         float sceta_;
         float scenergy_;
+        bool chargesAgree_;
         float pfmva_;
         float ooemoop_;
         float eopin_;
@@ -202,7 +216,11 @@ class LeptonTree {
             tree_->Branch("hltPrescale"      , &hltPrescale_      ,   "hltPrescale/F");
             tree_->Branch("sumet"            , &sumet_            ,   "sumet/F");
             tree_->Branch("metSig"           , &metSig_           ,   "metSig/F");
+            tree_->Branch("electronMVA"      , &electronMVA_      ,   "electronMVA/F");
+            tree_->Branch("muonMVA"          , &muonMVA_          ,   "muonMVA/F");
+            tree_->Branch("egammaMVA"        , &egammaMVA_        ,   "egammaMVA/F");
 
+            // extra branches for electron ID studies
             tree_->Branch("vetoId"           , &vetoId_           ,   "vetoId/i");
             tree_->Branch("looseId"          , &looseId_          ,   "looseId/i");
             tree_->Branch("mediumId"         , &mediumId_         ,   "mediumId/i");
@@ -210,6 +228,7 @@ class LeptonTree {
             tree_->Branch("pfmva"               , &pfmva_               ,   "pfmva/F");
             tree_->Branch("sceta"               , &sceta_               ,   "sceta/F");
             tree_->Branch("scenergy"               , &scenergy_               ,   "scenergy/F");
+            tree_->Branch("chargesAgree"               , &chargesAgree_               ,   "chargesAgree/O");
             tree_->Branch("eopin"               , &eopin_               ,   "eopin/F");
             tree_->Branch("ooemoop"               , &ooemoop_               ,   "ooemoop/F");
             tree_->Branch("fbrem"               , &fbrem_               ,   "fbrem/F");
@@ -268,6 +287,9 @@ class LeptonTree {
             tree_->SetBranchAddress("hltPrescale",      &hltPrescale_);
             tree_->SetBranchAddress("sumet",            &sumet_);
             tree_->SetBranchAddress("metSig",           &metSig_);
+            tree_->SetBranchAddress("electronMVA",      &electronMVA_);
+            tree_->SetBranchAddress("muonMVA",          &muonMVA_);
+            tree_->SetBranchAddress("egammaMVA",        &egammaMVA_);
 
             tree_->SetBranchAddress("vetoId",            &vetoId_);
             tree_->SetBranchAddress("looseId",            &looseId_);
@@ -276,6 +298,7 @@ class LeptonTree {
             tree_->SetBranchAddress("pfmva",          &pfmva_);
             tree_->SetBranchAddress("sceta",          &sceta_);
             tree_->SetBranchAddress("scenergy",          &scenergy_);
+            tree_->SetBranchAddress("chargesAgree",          &chargesAgree_);
             tree_->SetBranchAddress("eopin",          &eopin_);
             tree_->SetBranchAddress("ooemoop",          &ooemoop_);
             tree_->SetBranchAddress("fbrem",          &fbrem_);
@@ -343,6 +366,9 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("hltPrescale"      ));
         variables_.push_back(std::string("sumet"            ));
         variables_.push_back(std::string("metSig"           ));
+        variables_.push_back(std::string("electronMVA"      ));
+        variables_.push_back(std::string("muonMVA"          ));
+        variables_.push_back(std::string("egammaMVA"        ));
 
         variables_.push_back(std::string("vetoId"));
         variables_.push_back(std::string("looseId"));
@@ -351,6 +377,7 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("pfmva"));
         variables_.push_back(std::string("sceta"));
         variables_.push_back(std::string("scenergy"));
+        variables_.push_back(std::string("chargesAgree"));
         variables_.push_back(std::string("eopin"));  
         variables_.push_back(std::string("ooemoop"));
         variables_.push_back(std::string("fbrem"));
@@ -399,6 +426,9 @@ LeptonTree::InitVariables(){
     hltPrescale_          = 1;
     sumet_                = -999;
     metSig_               = -999;
+    electronMVA_          = -999;
+    muonMVA_              = -999;
+    egammaMVA_            = -999;
 
     vetoId_ = 0;
     looseId_ = 0;
@@ -407,6 +437,7 @@ LeptonTree::InitVariables(){
     pfmva_ = 0;
     sceta_ = 0;
     scenergy_ = 0;
+    chargesAgree_ = 0;
     eopin_ = 0;
     ooemoop_ = 0;
     fbrem_ = 0;
@@ -461,6 +492,7 @@ LeptonTree::Get(std::string value)
     if(value=="pfmva"              ) { return this->pfmva_;           }
     if(value=="sceta"              ) { return this->sceta_;           }
     if(value=="scenergy"              ) { return this->scenergy_;           }
+    if(value=="chargesAgree"              ) { return this->chargesAgree_;           }
     if(value=="eopin"              ) { return this->eopin_;           }
     if(value=="ooemoop"              ) { return this->ooemoop_;           }
     if(value=="fbrem"              ) { return this->fbrem_;           }
