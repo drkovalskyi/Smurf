@@ -4,11 +4,12 @@
 //
 // Get around backward incompatibility in
 // interface for JetCorrector::correction
-//#define RELEASE_52X
-#define RELEASE_4XY
+#define RELEASE_52X
+//#define RELEASE_4XY
 //
 //
 
+#include "DataFormats/EgammaCandidates/interface/Photon.h"
 #include "DataFormats/PatCandidates/interface/Electron.h"
 #include "DataFormats/MuonReco/interface/Muon.h"
 #include "DataFormats/EgammaCandidates/interface/Conversion.h"
@@ -48,6 +49,7 @@ std::pair<double,double> trackerMET(std::vector<const reco::Candidate*>& objs,
 				    double deltaZCut, 
 				    const reco::PFCandidateCollection &pfCandCollection,
 				    const reco::Vertex &vertex);
+float GetEGammaEffectiveArea(const float eta);
 
 //
 // 2011 selections
@@ -71,6 +73,11 @@ bool passElectronID2011(const reco::GsfElectronRef &electron,
 bool passElectronIso2011(const reco::GsfElectronRef &electron,
         const reco::PFCandidateCollection &pfCandCollection,
         const reco::Vertex &vertex);
+
+bool threeChargesAgree(const reco::GsfElectron &ele);
+
+bool passPhotonSelection2011(const edm::View<reco::Photon>::const_iterator &photon,
+        const double &rhoIso);
 
 //
 // 2012 selections

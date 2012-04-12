@@ -215,6 +215,19 @@ float smurfselections::muonIsoValuePF(const reco::PFCandidateCollection &pfCandC
     return (pfciso+pfniso)/mu.pt();
 }
 
+float smurfselections::GetEGammaEffectiveArea(const float eta)
+{
+    float etaAbs = fabs(eta);
+    float AEff = 0.18;
+    if (etaAbs > 1.0 && etaAbs <= 1.479) AEff = 0.19;
+    if (etaAbs > 1.479 && etaAbs <= 2.0) AEff = 0.21;
+    if (etaAbs > 2.0 && etaAbs <= 2.2) AEff = 0.38;
+    if (etaAbs > 2.2 && etaAbs <= 2.3) AEff = 0.61;
+    if (etaAbs > 2.3 && etaAbs <= 2.4) AEff = 0.73;
+    if (etaAbs > 2.4) AEff = 0.78;
+    return AEff;
+}
+
 //
 // 2011 selections
 //
@@ -394,6 +407,44 @@ std::pair<double,double> smurfselections::trackerMET(std::vector<const reco::Can
   double met    = sqrt(pX * pX + pY * pY);
   double metphi = atan2(pY, pX);
   return std::make_pair(met, metphi);
+
+}
+
+bool smurfselections::threeChargesAgree(const reco::GsfElectron &ele)
+{
+    const reco::TrackRef     ctfTkRef = ele.closestTrack();
+    const reco::GsfTrackRef  gsfTkRef = ele.gsfTrack();
+    if (ctfTkRef.isNonnull() && gsfTkRef.isNonnull()) {
+        if ((ctfTkRef->charge() == gsfTkRef->charge()) && (ctfTkRef->charge() == ele.scPixCharge())) return true;
+    }
+    return false;
+}
+
+bool smurfselections::passPhotonSelection2011(const edm::View<reco::Photon>::const_iterator &photon, const double &rhoIso)
+{
+        float eta = fabs(photon->eta());
+        float pt = photon->pt();
+        if (pt < 30.0)                          return false;
+        if (eta > 3.0)                          return false;
+        if (photon->hasPixelSeed())             return false;
+        if (photon->hadronicOverEm() >= 0.05)   return false;
+        //r9 cut
+        if (photon->r9() < 0.9)   return false;
+
+        if (eta <= 1.479) {
+            if (photon->sigmaIetaIeta() >= 0.011)   return false;
+            if (photon->sigmaIetaIeta() <  0.001)   return false;
+            if (photon->trkSumPtHollowConeDR04()  >= 2.0 + 0.001*pt + 0.0167*rhoIso)     return false;
+            if (photon->ecalRecHitSumEtConeDR04() >= 4.2 + 0.006*pt + 0.183*rhoIso)      return false;
+            if (photon->hcalTowerSumEtConeDR04()  >= 2.2 + 0.0025*pt + 0.062*rhoIso)     return false;
+        } else {
+            if (photon->sigmaIetaIeta() >= 0.03)    return false;
+            if (photon->trkSumPtHollowConeDR04()  >= 2.0 + 0.001*pt + 0.032*rhoIso)      return false;
+            if (photon->ecalRecHitSumEtConeDR04() >= 4.2 + 0.006*pt + 0.090*rhoIso)      return false;
+            if (photon->hcalTowerSumEtConeDR04()  >= 2.2 + 0.0025*pt + 0.180*rhoIso)     return false;
+        }
+
+    return true;
 
 }
 
