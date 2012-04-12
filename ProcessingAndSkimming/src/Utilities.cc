@@ -1,5 +1,6 @@
 #include "Smurf/ProcessingAndSkimming/interface/Utilities.h"
 #include "Smurf/ProcessingAndSkimming/interface/Selections.h"
+#include "DataFormats/Math/interface/deltaR.h"
 
 #include "TString.h"
 #include "TRegexp.h"
@@ -105,7 +106,12 @@ trigger::TriggerObjectCollection smurfutilities::GetTriggerObjects(const std::st
 
 }
 
-
-
-
+bool smurfutilities::MatchTriggerObject(const trigger::TriggerObjectCollection &triggerObjects, const LorentzVector &offlineObject)
+{
+    for (unsigned int i = 0; i < triggerObjects.size(); ++i) {
+        if (deltaR(triggerObjects[i].eta(), triggerObjects[i].phi(), offlineObject.eta(), offlineObject.phi()) < 0.2) 
+            return true ;
+    }
+    return false;
+}
 

@@ -14,6 +14,8 @@
 
 namespace smurfutilities {
 
+typedef math::XYZTLorentzVectorD LorentzVector;
+
 // compare particle flow isolation definitions
 void ValidatePFIsolation(const edm::Event& iEvent, const reco::GsfElectron &ele,  
         const reco::PFCandidateCollection &pfCands,
@@ -30,6 +32,9 @@ trigger::TriggerObjectCollection GetTriggerObjects(const std::string triggerName
         const std::string procesName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
         const edm::Handle<trigger::TriggerEvent> &triggerEvent,
         const trigger::TriggerObjectCollection &allObjects);
+
+// does trigger object match offline object
+bool MatchTriggerObject(const trigger::TriggerObjectCollection &triggerObjects, const LorentzVector &offlineObject);
 
 }
 
