@@ -6,6 +6,9 @@
 #include "DataFormats/VertexReco/interface/Vertex.h"
 #include "DataFormats/VertexReco/interface/VertexFwd.h"
 #include "HLTrigger/HLTcore/interface/HLTConfigProvider.h"
+#include "DataFormats/HLTReco/interface/TriggerEvent.h"
+#include "DataFormats/Common/interface/TriggerResults.h"
+#include "DataFormats/HLTReco/interface/TriggerObject.h"
 
 #include <string>
 
@@ -20,6 +23,13 @@ void ValidatePFIsolation(const edm::Event& iEvent, const reco::GsfElectron &ele,
 // dump save tags for trigger name
 void DumpSaveTags(const std::string triggerName,
         const HLTConfigProvider &hltConfig);
+
+// find trigger objects corresponding
+// to trigger name and filter name
+trigger::TriggerObjectCollection GetTriggerObjects(const std::string triggerName, const std::string filterName,
+        const std::string procesName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
+        const edm::Handle<trigger::TriggerEvent> &triggerEvent,
+        const trigger::TriggerObjectCollection &allObjects);
 
 }
 
