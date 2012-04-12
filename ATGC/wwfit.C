@@ -34,6 +34,9 @@ const double rangeX = 1.5;
 const double rangeY = 1.5;
 const double lumi = 4.9;
 
+// const char* oldSampleSelection = "selected==1&&unique==1";
+const char* oldSampleSelection = "selected==1&&unique==1&&dilpt>45";
+
 RooRealVar* var_pt1;
 RooRealVar* x_par;
 RooRealVar* y_par;
@@ -103,7 +106,7 @@ public:
     assert(f);
     RooAbsData* ds = (RooAbsData*)f->Get("ww");
     ds->SetName(name);
-    m_dataset = ds->reduce(*var_pt1,"selected==1&&unique==1");
+    m_dataset = ds->reduce(*var_pt1,oldSampleSelection);
     ((TTree*)m_dataset->tree())->Draw(Form("pt1>>h(%u,%f,%f)",Nbins,minPt,maxPt),"","goff");
     m_hist = (TH1*)gDirectory->Get("h");
     m_hist->SetTitle(Form("%s: %0.2f, %s: %0.2f",x_par->GetTitle(),refx,y_par->GetTitle(),refy));
@@ -151,7 +154,7 @@ RooDataSet* MakeDataset(const char* file, const char* dataset_name){
     if ( (tree.cuts_ & SmurfTree::FullSelection) != SmurfTree::FullSelection ||
 	 //	 (tree.cuts_ & SmurfTree::Trigger) != SmurfTree::Trigger ||
 	 tree.lep2_.pt()<20 || 
-	 //	 tree.dilep_.pt()<45 ||
+	 tree.dilep_.pt()<45 ||
 	 tree.njets_>0 ) continue;
     if (tree.type_==0||tree.type_==3){
       if ( tree.jet1_.pt()>15 && tree.dPhiDiLepJet1_>2.8798 ) continue;
@@ -173,7 +176,7 @@ RooDataSet* MakeOldDataset(const char* file){
   assert(f);
   RooAbsData* ds = (RooAbsData*)f->Get("ww");
   ds->SetName("ds_ww");
-  RooDataSet* dataset = dynamic_cast<RooDataSet*>(ds->reduce(*var_pt1,"selected==1&&unique==1"));
+  RooDataSet* dataset = dynamic_cast<RooDataSet*>(ds->reduce(*var_pt1,oldSampleSelection));
   assert(dataset);
   return dataset;
 }
@@ -606,7 +609,7 @@ void setBkgPdf()
   // ww
   RooAbsData* ds_ww = (RooAbsData*)f->Get("ww");
   ds_ww->SetName("ds_ww");
-  RooAbsData* ds_ww_pt1 = ds_ww->reduce(*var_pt1,"selected==1&&unique==1");
+  RooAbsData* ds_ww_pt1 = ds_ww->reduce(*var_pt1,oldSampleSelection);
   RooNDKeysPdf* pdf_ww = new RooNDKeysPdf("pdf_ww","pdf_ww",*var_pt1,*((RooDataSet*)ds_ww_pt1),"am");
   TH1F* hpdf_ww = (TH1F*)pdf_ww->createHistogram("hpdf_ww",*var_pt1);
   hpdf_ww->SetTitle("WW");
@@ -618,7 +621,7 @@ void setBkgPdf()
   // wjets
   RooAbsData* ds_wjets = (RooAbsData*)f->Get("wjets");
   ds_wjets->SetName("ds_wjets");
-  RooAbsData* ds_wjets_pt1 = ds_wjets->reduce(*var_pt1,"selected==1&&unique==1");
+  RooAbsData* ds_wjets_pt1 = ds_wjets->reduce(*var_pt1,oldSampleSelection);
   RooNDKeysPdf* pdf_wjets = new RooNDKeysPdf("pdf_wjets","pdf_wjets",*var_pt1,*((RooDataSet*)ds_wjets_pt1),"am");
   TH1F* hpdf_wjets = (TH1F*)pdf_wjets->createHistogram("hpdf_wjets",*var_pt1);
   hpdf_wjets->SetTitle("WJets");
@@ -630,7 +633,7 @@ void setBkgPdf()
   // ttbar
   RooAbsData* ds_ttbar = (RooAbsData*)f->Get("ttbar");
   ds_ttbar->SetName("ds_ttbar");
-  RooAbsData* ds_ttbar_pt1 = ds_ttbar->reduce(*var_pt1,"selected==1&&unique==1");
+  RooAbsData* ds_ttbar_pt1 = ds_ttbar->reduce(*var_pt1,oldSampleSelection);
   RooNDKeysPdf* pdf_ttbar = new RooNDKeysPdf("pdf_ttbar","pdf_ttbar",*var_pt1,*((RooDataSet*)ds_ttbar_pt1),"am");
   TH1F* hpdf_ttbar = (TH1F*)pdf_ttbar->createHistogram("hpdf_ttbar",*var_pt1);
   hpdf_ttbar->SetTitle("TTbar");
@@ -642,7 +645,7 @@ void setBkgPdf()
   // tW
   RooAbsData* ds_tw = (RooAbsData*)f->Get("tw");
   ds_tw->SetName("ds_tw");
-  RooAbsData* ds_tw_pt1 = ds_tw->reduce(*var_pt1,"selected==1&&unique==1");
+  RooAbsData* ds_tw_pt1 = ds_tw->reduce(*var_pt1,oldSampleSelection);
   RooNDKeysPdf* pdf_tw = new RooNDKeysPdf("pdf_tw","pdf_tw",*var_pt1,*((RooDataSet*)ds_tw_pt1),"am");
   TH1F* hpdf_tw = (TH1F*)pdf_tw->createHistogram("hpdf_tw",*var_pt1);
   hpdf_tw->SetTitle("tW");
@@ -654,7 +657,7 @@ void setBkgPdf()
   // wz
   RooAbsData* ds_wz = (RooAbsData*)f->Get("wz");
   ds_wz->SetName("ds_wz");
-  RooAbsData* ds_wz_pt1 = ds_wz->reduce(*var_pt1,"selected==1&&unique==1");
+  RooAbsData* ds_wz_pt1 = ds_wz->reduce(*var_pt1,oldSampleSelection);
   RooNDKeysPdf* pdf_wz = new RooNDKeysPdf("pdf_wz","pdf_wz",*var_pt1,*((RooDataSet*)ds_wz_pt1),"am");
   TH1F* hpdf_wz = (TH1F*)pdf_wz->createHistogram("hpdf_wz",*var_pt1);
   hpdf_wz->SetTitle("WZ");
@@ -666,7 +669,7 @@ void setBkgPdf()
   // zz
   RooAbsData* ds_zz = (RooAbsData*)f->Get("zz");
   ds_zz->SetName("ds_zz");
-  RooAbsData* ds_zz_pt1 = ds_zz->reduce(*var_pt1,"selected==1&&unique==1");
+  RooAbsData* ds_zz_pt1 = ds_zz->reduce(*var_pt1,oldSampleSelection);
   RooNDKeysPdf* pdf_zz = new RooNDKeysPdf("pdf_zz","pdf_zz",*var_pt1,*((RooDataSet*)ds_zz_pt1),"am");
   TH1F* hpdf_zz = (TH1F*)pdf_zz->createHistogram("hpdf_zz",*var_pt1);
   hpdf_zz->SetTitle("ZZ");
@@ -921,7 +924,7 @@ TH1F* wwATGC1DFit(const char* file, const char* name, double lz, double dkz)
   assert(f);
   RooAbsData* ds = (RooAbsData*)f->Get("ww");
   ds->SetName(name);
-  RooAbsData* dataset = ds->reduce(*var_pt1,"selected==1&&unique==1");
+  RooAbsData* dataset = ds->reduce(*var_pt1,oldSampleSelection);
   
   // loop over WW dataset and make small samples
   // perform Likelihood difference calculation for each
@@ -1028,7 +1031,7 @@ void fitData()
   assert(f);
   RooAbsData* ds_data = (RooAbsData*)f->Get("data");
   ds_data->SetName("ds_data");
-  RooAbsData* ds_data_pt1 = ds_data->reduce(*var_pt1,"selected==1&&unique==1");
+  RooAbsData* ds_data_pt1 = ds_data->reduce(*var_pt1,oldSampleSelection);
   c10->cd(1);
   ((TTree*)ds_data_pt1->tree())->Draw(Form("pt1>>h(%u,%f,%f)",Nbins,minPt,maxPt));
   data = dynamic_cast<RooDataSet*>(ds_data_pt1);
@@ -1182,7 +1185,7 @@ void fitTop()
   assert(f);
   RooAbsData* ds_ttbar = (RooAbsData*)f->Get("ttbar");
   ds_ttbar->SetName("ds_ttbar");
-  RooAbsData* ds_ttbar_pt1 = ds_ttbar->reduce(*var_pt1,"selected==1&&unique==1");
+  RooAbsData* ds_ttbar_pt1 = ds_ttbar->reduce(*var_pt1,oldSampleSelection);
 
   TTree* iTree = const_cast<TTree*>(((RooDataSet*)ds_ttbar_pt1)->tree());
   assert(iTree);
