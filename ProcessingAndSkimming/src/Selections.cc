@@ -412,7 +412,11 @@ std::pair<double,double> smurfselections::trackerMET(std::vector<const reco::Can
 
 bool smurfselections::threeChargesAgree(const reco::GsfElectron &ele)
 {
+    #ifdef RELEASE_4XY
+    const reco::TrackRef     ctfTkRef = ele.closestCtfTrackRef();
+    #else 
     const reco::TrackRef     ctfTkRef = ele.closestTrack();
+    #endif
     const reco::GsfTrackRef  gsfTkRef = ele.gsfTrack();
     if (ctfTkRef.isNonnull() && gsfTkRef.isNonnull()) {
         if ((ctfTkRef->charge() == gsfTkRef->charge()) && (ctfTkRef->charge() == ele.scPixCharge())) return true;
