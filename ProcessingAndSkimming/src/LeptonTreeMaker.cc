@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.16 2012/04/13 15:49:43 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.17 2012/04/13 17:06:46 dlevans Exp $
 //
 //
 
@@ -719,6 +719,21 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent,
             if (smurfselections::passMuonFO2011(probe, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFO);
             if (smurfselections::passMuonID2011(probe, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuID);
             if (smurfselections::passMuonIso2011(probe, pfCandCollection_, pv_)) leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIso);
+
+            // single trigger
+            if (objectMatchTrigger(measureSingleMu24_, allObjects, probe->p4()))
+                leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigSingleMu24;
+            if (objectMatchTrigger(measureSingleMu30_, allObjects, probe->p4()))
+                leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigSingleMu30;
+            // double trigger leading leg
+            if (objectMatchTrigger(measureLeadingDoubleMu_, allObjects, probe->p4()))
+                leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigDoubleMuLeadingLeg;
+            // double trigger trailing leg
+            if (objectMatchTrigger(measureTrailingDoubleMu_, allObjects, probe->p4()))
+                leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigDoubleMuTrailingLeg;
+            // double trigger dZ cut
+            if (objectMatchTrigger(measureDoubleMuDZ_,  allObjects, probe->p4()))
+                leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigDoubleMuDZ;
 
             leptonTree_->tree_->Fill();
 
