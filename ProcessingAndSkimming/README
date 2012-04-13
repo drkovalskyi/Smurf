@@ -6,3 +6,5 @@ cvs co -d Smurf/ProcessingAndSkimming/electronMVAWeights UserCode/MitPhysics/dat
 cvs co -d Smurf/ProcessingAndSkimming/muonMVAWeights UserCode/MitPhysics/data/MuonMVAWeights/
 cvs co -d EGamma/EGammaAnalysisTools UserCode/EGamma/EGammaAnalysisTools
 
+cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTGCat_TrigV0.weights.xml electronMVAWeights/
+
