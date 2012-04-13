@@ -23,15 +23,25 @@
 #include "RooMsgService.h"
 #include "../Core/SmurfTree.h"
 #include "TRandom3.h"
+#include "RooFitResult.h"
+#include "RooMinimizer.h"
 
-// const unsigned int nEvents = 900;
-const unsigned int nEvents = 100;
+const double ww_expected = 774.0+45.9;
+const double ww_uncertainty = sqrt(55.8*55.8+14.1*14.1);
+const double top_expected = 121.6;
+const double top_uncertainty = 23.4;
+const double wjets_expected = 58.3+19.8;
+const double wjets_uncertainty = sqrt(21.3*21.3+5.7*5.7);
+const double vz_expected = 29.1;
+const double vz_uncertainty = 2.2;
+// Where should I put DY?
+
 const unsigned int Nbins = 18;
 const double minPt = 20;
 const double maxPt = 200;
 
-const double rangeX = 1.5;
-const double rangeY = 1.5;
+const double rangeX = 0.5;
+const double rangeY = 0.5;
 const double lumi = 4.9;
 
 // const char* oldSampleSelection = "selected==1&&unique==1";
@@ -128,7 +138,7 @@ public:
   Sample():m_dataset(0),m_refX(0),m_refY(0),m_hist(0),m_hist_keys(0){}
 };
 
-RooDataSet* MakeDataset(const char* file, const char* dataset_name){
+RooDataSet* MakeDataset(const char* file, const char* dataset_name, bool isData=false){
   
   RooRealVar pt1("pt1","pt1",20,500);
   RooRealVar weightVar("weight","weight",1.0);
@@ -152,7 +162,7 @@ RooDataSet* MakeDataset(const char* file, const char* dataset_name){
     }
     tree.tree_->GetEntry(i);
     if ( (tree.cuts_ & SmurfTree::FullSelection) != SmurfTree::FullSelection ||
-	 //	 (tree.cuts_ & SmurfTree::Trigger) != SmurfTree::Trigger ||
+	 (isData && (tree.cuts_ & SmurfTree::Trigger) != SmurfTree::Trigger )||
 	 tree.lep2_.pt()<20 || 
 	 tree.dilep_.pt()<45 ||
 	 tree.njets_>0 ) continue;
@@ -199,22 +209,21 @@ void setDefaults()
   var_dummy = new RooRealVar("var_dummy","var_dummy",0);
   var_pt1->setBins(Nbins);
 
-  n_ww    = new RooRealVar("n_ww","n_ww", nEvents, 0, 1E+4);
-  n_top   = new RooRealVar("n_top","n_top", 0, 0, 1E+4);
-  n_wjets = new RooRealVar("n_wjets","n_wjets", 0, 0, 1E+4);
-  n_wz    = new RooRealVar("n_wz","n_wz", 0, 0, 1E+4);
-  n_zz    = new RooRealVar("n_zz","n_zz", 0, 0, 1E+4);
+  n_ww    = new RooRealVar("n_ww","n_ww",       ww_expected, ww_expected/2, ww_expected*2);
+  n_top   = new RooRealVar("n_top","n_top",     top_expected, top_expected/4, top_expected*4);
+  n_wjets = new RooRealVar("n_wjets","n_wjets", wjets_expected, wjets_expected/4, wjets_expected*4);
+  n_wz    = new RooRealVar("n_wz","n_wz",       vz_expected, vz_expected/4, vz_expected*4);
+  n_zz    = new RooRealVar("n_zz","n_zz", 0, 0, 1E+3);
 
 
   n_ww_con    = new RooGaussian("n_ww_con",    "WW uncertainty",    *n_ww,    
-				// RooFit::RooConst(10.77),RooFit::RooConst(1.4));   // 11% (lumi) + 5% (theory) + 5% (jet veto) = 13%
-				RooFit::RooConst(nEvents),RooFit::RooConst(nEvents*0.13));
+				RooFit::RooConst(ww_expected),RooFit::RooConst(ww_uncertainty));
   n_top_con   = new RooGaussian("n_top_con",   "Top uncertainty",   *n_top,   
-				RooFit::RooConst(0.85),RooFit::RooConst(0.85));
+				RooFit::RooConst(top_expected),RooFit::RooConst(top_uncertainty));
   n_wjets_con = new RooGaussian("n_wjets_con", "Wjets uncertainty", *n_wjets, 
-				RooFit::RooConst(2.1),RooFit::RooConst(0.7));
+				RooFit::RooConst(wjets_expected),RooFit::RooConst(wjets_uncertainty));
   n_wz_con    = new RooGaussian("n_wz_con",    "WZ uncertainty",    *n_wz,    
-				RooFit::RooConst(0.24),RooFit::RooConst(0.2));
+				RooFit::RooConst(vz_expected),RooFit::RooConst(vz_uncertainty));
   n_zz_con    = new RooGaussian("n_zz_con",    "ZZ uncertainty",    *n_zz,   
 				RooFit::RooConst(0.10),RooFit::RooConst(0.01));
 }
@@ -223,7 +232,7 @@ void setSigPdf_LZ_GZ()
 {
   x_par = new RooRealVar("x_par","#lambda_{Z}",-1,1);
   y_par = new RooRealVar("y_par","#Delta g^{Z}_{1}",-1,1);
-  double norm = nEvents/3.09163;
+  double norm = ww_expected/3.09163;
   
   TCanvas* c1 = new TCanvas("c1","c1",800,800);
   c1->Divide(3,3);
@@ -401,7 +410,7 @@ void setSigPdf_LZ_KG()
 {
   x_par = new RooRealVar("x_par","#lambda_{Z}",-1,1);
   y_par = new RooRealVar("y_par","#Delta#kappa_{#gamma}",-1,1);
-  double norm = nEvents/547.541;
+  double norm = ww_expected/547.541;
   
   TCanvas* c1 = new TCanvas("c1","c1",800,800);
   c1->Divide(3,3);
@@ -682,8 +691,10 @@ void setBkgPdf()
   RooAbsPdf* epdf_top = new RooExtendPdf("epdf_top","epdf_top",*pdf_ttbar,*n_top);
   RooAbsPdf* epdf_wz = new RooExtendPdf("epdf_wz","epdf_wz",*pdf_wz,*n_wz);
   RooAbsPdf* epdf_zz = new RooExtendPdf("epdf_zz","epdf_zz",*pdf_ttbar,*n_zz);
-  pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz, *epdf_zz));
-  cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con,*n_zz_con)) ;
+  // pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz, *epdf_zz));
+  pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz));
+  // cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con,*n_zz_con)) ;
+  cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con)) ;
 }
 
 // not used
@@ -711,6 +722,7 @@ void sensitivity()
   unsigned int firstEntry = 0;
   y_par->setVal(0);
   data=0;
+  unsigned int nEvents(ww_expected);
   while ( firstEntry <= size - nEvents ){
     n++;
     TTree* tree = iTree->CopyTree("","",nEvents,firstEntry);
@@ -868,7 +880,7 @@ void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N
   data=0;
   TRandom3 generator;
 
-  TH1F* hx = new TH1F("hx","Fit of WW SM events",40,-1,1);
+  TH1F* hx = new TH1F("hx","Fit of WW SM events",40,-.2,.2);
   hx->GetXaxis()->SetTitle(x_par->getTitle());
   TH1F* hxpull = new TH1F("hxpull","Fit of WW SM events",40,-10,10);
   hxpull->GetXaxis()->SetTitle(Form("%s/#sigma",x_par->getTitle().Data()));
@@ -889,7 +901,7 @@ void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N
     x_par->setConstant(0);
     y_par->setVal(0);
     y_par->setConstant(1);
-    pdf->fitTo(*data,RooFit::InitialHesse(true),RooFit::Strategy(2));
+    assert(pdf->fitTo(*data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Save())->status()==0);
     hx->Fill(x_par->getVal());
     hxpull->Fill(x_par->getVal()/x_par->getError());
 
@@ -897,7 +909,7 @@ void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N
     x_par->setConstant(1);
     y_par->setVal(0);
     y_par->setConstant(0);
-    pdf->fitTo(*data,RooFit::InitialHesse(true),RooFit::Strategy(2));
+    assert(pdf->fitTo(*data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Save())->status()==0);
     hy->Fill(y_par->getVal());
     hypull->Fill(y_par->getVal()/y_par->getError());
   }
@@ -943,6 +955,7 @@ TH1F* wwATGC1DFit(const char* file, const char* name, double lz, double dkz)
   TH1F* h = new TH1F(Form("h_%s",name),"Fit of on WW with anomalous couplings",40,0,
 		     std::max(rangeX,rangeY));
   h->SetDirectory(0);
+  unsigned int nEvents(ww_expected);
   while ( firstEntry <= size - nEvents ){
     n++;
     TTree* tree = iTree->CopyTree("","",nEvents,firstEntry);
@@ -1023,15 +1036,21 @@ void wwATGC1DLzKgFits()
   h2->Draw();
 }
 
-void fitData()
+void fitData( bool makeContourAllIn = true,
+	      bool yieldFitNoATGC = false,
+	      bool fitATGCx = false,
+	      bool fitATGCy = false,
+	      bool makeContourWWOnly = false
+	     )
 {
   TCanvas* c10 = new TCanvas("c10","c10",1000,500);
   c10->Divide(2,1);
-  TFile* f = TFile::Open("samples/processed_data_final.root");
-  assert(f);
-  RooAbsData* ds_data = (RooAbsData*)f->Get("data");
-  ds_data->SetName("ds_data");
-  RooAbsData* ds_data_pt1 = ds_data->reduce(*var_pt1,oldSampleSelection);
+  RooAbsData* ds_data_pt1 = MakeDataset("smurf/data.root","data",true);
+//   TFile* f = TFile::Open("samples/processed_data_final.root");
+//   assert(f);
+//   RooAbsData* ds_data = (RooAbsData*)f->Get("data");
+//   ds_data->SetName("ds_data");
+//   RooAbsData* ds_data_pt1 = ds_data->reduce(*var_pt1,oldSampleSelection);
   c10->cd(1);
   ((TTree*)ds_data_pt1->tree())->Draw(Form("pt1>>h(%u,%f,%f)",Nbins,minPt,maxPt));
   data = dynamic_cast<RooDataSet*>(ds_data_pt1);
@@ -1045,8 +1064,8 @@ void fitData()
   
   cpdf = new RooAddPdf("cpdf","combined pdf",RooArgList(*cSigPdf,*cBkgPdf));
   
-  RooArgSet constrainedParams(*n_ww,*n_top,*n_wjets,*n_wz,*n_zz);
-
+  // RooArgSet constrainedParams(*n_ww,*n_top,*n_wjets,*n_wz,*n_zz);
+  RooArgSet constrainedParams(*n_ww,*n_top,*n_wjets,*n_wz);
   if (1) {
     n_top->setConstant(0);
     n_wjets->setConstant(0);
@@ -1062,6 +1081,7 @@ void fitData()
   x_par->setVal(0);
 
   // signal only pdf
+  if (makeContourWWOnly)
   {
     TCanvas* c11 = new TCanvas("c11","c11",500,500);
     c11->SetGrid();
@@ -1070,24 +1090,33 @@ void fitData()
     RooAbsReal* nll = pdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(constrainedParams));
     RooMinuit m(*nll);
     m.migrad();
+    assert(m.save()->status()==0);
     m.hesse();
-    RooPlot* p1 = m.contour(*x_par,*y_par,sqrt(2.3),sqrt(6.0));
+    assert(m.save()->status()==0);
+    // RooPlot* p1 = m.contour(*x_par,*y_par,sqrt(2.3),sqrt(6.0));
+    RooPlot* p1 = m.contour(*x_par,*y_par,sqrt(2.3),0);
     p1->SetTitle("68% and 95% C.L.");
     m.migrad();
     m.hesse();
     p1->Draw();
   }
-
+  
   // signal + background pdf 
+  if (makeContourAllIn)
   {
     TCanvas* c12 = new TCanvas("c12","c12",500,500);
     c12->SetGrid();
     y_par->setVal(0);
     x_par->setVal(0);
     RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(constrainedParams));
-    RooMinuit m(*nll);
+    // RooMinuit m(*nll);
+    RooMinimizer m(*nll);
+    m.setMinimizerType("Minuit2");
     m.migrad();
+    assert(m.save()->status()==0);
     m.hesse();
+    assert(m.save()->status()==0);
+    // RooPlot* p1 = m.contour(*x_par,*y_par,sqrt(2.3),0);
     RooPlot* p1 = m.contour(*x_par,*y_par,sqrt(2.3),sqrt(6.0));
     p1->SetTitle("68% and 95% C.L.");
     m.migrad();
@@ -1134,21 +1163,25 @@ void fitData()
     RooMsgService::instance().setStreamStatus(1,1);
   }
 
-  if (0){
+  if (yieldFitNoATGC){
     // yield fit
     x_par->setConstant(1);
     y_par->setConstant(1);
     x_par->setVal(0);
     y_par->setVal(0);
     // cpdf->fitTo(*ds_data_pt1, RooFit::Minos());
-    RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(RooArgSet(*n_top,*n_wjets,*n_wz,*n_zz)));
-    RooMinuit m(*nll);
+    // RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(RooArgSet(*n_top,*n_wjets,*n_wz,*n_zz)));
+    RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(RooArgSet(*n_top,*n_wjets,*n_wz)));
+    // RooMinuit m(*nll);
+    RooMinimizer m(*nll);
+    m.setMinimizerType("Minuit2");
     m.setErrorLevel(0.5); //68% C.L. 
     m.migrad();
     m.hesse();
     m.minos();
   }
-  
+
+  if(fitATGCx)
   {
     // fits
     x_par->setConstant(0);
@@ -1157,13 +1190,16 @@ void fitData()
     y_par->setVal(0);
     // cpdf->fitTo(*ds_data_pt1, RooFit::Minos());
     RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(constrainedParams));
-    RooMinuit m(*nll);
+    // RooMinuit m(*nll);
+    RooMinimizer m(*nll);
+    m.setMinimizerType("Minuit2");
     m.setErrorLevel(3.84*0.5); //95% C.L. 
     m.migrad();
     m.hesse();
     m.minos();
   }
 
+  if (fitATGCy)
   {
     x_par->setConstant(1);
     y_par->setConstant(0);
@@ -1171,7 +1207,9 @@ void fitData()
     y_par->setVal(0);
     // cpdf->fitTo(*ds_data_pt1, RooFit::Minos());
     RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(constrainedParams));
-    RooMinuit m(*nll);
+    // RooMinuit m(*nll);
+    RooMinimizer m(*nll);
+    m.setMinimizerType("Minuit2");
     m.setErrorLevel(3.84*0.5); //95% C.L. 
     m.migrad();
     m.hesse();
@@ -1191,6 +1229,7 @@ void fitTop()
   assert(iTree);
   unsigned int size = iTree->GetEntries();
   cout << "iTree->GetEntries(): " << size << endl;
+  unsigned int nEvents(ww_expected);
   TTree* tree = iTree->CopyTree("","",nEvents,0);
   assert(tree);
   data = new RooDataSet("data","data",tree, *var_pt1);
@@ -1304,3 +1343,7 @@ void compareDistributions()
   h3->SetLineWidth(2);
   h3->Draw("same hist");
 } 
+
+void getDataYield(){
+  MakeDataset("smurf/data.root","data",true);
+}
