@@ -34,22 +34,24 @@ class LeptonTree {
             PassEleIso                      = 1UL<<4,  //
             PassEleTrigDoubleEleLeadingLeg  = 1UL<<5,  // 
             PassEleTrigDoubleEleTrailingLeg = 1UL<<6,  // 
-            PassEleTrigSingleEle            = 1UL<<7,  // 
-            PassEleTrigMuEGEleLeadingLeg    = 1UL<<8,  // 
-            PassEleTrigMuEGEleTrailingLeg   = 1UL<<9,  // 
-            PassMuCTFTrack                  = 1UL<<10, // 
-            PassMuGlobalOrTrackerMuon       = 1UL<<11, // 
-            PassMuFO                        = 1UL<<12, //
-            PassMuID                        = 1UL<<13, //
-            PassMuIso                       = 1UL<<14, //
-            PassMuTrigDoubleMuLeadingLeg    = 1UL<<15,  // 
-            PassMuTrigDoubleMuTrailingLeg   = 1UL<<16,  // 
-            PassMuTrigSingleMu24            = 1UL<<17,  // 
-            PassMuTrigSingleMu30            = 1UL<<18,  //
-            PassMuTrigMuEGMuLeadingLeg      = 1UL<<19,  // 
-            PassMuTrigMuEGMuTrailingLeg     = 1UL<<20,  // 
-            PassPhotonID                    = 1UL<<21,  //
-            PassPhotonIso                   = 1UL<<22   //
+            PassEleTrigDoubleEleDZ          = 1UL<<7,  //
+            PassEleTrigSingleEle            = 1UL<<8,  // 
+            PassEleTrigMuEGEleLeadingLeg    = 1UL<<9,  // 
+            PassEleTrigMuEGEleTrailingLeg   = 1UL<<10,  // 
+            PassMuCTFTrack                  = 1UL<<11, // 
+            PassMuGlobalOrTrackerMuon       = 1UL<<12, // 
+            PassMuFO                        = 1UL<<13, //
+            PassMuID                        = 1UL<<14, //
+            PassMuIso                       = 1UL<<15, //
+            PassMuTrigDoubleMuLeadingLeg    = 1UL<<16,  // 
+            PassMuTrigDoubleMuTrailingLeg   = 1UL<<17,  // 
+            PassMuTrigDoubleMuDZ            = 1UL<<18,  // 
+            PassMuTrigSingleMu24            = 1UL<<19,  // 
+            PassMuTrigSingleMu30            = 1UL<<20,  //
+            PassMuTrigMuEGMuLeadingLeg      = 1UL<<21,  // 
+            PassMuTrigMuEGMuTrailingLeg     = 1UL<<22,  // 
+            PassPhotonID                    = 1UL<<23,  //
+            PassPhotonIso                   = 1UL<<24   //
 
         };
 
@@ -87,6 +89,7 @@ class LeptonTree {
         unsigned int   event_;
         unsigned int   run_;
         unsigned int   lumi_;
+        float          rnd_;
         unsigned int   nvtx_;
         unsigned int   npu_;
         unsigned int   npuPlusOne_;
@@ -144,6 +147,7 @@ class LeptonTree {
         float detain_;
         float dphiin_;
         float hoe_;
+        float hoetow_;
         float sieie_;
         float d0vtx_;
         float dzvtx_;
@@ -192,6 +196,7 @@ class LeptonTree {
             tree_->Branch("event"            , &event_            ,   "event/i");
             tree_->Branch("run"              , &run_              ,   "run/i");
             tree_->Branch("lumi"             , &lumi_             ,   "lumi/i");
+            tree_->Branch("rnd"              , &rnd_              ,   "rnd/F");
             tree_->Branch("nvtx"             , &nvtx_             ,   "nvtx/i");
             tree_->Branch("npu"              , &npu_              ,   "npu/i");
             tree_->Branch("npuPlusOne"       , &npuPlusOne_       ,   "npuPlusOne/i");
@@ -235,6 +240,7 @@ class LeptonTree {
             tree_->Branch("detain"               , &detain_               ,   "detain/F");
             tree_->Branch("dphiin"               , &dphiin_               ,   "dphiin/F");
             tree_->Branch("hoe"               , &hoe_               ,   "hoe/F");
+            tree_->Branch("hoetow"               , &hoetow_               ,   "hoetow/F");
             tree_->Branch("sieie"               , &sieie_               ,   "sieie/F");
             tree_->Branch("d0vtx"               , &d0vtx_               ,   "d0vtx/F");
             tree_->Branch("dzvtx"               , &dzvtx_               ,   "dzvtx/F");
@@ -263,6 +269,7 @@ class LeptonTree {
             tree_->SetBranchAddress("event",            &event_);
             tree_->SetBranchAddress("run",              &run_);
             tree_->SetBranchAddress("lumi",             &lumi_);
+            tree_->SetBranchAddress("rnd",              &rnd_);
             tree_->SetBranchAddress("nvtx",             &nvtx_);
             tree_->SetBranchAddress("npu",              &npu_);
             tree_->SetBranchAddress("npuPlusOne",       &npuPlusOne_);
@@ -305,6 +312,7 @@ class LeptonTree {
             tree_->SetBranchAddress("detain",          &detain_);
             tree_->SetBranchAddress("dphiin",          &dphiin_);
             tree_->SetBranchAddress("hoe",          &hoe_);
+            tree_->SetBranchAddress("hoetow",          &hoetow_);
             tree_->SetBranchAddress("sieie",          &sieie_);
             tree_->SetBranchAddress("d0vtx",          &d0vtx_);
             tree_->SetBranchAddress("dzvtx",          &dzvtx_);
@@ -342,6 +350,7 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("event"            ));
         variables_.push_back(std::string("run"              ));
         variables_.push_back(std::string("lumi"             ));
+        variables_.push_back(std::string("rnd"             ));
         variables_.push_back(std::string("nvtx"             ));
         variables_.push_back(std::string("npu"              ));
         variables_.push_back(std::string("npuPlusOne"       ));
@@ -384,6 +393,7 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("detain"));
         variables_.push_back(std::string("dphiin"));
         variables_.push_back(std::string("hoe"));
+        variables_.push_back(std::string("hoetow"));
         variables_.push_back(std::string("sieie")); 
         variables_.push_back(std::string("d0vtx")); 
         variables_.push_back(std::string("dzvtx")); 
@@ -402,6 +412,7 @@ LeptonTree::InitVariables(){
     event_                = 0;
     run_                  = 0;
     lumi_                 = 0;
+    rnd_                  = 0;
     nvtx_                 = 0;
     npu_                  = 0;
     npuPlusOne_           = 0;
@@ -444,6 +455,7 @@ LeptonTree::InitVariables(){
     detain_ = 0;
     dphiin_ = 0;
     hoe_ = 0;
+    hoetow_ = 0;
     sieie_ = 0;
     d0vtx_ = 0;
     dzvtx_ = 0;
@@ -465,6 +477,7 @@ LeptonTree::Get(std::string value)
     if(value=="event"            ) { return this->event_;	           }
     if(value=="run"              ) { return this->run_;	           }
     if(value=="lumi"             ) { return this->lumi_;	           }
+    if(value=="rnd"              ) { return this->rnd_;               }
     if(value=="nvtx"             ) { return this->nvtx_;	           }
     if(value=="npu"              ) { return this->npu_;	           }
     if(value=="npuPlusOne"       ) { return this->npuPlusOne_;	   }
@@ -499,6 +512,7 @@ LeptonTree::Get(std::string value)
     if(value=="detain"              ) { return this->detain_;           }
     if(value=="dphiin"              ) { return this->dphiin_;           }
     if(value=="hoe"              ) { return this->hoe_;           }
+    if(value=="hoetow"              ) { return this->hoetow_;           }
     if(value=="sieie"              ) { return this->sieie_;           }
     if(value=="d0vtx"              ) { return this->d0vtx_;           }
     if(value=="dzvtx"              ) { return this->dzvtx_;           }
