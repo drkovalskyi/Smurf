@@ -35,23 +35,28 @@ leptonTreeMaker2011 = leptonTreeMaker.clone()
 
 # For 2012
 leptonTreeMaker2012 = leptonTreeMaker.clone()
-leptonTreeMaker2012.electronTPTriggerNames = cms.untracked.vstring(
-        "HLT_Ele17_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_Ele8_Mass50_v*")
-leptonTreeMaker2012.muonTPTriggerNames     = cms.untracked.vstring(
-        "HLT_IsoMu17_v*")
-leptonTreeMaker2012.electronFRTriggerNames = cms.untracked.vstring(        
-        "HLT_Ele8_CaloIdL_CaloIsoVL_v*",
-        "HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_v*",
-        "HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*",
-        "HLT_Ele8_CaloIdT_TrkIdVL_v*")
-leptonTreeMaker2012.muonFRTriggerNames     = cms.untracked.vstring(
-        "HLT_Mu8_v*")
-leptonTreeMaker2012.photonTriggerNames     = cms.untracked.vstring(
-        "HLT_Photon22_R9Id90_HE10_Iso40_EBOnly_v*",
-        "HLT_Photon36_R9Id90_HE10_Iso40_EBOnly_v*",
-        "HLT_Photon50_R9Id90_HE10_Iso40_EBOnly_v*",
-        "HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_v*",
-        "HLT_Photon90_R9Id90_HE10_Iso40_EBOnly_v*")
+leptonTreeMaker2012.electronTPTriggerNames = cms.untracked.VInputTag(
+        cms.InputTag("HLT_Ele17_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_Ele8_Mass50_v*:hltEle17CaloIdVTCaloIsoVTTrkIdTTrkIsoVTEle8TrackIsoFilter"),
+        cms.InputTag("HLT_Ele20_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_SC4_Mass50_v*:hltEle20CaloIdVTCaloIsoVTTrkIdTTrkIsoVTSC4TrackIsoFilter"),
+        cms.InputTag("HLT_Ele32_CaloIdT_CaloIsoT_TrkIdT_TrkIsoT_SC17_Mass50_v*:hltEle32CaloIdTCaloIsoTTrkIdTTrkIsoTSC17TrackIsoFilter"),
+        cms.InputTag("HLT_Ele27_WP80_v*"))
+leptonTreeMaker2012.muonTPTriggerNames     = cms.untracked.VInputTag(
+        cms.InputTag("HLT_IsoMu17_Mu8_v*"),
+        cms.InputTag("HLT_IsoMu24_eta2p1_v*"))
+leptonTreeMaker2012.electronFRTriggerNames = cms.untracked.VInputTag(       
+        cms.InputTag("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_v*"),
+        cms.InputTag("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*"),
+        cms.InputTag("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_v*"),
+        cms.InputTag("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*"))
+leptonTreeMaker2012.muonFRTriggerNames     = cms.untracked.VInputTag(
+        cms.InputTag("HLT_Mu8_v*"),
+        cms.InputTag("HLT_Mu17_v*"))
+leptonTreeMaker2012.photonTriggerNames     = cms.untracked.VInputTag(
+        cms.InputTag("HLT_Photon22_R9Id90_HE10_Iso40_EBOnly_v*"),
+        cms.InputTag("HLT_Photon36_R9Id90_HE10_Iso40_EBOnly_v*"),
+        cms.InputTag("HLT_Photon50_R9Id90_HE10_Iso40_EBOnly_v*"),
+        cms.InputTag("HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_v*"),
+        cms.InputTag("HLT_Photon90_R9Id90_HE10_Iso40_EBOnly_v*"))
 
 #
 # filters
@@ -73,4 +78,15 @@ muonFilters = cms.Sequence(highPtMuons * highPtMuonFilter)
 photonFilters = cms.Sequence(highPtPhotons * highPtPhotonFilter * centralPhotons * centralPhotonFilter)
 leptonTreeMakerSequenceForPhotonMC   = cms.Sequence(photonFilters * leptonTreeMakerSequenceMC)
 leptonTreeMakerSequenceForPhotonData = cms.Sequence(photonFilters * leptonTreeMakerSequenceData2011)
+
+#
+# random numbers
+#
+
+RandomNumberGeneratorService = cms.Service("RandomNumberGeneratorService",
+    leptonTreeMaker2012 = cms.PSet(
+        initialSeed = cms.untracked.uint32(764575546),
+         engineName = cms.untracked.string('TRandom3')
+    )
+)
 
