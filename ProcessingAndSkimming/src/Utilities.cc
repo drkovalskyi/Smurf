@@ -60,7 +60,7 @@ void smurfutilities::DumpSaveTags(const std::string triggerName,
 
 trigger::TriggerObjectCollection smurfutilities::GetTriggerObjects(const std::string triggerName, const std::string filterName,
         const std::string processName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
-        const edm::Handle<trigger::TriggerEvent> &triggerEvent,
+        const trigger::TriggerEvent *triggerEvent,
         const trigger::TriggerObjectCollection &allObjects)
 {
 
@@ -90,6 +90,14 @@ trigger::TriggerObjectCollection smurfutilities::GetTriggerObjects(const std::st
         if (hltTrigName.Index(reg) >= 0) {
 
             edm::InputTag filterNameTag(filterName, "", processName);
+            if (filterName == "") {
+                const std::vector<std::string> &modules = hltConfig.saveTagsModules(i);
+                filterNameTag = edm::InputTag(modules.back(), "", processName);
+            }
+            else {
+                filterNameTag = edm::InputTag(filterName, "", processName);
+            }
+
             size_t filterIndex = triggerEvent->filterIndex(filterNameTag);
 
             if (filterIndex < triggerEvent->sizeFilters()) {
@@ -103,6 +111,61 @@ trigger::TriggerObjectCollection smurfutilities::GetTriggerObjects(const std::st
     }
 
     return selectedObjects;
+
+}
+
+bool smurfutilities::MatchTriggerObject(const std::string triggerName, const std::string filterName,
+        const std::string processName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
+        const trigger::TriggerEvent *triggerEvent,
+        const trigger::TriggerObjectCollection &allObjects,
+        const LorentzVector &offlineObject)
+{
+
+    // loop on triggers
+    for (unsigned int i = 0; i < hltConfig.size(); i++) {
+
+        // does this trigger pass
+        if(!triggerResults->accept(i)) continue;
+
+        // get name of ith trigger
+        TString hltTrigName(hltConfig.triggerName(i));
+        hltTrigName.ToLower();
+
+        // pattern to match
+        TString pattern(triggerName);
+        pattern.ToLower();
+
+        // match pattern
+        TRegexp reg(Form("%s", pattern.Data()), true);
+
+        // if trigger matches
+        // then look for the objects corresponding to
+        // the specified filter name
+        if (hltTrigName.Index(reg) >= 0) {
+
+            edm::InputTag filterNameTag(filterName, "", processName);
+            if (filterName == "") {
+                const std::vector<std::string> &modules = hltConfig.saveTagsModules(i);
+                filterNameTag = edm::InputTag(modules.back(), "", processName);
+            }
+            else {
+                filterNameTag = edm::InputTag(filterName, "", processName);
+            }
+
+            size_t filterIndex = triggerEvent->filterIndex(filterNameTag);
+
+            if (filterIndex < triggerEvent->sizeFilters()) {
+                const trigger::Keys &keys = triggerEvent->filterKeys(filterIndex);
+                for (size_t j = 0; j < keys.size(); j++) {
+                    trigger::TriggerObject foundObject = allObjects[keys[j]];
+                    if (deltaR(foundObject.eta(), foundObject.phi(), offlineObject.eta(), offlineObject.phi()) < 0.2)
+                        return true;
+                }
+            }
+        }
+    }
+
+    return false;
 
 }
 

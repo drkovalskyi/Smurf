@@ -30,8 +30,15 @@ void DumpSaveTags(const std::string triggerName,
 // to trigger name and filter name
 trigger::TriggerObjectCollection GetTriggerObjects(const std::string triggerName, const std::string filterName,
         const std::string procesName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
-        const edm::Handle<trigger::TriggerEvent> &triggerEvent,
+        const trigger::TriggerEvent *triggerEvent,
         const trigger::TriggerObjectCollection &allObjects);
+
+// does trigger object match offline object
+bool MatchTriggerObject(const std::string triggerName, const std::string filterName,
+        const std::string processName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
+        const trigger::TriggerEvent *triggerEvent,
+        const trigger::TriggerObjectCollection &allObjects,
+        const LorentzVector &offlineObject);
 
 // does trigger object match offline object
 bool MatchTriggerObject(const trigger::TriggerObjectCollection &triggerObjects, const LorentzVector &offlineObject);
