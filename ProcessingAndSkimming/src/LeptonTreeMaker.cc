@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.15 2012/04/11 15:35:21 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.16 2012/04/13 15:49:43 dlevans Exp $
 //
 //
 
@@ -189,6 +189,7 @@ class LeptonTreeMaker : public edm::EDProducer {
 
         // electron id related
         ElectronIDMVA           *electronIDMVA_;
+        ElectronIDMVA           *electronIDIsoMVA_;
         MuonIDMVA               *muonIDMVA_;
         ElectronMVAEstimator    *egammaIDMVA_;
 
@@ -284,6 +285,16 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
             pathToBDTWeights_+"/electronMVAWeights/Subdet2HighPt_WithIPInfo_BDTG.weights.xml",                
             ElectronIDMVA::kWithIPInfo);
 
+    electronIDIsoMVA_ = new ElectronIDMVA();
+    electronIDIsoMVA_->Initialize("BDTG method",
+            pathToBDTWeights_+"/electronMVAWeights/Subdet0LowPt_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/electronMVAWeights/Subdet1LowPt_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/electronMVAWeights/Subdet2LowPt_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/electronMVAWeights/Subdet0HighPt_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/electronMVAWeights/Subdet1HighPt_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/electronMVAWeights/Subdet2HighPt_IDIsoCombined_BDTG.weights.xml",
+            ElectronIDMVA::kIDIsoCombined);
+
     muonIDMVA_ = new MuonIDMVA();
     muonIDMVA_->Initialize("BDTG method", 
             pathToBDTWeights_+"/muonMVAWeights/BarrelPtBin0_IDIsoCombined_BDTG.weights.xml",
@@ -309,6 +320,7 @@ LeptonTreeMaker::~LeptonTreeMaker()
     //
 
     if (electronIDMVA_)     delete electronIDMVA_;
+    if (electronIDIsoMVA_)  delete electronIDIsoMVA_;
     if (egammaIDMVA_)       delete egammaIDMVA_;
     if (muonIDMVA_)         delete muonIDMVA_;
     if (rndgen_)            delete rndgen_;
@@ -582,9 +594,11 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent,
             leptonTree_->tagAndProbeMass_    = p4.M();
 
             mvaValue                  = electronIDMVA_->MVAValue(&*probe, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIso_);
+            float mvaIdIsoValue       = electronIDIsoMVA_->MVAValue(&*probe, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIso_);
             float egammaMVAValue      = egammaIDMVA_->mvaValue(*probe, pv_, *ttBuilder, *clusterTools);
-            leptonTree_->electronMVA_ = mvaValue;
-            leptonTree_->egammaMVA_   = egammaMVAValue;
+            leptonTree_->electronMVA_       = mvaValue;
+            leptonTree_->electronIDIsoMVA_  = mvaIdIsoValue;
+            leptonTree_->egammaMVA_         = egammaMVAValue;
 
             if (smurfselections::passElectronFO2011(probe, pv_, thebs.position(), conversions_h))
                 leptonTree_->leptonSelection_ |= (LeptonTree::PassEleFO);
@@ -612,7 +626,6 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent,
             leptonTree_->sieie_     = probe->sigmaIetaIeta();
             leptonTree_->hoe_       = probe->hadronicOverEm();
             #ifdef RELEASE_52X
-std::cout << "hoetow" << std::endl;
             leptonTree_->hoetow_     = probe->hcalOverEcalBc();
             #endif
             leptonTree_->ooemoop_   = (1.0/probe->ecalEnergy() - probe->eSuperClusterOverP()/probe->ecalEnergy());
@@ -787,9 +800,11 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         leptonTree_->qProbe_             = fo->charge();
 
         float mvaValue            = electronIDMVA_->MVAValue(&*fo, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIso_);
+        float mvaIdIsoValue       = electronIDIsoMVA_->MVAValue(&*fo, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIso_);
         float egammaMVAValue      = egammaIDMVA_->mvaValue(*fo, pv_, *ttBuilder, *clusterTools);
-        leptonTree_->electronMVA_ = mvaValue;
-        leptonTree_->egammaMVA_   = egammaMVAValue;
+        leptonTree_->electronMVA_       = mvaValue;
+        leptonTree_->electronIDIsoMVA_  = mvaIdIsoValue;
+        leptonTree_->egammaMVA_         = egammaMVAValue;
 
         leptonTree_->leptonSelection_ |= (LeptonTree::PassEleFO);
         if (smurfselections::passElectronID2011(fo, pv_, thebs.position(), conversions_h, mvaValue))

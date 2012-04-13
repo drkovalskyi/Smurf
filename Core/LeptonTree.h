@@ -121,6 +121,7 @@ class LeptonTree {
 
         // HWW MVAs
         float electronMVA_;
+        float electronIDIsoMVA_;
         float muonMVA_;
 
         // POG MVAs
@@ -222,6 +223,7 @@ class LeptonTree {
             tree_->Branch("sumet"            , &sumet_            ,   "sumet/F");
             tree_->Branch("metSig"           , &metSig_           ,   "metSig/F");
             tree_->Branch("electronMVA"      , &electronMVA_      ,   "electronMVA/F");
+            tree_->Branch("electronIDIsoMVA"      , &electronIDIsoMVA_      ,   "electronIDIsoMVA/F");
             tree_->Branch("muonMVA"          , &muonMVA_          ,   "muonMVA/F");
             tree_->Branch("egammaMVA"        , &egammaMVA_        ,   "egammaMVA/F");
 
@@ -295,6 +297,7 @@ class LeptonTree {
             tree_->SetBranchAddress("sumet",            &sumet_);
             tree_->SetBranchAddress("metSig",           &metSig_);
             tree_->SetBranchAddress("electronMVA",      &electronMVA_);
+            tree_->SetBranchAddress("electronIDIsoMVA",      &electronIDIsoMVA_);
             tree_->SetBranchAddress("muonMVA",          &muonMVA_);
             tree_->SetBranchAddress("egammaMVA",        &egammaMVA_);
 
@@ -376,6 +379,7 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("sumet"            ));
         variables_.push_back(std::string("metSig"           ));
         variables_.push_back(std::string("electronMVA"      ));
+        variables_.push_back(std::string("electronIDIsoMVA" ));    
         variables_.push_back(std::string("muonMVA"          ));
         variables_.push_back(std::string("egammaMVA"        ));
 
@@ -438,6 +442,7 @@ LeptonTree::InitVariables(){
     sumet_                = -999;
     metSig_               = -999;
     electronMVA_          = -999;
+    electronIDIsoMVA_     = -999;
     muonMVA_              = -999;
     egammaMVA_            = -999;
 
