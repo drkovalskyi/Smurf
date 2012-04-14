@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.18 2012/04/13 17:19:15 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.19 2012/04/14 16:17:15 dlevans Exp $
 //
 //
 
@@ -203,7 +203,7 @@ class LeptonTreeMaker : public edm::EDProducer {
         JetCorrector *jetCorrector_;
 
         // random number generators
-        CLHEP::RandFlat *rndgen_;
+        float rndm_;
 
 };
 
@@ -323,7 +323,6 @@ LeptonTreeMaker::~LeptonTreeMaker()
     if (electronIDIsoMVA_)  delete electronIDIsoMVA_;
     if (egammaIDMVA_)       delete egammaIDMVA_;
     if (muonIDMVA_)         delete muonIDMVA_;
-    if (rndgen_)            delete rndgen_;
 
     //
     // save and close lepton tree
@@ -401,7 +400,8 @@ LeptonTreeMaker::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
           "which is not present in the configuration file.  You must add the service\n"
           "in the configuration file or remove the modules that require it.";
    }
-   rndgen_ = new CLHEP::RandFlat(rng->getEngine());
+   CLHEP::RandFlat rndgen(rng->getEngine());
+    rndm_ = rndgen.fire();
 
     // unbiased revertexing
     edm::ESHandle<TransientTrackBuilder> ttBuilder_h;
@@ -1035,7 +1035,7 @@ void LeptonTreeMaker::fillCommonVariables(const edm::Event& iEvent)
     leptonTree_->run_       = iEvent.id().run()        ;
     leptonTree_->event_     = iEvent.id().event()      ;
     leptonTree_->lumi_      = iEvent.luminosityBlock() ;
-    leptonTree_->rnd_       = rndgen_->fire()          ;
+    leptonTree_->rnd_       = rndm_                    ;
     leptonTree_->rho_       = rhoIso_                  ;
     leptonTree_->nvtx_      = vtx_h_->size()  ;
     leptonTree_->scale1fb_  = 1.0;
