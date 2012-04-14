@@ -26,8 +26,8 @@ leptonTreeMaker = cms.EDProducer('LeptonTreeMaker',
     pfJetCorrectorL1FastL2L3 = cms.string('ak5PFL1FastL2L3'),
 
     #this works for crab jobs, can be changed for local submission
-    #pathToBDTWeights = cms.string('src/Smurf/ProcessingAndSkimming/'),
-    pathToBDTWeights = cms.string('./'),
+    pathToBDTWeights = cms.string('src/Smurf/ProcessingAndSkimming/data/'),
+    #pathToBDTWeights = cms.string('./data/'),
 
     #
     # define triggers
@@ -52,8 +52,8 @@ leptonTreeMaker = cms.EDProducer('LeptonTreeMaker',
 
     electronFRTriggerNames = cms.untracked.VInputTag(
         cms.InputTag("HLT_Ele8_CaloIdL_CaloIsoVL_v*"),
-        cms.InputTag("HLT_Ele17_CaloIdL_CaloIsoVL_v8"),
-        cms.InputTag("HLT_Ele8_CaloIdL_CaloIsoVL_Jet40_v8")),
+        cms.InputTag("HLT_Ele17_CaloIdL_CaloIsoVL_v*"),
+        cms.InputTag("HLT_Ele8_CaloIdL_CaloIsoVL_Jet40_v*")),
 
     muonFRTriggerNames     = cms.untracked.VInputTag(
         cms.InputTag("HLT_Mu8_v*"),
@@ -71,24 +71,15 @@ leptonTreeMaker = cms.EDProducer('LeptonTreeMaker',
     # to measure in tag and probe 
     #
 
-    measureSingleEle    = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Ele27_WP80_v*')),
-    measureLeadingDoubleEle = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*:hltEle17TightIdLooseIsoEle8TightIdLooseIsoTrackIsoFilter')),
-    measureTrailingDoubleEle = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*:hltEle17TightIdLooseIsoEle8TightIdLooseIsoTrackIsoDoubleFilter')),
-    measureDoubleEleDZ = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*:hltEle17TightIdLooseIsoEle8TightIdLooseIsoTrackIsoDZ')),
+    measureSingleEle    = cms.untracked.VInputTag(),
+    measureLeadingDoubleEle = cms.untracked.VInputTag(),
+    measureTrailingDoubleEle = cms.untracked.VInputTag(),
+    measureDoubleEleDZ = cms.untracked.VInputTag(),
 
-    measureSingleMu24       = cms.untracked.VInputTag(
-        cms.InputTag('HLT_IsoMu24_eta2p1_v*')),
-    measureSingleMu30       = cms.untracked.VInputTag(
-        cms.InputTag('HLT_IsoMu30_eta2p1_v*')),
-    measureLeadingDoubleMu  = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Mu17_Mu8_v*:hltL3fL1DoubleMu10MuOpenL1f0L2f10L3Filtered17')),
-    measureTrailingDoubleMu = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Mu17_Mu8_v*:hltL3pfL1DoubleMu10MuOpenL1f0L2pf0L3PreFiltered8')),
-    measureDoubleMuDZ       = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Mu17_Mu8_v*:hltDiMuonMu17Mu8DzFiltered0p2')),
+    measureSingleMu24       = cms.untracked.VInputTag(),
+    measureSingleMu30       = cms.untracked.VInputTag(),
+    measureLeadingDoubleMu  = cms.untracked.VInputTag(),
+    measureTrailingDoubleMu = cms.untracked.VInputTag(),
+    measureDoubleMuDZ       = cms.untracked.VInputTag(),
 
 )

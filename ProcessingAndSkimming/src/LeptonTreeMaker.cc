@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.17 2012/04/13 17:06:46 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.18 2012/04/13 17:19:15 dlevans Exp $
 //
 //
 
@@ -277,37 +277,37 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
 
     electronIDMVA_ = new ElectronIDMVA();
     electronIDMVA_->Initialize("BDTG method",
-            pathToBDTWeights_+"/electronMVAWeights/Subdet0LowPt_WithIPInfo_BDTG.weights.xml",
-            pathToBDTWeights_+"/electronMVAWeights/Subdet1LowPt_WithIPInfo_BDTG.weights.xml",
-            pathToBDTWeights_+"/electronMVAWeights/Subdet2LowPt_WithIPInfo_BDTG.weights.xml",
-            pathToBDTWeights_+"/electronMVAWeights/Subdet0HighPt_WithIPInfo_BDTG.weights.xml",
-            pathToBDTWeights_+"/electronMVAWeights/Subdet1HighPt_WithIPInfo_BDTG.weights.xml",
-            pathToBDTWeights_+"/electronMVAWeights/Subdet2HighPt_WithIPInfo_BDTG.weights.xml",                
+            pathToBDTWeights_+"/ElectronMVAWeights/Subdet0LowPt_WithIPInfo_BDTG.weights.xml",
+            pathToBDTWeights_+"/ElectronMVAWeights/Subdet1LowPt_WithIPInfo_BDTG.weights.xml",
+            pathToBDTWeights_+"/ElectronMVAWeights/Subdet2LowPt_WithIPInfo_BDTG.weights.xml",
+            pathToBDTWeights_+"/ElectronMVAWeights/Subdet0HighPt_WithIPInfo_BDTG.weights.xml",
+            pathToBDTWeights_+"/ElectronMVAWeights/Subdet1HighPt_WithIPInfo_BDTG.weights.xml",
+            pathToBDTWeights_+"/ElectronMVAWeights/Subdet2HighPt_WithIPInfo_BDTG.weights.xml",                
             ElectronIDMVA::kWithIPInfo);
 
     electronIDIsoMVA_ = new ElectronIDMVA();
     electronIDIsoMVA_->Initialize("BDTG method",
-            pathToBDTWeights_+"/electronMVAWeights/Subdet0LowPt_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/electronMVAWeights/Subdet1LowPt_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/electronMVAWeights/Subdet2LowPt_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/electronMVAWeights/Subdet0HighPt_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/electronMVAWeights/Subdet1HighPt_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/electronMVAWeights/Subdet2HighPt_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/ElectronMVAWeights/Subdet0LowPt_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/ElectronMVAWeights/Subdet1LowPt_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/ElectronMVAWeights/Subdet2LowPt_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/ElectronMVAWeights/Subdet0HighPt_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/ElectronMVAWeights/Subdet1HighPt_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/ElectronMVAWeights/Subdet2HighPt_IDIsoCombined_BDTG.weights.xml",
             ElectronIDMVA::kIDIsoCombined);
 
     muonIDMVA_ = new MuonIDMVA();
     muonIDMVA_->Initialize("BDTG method", 
-            pathToBDTWeights_+"/muonMVAWeights/BarrelPtBin0_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/muonMVAWeights/EndcapPtBin0_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/muonMVAWeights/BarrelPtBin1_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/muonMVAWeights/EndcapPtBin1_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/muonMVAWeights/BarrelPtBin2_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/muonMVAWeights/EndcapPtBin2_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/MuonMVAWeights/BarrelPtBin0_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/MuonMVAWeights/EndcapPtBin0_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/MuonMVAWeights/BarrelPtBin1_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/MuonMVAWeights/EndcapPtBin1_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/MuonMVAWeights/BarrelPtBin2_IDIsoCombined_BDTG.weights.xml",
+            pathToBDTWeights_+"/MuonMVAWeights/EndcapPtBin2_IDIsoCombined_BDTG.weights.xml",
             MuonIDMVA::kIDIsoCombinedDetIso);
 
     egammaIDMVA_ = new ElectronMVAEstimator();
     egammaIDMVA_->initialize("BDTCat_BDTG_TrigV0",
-            pathToBDTWeights_+"/electronMVAWeights/Electrons_BDTGCat_TrigV0.weights.xml",
+            pathToBDTWeights_+"/Electrons_BDTGCat_TrigV0.weights.xml",
             ElectronMVAEstimator::kTrig);
 
 }

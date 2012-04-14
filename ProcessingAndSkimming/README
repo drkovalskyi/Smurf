@@ -1,10 +1,11 @@
 
 The following extra packages need to be checked out
+do this from CMSSW_x_y_z/src/
 
 cvs co HiggsAnalysis/HiggsToWW2Leptons/
-cvs co -d Smurf/ProcessingAndSkimming/electronMVAWeights UserCode/MitPhysics/data/ElectronMVAWeights/
-cvs co -d Smurf/ProcessingAndSkimming/muonMVAWeights UserCode/MitPhysics/data/MuonMVAWeights/
+cvs co -d Smurf/ProcessingAndSkimming/data/ElectronMVAWeights/ UserCode/MitPhysics/data/ElectronMVAWeights/
+cvs co -d Smurf/ProcessingAndSkimming/data/MuonMVAWeights/ UserCode/MitPhysics/data/MuonMVAWeights/
 cvs co -d EGamma/EGammaAnalysisTools UserCode/EGamma/EGammaAnalysisTools
 
-cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTGCat_TrigV0.weights.xml electronMVAWeights/
+cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTGCat_TrigV0.weights.xml Smurf/ProcessingAndSkimming/data/
 
