@@ -9,7 +9,7 @@ void merge() {
 " > merge.C
 
 for FILE in `ls $DIR | grep leptonTree`; do
-    echo $FILE
+#    echo $FILE
     echo "chain->Add(\"$DIR/${FILE}\");" >> merge.C
 done
 
@@ -17,5 +17,5 @@ echo "
 chain->Merge(\"$DIR/merged.root\", \"fast\");
 }" >> merge.C
 
-#root -b -q merge.C
+root -b -q merge.C
 
