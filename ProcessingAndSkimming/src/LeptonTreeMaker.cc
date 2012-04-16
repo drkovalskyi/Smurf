@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.19 2012/04/14 16:17:15 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.20 2012/04/14 20:45:25 dlevans Exp $
 //
 //
 
@@ -453,8 +453,8 @@ LeptonTreeMaker::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
     if (passMuonFRTrigger)      fillMuonFakeRateTree(iEvent, iSetup, ttBuilder, jetCorrector);
 
     // efficiency
-    if (passElectronTPTrigger)  fillElectronTagAndProbeTree(iEvent, ttBuilder, clusterTools);
-    if (passMuonTPTrigger)      fillMuonTagAndProbeTree(iEvent, ttBuilder);
+    if (passElectronTPTrigger || !iEvent.isRealData())  fillElectronTagAndProbeTree(iEvent, ttBuilder, clusterTools);
+    if (passMuonTPTrigger || !iEvent.isRealData())      fillMuonTagAndProbeTree(iEvent, ttBuilder);
 
     // photons
     if (passPhotonTrigger)      fillPhotonTree(iEvent, iSetup, jetCorrector);
@@ -570,7 +570,7 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent,
 
         // tag trigger matching
         // tag must pass tight leg...
-        if (!objectMatchTrigger(electronTPTriggerNames_, allObjects, tag->p4())) continue;
+        if (iEvent.isRealData() && !objectMatchTrigger(electronTPTriggerNames_, allObjects, tag->p4())) continue;
 
         for (unsigned int iprobe = 0; iprobe < nEle; ++iprobe) {
 
@@ -641,18 +641,20 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent,
             leptonTree_->pfnhiso_   = iso_nh;
             leptonTree_->pfaeff_    = smurfselections::GetEGammaEffectiveArea(probe->superCluster()->eta());
 
-            // single trigger
-            if (objectMatchTrigger(measureSingleEle_, allObjects, probe->p4()))
-                leptonTree_->leptonSelection_ |= LeptonTree::PassEleTrigSingleEle; 
-            // double trigger leading leg
-            if (objectMatchTrigger(measureLeadingDoubleEle_, allObjects, probe->p4()))
-                leptonTree_->leptonSelection_ |= LeptonTree::PassEleTrigDoubleEleLeadingLeg;
-            // double trigger trailing leg
-            if (objectMatchTrigger(measureTrailingDoubleEle_, allObjects, probe->p4()))
-                leptonTree_->leptonSelection_ |= LeptonTree::PassEleTrigDoubleEleTrailingLeg;
-            // double trigger dZ cut
-            if (objectMatchTrigger(measureDoubleEleDZ_,  allObjects, probe->p4()))
-                leptonTree_->leptonSelection_ |= LeptonTree::PassEleTrigDoubleEleDZ;
+            if (iEvent.isRealData()) {
+                // single trigger
+                if (objectMatchTrigger(measureSingleEle_, allObjects, probe->p4()))
+                    leptonTree_->leptonSelection_ |= LeptonTree::PassEleTrigSingleEle; 
+                // double trigger leading leg
+                if (objectMatchTrigger(measureLeadingDoubleEle_, allObjects, probe->p4()))
+                    leptonTree_->leptonSelection_ |= LeptonTree::PassEleTrigDoubleEleLeadingLeg;
+                // double trigger trailing leg
+                if (objectMatchTrigger(measureTrailingDoubleEle_, allObjects, probe->p4()))
+                    leptonTree_->leptonSelection_ |= LeptonTree::PassEleTrigDoubleEleTrailingLeg;
+                // double trigger dZ cut
+                if (objectMatchTrigger(measureDoubleEleDZ_,  allObjects, probe->p4()))
+                   leptonTree_->leptonSelection_ |= LeptonTree::PassEleTrigDoubleEleDZ;
+            }
 
             // fill the tree
             leptonTree_->tree_->Fill(); 
@@ -692,7 +694,7 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent,
 
         // tag trigger matching
         // tag must pass tight leg...
-        if (!objectMatchTrigger(muonTPTriggerNames_, allObjects, tag->p4())) continue;
+        if (iEvent.isRealData() && !objectMatchTrigger(muonTPTriggerNames_, allObjects, tag->p4())) continue;
 
         for (probe = muonCollection.begin(); probe != muonCollection.end(); ++probe) {
 
@@ -720,20 +722,22 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent,
             if (smurfselections::passMuonID2011(probe, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuID);
             if (smurfselections::passMuonIso2011(probe, pfCandCollection_, pv_)) leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIso);
 
-            // single trigger
-            if (objectMatchTrigger(measureSingleMu24_, allObjects, probe->p4()))
-                leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigSingleMu24;
-            if (objectMatchTrigger(measureSingleMu30_, allObjects, probe->p4()))
-                leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigSingleMu30;
-            // double trigger leading leg
-            if (objectMatchTrigger(measureLeadingDoubleMu_, allObjects, probe->p4()))
-                leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigDoubleMuLeadingLeg;
-            // double trigger trailing leg
-            if (objectMatchTrigger(measureTrailingDoubleMu_, allObjects, probe->p4()))
-                leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigDoubleMuTrailingLeg;
-            // double trigger dZ cut
-            if (objectMatchTrigger(measureDoubleMuDZ_,  allObjects, probe->p4()))
-                leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigDoubleMuDZ;
+            if (iEvent.isRealData()) {
+                // single trigger
+                if (objectMatchTrigger(measureSingleMu24_, allObjects, probe->p4()))
+                    leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigSingleMu24;
+                if (objectMatchTrigger(measureSingleMu30_, allObjects, probe->p4()))
+                    leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigSingleMu30;
+                // double trigger leading leg
+                if (objectMatchTrigger(measureLeadingDoubleMu_, allObjects, probe->p4()))
+                    leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigDoubleMuLeadingLeg;
+                // double trigger trailing leg
+                if (objectMatchTrigger(measureTrailingDoubleMu_, allObjects, probe->p4()))
+                    leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigDoubleMuTrailingLeg;
+                // double trigger dZ cut
+                if (objectMatchTrigger(measureDoubleMuDZ_,  allObjects, probe->p4()))
+                    leptonTree_->leptonSelection_ |= LeptonTree::PassMuTrigDoubleMuDZ;
+            }
 
             leptonTree_->tree_->Fill();
 
