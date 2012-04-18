@@ -143,7 +143,8 @@ float smurfselections::electronIsoValuePF(const reco::PFCandidateCollection &pfC
             //if either the gsf or the ctf track are shared with the candidate, skip it
             const reco::TrackRef pfTrack  = pf->trackRef();
             if (siTrack.isNonnull()  && pfTrack.isNonnull() && siTrack.key()==pfTrack.key()) continue;
-            if (pfid==11 && pf->gsfTrackRef().isNonnull()) {
+            //if (pfid==11 && pf->gsfTrackRef().isNonnull()) {  // SYNC 18/04/12
+            if (pf->gsfTrackRef().isNonnull()) {                // SYNC 18/04/12
                 if (gsfTrack.isNonnull() && gsfTrack.key()==pf->gsfTrackRef().key()) continue;
             } 
             //check electrons with gsf track
