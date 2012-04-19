@@ -114,19 +114,22 @@ trigger::TriggerObjectCollection smurfutilities::GetTriggerObjects(const std::st
 
 }
 
-bool smurfutilities::MatchTriggerObject(const std::string triggerName, const std::string filterName,
+unsigned int smurfutilities::MatchTriggerObject(const edm::Event &iEvent, const edm::EventSetup &iSetup,
+        const std::string triggerName, const std::string filterName,
         const std::string processName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
         const trigger::TriggerEvent *triggerEvent,
         const trigger::TriggerObjectCollection &allObjects,
         const LorentzVector &offlineObject)
 {
 
+    unsigned int prescale = 0;
+
     // loop on triggers
     for (unsigned int i = 0; i < hltConfig.size(); i++) {
 
         // does this trigger pass
         if(!triggerResults->accept(i)) continue;
-
+        
         // get name of ith trigger
         TString hltTrigName(hltConfig.triggerName(i));
         hltTrigName.ToLower();
@@ -158,14 +161,17 @@ bool smurfutilities::MatchTriggerObject(const std::string triggerName, const std
                 const trigger::Keys &keys = triggerEvent->filterKeys(filterIndex);
                 for (size_t j = 0; j < keys.size(); j++) {
                     trigger::TriggerObject foundObject = allObjects[keys[j]];
-                    if (deltaR(foundObject.eta(), foundObject.phi(), offlineObject.eta(), offlineObject.phi()) < 0.2)
-                        return true;
+                    if (deltaR(foundObject.eta(), foundObject.phi(), offlineObject.eta(), offlineObject.phi()) < 0.2) {
+                         prescale = hltConfig.prescaleValue(iEvent, iSetup, hltConfig.triggerName(i));
+                         return prescale;
+                    }
                 }
             }
         }
     }
 
-    return false;
+    assert(prescale == 0);
+    return prescale;
 
 }
 

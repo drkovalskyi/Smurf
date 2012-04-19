@@ -35,14 +35,6 @@ leptonTreeMaker2011 = leptonTreeMaker.clone()
 
 # For 2012
 leptonTreeMaker2012 = leptonTreeMaker.clone()
-leptonTreeMaker2012.electronTPTriggerNames = cms.untracked.VInputTag(
-        cms.InputTag("HLT_Ele17_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_Ele8_Mass50_v*:hltEle17CaloIdVTCaloIsoVTTrkIdTTrkIsoVTEle8TrackIsoFilter"),
-        cms.InputTag("HLT_Ele20_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_SC4_Mass50_v*:hltEle20CaloIdVTCaloIsoVTTrkIdTTrkIsoVTSC4TrackIsoFilter"),
-        cms.InputTag("HLT_Ele32_CaloIdT_CaloIsoT_TrkIdT_TrkIsoT_SC17_Mass50_v*:hltEle32CaloIdTCaloIsoTTrkIdTTrkIsoTSC17TrackIsoFilter"),
-        cms.InputTag("HLT_Ele27_WP80_v*"))
-leptonTreeMaker2012.muonTPTriggerNames     = cms.untracked.VInputTag(
-        cms.InputTag("HLT_IsoMu17_Mu8_v*"),
-        cms.InputTag("HLT_IsoMu24_eta2p1_v*"))
 leptonTreeMaker2012.electronFRTriggerNames = cms.untracked.VInputTag(       
         cms.InputTag("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_v*"),
         cms.InputTag("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*"),
@@ -57,25 +49,52 @@ leptonTreeMaker2012.photonTriggerNames     = cms.untracked.VInputTag(
         cms.InputTag("HLT_Photon50_R9Id90_HE10_Iso40_EBOnly_v*"),
         cms.InputTag("HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_v*"),
         cms.InputTag("HLT_Photon90_R9Id90_HE10_Iso40_EBOnly_v*"))
-leptonTreeMaker2012.measureSingleEle    = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Ele27_WP80_v*'))
-leptonTreeMaker2012.measureLeadingDoubleEle = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*:hltEle17TightIdLooseIsoEle8TightIdLooseIsoTrackIsoFilter'))
-leptonTreeMaker2012.measureTrailingDoubleEle = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*:hltEle17TightIdLooseIsoEle8TightIdLooseIsoTrackIsoDoubleFilter'))
-leptonTreeMaker2012.measureDoubleEleDZ = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*:hltEle17TightIdLooseIsoEle8TightIdLooseIsoTrackIsoDZ'))
-leptonTreeMaker2012.measureSingleMu24       = cms.untracked.VInputTag(
-        cms.InputTag('HLT_IsoMu24_eta2p1_v*'))
-leptonTreeMaker2012.measureSingleMu30       = cms.untracked.VInputTag(
-        cms.InputTag('HLT_IsoMu30_eta2p1_v*'))
-leptonTreeMaker2012.measureLeadingDoubleMu  = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Mu17_Mu8_v*:hltL3fL1DoubleMu10MuOpenL1f0L2f10L3Filtered17'))
-leptonTreeMaker2012.measureTrailingDoubleMu = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Mu17_Mu8_v*:hltL3pfL1DoubleMu10MuOpenL1f0L2pf0L3PreFiltered8'))
-leptonTreeMaker2012.measureDoubleMuDZ       = cms.untracked.VInputTag(
-        cms.InputTag('HLT_Mu17_Mu8_v*:hltDiMuonMu17Mu8DzFiltered0p2'))
 
+leptonTreeMaker2012.muTriggers     = cms.untracked.VInputTag(
+
+        # HLT_Mu17_Mu8_v*
+        cms.InputTag('HLT_Mu17_Mu8_v*:hltL1sL1DoubleMu10MuOpen:HLT_Mu17_Mu8_L1sL1DoubleMu10MuOpen'),
+        cms.InputTag('HLT_Mu17_Mu8_v*:hltL3pfL1DoubleMu10MuOpenL1f0L2pf0L3PreFiltered8:HLT_Mu17_Mu8_TrailingLeg'),
+        cms.InputTag('HLT_Mu17_Mu8_v*:hltL3fL1DoubleMu10MuOpenL1f0L2f10L3Filtered17:HLT_Mu17_Mu8_LeadingLeg'),
+        cms.InputTag('HLT_Mu17_Mu8_v*::HLT_Mu17_Mu8'),
+
+        # HLT_Mu17_TkMu8_v*
+        cms.InputTag('HLT_Mu17_TkMu8_v*:hltL2fL1sDoubleMu10MuOpenL1f0L2Filtered10:HLT_Mu17_TkMu8_TrailingLeg'),
+        cms.InputTag('HLT_Mu17_TkMu8_v*:hltL3fL1sMu10MuOpenL1f0L2f10L3Filtered17:HLT_Mu17_TkMu8_LeadingLeg'),
+        cms.InputTag('HLT_Mu17_TkMu8_v*:hltDiMuonGlbFiltered17TrkFiltered8:HLT_Mu17_TkMu8_TrailingLegTrkFiltered'),
+        cms.InputTag('HLT_Mu17_TkMu8_v*::HLT_Mu17_TkMu8'),
+
+        # HLT_IsoMu24_eta2p1_v*
+        cms.InputTag('HLT_IsoMu24_eta2p1_v*:hltL1sMu16Eta2p1:HLT_IsoMu24_eta2p1_L1sMu16Eta2p1'),
+        cms.InputTag('HLT_IsoMu24_eta2p1_v*::HLT_IsoMu24_eta2p1')
+
+)
+
+leptonTreeMaker2012.eleTriggers     = cms.untracked.VInputTag(
+
+        # HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*
+        cms.InputTag('HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*:hltL1sL1DoubleEG137:HLT_Ele17_Ele8_L1sL1DoubleEG137'),
+        cms.InputTag('HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*:hltEle17TightIdLooseIsoEle8TightIdLooseIsoTrackIsoFilter:HLT_Ele17_Ele8_LeadingLeg'),
+        cms.InputTag('HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*:hltEle17TightIdLooseIsoEle8TightIdLooseIsoTrackIsoDoubleFilter:HLT_Ele17_Ele8_TrailingLeg'),
+        cms.InputTag('HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*::HLT_Ele17_Ele8'),
+
+        # HLT_Ele27_WP80_v*
+        cms.InputTag('HLT_Ele27_WP80_v*:hltL1sL1SingleEG20ORL1SingleEG22:HLT_Ele27_WP80_L1sL1SingleEG20ORL1SingleEG22'),
+        cms.InputTag('HLT_Ele27_WP80_v*::HLT_Ele27_WP80'),
+
+        # HLT_Ele17_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_Ele8_Mass50_v*
+        cms.InputTag('HLT_Ele17_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_Ele8_Mass50_v*:hltEle17CaloIdVTCaloIsoVTTrkIdTTrkIsoVTEle8TrackIsoFilter:HLT_Ele17_Ele8_Mass50_LeadingLeg'),
+        cms.InputTag('HLT_Ele17_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_Ele8_Mass50_v*:hltEle17CaloIdVTCaloIsoVTTrkIdTTrkIsoVTEle8PMMassFilter:HLT_Ele17_Ele8_Mass50_TrailingLeg'),
+
+        # HLT_Ele20_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_SC4_Mass50_v*
+        cms.InputTag('HLT_Ele20_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_SC4_Mass50_v*:hltEle20CaloIdVTCaloIsoVTTrkIdTTrkIsoVTSC4TrackIsoFilter:HLT_Ele20_SC4_Mass50_LeadingLeg'),
+        cms.InputTag('HLT_Ele20_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_SC4_Mass50_v*:hltEle20CaloIdVTCaloIsoVTTrkIdTTrkIsoVTSC4PMMassFilter:HLT_Ele20_SC4_Mass50_TrailingLeg'),
+
+        # HLT_Ele32_CaloIdT_CaloIsoT_TrkIdT_TrkIsoT_SC17_Mass50_v3
+        cms.InputTag('HLT_Ele32_CaloIdT_CaloIsoT_TrkIdT_TrkIsoT_SC17_Mass50_v*:hltEle32CaloIdTCaloIsoTTrkIdTTrkIsoTSC17TrackIsoFilter:HLT_Ele32_SC17_Mass50_LeadingLeg'),
+        cms.InputTag('HLT_Ele32_CaloIdT_CaloIsoT_TrkIdT_TrkIsoT_SC17_Mass50_v*:hltEle32CaloIdTCaloIsoTTrkIdTTrkIsoTSC17PMMassFilter:HLT_Ele32_SC17_Mass50_TrailingLeg')
+
+)
 
 #
 # filters

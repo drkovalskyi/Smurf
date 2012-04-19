@@ -34,22 +34,6 @@ leptonTreeMaker = cms.EDProducer('LeptonTreeMaker',
     # used to select events
     #
 
-    electronTPTriggerNames = cms.untracked.VInputTag( 
-        cms.InputTag("HLT_Ele17_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_SC8_Mass30_v*:hltEle17CaloIdVTCaloIsoVTTrkIdTTrkIsoVTSC8TrackIsolFilter"),
-        cms.InputTag("HLT_Ele17_CaloIdVT_CaloIsoVT_TrkIdT_TrkIsoVT_Ele8_Mass30_v*:hltEle17CaloIdVTCaloIsoVTTrkIdTTrkIsoVTEle8TrackIsolFilter"),
-        cms.InputTag("HLT_Ele32_CaloIdT_CaloIsoT_TrkIdT_TrkIsoT_SC17_v*:hltEle32CaloIdTCaloIsoTTrkIdTTrkIsoTSC17TrackIsolFilter")),
-
-    muonTPTriggerNames     = cms.untracked.VInputTag(
-        cms.InputTag("HLT_Mu15_v*"),
-        cms.InputTag("HLT_Mu24_v*"),
-        cms.InputTag("HLT_Mu30_v*"),
-        cms.InputTag("HLT_Mu40_v*"),
-        cms.InputTag("HLT_Mu40_eta2p1_v*"),
-        cms.InputTag("HLT_IsoMu17_v*"),
-        cms.InputTag("HLT_IsoMu17_eta2p1_v*"),
-        cms.InputTag("HLT_IsoMu24_v*"),
-        cms.InputTag("HLT_IsoMu30_eta2p1_v*")),
-
     electronFRTriggerNames = cms.untracked.VInputTag(
         cms.InputTag("HLT_Ele8_CaloIdL_CaloIsoVL_v*"),
         cms.InputTag("HLT_Ele17_CaloIdL_CaloIsoVL_v*"),
@@ -71,15 +55,7 @@ leptonTreeMaker = cms.EDProducer('LeptonTreeMaker',
     # to measure in tag and probe 
     #
 
-    measureSingleEle    = cms.untracked.VInputTag(),
-    measureLeadingDoubleEle = cms.untracked.VInputTag(),
-    measureTrailingDoubleEle = cms.untracked.VInputTag(),
-    measureDoubleEleDZ = cms.untracked.VInputTag(),
-
-    measureSingleMu24       = cms.untracked.VInputTag(),
-    measureSingleMu30       = cms.untracked.VInputTag(),
-    measureLeadingDoubleMu  = cms.untracked.VInputTag(),
-    measureTrailingDoubleMu = cms.untracked.VInputTag(),
-    measureDoubleMuDZ       = cms.untracked.VInputTag(),
+    muTriggers      = cms.untracked.VInputTag(),
+    eleTriggers     = cms.untracked.VInputTag(),
 
 )

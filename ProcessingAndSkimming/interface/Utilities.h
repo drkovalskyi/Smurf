@@ -34,7 +34,9 @@ trigger::TriggerObjectCollection GetTriggerObjects(const std::string triggerName
         const trigger::TriggerObjectCollection &allObjects);
 
 // does trigger object match offline object
-bool MatchTriggerObject(const std::string triggerName, const std::string filterName,
+// prescale is returned - 0 if no match.
+unsigned int MatchTriggerObject(const edm::Event &iEvent, const edm::EventSetup &iSetup,
+        const std::string triggerName, const std::string filterName,
         const std::string processName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
         const trigger::TriggerEvent *triggerEvent,
         const trigger::TriggerObjectCollection &allObjects,
