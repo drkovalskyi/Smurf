@@ -38,11 +38,11 @@ class LeptonTree {
             PassEleTrigSingleEle            = 1UL<<8,  // 
             PassEleTrigMuEGEleLeadingLeg    = 1UL<<9,  // 
             PassEleTrigMuEGEleTrailingLeg   = 1UL<<10,  // 
-            PassMuCTFTrack                  = 1UL<<11, // 
-            PassMuGlobalOrTrackerMuon       = 1UL<<12, // 
-            PassMuFO                        = 1UL<<13, //
-            PassMuID                        = 1UL<<14, //
-            PassMuIso                       = 1UL<<15, //
+            PassMuCTFTrack                  = 1UL<<11,  // 
+            PassMuGlobalOrTrackerMuon       = 1UL<<12,  // 
+            PassMuFO                        = 1UL<<13,  //
+            PassMuID                        = 1UL<<14,  //
+            PassMuIso                       = 1UL<<15,  //
             PassMuTrigDoubleMuLeadingLeg    = 1UL<<16,  // 
             PassMuTrigDoubleMuTrailingLeg   = 1UL<<17,  // 
             PassMuTrigDoubleMuDZ            = 1UL<<18,  // 
@@ -100,8 +100,8 @@ class LeptonTree {
         float          tagAndProbeMass_;
         LorentzVector  tag_;
         LorentzVector  probe_;
-        float          qTag_;
-        float          qProbe_;
+        unsigned int   qTag_;
+        unsigned int   qProbe_;
         float          scale1fb_;
         LorentzVector  jet1_;
         LorentzVector  jet2_;
@@ -208,8 +208,8 @@ class LeptonTree {
             tree_->Branch("tagAndProbeMass"  , &tagAndProbeMass_  ,   "tagAndProbeMass/F");
             tree_->Branch("tag"              , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &tagPtr_);
             tree_->Branch("probe"            , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &probePtr_);
-            tree_->Branch("qTag"             , &qTag_             ,   "qTag/F");
-            tree_->Branch("qProbe"           , &qProbe_           ,   "qProbe/F");
+            tree_->Branch("qTag"             , &qTag_             ,   "qTag/i");
+            tree_->Branch("qProbe"           , &qProbe_           ,   "qProbe/i");
             tree_->Branch("scale1fb"         , &scale1fb_         ,   "scale1fb/F");
             tree_->Branch("jet1"             , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet1_);
             tree_->Branch("jet2"             , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet2_);
