@@ -5,7 +5,7 @@ use_server = 1
 
 [CMSSW]
 datasetpath             = /DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/Summer12-PU_S7_START52_V5-v1/AODSIM
-pset                    = ../test/electrontreemaker_MC2012_cfg.py
+pset                    = ../test/leptontreemaker_MC2012_cfg.py
 number_of_jobs          = 10
 total_number_of_events  = -1
 output_file             = leptonTree.root
