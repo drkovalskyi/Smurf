@@ -222,6 +222,7 @@ class SmurfTree {
   LorentzVector  jet1_;
   float          jet1Btag_;
   float          jet1ProbBtag_;
+  float          jet1Dz_;
   LorentzVector  jet2_;
   float          jet2Btag_;
   float          jet2ProbBtag_;
@@ -370,6 +371,7 @@ class SmurfTree {
     tree_->Branch("jet1"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr1_);
     tree_->Branch("jet1Btag"     , &jet1Btag_     ,   "jet1Btag/F");
     tree_->Branch("jet1ProbBtag" , &jet1ProbBtag_ ,   "jet1ProbBtag/F");
+    tree_->Branch("jet1Dz"       , &jet1Dz_       ,   "jet1Dz/F");
     tree_->Branch("jet2"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr2_);
     tree_->Branch("jet2Btag"     , &jet2Btag_     ,   "jet2Btag/F");
     tree_->Branch("jet2ProbBtag" , &jet2ProbBtag_ ,   "jet2ProbBtag/F");
@@ -480,6 +482,7 @@ class SmurfTree {
     tree_->SetBranchAddress("jet1",          &jetPtr1_);
     tree_->SetBranchAddress("jet1Btag",      &jet1Btag_);
     tree_->SetBranchAddress("jet1ProbBtag",  &jet1ProbBtag_);
+    tree_->SetBranchAddress("jet1Dz",        &jet1Dz_);
     tree_->SetBranchAddress("jet2",          &jetPtr2_);
     tree_->SetBranchAddress("jet2Btag",      &jet2Btag_);
     tree_->SetBranchAddress("jet2ProbBtag",  &jet2ProbBtag_);
@@ -662,6 +665,7 @@ SmurfTree::InitVariables(){
     variables_.push_back(std::string("lmva2"         ));
     variables_.push_back(std::string("jet1Btag"      ));
     variables_.push_back(std::string("jet1ProbBtag"  ));
+    variables_.push_back(std::string("jet1Dz"        ));
     variables_.push_back(std::string("jet2Btag"      ));
     variables_.push_back(std::string("jet2ProbBtag"  ));
     variables_.push_back(std::string("njets"         ));
@@ -715,6 +719,7 @@ SmurfTree::InitVariables(){
   lmva2_         = 0.0;
   jet1Btag_      = -999.;
   jet1ProbBtag_  = -999.;
+  jet1Dz_        = 0.;
   jet2Btag_      = -999.;
   jet2ProbBtag_  = -999.;
   njets_         = 0;
@@ -817,6 +822,7 @@ SmurfTree::Get(std::string value)
   if(value=="lmva2"         ) { return this->lmva2_;	     }
   if(value=="jet1Btag"      ) { return this->jet1Btag_;      }
   if(value=="jet1ProbBtag"  ) { return this->jet1ProbBtag_;  }
+  if(value=="jet1Dz"        ) { return this->jet1Dz_;        }
   if(value=="jet2Btag"      ) { return this->jet2Btag_;      }
   if(value=="jet2ProbBtag"  ) { return this->jet2ProbBtag_;  }
   if(value=="njets"         ) { return this->njets_;	     }
