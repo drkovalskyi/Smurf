@@ -100,8 +100,8 @@ class LeptonTree {
         float          tagAndProbeMass_;
         LorentzVector  tag_;
         LorentzVector  probe_;
-        unsigned int   qTag_;
-        unsigned int   qProbe_;
+        int   qTag_;
+        int   qProbe_;
         float          scale1fb_;
         LorentzVector  jet1_;
         LorentzVector  jet2_;
@@ -208,8 +208,8 @@ class LeptonTree {
             tree_->Branch("tagAndProbeMass"  , &tagAndProbeMass_  ,   "tagAndProbeMass/F");
             tree_->Branch("tag"              , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &tagPtr_);
             tree_->Branch("probe"            , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &probePtr_);
-            tree_->Branch("qTag"             , &qTag_             ,   "qTag/i");
-            tree_->Branch("qProbe"           , &qProbe_           ,   "qProbe/i");
+            tree_->Branch("qTag"             , &qTag_             ,   "qTag/I");
+            tree_->Branch("qProbe"           , &qProbe_           ,   "qProbe/I");
             tree_->Branch("scale1fb"         , &scale1fb_         ,   "scale1fb/F");
             tree_->Branch("jet1"             , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet1_);
             tree_->Branch("jet2"             , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet2_);
@@ -427,8 +427,8 @@ LeptonTree::InitVariables(){
     tagAndProbeMass_      = -999;
     tag_                  = LorentzVector();
     probe_                = LorentzVector();
-    qTag_                 = -999;
-    qProbe_               = -999;
+    qTag_                 = 0;
+    qProbe_               = 0;
     scale1fb_             = 0;
     jet1_                 = LorentzVector();
     jet2_                 = LorentzVector();
