@@ -34,9 +34,12 @@ const double top_expected = 121.6;
 const double top_uncertainty = 23.4;
 const double wjets_expected = 58.3+19.8;
 const double wjets_uncertainty = sqrt(21.3*21.3+5.7*5.7);
-const double vz_expected = 29.1;
-const double vz_uncertainty = 2.2;
-// Where should I put DY?
+const double wz_expected = 18.5;
+const double wz_uncertainty = 1.9;
+const double zz_expected = 10.6;
+const double zz_uncertainty = 1.0;
+const double dy_expected = 11.7;
+const double dy_uncertainty = 6.8;
 
 const unsigned int Nbins = 18;
 const double minPt = 20;
@@ -59,19 +62,21 @@ RooRealVar* n_top;
 RooRealVar* n_wjets;
 RooRealVar* n_wz;
 RooRealVar* n_zz;
+RooRealVar* n_dy;
 
-RooATGCPdf* pdf;
+RooATGCPdf* atgcPdf;
 RooAbsPdf*  pdf_bkg;
 RooDataSet* glb_data;
 RooAbsPdf*  cpdf;
 RooAbsPdf*  cSigPdf;
 RooAbsPdf*  cBkgPdf;
 
-RooGaussian* n_ww_con;
-RooGaussian* n_top_con;
-RooGaussian* n_wjets_con;
-RooGaussian* n_wz_con;
-RooGaussian* n_zz_con;
+RooAbsPdf* n_ww_con;
+RooAbsPdf* n_top_con;
+RooAbsPdf* n_wjets_con;
+RooAbsPdf* n_wz_con;
+RooAbsPdf* n_zz_con;
+RooAbsPdf* n_dy_con;
 
 class Sample{
   std::string m_file_name; // root file that contains reference point dataset
@@ -210,12 +215,14 @@ RooAbsPdf* MakePdfFromDataset(RooDataSet* data, RooAbsReal* variable){
   return outPdf;
 }
 
-void DrawPdf(RooAbsPdf* ipdf, const char* iname, const char* title){
+void DrawPdf(RooAbsPdf* ipdf, const char* iname, const char* title, EColor color = kYellow){
   std::string name(Form("h_%s",iname));
   TH1* hpdf = ipdf->createHistogram(name.c_str(),*var_pt1);
   hpdf->SetTitle(iname);
   hpdf->GetXaxis()->SetTitle(title);
   hpdf->Scale(hpdf->Integral());
+  hpdf->SetFillColor(color);
+  hpdf->SetLineWidth(2);
   hpdf->Draw();
 }
 
@@ -242,20 +249,17 @@ void setDefaults()
   n_ww    = new RooRealVar("n_ww","n_ww",       ww_expected, ww_expected/2, ww_expected*2);
   n_top   = new RooRealVar("n_top","n_top",     top_expected, top_expected/4, top_expected*4);
   n_wjets = new RooRealVar("n_wjets","n_wjets", wjets_expected, wjets_expected/4, wjets_expected*4);
-  n_wz    = new RooRealVar("n_wz","n_wz",       vz_expected, vz_expected/4, vz_expected*4);
-  n_zz    = new RooRealVar("n_zz","n_zz", 0, 0, 1E+3);
+  n_wz    = new RooRealVar("n_wz","n_wz",       wz_expected, wz_expected/4, wz_expected*4);
+  n_zz    = new RooRealVar("n_zz","n_zz",       zz_expected, zz_expected/4, zz_expected*4);
+  n_dy    = new RooRealVar("n_dy","n_dy",       dy_expected, dy_expected/4, dy_expected*4);
 
+  n_ww_con    = new RooGaussian("n_ww_con",    "WW uncertainty",    *n_ww,    RooFit::RooConst(ww_expected),RooFit::RooConst(ww_uncertainty));
+  n_top_con   = new RooGaussian("n_top_con",   "Top uncertainty",   *n_top,   RooFit::RooConst(top_expected),RooFit::RooConst(top_uncertainty));
+  n_wjets_con = new RooGaussian("n_wjets_con", "Wjets uncertainty", *n_wjets, RooFit::RooConst(wjets_expected),RooFit::RooConst(wjets_uncertainty));
+  n_wz_con    = new RooGaussian("n_wz_con",    "WZ uncertainty",    *n_wz,    RooFit::RooConst(wz_expected),RooFit::RooConst(wz_uncertainty));
+  n_zz_con    = new RooGaussian("n_zz_con",    "ZZ uncertainty",    *n_zz,    RooFit::RooConst(zz_expected),RooFit::RooConst(zz_uncertainty));
+  n_dy_con    = new RooGaussian("n_dy_con",    "DY uncertainty",    *n_dy,    RooFit::RooConst(dy_expected),RooFit::RooConst(dy_uncertainty));
 
-  n_ww_con    = new RooGaussian("n_ww_con",    "WW uncertainty",    *n_ww,    
-				RooFit::RooConst(ww_expected),RooFit::RooConst(ww_uncertainty));
-  n_top_con   = new RooGaussian("n_top_con",   "Top uncertainty",   *n_top,   
-				RooFit::RooConst(top_expected),RooFit::RooConst(top_uncertainty));
-  n_wjets_con = new RooGaussian("n_wjets_con", "Wjets uncertainty", *n_wjets, 
-				RooFit::RooConst(wjets_expected),RooFit::RooConst(wjets_uncertainty));
-  n_wz_con    = new RooGaussian("n_wz_con",    "WZ uncertainty",    *n_wz,    
-				RooFit::RooConst(vz_expected),RooFit::RooConst(vz_uncertainty));
-  n_zz_con    = new RooGaussian("n_zz_con",    "ZZ uncertainty",    *n_zz,   
-				RooFit::RooConst(0.10),RooFit::RooConst(0.01));
 }
 
 void setSigPdf_LZ_GZ()
@@ -267,8 +271,8 @@ void setSigPdf_LZ_GZ()
   TCanvas* c1 = new TCanvas("c1","c1",800,800);
   c1->Divide(3,3);
 
-  pdf = new RooATGCPdf("pdf", "pdf", *var_pt1, *n_ww, *x_par, *y_par);
-  cSigPdf = new RooProdPdf("cSigPdf","model with constraint",RooArgSet(*pdf,*n_ww_con)) ;
+  atgcPdf = new RooATGCPdf("pdf", "pdf", *var_pt1, *n_ww, *x_par, *y_par);
+  cSigPdf = new RooProdPdf("cSigPdf","model with constraint",RooArgSet(*atgcPdf,*n_ww_con)) ;
   
   Int_t i=0;
   c1->cd(i+1);
@@ -277,7 +281,7 @@ void setSigPdf_LZ_GZ()
 		      "sm_sm",0,0);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*3.09163, norm*0.0547394), 
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*3.09163, norm*0.0547394), 
 		samples[i].hist_keys());
   i++;			    
 
@@ -287,7 +291,7 @@ void setSigPdf_LZ_GZ()
 		      "sm_p",0,0.75);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.12261, 0.112729*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.12261, 0.112729*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -297,7 +301,7 @@ void setSigPdf_LZ_GZ()
 		      "sm_m",0,-0.75);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.01277, 0.112194*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.01277, 0.112194*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -307,7 +311,7 @@ void setSigPdf_LZ_GZ()
 		      "p_sm", 0.5, 0);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.53635, 0.103594*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.53635, 0.103594*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -317,7 +321,7 @@ void setSigPdf_LZ_GZ()
 		      "p_p",0.5,0.75);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.43854, 0.178215*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.43854, 0.178215*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -327,7 +331,7 @@ void setSigPdf_LZ_GZ()
 		      "p_m",0.5,-0.75);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*7.22219, 0.13752*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*7.22219, 0.13752*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -337,7 +341,7 @@ void setSigPdf_LZ_GZ()
 		      "m_sm",-0.5,0);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.20204, 0.0981948*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.20204, 0.0981948*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -347,7 +351,7 @@ void setSigPdf_LZ_GZ()
 		      "m_p",-0.5,0.75);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.89533, 0.131155*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.89533, 0.131155*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -357,14 +361,14 @@ void setSigPdf_LZ_GZ()
 		      "m_m",-0.5,-0.75);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.72764, 0.183288*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.72764, 0.183288*norm),
 		samples[i].hist_keys());
   i++;			    
-  pdf->build();
+  atgcPdf->build();
   
   c1->cd(1);
   x_par->setVal(0); y_par->setVal(0);
-  TH1* h_sm_sm = pdf->createHistogram("h_sm_sm",*var_pt1);
+  TH1* h_sm_sm = atgcPdf->createHistogram("h_sm_sm",*var_pt1);
   h_sm_sm->SetLineColor(kBlue);
   h_sm_sm->Scale(h_sm_sm->Integral());
   h_sm_sm->SetStats(kFALSE);
@@ -372,7 +376,7 @@ void setSigPdf_LZ_GZ()
 
   c1->cd(2);
   x_par->setVal(0); y_par->setVal(0.75);
-  TH1* h_sm_p = pdf->createHistogram("h_sm_p",*var_pt1);
+  TH1* h_sm_p = atgcPdf->createHistogram("h_sm_p",*var_pt1);
   h_sm_p->SetLineColor(kBlue);
   h_sm_p->Scale(h_sm_p->Integral());
   h_sm_p->SetStats(kFALSE);
@@ -380,7 +384,7 @@ void setSigPdf_LZ_GZ()
 
   c1->cd(3);
   x_par->setVal(0); y_par->setVal(-0.75);
-  TH1* h_sm_m = pdf->createHistogram("h_sm_m",*var_pt1);
+  TH1* h_sm_m = atgcPdf->createHistogram("h_sm_m",*var_pt1);
   h_sm_m->SetLineColor(kBlue);
   h_sm_m->Scale(h_sm_m->Integral());
   h_sm_m->SetStats(kFALSE);
@@ -388,7 +392,7 @@ void setSigPdf_LZ_GZ()
 
   c1->cd(4);
   x_par->setVal(0.5); y_par->setVal(0);
-  TH1* h_p_sm = pdf->createHistogram("h_p_sm",*var_pt1);
+  TH1* h_p_sm = atgcPdf->createHistogram("h_p_sm",*var_pt1);
   h_p_sm->SetLineColor(kBlue);
   h_p_sm->Scale(h_p_sm->Integral());
   h_p_sm->SetStats(kFALSE);
@@ -396,7 +400,7 @@ void setSigPdf_LZ_GZ()
 
   c1->cd(5);
   x_par->setVal(0.5); y_par->setVal(0.75);
-  TH1* h_p_p = pdf->createHistogram("h_p_p",*var_pt1);
+  TH1* h_p_p = atgcPdf->createHistogram("h_p_p",*var_pt1);
   h_p_p->SetLineColor(kBlue);
   h_p_p->Scale(h_p_p->Integral());
   h_p_p->SetStats(kFALSE);
@@ -404,7 +408,7 @@ void setSigPdf_LZ_GZ()
 
   c1->cd(6);
   x_par->setVal(0.5); y_par->setVal(-0.75);
-  TH1* h_p_m = pdf->createHistogram("h_p_m",*var_pt1);
+  TH1* h_p_m = atgcPdf->createHistogram("h_p_m",*var_pt1);
   h_p_m->SetLineColor(kBlue);
   h_p_m->Scale(h_p_m->Integral());
   h_p_m->SetStats(kFALSE);
@@ -412,7 +416,7 @@ void setSigPdf_LZ_GZ()
 
   c1->cd(7);
   x_par->setVal(-0.5); y_par->setVal(0);
-  TH1* h_m_sm = pdf->createHistogram("h_m_sm",*var_pt1);
+  TH1* h_m_sm = atgcPdf->createHistogram("h_m_sm",*var_pt1);
   h_m_sm->SetLineColor(kBlue);
   h_m_sm->Scale(h_m_sm->Integral());
   h_m_sm->SetStats(kFALSE);
@@ -420,7 +424,7 @@ void setSigPdf_LZ_GZ()
 
   c1->cd(8);
   x_par->setVal(-0.5); y_par->setVal(0.75);
-  TH1* h_m_p = pdf->createHistogram("h_m_p",*var_pt1);
+  TH1* h_m_p = atgcPdf->createHistogram("h_m_p",*var_pt1);
   h_m_p->SetLineColor(kBlue);
   h_m_p->Scale(h_m_p->Integral());
   h_m_p->SetStats(kFALSE);
@@ -428,7 +432,7 @@ void setSigPdf_LZ_GZ()
   
   c1->cd(9);
   x_par->setVal(-0.5); y_par->setVal(-0.75);
-  TH1* h_m_m = pdf->createHistogram("h_m_m",*var_pt1);
+  TH1* h_m_m = atgcPdf->createHistogram("h_m_m",*var_pt1);
   h_m_m->SetLineColor(kBlue);
   h_m_m->Scale(h_m_m->Integral());
   h_m_m->SetStats(kFALSE);
@@ -445,8 +449,8 @@ void setSigPdf_LZ_KG()
   TCanvas* c1 = new TCanvas("c1","c1",800,800);
   c1->Divide(3,3);
 
-  pdf = new RooATGCPdf("pdf", "pdf", *var_pt1, *n_ww, *x_par, *y_par);
-  cSigPdf = new RooProdPdf("cSigPdf","model with constraint",RooArgSet(*pdf,*n_ww_con)) ;
+  atgcPdf = new RooATGCPdf("pdf", "pdf", *var_pt1, *n_ww, *x_par, *y_par);
+  cSigPdf = new RooProdPdf("cSigPdf","model with constraint",RooArgSet(*atgcPdf,*n_ww_con)) ;
   
   Int_t i=0;
   c1->cd(i+1);
@@ -455,7 +459,7 @@ void setSigPdf_LZ_KG()
 		      "sm_sm",0,0);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*547.541, norm*1.947), 
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*547.541, norm*1.947), 
 		samples[i].hist_keys());
   i++;			    
 
@@ -465,7 +469,7 @@ void setSigPdf_LZ_KG()
 		      "sm_p",0,0.70);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*617.147, 1.604*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*617.147, 1.604*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -475,7 +479,7 @@ void setSigPdf_LZ_KG()
 		      "sm_m",0,-0.70);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*633.939 , 1.671*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*633.939 , 1.671*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -485,7 +489,7 @@ void setSigPdf_LZ_KG()
 		      "p_sm", 0.5, 0);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1223.832, 3.414*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1223.832, 3.414*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -495,7 +499,7 @@ void setSigPdf_LZ_KG()
 		      "p_p",0.5,0.70);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1295.486, 3.224*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1295.486, 3.224*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -506,7 +510,7 @@ void setSigPdf_LZ_KG()
 //   samples[i].hist()->Draw();
 //   samples[i].hist_keys()->Draw("same");
   // FIXME - WRONG X-section
-  // pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*12.8868, 0.247537*norm),
+  // atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*12.8868, 0.247537*norm),
   // samples[i].hist_keys());
   //  i++;			    
 
@@ -516,7 +520,7 @@ void setSigPdf_LZ_KG()
 		      "p_m",0.5,-0.70);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1319.705, 2.920*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1319.705, 2.920*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -527,7 +531,7 @@ void setSigPdf_LZ_KG()
 //   samples[i].hist()->Draw();
 //   samples[i].hist_keys()->Draw("same");
   // FIXME - WRONG X-section
-  // pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*12.9291, 0.248591*norm),
+  // atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*12.9291, 0.248591*norm),
   // samples[i].hist_keys());
   //  i++;			    
 
@@ -537,7 +541,7 @@ void setSigPdf_LZ_KG()
 		      "m_sm",-0.5,0);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1193.115, 3.026*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1193.115, 3.026*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -547,7 +551,7 @@ void setSigPdf_LZ_KG()
 		      "m_p",-0.5,0.70);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1267.807, 2.971*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1267.807, 2.971*norm),
 		samples[i].hist_keys());
   i++;			    
 
@@ -557,14 +561,14 @@ void setSigPdf_LZ_KG()
 		      "m_m",-0.5,-0.70);
   samples[i].hist()->Draw();
   samples[i].hist_keys()->Draw("same");
-  pdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1279.312, 2.999*norm),
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1279.312, 2.999*norm),
 		samples[i].hist_keys());
   i++;			    
-  pdf->build();
+  atgcPdf->build();
   
   c1->cd(1);
   x_par->setVal(0); y_par->setVal(0);
-  TH1* h_sm_sm = pdf->createHistogram("h_sm_sm",*var_pt1);
+  TH1* h_sm_sm = atgcPdf->createHistogram("h_sm_sm",*var_pt1);
   h_sm_sm->SetLineColor(kBlue);
   h_sm_sm->Scale(h_sm_sm->Integral());
   h_sm_sm->SetStats(kFALSE);
@@ -572,7 +576,7 @@ void setSigPdf_LZ_KG()
 
   c1->cd(2);
   x_par->setVal(0); y_par->setVal(0.75);
-  TH1* h_sm_p = pdf->createHistogram("h_sm_p",*var_pt1);
+  TH1* h_sm_p = atgcPdf->createHistogram("h_sm_p",*var_pt1);
   h_sm_p->SetLineColor(kBlue);
   h_sm_p->Scale(h_sm_p->Integral());
   h_sm_p->SetStats(kFALSE);
@@ -580,7 +584,7 @@ void setSigPdf_LZ_KG()
 
   c1->cd(3);
   x_par->setVal(0); y_par->setVal(-0.75);
-  TH1* h_sm_m = pdf->createHistogram("h_sm_m",*var_pt1);
+  TH1* h_sm_m = atgcPdf->createHistogram("h_sm_m",*var_pt1);
   h_sm_m->SetLineColor(kBlue);
   h_sm_m->Scale(h_sm_m->Integral());
   h_sm_m->SetStats(kFALSE);
@@ -588,7 +592,7 @@ void setSigPdf_LZ_KG()
 
   c1->cd(4);
   x_par->setVal(0.5); y_par->setVal(0);
-  TH1* h_p_sm = pdf->createHistogram("h_p_sm",*var_pt1);
+  TH1* h_p_sm = atgcPdf->createHistogram("h_p_sm",*var_pt1);
   h_p_sm->SetLineColor(kBlue);
   h_p_sm->Scale(h_p_sm->Integral());
   h_p_sm->SetStats(kFALSE);
@@ -596,7 +600,7 @@ void setSigPdf_LZ_KG()
 
   c1->cd(5);
   x_par->setVal(0.5); y_par->setVal(0.75);
-  TH1* h_p_p = pdf->createHistogram("h_p_p",*var_pt1);
+  TH1* h_p_p = atgcPdf->createHistogram("h_p_p",*var_pt1);
   h_p_p->SetLineColor(kBlue);
   h_p_p->Scale(h_p_p->Integral());
   h_p_p->SetStats(kFALSE);
@@ -604,7 +608,7 @@ void setSigPdf_LZ_KG()
 
   c1->cd(6);
   x_par->setVal(0.5); y_par->setVal(-0.75);
-  TH1* h_p_m = pdf->createHistogram("h_p_m",*var_pt1);
+  TH1* h_p_m = atgcPdf->createHistogram("h_p_m",*var_pt1);
   h_p_m->SetLineColor(kBlue);
   h_p_m->Scale(h_p_m->Integral());
   h_p_m->SetStats(kFALSE);
@@ -612,7 +616,7 @@ void setSigPdf_LZ_KG()
 
   c1->cd(7);
   x_par->setVal(-0.5); y_par->setVal(0);
-  TH1* h_m_sm = pdf->createHistogram("h_m_sm",*var_pt1);
+  TH1* h_m_sm = atgcPdf->createHistogram("h_m_sm",*var_pt1);
   h_m_sm->SetLineColor(kBlue);
   h_m_sm->Scale(h_m_sm->Integral());
   h_m_sm->SetStats(kFALSE);
@@ -620,7 +624,7 @@ void setSigPdf_LZ_KG()
 
   c1->cd(8);
   x_par->setVal(-0.5); y_par->setVal(0.75);
-  TH1* h_m_p = pdf->createHistogram("h_m_p",*var_pt1);
+  TH1* h_m_p = atgcPdf->createHistogram("h_m_p",*var_pt1);
   h_m_p->SetLineColor(kBlue);
   h_m_p->Scale(h_m_p->Integral());
   h_m_p->SetStats(kFALSE);
@@ -628,7 +632,7 @@ void setSigPdf_LZ_KG()
   
   c1->cd(9);
   x_par->setVal(-0.5); y_par->setVal(-0.75);
-  TH1* h_m_m = pdf->createHistogram("h_m_m",*var_pt1);
+  TH1* h_m_m = atgcPdf->createHistogram("h_m_m",*var_pt1);
   h_m_m->SetLineColor(kBlue);
   h_m_m->Scale(h_m_m->Integral());
   h_m_m->SetStats(kFALSE);
@@ -639,7 +643,7 @@ void setSigPdf_LZ_KG()
 void setBkgPdf()
 {
   TCanvas* c9 = new TCanvas("c9","c9",600,900);
-  c9->Divide(2,3);
+  c9->Divide(2,4);
 
   c9->cd(1);
   RooDataSet* ds_ww_pt1 = MakeDataset("smurf/qqww.root","ds_ww");
@@ -671,14 +675,27 @@ void setBkgPdf()
   RooAbsPdf*  pdf_zz    = MakePdfFromDataset(ds_zz_pt1,var_pt1);
   DrawPdf(pdf_zz, "ZZ","Leading lepton pt, [GeV]");
 
+  c9->cd(7);
+  RooDataSet* ds_dyee_pt1 = MakeDataset("smurf/dyee.root","ds_dyee");
+  RooAbsPdf*  pdf_dyee    = MakePdfFromDataset(ds_dyee_pt1,var_pt1);
+  DrawPdf(pdf_dyee, "DYee","Leading lepton pt, [GeV]");
+
+  c9->cd(8);
+  RooDataSet* ds_dymm_pt1 = MakeDataset("smurf/dymm.root","ds_dyee");
+  RooAbsPdf*  pdf_dymm    = MakePdfFromDataset(ds_dymm_pt1,var_pt1);
+  DrawPdf(pdf_dymm, "DYmm","Leading lepton pt, [GeV]");
+
+  RooDataSet* ds_dy_pt1 = new RooDataSet("ds_dy","ds_dy",ds_dyee_pt1,*var_pt1);
+  ds_dy_pt1->append(*ds_dymm_pt1);
+  RooAbsPdf*  pdf_dy    = MakePdfFromDataset(ds_dy_pt1,var_pt1);
+
   // extended pdfs
   RooAbsPdf* epdf_wjets = new RooExtendPdf("epdf_wjets","epdf_wjets",*pdf_wjets,*n_wjets);
   RooAbsPdf* epdf_top = new RooExtendPdf("epdf_top","epdf_top",*pdf_ttbar,*n_top);
   RooAbsPdf* epdf_wz = new RooExtendPdf("epdf_wz","epdf_wz",*pdf_wz,*n_wz);
   RooAbsPdf* epdf_zz = new RooExtendPdf("epdf_zz","epdf_zz",*pdf_zz,*n_zz);
-  // pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz, *epdf_zz));
-  pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz));
-  // cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con,*n_zz_con)) ;
+  RooAbsPdf* epdf_dy = new RooExtendPdf("epdf_dy","epdf_dy",*pdf_dy,*n_dy);
+  pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz, *epdf_zz, *epdf_dy));
   cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con)) ;
 }
 
@@ -766,11 +783,11 @@ void setOldBkgPdf()
   RooAbsPdf* epdf_wjets = new RooExtendPdf("epdf_wjets","epdf_wjets",*pdf_wjets,*n_wjets);
   RooAbsPdf* epdf_top = new RooExtendPdf("epdf_top","epdf_top",*pdf_ttbar,*n_top);
   RooAbsPdf* epdf_wz = new RooExtendPdf("epdf_wz","epdf_wz",*pdf_wz,*n_wz);
-  RooAbsPdf* epdf_zz = new RooExtendPdf("epdf_zz","epdf_zz",*pdf_ttbar,*n_zz);
-  // pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz, *epdf_zz));
-  pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz));
-  // cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con,*n_zz_con)) ;
-  cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con)) ;
+  RooAbsPdf* epdf_zz = new RooExtendPdf("epdf_zz","epdf_zz",*pdf_zz,*n_zz);
+  pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz, *epdf_zz));
+  // pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz));
+  cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con,*n_zz_con)) ;
+  // cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con)) ;
 }
 
 
@@ -978,7 +995,7 @@ void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N
     x_par->setConstant(0);
     y_par->setVal(0);
     y_par->setConstant(1);
-    assert(pdf->fitTo(*glb_data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Save())->status()==0);
+    assert(atgcPdf->fitTo(*glb_data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Save())->status()==0);
     hx->Fill(x_par->getVal());
     hxpull->Fill(x_par->getVal()/x_par->getError());
 
@@ -986,7 +1003,7 @@ void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N
     x_par->setConstant(1);
     y_par->setVal(0);
     y_par->setConstant(0);
-    assert(pdf->fitTo(*glb_data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Save())->status()==0);
+    assert(atgcPdf->fitTo(*glb_data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Save())->status()==0);
     hy->Fill(y_par->getVal());
     hypull->Fill(y_par->getVal()/y_par->getError());
   }
@@ -1050,7 +1067,7 @@ TH1F* wwATGC1DFit(const char* file, const char* name, double lz, double dkz)
       x_par->setConstant(0);
       y_par->setConstant(1);
     }      
-    pdf->fitTo(*glb_data);
+    atgcPdf->fitTo(*glb_data);
     if ( lz==0 )
       h->Fill(fabs(y_par->getVal()));
     else
@@ -1113,6 +1130,11 @@ void wwATGC1DLzKgFits()
   h2->Draw();
 }
 
+void prepareForDataFits(){
+  glb_data = MakeDataset("smurf/data.root","data",true);
+  cpdf = new RooAddPdf("cpdf","combined pdf",RooArgList(*cSigPdf,*cBkgPdf));
+}  
+
 void fitData( bool makeContourAllIn = true,
 	      bool yieldFitNoATGC = false,
 	      bool fitATGCx = false,
@@ -1120,16 +1142,12 @@ void fitData( bool makeContourAllIn = true,
 	      bool makeContourWWOnly = false
 	     )
 {
-  TCanvas* c10 = new TCanvas("c10","c10",1000,500);
-  c10->Divide(2,1);
-  RooAbsData* ds_data_pt1 = MakeDataset("smurf/data.root","data",true);
-//   TFile* f = TFile::Open("samples/processed_data_final.root");
-//   assert(f);
-//   RooAbsData* ds_data = (RooAbsData*)f->Get("data");
-//   ds_data->SetName("ds_data");
-//   RooAbsData* ds_data_pt1 = ds_data->reduce(*var_pt1,oldSampleSelection);
+  prepareForDataFits();
+  TCanvas* c10 = new TCanvas("c10","c10",1000,1000);
+  c10->Divide(2,2);
   c10->cd(1);
-  
+  // First plot data and pdf with the default parameters without any fit
+  /*
   ((TTree*)ds_data_pt1->tree())->Draw(Form("pt1>>h(%u,%f,%f)",Nbins,minPt,maxPt));
   glb_data = dynamic_cast<RooDataSet*>(ds_data_pt1);
   RooNDKeysPdf* pdf_data = new RooNDKeysPdf("pdf_data","pdf_data",*var_pt1,*((RooDataSet*)ds_data_pt1),"am");
@@ -1139,8 +1157,7 @@ void fitData( bool makeContourAllIn = true,
   hpdf_data->Scale(hpdf_data->Integral());
   c10->cd(2);
   hpdf_data->Draw();
-  
-  cpdf = new RooAddPdf("cpdf","combined pdf",RooArgList(*cSigPdf,*cBkgPdf));
+  */
   
   // RooArgSet constrainedParams(*n_ww,*n_top,*n_wjets,*n_wz,*n_zz);
   RooArgSet constrainedParams(*n_ww,*n_top,*n_wjets,*n_wz);
@@ -1165,7 +1182,7 @@ void fitData( bool makeContourAllIn = true,
     c11->SetGrid();
     y_par->setVal(0);
     x_par->setVal(0);
-    RooAbsReal* nll = pdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(constrainedParams));
+    RooAbsReal* nll = atgcPdf->createNLL(*glb_data,RooFit::Extended(),RooFit::Constrain(constrainedParams));
     RooMinuit m(*nll);
     m.migrad();
     assert(m.save()->status()==0);
@@ -1186,7 +1203,7 @@ void fitData( bool makeContourAllIn = true,
     c12->SetGrid();
     y_par->setVal(0);
     x_par->setVal(0);
-    RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(constrainedParams));
+    RooAbsReal* nll = cpdf->createNLL(*glb_data,RooFit::Extended(),RooFit::Constrain(constrainedParams));
     RooMinuit m(*nll);
     // RooMinimizer m(*nll);
     // m.setMinimizerType("Minuit2");
@@ -1230,7 +1247,7 @@ void fitData( bool makeContourAllIn = true,
 	{
 	  x_par->setVal(-0.95+2.0*(xi-1)/nBins);
 	  y_par->setVal(-0.95+2.0*(yi-1)/nBins);
-	  RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(constrainedParams)/*,RooFit::NumCPU(2),RooFit::Verbose(0)*/);
+	  RooAbsReal* nll = cpdf->createNLL(*glb_data,RooFit::Extended(),RooFit::Constrain(constrainedParams)/*,RooFit::NumCPU(2),RooFit::Verbose(0)*/);
 	  nll->addServer(*var_dummy);
 	  // double sig = sqrt(2*fabs(nll->getVal()-minNLL));
 	  nll2d->SetBinContent(xi,yi,2*fabs(nll->getVal()-minNLL));
@@ -1252,7 +1269,7 @@ void fitData( bool makeContourAllIn = true,
     y_par->setVal(0);
     // cpdf->fitTo(*ds_data_pt1, RooFit::Minos());
     // RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(RooArgSet(*n_top,*n_wjets,*n_wz,*n_zz)));
-    RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(RooArgSet(*n_top,*n_wjets,*n_wz)));
+    RooAbsReal* nll = cpdf->createNLL(*glb_data,RooFit::Extended(),RooFit::Constrain(RooArgSet(*n_top,*n_wjets,*n_wz)));
     // RooMinuit m(*nll);
     RooMinimizer m(*nll);
     m.setMinimizerType("Minuit2");
@@ -1270,7 +1287,7 @@ void fitData( bool makeContourAllIn = true,
     x_par->setVal(0);
     y_par->setVal(0);
     // cpdf->fitTo(*ds_data_pt1, RooFit::Minos());
-    RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(constrainedParams));
+    RooAbsReal* nll = cpdf->createNLL(*glb_data,RooFit::Extended(),RooFit::Constrain(constrainedParams));
     // RooMinuit m(*nll);
     RooMinimizer m(*nll);
     m.setMinimizerType("Minuit2");
@@ -1287,7 +1304,7 @@ void fitData( bool makeContourAllIn = true,
     x_par->setVal(0);
     y_par->setVal(0);
     // cpdf->fitTo(*ds_data_pt1, RooFit::Minos());
-    RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(constrainedParams));
+    RooAbsReal* nll = cpdf->createNLL(*glb_data,RooFit::Extended(),RooFit::Constrain(constrainedParams));
     // RooMinuit m(*nll);
     RooMinimizer m(*nll);
     m.setMinimizerType("Minuit2");
@@ -1315,7 +1332,7 @@ void fitTop()
   assert(tree);
   glb_data = new RooDataSet("data","data",tree, *var_pt1);
 
-  RooAbsPdf* combinedPdf = new RooAddPdf("combinedPdf","combined pdf",RooArgList(*pdf,*pdf_bkg));
+  RooAbsPdf* combinedPdf = new RooAddPdf("combinedPdf","combined pdf",RooArgList(*atgcPdf,*pdf_bkg));
 
   x_par->setRange(-rangeX,rangeX);
   y_par->setRange(-rangeY,rangeY);
