@@ -696,7 +696,7 @@ void setBkgPdf()
   RooAbsPdf* epdf_zz = new RooExtendPdf("epdf_zz","epdf_zz",*pdf_zz,*n_zz);
   RooAbsPdf* epdf_dy = new RooExtendPdf("epdf_dy","epdf_dy",*pdf_dy,*n_dy);
   pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz, *epdf_zz, *epdf_dy));
-  cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con)) ;
+  cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con,*n_zz_con,*n_dy_con)) ;
 }
 
 void setOldBkgPdf()
@@ -1160,7 +1160,7 @@ void fitData( bool makeContourAllIn = true,
   */
   
   // RooArgSet constrainedParams(*n_ww,*n_top,*n_wjets,*n_wz,*n_zz);
-  RooArgSet constrainedParams(*n_ww,*n_top,*n_wjets,*n_wz);
+  RooArgSet constrainedParams(*n_ww,*n_top,*n_wjets,*n_wz,*n_zz,*n_dy);
   if (1) {
     n_top->setConstant(0);
     n_wjets->setConstant(0);
@@ -1211,12 +1211,8 @@ void fitData( bool makeContourAllIn = true,
     assert(m.save()->status()==0);
     m.hesse();
     assert(m.save()->status()==0);
-    // RooPlot* p1 = m.contour(*x_par,*y_par,sqrt(6.0),0);
-    // RooPlot* p1 = m.contour(*x_par,*y_par);
     RooPlot* p1 = m.contour(*x_par,*y_par,sqrt(2.3),sqrt(6.0));
     p1->SetTitle("68% and 95% C.L.");
-    // p1->SetTitle("95% C.L.");
-    // p1->SetTitle("Wrong");
     m.migrad();
     m.hesse();
     p1->Draw();
@@ -1268,8 +1264,7 @@ void fitData( bool makeContourAllIn = true,
     x_par->setVal(0);
     y_par->setVal(0);
     // cpdf->fitTo(*ds_data_pt1, RooFit::Minos());
-    // RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(RooArgSet(*n_top,*n_wjets,*n_wz,*n_zz)));
-    RooAbsReal* nll = cpdf->createNLL(*glb_data,RooFit::Extended(),RooFit::Constrain(RooArgSet(*n_top,*n_wjets,*n_wz)));
+    RooAbsReal* nll = cpdf->createNLL(*glb_data,RooFit::Extended(),RooFit::Constrain(constrainedParams));
     // RooMinuit m(*nll);
     RooMinimizer m(*nll);
     m.setMinimizerType("Minuit2");
