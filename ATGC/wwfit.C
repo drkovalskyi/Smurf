@@ -25,6 +25,8 @@
 #include "TRandom3.h"
 #include "RooFitResult.h"
 #include "RooMinimizer.h"
+#include "RooCachedPdf.h"
+#include "RooKeysPdf.h"
 
 const double ww_expected = 774.0+45.9;
 const double ww_uncertainty = sqrt(55.8*55.8+14.1*14.1);
@@ -60,7 +62,7 @@ RooRealVar* n_zz;
 
 RooATGCPdf* pdf;
 RooAbsPdf*  pdf_bkg;
-RooDataSet* data;
+RooDataSet* glb_data;
 RooAbsPdf*  cpdf;
 RooAbsPdf*  cSigPdf;
 RooAbsPdf*  cBkgPdf;
@@ -164,6 +166,7 @@ RooDataSet* MakeDataset(const char* file, const char* dataset_name, bool isData=
     if ( (tree.cuts_ & SmurfTree::FullSelection) != SmurfTree::FullSelection ||
 	 (isData && (tree.cuts_ & SmurfTree::Trigger) != SmurfTree::Trigger )||
 	 tree.lep2_.pt()<20 || 
+	 tree.lep1_.pt()>maxPt ||
 	 tree.dilep_.pt()<45 ||
 	 tree.njets_>0 ) continue;
     if (tree.type_==0||tree.type_==3){
@@ -190,6 +193,33 @@ RooDataSet* MakeOldDataset(const char* file){
   assert(dataset);
   return dataset;
 }
+
+RooAbsPdf* MakePdfFromDataset(RooDataSet* data, RooAbsReal* variable){
+  // if number of events is small, make a keys pdf. Otherwise use a histogram
+  
+  std::string name(Form("pdf_%s",data->GetName()));
+  RooAbsPdf* outPdf(0);
+  if ( data->numEntries() < 5000 ){
+    outPdf = new RooKeysPdf(name.c_str(),name.c_str(),*variable,*data, RooKeysPdf::MirrorBoth);
+  } else {
+    // Create a binned dataset 
+    RooDataHist* hist = data->binnedClone() ;
+    // Make a pdf
+    outPdf = new RooHistPdf(name.c_str(),name.c_str(),*variable,*hist);
+  }
+  return outPdf;
+}
+
+void DrawPdf(RooAbsPdf* ipdf, const char* iname, const char* title){
+  std::string name(Form("h_%s",iname));
+  TH1* hpdf = ipdf->createHistogram(name.c_str(),*var_pt1);
+  hpdf->SetTitle(iname);
+  hpdf->GetXaxis()->SetTitle(title);
+  hpdf->Scale(hpdf->Integral());
+  hpdf->Draw();
+}
+
+// ============================================================================== //
 
 Sample samples[11]; 
 
@@ -611,6 +641,52 @@ void setBkgPdf()
   TCanvas* c9 = new TCanvas("c9","c9",600,900);
   c9->Divide(2,3);
 
+  c9->cd(1);
+  RooDataSet* ds_ww_pt1 = MakeDataset("smurf/qqww.root","ds_ww");
+  RooAbsPdf*  pdf_ww    = MakePdfFromDataset(ds_ww_pt1,var_pt1);
+  DrawPdf(pdf_ww, "WW","Leading lepton pt, [GeV]");
+
+  c9->cd(2);
+  RooDataSet* ds_wjets_pt1 = MakeDataset("smurf/wjets.root","ds_wjets");
+  RooAbsPdf*  pdf_wjets    = MakePdfFromDataset(ds_wjets_pt1,var_pt1);
+  DrawPdf(pdf_wjets, "Wjets","Leading lepton pt, [GeV]");
+
+  c9->cd(3);
+  RooDataSet* ds_ttbar_pt1 = MakeDataset("smurf/ttbar.root","ds_ttbar");
+  RooAbsPdf*  pdf_ttbar    = MakePdfFromDataset(ds_ttbar_pt1,var_pt1);
+  DrawPdf(pdf_ttbar, "TTbar","Leading lepton pt, [GeV]");
+
+  c9->cd(4);
+  RooDataSet* ds_tw_pt1 = MakeDataset("smurf/tw.root","ds_tw");
+  RooAbsPdf*  pdf_tw    = MakePdfFromDataset(ds_tw_pt1,var_pt1);
+  DrawPdf(pdf_tw, "tW","Leading lepton pt, [GeV]");
+  
+  c9->cd(5);
+  RooDataSet* ds_wz_pt1 = MakeDataset("smurf/wz.root","ds_wz");
+  RooAbsPdf*  pdf_wz    = MakePdfFromDataset(ds_wz_pt1,var_pt1);
+  DrawPdf(pdf_wz, "WZ","Leading lepton pt, [GeV]");
+
+  c9->cd(6);
+  RooDataSet* ds_zz_pt1 = MakeDataset("smurf/zz_py.root","ds_zz");
+  RooAbsPdf*  pdf_zz    = MakePdfFromDataset(ds_zz_pt1,var_pt1);
+  DrawPdf(pdf_zz, "ZZ","Leading lepton pt, [GeV]");
+
+  // extended pdfs
+  RooAbsPdf* epdf_wjets = new RooExtendPdf("epdf_wjets","epdf_wjets",*pdf_wjets,*n_wjets);
+  RooAbsPdf* epdf_top = new RooExtendPdf("epdf_top","epdf_top",*pdf_ttbar,*n_top);
+  RooAbsPdf* epdf_wz = new RooExtendPdf("epdf_wz","epdf_wz",*pdf_wz,*n_wz);
+  RooAbsPdf* epdf_zz = new RooExtendPdf("epdf_zz","epdf_zz",*pdf_zz,*n_zz);
+  // pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz, *epdf_zz));
+  pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz));
+  // cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con,*n_zz_con)) ;
+  cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con)) ;
+}
+
+void setOldBkgPdf()
+{
+  TCanvas* c9 = new TCanvas("c9","c9",600,900);
+  c9->Divide(2,3);
+
   TFile* f = TFile::Open("samples/processed_data_final.root");
   assert(f);
   
@@ -696,6 +772,7 @@ void setBkgPdf()
   // cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con,*n_zz_con)) ;
   cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con)) ;
 }
+
 
 // not used
 // need to restore
@@ -877,7 +954,7 @@ void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N
 	 meanN, int(iTree->GetEntries()) );
   unsigned int firstEntry = 0;
   y_par->setVal(0);
-  data=0;
+  glb_data=0;
   TRandom3 generator;
 
   TH1F* hx = new TH1F("hx","Fit of WW SM events",40,-.2,.2);
@@ -894,14 +971,14 @@ void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N
     TTree* tree = iTree->CopyTree("","",n,firstEntry);
     assert(tree);
     firstEntry+=n;
-    if (data) delete data;
-    data = new RooDataSet("data","data",tree, *var_pt1);
+    if (glb_data) delete glb_data;
+    glb_data = new RooDataSet("data","data",tree, *var_pt1);
     
     x_par->setVal(0);
     x_par->setConstant(0);
     y_par->setVal(0);
     y_par->setConstant(1);
-    assert(pdf->fitTo(*data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Save())->status()==0);
+    assert(pdf->fitTo(*glb_data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Save())->status()==0);
     hx->Fill(x_par->getVal());
     hxpull->Fill(x_par->getVal()/x_par->getError());
 
@@ -909,7 +986,7 @@ void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N
     x_par->setConstant(1);
     y_par->setVal(0);
     y_par->setConstant(0);
-    assert(pdf->fitTo(*data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Save())->status()==0);
+    assert(pdf->fitTo(*glb_data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Save())->status()==0);
     hy->Fill(y_par->getVal());
     hypull->Fill(y_par->getVal()/y_par->getError());
   }
@@ -948,7 +1025,7 @@ TH1F* wwATGC1DFit(const char* file, const char* name, double lz, double dkz)
   cout << "iTree->GetEntries(): " << size << endl;
   unsigned int firstEntry = 0;
   y_par->setVal(0);
-  data=0;
+  glb_data=0;
   // TRandom::Poisson
 
   // TH1F* h = new TH1F(Form("h_%s",name),"Fit of on WW with anomalous couplings",40,-1,1);
@@ -961,8 +1038,8 @@ TH1F* wwATGC1DFit(const char* file, const char* name, double lz, double dkz)
     TTree* tree = iTree->CopyTree("","",nEvents,firstEntry);
     assert(tree);
     firstEntry+=nEvents;
-    if (data) delete data;
-    data = new RooDataSet("data","data",tree, *var_pt1);
+    if (glb_data) delete glb_data;
+    glb_data = new RooDataSet("data","data",tree, *var_pt1);
     
     x_par->setVal(lz);
     y_par->setVal(dkz);
@@ -973,7 +1050,7 @@ TH1F* wwATGC1DFit(const char* file, const char* name, double lz, double dkz)
       x_par->setConstant(0);
       y_par->setConstant(1);
     }      
-    pdf->fitTo(*data);
+    pdf->fitTo(*glb_data);
     if ( lz==0 )
       h->Fill(fabs(y_par->getVal()));
     else
@@ -1052,8 +1129,9 @@ void fitData( bool makeContourAllIn = true,
 //   ds_data->SetName("ds_data");
 //   RooAbsData* ds_data_pt1 = ds_data->reduce(*var_pt1,oldSampleSelection);
   c10->cd(1);
+  
   ((TTree*)ds_data_pt1->tree())->Draw(Form("pt1>>h(%u,%f,%f)",Nbins,minPt,maxPt));
-  data = dynamic_cast<RooDataSet*>(ds_data_pt1);
+  glb_data = dynamic_cast<RooDataSet*>(ds_data_pt1);
   RooNDKeysPdf* pdf_data = new RooNDKeysPdf("pdf_data","pdf_data",*var_pt1,*((RooDataSet*)ds_data_pt1),"am");
   TH1F* hpdf_data = (TH1F*)pdf_data->createHistogram("hpdf_data",*var_pt1);
   hpdf_data->SetTitle("DATA");
@@ -1109,16 +1187,19 @@ void fitData( bool makeContourAllIn = true,
     y_par->setVal(0);
     x_par->setVal(0);
     RooAbsReal* nll = cpdf->createNLL(*ds_data_pt1,RooFit::Extended(),RooFit::Constrain(constrainedParams));
-    // RooMinuit m(*nll);
-    RooMinimizer m(*nll);
-    m.setMinimizerType("Minuit2");
+    RooMinuit m(*nll);
+    // RooMinimizer m(*nll);
+    // m.setMinimizerType("Minuit2");
     m.migrad();
     assert(m.save()->status()==0);
     m.hesse();
     assert(m.save()->status()==0);
-    // RooPlot* p1 = m.contour(*x_par,*y_par,sqrt(2.3),0);
+    // RooPlot* p1 = m.contour(*x_par,*y_par,sqrt(6.0),0);
+    // RooPlot* p1 = m.contour(*x_par,*y_par);
     RooPlot* p1 = m.contour(*x_par,*y_par,sqrt(2.3),sqrt(6.0));
     p1->SetTitle("68% and 95% C.L.");
+    // p1->SetTitle("95% C.L.");
+    // p1->SetTitle("Wrong");
     m.migrad();
     m.hesse();
     p1->Draw();
@@ -1131,8 +1212,8 @@ void fitData( bool makeContourAllIn = true,
     y_par->setConstant(0);
     x_par->setVal(0);
     y_par->setVal(0);
-    cpdf->fitTo(*data);
-    double minNLL = cpdf->createNLL(*data,RooFit::Extended(),RooFit::Constrain(constrainedParams))->getVal();
+    cpdf->fitTo(*glb_data);
+    double minNLL = cpdf->createNLL(*glb_data,RooFit::Extended(),RooFit::Constrain(constrainedParams))->getVal();
     TMarker* marker = new TMarker(x_par->getVal(),y_par->getVal(),20);
 
     TCanvas* c12_2 = new TCanvas("c12_2","c12_2",500,500);
@@ -1232,7 +1313,7 @@ void fitTop()
   unsigned int nEvents(ww_expected);
   TTree* tree = iTree->CopyTree("","",nEvents,0);
   assert(tree);
-  data = new RooDataSet("data","data",tree, *var_pt1);
+  glb_data = new RooDataSet("data","data",tree, *var_pt1);
 
   RooAbsPdf* combinedPdf = new RooAddPdf("combinedPdf","combined pdf",RooArgList(*pdf,*pdf_bkg));
 
@@ -1265,8 +1346,8 @@ void fitTop()
     y_par->setConstant(0);
     x_par->setVal(0);
     y_par->setVal(0);
-    combinedPdf->fitTo(*data);
-    double minNLL = combinedPdf->createNLL(*data)->getVal();
+    combinedPdf->fitTo(*glb_data);
+    double minNLL = combinedPdf->createNLL(*glb_data)->getVal();
     TMarker* marker = new TMarker(x_par->getVal(),y_par->getVal(),20);
 
     TCanvas* c13_2 = new TCanvas("c13_2","c13_2",500,500);
@@ -1284,7 +1365,7 @@ void fitTop()
 	{
 	  x_par->setVal(-0.95+2.0*(xi-1)/nBins);
 	  y_par->setVal(-0.95+2.0*(yi-1)/nBins);
-	  RooAbsReal* nll = combinedPdf->createNLL(*data,RooFit::Extended());
+	  RooAbsReal* nll = combinedPdf->createNLL(*glb_data,RooFit::Extended());
 	  nll->addServer(*var_dummy);
 	  // double sig = sqrt(2*fabs(nll->getVal()-minNLL));
 	  nll2d->SetBinContent(xi,yi,2*fabs(nll->getVal()-minNLL));
@@ -1301,13 +1382,13 @@ void fitTop()
   y_par->setConstant(1);
   x_par->setVal(0);
   y_par->setVal(0);
-  combinedPdf->fitTo(*data, RooFit::Minos());
+  combinedPdf->fitTo(*glb_data, RooFit::Minos());
   
   x_par->setConstant(1);
   y_par->setConstant(0);
   x_par->setVal(0);
   y_par->setVal(0);
-  combinedPdf->fitTo(*data, RooFit::Minos());
+  combinedPdf->fitTo(*glb_data, RooFit::Minos());
 
 }
 
