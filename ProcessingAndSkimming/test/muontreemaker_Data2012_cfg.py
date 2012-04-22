@@ -31,7 +31,8 @@ process.eleIsoSequence = setupPFElectronIso(process, 'gsfElectrons')
 #
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
-        'file:/smurf/dlevans/data/Run2012A/DoubleElectron/AOD/PromptReco-v1/000/190/659/5E3B8EB2-BF82-E111-AD9D-001D09F2932B.root'
+        'file:/smurf/dlevans/LeptonTree/singlemu_190702_66_37385741.root'
+        #'file:/smurf/dlevans/data/Run2012A/DoubleElectron/AOD/PromptReco-v1/000/190/659/5E3B8EB2-BF82-E111-AD9D-001D09F2932B.root'
     )
 )
 
