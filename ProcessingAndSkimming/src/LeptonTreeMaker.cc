@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.23 2012/04/22 11:13:46 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.24 2012/04/22 19:14:46 dlevans Exp $
 //
 //
 
@@ -57,8 +57,8 @@ Implementation:
 // MVAs...
 #include "HiggsAnalysis/HiggsToWW2Leptons/interface/ElectronIDMVA.h"
 #include "HiggsAnalysis/HiggsToWW2Leptons/interface/MuonIDMVA.h"
-#include "EGamma/EGammaAnalysisTools/interface/ElectronMVAEstimator.h"
-#include "Muon/MuonAnalysisTools/interface/MuonMVAEstimator.h"
+#include "EGamma/EGammaAnalysisTools/interface/EGammaMvaEleEstimator.h"
+//#include "Muon/MuonAnalysisTools/interface/MuonMVAEstimator.h"
 
 // user include files
 #include "Smurf/Core/LeptonTree.h"
@@ -199,7 +199,7 @@ class LeptonTreeMaker : public edm::EDProducer {
         ElectronIDMVA           *reader_electronHWW2011IDIsoMVA_;
         MuonIDMVA               *reader_muonHWW2011MVA_;
         
-        ElectronMVAEstimator    *reader_egammaPOG2012MVA_;
+        EGammaMvaEleEstimator    *reader_egammaPOG2012MVA_;
         //MuonMVAEstimator        *reader_muonHZZ2012MVA_;
 
         // common products
@@ -337,9 +337,9 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
     myManualCatWeigthsTrig.push_back(pathToBDTWeights_+"/Electrons_BDTG_TrigV0_Cat4.weights.xml");
     myManualCatWeigthsTrig.push_back(pathToBDTWeights_+"/Electrons_BDTG_TrigV0_Cat5.weights.xml");
     myManualCatWeigthsTrig.push_back(pathToBDTWeights_+"/Electrons_BDTG_TrigV0_Cat6.weights.xml");
-    reader_egammaPOG2012MVA_ = new ElectronMVAEstimator();
+    reader_egammaPOG2012MVA_ = new EGammaMvaEleEstimator();
     reader_egammaPOG2012MVA_->initialize("BDT",
-            ElectronMVAEstimator::kTrig,
+            EGammaMvaEleEstimator::kTrig,
             true,
             myManualCatWeigthsTrig);
 
@@ -751,7 +751,10 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
             if (smurfselections::passMuonIso2011(probe, pfCandCollection_, pv_)) leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIso);
             if (smurfselections::passMuonIsPOGTight(probe, pv_))                 leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsPOGTight);
             if (smurfselections::passMuonIsPOGSoft(probe, pv_))                  leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsPOGSoft);
+            #ifdef RELEASE_52X
             if (probe->isPFMuon())                                               leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsPF);
+            #endif
+
 
             // probe trigger matching
             if (iEvent.isRealData()) {
@@ -944,7 +947,10 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
         if (smurfselections::passMuonIso2011(fo, pfCandCollection_, pv_)) leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIso);
         if (smurfselections::passMuonIsPOGTight(fo, pv_))                 leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsPOGTight);
         if (smurfselections::passMuonIsPOGSoft(fo, pv_))                  leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsPOGSoft);
+        #ifdef RELEASE_52X
         if (fo->isPFMuon())                                               leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsPF);
+        #endif
+
         leptonTree_->tree_->Fill();
     }
 
