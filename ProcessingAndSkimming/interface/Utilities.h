@@ -28,10 +28,10 @@ void DumpSaveTags(const std::string triggerName,
 
 // find trigger objects corresponding
 // to trigger name and filter name
-trigger::TriggerObjectCollection GetTriggerObjects(const std::string triggerName, const std::string filterName,
-        const std::string procesName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
-        const trigger::TriggerEvent *triggerEvent,
-        const trigger::TriggerObjectCollection &allObjects);
+//trigger::TriggerObjectCollection GetTriggerObjects(const std::string triggerName, const std::string filterName,
+//        const std::string procesName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
+//        const trigger::TriggerEvent *triggerEvent,
+//        const trigger::TriggerObjectCollection &allObjects);
 
 // does trigger object match offline object
 // prescale is returned - 0 if no match.

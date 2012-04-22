@@ -58,6 +58,7 @@ void smurfutilities::DumpSaveTags(const std::string triggerName,
 
 }
 
+/*
 trigger::TriggerObjectCollection smurfutilities::GetTriggerObjects(const std::string triggerName, const std::string filterName,
         const std::string processName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
         const trigger::TriggerEvent *triggerEvent,
@@ -113,6 +114,7 @@ trigger::TriggerObjectCollection smurfutilities::GetTriggerObjects(const std::st
     return selectedObjects;
 
 }
+*/
 
 unsigned int smurfutilities::MatchTriggerObject(const edm::Event &iEvent, const edm::EventSetup &iSetup,
         const std::string triggerName, const std::string filterName,
@@ -128,7 +130,8 @@ unsigned int smurfutilities::MatchTriggerObject(const edm::Event &iEvent, const 
     for (unsigned int i = 0; i < hltConfig.size(); i++) {
 
         // does this trigger pass
-        if(!triggerResults->accept(i)) continue;
+        // must not be done for intermediate matching to make sense
+        //if(!triggerResults->accept(i)) continue;
         
         // get name of ith trigger
         TString hltTrigName(hltConfig.triggerName(i));
