@@ -1,6 +1,7 @@
 {
    gROOT->SetStyle("Plain");
-   gStyle->SetOptStat("nemruosk");
+   gStyle->SetOptStat("eMR");
+   gStyle->SetStatW(0.4);
    gStyle->SetPalette(1);
    if (gSystem->Getenv("CMSSW_VERSION")){
     cout << "loading..." <<endl;

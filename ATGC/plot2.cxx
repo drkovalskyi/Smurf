@@ -6,6 +6,5 @@
   gSystem->CompileMacro("wwfit.C","k");
   setDefaults();
   setSigPdf_LZ_KG();
-  // ww1DFits();
-  ww1DFits("smurf/qqww.root",true);
+  ww1DFits("smurf/qqww.root");
 }
