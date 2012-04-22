@@ -89,6 +89,16 @@ void PFIsolation2012(const reco::GsfElectron& el, const reco::PFCandidateCollect
     const edm::Handle<reco::VertexCollection> &vertexHandle,
     const int vertexIndex, const float &R, float &pfiso_ch, float &pfiso_em, float &pfiso_nh);
 
+
+//
+// for muons
+//
+
+bool passMuonIsPOGTight(const edm::View<reco::Muon>::const_iterator &muon,
+        const reco::Vertex &vertex);
+bool passMuonIsPOGSoft(const edm::View<reco::Muon>::const_iterator &muon,
+        const reco::Vertex &vertex);
+
 }
 
 #endif

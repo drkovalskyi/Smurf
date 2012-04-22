@@ -528,3 +528,38 @@ int smurfselections::chargedHadronVertex(const reco::PFCandidate& pfcand, const 
 
 }
 
+//
+// muons
+//
+
+bool smurfselections::passMuonIsPOGTight(const edm::View<reco::Muon>::const_iterator &muon,
+        const reco::Vertex &vertex)
+{
+    if (!muon->isGlobalMuon())                                              return false;
+    if (!muon->globalTrack().isNonnull())                                   return false;
+    if (muon->globalTrack()->normalizedChi2() >= 10.)                       return false;
+    if (muon->globalTrack()->hitPattern().numberOfValidMuonHits() == 0)     return false;
+    if (muon->numberOfMatchedStations() <= 1)                               return false;
+    if (!muon->innerTrack().isNonnull())                                    return false;
+    if (fabs(muon->innerTrack()->dxy(vertex.position())) >= 0.2)            return false;
+    if (muon->innerTrack()->hitPattern().numberOfValidPixelHits() == 0)     return false;
+    if (!muon->track().isNonnull())                                         return false;
+    if (muon->track()->hitPattern().trackerLayersWithMeasurement() <= 8)    return false;
+    return true;
+}
+
+bool smurfselections::passMuonIsPOGSoft(const edm::View<reco::Muon>::const_iterator &muon,
+        const reco::Vertex &vertex)
+{
+
+    if (!muon::isGoodMuon(*muon, muon::TMOneStationTight))                  return false;
+    if (!muon->innerTrack().isNonnull())                                    return false;
+    if (muon->innerTrack()->hitPattern().numberOfValidTrackerHits() <= 10)  return false;
+    if (muon->innerTrack()->hitPattern().pixelLayersWithMeasurement() <= 1) return false;
+    if (muon->innerTrack()->normalizedChi2() >= 1.8)                        return false;
+    if (fabs(muon->innerTrack()->dxy(vertex.position())) >= 3.0)            return false;
+    if (fabs(muon->innerTrack()->dz(vertex.position())) >= 30.0)            return false;
+    return true;
+}
+
+
