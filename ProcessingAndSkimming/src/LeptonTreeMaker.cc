@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.21 2012/04/16 13:02:45 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.22 2012/04/19 13:07:53 dlevans Exp $
 //
 //
 
@@ -585,6 +585,9 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
     // triggers
     const trigger::TriggerObjectCollection &allObjects = triggerEvent_->getObjects();
 
+    // this is per event
+    fillCommonVariables(iEvent);
+
     // look for tag and probe
     unsigned int nEle = els_h->size();
     for (unsigned int itag = 0; itag < nEle; ++itag) {
@@ -615,7 +618,6 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
             LorentzVector p4 = tag->p4() + probe->p4();
 
             // fill the tree
-            fillCommonVariables(iEvent);
             leptonTree_->eventSelection_     = LeptonTree::ZeeTagAndProbe;
             leptonTree_->probe_              = probe->p4();
             leptonTree_->qProbe_             = probe->charge();
@@ -699,6 +701,9 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
     edm::View<reco::Muon> muonCollection = *(mus_h.product());
     if (muonCollection.size() < 2) return;
 
+    // this is per event
+    fillCommonVariables(iEvent);
+
     // triggers
     const trigger::TriggerObjectCollection &allObjects = triggerEvent_->getObjects();
 
@@ -716,6 +721,7 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
 
         // if real data
         // then store tag trigger matching
+        std::cout << "TAG at " << tag->pt() << ", " << tag->eta() << ", " << tag->phi() << std::endl;
         if (iEvent.isRealData()) 
             objectMatchTrigger(iEvent, iSetup, muTriggers_, allObjects, tag->p4(), muTriggerPrescalesTag_);
 
@@ -730,7 +736,6 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
             LorentzVector p4 = tag->p4() + probe->p4();
 
             // fill the tree
-            fillCommonVariables(iEvent);
             leptonTree_->eventSelection_     = LeptonTree::ZmmTagAndProbe;
             leptonTree_->probe_              = probe->p4();
             leptonTree_->qProbe_             = probe->charge();
@@ -746,6 +751,7 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
             if (smurfselections::passMuonIso2011(probe, pfCandCollection_, pv_)) leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIso);
 
             // probe trigger matching
+        std::cout << "PROBE at " << probe->pt() << ", " << probe->eta() << ", " << probe->phi() << std::endl;
             if (iEvent.isRealData()) {
                 objectMatchTrigger(iEvent, iSetup, muTriggers_, allObjects, probe->p4(), muTriggerPrescalesProbe_);
                 getTriggerVersions(iEvent, iSetup, muTriggers_, muTriggerVersions_);
