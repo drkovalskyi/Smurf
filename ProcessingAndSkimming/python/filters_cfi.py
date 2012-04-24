@@ -30,7 +30,7 @@ minNumber = cms.uint32(1),
 
 highPtElectrons = cms.EDFilter("CandViewSelector",
 src = cms.InputTag("gsfElectrons"),
-cut = cms.string("pt > 20.0")
+cut = cms.string("pt > 10.0")
 )
 
 highPtElectronFilter = cms.EDFilter("CandViewCountFilter",
@@ -44,7 +44,7 @@ minNumber = cms.uint32(1)
 
 highPtMuons = cms.EDFilter("CandViewSelector",
 src = cms.InputTag("muons"),
-cut = cms.string("pt > 20.0")
+cut = cms.string("pt > 10.0")
 )
 
 highPtMuonFilter = cms.EDFilter("CandViewCountFilter",
