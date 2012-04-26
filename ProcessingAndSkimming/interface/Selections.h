@@ -50,6 +50,7 @@ std::pair<double,double> trackerMET(std::vector<const reco::Candidate*>& objs,
 				    const reco::PFCandidateCollection &pfCandCollection,
 				    const reco::Vertex &vertex);
 float GetEGammaEffectiveArea(const float eta);
+unsigned int CountGoodPV(const edm::Handle<reco::VertexCollection> &pvCollection);
 
 //
 // 2011 selections

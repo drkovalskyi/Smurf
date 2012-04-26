@@ -229,6 +229,20 @@ float smurfselections::GetEGammaEffectiveArea(const float eta)
     return AEff;
 }
 
+unsigned int smurfselections::CountGoodPV(const edm::Handle<reco::VertexCollection> &pvCollection)
+{
+    unsigned int nvtx = 0; 
+    for (unsigned int ivtx = 0; ivtx < pvCollection->size(); ++ivtx)
+    { 
+        if (pvCollection->at(ivtx).isFake())                    continue; 
+        if (pvCollection->at(ivtx).ndof() <= 4.)                continue; 
+        if (pvCollection->at(ivtx).position().Rho() > 2.0)      continue; 
+        if (fabs(pvCollection->at(ivtx).position().Z()) > 24.0) continue; 
+        nvtx++; 
+    }
+    return nvtx;
+}
+
 //
 // 2011 selections
 //

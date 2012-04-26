@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.25 2012/04/22 19:37:08 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.26 2012/04/26 11:23:20 dlevans Exp $
 //
 //
 
@@ -434,6 +434,26 @@ LeptonTreeMaker::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
         smurfutilities::DumpSaveTags("HLT_IsoMu30_eta2p1_v*", hltConfig_);
         smurfutilities::DumpSaveTags("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*", hltConfig_);
         smurfutilities::DumpSaveTags("HLT_Ele27_WP80_v*", hltConfig_);
+
+        // for SNT
+        smurfutilities::DumpSaveTags("HLT_DoubleEle14_CaloIdT_TrkIdVL_Mass8_PFMET40_v*", hltConfig_);
+        smurfutilities::DumpSaveTags("HLT_DoubleEle14_CaloIdT_TrkIdVL_Mass8_PFMET50_v*", hltConfig_);
+        smurfutilities::DumpSaveTags("HLT_DoubleEle8_CaloIdT_TrkIdVL_Mass8_PFHT175_v*", hltConfig_);
+        smurfutilities::DumpSaveTags("HLT_DoubleEle8_CaloIdT_TrkIdVL_Mass8_PFHT225_v*", hltConfig_);
+
+        smurfutilities::DumpSaveTags("HLT_DoubleMu14_Mass8_PFMET40_v*", hltConfig_);
+        smurfutilities::DumpSaveTags("HLT_DoubleMu14_Mass8_PFMET50_v*", hltConfig_);
+        smurfutilities::DumpSaveTags("HLT_DoubleMu8_Mass8_PFHT175_v*", hltConfig_);
+        smurfutilities::DumpSaveTags("HLT_DoubleMu8_Mass8_PFHT225_v*", hltConfig_);
+        smurfutilities::DumpSaveTags("HLT_DoubleRelIso1p0Mu5_Mass8_PFHT175_v*", hltConfig_);
+        smurfutilities::DumpSaveTags("HLT_DoubleRelIso1p0Mu5_Mass8_PFHT225_v*", hltConfig_);
+        smurfutilities::DumpSaveTags("HLT_Mu8_Ele8_CaloIdT_TrkIdVL_Mass8_PFHT175_v*", hltConfig_);
+        smurfutilities::DumpSaveTags("HLT_Mu8_Ele8_CaloIdT_TrkIdVL_Mass8_PFHT225_v*", hltConfig_);
+
+        smurfutilities::DumpSaveTags("HLT_Mu14_Ele14_CaloIdT_TrkIdVL_Mass8_PFMET40_v*", hltConfig_);
+        smurfutilities::DumpSaveTags("HLT_Mu14_Ele14_CaloIdT_TrkIdVL_Mass8_PFMET50_v*", hltConfig_);
+        smurfutilities::DumpSaveTags("HLT_RelIso1p0Mu5_Ele8_CaloIdT_TrkIdVL_Mass8_PFHT175_v*", hltConfig_);
+        smurfutilities::DumpSaveTags("HLT_RelIso1p0Mu5_Ele8_CaloIdT_TrkIdVL_Mass8_PFHT225_v*", hltConfig_);
 
     }
 
@@ -1100,7 +1120,7 @@ void LeptonTreeMaker::fillCommonVariables(const edm::Event& iEvent)
     leptonTree_->lumi_      = iEvent.luminosityBlock() ;
     leptonTree_->rnd_       = rndm_                    ;
     leptonTree_->rho_       = rhoIso_                  ;
-    leptonTree_->nvtx_      = vtx_h_->size()  ;
+    leptonTree_->nvtx_      = smurfselections::CountGoodPV(vtx_h_);
     leptonTree_->scale1fb_  = 1.0;
 
     edm::Handle<std::vector<PileupSummaryInfo> > puInfoH;
