@@ -35,20 +35,13 @@ leptonTreeMaker2011 = leptonTreeMaker.clone()
 
 # For 2012
 leptonTreeMaker2012 = leptonTreeMaker.clone()
-leptonTreeMaker2012.electronFRTriggerNames = cms.untracked.VInputTag(       
-        cms.InputTag("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_v*"),
-        cms.InputTag("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*"),
-        cms.InputTag("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_v*"),
-        cms.InputTag("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*"))
-leptonTreeMaker2012.muonFRTriggerNames     = cms.untracked.VInputTag(
-        cms.InputTag("HLT_Mu8_v*"),
-        cms.InputTag("HLT_Mu17_v*"))
-leptonTreeMaker2012.photonTriggerNames     = cms.untracked.VInputTag(
-        cms.InputTag("HLT_Photon22_R9Id90_HE10_Iso40_EBOnly_v*"),
-        cms.InputTag("HLT_Photon36_R9Id90_HE10_Iso40_EBOnly_v*"),
-        cms.InputTag("HLT_Photon50_R9Id90_HE10_Iso40_EBOnly_v*"),
-        cms.InputTag("HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_v*"),
-        cms.InputTag("HLT_Photon90_R9Id90_HE10_Iso40_EBOnly_v*"))
+
+leptonTreeMaker2012.photonTriggers     = cms.untracked.VInputTag(
+        cms.InputTag("HLT_Photon22_R9Id90_HE10_Iso40_EBOnly_v*::HLT_Photon22_R9Id90_HE10_Iso40_EBOnly"),
+        cms.InputTag("HLT_Photon36_R9Id90_HE10_Iso40_EBOnly_v*::HLT_Photon36_R9Id90_HE10_Iso40_EBOnly"),
+        cms.InputTag("HLT_Photon50_R9Id90_HE10_Iso40_EBOnly_v*::HLT_Photon50_R9Id90_HE10_Iso40_EBOnly"),
+        cms.InputTag("HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_v*::HLT_Photon75_R9Id90_HE10_Iso40_EBOnly"),
+        cms.InputTag("HLT_Photon90_R9Id90_HE10_Iso40_EBOnly_v*::HLT_Photon90_R9Id90_HE10_Iso40_EBOnly"))
 
 leptonTreeMaker2012.muTriggers     = cms.untracked.VInputTag(
 
@@ -66,7 +59,11 @@ leptonTreeMaker2012.muTriggers     = cms.untracked.VInputTag(
 
         # HLT_IsoMu24_eta2p1_v*
         cms.InputTag('HLT_IsoMu24_eta2p1_v*:hltL1sMu16Eta2p1:HLT_IsoMu24_eta2p1_L1sMu16Eta2p1'),
-        cms.InputTag('HLT_IsoMu24_eta2p1_v*::HLT_IsoMu24_eta2p1')
+        cms.InputTag('HLT_IsoMu24_eta2p1_v*::HLT_IsoMu24_eta2p1'),
+
+        # for FR
+        cms.InputTag("HLT_Mu8_v*::HLT_Mu8"),
+        cms.InputTag("HLT_Mu17_v*::HLT_Mu17")
 
 )
 
@@ -92,7 +89,13 @@ leptonTreeMaker2012.eleTriggers     = cms.untracked.VInputTag(
 
         # HLT_Ele32_CaloIdT_CaloIsoT_TrkIdT_TrkIsoT_SC17_Mass50_v3
         cms.InputTag('HLT_Ele32_CaloIdT_CaloIsoT_TrkIdT_TrkIsoT_SC17_Mass50_v*:hltEle32CaloIdTCaloIsoTTrkIdTTrkIsoTSC17TrackIsoFilter:HLT_Ele32_SC17_Mass50_LeadingLeg'),
-        cms.InputTag('HLT_Ele32_CaloIdT_CaloIsoT_TrkIdT_TrkIsoT_SC17_Mass50_v*:hltEle32CaloIdTCaloIsoTTrkIdTTrkIsoTSC17PMMassFilter:HLT_Ele32_SC17_Mass50_TrailingLeg')
+        cms.InputTag('HLT_Ele32_CaloIdT_CaloIsoT_TrkIdT_TrkIsoT_SC17_Mass50_v*:hltEle32CaloIdTCaloIsoTTrkIdTTrkIsoTSC17PMMassFilter:HLT_Ele32_SC17_Mass50_TrailingLeg'),
+
+        # for FR
+        cms.InputTag("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_v*::HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30"),
+        cms.InputTag("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*::HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL"),
+        cms.InputTag("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_v*::HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30"),
+        cms.InputTag("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*::HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL")
 
 )
 

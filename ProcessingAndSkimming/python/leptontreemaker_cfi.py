@@ -26,36 +26,28 @@ leptonTreeMaker = cms.EDProducer('LeptonTreeMaker',
     pfJetCorrectorL1FastL2L3 = cms.string('ak5PFL1FastL2L3'),
 
     #this works for crab jobs, can be changed for local submission
-    pathToBDTWeights = cms.string('src/Smurf/ProcessingAndSkimming/data/'),
-    #pathToBDTWeights = cms.string('./data/'),
+    #pathToBDTWeights = cms.string('src/Smurf/ProcessingAndSkimming/data/'),
+    pathToBDTWeights = cms.string('./data/'),
 
     #
     # define triggers
-    # used to select events
+    # to record branches for
     #
 
-    electronFRTriggerNames = cms.untracked.VInputTag(
-        cms.InputTag("HLT_Ele8_CaloIdL_CaloIsoVL_v*"),
-        cms.InputTag("HLT_Ele17_CaloIdL_CaloIsoVL_v*"),
-        cms.InputTag("HLT_Ele8_CaloIdL_CaloIsoVL_Jet40_v*")),
+    photonTriggers  = cms.untracked.VInputTag(
+        cms.InputTag('HLT_Photon20_CaloIdVL_IsoL_v*::HLT_Photon20_CaloIdVL_IsoL'),
+        cms.InputTag('HLT_Photon20_CaloIdVL_IsoL_v*::HLT_Photon30_CaloIdVL_IsoL'),
+        cms.InputTag('HLT_Photon20_CaloIdVL_IsoL_v*::HLT_Photon50_CaloIdVL_IsoL'),
+        cms.InputTag('HLT_Photon20_CaloIdVL_IsoL_v*::HLT_Photon75_CaloIdVL_IsoL'),
+        cms.InputTag('HLT_Photon20_CaloIdVL_IsoL_v*::HLT_Photon90_CaloIdVL_IsoL')),
 
-    muonFRTriggerNames     = cms.untracked.VInputTag(
-        cms.InputTag("HLT_Mu8_v*"),
-        cms.InputTag("HLT_Mu15_v*")),
+    muTriggers      = cms.untracked.VInputTag(
+        cms.InputTag('HLT_Mu8_v*::HLT_Mu8'),
+        cms.InputTag('HLT_Mu15_v*::HLT_Mu15')),
 
-    photonTriggerNames     = cms.untracked.VInputTag(
-        cms.InputTag("HLT_Photon20_CaloIdVL_IsoL_v*"),
-        cms.InputTag("HLT_Photon30_CaloIdVL_IsoL_v*"),
-        cms.InputTag("HLT_Photon50_CaloIdVL_IsoL_v*"),
-        cms.InputTag("HLT_Photon75_CaloIdVL_IsoL_v*"),
-        cms.InputTag("HLT_Photon90_CaloIdVL_IsoL_v*")),
-
-    #
-    # define triggers
-    # to measure in tag and probe 
-    #
-
-    muTriggers      = cms.untracked.VInputTag(),
-    eleTriggers     = cms.untracked.VInputTag(),
+    eleTriggers     = cms.untracked.VInputTag(
+        cms.InputTag('HLT_Ele8_CaloIdL_CaloIsoVL_v*::HLT_Ele8_CaloIdL_CaloIsoVL'),
+        cms.InputTag('HLT_Ele17_CaloIdL_CaloIsoVL_v*::HLT_Ele17_CaloIdL_CaloIsoVL'),
+        cms.InputTag('HLT_Ele8_CaloIdL_CaloIsoVL_Jet40_v*::HLT_Ele8_CaloIdL_CaloIsoVL_Jet40'))
 
 )
