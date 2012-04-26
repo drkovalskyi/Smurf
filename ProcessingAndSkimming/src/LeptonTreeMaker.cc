@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.24 2012/04/22 19:14:46 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.25 2012/04/22 19:37:08 dlevans Exp $
 //
 //
 
@@ -53,6 +53,7 @@ Implementation:
 #include "DataFormats/Common/interface/ValueMap.h"
 #include "DataFormats/RecoCandidate/interface/IsoDeposit.h"
 #include "EGamma/EGammaAnalysisTools/interface/EGammaCutBasedEleId.h"
+#include "DataFormats/Math/interface/deltaPhi.h"
 
 // MVAs...
 #include "HiggsAnalysis/HiggsToWW2Leptons/interface/ElectronIDMVA.h"
@@ -143,9 +144,9 @@ class LeptonTreeMaker : public edm::EDProducer {
                 const trigger::TriggerObjectCollection &allObjects,
                 const LorentzVector &obj, std::vector<unsigned int> &prescale);
 
-        bool eventPassTrigger(const std::vector<edm::InputTag> &trigNames);
-        bool eventPassTrigger(const std::string &trigName);
-        double getTriggerPrescale(const edm::Event& iEvent, const edm::EventSetup& iSetup, const std::string &trigName);
+        // get trigger prescales without object matching
+        void getTriggerPrescales(const edm::Event& iEvent, const edm::EventSetup& iSetup, 
+                const std::vector<edm::InputTag> &trigNames, std::vector<unsigned int> &prescale);
 
         // ----------member data ---------------------------
 
@@ -177,7 +178,6 @@ class LeptonTreeMaker : public edm::EDProducer {
         // trigger names
         std::vector<edm::InputTag> electronFRTriggerNames_;
         std::vector<edm::InputTag> muonFRTriggerNames_;
-        std::vector<edm::InputTag> photonTriggerNames_;
 
         // trigger related
         const trigger::TriggerEvent   *triggerEvent_;
@@ -185,6 +185,9 @@ class LeptonTreeMaker : public edm::EDProducer {
         std::string                processName_;
         const edm::TriggerResults* triggerResults_;
 
+        std::vector<edm::InputTag> photonTriggers_;
+        std::vector<unsigned int> photonTriggerPrescales_;
+        std::vector<unsigned int> photonTriggerVersions_;
         std::vector<edm::InputTag> muTriggers_;    
         std::vector<unsigned int> muTriggerPrescalesTag_;
         std::vector<unsigned int> muTriggerPrescalesProbe_;
@@ -241,15 +244,11 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
     jetsInputTag_           =  iConfig.getParameter<edm::InputTag>("jetsInputTag");
     conversionsInputTag_    =  iConfig.getParameter<edm::InputTag>("conversionsInputTag");
     beamSpotInputTag_       =  iConfig.getParameter<edm::InputTag>("beamSpotInputTag");
-
     isoValInputTags_        =  iConfig.getParameter<std::vector<edm::InputTag> >("isoValInputTags");
-
     pfJetCorrectorL1FastL2L3_   = iConfig.getParameter<std::string>("pfJetCorrectorL1FastL2L3");
     pathToBDTWeights_           = iConfig.getParameter<std::string>("pathToBDTWeights");
 
-    electronFRTriggerNames_ =  iConfig.getUntrackedParameter<std::vector<edm::InputTag> >("electronFRTriggerNames");
-    muonFRTriggerNames_     =  iConfig.getUntrackedParameter<std::vector<edm::InputTag> >("muonFRTriggerNames");
-    photonTriggerNames_     =  iConfig.getUntrackedParameter<std::vector<edm::InputTag> >("photonTriggerNames");
+    photonTriggers_         = iConfig.getUntrackedParameter<std::vector<edm::InputTag> >("photonTriggers");
     muTriggers_             = iConfig.getUntrackedParameter<std::vector<edm::InputTag> >("muTriggers");
     eleTriggers_            = iConfig.getUntrackedParameter<std::vector<edm::InputTag> >("eleTriggers");
 
@@ -270,6 +269,29 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
     // --- second branch stores trigger version number (regexp for _vXX)
     //
 
+    printf("struct TriggerResults {\n");
+    for (unsigned int i = 0; i < photonTriggers_.size(); ++i) {
+        printf("unsigned int %s_;\n", photonTriggers_[i].process().c_str());
+    }
+    for (unsigned int i = 0; i < muTriggers_.size(); ++i) {
+        printf("unsigned int %s_tag_;\n", muTriggers_[i].process().c_str());
+        printf("unsigned int %s_probe_;\n", muTriggers_[i].process().c_str());
+    }
+    for (unsigned int i = 0; i < eleTriggers_.size(); ++i) {
+        printf("unsigned int %s_tag_;\n", eleTriggers_[i].process().c_str());
+        printf("unsigned int %s_probe_;\n", eleTriggers_[i].process().c_str());
+    }
+    printf("};\n");
+
+    photonTriggerPrescales_.reserve(photonTriggers_.size());
+    photonTriggerVersions_.reserve(photonTriggers_.size());
+    for (unsigned int i = 0; i < photonTriggers_.size(); ++i) {
+        const char *trigName = photonTriggers_[i].process().c_str();
+        leptonTree_->tree_->Branch(Form("%s", trigName), &photonTriggerPrescales_[i], Form("%s/i", trigName));
+        leptonTree_->tree_->Branch(Form("%s_version", trigName), &photonTriggerVersions_[i], Form("%s_version/i", trigName));
+        printf("eventTree->SetBranchAddress(\"%s\", &triggerResults.%s);\n", trigName, trigName);
+    }
+
     muTriggerPrescalesTag_.reserve(muTriggers_.size());
     muTriggerPrescalesProbe_.reserve(muTriggers_.size());
     muTriggerVersions_.reserve(muTriggers_.size());
@@ -278,6 +300,8 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
         leptonTree_->tree_->Branch(Form("%s_tag", trigName), &muTriggerPrescalesTag_[i], Form("%s_tag/i", trigName));
         leptonTree_->tree_->Branch(Form("%s_probe", trigName), &muTriggerPrescalesProbe_[i], Form("%s_probe/i", trigName));
         leptonTree_->tree_->Branch(Form("%s_version", trigName), &muTriggerVersions_[i], Form("%s_version/i", trigName));
+        printf("eventTree->SetBranchAddress(\"%s_tag\", &triggerResults.%s_tag_);\n", trigName, trigName);
+        printf("eventTree->SetBranchAddress(\"%s_probe\", &triggerResults.%s_probe_);\n", trigName, trigName);
     }
 
     eleTriggerPrescalesTag_.reserve(eleTriggers_.size());
@@ -288,6 +312,8 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
         leptonTree_->tree_->Branch(Form("%s_tag", trigName), &eleTriggerPrescalesTag_[i], Form("%s_tag/i", trigName));
         leptonTree_->tree_->Branch(Form("%s_probe", trigName), &eleTriggerPrescalesProbe_[i], Form("%s_probe/i", trigName));
         leptonTree_->tree_->Branch(Form("%s_version", trigName), &eleTriggerVersions_[i], Form("%s_version/i", trigName));
+        printf("eventTree->SetBranchAddress(\"%s_tag\", &triggerResults.%s_tag_);\n", trigName, trigName);
+        printf("eventTree->SetBranchAddress(\"%s_probe\", &triggerResults.%s_probe_);\n", trigName, trigName);
     }
 
     //
@@ -476,20 +502,16 @@ LeptonTreeMaker::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
     // decide what to do based on trigger information
     //
 
-    bool passElectronFRTrigger  = eventPassTrigger(electronFRTriggerNames_);
-    bool passMuonFRTrigger      = eventPassTrigger(muonFRTriggerNames_);
-    bool passPhotonTrigger      = eventPassTrigger(photonTriggerNames_);
-
     // fake rates
-    if (passElectronFRTrigger)  fillElectronFakeRateTree(iEvent, iSetup, ttBuilder, clusterTools, jetCorrector);
-    if (passMuonFRTrigger)      fillMuonFakeRateTree(iEvent, iSetup, ttBuilder, jetCorrector);
+    fillElectronFakeRateTree(iEvent, iSetup, ttBuilder, clusterTools, jetCorrector);
+    fillMuonFakeRateTree(iEvent, iSetup, ttBuilder, jetCorrector);
 
     // efficiency
     fillElectronTagAndProbeTree(iEvent, iSetup, ttBuilder, clusterTools);
     fillMuonTagAndProbeTree(iEvent, iSetup, ttBuilder);
 
     // photons
-    if (passPhotonTrigger)      fillPhotonTree(iEvent, iSetup, jetCorrector);
+    fillPhotonTree(iEvent, iSetup, jetCorrector);
 
     //
     // tidy up
@@ -583,14 +605,16 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
     iEvent.getByLabel(beamSpotInputTag_, beamspot_h);
     const reco::BeamSpot &thebs = *(beamspot_h.product());
 
-    // triggers
-    const trigger::TriggerObjectCollection &allObjects = triggerEvent_->getObjects();
-
     initTriggerBranchValues();  
     leptonTree_->InitVariables(); 
 
     // this is per event
     fillCommonVariables(iEvent);
+
+    // triggers
+    const trigger::TriggerObjectCollection &allObjects = triggerEvent_->getObjects();
+    getTriggerPrescales(iEvent, iSetup, photonTriggers_, photonTriggerPrescales_);
+    getTriggerVersions(iEvent, iSetup, photonTriggers_, photonTriggerVersions_);
 
     // look for tag and probe
     unsigned int nEle = els_h->size();
@@ -677,6 +701,7 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
 
             // probe trigger matching
             if (iEvent.isRealData()) {
+                // leptons
                 objectMatchTrigger(iEvent, iSetup, eleTriggers_, allObjects, probe->p4(), eleTriggerPrescalesProbe_);
                 getTriggerVersions(iEvent, iSetup, eleTriggers_, eleTriggerVersions_);
             }
@@ -708,6 +733,8 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
 
     // triggers
     const trigger::TriggerObjectCollection &allObjects = triggerEvent_->getObjects();
+    getTriggerPrescales(iEvent, iSetup, photonTriggers_, photonTriggerPrescales_);
+    getTriggerVersions(iEvent, iSetup, photonTriggers_, photonTriggerVersions_);
 
     // look for tag and probe
     edm::View<reco::Muon>::const_iterator tag;
@@ -754,7 +781,6 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
             #ifdef RELEASE_52X
             if (probe->isPFMuon())                                               leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsPF);
             #endif
-
 
             // probe trigger matching
             if (iEvent.isRealData()) {
@@ -827,20 +853,21 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         fillCommonVariables(iEvent);
         fillJets(iEvent, iSetup, *fo, jetCorrector);
 
-        // 2011 triggers
-        if (eventPassTrigger("HLT_Ele8_CaloIdL_CaloIsoVL_v*"))       leptonTree_->eventSelection_ |= LeptonTree::QCDFakeEle8;
-        if (eventPassTrigger("HLT_Ele17_CaloIdL_CaloIsoVL_v*"))      leptonTree_->eventSelection_ |= LeptonTree::QCDFakeEle17;
-        if (eventPassTrigger("HLT_Ele8_CaloIdL_CaloIsoVL_Jet40_v*")) leptonTree_->eventSelection_ |= LeptonTree::QCDFakeEle8Jet40;
+        // probe trigger matching
+        if (iEvent.isRealData()) {
+            // leptons
+            const trigger::TriggerObjectCollection &allObjects = triggerEvent_->getObjects();
+            objectMatchTrigger(iEvent, iSetup, eleTriggers_, allObjects, fo->p4(), eleTriggerPrescalesProbe_);
+            getTriggerVersions(iEvent, iSetup, eleTriggers_, eleTriggerVersions_);
+            // photons
+            getTriggerPrescales(iEvent, iSetup, photonTriggers_, photonTriggerPrescales_);
+            getTriggerVersions(iEvent, iSetup, photonTriggers_, photonTriggerVersions_);
+        }
 
-        // additional triggers used in 2012
-        // not covered by the above
-        if (eventPassTrigger("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*"))         leptonTree_->eventSelection_ |= LeptonTree::QCDFakeEle8;
-        if (eventPassTrigger("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_v*"))   leptonTree_->eventSelection_ |= LeptonTree::QCDFakeEle8Jet30;
-        if (eventPassTrigger("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*"))        leptonTree_->eventSelection_ |= LeptonTree::QCDFakeEle17;
-        if (eventPassTrigger("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_v*"))  leptonTree_->eventSelection_ |= LeptonTree::QCDFakeEle17Jet30;
-
+        leptonTree_->eventSelection_     |= LeptonTree::QCDFakeEle;
         leptonTree_->probe_              = fo->p4();
         leptonTree_->qProbe_             = fo->charge();
+        leptonTree_->mt_                 = smurfutilities::Mt(met, fo->p4().Pt(), reco::deltaPhi(met_h->front().phi(), fo->p4().Phi()));
 
         float mvaValue            = reader_electronHWW2011MVA_->MVAValue(&*fo, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIso_);
         leptonTree_->electronHWW2011MVA_       = mvaValue;
@@ -929,16 +956,21 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
         fillCommonVariables(iEvent);    
         fillJets(iEvent, iSetup, *fo, jetCorrector);
 
-        // 2011 triggers
-        if (eventPassTrigger("HLT_Mu8_v*"))  leptonTree_->eventSelection_ |= LeptonTree::QCDFakeMu8;
-        if (eventPassTrigger("HLT_Mu15_v*")) leptonTree_->eventSelection_ |= LeptonTree::QCDFakeMu15;
+        // probe trigger matching
+        if (iEvent.isRealData()) {
+            // leptons
+            const trigger::TriggerObjectCollection &allObjects = triggerEvent_->getObjects();
+            objectMatchTrigger(iEvent, iSetup, muTriggers_, allObjects, fo->p4(), muTriggerPrescalesProbe_);
+            getTriggerVersions(iEvent, iSetup, muTriggers_, muTriggerVersions_);
+            // photons
+            getTriggerPrescales(iEvent, iSetup, photonTriggers_, photonTriggerPrescales_);
+            getTriggerVersions(iEvent, iSetup, photonTriggers_, photonTriggerVersions_);
+        }
 
-        // additional triggers used in 2012
-        // not covered by the above
-        if (eventPassTrigger("HLT_Mu17_v*")) leptonTree_->eventSelection_ |= LeptonTree::QCDFakeMu17;
-
+        leptonTree_->eventSelection_    |= LeptonTree::QCDFakeMu;
         leptonTree_->probe_              = fo->p4();
         leptonTree_->qProbe_             = fo->charge();
+        leptonTree_->mt_                 = smurfutilities::Mt(met, fo->p4().Pt(), reco::deltaPhi(met_h->front().phi(), fo->p4().Phi()));
 
         leptonTree_->muonHWW2011MVA_   = reader_muonHWW2011MVA_->MVAValue(&*fo, pv_, ttBuilder, rhoIso_, false);
 
@@ -1001,6 +1033,7 @@ void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent, const edm::EventS
         leptonTree_->metPhi_             = metPhi;
         leptonTree_->sumet_              = met_h->front().sumEt();
         leptonTree_->metSig_             = met_h->front().significance();
+        leptonTree_->mt_                 = smurfutilities::Mt(met, photon->p4().Pt(), reco::deltaPhi(metPhi, photon->p4().Phi()));
 
         const reco::Candidate* phocand = &(*photon);
         std::vector<const reco::Candidate*> phos;
@@ -1009,49 +1042,18 @@ void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent, const edm::EventS
         leptonTree_->trackMet_           = tkmet.first;
         leptonTree_->trackMetPhi_        = tkmet.second;
 
-        // trigger info 2011
-        // here the order matters: need hltPrescale to store the lowest prescale of fired triggers
-        if (eventPassTrigger("HLT_Photon20_CaloIdVL_IsoL_v*")) {
-            leptonTree_->eventSelection_ |= LeptonTree::Photon20CaloIdVLIsoL;
-            leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon20_CaloIdVL_IsoL_v*");
-        }
-        if (eventPassTrigger("HLT_Photon30_CaloIdVL_IsoL_v*")) {
-            leptonTree_->eventSelection_ |= LeptonTree::Photon30CaloIdVLIsoL;
-            leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon30_CaloIdVL_IsoL_v*");
-        }
-        if (eventPassTrigger("HLT_Photon50_CaloIdVL_IsoL_v*")) {
-            leptonTree_->eventSelection_ |= LeptonTree::Photon50CaloIdVLIsoL;
-            leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon50_CaloIdVL_IsoL_v*");
-        }
-        if (eventPassTrigger("HLT_Photon75_CaloIdVL_IsoL_v*")) {
-            leptonTree_->eventSelection_ |= LeptonTree::Photon75CaloIdVLIsoL;
-            leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon75_CaloIdVL_IsoL_v*");
-        }
-        if (eventPassTrigger("HLT_Photon90_CaloIdVL_IsoL_v*")) {
-            leptonTree_->eventSelection_ |= LeptonTree::Photon90CaloIdVLIsoL;
-            leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon90_CaloIdVL_IsoL_v*");
-        }
-
-        // trigger info 2012
-        if (eventPassTrigger("HLT_Photon22_R9Id90_HE10_Iso40_EBOnly_v*")) {
-            leptonTree_->eventSelection_ |= LeptonTree::Photon22R9Id90HE10Iso40EB;
-            leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon22_R9Id90_HE10_Iso40_EBOnly_v*");
-        }
-        if (eventPassTrigger("HLT_Photon36_R9Id90_HE10_Iso40_EBOnly_v*")) {
-            leptonTree_->eventSelection_ |= LeptonTree::Photon36R9Id90HE10Iso40EB;
-            leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon36_R9Id90_HE10_Iso40_EBOnly_v*");
-        }
-        if (eventPassTrigger("HLT_Photon50_R9Id90_HE10_Iso40_EBOnly_v*")) {
-            leptonTree_->eventSelection_ |= LeptonTree::Photon50R9Id90HE10Iso40EB;
-            leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon50_R9Id90_HE10_Iso40_EBOnly_v*");
-        }
-        if (eventPassTrigger("HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_v*")) {
-            leptonTree_->eventSelection_ |= LeptonTree::Photon75R9Id90HE10Iso40EB;
-            leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_v*");
-        }
-        if (eventPassTrigger("HLT_Photon90_R9Id90_HE10_Iso40_EBOnly_v*")) {
-            leptonTree_->eventSelection_ |= LeptonTree::Photon90R9Id90HE10Iso40EB;
-            leptonTree_->hltPrescale_ = getTriggerPrescale(iEvent, iSetup, "HLT_Photon90_R9Id90_HE10_Iso40_EBOnly_v*");
+        // probe trigger matching
+        if (iEvent.isRealData()) {
+            getTriggerPrescales(iEvent, iSetup, photonTriggers_, photonTriggerPrescales_);
+            getTriggerVersions(iEvent, iSetup, photonTriggers_, photonTriggerVersions_);
+            unsigned int lowestPrescale = 0;
+            for (unsigned int i = 0; i < photonTriggerPrescales_.size(); ++i) {
+                if (photonTriggerPrescales_[i] != 0) {
+                    if (photonTriggerPrescales_[i] < lowestPrescale || lowestPrescale == 0) 
+                        lowestPrescale = photonTriggerPrescales_[i];
+                }
+            }
+            leptonTree_->hltPrescale_ = lowestPrescale;
         }
 
         leptonTree_->tree_->Fill();
@@ -1063,16 +1065,29 @@ void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent, const edm::EventS
 void LeptonTreeMaker::initTriggerBranchValues()
 {
     // init the dynamic trigger branches
-    for (unsigned int i = 0; i < muTriggers_.size(); ++i) {
-        muTriggerPrescalesTag_[i] = 0;
-        muTriggerPrescalesProbe_[i] = 0;
-        muTriggerVersions_[i] = 0;
+
+    photonTriggerPrescales_.clear();
+    photonTriggerVersions_.clear();
+    for (unsigned int i = 0; i < photonTriggers_.size(); ++i) {
+        photonTriggerPrescales_.push_back(0);
+        photonTriggerVersions_.push_back(0);
     }
 
+    muTriggerPrescalesTag_.clear();
+    muTriggerPrescalesProbe_.clear();
+    for (unsigned int i = 0; i < muTriggers_.size(); ++i) {
+        muTriggerPrescalesTag_.push_back(0);
+        muTriggerPrescalesProbe_.push_back(0);
+        muTriggerVersions_.push_back(0);
+    }
+
+    eleTriggerPrescalesTag_.clear();
+    eleTriggerPrescalesProbe_.clear();
+    eleTriggerVersions_.clear();
     for (unsigned int i = 0; i < eleTriggers_.size(); ++i) {
-        eleTriggerPrescalesTag_[i] = 0;
-        eleTriggerPrescalesProbe_[i] = 0;
-        eleTriggerVersions_[i] = 0;
+        eleTriggerPrescalesTag_.push_back(0);
+        eleTriggerPrescalesProbe_.push_back(0);
+        eleTriggerVersions_.push_back(0);
     }
 }
 
@@ -1109,9 +1124,13 @@ void LeptonTreeMaker::fillJets(const edm::Event& iEvent, const edm::EventSetup &
     std::vector<std::pair<reco::PFJet, float> > jets30 = smurfselections::goodJets(iEvent, iSetup, jets_h_, cand1, jetCorrector, 30.);
     leptonTree_->njets_ = jets30.size();
     std::vector<std::pair<reco::PFJet, float> > jets15 = smurfselections::goodJets(iEvent, iSetup, jets_h_, cand1, jetCorrector, 15.);
-    if (jets15.size() > 0) leptonTree_->jet1_ = jets15.at(0).first.p4() * jets15.at(0).second;
+    if (jets15.size() > 0) {
+        leptonTree_->jet1_          = jets15.at(0).first.p4() * jets15.at(0).second;
+        leptonTree_->dPhiProbeJet1_ = reco::deltaPhi(cand1.p4().Phi(), jets15.at(0).first.p4().Phi());
+    }
     if (jets15.size() > 1) leptonTree_->jet2_ = jets15.at(1).first.p4() * jets15.at(1).second;
     if (jets15.size() > 2) leptonTree_->jet3_ = jets15.at(2).first.p4() * jets15.at(2).second;
+
 
 }
 
@@ -1170,45 +1189,33 @@ void LeptonTreeMaker::objectMatchTrigger(const edm::Event &iEvent, const edm::Ev
 
 }
 
-bool LeptonTreeMaker::eventPassTrigger(const std::vector<edm::InputTag> &trigNames)
+void LeptonTreeMaker::getTriggerPrescales(const edm::Event& iEvent, const edm::EventSetup& iSetup, 
+        const std::vector<edm::InputTag> &trigNames, std::vector<unsigned int> &prescale)
 {
 
-    for(unsigned int j = 0; j < trigNames.size(); j++) {
-        if (eventPassTrigger(trigNames[j].label())) return true;
+    for (unsigned int t = 0; t < trigNames.size(); ++t) {
+
+        for (unsigned int i = 0; i < hltConfig_.size(); i++) {
+
+            // did trigger pass
+            bool result = triggerResults_->accept(i);
+            if (!result) continue;
+
+            // does trigger have the right name
+            TString hltTrigName(hltConfig_.triggerName(i));
+            TString pattern(trigNames[t].label());
+            hltTrigName.ToLower();
+            pattern.ToLower();
+            TRegexp reg(Form("%s", pattern.Data()), true);
+
+            // if so, get prescale value
+            if (hltTrigName.Index(reg) >= 0) 
+                prescale[t] = hltConfig_.prescaleValue(iEvent, iSetup, hltConfig_.triggerName(i));
+
+        }
+
     }
-    return false;
-}
 
-bool LeptonTreeMaker::eventPassTrigger(const std::string &trigName)
-{
-
-    for(unsigned int i = 0; i<hltConfig_.size(); i++) {
-        bool result = triggerResults_->accept(i);
-        if (!result) continue;
-        TString hltTrigName(hltConfig_.triggerName(i));
-        TString pattern(trigName);
-        hltTrigName.ToLower();
-        pattern.ToLower();
-        TRegexp reg(Form("%s", pattern.Data()), true);
-        if (hltTrigName.Index(reg) >= 0) return true;
-    }
-    return false;
-}
-
-double LeptonTreeMaker::getTriggerPrescale(const edm::Event& iEvent, const edm::EventSetup& iSetup, const std::string &trigName)
-{
-
-    for(unsigned int i = 0; i<hltConfig_.size(); i++) {
-        bool result = triggerResults_->accept(i);
-        if (!result) continue;
-        TString hltTrigName(hltConfig_.triggerName(i));
-        TString pattern(trigName);
-        hltTrigName.ToLower();
-        pattern.ToLower();
-        TRegexp reg(Form("%s", pattern.Data()), true);
-        if (hltTrigName.Index(reg) >= 0) return hltConfig_.prescaleValue(iEvent, iSetup, hltConfig_.triggerName(i));
-    }
-    return 0.;
 }
 
 //define this as a plug-in
