@@ -45,7 +45,6 @@ process.source = cms.Source("PoolSource",
     )
 )
 
-process.leptonTreeMaker2012.pathToBDTWeights = cms.string('./data/')
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.p = cms.Path(process.leptonTreeMakerSequenceMC * process.pfParticleSelectionSequence * process.eleIsoSequence * process.leptonTreeMaker2012)
 
