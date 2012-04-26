@@ -26,13 +26,6 @@ void ValidatePFIsolation(const edm::Event& iEvent, const reco::GsfElectron &ele,
 void DumpSaveTags(const std::string triggerName,
         const HLTConfigProvider &hltConfig);
 
-// find trigger objects corresponding
-// to trigger name and filter name
-//trigger::TriggerObjectCollection GetTriggerObjects(const std::string triggerName, const std::string filterName,
-//        const std::string procesName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
-//        const trigger::TriggerEvent *triggerEvent,
-//        const trigger::TriggerObjectCollection &allObjects);
-
 // does trigger object match offline object
 // prescale is returned - 0 if no match.
 unsigned int MatchTriggerObject(const edm::Event &iEvent, const edm::EventSetup &iSetup,
@@ -44,6 +37,9 @@ unsigned int MatchTriggerObject(const edm::Event &iEvent, const edm::EventSetup 
 
 // does trigger object match offline object
 bool MatchTriggerObject(const trigger::TriggerObjectCollection &triggerObjects, const LorentzVector &offlineObject);
+
+// calculate mt
+float Mt(const float &pt1, const float &pt2, const float &dphi);
 
 }
 

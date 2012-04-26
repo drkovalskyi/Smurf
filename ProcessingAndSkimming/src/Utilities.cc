@@ -58,64 +58,6 @@ void smurfutilities::DumpSaveTags(const std::string triggerName,
 
 }
 
-/*
-trigger::TriggerObjectCollection smurfutilities::GetTriggerObjects(const std::string triggerName, const std::string filterName,
-        const std::string processName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
-        const trigger::TriggerEvent *triggerEvent,
-        const trigger::TriggerObjectCollection &allObjects)
-{
-
-    // objects matching trigger
-    trigger::TriggerObjectCollection selectedObjects;
-
-    // loop on triggers
-    for (unsigned int i = 0; i < hltConfig.size(); i++) {
-
-        // does this trigger pass
-        if(!triggerResults->accept(i)) continue;
-
-        // get name of ith trigger
-        TString hltTrigName(hltConfig.triggerName(i));
-        hltTrigName.ToLower();
-
-        // pattern to match
-        TString pattern(triggerName);
-        pattern.ToLower();
-
-        // match pattern
-        TRegexp reg(Form("%s", pattern.Data()), true);
-
-        // if trigger matches
-        // then look for the objects corresponding to
-        // the specified filter name
-        if (hltTrigName.Index(reg) >= 0) {
-
-            edm::InputTag filterNameTag(filterName, "", processName);
-            if (filterName == "") {
-                const std::vector<std::string> &modules = hltConfig.saveTagsModules(i);
-                filterNameTag = edm::InputTag(modules.back(), "", processName);
-            }
-            else {
-                filterNameTag = edm::InputTag(filterName, "", processName);
-            }
-
-            size_t filterIndex = triggerEvent->filterIndex(filterNameTag);
-
-            if (filterIndex < triggerEvent->sizeFilters()) {
-                const trigger::Keys &keys = triggerEvent->filterKeys(filterIndex);
-                for (size_t j = 0; j < keys.size(); j++) {
-                    trigger::TriggerObject foundObject = allObjects[keys[j]];
-                    selectedObjects.push_back(foundObject);
-                }
-            }
-        }
-    }
-
-    return selectedObjects;
-
-}
-*/
-
 unsigned int smurfutilities::MatchTriggerObject(const edm::Event &iEvent, const edm::EventSetup &iSetup,
         const std::string triggerName, const std::string filterName,
         const std::string processName, const HLTConfigProvider &hltConfig, const edm::TriggerResults* triggerResults,
@@ -129,10 +71,6 @@ unsigned int smurfutilities::MatchTriggerObject(const edm::Event &iEvent, const 
     // loop on triggers
     for (unsigned int i = 0; i < hltConfig.size(); i++) {
 
-        // does this trigger pass
-        // must not be done for intermediate matching to make sense
-        //if(!triggerResults->accept(i)) continue;
-        
         // get name of ith trigger
         TString hltTrigName(hltConfig.triggerName(i));
         hltTrigName.ToLower();
@@ -185,5 +123,10 @@ bool smurfutilities::MatchTriggerObject(const trigger::TriggerObjectCollection &
             return true ;
     }
     return false;
+}
+
+float smurfutilities::Mt(const float &pt1, const float &pt2, const float &dphi)
+{
+  return 2*sqrt(pt1*pt2)*fabs(sin(dphi/2));
 }
 
