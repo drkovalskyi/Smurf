@@ -26,7 +26,6 @@ class LeptonTree {
         /// bit map
         /// DON'T CHANGE ORDER
         enum LeptonSelection {
-
             PassEleSC                       = 1UL<<0,  // 
             PassEleReco                     = 1UL<<1,  // 
             PassEleFO                       = 1UL<<2,  // 
@@ -37,12 +36,11 @@ class LeptonTree {
             PassMuIsPF                      = 1UL<<7,  //
             PassMuIsPOGTight                = 1UL<<8,  //
             PassMuIsPOGSoft                 = 1UL<<9,  //
-            PassMuFO                        = 1UL<<10,  //
-            PassMuID                        = 1UL<<11,  //
-            PassMuIso                       = 1UL<<12,  //
-            PassPhotonID                    = 1UL<<13,  //
-            PassPhotonIso                   = 1UL<<14   //
-
+            PassMuFO                        = 1UL<<10, //
+            PassMuID                        = 1UL<<11, //
+            PassMuIso                       = 1UL<<12, //
+            PassPhotonID                    = 1UL<<13, //
+            PassPhotonIso                   = 1UL<<14  //
         };
 
         enum EventSelection {
@@ -50,30 +48,12 @@ class LeptonTree {
             ZmmTagAndProbe                  = 1UL<<1,  // 
             OniaEETagAndProbe               = 1UL<<2,  // 
             OniaMuMuTagAndProbe             = 1UL<<3,  // 
-            QCDFakeEle8                     = 1UL<<4,  // 
-            QCDFakeEle17                    = 1UL<<5,  // 
-            QCDFakeEle8Jet40                = 1UL<<6,  // 
-            QCDFakeEle8Jet30                = 1UL<<7,  //
-            QCDFakeEle17Jet30               = 1UL<<8,  //
-            QCDFakeMu8                      = 1UL<<9,  // 
-            QCDFakeMu15                     = 1UL<<10, // 
-            QCDFakeMu17                     = 1UL<<11, //
-            ZJetsFakeEleSelection           = 1UL<<12, // 
-            ZJetsFakeMuSelection            = 1UL<<13, // 
-            PhotonSelection                 = 1UL<<14, //
-            Photon20CaloIdVLIsoL            = 1UL<<15, //
-            Photon30CaloIdVLIsoL            = 1UL<<16, //
-            Photon50CaloIdVLIsoL            = 1UL<<17, //
-            Photon75CaloIdVLIsoL            = 1UL<<18, //
-            Photon90CaloIdVLIsoL            = 1UL<<19, //
-            Photon22R9Id90HE10Iso40EB       = 1UL<<20, //
-            Photon36R9Id90HE10Iso40EB       = 1UL<<21, //
-            Photon50R9Id90HE10Iso40EB       = 1UL<<22, //
-            Photon75R9Id90HE10Iso40EB       = 1UL<<23, //
-            Photon90R9Id90HE10Iso40EB       = 1UL<<24  //
-
+            QCDFakeEle                      = 1UL<<4,  //
+            QCDFakeMu                       = 1UL<<5,  // 
+            ZJetsFakeEleSelection           = 1UL<<6,  // 
+            ZJetsFakeMuSelection            = 1UL<<7,  // 
+            PhotonSelection                 = 1UL<<8   //
         };
-
 
         /// variables
         unsigned int   event_;
@@ -104,6 +84,8 @@ class LeptonTree {
         float          hltPrescale_;
         float          sumet_;
         float          metSig_;
+        float          mt_;
+        float          dPhiProbeJet1_;
 
         //
         // MVA IDs
@@ -215,6 +197,9 @@ class LeptonTree {
             tree_->Branch("hltPrescale"      , &hltPrescale_      ,   "hltPrescale/F");
             tree_->Branch("sumet"            , &sumet_            ,   "sumet/F");
             tree_->Branch("metSig"           , &metSig_           ,   "metSig/F");
+            tree_->Branch("mt"            , &mt_            ,   "mt/F");
+            tree_->Branch("dPhiProbeJet1"            , &dPhiProbeJet1_            ,   "dPhiProbeJet1/F");
+
             tree_->Branch("electronHWW2011MVA"      , &electronHWW2011MVA_      ,   "electronHWW2011MVA/F");
             tree_->Branch("electronHWW2011IDIsoMVA"      , &electronHWW2011IDIsoMVA_      ,   "electronHWW2011IDIsoMVA/F");
             tree_->Branch("muonHWW2011MVA"          , &muonHWW2011MVA_          ,   "muonHWW2011MVA/F");
@@ -290,6 +275,9 @@ class LeptonTree {
             tree_->SetBranchAddress("hltPrescale",      &hltPrescale_);
             tree_->SetBranchAddress("sumet",            &sumet_);
             tree_->SetBranchAddress("metSig",           &metSig_);
+            tree_->SetBranchAddress("mt",            &mt_);
+            tree_->SetBranchAddress("dPhiProbeJet1",            &dPhiProbeJet1_);
+
             tree_->SetBranchAddress("electronHWW2011MVA",      &electronHWW2011MVA_);
             tree_->SetBranchAddress("electronHWW2011IDIsoMVA",      &electronHWW2011IDIsoMVA_);
             tree_->SetBranchAddress("muonHWW2011MVA",          &muonHWW2011MVA_);
@@ -373,6 +361,8 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("hltPrescale"      ));
         variables_.push_back(std::string("sumet"            ));
         variables_.push_back(std::string("metSig"           ));
+        variables_.push_back(std::string("mt"            ));
+        variables_.push_back(std::string("dPhiProbeJet1"            ));;
         variables_.push_back(std::string("electronHWW2011MVA"      ));
         variables_.push_back(std::string("electronHWW2011IDIsoMVA" ));    
         variables_.push_back(std::string("muonHWW2011MVA"          ));
@@ -437,6 +427,9 @@ LeptonTree::InitVariables(){
     hltPrescale_          = 1;
     sumet_                = -999;
     metSig_               = -999;
+    mt_                   = -999;
+    dPhiProbeJet1_        = -999;
+
     electronHWW2011MVA_          = -999;
     electronHWW2011IDIsoMVA_     = -999;
     muonHWW2011MVA_              = -999;
@@ -499,6 +492,8 @@ LeptonTree::Get(std::string value)
     if(value=="hltPrescale"      ) { return this->hltPrescale_;      }
     if(value=="sumet"            ) { return this->sumet_;            }
     if(value=="metSig"           ) { return this->metSig_;           }
+    if(value=="mt"            ) { return this->mt_;            }
+    if(value=="dPhiProbeJet1"            ) { return this->dPhiProbeJet1_;            }
 
     if(value=="vetoId"              ) { return this->vetoId_;           }
     if(value=="looseId"              ) { return this->looseId_;           }
