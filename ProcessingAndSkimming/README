@@ -33,5 +33,5 @@ cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_
 cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTG_TrigV0_Cat6.weights.xml Smurf/ProcessingAndSkimming/data/
 
 # 2012 HZZ ID+Iso combined MVA: does not include IP variables though.
-cvs co -rV0-00-01 -d Muon/MuonAnalysisTools /UserCode/sixie/Muon/MuonAnalysisTools
+cvs co -rV0-00-01 -d Muon/MuonAnalysisTools UserCode/sixie/Muon/MuonAnalysisTools
 
