@@ -33,7 +33,7 @@ void ComputeSSScaleFactors
   //Settings 
   //*******************************************************************************
   int category = 0;
-  if(period > 3) {period = period - 10; category = 1;}
+  if(period > 9) {period = period - 10; category = 1;}
   double lumi = 1;
   enum { kOther, kTTBAR, kTW, kData };
   unsigned int patternTopVeto = SmurfTree::TopVeto;
@@ -58,22 +58,28 @@ void ComputeSSScaleFactors
     puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
     lumi     = 3.6;minRun = 167914;maxRun = 999999;
   }
-  else if(period == 2){ // Full2011
+  else if(period == 2){ // Full2011-Fall11-V7
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
     lumi     = 4.924;minRun =      0;maxRun = 999999;
   }
-  else if(period == 33){ // Full2011-Fall11-V7
+  else if(period == 3){ // Full2011-Fall11-V7
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
     lumi     = 4.924;minRun =      0;maxRun = 999999;
   }
-  else if(period == 3){ // Full2011-Fall11-V8
+  else if(period == 4){ // Full2011-Fall11-V8
     effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
     fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
     puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
+    lumi     = 4.924;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 5){ // Full2011-Fall11-V9
+    effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
+    fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
+    puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
     lumi     = 4.924;minRun =      0;maxRun = 999999;
   }
   else {

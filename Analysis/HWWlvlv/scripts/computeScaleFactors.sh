@@ -43,17 +43,47 @@
 #cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors2.h 
 #cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors.h  $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors2.h
 
-######Full2011-42x_pu###############################################################################################
+######Full2011-V7###############################################################################################
 root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+'(3)'
 mv DYBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/
 mv DYEstimateTable.txt $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYEstimateTable3.txt
 
-root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+'(3,"/data/smurf/data/Run2011_Fall11_SmurfV8_42X/mitf-alljets/backgroundD_skim1.root","/data/smurf/data/Run2011_Fall11_SmurfV8_42X/mitf-alljets/data_skim1.root")'
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+'(3,"/data/smurf/data/Run2011_Fall11_SmurfV7_42X/mitf-alljets/backgroundD_skim1.root","/data/smurf/data/Run2011_Fall11_SmurfV7_42X/mitf-alljets/data_mit_2l_skim1.root")'
 mv TopBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/
 
-root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor.C+'(3,"/data/smurf/data/Run2011_Fall11_SmurfV8_42X/mitf-alljets/backgroundD_skim1.root","/data/smurf/data/Run2011_Fall11_SmurfV8_42X/mitf-alljets/data_skim1.root")'
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor.C+'(3,"/data/smurf/data/Run2011_Fall11_SmurfV7_42X/mitf-alljets/backgroundD_skim1.root","/data/smurf/data/Run2011_Fall11_SmurfV7_42X/mitf-alljets/data_mit_2l_skim1.root")'
 mv WWBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/
 
 cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors.h  $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors3.h 
 cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors3.h 
 cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors.h  $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors3.h
+
+######Full2011-V8###############################################################################################
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+'(4)'
+mv DYBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/
+mv DYEstimateTable.txt $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYEstimateTable4.txt
+
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+'(4,"/data/smurf/data/Run2011_Fall11_SmurfV8_42X/mitf-alljets/backgroundD_skim1.root","/data/smurf/data/Run2011_Fall11_SmurfV8_42X/mitf-alljets/data_skim1.root")'
+mv TopBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/
+
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor.C+'(4,"/data/smurf/data/Run2011_Fall11_SmurfV8_42X/mitf-alljets/backgroundD_skim1.root","/data/smurf/data/Run2011_Fall11_SmurfV8_42X/mitf-alljets/data_skim1.root")'
+mv WWBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/
+
+cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors.h  $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors4.h 
+cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors4.h 
+cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors.h  $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors4.h
+
+######Full2011-V9###############################################################################################
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+'(5)'
+mv DYBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/
+mv DYEstimateTable.txt $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYEstimateTable5.txt
+
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+'(5,"/data/smurf/data/Run2011_Fall11_SmurfV9_42X/mitf-alljets/backgroundD_skim1.root","/data/smurf/data/Run2011_Fall11_SmurfV9_42X/mitf-alljets/data_skim1.root")'
+mv TopBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/
+
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor.C+'(5,"/data/smurf/data/Run2011_Fall11_SmurfV9_42X/mitf-alljets/backgroundD_skim1.root","/data/smurf/data/Run2011_Fall11_SmurfV9_42X/mitf-alljets/data_skim1.root")'
+mv WWBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/
+
+cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors.h  $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors5.h 
+cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors5.h 
+cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors.h  $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors5.h

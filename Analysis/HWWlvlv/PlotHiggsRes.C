@@ -26,6 +26,7 @@
 #include "WWBkgScaleFactors.h"
 #include "OtherBkgScaleFactors.h"
 #include "HWWCuts.h"
+#include "HiggsSM4Systematics.h"
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
@@ -54,7 +55,7 @@ void PlotHiggsRes
  Int_t   wwDecay         = 0,
  bool fillInfoNote       = false,
  TString systInputFile   = "",
- int period              = 3,
+ int period              = 2,
  int  TheVerboseLevel    = 0
  )
 {
@@ -62,7 +63,7 @@ void PlotHiggsRes
   if(mH == 0) {wwPresel = true; mH = 115;}
 
   int category = 0;
-  if(period > 3) {period = period - 10; category = 1;}
+  if(period > 9) {period = period - 10; category = 1;}
 
   bool signalInjection = false;
 
@@ -210,16 +211,22 @@ void PlotHiggsRes
     puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
     scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
   }
-  else if(period == 33){ // Full2011-Fall11-V7
+  else if(period == 3){ // Full2011-Fall11-V7
     effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
     fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
     puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
     scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
   }
-  else if(period == 3){ // Full2011-Fall11-V8
+  else if(period == 4){ // Full2011-Fall11-V8
     effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
     fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
     puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
+    scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 5){ // Full2011-Fall11-V9
+    effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
+    fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
+    puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
     scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
   }
   else {
@@ -1010,6 +1017,8 @@ void PlotHiggsRes
       if(processId == 121 || processId == 122) add = 0.0;
     }
 
+    if(processId != 10010 && isSM4 == true) add = 0.0;
+
     if(isSM4 == true) add = add * enhancementFactor(mH,1); // BR(H->WW) enhancement factor
 
     if (processId == 10010) {
@@ -1610,6 +1619,7 @@ void PlotHiggsRes
     //----------------------------------------------------------------------------      
     // Explicitly neglect events with 0 weight
     //----------------------------------------------------------------------------
+
     if(myWeight == 0) continue;
 
     //----------------------------------------------------------------------------
@@ -2329,6 +2339,7 @@ void PlotHiggsRes
     //----------------------------------------------------------------------------      
     // Explicitly neglect events with 0 weight
     //----------------------------------------------------------------------------
+
     if(myWeight == 0) continue;
 
     //----------------------------------------------------------------------------
@@ -2575,6 +2586,8 @@ void PlotHiggsRes
     if(signalInjection == true) {
       myWeight = sfWeightPU*sfWeightEff*sfWeightTrig*sfWeightHPt*scaleFactorLum*scale1fb;
     }
+
+    if(myWeight == 0) continue;
 
     //----------------------------------------------------------------------------
     //
@@ -3495,6 +3508,13 @@ void PlotHiggsRes
     double XS_QCDscale_qqH = 1.01; double XS_QCDscale_VH = 1.02; 
     if(isFermioPhobic == true) {XS_QCDscale_qqH += 0.05; XS_QCDscale_VH += 0.05; XS_PDF_VH += 0.00;}
     
+    double gamma_Hff = 1.0; double gamma_HVV = 1.0; double gamma_Hgluglu = 1.0;
+    if(isSM4 == true) {
+      gamma_Hff     = HiggsSM4Systematics_HiggsBRErr_Hff    (mH);
+      gamma_HVV     = HiggsSM4Systematics_HiggsBRErr_HVV    (mH);
+      gamma_Hgluglu = HiggsSM4Systematics_HiggsBRErr_Hgluglu(mH);
+    }
+    
     if     (nJetsType == 1) {
       jeteff_E  	= 1.05;
       if(mH>=200) {XS_QCDscale_WW[0] = 1.000; XS_QCDscale_WW[1] = 1.076; XS_QCDscale_WW[2] = 0.914;}
@@ -3604,6 +3624,12 @@ void PlotHiggsRes
       char theWHString[20];
       if(histo_WH->GetSumOfWeights() > 0) sprintf(theWHString,"1.000");
       else                                sprintf(theWHString,"  -  ");
+      char theqqHString[20];
+      if(histo_qqH->GetSumOfWeights() > 0) sprintf(theqqHString,"1.000");
+      else                                 sprintf(theqqHString,"  -  ");
+      char theggHString[20];
+      if(histo_ggH->GetSumOfWeights() > 0) sprintf(theggHString,"1.000");
+      else                                 sprintf(theggHString,"  -  ");
       char theWgammaString[20];
       if(histo_Wgamma->GetSumOfWeights() > 0) sprintf(theWgammaString,"1.000");
       else                                    sprintf(theWgammaString,"  -  ");
@@ -3631,19 +3657,19 @@ void PlotHiggsRes
       newcardShape << Form("rate  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f\n",yield[1],yield[2],yield[3],yield[4],yield[5],yield[6],yield[7],yield[8],yield[9],TMath::Max((double)yield[10],0.0),yield[11],yield[12]);
       newcardShape << Form("lumi                             lnN 1.022 1.022 1.022 1.022 %5.3f %5.3f 1.022   -     -     -   1.022 1.022\n",lumiErr,lumiErr);				 
       if(useExpTemplates == true){
-      newcardShape << Form("CMS_MVALepEffBounding          shape   %s   %s   1.000 1.000 1.000 1.000 1.000   -     -     -   %s %s\n",theZHString,theWHString,theWgammaString,theZttString);			   
-      newcardShape << Form("CMS_MVALepResBounding          shape   %s   %s   1.000 1.000 1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theWgammaString,theZttString);			   
-      newcardShape << Form("CMS_MVAMETResBounding          shape   %s   %s   1.000 1.000 1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theWgammaString,theZttString);			   
+      newcardShape << Form("CMS_MVALepEffBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000   -     -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
+      newcardShape << Form("CMS_MVALepResBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
+      newcardShape << Form("CMS_MVAMETResBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
       }
       else {
-      newcardShape << Form("CMS_eff_m                        lnN 1.030 1.030 1.030 1.030 1.030 1.030 1.030   -     -     -   1.030 1.030\n");				 
+      newcardShape << Form("CMS_eff_m                        lnN 1.030 1.030 1.030 1.030 1.030 1.030 1.030   -     -     -   1.030 1.030\n");
       newcardShape << Form("CMS_eff_e                        lnN 1.040 1.040 1.040 1.040 1.040 1.040 1.040   -     -     -   1.040 1.040\n");				 
       newcardShape << Form("CMS_scale_m                      lnN 1.015 1.015 1.015 1.015 1.015 1.015 1.015   -     -     -   1.015 1.015\n");				 
       newcardShape << Form("CMS_scale_e                      lnN 1.020 1.020 1.020 1.020 1.020 1.020 1.020   -     -     -   1.020 1.020\n");
       newcardShape << Form("CMS_hww_met_resolution           lnN 1.020 1.020 1.020 1.020 1.020 1.020 1.020   -     -     -   1.020 1.020\n");
       }
       if(useJESTemplates == true){
-      newcardShape << Form("CMS_MVAJESBounding             shape   %s   %s   1.000 1.000 1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theWgammaString,theZttString);			   
+      newcardShape << Form("CMS_MVAJESBounding             shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
       }
       else {
       newcardShape << Form("CMS_scale_j                      lnN %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f   -     -     -   %5.3f %5.3f\n",jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E);	     
@@ -3655,7 +3681,7 @@ void PlotHiggsRes
       if(useWJetsMCTemplates == true){
         newcardShape << Form("CMS_MVAWMCBounding_hww        shape  -     -     -     -     -     -     -     -     -   1.000   -     -  \n");
       }
-      if(useggHTemplates == true){
+      if(useggHTemplates == true && histo_ggH->GetSumOfWeights() > 0.0){
         newcardShape << Form("CMS_MVAggHBounding            shape  -     -     -   1.000   -     -     -     -     -     -    -     -  \n");
       }
       newcardShape << Form("UEPS 		             lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",UEPS);
@@ -3696,7 +3722,9 @@ void PlotHiggsRes
       	newcardShape << Form("CMS_MVAZHStatBounding_hww%s_%1dj      shape  %s     -      -    -      -	   -	 -     -     -	   -	 -     -  \n",finalStateName,nJetsType,theZHString);
 	if(histo_WH->GetSumOfWeights() > 0)
       	newcardShape << Form("CMS_MVAWHStatBounding_hww%s_%1dj      shape   -     %s     -    -      -	   -	 -     -     -	   -	 -     -  \n",finalStateName,nJetsType,theWHString);
+	if(histo_qqH->GetSumOfWeights() > 0)
       	newcardShape << Form("CMS_MVAqqHStatBounding_hww%s_%1dj     shape   -     -    1.0    -      -     -	 -     -     -     -	 -     -  \n",finalStateName,nJetsType);
+	if(histo_ggH->GetSumOfWeights() > 0)
       	newcardShape << Form("CMS_MVAggHStatBounding_hww%s_%1dj     shape   -     -	 -    1.0    -     -	 -     -     -     -	 -     -  \n",finalStateName,nJetsType);
       	newcardShape << Form("CMS_MVAqqWWStatBounding_hww%s_%1dj    shape   -     -	 -     -    1.0    -	 -     -     -     -	 -     -  \n",finalStateName,nJetsType);
       	newcardShape << Form("CMS_MVAggWWStatBounding_hww%s_%1dj    shape   -     -	 -     -     -    1.0    -     -     -     -	 -     -  \n",finalStateName,nJetsType);
@@ -3722,6 +3750,11 @@ void PlotHiggsRes
       	newcardShape << Form("CMS_hww%s_stat_%1dj_Wjets_bin%d  lnN   -     -	 -     -     -     -	 -     -     -   %5.3f   -     -  \n",finalStateName,nJetsType,i,yieldE[10]+1.0);
       	newcardShape << Form("CMS_hww%s_stat_%1dj_Wgamma_bin%d lnN   -     -	 -     -     -     -	 -     -     -     -   %5.3f   -  \n",finalStateName,nJetsType,i,yieldE[11]+1.0);
       	newcardShape << Form("CMS_hww%s_stat_%1dj_Ztt_bin%d    lnN   -     -	 -     -     -     -	 -     -     -     -	 -   %5.3f\n",finalStateName,nJetsType,i,yieldE[12]+1.0);
+      }
+      if(isSM4 == true){
+        newcardShape << Form("gamma_Hff                           lnN   -     -	    -   %5.3f   -     -	    -     -     -     -	    -     -\n",gamma_Hff);
+        newcardShape << Form("gamma_HVV                           lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -\n",gamma_HVV);
+        newcardShape << Form("gamma_Hgluglu                       lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -\n",gamma_Hgluglu);
       }
       newcardShape.close();
     }
@@ -3790,6 +3823,11 @@ void PlotHiggsRes
     newcardCut << Form("CMS_hww%s_stat_%1dj_Wjets  lnN   -     -     -     -     -     -     -     -     -   %5.3f   -     -  \n",finalStateName,nJetsType,nBgdECutDecays[5]+1.0);
     newcardCut << Form("CMS_hww%s_stat_%1dj_Wgamma lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",finalStateName,nJetsType,nBgdECutDecays[6]+1.0);
     newcardCut << Form("CMS_hww%s_stat_%1dj_Ztt    lnN   -     -     -     -     -     -     -     -     -     -     -   %5.3f\n",finalStateName,nJetsType,nBgdECutDecays[7]+1.0);
+    if(isSM4 == true){
+      newcardCut << Form("gamma_Hff                  lnN   -	 -     -   %5.3f   -	 -     -     -     -	 -     -     -  \n",gamma_Hff);
+      newcardCut << Form("gamma_HVV                  lnN   -	 -     -   %5.3f   -	 -     -     -     -	 -     -     -  \n",gamma_HVV);
+      newcardCut << Form("gamma_Hgluglu              lnN   -	 -     -   %5.3f   -	 -     -     -     -	 -     -     -  \n",gamma_Hgluglu);
+    }
     newcardCut.close();
 
     if(signalInjection == true){
@@ -3857,6 +3895,11 @@ void PlotHiggsRes
     newcardMVA << Form("CMS_hww%s_stat_%1dj_Wjets  lnN   -     -     -     -     -     -     -     -     -   %5.3f   -     -  \n",finalStateName,nJetsType,nBgdEMVADecays[5]+1.0);
     newcardMVA << Form("CMS_hww%s_stat_%1dj_Wgamma lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",finalStateName,nJetsType,nBgdEMVADecays[6]+1.0);
     newcardMVA << Form("CMS_hww%s_stat_%1dj_Ztt    lnN   -     -     -     -     -     -     -     -     -     -     -   %5.3f\n",finalStateName,nJetsType,nBgdEMVADecays[7]+1.0);
+    if(isSM4 == true){
+      newcardMVA << Form("gamma_Hff			     lnN   -	 -     -   %5.3f   -	 -     -     -     -	 -     -     -  \n",gamma_Hff);
+      newcardMVA << Form("gamma_HVV			     lnN   -	 -     -   %5.3f   -	 -     -     -     -	 -     -     -  \n",gamma_HVV);
+      newcardMVA << Form("gamma_Hgluglu                      lnN   -	 -     -   %5.3f   -	 -     -     -     -	 -     -     -  \n",gamma_Hgluglu);
+    }
     newcardMVA.close();
   }
 

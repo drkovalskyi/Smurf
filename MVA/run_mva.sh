@@ -12,13 +12,13 @@ export NJETS=$1;
 export MH=$2;
 export WEIGHTSONLY=$3;
 
-export TAG=TEST_${MH}train_${NJETS}jets;
+#export TAG=TEST_${MH}train_${NJETS}jets;
 #export METHODS=BDTG;
-#export TAG=ntuples_${MH}train_${NJETS}jets;
-export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
+export TAG=ntuples_${MH}train_${NJETS}jets;
+#export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
 #export TAG=TEST_ntuples_${MH}train_${NJETS}jets;
 #export METHODS=BDT,Likelihood,BDTG,BDTD,BDTB,MLP,MLPBFGS,MLPBNN,CFMlpANN,TMlpANN,BoostedFisher,LikelihoodD,LikelihoodPCA,FDA_GA,RuleFit;
-#export METHODS=BDT,Likelihood,BDTG;
+export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
 
 ### Training: change done hand made, it's an expert option
 export trainMVA_smurfFile=trainMVA_smurf.C+;
@@ -54,7 +54,40 @@ fi
 ### samples must be in "data" folder
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
+data/data-emb-tau123.root
+data/data_mit_2fake.root
+data/data.root
+data/dyee.root
+data/dymm.root
+data/dytt.root
+data/ggww.root
+data/hww_syst.root
+data/mc_l_fake_pu.root
+data/qqww_py.root
+data/qqww.root
+data/training.root
+data/ttbar_mg.root
+data/ttbar.root
+data/tw_ds.root
+data/tw.root
+data/vh3l_syst.root
+data/wg3l.root
+data/wgamma_lgamma.root
+data/wgamma.root
+data/wjets.root
+data/ww_mcnlo_down.root
+data/ww_mcnlo.root
+data/ww_mcnlo_up.root
+data/www.root
+data/wz_py.root
+data/wz.root
+data/zz_mg.root
+data/zz_py.root
+data/backgroundD.root
+data/hzz2q2l${MH}.root
 data/wh3l${MH}.root
+data/hww${MH}.root
+data/h${MH}tt-vtth.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf_hww.C+;
@@ -72,9 +105,9 @@ for i in `cat list_samples.txt` ; do
   dataset=${i%%,*};
   echo "filling MVA information in sample: "  $dataset
   if [ ${WEIGHTSONLY} == "1" ]; then
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",2\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",3\);
   else
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",2\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",3\);
   fi
   
 done
