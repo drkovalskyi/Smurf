@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.26 2012/04/26 11:23:20 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.27 2012/04/26 12:12:33 dlevans Exp $
 //
 //
 
@@ -160,7 +160,9 @@ class LeptonTreeMaker : public edm::EDProducer {
         edm::InputTag photonsInputTag_;
         edm::InputTag primaryVertexInputTag_;
         edm::InputTag rhoJECInputTag;
-        edm::InputTag rhoIsoInputTag;
+        edm::InputTag rhoIsoAllInputTag;
+        edm::InputTag rhoIsoNeutralInputTag;
+
         edm::InputTag pfCandsInputTag_;
         edm::InputTag metInputTag_;
         edm::InputTag jetsInputTag_;
@@ -168,7 +170,10 @@ class LeptonTreeMaker : public edm::EDProducer {
         edm::InputTag beamSpotInputTag_;
 
         // pf isolation related
-        std::vector<edm::InputTag> isoValInputTags_;
+        std::vector<edm::InputTag> eleIsoVal03InputTags_;
+        std::vector<edm::InputTag> eleIsoVal04InputTags_;
+        IsoDepositVals *eleIsoVals03_;
+        IsoDepositVals *eleIsoVals04_; 
 
         // jet corrections
         std::string pfJetCorrectorL1FastL2L3_;
@@ -200,14 +205,16 @@ class LeptonTreeMaker : public edm::EDProducer {
         // electron id related
         ElectronIDMVA           *reader_electronHWW2011MVA_;
         ElectronIDMVA           *reader_electronHWW2011IDIsoMVA_;
-        MuonIDMVA               *reader_muonHWW2011MVA_;
+        MuonIDMVA               *reader_muonHWW2011IDIsoMVA_;
         
         EGammaMvaEleEstimator    *reader_egammaPOG2012MVA_;
         //MuonMVAEstimator        *reader_muonHZZ2012MVA_;
 
         // common products
         double rhoJEC_;
-        double rhoIso_;
+        double rhoIsoAll_;
+        double rhoIsoNeutral_;
+
         reco::PFCandidateCollection pfCandCollection_;
         edm::Handle<reco::VertexCollection> vtx_h_;
         edm::Handle<edm::View<reco::PFJet> > jets_h_;
@@ -238,13 +245,17 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
     photonsInputTag_        =  iConfig.getParameter<edm::InputTag>("photonsInputTag");
     primaryVertexInputTag_  =  iConfig.getParameter<edm::InputTag>("primaryVertexInputTag");
     rhoJECInputTag          =  iConfig.getParameter<edm::InputTag>("rhoJECInputTag");
-    rhoIsoInputTag          =  iConfig.getParameter<edm::InputTag>("rhoIsoInputTag");
+    rhoIsoAllInputTag       =  iConfig.getParameter<edm::InputTag>("rhoIsoAllInputTag");
+    rhoIsoNeutralInputTag   =  iConfig.getParameter<edm::InputTag>("rhoIsoNeutralInputTag");
+
     pfCandsInputTag_        =  iConfig.getParameter<edm::InputTag>("pfCandsInputTag");
     metInputTag_            =  iConfig.getParameter<edm::InputTag>("metInputTag");
     jetsInputTag_           =  iConfig.getParameter<edm::InputTag>("jetsInputTag");
     conversionsInputTag_    =  iConfig.getParameter<edm::InputTag>("conversionsInputTag");
     beamSpotInputTag_       =  iConfig.getParameter<edm::InputTag>("beamSpotInputTag");
-    isoValInputTags_        =  iConfig.getParameter<std::vector<edm::InputTag> >("isoValInputTags");
+    eleIsoVal03InputTags_   =  iConfig.getParameter<std::vector<edm::InputTag> >("eleIsoVal03InputTags");
+    eleIsoVal04InputTags_   =  iConfig.getParameter<std::vector<edm::InputTag> >("eleIsoVal04InputTags");
+
     pfJetCorrectorL1FastL2L3_   = iConfig.getParameter<std::string>("pfJetCorrectorL1FastL2L3");
     pathToBDTWeights_           = iConfig.getParameter<std::string>("pathToBDTWeights");
 
@@ -326,34 +337,36 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
     // set up electron id
     //
 
+    std::string cmssw_base = getenv("CMSSW_BASE");
+
     reader_electronHWW2011MVA_ = new ElectronIDMVA();
     reader_electronHWW2011MVA_->Initialize("BDTG method",
-            pathToBDTWeights_+"/ElectronMVAWeights/Subdet0LowPt_WithIPInfo_BDTG.weights.xml",
-            pathToBDTWeights_+"/ElectronMVAWeights/Subdet1LowPt_WithIPInfo_BDTG.weights.xml",
-            pathToBDTWeights_+"/ElectronMVAWeights/Subdet2LowPt_WithIPInfo_BDTG.weights.xml",
-            pathToBDTWeights_+"/ElectronMVAWeights/Subdet0HighPt_WithIPInfo_BDTG.weights.xml",
-            pathToBDTWeights_+"/ElectronMVAWeights/Subdet1HighPt_WithIPInfo_BDTG.weights.xml",
-            pathToBDTWeights_+"/ElectronMVAWeights/Subdet2HighPt_WithIPInfo_BDTG.weights.xml",                
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet0LowPt_WithIPInfo_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet1LowPt_WithIPInfo_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet2LowPt_WithIPInfo_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet0HighPt_WithIPInfo_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet1HighPt_WithIPInfo_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet2HighPt_WithIPInfo_BDTG.weights.xml",                
             ElectronIDMVA::kWithIPInfo);
 
     reader_electronHWW2011IDIsoMVA_ = new ElectronIDMVA();
     reader_electronHWW2011IDIsoMVA_->Initialize("BDTG method",
-            pathToBDTWeights_+"/ElectronMVAWeights/Subdet0LowPt_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/ElectronMVAWeights/Subdet1LowPt_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/ElectronMVAWeights/Subdet2LowPt_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/ElectronMVAWeights/Subdet0HighPt_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/ElectronMVAWeights/Subdet1HighPt_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/ElectronMVAWeights/Subdet2HighPt_IDIsoCombined_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet0LowPt_IDIsoCombined_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet1LowPt_IDIsoCombined_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet2LowPt_IDIsoCombined_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet0HighPt_IDIsoCombined_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet1HighPt_IDIsoCombined_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet2HighPt_IDIsoCombined_BDTG.weights.xml",
             ElectronIDMVA::kIDIsoCombined);
 
-    reader_muonHWW2011MVA_ = new MuonIDMVA();
-    reader_muonHWW2011MVA_->Initialize("BDTG method", 
-            pathToBDTWeights_+"/MuonMVAWeights/BarrelPtBin0_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/MuonMVAWeights/EndcapPtBin0_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/MuonMVAWeights/BarrelPtBin1_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/MuonMVAWeights/EndcapPtBin1_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/MuonMVAWeights/BarrelPtBin2_IDIsoCombined_BDTG.weights.xml",
-            pathToBDTWeights_+"/MuonMVAWeights/EndcapPtBin2_IDIsoCombined_BDTG.weights.xml",
+    reader_muonHWW2011IDIsoMVA_ = new MuonIDMVA();
+    reader_muonHWW2011IDIsoMVA_->Initialize("BDTG method", 
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/MuonMVAWeights/BarrelPtBin0_IDIsoCombined_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/MuonMVAWeights/EndcapPtBin0_IDIsoCombined_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/MuonMVAWeights/BarrelPtBin1_IDIsoCombined_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/MuonMVAWeights/EndcapPtBin1_IDIsoCombined_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/MuonMVAWeights/BarrelPtBin2_IDIsoCombined_BDTG.weights.xml",
+            cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/MuonMVAWeights/EndcapPtBin2_IDIsoCombined_BDTG.weights.xml",
             MuonIDMVA::kIDIsoCombinedDetIso);
 
     std::vector<std::string> myManualCatWeigthsTrig;
@@ -381,8 +394,11 @@ LeptonTreeMaker::~LeptonTreeMaker()
     if (reader_electronHWW2011MVA_)         delete reader_electronHWW2011MVA_;
     if (reader_electronHWW2011IDIsoMVA_)    delete reader_electronHWW2011IDIsoMVA_;
     if (reader_egammaPOG2012MVA_)           delete reader_egammaPOG2012MVA_;
-    if (reader_muonHWW2011MVA_)             delete reader_muonHWW2011MVA_;
+    if (reader_muonHWW2011IDIsoMVA_)             delete reader_muonHWW2011IDIsoMVA_;
     //if (reader_muonHZZ2012MVA_)             delete reader_muonHZZ2012MVA_;
+
+    if (eleIsoVals03_) delete eleIsoVals03_;
+    if (eleIsoVals04_) delete eleIsoVals04_;
 
     //
     // save and close lepton tree
@@ -503,14 +519,32 @@ LeptonTreeMaker::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
     const JetCorrector *jetCorrector = JetCorrector::getJetCorrector(pfJetCorrectorL1FastL2L3_, iSetup);
 
     // rho for isolation
-    edm::Handle<double> rhoIso_h;
-    iEvent.getByLabel(rhoIsoInputTag, rhoIso_h);
-    rhoIso_ = *(rhoIso_h.product());
+    // all candidate types
+    // used for electrons
+    edm::Handle<double> rhoIsoAll_h;
+    iEvent.getByLabel(rhoIsoAllInputTag, rhoIsoAll_h);
+    rhoIsoAll_ = *(rhoIsoAll_h.product());
+
+    // neutrals only
+    // used for muons
+    edm::Handle<double> rhoIsoNeutral_h;
+    iEvent.getByLabel(rhoIsoNeutralInputTag, rhoIsoNeutral_h);
+    rhoIsoNeutral_ = *(rhoIsoNeutral_h.product());
 
     // pf candidates
     edm::Handle<reco::PFCandidateCollection> pfCand_h;
     iEvent.getByLabel(pfCandsInputTag_, pfCand_h);
     pfCandCollection_ = *(pfCand_h.product());
+
+    // isolation for electrons
+    eleIsoVals03_ = new IsoDepositVals(eleIsoVal03InputTags_.size());
+    for (size_t j = 0; j < eleIsoVal03InputTags_.size(); ++j) {
+        iEvent.getByLabel(eleIsoVal03InputTags_[j], (*eleIsoVals03_)[j]);
+    }
+    eleIsoVals04_ = new IsoDepositVals(eleIsoVal04InputTags_.size());
+    for (size_t j = 0; j < eleIsoVal04InputTags_.size(); ++j) {
+        iEvent.getByLabel(eleIsoVal04InputTags_[j], (*eleIsoVals04_)[j]);
+    }
 
     // vertices
     iEvent.getByLabel(primaryVertexInputTag_, vtx_h_);
@@ -609,13 +643,6 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
     reco::GsfElectronCollection electronCollection = *(els_h.product());
     if (electronCollection.size() < 2) return;
 
-    // iso deposits
-    // for pf iso
-    IsoDepositVals isoVals(isoValInputTags_.size());
-    for (size_t j = 0; j < isoValInputTags_.size(); ++j) {
-        iEvent.getByLabel(isoValInputTags_[j], isoVals[j]);
-    }
-
     // conversions
     edm::Handle<reco::ConversionCollection> conversions_h;
     iEvent.getByLabel(conversionsInputTag_, conversions_h);
@@ -644,7 +671,7 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
         reco::GsfElectronRef tag(els_h, itag);
         if (tag->pt() < 20.0)       continue;
         if (fabs(tag->eta()) > 2.5) continue;
-        float mvaValue = reader_electronHWW2011MVA_->MVAValue(&*tag, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIso_);
+        float mvaValue = reader_electronHWW2011MVA_->MVAValue(&*tag, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
         if (!smurfselections::passElectronID2011(tag, pv_, thebs.position(), conversions_h, mvaValue)) continue;
         if (!smurfselections::passElectronIso2011(tag, pfCandCollection_, pv_)) continue;
 
@@ -673,9 +700,9 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
             leptonTree_->qTag_               = tag->charge();
             leptonTree_->tagAndProbeMass_    = p4.M();
 
-            mvaValue                  = reader_electronHWW2011MVA_->MVAValue(&*probe, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIso_);
+            mvaValue                  = reader_electronHWW2011MVA_->MVAValue(&*probe, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
             leptonTree_->electronHWW2011MVA_       = mvaValue;
-            leptonTree_->electronHWW2011IDIsoMVA_  = reader_electronHWW2011IDIsoMVA_->MVAValue(&*probe, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIso_);
+            leptonTree_->electronHWW2011IDIsoMVA_  = reader_electronHWW2011IDIsoMVA_->MVAValue(&*probe, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
             leptonTree_->egammaPOG2012MVA_         = reader_egammaPOG2012MVA_->mvaValue(*probe, pv_, *ttBuilder, *clusterTools);
 
             if (smurfselections::passElectronFO2011(probe, pv_, thebs.position(), conversions_h))
@@ -685,14 +712,20 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
             if (smurfselections::passElectronIso2011(probe, pfCandCollection_, pv_)) 
                 leptonTree_->leptonSelection_ |= (LeptonTree::PassEleIso);
 
-            // cut based electron id
-            double iso_ch =  (*(isoVals)[0])[probe];
-            double iso_em = (*(isoVals)[1])[probe];
-            double iso_nh = (*(isoVals)[2])[probe];
-            leptonTree_->vetoId_    = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::VETO, probe, conversions_h, thebs, vtx_h_, iso_ch, iso_em, iso_nh, rhoIso_);
-            leptonTree_->looseId_   = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::LOOSE, probe, conversions_h, thebs, vtx_h_, iso_ch, iso_em, iso_nh, rhoIso_);
-            leptonTree_->mediumId_  = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::MEDIUM, probe, conversions_h, thebs, vtx_h_, iso_ch, iso_em, iso_nh, rhoIso_);
-            leptonTree_->tightId_   = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::TIGHT, probe, conversions_h, thebs, vtx_h_, iso_ch, iso_em, iso_nh, rhoIso_);
+            // pf isolation
+            leptonTree_->el_pfchiso03_   = (*(*eleIsoVals03_)[0])[probe];
+            leptonTree_->el_pfemiso03_   = (*(*eleIsoVals03_)[1])[probe];
+            leptonTree_->el_pfnhiso03_   = (*(*eleIsoVals03_)[2])[probe];
+            leptonTree_->el_pfchiso04_   = (*(*eleIsoVals04_)[0])[probe];
+            leptonTree_->el_pfemiso04_   = (*(*eleIsoVals04_)[1])[probe];
+            leptonTree_->el_pfnhiso04_   = (*(*eleIsoVals04_)[2])[probe];
+            leptonTree_->el_ea04_        = smurfselections::GetEGammaEffectiveArea(probe->superCluster()->eta(), smurfselections::EGAMMA2012_04);
+
+            // cut based ele id
+            leptonTree_->vetoId_    = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::VETO, probe, conversions_h, thebs, vtx_h_, leptonTree_->el_pfchiso03_, leptonTree_->el_pfemiso03_, leptonTree_->el_pfnhiso03_, rhoIsoAll_);
+            leptonTree_->looseId_   = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::LOOSE, probe, conversions_h, thebs, vtx_h_, leptonTree_->el_pfchiso03_, leptonTree_->el_pfemiso03_, leptonTree_->el_pfnhiso03_, rhoIsoAll_);
+            leptonTree_->mediumId_  = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::MEDIUM, probe, conversions_h, thebs, vtx_h_, leptonTree_->el_pfchiso03_, leptonTree_->el_pfemiso03_, leptonTree_->el_pfnhiso03_, rhoIsoAll_);
+            leptonTree_->tightId_   = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::TIGHT, probe, conversions_h, thebs, vtx_h_, leptonTree_->el_pfchiso03_, leptonTree_->el_pfemiso03_, leptonTree_->el_pfnhiso03_, rhoIsoAll_);
 
             // input variables
             leptonTree_->pfmva_     = probe->mva();
@@ -714,10 +747,6 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
             leptonTree_->ecaliso_   = probe->dr03EcalRecHitSumEt();
             leptonTree_->hcaliso_   = probe->dr03HcalTowerSumEt();
             leptonTree_->trkiso_    = probe->dr03TkSumPt();
-            leptonTree_->pfchiso_   = iso_ch;
-            leptonTree_->pfemiso_   = iso_em;
-            leptonTree_->pfnhiso_   = iso_nh;
-            leptonTree_->pfaeff_    = smurfselections::GetEGammaEffectiveArea(probe->superCluster()->eta());
 
             // probe trigger matching
             if (iEvent.isRealData()) {
@@ -791,7 +820,13 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
             leptonTree_->qTag_               = tag->charge();
             leptonTree_->tagAndProbeMass_    = p4.M();
 
-            leptonTree_->muonHWW2011MVA_   = reader_muonHWW2011MVA_->MVAValue(&*probe, pv_, ttBuilder, rhoIso_, false);
+            leptonTree_->mu_pfemiso04_      = probe->pfIsolationR04().sumPhotonEt;
+            leptonTree_->mu_pfchiso04_      = probe->pfIsolationR04().sumChargedHadronPt;
+            leptonTree_->mu_pfnhiso04_      = probe->pfIsolationR04().sumNeutralHadronEt;
+            leptonTree_->mu_eaem04_         = smurfselections::GetMuonEffectiveArea(probe->p4().eta(), smurfselections::MUON2012_EM04);
+            leptonTree_->mu_eanh04_         = smurfselections::GetMuonEffectiveArea(probe->p4().eta(), smurfselections::MUON2012_NH04);
+
+            leptonTree_->muonHWW2011IDIsoMVA_   = reader_muonHWW2011IDIsoMVA_->MVAValue(&*probe, pv_, ttBuilder, rhoIsoAll_, false);
 
             if (smurfselections::passMuonFO2011(probe, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFO);
             if (smurfselections::passMuonID2011(probe, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuID);
@@ -830,13 +865,6 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
     iEvent.getByLabel(electronsInputTag_, els_h);
     reco::GsfElectronCollection electronCollection = *(els_h.product());
     if (electronCollection.size() < 1) return;
-
-    // iso deposits
-    // for pf iso
-    IsoDepositVals isoVals(isoValInputTags_.size());
-    for (size_t j = 0; j < isoValInputTags_.size(); ++j) {
-        iEvent.getByLabel(isoValInputTags_[j], isoVals[j]);
-    }
 
     // conversions
     edm::Handle<reco::ConversionCollection> conversions_h;
@@ -889,9 +917,9 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         leptonTree_->qProbe_             = fo->charge();
         leptonTree_->mt_                 = smurfutilities::Mt(met, fo->p4().Pt(), reco::deltaPhi(met_h->front().phi(), fo->p4().Phi()));
 
-        float mvaValue            = reader_electronHWW2011MVA_->MVAValue(&*fo, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIso_);
+        float mvaValue            = reader_electronHWW2011MVA_->MVAValue(&*fo, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
         leptonTree_->electronHWW2011MVA_       = mvaValue;
-        leptonTree_->electronHWW2011IDIsoMVA_  = reader_electronHWW2011IDIsoMVA_->MVAValue(&*fo, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIso_);
+        leptonTree_->electronHWW2011IDIsoMVA_  = reader_electronHWW2011IDIsoMVA_->MVAValue(&*fo, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
         leptonTree_->egammaPOG2012MVA_         = reader_egammaPOG2012MVA_->mvaValue(*fo, pv_, *ttBuilder, *clusterTools);
 
         leptonTree_->leptonSelection_ |= (LeptonTree::PassEleFO);
@@ -900,14 +928,20 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         if (smurfselections::passElectronIso2011(fo, pfCandCollection_, pv_))
             leptonTree_->leptonSelection_ |= (LeptonTree::PassEleIso);
 
-        // cut based electron id
-        double iso_ch = (*(isoVals)[0])[fo];
-        double iso_em = (*(isoVals)[1])[fo];
-        double iso_nh = (*(isoVals)[2])[fo];
-        leptonTree_->vetoId_    = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::VETO, fo, conversions_h, thebs, vtx_h_, iso_ch, iso_em, iso_nh, rhoIso_);
-        leptonTree_->looseId_   = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::LOOSE, fo, conversions_h, thebs, vtx_h_, iso_ch, iso_em, iso_nh, rhoIso_);
-        leptonTree_->mediumId_  = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::MEDIUM, fo, conversions_h, thebs, vtx_h_, iso_ch, iso_em, iso_nh, rhoIso_);
-        leptonTree_->tightId_   = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::TIGHT, fo, conversions_h, thebs, vtx_h_, iso_ch, iso_em, iso_nh, rhoIso_);
+        // pf isolation
+        leptonTree_->el_pfchiso03_   = (*(*eleIsoVals03_)[0])[fo];
+        leptonTree_->el_pfemiso03_   = (*(*eleIsoVals03_)[1])[fo];
+        leptonTree_->el_pfnhiso03_   = (*(*eleIsoVals03_)[2])[fo];
+        leptonTree_->el_pfchiso04_   = (*(*eleIsoVals04_)[0])[fo];
+        leptonTree_->el_pfemiso04_   = (*(*eleIsoVals04_)[1])[fo];
+        leptonTree_->el_pfnhiso04_   = (*(*eleIsoVals04_)[2])[fo];
+        leptonTree_->el_ea04_        = smurfselections::GetEGammaEffectiveArea(fo->superCluster()->eta(), smurfselections::EGAMMA2012_04);
+
+        // cut based ele id
+        leptonTree_->vetoId_    = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::VETO, fo, conversions_h, thebs, vtx_h_, leptonTree_->el_pfchiso03_, leptonTree_->el_pfemiso03_, leptonTree_->el_pfnhiso03_, rhoIsoAll_);
+        leptonTree_->looseId_   = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::LOOSE, fo, conversions_h, thebs, vtx_h_, leptonTree_->el_pfchiso03_, leptonTree_->el_pfemiso03_, leptonTree_->el_pfnhiso03_, rhoIsoAll_);
+        leptonTree_->mediumId_  = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::MEDIUM, fo, conversions_h, thebs, vtx_h_, leptonTree_->el_pfchiso03_, leptonTree_->el_pfemiso03_, leptonTree_->el_pfnhiso03_, rhoIsoAll_);
+        leptonTree_->tightId_   = EgammaCutBasedEleId::TestWP(EgammaCutBasedEleId::TIGHT, fo, conversions_h, thebs, vtx_h_, leptonTree_->el_pfchiso03_, leptonTree_->el_pfemiso03_, leptonTree_->el_pfnhiso03_, rhoIsoAll_);
 
         leptonTree_->pfmva_     = fo->mva();
         leptonTree_->sceta_     = fo->superCluster()->eta();
@@ -928,10 +962,6 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         leptonTree_->ecaliso_   = fo->dr03EcalRecHitSumEt();
         leptonTree_->hcaliso_   = fo->dr03HcalTowerSumEt();
         leptonTree_->trkiso_    = fo->dr03TkSumPt();
-        leptonTree_->pfchiso_   = iso_ch;
-        leptonTree_->pfemiso_   = iso_nh;
-        leptonTree_->pfnhiso_   = iso_em;
-        leptonTree_->pfaeff_    = smurfselections::GetEGammaEffectiveArea(fo->superCluster()->eta());
 
         leptonTree_->tree_->Fill();
     }
@@ -992,7 +1022,13 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
         leptonTree_->qProbe_             = fo->charge();
         leptonTree_->mt_                 = smurfutilities::Mt(met, fo->p4().Pt(), reco::deltaPhi(met_h->front().phi(), fo->p4().Phi()));
 
-        leptonTree_->muonHWW2011MVA_   = reader_muonHWW2011MVA_->MVAValue(&*fo, pv_, ttBuilder, rhoIso_, false);
+        leptonTree_->mu_pfemiso04_      = fo->pfIsolationR04().sumPhotonEt;
+        leptonTree_->mu_pfchiso04_      = fo->pfIsolationR04().sumChargedHadronPt;
+        leptonTree_->mu_pfnhiso04_      = fo->pfIsolationR04().sumNeutralHadronEt;
+        leptonTree_->mu_eaem04_         = smurfselections::GetMuonEffectiveArea(fo->p4().eta(), smurfselections::MUON2012_EM04);
+        leptonTree_->mu_eanh04_         = smurfselections::GetMuonEffectiveArea(fo->p4().eta(), smurfselections::MUON2012_NH04);
+
+        leptonTree_->muonHWW2011IDIsoMVA_   = reader_muonHWW2011IDIsoMVA_->MVAValue(&*fo, pv_, ttBuilder, rhoIsoAll_, false);
 
         leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFO);
         if (smurfselections::passMuonID2011(fo, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuID);
@@ -1033,7 +1069,7 @@ void LeptonTreeMaker::fillPhotonTree(const edm::Event& iEvent, const edm::EventS
     unsigned int nPhotons = 0;
     for (it = photonCollection.begin(); it != photonCollection.end(); ++it) {
 
-        if (!smurfselections::passPhotonSelection2011(it, rhoIso_)) continue;
+        if (!smurfselections::passPhotonSelection2011(it, rhoIsoAll_)) continue;
         ++nPhotons;
         photon = it;
 
@@ -1119,7 +1155,8 @@ void LeptonTreeMaker::fillCommonVariables(const edm::Event& iEvent)
     leptonTree_->event_     = iEvent.id().event()      ;
     leptonTree_->lumi_      = iEvent.luminosityBlock() ;
     leptonTree_->rnd_       = rndm_                    ;
-    leptonTree_->rho_       = rhoIso_                  ;
+    leptonTree_->rhoIsoAll_     = rhoIsoAll_;
+    leptonTree_->rhoIsoNeutral_ = rhoIsoNeutral_;
     leptonTree_->nvtx_      = smurfselections::CountGoodPV(vtx_h_);
     leptonTree_->scale1fb_  = 1.0;
 

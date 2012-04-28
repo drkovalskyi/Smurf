@@ -53,6 +53,23 @@ float GetEGammaEffectiveArea(const float eta);
 unsigned int CountGoodPV(const edm::Handle<reco::VertexCollection> &pvCollection);
 
 //
+// effective areas
+// "simple" ones for normal cones
+//
+
+enum EffectiveAreaType {
+    EGAMMA2012_03,
+    EGAMMA2012_04,
+    MUON2012_NH03,
+    MUON2012_EM03,
+    MUON2012_NH04,
+    MUON2012_EM04
+};
+
+float GetEGammaEffectiveArea(const float eta, const EffectiveAreaType eaType);
+float GetMuonEffectiveArea(const float eta, const EffectiveAreaType eaType);
+
+//
 // 2011 selections
 //
 

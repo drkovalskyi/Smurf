@@ -216,16 +216,49 @@ float smurfselections::muonIsoValuePF(const reco::PFCandidateCollection &pfCandC
     return (pfciso+pfniso)/mu.pt();
 }
 
-float smurfselections::GetEGammaEffectiveArea(const float eta)
+float smurfselections::GetEGammaEffectiveArea(const float eta, const EffectiveAreaType eaType)
 {
+
     float etaAbs = fabs(eta);
-    float AEff = 0.18;
-    if (etaAbs > 1.0 && etaAbs <= 1.479) AEff = 0.19;
-    if (etaAbs > 1.479 && etaAbs <= 2.0) AEff = 0.21;
-    if (etaAbs > 2.0 && etaAbs <= 2.2) AEff = 0.38;
-    if (etaAbs > 2.2 && etaAbs <= 2.3) AEff = 0.61;
-    if (etaAbs > 2.3 && etaAbs <= 2.4) AEff = 0.73;
-    if (etaAbs > 2.4) AEff = 0.78;
+    float AEff = 0.0;
+
+    if (eaType == EGAMMA2012_04) {
+        AEff = 0.19;
+        if (etaAbs > 1.0 && etaAbs <= 1.479)    AEff = 0.25;
+        if (etaAbs > 1.479 && etaAbs <= 2.0)    AEff = 0.12;
+        if (etaAbs > 2.0 && etaAbs <= 2.2)      AEff = 0.21;
+        if (etaAbs > 2.2 && etaAbs <= 2.3)      AEff = 0.27;
+        if (etaAbs > 2.3 && etaAbs <= 2.4)      AEff = 0.44;
+        if (etaAbs > 2.4)                       AEff = 0.52;
+    }
+
+    return AEff;
+}
+
+float smurfselections::GetMuonEffectiveArea(const float eta, const EffectiveAreaType eaType)
+{
+
+    float etaAbs = fabs(eta);
+    float AEff = 0.0;
+
+    if (eaType == MUON2012_EM04) {
+        AEff = 0.50419;
+        if (etaAbs > 1.0 && etaAbs <= 1.50)     AEff = 0.30582;
+        if (etaAbs > 1.50 && etaAbs <= 2.0)     AEff = 0.19765;
+        if (etaAbs > 2.0 && etaAbs <= 2.2)      AEff = 0.28723;
+        if (etaAbs > 2.2 && etaAbs <= 2.3)      AEff = 0.52529;
+        if (etaAbs > 2.3)                       AEff = 0.48818;
+    }
+
+    if (eaType == MUON2012_NH04) {
+        AEff = 0.16580;
+        if (etaAbs > 1.0 && etaAbs <= 1.50)     AEff = 0.25904;
+        if (etaAbs > 1.50 && etaAbs <= 2.0)     AEff = 0.24695;
+        if (etaAbs > 2.0 && etaAbs <= 2.2)      AEff = 0.22021;
+        if (etaAbs > 2.2 && etaAbs <= 2.3)      AEff = 0.34045;
+        if (etaAbs > 2.3)                       AEff = 0.21592;
+    }
+
     return AEff;
 }
 
@@ -550,6 +583,7 @@ bool smurfselections::passMuonIsPOGTight(const edm::View<reco::Muon>::const_iter
         const reco::Vertex &vertex)
 {
     if (!muon->isGlobalMuon())                                              return false;
+    if (!muon->isPFMuon())                                                  return false;
     if (!muon->globalTrack().isNonnull())                                   return false;
     if (muon->globalTrack()->normalizedChi2() >= 10.)                       return false;
     if (muon->globalTrack()->hitPattern().numberOfValidMuonHits() == 0)     return false;
@@ -558,7 +592,7 @@ bool smurfselections::passMuonIsPOGTight(const edm::View<reco::Muon>::const_iter
     if (fabs(muon->innerTrack()->dxy(vertex.position())) >= 0.2)            return false;
     if (muon->innerTrack()->hitPattern().numberOfValidPixelHits() == 0)     return false;
     if (!muon->track().isNonnull())                                         return false;
-    if (muon->track()->hitPattern().trackerLayersWithMeasurement() <= 8)    return false;
+    if (muon->track()->hitPattern().trackerLayersWithMeasurement() <= 5)    return false;
     return true;
 }
 

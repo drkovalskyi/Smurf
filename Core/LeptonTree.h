@@ -66,7 +66,8 @@ class LeptonTree {
         unsigned int   npuMinusOne_;
         unsigned int   leptonSelection_;
         unsigned int   eventSelection_;
-        float          rho_;
+        float          rhoIsoAll_;
+        float          rhoIsoNeutral_;
         float          tagAndProbeMass_;
         LorentzVector  tag_;
         LorentzVector  probe_;
@@ -94,7 +95,7 @@ class LeptonTree {
         // HWW MVAs
         float electronHWW2011MVA_;
         float electronHWW2011IDIsoMVA_;
-        float muonHWW2011MVA_;
+        float muonHWW2011IDIsoMVA_;
 
         // POG MVAs
         float egammaPOG2012MVA_;
@@ -132,10 +133,20 @@ class LeptonTree {
         float ecaliso_;
         float hcaliso_;
         float trkiso_;
-        float pfemiso_;
-        float pfchiso_;
-        float pfnhiso_;
-        float pfaeff_;
+
+        float el_pfemiso03_;
+        float el_pfchiso03_;
+        float el_pfnhiso03_;
+        float el_pfemiso04_;
+        float el_pfchiso04_;
+        float el_pfnhiso04_;
+        float el_ea04_;
+
+        float mu_pfemiso04_;
+        float mu_pfchiso04_;
+        float mu_pfnhiso04_;
+        float mu_eaem04_;
+        float mu_eanh04_;
 
     public:
         /// this is the main element
@@ -179,7 +190,8 @@ class LeptonTree {
             tree_->Branch("npuMinusOne"      , &npuMinusOne_      ,   "npuMinusOne/i");
             tree_->Branch("leptonSelection"  , &leptonSelection_  ,   "leptonSelection/i");
             tree_->Branch("eventSelection"   , &eventSelection_   ,   "eventSelection/i");
-            tree_->Branch("rho"              , &rho_              ,   "rho/F");
+            tree_->Branch("rhoIsoAll"              , &rhoIsoAll_              ,   "rhoIsoAll/F");
+            tree_->Branch("rhoIsoNeutral"              , &rhoIsoNeutral_              ,   "rhoIsoNeutral/F");
             tree_->Branch("tagAndProbeMass"  , &tagAndProbeMass_  ,   "tagAndProbeMass/F");
             tree_->Branch("tag"              , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &tagPtr_);
             tree_->Branch("probe"            , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &probePtr_);
@@ -202,7 +214,7 @@ class LeptonTree {
 
             tree_->Branch("electronHWW2011MVA"      , &electronHWW2011MVA_      ,   "electronHWW2011MVA/F");
             tree_->Branch("electronHWW2011IDIsoMVA"      , &electronHWW2011IDIsoMVA_      ,   "electronHWW2011IDIsoMVA/F");
-            tree_->Branch("muonHWW2011MVA"          , &muonHWW2011MVA_          ,   "muonHWW2011MVA/F");
+            tree_->Branch("muonHWW2011MVA"          , &muonHWW2011IDIsoMVA_          ,   "muonHWW2011MVA/F");
             tree_->Branch("egammaPOG2012MVA"        , &egammaPOG2012MVA_        ,   "egammaPOG2012MVA/F");
             tree_->Branch("muonHZZ2012MVA"        , &muonHZZ2012MVA_        ,   "muonHZZ2012MVA/F");
 
@@ -230,10 +242,19 @@ class LeptonTree {
             tree_->Branch("ecaliso"               , &ecaliso_               ,   "ecaliso/F");
             tree_->Branch("hcaliso"               , &hcaliso_               ,   "hcaliso/F");
             tree_->Branch("trkiso"               , &trkiso_               ,   "trkiso/F");
-            tree_->Branch("pfemiso"               , &pfemiso_               ,   "pfemiso/F");
-            tree_->Branch("pfchiso"               , &pfchiso_               ,   "pfchiso/F");
-            tree_->Branch("pfnhiso"               , &pfnhiso_               ,   "pfnhiso/F");
-            tree_->Branch("pfaeff"               , &pfaeff_               ,   "pfaeff/F");
+            tree_->Branch("el_pfemiso03"               , &el_pfemiso03_               ,   "el_pfemiso03/F");
+            tree_->Branch("el_pfchiso03"               , &el_pfchiso03_               ,   "el_pfchiso03/F");
+            tree_->Branch("el_pfnhiso03"               , &el_pfnhiso03_               ,   "el_pfnhiso03/F");
+            tree_->Branch("el_pfemiso04"               , &el_pfemiso04_               ,   "el_pfemiso04/F");
+            tree_->Branch("el_pfchiso04"               , &el_pfchiso04_               ,   "el_pfchiso04/F");
+            tree_->Branch("el_pfnhiso04"               , &el_pfnhiso04_               ,   "el_pfnhiso04/F");
+            tree_->Branch("el_ea04"               , &el_ea04_               ,   "mu_ea04/F");
+
+            tree_->Branch("mu_pfemiso04"               , &mu_pfemiso04_               ,   "mu_pfemiso04/F");
+            tree_->Branch("mu_pfchiso04"               , &mu_pfchiso04_               ,   "mu_pfchiso04/F");
+            tree_->Branch("mu_pfnhiso04"               , &mu_pfnhiso04_               ,   "mu_pfnhiso04/F");
+            tree_->Branch("mu_eaem04"               , &mu_eaem04_               ,   "mu_eaem04/F");
+            tree_->Branch("mu_eanh04"               , &mu_eanh04_               ,   "mu_eanh04/F");
 
         }
 
@@ -257,7 +278,8 @@ class LeptonTree {
             tree_->SetBranchAddress("npuMinusOne",      &npuMinusOne_);
             tree_->SetBranchAddress("leptonSelection",  &leptonSelection_);
             tree_->SetBranchAddress("eventSelection",   &eventSelection_);
-            tree_->SetBranchAddress("rho",              &rho_);
+            tree_->SetBranchAddress("rhoIsoAll",              &rhoIsoAll_);
+            tree_->SetBranchAddress("rhoIsoNeutral",              &rhoIsoNeutral_);
             tree_->SetBranchAddress("tagAndProbeMass",  &tagAndProbeMass_);
             tree_->SetBranchAddress("tag",              &tagPtr_);
             tree_->SetBranchAddress("probe",            &probePtr_);
@@ -280,7 +302,7 @@ class LeptonTree {
 
             tree_->SetBranchAddress("electronHWW2011MVA",      &electronHWW2011MVA_);
             tree_->SetBranchAddress("electronHWW2011IDIsoMVA",      &electronHWW2011IDIsoMVA_);
-            tree_->SetBranchAddress("muonHWW2011MVA",          &muonHWW2011MVA_);
+            tree_->SetBranchAddress("muonHWW2011MVA",          &muonHWW2011IDIsoMVA_);
             tree_->SetBranchAddress("egammaPOG2012MVA",        &egammaPOG2012MVA_);
             tree_->SetBranchAddress("muonHZZ2012MVA",   &muonHZZ2012MVA_);
 
@@ -307,10 +329,19 @@ class LeptonTree {
             tree_->SetBranchAddress("ecaliso",          &ecaliso_);
             tree_->SetBranchAddress("hcaliso",          &hcaliso_);
             tree_->SetBranchAddress("trkiso",          &trkiso_);
-            tree_->SetBranchAddress("pfemiso",          &pfemiso_);
-            tree_->SetBranchAddress("pfchiso",          &pfchiso_);
-            tree_->SetBranchAddress("pfnhiso",          &pfnhiso_);
-            tree_->SetBranchAddress("pfaeff",          &pfaeff_);
+            tree_->SetBranchAddress("el_pfemiso03",          &el_pfemiso03_);
+            tree_->SetBranchAddress("el_pfchiso03",          &el_pfchiso03_);
+            tree_->SetBranchAddress("el_pfnhiso03",          &el_pfnhiso03_);
+            tree_->SetBranchAddress("el_pfemiso04",          &el_pfemiso04_);
+            tree_->SetBranchAddress("el_pfchiso04",          &el_pfchiso04_);
+            tree_->SetBranchAddress("el_pfnhiso04",          &el_pfnhiso04_);
+            tree_->SetBranchAddress("el_ea04",          &el_ea04_);
+
+            tree_->SetBranchAddress("mu_pfemiso04",          &mu_pfemiso04_);
+            tree_->SetBranchAddress("mu_pfchiso04",          &mu_pfchiso04_);
+            tree_->SetBranchAddress("mu_pfnhiso04",          &mu_pfnhiso04_);
+            tree_->SetBranchAddress("mu_eaem04",          &mu_eaem04_);
+            tree_->SetBranchAddress("mu_eanh04",          &mu_eanh04_);
 
             gErrorIgnoreLevel = currentState;
         }
@@ -343,7 +374,8 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("npuMinusOne"      ));
         variables_.push_back(std::string("leptonSelection"  ));
         variables_.push_back(std::string("eventSelection"   ));
-        variables_.push_back(std::string("rho"              ));
+        variables_.push_back(std::string("rhoIsoAll"              ));
+        variables_.push_back(std::string("rhoIsoNeutral"              ));
         variables_.push_back(std::string("tagAndProbeMass"  ));
         variables_.push_back(std::string("tag"              ));
         variables_.push_back(std::string("probe"            ));
@@ -392,10 +424,19 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("ecaliso"));     
         variables_.push_back(std::string("hcaliso"));    
         variables_.push_back(std::string("trkiso"));
-        variables_.push_back(std::string("pfemiso")); 
-        variables_.push_back(std::string("pfchiso")); 
-        variables_.push_back(std::string("pfnhiso"));    
-        variables_.push_back(std::string("pfaeff"));
+        variables_.push_back(std::string("el_pfemiso03")); 
+        variables_.push_back(std::string("el_pfchiso03")); 
+        variables_.push_back(std::string("el_pfnhiso03"));    
+        variables_.push_back(std::string("el_pfemiso04"));
+        variables_.push_back(std::string("el_pfchiso04"));
+        variables_.push_back(std::string("el_pfnhiso04"));
+        variables_.push_back(std::string("el_ea04"));
+
+        variables_.push_back(std::string("mu_pfemiso04"));
+        variables_.push_back(std::string("mu_pfchiso04"));
+        variables_.push_back(std::string("mu_pfnhiso04"));
+        variables_.push_back(std::string("mu_eaem04"));
+        variables_.push_back(std::string("mu_eanh04"));
 
     }
     // inizialize variables
@@ -409,7 +450,8 @@ LeptonTree::InitVariables(){
     npuMinusOne_          = 0;
     leptonSelection_      = 0;
     eventSelection_       = 0;
-    rho_                  = -999;
+    rhoIsoAll_  = -999;
+    rhoIsoNeutral_    = -999;
     tagAndProbeMass_      = -999;
     tag_                  = LorentzVector();
     probe_                = LorentzVector();
@@ -432,9 +474,9 @@ LeptonTree::InitVariables(){
 
     electronHWW2011MVA_          = -999;
     electronHWW2011IDIsoMVA_     = -999;
-    muonHWW2011MVA_              = -999;
+    muonHWW2011IDIsoMVA_         = -999;
     egammaPOG2012MVA_            = -999;
-    muonHZZ2012MVA_       = -999;
+    muonHZZ2012MVA_              = -999;
 
     vetoId_ = 0;
     looseId_ = 0;
@@ -459,10 +501,20 @@ LeptonTree::InitVariables(){
     ecaliso_ = 0;
     hcaliso_ = 0;
     trkiso_ = 0;
-    pfemiso_ = 0.;
-    pfchiso_ = 0.;
-    pfnhiso_ = 0.;
-    pfaeff_ = 0.;
+
+    el_pfemiso03_ = 0.;
+    el_pfchiso03_ = 0.;
+    el_pfnhiso03_ = 0.;
+    el_pfemiso04_ = 0.;
+    el_pfchiso04_ = 0.;
+    el_pfnhiso04_ = 0.;
+    el_ea04_      = 0.;
+
+    mu_pfemiso04_ = 0.;
+    mu_pfchiso04_ = 0.;
+    mu_pfnhiso04_ = 0.;
+    mu_eaem04_    = 0.;
+    mu_eanh04_    = 0.;
 
 }
 
@@ -479,7 +531,8 @@ LeptonTree::Get(std::string value)
     if(value=="npuMinusOne"      ) { return this->npuMinusOne_;	   }
     if(value=="leptonSelection"  ) { return this->leptonSelection_;  }
     if(value=="eventSelection"   ) { return this->eventSelection_;   }
-    if(value=="rho"              ) { return this->rho_;	           }
+    if(value=="rhoIsoAll"              ) { return this->rhoIsoAll_;	           }
+    if(value=="rhoIsoNeutral"              ) { return this->rhoIsoNeutral_;            }
     if(value=="tagAndProbeMass"  ) { return this->tagAndProbeMass_;  }
     if(value=="qTag"             ) { return this->qTag_;	           }
     if(value=="qProbe"           ) { return this->qProbe_;           }
@@ -518,10 +571,19 @@ LeptonTree::Get(std::string value)
     if(value=="ecaliso"              ) { return this->ecaliso_;           }
     if(value=="hcaliso"              ) { return this->hcaliso_;           }
     if(value=="trkiso"              ) { return this->trkiso_;           }
-    if(value=="pfemiso"              ) { return this->pfemiso_;           }
-    if(value=="pfchiso"              ) { return this->pfchiso_;           }
-    if(value=="pfnhiso"              ) { return this->pfnhiso_;           }
-    if(value=="pfaeff"              ) { return this->pfaeff_;           }
+    if(value=="el_pfemiso03"              ) { return this->el_pfemiso03_;           }
+    if(value=="el_pfchiso03"              ) { return this->el_pfchiso03_;           }
+    if(value=="el_pfnhiso03"              ) { return this->el_pfnhiso03_;           }
+    if(value=="el_pfemiso04"              ) { return this->el_pfemiso04_;           }
+    if(value=="el_pfchiso04"              ) { return this->el_pfchiso04_;           }
+    if(value=="el_pfnhiso04"              ) { return this->el_pfnhiso04_;           }
+    if(value=="el_ea04"              ) { return this->el_ea04_;           }
+
+    if(value=="mu_pfemiso04"              ) { return this->mu_pfemiso04_;           }
+    if(value=="mu_pfchiso04"              ) { return this->mu_pfchiso04_;           }
+    if(value=="mu_pfnhiso04"              ) { return this->mu_pfnhiso04_;           }
+    if(value=="mu_eaem04"              ) { return this->mu_eaem04_;           }
+    if(value=="mu_eanh04"              ) { return this->mu_eanh04_;           }
 
     return -9999.; 
 }
