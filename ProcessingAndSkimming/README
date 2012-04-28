@@ -13,25 +13,22 @@ cvs co -rTAG -d Smurf/ProcessingAndSkimming UserCode/Smurf/ProcessingAndSkimming
 # https://twiki.cern.ch/twiki/bin/view/CMS/EgammaPFBasedIsolation#Recommended_electron_vetoes
 # hint - it depends on what release you are using so take care
 
-cvs co HiggsAnalysis/HiggsToWW2Leptons/
-cvs co -d Smurf/ProcessingAndSkimming/data/ElectronMVAWeights/ UserCode/MitPhysics/data/ElectronMVAWeights/
-cvs co -d Smurf/ProcessingAndSkimming/data/MuonMVAWeights/ UserCode/MitPhysics/data/MuonMVAWeights/
-cvs co -d EGamma/EGammaAnalysisTools UserCode/EGamma/EGammaAnalysisTools
+# for Si Xie thesis MVA
+# using combined ID+Isolation
+cvs co -rHWWID_V00-00-00 HiggsAnalysis/HiggsToWW2Leptons/
 
-cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTG_NonTrigV0_Cat1.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTG_NonTrigV0_Cat2.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTG_NonTrigV0_Cat3.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTG_NonTrigV0_Cat4.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTG_NonTrigV0_Cat5.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTG_NonTrigV0_Cat6.weights.xml Smurf/ProcessingAndSkimming/data/
+# for EGamma MVA
+cvs co -rV00-00-06 -dEGamma/EGammaAnalysisTools UserCode/EGamma/EGammaAnalysisTools
+cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat1.weights.xml
+cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat2.weights.xml
+cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat3.weights.xml
+cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat4.weights.xml
+cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat5.weights.xml
+cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat6.weights.xml
 
-cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTG_TrigV0_Cat1.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTG_TrigV0_Cat2.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTG_TrigV0_Cat3.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTG_TrigV0_Cat4.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTG_TrigV0_Cat5.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/data/CMSSW/RecoEgamma/ElectronIdentification/data/Electrons_BDTG_TrigV0_Cat6.weights.xml Smurf/ProcessingAndSkimming/data/
+# 2012 HZZ ID+Iso combined MVA
+cvs co -rR2012A_V1 -d Muon/MuonAnalysisTools /UserCode/sixie/Muon/MuonAnalysisTools
 
-# 2012 HZZ ID+Iso combined MVA: does not include IP variables though.
-cvs co -rV0-00-01 -d Muon/MuonAnalysisTools UserCode/sixie/Muon/MuonAnalysisTools
+# 2012 muon radial isolation calculator
+cvs co -rV00-00-01 -d MuonIsolation/Tools/ UserCode/folgueras/MuonIsolation/Tools/
 
