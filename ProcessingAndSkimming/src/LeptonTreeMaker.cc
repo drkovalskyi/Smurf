@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.27 2012/04/26 12:12:33 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.28 2012/04/28 15:54:43 dlevans Exp $
 //
 //
 
@@ -162,6 +162,7 @@ class LeptonTreeMaker : public edm::EDProducer {
         edm::InputTag rhoJECInputTag;
         edm::InputTag rhoIsoAllInputTag;
         edm::InputTag rhoIsoNeutralInputTag;
+        edm::InputTag rhoIsoNeutral2011InputTag;
 
         edm::InputTag pfCandsInputTag_;
         edm::InputTag metInputTag_;
@@ -214,6 +215,7 @@ class LeptonTreeMaker : public edm::EDProducer {
         double rhoJEC_;
         double rhoIsoAll_;
         double rhoIsoNeutral_;
+        double rhoIsoNeutral2011_;
 
         reco::PFCandidateCollection pfCandCollection_;
         edm::Handle<reco::VertexCollection> vtx_h_;
@@ -247,6 +249,7 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
     rhoJECInputTag          =  iConfig.getParameter<edm::InputTag>("rhoJECInputTag");
     rhoIsoAllInputTag       =  iConfig.getParameter<edm::InputTag>("rhoIsoAllInputTag");
     rhoIsoNeutralInputTag   =  iConfig.getParameter<edm::InputTag>("rhoIsoNeutralInputTag");
+    rhoIsoNeutral2011InputTag   =  iConfig.getParameter<edm::InputTag>("rhoIsoNeutral2011InputTag");
 
     pfCandsInputTag_        =  iConfig.getParameter<edm::InputTag>("pfCandsInputTag");
     metInputTag_            =  iConfig.getParameter<edm::InputTag>("metInputTag");
@@ -530,6 +533,13 @@ LeptonTreeMaker::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
     edm::Handle<double> rhoIsoNeutral_h;
     iEvent.getByLabel(rhoIsoNeutralInputTag, rhoIsoNeutral_h);
     rhoIsoNeutral_ = *(rhoIsoNeutral_h.product());
+
+    // netrals only
+    // the definition used by muons in 2011
+    // that is not stored in the event
+    edm::Handle<double> rhoIsoNeutral2011_h;
+    iEvent.getByLabel(rhoIsoNeutral2011InputTag, rhoIsoNeutral2011_h);
+    rhoIsoNeutral2011_ = *(rhoIsoNeutral2011_h.product());
 
     // pf candidates
     edm::Handle<reco::PFCandidateCollection> pfCand_h;

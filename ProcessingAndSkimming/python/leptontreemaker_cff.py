@@ -9,10 +9,16 @@ kt6PFJets.doRhoFastjet  = True                # Turn-on the FastJet density calc
 # rho
 #
 
+# for 2011 muon definition
+from RecoJets.JetProducers.kt6PFJets_cfi import *
+kt6PFJetsCentralNeutral2011 = kt6PFJets.clone(Ghost_EtaMax = cms.double(2.5), Rho_EtaMax = cms.double(2.5))
+
+# for Egamma
 from RecoJets.JetProducers.kt4PFJets_cfi import *
 kt6PFJetsDeterministicIso = kt4PFJets.clone( rParam = 0.6, doRhoFastjet = True )
 kt6PFJetsDeterministicIso.Rho_EtaMax = cms.double(2.5)
 
+# for JEC
 kt6PFJetsDeterministicJEC = kt4PFJets.clone(
     rParam = 0.6,
     doAreaFastjet = True,
@@ -22,7 +28,7 @@ kt6PFJetsDeterministicJEC = kt4PFJets.clone(
     Ghost_EtaMax = 5.0
 )
 
-fastJetSequence = cms.Sequence(kt6PFJets * kt6PFJetsDeterministicIso * kt6PFJetsDeterministicJEC)
+fastJetSequence = cms.Sequence(kt6PFJets * kt6PFJetsCentralNeutral2011 * kt6PFJetsDeterministicIso * kt6PFJetsDeterministicJEC)
 
 #
 # lepton maker
