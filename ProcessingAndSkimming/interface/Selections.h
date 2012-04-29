@@ -49,7 +49,6 @@ std::pair<double,double> trackerMET(std::vector<const reco::Candidate*>& objs,
 				    double deltaZCut, 
 				    const reco::PFCandidateCollection &pfCandCollection,
 				    const reco::Vertex &vertex);
-float GetEGammaEffectiveArea(const float eta);
 unsigned int CountGoodPV(const edm::Handle<reco::VertexCollection> &pvCollection);
 
 //
@@ -66,8 +65,8 @@ enum EffectiveAreaType {
     MUON2012_EM04
 };
 
-float GetEGammaEffectiveArea(const float eta, const EffectiveAreaType eaType);
-float GetMuonEffectiveArea(const float eta, const EffectiveAreaType eaType);
+float getEGammaEffectiveArea(const float eta, const EffectiveAreaType eaType);
+float getMuonEffectiveArea(const float eta, const EffectiveAreaType eaType);
 
 //
 // 2011 selections
@@ -107,6 +106,8 @@ void PFIsolation2012(const reco::GsfElectron& el, const reco::PFCandidateCollect
     const edm::Handle<reco::VertexCollection> &vertexHandle,
     const int vertexIndex, const float &R, float &pfiso_ch, float &pfiso_em, float &pfiso_nh);
 
+double getElectronRadialIsolation(const reco::GsfElectron &ele, const reco::PFCandidateCollection &PFCandidates, 
+    double cone_size = 0.3, double neutral_et_threshold = 1., bool barrel_veto = false);
 
 //
 // for muons
@@ -116,6 +117,8 @@ bool passMuonIsPOGTight(const edm::View<reco::Muon>::const_iterator &muon,
         const reco::Vertex &vertex);
 bool passMuonIsPOGSoft(const edm::View<reco::Muon>::const_iterator &muon,
         const reco::Vertex &vertex);
+double getMuonRadialIsolation(const reco::Muon &mu, const reco::PFCandidateCollection &PFCandidates, 
+    double cone_size = 0.3, double neutral_et_threshold = 1.);
 
 }
 

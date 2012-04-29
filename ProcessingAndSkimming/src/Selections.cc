@@ -4,6 +4,7 @@
 #include "RecoEgamma/EgammaTools/interface/ConversionTools.h"
 #include "DataFormats/MuonReco/interface/MuonSelectors.h"
 #include "DataFormats/GsfTrackReco/interface/GsfTrack.h"
+#include "DataFormats/Common/interface/RefToPtr.h"
 #include "DataFormats/Math/interface/deltaR.h"
 
 #include <algorithm>
@@ -216,7 +217,7 @@ float smurfselections::muonIsoValuePF(const reco::PFCandidateCollection &pfCandC
     return (pfciso+pfniso)/mu.pt();
 }
 
-float smurfselections::GetEGammaEffectiveArea(const float eta, const EffectiveAreaType eaType)
+float smurfselections::getEGammaEffectiveArea(const float eta, const EffectiveAreaType eaType)
 {
 
     float etaAbs = fabs(eta);
@@ -235,7 +236,7 @@ float smurfselections::GetEGammaEffectiveArea(const float eta, const EffectiveAr
     return AEff;
 }
 
-float smurfselections::GetMuonEffectiveArea(const float eta, const EffectiveAreaType eaType)
+float smurfselections::getMuonEffectiveArea(const float eta, const EffectiveAreaType eaType)
 {
 
     float etaAbs = fabs(eta);
@@ -575,6 +576,46 @@ int smurfselections::chargedHadronVertex(const reco::PFCandidate& pfcand, const 
 
 }
 
+double smurfselections::getElectronRadialIsolation(const reco::GsfElectron &el, const reco::PFCandidateCollection &PFCandidates, 
+        double cone_size, double neutral_et_threshold, bool barrel_veto)
+{   
+    double radial_iso = 0;
+
+    for (reco::PFCandidateCollection::const_iterator iP = PFCandidates.begin(); iP != PFCandidates.end(); ++iP) {
+
+        //************************************************************
+        // Veto any PFmuon, or PFEle
+        if (iP->particleId() == reco::PFCandidate::e || iP->particleId() == reco::PFCandidate::mu) continue;
+        //************************************************************
+
+        //************************************************************
+        // New Isolation Calculations
+        //************************************************************
+        double dr = reco::deltaR(iP->p4().eta(), iP->p4().phi(), el.p4().eta(), el.p4().phi());
+
+        if (dr > cone_size) continue;
+
+        if (!el.isEB()) {
+            if (iP->particleId() == reco::PFCandidate::h && dr <= 0.015) continue;
+            if (iP->particleId() == reco::PFCandidate::gamma && dr <=0.08) continue;
+        }
+        else if (barrel_veto && el.mvaOutput().mva < -0.1) {
+            if (iP->particleId() == reco::PFCandidate::h && dr <= 0.015) continue;
+            if (iP->particleId() == reco::PFCandidate::gamma && dr <=0.08) continue;            
+        }
+    
+        //Charged
+        if(iP->trackRef().isNonnull()) {
+            radial_iso += iP->pt() * (1 - 3*dr) / el.pt();
+        }
+        else if (iP->pt() > neutral_et_threshold) {
+            radial_iso += iP->pt() * (1 - 3*dr) / el.pt();
+        } 
+    } //loop over PF candidates
+        
+    return radial_iso;        
+}
+
 //
 // muons
 //
@@ -609,5 +650,46 @@ bool smurfselections::passMuonIsPOGSoft(const edm::View<reco::Muon>::const_itera
     if (fabs(muon->innerTrack()->dz(vertex.position())) >= 30.0)            return false;
     return true;
 }
+
+// original implementation of radial PF muon isolation taken from here
+// http://cmssw.cvs.cern.ch/cgi-bin/cmssw.cgi/UserCode/folgueras/MuonIsolation/Tools/src/RadialIsolation.cc?view=markup
+double smurfselections::getMuonRadialIsolation(const reco::Muon &mu, const reco::PFCandidateCollection &PFCandidates, 
+        double cone_size, double neutral_et_threshold)
+{
+    double radial_iso = 0;
+
+    reco::TrackRef muTrk = mu.track();
+    if (muTrk.isNull())
+        muTrk = mu.standAloneMuon();
+    if (muTrk.isNull())
+        return -9999;
+
+    for (reco::PFCandidateCollection::const_iterator iP = PFCandidates.begin(); iP != PFCandidates.end(); ++iP) {
+        if(iP->trackRef().isNonnull() && mu.innerTrack().isNonnull() && edm::refToPtr(iP->trackRef()) == edm::refToPtr(mu.innerTrack())) continue;  // exclude the muon itself
+
+        //************************************************************
+        // New Isolation Calculations
+        //************************************************************
+        double dr = reco::deltaR(iP->p4().eta(), iP->p4().phi(), mu.p4().eta(), mu.p4().phi());
+
+        if (dr > cone_size) continue;
+        if (dr < 0.01) continue;  // inner veto cone
+
+        //Charged
+        if(iP->trackRef().isNonnull()) {
+            //************************************************************
+            // Veto any PFmuon, or PFEle
+            if (iP->particleId() == reco::PFCandidate::e || iP->particleId() == reco::PFCandidate::mu) continue;
+            //************************************************************
+            radial_iso += iP->pt() * (1 - 3*dr) / mu.pt();
+        }
+        else if (iP->pt() > neutral_et_threshold) {
+            radial_iso += iP->pt() * (1 - 3*dr) / mu.pt();
+        }
+    } //loop over PF candidates
+
+    return radial_iso;
+}
+
 
 
