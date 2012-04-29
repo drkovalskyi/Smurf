@@ -9,6 +9,7 @@
 <use name="DataFormats/METReco"/>
 <use   name="JetMETCorrections/Objects"/>
 <use name="EGamma/EGammaAnalysisTools"/>
+<use name="Muon/MuonAnalysisTools"/>
 <use name="clhep"/>
 <flags EDM_PLUGIN="1"/>
 <export>
