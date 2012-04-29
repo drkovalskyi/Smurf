@@ -41,13 +41,19 @@ const double zz_uncertainty = 1.0;
 const double dy_expected = 11.7;
 const double dy_uncertainty = 6.8;
 
-const unsigned int Nbins = 18;
+const bool addOverflowBin = true;
+
+// const unsigned int Nbins = 18;
+const unsigned int Nbins = 9;
+// const unsigned int Nbins = 4;
 const double minPt = 20;
-const double maxPt = 200;
+const double maxPt = 220;
 
 const double rangeX = 0.5;
 const double rangeY = 0.5;
 const double lumi = 4.9;
+
+const int smooth = 0; // don't use it unless you have to
 
 // const char* oldSampleSelection = "selected==1&&unique==1";
 const char* oldSampleSelection = "selected==1&&unique==1&&dilpt>45";
@@ -78,6 +84,20 @@ RooAbsPdf* n_wz_con;
 RooAbsPdf* n_zz_con;
 RooAbsPdf* n_dy_con;
 
+RooDataSet* MakeDatasetWithOverflow(const RooDataSet* ds, const char* varname){
+  RooDataSet* ds_out = dynamic_cast<RooDataSet*>(ds->emptyClone());
+  assert(ds_out);
+  for (Int_t i=0 ; i<ds->numEntries() ; i++){
+    ds->get(i);
+    RooArgSet argset(*ds->get(i));
+    RooRealVar* var = dynamic_cast<RooRealVar*>(argset.find(varname));
+    assert(var);
+    var->setVal(TMath::Min(maxPt-0.1,var->getVal()));
+    ds_out->add(argset,ds->weight());
+  }
+  return ds_out;
+}
+
 class Sample{
   std::string m_file_name; // root file that contains reference point dataset
   std::string m_name;      // derived dataset name
@@ -95,23 +115,24 @@ public:
     m_refX = refx;
     m_refY = refy;
     m_dataset = dataset;
-    ((TTree*)m_dataset->tree())->Draw(Form("pt1>>h(%u,%f,%f)",Nbins,minPt,maxPt),"","goff");
+    ((TTree*)m_dataset->tree())->Draw(Form("pt1>>h(%u,%f,%f)",Nbins,minPt,maxPt),"weight","goff");
     m_hist = (TH1*)gDirectory->Get("h");
     m_hist->SetTitle(Form("%s: %0.2f, %s: %0.2f",x_par->GetTitle(),refx,y_par->GetTitle(),refy));
     m_hist->GetXaxis()->SetTitle("Pt, [GeV]");
     m_hist->SetDirectory(0);
+    if (smooth) m_hist->Smooth(smooth);
     // for (Int_t i=0; i<=hist->GetNbinsX(); ++i)
     // hist->SetBinContent(i,hist->GetBinContent(i)+1e-5);
     m_hist->Scale(1/m_hist->Integral());
-    m_hist->GetYaxis()->SetRangeUser(0.001,0.25);
+    // m_hist->GetYaxis()->SetRangeUser(0.001,0.25);
     m_hist->SetStats(kFALSE);
-    RooNDKeysPdf keys_pt1("keys_pt1","keys_pt1",*var_pt1,*((RooDataSet*)m_dataset),"am");
-    m_hist_keys = (TH1F*)keys_pt1.createHistogram("hist_keys",*var_pt1);
-    m_hist_keys->Scale(m_hist_keys->Integral());
-    m_hist_keys->SetLineColor(kRed);
-    m_hist_keys->SetLineWidth(2);
-    m_hist_keys->SetDirectory(0);
-    m_hist_keys->SetStats(kFALSE);
+//     RooNDKeysPdf keys_pt1("keys_pt1","keys_pt1",*var_pt1,*((RooDataSet*)m_dataset),"am");
+//     m_hist_keys = (TH1F*)keys_pt1.createHistogram("hist_keys",*var_pt1);
+//     m_hist_keys->Scale(m_hist_keys->Integral());
+//     m_hist_keys->SetLineColor(kRed);
+//     m_hist_keys->SetLineWidth(2);
+//     m_hist_keys->SetDirectory(0);
+//     m_hist_keys->SetStats(kFALSE);
   }
   // old samples
   Sample( const char* file, const char* name, double refx, double refy ){
@@ -121,33 +142,35 @@ public:
     m_refY = refy;
     TFile* f = TFile::Open(file);
     assert(f);
-    RooAbsData* ds = (RooAbsData*)f->Get("ww");
+    RooDataSet* ds = (RooDataSet*)f->Get("ww");
     ds->SetName(name);
+    if (addOverflowBin) ds = MakeDatasetWithOverflow(ds,"pt1");
     m_dataset = ds->reduce(*var_pt1,oldSampleSelection);
     ((TTree*)m_dataset->tree())->Draw(Form("pt1>>h(%u,%f,%f)",Nbins,minPt,maxPt),"","goff");
     m_hist = (TH1*)gDirectory->Get("h");
     m_hist->SetTitle(Form("%s: %0.2f, %s: %0.2f",x_par->GetTitle(),refx,y_par->GetTitle(),refy));
     m_hist->GetXaxis()->SetTitle("Pt, [GeV]");
     m_hist->SetDirectory(0);
+    if (smooth) m_hist->Smooth(smooth);
     // for (Int_t i=0; i<=hist->GetNbinsX(); ++i)
     // hist->SetBinContent(i,hist->GetBinContent(i)+1e-5);
     m_hist->Scale(1/m_hist->Integral());
-    m_hist->GetYaxis()->SetRangeUser(0.001,0.25);
+    // m_hist->GetYaxis()->SetRangeUser(0.001,0.25);
     m_hist->SetStats(kFALSE);
-    RooNDKeysPdf keys_pt1("keys_pt1","keys_pt1",*var_pt1,*((RooDataSet*)m_dataset),"am");
-    m_hist_keys = (TH1F*)keys_pt1.createHistogram("hist_keys",*var_pt1);
-    m_hist_keys->Scale(m_hist_keys->Integral());
-    m_hist_keys->SetLineColor(kRed);
-    m_hist_keys->SetLineWidth(2);
-    m_hist_keys->SetDirectory(0);
-    m_hist_keys->SetStats(kFALSE);
+//     RooNDKeysPdf keys_pt1("keys_pt1","keys_pt1",*var_pt1,*((RooDataSet*)m_dataset),"am");
+//     m_hist_keys = (TH1F*)keys_pt1.createHistogram("hist_keys",*var_pt1);
+//     m_hist_keys->Scale(m_hist_keys->Integral());
+//     m_hist_keys->SetLineColor(kRed);
+//     m_hist_keys->SetLineWidth(2);
+//     m_hist_keys->SetDirectory(0);
+//     m_hist_keys->SetStats(kFALSE);
   }
   Sample():m_dataset(0),m_refX(0),m_refY(0),m_hist(0),m_hist_keys(0){}
 };
 
 RooDataSet* MakeDataset(const char* file, const char* dataset_name, bool isData=false){
   
-  RooRealVar pt1("pt1","pt1",20,500);
+  RooRealVar pt1("pt1","pt1",0);
   RooRealVar weightVar("weight","weight",1.0);
   RooArgSet variables(pt1,weightVar);
   RooDataSet* dataset = new RooDataSet(dataset_name, dataset_name, variables,
@@ -171,7 +194,7 @@ RooDataSet* MakeDataset(const char* file, const char* dataset_name, bool isData=
     if ( (tree.cuts_ & SmurfTree::FullSelection) != SmurfTree::FullSelection ||
 	 (isData && (tree.cuts_ & SmurfTree::Trigger) != SmurfTree::Trigger )||
 	 tree.lep2_.pt()<20 || 
-	 tree.lep1_.pt()>maxPt ||
+	 //	 tree.lep1_.pt()>maxPt ||
 	 tree.dilep_.pt()<45 ||
 	 tree.njets_>0 ) continue;
     if (tree.type_==0||tree.type_==3){
@@ -186,6 +209,7 @@ RooDataSet* MakeDataset(const char* file, const char* dataset_name, bool isData=
     nSelected++;
   }
   printf("Processed file %s\n\tSelected \t%d out of %d events\n",file,int(nSelected),int(nEntries));
+  if (addOverflowBin) dataset = MakeDatasetWithOverflow(dataset,"pt1");
   return dataset;
 }
 
@@ -215,15 +239,18 @@ RooAbsPdf* MakePdfFromDataset(RooDataSet* data, RooAbsReal* variable){
   return outPdf;
 }
 
-void DrawPdf(RooAbsPdf* ipdf, const char* iname, const char* title, EColor color = kYellow){
+void DrawPdf(RooAbsPdf* ipdf, const char* iname, const char* title, 
+	     EColor fillColor = kYellow, EColor markerColor=kBlue, const char* drawOptions =""){
   std::string name(Form("h_%s",iname));
   TH1* hpdf = ipdf->createHistogram(name.c_str(),*var_pt1);
   hpdf->SetTitle(iname);
   hpdf->GetXaxis()->SetTitle(title);
   hpdf->Scale(hpdf->Integral());
-  hpdf->SetFillColor(color);
+  hpdf->SetFillColor(fillColor);
+  hpdf->SetMarkerColor(markerColor);
+  hpdf->SetMarkerStyle(20);
   hpdf->SetLineWidth(2);
-  hpdf->Draw();
+  hpdf->Draw(drawOptions);
 }
 
 // ============================================================================== //
@@ -276,168 +303,96 @@ void setSigPdf_LZ_GZ()
   
   Int_t i=0;
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz100_lz0_gz1000000.root",
-		      "sm_sm",0,0);
+  // samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz100_lz0_gz1000000.root", "sm_sm",0,0);
+  samples[i] = Sample(MakeDataset("smurf/qqww.root","ds_ww"),0,0);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*3.09163, norm*0.0547394), 
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*3.09163, norm*0.0547394), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz175_lz0_gz1750000.root",
-		      "sm_p",0,0.75);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz175_lz0_gz1750000.root", "sm_p",0,0.75);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.12261, 0.112729*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.12261, 0.112729*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz25_lz0_gz250000.root",
-		      "sm_m",0,-0.75);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz25_lz0_gz250000.root", "sm_m",0,-0.75);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.01277, 0.112194*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.01277, 0.112194*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz100_lz50_gz1000000.root",
-		      "p_sm", 0.5, 0);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz100_lz50_gz1000000.root", "p_sm", 0.5, 0);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.53635, 0.103594*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.53635, 0.103594*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz175_lz50_gz1750000.root",
-		      "p_p",0.5,0.75);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz175_lz50_gz1750000.root", "p_p",0.5,0.75);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.43854, 0.178215*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.43854, 0.178215*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz25_lz50_gz250000.root",
-		      "p_m",0.5,-0.75);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz25_lz50_gz250000.root", "p_m",0.5,-0.75);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*7.22219, 0.13752*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*7.22219, 0.13752*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz100_lzm50_gz1000000.root",
-		      "m_sm",-0.5,0);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz100_lzm50_gz1000000.root", "m_sm",-0.5,0);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.20204, 0.0981948*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.20204, 0.0981948*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz175_lzm50_gz1750000.root",
-		      "m_p",-0.5,0.75);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz175_lzm50_gz1750000.root", "m_p",-0.5,0.75);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.89533, 0.131155*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.89533, 0.131155*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz25_lzm50_gz25000.root",
-		      "m_m",-0.5,-0.75);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz25_lzm50_gz25000.root", "m_m",-0.5,-0.75);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.72764, 0.183288*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.72764, 0.183288*norm), samples[i].hist());
   i++;			    
   atgcPdf->build();
-  
+
   c1->cd(1);
   x_par->setVal(0); y_par->setVal(0);
-  TH1* h_sm_sm = atgcPdf->createHistogram("h_sm_sm",*var_pt1);
-  h_sm_sm->SetLineColor(kBlue);
-  h_sm_sm->Scale(h_sm_sm->Integral());
-  h_sm_sm->SetStats(kFALSE);
-  h_sm_sm->Draw("same");
+  DrawPdf(atgcPdf,"h_sm_sm","",kWhite,kBlue,"same p0");
 
   c1->cd(2);
   x_par->setVal(0); y_par->setVal(0.75);
-  TH1* h_sm_p = atgcPdf->createHistogram("h_sm_p",*var_pt1);
-  h_sm_p->SetLineColor(kBlue);
-  h_sm_p->Scale(h_sm_p->Integral());
-  h_sm_p->SetStats(kFALSE);
-  h_sm_p->Draw("same");
+  DrawPdf(atgcPdf,"h_sm_p","",kWhite,kBlue,"same p0");
 
   c1->cd(3);
   x_par->setVal(0); y_par->setVal(-0.75);
-  TH1* h_sm_m = atgcPdf->createHistogram("h_sm_m",*var_pt1);
-  h_sm_m->SetLineColor(kBlue);
-  h_sm_m->Scale(h_sm_m->Integral());
-  h_sm_m->SetStats(kFALSE);
-  h_sm_m->Draw("same");
+  DrawPdf(atgcPdf,"h_sm_m","",kWhite,kBlue,"same p0");
 
   c1->cd(4);
   x_par->setVal(0.5); y_par->setVal(0);
-  TH1* h_p_sm = atgcPdf->createHistogram("h_p_sm",*var_pt1);
-  h_p_sm->SetLineColor(kBlue);
-  h_p_sm->Scale(h_p_sm->Integral());
-  h_p_sm->SetStats(kFALSE);
-  h_p_sm->Draw("same");
+  DrawPdf(atgcPdf,"h_p_sm","",kWhite,kBlue,"same p0");
 
   c1->cd(5);
   x_par->setVal(0.5); y_par->setVal(0.75);
-  TH1* h_p_p = atgcPdf->createHistogram("h_p_p",*var_pt1);
-  h_p_p->SetLineColor(kBlue);
-  h_p_p->Scale(h_p_p->Integral());
-  h_p_p->SetStats(kFALSE);
-  h_p_p->Draw("same");
+  DrawPdf(atgcPdf,"h_p_p","",kWhite,kBlue,"same p0");
 
   c1->cd(6);
   x_par->setVal(0.5); y_par->setVal(-0.75);
-  TH1* h_p_m = atgcPdf->createHistogram("h_p_m",*var_pt1);
-  h_p_m->SetLineColor(kBlue);
-  h_p_m->Scale(h_p_m->Integral());
-  h_p_m->SetStats(kFALSE);
-  h_p_m->Draw("same");
+  DrawPdf(atgcPdf,"h_p_m","",kWhite,kBlue,"same p0");
 
   c1->cd(7);
   x_par->setVal(-0.5); y_par->setVal(0);
-  TH1* h_m_sm = atgcPdf->createHistogram("h_m_sm",*var_pt1);
-  h_m_sm->SetLineColor(kBlue);
-  h_m_sm->Scale(h_m_sm->Integral());
-  h_m_sm->SetStats(kFALSE);
-  h_m_sm->Draw("same");
+  DrawPdf(atgcPdf,"h_m_sm","",kWhite,kBlue,"same p0");
 
   c1->cd(8);
   x_par->setVal(-0.5); y_par->setVal(0.75);
-  TH1* h_m_p = atgcPdf->createHistogram("h_m_p",*var_pt1);
-  h_m_p->SetLineColor(kBlue);
-  h_m_p->Scale(h_m_p->Integral());
-  h_m_p->SetStats(kFALSE);
-  h_m_p->Draw("same");
+  DrawPdf(atgcPdf,"h_m_p","",kWhite,kBlue,"same p0");
   
   c1->cd(9);
   x_par->setVal(-0.5); y_par->setVal(-0.75);
-  TH1* h_m_m = atgcPdf->createHistogram("h_m_m",*var_pt1);
-  h_m_m->SetLineColor(kBlue);
-  h_m_m->Scale(h_m_m->Integral());
-  h_m_m->SetStats(kFALSE);
-  h_m_m->Draw("same");
-
+  DrawPdf(atgcPdf,"h_m_m","",kWhite,kBlue,"same p0");
 }
 
 void setSigPdf_LZ_KG()
@@ -454,190 +409,98 @@ void setSigPdf_LZ_KG()
   
   Int_t i=0;
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz100_lz0_gz1000000.root",
-		      "sm_sm",0,0);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz100_lz0_gz1000000.root", "sm_sm",0,0);
+  // samples[i] = Sample(MakeDataset("smurf/qqww.root","ds_ww"),0,0);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*547.541, norm*1.947), 
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*547.541, norm*1.947), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg170_lg0_gg100_kz779311_lz0_gz100.root",
-		      "sm_p",0,0.70);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg170_lg0_gg100_kz779311_lz0_gz100.root", "sm_p",0,0.70);
+  // samples[i] = Sample(MakeDataset("/afs/cern.ch/work/d/dmytro/atgc/mcfm/WWqqbr_tota_mstw8nl_80__80__kg170_lg0_kZ7795_lZ0_gZ100_smurf.root","sm_p"),0,0.70);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*617.147, 1.604*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*617.147, 1.604*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg30_lg0_gg100_kz1220689_lz0_gz100.root",
-		      "sm_m",0,-0.70);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg30_lg0_gg100_kz1220689_lz0_gz100.root", "sm_m",0,-0.70);
+  // samples[i] = Sample(MakeDataset("/afs/cern.ch/work/d/dmytro/atgc/mcfm/WWqqbr_tota_mstw8nl_80__80__kg30_lg0_kZ12205_lZ0_gZ100_smurf.root","sm_p"),0,-0.70);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*633.939 , 1.671*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*633.939 , 1.671*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz100_lz50_gz1000000.root",
-		      "p_sm", 0.5, 0);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz100_lz50_gz1000000.root", "p_sm", 0.5, 0);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1223.832, 3.414*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1223.832, 3.414*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg170_lg50_gg100_kz779311_lz50_gz100.root",
-		      "p_p",0.5,0.70);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg170_lg50_gg100_kz779311_lz50_gz100.root", "p_p",0.5,0.70);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1295.486, 3.224*norm),
-		samples[i].hist_keys());
-  i++;			    
-
-//   c1->cd(i+1);
-//   gPad->SetLogy(kTRUE);
-//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg170_lg100_gg100_kz779311_lz100_gz100.root",
-// 		      "p2_p",1.0,0.70);
-//   samples[i].hist()->Draw();
-//   samples[i].hist_keys()->Draw("same");
-  // FIXME - WRONG X-section
-  // atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*12.8868, 0.247537*norm),
-  // samples[i].hist_keys());
-  //  i++;			    
-
-  c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg30_lg50_gg100_kz1220689_lz50_gz100.root",
-		      "p_m",0.5,-0.70);
-  samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1319.705, 2.920*norm),
-		samples[i].hist_keys());
-  i++;			    
-
-//   c1->cd(i+1);
-//   gPad->SetLogy(kTRUE);
-//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg30_lg100_gg100_kz1220689_lz100_gz100.root",
-// 		      "p2_m",1.0,-0.70);
-//   samples[i].hist()->Draw();
-//   samples[i].hist_keys()->Draw("same");
-  // FIXME - WRONG X-section
-  // atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*12.9291, 0.248591*norm),
-  // samples[i].hist_keys());
-  //  i++;			    
-
-  c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz100_lzm50_gz1000000.root",
-		      "m_sm",-0.5,0);
-  samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1193.115, 3.026*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1295.486, 3.224*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg170_lgm50_gg100_kz779311_lzm50_gz100.root",
-		      "m_p",-0.5,0.70);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg30_lg50_gg100_kz1220689_lz50_gz100.root", "p_m",0.5,-0.70);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1267.807, 2.971*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1319.705, 2.920*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
-  gPad->SetLogy(kTRUE);
-  samples[i] = Sample("samples/processed_data_job_WW_1j_kg30_lgm50_gg100_kz1220689_lzm50_gz100.root",
-		      "m_m",-0.5,-0.70);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz100_lzm50_gz1000000.root", "m_sm",-0.5,0);
   samples[i].hist()->Draw();
-  samples[i].hist_keys()->Draw("same");
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1279.312, 2.999*norm),
-		samples[i].hist_keys());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1193.115, 3.026*norm), samples[i].hist());
+  i++;			    
+
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg170_lgm50_gg100_kz779311_lzm50_gz100.root", "m_p",-0.5,0.70);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1267.807, 2.971*norm), samples[i].hist());
+  i++;			    
+
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg30_lgm50_gg100_kz1220689_lzm50_gz100.root", "m_m",-0.5,-0.70);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1279.312, 2.999*norm), samples[i].hist());
   i++;			    
   atgcPdf->build();
   
   c1->cd(1);
   x_par->setVal(0); y_par->setVal(0);
-  TH1* h_sm_sm = atgcPdf->createHistogram("h_sm_sm",*var_pt1);
-  h_sm_sm->SetLineColor(kBlue);
-  h_sm_sm->Scale(h_sm_sm->Integral());
-  h_sm_sm->SetStats(kFALSE);
-  h_sm_sm->Draw("same");
+  DrawPdf(atgcPdf,"h_sm_sm","",kWhite,kBlue,"same p0");
 
   c1->cd(2);
   x_par->setVal(0); y_par->setVal(0.75);
-  TH1* h_sm_p = atgcPdf->createHistogram("h_sm_p",*var_pt1);
-  h_sm_p->SetLineColor(kBlue);
-  h_sm_p->Scale(h_sm_p->Integral());
-  h_sm_p->SetStats(kFALSE);
-  h_sm_p->Draw("same");
+  DrawPdf(atgcPdf,"h_sm_p","",kWhite,kBlue,"same p0");
 
   c1->cd(3);
   x_par->setVal(0); y_par->setVal(-0.75);
-  TH1* h_sm_m = atgcPdf->createHistogram("h_sm_m",*var_pt1);
-  h_sm_m->SetLineColor(kBlue);
-  h_sm_m->Scale(h_sm_m->Integral());
-  h_sm_m->SetStats(kFALSE);
-  h_sm_m->Draw("same");
+  DrawPdf(atgcPdf,"h_sm_m","",kWhite,kBlue,"same p0");
 
   c1->cd(4);
   x_par->setVal(0.5); y_par->setVal(0);
-  TH1* h_p_sm = atgcPdf->createHistogram("h_p_sm",*var_pt1);
-  h_p_sm->SetLineColor(kBlue);
-  h_p_sm->Scale(h_p_sm->Integral());
-  h_p_sm->SetStats(kFALSE);
-  h_p_sm->Draw("same");
+  DrawPdf(atgcPdf,"h_p_sm","",kWhite,kBlue,"same p0");
 
   c1->cd(5);
   x_par->setVal(0.5); y_par->setVal(0.75);
-  TH1* h_p_p = atgcPdf->createHistogram("h_p_p",*var_pt1);
-  h_p_p->SetLineColor(kBlue);
-  h_p_p->Scale(h_p_p->Integral());
-  h_p_p->SetStats(kFALSE);
-  h_p_p->Draw("same");
+  DrawPdf(atgcPdf,"h_p_p","",kWhite,kBlue,"same p0");
 
   c1->cd(6);
   x_par->setVal(0.5); y_par->setVal(-0.75);
-  TH1* h_p_m = atgcPdf->createHistogram("h_p_m",*var_pt1);
-  h_p_m->SetLineColor(kBlue);
-  h_p_m->Scale(h_p_m->Integral());
-  h_p_m->SetStats(kFALSE);
-  h_p_m->Draw("same");
+  DrawPdf(atgcPdf,"h_p_m","",kWhite,kBlue,"same p0");
 
   c1->cd(7);
   x_par->setVal(-0.5); y_par->setVal(0);
-  TH1* h_m_sm = atgcPdf->createHistogram("h_m_sm",*var_pt1);
-  h_m_sm->SetLineColor(kBlue);
-  h_m_sm->Scale(h_m_sm->Integral());
-  h_m_sm->SetStats(kFALSE);
-  h_m_sm->Draw("same");
+  DrawPdf(atgcPdf,"h_m_sm","",kWhite,kBlue,"same p0");
 
   c1->cd(8);
   x_par->setVal(-0.5); y_par->setVal(0.75);
-  TH1* h_m_p = atgcPdf->createHistogram("h_m_p",*var_pt1);
-  h_m_p->SetLineColor(kBlue);
-  h_m_p->Scale(h_m_p->Integral());
-  h_m_p->SetStats(kFALSE);
-  h_m_p->Draw("same");
+  DrawPdf(atgcPdf,"h_m_p","",kWhite,kBlue,"same p0");
   
   c1->cd(9);
   x_par->setVal(-0.5); y_par->setVal(-0.75);
-  TH1* h_m_m = atgcPdf->createHistogram("h_m_m",*var_pt1);
-  h_m_m->SetLineColor(kBlue);
-  h_m_m->Scale(h_m_m->Integral());
-  h_m_m->SetStats(kFALSE);
-  h_m_m->Draw("same");
-
+  DrawPdf(atgcPdf,"h_m_m","",kWhite,kBlue,"same p0");
 }
 
 void setBkgPdf()
@@ -976,12 +839,16 @@ void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N
 
   TH1F* hx = new TH1F("hx","Fit of WW SM events",40,-.2,.2);
   hx->GetXaxis()->SetTitle(x_par->getTitle());
-  TH1F* hxpull = new TH1F("hxpull","Fit of WW SM events",40,-10,10);
+  hx->SetFillColor(kMagenta);
+  TH1F* hxpull = new TH1F("hxpull","Fit of WW SM events",40,-5,5);
   hxpull->GetXaxis()->SetTitle(Form("%s/#sigma",x_par->getTitle().Data()));
-  TH1F* hy = new TH1F("hy","Fit of WW SM events",40,-1,1);
+  hxpull->SetFillColor(kMagenta);
+  TH1F* hy = new TH1F("hy","Fit of WW SM events",40,-0.3,0.3);
   hy->GetXaxis()->SetTitle(y_par->getTitle());
-  TH1F* hypull = new TH1F("hypull","Fit of WW SM events",40,-10,10);
+  hy->SetFillColor(kMagenta);
+  TH1F* hypull = new TH1F("hypull","Fit of WW SM events",40,-5,5);
   hypull->GetXaxis()->SetTitle(Form("%s/#sigma",y_par->getTitle().Data()));
+  hypull->SetFillColor(kMagenta);
   while ( firstEntry < size ){
     int n = generator.Poisson(meanN);
     if ( firstEntry+n > size ) break;
@@ -995,17 +862,27 @@ void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N
     x_par->setConstant(0);
     y_par->setVal(0);
     y_par->setConstant(1);
-    assert(atgcPdf->fitTo(*glb_data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Save())->status()==0);
+    // assert(atgcPdf->fitTo(*glb_data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Minos(),RooFit::Save())->status()==0);
+    atgcPdf->fitTo(*glb_data);
     hx->Fill(x_par->getVal());
     hxpull->Fill(x_par->getVal()/x_par->getError());
+//     if(x_par->getVal()>0)
+//       hxpull->Fill(x_par->getVal()/fabs(x_par->getErrorLo()));
+//     else
+//       hxpull->Fill(x_par->getVal()/fabs(x_par->getErrorHi()));
 
     x_par->setVal(0);
     x_par->setConstant(1);
     y_par->setVal(0);
     y_par->setConstant(0);
-    assert(atgcPdf->fitTo(*glb_data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Save())->status()==0);
+    // assert(atgcPdf->fitTo(*glb_data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Minos(),RooFit::Save())->status()==0);
+    atgcPdf->fitTo(*glb_data);
     hy->Fill(y_par->getVal());
     hypull->Fill(y_par->getVal()/y_par->getError());
+//     if(y_par->getVal()>0)
+//       hypull->Fill(y_par->getVal()/fabs(y_par->getErrorLo()));
+//     else
+//       hypull->Fill(y_par->getVal()/fabs(y_par->getErrorHi()));
   }
 
   // show results

@@ -30,13 +30,17 @@ RooATGCPdf::RooATGCPdf(const RooATGCPdf& other, const char* name) :
 
 void RooATGCPdf::addPoint(Measurement m, const TH1* h)
 {
+  // get the observable  and make sure they are consistent with the histograms in use
+  const RooRealVar* var = dynamic_cast<const RooRealVar*>(&obs.arg());
+  assert(var);
+  assert(var->getBins()==h->GetNbinsX()&&"observable and histogram must have same binning");
+  assert(fabs(var->getMin()-h->GetBinLowEdge(1))<0.001&&"observable and histogram must have same low bound");
+  assert(fabs(var->getMax()-h->GetBinLowEdge(1+h->GetNbinsX()))<0.001&&"observable and histogram must have same upper bound");
   if (!hist){
     hist = dynamic_cast<TH1*>(h->Clone("hist"));
     assert(hist);
     hist->SetDirectory(0);
   }
-  else
-    assert(h->GetNbinsX()==hist->GetNbinsX());
   input.push_back(std::pair<Measurement,const TH1*>(m,h));
 }
 
