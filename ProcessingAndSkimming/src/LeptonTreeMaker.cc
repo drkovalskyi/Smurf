@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.29 2012/04/28 16:05:59 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.30 2012/04/29 13:13:25 dlevans Exp $
 //
 //
 
@@ -448,9 +448,6 @@ LeptonTreeMaker::~LeptonTreeMaker()
     if (reader_muonHZZ2012IsoRingsMVA_)     delete reader_muonHZZ2012IsoRingsMVA_;
     if (reader_muonHZZ2012IsoDRMVA_)        delete reader_muonHZZ2012IsoDRMVA_;
 
-    if (eleIsoVals03_) delete eleIsoVals03_;
-    if (eleIsoVals04_) delete eleIsoVals04_;
-
     //
     // save and close lepton tree
     //
@@ -635,6 +632,8 @@ LeptonTreeMaker::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
     //
 
     if (clusterTools) delete clusterTools;
+    if (eleIsoVals03_) delete eleIsoVals03_;
+    if (eleIsoVals04_) delete eleIsoVals04_;
 
 }
 
