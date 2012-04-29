@@ -27,7 +27,7 @@ cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV
 cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat6.weights.xml
 
 # 2012 HZZ ID+Iso combined MVA
-cvs co -rR2012A_V1 -d Muon/MuonAnalysisTools /UserCode/sixie/Muon/MuonAnalysisTools
+cvs co -rR2012A_V2 -d Muon/MuonAnalysisTools /UserCode/sixie/Muon/MuonAnalysisTools
 
 # 2012 muon radial isolation calculator
 cvs co -rV00-00-01 -d MuonIsolation/Tools/ UserCode/folgueras/MuonIsolation/Tools/
