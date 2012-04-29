@@ -15,14 +15,16 @@ leptonTreeMaker = cms.EDProducer('LeptonTreeMaker',
     rhoIsoNeutral2011InputTag   =  cms.InputTag('kt6PFJetsCentralNeutral2011', 'rho'),
     rhoJECInputTag              =  cms.InputTag('kt6PFJetsDeterministicIso',   'rho'),
     pfCandsInputTag             =  cms.InputTag('particleFlow'),
+    pfNoPUCandsInputTag         =  cms.InputTag('pfNoPileUp'),
+
     metInputTag                 =  cms.InputTag('pfMet'),
     jetsInputTag                =  cms.InputTag('ak5PFJets'),
 
-    eleIVal03InputTags         = cms.VInputTag(cms.InputTag('elPFIsoValueCharged03PFIdPFIso'),
+    eleIsoVal03InputTags         = cms.VInputTag(cms.InputTag('elPFIsoValueCharged03PFIdPFIso'),
                                             cms.InputTag('elPFIsoValueGamma03PFIdPFIso'),
                                             cms.InputTag('elPFIsoValueNeutral03PFIdPFIso')),
 
-    eleIVal04InputTags         = cms.VInputTag(cms.InputTag('elPFIsoValueCharged04PFIdPFIso'),
+    eleIsoVal04InputTags         = cms.VInputTag(cms.InputTag('elPFIsoValueCharged04PFIdPFIso'),
                                             cms.InputTag('elPFIsoValueGamma04PFIdPFIso'),
                                             cms.InputTag('elPFIsoValueNeutral04PFIdPFIso')),
 
@@ -30,10 +32,6 @@ leptonTreeMaker = cms.EDProducer('LeptonTreeMaker',
     beamSpotInputTag      =  cms.InputTag('offlineBeamSpot'),
 
     pfJetCorrectorL1FastL2L3 = cms.string('ak5PFL1FastL2L3'),
-
-    #this works for crab jobs, can be changed for local submission
-    #pathToBDTWeights = cms.string('src/Smurf/ProcessingAndSkimming/data/'),
-    pathToBDTWeights = cms.string('./data/'),
 
     #
     # define triggers
