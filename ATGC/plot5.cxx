@@ -11,7 +11,8 @@
   // ww1DFits();
   // wwATGC1DFits();
   // wwATGC1DLzKgFits();
-  fitData(true,true,true,true);
-  // fitData();
+  // fitData(true,true,true,true);
+  fitData();
+  yieldDataFit();
   // fitTop();
 }

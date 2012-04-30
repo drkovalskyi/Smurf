@@ -87,10 +87,11 @@ Double_t RooATGCPdf::evaluate() const
  
 Int_t RooATGCPdf::getAnalyticalIntegral(RooArgSet& allVars, RooArgSet& analVars, const char* rangeName) const 
 {
-  // Only analytical integrals over the full range are defined
+  // Only analytical integrals without ranges are supported
   if (rangeName!=0) {
     return 0 ;
   }
+  // We know how to integrate over pt
   if (matchArgs(allVars,analVars,obs)) return 1 ;
   return 0 ;
 }
@@ -141,6 +142,12 @@ Parabola::Parabola( std::vector<Measurement>* _m )
   D = fitter->GetParameter(3);
   E = fitter->GetParameter(4);
   F = fitter->GetParameter(5);
+  errA = fitter->GetParError(0);
+  errB = fitter->GetParError(1);
+  errC = fitter->GetParError(2);
+  errD = fitter->GetParError(3);
+  errE = fitter->GetParError(4);
+  errF = fitter->GetParError(5);
   m = 0;
 }
 
@@ -163,4 +170,22 @@ Double_t RooATGCPdf::expectedEvents(const RooArgSet* /*nset*/) const
 {
   assert(configured);
   return expectedYield.value(x,y)/expectedYield.value(0,0)*nSM;
+}
+
+TH1* RooATGCPdf::getPdf() const 
+{
+  TH1* h = dynamic_cast<TH1*>(hist->Clone());
+  h->SetName("pdf");
+  h->SetMarkerColor(kRed);
+  h->SetMarkerStyle(20);
+  h->SetLineColor(kBlack);
+  h->SetDirectory(0);
+  h->Sumw2();
+  Int_t size = hist->GetNbinsX();
+  for ( Int_t i=1; i<=size; ++i ){
+    h->SetBinContent(i,params.at(i).value(x,y));
+    h->SetBinError(i,params.at(i).error(x,y));
+  }
+  h->Scale(1/h->Integral());
+  return h;
 }

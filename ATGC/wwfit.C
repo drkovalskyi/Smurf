@@ -28,7 +28,7 @@
 #include "RooCachedPdf.h"
 #include "RooKeysPdf.h"
 
-const double ww_expected = 774.0+45.9;
+double ww_expected = 774.0+45.9;
 const double ww_uncertainty = sqrt(55.8*55.8+14.1*14.1);
 const double top_expected = 121.6;
 const double top_uncertainty = 23.4;
@@ -47,7 +47,7 @@ const bool addOverflowBin = true;
 const unsigned int Nbins = 9;
 // const unsigned int Nbins = 4;
 const double minPt = 20;
-const double maxPt = 220;
+const double maxPt = 200;
 
 const double rangeX = 0.5;
 const double rangeY = 0.5;
@@ -93,6 +93,7 @@ RooDataSet* MakeDatasetWithOverflow(const RooDataSet* ds, const char* varname){
     RooRealVar* var = dynamic_cast<RooRealVar*>(argset.find(varname));
     assert(var);
     var->setVal(TMath::Min(maxPt-0.1,var->getVal()));
+    var->setRange(minPt,maxPt);
     ds_out->add(argset,ds->weight());
   }
   return ds_out;
@@ -115,7 +116,7 @@ public:
     m_refX = refx;
     m_refY = refy;
     m_dataset = dataset;
-    ((TTree*)m_dataset->tree())->Draw(Form("pt1>>h(%u,%f,%f)",Nbins,minPt,maxPt),"weight","goff");
+    ((TTree*)m_dataset->tree())->Draw(Form("pt1>>h(%u,%f,%f)",Nbins,minPt,maxPt),"weight","e goff");
     m_hist = (TH1*)gDirectory->Get("h");
     m_hist->SetTitle(Form("%s: %0.2f, %s: %0.2f",x_par->GetTitle(),refx,y_par->GetTitle(),refy));
     m_hist->GetXaxis()->SetTitle("Pt, [GeV]");
@@ -146,7 +147,7 @@ public:
     ds->SetName(name);
     if (addOverflowBin) ds = MakeDatasetWithOverflow(ds,"pt1");
     m_dataset = ds->reduce(*var_pt1,oldSampleSelection);
-    ((TTree*)m_dataset->tree())->Draw(Form("pt1>>h(%u,%f,%f)",Nbins,minPt,maxPt),"","goff");
+    ((TTree*)m_dataset->tree())->Draw(Form("pt1>>h(%u,%f,%f)",Nbins,minPt,maxPt),"","e goff");
     m_hist = (TH1*)gDirectory->Get("h");
     m_hist->SetTitle(Form("%s: %0.2f, %s: %0.2f",x_par->GetTitle(),refx,y_par->GetTitle(),refy));
     m_hist->GetXaxis()->SetTitle("Pt, [GeV]");
@@ -170,7 +171,7 @@ public:
 
 RooDataSet* MakeDataset(const char* file, const char* dataset_name, bool isData=false){
   
-  RooRealVar pt1("pt1","pt1",0);
+  RooRealVar pt1("pt1","pt1",minPt,maxPt);
   RooRealVar weightVar("weight","weight",1.0);
   RooArgSet variables(pt1,weightVar);
   RooDataSet* dataset = new RooDataSet(dataset_name, dataset_name, variables,
@@ -201,7 +202,10 @@ RooDataSet* MakeDataset(const char* file, const char* dataset_name, bool isData=
       if ( tree.jet1_.pt()>15 && tree.dPhiDiLepJet1_>2.8798 ) continue;
       if ( tree.dilep_.mass()<20 ) continue;
     }
-    pt1.setVal(tree.lep1_.pt());
+    if (addOverflowBin) 
+      pt1.setVal(min(tree.lep1_.pt(),maxPt-0.1));
+    else
+      pt1.setVal(tree.lep1_.pt());
     double weight = 1.0;
     if (tree.dstype_ != SmurfTree::data)
       weight = tree.scale1fb_*lumi;
@@ -209,15 +213,15 @@ RooDataSet* MakeDataset(const char* file, const char* dataset_name, bool isData=
     nSelected++;
   }
   printf("Processed file %s\n\tSelected \t%d out of %d events\n",file,int(nSelected),int(nEntries));
-  if (addOverflowBin) dataset = MakeDatasetWithOverflow(dataset,"pt1");
   return dataset;
 }
 
 RooDataSet* MakeOldDataset(const char* file){
   TFile* f = TFile::Open(file);
   assert(f);
-  RooAbsData* ds = (RooAbsData*)f->Get("ww");
+  RooDataSet* ds = (RooDataSet*)f->Get("ww");
   ds->SetName("ds_ww");
+  if (addOverflowBin) ds = MakeDatasetWithOverflow(ds,"pt1");
   RooDataSet* dataset = dynamic_cast<RooDataSet*>(ds->reduce(*var_pt1,oldSampleSelection));
   assert(dataset);
   return dataset;
@@ -228,7 +232,8 @@ RooAbsPdf* MakePdfFromDataset(RooDataSet* data, RooAbsReal* variable){
   
   std::string name(Form("pdf_%s",data->GetName()));
   RooAbsPdf* outPdf(0);
-  if ( data->numEntries() < 5000 ){
+  // if ( data->numEntries() < 5000 ){
+  if ( data->numEntries() < 100 ){
     outPdf = new RooKeysPdf(name.c_str(),name.c_str(),*variable,*data, RooKeysPdf::MirrorBoth);
   } else {
     // Create a binned dataset 
@@ -273,7 +278,7 @@ void setDefaults()
   var_dummy = new RooRealVar("var_dummy","var_dummy",0);
   var_pt1->setBins(Nbins);
 
-  n_ww    = new RooRealVar("n_ww","n_ww",       ww_expected, ww_expected/2, ww_expected*2);
+  n_ww    = new RooRealVar("n_ww","n_ww",       ww_expected, ww_expected/4, ww_expected*4);
   n_top   = new RooRealVar("n_top","n_top",     top_expected, top_expected/4, top_expected*4);
   n_wjets = new RooRealVar("n_wjets","n_wjets", wjets_expected, wjets_expected/4, wjets_expected*4);
   n_wz    = new RooRealVar("n_wz","n_wz",       wz_expected, wz_expected/4, wz_expected*4);
@@ -303,58 +308,111 @@ void setSigPdf_LZ_GZ()
   
   Int_t i=0;
   c1->cd(i+1);
-  // samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz100_lz0_gz1000000.root", "sm_sm",0,0);
-  samples[i] = Sample(MakeDataset("smurf/qqww.root","ds_ww"),0,0);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz100_lz0_gz1000000.root", "sm_sm",0,0);
+  // samples[i] = Sample(MakeDataset("smurf/qqww.root","ds_ww"),0,0);
+//   samples[i].hist()->Draw();
+//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*3.09163, norm*0.0547394), samples[i].hist());
+//   i++;			    
+
+//   c1->cd(i+1);
+//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz175_lz0_gz1750000.root", "sm_p",0,0.75);
+//   samples[i].hist()->Draw();
+//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.12261, 0.112729*norm), samples[i].hist());
+//   i++;			    
+
+//   c1->cd(i+1);
+//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz25_lz0_gz250000.root", "sm_m",0,-0.75);
+//   samples[i].hist()->Draw();
+//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.01277, 0.112194*norm), samples[i].hist());
+//   i++;			    
+
+//   c1->cd(i+1);
+//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz100_lz50_gz1000000.root", "p_sm", 0.5, 0);
+//   samples[i].hist()->Draw();
+//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.53635, 0.103594*norm), samples[i].hist());
+//   i++;			    
+
+//   c1->cd(i+1);
+//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz175_lz50_gz1750000.root", "p_p",0.5,0.75);
+//   samples[i].hist()->Draw();
+//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.43854, 0.178215*norm), samples[i].hist());
+//   i++;			    
+
+//   c1->cd(i+1);
+//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz25_lz50_gz250000.root", "p_m",0.5,-0.75);
+//   samples[i].hist()->Draw();
+//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*7.22219, 0.13752*norm), samples[i].hist());
+//   i++;			    
+
+//   c1->cd(i+1);
+//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz100_lzm50_gz1000000.root", "m_sm",-0.5,0);
+//   samples[i].hist()->Draw();
+//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.20204, 0.0981948*norm), samples[i].hist());
+//   i++;			    
+
+//   c1->cd(i+1);
+//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz175_lzm50_gz1750000.root", "m_p",-0.5,0.75);
+//   samples[i].hist()->Draw();
+//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.89533, 0.131155*norm), samples[i].hist());
+//   i++;			    
+
+//   c1->cd(i+1);
+//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz25_lzm50_gz25000.root", "m_m",-0.5,-0.75);
+//   samples[i].hist()->Draw();
+//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.72764, 0.183288*norm), samples[i].hist());
+//   i++;			    
+
+
   samples[i].hist()->Draw();
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*3.09163, norm*0.0547394), samples[i].hist());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*547.541, norm*1.947), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz175_lz0_gz1750000.root", "sm_p",0,0.75);
   samples[i].hist()->Draw();
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.12261, 0.112729*norm), samples[i].hist());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1284.979, 2.875*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz25_lz0_gz250000.root", "sm_m",0,-0.75);
   samples[i].hist()->Draw();
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.01277, 0.112194*norm), samples[i].hist());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1370.808, 2.905*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz100_lz50_gz1000000.root", "p_sm", 0.5, 0);
   samples[i].hist()->Draw();
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.53635, 0.103594*norm), samples[i].hist());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1223.832, 3.414*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz175_lz50_gz1750000.root", "p_p",0.5,0.75);
   samples[i].hist()->Draw();
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.43854, 0.178215*norm), samples[i].hist());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*2245.131, 5.315*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz25_lz50_gz250000.root", "p_m",0.5,-0.75);
   samples[i].hist()->Draw();
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*7.22219, 0.13752*norm), samples[i].hist());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1766.015, 4.324*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz100_lzm50_gz1000000.root", "m_sm",-0.5,0);
   samples[i].hist()->Draw();
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.20204, 0.0981948*norm), samples[i].hist());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1193.115, 3.026*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz175_lzm50_gz1750000.root", "m_p",-0.5,0.75);
   samples[i].hist()->Draw();
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.89533, 0.131155*norm), samples[i].hist());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1644.440, 4.276*norm), samples[i].hist());
   i++;			    
 
   c1->cd(i+1);
   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz25_lzm50_gz25000.root", "m_m",-0.5,-0.75);
   samples[i].hist()->Draw();
-  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.72764, 0.183288*norm), samples[i].hist());
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*2295.906, 4.985*norm), samples[i].hist());
   i++;			    
   atgcPdf->build();
 
@@ -886,28 +944,28 @@ void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N
   }
 
   // show results
-  TCanvas* c7 = new TCanvas("c7","Fit results",800,800);
-  c7->Divide(2,2);
+  TCanvas* c7 = new TCanvas("c7","Fit results",800,400);
+  c7->Divide(2,1);
   c7->cd(1);
   hx->Draw();
   c7->cd(2);
-  hxpull->Draw();
-  c7->cd(3);
   hy->Draw();
-  c7->cd(4);
+  TCanvas* c71 = new TCanvas("c71","Fit results",800,400);
+  c71->Divide(2,1);
+  c71->cd(1);
+  c71->cd(1);
+  hxpull->Draw();
+  c71->cd(2);
   hypull->Draw();
 }
 
 TH1F* wwATGC1DFit(const char* file, const char* name, double lz, double dkz)
 {
-  x_par->setRange(-rangeX,rangeX);
-  y_par->setRange(-rangeY,rangeY);
+  x_par->setRange(-1,1);
+  y_par->setRange(-1,1);
   assert(lz==0||dkz==0);
-  TFile* f = TFile::Open(file);
-  assert(f);
-  RooAbsData* ds = (RooAbsData*)f->Get("ww");
-  ds->SetName(name);
-  RooAbsData* dataset = ds->reduce(*var_pt1,oldSampleSelection);
+  
+  RooAbsData* dataset = MakeOldDataset(file);
   
   // loop over WW dataset and make small samples
   // perform Likelihood difference calculation for each
@@ -923,8 +981,7 @@ TH1F* wwATGC1DFit(const char* file, const char* name, double lz, double dkz)
   // TRandom::Poisson
 
   // TH1F* h = new TH1F(Form("h_%s",name),"Fit of on WW with anomalous couplings",40,-1,1);
-  TH1F* h = new TH1F(Form("h_%s",name),"Fit of on WW with anomalous couplings",40,0,
-		     std::max(rangeX,rangeY));
+  TH1F* h = new TH1F(Form("h_%s",name),"Fit of on WW with anomalous couplings",40,0,1);
   h->SetDirectory(0);
   unsigned int nEvents(ww_expected);
   while ( firstEntry <= size - nEvents ){
@@ -934,7 +991,8 @@ TH1F* wwATGC1DFit(const char* file, const char* name, double lz, double dkz)
     firstEntry+=nEvents;
     if (glb_data) delete glb_data;
     glb_data = new RooDataSet("data","data",tree, *var_pt1);
-    
+    cout << "Num entries: " << glb_data->numEntries() << endl;
+
     x_par->setVal(lz);
     y_par->setVal(dkz);
     if ( lz==0 ){
@@ -945,11 +1003,13 @@ TH1F* wwATGC1DFit(const char* file, const char* name, double lz, double dkz)
       y_par->setConstant(1);
     }      
     atgcPdf->fitTo(*glb_data);
+    cout << "\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" << endl;
     if ( lz==0 )
       h->Fill(fabs(y_par->getVal()));
     else
       h->Fill(fabs(x_par->getVal()));
   }
+  h->SetFillColor(kMagenta);
   return h;
 }
 
@@ -1013,16 +1073,16 @@ void prepareForDataFits(){
 }  
 
 void fitData( bool makeContourAllIn = true,
+	      bool fitATGCx = true,
+	      bool fitATGCy = true,
 	      bool yieldFitNoATGC = false,
-	      bool fitATGCx = false,
-	      bool fitATGCy = false,
 	      bool makeContourWWOnly = false
 	     )
 {
   prepareForDataFits();
-  TCanvas* c10 = new TCanvas("c10","c10",1000,1000);
-  c10->Divide(2,2);
-  c10->cd(1);
+  // TCanvas* c10 = new TCanvas("c10","c10",1000,1000);
+  // c10->Divide(2,2);
+  // c10->cd(1);
   // First plot data and pdf with the default parameters without any fit
   /*
   ((TTree*)ds_data_pt1->tree())->Draw(Form("pt1>>h(%u,%f,%f)",Nbins,minPt,maxPt));
@@ -1316,4 +1376,29 @@ void compareDistributions()
 
 void getDataYield(){
   MakeDataset("smurf/data.root","data",true);
+}
+
+void yieldDataFit()
+{
+  cpdf = new RooAddPdf("cpdf","combined pdf",RooArgList(*cSigPdf,*cBkgPdf));
+  x_par->setConstant(0);
+  y_par->setConstant(0);
+  x_par->setVal(0);
+  y_par->setVal(0);
+  // cpdf->fitTo(*ds_data_pt1, RooFit::Minos());                                                                                                                                
+  RooAbsReal* nll = cpdf->createNLL(*glb_data,RooFit::Extended(),RooFit::Constrain(RooArgSet(*n_top,*n_wjets,*n_wz,*n_zz,*n_dy)));
+  // RooMinuit m(*nll);                                                                                                                                                         
+  RooMinimizer m(*nll);
+  m.setMinimizerType("Minuit2");
+  m.setErrorLevel(0.5); //68% C.L.                                                                                                                                              
+  m.migrad();
+  m.hesse();
+  m.minos();
+
+  // Plot
+  RooPlot* frame = var_pt1->frame(RooFit::Title("Leading lepton Pt distribution in Data")) ;
+  glb_data->plotOn(frame) ;
+  cpdf->plotOn(frame,RooFit::Precision(1e-5)) ;
+  new TCanvas("cc","cc",600,600);
+  frame->Draw();
 }

@@ -17,6 +17,8 @@
   // Plot
   RooPlot* frame = var_pt1.frame(Title("Leading lepton Pt distribution in Data")) ;
   glb_data->plotOn(frame) ;
-  cpdf->plotOn(frame) ;
+  cpdf->plotOn(frame,RooFit::Precision(1e-5)) ;
+  new TCanvas("cc","cc",600,600);
+  frame->Draw();
 
 }

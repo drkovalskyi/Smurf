@@ -24,13 +24,22 @@ struct Measurement{
 
 struct Parabola{
   double A,B,C,D,E,F;
+  double errA,errB,errC,errD,errE,errF;
   static std::vector<Measurement>* m;
   Parabola( std::vector<Measurement>* _m );
-  Parabola():A(0),B(0),C(0),D(0),E(0),F(0){}
+  Parabola():A(0),B(0),C(0),D(0),E(0),F(0),
+	     errA(0),errB(0),errC(0),errD(0),errE(0),errF(0){}
   static void myfcn(Int_t &, Double_t *, Double_t &f, Double_t *par, Int_t);
   double value(double x, double y) const
   {
     return A+B*x+C*y+D*x*y+E*x*x+F*y*y;
+  }
+  // ignored correlations, not good
+  // results don't look right
+  // don't use it without extra validation
+  double error(double x, double y) const
+  {
+    return sqrt(errA*errA+pow(errB*x,2)+pow(C*y,2)+pow(errD*x*y,2)+pow(E*x*x,2)+pow(F*y*y,2));
   }
 };
 
@@ -55,6 +64,7 @@ public:
   // virtual ExtendMode extendMode() const { return CanNotBeExtended ; }
   virtual Double_t expectedEvents(const RooArgSet* nset) const ;
   virtual Double_t expectedEvents(const RooArgSet& nset) const { return expectedEvents(&nset) ; }
+  TH1* getPdf() const;
 protected:
   std::vector<Parabola> params;
   Parabola expectedYield;
