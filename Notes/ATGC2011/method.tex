@@ -73,8 +73,7 @@ model.
 Figure~\ref{fig:pdfs} shows the result of the signal PDF
 parameterization using non-parametric PDFs based on histograms. It
 reveals reasonable agreement between the initial PDFs from the
-generated samples and the final parametrized PDFs made with Keys
-PDF~\cite{ref:keys}.
+generated samples and the final aTGC model.
 
 \begin{figure}[tp]
   \centerline{
@@ -82,25 +81,26 @@ PDF~\cite{ref:keys}.
   }
 
   \caption[PDF parameterization] {Leading lepton \pt\ distributions
-  for \ww\ events with and without aTGCs. The black histogram is the
+  for \ww\ events with and without aTGCs. The black points represent the
   true \pt\ distribution for Monte Carlo events that passed the final
-  selection. The red curve is a smoothed distribution created with Keys
-  PDF. The blue curve shows the \pt\ distribution from the model used to
+  selection. The blue dots show the \pt\ distribution from the model used to
   parametrize the anomalous coupling effects across different values
   of the couplings.}
 \label{fig:pdfs}
 \end{figure}
 
-Figure~\ref{fig:bkgpdfs} (\fixme{Update plots for 2011}) shows the leading lepton \pt\ PDFs
+Figure~\ref{fig:bkgpdfs} shows the leading lepton \pt\ PDFs
 for background events. It is important to note that some of the major
 backgrounds have harder leading lepton \pt\ distributions than Standard
 Model $WW$, which may bias the result if not handled properly.
 
 \begin{figure}[tp]
   \centerline{
-    \includegraphics[width=1.0\textwidth]{figures/pdf_mc_all.pdf}
+    \includegraphics[width=0.8\textwidth]{figures/pdf_mc_all.pdf}
   }
 
-  \caption[Background PDFs] {Leading lepton \pt\ PDFs for background events after full event selection}
-  \label{fig:bkgpdfs}
+  \caption[Background PDFs] {Leading lepton \pt\ PDFs for background
+  events after full event selection.  \wjets{},\dyee{} and \dymm{}
+  samples have very small number of events and so they are built using
+  Keys pdf that produces a smoother distribution.} \label{fig:bkgpdfs}
 \end{figure}
