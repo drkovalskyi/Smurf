@@ -19,7 +19,7 @@ TH2* visualizeCorrelations(const TMatrixTSym<double>& matrix, double precision =
 }
 
 void DrawCorrelationMatrix(const TMatrixTSym<double>& matrix ){
-  TCanvas* cc = new TCanvas("cc","cc",500,500);
+  TCanvas* cc1 = new TCanvas("cc1","cc1",500,500);
   Int_t palette[7];
   palette[3] = kWhite;
   for (unsigned int i=0;i<3;++i){

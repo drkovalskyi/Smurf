@@ -27,6 +27,7 @@
 #include "RooMinimizer.h"
 #include "RooCachedPdf.h"
 #include "RooKeysPdf.h"
+#include "TStyle.h"
 
 double ww_expected = 774.0+45.9;
 const double ww_uncertainty = sqrt(55.8*55.8+14.1*14.1);
@@ -245,7 +246,7 @@ RooAbsPdf* MakePdfFromDataset(RooDataSet* data, RooAbsReal* variable){
 }
 
 void DrawPdf(RooAbsPdf* ipdf, const char* iname, const char* title, 
-	     EColor fillColor = kYellow, EColor markerColor=kBlue, const char* drawOptions =""){
+	     EColor fillColor = kMagenta, EColor markerColor=kBlue, const char* drawOptions =""){
   std::string name(Form("h_%s",iname));
   TH1* hpdf = ipdf->createHistogram(name.c_str(),*var_pt1);
   hpdf->SetTitle(iname);
@@ -921,7 +922,7 @@ void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N
     y_par->setVal(0);
     y_par->setConstant(1);
     // assert(atgcPdf->fitTo(*glb_data,RooFit::InitialHesse(true),RooFit::Strategy(2),RooFit::Minos(),RooFit::Save())->status()==0);
-    atgcPdf->fitTo(*glb_data);
+    atgcPdf->fitTo(*glb_data,RooFit::Minos());
     hx->Fill(x_par->getVal());
     hxpull->Fill(x_par->getVal()/x_par->getError());
 //     if(x_par->getVal()>0)
@@ -1021,28 +1022,28 @@ void wwATGC1DFits()
   c8->cd(1);
   TH1F* h1 = wwATGC1DFit("samples/processed_data_WW_1j_kg100_lg0_gg100_kz175_lz0_gz175_fastsim386_v1.root",
 			 "sm_p",0,0.75);
-  h1->SetTitle("#Delta#kappa_{Z} 0.75");
-  h1->GetXaxis()->SetTitle("|#Delta#kappa_{Z}|");
+  h1->SetTitle("#lambda_{Z}=0, #Delta g^{Z}_{1}=0.75");
+  h1->GetXaxis()->SetTitle("|#Delta g^{Z}_{1}=0.75|");
   h1->Draw();
 
   c8->cd(2);
   TH1F* h2 = wwATGC1DFit("samples/processed_data_WW_1j_kg100_lg0_gg100_kz25_lz0_gz25_fastsim386_v1.root",
 			 "sm_m",0,-0.75);
-  h2->SetTitle("#Delta#kappa_{Z} -0.75");
-  h2->GetXaxis()->SetTitle("|#Delta#kappa_{Z}|");
+  h2->SetTitle("#lambda_{Z}=0, #Delta g^{Z}_{1}=-0.75");
+  h2->GetXaxis()->SetTitle("|#Delta g^{Z}_{1}|");
   h2->Draw();
 
   c8->cd(3);
   TH1F* h3 = wwATGC1DFit("samples/processed_data_WW_1j_kg100_lg50_gg100_kz100_lz50_gz100_fastsim386_v1.root",
 			 "p_sm",0.5,0);
-  h3->SetTitle("#lambda_{Z} 0.5");
+  h3->SetTitle("#lambda_{Z}=0.5, #Delta g^{Z}_{1}=0");
   h3->GetXaxis()->SetTitle("|#lambda_{Z}|");
   h3->Draw();
     
   c8->cd(4);
   TH1F* h4 = wwATGC1DFit("samples/processed_data_WW_1j_kg100_lgm50_gg100_kz100_lzm50_gz100_fastsim386_v1.root",
 			 "p_sm",-0.5,0);
-  h4->SetTitle("#lambda_{Z} -0.5");
+  h4->SetTitle("#lambda_{Z}=-0.5, #Delta g^{Z}_{1}=0");
   h4->GetXaxis()->SetTitle("|#lambda_{Z}|");
   h4->Draw();
 }
@@ -1071,6 +1072,58 @@ void prepareForDataFits(){
   glb_data = MakeDataset("smurf/data.root","data",true);
   cpdf = new RooAddPdf("cpdf","combined pdf",RooArgList(*cSigPdf,*cBkgPdf));
 }  
+
+TH2* visualizeCorrelations(const TMatrixTSym<double>& matrix, double precision = 0.01 ){
+  unsigned int nColumns = matrix.GetNcols();
+  unsigned int nRows = matrix.GetNrows();
+  TH2D* hist = new TH2D("cor","Correlation matrix",nColumns,0,nColumns,nRows,0,nRows);
+  hist->SetDirectory(0);
+  for (unsigned int i=0;i<nColumns;++i)
+    for (unsigned int j=0;j<nRows;++j){
+      hist->SetBinContent(i+1,j+1,round(matrix(j,i)/precision)*precision);
+    }
+  return hist;
+}
+
+void DrawCorrelationMatrix(const TMatrixTSym<double>& matrix ){
+  TCanvas* cc1 = new TCanvas("cc1","cc1",500,500);
+  Int_t palette[7];
+  palette[3] = kWhite;
+  for (unsigned int i=0;i<3;++i){
+    palette[2-i] = kGray+i;
+    palette[4+i] = kGray+i;
+  }
+  gStyle->SetPalette(7,palette);
+
+  TH2* hist = visualizeCorrelations(matrix);
+  hist->SetMaximum(1.0);
+  hist->SetMinimum(-1.0);
+  hist->GetXaxis()->SetBinLabel(1,"DY");
+  hist->GetXaxis()->SetBinLabel(2,"Top");
+  hist->GetXaxis()->SetBinLabel(3,"Wjets");
+  hist->GetXaxis()->SetBinLabel(4,"WW");
+  hist->GetXaxis()->SetBinLabel(5,"WZ");
+  hist->GetXaxis()->SetBinLabel(6,"ZZ");
+  hist->GetXaxis()->SetBinLabel(7,"#lambda_{Z}");
+  hist->GetXaxis()->SetBinLabel(8,"#Delta g^{Z}_{1}");
+  hist->GetYaxis()->SetBinLabel(1,"DY");
+  hist->GetYaxis()->SetBinLabel(2,"Top");
+  hist->GetYaxis()->SetBinLabel(3,"Wjets");
+  hist->GetYaxis()->SetBinLabel(4,"WW");
+  hist->GetYaxis()->SetBinLabel(5,"WZ");
+  hist->GetYaxis()->SetBinLabel(6,"ZZ");
+  hist->GetYaxis()->SetBinLabel(7,"#lambda_{Z}");
+  hist->GetYaxis()->SetBinLabel(8,"#Delta g^{Z}_{1}");
+  hist->Draw("coltext");
+  cc1->Update();
+
+//   TPaletteAxis* paletteAxis = (TPaletteAxis*)hist->GetListOfFunctions()->FindObject( "palette" );
+//   if ( paletteAxis ){
+//     paletteAxis->SetLabelSize( 0.03 );
+//     paletteAxis->SetX1NDC( paletteAxis->GetX1NDC() + 0.02 );
+//   }    
+//   hist->Draw("sametext");
+}
 
 void fitData( bool makeContourAllIn = true,
 	      bool fitATGCx = true,
@@ -1394,11 +1447,13 @@ void yieldDataFit()
   m.migrad();
   m.hesse();
   m.minos();
+  
+  DrawCorrelationMatrix(m.lastMinuitFit()->correlationMatrix());
 
   // Plot
   RooPlot* frame = var_pt1->frame(RooFit::Title("Leading lepton Pt distribution in Data")) ;
   glb_data->plotOn(frame) ;
   cpdf->plotOn(frame,RooFit::Precision(1e-5)) ;
-  new TCanvas("cc","cc",600,600);
+  new TCanvas("cc2","cc2",600,600);
   frame->Draw();
 }
