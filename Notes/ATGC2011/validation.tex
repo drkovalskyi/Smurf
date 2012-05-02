@@ -99,64 +99,42 @@ central values.
 
 Table~\ref{tab:fit_yields} summarizes the fit results for event
 yields. From it we conclude that the excess of the events that we
-observed in the cross-section measurement is absorbed mostly
-in \wjets~ event yield. Looking at the correlation matrix
+observed in the cross-section measurement is absorbed mostly in \ww\
+event yield. Looking at the correlation matrix
 Figure~\ref{fig:fit_correlations} one can see that there is
-significant correlation between \wjets~ and \ww~ event yields. Small
-mis-modeling of the low pt part of the leading lepton distribution may
-cause the excess to be split between the two contributions. This
-effect has no impact on the anomalous coupling measurement, since it
-mostly sensitive to the excess of events at high \pt{}. 
-
-As a cross-check we performed a fit fixing the \wjets\ yield to its
-estimate and keeping it constant. The excess was mostly absorbed
-by \ww normalization. The impact on measured anomalous couplings was
-less than 0.0006, i.e. totally negligible at the current level of
-sensitivity.
+significant correlation between \ww{}, \wjets{} and \ttbar{} event
+yields. Figure~\ref{fig:fit_data} shows a reasonable agreement of the
+final fit pt distribution and the one observed in data. 
 
 %% Minuit2Minimizer: Minimize with max iterations 4000 edmval 1 strategy 1
 %% Minuit2Minimizer : Valid minimum - status = 0
-%% FVAL  = -1602.82913488348504
-%% Edm   = 5.45511397378936264e-05
-%% Nfcn  = 134
-%% n_dy      = 15.9038    +/-  6.61673     (limited)
-%% n_top     = 124.086    +/-  20.9979     (limited)
-%% n_wjets   = 125.501    +/-  20.314      (limited)
-%% n_ww      = 817.58     +/-  46.044      (limited)
-%% n_wz      = 19.0359    +/-  1.89804     (limited)
-%% n_zz      = 10.6562    +/-  0.999016    (limited)
-%% x_par     = 0.00151822 +/-  0.0190978   (limited)
-%% y_par     = 0.00503943 +/-  0.0304233   (limited)
-%% Minos: Lower error for parameter 0  :  -6.74416
-%% Minos: Upper error for parameter 0  :  6.74374
-%% Minos: Lower error for parameter 1  :  -20.8847
-%% Minos: Upper error for parameter 1  :  21.2024
-%% Minos: Lower error for parameter 2  :  -20.2856
-%% Minos: Upper error for parameter 2  :  20.4984
-%% Minos: Lower error for parameter 3  :  -46.2509
-%% Minos: Upper error for parameter 3  :  45.9041
-%% Minos: Lower error for parameter 4  :  -1.89954
-%% Minos: Upper error for parameter 4  :  1.89966
-%% Minos: Lower error for parameter 5  :  -0.999735
-%% Minos: Upper error for parameter 5  :  0.999722
-%% Minos: Lower error for parameter 6  :  -0.0189644
-%% Minos: Upper error for parameter 6  :  0.0182371
-%% Minos: Lower error for parameter 7  :  -0.0301162
-%% Minos: Upper error for parameter 7  :  0.0295189
-%%
-%%   RooFitResult: minimized FCN value: -1602.83, estimated distance to minimum: 2.12194e-05
-%%                 covariance matrix quality: Full, accurate covariance matrix
-%%
-%%     Floating Parameter  InitialValue    FinalValue +/-  Error     GblCorr.
-%%   --------------------  ------------  --------------------------  --------
-%%                   n_dy    1.5909e+01    1.5909e+01 +/-  6.62e+00  0.215534
-%%                  n_top    1.2416e+02    1.2416e+02 +/-  2.10e+01  0.522827
-%%                n_wjets    1.2557e+02    1.2557e+02 +/-  2.03e+01  0.547777
-%%                   n_ww    8.1733e+02    8.1733e+02 +/-  4.61e+01  0.687014
-%%                   n_wz    1.9036e+01    1.9036e+01 +/-  1.90e+00  0.063578
-%%                   n_zz    1.0656e+01    1.0656e+01 +/-  9.99e-01  0.031781
-%%                  x_par    1.5155e-03    1.5155e-03 +/-  1.91e-02  0.113013
-%%                  y_par    5.0221e-03    5.0221e-03 +/-  3.04e-02  0.121154
+%% FVAL  = -1578.2051799912831
+%% Edm   = 2.84316661007704903e-06
+%% Nfcn  = 177
+%% n_dy	  = 14.2216	 +/-  6.60059	(limited)
+%% n_top	  = 88.7706	 +/-  21.5922	(limited)
+%% n_wjets	  = 86.5649	 +/-  19.9815	(limited)
+%% n_ww	  = 915.148	 +/-  45.4547	(limited)
+%% n_wz	  = 18.5309	 +/-  1.89849	(limited)
+%% n_zz	  = 10.5487	 +/-  0.999248	(limited)
+%% x_par	  = 0.00401641	 +/-  0.0229406	(limited)
+%% y_par	  = 0.00828161	 +/-  0.0352541	(limited)
+%% Minos: Lower error for parameter 0  :  -6.73027
+%% Minos: Upper error for parameter 0  :  6.74416
+%% Minos: Lower error for parameter 1  :  -21.6282
+%% Minos: Upper error for parameter 1  :  21.6914
+%% Minos: Lower error for parameter 2  :  -20.078
+%% Minos: Upper error for parameter 2  :  20.0657
+%% Minos: Lower error for parameter 3  :  -45.2995
+%% Minos: Upper error for parameter 3  :  45.6166
+%% Minos: Lower error for parameter 4  :  -1.9004
+%% Minos: Upper error for parameter 4  :  1.89958
+%% Minos: Lower error for parameter 5  :  -1.00008
+%% Minos: Upper error for parameter 5  :  0.999759
+%% Minos: Lower error for parameter 6  :  -0.0227218
+%% Minos: Upper error for parameter 6  :  0.020276
+%% Minos: Lower error for parameter 7  :  -0.0348234
+%% Minos: Upper error for parameter 7  :  0.0323726
 
 
 \begin{table}[!ht]
@@ -166,12 +144,12 @@ sensitivity.
 \hline
   Parameter       &   Initial value & Fit value & Global Correlation \\
 \hline
-  N$_{\ww}$       & $819.9\pm57.6$  & $817.6\pm46.0$ & 0.69 \\
-  N$_{Top}$       & $121.6\pm23.4$  & $124.1\pm21.0$ & 0.52 \\
-  N$_{\wjets}$    & $78.1\pm22.0$   & $125.6\pm20.3$ & 0.55 \\
-  N$_{\wz}$       & $18.5\pm1.9$    & $19.0\pm1.9$   & 0.06 \\
-  N$_{\dyll}$     & $11.7\pm6.8$    & $15.9\pm6.6$   & 0.22 \\
-  N$_{\zz}$       & $10.6\pm1.0$    & $10.7\pm1.0$   & 0.03 \\
+  N$_{\ww}$       & $819.9\pm57.6$  & $915.1\pm45.5$ & 0.69 \\
+  N$_{Top}$       & $121.6\pm23.4$  & $88.8\pm21.6$  & 0.52 \\
+  N$_{\wjets}$    & $78.1\pm22.0$   & $86.6\pm20.0$ & 0.55 \\
+  N$_{\wz}$       & $18.5\pm1.9$    & $18.5\pm1.9$   & 0.06 \\
+  N$_{\dyll}$     & $11.7\pm6.8$    & $14.2\pm6.6$   & 0.22 \\
+  N$_{\zz}$       & $10.6\pm1.0$    & $10.5\pm1.0$   & 0.03 \\
 \hline
   \end{tabular}
   }
@@ -181,10 +159,20 @@ sensitivity.
 \end{table}
 
 \begin{figure}[tp]
-  \centerline{
-    \includegraphics[width=.45\textwidth]{figures/correlations}
-  }
+  \centering
+    \includegraphics[width=.60\textwidth]{figures/correlations}
 
   \caption[Fit parameter correlations] {Correlation matrix for the nominal fit parameters.}
   \label{fig:fit_correlations}
+\end{figure}
+
+\begin{figure}[tp]
+  \centering
+    \includegraphics[width=.45\textwidth]{figures/lz_dgz_pdf_data}
+    \includegraphics[width=.45\textwidth]{figures/lz_dkg_pdf_data}
+
+  \caption[Fit on data] {Final combined pdf distribution (blue
+  histogram) on top of observed data yield. Left plot shows results
+  for a fit using $\lambda_Z$-$\Delta g^Z_1$ model and the right one
+  shows that of $\lambda_Z$-$\Delta\kappa_{\gamma}$ model.} \label{fig:fit_data}
 \end{figure}
