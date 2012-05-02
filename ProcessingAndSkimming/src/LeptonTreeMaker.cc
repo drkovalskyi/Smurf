@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.31 2012/04/29 16:19:41 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.32 2012/05/02 09:55:57 dlevans Exp $
 //
 //
 
@@ -899,10 +899,10 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
             const reco::GsfElectronCollection nullEls;
             const reco::MuonCollection nullMus;
             leptonTree_->muonHWW2011IDIsoMVA_       = reader_muonHWW2011IDIsoMVA_->MVAValue(&*probe, pv_, ttBuilder, rhoIsoAll_, false);
-            leptonTree_->muonHZZ2012IDMVA_          = reader_muonHZZ2012IDMVA_->mvaValue(*probe, pv_, pfCandCollection_, rhoIsoNeutral2011_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-            leptonTree_->muonHZZ2012IDIsoRingsMVA_  = reader_muonHZZ2012IDIsoRingsMVA_->mvaValue(*probe, pv_, pfCandCollection_, rhoIsoNeutral2011_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-            leptonTree_->muonHZZ2012IsoRingsMVA_    = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*probe, pv_, pfCandCollection_, rhoIsoNeutral2011_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-            leptonTree_->muonHZZ2012IsoDRMVA_       = reader_muonHZZ2012IsoDRMVA_->mvaValue(*probe, pfNoPUCandCollection_, rhoIsoNeutral2011_, MuonEffectiveArea::kMuEAFall11MC);
+            leptonTree_->muonHZZ2012IDMVA_          = reader_muonHZZ2012IDMVA_->mvaValue(*probe, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
+            leptonTree_->muonHZZ2012IDIsoRingsMVA_  = reader_muonHZZ2012IDIsoRingsMVA_->mvaValue(*probe, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
+            leptonTree_->muonHZZ2012IsoRingsMVA_    = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*probe, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
+            leptonTree_->muonHZZ2012IsoDRMVA_       = reader_muonHZZ2012IsoDRMVA_->mvaValue(*probe, pfNoPUCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC);
 
             if (smurfselections::passMuonFO2011(probe, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFO);
             if (smurfselections::passMuonID2011(probe, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuID);
@@ -1113,10 +1113,10 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
         const reco::GsfElectronCollection nullEls;
         const reco::MuonCollection nullMus;
         leptonTree_->muonHWW2011IDIsoMVA_       = reader_muonHWW2011IDIsoMVA_->MVAValue(&*fo, pv_, ttBuilder, rhoIsoAll_, false);
-        leptonTree_->muonHZZ2012IDMVA_          = reader_muonHZZ2012IDMVA_->mvaValue(*fo, pv_, pfCandCollection_, rhoIsoNeutral2011_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-        leptonTree_->muonHZZ2012IDIsoRingsMVA_  = reader_muonHZZ2012IDIsoRingsMVA_->mvaValue(*fo, pv_, pfCandCollection_, rhoIsoNeutral2011_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-        leptonTree_->muonHZZ2012IsoRingsMVA_    = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*fo, pv_, pfCandCollection_, rhoIsoNeutral2011_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-        leptonTree_->muonHZZ2012IsoDRMVA_       = reader_muonHZZ2012IsoDRMVA_->mvaValue(*fo, pfNoPUCandCollection_, rhoIsoNeutral2011_, MuonEffectiveArea::kMuEAFall11MC);
+        leptonTree_->muonHZZ2012IDMVA_          = reader_muonHZZ2012IDMVA_->mvaValue(*fo, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
+        leptonTree_->muonHZZ2012IDIsoRingsMVA_  = reader_muonHZZ2012IDIsoRingsMVA_->mvaValue(*fo, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
+        leptonTree_->muonHZZ2012IsoRingsMVA_    = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*fo, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
+        leptonTree_->muonHZZ2012IsoDRMVA_       = reader_muonHZZ2012IsoDRMVA_->mvaValue(*fo, pfNoPUCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC);
 
         leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFO);
         if (smurfselections::passMuonID2011(fo, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuID);
