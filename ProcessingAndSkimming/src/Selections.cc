@@ -342,10 +342,14 @@ bool smurfselections::passMuonIso2011(const edm::View<reco::Muon>::const_iterato
     float pt = muon->pt();
     float eta = fabs(muon->eta());
     if (pt > 20.0) {
-        if (eta < 1.479 && isoVal >= 0.13)    return false;
+        if (eta < 1.479) {
+            if (isoVal >= 0.13)               return false;
+        }
         else if (isoVal >= 0.09)              return false;
     } else {
-        if (eta < 1.479 && isoVal >= 0.06)    return false;
+        if (eta < 1.479) {
+            if (isoVal >= 0.06)               return false;
+        }
         else if (isoVal >= 0.05)              return false;
     }
     return true;
@@ -420,8 +424,10 @@ bool smurfselections::passElectronIso2011(const reco::GsfElectronRef &electron,
         const reco::Vertex &vertex)
 {
     float isoVal = electronIsoValuePF(pfCandCollection, *electron, vertex, 0.4, 1.0, 0.1, 0.07, 0.025, -999., 0);
-    if (fabs(electron->superCluster()->eta()) < 1.479 && isoVal >= 0.13)    return false;
-    else if (isoVal >= 0.09)                                                return false;
+    if (fabs(electron->superCluster()->eta()) < 1.479) {
+        if (isoVal >= 0.13)    return false;
+    } 
+    else if (isoVal >= 0.09)   return false;
     return true;
 }
 
