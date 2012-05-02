@@ -28,6 +28,7 @@
 #include "RooCachedPdf.h"
 #include "RooKeysPdf.h"
 #include "TStyle.h"
+#include "RooDataHist.h"
 
 double ww_expected = 774.0+45.9;
 const double ww_uncertainty = sqrt(55.8*55.8+14.1*14.1);
@@ -46,7 +47,7 @@ const bool addOverflowBin = true;
 
 // const unsigned int Nbins = 18;
 const unsigned int Nbins = 9;
-// const unsigned int Nbins = 4;
+// const unsigned int Nbins = 5;
 const double minPt = 20;
 const double maxPt = 200;
 
@@ -234,13 +235,13 @@ RooAbsPdf* MakePdfFromDataset(RooDataSet* data, RooAbsReal* variable){
   std::string name(Form("pdf_%s",data->GetName()));
   RooAbsPdf* outPdf(0);
   // if ( data->numEntries() < 5000 ){
-  if ( data->numEntries() < 100 ){
+  if ( data->numEntries() < 0 ){
     outPdf = new RooKeysPdf(name.c_str(),name.c_str(),*variable,*data, RooKeysPdf::MirrorBoth);
   } else {
     // Create a binned dataset 
-    RooDataHist* hist = data->binnedClone() ;
+    RooDataHist* hist = new RooDataHist("hist","hist",*var_pt1,*data) ;
     // Make a pdf
-    outPdf = new RooHistPdf(name.c_str(),name.c_str(),*variable,*hist);
+    outPdf = new RooHistPdf(name.c_str(),name.c_str(),*variable, *hist);
   }
   return outPdf;
 }
@@ -564,11 +565,12 @@ void setSigPdf_LZ_KG()
 
 void setBkgPdf()
 {
-  TCanvas* c9 = new TCanvas("c9","c9",600,900);
+  TCanvas* c9 = new TCanvas("c9","c9",400,800);
   c9->Divide(2,4);
 
   c9->cd(1);
   RooDataSet* ds_ww_pt1 = MakeDataset("smurf/qqww.root","ds_ww");
+  // RooDataSet* ds_ww_pt1 = MakeDataset("smurf/ww_mcnlo.root","ds_ww");
   RooAbsPdf*  pdf_ww    = MakePdfFromDataset(ds_ww_pt1,var_pt1);
   DrawPdf(pdf_ww, "WW","Leading lepton pt, [GeV]");
 
@@ -599,18 +601,21 @@ void setBkgPdf()
 
   c9->cd(7);
   RooDataSet* ds_dyee_pt1 = MakeDataset("smurf/dyee.root","ds_dyee");
-  RooAbsPdf*  pdf_dyee    = MakePdfFromDataset(ds_dyee_pt1,var_pt1);
-  DrawPdf(pdf_dyee, "DYee","Leading lepton pt, [GeV]");
+  // RooAbsPdf*  pdf_dyee    = MakePdfFromDataset(ds_dyee_pt1,var_pt1);
+  // DrawPdf(pdf_dyee, "DYee","Leading lepton pt, [GeV]");
 
   c9->cd(8);
   RooDataSet* ds_dymm_pt1 = MakeDataset("smurf/dymm.root","ds_dyee");
-  RooAbsPdf*  pdf_dymm    = MakePdfFromDataset(ds_dymm_pt1,var_pt1);
-  DrawPdf(pdf_dymm, "DYmm","Leading lepton pt, [GeV]");
+  // RooAbsPdf*  pdf_dymm    = MakePdfFromDataset(ds_dymm_pt1,var_pt1);
+  // DrawPdf(pdf_dymm, "DYmm","Leading lepton pt, [GeV]");
 
+  c9->cd(7);
   RooDataSet* ds_dy_pt1 = new RooDataSet("ds_dy","ds_dy",ds_dyee_pt1,*var_pt1);
   ds_dy_pt1->append(*ds_dymm_pt1);
   RooAbsPdf*  pdf_dy    = MakePdfFromDataset(ds_dy_pt1,var_pt1);
+  DrawPdf(pdf_dy, "DY","Leading lepton pt, [GeV]");
 
+  c9->cd(8);
   // extended pdfs
   RooAbsPdf* epdf_wjets = new RooExtendPdf("epdf_wjets","epdf_wjets",*pdf_wjets,*n_wjets);
   RooAbsPdf* epdf_top = new RooExtendPdf("epdf_top","epdf_top",*pdf_ttbar,*n_top);
@@ -619,6 +624,7 @@ void setBkgPdf()
   RooAbsPdf* epdf_dy = new RooExtendPdf("epdf_dy","epdf_dy",*pdf_dy,*n_dy);
   pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz, *epdf_zz, *epdf_dy));
   cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con,*n_zz_con,*n_dy_con)) ;
+  DrawPdf(cBkgPdf, "Background PDF","Leading lepton pt, [GeV]");
 }
 
 void setOldBkgPdf()
@@ -1251,6 +1257,8 @@ void fitData( bool makeContourAllIn = true,
     // yield fit
     x_par->setConstant(1);
     y_par->setConstant(1);
+    // n_wjets->setConstant(1);
+    // n_wjets->setVal(wjets_expected);
     x_par->setVal(0);
     y_par->setVal(0);
     // cpdf->fitTo(*ds_data_pt1, RooFit::Minos());
@@ -1269,6 +1277,8 @@ void fitData( bool makeContourAllIn = true,
     // fits
     x_par->setConstant(0);
     y_par->setConstant(1);
+    // n_wjets->setConstant(1);
+    // n_wjets->setVal(wjets_expected);
     x_par->setVal(0);
     y_par->setVal(0);
     // cpdf->fitTo(*ds_data_pt1, RooFit::Minos());
