@@ -143,6 +143,7 @@ class LeptonTree {
         float el_pfnhiso04_;
         float el_radiso03_;
         float el_radiso04_;
+        float el_iso_;
         float el_ea04_;
 
         float mu_pfemiso04_;
@@ -150,6 +151,7 @@ class LeptonTree {
         float mu_pfnhiso04_;
         float mu_radiso03_;
         float mu_radiso04_;
+        float mu_iso_;
         float mu_eaem04_;
         float mu_eanh04_;
 
@@ -257,6 +259,7 @@ class LeptonTree {
             tree_->Branch("el_pfnhiso04"               , &el_pfnhiso04_               ,   "el_pfnhiso04/F");
             tree_->Branch("el_radiso03"               , &el_radiso03_               ,   "el_radiso03/F");
             tree_->Branch("el_radiso04"               , &el_radiso04_               ,   "el_radiso04/F");
+            tree_->Branch("el_iso"                  , &el_iso_               ,   "el_iso/F");
             tree_->Branch("el_ea04"               , &el_ea04_               ,   "mu_ea04/F");
 
             tree_->Branch("mu_pfemiso04"               , &mu_pfemiso04_               ,   "mu_pfemiso04/F");
@@ -264,6 +267,7 @@ class LeptonTree {
             tree_->Branch("mu_pfnhiso04"               , &mu_pfnhiso04_               ,   "mu_pfnhiso04/F");
             tree_->Branch("mu_radiso03"               , &mu_radiso03_               ,   "mu_radiso03/F");
             tree_->Branch("mu_radiso04"               , &mu_radiso04_               ,   "mu_radiso04/F");
+            tree_->Branch("mu_iso"                  , &mu_iso_               ,   "mu_iso/F");
             tree_->Branch("mu_eaem04"               , &mu_eaem04_               ,   "mu_eaem04/F");
             tree_->Branch("mu_eanh04"               , &mu_eanh04_               ,   "mu_eanh04/F");
 
@@ -351,6 +355,7 @@ class LeptonTree {
             tree_->SetBranchAddress("el_pfnhiso04",          &el_pfnhiso04_);
             tree_->SetBranchAddress("el_radiso03",          &el_radiso03_);
             tree_->SetBranchAddress("el_radiso04",          &el_radiso04_);
+            tree_->SetBranchAddress("el_iso",          &el_iso_);
             tree_->SetBranchAddress("el_ea04",          &el_ea04_);
 
             tree_->SetBranchAddress("mu_pfemiso04",          &mu_pfemiso04_);
@@ -358,6 +363,7 @@ class LeptonTree {
             tree_->SetBranchAddress("mu_pfnhiso04",          &mu_pfnhiso04_);
             tree_->SetBranchAddress("mu_radiso03",          &mu_radiso03_);
             tree_->SetBranchAddress("mu_radiso04",          &mu_radiso04_);
+            tree_->SetBranchAddress("mu_iso",           &mu_iso_);
             tree_->SetBranchAddress("mu_eaem04",          &mu_eaem04_);
             tree_->SetBranchAddress("mu_eanh04",          &mu_eanh04_);
 
@@ -453,6 +459,7 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("el_pfnhiso04"));
         variables_.push_back(std::string("el_radiso03"));
         variables_.push_back(std::string("el_radiso04"));
+        variables_.push_back(std::string("el_iso"));
         variables_.push_back(std::string("el_ea04"));
 
         variables_.push_back(std::string("mu_pfemiso04"));
@@ -460,6 +467,7 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("mu_pfnhiso04"));
         variables_.push_back(std::string("mu_radiso03"));
         variables_.push_back(std::string("mu_radiso04"));
+        variables_.push_back(std::string("mu_iso"));
         variables_.push_back(std::string("mu_eaem04"));
         variables_.push_back(std::string("mu_eanh04"));
 
@@ -539,6 +547,7 @@ LeptonTree::InitVariables(){
     el_pfnhiso04_ = 0.;
     el_radiso03_ = 0.;
     el_radiso04_ = 0.;
+    el_iso_ = 0.;
     el_ea04_      = 0.;
 
     mu_pfemiso04_ = 0.;
@@ -546,6 +555,7 @@ LeptonTree::InitVariables(){
     mu_pfnhiso04_ = 0.;
     mu_radiso03_ = 0.;
     mu_radiso04_ = 0.;
+    mu_iso_ = 0.;
     mu_eaem04_    = 0.;
     mu_eanh04_    = 0.;
 
@@ -611,12 +621,14 @@ LeptonTree::Get(std::string value)
     if(value=="el_pfchiso04"              ) { return this->el_pfchiso04_;           }
     if(value=="el_pfnhiso04"              ) { return this->el_pfnhiso04_;           }
     if(value=="el_radiso03"              ) { return this->el_radiso03_;           }
+    if(value=="el_iso"              ) { return this->el_iso_;           }
     if(value=="el_ea04"              ) { return this->el_ea04_;           }
 
     if(value=="mu_pfemiso04"              ) { return this->mu_pfemiso04_;           }
     if(value=="mu_pfchiso04"              ) { return this->mu_pfchiso04_;           }
     if(value=="mu_pfnhiso04"              ) { return this->mu_pfnhiso04_;           }
     if(value=="mu_radiso03"              ) { return this->mu_radiso03_;           }
+    if(value=="mu_iso"              ) { return this->mu_iso_;           }
     if(value=="mu_eaem04"              ) { return this->mu_eaem04_;           }
     if(value=="mu_eanh04"              ) { return this->mu_eanh04_;           }
 

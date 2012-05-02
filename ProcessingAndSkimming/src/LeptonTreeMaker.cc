@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.30 2012/04/29 13:13:25 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.31 2012/04/29 16:19:41 dlevans Exp $
 //
 //
 
@@ -765,7 +765,9 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
             mvaValue                  = reader_electronHWW2011MVA_->MVAValue(&*probe, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
             leptonTree_->electronHWW2011MVA_       = mvaValue;
             leptonTree_->electronHWW2011IDIsoMVA_  = reader_electronHWW2011IDIsoMVA_->MVAValue(&*probe, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
-            leptonTree_->egammaPOG2012MVA_         = reader_egammaPOG2012MVA_->mvaValue(*probe, pv_, *ttBuilder, *clusterTools);
+
+            std::cout << "event: " << leptonTree_->event_ << " ";
+            leptonTree_->egammaPOG2012MVA_         = reader_egammaPOG2012MVA_->mvaValue(*probe, pv_, *ttBuilder, *clusterTools, true);
 
             if (smurfselections::passElectronFO2011(probe, pv_, thebs.position(), conversions_h))
                 leptonTree_->leptonSelection_ |= (LeptonTree::PassEleFO);
@@ -783,6 +785,7 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
             leptonTree_->el_pfnhiso04_   = (*(*eleIsoVals04_)[2])[probe];
             leptonTree_->el_radiso03_    = smurfselections::getElectronRadialIsolation(*probe, pfNoPUCandCollection_, 0.3);
             leptonTree_->el_radiso04_    = smurfselections::getElectronRadialIsolation(*probe, pfNoPUCandCollection_, 0.4);
+            leptonTree_->el_iso_         = smurfselections::electronIsoValuePF(pfCandCollection_, *probe, pv_, 0.4, 1.0, 0.1, 0.07, 0.025, -999., 0);
             leptonTree_->el_ea04_        = smurfselections::getEGammaEffectiveArea(probe->superCluster()->eta(), smurfselections::EGAMMA2012_04);
 
             // cut based ele id
@@ -889,6 +892,7 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
             leptonTree_->mu_pfnhiso04_      = probe->pfIsolationR04().sumNeutralHadronEt;
             leptonTree_->mu_radiso03_       = smurfselections::getMuonRadialIsolation(*probe, pfNoPUCandCollection_, 0.3);
             leptonTree_->mu_radiso04_       = smurfselections::getMuonRadialIsolation(*probe, pfNoPUCandCollection_, 0.4);
+            leptonTree_->mu_iso_            = smurfselections::muonIsoValuePF(pfCandCollection_, *probe, pv_, 0.3, 1.0, 0.1, 0);
             leptonTree_->mu_eaem04_         = smurfselections::getMuonEffectiveArea(probe->p4().eta(), smurfselections::MUON2012_EM04);
             leptonTree_->mu_eanh04_         = smurfselections::getMuonEffectiveArea(probe->p4().eta(), smurfselections::MUON2012_NH04);
 
@@ -1009,6 +1013,7 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         leptonTree_->el_pfnhiso04_   = (*(*eleIsoVals04_)[2])[fo];
         leptonTree_->el_radiso03_    = smurfselections::getElectronRadialIsolation(*fo, pfNoPUCandCollection_, 0.3);
         leptonTree_->el_radiso04_    = smurfselections::getElectronRadialIsolation(*fo, pfNoPUCandCollection_, 0.4);
+        leptonTree_->el_iso_         = smurfselections::electronIsoValuePF(pfCandCollection_, *fo, pv_, 0.4, 1.0, 0.1, 0.07, 0.025, -999., 0);
         leptonTree_->el_ea04_        = smurfselections::getEGammaEffectiveArea(fo->superCluster()->eta(), smurfselections::EGAMMA2012_04);
 
         // cut based ele id
@@ -1101,6 +1106,7 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
         leptonTree_->mu_pfnhiso04_      = fo->pfIsolationR04().sumNeutralHadronEt;
         leptonTree_->mu_radiso03_       = smurfselections::getMuonRadialIsolation(*fo, pfNoPUCandCollection_, 0.3);
         leptonTree_->mu_radiso04_       = smurfselections::getMuonRadialIsolation(*fo, pfNoPUCandCollection_, 0.4);
+        leptonTree_->mu_iso_            = smurfselections::muonIsoValuePF(pfCandCollection_, *fo, pv_, 0.3, 1.0, 0.1, 0);
         leptonTree_->mu_eaem04_         = smurfselections::getMuonEffectiveArea(fo->p4().eta(), smurfselections::MUON2012_EM04);
         leptonTree_->mu_eanh04_         = smurfselections::getMuonEffectiveArea(fo->p4().eta(), smurfselections::MUON2012_NH04);
 
