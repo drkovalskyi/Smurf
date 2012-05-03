@@ -200,6 +200,10 @@ class SmurfTree {
   unsigned int   nvtx_;
   unsigned int   cuts_;
   float          scale1fb_;
+  float          CHSMet_;
+  float          NHSMet_;
+  float          CHSMetPhi_;
+  float          NHSMetPhi_;
   float          met_;
   float          metPhi_;
   float          metMVA_;
@@ -349,6 +353,10 @@ class SmurfTree {
     tree_->Branch("nvtx"         , &nvtx_         ,   "nvtx/i");
     tree_->Branch("cuts"         , &cuts_         ,   "cuts/i");
     tree_->Branch("scale1fb"     , &scale1fb_     ,   "scale1fb/F");
+    tree_->Branch("CHSMet"       , &CHSMet_	  ,   "CHSMet/F");
+    tree_->Branch("NHSMet"       , &NHSMet_	  ,   "NHSMet/F");
+    tree_->Branch("CHSMetPhi"    , &CHSMetPhi_    ,   "CHSMetPhi/F");
+    tree_->Branch("NHSMetPhi"    , &NHSMetPhi_    ,   "NHSMetPhi/F");
     tree_->Branch("met"          , &met_          ,   "met/F");
     tree_->Branch("metPhi"       , &metPhi_       ,   "metPhi/F");
     tree_->Branch("metMVA"       , &metMVA_	  ,   "metMVA/F");
@@ -460,6 +468,10 @@ class SmurfTree {
     tree_->SetBranchAddress("nvtx",          &nvtx_);
     tree_->SetBranchAddress("cuts",          &cuts_);
     tree_->SetBranchAddress("scale1fb",      &scale1fb_);
+    tree_->SetBranchAddress("CHSMet",	     &CHSMet_);
+    tree_->SetBranchAddress("NHSMet",	     &NHSMet_);
+    tree_->SetBranchAddress("CHSMetPhi",     &CHSMetPhi_);
+    tree_->SetBranchAddress("NHSMetPhi",     &NHSMetPhi_);
     tree_->SetBranchAddress("met",           &met_);
     tree_->SetBranchAddress("metPhi",        &metPhi_);
     tree_->SetBranchAddress("metMVA",        &metMVA_);
@@ -649,6 +661,10 @@ SmurfTree::InitVariables(){
     variables_.push_back(std::string("lumi"          ));
     variables_.push_back(std::string("nvtx"          ));
     variables_.push_back(std::string("scale1fb"      ));
+    variables_.push_back(std::string("CHSMet"	     ));
+    variables_.push_back(std::string("NHSMet"	     ));
+    variables_.push_back(std::string("CHSMetPhi"     ));
+    variables_.push_back(std::string("NHSMetPhi"     ));
     variables_.push_back(std::string("met"           ));
     variables_.push_back(std::string("metPhi"        ));
     variables_.push_back(std::string("sumet"         ));
@@ -700,6 +716,10 @@ SmurfTree::InitVariables(){
   nvtx_          = 0;
   cuts_          = 0;
   scale1fb_      = 0;
+  CHSMet_        = -999.;
+  NHSMet_        = -999.;
+  CHSMetPhi_     = -999.;
+  NHSMetPhi_     = -999.;
   met_           = -999.;
   metPhi_        = -999.;
   metMVA_        = -999.;
@@ -803,6 +823,10 @@ SmurfTree::Get(std::string value)
   if(value=="nvtx"          ) { return this->nvtx_;	     }
   if(value=="cuts"          ) { return this->cuts_;	     }
   if(value=="scale1fb"      ) { return this->scale1fb_;      }
+  if(value=="CHSMet"	    ) { return this->CHSMet_; 	     }
+  if(value=="NHSMet"	    ) { return this->NHSMet_; 	     }
+  if(value=="CHSMetPhi"	    ) { return this->CHSMetPhi_;     }
+  if(value=="NHSMetPhi"	    ) { return this->NHSMetPhi_;     }
   if(value=="met"           ) { return this->met_;	     }
   if(value=="metPhi"        ) { return this->metPhi_;	     }
   if(value=="metMVA"        ) { return this->metMVA_;        }
