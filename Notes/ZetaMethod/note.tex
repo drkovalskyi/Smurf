@@ -1,0 +1,65 @@
+\documentclass{cmspaper}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[pdfborder=0 0 0,
+            colorlinks,
+            urlcolor = blue,
+            linkcolor = black,
+            citecolor = black,
+            menucolor = black,]
+           {hyperref}
+%% \usepackage[colorlinks]{hyperref}
+%% \usepackage{url}
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixname}{Appendix}
+%% \renewcommand{\appendixtocname}{List of appendices}
+
+\input{commands}
+\input{privsym}
+
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+
+\begin{document}
+\begin{titlepage}
+
+  \analysisnote{2012/XXX}
+
+  \date{\today}
+
+  \title{A method for Drell-Yan background estimation using \gjets~ sample in the context of \hww~ analysis}
+  
+  \input{authors}
+
+  \begin{abstract}
+    This note describes a new method for Drell-Yan background estimation based on \gjets~ events.
+  \end{abstract} 
+
+\end{titlepage}
+\tableofcontents
+\listoftables
+\listoffigures
+\newpage 
+
+\section{Introduction}
+   \label{sec:introduction}
+   \input{introduction}
+\section{Data Samples}
+  \label{sec:datasets}
+  \input{datasets}
+\section{Method}
+   \label{sec:method}
+   \input{method}
+\section{Closure tests}
+   \label{sec:closure}
+   \input{closure}
+\section{Comparison with \routin~ method}
+   \label{sec:comparison}
+   \input{comparison}
+\section{Conclusion}
+   \input{conclusion}
+\clearpage
+\input{biblio}
+\end{document}
