@@ -10,6 +10,7 @@
 <use   name="JetMETCorrections/Objects"/>
 <use name="EGamma/EGammaAnalysisTools"/>
 <use name="Muon/MuonAnalysisTools"/>
+<use name="CommonTools/ParticleFlow"/>
 <use name="clhep"/>
 <flags EDM_PLUGIN="1"/>
 <export>
