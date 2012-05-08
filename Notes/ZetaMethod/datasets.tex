@@ -1,1 +1,185 @@
-placeholder
+\subsection{Data and MC Samples}
+
+In the present note we use the dataset listed in Table~\ref{tab:DatasetsMC} for Monte Carlo (MC) and in Table~\ref{tab:DatasetsData} for data.
+
+Events in MC samples are reweighted to match the pile-up observed in data 
+(weights depend on pile-up scenario used in the MC production: PU\_S4 or PU\_S6).
+
+Photon data is weighted according to the lowest prescale of the triggers (Table~\ref{tab:triggers_photon}) that fired in the event.
+Background events from MC are subtracted from \gjets~data according to the cross sections listed in Table~\ref{tab:DatasetsMC}.
+
+\dyll~data is obtained from same flavor dilepton events; flavor-symmetric backgrounds are subtracted using opposite flavor (OF) events in data 
+(properly accounting for the $e$-$\mu$ efficiency difference), while the background from \W\Z~ and \Z\Z~ (\V\Z) events is taken from MC.
+
+In the analysis, 2011A and 2011B data taking periods are considered separately since the PU conditions are different.
+
+\begin{table}[!ht]
+\begin{center}
+{\footnotesize
+\begin{tabular}{|c|c|c|}
+\hline
+ Dataset Description                     &   Primary Dataset Name   & cross-section (pb)\\
+\hline
+\hline
+\multicolumn{3}{|c|}{Drell-Yan samples} \\
+\hline
+Z[20-inf] $\rightarrow ee$	  	 &   /DYToEE\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia                   &  1666.0 \\
+Z[20-inf] $\rightarrow \mu\mu$        	 &   /DYToMuMu\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia                 &  1666.0 \\
+\hline
+\multicolumn{3}{|c|}{Dilepton background samples} \\
+\hline
+WZ                               	 &   /WZJetsTo3LNu\_TuneZ2\_7TeV-madgraph-tauola                       &  0.857 \\
+ZZ                               	 &   /ZZ\_TuneZ2\_7TeV\_pythia6\_tauola/                               &  7.406 \\
+\hline
+\multicolumn{3}{|c|}{Photon samples} \\
+\hline
+$\gamma$ with 0$<$$p\_T$$<$15 \GeVc       &   /G\_Pt-0to15\_TuneZ2\_7TeV\_pythia6                                    & 8.42E+07 \\
+$\gamma$ with 15$<$$p\_T$$<$30 \GeVc      &   /G\_Pt-15to30\_TuneZ2\_7TeV\_pythia6                                   & 1.72E+05 \\
+$\gamma$ with 30$<$$p\_T$$<$50 \GeVc      &   /G\_Pt-30to50\_TuneZ2\_7TeV\_pythia6                                   & 1.67E+04 \\
+$\gamma$ with 50$<$$p\_T$$<$80 \GeVc      &   /G\_Pt-50to80\_TuneZ2\_7TeV\_pythia6                                   & 2.72E+03 \\
+$\gamma$ with 80$<$$p\_T$$<$120 \GeVc     &   /G\_Pt-80to120\_TuneZ2\_7TeV\_pythia6                                  & 4.47E+02 \\
+$\gamma$ with 120$<$$p\_T$$<$170 \GeVc    &   /G\_Pt-120to170\_TuneZ2\_7TeV\_pythia6                                 & 8.42E+01 \\
+$\gamma$ with 170$<$$p\_T$$<$300 \GeVc    &   /G\_Pt-170to300\_TuneZ2\_7TeV\_pythia6                                 & 2.26E+01 \\
+$\gamma$ with 300$<$$p\_T$$<$470 \GeVc    &   /G\_Pt-300to470\_TuneZ2\_7TeV\_pythia6                                 & 1.49E+00 \\
+$\gamma$ with 470$<$$p\_T$$<$800 \GeVc    &   /G\_Pt-470to800\_TuneZ2\_7TeV\_pythia6                                 & 1.32E-01 \\
+$\gamma$ with 800$<$$p\_T$$<$1400 \GeVc   &   /G\_Pt-800to1400\_TuneZ2\_7TeV\_pythia6                                & 3.48E-03 \\
+$\gamma$ with 1400$<$$p\_T$$<$1800 \GeVc  &   /G\_Pt-1400to1800\_TuneZ2\_7TeV\_pythia6                               & 1.27E-05 \\
+$\gamma$ with $p\_T$$>$1800 \GeVc         &   /G\_Pt-1800\_TuneZ2\_7TeV\_pythia6                                     & 2.94E-07 \\
+\hline
+\multicolumn{3}{|c|}{Photon background samples} \\
+\hline
+W $\rightarrow$ $\ell\nu$           	 &   /WJetsToLNu\_TuneZ2\_7TeV-madgraph-tauola                         &  31314.0 \\
+W+$\gamma$ $\rightarrow$ $\mu\nu\gamma$  &   /WGToMuNuG\_TuneZ2\_7TeV-madgraph                                   &  137.3 \\
+W+$\gamma$ $\rightarrow$ $e\nu\gamma$    &   /WGToENuG\_TuneZ2\_7TeV-madgraph                                    &  137.3 \\
+W+$\gamma$ $\rightarrow$ $\tau\nu\gamma$ &   /WGToTauNuG\_TuneZ2\_7TeV-madgraph-tauola                           &  137.3 \\
+Z+$\gamma$ $\rightarrow$ $\nu\nu\gamma$  &   /ZGToNuNuG\_TuneZ2\_7TeV-madgraph                                   &  3.426 \\
+Z+$\gamma$ $\rightarrow$ $\mu\mu\gamma$  &   /ZGToMuMuG\_TuneZ2\_7TeV-madgraph                                   &  41.975 \\
+Z+$\gamma$ $\rightarrow$ $ee\gamma$      &   /ZGToEEG\_TuneZ2\_7TeV-madgraph                                     &  42.75 \\
+Z+$\gamma$ $\rightarrow$ $\tau\tau\gamma$  &   /ZGToTauTauG\_TuneZ2\_7TeV-madgraph-tauola                        &  38.4375 \\
+\hline
+\end{tabular}
+}
+\caption{Summary of MC datasets used. Processed dataset name is either Summer11-PU\_S4\_START42\_V11-v*/AODSIM or Fall11-PU\_S6\_START42\_V14B-v*/AODSIM}
+\label{tab:DatasetsMC}
+\end{center}
+\end{table}
+
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+ Dataset Description                   &   Dataset Name   \\
+\hline
+\hline
+\multicolumn{2}{|c|}{Dilepton Samples} \\
+\hline
+Run2011A DiElectron May10ReReco      &  /DoubleElectron/Run2011A-May10ReReco-v1/AOD \\
+Run2011A DiMuon May10ReReco          &  /DoubleMu/Run2011A-May10ReReco-v1/AOD \\
+Run2011A MuEl May10ReReco            &  /MuEG/Run2011A-May10ReReco-v1/AOD \\
+Run2011A SingleMuon May10ReReco      &  /SingleMu/Run2011A-May10ReReco-v1/AOD \\
+Run2011A SingleElectron May10ReReco  &  /SingleElectron/Run2011A-May10ReReco-v1/AOD   \\
+\hline
+Run2011A DiElectron PromptReco      &  /DoubleElectron/Run2011A-PromptReco-v4/AOD   \\
+Run2011A DiMuon PromptReco          &  /DoubleMu/Run2011A-PromptReco-v4/AOD   \\
+Run2011A MuEl PromptReco            &  /MuEG/Run2011A-PromptReco-v4/AOD   \\
+Run2011A SingleMuon PromptReco      &  /SingleMu/Run2011A-PromptReco-v4/AOD   \\
+Run2011A SingleElectron PromptReco  &  /SingleElectron/Run2011A-PromptReco-v4/AOD   \\
+\hline
+Run2011A DiElectron Aug05ReReco      &  /DoubleElectron/Run2011A-05Aug2011-v1/AOD \\
+Run2011A DiMuon Aug05ReReco          &  /DoubleMu/Run2011A-05Aug2011-v1/AOD \\
+Run2011A MuEl Aug05ReReco            &  /MuEG/Run2011A-05Aug2011-v1/AOD \\
+Run2011A SingleMuon Aug05ReReco      &  /SingleMu/Run2011A-05Aug2011-v1/AOD \\
+Run2011A SingleElectron Aug05ReReco  &  /SingleElectron/Run2011A-05Aug2011-v1/AOD   \\
+\hline
+Run2011A DiElectron PromptReco      &  /DoubleElectron/Run2011A-03Oct2011-v1/AOD   \\
+Run2011A DiMuon PromptReco          &  /DoubleMu/Run2011A-03Oct2011-v1/AOD   \\
+Run2011A MuEl PromptReco            &  /MuEG/Run2011A-03Oct2011-v1/AOD   \\
+Run2011A SingleMuon PromptReco      &  /SingleMu/Run2011A-03Oct2011-v1/AOD   \\
+Run2011A SingleElectron PromptReco  &  /SingleElectron/Run2011A-03Oct2011-v1/AOD   \\
+\hline
+Run2011B DiElectron PromptReco      &  /DoubleElectron/Run2011B-PromptReco-v1/AOD   \\
+Run2011B DiMuon PromptReco          &  /DoubleMu/Run2011B-PromptReco-v1/AOD   \\
+Run2011B MuEl PromptReco            &  /MuEG/Run2011B-PromptReco-v1/AOD   \\
+Run2011B SingleMuon PromptReco      &  /SingleMu/Run2011B-PromptReco-v1/AOD   \\
+Run2011B SingleElectron PromptReco  &  /SingleElectron/Run2011B-PromptReco-v1/AOD   \\
+\hline
+\multicolumn{2}{|c|}{Photon+Jets Samples} \\
+\hline
+Run2011A Photon May10ReReco         & /Photon/Run2011A-May10ReReco-v1/AOD \\
+Run2011A Photon PromptReco          & /Photon/Run2011A-PromptReco-v4/AOD \\
+Run2011A Photon May10ReReco         & /Photon/Run2011A-05Aug2011-v1/AOD \\
+Run2011A Photon PromptReco          & /Photon/Run2011A-03Oct2011-v1/AOD \\
+Run2011B Photon PromptReco          & /Photon/Run2011B-PromptReco-v1/AOD \\
+\hline
+\end{tabular}
+\caption{Summary of data datasets used.}
+\label{tab:DatasetsData}
+\end{center}
+\end{table}
+
+
+
+%%%%%
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular} {l}
+\hline
+Trigger name \\
+\hline 
+\hline
+HLT\_Photon50\_CaloIdVL\_IsoL \\
+HLT\_Photon50\_CaloIdVL \\
+HLT\_Photon75\_CaloIdVL\_IsoL \\
+HLT\_Photon75\_CaloIdVL \\
+HLT\_Photon90\_CaloIdVL\_IsoL \\
+HLT\_Photon90\_CaloIdVL \\
+\hline 
+\end{tabular}
+\caption{Photon triggers used for the $\met$ modelling of the $\dyll$ backgrounds. }
+\label{tab:triggers_photon}
+\end{center}
+\end{table}
+%%%%%
+
+\clearpage
+
+\subsection{Basic Event Selection}
+
+\subsubsection{Photon Events}
+
+After the trigger selection, photons are selected according to the following selection inspired by~\cite{ref:vgamma}:
+\begin{itemize}
+\item Photon in ECAL Barrel: $|\eta_\gamma|$$<$1.479
+\item Photon R9 $<$ 0.9
+\item Pixel Seed Veto
+\item H/E $<$ 0.05
+\item Shower shape: $\sigma_{i\eta i\eta}$ $<$ 0.011
+\item Hollow cone track isolation: trkSumPtHollowConeDR04 $<$ 2.0 + 0.001$\cdot$$E_T$ + 0.0167$\cdot$$\rho_{25}$
+\item Jurrasic ECAL Isolation: ecalRecHitSumEtConeDR04 $<$ 4.2 + 0.006$\cdot$$E_T$ + 0.183$\cdot$$\rho_{25}$
+\item Tower-based HCAL Isolation: hcalTowerSumEtConeDR04 $<$ 2.2 + 0.0025$\cdot$$E_T$ + 0.062$\cdot$$\rho_{25}$
+\item Additionally apply spike cleaning: $\sigma_{i\eta i\eta}$ $>$ 0.001 and $\sigma_{i\phi i\phi}$ $>$ 0.001
+\end{itemize}
+where $E_T$ is the photon transverse energy and $\rho_{25}$ is the energy density from kt6PFJets in the tracker region ($|\eta|$$<$2.5).
+
+\subsubsection{Dilepton Events}
+
+The selection is described in~\cite{ref:hwwsmurfs} and can be summarized as follows:
+\begin{enumerate}
+    \item We select events that pass pre-defined lepton triggers.
+    \item We then select those events with two oppositely charged 
+    high $\pt$ isolated leptons ($ee$, $\mu\mu$, $e\mu$) requiring:
+        \begin{itemize}    
+            \item $\pt>20~\GeVc$ for the leading lepton;
+            \item $\pt>15/10~\GeVc$ for the trailing lepton (same-flavor/opposite flavor);
+            \item standard identification and isolation requirements on both leptons.
+        \end{itemize}    
+      \item We apply a common $\WW$ preselection, which requires in brief: 
+         \begin{itemize}
+             \item categorize events by the number of reconstructed jets;
+             \item exactly two high $\pt$ isolated leptons;
+             \item large transverse missing energy due to the neutrinos;
+             \item no b-tagged jets.
+          \end{itemize}
+    \item Finally, we perform two \emph{Higgs mass dependent} event selections: one for cut based and one for BDT shape based analysis. 
+\end{enumerate}
