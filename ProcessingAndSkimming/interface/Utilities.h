@@ -9,18 +9,13 @@
 #include "DataFormats/HLTReco/interface/TriggerEvent.h"
 #include "DataFormats/Common/interface/TriggerResults.h"
 #include "DataFormats/HLTReco/interface/TriggerObject.h"
+#include "DataFormats/HepMCCandidate/interface/GenParticle.h"
 
 #include <string>
 
 namespace smurfutilities {
 
 typedef math::XYZTLorentzVectorD LorentzVector;
-
-// compare particle flow isolation definitions
-void ValidatePFIsolation(const edm::Event& iEvent, const reco::GsfElectron &ele,  
-        const reco::PFCandidateCollection &pfCands,
-        const edm::Handle<reco::VertexCollection> &vertexHandle,
-        const float &pfiso_ch, const float &pfiso_em, const float &pfiso_nh);
 
 // dump save tags for trigger name
 void DumpSaveTags(const std::string triggerName,
@@ -37,6 +32,11 @@ unsigned int MatchTriggerObject(const edm::Event &iEvent, const edm::EventSetup 
 
 // does trigger object match offline object
 bool MatchTriggerObject(const trigger::TriggerObjectCollection &triggerObjects, const LorentzVector &offlineObject);
+
+// match to gen particle
+// of specified id and status
+float MatchGenParticle(const reco::GenParticleCollection &genParticleCollection, const LorentzVector &object, 
+        const int pdgId, const int status);
 
 // calculate mt
 float Mt(const float &pt1, const float &pt2, const float &dphi);

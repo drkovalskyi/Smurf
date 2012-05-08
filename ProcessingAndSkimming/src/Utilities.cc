@@ -8,25 +8,6 @@
 #include <vector>
 
 
-void smurfutilities::ValidatePFIsolation(const edm::Event& iEvent, const reco::GsfElectron &ele,
-        const reco::PFCandidateCollection &pfCands,
-        const edm::Handle<reco::VertexCollection> &vertexHandle,
-        const float &pfiso_ch, const float &pfiso_em, const float &pfiso_nh)
-{
-    float dle_ch = 0.0;
-    float dle_em = 0.0;
-    float dle_nh = 0.0;
-    smurfselections::PFIsolation2012(ele, pfCands, vertexHandle, 0, 0.3, dle_ch, dle_em, dle_nh);
-    if (fabs(dle_ch - pfiso_ch) > 0.01 || fabs(dle_em - pfiso_em) > 0.01 || fabs(dle_nh - pfiso_nh) > 0.01) {
-        std::cout << "ERROR" << std::endl;
-    }
-    std::cout << iEvent.id().run() << ", " << iEvent.luminosityBlock() << ", " << iEvent.id().event() << std::endl;
-    std::cout << "Electron pT, eta, phi : " << ele.pt() << ", " << ele.eta() << ", " << ele.phi() << std::endl;
-    std::cout << "--- Florian (DLE) : " << pfiso_ch << "(" << dle_ch << ") , " 
-              << pfiso_em << "(" << dle_em << ") , " << pfiso_nh << "(" << dle_nh << ")" << std::endl;
-
-}
-
 void smurfutilities::DumpSaveTags(const std::string triggerName, 
         const HLTConfigProvider &hltConfig)
 {
@@ -124,6 +105,24 @@ bool smurfutilities::MatchTriggerObject(const trigger::TriggerObjectCollection &
     }
     return false;
 }
+
+float smurfutilities::MatchGenParticle(const reco::GenParticleCollection &genParticleCollection, const LorentzVector &object, 
+        const int pdgId, const int status)
+{
+
+    float dRMin = 999.9;
+    reco::GenParticleCollection::const_iterator genParticle;
+    for (genParticle = genParticleCollection.begin(); genParticle != genParticleCollection.end(); ++genParticle) {
+        if (abs(genParticle->pdgId()) != pdgId) continue;
+        if (genParticle->status() != status)    continue;
+        float dR = deltaR(genParticle->eta(), genParticle->phi(), object.eta(), object.phi());
+        if (dR < dRMin) dRMin = dR;
+    }
+
+    return dRMin;
+
+}
+
 
 float smurfutilities::Mt(const float &pt1, const float &pt2, const float &dphi)
 {
