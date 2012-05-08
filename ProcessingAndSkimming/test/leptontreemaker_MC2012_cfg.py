@@ -9,22 +9,15 @@ process.load("FWCore.MessageService.MessageLogger_cfi")
 process.load("Configuration.StandardSequences.Geometry_cff")
 process.load("Configuration.StandardSequences.MagneticField_cff")
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
-process.GlobalTag.globaltag = "START52_V5::All"
+process.GlobalTag.globaltag = "START52_V9::All"
 process.MessageLogger.cerr.FwkReport.reportEvery = 200
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(10) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )
 
 #
 # lepton maker
 #
 
 process.load("Smurf.ProcessingAndSkimming.leptontreemaker_cff")
-
-#
-# PF Iso
-#
-
-from CommonTools.ParticleFlow.Tools.pfIsolation import setupPFElectronIso
-process.eleIsoSequence = setupPFElectronIso(process, 'gsfElectrons')
 
 #
 # input
@@ -42,9 +35,11 @@ process.source = cms.Source("PoolSource",
 #'/store/mc/Summer12/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/AODSIM/PU_S7_START52_V5-v1/0000/F2F8B140-1476-E111-851C-00259020081C.root',
 #'/store/mc/Summer12/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/AODSIM/PU_S7_START52_V5-v1/0000/F63CF568-0B76-E111-9385-00E08178C0E3.root'
 'file:/smurf/dlevans/mc/Summer12/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/AODSIM/PU_S7_START52_V5-v1/0000/2EB0D0B7-C275-E111-8CFB-001A64789E04.root'
+#'rfio:/castor/cern.ch/user/e/emanuele/AODSummer12/00514868-B47A-E111-803E-001D0967DDC3.root'
+
     )
 )
 
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
-process.p = cms.Path(process.leptonTreeMakerSequenceMC * process.pfParticleSelectionSequence * process.eleIsoSequence * process.leptonTreeMaker2012)
+process.p = cms.Path(process.leptonTreeMakerSequenceMC * process.leptonTreeMaker2012)
 

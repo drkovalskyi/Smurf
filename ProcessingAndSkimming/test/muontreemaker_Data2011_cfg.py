@@ -20,13 +20,6 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )
 process.load("Smurf.ProcessingAndSkimming.leptontreemaker_cff")
 
 #
-# PFIso
-#
-
-from CommonTools.ParticleFlow.Tools.pfIsolation import setupPFElectronIso
-process.eleIsoSequence = setupPFElectronIso(process, 'gsfElectrons')
-
-#
 # input
 #
 process.source = cms.Source("PoolSource",
@@ -38,5 +31,5 @@ process.source = cms.Source("PoolSource",
 )
 
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
-process.p = cms.Path(process.muonFilters * process.leptonTreeMakerSequenceData2011 * process.pfParticleSelectionSequence * process.eleIsoSequence * process.leptonTreeMaker2011)
+process.p = cms.Path(process.muonFilters * process.leptonTreeMakerSequenceData2011 * process.leptonTreeMaker2011)
 
