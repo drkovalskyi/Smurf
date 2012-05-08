@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.34 2012/05/02 23:15:47 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.35 2012/05/08 14:42:15 dlevans Exp $
 //
 //
 
@@ -609,9 +609,11 @@ LeptonTreeMaker::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
     pfNoPUCandCollection_ = *(pfNoPUCand_h.product());
 
     // gen particles
-    edm::Handle<reco::GenParticleCollection> genParticles_h;
-    iEvent.getByLabel(genParticlesInputTag_, genParticles_h);
-    genParticleCollection_ = *(genParticles_h.product());
+    if (!iEvent.isRealData()) {
+        edm::Handle<reco::GenParticleCollection> genParticles_h;
+        iEvent.getByLabel(genParticlesInputTag_, genParticles_h);
+        genParticleCollection_ = *(genParticles_h.product());
+    }
 
     // vertices
     iEvent.getByLabel(primaryVertexInputTag_, vtx_h_);
