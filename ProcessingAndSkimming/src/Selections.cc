@@ -1,4 +1,3 @@
-
 #include "Smurf/ProcessingAndSkimming/interface/Selections.h"
 
 #include "RecoEgamma/EgammaTools/interface/ConversionTools.h"
@@ -217,52 +216,6 @@ float smurfselections::muonIsoValuePF(const reco::PFCandidateCollection &pfCandC
     return (pfciso+pfniso)/mu.pt();
 }
 
-float smurfselections::getEGammaEffectiveArea(const float eta, const EffectiveAreaType eaType)
-{
-
-    float etaAbs = fabs(eta);
-    float AEff = 0.0;
-
-    if (eaType == EGAMMA2012_04) {
-        AEff = 0.19;
-        if (etaAbs > 1.0 && etaAbs <= 1.479)    AEff = 0.25;
-        if (etaAbs > 1.479 && etaAbs <= 2.0)    AEff = 0.12;
-        if (etaAbs > 2.0 && etaAbs <= 2.2)      AEff = 0.21;
-        if (etaAbs > 2.2 && etaAbs <= 2.3)      AEff = 0.27;
-        if (etaAbs > 2.3 && etaAbs <= 2.4)      AEff = 0.44;
-        if (etaAbs > 2.4)                       AEff = 0.52;
-    }
-
-    return AEff;
-}
-
-float smurfselections::getMuonEffectiveArea(const float eta, const EffectiveAreaType eaType)
-{
-
-    float etaAbs = fabs(eta);
-    float AEff = 0.0;
-
-    if (eaType == MUON2012_EM04) {
-        AEff = 0.50419;
-        if (etaAbs > 1.0 && etaAbs <= 1.50)     AEff = 0.30582;
-        if (etaAbs > 1.50 && etaAbs <= 2.0)     AEff = 0.19765;
-        if (etaAbs > 2.0 && etaAbs <= 2.2)      AEff = 0.28723;
-        if (etaAbs > 2.2 && etaAbs <= 2.3)      AEff = 0.52529;
-        if (etaAbs > 2.3)                       AEff = 0.48818;
-    }
-
-    if (eaType == MUON2012_NH04) {
-        AEff = 0.16580;
-        if (etaAbs > 1.0 && etaAbs <= 1.50)     AEff = 0.25904;
-        if (etaAbs > 1.50 && etaAbs <= 2.0)     AEff = 0.24695;
-        if (etaAbs > 2.0 && etaAbs <= 2.2)      AEff = 0.22021;
-        if (etaAbs > 2.2 && etaAbs <= 2.3)      AEff = 0.34045;
-        if (etaAbs > 2.3)                       AEff = 0.21592;
-    }
-
-    return AEff;
-}
-
 unsigned int smurfselections::CountGoodPV(const edm::Handle<reco::VertexCollection> &pvCollection)
 {
     unsigned int nvtx = 0; 
@@ -289,11 +242,16 @@ bool smurfselections::passMuonFO2011(const edm::View<reco::Muon>::const_iterator
     float dz = siTrack.isNonnull() ? muon->innerTrack()->dz(vertex.position())     : 999.9;
     unsigned int nValidHits = siTrack.isNonnull()      ?  muon->innerTrack()->numberOfValidHits()                   : 0;
     unsigned int nValidPixelHits = siTrack.isNonnull() ?  muon->innerTrack()->hitPattern().numberOfValidPixelHits() : 0;
+    float ptErr = siTrack.isNonnull()      ?  muon->innerTrack()->ptError() : 99999.9;
+    float kink  = muon->combinedQuality().trkKink;
+
     if (fabs(muon->eta()) > 2.4)    return false;
     if (nValidHits < 11)            return false;
     if (dz >= 0.1)                  return false;
     if (d0 >= 0.02)                 return false;
     if (nValidPixelHits == 0)       return false;
+    if (ptErr / muon->pt() > 0.1)   return false;
+    if (kink > 20.0)                return false;
 
     bool goodGlobalMuon = true;
     if (muon->isGlobalMuon()) {
@@ -511,15 +469,112 @@ bool smurfselections::passPhotonSelection2011(const edm::View<reco::Photon>::con
 // 2012 selections
 //
 
-void smurfselections::PFIsolation2012(const reco::GsfElectron& el, const reco::PFCandidateCollection &pfCands, const edm::Handle<reco::VertexCollection> &vertexHandle,
-        const int vertexIndex, const float &R, float &pfiso_ch, float &pfiso_em, float &pfiso_nh)
+bool smurfselections::passElectronFO2012(const reco::GsfElectronRef &electron,
+        const reco::Vertex &vertex, const Point &beamspot,
+        const edm::Handle<reco::ConversionCollection> &conversions)
+{
+
+    float pt = electron->pt();
+    float d0 = fabs(electron->gsfTrack()->dxy(vertex.position()));
+    float dz = fabs(electron->gsfTrack()->dz(vertex.position()));
+    if (electron->dr03TkSumPt()/pt      > 0.2)      return false;
+    if (electron->dr03HcalTowerSumEt()  > 0.2)      return false;
+    if (d0 > 0.02)                                  return false;
+    if (dz > 0.1)                                   return false;
+
+    unsigned int mhits = electron->gsfTrack()->trackerExpectedHitsInner().numberOfHits();
+    bool conv = ConversionTools::hasMatchedConversion(*electron, conversions, beamspot);
+    if (mhits > 0)      return false;
+    if (conv)           return false;
+
+    if (electron->isEB()) {
+        if (electron->sigmaIetaIeta()                             > 0.014)  return false;
+        if (electron->deltaEtaSuperClusterTrackAtVtx()              > 0.007) return false;
+        if (electron->deltaPhiSuperClusterTrackAtVtx()              > 0.15)  return false;
+        if (electron->hadronicOverEm()                              > 0.12)  return false;
+        if (std::max(electron->dr03EcalRecHitSumEt() - 1.0, 0.0)/pt > 0.2)   return false;
+    } else {
+        if (electron->sigmaIetaIeta()                             > 0.035)  return false;
+        if (electron->deltaEtaSuperClusterTrackAtVtx()              > 0.009) return false;
+        if (electron->deltaPhiSuperClusterTrackAtVtx()              > 0.10)  return false;
+        if (electron->hadronicOverEm()                              > 0.10)  return false;
+        if (electron->dr03EcalRecHitSumEt()/pt                      > 0.2)   return false;
+    }
+
+    return true;
+}
+
+
+bool smurfselections::passMuonFO2012(const edm::View<reco::Muon>::const_iterator &muon,
+        const reco::Vertex &vertex)
+{
+    const reco::TrackRef siTrack = muon->innerTrack();
+    float d0 = siTrack.isNonnull() ? muon->innerTrack()->dxy(vertex.position())    : 999.9;
+    float dz = siTrack.isNonnull() ? muon->innerTrack()->dz(vertex.position())     : 999.9;
+    unsigned int nLayers = siTrack.isNonnull()      ?  muon->track()->hitPattern().trackerLayersWithMeasurement() : 0;
+    unsigned int nValidPixelHits = siTrack.isNonnull() ?  muon->innerTrack()->hitPattern().numberOfValidPixelHits() : 0;
+    float ptErr = siTrack.isNonnull()      ?  muon->innerTrack()->ptError() : 99999.9;
+    float kink  = muon->combinedQuality().trkKink;
+
+    if (fabs(muon->eta()) > 2.4)    return false;
+    if (nLayers < 5)                return false;
+    if (dz >= 0.1)                  return false;
+    if (d0 >= 0.02)                 return false;
+    if (nValidPixelHits == 0)       return false;
+    if (ptErr / muon->pt() > 0.1)   return false;
+    if (kink > 20.0)                return false;
+    if (!muon->isPFMuon())          return false;   
+ 
+    bool goodGlobalMuon = true;
+    if (muon->isGlobalMuon()) {
+        const reco::TrackRef globalTrack = muon->globalTrack();
+        float nValidMuonHits = globalTrack.isNonnull()   ? globalTrack->hitPattern().numberOfValidMuonHits() : 0;
+        float chi2ndof       = globalTrack.isNonnull()   ? globalTrack->chi2()/globalTrack->ndof()           : 999.9;
+        if (muon->numberOfMatches() < 2)    goodGlobalMuon = false;
+        if (chi2ndof >= 10)                 goodGlobalMuon = false;
+        if (nValidMuonHits == 0)            goodGlobalMuon = false;
+    } else goodGlobalMuon = false;
+    
+    bool goodTrackerMuon = true;
+    if (muon->isTrackerMuon()) {
+        if (!muon::isGoodMuon(*muon, muon::TMLastStationTight))       goodTrackerMuon = false;
+    } else goodTrackerMuon = false;                 
+
+    if (!(goodTrackerMuon || goodGlobalMuon))   return false;
+    
+    // pass muon fo     
+    return true;
+}
+bool smurfselections::passMuonID2012(const edm::View<reco::Muon>::const_iterator &muon,
+        const reco::Vertex &vertex)
+{
+
+    // muon must pass FO
+    if (!passMuonFO2012(muon, vertex))      return false;
+        
+    // only additional ID is tighter d0 cut
+    const reco::TrackRef siTrack = muon->innerTrack();              
+    float d0 = siTrack.isNonnull() ? muon->innerTrack()->dxy(vertex.position()) : 999.9;
+    if (muon->pt() > 20.0 && d0 >= 0.01)    return false;           
+    else if (d0 >= 0.02)                    return false;
+
+    // pass muon id
+    return true;
+
+}
+
+void smurfselections::PFIsolation2012(const reco::GsfElectron& el, const reco::PFCandidateCollection &pfCands, 
+        const reco::VertexCollection &vertexCollection, const PFPileUpAlgo *pfPileUpAlgo,
+        const int vertexIndex, const float &R, float &pfiso_ch, float &pfiso_em, float &pfiso_nh, float &dbeta,
+        bool applyEBVeto, bool applyEEVeto, bool emulatePFNoPileup, bool removeElectronTracks)
 {   
 
     // isolation sums
     pfiso_ch = 0.0;
     pfiso_em = 0.0; 
     pfiso_nh = 0.0;
-       
+    dbeta = 0.0;
+
     // loop on pfcandidates
     reco::PFCandidateCollection::const_iterator pf = pfCands.begin();
     for (pf = pfCands.begin(); pf != pfCands.end(); ++pf) {
@@ -529,20 +584,49 @@ void smurfselections::PFIsolation2012(const reco::GsfElectron& el, const reco::P
         if (pf->particleId() == reco::PFCandidate::mu)    continue;
     
         // deltaR between electron and cadidate
-        const float dR = deltaR(pf->eta(), pf->phi(), el.eta(), el.phi());
+        const float dR      = deltaR(pf->eta(), pf->phi(), el.eta(), el.phi());
+        const float dEta    = fabs(pf->eta() - el.eta());
         if (dR > R)                             continue;
 
-        // charged hadrons closest vertex
-        // should be the primary vertex
         if (pf->particleId() == reco::PFCandidate::h) {
-            int pfVertexIndex = chargedHadronVertex(*pf, vertexHandle);
-            if (pfVertexIndex != vertexIndex) continue;
+
+            // vertex matching
+            if (emulatePFNoPileup) {
+                if (pfPileUpAlgo->chargedHadronVertex(vertexCollection, *pf) != vertexIndex) {
+                    dbeta += pf->pt();
+                    continue;
+                }
+            } else {
+                const math::XYZPoint &pv = vertexCollection.at(vertexIndex).position();
+                float eldz = el.gsfTrack().isNonnull() ? el.gsfTrack()->dz(pv) : el.closestCtfTrackRef()->dz(pv);
+                if (fabs(pf->trackRef()->dz(pv) - eldz) > 0.1) {
+                    dbeta += pf->pt();
+                    continue;
+                }
+            }
+
+            // remove electron tracks
+            if (removeElectronTracks) {
+                const reco::TrackRef    pfTrack     = pf->trackRef();
+                const reco::GsfTrackRef pfGsfTrack  = pf->gsfTrackRef();
+                const reco::TrackRef    elTrack     = el.closestCtfTrackRef();
+                const reco::GsfTrackRef elGsfTrack  = el.gsfTrack();
+                if (pfGsfTrack.isNonnull() && elGsfTrack.isNonnull()
+                    && pfGsfTrack.key() ==  elGsfTrack.key()) continue;
+                if (pfTrack.isNonnull() && elTrack.isNonnull() 
+                    && pfTrack.key() ==  elTrack.key()) continue;
+            }
+
         }
 
-        // endcap region
-        if (!el.isEB()) {
+        // geometric vetoes
+        if (!el.isEB() && applyEEVeto) {
             if (pf->particleId() == reco::PFCandidate::h      && dR <= 0.015)   continue;
             if (pf->particleId() == reco::PFCandidate::gamma  && dR <= 0.08)    continue;
+        }
+        if (el.isEB() && applyEBVeto) {
+            if (pf->particleId() == reco::PFCandidate::h      && dR <= 0.015)   continue;
+            if (pf->particleId() == reco::PFCandidate::gamma  && dEta <= 0.025)    continue;
         }
 
         // add to isolation sum
@@ -551,34 +635,6 @@ void smurfselections::PFIsolation2012(const reco::GsfElectron& el, const reco::P
         if (pf->particleId() == reco::PFCandidate::h0)      pfiso_nh += pf->pt();
 
     }
-
-}
-
-int smurfselections::chargedHadronVertex(const reco::PFCandidate& pfcand, const edm::Handle<reco::VertexCollection> &vertexHandle)
-{
-
-    double  dzmin = 10000;
-    bool    found = false;
-    int     iVertex = -1;
-
-    // loop on vertices
-    int n = vertexHandle->size();
-    for (int index = 0; index < n; ++index) {
-
-        // find the dz
-        reco::VertexRef vertexRef(vertexHandle, index);
-        double dz = fabs(pfcand.vertex().z() - vertexRef->z());
-
-        // find the closest dz
-        if (dz < dzmin) {
-            dzmin = dz;
-            iVertex = index;
-            found = true;
-        }
-    }
-
-    if (found) return iVertex;
-    return -1;
 
 }
 
@@ -625,6 +681,17 @@ double smurfselections::getElectronRadialIsolation(const reco::GsfElectron &el, 
 //
 // muons
 //
+
+bool smurfselections::passMuonHPASameSign(const edm::View<reco::Muon>::const_iterator &muon,
+        const reco::Vertex &vertex)
+{               
+    if (!passMuonIsPOGTight(muon, vertex))                                  return false;
+    if (muon->isEnergyValid() && muon->isolationR03().emVetoEt > 4.0)       return false;
+    if (muon->isEnergyValid() && muon->isolationR03().hadVetoEt > 6.0)      return false;
+    if (fabs(muon->innerTrack()->dxy(vertex.position())) >= 0.02)           return false;
+    if (fabs(muon->innerTrack()->dz(vertex.position())) >= 0.1)             return false;
+    return true;
+}    
 
 bool smurfselections::passMuonIsPOGTight(const edm::View<reco::Muon>::const_iterator &muon,
         const reco::Vertex &vertex)

@@ -19,6 +19,7 @@
 #include "DataFormats/VertexReco/interface/VertexFwd.h"
 #include "DataFormats/JetReco/interface/PFJet.h"
 #include "JetMETCorrections/Objects/interface/JetCorrector.h"
+#include "CommonTools/ParticleFlow/interface/PFPileUpAlgo.h"
 
 namespace smurfselections {
 
@@ -52,23 +53,6 @@ std::pair<double,double> trackerMET(std::vector<const reco::Candidate*>& objs,
 unsigned int CountGoodPV(const edm::Handle<reco::VertexCollection> &pvCollection);
 
 //
-// effective areas
-// "simple" ones for normal cones
-//
-
-enum EffectiveAreaType {
-    EGAMMA2012_03,
-    EGAMMA2012_04,
-    MUON2012_NH03,
-    MUON2012_EM03,
-    MUON2012_NH04,
-    MUON2012_EM04
-};
-
-float getEGammaEffectiveArea(const float eta, const EffectiveAreaType eaType);
-float getMuonEffectiveArea(const float eta, const EffectiveAreaType eaType);
-
-//
 // 2011 selections
 //
 
@@ -100,11 +84,20 @@ bool passPhotonSelection2011(const edm::View<reco::Photon>::const_iterator &phot
 // 2012 selections
 //
 
+bool passElectronFO2012(const reco::GsfElectronRef &electron,
+        const reco::Vertex &vertex, const Point &beamspot,
+        const edm::Handle<reco::ConversionCollection> &conversions);
+
+bool passMuonFO2012(const edm::View<reco::Muon>::const_iterator &muon,
+        const reco::Vertex &vertex);
+bool passMuonID2012(const edm::View<reco::Muon>::const_iterator &muon,
+        const reco::Vertex &vertex);
+
 // for 2012 pf isolation
-int chargedHadronVertex(const reco::PFCandidate& pfcand, const edm::Handle<reco::VertexCollection> &vertexHandle);
-void PFIsolation2012(const reco::GsfElectron& el, const reco::PFCandidateCollection &pfCands, 
-    const edm::Handle<reco::VertexCollection> &vertexHandle,
-    const int vertexIndex, const float &R, float &pfiso_ch, float &pfiso_em, float &pfiso_nh);
+void PFIsolation2012(const reco::GsfElectron& el, const reco::PFCandidateCollection &pfCands,
+        const reco::VertexCollection &vertexCollection, const PFPileUpAlgo *pfPileUpAlgo,
+        const int vertexIndex, const float &R, float &pfiso_ch, float &pfiso_em, float &pfiso_nh, float &dbeta,
+        bool applyEBVeto, bool applyEEVeto, bool emulatePFNoPileup, bool removeElectronTracks);
 
 double getElectronRadialIsolation(const reco::GsfElectron &ele, const reco::PFCandidateCollection &PFCandidates, 
     double cone_size = 0.3, double neutral_et_threshold = 1., bool barrel_veto = false);
@@ -112,6 +105,9 @@ double getElectronRadialIsolation(const reco::GsfElectron &ele, const reco::PFCa
 //
 // for muons
 //
+
+bool passMuonHPASameSign(const edm::View<reco::Muon>::const_iterator &muon,
+        const reco::Vertex &vertex);
 
 bool passMuonIsPOGTight(const edm::View<reco::Muon>::const_iterator &muon,
         const reco::Vertex &vertex);
