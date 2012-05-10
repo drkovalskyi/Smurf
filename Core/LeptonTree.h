@@ -15,8 +15,6 @@
 //
 // Ntuple content:
 
-
-
 class LeptonTree {
 
     public:
@@ -31,17 +29,23 @@ class LeptonTree {
             PassEleFO                       = 1UL<<2,  // 
             PassEleID                       = 1UL<<3,  // 
             PassEleIso                      = 1UL<<4,  //
-            PassMuCTFTrack                  = 1UL<<5,  // 
-            PassMuGlobalOrTrackerMuon       = 1UL<<6,  // 
-            PassMuIsPF                      = 1UL<<7,  //
-            PassMuIsHPASS                   = 1UL<<8,  //
-            PassMuIsPOGTight                = 1UL<<9,  //
-            PassMuIsPOGSoft                 = 1UL<<10,  //
-            PassMuFO                        = 1UL<<11, //
-            PassMuID                        = 1UL<<12, //
-            PassMuIso                       = 1UL<<13, //
-            PassPhotonID                    = 1UL<<14, //
-            PassPhotonIso                   = 1UL<<15  //
+            PassEleFOICHEP2012              = 1UL<<5,  // 
+            PassEleIDICHEP2012              = 1UL<<6,  // 
+            PassEleIsoICHEP2012             = 1UL<<7,  //
+            PassMuCTFTrack                  = 1UL<<8,  // 
+            PassMuGlobalOrTrackerMuon       = 1UL<<9,  // 
+            PassMuIsPF                      = 1UL<<10,  //
+            PassMuIsHPASS                   = 1UL<<11,  //
+            PassMuIsPOGTight                = 1UL<<12,  //
+            PassMuIsPOGSoft                 = 1UL<<13,  //
+            PassMuFO                        = 1UL<<14, //
+            PassMuID                        = 1UL<<15, //
+            PassMuIso                       = 1UL<<16, //
+            PassMuFOICHEP2012               = 1UL<<17, //
+            PassMuIDICHEP2012               = 1UL<<18, //
+            PassMuIsoICHEP2012              = 1UL<<19, //
+            PassPhotonID                    = 1UL<<20, //
+            PassPhotonIso                   = 1UL<<21  //
         };
 
         enum EventSelection {
@@ -137,19 +141,19 @@ class LeptonTree {
         float hcaliso_;
         float trkiso_;
 
-        float el_pfemiso03_;
-        float el_pfchiso03_;
-        float el_pfnhiso03_;
-        float el_pfemiso04_;
-        float el_pfchiso04_;
-        float el_pfnhiso04_;
-        float el_radiso03_;
-        float el_radiso04_;
-        float el_iso_;
-        float el_ea04_;
-        float el_ea03data2011_;
-        float el_dbeta03_;
-        float el_dbeta04_;
+        float pfemiso03_;
+        float pfchiso03_;
+        float pfnhiso03_;
+        float pfemiso04_;
+        float pfchiso04_;
+        float pfnhiso04_;
+        float radiso03_;
+        float radiso04_;
+        float iso2011_;
+        float ea04_;
+        float ea03_;
+        float dbeta03_;
+        float dbeta04_;
 
         float el_test_pfchiso04_trkveto_;
         float el_test_pfchiso04_dzcut_;
@@ -157,19 +161,8 @@ class LeptonTree {
         float el_test_pfemiso04_ebveto_;
 
 
-        float mu_pfemiso04_;
-        float mu_pfchiso04_;
-        float mu_pfnhiso04_;
-        float mu_pfemiso03_;
-        float mu_pfchiso03_;
-        float mu_pfnhiso03_;
-        float mu_radiso03_;
-        float mu_radiso04_;
-        float mu_iso_;
-        float mu_eaem04_;
-        float mu_eanh04_;
-        float mu_dbeta03_;
-        float mu_dbeta04_;
+        float eaem04_;
+        float eanh04_;
 
         // for simulation studies
         float gen_drs1_;
@@ -272,38 +265,27 @@ class LeptonTree {
             tree_->Branch("ecaliso"               , &ecaliso_               ,   "ecaliso/F");
             tree_->Branch("hcaliso"               , &hcaliso_               ,   "hcaliso/F");
             tree_->Branch("trkiso"               , &trkiso_               ,   "trkiso/F");
-            tree_->Branch("el_pfemiso03"               , &el_pfemiso03_               ,   "el_pfemiso03/F");
-            tree_->Branch("el_pfchiso03"               , &el_pfchiso03_               ,   "el_pfchiso03/F");
-            tree_->Branch("el_pfnhiso03"               , &el_pfnhiso03_               ,   "el_pfnhiso03/F");
-            tree_->Branch("el_pfemiso04"               , &el_pfemiso04_               ,   "el_pfemiso04/F");
-            tree_->Branch("el_pfchiso04"               , &el_pfchiso04_               ,   "el_pfchiso04/F");
-            tree_->Branch("el_pfnhiso04"               , &el_pfnhiso04_               ,   "el_pfnhiso04/F");
-            tree_->Branch("el_radiso03"               , &el_radiso03_               ,   "el_radiso03/F");
-            tree_->Branch("el_radiso04"               , &el_radiso04_               ,   "el_radiso04/F");
-            tree_->Branch("el_iso"                  , &el_iso_               ,   "el_iso/F");
-            tree_->Branch("el_ea04"               , &el_ea04_               ,   "mu_ea04/F");
-            tree_->Branch("el_ea03data2011"               , &el_ea03data2011_               ,   "mu_ea03data2011/F");
-            tree_->Branch("el_dbeta03"               , &el_dbeta03_               ,   "el_dbeta03/F");
-            tree_->Branch("el_dbeta04"               , &el_dbeta04_               ,   "el_dbeta04/F");
+            tree_->Branch("pfemiso03"               , &pfemiso03_               ,   "pfemiso03/F");
+            tree_->Branch("pfchiso03"               , &pfchiso03_               ,   "pfchiso03/F");
+            tree_->Branch("pfnhiso03"               , &pfnhiso03_               ,   "pfnhiso03/F");
+            tree_->Branch("pfemiso04"               , &pfemiso04_               ,   "pfemiso04/F");
+            tree_->Branch("pfchiso04"               , &pfchiso04_               ,   "pfchiso04/F");
+            tree_->Branch("pfnhiso04"               , &pfnhiso04_               ,   "pfnhiso04/F");
+            tree_->Branch("radiso03"               , &radiso03_               ,   "radiso03/F");
+            tree_->Branch("radiso04"               , &radiso04_               ,   "radiso04/F");
+            tree_->Branch("iso2011"                  , &iso2011_               ,   "iso2011/F");
+            tree_->Branch("ea04"               , &ea04_               ,   "ea04/F");
+            tree_->Branch("ea03"               , &ea03_               ,   "ea03/F");
+            tree_->Branch("dbeta03"               , &dbeta03_               ,   "dbeta03/F");
+            tree_->Branch("dbeta04"               , &dbeta04_               ,   "dbeta04/F");
 
             tree_->Branch("el_test_pfchiso04_trkveto"       , &el_test_pfchiso04_trkveto_       ,   "el_test_pfchiso04_trkveto/F");
             tree_->Branch("el_test_pfchiso04_dzcut"         , &el_test_pfchiso04_dzcut_         ,   "el_test_pfchiso04_dzcut/F");
             tree_->Branch("el_test_pfchiso04_ebveto"        , &el_test_pfchiso04_ebveto_         ,   "el_test_pfchiso04_ebveto/F");
             tree_->Branch("el_test_pfemiso04_ebveto"        , &el_test_pfemiso04_ebveto_        ,   "el_test_pfemiso04_ebveto/F");
 
-            tree_->Branch("mu_pfemiso04"               , &mu_pfemiso04_               ,   "mu_pfemiso04/F");
-            tree_->Branch("mu_pfchiso04"               , &mu_pfchiso04_               ,   "mu_pfchiso04/F");
-            tree_->Branch("mu_pfnhiso04"               , &mu_pfnhiso04_               ,   "mu_pfnhiso04/F");
-            tree_->Branch("mu_pfemiso03"               , &mu_pfemiso03_               ,   "mu_pfemiso03/F");
-            tree_->Branch("mu_pfchiso03"               , &mu_pfchiso03_               ,   "mu_pfchiso03/F");
-            tree_->Branch("mu_pfnhiso03"               , &mu_pfnhiso03_               ,   "mu_pfnhiso03/F");
-            tree_->Branch("mu_radiso03"               , &mu_radiso03_               ,   "mu_radiso03/F");
-            tree_->Branch("mu_radiso04"               , &mu_radiso04_               ,   "mu_radiso04/F");
-            tree_->Branch("mu_iso"                  , &mu_iso_               ,   "mu_iso/F");
-            tree_->Branch("mu_eaem04"               , &mu_eaem04_               ,   "mu_eaem04/F");
-            tree_->Branch("mu_eanh04"               , &mu_eanh04_               ,   "mu_eanh04/F");
-            tree_->Branch("mu_dbeta03"               , &mu_dbeta03_               ,   "mu_dbeta03/F");
-            tree_->Branch("mu_dbeta04"               , &mu_dbeta04_               ,   "mu_dbeta04/F");
+            tree_->Branch("eaem04"               , &eaem04_               ,   "eaem04/F");
+            tree_->Branch("eanh04"               , &eanh04_               ,   "eanh04/F");
 
             // for gen studies
             tree_->Branch("gen_drs1"                  , &gen_drs1_               ,   "gen_drs1/F");
@@ -386,19 +368,19 @@ class LeptonTree {
             tree_->SetBranchAddress("ecaliso",          &ecaliso_);
             tree_->SetBranchAddress("hcaliso",          &hcaliso_);
             tree_->SetBranchAddress("trkiso",          &trkiso_);
-            tree_->SetBranchAddress("el_pfemiso03",          &el_pfemiso03_);
-            tree_->SetBranchAddress("el_pfchiso03",          &el_pfchiso03_);
-            tree_->SetBranchAddress("el_pfnhiso03",          &el_pfnhiso03_);
-            tree_->SetBranchAddress("el_pfemiso04",          &el_pfemiso04_);
-            tree_->SetBranchAddress("el_pfchiso04",          &el_pfchiso04_);
-            tree_->SetBranchAddress("el_pfnhiso04",          &el_pfnhiso04_);
-            tree_->SetBranchAddress("el_radiso03",          &el_radiso03_);
-            tree_->SetBranchAddress("el_radiso04",          &el_radiso04_);
-            tree_->SetBranchAddress("el_iso",          &el_iso_);
-            tree_->SetBranchAddress("el_ea04",          &el_ea04_);
-            tree_->SetBranchAddress("el_ea03data2011",          &el_ea03data2011_);
-            tree_->SetBranchAddress("el_dbeta03",          &el_dbeta03_);
-            tree_->SetBranchAddress("el_dbeta04",          &el_dbeta04_);
+            tree_->SetBranchAddress("pfemiso03",          &pfemiso03_);
+            tree_->SetBranchAddress("pfchiso03",          &pfchiso03_);
+            tree_->SetBranchAddress("pfnhiso03",          &pfnhiso03_);
+            tree_->SetBranchAddress("pfemiso04",          &pfemiso04_);
+            tree_->SetBranchAddress("pfchiso04",          &pfchiso04_);
+            tree_->SetBranchAddress("pfnhiso04",          &pfnhiso04_);
+            tree_->SetBranchAddress("radiso03",          &radiso03_);
+            tree_->SetBranchAddress("radiso04",          &radiso04_);
+            tree_->SetBranchAddress("iso2011",          &iso2011_);
+            tree_->SetBranchAddress("ea04",          &ea04_);
+            tree_->SetBranchAddress("ea03",          &ea03_);
+            tree_->SetBranchAddress("dbeta03",          &dbeta03_);
+            tree_->SetBranchAddress("dbeta04",          &dbeta04_);
 
             tree_->SetBranchAddress("el_test_pfchiso04_trkveto"       , &el_test_pfchiso04_trkveto_);       
             tree_->SetBranchAddress("el_test_pfchiso04_dzcut"         , &el_test_pfchiso04_dzcut_);         
@@ -406,19 +388,8 @@ class LeptonTree {
             tree_->SetBranchAddress("el_test_pfemiso04_ebveto"        , &el_test_pfemiso04_ebveto_);       
 
 
-            tree_->SetBranchAddress("mu_pfemiso04",          &mu_pfemiso04_);
-            tree_->SetBranchAddress("mu_pfchiso04",          &mu_pfchiso04_);
-            tree_->SetBranchAddress("mu_pfnhiso04",          &mu_pfnhiso04_);
-            tree_->SetBranchAddress("mu_pfemiso03",          &mu_pfemiso03_);
-            tree_->SetBranchAddress("mu_pfchiso03",          &mu_pfchiso03_);
-            tree_->SetBranchAddress("mu_pfnhiso03",          &mu_pfnhiso03_);
-            tree_->SetBranchAddress("mu_radiso03",          &mu_radiso03_);
-            tree_->SetBranchAddress("mu_radiso04",          &mu_radiso04_);
-            tree_->SetBranchAddress("mu_iso",           &mu_iso_);
-            tree_->SetBranchAddress("mu_eaem04",          &mu_eaem04_);
-            tree_->SetBranchAddress("mu_eanh04",          &mu_eanh04_);
-            tree_->SetBranchAddress("mu_dbeta03",          &mu_dbeta03_);
-            tree_->SetBranchAddress("mu_dbeta04",          &mu_dbeta04_);  
+            tree_->SetBranchAddress("eaem04",          &eaem04_);
+            tree_->SetBranchAddress("eanh04",          &eanh04_);
 
             tree_->SetBranchAddress("gen_drs1",          &gen_drs1_);
             tree_->SetBranchAddress("gen_drs3",          &gen_drs3_);
@@ -508,38 +479,27 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("ecaliso"));     
         variables_.push_back(std::string("hcaliso"));    
         variables_.push_back(std::string("trkiso"));
-        variables_.push_back(std::string("el_pfemiso03")); 
-        variables_.push_back(std::string("el_pfchiso03")); 
-        variables_.push_back(std::string("el_pfnhiso03"));    
-        variables_.push_back(std::string("el_pfemiso04"));
-        variables_.push_back(std::string("el_pfchiso04"));
-        variables_.push_back(std::string("el_pfnhiso04"));
-        variables_.push_back(std::string("el_radiso03"));
-        variables_.push_back(std::string("el_radiso04"));
-        variables_.push_back(std::string("el_iso"));
-        variables_.push_back(std::string("el_ea04"));
-        variables_.push_back(std::string("el_ea03data2011"));
-        variables_.push_back(std::string("el_dbeta03"));    
-        variables_.push_back(std::string("el_dbeta04")); 
+        variables_.push_back(std::string("pfemiso03")); 
+        variables_.push_back(std::string("pfchiso03")); 
+        variables_.push_back(std::string("pfnhiso03"));    
+        variables_.push_back(std::string("pfemiso04"));
+        variables_.push_back(std::string("pfchiso04"));
+        variables_.push_back(std::string("pfnhiso04"));
+        variables_.push_back(std::string("radiso03"));
+        variables_.push_back(std::string("radiso04"));
+        variables_.push_back(std::string("iso2011"));
+        variables_.push_back(std::string("ea04"));
+        variables_.push_back(std::string("ea03"));
+        variables_.push_back(std::string("dbeta03"));    
+        variables_.push_back(std::string("dbeta04")); 
 
         variables_.push_back(std::string("el_test_pfchiso04_trkveto"));
         variables_.push_back(std::string("el_test_pfchiso04_dzcut"));
         variables_.push_back(std::string("el_test_pfchiso04_ebveto"));
         variables_.push_back(std::string("el_test_pfemiso04_ebveto"));
 
-        variables_.push_back(std::string("mu_pfemiso04"));
-        variables_.push_back(std::string("mu_pfchiso04"));
-        variables_.push_back(std::string("mu_pfnhiso04"));
-        variables_.push_back(std::string("mu_pfemiso03"));
-        variables_.push_back(std::string("mu_pfchiso03"));
-        variables_.push_back(std::string("mu_pfnhiso03"));
-        variables_.push_back(std::string("mu_radiso03"));
-        variables_.push_back(std::string("mu_radiso04"));
-        variables_.push_back(std::string("mu_iso"));
-        variables_.push_back(std::string("mu_eaem04"));
-        variables_.push_back(std::string("mu_eanh04"));
-        variables_.push_back(std::string("mu_dbeta03"));
-        variables_.push_back(std::string("mu_dbeta04"));
+        variables_.push_back(std::string("eaem04"));
+        variables_.push_back(std::string("eanh04"));
 
         variables_.push_back(std::string("gen_drs1"));
         variables_.push_back(std::string("gen_drs3"));
@@ -613,38 +573,27 @@ LeptonTree::InitVariables(){
     hcaliso_ = 0;
     trkiso_ = 0;
 
-    el_pfemiso03_ = 0.;
-    el_pfchiso03_ = 0.;
-    el_pfnhiso03_ = 0.;
-    el_pfemiso04_ = 0.;
-    el_pfchiso04_ = 0.;
-    el_pfnhiso04_ = 0.;
-    el_radiso03_ = 0.;
-    el_radiso04_ = 0.;
-    el_iso_ = 0.;
-    el_ea04_      = 0.;
-    el_ea03data2011_ = 0.;
-    el_dbeta03_   = 0.;
-    el_dbeta04_   = 0.;   
+    pfemiso03_ = 0.;
+    pfchiso03_ = 0.;
+    pfnhiso03_ = 0.;
+    pfemiso04_ = 0.;
+    pfchiso04_ = 0.;
+    pfnhiso04_ = 0.;
+    radiso03_ = 0.;
+    radiso04_ = 0.;
+    iso2011_ = 0.;
+    ea04_      = 0.;
+    ea03_ = 0.;
+    dbeta03_   = 0.;
+    dbeta04_   = 0.;   
 
     el_test_pfchiso04_trkveto_ = -999.;
     el_test_pfchiso04_dzcut_ = -999.;
     el_test_pfchiso04_ebveto_ = -999.;
     el_test_pfemiso04_ebveto_ = -999.;
 
-    mu_pfemiso04_ = 0.;
-    mu_pfchiso04_ = 0.;
-    mu_pfnhiso04_ = 0.;
-    mu_pfemiso03_ = 0.;
-    mu_pfchiso03_ = 0.;
-    mu_pfnhiso03_ = 0.;
-    mu_radiso03_ = 0.;
-    mu_radiso04_ = 0.;
-    mu_iso_ = 0.;
-    mu_eaem04_    = 0.;
-    mu_eanh04_    = 0.;
-    mu_dbeta03_   = 0.;
-    mu_dbeta04_   = 0.;
+    eaem04_    = 0.;
+    eanh04_    = 0.;
 
     gen_drs1_ = 999.;
     gen_drs3_ = 999.;
@@ -705,36 +654,27 @@ LeptonTree::Get(std::string value)
     if(value=="ecaliso"              ) { return this->ecaliso_;           }
     if(value=="hcaliso"              ) { return this->hcaliso_;           }
     if(value=="trkiso"              ) { return this->trkiso_;           }
-    if(value=="el_pfemiso03"              ) { return this->el_pfemiso03_;           }
-    if(value=="el_pfchiso03"              ) { return this->el_pfchiso03_;           }
-    if(value=="el_pfnhiso03"              ) { return this->el_pfnhiso03_;           }
-    if(value=="el_pfemiso04"              ) { return this->el_pfemiso04_;           }
-    if(value=="el_pfchiso04"              ) { return this->el_pfchiso04_;           }
-    if(value=="el_pfnhiso04"              ) { return this->el_pfnhiso04_;           }
-    if(value=="el_radiso03"              ) { return this->el_radiso03_;           }
-    if(value=="el_iso"              ) { return this->el_iso_;           }
-    if(value=="el_ea04"              ) { return this->el_ea04_;           }
-    if(value=="el_ea03data2011"              ) { return this->el_ea03data2011_;           }
-    if(value=="el_dbeta03"              ) { return this->el_dbeta03_;           }
-    if(value=="el_dbeta04"              ) { return this->el_dbeta04_;           }
+    if(value=="pfemiso03"              ) { return this->pfemiso03_;           }
+    if(value=="pfchiso03"              ) { return this->pfchiso03_;           }
+    if(value=="pfnhiso03"              ) { return this->pfnhiso03_;           }
+    if(value=="pfemiso04"              ) { return this->pfemiso04_;           }
+    if(value=="pfchiso04"              ) { return this->pfchiso04_;           }
+    if(value=="pfnhiso04"              ) { return this->pfnhiso04_;           }
+    if(value=="radiso03"              ) { return this->radiso03_;           }
+    if(value=="radiso04"              ) { return this->radiso04_;           }
+    if(value=="iso2011"              ) { return this->iso2011_;           }
+    if(value=="ea04"              ) { return this->ea04_;           }
+    if(value=="ea03"              ) { return this->ea03_;           }
+    if(value=="dbeta03"              ) { return this->dbeta03_;           }
+    if(value=="dbeta04"              ) { return this->dbeta04_;           }
 
     if(value=="el_test_pfchiso04_trkveto" ) { return this->el_test_pfchiso04_trkveto_; }
     if(value=="el_test_pfchiso04_dzcut" ) { return this->el_test_pfchiso04_dzcut_; }
     if(value=="el_test_pfchiso04_ebveto" ) { return this->el_test_pfchiso04_ebveto_; }
     if(value=="el_test_pfemiso04_ebveto" ) { return this->el_test_pfemiso04_ebveto_; }
 
-    if(value=="mu_pfemiso04"              ) { return this->mu_pfemiso04_;           }
-    if(value=="mu_pfchiso04"              ) { return this->mu_pfchiso04_;           }
-    if(value=="mu_pfnhiso04"              ) { return this->mu_pfnhiso04_;           }
-    if(value=="mu_pfemiso03"              ) { return this->mu_pfemiso03_;           }
-    if(value=="mu_pfchiso03"              ) { return this->mu_pfchiso03_;           }
-    if(value=="mu_pfnhiso03"              ) { return this->mu_pfnhiso03_;           }
-    if(value=="mu_radiso03"              ) { return this->mu_radiso03_;           }
-    if(value=="mu_iso"              ) { return this->mu_iso_;           }
-    if(value=="mu_eaem04"              ) { return this->mu_eaem04_;           }
-    if(value=="mu_eanh04"              ) { return this->mu_eanh04_;           }
-    if(value=="mu_dbeta03"              ) { return this->mu_dbeta03_;           }
-    if(value=="mu_dbeta04"              ) { return this->mu_dbeta04_;           }
+    if(value=="eaem04"              ) { return this->eaem04_;           }
+    if(value=="eanh04"              ) { return this->eanh04_;           }
 
     if(value=="gen_drs1"              ) { return this->gen_drs1_;           }
     if(value=="gen_drs3"              ) { return this->gen_drs3_;           }
