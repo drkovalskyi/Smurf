@@ -87,11 +87,21 @@ bool passPhotonSelection2011(const edm::View<reco::Photon>::const_iterator &phot
 bool passElectronFO2012(const reco::GsfElectronRef &electron,
         const reco::Vertex &vertex, const Point &beamspot,
         const edm::Handle<reco::ConversionCollection> &conversions);
+bool passElectronID2012(const reco::GsfElectronRef &electron,
+        const reco::Vertex &vertex, const Point &beamspot,
+        const edm::Handle<reco::ConversionCollection> &conversions,
+        const float &mvaValue);
+bool passElectronIso2012(const reco::GsfElectronRef &electron,
+        const float &pfiso_ch, const float &pfiso_em, const float &pfiso_nh,
+        const float &ea, const float &rho);
 
 bool passMuonFO2012(const edm::View<reco::Muon>::const_iterator &muon,
         const reco::Vertex &vertex);
 bool passMuonID2012(const edm::View<reco::Muon>::const_iterator &muon,
         const reco::Vertex &vertex);
+bool passMuonIso2012(const edm::View<reco::Muon>::const_iterator &muon,
+        const float &mvaValue);
+
 
 // for 2012 pf isolation
 void PFIsolation2012(const reco::GsfElectron& el, const reco::PFCandidateCollection &pfCands,

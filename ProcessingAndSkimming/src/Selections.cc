@@ -322,7 +322,7 @@ bool smurfselections::passElectronFO2011(const reco::GsfElectronRef &electron,
     float d0 = fabs(electron->gsfTrack()->dxy(vertex.position()));
     float dz = fabs(electron->gsfTrack()->dz(vertex.position()));
     if (electron->dr03TkSumPt()/pt      > 0.2)      return false;
-    if (electron->dr03HcalTowerSumEt()  > 0.2)      return false;
+    if (electron->dr03HcalTowerSumEt()/pt > 0.2)    return false;
     if (d0 > 0.02)                                  return false;
     if (dz > 0.1)                                   return false;
 
@@ -332,15 +332,13 @@ bool smurfselections::passElectronFO2011(const reco::GsfElectronRef &electron,
     if (conv)           return false;
 
     if (electron->isEB()) {
-        //if (electron->sigmaIEtaIEta()                             > 0.01)  return false;
-        if (electron->deltaEtaSuperClusterTrackAtVtx()              > 0.007) return false;
-        if (electron->deltaPhiSuperClusterTrackAtVtx()              > 0.15)  return false;
+        if (fabs(electron->deltaEtaSuperClusterTrackAtVtx())        > 0.007) return false;
+        if (fabs(electron->deltaPhiSuperClusterTrackAtVtx())        > 0.15)  return false;
         if (electron->hadronicOverEm()                              > 0.12)  return false; 
         if (std::max(electron->dr03EcalRecHitSumEt() - 1.0, 0.0)/pt > 0.2)   return false;
     } else {
-        //if (electron->sigmaIEtaIEta()                             > 0.03)  return false;
-        if (electron->deltaEtaSuperClusterTrackAtVtx()              > 0.009) return false;
-        if (electron->deltaPhiSuperClusterTrackAtVtx()              > 0.10)  return false;
+        if (fabs(electron->deltaEtaSuperClusterTrackAtVtx())        > 0.009) return false;
+        if (fabs(electron->deltaPhiSuperClusterTrackAtVtx())        > 0.10)  return false;
         if (electron->hadronicOverEm()                              > 0.10)  return false;
         if (electron->dr03EcalRecHitSumEt()/pt                      > 0.2)   return false;
     }
@@ -477,8 +475,8 @@ bool smurfselections::passElectronFO2012(const reco::GsfElectronRef &electron,
     float pt = electron->pt();
     float d0 = fabs(electron->gsfTrack()->dxy(vertex.position()));
     float dz = fabs(electron->gsfTrack()->dz(vertex.position()));
-    if (electron->dr03TkSumPt()/pt      > 0.2)      return false;
-    if (electron->dr03HcalTowerSumEt()  > 0.2)      return false;
+    if (electron->dr03TkSumPt()/pt          > 0.2)  return false;
+    if (electron->dr03HcalTowerSumEt()/pt   > 0.2)  return false;
     if (d0 > 0.02)                                  return false;
     if (dz > 0.1)                                   return false;
 
@@ -488,15 +486,15 @@ bool smurfselections::passElectronFO2012(const reco::GsfElectronRef &electron,
     if (conv)           return false;
 
     if (electron->isEB()) {
-        if (electron->sigmaIetaIeta()                             > 0.014)  return false;
-        if (electron->deltaEtaSuperClusterTrackAtVtx()              > 0.007) return false;
-        if (electron->deltaPhiSuperClusterTrackAtVtx()              > 0.15)  return false;
+        if (electron->sigmaIetaIeta()                               > 0.014)  return false;
+        if (fabs(electron->deltaEtaSuperClusterTrackAtVtx())        > 0.007) return false;
+        if (fabs(electron->deltaPhiSuperClusterTrackAtVtx())        > 0.15)  return false;
         if (electron->hadronicOverEm()                              > 0.12)  return false;
         if (std::max(electron->dr03EcalRecHitSumEt() - 1.0, 0.0)/pt > 0.2)   return false;
     } else {
-        if (electron->sigmaIetaIeta()                             > 0.035)  return false;
-        if (electron->deltaEtaSuperClusterTrackAtVtx()              > 0.009) return false;
-        if (electron->deltaPhiSuperClusterTrackAtVtx()              > 0.10)  return false;
+        if (electron->sigmaIetaIeta()                               > 0.035)  return false;
+        if (fabs(electron->deltaEtaSuperClusterTrackAtVtx())        > 0.009) return false;
+        if (fabs(electron->deltaPhiSuperClusterTrackAtVtx())        > 0.10)  return false;
         if (electron->hadronicOverEm()                              > 0.10)  return false;
         if (electron->dr03EcalRecHitSumEt()/pt                      > 0.2)   return false;
     }
@@ -504,6 +502,36 @@ bool smurfselections::passElectronFO2012(const reco::GsfElectronRef &electron,
     return true;
 }
 
+bool smurfselections::passElectronID2012(const reco::GsfElectronRef &electron,
+        const reco::Vertex &vertex, const Point &beamspot,
+        const edm::Handle<reco::ConversionCollection> &conversions,
+        const float &mvaValue)
+{
+
+    float eta = fabs(electron->superCluster()->eta());
+    if (electron->pt() > 20.0) {
+        if      (eta < 0.8      && mvaValue < 0.94) return false;
+        else if (eta >= 0.8     && mvaValue < 0.85) return false;
+        else if (                  mvaValue < 0.92) return false;
+    } else {
+        if      (eta < 0.8      && mvaValue < 0.00) return false;
+        else if (eta >= 0.8     && mvaValue < 0.10) return false;
+        else if (                  mvaValue < 0.62) return false;
+    }
+
+    if (!passElectronFO2012(electron, vertex, beamspot, conversions))   return false;
+    return true;
+}
+
+bool smurfselections::passElectronIso2012(const reco::GsfElectronRef &electron,
+        const float &pfiso_ch, const float &pfiso_em, const float &pfiso_nh,
+        const float &ea, const float &rho)
+{
+    float rhoPrime  = std::max(float(0.0), rho);
+    float neutral   = std::max(float(0.0), pfiso_em + pfiso_nh - ea * rhoPrime);
+    if ((pfiso_ch + neutral)/electron->pt() > 0.15) return false;
+    return true;
+}
 
 bool smurfselections::passMuonFO2012(const edm::View<reco::Muon>::const_iterator &muon,
         const reco::Vertex &vertex)
@@ -545,6 +573,7 @@ bool smurfselections::passMuonFO2012(const edm::View<reco::Muon>::const_iterator
     // pass muon fo     
     return true;
 }
+
 bool smurfselections::passMuonID2012(const edm::View<reco::Muon>::const_iterator &muon,
         const reco::Vertex &vertex)
 {
@@ -561,6 +590,20 @@ bool smurfselections::passMuonID2012(const edm::View<reco::Muon>::const_iterator
     // pass muon id
     return true;
 
+}
+
+bool smurfselections::passMuonIso2012(const edm::View<reco::Muon>::const_iterator &muon,
+        const float &mvaValue)
+{
+    float eta = fabs(muon->eta());
+    if (muon->pt() > 20.0) {
+        if      (eta < 1.479 && mvaValue < 0.82)   return false;
+        else if (               mvaValue < 0.86)   return false;
+    } else {        
+        if      (eta < 1.479 && mvaValue < 0.86)   return false;
+        else if (               mvaValue < 0.82)   return false;
+    }               
+    return true;
 }
 
 void smurfselections::PFIsolation2012(const reco::GsfElectron& el, const reco::PFCandidateCollection &pfCands, 
