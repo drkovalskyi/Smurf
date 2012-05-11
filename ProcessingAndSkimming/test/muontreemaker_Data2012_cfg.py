@@ -29,6 +29,8 @@ process.source = cms.Source("PoolSource",
     )
 )
 
+process.leptonTreeMaker2012.pfJetCorrectorL1FastL2L3 = cms.string('ak5PFL1FastL2L3Residual')
+
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.p = cms.Path(process.muonFilters * process.leptonTreeMakerSequenceData2012 * process.leptonTreeMaker2012)
 
