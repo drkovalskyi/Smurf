@@ -1,0 +1,241 @@
+\documentclass{cmspaper}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage[pdfborder=0 0 0,
+            colorlinks,
+            urlcolor = blue,
+            linkcolor = black,
+            citecolor = black,
+            menucolor = black,]
+           {hyperref}
+%% \usepackage[colorlinks]{hyperref}
+%% \usepackage{url}
+\usepackage[toc,page]{appendix}
+\usepackage{varioref}
+\renewcommand{\appendixname}{Appendix}
+%% \renewcommand{\appendixtocname}{List of appendices}
+
+% \input{privsym}
+\input{commands.tex}
+
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+\setcounter{secnumdepth}{6}
+%===================================================================================================
+\begin{document}
+\begin{titlepage}
+
+  \analysisnote{2011/XXX}
+
+  \date{\today}
+
+  \title{A Higgs Boson Search in the Fully Leptonic $W^+W^-$ (update for ICHEP2012 conference)}
+
+  \input{authors.tex}
+
+  \begin{abstract}
+    This note describes a search for the Higgs boson in the $\WW \to
+    2\ell2\nu$ final state with \intlumiSevenTeV of $pp$ collision data at
+    $\sqrt s = 7~\TeV$ and \intlumiEightTeV at $\sqrt s = 8~\TeV$. We search
+    for Higgs candidate events in $ee$, $\mu\mu$ and $e\mu$ channels
+    with 0, 1 and 2 reconstructed jets in the final state. 
+  \end{abstract} 
+
+\end{titlepage}
+\tableofcontents
+%\listoftables
+%\listoffigures
+\newpage 
+
+%===================================================================================================
+\section{Introduction}
+  \label{sec:overview}
+  \input{introduction}
+  
+\section{Event Selection}
+  \label{sec:selection} 
+%  \input{selection_overview.tex}
+   \subsection{Trigger}
+     \label{sec:sel_trigger}
+%     \input{selection_trigger.tex}
+   \subsection{Primary Vertex Reconstruction}
+     \label{sec:sel_pv}
+%     \input{selection_pv.tex}
+   \subsection{Muon Selection} 
+     \label{sec:sel_muons}
+%    \input{selection_muons.tex}
+   \subsection{Electron Selection} 
+     \label{sec:sel_electrons}
+%     \input{selection_electrons.tex}
+   \subsection{Missing Energy} 
+     \label{sec:sel_met}
+%     \input{selection_met.tex}
+   \subsection{$Z$ Veto}
+     \label{sec:sel_zveto}
+%     \input{selection_zveto.tex}
+   \subsection{Jet Counting} 
+     \label{sec:sel_jets}
+%     \input{selection_jets.tex}
+  \subsection{Top Tagging}
+     \label{sec:sel_toptag}
+%     \input{selection_toptag.tex}
+   \subsection{Other Preselection Requirements}
+     \label{sec:sel_other}
+%     \input{selection_other.tex}
+
+\section{Higgs Signal Extraction Strategy}
+%   \input{selection_intro}
+   \label{sec:signal_selection}
+   \subsection{Cut Based Analysis}
+     \label{sec:anal_cutbased}
+    \subsubsection{0/1-Jet Selection}
+      \label{sec:sel_zerojet}
+%      \input{selection_zerojet.tex}
+     \subsubsection{VBF Selection}
+       \label{sec:sel_vbf}
+%       \input{selection_vbf}
+   \subsection{MVA Analysis}
+     \label{sec:anal_mva}
+%     \input{selection_mva.tex}
+
+\section{Background Estimation}
+     \label{sec:backgrounds}
+%     \input{bkg_intro.tex}
+     \label{sec:bkg_intro}
+   \subsection{$\WW$ Background}
+     \label{sec:bkg_ww}
+%     \input{bkg_ww.tex}
+   \subsection{Jet Induced Backgrounds}
+     \label{sec:bkg_fakes}
+%     \input{bkg_fakes.tex}
+   \subsection{Top Background}
+     \label{sec:bkg_top}
+%     \input{bkg_top.tex}
+   \subsection{\dyee\ and \dymm\ Backgrounds}
+     \label{sec:bkg_dy}
+%     \input{bkg_dy.tex}
+   \subsection{\dytt\ Background}
+     \label{sec:bkg_dytt}
+%     \input{bkg_dytt.tex}
+   \subsection{$\wgamma^*$ Background}
+     \label{sec:bkg_wgammastar}
+%     \input{bkg_wgammastar.tex}
+   \subsection{Other Backgrounds}
+     \label{sec:bkg_other}
+%     \input{bkg_other.tex}
+
+\section{Pileup Reweighting}
+     \label{sec:pileupReweighting}
+%     \input{pileupReweighting.tex}
+
+\section{Efficiency Measurements}
+     \label{sec:alleff}
+     \subsection{Lepton Efficiency}
+     \label{sec:efficiency}
+%     \input{eff_intro.tex}
+	 \subsubsection{Electron Efficiency}
+	 \label{sec:eff_electron}
+%	 \input{eff_electron.tex}
+	 \subsubsection{Muon Efficiency}
+	 \label{sec:eff_muon}
+%	 \input{eff_muon.tex}
+	 \subsubsection{Trigger Efficiency}
+	 \label{sec:eff_trigger}
+%	 \input{eff_trigger.tex}
+     \subsection{Jet Counting Efficiency}
+%     \input{eff_jet.tex}
+
+\section{Systematic Uncertainties}
+   \label{sec:systematics}
+%   \input{systematics.tex}
+
+\clearpage
+\section{Data Results}
+   \label{sec:dataresults}
+%   \input{results.tex}
+
+\section{Summary}
+     \label{sec:summary}
+%     \input{summary.tex}
+
+%===================================================================================================
+\clearpage
+%\input{biblio}
+
+%===================================================================================================
+%\newpage 
+\clearpage 
+\appendix
+\appendixpage
+  \section{Fake Rate Studies}
+     \label{app:fake_rate_studies}
+     %\input{appendix_muon_fakes}
+     %\input{appendix_electron_fakes}
+ 
+\clearpage 
+  \section{Lepton and Trigger Efficiencies}
+     \label{app:efficiency_studies}
+     \subsection{Trigger}
+     %\input{appendix_efficiency_trigger}
+     \subsection{Electron Efficiency}
+     %\input{appendix_efficiency_electron}
+     \subsection{Muon Efficiency}
+     %\input{appendix_efficiency_muon}
+
+\clearpage 
+
+\section{ Details on $R_{out/in}$ for $\dyll$ Background Estimation}
+     \label{app:appendix_dyr}
+     %\input{appendix_dyr}
+\clearpage
+
+
+
+%   \section{Data validation: Run2011A vs Run2011B}
+%    \label{app:a_vs_b}
+
+\clearpage 
+
+  \section{Yield after Cut-based Selections}
+     \label{app:appendix_cutresults}
+     %\input{appendix_cutresults}
+\clearpage
+
+  \section{Yields and Distributions after MVA Selections}
+     \label{app:appendix_bdtresults}
+     %\input{appendix_bdtresults}
+
+\clearpage
+
+  \section{Expected and observed upper limits by sub-channels}
+     \label{app:subchannels}
+     %\input{appendix_subchannels}
+
+\clearpage
+  \section{Alternative shape analysis}
+     \label{app:appendix_altshape}
+     %\input{appendix_altshape}
+
+\clearpage
+  \section{Low MT distributions}
+     \label{app:appendix_lowmt}
+     %\input{appendix_lowmt}
+ 
+\clearpage
+  \section{Fit results}
+     \label{app:appendix_fit}
+     %\input{appendix_fit}
+
+\clearpage
+  \section{Study of the excess observed in the EPS dataset}
+     \label{app:limits_eps}
+     %\input{limits_eps}
+
+%\section{Data Samples}
+%  \label{app:datasets}
+%  \input{datasets}
+\end{document}
+ 
