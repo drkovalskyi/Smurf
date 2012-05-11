@@ -22,17 +22,17 @@ cvs co -rV00-00-06 -dEGamma/EGammaAnalysisTools UserCode/EGamma/EGammaAnalysisTo
 cvs up -rCutBasedId_V00-00-02 EGamma/EGammaAnalysisTools/src/EGammaCutBasedEleId.cc
 cvs up -rCutBasedId_V00-00-02 EGamma/EGammaAnalysisTools/interface/EGammaCutBasedEleId.h
 cvs up -r1.3 EGamma/EGammaAnalysisTools/interface/ElectronEffectiveArea.h
-cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat1.weights.xml
-cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat2.weights.xml
-cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat3.weights.xml
-cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat4.weights.xml
-cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat5.weights.xml
-cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat6.weights.xml
+cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat1.weights.xml Smurf/ProcessingAndSkimming/data/
+cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat2.weights.xml Smurf/ProcessingAndSkimming/data/
+cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat3.weights.xml Smurf/ProcessingAndSkimming/data/
+cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat4.weights.xml Smurf/ProcessingAndSkimming/data/
+cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat5.weights.xml Smurf/ProcessingAndSkimming/data/
+cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat6.weights.xml Smurf/ProcessingAndSkimming/data/
 
 # 2012 HZZ ID+Iso combined MVA
 cvs co -rR2012A_V2 -d Muon/MuonAnalysisTools UserCode/sixie/Muon/MuonAnalysisTools
 
-# emulate pf no pileup
+# emulate pf no pileup (these tags are for 52X - may run into problems in earlier releases)
 cvs co -r V00-03-11 CommonTools/ParticleFlow 
 cvs co -r V15-01-06 RecoParticleFlow/PFProducer 
 
