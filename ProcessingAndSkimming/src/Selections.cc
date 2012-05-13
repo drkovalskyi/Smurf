@@ -558,8 +558,13 @@ bool smurfselections::passMuonFO2012(const edm::View<reco::Muon>::const_iterator
     if (nValidPixelHits == 0)       return false;
     if (ptErr / muon->pt() > 0.1)   return false;
     if (kink > 20.0)                return false;
+    #ifdef RELEASE_52X
     if (!muon->isPFMuon())          return false;   
- 
+    #else
+    return false;
+    #endif 
+    
+
     bool goodGlobalMuon = true;
     if (muon->isGlobalMuon()) {
         const reco::TrackRef globalTrack = muon->globalTrack();
@@ -747,7 +752,11 @@ bool smurfselections::passMuonIsPOGTight(const edm::View<reco::Muon>::const_iter
         const reco::Vertex &vertex)
 {
     if (!muon->isGlobalMuon())                                              return false;
+    #ifdef RELEASE_52X
     if (!muon->isPFMuon())                                                  return false;
+    #else
+    return false;
+    #endif
     if (!muon->globalTrack().isNonnull())                                   return false;
     if (muon->globalTrack()->normalizedChi2() >= 10.)                       return false;
     if (muon->globalTrack()->hitPattern().numberOfValidMuonHits() == 0)     return false;

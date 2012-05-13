@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.37 2012/05/10 16:34:42 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.38 2012/05/13 14:27:02 dlevans Exp $
 //
 //
 
@@ -1066,19 +1066,21 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
             leptonTree_->qTag_               = tag->charge();
             leptonTree_->tagAndProbeMass_    = p4.M();
 
+            #ifdef RELEASE_52X
             leptonTree_->pfemiso03_      = probe->pfIsolationR03().sumPhotonEt;
             leptonTree_->pfchiso03_      = probe->pfIsolationR03().sumChargedHadronPt;
             leptonTree_->pfnhiso03_      = probe->pfIsolationR03().sumNeutralHadronEt;
             leptonTree_->pfemiso04_      = probe->pfIsolationR04().sumPhotonEt;
             leptonTree_->pfchiso04_      = probe->pfIsolationR04().sumChargedHadronPt;
             leptonTree_->pfnhiso04_      = probe->pfIsolationR04().sumNeutralHadronEt;
+            leptonTree_->dbeta03_        = probe->pfIsolationR03().sumPUPt;
+            leptonTree_->dbeta04_        = probe->pfIsolationR04().sumPUPt;
+            #endif RELEASE_52X
             leptonTree_->radiso03_       = smurfselections::getMuonRadialIsolation(*probe, pfNoPUCandCollection_, 0.3);
             leptonTree_->radiso04_       = smurfselections::getMuonRadialIsolation(*probe, pfNoPUCandCollection_, 0.4);
             leptonTree_->iso2011_            = smurfselections::muonIsoValuePF(pfCandCollection_, *probe, pv_, 0.3, 1.0, 0.1, 0);
             leptonTree_->eaem04_         = MuonEffectiveArea::GetMuonEffectiveArea(MuonEffectiveArea::kMuGammaIso04, probe->p4().eta(), MuonEffectiveArea::kMuEAData2012);
             leptonTree_->eanh04_         = MuonEffectiveArea::GetMuonEffectiveArea(MuonEffectiveArea::kMuNeutralHadronIso04, probe->p4().eta(), MuonEffectiveArea::kMuEAData2012);
-            leptonTree_->dbeta03_        = probe->pfIsolationR03().sumPUPt;
-            leptonTree_->dbeta04_        = probe->pfIsolationR04().sumPUPt;
 
             //leptonTree_->muonHWW2011IDIsoMVA_       = reader_muonHWW2011IDIsoMVA_->MVAValue(&*probe, pv_, ttBuilder, rhoIsoAll_, false);
             //leptonTree_->muonHZZ2012IDMVA_          = reader_muonHZZ2012IDMVA_->mvaValue(*probe, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
@@ -1323,19 +1325,21 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
         leptonTree_->qProbe_             = fo->charge();
         leptonTree_->mt_                 = smurfutilities::Mt(met, fo->p4().Pt(), reco::deltaPhi(met_h->front().phi(), fo->p4().Phi()));
 
+        #ifdef RELEASE_52X
         leptonTree_->pfemiso03_      = fo->pfIsolationR03().sumPhotonEt;
         leptonTree_->pfchiso03_      = fo->pfIsolationR03().sumChargedHadronPt;
         leptonTree_->pfnhiso03_      = fo->pfIsolationR03().sumNeutralHadronEt;
         leptonTree_->pfemiso04_      = fo->pfIsolationR04().sumPhotonEt;
         leptonTree_->pfchiso04_      = fo->pfIsolationR04().sumChargedHadronPt;
         leptonTree_->pfnhiso04_      = fo->pfIsolationR04().sumNeutralHadronEt;
+        leptonTree_->dbeta03_        = fo->pfIsolationR03().sumPUPt;
+        leptonTree_->dbeta04_        = fo->pfIsolationR04().sumPUPt;
+        #endif
         leptonTree_->radiso03_       = smurfselections::getMuonRadialIsolation(*fo, pfNoPUCandCollection_, 0.3);
         leptonTree_->radiso04_       = smurfselections::getMuonRadialIsolation(*fo, pfNoPUCandCollection_, 0.4);
         leptonTree_->iso2011_        = smurfselections::muonIsoValuePF(pfCandCollection_, *fo, pv_, 0.3, 1.0, 0.1, 0);
         leptonTree_->eaem04_         = MuonEffectiveArea::GetMuonEffectiveArea(MuonEffectiveArea::kMuGammaIso04, fo->p4().eta(), MuonEffectiveArea::kMuEAData2012);
         leptonTree_->eanh04_         = MuonEffectiveArea::GetMuonEffectiveArea(MuonEffectiveArea::kMuNeutralHadronIso04, fo->p4().eta(), MuonEffectiveArea::kMuEAData2012);
-        leptonTree_->dbeta03_        = fo->pfIsolationR03().sumPUPt;
-        leptonTree_->dbeta04_        = fo->pfIsolationR04().sumPUPt;
 
         const reco::GsfElectronCollection nullEls;
         const reco::MuonCollection nullMus;
