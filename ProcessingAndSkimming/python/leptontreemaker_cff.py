@@ -48,6 +48,7 @@ from Smurf.ProcessingAndSkimming.leptontreemaker_cfi import *
 
 # For 2011
 leptonTreeMaker2011 = leptonTreeMaker.clone()
+leptonTreeMaker2011.rhoIsoNeutralInputTag       =  cms.InputTag('kt6PFJetsCentralNeutral2011',     'rho')
 
 # For 2012
 leptonTreeMaker2012 = leptonTreeMaker.clone()
@@ -142,6 +143,10 @@ leptonTreeMakerSequenceForPhotonData = cms.Sequence(photonFilters * leptonTreeMa
 
 RandomNumberGeneratorService = cms.Service("RandomNumberGeneratorService",
     leptonTreeMaker2012 = cms.PSet(
+        initialSeed = cms.untracked.uint32(764575546),
+         engineName = cms.untracked.string('TRandom3')
+    ),
+    leptonTreeMaker2011 = cms.PSet(
         initialSeed = cms.untracked.uint32(764575546),
          engineName = cms.untracked.string('TRandom3')
     )
