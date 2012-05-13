@@ -57,8 +57,10 @@ unsigned int CountGoodPV(const edm::Handle<reco::VertexCollection> &pvCollection
 //
 
 bool passMuonFO2011(const edm::View<reco::Muon>::const_iterator &muon, 
+        const reco::PFCandidateCollection &pfCandCollection,
         const reco::Vertex &vertex);
 bool passMuonID2011(const edm::View<reco::Muon>::const_iterator &muon,
+        const reco::PFCandidateCollection &pfCandCollection,
         const reco::Vertex &vertex);
 bool passMuonIso2011(const edm::View<reco::Muon>::const_iterator &muon,
         const reco::PFCandidateCollection &pfCandCollection,

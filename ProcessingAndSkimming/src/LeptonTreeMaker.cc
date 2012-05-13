@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.36 2012/05/08 19:22:56 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.37 2012/05/10 16:34:42 dlevans Exp $
 //
 //
 
@@ -1086,8 +1086,8 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
             leptonTree_->muonHZZ2012IsoRingsMVA_    = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*probe, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
             //leptonTree_->muonHZZ2012IsoDRMVA_       = reader_muonHZZ2012IsoDRMVA_->mvaValue(*probe, pfNoPUCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC);
 
-            if (smurfselections::passMuonFO2011(probe, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFO);
-            if (smurfselections::passMuonID2011(probe, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuID);
+            if (smurfselections::passMuonFO2011(probe, pfCandCollection_, pv_))  leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFO);
+            if (smurfselections::passMuonID2011(probe, pfCandCollection_, pv_))  leptonTree_->leptonSelection_ |= (LeptonTree::PassMuID);
             if (smurfselections::passMuonIso2011(probe, pfCandCollection_, pv_)) leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIso);
             if (smurfselections::passMuonFO2012(probe, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFOICHEP2012);
             if (smurfselections::passMuonID2012(probe, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIDICHEP2012);
@@ -1296,7 +1296,7 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
     for (it = muonCollection.begin(); it != muonCollection.end(); ++it) {
         if (it->pt()        < 10.0) continue;
         if (fabs(it->eta()) > 2.4)  continue;
-        if (!smurfselections::passMuonFO2011(it, pv_)) continue;
+        if (!smurfselections::passMuonFO2011(it, pfCandCollection_, pv_)) continue;
         ++nFO;
         fo = it;
     }
@@ -1346,7 +1346,7 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
         //leptonTree_->muonHZZ2012IsoDRMVA_       = reader_muonHZZ2012IsoDRMVA_->mvaValue(*fo, pfNoPUCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC);
 
         leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFO);
-        if (smurfselections::passMuonID2011(fo, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuID);
+        if (smurfselections::passMuonID2011(fo, pfCandCollection_, pv_))  leptonTree_->leptonSelection_ |= (LeptonTree::PassMuID);
         if (smurfselections::passMuonIso2011(fo, pfCandCollection_, pv_)) leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIso);
         if (smurfselections::passMuonFO2012(fo, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFOICHEP2012);
         if (smurfselections::passMuonID2012(fo, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIDICHEP2012);

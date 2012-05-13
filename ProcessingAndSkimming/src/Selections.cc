@@ -234,12 +234,14 @@ unsigned int smurfselections::CountGoodPV(const edm::Handle<reco::VertexCollecti
 // 2011 selections
 //
 
-bool smurfselections::passMuonFO2011(const edm::View<reco::Muon>::const_iterator &muon, const reco::Vertex &vertex)
+bool smurfselections::passMuonFO2011(const edm::View<reco::Muon>::const_iterator &muon, 
+        const reco::PFCandidateCollection &pfCandCollection,
+        const reco::Vertex &vertex)
 {
 
     const reco::TrackRef siTrack = muon->innerTrack();
-    float d0 = siTrack.isNonnull() ? muon->innerTrack()->dxy(vertex.position())    : 999.9;
-    float dz = siTrack.isNonnull() ? muon->innerTrack()->dz(vertex.position())     : 999.9;
+    float d0 = siTrack.isNonnull() ? fabs(muon->innerTrack()->dxy(vertex.position()))    : 999.9;
+    float dz = siTrack.isNonnull() ? fabs(muon->innerTrack()->dz(vertex.position()))     : 999.9;
     unsigned int nValidHits = siTrack.isNonnull()      ?  muon->innerTrack()->numberOfValidHits()                   : 0;
     unsigned int nValidPixelHits = siTrack.isNonnull() ?  muon->innerTrack()->hitPattern().numberOfValidPixelHits() : 0;
     float ptErr = siTrack.isNonnull()      ?  muon->innerTrack()->ptError() : 99999.9;
@@ -270,20 +272,25 @@ bool smurfselections::passMuonFO2011(const edm::View<reco::Muon>::const_iterator
 
     if (!(goodTrackerMuon || goodGlobalMuon))   return false;
 
+    float isoVal = muonIsoValuePF(pfCandCollection, *muon, vertex, 0.3, 1.0, 0.1, 0);
+    if (isoVal / muon->pt() > 0.40) return false;
+
     // pass muon fo
     return true;
 
 }
 
-bool smurfselections::passMuonID2011(const edm::View<reco::Muon>::const_iterator &muon, const reco::Vertex &vertex)
+bool smurfselections::passMuonID2011(const edm::View<reco::Muon>::const_iterator &muon, 
+        const reco::PFCandidateCollection &pfCandCollection,
+        const reco::Vertex &vertex)
 {
 
     // muon must pass FO
-    if (!passMuonFO2011(muon, vertex))      return false;
+    if (!passMuonFO2011(muon, pfCandCollection, vertex))      return false;
 
     // only additional ID is tighter d0 cut
     const reco::TrackRef siTrack = muon->innerTrack();
-    float d0 = siTrack.isNonnull() ? muon->innerTrack()->dxy(vertex.position()) : 999.9;
+    float d0 = siTrack.isNonnull() ? fabs(muon->innerTrack()->dxy(vertex.position())) : 999.9;
     if (muon->pt() > 20.0 && d0 >= 0.01)    return false;
     else if (d0 >= 0.02)                    return false;
 
@@ -537,8 +544,8 @@ bool smurfselections::passMuonFO2012(const edm::View<reco::Muon>::const_iterator
         const reco::Vertex &vertex)
 {
     const reco::TrackRef siTrack = muon->innerTrack();
-    float d0 = siTrack.isNonnull() ? muon->innerTrack()->dxy(vertex.position())    : 999.9;
-    float dz = siTrack.isNonnull() ? muon->innerTrack()->dz(vertex.position())     : 999.9;
+    float d0 = siTrack.isNonnull() ? fabs(muon->innerTrack()->dxy(vertex.position()))    : 999.9;
+    float dz = siTrack.isNonnull() ? fabs(muon->innerTrack()->dz(vertex.position()))     : 999.9;
     unsigned int nLayers = siTrack.isNonnull()      ?  muon->track()->hitPattern().trackerLayersWithMeasurement() : 0;
     unsigned int nValidPixelHits = siTrack.isNonnull() ?  muon->innerTrack()->hitPattern().numberOfValidPixelHits() : 0;
     float ptErr = siTrack.isNonnull()      ?  muon->innerTrack()->ptError() : 99999.9;
@@ -583,7 +590,7 @@ bool smurfselections::passMuonID2012(const edm::View<reco::Muon>::const_iterator
         
     // only additional ID is tighter d0 cut
     const reco::TrackRef siTrack = muon->innerTrack();              
-    float d0 = siTrack.isNonnull() ? muon->innerTrack()->dxy(vertex.position()) : 999.9;
+    float d0 = siTrack.isNonnull() ? fabs(muon->innerTrack()->dxy(vertex.position())) : 999.9;
     if (muon->pt() > 20.0 && d0 >= 0.01)    return false;           
     else if (d0 >= 0.02)                    return false;
 
