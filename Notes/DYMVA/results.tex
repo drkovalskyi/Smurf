@@ -1,1 +1,279 @@
-placeholder
+In the present study, the analysis is performed on the 2011 dataset assuming an integrated luminosity of \intlumi, 
+using MC samples from the Fall11 campaign and applying the lepton selection presented in~\cite{ref:silepsel} which 
+reduces the fake background keeping the same signal efficiency. 
+The motivation for this selection is that in 2011 analysis, the Wjets background is much smaller in SF than in OF (see Table~\ref{tab:cards2011}); 
+the DY MVA selection is effectively looser on the kinematic variables and thus leads to a large increase of Wjets background: 
+the new lepton selection helps reducing this increase. 
+In the following, we will compare the results from 2011 analysis and DY MVA analysis: 
+the same samples and the same lepton selection are used in both cases, the only differences being those discussed in Section~\ref{sec:strategy}.
+
+\subsection{Background Estimation}
+
+The first step in the analysis is the estimation of the DY background. 
+Table~\ref{tab:dyestold} reports the output from 2011 analysis and Table~\ref{tab:dyest} the one from the proposed DY MVA based analysis.
+The main feature to note is that the final estimation (``Nout(data)'' column) is generally compatible in the two cases: 
+this is the desired behavior as the DY MVA is intended to recover as much signal as possible without increasing the DY background.
+This balance is obtained through a higher \routin\ value and a smaller DY count under the Z peak (``Nin(data)'').
+\routin\ is larger because of a bigger numerator: the signal region now includes events with lower \mll\ and $p_T$(l2) values.
+The \routin\ uncertainty is also larger since, in 2011 analysis, \routin\ is computed using only the high statistics DY MC sample; 
+however, in DY MVA analysis this uncertainty will decrease with more data.
+The smaller DY count under the Z peak simply reflects the higher rejection power of the DY MVA working point.
+The resulting scale factors (``SF(Data/MC)'') are very similar in the 0-jet bin; 
+in the 1-jet bin, the low Higgs mass analyses show a larger scale factor in the DY MVA analysis but the MC yield is based just on one or two 
+events and it is not statistically stable. 
+In any case, Higgs level scale factors are reported for documentation purposes only as they are not used in the analysis.
+
+Next step in the analysis is the evaluation of the other data-driven background: Top and \W\W. 
+In the new analysis, the estimation procedure is only updated to the new selection; the DY background is still subtracted from data using the scale factors at WW level.
+Resulting Top and \W\W\ scale factors are reported in Table~\ref{tab:sftopww}.
+
+%%%%%
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular} {|c|c|c|c|c|c|}
+\hline
+\multicolumn{6}{|c|}{0-jet bin} \\
+\hline
+       mass & Nin(data)        & \routin         & Nout(data)      & Nout(MC)        & SF(Data/MC)     \\
+         WW &  98.40$\pm$22.04 &  0.20$\pm$0.02  & 19.27$\pm$4.94  &  7.42$\pm$1.49  &  2.60$\pm$0.67  \\
+    115 GeV &  42.53$\pm$7.32  &  0.15$\pm$0.08  &  6.45$\pm$3.58  &  1.64$\pm$0.72  &  3.94$\pm$2.19  \\
+    120 GeV &  53.70$\pm$9.06  &  0.15$\pm$0.08  &  8.15$\pm$4.52  &  2.16$\pm$0.81  &  3.77$\pm$2.09  \\
+    130 GeV &  20.90$\pm$6.23  &  0.51$\pm$0.22  & 10.62$\pm$5.56  &  3.70$\pm$1.06  &  2.87$\pm$1.50  \\
+    140 GeV &  21.99$\pm$6.55  &  0.51$\pm$0.22  & 11.17$\pm$5.85  &  4.40$\pm$1.17  &  2.54$\pm$1.33  \\
+    150 GeV &  23.61$\pm$6.64  &  0.32$\pm$0.34  &  7.67$\pm$8.41  &  2.34$\pm$0.86  &  3.28$\pm$3.59  \\
+    160 GeV &   4.03$\pm$3.65  &  0.65$\pm$0.36  &  2.60$\pm$2.76  &  2.34$\pm$0.86  &  1.11$\pm$1.18  \\
+\hline
+\hline
+\multicolumn{6}{|c|}{1-jet bin} \\
+\hline
+       mass & Nin(data)        & \routin         & Nout(data)      & Nout(MC)        & SF(Data/MC)     \\
+         WW & 260.68$\pm$20.10 &  0.17$\pm$0.02  & 43.11$\pm$7.26  & 15.81$\pm$2.21  &  2.73$\pm$0.46  \\
+    115 GeV &  53.93$\pm$7.69  &  0.08$\pm$0.02  &  4.30$\pm$1.04  &  1.07$\pm$0.57  &  4.03$\pm$0.97  \\
+    120 GeV &  90.25$\pm$10.02 &  0.08$\pm$0.02  &  7.20$\pm$1.61  &  1.64$\pm$0.70  &  4.40$\pm$0.99  \\
+    130 GeV &  40.12$\pm$7.02  &  0.19$\pm$0.06  &  7.58$\pm$2.65  &  2.68$\pm$0.90  &  2.83$\pm$0.99  \\
+    140 GeV &  50.38$\pm$7.77  &  0.19$\pm$0.06  &  9.51$\pm$3.23  &  2.68$\pm$0.90  &  3.55$\pm$1.20  \\
+    150 GeV &  64.63$\pm$8.98  &  0.11$\pm$0.05  &  6.80$\pm$3.35  &  2.09$\pm$0.76  &  3.25$\pm$1.60  \\
+    160 GeV &  23.48$\pm$5.68  &  0.23$\pm$0.08  &  5.43$\pm$2.21  &  1.29$\pm$0.58  &  4.21$\pm$1.71  \\
+\hline
+\end{tabular}
+\caption{DY background estimation for 2011 analysis.}
+\label{tab:dyestold}
+\end{center}
+\end{table}
+%%%%%
+
+%%%%%
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular} {|c|c|c|c|c|c|}
+\hline
+\multicolumn{6}{|c|}{0-jet bin} \\
+\hline
+       mass & Nin(data)        & \routin         & Nout(data)      & Nout(MC)        & SF(Data/MC)     \\
+         WW &  33.93$\pm$11.93 &  0.30$\pm$0.09  & 10.03$\pm$4.72  &  4.25$\pm$1.70  &  2.36$\pm$1.11  \\
+    115 GeV &  13.73$\pm$5.36  &  0.41$\pm$0.15  &  5.65$\pm$3.05  &  2.47$\pm$1.53  &  2.29$\pm$1.24  \\
+    120 GeV &  15.96$\pm$6.85  &  0.39$\pm$0.14  &  6.19$\pm$3.52  &  2.77$\pm$1.56  &  2.24$\pm$1.27  \\
+    130 GeV &   4.31$\pm$4.88  &  0.92$\pm$0.17  &  3.95$\pm$4.54  &  3.34$\pm$1.61  &  1.18$\pm$1.36  \\
+    140 GeV &   4.31$\pm$4.66  &  0.75$\pm$0.20  &  3.21$\pm$3.58  &  2.64$\pm$0.94  &  1.21$\pm$1.35  \\
+    150 GeV &   7.40$\pm$3.77  &  0.28$\pm$0.29  &  2.11$\pm$2.38  &  0.64$\pm$0.45  &  3.30$\pm$3.72  \\
+    160 GeV &   0.39$\pm$1.01  &  0.45$\pm$2.08  &  0.18$\pm$0.94  &  0.64$\pm$0.45  &  0.28$\pm$1.47  \\
+\hline
+\hline
+\multicolumn{6}{|c|}{1-jet bin} \\
+\hline
+       mass & Nin(data)        & \routin         & Nout(data)      & Nout(MC)        & SF(Data/MC)     \\
+         WW &  62.07$\pm$12.67 &  0.36$\pm$0.10  & 22.08$\pm$7.74  &  5.36$\pm$1.28  &  4.12$\pm$1.44  \\
+    115 GeV &  16.32$\pm$4.71  &  0.30$\pm$0.13  &  4.90$\pm$2.61  &  0.38$\pm$0.38  & 13.07$\pm$6.94  \\
+    120 GeV &  23.11$\pm$5.61  &  0.31$\pm$0.14  &  7.24$\pm$3.76  &  0.57$\pm$0.42  & 12.68$\pm$6.58  \\
+    130 GeV &   7.18$\pm$3.77  &  0.73$\pm$0.33  &  5.21$\pm$3.64  &  0.91$\pm$0.54  &  5.75$\pm$4.02  \\
+    140 GeV &   9.81$\pm$4.15  &  0.56$\pm$0.25  &  5.51$\pm$3.42  &  0.91$\pm$0.54  &  6.08$\pm$3.77  \\
+    150 GeV &   3.86$\pm$4.05  &  0.34$\pm$0.16  &  1.32$\pm$1.51  &  0.51$\pm$0.39  &  2.61$\pm$2.99  \\
+    160 GeV &   0.13$\pm$2.87  &  0.97$\pm$0.64  &  0.12$\pm$2.78  &  0.14$\pm$0.14  &  0.86$\pm$19.66 \\
+\hline
+\end{tabular}
+\caption{DY background estimation for DY MVA analysis.}
+\label{tab:dyest}
+\end{center}
+\end{table}
+%%%%%
+
+
+%%%%%
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular} {|c|cc|cc|}
+\hline
+ & \multicolumn{2}{|c|}{2011 analysis} & \multicolumn{2}{|c|}{DY MVA analysis}\\
+\hline
+    & 0-jet & 1-jet & 0-jet & 1-jet \\
+Top & 1.29$\pm$0.26 & 1.09$\pm$0.07 & 0.95$\pm$0.23 & 1.07$\pm$0.07 \\
+WW  & 1.16$\pm$0.09 & 1.35$\pm$0.21 & 1.16$\pm$0.09 & 1.20$\pm$0.17 \\
+\hline
+\end{tabular}
+\caption{Scale factors for Top and WW (\mHi=120 \GeVcc, cut based) backgrounds.}
+\label{tab:sftopww}
+\end{center}
+\end{table}
+%%%%%
+
+\subsection{Systematics for DY MVA Selection}
+
+The main backgrounds are evaluated from data after the DY MVA selection, so no additional uncertainty due to it should be considered.
+The signal yield, instead, relies on MC and a different selection efficiency in data should be covered by the systematic uncertainties.
+The DY MVA training variables are mainly related to the missing energy description and the process kinematics. 
+The signal contains two neutrinos in the final state producing genuine \met\ due to neutrinos, while its kinematic properties are described at NLO in the adopted MC sample
+where events are also reweighted to match the most precise $p_T$ spectrum calculation at NNLO with resummation to NNLL order.
+Thus, to establish the data-MC compatibility of DY MVA selection on signal, we test the efficiency on SM samples with genuine \met\ and well known kinematic properties.
+
+A safe choice for this test is the WW control region in the opposite flavor final state: it is free both from signal and background contamination and is mainly
+populated by \W\W\ and Top events with a smaller contribution from Wjets, \W\Z\ and \Z\Z\. 
+The observed efficiency values in data and MC are in good agreement, with discrepancies within one standard deviation (Table~\ref{tab:dataeff}).
+Given that systematic uncertainties on the input variable are already considered (MET resolution: 2\%, jet energy scale: 2\%, theoretical uncertainties on the signal: 5-10\%),
+we do not think that an additional systematic uncertainty related to the DY MVA selection needs to be applied.
+
+%%%%%
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular} {|c|cc|c|}
+\hline
+     & denominator & numerator & efficiency \\
+\hline
+\hline
+MC, 0-jet   & 257.2$\pm$2.9  & 82.0$\pm$1.6 & 0.319$\pm$0.002 \\
+data, 0-jet &   252$\pm$15.9 &   84$\pm$9.2 & 0.333$\pm$0.030 \\
+\hline
+\hline
+MC, 1-jet   & 208.3$\pm$2.9  & 97.2$\pm$1.9 & 0.467$\pm$0.002 \\
+data, 1-jet &   207$\pm$14.4 &   90$\pm$9.5 & 0.435$\pm$0.034 \\
+\hline
+\end{tabular}
+\caption{Efficiency of DY MVA cut on the WW background control region (opposite flavor only). 
+MC is scaled to data-driven predictions. Uncertainties are statistical only.}
+\label{tab:dataeff}
+\end{center}
+\end{table}
+%%%%%
+
+\subsection{Expected Limits}
+
+After evaluating all backgrounds and assessing the systematic uncertainties, we can now produce the final yields and estimate the expected exclusion limits.
+
+Table~\ref{tab:cardsdymva} compares the yields in \mHi=120 \GeVcc cards for cut based and shape analysis.
+DY MVA analysis increases the ratio of signal yield in SF and OF from 45\% (30\%) to 75\% (50\%) in the 0-jet (1-jet) bin while keeps the Zjets background at the same 
+level as in 2011 analysis. As far as the other backgrounds are concerned, we observe a 2x increase in Wjets and Wgamma, and a 20-40\% increase in the \W\W\, \V\V\ backgrounds;
+as an effect of the smaller scale factor, Top appears to be reduced in the 0-jet bin.
+
+For \mHi$\leq$140 \GeVcc, the resulting expected limits (Tables~\ref{tab:sf_limits},~\ref{tab:sfof_limits}) show an increased sensitivity in the range 5-34\% combining 
+the 0- and 1-jet SF analyses, while the improvement ranges between 2-9\% when the OF final state is added. 
+For larger masses the sensitivity degrades because the MVA training on the \mHi=120 \GeVcc\ sample is not very efficienct on large \mHi\ samples and the DY 
+background is more effectively suppressed using simple \met\ cuts.
+
+%%%%%
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular} {|cc|cccccccccc|}
+\hline
+\multicolumn{12}{|c|}{Cut Based} \\
+\hline
+jet bin & analysis         & qqH & ggH & qqWW & ggWW & VV & Top & Zjets & Wjets & Wgamma & Ztt \\
+\hline
+\multirow{3}{*}{0-jet} & OF        & 0.3 & 11.1 & 59.9 &  2.7 &  1.3 &  4.2 &  0.1 &  6.2 &  3.4 &  0.9 \\
+                       & SF 2011   & 0.1 &  4.7 & 34.2 &  1.4 &  0.6 &  1.3 &  9.0 &  1.8 &  0.8 &  0.0 \\
+                       & SF DY MVA & 0.1 &  8.4 & 48.7 &  2.0 &  0.9 &  1.1 &  8.1 &  4.8 &  2.2 &  0.0 \\
+\hline
+\multirow{3}{*}{1-jet} & OF        & 0.7 &  4.6 & 20.1 &  1.2 &  1.5 & 11.0 &  0.1 &  4.4 &  0.9 &  0.9 \\
+                       & SF 2011   & 0.2 &  1.4 &  9.5 &  0.6 &  0.5 &  4.6 &  7.6 &  0.3 &  0.0 &  0.0 \\
+                       & SF DY MVA & 0.4 &  2.4 & 11.4 &  0.6 &  0.8 &  6.4 &  8.1 &  1.3 &  0.7 &  0.0 \\
+\hline
+\hline
+\multicolumn{12}{|c|}{Shape Based} \\
+\hline
+jet bin & analysis         & qqH & ggH & qqWW & ggWW & VV & Top & Zjets & Wjets & Wgamma & Ztt \\
+\hline
+\multirow{3}{*}{0-jet} & OF        & 0.4 & 14.0 &139.3 &  6.7 &  2.9 &  9.2 &  0.3 & 15.1 &  5.7 &  6.2 \\
+                       & SF 2011   & 0.1 &  6.2 & 95.6 &  4.5 &  1.7 &  4.6 &  8.2 &  4.0 &  1.2 &  0.0 \\
+                       & SF DY MVA & 0.2 & 10.3 &111.8 &  4.8 &  2.0 &  3.2 &  9.4 &  8.9 &  3.1 &  0.0 \\
+\hline
+\multirow{3}{*}{1-jet} & OF        & 1.0 &  5.9 & 50.9 &  3.0 &  3.5 & 36.0 &  0.3 &  9.6 &  1.4 &  9.2 \\
+                       & SF 2011   & 0.4 &  1.9 & 25.6 &  1.5 &  1.3 & 14.2 & 14.8 &  2.4 &  0.5 &  0.0 \\
+                       & SF DY MVA & 0.6 &  2.9 & 26.7 &  1.4 &  1.6 & 17.0 &  9.5 &  4.8 &  1.2 &  0.0 \\
+\hline
+\end{tabular}
+\caption{Yields for 2011 analysis and DY MVA based analysis: \mHi=120 \GeVcc\ cards.}
+\label{tab:cardsdymva}
+\end{center}
+\end{table}
+%%%%%
+
+
+%%%%%
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular} {|c|ccc||ccc||c|}
+\hline
+ & \multicolumn{3}{|c||}{2011 analysis, cut based}  & \multicolumn{3}{|c||}{DY MVA, cut based} & \\
+\hline
+\mHi & Expected & 68\% C.L. & 95\% C.L.  & Expected & 68\% C.L. & 95\% C.L. & Gain \\
+\hline
+115 & 7.00 & [5.04, 9.74] & [3.75, 13.05] & 4.59 & [3.31, 6.39] & [2.46, 8.56] & -34\% \\
+120 & 3.82 & [2.75, 5.32] & [2.05, 7.13]  & 2.71 & [1.95, 3.77] & [1.46, 5.06] & -29\% \\
+130 & 1.53 & [1.10, 2.13] & [0.82, 2.85]  & 1.24 & [0.89, 1.73] & [0.67, 2.32] & -19\% \\
+140 & 0.92 & [0.66, 1.28] & [0.49, 1.72]  & 0.81 & [0.59, 1.13] & [0.44, 1.52] & -12\% \\
+150 & 0.68 & [0.49, 0.94] & [0.36, 1.26]  & 0.64 & [0.46, 0.89] & [0.34, 1.19] &  -6\% \\
+160 & 0.34 & [0.25, 0.47] & [0.18, 0.63]  & 0.53 & [0.38, 0.73] & [0.28, 0.98] & +55\% \\
+\hline
+\hline
+ & \multicolumn{3}{|c||}{2011 analysis, shape based}  & \multicolumn{3}{|c||}{DY MVA, shape based} & \\
+\hline
+\mHi & Expected & 68\% C.L. & 95\% C.L.  & Expected & 68\% C.L. & 95\% C.L. & Gain \\
+\hline
+115 & 5.89 & [4.24, 8.19] & [3.16, 10.98] & 4.04 & [2.91, 5.62] & [2.17, 7.53] & -31\% \\
+120 & 3.04 & [2.19, 4.23] & [1.63, 5.66]  & 2.31 & [1.67, 3.22] & [1.24, 4.31] & -24\% \\ 
+130 & 1.25 & [0.90, 1.75] & [0.67, 2.34]  & 1.07 & [0.77, 1.49] & [0.57, 2.00] & -14\% \\ 
+140 & 0.76 & [0.54, 1.05] & [0.41, 1.41]  & 0.72 & [0.52, 1.00] & [0.39, 1.34] &  -5\% \\ 
+150 & 0.54 & [0.39, 0.75] & [0.29, 1.00]  & 0.57 & [0.41, 0.79] & [0.30, 1.06] &  +6\% \\ 
+160 & 0.33 & [0.24, 0.46] & [0.18, 0.61]  & 0.41 & [0.30, 0.57] & [0.22, 0.77] & +24\% \\ 
+\hline
+\end{tabular}
+\caption{Expected limits combining the same flavor final states. Gain is evaluated as Expected(DY MVA)/Expected(2011)-1.}
+\label{tab:sf_limits}
+\end{center}
+\end{table}
+%%%%%
+
+%%%%%
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular} {|c|ccc||ccc||c|}
+\hline
+ & \multicolumn{3}{|c||}{2011 analysis, cut based}  & \multicolumn{3}{|c||}{DY MVA, cut based} & \\
+\hline
+\mHi & Expected & 68\% C.L. & 95\% C.L.  & Expected & 68\% C.L. & 95\% C.L. & Gain  \\
+\hline
+115 & 3.16 & [2.28, 4.40] & [1.70, 5.90]  & 2.94 & [2.12, 4.09] & [1.58, 5.49] & -7\% \\
+120 & 1.91 & [1.37, 2.65] & [1.02, 3.56]  & 1.80 & [1.30, 2.51] & [0.97, 3.36] & -6\% \\
+130 & 0.91 & [0.66, 1.27] & [0.49, 1.71]  & 0.88 & [0.64, 1.23] & [0.47, 1.64] & -3\% \\
+140 & 0.58 & [0.42, 0.81] & [0.31, 1.09]  & 0.57 & [0.41, 0.79] & [0.31, 1.06] & -2\% \\
+150 & 0.43 & [0.31, 0.60] & [0.23, 0.80]  & 0.42 & [0.30, 0.58] & [0.22, 0.78] & -2\% \\
+160 & 0.25 & [0.18, 0.34] & [0.13, 0.46]  & 0.26 & [0.19, 0.36] & [0.14, 0.49] & +4\% \\
+\hline
+\hline
+  & \multicolumn{3}{|c||}{2011 analysis, shape based}  & \multicolumn{3}{|c||}{DY MVA, shape based} & \\
+\hline
+\mHi & Expected & 68\% C.L. & 95\% C.L.  & Expected & 68\% C.L. & 95\% C.L. & Gain \\
+\hline
+115 & 2.54 & [1.83, 3.54] & [1.36, 4.74]  & 2.30 & [1.66, 3.21] & [1.24, 4.30] & -9\% \\
+120 & 1.48 & [1.06, 2.05] & [0.79, 2.75]  & 1.36 & [0.98, 1.89] & [0.73, 2.54] & -8\% \\
+130 & 0.70 & [0.50, 0.97] & [0.38, 1.31]  & 0.66 & [0.47, 0.91] & [0.35, 1.22] & -6\% \\
+140 & 0.46 & [0.33, 0.64] & [0.25, 0.85]  & 0.45 & [0.32, 0.62] & [0.24, 0.84] & -2\% \\
+150 & 0.33 & [0.24, 0.47] & [0.18, 0.62]  & 0.34 & [0.24, 0.47] & [0.18, 0.63] & +3\% \\
+160 & 0.22 & [0.16, 0.30] & [0.12, 0.41]  & 0.22 & [0.16, 0.31] & [0.12, 0.42] & +0\% \\
+\hline
+\end{tabular}
+\caption{Expected limits combining the same flavor and opposite flavor final states. Gain is evaluated as Expected(DY MVA)/Expected(2011)-1.}
+\label{tab:sfof_limits}
+\end{center}
+\end{table}
+%%%%%
+
+\clearpage

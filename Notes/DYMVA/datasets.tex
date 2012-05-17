@@ -1,1 +1,128 @@
-placeholder
+The datasets used for this analysis are summarized in 
+Tables.~\ref{tab:DatasetsData} and~\ref{tab:DatasetsMC} for data and Monte 
+Carlo (MC), respectively. The total integrated luminosity\footnote{The 2011 integrated luminosity has been 
+corrected to 4.9~\ifb, but, for consistency with the published analysis, the old values is used.} is \intlumi. 
+We used the official good run list~\cite{json}. For Monte Carlo simulation 
+we use madgraph when possible, but different generators such as Pythia and Powheg are also used. 
+For $gg \to \WW$ a dedicated generator is used. For \zz\ process we use Pythia, 
+since MadGraph sample has a generator level cut on the dilepton invariant mass of 
+50 \GeV. 
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+ Dataset Description                   &   Dataset Name   \\
+\hline
+\hline
+\multicolumn{2}{|c|}{$H \to \WW$ Signal Selection Samples} \\
+\hline
+Run2011A MuEl PromptReco            &  /MuEG/Run2011A-PromptReco-v*/AOD   \\
+Run2011A DiMuon PromptReco          &  /DoubleMu/Run2011A-PromptReco-v*/AOD   \\
+Run2011A SingleMuon PromptReco      &  /SingleMu/Run2011A-PromptReco-v*/AOD   \\
+Run2011A DiElectron PromptReco      &  /DoubleElectron/Run2011A-PromptReco-v*/AOD   \\
+Run2011B DiElectron PromptReco      &  /DoubleElectron/Run2011B-PromptReco-v1/AOD   \\
+Run2011B DiMuon PromptReco          &  /DoubleMu/Run2011B-PromptReco-v1/AOD   \\
+Run2011B MuEl PromptReco            &  /MuEG/Run2011B-PromptReco-v1/AOD   \\
+Run2011B SingleMuon PromptReco      &  /SingleMu/Run2011B-PromptReco-v1/AOD   \\
+Run2011B SingleElectron PromptReco  &  /SingleElectron/Run2011B-PromptReco-v1/AOD   \\
+\hline
+\hline
+\multicolumn{2}{|c|}{Fake Rate Measurement Samples} \\
+\hline
+Run2010A Jet  PromptReco            & /Jet/Run2011A-PromptReco-v*/AOD	\\
+Run2010B Jet  PromptReco            & /Jet/Run2011B-PromptReco-v*/AOD	\\
+Run2011A Photon PromptReco          & /Photon/Run2011A-PromptReco-v4/AOD \\
+Run2011B Photon PromptReco          & /Photon/Run2011B-PromptReco-v1/AOD \\
+\hline
+\end{tabular}
+\caption{Summary of data datasets used.\label{tab:DatasetsData}}
+\end{center}
+\end{table}
+
+\begin{table}[!ht]
+\begin{center}
+{\footnotesize
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{With Pileup: Processed dataset name is always} \\
+\multicolumn{3}{|c|}{Fall11-PU\_S6\_START42\_V14B-v*/AODSIM} \\
+\hline
+ Dataset Description                     &   Primary Dataset Name   & cross-section (pb)\\
+\hline
+qq $\rightarrow WW$                  	 &   /WWJetsTo2L2Nu\_TuneZ2\_7TeV-madgraph-tauola                      &  4.783 \\
+gg $\rightarrow WW \to 2l 2\nu$          &   /GluGluToWWTo4L\_TuneZ2\_7TeV-gg2ww-pythia6                       &   0.153\\
+$\ttbar$                              	 &   /TTTo2L2Nu2B\_7TeV-powheg-pythia6/                                &  157.5 \\
+$t$ ($s$-chan)                 	 	 &   /T\_TuneZ2\_s-channel\_7TeV-powheg-tauola                         &  3.19 \\
+$\bar{t}$ ($s$-chan)                 	 &   /Tbar\_TuneZ2\_s-channel\_7TeV-powheg-tauola                      &  1.44 \\
+$t$ ($t$-chan)             	 	 &   /T\_TuneZ2\_t-channel\_7TeV-powheg-tauola                         &  41.92 \\
+$\bar{t}$ ($t$-chan)                 	 &   /Tbar\_TuneZ2\_t-channel\_7TeV-powheg-tauola                      &  22.65 \\
+$tW$                                     &   /T\_TuneZ2\_tW-channel-DR\_7TeV-powheg-tauola                     &  7.87 \\
+Z[20-inf] $\rightarrow ee$	  	 &   /DYToEE\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia                   &  1666.0 \\
+Z[20-inf] $\rightarrow \mu\mu$        	 &   /DYToMuMu\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia                 &  1666.0 \\	       
+Z[20-inf] $\rightarrow \tau\tau$  	 &   /DYToTauTau\_M-20\_CT10\_TuneZ2\_7TeV-powheg-pythia-tauola        &  1666.0 \\
+Z[10-20]  $\rightarrow ee$	  	 &   /DYToEE\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia               &  3892.9 \\
+Z[10-20]  $\rightarrow \mu\mu$    	 &   /DYToMuMu\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia             &  3892.9 \\
+Z[10-20]  $\rightarrow \tau\tau$  	 &   /DYToTauTau\_M-10To20\_CT10\_TuneZ2\_7TeV-powheg-pythia-tauola    &  3892.9 \\
+Z[10-50]  $\rightarrow \Lep\Lep$         &   /DYJetsToLL\_M-10To50\_TuneZ2\_7TeV-madgraph                      & 13629 \\
+Z[50-inf] $\rightarrow \Lep\Lep$         &   /DYJetsToLL\_TuneZ2\_M-50\_7TeV-madgraph-tauola                   & 3048.0 \\
+W $\rightarrow$ $\ell\nu$           	 &   /WJetsToLNu\_TuneZ2\_7TeV-madgraph-tauola                         &  31314.0 \\
+WZ                               	 &   /WZJetsTo3LNu\_TuneZ2\_7TeV-madgraph-tauola                       &  0.857 \\
+ZZ                               	 &   /ZZ\_TuneZ2\_7TeV\_pythia6\_tauola/                               &  7.406 \\
+$W\gamma^{*}\rightarrow l\mu\mu$         &   /WGstarToLNu2Mu\_TuneZ2\_7TeV-madgraph-tauola                     &  1.60 \\ 
+$W\gamma^{*}\rightarrow lee$             &   /WGstarToLNu2E\_TuneZ2\_7TeV-madgraph-tauola                      &  5.55 \\ 
+$gg \to H \to WW \to 2\ell2\nu$          &   /GluGluToHToWWTo2L2Nu\_M-*\_7TeV-powheg-pythia6                   & vary \\
+$gg \to H \to WW \to \ell\tau2\nu$       &   /GluGluToHToWWTo2L2Nu\_M-*\_7TeV-powheg-pythia6                   & vary \\
+$gg \to H \to WW \to 2\tau2\nu$          &   /GluGluToHToWWTo2Tau2Nu\_M-*\_7TeV-powheg-pythia6                 & vary \\
+$qqH,~H \to WW \to 2\ell2\nu$            &   /VBF\_HToWWTo2L2Nu\_M-*\_7TeV-powheg-pythia6                      & vary \\
+$qqH,~ H \to WW \to \ell\tau2\nu$	 &   /VBF\_HToWWTo2Tau2Nu\_M-*\_7TeV-powheg-pythia6                    & vary \\
+$qqH,~H \to WW \to 2\tau2\nu$	         &   /VBF\_HToWWToLNuTauNu\_M-*\_7TeV-powheg-pythia6                   & vary \\
+$WH/ZH/\ttbar H,~H\to WW$                &   /WH\_ZH\_TTH\_HToWW\_M-*\_7TeV-pythia6                            & vary \\
+\hline
+\hline
+\end{tabular}
+}
+\caption{Summary of Monte Carlo datasets used.\label{tab:DatasetsMC}.}
+\end{center}
+\end{table}
+
+Analysis objects and selections are defined in~\cite{ref:hwwsmurfs}. 
+A short summary of the selection is:
+\begin{enumerate}
+    \item We select events that pass pre-defined lepton triggers.
+    \item We then select those events with two oppositely charged 
+      high $\pt$ isolated leptons ($ee$, $\mu\mu$, $e\mu$).
+    \item We apply a common $\WW$ preselection, which requires in brief: 
+      \begin{itemize}
+      \item categorize events by the number of reconstructed jets;
+      \item exactly two high $\pt$ isolated leptons;
+      \item large transverse missing energy due to the neutrinos;
+      \item no b-tagged jets.
+      \end{itemize}
+    \item Finally, we perform two \emph{Higgs mass dependent} event selections: one for cut based and one for shape based analysis. 
+\end{enumerate}
+The definion of the analysis objects relevant for the present study are the following.
+The \met\ variable used in the analysis is: min(proj-pfMet,proj-trackMet),
+where ``pfMet'' is the \met~reconstructed with the particle flow algorithm, ``trackMet'' is the \met~ constructed from charged particles consistent 
+with originating from the primary vertex.
+The ``proj-met'' variable (where met is either pfMet or trackMet) is defined as:
+\begin{equation}
+\text{proj-met} = 
+\begin{cases} \met & \text{if $\Delta\phi_{min}>\frac{\pi}{2}$,}
+\\
+\met\sin(\Delta\phi_{min}) & \text{if $\Delta\phi_{min}<\frac{\pi}{2}$}
+\end{cases}
+\end{equation}
+\begin{equation}
+\text{with } \Delta\phi_{min} =  min(\Delta\phi(\ell_1,\met),\Delta\phi(\ell_2,\met))\\
+\end{equation}
+where $\Delta\phi(\ell_i,\met)$ is the angle between \met\ and lepton $i$ in the transverse plane;
+the main purpose for using ``proj-met'' is to reduce the impact of lepton mismeasurement and, secondarily, to further suppress the contribution from \dytt.\\
+Jets are reconstructed using calorimeter and tracker information using a particle flow 
+algorithm. The anti-${\rm k_T}$ clustering algorithm with ${\rm R=0.5}$ is used. 
+We apply the standard jet energy corrections to the reconstructed jets, where the L1 Fast Jet
+corrections are included. To exclude electrons and muons from the jet sample, these 
+jets are required to be separated from the selected leptons in $\Delta R$ 
+by at least $\Delta R^{\mathrm{jet-lepton}}>0.3$.
+
+\clearpage

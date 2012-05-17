@@ -1,1 +1,13 @@
-placeholder
+It is worth remarking that an alternative training, based on DY events under the Z peak, has been tested. 
+Given the approximate description of the fake missing energy in the simulation, we wanted to test whether using real data 
+for training could increase the rejection power against DY events.
+
+MVA training on data is a non trivial problem because of background events contaminating the Z peak sample. 
+These backgrounds (Top, \W\W\, Wjets, \W\Z, \Z\Z) - negligible in the bulk of the distributions - dominate the tail of \met-related variables 
+(top plots in Figures~\ref{fig:pmet}-\ref{fig:mt}) and the MVA should not be trained against non-DY events. 
+The solution we found to this problem is to give negative weight to the background events (red and blue area in the plots) and to use a MVA method that can 
+properly deal with them in the training (BDTB)~\cite{TMVA2007}. 
+The final result, however, is not better than what achieved with the MC training, with a sensitivity improvement in the same range and a slightly worse signal efficiency 
+for same DY rejection.
+
+This test has been presented in~\cite{ref:dymvadata}. 
