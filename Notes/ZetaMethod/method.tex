@@ -1,44 +1,58 @@
 \subsection{Method definition}
 
-The basic idea of the \zm~method is to use a ``fake-rate'' method~\cite{fakeLeptonNote1,fakeLeptonNote2} based on \met.
+This method is inspired by ``fake-rate'' methods~\cite{fakeLeptonNote1,fakeLeptonNote2}, in which the efficiency to pass a tight numerator cut with respect to a looser denominator cut is measured in a control sample enriched in background.  This fake-rate is then applied to the background dominated denominator and not numerator selection in the signal sample.  In the \zm~method, the difference between the denominator and numerator is the cut on the MET.  We first evaluate the efficiency to pass the signal MET cut given a loose denominator cut in a photon+jets control sample, and then apply this efficiency to the \dyll dominated dilepton events that pass the denominator cut and fail the numerator cut in the dilepton sample. 
+The estimate of the residual \dyll background in the dilepton sample can be expressed more formally as:
 
-Given a background process $B$ and a particular cut $c$ in the analysis suppressing $B$, a fake-rate method
-estimates the yield of $B$ passing $c$ as the number of $B$ events failing $c$  
-times a pass-to-fail ratio $R_{p-f}$
 \begin{equation}
-N_B\left(\mathrm{pass}\right)=N_B\left(\mathrm{fail}\right) \cdot R_{p-f}~,
+N_B\left(\mathrm{pass}\right)=N_B\left(\mathrm{fail}\right) \cdot \zm~,
 \end{equation}
-where $R_{pf}$ has to measured in an independent control sample 
-reproducing with good accuracy the behavior of $B$ with respect to $c$.
 
-Assuming that both in photon and \dyll~ events the sources of \met are the hadronic recoil against and pile-up effects, 
-the \zm~method uses the \gjets~ sample to model the \met distribution in \dyll~events.
-It defines a pass-to-fail ratio (\zm$\equiv$$R_{p-f}$) in bins of $N_{jets}$ and $p_{T}\left(\gamma\right)$:
+Where $N_B\left(\mathrm{pass}\right)$ is the number of \dyll background events after the signal \met~ cut and
+$N_B\left(\mathrm{fail}\right)$ is the number of \dyll background events that fail the signal \met~ cut but pass the 
+loose denominator cut.  The \met~ fake rate, $\zm~$, is the efficiency to pass the signal \met~ cut 
+given the loose denominator cut has passed as measured in the independent \gjets~control sample.  
+
+The \gjets~ control sample can also be used to extract alternate shapes for variables
+that can defined consistently on both this sample and the dilepton sample.  
+The alternate shapes can be extracted by weighting the \gjets~ sample on an event by event
+basis according to \zm.  This is analogous to the derivation of kinematic shapes
+for the \Wjets~ background \cite{ref:shapenote}, as used in the 2011 Higgs analysis.
+
+The method is valid if the fake \met~ spectrum, in \gjets~events models the fake \met spectrum in \dyll events well.
+Because the main source of fake \met~ in both the \dyll and \gjets~samples is the mis-measurement 
+of the hadronic recoil and pileup effects, this is a reasonable starting assumption.
+
+To take into account the kinematic differences between the \dyll and \gjets~samples, \zm
+is defined in bins of jet multiplicity ($N_{jets}$) and photon transverse momentum ($p_{T}\left(\gamma\right)$)
+as follows:
+
 \begin{equation}
 \zeta\left(N_{jets},p_{T}\left(\gamma\right)\right)=\frac{N\left(N_{jets},p_{T}\left(\gamma\right), \met>\mwp\right)}{N\left(N_{jets},p_{T}\left(\gamma\right),\met<\mwp\right)}
 \end{equation}
-where $\mwp$ represents the working point chosen for the final \met~cut in the analyis.
 
+where $\mwp$ represents the working point chosen for the final \met~cut in the analyis.
 In the same flavor dilepton sample, events passing the final analysis
 selection but with $\met<\mwp$ are selected and \zm~is used to extrapolate to the signal region:
+
 \begin{equation}
 N_{\dyll}\left(\met>\mwp,N_{jets},p_{T}\left(\dil\right)\right)= \zeta\left(N_{jets},p_{T}\left(\dil\right)\right) \cdot N_{\dyll}\left(\met<\mwp,N_{jets},p_{T}\left(\dil\right)\right)
 \end{equation}
-where, in data, $N_{\dyll}\left(\met<\mwp\right)$ is computed subtracting opposite flavor and \V\Z~ events.
 
-A corollary of the method is that shapes can be obtained from data by filling the histogram with \dyll~ events in the \met$<$\mwp~region 
-with weight \zm~ (the same procedure is already used in 2011 analysis for the \Wjets~ background\cite{ref:shapenote}).
+where, in data, $N_{\dyll}\left(\met<\mwp\right)$ is computed subtracting opposite flavor and \V\Z~ events.
 
 \subsection{The \hww~case}
 
 In the \hww~analysis we consider events with dilepton $p_T$$>$45 \GeVc~and $\mathrm{min}$-$\mathrm{pmet}$$>$20 \GeV~ as a baseline common to same and opposite flavor final state~\cite{ref:hwwsmurfs};
+
 $\mathrm{min}$-$\mathrm{pmet}$ is defined as:
 \begin{equation}
 \text{min-pmet} = \text{min(proj-pfMet,proj-trackMet)} ,
 \end{equation}
+
 where ``pfMet'' is the \met~reconstructed with the particle flow algorithm, ``trackMet'' is the \met~ constructed from charged particles consistent 
 with originating from the primary vertex.
 The ``proj-met'' variable (where met is either pfMet or trackMet) is defined as:
+
 \begin{equation}
 \text{proj-met} = 
 \begin{cases} \met & \text{if $\Delta\phi_{min}>\frac{\pi}{2}$,}
@@ -50,7 +64,8 @@ The ``proj-met'' variable (where met is either pfMet or trackMet) is defined as:
 \text{with } \Delta\phi_{min} =  min(\Delta\phi(\ell_1,\met),\Delta\phi(\ell_2,\met))\\
 \end{equation}
 where $\Delta\phi(\ell_i,\met)$ is the angle between \met\ and lepton $i$ in the transverse plane;
-the main purpose for using ``proj-met'' is to reduce the impact of lepton mismeasurement and, secondarily, to further suppress the contribution from \dytt.
+the main purpose for using ``proj-met'' is to reduce the impact of lepton mismeasurement.
+It also acts to further suppress the contribution from \dytt.
 The final \met~ selection in the same flavor dilepton final state requires min-pmet$>$(37+nvtx/2) \GeV. 
 
 In the photon sample this selection is reproduced by cutting on min-met=$\mathrm{min(pfMet,trackMet)}$ and photon $p_T$.

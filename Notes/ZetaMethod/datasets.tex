@@ -1,17 +1,21 @@
 \subsection{Data and MC Samples}
 
-In the present note we use the dataset listed in Table~\ref{tab:DatasetsMC} for Monte Carlo (MC) and in Table~\ref{tab:DatasetsData} for data.
+We use the datasets listed in Table~\ref{tab:DatasetsMC} for Monte Carlo (MC) and in Table~\ref{tab:DatasetsData} for data.
+The pileup scenario used to produce the MC is PU\_S4 or PU\_S6, and is re-weighted
+to match the observed pileup in the data analysed.
+Because the 2011A and 2011B data taking periods have different pileup distributions,
+they are considered separately.
 
-Events in MC samples are reweighted to match the pile-up observed in data 
-(weights depend on pile-up scenario used in the MC production: PU\_S4 or PU\_S6).
+The \gjets~data are recorded by using the prescaled photon triggers described in Table~\ref{tab:triggers_photon}.
+Because the prescale depends on the $p_T$ threshold of the triggers, we re-weight the \gjets~data to take into
+account the lowest available trigger prescale for each event to produce a consistent physical data sample.
+At large MET there can be a significant contribution to the \gjets~data sample from processes with real MET.
+These contributions are subtracted using MC according to the cross sections listed in Table~\ref{tab:DatasetsMC}.
 
-Photon data is weighted according to the lowest prescale of the triggers (Table~\ref{tab:triggers_photon}) that fired in the event.
-Background events from MC are subtracted from \gjets~data according to the cross sections listed in Table~\ref{tab:DatasetsMC}.
-
-\dyll~data is obtained from same flavor dilepton events; flavor-symmetric backgrounds are subtracted using opposite flavor (OF) events in data 
-(properly accounting for the $e$-$\mu$ efficiency difference), while the background from \W\Z~ and \Z\Z~ (\V\Z) events is taken from MC.
-
-In the analysis, 2011A and 2011B data taking periods are considered separately since the PU conditions are different.
+The \dyll~data, i.e. same flavor dilepton events.  
+We subtract the contribution from backgrounds that decay equally to $\mu e+e\mu$ (OF) as they do to $ee+\mu\mu$ (SF),
+e.g. $\mathrm{WW}$ and $t\bar{t}$, by subtracting the $\mu e$ and $e\mu$ events from the same flavor sample.
+The backgrounds from \W\Z~ and \Z\Z~ (\V\Z) events are subtracted using MC.
 
 \begin{table}[!ht]
 \begin{center}
@@ -148,7 +152,9 @@ HLT\_Photon90\_CaloIdVL \\
 
 \subsubsection{Photon Events}
 
-After the trigger selection, photons are selected according to the following selection inspired by~\cite{ref:vgamma}:
+Photons are selected in events that pass one of the triggers described in Table \ref{tab:triggers_photon}.
+The photon selection criteria are based on the $\mathrm{V}\gamma$ selection \cite{ref:vgamma}:
+
 \begin{itemize}
 \item Photon in ECAL Barrel: $|\eta_\gamma|$$<$1.479
 \item Photon R9 $<$ 0.9
@@ -160,11 +166,14 @@ After the trigger selection, photons are selected according to the following sel
 \item Tower-based HCAL Isolation: hcalTowerSumEtConeDR04 $<$ 2.2 + 0.0025$\cdot$$E_T$ + 0.062$\cdot$$\rho_{25}$
 \item Additionally apply spike cleaning: $\sigma_{i\eta i\eta}$ $>$ 0.001 and $\sigma_{i\phi i\phi}$ $>$ 0.001
 \end{itemize}
+
 where $E_T$ is the photon transverse energy and $\rho_{25}$ is the energy density from kt6PFJets in the tracker region ($|\eta|$$<$2.5).
 
 \subsubsection{Dilepton Events}
 
-The selection is described in~\cite{ref:hwwsmurfs} and can be summarized as follows:
+We use the same event selection as the 2011 Higgs boson search in the  $\mathrm{WW}\rightarrow\ell\nu\ell\nu$ channel.
+This selection is described in more detail in Ref.~\ref{ref:hwwsmurfs}, and summarized here in brief:
+
 \begin{enumerate}
     \item We select events that pass pre-defined lepton triggers.
     \item We then select those events with two oppositely charged 
