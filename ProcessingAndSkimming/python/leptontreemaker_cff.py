@@ -112,8 +112,8 @@ leptonTreeMaker2012.eleTriggers     = cms.untracked.VInputTag(
         cms.InputTag("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_v*::HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30"),
         cms.InputTag("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*::HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL"),
         cms.InputTag("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_v*::HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30"),
-        cms.InputTag("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*::HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL")
-
+        cms.InputTag("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v*::HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL"),
+        cms.InputTag("HLT_Ele8_CaloIdT_TrkIdVL_v*::HLT_Ele8_CaloIdT_TrkIdVL")
 )
 
 #
