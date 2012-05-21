@@ -13,18 +13,6 @@
 // utilities
 //
 
-float smurfselections::d0Vertex(const float &d0, const float &phi, const reco::Vertex &vertex)
-{
-    return (d0 - vertex.x() * sin(phi) + vertex.y() * cos(phi));
-}
-
-float smurfselections::dzVertex(const reco::Candidate &cand, const reco::Vertex &vertex)
-{
-    float dz = (cand.vz() - vertex.z()) - 
-        ((cand.vx() - vertex.x()) * cand.px() + (cand.vy() - vertex.y()) * cand.py()) / cand.pt() * cand.pz()/cand.pt();
-    return dz;
-}
-
 bool smurfselections::compareJetPt(std::pair<reco::PFJet, float> lv1, std::pair<reco::PFJet, float> lv2) {
   return lv1.first.pt()*lv1.second > lv2.first.pt()*lv2.second;
 }
@@ -250,7 +238,7 @@ bool smurfselections::passMuonFO2011(const edm::View<reco::Muon>::const_iterator
     if (fabs(muon->eta()) > 2.4)    return false;
     if (nValidHits < 11)            return false;
     if (dz >= 0.1)                  return false;
-    if (d0 >= 0.02)                 return false;
+    if (d0 >= 0.2)                  return false;
     if (nValidPixelHits == 0)       return false;
     if (ptErr / muon->pt() > 0.1)   return false;
     if (kink > 20.0)                return false;
@@ -271,7 +259,6 @@ bool smurfselections::passMuonFO2011(const edm::View<reco::Muon>::const_iterator
     } else goodTrackerMuon = false;
 
     if (!(goodTrackerMuon || goodGlobalMuon))   return false;
-
     float isoVal = muonIsoValuePF(pfCandCollection, *muon, vertex, 0.3, 1.0, 0.1, 0);
     if (isoVal / muon->pt() > 0.40) return false;
 
@@ -291,8 +278,11 @@ bool smurfselections::passMuonID2011(const edm::View<reco::Muon>::const_iterator
     // only additional ID is tighter d0 cut
     const reco::TrackRef siTrack = muon->innerTrack();
     float d0 = siTrack.isNonnull() ? fabs(muon->innerTrack()->dxy(vertex.position())) : 999.9;
-    if (muon->pt() > 20.0 && d0 >= 0.01)    return false;
-    else if (d0 >= 0.02)                    return false;
+    if (muon->pt() > 20.0) {
+        if (d0 >= 0.02)    return false;
+    } else {
+        if (d0 >= 0.01)    return false;
+    }
 
     // pass muon id
     return true;
@@ -307,15 +297,11 @@ bool smurfselections::passMuonIso2011(const edm::View<reco::Muon>::const_iterato
     float pt = muon->pt();
     float eta = fabs(muon->eta());
     if (pt > 20.0) {
-        if (eta < 1.479) {
-            if (isoVal >= 0.13)               return false;
-        }
-        else if (isoVal >= 0.09)              return false;
+        if      (eta < 1.479  && isoVal >= 0.13)              return false;
+        else if (eta >= 1.479 && isoVal >= 0.09)              return false;
     } else {
-        if (eta < 1.479) {
-            if (isoVal >= 0.06)               return false;
-        }
-        else if (isoVal >= 0.05)              return false;
+        if      (eta < 1.479  && isoVal >= 0.06)              return false;
+        else if (eta >= 1.479 && isoVal >= 0.05)              return false;
     }
     return true;
 }
@@ -339,11 +325,13 @@ bool smurfselections::passElectronFO2011(const reco::GsfElectronRef &electron,
     if (conv)           return false;
 
     if (electron->isEB()) {
+        if (electron->sigmaIetaIeta()                               > 0.01)  return false;
         if (fabs(electron->deltaEtaSuperClusterTrackAtVtx())        > 0.007) return false;
         if (fabs(electron->deltaPhiSuperClusterTrackAtVtx())        > 0.15)  return false;
         if (electron->hadronicOverEm()                              > 0.12)  return false; 
         if (std::max(electron->dr03EcalRecHitSumEt() - 1.0, 0.0)/pt > 0.2)   return false;
     } else {
+        if (electron->sigmaIetaIeta()                               > 0.03)  return false;
         if (fabs(electron->deltaEtaSuperClusterTrackAtVtx())        > 0.009) return false;
         if (fabs(electron->deltaPhiSuperClusterTrackAtVtx())        > 0.10)  return false;
         if (electron->hadronicOverEm()                              > 0.10)  return false;
@@ -387,10 +375,8 @@ bool smurfselections::passElectronIso2011(const reco::GsfElectronRef &electron,
         const reco::Vertex &vertex)
 {
     float isoVal = electronIsoValuePF(pfCandCollection, *electron, vertex, 0.4, 1.0, 0.1, 0.07, 0.025, -999., 0);
-    if (fabs(electron->superCluster()->eta()) < 1.479) {
-        if (isoVal >= 0.13)    return false;
-    } 
-    else if (isoVal >= 0.09)   return false;
+    if      (fabs(electron->superCluster()->eta()) < 1.479  && isoVal >= 0.13)    return false;
+    else if (fabs(electron->superCluster()->eta()) >= 1.479 && isoVal >= 0.09)    return false;
     return true;
 }
 
@@ -493,13 +479,13 @@ bool smurfselections::passElectronFO2012(const reco::GsfElectronRef &electron,
     if (conv)           return false;
 
     if (electron->isEB()) {
-        if (electron->sigmaIetaIeta()                               > 0.014)  return false;
+        if (electron->sigmaIetaIeta()                               > 0.01)  return false;
         if (fabs(electron->deltaEtaSuperClusterTrackAtVtx())        > 0.007) return false;
         if (fabs(electron->deltaPhiSuperClusterTrackAtVtx())        > 0.15)  return false;
         if (electron->hadronicOverEm()                              > 0.12)  return false;
-        if (std::max(electron->dr03EcalRecHitSumEt() - 1.0, 0.0)/pt > 0.2)   return false;
+        if ((electron->dr03EcalRecHitSumEt() - 1.0)/pt > 0.2)   return false;
     } else {
-        if (electron->sigmaIetaIeta()                               > 0.035)  return false;
+        if (electron->sigmaIetaIeta()                               > 0.03)  return false;
         if (fabs(electron->deltaEtaSuperClusterTrackAtVtx())        > 0.009) return false;
         if (fabs(electron->deltaPhiSuperClusterTrackAtVtx())        > 0.10)  return false;
         if (electron->hadronicOverEm()                              > 0.10)  return false;
@@ -517,13 +503,13 @@ bool smurfselections::passElectronID2012(const reco::GsfElectronRef &electron,
 
     float eta = fabs(electron->superCluster()->eta());
     if (electron->pt() > 20.0) {
-        if      (eta < 0.8      && mvaValue < 0.94) return false;
-        else if (eta >= 0.8     && mvaValue < 0.85) return false;
-        else if (                  mvaValue < 0.92) return false;
+        if      (eta < 0.8                 && mvaValue <= 0.94) return false;
+        else if (eta >= 0.8 && eta < 1.479 && mvaValue <= 0.85) return false;
+        else if (eta >= 1.479              && mvaValue <= 0.92) return false;
     } else {
-        if      (eta < 0.8      && mvaValue < 0.00) return false;
-        else if (eta >= 0.8     && mvaValue < 0.10) return false;
-        else if (                  mvaValue < 0.62) return false;
+        if      (eta < 0.8                 && mvaValue <= 0.00) return false;
+        else if (eta >= 0.8 && eta < 1.479 && mvaValue <= 0.10) return false;
+        else if (eta >= 1.479              && mvaValue <= 0.62) return false;
     }
 
     if (!passElectronFO2012(electron, vertex, beamspot, conversions))   return false;
@@ -541,8 +527,10 @@ bool smurfselections::passElectronIso2012(const reco::GsfElectronRef &electron,
 }
 
 bool smurfselections::passMuonFO2012(const edm::View<reco::Muon>::const_iterator &muon,
+        const float &mvaValue,
         const reco::Vertex &vertex)
 {
+    
     const reco::TrackRef siTrack = muon->innerTrack();
     float d0 = siTrack.isNonnull() ? fabs(muon->innerTrack()->dxy(vertex.position()))    : 999.9;
     float dz = siTrack.isNonnull() ? fabs(muon->innerTrack()->dz(vertex.position()))     : 999.9;
@@ -552,18 +540,16 @@ bool smurfselections::passMuonFO2012(const edm::View<reco::Muon>::const_iterator
     float kink  = muon->combinedQuality().trkKink;
 
     if (fabs(muon->eta()) > 2.4)    return false;
-    if (nLayers < 5)                return false;
+    if (nLayers <= 5)               return false;
     if (dz >= 0.1)                  return false;
-    if (d0 >= 0.02)                 return false;
+    if (d0 >= 0.2)                  return false;
     if (nValidPixelHits == 0)       return false;
     if (ptErr / muon->pt() > 0.1)   return false;
     if (kink > 20.0)                return false;
+    if (mvaValue <= -0.6)           return false;
     #ifdef RELEASE_52X
-    if (!muon->isPFMuon())          return false;   
-    #else
-    return false;
-    #endif 
-    
+    if (!muon->isPFMuon())          return false;
+    #endif
 
     bool goodGlobalMuon = true;
     if (muon->isGlobalMuon()) {
@@ -587,17 +573,21 @@ bool smurfselections::passMuonFO2012(const edm::View<reco::Muon>::const_iterator
 }
 
 bool smurfselections::passMuonID2012(const edm::View<reco::Muon>::const_iterator &muon,
+        const float &mvaValue,
         const reco::Vertex &vertex)
 {
 
     // muon must pass FO
-    if (!passMuonFO2012(muon, vertex))      return false;
+    if (!passMuonFO2012(muon, mvaValue, vertex))      return false;
         
     // only additional ID is tighter d0 cut
     const reco::TrackRef siTrack = muon->innerTrack();              
     float d0 = siTrack.isNonnull() ? fabs(muon->innerTrack()->dxy(vertex.position())) : 999.9;
-    if (muon->pt() > 20.0 && d0 >= 0.01)    return false;           
-    else if (d0 >= 0.02)                    return false;
+    if (muon->pt() > 20.0) { 
+        if (d0 >= 0.02)    return false;
+    } else {
+        if (d0 >= 0.01)    return false;
+    }
 
     // pass muon id
     return true;
@@ -609,11 +599,11 @@ bool smurfselections::passMuonIso2012(const edm::View<reco::Muon>::const_iterato
 {
     float eta = fabs(muon->eta());
     if (muon->pt() > 20.0) {
-        if      (eta < 1.479 && mvaValue < 0.82)   return false;
-        else if (               mvaValue < 0.86)   return false;
+        if      (eta < 1.479  && mvaValue <= 0.82)   return false;
+        else if (eta >= 1.479 && mvaValue <= 0.86)   return false;
     } else {        
-        if      (eta < 1.479 && mvaValue < 0.86)   return false;
-        else if (               mvaValue < 0.82)   return false;
+        if      (eta < 1.479  && mvaValue <= 0.86)   return false;
+        else if (eta >= 1.479 && mvaValue <= 0.82)   return false;
     }               
     return true;
 }
@@ -754,8 +744,6 @@ bool smurfselections::passMuonIsPOGTight(const edm::View<reco::Muon>::const_iter
     if (!muon->isGlobalMuon())                                              return false;
     #ifdef RELEASE_52X
     if (!muon->isPFMuon())                                                  return false;
-    #else
-    return false;
     #endif
     if (!muon->globalTrack().isNonnull())                                   return false;
     if (muon->globalTrack()->normalizedChi2() >= 10.)                       return false;

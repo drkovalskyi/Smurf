@@ -29,8 +29,6 @@ typedef math::XYZPoint Point;
 // utilities
 //
 
-float d0Vertex(const float &d0, const float &phi, const reco::Vertex &vertex);
-float dzVertex(const reco::Candidate &cand, const reco::Vertex &vertex);
 float electronIsoValuePF(const reco::PFCandidateCollection &pfCandCollection,
         const reco::GsfElectron& el, const reco::Vertex& vtx, 
         float coner, float minptn, float dzcut,
@@ -98,8 +96,10 @@ bool passElectronIso2012(const reco::GsfElectronRef &electron,
         const float &ea, const float &rho);
 
 bool passMuonFO2012(const edm::View<reco::Muon>::const_iterator &muon,
+        const float &mvaValue,
         const reco::Vertex &vertex);
 bool passMuonID2012(const edm::View<reco::Muon>::const_iterator &muon,
+        const float &mvaValue,
         const reco::Vertex &vertex);
 bool passMuonIso2012(const edm::View<reco::Muon>::const_iterator &muon,
         const float &mvaValue);
