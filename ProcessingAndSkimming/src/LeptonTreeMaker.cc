@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.38 2012/05/13 14:27:02 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.39 2012/05/13 14:29:53 dlevans Exp $
 //
 //
 
@@ -208,14 +208,10 @@ class LeptonTreeMaker : public edm::EDProducer {
 
         // electron id related
         ElectronIDMVA           *reader_electronHWW2011MVA_;
-        //ElectronIDMVA           *reader_electronHWW2011IDIsoMVA_;
         EGammaMvaEleEstimator   *reader_egammaPOG2012MVA_;
 
-        //MuonIDMVA               *reader_muonHWW2011IDIsoMVA_;
-        //MuonMVAEstimator        *reader_muonHZZ2012IDMVA_;
-        //MuonMVAEstimator        *reader_muonHZZ2012IDIsoRingsMVA_;
+        // muon id related
         MuonMVAEstimator        *reader_muonHZZ2012IsoRingsMVA_;
-        //MuonMVAEstimator        *reader_muonHZZ2012IsoDRMVA_;
 
         // common products
         double rhoIsoAll_;
@@ -365,16 +361,6 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
             cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet2HighPt_WithIPInfo_BDTG.weights.xml",                
             ElectronIDMVA::kWithIPInfo);
 
-    //reader_electronHWW2011IDIsoMVA_ = new ElectronIDMVA();
-    //reader_electronHWW2011IDIsoMVA_->Initialize("BDTG method",
-    //        cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet0LowPt_IDIsoCombined_BDTG.weights.xml",
-    //        cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet1LowPt_IDIsoCombined_BDTG.weights.xml",
-    //        cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet2LowPt_IDIsoCombined_BDTG.weights.xml",
-    //        cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet0HighPt_IDIsoCombined_BDTG.weights.xml",
-    //        cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet1HighPt_IDIsoCombined_BDTG.weights.xml",
-    //        cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/ElectronMVAWeights/Subdet2HighPt_IDIsoCombined_BDTG.weights.xml",
-    //        ElectronIDMVA::kIDIsoCombined);
-
     std::vector<std::string> myManualCatWeigthsTrig;
     myManualCatWeigthsTrig.push_back(cmssw_base+"/src/Smurf/ProcessingAndSkimming/data/Electrons_BDTG_TrigV0_Cat1.weights.xml");
     myManualCatWeigthsTrig.push_back(cmssw_base+"/src/Smurf/ProcessingAndSkimming/data/Electrons_BDTG_TrigV0_Cat2.weights.xml");
@@ -388,27 +374,6 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
             true,
             myManualCatWeigthsTrig);
 
-    //reader_muonHWW2011IDIsoMVA_ = new MuonIDMVA();
-    //reader_muonHWW2011IDIsoMVA_->Initialize("BDTG method",
-    //        cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/MuonMVAWeights/BarrelPtBin0_IDIsoCombined_BDTG.weights.xml",
-    //        cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/MuonMVAWeights/EndcapPtBin0_IDIsoCombined_BDTG.weights.xml",
-    //        cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/MuonMVAWeights/BarrelPtBin1_IDIsoCombined_BDTG.weights.xml",
-    //        cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/MuonMVAWeights/EndcapPtBin1_IDIsoCombined_BDTG.weights.xml",
-    //        cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/MuonMVAWeights/BarrelPtBin2_IDIsoCombined_BDTG.weights.xml",
-    //        cmssw_base+"/src/HiggsAnalysis/HiggsToWW2Leptons/data/MuonMVAWeights/EndcapPtBin2_IDIsoCombined_BDTG.weights.xml",
-    //        MuonIDMVA::kIDIsoCombinedDetIso);
-
-    // si/andrew ID
-    //std::vector<std::string> muonHZZ2012IDWeights;
-    //muonHZZ2012IDWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIDMVA_sixie-BarrelPt5To10_V0_BDTG.weights.xml");
-    //muonHZZ2012IDWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIDMVA_sixie-EndcapPt5To10_V0_BDTG.weights.xml");
-    //muonHZZ2012IDWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIDMVA_sixie-BarrelPt10ToInf_V0_BDTG.weights.xml");
-    //muonHZZ2012IDWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIDMVA_sixie-EndcapPt10ToInf_V0_BDTG.weights.xml");
-    //muonHZZ2012IDWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIDMVA_sixie-Tracker_V0_BDTG.weights.xml");
-    //muonHZZ2012IDWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIDMVA_sixie-Global_V0_BDTG.weights.xml");
-    //reader_muonHZZ2012IDMVA_ = new MuonMVAEstimator();
-    //reader_muonHZZ2012IDMVA_->initialize("muonHZZ2012IDMVA", MuonMVAEstimator::kID, true, muonHZZ2012IDWeights);
-
     // si/andrew Iso rings
     std::vector<std::string> muonHZZ2012IsoRingsWeights;
     muonHZZ2012IsoRingsWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIsoMVA_sixie-BarrelPt5To10_V0_BDTG.weights.xml");
@@ -420,25 +385,6 @@ LeptonTreeMaker::LeptonTreeMaker(const edm::ParameterSet& iConfig)
     reader_muonHZZ2012IsoRingsMVA_ = new MuonMVAEstimator();
     reader_muonHZZ2012IsoRingsMVA_->initialize("muonHZZ2012IsoRingsMVA", MuonMVAEstimator::kIsoRings, true, muonHZZ2012IsoRingsWeights);
 
-    // si/andrew ID+Iso rings combined
-    //std::vector<std::string> muonHZZ2012IDIsoRingsWeights;
-    //muonHZZ2012IDIsoRingsWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIDIsoCombinedMVA_V0_barrel_lowpt.weights.xml");
-    //muonHZZ2012IDIsoRingsWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIDIsoCombinedMVA_V0_endcap_lowpt.weights.xml");
-    //muonHZZ2012IDIsoRingsWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIDIsoCombinedMVA_V0_barrel_highpt.weights.xml");
-    //muonHZZ2012IDIsoRingsWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIDIsoCombinedMVA_V0_endcap_highpt.weights.xml");
-    //muonHZZ2012IDIsoRingsWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIDIsoCombinedMVA_V0_tracker.weights.xml");
-    //reader_muonHZZ2012IDIsoRingsMVA_ = new MuonMVAEstimator();
-    //reader_muonHZZ2012IDIsoRingsMVA_->initialize("muonHZZ2012IDIsoRingsMVA", MuonMVAEstimator::kIDIsoRingsCombined, true, muonHZZ2012IDIsoRingsWeights);
-
-    // Santiago Iso dR
-    //std::vector<std::string> muonHZZ2012IsoDRWeights;
-    //muonHZZ2012IsoDRWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIsoMVA_santi-V1_LB_BDT.weights.xml");
-    //muonHZZ2012IsoDRWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIsoMVA_santi-V1_LE_BDT.weights.xml");
-    //muonHZZ2012IsoDRWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIsoMVA_santi-V1_HB_BDT.weights.xml");
-    //muonHZZ2012IsoDRWeights.push_back(cmssw_base+"/src/Muon/MuonAnalysisTools/data/MuonIsoMVA_santi-V1_HE_BDT.weights.xml");
-    //reader_muonHZZ2012IsoDRMVA_ = new MuonMVAEstimator();
-    //reader_muonHZZ2012IsoDRMVA_->initialize("muonHZZ2012IsoDRMVA", MuonMVAEstimator::kIsoDeltaR, true, muonHZZ2012IsoDRWeights);
-
 }
 
 LeptonTreeMaker::~LeptonTreeMaker()
@@ -449,13 +395,8 @@ LeptonTreeMaker::~LeptonTreeMaker()
     //
 
     if (reader_electronHWW2011MVA_)         delete reader_electronHWW2011MVA_;
-    //if (reader_electronHWW2011IDIsoMVA_)    delete reader_electronHWW2011IDIsoMVA_;
     if (reader_egammaPOG2012MVA_)           delete reader_egammaPOG2012MVA_;
-    //if (reader_muonHWW2011IDIsoMVA_)        delete reader_muonHWW2011IDIsoMVA_;
-    //if (reader_muonHZZ2012IDMVA_)           delete reader_muonHZZ2012IDMVA_;
-    //if (reader_muonHZZ2012IDIsoRingsMVA_)   delete reader_muonHZZ2012IDIsoRingsMVA_;
     if (reader_muonHZZ2012IsoRingsMVA_)     delete reader_muonHZZ2012IsoRingsMVA_;
-    //if (reader_muonHZZ2012IsoDRMVA_)        delete reader_muonHZZ2012IsoDRMVA_;
     if (pfPileUpAlgo_)                      delete pfPileUpAlgo_;
 
     //
@@ -794,13 +735,8 @@ void LeptonTreeMaker::testMuonObjects(const edm::Event& iEvent, const edm::Event
         if (mu->pt() < 10.0)        continue;
         if (fabs(mu->eta()) > 2.4)  continue;
 
-        //std::cout << "==== computing MVA value ===" << std::endl;
         float ringsMVA = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*mu, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-        //std::cout << "=== done ===" << std::endl;
-
-        //float drMVA    = reader_muonHZZ2012IsoDRMVA_->mvaValue(*mu, pfNoPUCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC);
-        //float drMVA    = reader_muonHZZ2012IsoDRMVA_->mvaValue(*mu, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-        bool id        = smurfselections::passMuonID2012(mu, pv_);
+        bool id        = smurfselections::passMuonID2012(mu, ringsMVA, pv_);
 
         printf("%u %u %u : ", iEvent.id().run(), iEvent.luminosityBlock(), iEvent.id().event());
         printf("pt, eta = %4.4f, %4.4f :\t", mu->pt(), mu->eta());
@@ -810,7 +746,6 @@ void LeptonTreeMaker::testMuonObjects(const edm::Event& iEvent, const edm::Event
 
         leptonTree_->probe_ = mu->p4();
         leptonTree_->muonHZZ2012IsoRingsMVA_ = ringsMVA;
-        //leptonTree_->muonHZZ2012IsoDRMVA_ = drMVA;
         leptonTree_->tree_->Fill();
     }
 
@@ -901,7 +836,6 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
 
             mvaValue                               = reader_electronHWW2011MVA_->MVAValue(&*probe, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
             leptonTree_->electronHWW2011MVA_       = mvaValue;
-            //leptonTree_->electronHWW2011IDIsoMVA_  = reader_electronHWW2011IDIsoMVA_->MVAValue(&*probe, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
             leptonTree_->egammaPOG2012MVA_         = reader_egammaPOG2012MVA_->mvaValue(*probe, pv_, *ttBuilder, *clusterTools, false);
 
             // pf isolation
@@ -955,7 +889,7 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
             if (smurfselections::passElectronID2012(probe, pv_, thebs.position(), conversions_h, mvaValue))
                 leptonTree_->leptonSelection_ |= (LeptonTree::PassEleIDICHEP2012);
             if (smurfselections::passElectronIso2012(probe, 
-                leptonTree_->pfchiso03_, leptonTree_->pfemiso04_, 
+                leptonTree_->pfchiso04_, leptonTree_->pfemiso04_, 
                 leptonTree_->pfnhiso04_, leptonTree_->ea04_, rhoIsoAll_))
                 leptonTree_->leptonSelection_ |= (LeptonTree::PassEleIsoICHEP2012);
 
@@ -967,6 +901,8 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
             leptonTree_->detain_    = probe->deltaEtaSuperClusterTrackAtVtx();
             leptonTree_->dphiin_    = probe->deltaPhiSuperClusterTrackAtVtx();
             leptonTree_->sieie_     = probe->sigmaIetaIeta();
+            leptonTree_->fbrem_     = probe->fbrem();
+            leptonTree_->eopin_     = probe->eSuperClusterOverP();
             leptonTree_->hoe_       = probe->hadronicOverEm();
             #ifdef RELEASE_52X
             leptonTree_->hoetow_     = probe->hcalOverEcalBc();
@@ -1036,11 +972,11 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
         if (fabs(tag->eta()) > 2.4) continue;
 
         // 2012 ID selection
-        if (!smurfselections::passMuonID2012(tag, pv_))   continue;
+        float mvaValue = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*tag, pv_, pfCandCollection_,
+            rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
+        if (!smurfselections::passMuonID2012(tag, mvaValue, pv_))   continue;
 
         // 2012 Iso selection
-        float mvaValue = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*tag, pv_, pfCandCollection_, 
-            rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
         if (!smurfselections::passMuonIso2012(tag, mvaValue))  continue;
 
         // if real data
@@ -1075,29 +1011,30 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
             leptonTree_->pfnhiso04_      = probe->pfIsolationR04().sumNeutralHadronEt;
             leptonTree_->dbeta03_        = probe->pfIsolationR03().sumPUPt;
             leptonTree_->dbeta04_        = probe->pfIsolationR04().sumPUPt;
-            #endif RELEASE_52X
+            #endif
             leptonTree_->radiso03_       = smurfselections::getMuonRadialIsolation(*probe, pfNoPUCandCollection_, 0.3);
             leptonTree_->radiso04_       = smurfselections::getMuonRadialIsolation(*probe, pfNoPUCandCollection_, 0.4);
-            leptonTree_->iso2011_            = smurfselections::muonIsoValuePF(pfCandCollection_, *probe, pv_, 0.3, 1.0, 0.1, 0);
+            leptonTree_->iso2011_        = smurfselections::muonIsoValuePF(pfCandCollection_, *probe, pv_, 0.3, 1.0, 0.1, 0);
             leptonTree_->eaem04_         = MuonEffectiveArea::GetMuonEffectiveArea(MuonEffectiveArea::kMuGammaIso04, probe->p4().eta(), MuonEffectiveArea::kMuEAData2012);
             leptonTree_->eanh04_         = MuonEffectiveArea::GetMuonEffectiveArea(MuonEffectiveArea::kMuNeutralHadronIso04, probe->p4().eta(), MuonEffectiveArea::kMuEAData2012);
 
-            //leptonTree_->muonHWW2011IDIsoMVA_       = reader_muonHWW2011IDIsoMVA_->MVAValue(&*probe, pv_, ttBuilder, rhoIsoAll_, false);
-            //leptonTree_->muonHZZ2012IDMVA_          = reader_muonHZZ2012IDMVA_->mvaValue(*probe, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-            //leptonTree_->muonHZZ2012IDIsoRingsMVA_  = reader_muonHZZ2012IDIsoRingsMVA_->mvaValue(*probe, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-            leptonTree_->muonHZZ2012IsoRingsMVA_    = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*probe, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-            //leptonTree_->muonHZZ2012IsoDRMVA_       = reader_muonHZZ2012IsoDRMVA_->mvaValue(*probe, pfNoPUCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC);
+            leptonTree_->muonHZZ2012IsoRingsMVA_    = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*probe, pv_, pfCandCollection_, rhoIsoAll_, 
+                MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
 
             if (smurfselections::passMuonFO2011(probe, pfCandCollection_, pv_))  leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFO);
             if (smurfselections::passMuonID2011(probe, pfCandCollection_, pv_))  leptonTree_->leptonSelection_ |= (LeptonTree::PassMuID);
             if (smurfselections::passMuonIso2011(probe, pfCandCollection_, pv_)) leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIso);
-            if (smurfselections::passMuonFO2012(probe, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFOICHEP2012);
-            if (smurfselections::passMuonID2012(probe, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIDICHEP2012);
+            if (smurfselections::passMuonFO2012(probe, 
+                leptonTree_->muonHZZ2012IsoRingsMVA_,pv_))                       leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFOICHEP2012);
+            if (smurfselections::passMuonID2012(probe, 
+                leptonTree_->muonHZZ2012IsoRingsMVA_, pv_))                      leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIDICHEP2012);
             if (smurfselections::passMuonIso2012(probe, 
                 leptonTree_->muonHZZ2012IsoRingsMVA_))                           leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsoICHEP2012);
             if (smurfselections::passMuonIsPOGTight(probe, pv_))                 leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsPOGTight);
             if (smurfselections::passMuonIsPOGSoft(probe, pv_))                  leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsPOGSoft);
             if (smurfselections::passMuonHPASameSign(probe, pv_))                leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsHPASS);
+            if (probe->isTrackerMuon())                                          leptonTree_->leptonSelection_ |= (LeptonTree::PassMuTrackerMuon);
+            if (probe->isGlobalMuon())                                           leptonTree_->leptonSelection_ |= (LeptonTree::PassMuGlobalMuon);
             #ifdef RELEASE_52X
             if (probe->isPFMuon())                                               leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsPF);
             #endif
@@ -1160,7 +1097,7 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         reco::GsfElectronRef ele(els_h, iele);
         if (ele->pt()        < 10.0) continue;
         if (fabs(ele->eta()) > 2.4)  continue;
-        if (!smurfselections::passElectronFO2011(ele, pv_, thebs.position(), conversions_h)) continue;
+        if (!smurfselections::passElectronFO2012(ele, pv_, thebs.position(), conversions_h)) continue;
         ++nFO;
         fo = ele;
     }
@@ -1189,7 +1126,6 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
 
         float mvaValue                         = reader_electronHWW2011MVA_->MVAValue(&*fo, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
         leptonTree_->electronHWW2011MVA_       = mvaValue;
-        //leptonTree_->electronHWW2011IDIsoMVA_  = reader_electronHWW2011IDIsoMVA_->MVAValue(&*fo, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
         leptonTree_->egammaPOG2012MVA_         = reader_egammaPOG2012MVA_->mvaValue(*fo, pv_, *ttBuilder, *clusterTools);
 
         // pf isolation
@@ -1243,7 +1179,7 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         if (smurfselections::passElectronID2012(fo, pv_, thebs.position(), conversions_h, mvaValue))
             leptonTree_->leptonSelection_ |= (LeptonTree::PassEleIDICHEP2012);
         if (smurfselections::passElectronIso2012(fo,
-            leptonTree_->pfchiso03_, leptonTree_->pfemiso04_,
+            leptonTree_->pfchiso04_, leptonTree_->pfemiso04_,
             leptonTree_->pfnhiso04_, leptonTree_->ea04_, rhoIsoAll_))
             leptonTree_->leptonSelection_ |= (LeptonTree::PassEleIsoICHEP2012);
 
@@ -1254,6 +1190,8 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         leptonTree_->detain_    = fo->deltaEtaSuperClusterTrackAtVtx();
         leptonTree_->dphiin_    = fo->deltaPhiSuperClusterTrackAtVtx();
         leptonTree_->sieie_     = fo->sigmaIetaIeta();
+        leptonTree_->fbrem_     = fo->fbrem();
+        leptonTree_->eopin_     = fo->eSuperClusterOverP();
         leptonTree_->hoe_       = fo->hadronicOverEm();
         #ifdef RELEASE_52X
         leptonTree_->hoetow_     = fo->hcalOverEcalBc();
@@ -1294,11 +1232,15 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
     // look for a good FO
     edm::View<reco::Muon>::const_iterator it;
     edm::View<reco::Muon>::const_iterator fo;
+    const reco::GsfElectronCollection nullEls;
+    const reco::MuonCollection nullMus;
     unsigned int nFO = 0;
     for (it = muonCollection.begin(); it != muonCollection.end(); ++it) {
         if (it->pt()        < 10.0) continue;
         if (fabs(it->eta()) > 2.4)  continue;
-        if (!smurfselections::passMuonFO2011(it, pfCandCollection_, pv_)) continue;
+        float mvaValue = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*it, pv_, pfCandCollection_, rhoIsoAll_, 
+            MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
+        if (!smurfselections::passMuonFO2012(it, mvaValue, pv_)) continue;
         ++nFO;
         fo = it;
     }
@@ -1341,24 +1283,23 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
         leptonTree_->eaem04_         = MuonEffectiveArea::GetMuonEffectiveArea(MuonEffectiveArea::kMuGammaIso04, fo->p4().eta(), MuonEffectiveArea::kMuEAData2012);
         leptonTree_->eanh04_         = MuonEffectiveArea::GetMuonEffectiveArea(MuonEffectiveArea::kMuNeutralHadronIso04, fo->p4().eta(), MuonEffectiveArea::kMuEAData2012);
 
-        const reco::GsfElectronCollection nullEls;
-        const reco::MuonCollection nullMus;
-        //leptonTree_->muonHWW2011IDIsoMVA_       = reader_muonHWW2011IDIsoMVA_->MVAValue(&*fo, pv_, ttBuilder, rhoIsoAll_, false);
-        //leptonTree_->muonHZZ2012IDMVA_          = reader_muonHZZ2012IDMVA_->mvaValue(*fo, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-        //leptonTree_->muonHZZ2012IDIsoRingsMVA_  = reader_muonHZZ2012IDIsoRingsMVA_->mvaValue(*fo, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-        leptonTree_->muonHZZ2012IsoRingsMVA_    = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*fo, pv_, pfCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
-        //leptonTree_->muonHZZ2012IsoDRMVA_       = reader_muonHZZ2012IsoDRMVA_->mvaValue(*fo, pfNoPUCandCollection_, rhoIsoAll_, MuonEffectiveArea::kMuEAFall11MC);
+        leptonTree_->muonHZZ2012IsoRingsMVA_    = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*fo, pv_, pfCandCollection_, rhoIsoAll_, 
+            MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
 
         leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFO);
         if (smurfselections::passMuonID2011(fo, pfCandCollection_, pv_))  leptonTree_->leptonSelection_ |= (LeptonTree::PassMuID);
         if (smurfselections::passMuonIso2011(fo, pfCandCollection_, pv_)) leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIso);
-        if (smurfselections::passMuonFO2012(fo, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFOICHEP2012);
-        if (smurfselections::passMuonID2012(fo, pv_))                     leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIDICHEP2012);
+        if (smurfselections::passMuonFO2012(fo, 
+            leptonTree_->muonHZZ2012IsoRingsMVA_, pv_))                   leptonTree_->leptonSelection_ |= (LeptonTree::PassMuFOICHEP2012);
+        if (smurfselections::passMuonID2012(fo, 
+            leptonTree_->muonHZZ2012IsoRingsMVA_, pv_))                   leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIDICHEP2012);
         if (smurfselections::passMuonIso2012(fo, 
             leptonTree_->muonHZZ2012IsoRingsMVA_))                        leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsoICHEP2012);
         if (smurfselections::passMuonIsPOGTight(fo, pv_))                 leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsPOGTight);
         if (smurfselections::passMuonIsPOGSoft(fo, pv_))                  leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsPOGSoft);
         if (smurfselections::passMuonHPASameSign(fo, pv_))                leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsHPASS);
+        if (fo->isTrackerMuon())                                          leptonTree_->leptonSelection_ |= (LeptonTree::PassMuTrackerMuon);
+        if (fo->isGlobalMuon())                                           leptonTree_->leptonSelection_ |= (LeptonTree::PassMuGlobalMuon);
         #ifdef RELEASE_52X
         if (fo->isPFMuon())                                               leptonTree_->leptonSelection_ |= (LeptonTree::PassMuIsPF);
         #endif
