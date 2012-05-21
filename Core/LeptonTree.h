@@ -33,19 +33,20 @@ class LeptonTree {
             PassEleIDICHEP2012              = 1UL<<6,  // 
             PassEleIsoICHEP2012             = 1UL<<7,  //
             PassMuCTFTrack                  = 1UL<<8,  // 
-            PassMuGlobalOrTrackerMuon       = 1UL<<9,  // 
-            PassMuIsPF                      = 1UL<<10,  //
-            PassMuIsHPASS                   = 1UL<<11,  //
-            PassMuIsPOGTight                = 1UL<<12,  //
-            PassMuIsPOGSoft                 = 1UL<<13,  //
-            PassMuFO                        = 1UL<<14, //
-            PassMuID                        = 1UL<<15, //
-            PassMuIso                       = 1UL<<16, //
-            PassMuFOICHEP2012               = 1UL<<17, //
-            PassMuIDICHEP2012               = 1UL<<18, //
-            PassMuIsoICHEP2012              = 1UL<<19, //
-            PassPhotonID                    = 1UL<<20, //
-            PassPhotonIso                   = 1UL<<21  //
+            PassMuGlobalMuon                = 1UL<<9,  // 
+            PassMuTrackerMuon               = 1UL<<10, //
+            PassMuIsPF                      = 1UL<<11,  //
+            PassMuIsHPASS                   = 1UL<<12,  //
+            PassMuIsPOGTight                = 1UL<<13,  //
+            PassMuIsPOGSoft                 = 1UL<<14,  //
+            PassMuFO                        = 1UL<<15, //
+            PassMuID                        = 1UL<<16, //
+            PassMuIso                       = 1UL<<17, //
+            PassMuFOICHEP2012               = 1UL<<18, //
+            PassMuIDICHEP2012               = 1UL<<19, //
+            PassMuIsoICHEP2012              = 1UL<<20, //
+            PassPhotonID                    = 1UL<<21, //
+            PassPhotonIso                   = 1UL<<22  //
         };
 
         enum EventSelection {
@@ -100,15 +101,10 @@ class LeptonTree {
 
         // Electron MVAs
         float electronHWW2011MVA_;          // 2011
-        float electronHWW2011IDIsoMVA_;     // si thesis
         float egammaPOG2012MVA_;            // egamma
 
         // Muon MVAs
-        float muonHWW2011IDIsoMVA_;         // si thesis
-        float muonHZZ2012IDMVA_;            // 2012 4l id (si/andrew)
-        float muonHZZ2012IDIsoRingsMVA_;    // 2012 4l combined (si/andrew)
         float muonHZZ2012IsoRingsMVA_;      // 2012 4l mva rings (si/andrew))
-        float muonHZZ2012IsoDRMVA_;         // 2012 mva dR (santiago)
 
         //
         // for electron studies with new data
@@ -180,7 +176,10 @@ class LeptonTree {
         LeptonTree() : tagPtr_(&tag_), probePtr_(&probe_) {}
         /// default destructor
         ~LeptonTree(){ 
+std::cout << "~LeptonTree()" << std::endl;
             if (f_) f_->Close();  
+std::cout << "~LeptonTree() done" << std::endl;
+
         };
 
         /// initialize varibles and fill list of available variables
@@ -233,13 +232,8 @@ class LeptonTree {
             tree_->Branch("mt"            , &mt_            ,   "mt/F");
             tree_->Branch("dPhiProbeJet1"            , &dPhiProbeJet1_            ,   "dPhiProbeJet1/F");
             tree_->Branch("electronHWW2011MVA"      , &electronHWW2011MVA_      ,   "electronHWW2011MVA/F");
-            tree_->Branch("electronHWW2011IDIsoMVA"      , &electronHWW2011IDIsoMVA_      ,   "electronHWW2011IDIsoMVA/F");
             tree_->Branch("egammaPOG2012MVA"        , &egammaPOG2012MVA_        ,   "egammaPOG2012MVA/F");
-            tree_->Branch("muonHWW2011IDIsoMVA"          , &muonHWW2011IDIsoMVA_          ,   "muonHWW2011IDIsoMVA/F");
-            tree_->Branch("muonHZZ2012IDMVA"        , &muonHZZ2012IDMVA_        ,   "muonHZZ2012IDMVA/F");
-            tree_->Branch("muonHZZ2012IDIsoRingsMVA"        , &muonHZZ2012IDIsoRingsMVA_        ,   "muonHZZ2012IDIsoRingsMVA/F");
             tree_->Branch("muonHZZ2012IsoRingsMVA"        , &muonHZZ2012IsoRingsMVA_        ,   "muonHZZ2012IsoRingsMVA/F");
-            tree_->Branch("muonHZZ2012IsoDRMVA"        , &muonHZZ2012IsoDRMVA_        ,   "muonHZZ2012IsoDRMVA/F");
 
             // extra branches for electron ID studies
             tree_->Branch("vetoId"           , &vetoId_           ,   "vetoId/i");
@@ -337,13 +331,8 @@ class LeptonTree {
             tree_->SetBranchAddress("dPhiProbeJet1",            &dPhiProbeJet1_);
 
             tree_->SetBranchAddress("electronHWW2011MVA",      &electronHWW2011MVA_);
-            tree_->SetBranchAddress("electronHWW2011IDIsoMVA",      &electronHWW2011IDIsoMVA_);
             tree_->SetBranchAddress("egammaPOG2012MVA",        &egammaPOG2012MVA_);
-            tree_->SetBranchAddress("muonHWW2011IDIsoMVA",          &muonHWW2011IDIsoMVA_);
-            tree_->SetBranchAddress("muonHZZ2012IDIsoRingsMVA",   &muonHZZ2012IDIsoRingsMVA_);
-            tree_->SetBranchAddress("muonHZZ2012IDMVA",   &muonHZZ2012IDMVA_);
             tree_->SetBranchAddress("muonHZZ2012IsoRingsMVA",   &muonHZZ2012IsoRingsMVA_);
-            tree_->SetBranchAddress("muonHZZ2012IsoDRMVA",   &muonHZZ2012IsoDRMVA_);
 
             tree_->SetBranchAddress("vetoId",            &vetoId_);
             tree_->SetBranchAddress("looseId",            &looseId_);
@@ -448,13 +437,8 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("mt"            ));
         variables_.push_back(std::string("dPhiProbeJet1"            ));;
         variables_.push_back(std::string("electronHWW2011MVA"      ));
-        variables_.push_back(std::string("electronHWW2011IDIsoMVA" ));    
         variables_.push_back(std::string("egammaPOG2012MVA"        ));
-        variables_.push_back(std::string("muonHWW2011MVA"          ));
-        variables_.push_back(std::string("muonHZZ2012IDMVA"        ));
-        variables_.push_back(std::string("muonHZZ2012IDIsoRingsMVA"        ));
         variables_.push_back(std::string("muonHZZ2012IsoRingsMVA"        ));
-        variables_.push_back(std::string("muonHZZ2012IsoDRMVA"        ));
 
         variables_.push_back(std::string("vetoId"));
         variables_.push_back(std::string("looseId"));
@@ -540,14 +524,8 @@ LeptonTree::InitVariables(){
     dPhiProbeJet1_        = -999;
 
     electronHWW2011MVA_          = -999;
-    electronHWW2011IDIsoMVA_     = -999;
     egammaPOG2012MVA_            = -999;
-
-    muonHWW2011IDIsoMVA_         = -999;
-    muonHZZ2012IDMVA_              = -999;
-    muonHZZ2012IDIsoRingsMVA_              = -999;
     muonHZZ2012IsoRingsMVA_              = -999;
-    muonHZZ2012IsoDRMVA_              = -999;
 
     vetoId_ = 0;
     looseId_ = 0;
