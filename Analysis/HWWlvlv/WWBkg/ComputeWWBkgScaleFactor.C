@@ -262,20 +262,20 @@ void ComputeWWBkgScaleFactor (
 
 	bool   passMET = TMath::Min(pmet,pTrackMet) > 20.;
 	if(mH[imass] > 140){
-	  if     (njets_ == 0) passMET = passMET && (TMath::Min(pmet,pTrackMet) > 45. || type == SmurfTree::em || type == SmurfTree::me);
-	  else if(njets_ == 1) passMET = passMET && (TMath::Min(pmet,pTrackMet) > 45. || type == SmurfTree::em || type == SmurfTree::me);
-	  else                 passMET = passMET && (met > 45.0 || type == SmurfTree::em || type == SmurfTree::me);
+	  if     (njets == 0) passMET = passMET && (TMath::Min(pmet,pTrackMet) > 45. || type == SmurfTree::em || type == SmurfTree::me);
+	  else if(njets == 1) passMET = passMET && (TMath::Min(pmet,pTrackMet) > 45. || type == SmurfTree::em || type == SmurfTree::me);
+	  else                passMET = passMET && (met > 45.0 || type == SmurfTree::em || type == SmurfTree::me);
 	} else {
-	  if     (njets_ == 0) passMET = passMET && (dymva >  0.60 || type == SmurfTree::em || type == SmurfTree::me);
-	  else if(njets_ == 1) passMET = passMET && (dymva >  0.30 || type == SmurfTree::em || type == SmurfTree::me);
-	  else                 passMET = passMET && (met > 45.0 || type == SmurfTree::em || type == SmurfTree::me);
+	  if     (njets == 0) passMET = passMET && (dymva >  0.60 || type == SmurfTree::em || type == SmurfTree::me);
+	  else if(njets == 1) passMET = passMET && (dymva >  0.30 || type == SmurfTree::em || type == SmurfTree::me);
+	  else                passMET = passMET && (met > 45.0 || type == SmurfTree::em || type == SmurfTree::me);
 	}
 	bool dPhiDiLepJetCut = true;
 	if(mH[imass] > 140){
           if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
           else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
 	}
-	if(njets_ >= 2) dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+	if(njets >= 2) dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
         passMET = passMET && dPhiDiLepJetCut;
 
         Bool_t passMassCut = kFALSE;        
@@ -384,10 +384,6 @@ void ComputeWWBkgScaleFactor (
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & SmurfTree::TopTag) == SmurfTree::TopTag                  ) continue; // cut on btagging
-
-    bool dPhiDiLepJetCut = true;
-    if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
-    else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
 
     int BkgType = 0;
     if(dstype == SmurfTree::qqww                 ) BkgType = 0;
@@ -508,20 +504,20 @@ void ComputeWWBkgScaleFactor (
 
 	bool   passMET = TMath::Min(pmet,pTrackMet) > 20.;
 	if(mH[imass] > 140){
-	  if     (njets_ == 0) passMET = passMET && (TMath::Min(pmet,pTrackMet) > 45. || type == SmurfTree::em || type == SmurfTree::me);
-	  else if(njets_ == 1) passMET = passMET && (TMath::Min(pmet,pTrackMet) > 45. || type == SmurfTree::em || type == SmurfTree::me);
-	  else                 passMET = passMET && (met > 45.0 || type == SmurfTree::em || type == SmurfTree::me);
+	  if     (njets == 0) passMET = passMET && (TMath::Min(pmet,pTrackMet) > 45. || type == SmurfTree::em || type == SmurfTree::me);
+	  else if(njets == 1) passMET = passMET && (TMath::Min(pmet,pTrackMet) > 45. || type == SmurfTree::em || type == SmurfTree::me);
+	  else                passMET = passMET && (met > 45.0 || type == SmurfTree::em || type == SmurfTree::me);
 	} else {
-	  if     (njets_ == 0) passMET = passMET && (dymva >  0.60 || type == SmurfTree::em || type == SmurfTree::me);
-	  else if(njets_ == 1) passMET = passMET && (dymva >  0.30 || type == SmurfTree::em || type == SmurfTree::me);
-	  else                 passMET = passMET && (met > 45.0 || type == SmurfTree::em || type == SmurfTree::me);
+	  if     (njets == 0) passMET = passMET && (dymva >  0.60 || type == SmurfTree::em || type == SmurfTree::me);
+	  else if(njets == 1) passMET = passMET && (dymva >  0.30 || type == SmurfTree::em || type == SmurfTree::me);
+	  else                passMET = passMET && (met > 45.0 || type == SmurfTree::em || type == SmurfTree::me);
 	}
 	bool dPhiDiLepJetCut = true;
 	if(mH[imass] > 140){
           if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
           else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
 	}
-	if(njets_ >= 2) dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+	if(njets >= 2) dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
         passMET = passMET && dPhiDiLepJetCut;
 
         Bool_t passMassCut = kFALSE;        

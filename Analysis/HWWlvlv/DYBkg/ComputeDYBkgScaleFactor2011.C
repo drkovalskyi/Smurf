@@ -20,7 +20,6 @@
 #include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h"
 #include "Smurf/Analysis/HWWlvlv/WWBkgScaleFactors.h"
 #include "Smurf/Analysis/HWWlvlv/HWWCuts.h"
-#include "Smurf/Analysis/HWWlvlv/factors.h"
 #endif
 
 static const unsigned int basic_selection = SmurfTree::BaseLine | 
@@ -50,8 +49,8 @@ Double_t computeSyst(const TH1F *hout, const TH1F *hin, Int_t binUsed);
 // --- MassCutHigh : higher mass cut with respect to z pole mass
 //
 
-void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t useRecoilModel = kFALSE, Int_t ZWindowSubtractionMethod = 0, 
-                             Double_t MassCutLow = 7.5, Double_t MassCutHigh = 7.5)
+void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFALSE, Int_t ZWindowSubtractionMethod = 0, 
+                                 Double_t MassCutLow = 7.5, Double_t MassCutHigh = 7.5)
 {
 
   //*******************************************************
@@ -70,9 +69,32 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t
   Int_t nmet = 1;
   if(useRecoilModel) nmet = 100;
 
-  if     (period == 0){ // Full2011-Fall11-V9
-    lumi = 0.9;minRun =      0;maxRun = 999999;
-    filesPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_noweights";
+  if     (period == 0){ // Run2011A
+    //lumi = 2.1;minRun =      0;maxRun = 173692;
+    lumi = 1.1;minRun =      0;maxRun = 167913;
+    filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Run2011A";
+  }
+  else if(period == 1){ // Run2011B
+    //lumi = 1.9;minRun = 173693;maxRun = 999999;
+    //filesPath  = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Run2011B";
+    lumi = 3.6;minRun = 167914;maxRun = 999999;
+    filesPath  = "/data/smurf/data/Run2011_Summer11_SmurfV7_42X/mitf-alljets";
+  }
+  else if(period == 2){ // Full2011
+    lumi = 4.924;minRun =      0;maxRun = 999999;
+    filesPath  = "/data/smurf/data/Run2011_Summer11_SmurfV7_42X/mitf-alljets";
+  }
+  else if(period == 3){ // Full2011-Fall11-V7
+    lumi = 4.924;minRun =      0;maxRun = 999999;
+    filesPath  = "/data/smurf/data/Run2011_Fall11_SmurfV7_42X/mitf-alljets";
+  }
+  else if(period == 4){ // Full2011-Fall11-V8
+    lumi = 4.924;minRun =      0;maxRun = 999999;
+    filesPath  = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/mitf-alljets";
+  }
+  else if(period == 5){ // Full2011-Fall11-V9
+    lumi = 4.924;minRun =      0;maxRun = 999999;
+    filesPath  = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/mitf-alljets";
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -87,11 +109,12 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t
   infilenamev.push_back(Form("%s/data.root",filesPath.Data()));
 
   if (ZWindowSubtractionMethod == 0) {
-   infilenamev.push_back(Form("%s/dyll.root",filesPath.Data()));
+   infilenamev.push_back(Form("%s/dyee.root",filesPath.Data()));
+   infilenamev.push_back(Form("%s/dymm.root",filesPath.Data()));
    infilenamev.push_back(Form("%s/wz.root",filesPath.Data()));
-   infilenamev.push_back(Form("%s/zz.root",filesPath.Data()));
+   infilenamev.push_back(Form("%s/zz_py.root",filesPath.Data()));
   } else if (ZWindowSubtractionMethod == 1) {
-    infilenamev.push_back(Form("%s/backgroundA.root",filesPath.Data()));
+    infilenamev.push_back(Form("%s/backgroundD.root",filesPath.Data()));
   }
 
   //*******************************************************
@@ -111,8 +134,11 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t
   const Double_t mZ = 91.1876;
   
   const Int_t nbins = 4;  
-  Float_t bins[nbins+1];
+  const Float_t bins[nbins+1] = {20, 25, 30, 37, 50};  
 
+  vector<Double_t> binEdges;
+  for (UInt_t k=0; k<nbins+1; ++k) binEdges.push_back(bins[k]);
+  
   const Int_t nmass = 19;
   const Double_t mH[nmass] = {0,115,118,120,122,124,126,128,130,135,140,150,160,170,180,190,200,250,300};  
     
@@ -162,20 +188,6 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t
 
     char hname[50];
     for(Int_t imass=0; imass<nmass; imass++) {
-      if     (useDYMVA == kTRUE){
-        if     (jetIndex == 0){
-	  bins[0] = -0.90; bins[1] = -0.85; bins[2] = -0.60; bins[3] =  0.60; bins[4] = 1.0; 
-	}
-	else if(jetIndex == 0){
-	  bins[0] = -0.90; bins[1] = -0.85; bins[2] = -0.60; bins[3] =  0.30; bins[4] = 1.0; 
-	}
-	else if(jetIndex == 0){
-	  bins[0] = 20; bins[1] = 25; bins[2] = 30; bins[3] =  45; bins[4] = 50; 
-	}
-      } else {
-	bins[0] = 20; bins[1] = 25; bins[2] = 30; bins[0] =  45; bins[4] = 50; 
-      }
-
       sprintf(hname,"hNin_%iJet_ree_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_ree_mc.push_back(new TH1F(hname,"",nbins,bins));  tmp_hNin_ree_mc[imass]->Sumw2();
       sprintf(hname,"hNout_%iJet_ree_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]); tmp_hNout_ree_mc.push_back(new TH1F(hname,"",nbins,bins)); tmp_hNout_ree_mc[imass]->Sumw2();
       sprintf(hname,"hNin_%iJet_rmm_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_rmm_mc.push_back(new TH1F(hname,"",nbins,bins));  tmp_hNin_rmm_mc[imass]->Sumw2();
@@ -263,8 +275,6 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t
     cout << "Processing " << infilenamev[ifile] << "..." << endl;
     tree.LoadTree(infilenamev[ifile]);
     tree.InitTree(0);
-    Float_t dymva = -100.0;
-    tree.tree_->SetBranchAddress(Form("dymva"), &dymva);
     
     for(UInt_t ientry = 0; ientry <tree.tree_->GetEntries(); ientry++){
       tree.tree_->GetEntry(ientry);
@@ -282,6 +292,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t
       if(!((tree.cuts_ & SmurfTree::ChargeMatch) == SmurfTree::ChargeMatch)      ) continue;
       if( (tree.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
       if( !((tree.cuts_ & SmurfTree::TopVeto) == SmurfTree::TopVeto)             ) continue; // cut on btagging
+      if(tree.dilep_.M() < 20) continue;
         
       Int_t ijet = tree.njets_;
       if(ijet >= 2){
@@ -291,12 +302,15 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t
     	  (tree.jet2_.Eta()-tree.jet3_.Eta() > 0 && tree.jet1_.Eta()-tree.jet3_.Eta() < 0)))   ijet = 3;
         else							                               ijet = 2;
         if(tree.njets_ < 2 || tree.njets_ > 3)                                                 ijet = 3;
+
+	if(TMath::Abs(tree.jet1_.Eta()) >= 4.5 ||TMath::Abs(tree.jet2_.Eta()) >= 4.5)          ijet = 3;
       }
       if(ijet>2) continue;
 
       if(tree.lep1_.Pt() < 20) continue;
       if(tree.lep2_.Pt() < ptLepMin) continue;
  
+
       //*******************************************************
       //Classify background type
       //*******************************************************          
@@ -318,6 +332,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t
       if(tree.dstype_ == SmurfTree::wgamma          )  ProcessType = 4; //wgamma
             
       Double_t weight = 1;
+      Double_t weightSystematicError = 0;
       //*******************************************************
       //Handle Fake Bkg
       //*******************************************************          
@@ -372,9 +387,9 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t
       //*******************************************************          
       //Top Scale Factors
       if(ProcessType == 2) {
-    	if(tree.njets_ == 0) { weight=weight*TopBkgScaleFactor(0); }
-    	if(tree.njets_ == 1) { weight=weight*TopBkgScaleFactor(1); }
-    	if(tree.njets_ >= 2) { weight=weight*TopBkgScaleFactor(2); }
+    	if(tree.njets_ == 0) { weight=weight*TopBkgScaleFactor(0); weightSystematicError = (1.0 - TopBkgScaleFactorKappa(0)); }
+    	if(tree.njets_ == 1) { weight=weight*TopBkgScaleFactor(1); weightSystematicError = (1.0 - TopBkgScaleFactorKappa(1)); }
+    	if(tree.njets_ >= 2) { weight=weight*TopBkgScaleFactor(2); weightSystematicError = (1.0 - TopBkgScaleFactorKappa(2)); }
       }
       //WW Scale Factors
       if(ProcessType == 0) {
@@ -398,6 +413,13 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t
         if(finalState==kEleEle) nin_kee_data[ijet]++;
         if(finalState==kMuMu)	nin_kmm_data[ijet]++;
       }
+      
+      bool dPhiDiLepJetCut = true;
+      if(tree.njets_ <= 1) 
+        dPhiDiLepJetCut = ( tree.jet1_.Pt() <= 15. || tree.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. );
+      else                 
+        dPhiDiLepJetCut = ( acos(cos(((tree.jet1_+tree.jet2_).phi() - tree.dilep_.phi())))*180.0/TMath::Pi() < 165.);
+      if( dPhiDiLepJetCut == false ) continue; // cut on dPhiDiLepJetCut
       
       //For Z->mm/ee MC
       if(tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm) {
@@ -423,80 +445,55 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t
     
 	    if(tree.lep1_.Pt() < cutPtMaxLow(mH[imass])) continue;
 	    if(tree.lep2_.Pt() < cutPtMinLow(mH[imass],0)) continue;
-	    if(tree.dilep_.Pt() <= 45.0) continue;
-	    if(minmet <= 20.0) continue;
+	    if(tree.dilep_.Pt() < 45.0) continue;
 	
  	    if(tree.dPhi_ > cutDeltaphiHigh(mH[imass])*TMath::Pi()/180.) continue;
 
-            bool dPhiDiLepJetCut = kTRUE;
-            if(useDYMVA == kTRUE){
-              if(tree.njets_ <= 1) dPhiDiLepJetCut = tree.jet1_.Pt() <= 15. || tree.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || 
-      	                                             tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me;
-              else                 dPhiDiLepJetCut = DeltaPhi((tree.jet1_+tree.jet2_).Phi(),tree.dilep_.Phi())*180.0/TMath::Pi() < 165. || 
-    	                                                       tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me;
-            }
-            if(tree.njets_ >= 2) dPhiDiLepJetCut = DeltaPhi((tree.jet1_+tree.jet2_).Phi(),tree.dilep_.Phi())*180.0/TMath::Pi() < 165. ||
-                                                             tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me;
-	    if(dPhiDiLepJetCut == kFALSE) continue;
-
-	    Double_t varMet = minmet;
-	    if     (ijet == 2)         varMet = tree.met_;
-	    else if(useDYMVA == kTRUE) varMet = dymva;
-
 	    if(mZ - tree.dilep_.M() < MassCutLow && tree.dilep_.M() - mZ < MassCutHigh) {
-	      if(finalState==kEleEle && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) {
-                hNin_ree_mc[ijet][imass]->Fill(varMet,weight/(Double_t)nmet);                
+	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dyee) {
+                hNin_ree_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);                
               }
-	      if(finalState==kMuMu   && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) {
-                hNin_rmm_mc[ijet][imass]->Fill(varMet,weight/(Double_t)nmet);              	 
+	      if(finalState==kMuMu   && tree.dstype_==SmurfTree::dymm) {
+                hNin_rmm_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);              	 
               }
             } else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < cutMassHigh(mH[imass])) {
-	      if(finalState==kEleEle && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) {
-                hNout_ree_mc[ijet][imass]->Fill(varMet,weight/(Double_t)nmet);	
+	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dyee) {
+                hNout_ree_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);	
               }
-	      if(finalState==kMuMu   && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) {
-                hNout_rmm_mc[ijet][imass]->Fill(varMet,weight/(Double_t)nmet);
+	      if(finalState==kMuMu   && tree.dstype_==SmurfTree::dymm) {
+                hNout_rmm_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);
               }
             }
 	
  	    if(mt < cutMTLow(mH[imass]) || mt > cutMTHigh(mH[imass])) continue;
-            bool passMET = minmet > 20.;
-            if(useDYMVA == kTRUE){
-              if     (tree.njets_ == 0) passMET = passMET && (minmet > 45. || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me);
-              else if(tree.njets_ == 1) passMET = passMET && (minmet > 45. || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me);
-              else                      passMET = passMET && (tree.met_ > 45.0 || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me);
-            } else {
-              if     (tree.njets_ == 0) passMET = passMET && (dymva >  0.60 || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me);
-              else if(tree.njets_ == 1) passMET = passMET && (dymva >  0.30 || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me);
-              else                      passMET = passMET && (tree.met_ > 45.0 || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me);
-            }
-            if(passMET == kFALSE) continue;
+            if(minmet < 37 + 0.5 * tree.nvtx_ ) continue;
 	
 	    if(mZ - tree.dilep_.M() < MassCutLow && tree.dilep_.M() - mZ < MassCutHigh) {
-	      if(finalState==kEleEle && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) { 
+	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dyee) { 
 	        nin_ee_dy[ijet][imass]+=weight/(Double_t)nmet; 
 	        varin_ee_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet; 
 	      }
 	
-	      if(finalState==kMuMu   && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) { 
+	      if(finalState==kMuMu && tree.dstype_==SmurfTree::dymm) { 
 	        nin_mm_dy[ijet][imass]+=weight/(Double_t)nmet; 
 	        varin_mm_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet;
 	      }	  
 	 
              } else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < cutMassHigh(mH[imass])) {
 	  
-	      if(finalState==kEleEle && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) { 
+	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dyee) { 
 	        nout_ee_dy[ijet][imass]+=weight/(Double_t)nmet; 
 	        varout_ee_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet;
 	      }
 	  
-	      if(finalState==kMuMu   && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) { 
+	      if(finalState==kMuMu && tree.dstype_==SmurfTree::dymm) { 
 	        nout_mm_dy[ijet][imass]+=weight/(Double_t)nmet;
 	        varout_mm_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet;
 	      }
             }
           }                
 	}
+	
       } else {
       //For Other Bkg MC
 
@@ -511,23 +508,13 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t
     
           if(tree.lep1_.Pt() < cutPtMaxLow(mH[imass])) continue;
           if(tree.lep2_.Pt() < cutPtMinLow(mH[imass],0)) continue;
-          if(tree.dilep_.Pt() <= 45.0) continue;
-	  if(minmet <= 20.0) continue;
+          if(tree.dilep_.Pt() < 45.0) continue;
           
           if(tree.dPhi_ > cutDeltaphiHigh(mH[imass])*TMath::Pi()/180.) continue;         
           if(mt < cutMTLow(mH[imass]) || mt > cutMTHigh(mH[imass])) continue;
 
-          bool passMET = minmet > 20.;
-          if(useDYMVA == kTRUE){
-            if     (tree.njets_ == 0) passMET = passMET && (minmet > 45. || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me);
-            else if(tree.njets_ == 1) passMET = passMET && (minmet > 45. || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me);
-            else		      passMET = passMET && (tree.met_ > 45.0 || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me);
-          } else {
-            if     (tree.njets_ == 0) passMET = passMET && (dymva >  0.60 || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me);
-            else if(tree.njets_ == 1) passMET = passMET && (dymva >  0.30 || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me);
-            else		      passMET = passMET && (tree.met_ > 45.0 || tree.type_ == SmurfTree::em || tree.type_ == SmurfTree::me);
-          }
-          if(passMET == kFALSE) continue;
+          if(minmet < 37 + 0.5 * tree.nvtx_ ) continue;
+          
 
           //*********************************************************************
           //Count Yields
@@ -682,6 +669,7 @@ void ComputeDYBkgScaleFactor(Int_t period = -1, Bool_t useDYMVA = kFALSE, Bool_t
       // compute Routin from MC
       //
 
+      Bool_t passProtectionAgainstLargeStatisticalFluctuations = kFALSE;
       Int_t MetBinToComputeRoutin = nbins-1;
 
       Double_t nout_ee   = 0;
