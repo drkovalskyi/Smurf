@@ -22,9 +22,9 @@ const int verboseLevel =   1;
 //------------------------------------------------------------------------------
 // dataEstimations
 //------------------------------------------------------------------------------
-void ComputeTopScaleFactors
+void ComputeTopScaleFactors2011
 (
- Int_t period = 0,
+ Int_t period = 2,
  TString bgdInputFile    = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Full2011/backgroundA_skim1.root",
  TString dataInputFile   = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Full2011/data_2l_skim1.root"
  )
@@ -45,11 +45,44 @@ void ComputeTopScaleFactors
   TString puPath   = "/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
-  if	 (period == 0){ // Full2011-Fall11-V9
+  if	 (period == 0){ // Run2011A
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
+    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
+    //lumi     = 2.1;minRun =      0;maxRun = 173692;
+    lumi     = 1.1;minRun =      0;maxRun = 167913;
+  }
+  else if(period == 1){ // Run2011B
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
+    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    //puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
+    //lumi     = 1.9;minRun = 173693;maxRun = 999999;
+    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
+    lumi     = 3.6;minRun = 167914;maxRun = 999999;
+  }
+  else if(period == 2){ // Full2011-Fall11-V7
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
+    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
+    lumi     = 4.924;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 3){ // Full2011-Fall11-V7
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
+    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
+    lumi     = 4.924;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 4){ // Full2011-Fall11-V8
+    effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
+    fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
+    puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
+    lumi     = 4.924;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 5){ // Full2011-Fall11-V9
     effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
     fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
     puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
-    lumi     = 0.9;minRun =      0;maxRun = 999999;
+    lumi     = 4.924;minRun =      0;maxRun = 999999;
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -199,12 +232,12 @@ void ComputeTopScaleFactors
     int charge = (int)(bgdEvent.lq1_ + bgdEvent.lq2_);
 
     double minmet = TMath::Min(bgdEvent.pmet_,bgdEvent.pTrackMet_);
-    bool passMET = minmet > 20.;
-    if     (bgdEvent.njets_ == 0) passMET = passMET && (minmet > 45. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
-    else if(bgdEvent.njets_ == 1) passMET = passMET && (minmet > 45. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
-    else                          passMET = passMET && (bgdEvent.met_ > 45.0 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+    bool passMET = minmet > 20. &&
+         	  (minmet > 37.+bgdEvent.nvtx_/2.0 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
 
-    bool passNewCuts = bgdEvent.dilep_.Pt() > 45;
+    bool passNewCuts = true;
+    if(bgdEvent.lep2_.Pt() <= 15 && (bgdEvent.type_ == SmurfTree::mm||bgdEvent.type_ == SmurfTree::ee)) passNewCuts = false;
+    if(bgdEvent.dilep_.Pt() <= 45) passNewCuts = false;
 
     // begin computing weights
     double theWeight = 0.0;
@@ -285,6 +318,7 @@ void ComputeTopScaleFactors
        ((bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
        bgdEvent.dstype_ != SmurfTree::data) &&
       bgdEvent.dilep_.M()   > 12 &&
+     (bgdEvent.dilep_.M()   > 20 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me) &&
       (bgdEvent.cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto &&
       charge == 0 &&
       bgdEvent.lep1_.Pt() > 20. &&
@@ -300,7 +334,7 @@ void ComputeTopScaleFactors
       if(fDecay == 13) classType = kTW;
 
 
-      if(bgdEvent.jet1ProbBtag_ >= 1.05 && bgdEvent.njets_ == 1){
+      if(bgdEvent.jet1Btag_ >= 2.1 && bgdEvent.njets_ == 1){
         btag_lowpt_1j_den[classType][4]		 += theWeight;
         btag_lowpt_1j_den[classType][bgdEvent.type_] += theWeight;
         btag_lowpt_1j_den_error[classType][4]	       += theWeight*theWeight;
@@ -326,12 +360,12 @@ void ComputeTopScaleFactors
         }
       }
 
-      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bgdEvent.jet2ProbBtag_ >= 1.05 && bgdEvent.njets_ == 2){
+      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bgdEvent.jet2Btag_ >= 2.1 && bgdEvent.njets_ == 2){
         btag_highestpt_2j_den[classType][4] 	     += theWeight;
         btag_highestpt_2j_den[classType][bgdEvent.type_] += theWeight;
         btag_highestpt_2j_den_error[classType][4] 	           += theWeight*theWeight;
         btag_highestpt_2j_den_error[classType][bgdEvent.type_] += theWeight*theWeight;
-        if(bgdEvent.jet1ProbBtag_ >= 1.05){
+        if(bgdEvent.jet1Btag_ >= 2.1){
           btag_highestpt_2j_num[classType][4]	       += theWeight;
           btag_highestpt_2j_num[classType][bgdEvent.type_] += theWeight;
           btag_highestpt_2j_num_error[classType][4]	             += theWeight*theWeight;
@@ -344,7 +378,7 @@ void ComputeTopScaleFactors
         btag_highestpt_1j_den[classType][bgdEvent.type_] += theWeight;
         btag_highestpt_1j_den_error[classType][4] 	           += theWeight*theWeight;
         btag_highestpt_1j_den_error[classType][bgdEvent.type_] += theWeight*theWeight;
-        if(bgdEvent.jet1ProbBtag_ >= 1.05){
+        if(bgdEvent.jet1Btag_ >= 2.1){
           btag_highestpt_1j_num[classType][4]	       += theWeight;
           btag_highestpt_1j_num[classType][bgdEvent.type_] += theWeight;
           btag_highestpt_1j_num_error[classType][4]	             += theWeight*theWeight;
@@ -352,22 +386,22 @@ void ComputeTopScaleFactors
         }
       }
 
-      Double_t etaMin = TMath::Abs(bgdEvent.jet1_.Eta()); Double_t bTagMax[2] = {bgdEvent.jet1ProbBtag_, bgdEvent.jet2ProbBtag_};
+      Double_t etaMin = TMath::Abs(bgdEvent.jet1_.Eta()); Double_t bTagMax[2] = {bgdEvent.jet1Btag_, bgdEvent.jet2Btag_};
       if(etaMin > TMath::Abs(bgdEvent.jet2_.Eta())) {
         etaMin = TMath::Abs(bgdEvent.jet2_.Eta());
-	bTagMax[0] = bgdEvent.jet2ProbBtag_; bTagMax[1] = bgdEvent.jet1ProbBtag_;
+	bTagMax[0] = bgdEvent.jet2Btag_; bTagMax[1] = bgdEvent.jet1Btag_;
       }
-      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 1.05 && bgdEvent.njets_ == 2){
+      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 2.1 && bgdEvent.njets_ == 2){
         int nEta = TMath::Min(etaMin,2.499)/2.5*5;
         btag_central_2j_den[classType][nEta] 	     += theWeight;
         btag_central_2j_den_error[classType][nEta]   += theWeight*theWeight;
-        if(bTagMax[0] >= 1.05){
+        if(bTagMax[0] >= 2.1){
           btag_central_2j_num[classType][nEta]	     += theWeight;
           btag_central_2j_num_error[classType][nEta] += theWeight*theWeight;
         }
         btag_central_All_2j_den[classType]	     += theWeight;
         btag_central_All_2j_den_error[classType]     += theWeight*theWeight;
-        if(bTagMax[0] >= 1.05){
+        if(bTagMax[0] >= 2.1){
           btag_central_All_2j_num[classType]         += theWeight;
           btag_central_All_2j_num_error[classType]   += theWeight*theWeight;
         }
@@ -378,10 +412,10 @@ void ComputeTopScaleFactors
           (bgdEvent.jet2_.Eta()-bgdEvent.lep1_.Eta() > 0 && bgdEvent.jet1_.Eta()-bgdEvent.lep1_.Eta() < 0)) &&
          ((bgdEvent.jet1_.Eta()-bgdEvent.lep2_.Eta() > 0 && bgdEvent.jet2_.Eta()-bgdEvent.lep2_.Eta() < 0) ||
           (bgdEvent.jet2_.Eta()-bgdEvent.lep2_.Eta() > 0 && bgdEvent.jet1_.Eta()-bgdEvent.lep2_.Eta() < 0))) centrality = 1; 
-      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 1.05 && bgdEvent.njets_ == 2 && 
+      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 2.1 && bgdEvent.njets_ == 2 && 
          (bgdEvent.jet1_+bgdEvent.jet2_).M() > 450. && TMath::Abs(bgdEvent.jet1_.Eta()-bgdEvent.jet2_.Eta()) > 3.5 && centrality == 1){
         int nEta = TMath::Min(etaMin,2.499)/2.5*5;
-        if(bTagMax[0] >= 1.05){
+        if(bTagMax[0] >= 2.1){
           btag_vbf_2j_num[classType][nEta]	 += theWeight;
           btag_vbf_2j_num_error[classType][nEta] += theWeight*theWeight;
         } else {
@@ -420,12 +454,12 @@ void ComputeTopScaleFactors
     else												     Njet3 = 1;
 
     double minmet = TMath::Min(dataEvent.pmet_,dataEvent.pTrackMet_);
-    bool passMET = minmet > 20.;
-    if     (dataEvent.njets_ == 0) passMET = passMET && (minmet > 45. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
-    else if(dataEvent.njets_ == 1) passMET = passMET && (minmet > 45. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
-    else                           passMET = passMET && (dataEvent.met_ > 45.0 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+    bool passMET = minmet > 20. &&
+                  (minmet > 37.+dataEvent.nvtx_/2.0 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
 
-    bool passNewCuts = dataEvent.dilep_.Pt() > 45;
+    bool passNewCuts = true;
+    if(dataEvent.lep2_.Pt() <= 15 && (dataEvent.type_ == SmurfTree::mm||dataEvent.type_ == SmurfTree::ee)) passNewCuts = false;
+    if(dataEvent.dilep_.Pt() <= 45) passNewCuts = false;
 
     bool dPhiDiLepJetCut = true;
     if(dataEvent.njets_ <= 1) dPhiDiLepJetCut = dataEvent.jet1_.Pt() <= 15. || dataEvent.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || 
@@ -435,6 +469,7 @@ void ComputeTopScaleFactors
     double theWeight = 1.0;
     if(
       dataEvent.dilep_.M()   > 12 &&
+     (dataEvent.dilep_.M()   > 20 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me) &&
       (dataEvent.cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto &&
       charge == 0 &&
       dataEvent.lep1_.Pt() > 20. &&
@@ -446,7 +481,7 @@ void ComputeTopScaleFactors
       1 == 1
       ) {
       int classType = kData;
-      if(dataEvent.jet1ProbBtag_ >= 1.05 && dataEvent.njets_ == 1){
+      if(dataEvent.jet1Btag_ >= 2.1 && dataEvent.njets_ == 1){
         btag_lowpt_1j_den[classType][4]		  += theWeight;
         btag_lowpt_1j_den[classType][dataEvent.type_] += theWeight;
         btag_lowpt_1j_den_error[classType][4]	        += theWeight*theWeight;
@@ -472,12 +507,12 @@ void ComputeTopScaleFactors
         }
       }
 
-      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && dataEvent.jet2ProbBtag_ >= 1.05 && dataEvent.njets_ == 2){
+      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && dataEvent.jet2Btag_ >= 2.1 && dataEvent.njets_ == 2){
         btag_highestpt_2j_den[classType][4] 	      += theWeight;
         btag_highestpt_2j_den[classType][dataEvent.type_] += theWeight;
         btag_highestpt_2j_den_error[classType][4] 	            += theWeight*theWeight;
         btag_highestpt_2j_den_error[classType][dataEvent.type_] += theWeight*theWeight;
-        if(dataEvent.jet1ProbBtag_ >= 1.05){
+        if(dataEvent.jet1Btag_ >= 2.1){
           btag_highestpt_2j_num[classType][4]	        += theWeight;
           btag_highestpt_2j_num[classType][dataEvent.type_] += theWeight;
           btag_highestpt_2j_num_error[classType][4]	              += theWeight*theWeight;
@@ -490,7 +525,7 @@ void ComputeTopScaleFactors
         btag_highestpt_1j_den[classType][dataEvent.type_] += theWeight;
         btag_highestpt_1j_den_error[classType][4] 	            += theWeight*theWeight;
         btag_highestpt_1j_den_error[classType][dataEvent.type_] += theWeight*theWeight;
-        if(dataEvent.jet1ProbBtag_ >= 1.05){
+        if(dataEvent.jet1Btag_ >= 2.1){
           btag_highestpt_1j_num[classType][4]	        += theWeight;
           btag_highestpt_1j_num[classType][dataEvent.type_] += theWeight;
           btag_highestpt_1j_num_error[classType][4]	              += theWeight*theWeight;
@@ -498,22 +533,22 @@ void ComputeTopScaleFactors
         }
       }
 
-      Double_t etaMin = TMath::Abs(dataEvent.jet1_.Eta()); Double_t bTagMax[2] = {dataEvent.jet1ProbBtag_, dataEvent.jet2ProbBtag_};
+      Double_t etaMin = TMath::Abs(dataEvent.jet1_.Eta()); Double_t bTagMax[2] = {dataEvent.jet1Btag_, dataEvent.jet2Btag_};
       if(etaMin > TMath::Abs(dataEvent.jet2_.Eta())) {
         etaMin = TMath::Abs(dataEvent.jet2_.Eta());
-	bTagMax[0] = dataEvent.jet2ProbBtag_; bTagMax[1] = dataEvent.jet1ProbBtag_;
+	bTagMax[0] = dataEvent.jet2Btag_; bTagMax[1] = dataEvent.jet1Btag_;
       }
-      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 1.05 && dataEvent.njets_ == 2){
+      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 2.1 && dataEvent.njets_ == 2){
         int nEta = TMath::Min(etaMin,2.499)/2.5*5;
         btag_central_2j_den[classType][nEta] 	     += theWeight;
         btag_central_2j_den_error[classType][nEta]   += theWeight*theWeight;
-        if(bTagMax[0] >= 1.05){
+        if(bTagMax[0] >= 2.1){
           btag_central_2j_num[classType][nEta]	     += theWeight;
           btag_central_2j_num_error[classType][nEta] += theWeight*theWeight;
         }
         btag_central_All_2j_den[classType]	     += theWeight;
         btag_central_All_2j_den_error[classType]     += theWeight*theWeight;
-        if(bTagMax[0] >= 1.05){
+        if(bTagMax[0] >= 2.1){
           btag_central_All_2j_num[classType]         += theWeight;
           btag_central_All_2j_num_error[classType]   += theWeight*theWeight;
         }
@@ -524,10 +559,10 @@ void ComputeTopScaleFactors
           (dataEvent.jet2_.Eta()-dataEvent.lep1_.Eta() > 0 && dataEvent.jet1_.Eta()-dataEvent.lep1_.Eta() < 0)) &&
          ((dataEvent.jet1_.Eta()-dataEvent.lep2_.Eta() > 0 && dataEvent.jet2_.Eta()-dataEvent.lep2_.Eta() < 0) ||
           (dataEvent.jet2_.Eta()-dataEvent.lep2_.Eta() > 0 && dataEvent.jet1_.Eta()-dataEvent.lep2_.Eta() < 0))) centrality = 1; 
-      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 1.05 && dataEvent.njets_ == 2 && 
+      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 2.1 && dataEvent.njets_ == 2 && 
          (dataEvent.jet1_+dataEvent.jet2_).M() > 450. && TMath::Abs(dataEvent.jet1_.Eta()-dataEvent.jet2_.Eta()) > 3.5 && centrality == 1){
         int nEta = TMath::Min(etaMin,2.499)/2.5*5;
-        if(bTagMax[0] >= 1.05){
+        if(bTagMax[0] >= 2.1){
           btag_vbf_2j_num[classType][nEta]	 += theWeight;
           btag_vbf_2j_num_error[classType][nEta] += theWeight*theWeight;
         } else {
