@@ -64,11 +64,14 @@ enum Selection {
 
 // ww-preselection information available through bits (extra cuts are needed)
 // http://www.t2.ucsd.edu/tastwiki/bin/view/Smurf/ReferenceSelections#SmurfWW_V6_with_42X
-UInt_t ww = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
+// UInt_t ww = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
+UInt_t ww = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|ZVeto|ExtraLeptonVeto;
 // relax met
-UInt_t ww_nomet = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|ZVeto|TopVeto|ExtraLeptonVeto;
+//UInt_t ww_nomet = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|ZVeto|TopVeto|ExtraLeptonVeto;
+UInt_t ww_nomet = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|ZVeto|ExtraLeptonVeto;
 // relax the lepton requirements
-UInt_t ww_lepfo = BaseLine|ChargeMatch|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
+// UInt_t ww_lepfo = BaseLine|ChargeMatch|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
+UInt_t ww_lepfo = BaseLine|ChargeMatch|ZVeto|ExtraLeptonVeto;
 // zz baseline selections using the bits setup in the smurfntuples
 // http://www.t2.ucsd.edu/tastwiki/bin/view/Smurf/HZZllvvEventSelections#Reference_selection_V1
 UInt_t zz_baseline = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|ExtraLeptonVeto;
@@ -155,46 +158,25 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
     ch->GetEntry(ievt); 
 
     // select a specific jetbin
-    if (cutstring != "ZZ") {
-      if ( jetbin <= 2 && int(njets_) != jetbin ) continue;
-    }
-    // for ZZ the 2-jet bin contains all events with njets >=2
-    else {
-      if (jetbin < 2 && int(njets_) != jetbin ) continue;
-      if ( jetbin == 2 && int(njets_) < 2 ) continue; 
-    }
+    // for 2-jet bin it combines >= 2 jet events
 
+    if ( jetbin < 2 && int(njets_) != jetbin ) continue;
+    if ( jetbin == 2 && int(njets_) < 2 ) continue; 
     if ( dilep_->mass() < 12.0) continue;
     
     // cuts to select the WW pre-selection
     if (cutstring == "WW") {
       if ((cuts_ & ww) != ww) continue;
       if (TMath::Min(pmet_,pTrackMet_) < 20.)  continue;
-      if ( (type_==0||type_==3) && TMath::Min(pmet_,pTrackMet_) < 37.) continue;
-
-      bool dPhiDiLepJetCut = true;
-      if(njets_ <= 1) 
-	dPhiDiLepJetCut = jet1_->pt() <= 15. || dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || type_ == 1 || type_ == 2;
-      else           
-	dPhiDiLepJetCut = ROOT::Math::VectorUtil::DeltaPhi((*jet1_+*jet2_), *dilep_)*180.0/TMath::Pi() < 165. || type_ == 1 || type_ == 2;
-      if( dPhiDiLepJetCut == false) continue;
-      
-      if ( dilep_->Pt() < 45) continue;
+      if ( dilep_->Pt() < 30) continue;
     }
     
     // select the PassFail sample for the wjets studies
     else if (cutstring == "PassFail") {  
       if (TMath::Min(pmet_,pTrackMet_) < 20.)  continue;
-      if ( (type_==0||type_==3) && TMath::Min(pmet_,pTrackMet_) < 37.) continue;
       if ( (cuts_ & ww_lepfo) != ww_lepfo) continue;
-
-      bool dPhiDiLepJetCut = true;
-      if(njets_ <= 1) 
-	dPhiDiLepJetCut = jet1_->pt() <= 15. || dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || type_ == 1 || type_ == 2;
-      else           
-	dPhiDiLepJetCut = ROOT::Math::VectorUtil::DeltaPhi((*jet1_+*jet2_), *dilep_)*180.0/TMath::Pi() < 165. || type_ == 1 || type_ == 2;
-      if( dPhiDiLepJetCut == false) continue;
-
+      if ( dilep_->Pt() < 30) continue;
+      
       // skip events with no lepton pass the full selection
       if ( ( (cuts_ & Lep1FullSelection) != Lep1FullSelection)  &&  
       	   ( (cuts_ & Lep2FullSelection) != Lep2FullSelection) ) continue;
@@ -212,23 +194,7 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if ( cuts_ & Lep2FullSelection ) {
 	if ( ! ( (cuts_ & Lep1LooseEleV4) || (cuts_ & Lep1LooseMuV1) || (cuts_ & Lep1LooseMuV2)  ) ) continue;
       }
-      if ( dilep_->Pt() < 45) continue;
-    }
-
-
-    // select the LooseMET sample for the wjets studies
-    else if (cutstring == "LooseMET") {  
-      if (TMath::Min(pmet_,pTrackMet_) < 20. ||TMath::Min(pmet_,pTrackMet_) > (37.+nvtx_/2.)  )  continue;
-      if ((cuts_ & ww_nomet) != ww_nomet) continue; 
-      if ( dilep_->Pt() < 45) continue;
-      bool dPhiDiLepJetCut = true;
-      if(njets_ <= 1) 
-	dPhiDiLepJetCut = jet1_->pt() <= 15. || dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || type_ == 1 || type_ == 2;
-      else           
-	dPhiDiLepJetCut = ROOT::Math::VectorUtil::DeltaPhi((*jet1_+*jet2_), *dilep_)*180.0/TMath::Pi() < 165. || type_ == 1 || type_ == 2;
-      if( dPhiDiLepJetCut == false) continue;
-    }
-    
+    } 
     // cuts to select the ZZ pre-selection
     else if (cutstring == "ZZ") {
       if ( TMath::Abs(dilep_->M()-91.1876) > 15.0 ) continue;
