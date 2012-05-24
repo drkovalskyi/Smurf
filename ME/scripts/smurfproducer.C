@@ -179,20 +179,20 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       
       // skip events with no lepton pass the full selection
       if ( ( (cuts_ & Lep1FullSelection) != Lep1FullSelection)  &&  
-      	   ( (cuts_ & Lep2FullSelection) != Lep2FullSelection) ) continue;
+	   ( (cuts_ & Lep2FullSelection) != Lep2FullSelection) ) continue;
       
       // skip events with both leptons hat pass the final selection
       if ( ((cuts_ & Lep1FullSelection) == Lep1FullSelection)
-	   && ((cuts_ & Lep2FullSelection) == Lep2FullSelection)) 	continue;
-									  
+	   && ((cuts_ & Lep2FullSelection) == Lep2FullSelection)) continue;
+      
       // if lep1 pass full selection, but none of the lep2 pass the FO definition, skip the event
-      if (  cuts_ & Lep1FullSelection ) {
-	if ( ! ( (cuts_ & Lep2LooseEleV4) || (cuts_ & Lep2LooseMuV1) ||  (cuts_ & Lep2LooseMuV2) ) ) continue;
+      if ( cuts_ & Lep1FullSelection ) {
+	if ( ! ( (cuts_ & Lep2LooseEleV4) || (cuts_ & Lep2LooseMuV2) ) ) continue;
       }
       
       // if lep2 pass full selection, but none of the lep1 pass the FO definition, skip the event
       if ( cuts_ & Lep2FullSelection ) {
-	if ( ! ( (cuts_ & Lep1LooseEleV4) || (cuts_ & Lep1LooseMuV1) || (cuts_ & Lep1LooseMuV2)  ) ) continue;
+	if ( ! ( (cuts_ & Lep1LooseEleV4) || (cuts_ & Lep1LooseMuV2) ) ) continue;
       }
     } 
     // cuts to select the ZZ pre-selection
