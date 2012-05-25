@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.39 2012/05/13 14:29:53 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.40 2012/05/21 12:17:32 dlevans Exp $
 //
 //
 
@@ -834,8 +834,7 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
             leptonTree_->qTag_               = tag->charge();
             leptonTree_->tagAndProbeMass_    = p4.M();
 
-            mvaValue                               = reader_electronHWW2011MVA_->MVAValue(&*probe, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
-            leptonTree_->electronHWW2011MVA_       = mvaValue;
+            leptonTree_->electronHWW2011MVA_       = reader_electronHWW2011MVA_->MVAValue(&*probe, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
             leptonTree_->egammaPOG2012MVA_         = reader_egammaPOG2012MVA_->mvaValue(*probe, pv_, *ttBuilder, *clusterTools, false);
 
             // pf isolation
@@ -880,13 +879,13 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
             // higgs ids
             if (smurfselections::passElectronFO2011(probe, pv_, thebs.position(), conversions_h)) 
                 leptonTree_->leptonSelection_ |= (LeptonTree::PassEleFO);
-            if (smurfselections::passElectronID2011(probe, pv_, thebs.position(), conversions_h, mvaValue))
+            if (smurfselections::passElectronID2011(probe, pv_, thebs.position(), conversions_h, leptonTree_->electronHWW2011MVA_))
                 leptonTree_->leptonSelection_ |= (LeptonTree::PassEleID);
             if (smurfselections::passElectronIso2011(probe, pfCandCollection_, pv_))
                 leptonTree_->leptonSelection_ |= (LeptonTree::PassEleIso);
             if (smurfselections::passElectronFO2012(probe, pv_, thebs.position(), conversions_h))
                 leptonTree_->leptonSelection_ |= (LeptonTree::PassEleFOICHEP2012);
-            if (smurfselections::passElectronID2012(probe, pv_, thebs.position(), conversions_h, mvaValue))
+            if (smurfselections::passElectronID2012(probe, pv_, thebs.position(), conversions_h, leptonTree_->egammaPOG2012MVA_))
                 leptonTree_->leptonSelection_ |= (LeptonTree::PassEleIDICHEP2012);
             if (smurfselections::passElectronIso2012(probe, 
                 leptonTree_->pfchiso04_, leptonTree_->pfemiso04_, 
@@ -1124,8 +1123,7 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         leptonTree_->qProbe_             = fo->charge();
         leptonTree_->mt_                 = smurfutilities::Mt(met, fo->p4().Pt(), reco::deltaPhi(met_h->front().phi(), fo->p4().Phi()));
 
-        float mvaValue                         = reader_electronHWW2011MVA_->MVAValue(&*fo, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
-        leptonTree_->electronHWW2011MVA_       = mvaValue;
+        leptonTree_->electronHWW2011MVA_       = reader_electronHWW2011MVA_->MVAValue(&*fo, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);;
         leptonTree_->egammaPOG2012MVA_         = reader_egammaPOG2012MVA_->mvaValue(*fo, pv_, *ttBuilder, *clusterTools);
 
         // pf isolation
@@ -1170,13 +1168,13 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         // higgs ids
         if (smurfselections::passElectronFO2011(fo, pv_, thebs.position(), conversions_h))
             leptonTree_->leptonSelection_ |= (LeptonTree::PassEleFO);
-        if (smurfselections::passElectronID2011(fo, pv_, thebs.position(), conversions_h, mvaValue))
+        if (smurfselections::passElectronID2011(fo, pv_, thebs.position(), conversions_h, leptonTree_->electronHWW2011MVA_))
             leptonTree_->leptonSelection_ |= (LeptonTree::PassEleID);
         if (smurfselections::passElectronIso2011(fo, pfCandCollection_, pv_))
             leptonTree_->leptonSelection_ |= (LeptonTree::PassEleIso);
         if (smurfselections::passElectronFO2012(fo, pv_, thebs.position(), conversions_h))
             leptonTree_->leptonSelection_ |= (LeptonTree::PassEleFOICHEP2012);
-        if (smurfselections::passElectronID2012(fo, pv_, thebs.position(), conversions_h, mvaValue))
+        if (smurfselections::passElectronID2012(fo, pv_, thebs.position(), conversions_h, leptonTree_->egammaPOG2012MVA_))
             leptonTree_->leptonSelection_ |= (LeptonTree::PassEleIDICHEP2012);
         if (smurfselections::passElectronIso2012(fo,
             leptonTree_->pfchiso04_, leptonTree_->pfemiso04_,
