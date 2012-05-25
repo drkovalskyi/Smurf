@@ -299,6 +299,7 @@ class SmurfTree {
   unsigned int   npu_;
   unsigned int   npuPlusOne_;
   unsigned int   npuMinusOne_;
+  float          dymva_;
 
   float          auxVar0_;
 
@@ -451,6 +452,7 @@ class SmurfTree {
     tree_->Branch("npu",           &npu_,           "npu/i");
     tree_->Branch("npuPlusOne",    &npuPlusOne_,    "npuPlusOne/i");
     tree_->Branch("npuMinusOne",   &npuMinusOne_,   "npuMinusOne/i");
+    tree_->Branch("dymva",	   &dymva_	  ,   "dymva/F");
 
     tree_->Branch("auxVar0",	   &auxVar0_	  ,   "auxVar0/F");
   }
@@ -566,6 +568,7 @@ class SmurfTree {
     tree_->SetBranchAddress("npu",	     &npu_);
     tree_->SetBranchAddress("npuPlusOne",    &npuPlusOne_);
     tree_->SetBranchAddress("npuMinusOne",   &npuMinusOne_);
+    tree_->SetBranchAddress("dymva",         &dymva_);
 
     tree_->SetBranchAddress("auxVar0",       &auxVar0_);
 
@@ -814,6 +817,7 @@ SmurfTree::InitVariables(){
   npu_           = -999;
   npuPlusOne_    = -999;
   npuMinusOne_   = -999;
+  dymva_	 = -999;
 
   auxVar0_	 = -999;
 }
@@ -912,6 +916,7 @@ SmurfTree::Get(std::string value)
   if(value=="npu"	    ) { return this->npu_;           } 
   if(value=="npuPlusOne"    ) { return this->npuPlusOne_;    } 
   if(value=="npuMinusOne"   ) { return this->npuMinusOne_;   } 
+  if(value=="dymva"	    ) { return this->dymva_;       }
 
   if(value=="auxVar0"	    ) { return this->auxVar0_;       }
 
