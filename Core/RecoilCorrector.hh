@@ -318,13 +318,13 @@ void RecoilCorrector::metDistribution(double &iPFMet,double &iPFMPhi,double &iTK
 
   //Uncertainty propagation
   if(iFluc != 0) { 
-    double lEUR1    = getError(iGenPt ,iU1RPFFit);
+    //double lEUR1    = getError(iGenPt ,iU1RPFFit);
     double lEUS1_1  = getError(iGenPt ,iU1S1PFFit);
     double lEUS1_2  = getError(iGenPt ,iU1S2PFFit);
-    double lEU1Frac = getError(iGenPt ,iU1MSPFFit)*lRescale;
+    //double lEU1Frac = getError(iGenPt ,iU1MSPFFit)*lRescale;
     double lEUS2_1  = getError(iGenPt ,iU2S1PFFit);
     double lEUS2_2  = getError(iGenPt ,iU2S2PFFit);
-    double lEU2Frac = getError(iGenPt ,iU2MSPFFit)*lRescale;
+    //double lEU2Frac = getError(iGenPt ,iU2MSPFFit)*lRescale;
     //cout << "===> " << pPFSigma1_1 << " -- " << iU1S2PFFit->GetParError(0) << " -- " << lEUS1_1 << endl;
     //Modify all the different parameters the choice of signs makes it maximal
     if(iU1S1PFFit->Eval(iGenPt) > 1) {double pPF = lEUS1_1; lEUS1_1 = lEUS1_2; lEUS1_1 = pPF;}
@@ -338,13 +338,13 @@ void RecoilCorrector::metDistribution(double &iPFMet,double &iPFMPhi,double &iTK
     pPFSigma2_1 = pPFSigma2_1 ;//+ iFluc*lEUS2_1*pPFFrac2  ;    //Sigma 1 U2
     pPFSigma2_2 = pPFSigma2_2 ;//- iFluc*(lEUS2_2)*pPFFrac2;
     
-    lEUR1    = getError(iGenPt,iU1RTKFit);
+    //lEUR1    = getError(iGenPt,iU1RTKFit);
     lEUS1_1  = getError(iGenPt,iU1S1TKFit);
     lEUS1_2  = getError(iGenPt,iU1S2TKFit);
-    lEU1Frac = getError(iGenPt,iU1MSTKFit)*lRescale;
+    //lEU1Frac = getError(iGenPt,iU1MSTKFit)*lRescale;
     lEUS2_1  = getError(iGenPt,iU2S1TKFit);
     lEUS2_2  = getError(iGenPt,iU2S2TKFit);
-    lEU2Frac = getError(iGenPt,iU2MSTKFit)*lRescale;
+    //lEU2Frac = getError(iGenPt,iU2MSTKFit)*lRescale;
     if(iU1S1TKFit->Eval(iGenPt) > 1) {double pPF = lEUS1_1; lEUS1_1 = lEUS1_2; lEUS1_1 = pPF;}
     if(iU2S1TKFit->Eval(iGenPt) > 1) {double pPF = lEUS2_1; lEUS2_1 = lEUS2_2; lEUS2_1 = pPF;}
     //Modify all the different parameters the choice of signs makes it maximal
