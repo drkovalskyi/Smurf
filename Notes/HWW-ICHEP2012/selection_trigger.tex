@@ -1,0 +1,285 @@
+Triggering on Higgs boson decays in the dilepton final state increases 
+in difficulty with increasing instantaenous luminosity.
+Single lepton triggers can only be sustained with very tight identification and
+isolation requirements and large transverse momentum thresholds.
+This means that double lepton triggers are the only viable option to maintain
+sensitivity to a low mass Higgs boson, where the leptons transverse momentum
+can be small.
+
+We designed a suite of signal and control triggers appropriate for this analysis.
+These dilepton triggers have a high efficiency to collect Higgs boson events
+and are sufficiently loose to collect control events to estimate
+fake lepton backgrounds and selection efficiencies with adequate precision.
+We describe the features and motivations for the analysis triggers in Section~\ref{sec:mainTriggers},
+and additional triggers to collect control events in 
+Section~\ref{sec:utilityTriggers}.
+
+\subsubsection{Analysis Triggers}
+\label{sec:mainTriggers}
+
+The main dielectron triggers, described in Table~\ref{tab:triggers_ee}, 
+require two HLT electron candidates with loose shower shape and calorimeter isolation requirements 
+and a match to a Level-1 seed for both legs. 
+To accomodate the offline selection of $E_{T}>20,10$~GeV for the leading and trailing
+electrons, $E_{T}>17,8$~GeV is required at the HLT level.
+Controlling the total trigger rate is most challenging in
+the dielectron channel, due to large fake electron background rates.
+Additional requirements must be added to the track-to-cluster matching
+and track isolation to control the total trigger rate at 
+instantaneous luminosities above $1\times10^{33}~cm^{-1}sec^{-1}$.
+In order to suppress contributions from pileup, the distance between the z vertex positions 
+of the two electrons is required to be less than 0.2 cm.
+
+The identification and isolation requirements are described in Table~\ref{tab:HLTElectronCuts}.
+Because the electron HLT uses simplified algorithms compared to the offline selections,
+the variables used online and offline do not always correspond exactly.
+A detailed comparison between the online and offline selection requirements is given in
+Appendix~\ref{app:online_vs_offline}.
+
+\begin{table}[!ht]
+  \caption{Analysis triggers for the $ee$ final state. 
+The identification and isolation requirements are described in Table~\ref{tab:HLTElectronCuts}.}
+    \vspace{5pt}
+   \label{tab:triggers_ee}
+  \begin{center}
+ {\small
+  \begin{tabular} {l|l|l|c}
+\hline
+  Dataset & Trigger name & L1 seed & Description\\
+  \hline \hline
+  \multirow{2}{*}{DoubleElectron} & HLT\_Ele17\_CaloIdT\_CaloIsoVL\_TrkIdVL\_TrkIsoVL\_ 	&  L1\_DoubleEG\_13\_7  & $p_T>17,8~\GeVc$ \\
+                                  & Ele8\_CaloIdT\_CaloIsoVL\_TrkIdVL\_TrkIsoVL\_v[15-17] 	&                  & \\ %190456-190738 %190762-191419 %191512-194533
+  \hline
+  \end{tabular}
+}
+  \end{center}
+\end{table}
+
+\begin{table}[!ht]
+ \caption{Summary of requirements applied to electrons in the triggers used for this analysis.
+The selection requirements are given for electrons in the barrel (endcap).
+L=Loose, VL=Very loose, T=Tight, VT=Very Tight.}
+    \vspace{5pt}
+ \label{tab:HLTElectronCuts}
+ \centering
+ \begin{tabular}{l|c}
+   \hline
+   name                       &  criterion \\
+   \hline \hline
+   \multirow{2}{*}{CaloId\_T} & $\mathrm{H/E < 0.15 (0.10) }$ \\
+                               & $\sigma_{\eta\eta}\mathrm{< 0.011\;(0.031)}$ \\
+    \hline
+   \multirow{2}{*}{CaloId\_VT} & $\mathrm{H/E < 0.05 (0.05) }$ \\
+                               & $\sigma_{\eta\eta}\mathrm{< 0.011\;(0.031)}$  \\
+    \hline \hline
+    \multirow{2}{*}{TrkId\_VL} & $|\Delta\eta|\mathrm{< 0.01\; (0.01)}$ \\
+                               & $|\Delta\phi|\mathrm{< 0.15\;(0.10)}$  \\
+    \hline
+    \multirow{2}{*}{TrkId\_T} & $|\Delta\eta|\mathrm{< 0.008\; (0.008)}$ \\
+                              & $|\Delta\phi|\mathrm{< 0.07\;(0.05)}$ \\
+    \hline \hline
+    \multirow{2}{*}{CaloIso\_VL} & $\mathrm{ECalIso/E_T <0.2\;(0.2)}$ \\
+                                 & $\mathrm{HCalIso/E_T <0.2\;(0.2)}$ \\
+    \hline
+    \multirow{2}{*}{CaloIso\_T} & $\mathrm{ECalIso/E_T <0.15\;(0.075)}$ \\
+                                 & $\mathrm{HCalIso/E_T <0.15\;(0.075)}$ \\
+    \hline
+    \multirow{2}{*}{CaloIso\_VT} & $\mathrm{ECalIso/E_T <0.05\;(0.05)}$ \\
+                                 & $\mathrm{HCalIso/E_T <0.05\;(0.05)}$ \\
+    \hline \hline
+    TrkIso\_VL                   & $\mathrm{TrkIso/E_T <0.2\;(0.2)}$ \\
+    \hline
+    TrkIso\_T                   & $\mathrm{TrkIso/E_T <0.15\;(0.075)}$ \\
+    \hline
+    TrkIso\_VT                   & $\mathrm{TrkIso/E_T <0.05\;(0.05)}$ \\
+    \hline \hline
+    \multirow{8}{*}{WP80} 		& $\mathrm{H/E < 0.10 (0.05) }$ \\
+                               	& $\sigma_{\eta\eta}\mathrm{< 0.01\;(0.03)}$ \\
+    							& $|\Delta\eta|\mathrm{< 0.007\; (0.007)}$ \\
+                               	& $|\Delta\phi|\mathrm{< 0.06\;(0.03)}$  \\
+                               	& $|\frac{1}{E}-\frac{1}{p}|\mathrm{< 0.05\;(0.05)}$  \\
+    							& $\mathrm{ECalIso/E_T <0.15\;(0.10)}$ \\
+                                & $\mathrm{HCalIso/E_T <0.10\;(0.10)}$ \\
+                       			& $\mathrm{TrkIso/E_T <0.05\;(0.05)}$\\
+    \hline
+ \end{tabular}
+\end{table}
+
+The main dimuon triggers
+require two HLT muon candidates with transverse momentum greater than $17,8$~$\GeVc$ and
+a match to a Level-1 seed is required for both legs. 
+These are described in Table~\ref{tab:triggers_mm}.
+In addition, the longitudinal distance between the z vertex positions of the two muons 
+is required to be less than 0.2 cm to suppress pileup events.
+\begin{table}[!ht]
+  \caption{Analysis triggers for the $\mu\mu$ final state. }
+    \vspace{5pt}
+   \label{tab:triggers_mm}
+  \begin{center}
+ {\small
+  \begin{tabular} {l|l|l|c}
+\hline
+  Dataset & Trigger name & L1 seed & Description\\
+  \hline \hline
+  \multirow{2}{*}{DoubleMu}	& HLT\_Mu17\_Mu8\_v[16-17] 	& L1\_DoubleMu\_10\_Open  & $p_T>17,8~\GeVc$ \\ %190456-193686 %193806-194533
+   							& HLT\_Mu17\_TkMu8\_v[9-10] 	& L1\_DoubleMu\_10\_Open  & $p_T>17,8~\GeVc$ \\ %190456-193686 %193806-194533
+  \hline
+  \end{tabular}
+}
+  \end{center}
+\end{table}
+
+In the electron-muon channel we use two complementary triggers, which require
+both muon and electron HLT candidates.
+These are summarised in Table~\ref{tab:triggers_em}.
+Finally, to recover any residual inefficiency,
+we also allow events that passed only the single electron
+or single isolated muon triggers summarised in Table~\ref{tab:triggers_single}.
+
+\begin{table}[!ht]
+  \caption{Analysis triggers for the $e\mu$ final state.
+The identification and isolation requirements for electrons are described in Table~\ref{tab:HLTElectronCuts}.}
+    \vspace{5pt}
+   \label{tab:triggers_em}
+  \begin{center}
+ {\small
+  \begin{tabular} {l|l|l|c}
+\hline
+  Dataset & Trigger name & L1 seed & Description\\
+  \hline \hline
+  \multirow{2}{*}{MuEG} & HLT\_Mu17\_Ele8\_CaloIdT\_CaloIsoVL\_TrkIdVL\_TrkIsoVL\_v[4-7] 	& L1\_Mu12\_EG7 	& $p_T>17,8~\GeVc$ \\
+  															%190456-190738 %190762-191419 %191512-193686 %193806-194533
+  						& HLT\_Mu8\_Ele17\_CaloIdT\_CaloIsoVL\_TrkIdVL\_TrkIsoVL\_v[4-7] 	& L1\_MuOpen\_EG12 	& $p_T>8,17~\GeVc$ \\ 
+  															%190456-190738 %190762-191419 %191512-193686 %193806-194533
+ \hline
+  \end{tabular}
+}
+  \end{center}
+\end{table}
+
+\begin{table}[!ht]
+  \caption{Single lepton triggers to recover lost efficiency. These trigges are also used for efficiency studies.
+The identification and isolation requirements for electrons are described in Table~\ref{tab:HLTElectronCuts}.}
+    \vspace{5pt}
+   \label{tab:triggers_single}
+  \begin{center}
+ {\small
+  \begin{tabular} {l|l|l|c}
+\hline
+  Dataset & Trigger name & L1 seed & Description\\
+  \hline \hline
+  SingleEle & HLT\_Ele27\_WP80\_v[8-10] & L1\_SingleEG20 OR L1\_SingleEG22  & $p_T>27~\GeVc$ \\ %190456-190738 %190762-191419 %191512-194533
+  \hline \hline
+  SingleMu & HLT\_IsoMu24\_eta2p1\_v[11-13]   & L1\_SingleMu16er  & $p_T>24~\GeVc$ \\  %190456-190738 %190762-193686 %193806-194533
+  \hline 
+  \end{tabular}
+}
+  \end{center}
+\end{table}
+
+\subsubsection{Utility Triggers}
+\label{sec:utilityTriggers}
+
+We now describe additional triggers that are introduced to collect control or
+calibration events not covered by the main analysis triggers.
+
+Because the main dielectron analysis triggers make requirements on
+both legs, events collected with those triggers cannot be used to measure
+efficiencies without introducing unacceptable bias.
+Thus, to measure the electron selection and trigger efficiency
+we introduce three specialised tag and probe triggers designed to maximize
+the number of useful \dyll~events for both low and high $p_{T}$ electrons,
+while keeping the total trigger rate at a reasonable level. 
+The tag and probe method is described later in Section~\ref{sec:efficiency}.
+
+The first and second triggers probe low $p_T$ electrons and apply very tight identification 
+and isolation requirements on the tag leg to reduce the background rate.
+The third trigger probes higher $p_{T}$ electrons.
+These triggers are described in Table~\ref{tab:triggers_util} and labeled ``eff".
+
+\begin{table}[!ht]
+  \caption{Utility triggers.
+The identification and isolation requirements for electrons are described in Table~\ref{tab:HLTElectronCuts}.
+%The identification and isolation requirements for photons are described in Table~\ref{tab:PhotonPlusLeptonTriggerCuts}.
+Triggers labeled ``eff" are used for efficiency studies, ``FR" are used for fake rate studies,
+and ``$\zeta$ method " are used for Drell-Yan background estimation.}
+    \vspace{5pt}
+   \label{tab:triggers_util}
+  \begin{center}
+ {\small
+  \begin{tabular} {l|l|l|c}
+\hline
+  Dataset & Trigger name & L1 seed & Description\\
+ \hline \hline 
+  \multirow{6}{*}{DoubleElectron} 	
+  	& HLT\_Ele17\_CaloIdVT\_CaloIsoVT\_ 		& L1\_DoubleEG\_13\_7  	& $p_T>17,8~\GeVc$, eff\\
+    & TrkIdT\_TrkIsoVT\_Ele8\_Mass50\_v[3-5] 	&                 		& \\ %190456-190738 %190762-191419 %191512-194533
+  	& HLT\_Ele20\_CaloIdVT\_CaloIsoVT\_			& L1\_SingleIsoEG18er	& $p_T>20,4~\GeVc$, eff\\
+	& TrkIdT\_TrkIsoVT\_SC4\_Mass50\_v[3-5] 	& 						& \\ %190456-190738  %190762-191419 %191512-194533
+   	& HLT\_Ele32\_CaloIdT\_CaloIsoT\_			& L1\_SingleEG22   		& $p_T>32,17~\GeVc$, eff\\
+	& TrkIdT\_TrkIsoT\_SC17\_Mass50\_v[3-5]		& 						& \\ %190456-190738  %190762-191419  %191512-194533 
+	\hline \hline
+  \multirow{9}{*}{DoubleElectron} 	
+	& HLT\_Ele8\_CaloIdT\_TrkIdVL\_v[2-4]		& L1\_SingleEG5 		& $p_T>8~\GeVc$, FR \\ %190456-190738 %190762-191419 %191512-194533
+ 	& HLT\_Ele8\_CaloIdT\_CaloIsoVL\_			& L1\_SingleEG7 		& $p_T>8~\GeVc$, FR \\ 
+ 	& TrkIdVL\_TrkIsoVL\_v[12-14]				&  						& \\ %190456-190738 %190762-191419 %191512-194533
+	& HLT\_Ele17\_CaloIdT\_CaloIsoVL\_  		& L1\_SingleEG12		& $p_T>17~\GeVc$, FR \\ 
+	& TrkIdVL\_TrkIsoVL\_v[3-5]  				& 						& \\ %190456-190738 %190762-191419 %191512-194533
+   	& HLT\_Ele8\_CaloIdT\_CaloIsoVL\_      		& L1\_SingleEG7         & $p_T>8~\GeVc$, FR \\
+   	& TrkIdVL\_TrkIsoVL\_Jet30\_v[3-5]      	& 						& \\ %190456-190738 %190762-191419 %191512-194533
+ 	& HLT\_Ele17\_CaloIdT\_CaloIsoVL\_			& L1\_SingleEG12		& $p_T>17~\GeVc$, FR \\ 
+ 	& TrkIdVL\_TrkIsoVL\_Jet30\_v[3-5]			& 						& \\ %190456-190738 %190762-191419 %191512-194533
+	\hline \hline
+  \multirow{2}{*}{DoubleMu}     
+    & HLT\_Mu8\_v16 	&  L1\_SingleMu3  		& $p_T>8~\GeVc$, FR\\ %190456 - 194533
+    & HLT\_Mu17\_v3    	&  L1\_SingleMu12      	& $p_T>17~\GeVc$, FR\\ %190456 - 194533   
+	\hline \hline
+  \multirow{5}{*}{DoubleElectron} 	
+	& HLT\_Photon22\_R9Id90\_HE10\_Iso40\_EBOnly\_v[2-4]					& L1\_SingleEG22		& $\zeta$ method \\ %190456-190738 190762-191419 %191512-194731
+	& HLT\_Photon36\_R9Id90\_HE10\_Iso40\_EBOnly\_v[2-4]					& L1\_SingleEG22		& $\zeta$ method \\ %190456-190738 190762-191419 %191512-194731
+	& HLT\_Photon50\_R9Id90\_HE10\_Iso40\_EBOnly\_v[2-4]					& L1\_SingleEG22		& $\zeta$ method \\ %190456-190738 190762-191419 %191512-194731
+	& HLT\_Photon75\_R9Id90\_HE10\_Iso40\_EBOnly\_v[2-4]					& L1\_SingleEG22		& $\zeta$ method \\ %190456-190738 190762-191419 %191512-194731
+	& HLT\_Photon90\_R9Id90\_HE10\_Iso40\_EBOnly\_v[2-4]					& L1\_SingleEG22		& $\zeta$ method \\ %190456-190738 190762-191419 %191512-194731
+    \hline 
+  \end{tabular}
+}
+  \end{center}
+\end{table}
+
+Another set of specialised triggers are used to record events
+enriched in fake electrons and muons for the measurement of jet induced backgrounds.
+This is done using the fake rate method, which is described in detail in
+Section~\ref{sec:bkg_fakes}.
+
+We introduce five triggers for the electron and two for muon fake rate measurements,
+described in Table~\ref{tab:triggers_util} and labeled ``FR".
+For electrons, because these triggers are prescaled, the first three impose different $p_T$ thresholds 
+to collect a sufficient sample over a large $p_T$ range.
+The fourth and fifth triggers require an additional jet with corrected $E_{T}>30$~GeV
+to perform systematic studies on the fake rate measurement.
+For muon, we use two different $\pt$ thresholds to collect sufficient sample
+over a large $\pt$ range because these triggers are prescaled. 
+The five photon triggers are used to collect events populated by photons, 
+which are used to estimate Drell-Yan background. 
+%The photon selection requiriements are summarised in Table~\ref{tab:PhotonPlusLeptonTriggerCuts}.
+
+%\begin{table}[htb]
+% \caption{Summary of requirements applied in the photon triggers used for this analysis.}
+%    \vspace{5pt}
+%  \label{tab:PhotonPlusLeptonTriggerCuts}
+%  \centering
+%  \begin{tabular}{l|c}
+%    \hline
+%    name                        &  criterion \\
+%    \hline \hline 
+%    \multirow{1}{*}{R9Id90} 	& $\mathrm{R9 > 0.9 }$ \\
+%    \hline 
+%    \multirow{1}{*}{HE10} 		& $\mathrm{H/E < 0.1 }$ \\
+%    \hline 
+%    \multirow{3}{*}{Iso40}     	& $\mathrm{ECalIso} < 4.0 $ \\
+%                                & $\mathrm{HCalIso} < 4.0 $ \\
+%                                & $\mathrm{TrkIso}  < 4.0 $ \\
+%    \hline 
+%  \end{tabular}
+%\end{table}
+
