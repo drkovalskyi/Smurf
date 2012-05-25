@@ -190,7 +190,11 @@ class SmurfTree {
     vbfhww124,
     vbfhww126,
     vbfhww128,
-    vbfhww135
+    vbfhww135,
+    hww125,
+    hww145,
+    vbfhww125,
+    vbfhww145
   };
 
   /// variables
