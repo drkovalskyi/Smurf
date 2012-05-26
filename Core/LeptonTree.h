@@ -173,7 +173,7 @@ class LeptonTree {
         std::vector<std::string> variables_;
 
         /// default constructor  
-        LeptonTree() : tagPtr_(&tag_), probePtr_(&probe_) {}
+        LeptonTree() : tagPtr_(&tag_), probePtr_(&probe_), jet1Ptr_(&jet1_), jet2Ptr_(&jet2_), jet3Ptr_(&jet3_) {}
         /// default destructor
         ~LeptonTree(){ 
 std::cout << "~LeptonTree()" << std::endl;
@@ -218,9 +218,9 @@ std::cout << "~LeptonTree() done" << std::endl;
             tree_->Branch("qTag"             , &qTag_             ,   "qTag/I");
             tree_->Branch("qProbe"           , &qProbe_           ,   "qProbe/I");
             tree_->Branch("scale1fb"         , &scale1fb_         ,   "scale1fb/F");
-            tree_->Branch("jet1"             , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet1_);
-            tree_->Branch("jet2"             , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet2_);
-            tree_->Branch("jet3"             , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet3_);
+            tree_->Branch("jet1"             , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet1Ptr_);
+            tree_->Branch("jet2"             , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet2Ptr_);
+            tree_->Branch("jet3"             , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jet3Ptr_);
             tree_->Branch("met"              , &met_              ,   "met/F");
             tree_->Branch("metPhi"           , &metPhi_           ,   "metPhi/F");
             tree_->Branch("trackMet"         , &trackMet_         ,   "trackMet/F");
@@ -316,9 +316,9 @@ std::cout << "~LeptonTree() done" << std::endl;
             tree_->SetBranchAddress("qTag",             &qTag_);
             tree_->SetBranchAddress("qProbe",           &qProbe_);
             tree_->SetBranchAddress("scale1fb",         &scale1fb_);
-            tree_->SetBranchAddress("jet1",             &jet1_);
-            tree_->SetBranchAddress("jet2",             &jet2_);
-            tree_->SetBranchAddress("jet3",             &jet3_);
+            tree_->SetBranchAddress("jet1",             &jet1Ptr_);
+            tree_->SetBranchAddress("jet2",             &jet2Ptr_);
+            tree_->SetBranchAddress("jet3",             &jet3Ptr_);
             tree_->SetBranchAddress("met",              &met_);
             tree_->SetBranchAddress("metPhi",           &metPhi_);
             tree_->SetBranchAddress("trackMet",         &trackMet_);
@@ -396,6 +396,9 @@ std::cout << "~LeptonTree() done" << std::endl;
 
         LorentzVector *tagPtr_;
         LorentzVector *probePtr_;
+        LorentzVector *jet1Ptr_;
+        LorentzVector *jet2Ptr_;
+        LorentzVector *jet3Ptr_;
 
 }; 
 
