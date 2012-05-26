@@ -25,8 +25,8 @@ const int verboseLevel =   1;
 void ComputeTopScaleFactors
 (
  Int_t period = 0,
- TString bgdInputFile    = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Full2011/backgroundA_skim1.root",
- TString dataInputFile   = "/data/smurf/data/Run2011_Spring11_SmurfV7_42X/mitf-alljets_Full2011/data_2l_skim1.root"
+ TString bgdInputFile    = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundA_skim2.root",
+ TString dataInputFile   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/data_skim2.root"
  )
 {
 
@@ -40,16 +40,16 @@ void ComputeTopScaleFactors
   double lumi = 1;
   enum { kOther, kTTBAR, kTW, kData };
 
-  TString effPath  = "/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
-  TString fakePath = "/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
-  TString puPath   = "/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
+  TString effPath  = "";
+  TString fakePath = "";
+  TString puPath   = "";
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
   if	 (period == 0){ // Full2011-Fall11-V9
-    effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
-    fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
-    puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
-    lumi     = 0.9;minRun =      0;maxRun = 999999;
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-02_V3/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-02_V3/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12.root";
+    lumi     = 0.818;minRun =      0;maxRun = 999999;
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -573,7 +573,8 @@ void ComputeTopScaleFactors
     effttDA_btag_central_2j[i] = (btag_central_2j_num[3][i]-btag_central_2j_num[0][i]-btag_central_2j_num[2][i])/
                                  (btag_central_2j_den[3][i]-btag_central_2j_den[0][i]-btag_central_2j_den[2][i]);    
     //effttDA_btag_central_2j[i] = (btag_central_2j_num[3][i]-btag_central_2j_num[0][i])/
-    //                             (btag_central_2j_den[3][i]-btag_central_2j_den[0][i]);    
+    //                             (btag_central_2j_den[3][i]-btag_central_2j_den[0][i]);
+    effttDA_btag_central_2j[i] = TMath::Min(effttDA_btag_central_2j[i],0.999);
     effttDA_btag_central_2j_error[i] = sqrt((1-effttDA_btag_central_2j[i])*effttDA_btag_central_2j[i]/btag_central_2j_den[3][i]);
 
     printf("details_central(%d) --> %5.0f/%7.2f/%7.2f  - %5.0f/%7.2f/%7.2f\n",i,
@@ -626,11 +627,11 @@ void ComputeTopScaleFactors
   for(int i=0; i<5; i++) {
 
     evtMC_vbf_2j[i] = (btag_vbf_2j_num[1][i]+btag_vbf_2j_num[2][i])*(1.0-effttMC_btag_central_tt_2j[i])/effttMC_btag_central_tt_2j[i];
-    evtDA_vbf_2j[i] = (btag_vbf_2j_num[3][i]-btag_vbf_2j_num[0][i])*(1.0-effttDA_btag_central_2j[i])/effttDA_btag_central_2j[i];
+    evtDA_vbf_2j[i] = TMath::Max(btag_vbf_2j_num[3][i]-btag_vbf_2j_num[0][i],0.0)*(1.0-effttDA_btag_central_2j[i])/effttDA_btag_central_2j[i];
 
     evtMC_vbf_2j_error[i] = (btag_vbf_2j_num[1][i]+btag_vbf_2j_num[2][i])*effttMC_btag_central_tt_2j_error[i]/effttMC_btag_central_tt_2j[i]/effttMC_btag_central_tt_2j[i];
-    double errDa[2] = {sqrt(btag_vbf_2j_num[3][i])*(1.0-effttDA_btag_central_2j[i])/effttDA_btag_central_2j[i],
-                       (btag_vbf_2j_num[3][i]-btag_vbf_2j_num[0][i])*effttDA_btag_central_2j_error[i]/effttDA_btag_central_2j[i]/effttDA_btag_central_2j[i]};
+    double errDa[2] = {sqrt(TMath::Max(btag_vbf_2j_num[3][i],0.0))*(1.0-effttDA_btag_central_2j[i])/effttDA_btag_central_2j[i],
+                       TMath::Max(btag_vbf_2j_num[3][i]-btag_vbf_2j_num[0][i],0.0)*effttDA_btag_central_2j_error[i]/effttDA_btag_central_2j[i]/effttDA_btag_central_2j[i]};
     evtDA_vbf_2j_error[i] = sqrt(errDa[0]*errDa[0]+errDa[1]*errDa[1]);
   }
   for(int i=0; i<5; i++) printf("eventsTaggedVBF(%d) --> top: %6.3f  data: %5d  bck:%6.3f\n",i,btag_vbf_2j_num[1][i]+btag_vbf_2j_num[2][i],

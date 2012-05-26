@@ -25,9 +25,9 @@
 //------------------------------------------------------------------------------
 // GF  == 10010, WBF == 10001, WH == 26, ZH == 24, ttH=121/122
 void ComputeWWBkgScaleFactor (
-  Int_t period = -1,
-  char* bgdInputFile    = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets/backgroundA_skim1.root",
-  char* dataInputFile   = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets/data_2l_skim1.root"
+ Int_t period = 0,
+ TString bgdInputFile    = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundA_skim2.root",
+ TString dataInputFile   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/data_skim2.root"
 )
 {
 
@@ -44,16 +44,16 @@ void ComputeWWBkgScaleFactor (
 
   double scaleFactorLum = 1.0;
   
-  TString effPath  = "/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
-  TString fakePath = "/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
-  TString puPath   = "/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
+  TString effPath  = "";
+  TString fakePath = "";
+  TString puPath   = "";
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
   if	 (period == 0){ // Full2011-Fall11-V9
-    effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
-    fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
-    puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
-    scaleFactorLum     = 0.9;minRun =      0;maxRun = 999999;
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-02_V3/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-02_V3/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12.root";
+    scaleFactorLum     = 0.818;minRun =      0;maxRun = 999999;
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -97,8 +97,8 @@ void ComputeWWBkgScaleFactor (
   //Define Histograms & Yields
   //***********************************************************************************************
 
-   const Int_t nmass = 15;
-  const Double_t mH[nmass] = {115,118,120,122,124,126,128,130,135,140,150,160,170,180,190};  
+   const Int_t nmass = 17;
+  const Double_t mH[nmass] = {115,118,120,122,124,125,126,128,130,135,140,145,150,160,170,180,190};  
   //scale factors for 4 classes of selections
   enum { kCutBasedZeroJet, kCutBasedOneJet, kMVAZeroJet, kMVAOneJet };
     

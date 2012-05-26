@@ -131,7 +131,7 @@ double nVtxScaleFactor(TH1D *fhDNvtx, int nvtx){
 }
 
 double nPUScaleFactor(TH1D *fhDPU, int npu){
-  double mynpu = TMath::Min((double)npu,39.499);
+  double mynpu = TMath::Min((double)npu,49.499);
   Int_t npuxbin = fhDPU->GetXaxis()->FindBin(mynpu);
   return fhDPU->GetBinContent(npuxbin);
 }

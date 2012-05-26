@@ -41,11 +41,13 @@ int HiggsMassIndex ( double mH ) {
   else if(mH == 120) channel = 3;
   else if(mH == 122) channel = 4;
   else if(mH == 124) channel = 5;
-  else if(mH == 126) channel = 6;
+  else if(mH == 125 ||
+          mH == 126) channel = 6;
   else if(mH == 128) channel = 7;
   else if(mH == 130) channel = 8;
   else if(mH == 135) channel = 9;
-  else if(mH == 140) channel = 10;
+  else if(mH == 140 ||
+          mH == 145) channel = 10;
   else if(mH == 150) channel = 11;
   else if(mH == 160) channel = 12;
   else if(mH == 170) channel = 13;
@@ -82,7 +84,7 @@ double cutPtMaxLow ( double mH ) {
 }
 
 double cutPtMinLow ( double mH , Int_t finalstateType ) {
-  double SFCutPtMinLow[28]      = { 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
+  double SFCutPtMinLow[28]      = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 12, 15, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
   double OFCutPtMinLow[28]      = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 12, 15, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
   int index = HiggsMassIndex(mH);
   assert (index >= 0 && index < 28);

@@ -15,12 +15,12 @@
 #include "Math/VectorUtil.h"
 #include "TH1D.h"
 #include "TH2D.h"
-#include "/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Core/SmurfTree.h"
+#include "/home/ceballos/releases/CMSSW_4_2_8_patch4/src/Smurf/Core/SmurfTree.h"
 #include "factors.h"
 #include "HiggsQCDScaleSystematics.h"
 #include "PSUESystematics.h"
 #include "PDFgHHSystematics.h"
-#include "/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Core/LeptonScaleLookup.h"
+#include "/home/ceballos/releases/CMSSW_4_2_8_patch4/src/Smurf/Core/LeptonScaleLookup.h"
 #include "DYBkgScaleFactors.h"
 #include "TopBkgScaleFactors.h"
 #include "WWBkgScaleFactors.h"
@@ -41,7 +41,7 @@ double DeltaPhi(double phi1, double phi2);
 int    verboseLevel =   0;
 const double sigmaB = 0.35;
 
-void PlotHiggsRes
+void PlotHiggsRes2011
 (
  UInt_t  nJetsType   	 = 0,
  UInt_t  mH      	 = 300,
@@ -56,10 +56,8 @@ void PlotHiggsRes
  int  TheVerboseLevel    = 0
  )
 {
-  bool wwPresel = false; double ptlMin = 10.0;
-  if(mH == 0) {wwPresel = true; mH = 160; ptlMin = 20.0;}
-  Bool_t useDYMVA = kFALSE;
-  if(wwPresel == false && mH <= 140) useDYMVA = kTRUE;
+  bool wwPresel = false;
+  if(mH == 0) {wwPresel = true; mH = 115;}
 
   int category = 0;
   if(period > 9) {period = period - 10; category = 1;}
@@ -71,14 +69,14 @@ void PlotHiggsRes
 
   verboseLevel = TheVerboseLevel;
   bool useZjetsTemplates   = true; // default is true
-  bool useWWTemplates      = false; // default is true
+  bool useWWTemplates      = true;
   bool useStatTemplates    = true;
-  bool useExpTemplates     = true;
+  bool useExpTemplates     = true; // default is true
   bool useJESTemplates     = true;
   bool useWJetsTemplates   = true;
-  bool useWJetsMCTemplates = false; // default is true
-  bool useTopTemplates     = false; // default is true
-  bool useggHTemplates     = false; // default is true
+  bool useWJetsMCTemplates = true;
+  bool useTopTemplates     = true;
+  bool useggHTemplates     = true;
   bool useWgammaTemplates  = false; // this is intentional
   if(nJetsType != 0 && nJetsType != 1){
     useZjetsTemplates	= false;
@@ -185,17 +183,50 @@ void PlotHiggsRes
   // 7: -+
   // 8: +-
 
-  TString effPath  = "";
-  TString fakePath = "";
-  TString puPath   = "";
+  TString effPath  = "/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
+  TString fakePath = "/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
+  TString puPath   = "/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
   double scaleFactorLum = 2.121;
-  if	 (period == 0){ // Full2012-Summer12-V9
-    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-02_V3/summary.root";
-    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-02_V3/summary.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X//auxiliar/puWeights_Summer12.root";
-    scaleFactorLum     = 0.818;minRun =      0;maxRun = 999999;
+  if	 (period == 0){ // Run2011A
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
+    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
+    //scaleFactorLum     = 2.1;minRun =      0;maxRun = 173692;
+    scaleFactorLum     = 1.1;minRun =      0;maxRun = 167913;
+  }
+  else if(period == 1){ // Run2011B
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
+    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    //puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
+    //scaleFactorLum     = 1.9;minRun = 173693;maxRun = 999999;
+    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
+    scaleFactorLum     = 3.6;minRun = 167914;maxRun = 999999;
+  }
+  else if(period == 2){ // Full2011
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
+    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
+    scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 3){ // Full2011-Fall11-V7
+    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
+    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
+    scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 4){ // Full2011-Fall11-V8
+    effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
+    fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
+    puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
+    scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 5){ // Full2011-Fall11-V9
+    effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
+    fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
+    puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
+    scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -280,8 +311,8 @@ void PlotHiggsRes
   else                          printf("***********useZjetsTemplates = false***************\n");
   if(useZjetsTemplates == true){
     TFile *fZjetsTemplatesFile;
-    if(period == 0) fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/histo_Zjets_Templates.root");
-    else            assert(0);
+    if(period != 3) fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/histo_Zjets_Templates.root");
+    else            fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/histo_Zjets_Templates.root");
     char ZjetsHistName[100];
     sprintf(ZjetsHistName, "hDZjets%d_%d", mH,TMath::Min((int)nJetsType,1));
     hDZjetsTemplate = (TH1D*)(fZjetsTemplatesFile->Get(ZjetsHistName));
@@ -292,7 +323,7 @@ void PlotHiggsRes
     fZjetsTemplatesFile->Close();
     delete fZjetsTemplatesFile;
     if(hDZjetsTemplate->GetSumOfWeights() != 1.0){
-      printf("hDZjetsTemplate(%d) norm = %f --> normalizing to 1\n",mH,hDZjetsTemplate->GetSumOfWeights());
+      printf("hDZjetsTemplate norm = %f --> normalizing to 1\n",hDZjetsTemplate->GetSumOfWeights());
       hDZjetsTemplate->Scale(1./hDZjetsTemplate->GetSumOfWeights());
     }
   }
@@ -517,7 +548,7 @@ void PlotHiggsRes
       useVar = 4;
       useCut = 0.405-datMVA[useVar]->GetBinWidth(0)/2.0;
     }	
-    else if(mH == 115 || mH == 118 ||  mH == 122 || mH == 124 || mH == 125 || mH == 126 || mH == 128 || mH == 135 || mH == 145){
+    else if(mH == 115 || mH == 118 ||  mH == 122 || mH == 124 || mH == 126 || mH == 128 || mH == 135){
       //useVar = 2;
       //useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
       useVar = 4;
@@ -631,7 +662,7 @@ void PlotHiggsRes
       useVar = 4;
       useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
     }	
-    else if(mH == 115 || mH == 118 ||  mH == 122 || mH == 124 || mH == 125 || mH == 126 || mH == 128 || mH == 135 || mH == 145){
+    else if(mH == 115 || mH == 118 ||  mH == 122 || mH == 124 || mH == 126 || mH == 128 || mH == 135){
       useVar = 4;
       useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
     }	
@@ -706,7 +737,7 @@ void PlotHiggsRes
       useCut = 0.945-datMVA[useVar]->GetBinWidth(0)/2.0;
     }	
   }
-  if(nJetsType !=2 && useVar != 4) assert(0);
+  //useVar = 5;
   //----------------------------------------------------------------------------
 
   UInt_t          cuts;
@@ -765,7 +796,6 @@ void PlotHiggsRes
   Float_t         sfWeightEff;
   Float_t         sfWeightTrig;
   Float_t         sfWeightHPt;
-  Float_t         dymva = -100.0;
 
   //****************************************************************************
   //
@@ -824,8 +854,7 @@ void PlotHiggsRes
   signal->SetBranchAddress( "sfWeightPU"     , &sfWeightPU     );
   signal->SetBranchAddress( "sfWeightEff"    , &sfWeightEff    );
   signal->SetBranchAddress( "sfWeightTrig"   , &sfWeightTrig   );
-  signal->SetBranchAddress( "sfWeightHPt"    , &sfWeightHPt    );
-  signal->SetBranchAddress( "dymva"          , &dymva          );
+  signal->SetBranchAddress( "sfWeightHPt"    , &sfWeightHPt   );
 
   float nSigAcc[6]  = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   float nSigCut[6]  = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -855,6 +884,7 @@ void PlotHiggsRes
     //  - apply "central jet veto"
     //    ie. no third jet above 30 GeV that lies between the 
     //    first two jets in pseudorapidity
+    //  - VBF jets must have |eta| < 4.5 (instead of 5.0)
     //----------------------------------------------------------------------------
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
@@ -864,38 +894,31 @@ void PlotHiggsRes
     	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))     Njet3 = 0;
       else							           Njet3 = 2;
       if(njets < 2 || njets > 3)                                           Njet3 = 0;
+      if(TMath::Abs(jet1->eta()) >= 4.5 || TMath::Abs(jet2->eta()) >= 4.5) Njet3 = 0;
     }
 
     //----------------------------------------------------------------------------
     //For Jet Energy scale systematics
     //----------------------------------------------------------------------------
     bool passJetCut[3] = {Njet3 == nJetsType, false, false};
-    if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 4.7  			       ) passJetCut[1] = true;
-    if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 4.7  			       ) passJetCut[2] = true;
-    if(nJetsType == 1 && jet1->pt()*1.05 > 30 && jet2->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 4.7 && TMath::Abs(jet2->eta()) < 4.7) passJetCut[1] = true;
-    if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 4.7 && TMath::Abs(jet2->eta()) < 4.7) passJetCut[2] = true;
+    if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
+    if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[2] = true;
+    if(nJetsType == 1 && jet1->pt()*1.05 > 30 && jet2->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[1] = true;
+    if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[2] = true;
 
     double minmet = TMath::Min(pmet,pTrackMet);
-    bool passMET = minmet > 20.;
-    if(useDYMVA == kFALSE){
-      if     (njets == 0) passMET = passMET && (minmet > 45. || type == SmurfTree::em || type == SmurfTree::me);
-      else if(njets == 1) passMET = passMET && (minmet > 45. || type == SmurfTree::em || type == SmurfTree::me);
-      else                passMET = passMET && (met > 45.0   || type == SmurfTree::em || type == SmurfTree::me);
-    } else {
-      if     (njets == 0) passMET = passMET && (dymva >  0.60 || type == SmurfTree::em || type == SmurfTree::me);
-      else if(njets == 1) passMET = passMET && (dymva >  0.30 || type == SmurfTree::em || type == SmurfTree::me);
-      else                passMET = passMET && (met > 45.0    || type == SmurfTree::em || type == SmurfTree::me);
-    }
+    bool passMET = minmet > 20. &&
+                  (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
 
     bool passNewCuts = true;
+    if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
     if(dilep->pt() <= 45) passNewCuts = false;
 
     //----------------------------------------------------------------------------
     //To create the DY bkg systematics MVA shapes (makeZjetsTemplates == true)
     //we loosen the MET cut to "minmet > 20 GeV". 
     //----------------------------------------------------------------------------
-    if     ( makeZjetsTemplates == true && passMET == true ) passMET = false;
-    else if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
+    if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
     //----------------------------------------------------------------------------
     // WW Preselection
@@ -904,8 +927,11 @@ void PlotHiggsRes
     if( dilep->mass() > dilmass_cut 					 ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
+    if( dilep->mass() <= 20.0  &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)      					 ) continue; // cut on low dilepton mass for ee/mm
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
-    if( lep2->pt() <= ptlMin	    					 ) continue; // cut on trailing lepton pt
+    if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( passNewCuts == false                                             ) continue; // cut on new pt cuts
     if( passMET == false                                                 ) continue; // cut on pmet
     if(fabs(dilep->mass()-91.1876) <= 15 &&
@@ -919,12 +945,9 @@ void PlotHiggsRes
     //if( jet2Btag >= 2.1             					 ) continue; // cut on jet2Btag
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    bool dPhiDiLepJetCut = kTRUE;
-    if(useDYMVA == kFALSE){
-      if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
-      else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
-    }
-    if(njets >= 2) dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+    bool dPhiDiLepJetCut = true;
+    if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
+    else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
     if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
     //----------------------------------------------------------------------------
@@ -945,7 +968,6 @@ void PlotHiggsRes
     //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
     //bdtg = ((mt-80.0)/(mH-80.0)-0.5)*2.0;
     //bdtg = (knn-0.5)*2.0;
-    //if(mH<500) bdtg = (bdtg+0.15)/0.85;
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
     
@@ -974,6 +996,17 @@ void PlotHiggsRes
     add = add*trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
         					      fabs(lep2->eta()), lep2->pt(), 
         					      TMath::Abs( lid1), TMath::Abs(lid2));
+
+    //----------------------------------------------------------------------------
+    // This is tricky, we have Fall11 samples only
+    // For these mass points we have only Fall11, so we do not apply the Summer11
+    // pileup reweighting
+    // Later, we will have consistent samples and then we don't need to do this
+    //----------------------------------------------------------------------------
+    if(mH == 118 || mH == 122 || mH == 124 || mH == 126 || mH == 128 || mH == 135) {
+      add = sfWeightPU*sfWeightEff*sfWeightTrig;
+    }
+
     double addggH = 1.0;
     double addggHSyst[8] = {1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
     // CAREFUL HERE, no data-driven corrections, just Higgs k-factors
@@ -988,9 +1021,9 @@ void PlotHiggsRes
     if(isSM4 == true) add = add * enhancementFactor(mH,1); // BR(H->WW) enhancement factor
 
     if (processId == 10010) {
-      //float theMax = 0.00;
-      //addggH = HiggsPtKFactor->GetBinContent( HiggsPtKFactor->GetXaxis()->FindFixBin(TMath::Max(higgsPt, theMax)));
-      //for(int ns=0; ns<8; ns++) if(HiggsPtKFactorSyst[ns]) addggHSyst[ns] = HiggsPtKFactorSyst[ns]->GetBinContent( HiggsPtKFactorSyst[ns]->GetXaxis()->FindFixBin(TMath::Max(higgsPt, theMax)));
+      float theMax = 0.00;
+      addggH = HiggsPtKFactor->GetBinContent( HiggsPtKFactor->GetXaxis()->FindFixBin(TMath::Max(higgsPt, theMax)));
+      for(int ns=0; ns<8; ns++) if(HiggsPtKFactorSyst[ns]) addggHSyst[ns] = HiggsPtKFactorSyst[ns]->GetBinContent( HiggsPtKFactorSyst[ns]->GetXaxis()->FindFixBin(TMath::Max(higgsPt, theMax)));
 
       if(isFermioPhobic == true) addggH = 0.0;
       if(isSM4 == true) {
@@ -1042,7 +1075,7 @@ void PlotHiggsRes
           (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
       passAllCuts = (*jet1+*jet2).M() > 450. &&
                     TMath::Abs(jet1->eta()-jet2->eta()) > 3.5 &&
-		    mt > 30 && mt < mtUpperCut &&
+		    (mH > 200 || dilep->mass() < 100.) &&
 		    centrality == 1 &&
 		    passJetCut[0]==true;
     }
@@ -1253,7 +1286,6 @@ void PlotHiggsRes
   background->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux2",mH,nJetsType), &bdtg_aux2  );
   //background->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
   //background->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
-  background->SetBranchAddress( "dymva"          , &dymva          );
 
   float nBgdAcc = 0.0;
   float nBgdCut = 0.0;
@@ -1286,6 +1318,7 @@ void PlotHiggsRes
     //  - apply "central jet veto"
     //    ie. no third jet above 30 GeV that lies between the 
     //    first two jets in pseudorapidity
+    //  - VBF jets must have |eta| < 4.5 (instead of 5.0)
     //----------------------------------------------------------------------------
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
@@ -1295,38 +1328,31 @@ void PlotHiggsRes
     	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))     Njet3 = 0;
       else							           Njet3 = 2;
       if(njets < 2 || njets > 3)                                           Njet3 = 0;
+      if(TMath::Abs(jet1->eta()) >= 4.5 || TMath::Abs(jet2->eta()) >= 4.5) Njet3 = 0;
     }
 
     //----------------------------------------------------------------------------
     //For Jet Energy scale systematics
     //----------------------------------------------------------------------------
     bool passJetCut[3] = {Njet3 == nJetsType, false, false};
-    if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 4.7  			       ) passJetCut[1] = true;
-    if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 4.7  			       ) passJetCut[2] = true;
-    if(nJetsType == 1 && jet1->pt()*1.05 > 30 && jet2->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 4.7 && TMath::Abs(jet2->eta()) < 4.7) passJetCut[1] = true;
-    if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 4.7 && TMath::Abs(jet2->eta()) < 4.7) passJetCut[2] = true;
+    if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
+    if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[2] = true;
+    if(nJetsType == 1 && jet1->pt()*1.05 > 30 && jet2->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[1] = true;
+    if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[2] = true;
 
     double minmet = TMath::Min(pmet,pTrackMet);
-    bool passMET = minmet > 20.;
-    if(useDYMVA == kFALSE){
-      if     (njets == 0) passMET = passMET && (minmet > 45. || type == SmurfTree::em || type == SmurfTree::me);
-      else if(njets == 1) passMET = passMET && (minmet > 45. || type == SmurfTree::em || type == SmurfTree::me);
-      else                passMET = passMET && (met > 45.0   || type == SmurfTree::em || type == SmurfTree::me);
-    } else {
-      if     (njets == 0) passMET = passMET && (dymva >  0.60 || type == SmurfTree::em || type == SmurfTree::me);
-      else if(njets == 1) passMET = passMET && (dymva >  0.30 || type == SmurfTree::em || type == SmurfTree::me);
-      else                passMET = passMET && (met > 45.0    || type == SmurfTree::em || type == SmurfTree::me);
-    }
+    bool passMET = minmet > 20. &&
+                  (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
 
     bool passNewCuts = true;
+    if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
     if(dilep->pt() <= 45) passNewCuts = false;
 
     //----------------------------------------------------------------------------
     //To create the DY bkg systematics MVA shapes (makeZjetsTemplates == true)
     //we loosen the MET cut to "minmet > 20 GeV". 
     //----------------------------------------------------------------------------
-    if     ( makeZjetsTemplates == true && passMET == true ) passMET = false;
-    else if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
+    if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
     //----------------------------------------------------------------------------
     // WW Preselection
@@ -1340,8 +1366,11 @@ void PlotHiggsRes
     if( dilep->mass() > dilmass_cut 					 ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
+    if( dilep->mass() <= 20.0  &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)      					 ) continue; // cut on low dilepton mass for ee/mm
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
-    if( lep2->pt() <= ptlMin	    					 ) continue; // cut on trailing lepton pt
+    if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( passNewCuts == false                                             ) continue; // cut on new pt cuts
     if( passMET == false                                                 ) continue; // cut on pmet
     if(fabs(dilep->mass()-91.1876) <= 15 &&
@@ -1355,12 +1384,9 @@ void PlotHiggsRes
     //if( jet2Btag >= 2.1             					 ) continue; // cut on jet2Btag
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    bool dPhiDiLepJetCut = kTRUE;
-    if(useDYMVA == kFALSE){
-      if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
-      else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
-    }
-    if(njets >= 2) dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+    bool dPhiDiLepJetCut = true;
+    if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
+    else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
     if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
     //----------------------------------------------------------------------------
@@ -1415,7 +1441,6 @@ void PlotHiggsRes
     //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
     //bdtg = ((mt-80.0)/(mH-80.0)-0.5)*2.0;
     //bdtg = (knn-0.5)*2.0;
-    //if(mH<500) bdtg = (bdtg+0.15)/0.85;
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
 
@@ -1621,7 +1646,7 @@ void PlotHiggsRes
           (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
       passAllCuts = (*jet1+*jet2).M() > 450. &&
                     TMath::Abs(jet1->eta()-jet2->eta()) > 3.5 &&
-		    mt > 30 && mt < mtUpperCut &&
+		    (mH > 200 || dilep->mass() < 100.) &&
 		    centrality == 1 &&
 		    passJetCut[0]==true;
     }
@@ -1648,9 +1673,8 @@ void PlotHiggsRes
       //----------------------------------------------------------------------------      
       if(fDecay == 4&& (dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
                        (type   == SmurfTree::mm   || type   == SmurfTree::ee)){
-	if(nJetsType != 2 && mH <= 300){
-          //newWeight=newWeight*DYBkgScaleFactor(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))/DYBkgScaleFactor(0,TMath::Min((int)nJetsType,2));
-          newWeight=0.0;
+	if(nJetsType != 2){
+          newWeight=newWeight*DYBkgScaleFactor(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))/DYBkgScaleFactor(0,TMath::Min((int)nJetsType,2));
 	}
 	DYXS[1] += newWeight;
       }
@@ -1957,7 +1981,6 @@ void PlotHiggsRes
   treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux2",mH,nJetsType), &bdtg_aux2  );
   //treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
   //treeSyst->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
-  treeSyst->SetBranchAddress( "dymva"          , &dymva          );
   printf("--- Finished treeSyst loop\n");
 
   float nSystAcc  = 0.0;
@@ -1983,6 +2006,7 @@ void PlotHiggsRes
     //  - apply "central jet veto"
     //    ie. no third jet above 30 GeV that lies between the 
     //    first two jets in pseudorapidity
+    //  - VBF jets must have |eta| < 4.5 (instead of 5.0)
     //----------------------------------------------------------------------------
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
@@ -1992,38 +2016,31 @@ void PlotHiggsRes
     	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))     Njet3 = 0;
       else							           Njet3 = 2;
       if(njets < 2 || njets > 3)                                           Njet3 = 0;
+      if(TMath::Abs(jet1->eta()) >= 4.5 || TMath::Abs(jet2->eta()) >= 4.5) Njet3 = 0;
     }
 
     //----------------------------------------------------------------------------
     //For Jet Energy scale systematics
     //----------------------------------------------------------------------------
     bool passJetCut[3] = {Njet3 == nJetsType, false, false};
-    if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 4.7  			       ) passJetCut[1] = true;
-    if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 4.7  			       ) passJetCut[2] = true;
-    if(nJetsType == 1 && jet1->pt()*1.05 > 30 && jet2->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 4.7 && TMath::Abs(jet2->eta()) < 4.7) passJetCut[1] = true;
-    if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 4.7 && TMath::Abs(jet2->eta()) < 4.7) passJetCut[2] = true;
+    if(nJetsType == 0 && 			 jet1->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[1] = true;
+    if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0  			       ) passJetCut[2] = true;
+    if(nJetsType == 1 && jet1->pt()*1.05 > 30 && jet2->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[1] = true;
+    if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 5.0 && TMath::Abs(jet2->eta()) < 5.0) passJetCut[2] = true;
 
     double minmet = TMath::Min(pmet,pTrackMet);
-    bool passMET = minmet > 20.;
-    if(useDYMVA == kFALSE){
-      if     (njets == 0) passMET = passMET && (minmet > 45. || type == SmurfTree::em || type == SmurfTree::me);
-      else if(njets == 1) passMET = passMET && (minmet > 45. || type == SmurfTree::em || type == SmurfTree::me);
-      else                passMET = passMET && (met > 45.0   || type == SmurfTree::em || type == SmurfTree::me);
-    } else {
-      if     (njets == 0) passMET = passMET && (dymva >  0.60 || type == SmurfTree::em || type == SmurfTree::me);
-      else if(njets == 1) passMET = passMET && (dymva >  0.30 || type == SmurfTree::em || type == SmurfTree::me);
-      else                passMET = passMET && (met > 45.0    || type == SmurfTree::em || type == SmurfTree::me);
-    }
+    bool passMET = minmet > 20. &&
+                  (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
 
     bool passNewCuts = true;
+    if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
     if(dilep->pt() <= 45) passNewCuts = false;
 
     //----------------------------------------------------------------------------
     //To create the DY bkg systematics MVA shapes (makeZjetsTemplates == true)
     //we loosen the MET cut to "minmet > 20 GeV". 
     //----------------------------------------------------------------------------
-    if     ( makeZjetsTemplates == true && passMET == true ) passMET = false;
-    else if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
+    if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
     //----------------------------------------------------------------------------
     // WW Preselection
@@ -2037,8 +2054,11 @@ void PlotHiggsRes
     if( dilep->mass() > dilmass_cut 					 ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
+    if( dilep->mass() <= 20.0  &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)      					 ) continue; // cut on low dilepton mass for ee/mm
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
-    if( lep2->pt() <= ptlMin	    					 ) continue; // cut on trailing lepton pt
+    if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( passNewCuts == false                                             ) continue; // cut on new pt cuts
     if( passMET == false                                                 ) continue; // cut on pmet
     if(fabs(dilep->mass()-91.1876) <= 15 &&
@@ -2047,12 +2067,9 @@ void PlotHiggsRes
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    bool dPhiDiLepJetCut = kTRUE;
-    if(useDYMVA == kFALSE){
-      if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
-      else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
-    }
-    if(njets >= 2) dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+    bool dPhiDiLepJetCut = true;
+    if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
+    else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
     if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
     //----------------------------------------------------------------------------
@@ -2110,7 +2127,6 @@ void PlotHiggsRes
     //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
     //bdtg = ((mt-80.0)/(mH-80.0)-0.5)*2.0;
     //bdtg = (knn-0.5)*2.0;
-    //if(mH<500) bdtg = (bdtg+0.15)/0.85;
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
 
@@ -2448,8 +2464,7 @@ void PlotHiggsRes
   data->SetBranchAddress( "sfWeightPU"     , &sfWeightPU     );
   data->SetBranchAddress( "sfWeightEff"    , &sfWeightEff    );
   data->SetBranchAddress( "sfWeightTrig"   , &sfWeightTrig   );
-  data->SetBranchAddress( "sfWeightHPt"    , &sfWeightHPt    );
-  data->SetBranchAddress( "dymva"          , &dymva          );
+  data->SetBranchAddress( "sfWeightHPt"    , &sfWeightHPt   );
 
   float nDatAcc = 0.0;
   float nDatCut = 0.0;
@@ -2483,22 +2498,16 @@ void PlotHiggsRes
     	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))     Njet3 = 0;
       else							           Njet3 = 2;
       if(njets < 2 || njets > 3)                                           Njet3 = 0;
+      if(TMath::Abs(jet1->eta()) >= 4.5 || TMath::Abs(jet2->eta()) >= 4.5) Njet3 = 0;
     }
     bool passJetCut[1] = {Njet3 == nJetsType};
 
     double minmet = TMath::Min(pmet,pTrackMet);
-    bool passMET = minmet > 20.;
-    if(useDYMVA == kFALSE){
-      if     (njets == 0) passMET = passMET && (minmet > 45. || type == SmurfTree::em || type == SmurfTree::me);
-      else if(njets == 1) passMET = passMET && (minmet > 45. || type == SmurfTree::em || type == SmurfTree::me);
-      else                passMET = passMET && (met > 45.0   || type == SmurfTree::em || type == SmurfTree::me);
-    } else {
-      if     (njets == 0) passMET = passMET && (dymva >  0.60 || type == SmurfTree::em || type == SmurfTree::me);
-      else if(njets == 1) passMET = passMET && (dymva >  0.30 || type == SmurfTree::em || type == SmurfTree::me);
-      else                passMET = passMET && (met > 45.0    || type == SmurfTree::em || type == SmurfTree::me);
-    }
+    bool passMET = minmet > 20. &&
+                  (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
 
     bool passNewCuts = true;
+    if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
     if(dilep->pt() <= 45) passNewCuts = false;
 
     //----------------------------------------------------------------------------
@@ -2514,8 +2523,11 @@ void PlotHiggsRes
     if( dilep->mass() > dilmass_cut 					 ) continue; // cut on dilepton mass
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
+    if( dilep->mass() <= 20.0  &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)      					 ) continue; // cut on low dilepton mass for ee/mm
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
-    if( lep2->pt() <= ptlMin	    					 ) continue; // cut on trailing lepton pt
+    if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( passNewCuts == false                                             ) continue; // cut on new pt cuts
     if( passMET == false                                                 ) continue; // cut on pmet
     if(fabs(dilep->mass()-91.1876) <= 15 &&
@@ -2529,12 +2541,9 @@ void PlotHiggsRes
     //if( jet2Btag >= 2.1             					 ) continue; // cut on jet2Btag
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    bool dPhiDiLepJetCut = kTRUE;
-    if(useDYMVA == kFALSE){
-      if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
-      else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
-    }
-    if(njets >= 2) dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+    bool dPhiDiLepJetCut = true;
+    if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
+    else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
     if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
 
     //----------------------------------------------------------------------------
@@ -2555,7 +2564,6 @@ void PlotHiggsRes
     //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
     //bdtg = ((mt-80.0)/(mH-80.0)-0.5)*2.0;
     //bdtg = (knn-0.5)*2.0;
-    //if(mH<500) bdtg = (bdtg+0.15)/0.85;
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
 
@@ -2603,9 +2611,9 @@ void PlotHiggsRes
          ((jet1->eta()-lep2->eta() > 0 && jet2->eta()-lep2->eta() < 0) ||
           (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
       passAllCuts = (*jet1+*jet2).M() > 450. &&
-                    TMath::Abs(jet1->eta()-jet2->eta()) > 3.5 &&
-		    mt > 30 && mt < mtUpperCut &&
-		    centrality == 1;
+        TMath::Abs(jet1->eta()-jet2->eta()) > 3.5 &&
+        (mH > 200 || dilep->mass()< 100.) &&
+        centrality == 1;
     }
 
     //----------------------------------------------------------------------------
@@ -2650,12 +2658,6 @@ void PlotHiggsRes
     } // passMVAPreselCuts
   } // end loop over data events
 
-  // cut-based 0/1 jet bin analyses
-  if(nJetsType != 2 && mH <= 300){
-    DYXS[1] = DYBkgScaleFactor(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2));
-    nBgdCutDecays[4] += DYXS[1];
-    nBgdCut += DYXS[1];
-  }
   //****************************************************************************
   //
   // Print Summary Information
@@ -2749,9 +2751,9 @@ void PlotHiggsRes
   //----------------------------------------------------------------------------
   // Compute DY Bkg Uncertainties on the yield
   //----------------------------------------------------------------------------
-  if(nBgdAccDecays[4] > 0 && TMath::Abs(DYXS[0]+VVXS[0]-nBgdAccDecays[4])/nBgdAccDecays[4] > 0.001) {printf("Problem: %f %f %f\n",DYXS[0],VVXS[0],nBgdAccDecays[4]); assert(0);}
-  if(nBgdCutDecays[4] > 0 && TMath::Abs(DYXS[1]+VVXS[1]-nBgdCutDecays[4])/nBgdCutDecays[4] > 0.001) {printf("Problem: %f %f %f\n",DYXS[1],VVXS[1],nBgdCutDecays[4]); assert(0);}
-  if(nBgdMVADecays[4] > 0 && TMath::Abs(DYXS[2]+VVXS[2]-nBgdMVADecays[4])/nBgdMVADecays[4] > 0.001) {printf("Problem: %f %f %f\n",DYXS[2],VVXS[2],nBgdMVADecays[4]); assert(0);}
+  if(TMath::Abs(DYXS[0]+VVXS[0]-nBgdAccDecays[4]) > 0.01) {printf("Problem: %f %f %f\n",DYXS[0],VVXS[0],nBgdAccDecays[4]); assert(0);}
+  if(TMath::Abs(DYXS[1]+VVXS[1]-nBgdCutDecays[4]) > 0.01) {printf("Problem: %f %f %f\n",DYXS[1],VVXS[1],nBgdCutDecays[4]); assert(0);}
+  if(TMath::Abs(DYXS[2]+VVXS[2]-nBgdMVADecays[4]) > 0.01) {printf("Problem: %f %f %f\n",DYXS[2],VVXS[2],nBgdMVADecays[4]); assert(0);}
   if(nBgdAccDecays[4] > 0.0) ZXS_E[0] = sqrt(DYXS[0]*DYXS[0]*(DYBkgScaleFactorKappa( 0,TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorKappa( 0,TMath::Min((int)nJetsType,2))-1.0)+
                                              VVXS[0]*VVXS[0]*0.10*0.10)/nBgdAccDecays[4]; else ZXS_E[0] = 0;
   if(nBgdCutDecays[4] > 0.0) ZXS_E[1] = sqrt(DYXS[1]*DYXS[1]*(DYBkgScaleFactorKappa(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorKappa(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))-1.0)+
@@ -3724,7 +3726,6 @@ void PlotHiggsRes
 	if(histo_ggH->GetSumOfWeights() > 0)
       	newcardShape << Form("CMS_MVAggHStatBounding_hww%s_%1dj     shape   -     -	 -    1.0    -     -	 -     -     -     -	 -     -  \n",finalStateName,nJetsType);
       	newcardShape << Form("CMS_MVAqqWWStatBounding_hww%s_%1dj    shape   -     -	 -     -    1.0    -	 -     -     -     -	 -     -  \n",finalStateName,nJetsType);
-	if(histo_ggWW->GetSumOfWeights() > 0)
       	newcardShape << Form("CMS_MVAggWWStatBounding_hww%s_%1dj    shape   -     -	 -     -     -    1.0    -     -     -     -	 -     -  \n",finalStateName,nJetsType);
       	newcardShape << Form("CMS_MVAVVStatBounding_hww%s_%1dj      shape   -     -	 -     -     -     -    1.0    -     -     -	 -     -  \n",finalStateName,nJetsType);
       	newcardShape << Form("CMS_MVATopStatBounding_hww%s_%1dj     shape   -     -	 -     -     -     -	 -    1.0    -     -	 -     -  \n",finalStateName,nJetsType);
