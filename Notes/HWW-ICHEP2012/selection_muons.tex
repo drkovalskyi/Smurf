@@ -1,4 +1,3 @@
-%The muon selection is unchanged with respect to~\cite{HWW2011}. 
 Muons in CMS are reconstructed as either $StandAloneMuons$ (track
 in the muon detector with low momentum resolution), $GlobalMuons$
 (outside-in approach seeded by a $StandAloneMuon$ with a global fit
@@ -31,12 +30,12 @@ muons are the following:
 \item identified as a PF Muon. 
 \end{itemize}
 
-Furthermore, the MVA-based isolation variable is used to reduce contamination from non-isolated muons 
+Furthermore, the MVA-based isolation variable~\cite{MuonRingIso} is used to reduce contamination from non-isolated muons 
 originating from jets. We used energy deposits of PF candidates in three different categories, charged hadron, gamma, 
 and neutral hadrons in concentric isolation cones. 
 Neutral components are corrected by subtracting pileup contribution which is calculated by $\rho \times A_{eff}$
-where $\rho$ is the event-by-event energy density and $A_{eff}$ is the effective area.  
-Effective areas are from Fall 11 simulation and values are shown in Table~\ref{tab:muAeff}.  
+where $\rho$ (\texttt{kt6PFJets}) is the event-by-event energy density and $A_{eff}$ is the effective area.  
+Effective areas are from Fall 11 simulation (\texttt{kMuEAFall11MC}) and values are shown in Table~\ref{tab:muAeff}.  
 Exact definition of input variables to the MVA is the following. 
 \begin{itemize}
 \item PF charged hadron

@@ -1,5 +1,6 @@
-We identify electrons using a multivariate approach.
-Variables used in the MVA-based electron identifcation are the following.  
+Electrons are identified by using a multivariate approach.~\cite{EGammaMvaId}. 
+We use ``triggered (\texttt{EGammaMvaEleEstimator::kTrig})" version. 
+The variables used in the MVA-based electron identifcation are the following.  
 \begin{itemize}
 \item kinematics : $\pt$,  $\eta$
 \item shower shape : $\sigma_{I\eta I\eta}$, $\phi_{I\eta I\eta}$, $\Delta \phi_{SC}$, $\Delta \eta_{SC}$, $E_{3\times3}/E_{5\times5}$(R9), $E_{1\times5}/E_{5\times5}$
@@ -39,6 +40,7 @@ the following requirements:
 \item for charged hadron PF candiates, require that they are associated with the primary vertex,
 \item Neutral components are corrected by subtracting pileup contribution which is calculated by $\rho \times A_{\rm{eff}}$,
 \end{itemize}
+where $\rho$ (\texttt{kt6PFJets}) is the event-by-event energy density and $A_{eff}$ is the effective area.
 
 The isolation variable we cut on is thus 
 \begin{equation} 
