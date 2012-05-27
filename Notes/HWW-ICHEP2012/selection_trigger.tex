@@ -34,7 +34,7 @@ The identification and isolation requirements are described in Table~\ref{tab:HL
 Because the electron HLT uses simplified algorithms compared to the offline selections,
 the variables used online and offline do not always correspond exactly.
 A detailed comparison between the online and offline selection requirements is given in
-Appendix~\ref{app:online_vs_offline}.
+Appendix~\ref{app:efficiency_studies}.
 
 \begin{table}[!ht]
   \caption{Analysis triggers for the $ee$ final state. 
@@ -47,7 +47,7 @@ The identification and isolation requirements are described in Table~\ref{tab:HL
 \hline
   Dataset & Trigger name & L1 seed & Description\\
   \hline \hline
-  \multirow{2}{*}{DoubleElectron} & HLT\_Ele17\_CaloIdT\_CaloIsoVL\_TrkIdVL\_TrkIsoVL\_ 	&  L1\_DoubleEG\_13\_7  & $p_T>17,8~\GeVc$ \\
+  \multirow{2}{*}{DoubleElectron} & HLT\_Ele17\_CaloIdT\_CaloIsoVL\_TrkIdVL\_TrkIsoVL\_ 	&  L1\_DoubleEG\_13\_7  & $p_T>17,8~\GeV$ \\
                                   & Ele8\_CaloIdT\_CaloIsoVL\_TrkIdVL\_TrkIsoVL\_v[15-17] 	&                  & \\ %190456-190738 %190762-191419 %191512-194533
   \hline
   \end{tabular}
@@ -106,7 +106,7 @@ L=Loose, VL=Very loose, T=Tight, VT=Very Tight.}
 \end{table}
 
 The main dimuon triggers
-require two HLT muon candidates with transverse momentum greater than $17,8$~$\GeVc$ and
+require two HLT muon candidates with transverse momentum greater than $17,8$~$\GeV$ and
 a match to a Level-1 seed is required for both legs. 
 These are described in Table~\ref{tab:triggers_mm}.
 In addition, the longitudinal distance between the z vertex positions of the two muons 
@@ -121,8 +121,8 @@ is required to be less than 0.2 cm to suppress pileup events.
 \hline
   Dataset & Trigger name & L1 seed & Description\\
   \hline \hline
-  \multirow{2}{*}{DoubleMu}	& HLT\_Mu17\_Mu8\_v[16-17] 	& L1\_DoubleMu\_10\_Open  & $p_T>17,8~\GeVc$ \\ %190456-193686 %193806-194533
-   							& HLT\_Mu17\_TkMu8\_v[9-10] 	& L1\_DoubleMu\_10\_Open  & $p_T>17,8~\GeVc$ \\ %190456-193686 %193806-194533
+  \multirow{2}{*}{DoubleMu}	& HLT\_Mu17\_Mu8\_v[16-17] 	& L1\_DoubleMu\_10\_Open  & $p_T>17,8~\GeV$ \\ %190456-193686 %193806-194533
+   							& HLT\_Mu17\_TkMu8\_v[9-10] 	& L1\_DoubleMu\_10\_Open  & $p_T>17,8~\GeV$ \\ %190456-193686 %193806-194533
   \hline
   \end{tabular}
 }
@@ -147,9 +147,9 @@ The identification and isolation requirements for electrons are described in Tab
 \hline
   Dataset & Trigger name & L1 seed & Description\\
   \hline \hline
-  \multirow{2}{*}{MuEG} & HLT\_Mu17\_Ele8\_CaloIdT\_CaloIsoVL\_TrkIdVL\_TrkIsoVL\_v[4-7] 	& L1\_Mu12\_EG7 	& $p_T>17,8~\GeVc$ \\
+  \multirow{2}{*}{MuEG} & HLT\_Mu17\_Ele8\_CaloIdT\_CaloIsoVL\_TrkIdVL\_TrkIsoVL\_v[4-7] 	& L1\_Mu12\_EG7 	& $p_T>17,8~\GeV$ \\
   															%190456-190738 %190762-191419 %191512-193686 %193806-194533
-  						& HLT\_Mu8\_Ele17\_CaloIdT\_CaloIsoVL\_TrkIdVL\_TrkIsoVL\_v[4-7] 	& L1\_MuOpen\_EG12 	& $p_T>8,17~\GeVc$ \\ 
+  						& HLT\_Mu8\_Ele17\_CaloIdT\_CaloIsoVL\_TrkIdVL\_TrkIsoVL\_v[4-7] 	& L1\_MuOpen\_EG12 	& $p_T>8,17~\GeV$ \\ 
   															%190456-190738 %190762-191419 %191512-193686 %193806-194533
  \hline
   \end{tabular}
@@ -168,9 +168,9 @@ The identification and isolation requirements for electrons are described in Tab
 \hline
   Dataset & Trigger name & L1 seed & Description\\
   \hline \hline
-  SingleEle & HLT\_Ele27\_WP80\_v[8-10] & L1\_SingleEG20 OR L1\_SingleEG22  & $p_T>27~\GeVc$ \\ %190456-190738 %190762-191419 %191512-194533
+  SingleEle & HLT\_Ele27\_WP80\_v[8-10] & L1\_SingleEG20 OR L1\_SingleEG22  & $p_T>27~\GeV$ \\ %190456-190738 %190762-191419 %191512-194533
   \hline \hline
-  SingleMu & HLT\_IsoMu24\_eta2p1\_v[11-13]   & L1\_SingleMu16er  & $p_T>24~\GeVc$ \\  %190456-190738 %190762-193686 %193806-194533
+  SingleMu & HLT\_IsoMu24\_eta2p1\_v[11-13]   & L1\_SingleMu16er  & $p_T>24~\GeV$ \\  %190456-190738 %190762-193686 %193806-194533
   \hline 
   \end{tabular}
 }
@@ -212,27 +212,27 @@ and ``$\zeta$ method " are used for Drell-Yan background estimation.}
   Dataset & Trigger name & L1 seed & Description\\
  \hline \hline 
   \multirow{6}{*}{DoubleElectron} 	
-  	& HLT\_Ele17\_CaloIdVT\_CaloIsoVT\_ 		& L1\_DoubleEG\_13\_7  	& $p_T>17,8~\GeVc$, eff\\
+  	& HLT\_Ele17\_CaloIdVT\_CaloIsoVT\_ 		& L1\_DoubleEG\_13\_7  	& $p_T>17,8~\GeV$, eff\\
     & TrkIdT\_TrkIsoVT\_Ele8\_Mass50\_v[3-5] 	&                 		& \\ %190456-190738 %190762-191419 %191512-194533
-  	& HLT\_Ele20\_CaloIdVT\_CaloIsoVT\_			& L1\_SingleIsoEG18er	& $p_T>20,4~\GeVc$, eff\\
+  	& HLT\_Ele20\_CaloIdVT\_CaloIsoVT\_			& L1\_SingleIsoEG18er	& $p_T>20,4~\GeV$, eff\\
 	& TrkIdT\_TrkIsoVT\_SC4\_Mass50\_v[3-5] 	& 						& \\ %190456-190738  %190762-191419 %191512-194533
-   	& HLT\_Ele32\_CaloIdT\_CaloIsoT\_			& L1\_SingleEG22   		& $p_T>32,17~\GeVc$, eff\\
+   	& HLT\_Ele32\_CaloIdT\_CaloIsoT\_			& L1\_SingleEG22   		& $p_T>32,17~\GeV$, eff\\
 	& TrkIdT\_TrkIsoT\_SC17\_Mass50\_v[3-5]		& 						& \\ %190456-190738  %190762-191419  %191512-194533 
 	\hline \hline
   \multirow{9}{*}{DoubleElectron} 	
-	& HLT\_Ele8\_CaloIdT\_TrkIdVL\_v[2-4]		& L1\_SingleEG5 		& $p_T>8~\GeVc$, FR \\ %190456-190738 %190762-191419 %191512-194533
- 	& HLT\_Ele8\_CaloIdT\_CaloIsoVL\_			& L1\_SingleEG7 		& $p_T>8~\GeVc$, FR \\ 
+	& HLT\_Ele8\_CaloIdT\_TrkIdVL\_v[2-4]		& L1\_SingleEG5 		& $p_T>8~\GeV$, FR \\ %190456-190738 %190762-191419 %191512-194533
+ 	& HLT\_Ele8\_CaloIdT\_CaloIsoVL\_			& L1\_SingleEG7 		& $p_T>8~\GeV$, FR \\ 
  	& TrkIdVL\_TrkIsoVL\_v[12-14]				&  						& \\ %190456-190738 %190762-191419 %191512-194533
-	& HLT\_Ele17\_CaloIdT\_CaloIsoVL\_  		& L1\_SingleEG12		& $p_T>17~\GeVc$, FR \\ 
+	& HLT\_Ele17\_CaloIdT\_CaloIsoVL\_  		& L1\_SingleEG12		& $p_T>17~\GeV$, FR \\ 
 	& TrkIdVL\_TrkIsoVL\_v[3-5]  				& 						& \\ %190456-190738 %190762-191419 %191512-194533
-   	& HLT\_Ele8\_CaloIdT\_CaloIsoVL\_      		& L1\_SingleEG7         & $p_T>8~\GeVc$, FR \\
+   	& HLT\_Ele8\_CaloIdT\_CaloIsoVL\_      		& L1\_SingleEG7         & $p_T>8~\GeV$, FR \\
    	& TrkIdVL\_TrkIsoVL\_Jet30\_v[3-5]      	& 						& \\ %190456-190738 %190762-191419 %191512-194533
- 	& HLT\_Ele17\_CaloIdT\_CaloIsoVL\_			& L1\_SingleEG12		& $p_T>17~\GeVc$, FR \\ 
+ 	& HLT\_Ele17\_CaloIdT\_CaloIsoVL\_			& L1\_SingleEG12		& $p_T>17~\GeV$, FR \\ 
  	& TrkIdVL\_TrkIsoVL\_Jet30\_v[3-5]			& 						& \\ %190456-190738 %190762-191419 %191512-194533
 	\hline \hline
   \multirow{2}{*}{DoubleMu}     
-    & HLT\_Mu8\_v16 	&  L1\_SingleMu3  		& $p_T>8~\GeVc$, FR\\ %190456 - 194533
-    & HLT\_Mu17\_v3    	&  L1\_SingleMu12      	& $p_T>17~\GeVc$, FR\\ %190456 - 194533   
+    & HLT\_Mu8\_v16 	&  L1\_SingleMu3  		& $p_T>8~\GeV$, FR\\ %190456 - 194533
+    & HLT\_Mu17\_v3    	&  L1\_SingleMu12      	& $p_T>17~\GeV$, FR\\ %190456 - 194533   
 	\hline \hline
   \multirow{5}{*}{DoubleElectron} 	
 	& HLT\_Photon22\_R9Id90\_HE10\_Iso40\_EBOnly\_v[2-4]					& L1\_SingleEG22		& $\zeta$ method \\ %190456-190738 190762-191419 %191512-194731

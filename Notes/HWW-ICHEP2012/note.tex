@@ -38,11 +38,11 @@
 
   \begin{abstract}
     This note describes a search for the Higgs boson in the $W^+W^- \to
-    2\ell2\nu$ final state with \intlumiEightTeV of $pp$ collision
-    data at $\sqrt s = 8~\TeV$ and \intlumiEightTeV at $\sqrt s =
-    8~\TeV$. We search for Higgs candidate events in $ee$, $\mu\mu$
-    and $e\mu$ channels with 0, 1 and 2 reconstructed jets in the
-    final state. We also measure $W^+W^-$ cross-section.
+    2\ell2\nu$ final state with 0.82 $\ifb$ of $pp$ collision
+    data at $\sqrt s = 8~\TeV$. We search for Higgs candidate 
+    events in $ee$, $\mu\mu$ and $e\mu$ channels with 0, 1 and 2 
+    reconstructed jets. We also measure the corresponding 
+    $W^+W^-$ cross-section.
   \end{abstract} 
 
 \end{titlepage}
@@ -54,7 +54,7 @@
 %===================================================================================================
 \section{Introduction}
   \label{sec:overview}
-  \input{introduction}
+  \input{introduction.tex}
   
 \section{Event Selection}
   \label{sec:selection} 
@@ -97,7 +97,7 @@
       \input{selection_zerojet.tex}
      \subsubsection{VBF Selection}
        \label{sec:sel_vbf}
-       \input{selection_vbf}
+       \input{selection_vbf.tex}
    \subsection{MVA Analysis}
      \label{sec:anal_mva}
      \input{selection_mva.tex}
@@ -120,10 +120,10 @@
    \subsection{Top Background}
      \label{sec:bkg_top}
      \input{bkg_top.tex}
-   \subsection{\dyee\ and \dymm\ Backgrounds}
+   \subsection{$\dyee$ and $\dymm$ Backgrounds}
      \label{sec:bkg_dy}
      \input{bkg_dy.tex}
-%   \subsection{\dytt\ Background}
+%   \subsection{$\dytt$ Background}
 %     \label{sec:bkg_dytt}
 %     \input{bkg_dytt.tex}
 %   \subsection{$\wgamma^*$ Background}
@@ -158,26 +158,24 @@
 %   \label{sec:systematics}
 %   \input{systematics.tex}
 
-\clearpage
+\newpage 
+
 \section{The WW cross-section Results}
     \label{sec:wwxsecresults}
-    \input{results_wwxsec}
+    \input{results_wwxsec.tex}
 
-\clearpage
 \section{The Higgs Search Results}
    \label{sec:dataresults}
    \input{results.tex}
 
-%\section{Summary}
-%     \label{sec:summary}
-%     \input{summary.tex}
+\section{Summary}
+     \label{sec:summary}
+     \input{summary.tex}
 
 %===================================================================================================
-\clearpage
-\input{biblio}
-
+\input{biblio.tex}
 %===================================================================================================
-%\newpage 
+
 \clearpage 
 \appendix
 \appendixpage
@@ -186,13 +184,11 @@
      \input{appendix_muon_fakes}
      \input{appendix_electron_fakes}
  
-\clearpage 
   \section{Lepton and Trigger Efficiencies}
      \label{app:efficiency_studies}
      \subsection{Trigger}
      \label{app:appendix_efficiency_trigger}
      \input{appendix_efficiency_trigger}
-     \clearpage
      \subsection{Electron Efficiency}
     \label{app:appendix_efficiency_electron}
      \input{appendix_efficiency_electron}
@@ -200,58 +196,6 @@
      \label{app:appendix_efficiency_muon}
      \input{appendix_efficiency_muon}
 
-\clearpage 
-
-\section{ Details on $R_{out/in}$ for $\dyll$ Background Estimation}
-     \label{app:appendix_dyr}
-     %\input{appendix_dyr}
-\clearpage
-
-
-
-%   \section{Data validation: Run2011A vs Run2011B}
-%    \label{app:a_vs_b}
-
-\clearpage 
-
-  \section{Yield after Cut-based Selections}
-     \label{app:appendix_cutresults}
-     %\input{appendix_cutresults}
-\clearpage
-
-  \section{Yields and Distributions after MVA Selections}
-     \label{app:appendix_bdtresults}
-     %\input{appendix_bdtresults}
-
-\clearpage
-
-  \section{Expected and observed upper limits by sub-channels}
-     \label{app:subchannels}
-     %\input{appendix_subchannels}
-
-\clearpage
-  \section{Alternative shape analysis}
-     \label{app:appendix_altshape}
-     %\input{appendix_altshape}
-
-\clearpage
-  \section{Low MT distributions}
-     \label{app:appendix_lowmt}
-     %\input{appendix_lowmt}
- 
-\clearpage
-  \section{Fit results}
-     \label{app:appendix_fit}
-     %\input{appendix_fit}
-
-\clearpage
-  \section{Study of the excess observed in the EPS dataset}
-     \label{app:limits_eps}
-     %\input{limits_eps}
-
-%\section{Data Samples}
-%  \label{app:datasets}
-%  \input{datasets}
 \section{Higgs$\to$WW$\to2\ell2\nu$ analysis blinding strategy}
      \label{app:blinding}
      \input{appendix_blinding.tex}

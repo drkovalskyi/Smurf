@@ -1,21 +1,22 @@
-s
 This section documents the results on the $\WW$ cross-section measurement. 
 The selections are the same as in the $\WW$ preselection defined in 
-Section~\ref{sec:selection}, except for the following two differences
+Section~\ref{sec:selection}, except for the following two differences:
 
 \begin{enumerate}
-\item {The trailing lepton threshold is 20 \GeV}
-\item {The $\met$ selections used are from the high mass Higgs strategy}
+\item the trailing lepton threshold is 20 $\GeV$;
+\item the $\met$ selections used are from the high mass Higgs strategy;
+\item make use 0-jet bin only.
 \end{enumerate}
 
 
-\subsection{Background  Estimations}
+\subsection{Background Estimations}
 
 The background estimations use the same method as in the Higgs search 
 documented in Section~\ref{sec:backgrounds}.
 
-The Drell-Yan background estimation is tabulated in Table~\ref{tab:dy_wwxsec}. And the 
-Top background estimation is tablulated in Table~\ref{tab:top_wwsec}. 
+The Drell-Yan and top background estimations are tabulated in 
+Tables~\ref{tab:dy_wwxsec} and~\ref{tab:top_wwsec}, respectively.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[!hbtp]
 \begin{center}
@@ -84,6 +85,46 @@ last bin blinded in data. }
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\subsection{Systematic Uncertainties for the Cross-section Measurement}
+
+The summary of all systematic uncertainties are shown in Table~\ref{tab:systww}.
+
+\begin{table}[ht!]
+\begin{center}
+\caption{\label{tab:systww} Summary of all systematic uncertainties (relative).}
+\vspace{5pt}
+{\small
+\begin{tabular}{l|c|c|c|c|c|c|c|c|c|c}
+\hline
+%\multirow{2}{*}{Source} & $qq \to$ & $gg \to$  & non-$\Z$ resonant & top & DY & $\Wjets$ & $V(W/Z)+\gamma$    \\
+\multirow{2}{*}{Source} & $qq \to$ & $gg \to$  & $WZ$ & $ZZ$  & top & $Z/\gamma^*$         & $\Wjets$ & $W+\gamma$ &$W+\gamma*$&  $Z/\gamma^*$   \\
+                        & $\WW$    & $\WW$     &      &       &     & $\rightarrow\ell\ell$&          &            &           &  $\rightarrow\tau\tau$  \\
+\hline
+
+\hline
+Luminosity                    & 2.2 & 2.2 & 2.2 & 2.2 & --- & --- &  --- & --- & 2.2 & --- \\
+Trigger efficiencies          & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- &  --- & --- & 1.5 & ---\\
+Muon efficiency               & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- &  --- & --- & 1.5 & ---\\
+Electron id efficiency        & 2.0 & 2.0 & 2.0 & 2.0 & --- & --- &  --- & --- & 2.0 & ---\\
+Momentum scale                & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- &  --- & --- & 1.5 & ---\\
+$\met$ resolution             & 2.0 & 2.0 & 2.0 & 2.0 & --- & --- &  --- & --- & 2.0 & ---\\
+Jet veto                      & 4.7 & 4.7 & 4.7 & 4.7 & --- & --- &  --- & --- & 4.7 & ---\\
+PDF uncertainties             & 2.3 & 0.8 & 6.5 & 4.8 & --- & --- &  --- & --- & 4.8 & ---\\
+QCD scale uncertainties       & 1.5 &  30 & 4.2 & 1.8 & --- & --- &  --- & --- & 1.8 & ---\\
+Pile up                       & 2.0 & 2.0 & 2.0 & 2.0 & --- & --- &  --- & --- & 2.0 & --- \\
+$\Wjets$ norm.                & --- & --- & --- & --- & --- & --- &  36  & --- & --- & ---\\
+top  norm.                    & --- & --- & --- & --- & 28  & --- &  --- & --- & --- & ---\\
+$\dyll$ norm.                 & --- & --- & --- & --- & --- &  43 &  --- & --- & --- & ---\\
+$\dytt$ norm.                 & --- & --- & --- & --- & --- &  ---&  --- & --- & --- & 10\\
+$\W+\gamma$ cross section     & --- & --- & --- & --- & --- & --- &  --- &  30 & --- & ---\\
+$\W+\gamma^{*}$ cross section & --- & --- & --- & --- & --- & --- &  --- & --- &  30 & ---\\
+%\hline 
+%Total systematic uncertainty  &  8  &   8 &  11 &  9  & 19  &  43  & 36  & 30 & --- & ---\\ 
+\hline
+\end{tabular}
+}
+\end{center}
+\end{table}
 
 
 \subsection{Cross-section Measurement}
@@ -96,15 +137,13 @@ We now calculate the $\WW$ production cross section according to equation \ref{e
 \end{equation}
 
 Where $N_{data}$ is the number of events observed in data, $N_{bkg}$ is the estimated number
-of background events, which are summarised with their uncertainties in Table \ref{tab:data_yields}.
-The distributions of the $p_{T}$ of the leading and trailing leptons, and the dilepton $p_{T}$ 
-and invariant mass are shown in Figure \ref{fig:inclplots}.
+of background events, which are summarised with their uncertainties in Table \ref{tab:data_yields}. 
 The efficiency to select $\sigma_{WW \to 2\ell 2\nu}$
 candidates, $\varepsilon$, is computed as the weighted mean of
 the $qq\to\WW$ and $gg\to\WW$ efficiencies in simulation.
 Assuming a 3\% contribution from the $gg$ process, 
 $\varepsilon$ is found to be $(3.38 \pm 0.28)\%$.
-The integrated luminosity of the data sample is ${\cal{L}} = $ 4920 $\pm$ 108 $\ipb$, 
+The integrated luminosity of the data sample is ${\cal{L}} = $ 0.818 $\pm$ 0.018 $\ifb$, 
 and the branching ratio $BR(WW \to \ell \nu) =$ 0.1080 $\pm$ 0.0009~\cite{pdg}.
 
 \begin{table}[ht!]
@@ -112,55 +151,27 @@ and the branching ratio $BR(WW \to \ell \nu) =$ 0.1080 $\pm$ 0.0009~\cite{pdg}.
   \begin{tabular} {|c|c|}
 \hline
 Sample                & Yield $\pm$ stat $\pm$ syst \\ \hline \hline
-$qqWW$                & 148.2 $\pm$  1.2 $\pm$ x.x  \\ \hline
-$ggWW$                & 10.0 $\pm$  0.2 $\pm$ x.x  \\ \hline
-$t\bar{t} + tW$       & 24.0 $\pm$  1.4 $\pm$ 6.8  \\ \hline
-$W+jets$              & 13.1 $\pm$  2.6 $\pm$ 4.6  \\ \hline
-$WZ$                  & 4.9 $\pm$  0.2 $\pm$ 0.5  \\ \hline
-$ZZ$                  & 1.8 $\pm$  0.1 $\pm$  0.2  \\ \hline
-$Z/\gamma*$           & 6.3 $\pm$  2.7 $\pm$  0.8  \\ \hline
+$qq \to \WW$          & 148.2 $\pm$  1.2 $\pm$ 10.8  \\ \hline
+$gg \to \WW$          &  10.0 $\pm$  0.2 $\pm$  3.1  \\ \hline \hline
+$\ttbar + \tw$        &  24.0 $\pm$  1.4 $\pm$  6.8  \\ \hline
+$\Wjets$              &  13.7 $\pm$  2.6 $\pm$  4.9  \\ \hline
+$\W\Z$                &   4.9 $\pm$  0.2 $\pm$  0.5  \\ \hline
+$\Z\Z$                &   1.8 $\pm$  0.1 $\pm$  0.2 \\ \hline
+$Z/\gamma*$           &   6.3 $\pm$  2.7 $\pm$  0.8 \\ \hline
 $W\gamma*/W+\gamma$   & -    \\ \hline \hline
-Total Bkgd.           & 208.6 $\pm$  3.6 $\pm$ x.x  \\ \hline \hline
-%Total Bkgd.+Signal    & 1061.1 $\pm$  7.8 $\pm$ 62.0  \\ \hline \hline
+Total Bkgd.           &  50.7 $\pm$  4.0 $\pm$  8.4  \\ \hline \hline
 Data                  & 246 \\ \hline
 \end{tabular}
   \caption{Expected number of signal and background events from the data-driven methods for
-  an integrated luminosity of \intlumiEightTeV after applying the selection requirements 
+  an integrated luminosity of $\intlumiEightTeV$ after applying the selection requirements 
 in the $\mu\mu$, $\mu{e}$, $e\mu$ and $ee$  channels.}
    \label{tab:data_yields}
   \end{center}
 \end{table}
 
-%%%%%%%%
-\begin{figure}[!hbtp]
-\begin{center}
-\subfigure[Leading lepton $p_{T}$]{\label{subfig:fig_inclplots_pt1}
-%\includegraphics[width=.45\textwidth]{figures/pas_pt1_incl.pdf}
-}
-\subfigure[Trailing lepton $p_{T}$]{\label{subfig:fig_inclplots_pt2}
-%\includegraphics[width=.45\textwidth]{figures/pas_pt2_incl.pdf}
-}
-\subfigure[Dilepton system $p_{T}$]{\label{subfig:fig_inclplots_ptll}
-%\includegraphics[width=.45\textwidth]{figures/pas_ptll_incl.pdf}
-}
-\subfigure[Dilepton system invariant mass]{\label{subfig:fig_inclplots_M}
-%\includegraphics[width=.45\textwidth]{figures/pas_mll_incl.pdf}
-}
-\caption{Kinematic distributions for expected and observed events in the  $\mu\mu$, $\mu{e}$, $e\mu$ and $ee$ channels.
-The dilepton system invariant mass distribution has the $Z$ mass veto relaxed.
-The uncertainty on the expected events includes both statistical and systematic components.}
-\label{fig:inclplots}
-\end{center}
-\end{figure}
-%%%%%%%%
-
-
 Using the inputs described previously and Equation \ref{eq:mainformula},
 we obtain the following $WW$ cross-section measurement:
 
 \begin{equation*}
-\sigma_{WW}  = X \pm X ~\mathrm{(stat.)} \pm X ~\mathrm{(syst.)} \pm X ~\mathrm{(lumi.)~pb}.
+\sigma_{WW}  = 70.5 \pm 5.7 ~\mathrm{(stat.)} \pm 6.0 ~\mathrm{(syst.)} \pm 1.6 ~\mathrm{(lumi.)~pb}.
 \end{equation*}
-
-%The cross section obtained in each dilepton channel is documented in Appendix \ref{sec:xsec_per_channel}.
-
