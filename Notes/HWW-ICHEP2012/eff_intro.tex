@@ -5,63 +5,40 @@ This method, which is now described,
 has been used successfully in previous CMS analyses \cite{ref:tagprobe_mit_w}\cite{ref:tagprobe_snt_top}.
 
 \subsubsection{Method}
-For muons, we used the lowest threshold unprescaled single muon triggered sample from the Prompt Reco.
-For electrons we used events triggered by the dedicated double electron tag and probe trigger,
-where tight electron requirements are imposed on one leg and the other leg is a super cluster.
+For both electrons and muons we used the lowest threshold unprescaled single trigger sample
+available in the Prompt Reco.  This corresponds to:
+
+\begin{itemize}
+    \item Muons: HLT\_IsoMu24\_eta2p1\_v*
+    \item Electrons: HLT\_Ele27\_WP80\_v*
+\end{itemize}
 
 At least one of the leptons, the {\it tag}, was required to pass the full selection criteria
 while the other lepton, the {\it probe}, was required to pass a set of identification criteria leaving 
 it unbiased with respect to the criterion under study. By requiring that the tag was able to have passed 
 the single lepton trigger on which the events were acquired, we reduced the bias due to the trigger on 
 the probe. Also, the tight criteria imposed on the tag coupled with the invariant mass requirement 
-improves the purity of the sample. Because the analysis uses the same mass window to reduce the 
-\dyll~contribution, the tag and probe sample represents an independent control sample.
+improves the purity of the sample. 
 
-To extract the efficiency of the offline selection and the trigger on a per lepton basis, 
-we used two independently developed implementations of the method.
-The first implementation counts tag-probe pairs, thus 
-an event that contains two leptons meeting the tag criteria could be counted twice.
-The efficiency is then $\varepsilon=TP/(TP+TF)$, 
-where $TP$ is the number of probes that pass the criteria under study and $TF$ is the number that fail.
-To estimate and subtract any residual background contribution a simultaneous fit was performed to the $TP$ and $TF$ 
-mass distributions in the range $50<M_{ll}<130$.
-The signal model was taken from simulation, with a gaussian smearing component to take into 
-account the resolution.
-The background model is an exponential.
+To reduce the background to the offline selection measurements,
+the selections were split into the ID and isolation parts.  
+The efficiency of the ID part was measured with respect to the isolation
+requirements, and vice versa, in both data and simulation.
+This is referred to as the N-1 method.
+The bias on the efficiency from changing the denominator is
+expected to be negligible is the scale factors for each step used
+are close to one.
+To estimate and subtract any residual background contribution in the data measurements,
+a simultaneous fit was performed to the mass distributions
+of passing and failing probes in the range $60<M_{ll}<120$ GeV.
+The signal model for electrons was taken from simulation, 
+with a gaussian smearing component to take into account the resolution.
+The background model is an exponential times an error function.
+In the simulation measurements, simple counting was used.
 This method and its associated systematics are discussed in detail in Reference \cite{ref:tagprobe_mit_w}
-
-The second implementation counts events rather than tag-probe pairs.
-This method is discussed in detail in Reference \cite{ref:tagprobe_snt_top}.
-In this case the events are divided into three categories,
-
-\begin{itemize}
-    \item 2TT: Both leptons passed the tight criteria, including the trigger. This means that either lepton could be used as a probe, 
-    so such events were counted twice.
-    \item TP: The probe passed the selection criterion but did not pass the tight criteria.
-    \item TF: The probe failed the selection criterion.
-\end{itemize}
-
-The efficiency in terms of the categories is $\varepsilon = \frac{2TT + TP}{2TT + TP + TF}$.
-If criteria tested on the probe are a subset of the tag criteria then
-this method is equivalent to counting tag-probe pairs because an event with two tags
-would be counted twice in both methods.
-The efficiency was extracted by counting the number of events in each category.
-To reduce any residual background this was done by factorising the selection in
-N steps and then measuring the efficiency of each step with respect to 
-the others.  This is referred to as the N-1 method.
-The bias on the efficiency from changing the denominator is assessed using
-simulation and propaged to the uncertainty on the efficiency extracted.
-If the bias is small or the scale factor is close to unity then the bias on
-the scale factor is very small.
-
-The offline selection results shown here use the N-1 method with simple counting.
-We split the results into the detector regions $|\eta|<1.479$ and $1.479<|\eta|<2.50$
-to reflect the divisions that define our event selections.
-In each $\eta$ bin we measured the scale factor between data and simulation
-for $10\leq p_T<15$, $15\leq p_T<20$ and $p_T\geq 20$.
-The trigger selection results are shown in the minimum number of bins required
-to capture the efficiency below the kinematic turn-on, in the region of the turn-on
-and at plateau.
+The trigger efficiency is measured with respect to the full offline selection,
+and thus the probe sample is very pure.  In this case the efficiencies were
+extracted by simple counting in the mass range $81<M_{ll}<101$ GeV.
 
 To produce overall data-MC scale factors to apply in the analysis, we factorise the efficiency measurements
 into two steps such that
