@@ -117,15 +117,29 @@ leptonTreeMaker2012.eleTriggers     = cms.untracked.VInputTag(
 )
 
 #
+# JetID
+#
+
+
+from CMGTools.External.pujetidsequence_cff import *
+puJetId.jets = cms.InputTag("ak5PFJets")
+puJetId.applyJec = cms.bool(True)
+puJetId.inputIsCorrected = cms.bool(False)
+puJetMva.jets = cms.InputTag("ak5PFJets")
+puJetMva.applyJec = cms.bool(True)
+puJetMva.inputIsCorrected = cms.bool(False)
+
+
+#
 # filters
 #
 
 from Smurf.ProcessingAndSkimming.filters_cfi import *
 
 # sequences
-leptonTreeMakerSequenceMC   = cms.Sequence(fastJetSequence * pfNoPileUpSequence)
-leptonTreeMakerSequenceData2011 = cms.Sequence(hltHighLevel2011 * fastJetSequence * pfNoPileUpSequence)
-leptonTreeMakerSequenceData2012 = cms.Sequence(hltHighLevel2012 * fastJetSequence * pfNoPileUpSequence)
+leptonTreeMakerSequenceMC   = cms.Sequence(fastJetSequence * pfNoPileUpSequence * puJetIdSqeuence)
+leptonTreeMakerSequenceData2011 = cms.Sequence(hltHighLevel2011 * fastJetSequence * pfNoPileUpSequence * puJetIdSqeuence)
+leptonTreeMakerSequenceData2012 = cms.Sequence(hltHighLevel2012 * fastJetSequence * pfNoPileUpSequence * puJetIdSqeuence)
 
 # electrons and muons
 electronFilters = cms.Sequence(highPtElectrons * highPtElectronFilter)
