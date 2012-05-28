@@ -1,9 +1,9 @@
 %UPDATEME%
 The datasets used for this analysis are summarized in 
-Tables.~\ref{tab:DatasetsData} and~\ref{tab:DatasetsMC} for data and Monte 
+Tables~\ref{tab:DatasetsData} and~\ref{tab:DatasetsMC} for data and Monte 
 Carlo, respectively. The total integrated luminosity is \intlumiEightTeV. 
 We used the official good run list~\cite{json}. For Monte Carlo simulation 
-we use madgraph when possible, but different generators such as Pythia and Powheg 
+we use madgraph when possible, but different generators such as Pythia and Powheg~\cite{powheg} 
 are also used.  For $gg \to \WW$ a dedicated generator is used. For \wz\ and \zz\
 processes we use Pythia, since MadGraph samples are mixed with $\WW$ in
 a single $VV$ sample, which is difficult to use properly.
@@ -66,7 +66,7 @@ is taken from the LHC Higgs cross-section working group~\cite{LHCHiggsCrossSecti
 Since some portion of data datasets were not processed, 
 we use a json excluding missing events~\cite{json}. 
 Last year we adjusted Higgs $\pt$ spectrum because 
-the spectrum in the simulation(\textcolor{red}{old version}) was harder than the one 
+the spectrum in the simulation (POWHEG 2.0) was harder than the one 
 in the most precise calculation to NNLO with resummation to NNLL order.
-In the new version of Powheg(\textcolor{red}{new version}), this problem has been resolved,
+In the new version of Powheg (POWHEG 2.1), this problem has been mostly resolved,
 thus we do not apply any corrections for Higss $\pt$.
