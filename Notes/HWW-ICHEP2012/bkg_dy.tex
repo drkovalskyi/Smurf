@@ -26,7 +26,7 @@ N_{out}^{ll,exp} = R_{out/in}^{ll}(N_{in}^{ll} - 0.5N_{in}^{e\mu}k_{ll}),
 where $k_{ee} = \sqrt{\frac{N_{in}^{ee,loose}}{N_{in}^{\mu\mu,loose}}}$ for 
 $\dyee$ and $k_{mm} = \sqrt{\frac{N_{in}^{\mu\mu,loose}}{N_{in}^{ee,loose}}}$ 
 for $\dymm$. In the $k_{ll}$ calcualtion, we apply a loose $\met$ cut on 
-minMET of 20 GeV. 
+min-MET of 20 GeV. 
 
 The ZZ/ZW processes contribute to the events in the control region 
 of the $m_{\ell\ell}$ region dominated by the DY. 
@@ -67,13 +67,14 @@ The value of $R_{out/in}$ changes according to the different kinematics
 requirements applied to select the Higgs signal region for different 
 Higgs hypothesis. 
 Therefore we evaluate the $R_{out/in}$ applying selections close to 
-the full Higgs selections. However the statistics in MC is limited 
-after the tight $\met$ cuts. To gain statistical power, we 
-relax the transverse mass cuts and requiring a looser $\met$ region between 20 and 37\GeV. 
+the full Higgs selections. 
+
+However the statistics in MC is limited after the tight $\met$ (or DY MVA) cuts. 
+To gain statistical power, we relax the transverse mass cuts and requiring a looser $\met$ selection. 
 The variations in the $R_{out/in}$ in different $\met$ regions are assigned as systematics. 
-The $\met$ regions considered are [20, 25], [25-30], [30-37] and [37, above]. 
-As we do not see any statistically difference between the ee and $\mu\mu$ final states,
- we combine the two final states to gain statistical stability.
+The $\met$ regions considered are listed in Table~\ref{tab:routinbins}. 
+As we do not see any statistically difference between the ee and $\mu\mu$ final states, 
+we combine the two final states to gain statistical stability.
 
 We cross-checked the $R_{out/in}$ value in data as well. Background processes
 contribute equally to $ee$, $e\mu$, $\mu e$ and $\mu\mu$ final states
@@ -81,3 +82,23 @@ contribute equally to $ee$, $e\mu$, $\mu e$ and $\mu\mu$ final states
 $ee$ and $\mu\mu$. Therefore we can subtract $e\mu$ and $\mu e$
 contribtutions from $ee$ and $\mu\mu$ ones to get an estimate of
 Drell-Yan.
+
+%%%%%
+\begin{table}[!h]
+\begin{center}
+\begin{tabular} {|c|c|c|}
+\hline
+region & \mHi$>$140 \GeVcc\ \& \WW\ & \mHi$\leq$140 \GeVcc\ \\
+\hline
+1                 & 20$<$\met$<$25 \GeV\ & -0.90$<$DY MVA$<$-0.85 \\
+2                 & 25$<$\met$<$30 \GeV\ & -0.85$<$DY MVA$<$-0.60 \\
+3                 & 30$<$\met$<$37 \GeV\ & -0.60$<$DY MVA$<$WP    \\
+4 (signal region) & \met$>$45 \GeV\      & DY MVA$>$WP            \\
+\hline
+\end{tabular}
+\caption{Definition of bins for \routin\ determination. \met\ stands for min-MET in 0- and 1-jet bins and for pfMet in the 2-jet bin;
+WP stands for Working Point and corresponds to the final cut value on the DY MVA output.}
+\label{tab:routinbins}
+\end{center}
+\end{table}
+%%%%%
