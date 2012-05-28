@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.40 2012/05/21 12:17:32 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.41 2012/05/25 09:42:08 dlevans Exp $
 //
 //
 
@@ -1444,13 +1444,13 @@ void LeptonTreeMaker::fillJets(const edm::Event& iEvent, const edm::EventSetup &
     leptonTree_->jet3_ = LorentzVector(0,0,0,0);
     std::vector<std::pair<reco::PFJet, float> > jets30 = smurfselections::goodJets(iEvent, iSetup, jets_h_, cand1, jetCorrector, 30.);
     leptonTree_->njets_ = jets30.size();
-    std::vector<std::pair<reco::PFJet, float> > jets15 = smurfselections::goodJets(iEvent, iSetup, jets_h_, cand1, jetCorrector, 15.);
-    if (jets15.size() > 0) {
-        leptonTree_->jet1_          = jets15.at(0).first.p4() * jets15.at(0).second;
-        leptonTree_->dPhiProbeJet1_ = reco::deltaPhi(cand1.p4().Phi(), jets15.at(0).first.p4().Phi());
+    std::vector<std::pair<reco::PFJet, float> > jets5 = smurfselections::goodJets(iEvent, iSetup, jets_h_, cand1, jetCorrector, 5.);
+    if (jets5.size() > 0) {
+        leptonTree_->jet1_          = jets5.at(0).first.p4() * jets5.at(0).second;
+        leptonTree_->dPhiProbeJet1_ = reco::deltaPhi(cand1.p4().Phi(), jets5.at(0).first.p4().Phi());
     }
-    if (jets15.size() > 1) leptonTree_->jet2_ = jets15.at(1).first.p4() * jets15.at(1).second;
-    if (jets15.size() > 2) leptonTree_->jet3_ = jets15.at(2).first.p4() * jets15.at(2).second;
+    if (jets5.size() > 1) leptonTree_->jet2_ = jets5.at(1).first.p4() * jets5.at(1).second;
+    if (jets5.size() > 2) leptonTree_->jet3_ = jets5.at(2).first.p4() * jets5.at(2).second;
 
 
 }

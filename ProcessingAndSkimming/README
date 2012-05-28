@@ -36,4 +36,5 @@ cvs co -rR2012A_V2 -d Muon/MuonAnalysisTools UserCode/sixie/Muon/MuonAnalysisToo
 cvs co -r V00-03-11 CommonTools/ParticleFlow 
 cvs co -r V15-01-06 RecoParticleFlow/PFProducer 
 
-
+# for the jet id
+cvs co -r V00-02-05 -d CMGTools/External UserCode/CMG/CMGTools/External
