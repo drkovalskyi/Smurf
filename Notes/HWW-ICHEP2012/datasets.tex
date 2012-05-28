@@ -1,0 +1,72 @@
+%UPDATEME%
+The datasets used for this analysis are summarized in 
+Tables.~\ref{tab:DatasetsData} and~\ref{tab:DatasetsMC} for data and Monte 
+Carlo, respectively. The total integrated luminosity is \intlumiEightTeV. 
+We used the official good run list~\cite{json}. For Monte Carlo simulation 
+we use madgraph when possible, but different generators such as Pythia and Powheg 
+are also used.  For $gg \to \WW$ a dedicated generator is used. For \wz\ and \zz\
+processes we use Pythia, since MadGraph samples are mixed with $\WW$ in
+a single $VV$ sample, which is difficult to use properly.
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+ Dataset Description                   &   Dataset Name   \\
+\hline \hline
+\multirow{2}{*}{MuEl PromptReco}   		&  /MuEG/Run2012A-PromptReco-v1/AOD   \\
+            							&  /MuEG/Run2012B-PromptReco-v1/AOD   \\
+\multirow{2}{*}{DiMuon PromptReco}     	&  /DoubleMu/Run2012A-PromptReco-v1/AOD   \\
+          								&  /DoubleMu/Run2012B-PromptReco-v1/AOD   \\
+\multirow{2}{*}{DiElectron PromptReco} 	&  /DoubleElectron/Run2012A-PromptReco-v1/AOD   \\
+      									&  /DoubleElectron/Run2012B-PromptReco-v1/AOD   \\
+\multirow{2}{*}{SingleMuon PromptReco}  &  /SingleMu/Run2012A-PromptReco-v1/AOD   \\
+      									&  /SingleMu/Run2012B-PromptReco-v1/AOD   \\
+\multirow{2}{*}{SingleElectron PromptReco} 	&  /SingleElectron/Run2012A-PromptReco-v1/AOD   \\
+      										&  /SingleElectron/Run2012B-PromptReco-v1/AOD   \\
+\hline
+\end{tabular}
+\caption{Summary of data datasets used.\label{tab:DatasetsData}}
+\end{center}
+\end{table}
+
+\begin{table}[!ht]
+\begin{center}
+{\footnotesize
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{With Pileup: Processed dataset name is always} \\
+\multicolumn{3}{|c|}{/Summer12-PU\_S7\_START52\_V9-v*/AODSIM} \\
+\hline
+ Dataset Description              		&   Primary Dataset Name   & cross-section (pb)\\
+\hline
+$\ttbar$                              	&   /TTJets\_TuneZ2star\_8TeV-madgraph-tauola                          	& 	225.2 	\\
+tW                  	 	 			&   /T\_tW-channel-DR\_TuneZ2star\_8TeV-powheg-tauola                  	&  	11.18 	\\
+$\bar{\textrm{t}}$W                   	&   /Tbar\_tW-channel-DR\_TuneZ2star\_8TeV-powheg-tauola               	&  	11.18 	\\
+gg $\rightarrow WW \to 2l 2\nu$         &   /GluGluToWWTo4L\_TuneZ2star\_8TeV-gg2ww-pythia6                     &   1.74	\\
+qq $\rightarrow WW$                  	&   /WWJetsTo2L2Nu\_TuneZ2star\_8TeV-madgraph-tauola                    &  	5.81  	\\
+WZ                               	 	&   /WZ\_TuneZ2star\_8TeV\_pythia6\_tauola                        		&  	22.45 	\\
+Z[10-50] 	  	 						&   /DYJetsToLL\_M-10To50filter\_8TeV-madgraph                   		&  	860.5 	\\
+Z[50-inf] 	  	 						&   /DYJetsToLL\_M-50\_TuneZ2Star\_8TeV-madgraph-tarball           		&  	3532.8 	\\
+ZZ $\rightarrow 2l 2\nu$    	 		& 	/ZZJetsTo2L2Nu\_TuneZ2star\_8TeV-madgraph-tauola                    &   0.365	\\
+ZZ $\rightarrow 2l 2q$    	 			&   /ZZJetsTo2L2Q\_TuneZ2star\_8TeV-madgraph-tauola                     &   1.28	\\
+ZZ $\rightarrow 4l$    	 				&   /ZZJetsTo4L\_TuneZ2star\_8TeV-madgraph-tauola                       &   0.0921	\\
+$gg \to H \to WW \to 2l 2\nu$         	&   /GluGluToHToWWTo2LAndTau2Nu\_M-*\_8TeV-powheg-pythia6             	& 	vary 	\\
+$qqH,~H \to WW \to 2l 2\nu$           	&   /VBF\_HToWWTo2LAndTau2Nu\_M-*\_8TeV-powheg-pythia6                 	& 	vary 	\\
+$WH/ZH/\ttbar H,~H\to WW$              	&   /WH\_ZH\_TTH\_HToWW\_M-*\_8TeV-pythia6                            	& 	vary 	\\
+\hline
+\hline
+\end{tabular}
+}
+\caption{Summary of Monte Carlo datasets used.\label{tab:DatasetsMC}. The cross sections for a SM Higgs boson
+is taken from the LHC Higgs cross-section working group~\cite{LHCHiggsCrossSectionWorkingGroup:2011ti}}
+\end{center}
+\end{table}
+
+Since some portion of data datasets were not processed, 
+we use a json excluding missing events~\cite{json}. 
+Last year we adjusted Higgs $\pt$ spectrum because 
+the spectrum in the simulation(\textcolor{red}{old version}) was harder than the one 
+in the most precise calculation to NNLO with resummation to NNLL order.
+In the new version of Powheg(\textcolor{red}{new version}), this problem has been resolved,
+thus we do not apply any corrections for Higss $\pt$.
