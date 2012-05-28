@@ -6,6 +6,8 @@
 #include "DataFormats/Common/interface/RefToPtr.h"
 #include "DataFormats/Math/interface/deltaR.h"
 
+#include "CMGTools/External/interface/PileupJetIdentifier.h"
+
 #include <algorithm>
 #include <utility>
 
@@ -20,7 +22,11 @@ bool smurfselections::compareJetPt(std::pair<reco::PFJet, float> lv1, std::pair<
 std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm::Event& iEvent, const edm::EventSetup& iSetup,
         const edm::Handle<edm::View<reco::PFJet> > &jets_h, const reco::Candidate &cand1, const reco::Candidate &cand2,
 	const JetCorrector *corrector, float ptCut)
+
 {
+
+    edm::Handle<edm::ValueMap<int> > puJetIdFlag;
+    iEvent.getByLabel("puJetMva","fullId",puJetIdFlag);
 
     std::vector<std::pair<reco::PFJet, float> > goodJets;
     edm::View<reco::PFJet> jetsCollection = *(jets_h.product());
@@ -28,7 +34,7 @@ std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm:
     for (jet = jetsCollection.begin(); jet != jetsCollection.end(); ++jet) {
 
         // jec
-        int idx = jet - jets_h->begin();
+        int idx = jet - jetsCollection.begin();
         edm::RefToBase<reco::Jet> jetRef(edm::Ref<edm::View<reco::PFJet> >(jets_h, idx));
 
         #ifdef RELEASE_4XY
@@ -36,6 +42,9 @@ std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm:
         #else
         float jec = corrector->correction(*jet, iEvent, iSetup);
         #endif
+
+	int    idflag = (*puJetIdFlag)[jetRef];
+	if (PileupJetIdentifier::passJetId( idflag, PileupJetIdentifier::kLoose )==0) continue;
 
         // cuts
         if (jet->pt() * jec <= ptCut) continue;
@@ -57,13 +66,17 @@ std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm:
 	const JetCorrector *corrector, float ptCut)
 {
 
+
+    edm::Handle<edm::ValueMap<int> > puJetIdFlag;
+    iEvent.getByLabel("puJetMva","fullId",puJetIdFlag);
+
     std::vector<std::pair<reco::PFJet, float> > goodJets;
     edm::View<reco::PFJet> jetsCollection = *(jets_h.product());
     edm::View<reco::PFJet>::const_iterator jet;
     for (jet = jetsCollection.begin(); jet != jetsCollection.end(); ++jet) {
 
         // jec
-        int idx = jet - jets_h->begin();
+        int idx = jet - jetsCollection.begin();
         edm::RefToBase<reco::Jet> jetRef(edm::Ref<edm::View<reco::PFJet> >(jets_h, idx));
 
         #ifdef RELEASE_4XY
@@ -71,6 +84,9 @@ std::vector<std::pair<reco::PFJet, float> > smurfselections::goodJets(const edm:
         #else
         float jec = corrector->correction(*jet, iEvent, iSetup);
         #endif
+
+	int    idflag = (*puJetIdFlag)[jetRef];
+	if (PileupJetIdentifier::passJetId( idflag, PileupJetIdentifier::kLoose )==0) continue;
 
         // cuts
         if (jet->pt() * jec <= ptCut) continue;
