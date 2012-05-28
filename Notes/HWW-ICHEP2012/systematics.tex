@@ -31,7 +31,7 @@ The methods to estimate the different backgrounds are explained in
 Section~\ref{sec:backgrounds}.
 Here we summarize the systematic uncertainties associated with the methods used.
   \begin{itemize}
-  \item $\WW$ Background: the relative uncertainty on this background is about $15-25\%$ for $\intlumiEightTeV$. 
+  \item $\WW$ Background: the relative uncertainty on this background is about $25-37\%$ for $\intlumiEightTeV$. 
     There is an additional theoretical uncertainty on the $gg \to WW$ contribution, which is around $50\%$.
   \item Jet induced backgrounds, $\Wjets$ and $QCD$: the associated systematic
     uncertainty is 36\%.
@@ -47,7 +47,7 @@ Here we summarize the systematic uncertainties associated with the methods used.
     As very few $\dyll$ events are selected, this has anyhow a small affect on the final analysis results ($\sim1\%$).
   \item Other backgrounds: The sub-dominant backgrounds are estimated from simulation 
     with appropriate systematic uncertainties on their cross section.
-    We take $3\%$ for $\WZ$ and $\ZZ$ events and $10\%$ for $W+\gamma$ events.
+    We take $3\%$ for $\WZ$ and $\ZZ$ events. %and $10\%$ for $W+\gamma$ events.
     These uncertainties must be augmented by the luminosity normalization uncertainty.
   \end{itemize}
 
@@ -326,10 +326,11 @@ propagate the uncertainty for each of the three PDF sets, MSTW2008, CT10, and
 NNPDF, according to their own prescriptions, and then take the envelope
 of the systematic uncertainties as the total PDF+$\alpha_{s}$  uncertainty. 
 
-The effect of the missing higher order corrections are accounted for by
-reweighting the Higgs $p_{T}$ spectrum to the one obtained from the
-NNLO+NNLL calculation with the renormalization and factorization scales
-varied by factors of $2$ and $1/2$. It is assumed that any change in the
+%The effect of the missing higher order corrections are accounted for by
+%reweighting the Higgs $p_{T}$ spectrum to the one obtained from the
+%NNLO+NNLL calculation with the renormalization and factorization scales
+%varied by factors of $2$ and $1/2$. 
+It is assumed that any change in the
 lepton acceptance and the efficiency of other selection cuts are only
 influenced via the Higgs $p_{T}$ spectrum. This effect is much smaller in 
 magnitude than the effect on the jet bin fractions in any case, and 
@@ -354,32 +355,32 @@ classifier, as discussed in~\cite{MVASyst}.
 \caption{\label{tab:systhww} Summary of all systematic uncertainties (relative).}
 \vspace{5pt}
 {\footnotesize
-\begin{tabular}{l|c|c|c|c|c|c|c|c}
+\begin{tabular}{l|c|c|c|c|c|c|c}%|c}
 \hline
 %&       \multicolumn{8}{|c|}{Relative Uncertainty (\%)} \\
 %Source      &                            $H \to \WW$ & $qq \to \WW$ & $gg \to \WW$ & $VV$ non-$\Z$ resonant & top & $\dyll$ & $\Wjets$ & $V(W/Z)+\gamma$    \\              
-\multirow{2}{*}{Source} & $H \to \WW$ & $qq \to$ & $gg \to$  & non-$\Z$ resonant & top & DY & $\Wjets$ & $V(W/Z)+\gamma$    \\
-                        &           & $\WW$    & $\WW$       & $VV$              &     &         &          &                     \\
+\multirow{2}{*}{Source} & $H \to \WW$ & $qq \to$ & $gg \to$  & non-$\Z$ resonant & top & DY & $\Wjets$ \\ 	%& $V(W/Z)+\gamma$    \\
+                        &           & $\WW$    & $\WW$       & $VV$              &     &         &      \\  %&                     \\
 \hline
 
 \hline
-Luminosity                    & 4.5 & --- & --- & 4.5 & --- & --- & --- &  4.5  \\
-Trigger efficiencies          & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- & --- &  1.5  \\
-Muon efficiency               & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- & --- &  1.5  \\
-Electron id efficiency        & 2.5 & 2.5 & 2.5 & 2.5 & --- & --- & --- &  2.5  \\
-Momentum scale                & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- & --- &  1.5  \\
-$\met$ resolution             & 2.0 & 2.0 & 2.0 & 2.0 & 2.0 & 3.0 & --- &  1.0  \\
-Jet counting                  & 7-20& --- & 5.4 & 5.4 & --- & --- & --- &  5.4  \\  
-Higgs cross section           & 5-15& --- & --- & --- & --- & --- & --- &  ---  \\
-$WZ/ZZ$ cross section         & --- & --- & --- & 3.0 & --- & --- & --- &  ---  \\
-$qq \to WW$ norm.             & --- &  15 & --- & --- & --- & --- & --- &  ---  \\
-$gg \to WW$ norm.             & --- & --- &  30 & --- & --- & --- & --- &  ---  \\
-$\Wjets$ norm.                & --- & --- & --- & --- & --- & --- &  36&   ---  \\
-top  norm.                    & --- & --- & --- & --- &  15 & --- & --- &  ---  \\
-$\dyll$ norm.                 & --- & --- & --- & --- & --- &  50 & --- &  ---  \\
-$WZ/ZZ$ cross section         & --- & --- & --- & 3.0 & --- & --- & --- &  ---  \\
-$W+\gamma$ cross section      & --- & --- & --- & 3.0 & --- & --- & --- &  30   \\
-Monte Carlo statistics        &   1 &	1 &   1 &   4 &   6 &  20 &  20 &  10   \\
+Luminosity                    & 4.5 & --- & --- & 4.5 & --- & --- & --- \\ %&  4.5  \\
+Trigger efficiencies          & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- & --- \\ %&  1.5  \\
+Muon efficiency               & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- & --- \\ %&  1.5  \\
+Electron id efficiency        & 2.5 & 2.5 & 2.5 & 2.5 & --- & --- & --- \\ %&  2.5  \\
+Momentum scale                & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- & --- \\ %&  1.5  \\
+$\met$ resolution             & 2.0 & 2.0 & 2.0 & 2.0 & 2.0 & 3.0 & --- \\ %&  1.0  \\
+Jet counting                  & 7-20& --- & 5.4 & 5.4 & --- & --- & --- \\ %&  5.4  \\  
+Higgs cross section           & 5-15& --- & --- & --- & --- & --- & --- \\ %&  ---  \\
+$WZ/ZZ$ cross section         & --- & --- & --- & 3.0 & --- & --- & --- \\ %&  ---  \\
+$qq \to WW$ norm.             & --- &  15 & --- & --- & --- & --- & --- \\ %&  ---  \\
+$gg \to WW$ norm.             & --- & --- &  30 & --- & --- & --- & --- \\ %&  ---  \\
+$\Wjets$ norm.                & --- & --- & --- & --- & --- & --- &  36 \\ %&   ---  \\
+top  norm.                    & --- & --- & --- & --- &  15 & --- & --- \\ %&  ---  \\
+$\dyll$ norm.                 & --- & --- & --- & --- & --- &  50 & --- \\ %&  ---  \\
+$WZ/ZZ$ cross section         & --- & --- & --- & 3.0 & --- & --- & --- \\ %&  ---  \\
+%$W+\gamma$ cross section      & --- & --- & --- & 3.0 & --- & --- & --- &  30   \\
+Monte Carlo statistics        &   1 &	1 &   1 &   4 &   6 &  20 &  20 \\ %&  10   \\
 \hline
 \end{tabular}
 }
