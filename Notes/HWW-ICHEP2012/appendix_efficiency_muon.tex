@@ -4,24 +4,45 @@ scale factor is measured as the product of the N-1 scale factors
 of the identification and isolation parts of the selection.
 The N-1 scale factors for the identification part are given in Table \ref{tab:eff_muon_id}
 and the isolation part in Table \ref{tab:eff_muon_iso}.
-These scale factors are measured in the 2012A part of the dataset.
+These scale factors are measured in a dataset corresponding 
+to approximately $1.1$fb$^{-1}$ within the good run list used for this analysis.
 
 \begin{table}[!ht]
 \begin{center}
 \begin{tabular}{c|c|c|c}
 \hline & $0 < |\eta| < 0.8$ & $0.8 < |\eta| < 1.2$ & $1.2 < |\eta| < 2.4$  \\
 \hline
-$ 10 < p_T <  15$ & $0.9808 \pm 0.0220$ & $0.9722 \pm 0.0158$ & $0.9405 \pm 0.0101$  \\
-$ 15 < p_T <  20$ & $0.9727 \pm 0.0075$ & $0.9630 \pm 0.0092$ & $0.9983 \pm 0.0064$  \\
-$ 20 < p_T <  30$ & $0.9746 \pm 0.0021$ & $0.9891 \pm 0.0037$ & $1.0005 \pm 0.0045$  \\
-$ 30 < p_T <  40$ & $0.9871 \pm 0.0010$ & $0.9863 \pm 0.0010$ & $0.9906 \pm 0.0008$  \\
-$ 40 < p_T <  50$ & $0.9860 \pm 0.0008$ & $0.9866 \pm 0.0013$ & $0.9896 \pm 0.0009$  \\
-$ 50 < p_T < 7000$ & $1.0051 \pm 0.0019$ & $1.0112 \pm 0.0042$ & $1.0059 \pm 0.0026$  \\
+\multicolumn{4}{c} {N-1 Efficiencies in data} \\
+\hline
+$ 10 < p_T <  15$ & $0.9702 \pm 0.0066$ & $0.9599 \pm 0.0067$ & $0.9547 \pm 0.0061$  \\
+$ 15 < p_T <  20$ & $0.9549 \pm 0.0054$ & $0.9534 \pm 0.0061$ & $0.9397 \pm 0.0042$  \\
+$ 20 < p_T <  30$ & $0.9604 \pm 0.0015$ & $0.9542 \pm 0.0019$ & $0.9485 \pm 0.0010$  \\
+$ 30 < p_T <  40$ & $0.9648 \pm 0.0007$ & $0.9624 \pm 0.0006$ & $0.9574 \pm 0.0012$  \\
+$ 40 < p_T <  50$ & $0.9684 \pm 0.0006$ & $0.9674 \pm 0.0010$ & $0.9640 \pm 0.0008$  \\
+$ 50 < p_T < 7000$ & $0.9569 \pm 0.0012$ & $0.9515 \pm 0.0016$ & $0.9438 \pm 0.0034$  \\
+\hline 
+\multicolumn{4}{c} {N-1 Efficiencies in simulation} \\
+\hline 
+$ 10 < p_T <  15$ & $0.9686 \pm 0.0016$ & $0.9696 \pm 0.0021$ & $0.9559 \pm 0.0014$  \\
+$ 15 < p_T <  20$ & $0.9657 \pm 0.0010$ & $0.9690 \pm 0.0014$ & $0.9598 \pm 0.0009$  \\
+$ 20 < p_T <  30$ & $0.9725 \pm 0.0003$ & $0.9708 \pm 0.0005$ & $0.9646 \pm 0.0004$  \\
+$ 30 < p_T <  40$ & $0.9777 \pm 0.0002$ & $0.9755 \pm 0.0003$ & $0.9678 \pm 0.0002$  \\
+$ 40 < p_T <  50$ & $0.9801 \pm 0.0001$ & $0.9781 \pm 0.0002$ & $0.9717 \pm 0.0002$  \\
+$ 50 < p_T < 7000$ & $0.9726 \pm 0.0003$ & $0.9678 \pm 0.0005$ & $0.9535 \pm 0.0004$  \\
+\hline 
+\multicolumn{4}{c} {Simulation-to-data scale factors} \\
+\hline 
+$ 10 < p_T <  15$ & $1.0017 \pm 0.0071$ & $0.9900 \pm 0.0072$ & $0.9987 \pm 0.0066$  \\
+$ 15 < p_T <  20$ & $0.9888 \pm 0.0056$ & $0.9839 \pm 0.0064$ & $0.9790 \pm 0.0045$  \\
+$ 20 < p_T <  30$ & $0.9876 \pm 0.0015$ & $0.9829 \pm 0.0020$ & $0.9834 \pm 0.0011$  \\
+$ 30 < p_T <  40$ & $0.9868 \pm 0.0007$ & $0.9866 \pm 0.0007$ & $0.9893 \pm 0.0012$  \\
+$ 40 < p_T <  50$ & $0.9880 \pm 0.0006$ & $0.9890 \pm 0.0010$ & $0.9921 \pm 0.0008$  \\
+$ 50 < p_T < 7000$ & $0.9838 \pm 0.0013$ & $0.9831 \pm 0.0017$ & $0.9899 \pm 0.0036$  \\
 \hline
 \end{tabular}
-\caption{The simulation-to-data scale factors for the muon
-identification part of the selection, measured in the 2012A part 
-of the dataset. The uncertainties are statistical.}
+\caption{The efficiencies and simulation-to-data scale factors for the muon
+identification part of the selection.
+The uncertainties are statistical.}
 \label{tab:eff_muon_id}
 \end{center}
 \end{table}
@@ -31,17 +52,37 @@ of the dataset. The uncertainties are statistical.}
 \begin{tabular}{c|c|c|c}
 \hline & $0 < |\eta| < 0.8$ & $0.8 < |\eta| < 1.2$ & $1.2 < |\eta| < 2.4$  \\
 \hline
-$ 10 < p_T <  15$ & $1.0406 \pm 0.0349$ & $1.0497 \pm 0.0376$ & $1.0168 \pm 0.0195$  \\
-$ 15 < p_T <  20$ & $1.0246 \pm 0.0098$ & $1.0375 \pm 0.0207$ & $1.0349 \pm 0.0112$  \\
-$ 20 < p_T <  30$ & $0.9834 \pm 0.0025$ & $0.9982 \pm 0.0038$ & $1.0166 \pm 0.0026$  \\
-$ 30 < p_T <  40$ & $1.0012 \pm 0.0008$ & $1.0018 \pm 0.0012$ & $1.0082 \pm 0.0009$  \\
-$ 40 < p_T <  50$ & $1.0011 \pm 0.0006$ & $0.9992 \pm 0.0009$ & $1.0021 \pm 0.0005$  \\
-$ 50 < p_T < 7000$ & $1.0002 \pm 0.0008$ & $0.9959 \pm 0.0017$ & $1.0024 \pm 0.0011$  \\
+\multicolumn{4}{c} {N-1 Efficiencies in data} \\
+\hline
+$ 10 < p_T <  15$ & $0.7603 \pm 0.0156$ & $0.7757 \pm 0.0155$ & $0.8118 \pm 0.0005$  \\
+$ 15 < p_T <  20$ & $0.8088 \pm 0.0082$ & $0.8185 \pm 0.0120$ & $0.8640 \pm 0.0055$  \\
+$ 20 < p_T <  30$ & $0.9046 \pm 0.0016$ & $0.9127 \pm 0.0044$ & $0.9172 \pm 0.0026$  \\
+$ 30 < p_T <  40$ & $0.9671 \pm 0.0010$ & $0.9681 \pm 0.0009$ & $0.9689 \pm 0.0010$  \\
+$ 40 < p_T <  50$ & $0.9850 \pm 0.0003$ & $0.9864 \pm 0.0003$ & $0.9906 \pm 0.0006$  \\
+$ 50 < p_T < 7000$ & $0.9886 \pm 0.0007$ & $0.9879 \pm 0.0011$ & $0.9929 \pm 0.0007$  \\
+\hline 
+\multicolumn{4}{c} {N-1 Efficiencies in simulation} \\
+\hline 
+$ 10 < p_T <  15$ & $0.6930 \pm 0.0035$ & $0.7112 \pm 0.0046$ & $0.7571 \pm 0.0026$  \\
+$ 15 < p_T <  20$ & $0.7653 \pm 0.0020$ & $0.7984 \pm 0.0028$ & $0.8314 \pm 0.0016$  \\
+$ 20 < p_T <  30$ & $0.9051 \pm 0.0005$ & $0.9033 \pm 0.0009$ & $0.8929 \pm 0.0006$  \\
+$ 30 < p_T <  40$ & $0.9677 \pm 0.0002$ & $0.9692 \pm 0.0003$ & $0.9621 \pm 0.0002$  \\
+$ 40 < p_T <  50$ & $0.9867 \pm 0.0001$ & $0.9882 \pm 0.0002$ & $0.9886 \pm 0.0001$  \\
+$ 50 < p_T < 7000$ & $0.9889 \pm 0.0002$ & $0.9908 \pm 0.0003$ & $0.9909 \pm 0.0002$  \\
+\hline
+\multicolumn{4}{c} {Simulation-to-data scale factors} \\
+\hline
+$ 10 < p_T <  15$ & $1.0972 \pm 0.0231$ & $1.0906 \pm 0.0229$ & $1.0723 \pm 0.0037$  \\
+$ 15 < p_T <  20$ & $1.0568 \pm 0.0110$ & $1.0252 \pm 0.0154$ & $1.0393 \pm 0.0069$  \\
+$ 20 < p_T <  30$ & $0.9995 \pm 0.0019$ & $1.0104 \pm 0.0049$ & $1.0272 \pm 0.0030$  \\
+$ 30 < p_T <  40$ & $0.9994 \pm 0.0010$ & $0.9989 \pm 0.0010$ & $1.0071 \pm 0.0010$  \\
+$ 40 < p_T <  50$ & $0.9983 \pm 0.0004$ & $0.9981 \pm 0.0003$ & $1.0020 \pm 0.0006$  \\
+$ 50 < p_T < 7000$ & $0.9997 \pm 0.0007$ & $0.9971 \pm 0.0011$ & $1.0019 \pm 0.0007$  \\
 \hline
 \end{tabular}
 \caption{The simulation-to-data scale factors for the muon
-isolation part of the selection, measured in the 2012A part 
-of the dataset. The uncertainties are statistical.}
+isolation part of the selection.
+The uncertainties are statistical.}
 \label{tab:eff_muon_iso}
 \end{center}
 \end{table}

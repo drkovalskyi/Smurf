@@ -19,6 +19,7 @@ last step given both legs have passed the previous steps.
 While the $dZ$ cut was desgined to be highly efficient,
 for technical reasons there was a roughly 15\% inefficiency in
 the early part of the 2012A dataset for the double muon triggers.
+In the full dataset, the inefficiency is around 5\%.
 In this analysis, the inefficiency is absorbed by the single triggers, 
 leading to a negligible overall efficiency loss.
 
@@ -32,7 +33,6 @@ Table \ref{tab:eff_ele_lead_dbl} of Appendix
 leg is given in Table \ref{tab:eff_ele_trail_dbl}. 
 The efficiency of the single electron trigger with respect to
 an electron passing offline selection is given in Table \ref{tab:eff_ele_sgl}.
-The listed values were measured in the 2012A part of the dataset.
 
 The efficiency of the leading and trailing legs of the double muon trigger
 is summarized in Tables \ref{tab:eff_muon_lead_dbl} and
@@ -73,7 +73,7 @@ of the $dZ$ cut in the double trigger.
 
 \begin{eqnarray}
 \label{eqn:evteff}
-\varepsilon_{\ell\ell'}(p_T,\:\eta,\:p'_T,\:\eta') & = & 1 - [(1-\varepsilon_{dZ}) \\
+\varepsilon_{\ell\ell'}(p_T,\:\eta,\:p'_T,\:\eta') & = & 1 - [(1-\varepsilon_{dZ})\varepsilon_{\mathrm{D,leading}}(p_T,\:\eta)\varepsilon_{\mathrm{D,leading}}(p_T',\:\eta') \\
                &   & (1-\varepsilon_{\mathrm{D,leading}}(p_T,\:\eta))(1-\varepsilon_{\mathrm{D,leading}}(p_T',\:\eta')) \\
                &   & +~\varepsilon_{\mathrm{D,leading}}(p_T,\:\eta)(1-\varepsilon_{\mathrm{D,trailing}}(p_T',\:\eta')) \\
                &   & +~\varepsilon_{\mathrm{D,leading}}(p_T',\:\eta')(1-\varepsilon_{\mathrm{D,trailing}}(p_T,\:\eta))] \\
@@ -85,5 +85,5 @@ of the $dZ$ cut in the double trigger.
 The procedure of Equation \ref{eqn:evteff} is applied to simulated Higgs boson decays to obtain an event-by-event weight factor. We find a 
 trigger efficiency with respect to the offline selection of around $99\%$ for WW events.
 In the current analysis, we have neglected the $\varepsilon_{dZ}$ term.  Studies indicate that given the single trigger efficiency,
-the expected level of inefficiency due to the $dZ$ cut of around 15\% leads to a negligible change in the overall expected trigger efficiency.
+the expected level of inefficiency due to the $dZ$ cut leads to a negligible change in the overall expected trigger efficiency.
 
