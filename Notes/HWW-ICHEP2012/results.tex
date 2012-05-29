@@ -71,8 +71,9 @@ The top background estimation is shown in
 Table~\ref{tab:ttbar_est}. The scale factors are consistent with unity 
 within the current large statistical uncertainties.
 
-With these results, we compare the yields after the $\WW$ preselection
-in data and MC Table~\ref{tab:wwselection_all}. Higgs contribution at
+With these results, we compare the yields after the $\WW$ preselection 
+in data and MC with min-MET(Table~\ref{tab:wwselection_all_minmet}) and 
+DY MVA(Table~\ref{tab:wwselection_all_dymva}). Higgs contribution at
 \WW\ selection level is negligible for not excluded Higgs mass
 hypotheses. For the signal extraction we estimate the \WW\ background
 contribution in data looking at events with large di-lepton mass, i.e.
@@ -145,9 +146,12 @@ Figures~\ref{fig:ww_ptmax}-\ref{fig:ww_deltaphi} show a few key distributions at
 \hline
 jet-bin &	 $\mu\mu$ &	 $\mu e$ &	 $e\mu$ &	 $ee$ &	 total \\ 
 \hline
-0 &	 5.0 $\pm$ 2.0 &	 4.2 $\pm$ 1.2 &	 13.6 $\pm$ 2.1 &	  2.2 $\pm$ 0.5 &  25.1 $\pm$ 3.2 \\
-1 &	 0.1 $\pm$ 0.1 &	 2.2 $\pm$ 1.3 &	  9.7 $\pm$ 2.1 &	  1.1 $\pm$ 0.4 &  13.1 $\pm$ 2.5 \\
-2 &	 0.1 $\pm$ 0.1 &	 0.5 $\pm$ 0.4 &	  3.5 $\pm$ 1.3 &	  0.9 $\pm$ 0.4 &   5.0 $\pm$ 1.8 \\
+%0 &	 5.0 $\pm$ 2.0 &	 4.2 $\pm$ 1.2 &	 13.6 $\pm$ 2.1 &	  2.2 $\pm$ 0.5 &  25.1 $\pm$ 3.2 \\
+%1 &	 0.1 $\pm$ 0.1 &	 2.2 $\pm$ 1.3 &	  9.7 $\pm$ 2.1 &	  1.1 $\pm$ 0.4 &  13.1 $\pm$ 2.5 \\
+%2 &	 0.1 $\pm$ 0.1 &	 0.5 $\pm$ 0.4 &	  3.5 $\pm$ 1.3 &	  0.9 $\pm$ 0.4 &   5.0 $\pm$ 1.8 \\
+0 &	 11.5 $\pm$ 2.8 &	 8.6 $\pm$ 1.5 &	  26.9 $\pm$ 2.9 &	  5.2 $\pm$ 0.7 &  52.2 $\pm$ 4.4 \\
+1 &	 0.3 $\pm$ 1.6 &	 9.4 $\pm$ 2.4 &	  18.6 $\pm$ 2.6 &	  2.0 $\pm$ 0.5 &  30.3 $\pm$ 3.9 \\
+2 &	 -0.5 $\pm$ 1.4 &	 1.5 $\pm$ 0.7 &	  8.2 $\pm$ 1.9 &	  1.2 $\pm$ 0.4 &   10.3 $\pm$ 2.5 \\
 \hline
 \end{tabular}
 \caption{Predictions of the fake-induced background contribution 
@@ -185,9 +189,12 @@ The analyzed data correspond to $\intlumiEightTeV$, where the reported uncertain
           &   data & all bkg. & $qq \to \WW$ & $gg \to \WW$ &  $\ttbar+tW$   & $\Wjets$    \\
   \hline
   \hline
- 0-jet & 314  & 270.5 $\pm$   4.4 & 175.5 $\pm$ 1.3  & 12.1 $\pm$ 0.3  & 28.7 $\pm$ 1.5  &  25.1 $\pm$ 3.2  \\   
- 1-jet & 909  & 157.1 $\pm$   4.9 &  63.8 $\pm$ 0.8  &  3.8 $\pm$ 0.1  & 49.4 $\pm$ 2.1  &  13.1 $\pm$ 2.5  \\  
- 2-jet & 556  & 112.6 $\pm$   5.7 &  23.9 $\pm$ 0.5  &  0.7 $\pm$ 0.1  & 49.6 $\pm$ 2.3  &   5.0 $\pm$ 1.8  \\  
+	% 0-jet & 314  & 270.5 $\pm$   4.4 & 175.5 $\pm$ 1.3  & 12.1 $\pm$ 0.3  & 28.7 $\pm$ 1.5  &  25.1 $\pm$ 3.2  \\ 0.8 /pb  
+	% 1-jet & 909  & 157.1 $\pm$   4.9 &  63.8 $\pm$ 0.8  &  3.8 $\pm$ 0.1  & 49.4 $\pm$ 2.1  &  13.1 $\pm$ 2.5  \\  
+	% 2-jet & 556  & 112.6 $\pm$   5.7 &  23.9 $\pm$ 0.5  &  0.7 $\pm$ 0.1  & 49.6 $\pm$ 2.3  &   5.0 $\pm$ 1.8  \\  
+	0-jet	&	609	&	527.6$\pm$7.3	&	346.5$\pm$2.5	&	24.0$\pm$0.5	&	67.9$\pm$3.5	&	52.2$\pm$4.4	\\
+	1-jet	&	293	&	331.3$\pm$8.7	&	125.9$\pm$1.5	&	7.4$\pm$0.3		&	117.8$\pm$4.9	&	30.3$\pm$3.9	\\	
+	2-jet	&	184	&	219.7$\pm$9.0	&	47.4$\pm$0.9	&	1.3$\pm$0.1		&	97.7$\pm$4.3	&	10.3$\pm$2.5	\\	
  \hline
  \hline
   \end{tabular}
@@ -196,19 +203,54 @@ The analyzed data correspond to $\intlumiEightTeV$, where the reported uncertain
        & $WZ$/$ZZ$ not included in the $\dyll$ & $\dyll+WZ+ZZ$ & $W+\gamma$ \\
   \hline
   \hline
- 0-jet & 5.4 $\pm$ 0.2 & 13.5 $\pm$ 2.3  &  N/A \\  
- 1-jet & 3.7 $\pm$ 0.2 & 23.3 $\pm$ 3.6  &  N/A  \\  
- 2-jet & 1.0 $\pm$ 0.1 & 32.3 $\pm$ 4.3  &  N/A  \\ 
+	% 0-jet & 5.4 $\pm$ 0.2 & 13.5 $\pm$ 2.3  &  N/A 	\\ 0.8 /pb  
+	% 1-jet & 3.7 $\pm$ 0.2 & 23.3 $\pm$ 3.6  &  N/A  	\\  
+	% 2-jet & 1.0 $\pm$ 0.1 & 32.3 $\pm$ 4.3  &  N/A  	\\ 
+	0-jet	&	10.6$\pm$0.4	&	26.4$\pm$3.8	& N/A 	\\
+	1-jet	&	7.3$\pm$0.3		&	42.5$\pm$5.8	& N/A	\\
+	2-jet	&	2.0$\pm$0.2		&	61.0$\pm$7.5	& N/A	\\
  \hline
  \hline
   \end{tabular}
   }
   \caption{Expected number of signal and background events from the data-driven methods for 
-  an integrated luminosity of \intlumiEightTeV after applying the $\WW$ selection requirements. 
+  an integrated luminosity of \intlumiEightTeV after applying the $\WW$ selection requirements with min-MET. 
   Only statistical uncertainties on the processes are reported.}
-   \label{tab:wwselection_all}
+   \label{tab:wwselection_all_minmet}
   \end{center}
 \end{table}
+
+\begin{table}[ht!]
+  \begin{center}
+ {\small
+  \begin{tabular} {|c|c|c|c|c|c|c|}
+\hline
+          &   data & all bkg. & $qq \to \WW$ & $gg \to \WW$ &  $\ttbar+tW$   & $\Wjets$    \\
+  \hline
+  \hline
+	0-jet	&	518	&	428.3$\pm$6.5	&	289.5$\pm$2.4	&	17.6$\pm$0.4	&	49.0$\pm$3.0	&	50.3$\pm$4.1	\\	
+	1-jet	&	265	&	300.7$\pm$7.4	&	121.7$\pm$1.5	&	6.9$\pm$0.3		&	111.9$\pm$4.9	&	32.2$\pm$3.8	\\	
+ \hline
+ \hline
+  \end{tabular}
+  \begin{tabular} {|c|c|c|c|c|}
+\hline
+       & $WZ$/$ZZ$ not included in the $\dyll$ & $\dyll+WZ+ZZ$ & $W+\gamma$ \\
+  \hline
+  \hline
+	0-jet 	&	9.0$\pm$0.4	&	12.9$\pm$3.3 	&	N/A		\\ 
+	1-jet 	&	7.2$\pm$0.3	&	20.9$\pm$3.8	&	N/A		\\
+ \hline
+ \hline
+  \end{tabular}
+  }
+  \caption{Expected number of signal and background events from the data-driven methods for 
+  an integrated luminosity of \intlumiEightTeV after applying the $\WW$ selection requirements with DY MVA. 
+  Only statistical uncertainties on the processes are reported.}
+   \label{tab:wwselection_all_dymva}
+  \end{center}
+\end{table}
+
 
 \begin{figure}[!hbtp]
 \centering
