@@ -71,8 +71,12 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   if(useRecoilModel) nmet = 100;
 
   if     (period == 0){ // Full2011-Fall11-V9
-    lumi = 0.818;minRun =      0;maxRun = 999999;
+    lumi = 1.616;minRun =      0;maxRun = 999999;
     filesPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets";
+  }
+  else if(period == 1){ // Full2011-Fall11-V7
+    lumi = 0.818;minRun =      0;maxRun = 999999;
+    filesPath  = "/data/smurf/data/Run2012_Summer12_SmurfV7_52X/mitf-alljets";
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -115,7 +119,10 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 
   const Int_t nmass = 21;
   const Double_t mH[nmass]     = {0,115,118,120,122,124,125,126,128,130,135,140,145,150,160,170,180,190,200,250,300};  
-  const Bool_t useDYMVA[nmass] = {0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+        Bool_t useDYMVA[nmass] = {0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+  // 2011 analysis does not use DYMVA
+  if(period == 1) for(int i=0; i<nmass; i++) useDYMVA[i] = 0;
+  
   //*******************************************************
   //Yields and  histograms
   //*******************************************************

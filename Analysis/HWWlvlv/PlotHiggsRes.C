@@ -60,6 +60,8 @@ void PlotHiggsRes
   if(mH == 0) {wwPresel = true; mH = 160; ptlMin = 20.0;}
   Bool_t useDYMVA = kFALSE;
   if(wwPresel == false && mH <= 140) useDYMVA = kTRUE;
+  // 2011 analysis does not use DYMVA
+  if(period == 1) useDYMVA = false;
 
   int category = 0;
   if(period > 9) {period = period - 10; category = 1;}
@@ -192,6 +194,12 @@ void PlotHiggsRes
   unsigned int maxRun = 999999;
   double scaleFactorLum = 2.121;
   if	 (period == 0){ // Full2012-Summer12-V9
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-03_V0/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-03_V0/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X//auxiliar/puWeights_Summer12.root";
+    scaleFactorLum     = 1.616;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 1){ // Full2012-Summer12-V7
     effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-02_V3/summary.root";
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-02_V3/summary.root";
     puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X//auxiliar/puWeights_Summer12.root";
@@ -280,8 +288,8 @@ void PlotHiggsRes
   else                          printf("***********useZjetsTemplates = false***************\n");
   if(useZjetsTemplates == true){
     TFile *fZjetsTemplatesFile;
-    if(period == 0) fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/histo_Zjets_Templates.root");
-    else            assert(0);
+    if(period == 0 || period == 1) fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/histo_Zjets_Templates.root");
+    else                           assert(0);
     char ZjetsHistName[100];
     sprintf(ZjetsHistName, "hDZjets%d_%d", mH,TMath::Min((int)nJetsType,1));
     hDZjetsTemplate = (TH1D*)(fZjetsTemplatesFile->Get(ZjetsHistName));

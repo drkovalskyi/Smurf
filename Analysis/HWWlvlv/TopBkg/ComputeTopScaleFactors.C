@@ -25,8 +25,8 @@ const int verboseLevel =   1;
 void ComputeTopScaleFactors
 (
  Int_t period = 0,
- TString bgdInputFile    = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundA_skim2.root",
- TString dataInputFile   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/data_skim2.root"
+ TString bgdInputFile    = "",
+ TString dataInputFile   = ""
  )
 {
 
@@ -46,10 +46,20 @@ void ComputeTopScaleFactors
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
   if	 (period == 0){ // Full2011-Fall11-V9
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-03_V0/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-03_V0/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12.root";
+    lumi     = 1.616;minRun =      0;maxRun = 999999;
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundA_skim2.root";
+    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/data_skim2.root";
+  }
+  else if(period == 1){ // Full2011-Fall11-V7
     effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-02_V3/summary.root";
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-02_V3/summary.root";
     puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12.root";
     lumi     = 0.818;minRun =      0;maxRun = 999999;
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV7_52X/mitf-alljets/backgroundA_skim2.root";
+    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV7_52X/mitf-alljets/data_skim2.root";
   }
   else {
     printf("Wrong period(%d)\n",period);

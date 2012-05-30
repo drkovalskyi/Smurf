@@ -17,7 +17,8 @@ double DileptonMassPreselectionCut( double mH ) {
            mH <= 130 ) dilmass_cut =  80.0;
   else if( mH >  130 &&
            mH <= 140 ) dilmass_cut =  90.0;
-  else if( mH == 150 ) dilmass_cut = 100.0;
+  else if( mH >= 145 &&
+           mH <= 155 ) dilmass_cut = 100.0;
   else if( mH == 160 ) dilmass_cut = 100.0;
   else if( mH == 165 ) dilmass_cut = 100.0;
   else if( mH == 170 ) dilmass_cut = 100.0;
@@ -48,7 +49,8 @@ int HiggsMassIndex ( double mH ) {
   else if(mH == 135) channel = 9;
   else if(mH == 140 ||
           mH == 145) channel = 10;
-  else if(mH == 150) channel = 11;
+  else if(mH == 150 ||
+          mH == 155) channel = 11;
   else if(mH == 160) channel = 12;
   else if(mH == 170) channel = 13;
   else if(mH == 180) channel = 14;
@@ -65,29 +67,33 @@ int HiggsMassIndex ( double mH ) {
   else if(mH == 500) channel = 25;
   else if(mH == 550) channel = 26;
   else if(mH == 600) channel = 27;
+  else if(mH == 700) channel = 28;
+  else if(mH == 800) channel = 29;
+  else if(mH == 900) channel = 30;
+  else if(mH ==1000) channel = 31;
 
   return channel;
 }
 
 double cutMassHigh ( double mH ) {
-  double CutMassHigh[28]      = { 7000, 40, 40, 40, 41, 42, 43, 44, 45, 45, 45, 50, 50, 50, 60, 80, 90,110,120,130,150,200,250,300,350,400,450,500};
+  double CutMassHigh[32]      = { 7000, 40, 40, 40, 41, 42, 43, 44, 45, 45, 45, 50, 50, 50, 60, 80, 90,110,120,130,150,200,250,300,350,400,450,500,700,800,900,1000};
   int index = HiggsMassIndex(mH);
-  assert (index >= 0 && index < 28);
+  assert (index >= 0 && index < 32);
   return CutMassHigh[index];  
 }
 
 double cutPtMaxLow ( double mH ) {
-  double CutPtMaxLow[28]      = { 20, 20, 20, 20, 21, 22, 23, 24, 25, 25, 25, 27, 30, 34, 36, 38, 40, 44, 48, 52, 55, 70, 80, 90,110,120,130,140};
+  double CutPtMaxLow[32]      = { 20, 20, 20, 20, 21, 22, 23, 24, 25, 25, 25, 27, 30, 34, 36, 38, 40, 44, 48, 52, 55, 70, 80, 90,110,120,130,140,150,160,170,180};
   int index = HiggsMassIndex(mH);
-  assert (index >= 0 && index < 28);
+  assert (index >= 0 && index < 32);
   return CutPtMaxLow[index];  
 }
 
 double cutPtMinLow ( double mH , Int_t finalstateType ) {
-  double SFCutPtMinLow[28]      = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 12, 15, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
-  double OFCutPtMinLow[28]      = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 12, 15, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
+  double SFCutPtMinLow[32]      = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 12, 15, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
+  double OFCutPtMinLow[32]      = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 12, 15, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
   int index = HiggsMassIndex(mH);
-  assert (index >= 0 && index < 28);
+  assert (index >= 0 && index < 32);
   if (finalstateType == 0 || finalstateType == 3) {
     return SFCutPtMinLow[index];
   } else {
@@ -96,22 +102,22 @@ double cutPtMinLow ( double mH , Int_t finalstateType ) {
 }
 
 double cutDeltaphiHigh ( double mH ) {
-  double CutDeltaphiHigh[28]      = {180,115,115,115,110,105,100, 95, 90, 90, 90, 90, 60, 60, 70, 90,100,110,120,130,140,175,175,175,175,175,175,175};
+  double CutDeltaphiHigh[32]      = {180,115,115,115,110,105,100, 95, 90, 90, 90, 90, 60, 60, 70, 90,100,110,120,130,140,175,175,175,175,175,175,175,175,175,175,175};
   int index = HiggsMassIndex(mH);
-  assert (index >= 0 && index < 28);
+  assert (index >= 0 && index < 32);
   return CutDeltaphiHigh[index];  
 }
 
 double cutMTLow ( double mH ) {
-  double CutMTLow[28]      = { 0, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 90,110,120,120,120,120,120,120,120,120,120,120,120,120,120,120};
+  double CutMTLow[32]      = { 0, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 90,110,120,120,120,120,120,120,120,120,120,120,120,120,120,120,120,120,120,120};
   int index = HiggsMassIndex(mH);
-  assert (index >= 0 && index < 28);
+  assert (index >= 0 && index < 32);
   return CutMTLow[index];  
 }
 
 double cutMTHigh ( double mH ) {
-  double CutMTHigh[28]      = {70000,110,115,120,121,122,123,124,125,128,130,150,160,170,180,190,200,210,220,230,250,300,350,400,450,500,550,600};
+  double CutMTHigh[32]      = {70000,110,115,120,121,122,123,124,125,128,130,150,160,170,180,190,200,210,220,230,250,300,350,400,450,500,550,600,700,800,900,1000};
   int index = HiggsMassIndex(mH);
-  assert (index >= 0 && index < 28);
+  assert (index >= 0 && index < 32);
   return CutMTHigh[index];  
 }
