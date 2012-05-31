@@ -117,9 +117,9 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   const Int_t nbins = 4;  
   Float_t bins[nbins+1];
 
-  const Int_t nmass = 21;
-  const Double_t mH[nmass]     = {0,115,118,120,122,124,125,126,128,130,135,140,145,150,160,170,180,190,200,250,300};  
-        Bool_t useDYMVA[nmass] = {0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+  const Int_t nmass = 22;
+  const Double_t mH[nmass]     = {0,115,118,120,122,124,125,126,128,130,135,140,145,150,155,160,170,180,190,200,250,300};  
+        Bool_t useDYMVA[nmass] = {0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
   // 2011 analysis does not use DYMVA
   if(period == 1) for(int i=0; i<nmass; i++) useDYMVA[i] = 0;
   

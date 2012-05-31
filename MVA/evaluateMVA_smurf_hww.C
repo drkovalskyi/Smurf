@@ -231,33 +231,17 @@ TString suffix       = "ww"
     //    reader->AddVariable( "var4",                &var4 );
 
     // Beging Reading files, harmless if weights aren't used
-    TString effPath  = "/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
-    TString fakePath = "/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
-    TString puPath   = "/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
-    if     (period == 0){ // Run2011A
-      effPath  = "/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Run2011A.root";
-      fakePath = "/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-      puPath   = "/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
+    TString effPath  = "";
+    TString fakePath = "";
+    TString puPath   = "";
+    if	 (period == 0){ // Full2012-Summer12-V9
+      effPath  = "/smurf/dlevans/Efficiencies/V00-02-03_V0/summary.root";
+      fakePath = "/smurf/dlevans/FakeRates/V00-02-03_V0/summary.root";
+      puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12.root";
     }
-    else if(period == 1){ // Run2011B
-      effPath  = "/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Run2011B.root";
-      fakePath = "/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-      puPath   = "/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
-    }
-    else if(period == 2){ // Full2011
-      effPath  = "/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
-      fakePath = "/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-      puPath   = "/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
-    }
-    else if(period == 33){ // Full2011-Fall11-V7
-      effPath  = "/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
-      fakePath = "/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-      puPath   = "/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
-    }
-    else if(period == 3){ // Full2011-Fall11-V8
-      effPath  = "/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
-      fakePath = "/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
-      puPath   = "/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
+    else {
+      printf("Wrong period(%d)\n",period);
+      return;
     }
 
     TFile *fLeptonEffFile = TFile::Open(Form("%s%s",InputPath.Data(),effPath.Data()));
@@ -292,6 +276,7 @@ TString suffix       = "ww"
 
     int newMH = mH;
     if(newMH == 110) newMH = 115; // there is no correction for mh=110!
+    if(newMH  > 600) newMH = 600; // there is no correction for mh>600!
 
     TFile *fHiggsPtKFactorFile = TFile::Open(Form("%s/smurf/data/Winter11_4700ipb/auxiliar/ggHWW_KFactors_PowhegToHQT_WithAdditionalMassPoints.root",InputPath.Data()));
     TH1D *HiggsPtKFactor;

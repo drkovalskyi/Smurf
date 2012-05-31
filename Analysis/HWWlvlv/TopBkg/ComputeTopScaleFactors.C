@@ -36,6 +36,7 @@ void ComputeTopScaleFactors
   bool WWXSSel = false;
   double ptLepMin = 10.0;
   if(WWXSSel == true) ptLepMin = 20.;
+  Bool_t useDYMVA = false;
 
   double lumi = 1;
   enum { kOther, kTTBAR, kTW, kData };
@@ -176,6 +177,8 @@ void ComputeTopScaleFactors
   //*******************************************************************************
   //Background Events
   //*******************************************************************************
+  Float_t dymva = -100.0;
+  bgdEvent.tree_->SetBranchAddress(Form("dymva"), &dymva);
   int nBgd=bgdEvent.tree_->GetEntries();
   for (int i=0; i<nBgd; ++i) {
 
@@ -210,9 +213,15 @@ void ComputeTopScaleFactors
 
     double minmet = TMath::Min(bgdEvent.pmet_,bgdEvent.pTrackMet_);
     bool passMET = minmet > 20.;
-    if     (bgdEvent.njets_ == 0) passMET = passMET && (minmet > 45. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
-    else if(bgdEvent.njets_ == 1) passMET = passMET && (minmet > 45. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
-    else                          passMET = passMET && (bgdEvent.met_ > 45.0 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+    if(useDYMVA == false){
+      if     (bgdEvent.njets_ == 0) passMET = passMET && (minmet > 45. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+      else if(bgdEvent.njets_ == 1) passMET = passMET && (minmet > 45. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+      else                          passMET = passMET && (bgdEvent.met_ > 45.0 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+    } else {
+      if     (bgdEvent.njets_ == 0) passMET = passMET && (dymva >  0.60 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+      else if(bgdEvent.njets_ == 1) passMET = passMET && (dymva >  0.30 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+      else                          passMET = passMET && (bgdEvent.met_ > 45.0 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+    }
 
     bool passNewCuts = bgdEvent.dilep_.Pt() > 45;
 
@@ -286,10 +295,15 @@ void ComputeTopScaleFactors
     }
 
     bool dPhiDiLepJetCut = true;
-    if(bgdEvent.njets_ <= 1) dPhiDiLepJetCut = bgdEvent.jet1_.Pt() <= 15. || bgdEvent.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || 
-	                                       bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me;
-    else                     dPhiDiLepJetCut = DeltaPhi((bgdEvent.jet1_+bgdEvent.jet2_).Phi(),bgdEvent.dilep_.Phi())*180.0/TMath::Pi() < 165. || 
-	                                       bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me;
+    if(useDYMVA == false){
+      if(bgdEvent.njets_ <= 1) dPhiDiLepJetCut = bgdEvent.jet1_.Pt() <= 15. || bgdEvent.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || 
+	                                         bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me;
+      else                     dPhiDiLepJetCut = DeltaPhi((bgdEvent.jet1_+bgdEvent.jet2_).Phi(),bgdEvent.dilep_.Phi())*180.0/TMath::Pi() < 165. || 
+	                                                   bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me;
+    }
+    if(bgdEvent.njets_ >= 2) dPhiDiLepJetCut = DeltaPhi((bgdEvent.jet1_+bgdEvent.jet2_).Phi(),bgdEvent.dilep_.Phi())*180.0/TMath::Pi() < 165. || 
+	                                                 bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me;
+
     if(
       (((bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) ||
        ((bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
@@ -406,6 +420,8 @@ void ComputeTopScaleFactors
   //*******************************************************************************
   //Data Events
   //*******************************************************************************
+  dymva = -100.0;
+  dataEvent.tree_->SetBranchAddress(Form("dymva"), &dymva);
   int nData=dataEvent.tree_->GetEntries();
   for (int i=0; i<nData; ++i) {
 
@@ -431,17 +447,28 @@ void ComputeTopScaleFactors
 
     double minmet = TMath::Min(dataEvent.pmet_,dataEvent.pTrackMet_);
     bool passMET = minmet > 20.;
-    if     (dataEvent.njets_ == 0) passMET = passMET && (minmet > 45. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
-    else if(dataEvent.njets_ == 1) passMET = passMET && (minmet > 45. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
-    else                           passMET = passMET && (dataEvent.met_ > 45.0 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+    if(useDYMVA == false){
+      if     (dataEvent.njets_ == 0) passMET = passMET && (minmet > 45. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+      else if(dataEvent.njets_ == 1) passMET = passMET && (minmet > 45. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+      else                          passMET = passMET && (dataEvent.met_ > 45.0 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+    } else {
+      if     (dataEvent.njets_ == 0) passMET = passMET && (dymva >  0.60 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+      else if(dataEvent.njets_ == 1) passMET = passMET && (dymva >  0.30 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+      else                          passMET = passMET && (dataEvent.met_ > 45.0 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+    }
 
     bool passNewCuts = dataEvent.dilep_.Pt() > 45;
 
     bool dPhiDiLepJetCut = true;
-    if(dataEvent.njets_ <= 1) dPhiDiLepJetCut = dataEvent.jet1_.Pt() <= 15. || dataEvent.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || 
-	                                        dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me;
-    else                      dPhiDiLepJetCut = DeltaPhi((dataEvent.jet1_+dataEvent.jet2_).Phi(),dataEvent.dilep_.Phi())*180.0/TMath::Pi() < 165. || 
-	                                        dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me;
+    if(useDYMVA == false){
+      if(dataEvent.njets_ <= 1) dPhiDiLepJetCut = dataEvent.jet1_.Pt() <= 15. || dataEvent.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. || 
+	                                          dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me;
+      else                     dPhiDiLepJetCut = DeltaPhi((dataEvent.jet1_+dataEvent.jet2_).Phi(),dataEvent.dilep_.Phi())*180.0/TMath::Pi() < 165. || 
+	                                                   dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me;
+    }
+    if(dataEvent.njets_ >= 2) dPhiDiLepJetCut = DeltaPhi((dataEvent.jet1_+dataEvent.jet2_).Phi(),dataEvent.dilep_.Phi())*180.0/TMath::Pi() < 165. || 
+	                                                  dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me;
+
     double theWeight = 1.0;
     if(
       dataEvent.dilep_.M()   > 12 &&

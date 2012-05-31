@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.10 2012/03/26 08:52:57 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.11 2012/04/04 18:20:08 yygao Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -70,7 +70,7 @@ enum Type {
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
 void trainMVA_smurf(
- UInt_t  njetsType       = 0,			   
+ UInt_t  nJetsType       = 0,			   
  TString sigInputFile    = "data/histo_hww130_std_pu11_randomized.training.root",
  TString bgdInputFile    = "data/histo_w10-ggww-z2-v8-pu11_all_noskim_normalized.root",
  TString outTag          = "default",
@@ -129,13 +129,13 @@ void trainMVA_smurf(
   mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
   mvaVar[ "dPhiDiLepMET" ]	= 0;  //delta phi btw dilepton and met
   mvaVar[ "dPhiDiLepJet1" ]	= 0;  //delta phi btw dilepton and jet1 (only for njet>0)
-  if(njetsType == 1){
+  if(nJetsType == 1){
     mvaVar[ "dPhiDiLepMET" ]    = 1;
     mvaVar[ "dPhiDiLepJet1" ]   = 1;
   }
   mvaVar[ "razor" ]             = 0;  //razor
 
-  if(njetsType == 2){
+  if(nJetsType == 2){
     mvaVar[ "mjj" ]    = 1; // di-jet invariant mass 
     mvaVar[ "detajj" ]    = 1; // delta btw the two leading jets 
     mvaVar[ "jet1eta" ]    = 1; // leading jet eta
@@ -410,6 +410,8 @@ void trainMVA_smurf(
   UInt_t          nSoftMuons;
   Float_t         jet1Btag;
 
+  unsigned int patternTopTag = SmurfTree::TopTag;
+
   signal->SetBranchAddress( "cuts"         , &cuts         );
   signal->SetBranchAddress( "dstype"       , &dstype       );
   signal->SetBranchAddress( "njets"        , &njets        );
@@ -454,41 +456,36 @@ void trainMVA_smurf(
     // SIGNAL EVENT SELECTION
     //--------------------------------------------------
 
-    //if( mt <= 80		       ) continue; // cut on mt low
-    //if( mt >= mH		       ) continue; // cut on mt high
-    //if( dPhi*180.0/TMath::Pi() >= 150 &&
-    //    mH < 210	                 ) continue; // cut on dPhi
+    unsigned int Njet3 = njets;
+    if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
+      if(jet3->pt() <= 30)					           Njet3 = 2;
+      else if(jet3->pt() > 30 && (
+    	(jet1->eta()-jet3->eta() > 0 && jet2->eta()-jet3->eta() < 0) ||
+    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))     Njet3 = 3;
+      else							           Njet3 = 2;
+      if(njets < 2 || njets > 3)                                           Njet3 = 3;
+    }
 
     if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
          (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
 
-    if( njetsType < 2 && njets != njetsType ) continue; // select n-jet type events
-    if( dilep->mass() > dilmass_cut      ) continue; // cut on dilepton mass
-    if( lq1*lq2 > 0                      ) continue; // cut on opposite-sign leptons
-    if( dilep->mass() <= 12.0            ) continue; // cut on low dilepton mass
-    if( lep1->pt() <= 20	         ) continue; // cut on leading lepton pt
-    if( lep2->pt() <= 10	         ) continue; // cut on trailing lepton pt
-    if( TMath::Min(pmet,pTrackMet) <= 20 ) continue; // cut on pmet for all lepton-pair flavors
-    if( TMath::Min(pmet,pTrackMet) <= 35 && 
-      (type == mm || 
-       type == ee)                       ) continue; // cut on pmet for ee/mm lepton-pair
+    if( Njet3 != nJetsType                      ) continue; // select n-jet type events
+    if( dilep->mass() > dilmass_cut             ) continue; // cut on dilepton mass
+    if( lq1*lq2 > 0                             ) continue; // cut on opposite-sign leptons
+    if( dilep->mass() <= 12.0                   ) continue; // cut on low dilepton mass
+    if( lep1->pt() <= 20	                ) continue; // cut on leading lepton pt
+    if( lep2->pt() <= 10	                ) continue; // cut on trailing lepton pt
+    if( TMath::Min(pmet,pTrackMet) <= 20        ) continue; // cut on pmet for all lepton-pair flavors
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == mm || 
-       type == ee)                       ) continue; // cut on Z veto for ee/mm lepton-pair
-    if( lid3 != 0	                 ) continue; // cut on dileptons
-    if( jetLowBtag >= 2.1	         ) continue; // cut on jetLowBtag
-    if( nSoftMuons > 0	                 ) continue; // cut on n soft muons
-    if( jet1->Pt() >  7 &&
-        jet1Btag >= 2.1	                 ) continue; // cut on jet1Btag
-    bool dPhiDiLepJet1Cut = njets != 1 ||
-                           (dPhiDiLepJet1*180.0/TMath::Pi() < 165. || type == em || type == me);
-    if( dPhiDiLepJet1Cut == false        ) continue; // cut on dPhiDiLepJet1
-    if( njets >= 1 && dPhiDiLepJet1 > 100) continue; // cut on impossible dPhiDiLepJet1
+       type == ee)                              ) continue; // cut on Z veto for ee/mm lepton-pair
+    if( lid3 != 0	                        ) continue; // cut on dileptons
+    if( dilep->pt() <= 40                       ) continue; // cut on dilepton pt
+    if( (cuts & patternTopTag) == patternTopTag ) continue; // cut on btagging
+    if( njets >= 1 && dPhiDiLepJet1 > 100       ) continue; // cut on impossible dPhiDiLepJet1
+
     // VBF Cuts
-    if ( njetsType == 2 ) {
-      if( njets < 2 || njets > 3       ) continue; // select 2 or 3 jets    
-      if ( TMath::Abs(jet1->Eta()) >= 4.5 || TMath::Abs(jet2->Eta()) >= 4.5 ) continue;
-      if ( cuts & SmurfTree::TopTag )  continue; // veto events top-tagged 
+    if ( nJetsType == 2 ) {
       // centrality cut
       float largestEta = jet1->Eta();
       float smallestEta = jet2->Eta();
@@ -498,11 +495,7 @@ void trainMVA_smurf(
       }
       if (! (lep1->Eta() > smallestEta && lep1->Eta() < largestEta)) continue;
       if (! (lep2->Eta() > smallestEta && lep2->Eta() < largestEta)) continue;
-      if( njets == 3 ) {
-	if ( jet3->Eta() > smallestEta && jet3->Eta() < largestEta ) continue;
-      }
     }
-
 
     int varCounter = 0;
     
@@ -579,49 +572,37 @@ void trainMVA_smurf(
     //--------------------------------------------------
     // BACKGROUND EVENT SELECTION
     //--------------------------------------------------
-    //if( mt <= 80		       ) continue; // cut on mt low
-    //if( mt >= mH		       ) continue; // cut on mt high
-    //if( dPhi*180.0/TMath::Pi() >= 150 &&
-    //    mH < 210	                 ) continue; // cut on dPhi
 
-    //if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
-    //     (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
+    unsigned int Njet3 = njets;
+    if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
+      if(jet3->pt() <= 30)					           Njet3 = 2;
+      else if(jet3->pt() > 30 && (
+    	(jet1->eta()-jet3->eta() > 0 && jet2->eta()-jet3->eta() < 0) ||
+    	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))     Njet3 = 3;
+      else							           Njet3 = 2;
+      if(njets < 2 || njets > 3)                                           Njet3 = 3;
+    }
 
-    //if(!(dstype == SmurfTree::qqww   || dstype == SmurfTree::ggww ))  continue; // cut on dstype
+    if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
+         (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
 
-    if(!(dstype == SmurfTree::qqww   || dstype == SmurfTree::ggww ||
-         dstype == SmurfTree::ttbar  || dstype == SmurfTree::tw	  ||
-    	 dstype == SmurfTree::wz     || dstype == SmurfTree::zz     ))  continue; // cut on dstype
-
-    //if(!(dstype == SmurfTree::wgamma || dstype == SmurfTree::wjets))  continue; // cut on dstype
-
-    if( njetsType < 2 && njets != njetsType   ) continue; // select n-jet type events
-    if( dilep->mass() > dilmass_cut      ) continue; // cut on dilepton mass
-    if( lq1*lq2 > 0                      ) continue; // cut on opposite-sign leptons
-    if( dilep->mass() <= 12.0            ) continue; // cut on low dilepton mass
-    if( lep1->pt() <= 20	         ) continue; // cut on leading lepton pt
-    if( lep2->pt() <= 10	         ) continue; // cut on trailing lepton pt
-    if( TMath::Min(pmet,pTrackMet) <= 20 ) continue; // cut on pmet for all lepton-pair flavors
-    if( TMath::Min(pmet,pTrackMet) <= 35 && 
-      (type == mm || 
-       type == ee)                       ) continue; // cut on pmet for ee/mm lepton-pair
+    if( Njet3 != nJetsType                      ) continue; // select n-jet type events
+    if( dilep->mass() > dilmass_cut             ) continue; // cut on dilepton mass
+    if( lq1*lq2 > 0                             ) continue; // cut on opposite-sign leptons
+    if( dilep->mass() <= 12.0                   ) continue; // cut on low dilepton mass
+    if( lep1->pt() <= 20	                ) continue; // cut on leading lepton pt
+    if( lep2->pt() <= 10	                ) continue; // cut on trailing lepton pt
+    if( TMath::Min(pmet,pTrackMet) <= 20        ) continue; // cut on pmet for all lepton-pair flavors
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == mm || 
-       type == ee)                       ) continue; // cut on Z veto for ee/mm lepton-pair
-    if( lid3 != 0	                 ) continue; // cut on dileptons
-    if( jetLowBtag >= 2.1	         ) continue; // cut on jetLowBtag
-    if( nSoftMuons > 0	                 ) continue; // cut on n soft muons
-    if( jet1->Pt() >  7 &&
-        jet1Btag >= 2.1	                 ) continue; // cut on jet1Btag
-    bool dPhiDiLepJet1Cut = njets != 1 ||
-                           (dPhiDiLepJet1*180.0/TMath::Pi() < 165. || type == em || type == me);
-    if( dPhiDiLepJet1Cut == false        ) continue; // cut on dPhiDiLepJet1
-    if( njets >= 1 && dPhiDiLepJet1 > 100) continue; // cut on impossible dPhiDiLepJet1
+       type == ee)                              ) continue; // cut on Z veto for ee/mm lepton-pair
+    if( lid3 != 0	                        ) continue; // cut on dileptons
+    if( dilep->pt() <= 40                       ) continue; // cut on dilepton pt
+    if( (cuts & patternTopTag) == patternTopTag ) continue; // cut on btagging
+    if( njets >= 1 && dPhiDiLepJet1 > 100       ) continue; // cut on impossible dPhiDiLepJet1
+
     // VBF Cuts
-    if ( njetsType == 2 ) {
-      if( njets < 2 || njets > 3       ) continue; // select 2 or 3 jets    
-      if ( TMath::Abs(jet1->Eta()) >= 4.5 || TMath::Abs(jet2->Eta()) >= 4.5 ) continue;
-      if ( cuts & SmurfTree::TopTag )  continue; // veto events top-tagged 
+    if ( nJetsType == 2 ) {
       // centrality cut
       float largestEta = jet1->Eta();
       float smallestEta = jet2->Eta();
@@ -631,9 +612,6 @@ void trainMVA_smurf(
       }
       if (! (lep1->Eta() > smallestEta && lep1->Eta() < largestEta)) continue;
       if (! (lep2->Eta() > smallestEta && lep2->Eta() < largestEta)) continue;
-      if( njets == 3 ) {
-	if ( jet3->Eta() > smallestEta && jet3->Eta() < largestEta ) continue;
-      }
     }
 
     int varCounter = 0;
@@ -858,19 +836,19 @@ void trainMVA_smurf(
   // Boosted Decision Trees
   if (Use["BDTG"]) // Gradient Boost
     factory->BookMethod( TMVA::Types::kBDT, "BDTG",
-                         "!H:!V:NTrees=400:BoostType=Grad:Shrinkage=0.10:UseBaggedGrad:GradBaggingFraction=0.5:nCuts=1000:NNodesMax=5" );
+                         "!H:!V:NTrees=500:BoostType=Grad:Shrinkage=0.10:UseBaggedGrad:GradBaggingFraction=0.5:nCuts=2000:NNodesMax=5" );
 
   if (Use["BDT"])  // Adaptive Boost
     factory->BookMethod(TMVA::Types::kBDT,"BDT",
-			 "!H:!V:NTrees=400:BoostType=Grad:Shrinkage=0.10:UseBaggedGrad:GradBaggingFraction=0.5:nCuts=1000:NNodesMax=5:VarTransform=Decorrelate");
+			 "!H:!V:NTrees=500:BoostType=Grad:Shrinkage=0.10:UseBaggedGrad:GradBaggingFraction=0.5:nCuts=2000:NNodesMax=5:VarTransform=Decorrelate");
 
   if (Use["BDTB"]) // Bagging
     factory->BookMethod( TMVA::Types::kBDT, "BDTB",
-                         "!H:!V:NTrees=400:BoostType=Bagging:SeparationType=GiniIndex:nCuts=1000:PruneMethod=NoPruning" );
+                         "!H:!V:NTrees=500:BoostType=Bagging:SeparationType=GiniIndex:nCuts=2000:PruneMethod=NoPruning" );
 
   if (Use["BDTD"]) // Decorrelation + Adaptive Boost
     factory->BookMethod(TMVA::Types::kBDT,"BDTD",
-                    "!H:!V:NTrees=400:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=1000:PruneMethod=CostComplexity:PruneStrength=25.0:VarTransform=Decorrelate");
+                    "!H:!V:NTrees=500:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=2000:PruneMethod=CostComplexity:PruneStrength=25.0:VarTransform=Decorrelate");
 
   // RuleFit -- TMVA implementation of Friedman's method
   if (Use["RuleFit"])

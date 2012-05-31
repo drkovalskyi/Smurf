@@ -261,6 +261,7 @@ void PlotHiggsRes
   //----------------------------------------------------------------------------
   int newMH = mH;
   if(newMH == 110) newMH = 115; // there is no correction for mh=110!
+  if(newMH >  600) newMH = 600; // there is no correction for mh>600!
   TFile *fHiggsPtKFactorFile = TFile::Open("/data/smurf/data/Winter11_4700ipb/auxiliar/ggHWW_KFactors_PowhegToHQT_WithAdditionalMassPoints.root");
   TH1D *HiggsPtKFactor,*HiggsPtKFactorSyst[8];
   char kfactorHistName[100];
@@ -531,7 +532,7 @@ void PlotHiggsRes
       useVar = 4;
       useCut = 0.405-datMVA[useVar]->GetBinWidth(0)/2.0;
     }	
-    else if(mH == 120){
+    else if(mH == 120 || mH == 155 || mH == 700 || mH == 800 || mH == 900 || mH == 1000){
       //useVar = 2;
       //useCut =  0.675-datMVA[useVar]->GetBinWidth(0)/2.0;
       useVar = 4;
@@ -643,7 +644,7 @@ void PlotHiggsRes
       useVar = 4;
       useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
     }	
-    else if(mH == 120){
+    else if(mH == 120 || mH == 155 || mH == 700 || mH == 800 || mH == 900 || mH == 1000){
       useVar = 4;
       useCut = 0.665-datMVA[useVar]->GetBinWidth(0)/2.0;
     }	
@@ -844,7 +845,7 @@ void PlotHiggsRes
   for (UInt_t i=0; i<signal->GetEntries(); i++) {
     
     signal->GetEntry(i);
-    if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)signal->GetEntries());
+    if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)signal->GetEntries());
 
     bool lId = (cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection;
     if(category == 1) lId = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2LooseEleV1)    == SmurfTree::Lep2LooseEleV1   ) ||
@@ -1278,7 +1279,7 @@ void PlotHiggsRes
   for (UInt_t i=0; i<background->GetEntries(); i++) {
 
     background->GetEntry(i);
-    if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
+    if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
 
     //----------------------------------------------------------------------------
     //for data require that the event fired one of the designated signal triggers
@@ -1656,7 +1657,7 @@ void PlotHiggsRes
       //----------------------------------------------------------------------------      
       if(fDecay == 4&& (dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
                        (type   == SmurfTree::mm   || type   == SmurfTree::ee)){
-	if(nJetsType != 2 && mH <= 300){
+	if(nJetsType != 2 && mH <= 300 && (wwDecay == 4 || wwDecay == 5)){
           //newWeight=newWeight*DYBkgScaleFactor(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))/DYBkgScaleFactor(0,TMath::Min((int)nJetsType,2));
           newWeight=0.0;
 	}
@@ -1975,7 +1976,7 @@ void PlotHiggsRes
   for (UInt_t i=0; i<treeSyst->GetEntries(); i++) {
 
     treeSyst->GetEntry(i);
-    if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)treeSyst->GetEntries());
+    if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)treeSyst->GetEntries());
 
     //----------------------------------------------------------------------------
     //for data require that the event fired one of the designated signal triggers
@@ -2465,7 +2466,7 @@ void PlotHiggsRes
   for (UInt_t i=0; i<data->GetEntries(); i++) {
     
     data->GetEntry(i);
-    if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)data->GetEntries());
+    if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)data->GetEntries());
 
     bool lId = (cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection;
     if(category == 1) lId = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2LooseEleV1)    == SmurfTree::Lep2LooseEleV1   ) ||
@@ -2659,7 +2660,7 @@ void PlotHiggsRes
   } // end loop over data events
 
   // cut-based 0/1 jet bin analyses
-  if(nJetsType != 2 && mH <= 300){
+  if(nJetsType != 2 && mH <= 300 && (wwDecay == 4 || wwDecay == 5)){
     DYXS[1] = DYBkgScaleFactor(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2));
     nBgdCutDecays[4] += DYXS[1];
     nBgdCut += DYXS[1];
