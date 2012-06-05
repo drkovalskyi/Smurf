@@ -263,58 +263,67 @@ void TEvtProb::SetFRHist(TString elFRFile, TString elFRHist, TString muFRFile, T
   muFRfile->Close();
 }
 
-void TEvtProb::SetMCHist(int proc, TString MCFileName, bool setFR, int njets, TVar::VerbosityLevel verbosity) {
+void TEvtProb::SetMCHist(int proc, TString effFileName, TString genFRFileName, TString boostFileName, bool setFRfromMC, int njets, TVar::VerbosityLevel verbosity) {
   
-  if (verbosity >= TVar::DEBUG) std::cout << "TEvtProb::SetMCHist for process " << TVar::ProcessName(proc) << " from " << MCFileName << std::endl;
-    TFile *fUtil = TFile::Open(MCFileName, "READ");
-    assert(fUtil);
+  if (verbosity >= TVar::DEBUG) {
+    std::cout << "TEvtProb::SetMCHist for process " << TVar::ProcessName(proc) << "\n";
+    std::cout << "Efficiency from " << effFileName << "\t gen-FR from " << genFRFileName << "\t, boost from " << boostFileName << "\n";
+  }
+  
+    TFile *fEff = TFile::Open(effFileName, "READ");
+    assert(fEff);
     gROOT->cd();
-    // lepton efficiencies are taken from the WW MC
-    _effhist.els_eff_mc = (TH2F*) fUtil->Get("ww_heleEff")->Clone();
-    _effhist.mus_eff_mc = (TH2F*) fUtil->Get("ww_hmuEff")->Clone();
+    _effhist.els_eff_mc = (TH2F*) fEff->Get("ww_heleEff")->Clone();
+    _effhist.mus_eff_mc = (TH2F*) fEff->Get("ww_hmuEff")->Clone();
+    fEff->Close();
 
-    if (TVar::SmurfProcessName(proc) == "wjets") {
-        _boosthist.kx = (TH1F*) fUtil->Get(TString("ww_kx"))->Clone();
-        _boosthist.ky = (TH1F*) fUtil->Get(TString("ww_ky"))->Clone();
-    }
-    else if (TVar::SmurfProcessName(proc) == "dyll") {
-    }
-    else 
-    {
+    TFile *fBoost = TFile::Open(boostFileName, "READ");
+    assert(fBoost);
+    gROOT->cd();
+    
+    if (TVar::SmurfProcessName(proc) == "wjets") {    
+      _boosthist.kx = (TH1F*) fBoost->Get(TString("ww_kx"))->Clone();
+      _boosthist.ky = (TH1F*) fBoost->Get(TString("ww_ky"))->Clone();
+    } else if (TVar::SmurfProcessName(proc) == "dyll") {
+    } else {
       if ( njets == 0) {
-        _boosthist.kx = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_kx"))->Clone();
-        _boosthist.ky = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_ky"))->Clone();
+        _boosthist.kx = (TH1F*) fBoost->Get(TString(TVar::SmurfProcessName(proc)+"_kx"))->Clone();
+        _boosthist.ky = (TH1F*) fBoost->Get(TString(TVar::SmurfProcessName(proc)+"_ky"))->Clone();
       }
       if ( njets == 1) {
-	_boosthist.kx = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_kx_1jet"))->Clone();
-        _boosthist.ky = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_ky_1jet"))->Clone();
+	_boosthist.kx = (TH1F*) fBoost->Get(TString(TVar::SmurfProcessName(proc)+"_kx_1jet"))->Clone();
+        _boosthist.ky = (TH1F*) fBoost->Get(TString(TVar::SmurfProcessName(proc)+"_ky_1jet"))->Clone();
       }
       if ( njets >= 2) {
-	_boosthist.kx = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_kx_2jet"))->Clone();
-        _boosthist.ky = (TH1F*) fUtil->Get(TString(TVar::SmurfProcessName(proc)+"_ky_2jet"))->Clone();
+	_boosthist.kx = (TH1F*) fBoost->Get(TString(TVar::SmurfProcessName(proc)+"_kx_2jet"))->Clone();
+        _boosthist.ky = (TH1F*) fBoost->Get(TString(TVar::SmurfProcessName(proc)+"_ky_2jet"))->Clone();
       }
-      
-      
     }
+    fBoost->Close();
+    
 
+    TFile *fFR = TFile::Open(genFRFileName, "READ");
+    assert(fFR);
+    gROOT->cd();
+    
     // fake-rate histograms
-    if (setFR) {
-      _FRhist.els_fr = (TH2F*) fUtil->Get("wjets_heleFR")->Clone();
-      _FRhist.mus_fr = (TH2F*) fUtil->Get("wjets_hmuFR")->Clone();
+    if (setFRfromMC) {
+      _FRhist.els_fr = (TH2F*) fFR->Get("wjets_heleFR")->Clone();
+      _FRhist.mus_fr = (TH2F*) fFR->Get("wjets_hmuFR")->Clone();
     }
     
-    if (  fUtil->Get("wjets_heleGenFR") != 0x0 ) 
-      _FRhist.els_part_fo = (TH2F*) fUtil->Get("wjets_heleGenFR")->Clone();
+    if (  fFR->Get("wjets_heleGenFR") != 0x0 ) 
+      _FRhist.els_part_fo = (TH2F*) fFR->Get("wjets_heleGenFR")->Clone();
       
-    if ( fUtil->Get("wjets_hmuGenFR") != 0x0 )
-      _FRhist.mus_part_fo = (TH2F*) fUtil->Get("wjets_hmuGenFR")->Clone();
+    if ( fFR->Get("wjets_hmuGenFR") != 0x0 )
+      _FRhist.mus_part_fo = (TH2F*) fFR->Get("wjets_hmuGenFR")->Clone();
 
-    if ( fUtil->Get("wjets_heleFOResponse") != 0x0 ) 
-      _FRhist.els_ptres = (TH2F*) fUtil->Get("wjets_heleFOResponse")->Clone();
+    if ( fFR->Get("wjets_heleFOResponse") != 0x0 ) 
+      _FRhist.els_ptres = (TH2F*) fFR->Get("wjets_heleFOResponse")->Clone();
 
-    if ( fUtil->Get("wjets_hmuFOResponse") != 0x0 ) 
-      _FRhist.mus_ptres = (TH2F*) fUtil->Get("wjets_hmuFOResponse")->Clone();
+    if ( fFR->Get("wjets_hmuFOResponse") != 0x0 ) 
+      _FRhist.mus_ptres = (TH2F*) fFR->Get("wjets_hmuFOResponse")->Clone();
+    fFR->Close();
 
-    fUtil->Close();
 }
 

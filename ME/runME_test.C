@@ -196,7 +196,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   double Xsec=0;
   double XsecErr=0;
   double Ratio=0;
-  int HiggsMASS[26]={0,0,0,0,0,115,120,130,140,150,160,170,180,190,200,210,220,230,250,300,350,400,450,500,550,600};
+  int HiggsMASS[32]={0,0,0,0,0,110,115,120,125,130,135,140,145,150,155,160,170,180,190,200,250,300,350,400,450,500,550,600,700,800,900,1000};
   
   // The SM background processes
   int NProcessCalculate=0;
@@ -214,6 +214,10 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   // to be filled correctly...
 
   switch ( dstype_) {
+  case SmurfTree::hww110:
+  case SmurfTree::vbfhww110:
+    processList[ NProcessCalculate++]=TVar::HWW110;
+    break;
   case SmurfTree::hww115:
   case SmurfTree::vbfhww115:
     processList[ NProcessCalculate++]=TVar::HWW115;
@@ -222,17 +226,33 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   case SmurfTree::vbfhww120:
     processList[ NProcessCalculate++]=TVar::HWW120;
     break;
+  case SmurfTree::hww125:
+  case SmurfTree::vbfhww125:
+    processList[ NProcessCalculate++]=TVar::HWW125;
+    break;
   case SmurfTree::hww130:
   case SmurfTree::vbfhww130:
     processList[ NProcessCalculate++]=TVar::HWW130;
+    break;
+  case SmurfTree::hww135:
+  case SmurfTree::vbfhww135:
+    processList[ NProcessCalculate++]=TVar::HWW135;
     break;
   case SmurfTree::hww140:
   case SmurfTree::vbfhww140:
     processList[ NProcessCalculate++]=TVar::HWW140;
     break;
+  case SmurfTree::hww145:
+  case SmurfTree::vbfhww145:
+    processList[ NProcessCalculate++]=TVar::HWW145;
+    break;
   case SmurfTree::hww150:
   case SmurfTree::vbfhww150:
     processList[ NProcessCalculate++]=TVar::HWW150;
+    break;
+  case SmurfTree::hww155:
+  case SmurfTree::vbfhww155:
+    processList[ NProcessCalculate++]=TVar::HWW155;
     break;
   case SmurfTree::hww160:
   case SmurfTree::vbfhww160:
@@ -253,18 +273,6 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   case SmurfTree::hww200:
   case SmurfTree::vbfhww200:
     processList[ NProcessCalculate++]=TVar::HWW200;
-    break;
-  case SmurfTree::hww210:
-  case SmurfTree::vbfhww210:
-    processList[ NProcessCalculate++]=TVar::HWW210;
-    break;
-  case SmurfTree::hww220:
-  case SmurfTree::vbfhww220:
-    processList[ NProcessCalculate++]=TVar::HWW220;
-    break;
-  case SmurfTree::hww230:
-  case SmurfTree::vbfhww230:
-    processList[ NProcessCalculate++]=TVar::HWW230;
     break;
   case SmurfTree::hww250:
   case SmurfTree::vbfhww250:
@@ -298,12 +306,33 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
   case SmurfTree::vbfhww600:
     processList[ NProcessCalculate++]=TVar::HWW600;
     break;
+  case SmurfTree::hww700:
+  case SmurfTree::vbfhww700:
+    processList[ NProcessCalculate++]=TVar::HWW700;
+    break;
+  case SmurfTree::hww800:
+  case SmurfTree::vbfhww800:
+    processList[ NProcessCalculate++]=TVar::HWW800;
+    break;
+  case SmurfTree::hww900:
+  case SmurfTree::vbfhww900:
+    processList[ NProcessCalculate++]=TVar::HWW900;
+    break;
+  case SmurfTree::hww1000:
+  case SmurfTree::vbfhww1000:
+    processList[ NProcessCalculate++]=TVar::HWW1000;
+    break;
   default:
+    // processList[ NProcessCalculate++]=TVar::HWW110;
     processList[ NProcessCalculate++]=TVar::HWW115;
     processList[ NProcessCalculate++]=TVar::HWW120;
+    // processList[ NProcessCalculate++]=TVar::HWW125;
     processList[ NProcessCalculate++]=TVar::HWW130;
+    // processList[ NProcessCalculate++]=TVar::HWW135;
     processList[ NProcessCalculate++]=TVar::HWW140;
+    // processList[ NProcessCalculate++]=TVar::HWW145;
     processList[ NProcessCalculate++]=TVar::HWW150;
+    // processList[ NProcessCalculate++]=TVar::HWW155;
     processList[ NProcessCalculate++]=TVar::HWW160;
     processList[ NProcessCalculate++]=TVar::HWW170;
     processList[ NProcessCalculate++]=TVar::HWW180;
@@ -311,12 +340,14 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     processList[ NProcessCalculate++]=TVar::HWW200;
     processList[ NProcessCalculate++]=TVar::HWW250;
     processList[ NProcessCalculate++]=TVar::HWW300;
+    /*
     processList[ NProcessCalculate++]=TVar::HWW350;
     processList[ NProcessCalculate++]=TVar::HWW400;
     processList[ NProcessCalculate++]=TVar::HWW450;
     processList[ NProcessCalculate++]=TVar::HWW500;
     processList[ NProcessCalculate++]=TVar::HWW550;
     processList[ NProcessCalculate++]=TVar::HWW600;
+    */
     break;
   }
   
@@ -328,14 +359,19 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     XsecErr=0;
     Ratio=0;
     // Load the MC based boost, efficiency and generator FR
-    bool setMCFR = false;
-    Xcal2.SetMCHist(ProcInt, "Util_HWW_alljetbin.root", setMCFR,njets_,verbosity);
+    bool setFRfromMC = false;
+    TString effFileName = "Util_HWW_alljetbin.root";
+    TString genFRFileName = "Util_HWW_alljetbin.root";
+    TString boostFileName = "Util_HWW_alljetbin.root";
+    Xcal2.SetMCHist(ProcInt, effFileName, genFRFileName, boostFileName, setFRfromMC,njets_,verbosity);
     
     // Set the fakerate from data measurements
-    if (!setMCFR && (iproc == TVar::Wp_1jet || iproc == TVar::Wm_1jet)) {
-      TString elFRFile = "FakeRates_SmurfV6.V4HasNod0Cut.root";
+    if (!setFRfromMC && (iproc == TVar::Wp_1jet || iproc == TVar::Wm_1jet)) {
+      TString elFRFile = "summary.root";
+      // TString elFRFile = "FakeRates_SmurfV6.V4HasNod0Cut.root";
       TString elFRHist = "ElectronFakeRate_V4_ptThreshold35_PtEta";
-      TString muFRFile = "FakeRates_SmurfV6.V4HasNod0Cut.root";
+      // TString muFRFile = "FakeRates_SmurfV6.V4HasNod0Cut.root";
+      TString muFRFile = "summary.root";
       TString muFRHist = "MuonFakeRate_M2_ptThreshold15_PtEta";
       Xcal2.SetFRHist(elFRFile, elFRHist, muFRFile, muFRHist, verbosity);
     }
@@ -367,7 +403,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     }
 
     // -- Do the integration over unknown parameters
-    if (ProcInt >= TVar::HWW115 && ProcInt <= TVar::HWW600){
+    if (ProcInt >= TVar::HWW110 && ProcInt <= TVar::HWW1000){
       Xcal2.SetProcess(TVar::HWW);
       Xcal2.SetHiggsMass(HiggsMASS[ProcInt]);
       if (verbosity >= TVar::DEBUG) cout<< "Higgs Mass: " << HiggsMASS[ProcInt]<<"GeV \n";
