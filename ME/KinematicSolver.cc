@@ -349,7 +349,7 @@ void WWL1L2Sol_MHiggsYHiggs( cdf_event_type* temp,
  k[0]=A*A-sumE*sumE*nuT_sqr;
 
  //Solve two solutions for nuZ
- double limits[2]={-3500.0,3500.0};
+ double limits[2]={-1*EBEAM, EBEAM};
  PolySolver::FindRoots(2,k,limits,roots);
 
 
@@ -1649,7 +1649,7 @@ void WWL1L2Sol_Mw1MHiggs( event_type* temp
                         ,double Mw1, double MHiggs, double nuX, double nuY
                         ,event_type* sol,double* jacobian){
 			
- double limits[2]={-2*3500,2*3500};
+ double limits[2]={-2*EBEAM,2*EBEAM};
  double roots_nuZ [2];
  double roots_nbZ [2][2];
 			

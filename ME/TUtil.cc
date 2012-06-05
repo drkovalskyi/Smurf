@@ -8,6 +8,7 @@
 #include <math.h>
 #include <iostream>
 #include "TProfile.h"
+
 using namespace std;
 
 
@@ -19,7 +20,7 @@ void EtExponential(double alpha,double x0,double* Et,double* wt){
     }else{
         x0=x0*2.;
     }
-    double A = 1.-exp(-3500./alpha);
+    double A = 1.-exp(-1.*EBEAM/alpha);
     double B =-alpha*TMath::Log(1-x0*A);
 
     *wt = 2*alpha*A/exp(-B/alpha);
