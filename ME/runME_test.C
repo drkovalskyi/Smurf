@@ -323,16 +323,16 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     processList[ NProcessCalculate++]=TVar::HWW1000;
     break;
   default:
-    // processList[ NProcessCalculate++]=TVar::HWW110;
+    processList[ NProcessCalculate++]=TVar::HWW110;
     processList[ NProcessCalculate++]=TVar::HWW115;
     processList[ NProcessCalculate++]=TVar::HWW120;
-    // processList[ NProcessCalculate++]=TVar::HWW125;
+    processList[ NProcessCalculate++]=TVar::HWW125;
     processList[ NProcessCalculate++]=TVar::HWW130;
-    // processList[ NProcessCalculate++]=TVar::HWW135;
+    processList[ NProcessCalculate++]=TVar::HWW135;
     processList[ NProcessCalculate++]=TVar::HWW140;
-    // processList[ NProcessCalculate++]=TVar::HWW145;
+    processList[ NProcessCalculate++]=TVar::HWW145;
     processList[ NProcessCalculate++]=TVar::HWW150;
-    // processList[ NProcessCalculate++]=TVar::HWW155;
+    processList[ NProcessCalculate++]=TVar::HWW155;
     processList[ NProcessCalculate++]=TVar::HWW160;
     processList[ NProcessCalculate++]=TVar::HWW170;
     processList[ NProcessCalculate++]=TVar::HWW180;
@@ -347,6 +347,10 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     processList[ NProcessCalculate++]=TVar::HWW500;
     processList[ NProcessCalculate++]=TVar::HWW550;
     processList[ NProcessCalculate++]=TVar::HWW600;
+    processList[ NProcessCalculate++]=TVar::HWW700;
+    processList[ NProcessCalculate++]=TVar::HWW800;   
+    processList[ NProcessCalculate++]=TVar::HWW900;
+    processList[ NProcessCalculate++]=TVar::HWW1000;
     */
     break;
   }
@@ -362,7 +366,7 @@ void NeutrinoIntegration(int process,TString inputDir, TString fileName, TString
     bool setFRfromMC = false;
     TString effFileName = "Util_HWW_alljetbin.root";
     TString genFRFileName = "Util_HWW_alljetbin.root";
-    TString boostFileName = "Util_HWW_alljetbin.root";
+    TString boostFileName = "Boost.root";
     Xcal2.SetMCHist(ProcInt, effFileName, genFRFileName, boostFileName, setFRfromMC,njets_,verbosity);
     
     // Set the fakerate from data measurements
