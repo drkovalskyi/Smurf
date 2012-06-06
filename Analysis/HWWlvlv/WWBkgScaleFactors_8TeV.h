@@ -1,4 +1,4 @@
-Double_t WWBkgScaleFactorCutBased(Int_t mH, Int_t jetBin) {
+static Double_t WWBkgScaleFactorCutBased(Int_t mH, Int_t jetBin) {
 assert(jetBin >= 0 && jetBin <= 1);
   Int_t mHiggs[18] = {115,118,120,122,124,125,126,128,130,135,140,145,150,155,160,170,180,190};
   Double_t WWBkgScaleFactorHiggsSelection[2][18] = { 
@@ -15,7 +15,7 @@ assert(jetBin >= 0 && jetBin <= 1);
   }
 }
 
-Double_t WWBkgScaleFactorMVA(Int_t mH, Int_t jetBin) {
+static Double_t WWBkgScaleFactorMVA(Int_t mH, Int_t jetBin) {
 assert(jetBin >= 0 && jetBin <= 1);
   Int_t mHiggs[18] = {115,118,120,122,124,125,126,128,130,135,140,145,150,155,160,170,180,190};
   Double_t WWBkgScaleFactorHiggsSelection[2][18] = { 
@@ -32,7 +32,7 @@ assert(jetBin >= 0 && jetBin <= 1);
   }
 }
 
-Double_t WWBkgScaleFactorKappaCutBased(Int_t mH, Int_t jetBin) {
+static Double_t WWBkgScaleFactorKappaCutBased(Int_t mH, Int_t jetBin) {
 assert(jetBin >= 0 && jetBin <= 1);
   Int_t mHiggs[18] = {115,118,120,122,124,125,126,128,130,135,140,145,150,155,160,170,180,190};
   Double_t WWBkgScaleFactorKappaHiggsSelection[2][18] = { 
@@ -49,7 +49,7 @@ assert(jetBin >= 0 && jetBin <= 1);
   }
 }
 
-Double_t WWBkgScaleFactorKappaMVA(Int_t mH, Int_t jetBin) {
+static Double_t WWBkgScaleFactorKappaMVA(Int_t mH, Int_t jetBin) {
 assert(jetBin >= 0 && jetBin <= 1);
   Int_t mHiggs[18] = {115,118,120,122,124,125,126,128,130,135,140,145,150,155,160,170,180,190};
   Double_t WWBkgScaleFactorKappaHiggsSelection[2][18] = { 

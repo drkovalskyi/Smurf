@@ -678,7 +678,7 @@ void ComputeWWBkgScaleFactor (
   // Output WW Scale Factor
   //********************************************************
   ofstream outf("WWBkgScaleFactors.h");
-  outf << "Double_t WWBkgScaleFactorCutBased(Int_t mH, Int_t jetBin) {" << endl;
+  outf << "static Double_t WWBkgScaleFactorCutBased(Int_t mH, Int_t jetBin) {" << endl;
   outf << "assert(jetBin >= 0 && jetBin <= 1);" << endl;
 
   outf << "  Int_t mHiggs[" << nmass << "] = {";
@@ -717,7 +717,7 @@ void ComputeWWBkgScaleFactor (
 
 
 
-  outf << "Double_t WWBkgScaleFactorMVA(Int_t mH, Int_t jetBin) {" << endl;
+  outf << "static Double_t WWBkgScaleFactorMVA(Int_t mH, Int_t jetBin) {" << endl;
   outf << "assert(jetBin >= 0 && jetBin <= 1);" << endl;
 
   outf << "  Int_t mHiggs[" << nmass << "] = {";
@@ -755,7 +755,7 @@ void ComputeWWBkgScaleFactor (
   outf << endl;
 
 
-  outf << "Double_t WWBkgScaleFactorKappaCutBased(Int_t mH, Int_t jetBin) {" << endl;
+  outf << "static Double_t WWBkgScaleFactorKappaCutBased(Int_t mH, Int_t jetBin) {" << endl;
   outf << "assert(jetBin >= 0 && jetBin <= 1);" << endl;
 
   outf << "  Int_t mHiggs[" << nmass << "] = {";
@@ -794,7 +794,7 @@ void ComputeWWBkgScaleFactor (
 
 
 
-  outf << "Double_t WWBkgScaleFactorKappaMVA(Int_t mH, Int_t jetBin) {" << endl;
+  outf << "static Double_t WWBkgScaleFactorKappaMVA(Int_t mH, Int_t jetBin) {" << endl;
   outf << "assert(jetBin >= 0 && jetBin <= 1);" << endl;
 
   outf << "  Int_t mHiggs[" << nmass << "] = {";

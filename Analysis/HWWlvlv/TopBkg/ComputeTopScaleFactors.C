@@ -960,7 +960,7 @@ void ComputeTopScaleFactors
 
   ofstream outf("TopBkgScaleFactors.h");
 
-  outf << "Double_t TopBkgScaleFactor(Int_t jetBin) {" << endl;
+  outf << "static Double_t TopBkgScaleFactor(Int_t jetBin) {" << endl;
   outf << "  assert(jetBin >=0 && jetBin <= 2);" << endl;
   
   outf << "  Double_t TopBkgScaleFactor[3] = { " 
@@ -973,7 +973,7 @@ void ComputeTopScaleFactors
   outf << endl;
 
 
-  outf << "Double_t TopBkgScaleFactorKappa(Int_t jetBin) {" << endl;
+  outf << "static Double_t TopBkgScaleFactorKappa(Int_t jetBin) {" << endl;
   
   outf << "  assert(jetBin >=0 && jetBin <= 2);" << endl;
   outf << "  Double_t TopBkgScaleFactorKappa[3] = { " 

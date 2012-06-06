@@ -365,147 +365,147 @@ void PlotHiggsRes2012
   //----------------------------------------------------------------------------
   // Define MVA output systematics histograms
   //----------------------------------------------------------------------------
-  TH1D* histo_Zjets_CMS_MVAZBounding     = (TH1D*) histo1->Clone("histo_Zjets_CMS_MVAZBounding");
-  TH1D* histo_Zjets_CMS_MVAZBoundingUp   = (TH1D*) histo1->Clone(Form("histo_Zjets_CMS_MVAZBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_Zjets_CMS_MVAZBoundingDown = (TH1D*) histo1->Clone(Form("histo_Zjets_CMS_MVAZBounding_hww%s_%1djDown",finalStateName,nJetsType));
+  TH1D* histo_Zjets_CMS_MVAZBounding     = (TH1D*) histo1->Clone(Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBounding",finalStateName,nJetsType));
+  TH1D* histo_Zjets_CMS_MVAZBoundingUp   = (TH1D*) histo1->Clone(Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBoundingUp",finalStateName,nJetsType));
+  TH1D* histo_Zjets_CMS_MVAZBoundingDown = (TH1D*) histo1->Clone(Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBoundingDown",finalStateName,nJetsType));
   TH1D* histoVV                          = (TH1D*) histo1->Clone("histoVV");
 
-  TH1D* histo_Wjets_CMS_MVAWBoundingUp   = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_MVAWBounding_hwwUp"));
-  TH1D* histo_Wjets_CMS_MVAWBoundingDown = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_MVAWBounding_hwwDown"));
+  TH1D* histo_Wjets_CMS_MVAWBoundingUp   = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_hww_MVAWBoundingUp"));
+  TH1D* histo_Wjets_CMS_MVAWBoundingDown = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_hww_MVAWBoundingDown"));
 
-  TH1D* histo_Wjets_CMS_MVAWMCBoundingUp   = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_MVAWMCBounding_hwwUp"));
-  TH1D* histo_Wjets_CMS_MVAWMCBoundingDown = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_MVAWMCBounding_hwwDown"));
+  TH1D* histo_Wjets_CMS_MVAWMCBoundingUp   = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_hww_MVAWMCBoundingUp"));
+  TH1D* histo_Wjets_CMS_MVAWMCBoundingDown = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_hww_MVAWMCBoundingDown"));
 
-  TH1D* histo_qqWW_CMS_MVAWWBoundingUp      = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVAWWBounding_hwwUp"));
-  TH1D* histo_qqWW_CMS_MVAWWBoundingDown    = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVAWWBounding_hwwDown"));
+  TH1D* histo_qqWW_CMS_MVAWWBoundingUp      = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVAWWBoundingUp"));
+  TH1D* histo_qqWW_CMS_MVAWWBoundingDown    = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVAWWBoundingDown"));
 
-  TH1D* histo_qqWW_CMS_MVAWWNLOBoundingUp   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVAWWNLOBounding_hwwUp"));
-  TH1D* histo_qqWW_CMS_MVAWWNLOBoundingDown = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVAWWNLOBounding_hwwDown"));
+  TH1D* histo_qqWW_CMS_MVAWWNLOBoundingUp   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVAWWNLOBoundingUp"));
+  TH1D* histo_qqWW_CMS_MVAWWNLOBoundingDown = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVAWWNLOBoundingDown"));
 
-  TH1D* histo_Top_CMS_MVATopBoundingUp   = (TH1D*) histo1->Clone(Form("histo_Top_CMS_MVATopBounding_hwwUp"));
-  TH1D* histo_Top_CMS_MVATopBoundingDown = (TH1D*) histo1->Clone(Form("histo_Top_CMS_MVATopBounding_hwwDown"));
+  TH1D* histo_Top_CMS_MVATopBoundingUp   = (TH1D*) histo1->Clone(Form("histo_Top_CMS_hww_MVATopBoundingUp"));
+  TH1D* histo_Top_CMS_MVATopBoundingDown = (TH1D*) histo1->Clone(Form("histo_Top_CMS_hww_MVATopBoundingDown"));
 
   TH1D* histo_Wgamma = (TH1D*) histo1->Clone(Form("histo_Wgamma"));
 
-  TH1D* histo_ttH_CMS_MVAttHStatBounding_8TeVUp         = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_MVAttHStatBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_ttH_CMS_MVAttHStatBoundingDown       = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_MVAttHStatBounding_hww%s_%1djDown",finalStateName,nJetsType));
-  TH1D* histo_ZH_CMS_MVAZHStatBounding_8TeVUp           = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_MVAZHStatBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_ZH_CMS_MVAZHStatBoundingDown         = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_MVAZHStatBounding_hww%s_%1djDown",finalStateName,nJetsType));
-  TH1D* histo_WH_CMS_MVAWHStatBounding_8TeVUp           = (TH1D*) histo1->Clone(Form("histo_WH_CMS_MVAWHStatBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_WH_CMS_MVAWHStatBoundingDown         = (TH1D*) histo1->Clone(Form("histo_WH_CMS_MVAWHStatBounding_hww%s_%1djDown",finalStateName,nJetsType));
-  TH1D* histo_qqH_CMS_MVAqqHStatBounding_8TeVUp         = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_MVAqqHStatBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_qqH_CMS_MVAqqHStatBoundingDown       = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_MVAqqHStatBounding_hww%s_%1djDown",finalStateName,nJetsType));
-  TH1D* histo_ggH_CMS_MVAggHStatBounding_8TeVUp         = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVAggHStatBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_ggH_CMS_MVAggHStatBoundingDown       = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVAggHStatBounding_hww%s_%1djDown",finalStateName,nJetsType));
-  TH1D* histo_qqWW_CMS_MVAqqWWStatBounding_8TeVUp       = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVAqqWWStatBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_qqWW_CMS_MVAqqWWStatBoundingDown     = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVAqqWWStatBounding_hww%s_%1djDown",finalStateName,nJetsType));
-  TH1D* histo_ggWW_CMS_MVAggWWStatBounding_8TeVUp       = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_MVAggWWStatBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_ggWW_CMS_MVAggWWStatBoundingDown     = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_MVAggWWStatBounding_hww%s_%1djDown",finalStateName,nJetsType));
-  TH1D* histo_VV_CMS_MVAVVStatBounding_8TeVUp           = (TH1D*) histo1->Clone(Form("histo_VV_CMS_MVAVVStatBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_VV_CMS_MVAVVStatBoundingDown         = (TH1D*) histo1->Clone(Form("histo_VV_CMS_MVAVVStatBounding_hww%s_%1djDown",finalStateName,nJetsType));
-  TH1D* histo_Top_CMS_MVATopStatBounding_8TeVUp         = (TH1D*) histo1->Clone(Form("histo_Top_CMS_MVATopStatBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_Top_CMS_MVATopStatBoundingDown       = (TH1D*) histo1->Clone(Form("histo_Top_CMS_MVATopStatBounding_hww%s_%1djDown",finalStateName,nJetsType));
-  TH1D* histo_Zjets_CMS_MVAZjetsStatBounding_8TeVUp     = (TH1D*) histo1->Clone(Form("histo_Zjets_CMS_MVAZjetsStatBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_Zjets_CMS_MVAZjetsStatBoundingDown   = (TH1D*) histo1->Clone(Form("histo_Zjets_CMS_MVAZjetsStatBounding_hww%s_%1djDown",finalStateName,nJetsType));
-  TH1D* histo_Wjets_CMS_MVAWjetsStatBounding_8TeVUp     = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_MVAWjetsStatBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_Wjets_CMS_MVAWjetsStatBoundingDown   = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_MVAWjetsStatBounding_hww%s_%1djDown",finalStateName,nJetsType));
-  TH1D* histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVUp   = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_MVAWgammaStatBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_Wgamma_CMS_MVAWgammaStatBoundingDown = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_MVAWgammaStatBounding_hww%s_%1djDown",finalStateName,nJetsType));
-  TH1D* histo_Ztt_CMS_MVAZttStatBounding_8TeVUp         = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_MVAZttStatBounding_hww%s_%1djUp",finalStateName,nJetsType));
-  TH1D* histo_Ztt_CMS_MVAZttStatBoundingDown       = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_MVAZttStatBounding_hww%s_%1djDown",finalStateName,nJetsType));
+  TH1D* histo_ttH_CMS_MVAttHStatBounding_8TeVUp         = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVUp",finalStateName,nJetsType));
+  TH1D* histo_ttH_CMS_MVAttHStatBounding_8TeVDown       = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVDown",finalStateName,nJetsType));
+  TH1D* histo_ZH_CMS_MVAZHStatBounding_8TeVUp           = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_hww%s_%1dj_MVAZHStatBounding_8TeVUp",finalStateName,nJetsType));
+  TH1D* histo_ZH_CMS_MVAZHStatBounding_8TeVDown         = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_hww%s_%1dj_MVAZHStatBounding_8TeVDown",finalStateName,nJetsType));
+  TH1D* histo_WH_CMS_MVAWHStatBounding_8TeVUp           = (TH1D*) histo1->Clone(Form("histo_WH_CMS_hww%s_%1dj_MVAWHStatBounding_8TeVUp",finalStateName,nJetsType));
+  TH1D* histo_WH_CMS_MVAWHStatBounding_8TeVDown         = (TH1D*) histo1->Clone(Form("histo_WH_CMS_hww%s_%1dj_MVAWHStatBounding_8TeVDown",finalStateName,nJetsType));
+  TH1D* histo_qqH_CMS_MVAqqHStatBounding_8TeVUp         = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_hww%s_%1dj_MVAqqHStatBounding_8TeVUp",finalStateName,nJetsType));
+  TH1D* histo_qqH_CMS_MVAqqHStatBounding_8TeVDown       = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_hww%s_%1dj_MVAqqHStatBounding_8TeVDown",finalStateName,nJetsType));
+  TH1D* histo_ggH_CMS_MVAggHStatBounding_8TeVUp         = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_hww%s_%1dj_MVAggHStatBounding_8TeVUp",finalStateName,nJetsType));
+  TH1D* histo_ggH_CMS_MVAggHStatBounding_8TeVDown       = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_hww%s_%1dj_MVAggHStatBounding_8TeVDown",finalStateName,nJetsType));
+  TH1D* histo_qqWW_CMS_MVAqqWWStatBounding_8TeVUp       = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww%s_%1dj_MVAqqWWStatBounding_8TeVUp",finalStateName,nJetsType));
+  TH1D* histo_qqWW_CMS_MVAqqWWStatBounding_8TeVDown     = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww%s_%1dj_MVAqqWWStatBounding_8TeVDown",finalStateName,nJetsType));
+  TH1D* histo_ggWW_CMS_MVAggWWStatBounding_8TeVUp       = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_hww%s_%1dj_MVAggWWStatBounding_8TeVUp",finalStateName,nJetsType));
+  TH1D* histo_ggWW_CMS_MVAggWWStatBounding_8TeVDown     = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_hww%s_%1dj_MVAggWWStatBounding_8TeVDown",finalStateName,nJetsType));
+  TH1D* histo_VV_CMS_MVAVVStatBounding_8TeVUp           = (TH1D*) histo1->Clone(Form("histo_VV_CMS_hww%s_%1dj_MVAVVStatBounding_8TeVUp",finalStateName,nJetsType));
+  TH1D* histo_VV_CMS_MVAVVStatBounding_8TeVDown         = (TH1D*) histo1->Clone(Form("histo_VV_CMS_hww%s_%1dj_MVAVVStatBounding_8TeVDown",finalStateName,nJetsType));
+  TH1D* histo_Top_CMS_MVATopStatBounding_8TeVUp         = (TH1D*) histo1->Clone(Form("histo_Top_CMS_hww%s_%1dj_MVATopStatBounding_8TeVUp",finalStateName,nJetsType));
+  TH1D* histo_Top_CMS_MVATopStatBounding_8TeVDown       = (TH1D*) histo1->Clone(Form("histo_Top_CMS_hww%s_%1dj_MVATopStatBounding_8TeVDown",finalStateName,nJetsType));
+  TH1D* histo_Zjets_CMS_MVAZjetsStatBounding_8TeVUp     = (TH1D*) histo1->Clone(Form("histo_Zjets_CMS_hww%s_%1dj_MVAZjetsStatBounding_8TeVUp",finalStateName,nJetsType));
+  TH1D* histo_Zjets_CMS_MVAZjetsStatBounding_8TeVDown   = (TH1D*) histo1->Clone(Form("histo_Zjets_CMS_hww%s_%1dj_MVAZjetsStatBounding_8TeVDown",finalStateName,nJetsType));
+  TH1D* histo_Wjets_CMS_MVAWjetsStatBounding_8TeVUp     = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_hww%s_%1dj_MVAWjetsStatBounding_8TeVUp",finalStateName,nJetsType));
+  TH1D* histo_Wjets_CMS_MVAWjetsStatBounding_8TeVDown   = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_hww%s_%1dj_MVAWjetsStatBounding_8TeVDown",finalStateName,nJetsType));
+  TH1D* histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVUp   = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_hww%s_%1dj_MVAWgammaStatBounding_8TeVUp",finalStateName,nJetsType));
+  TH1D* histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVDown = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_hww%s_%1dj_MVAWgammaStatBounding_8TeVDown",finalStateName,nJetsType));
+  TH1D* histo_Ztt_CMS_MVAZttStatBounding_8TeVUp         = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_hww%s_%1dj_MVAZttStatBounding_8TeVUp",finalStateName,nJetsType));
+  TH1D* histo_Ztt_CMS_MVAZttStatBounding_8TeVDown       = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_hww%s_%1dj_MVAZttStatBounding_8TeVDown",finalStateName,nJetsType));
 
-  TH1D* histo_ttH_CMS_MVALepEffBoundingUp          = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_MVALepEffBoundingUp"));    
-  TH1D* histo_ttH_CMS_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_MVALepEffBoundingDown"));
-  TH1D* histo_ZH_CMS_MVALepEffBoundingUp           = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_MVALepEffBoundingUp"));      
-  TH1D* histo_ZH_CMS_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_MVALepEffBoundingDown"));
-  TH1D* histo_WH_CMS_MVALepEffBoundingUp           = (TH1D*) histo1->Clone(Form("histo_WH_CMS_MVALepEffBoundingUp"));      
-  TH1D* histo_WH_CMS_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_WH_CMS_MVALepEffBoundingDown"));
-  TH1D* histo_qqH_CMS_MVALepEffBoundingUp          = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_MVALepEffBoundingUp"));     
-  TH1D* histo_qqH_CMS_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_MVALepEffBoundingDown"));
-  TH1D* histo_ggH_CMS_MVALepEffBoundingUp          = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVALepEffBoundingUp"));     
-  TH1D* histo_ggH_CMS_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVALepEffBoundingDown"));
-  TH1D* histo_qqWW_CMS_MVALepEffBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVALepEffBoundingUp"));
-  TH1D* histo_qqWW_CMS_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVALepEffBoundingDown"));
-  TH1D* histo_ggWW_CMS_MVALepEffBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_MVALepEffBoundingUp"));
-  TH1D* histo_ggWW_CMS_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_MVALepEffBoundingDown"));
-  TH1D* histo_VV_CMS_MVALepEffBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_VV_CMS_MVALepEffBoundingUp"));
-  TH1D* histo_VV_CMS_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_VV_CMS_MVALepEffBoundingDown"));
-  TH1D* histo_Wgamma_CMS_MVALepEffBoundingUp       = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_MVALepEffBoundingUp"));  
-  TH1D* histo_Wgamma_CMS_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_MVALepEffBoundingDown"));
-  TH1D* histo_Ztt_CMS_MVALepEffBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_MVALepEffBoundingUp"));
-  TH1D* histo_Ztt_CMS_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_MVALepEffBoundingDown"));
+  TH1D* histo_ttH_CMS_hww_MVALepEffBoundingUp          = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_hww_MVALepEffBoundingUp"));    
+  TH1D* histo_ttH_CMS_hww_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_hww_MVALepEffBoundingDown"));
+  TH1D* histo_ZH_CMS_hww_MVALepEffBoundingUp           = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_hww_MVALepEffBoundingUp"));      
+  TH1D* histo_ZH_CMS_hww_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_hww_MVALepEffBoundingDown"));
+  TH1D* histo_WH_CMS_hww_MVALepEffBoundingUp           = (TH1D*) histo1->Clone(Form("histo_WH_CMS_hww_MVALepEffBoundingUp"));      
+  TH1D* histo_WH_CMS_hww_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_WH_CMS_hww_MVALepEffBoundingDown"));
+  TH1D* histo_qqH_CMS_hww_MVALepEffBoundingUp          = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_hww_MVALepEffBoundingUp"));     
+  TH1D* histo_qqH_CMS_hww_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_hww_MVALepEffBoundingDown"));
+  TH1D* histo_ggH_CMS_hww_MVALepEffBoundingUp          = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_hww_MVALepEffBoundingUp"));     
+  TH1D* histo_ggH_CMS_hww_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_hww_MVALepEffBoundingDown"));
+  TH1D* histo_qqWW_CMS_hww_MVALepEffBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVALepEffBoundingUp"));
+  TH1D* histo_qqWW_CMS_hww_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVALepEffBoundingDown"));
+  TH1D* histo_ggWW_CMS_hww_MVALepEffBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_hww_MVALepEffBoundingUp"));
+  TH1D* histo_ggWW_CMS_hww_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_hww_MVALepEffBoundingDown"));
+  TH1D* histo_VV_CMS_hww_MVALepEffBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_VV_CMS_hww_MVALepEffBoundingUp"));
+  TH1D* histo_VV_CMS_hww_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_VV_CMS_hww_MVALepEffBoundingDown"));
+  TH1D* histo_Wgamma_CMS_hww_MVALepEffBoundingUp       = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_hww_MVALepEffBoundingUp"));  
+  TH1D* histo_Wgamma_CMS_hww_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_hww_MVALepEffBoundingDown"));
+  TH1D* histo_Ztt_CMS_hww_MVALepEffBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_hww_MVALepEffBoundingUp"));
+  TH1D* histo_Ztt_CMS_hww_MVALepEffBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_hww_MVALepEffBoundingDown"));
 
-  TH1D* histo_ttH_CMS_MVALepResBoundingUp          = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_MVALepResBoundingUp"));    
-  TH1D* histo_ttH_CMS_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_MVALepResBoundingDown"));
-  TH1D* histo_ZH_CMS_MVALepResBoundingUp           = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_MVALepResBoundingUp"));      
-  TH1D* histo_ZH_CMS_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_MVALepResBoundingDown"));
-  TH1D* histo_WH_CMS_MVALepResBoundingUp           = (TH1D*) histo1->Clone(Form("histo_WH_CMS_MVALepResBoundingUp"));      
-  TH1D* histo_WH_CMS_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_WH_CMS_MVALepResBoundingDown"));
-  TH1D* histo_qqH_CMS_MVALepResBoundingUp          = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_MVALepResBoundingUp"));     
-  TH1D* histo_qqH_CMS_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_MVALepResBoundingDown"));
-  TH1D* histo_ggH_CMS_MVALepResBoundingUp          = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVALepResBoundingUp"));     
-  TH1D* histo_ggH_CMS_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVALepResBoundingDown"));
-  TH1D* histo_qqWW_CMS_MVALepResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVALepResBoundingUp"));
-  TH1D* histo_qqWW_CMS_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVALepResBoundingDown"));
-  TH1D* histo_ggWW_CMS_MVALepResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_MVALepResBoundingUp"));
-  TH1D* histo_ggWW_CMS_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_MVALepResBoundingDown"));
-  TH1D* histo_VV_CMS_MVALepResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_VV_CMS_MVALepResBoundingUp"));
-  TH1D* histo_VV_CMS_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_VV_CMS_MVALepResBoundingDown"));
-  TH1D* histo_Top_CMS_MVALepResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_Top_CMS_MVALepResBoundingUp"));
-  TH1D* histo_Top_CMS_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Top_CMS_MVALepResBoundingDown"));
-  TH1D* histo_Wgamma_CMS_MVALepResBoundingUp       = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_MVALepResBoundingUp"));  
-  TH1D* histo_Wgamma_CMS_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_MVALepResBoundingDown"));
-  TH1D* histo_Ztt_CMS_MVALepResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_MVALepResBoundingUp"));
-  TH1D* histo_Ztt_CMS_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_MVALepResBoundingDown"));
+  TH1D* histo_ttH_CMS_hww_MVALepResBoundingUp          = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_hww_MVALepResBoundingUp"));    
+  TH1D* histo_ttH_CMS_hww_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_hww_MVALepResBoundingDown"));
+  TH1D* histo_ZH_CMS_hww_MVALepResBoundingUp           = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_hww_MVALepResBoundingUp"));      
+  TH1D* histo_ZH_CMS_hww_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_hww_MVALepResBoundingDown"));
+  TH1D* histo_WH_CMS_hww_MVALepResBoundingUp           = (TH1D*) histo1->Clone(Form("histo_WH_CMS_hww_MVALepResBoundingUp"));      
+  TH1D* histo_WH_CMS_hww_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_WH_CMS_hww_MVALepResBoundingDown"));
+  TH1D* histo_qqH_CMS_hww_MVALepResBoundingUp          = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_hww_MVALepResBoundingUp"));     
+  TH1D* histo_qqH_CMS_hww_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_hww_MVALepResBoundingDown"));
+  TH1D* histo_ggH_CMS_hww_MVALepResBoundingUp          = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_hww_MVALepResBoundingUp"));     
+  TH1D* histo_ggH_CMS_hww_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_hww_MVALepResBoundingDown"));
+  TH1D* histo_qqWW_CMS_hww_MVALepResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVALepResBoundingUp"));
+  TH1D* histo_qqWW_CMS_hww_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVALepResBoundingDown"));
+  TH1D* histo_ggWW_CMS_hww_MVALepResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_hww_MVALepResBoundingUp"));
+  TH1D* histo_ggWW_CMS_hww_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_hww_MVALepResBoundingDown"));
+  TH1D* histo_VV_CMS_hww_MVALepResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_VV_CMS_hww_MVALepResBoundingUp"));
+  TH1D* histo_VV_CMS_hww_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_VV_CMS_hww_MVALepResBoundingDown"));
+  TH1D* histo_Top_CMS_hww_MVALepResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_Top_CMS_hww_MVALepResBoundingUp"));
+  TH1D* histo_Top_CMS_hww_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Top_CMS_hww_MVALepResBoundingDown"));
+  TH1D* histo_Wgamma_CMS_hww_MVALepResBoundingUp       = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_hww_MVALepResBoundingUp"));  
+  TH1D* histo_Wgamma_CMS_hww_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_hww_MVALepResBoundingDown"));
+  TH1D* histo_Ztt_CMS_hww_MVALepResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_hww_MVALepResBoundingUp"));
+  TH1D* histo_Ztt_CMS_hww_MVALepResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_hww_MVALepResBoundingDown"));
 
-  TH1D* histo_ttH_CMS_MVAMETResBoundingUp          = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_MVAMETResBoundingUp"));    
-  TH1D* histo_ttH_CMS_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_MVAMETResBoundingDown"));
-  TH1D* histo_ZH_CMS_MVAMETResBoundingUp           = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_MVAMETResBoundingUp"));      
-  TH1D* histo_ZH_CMS_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_MVAMETResBoundingDown"));
-  TH1D* histo_WH_CMS_MVAMETResBoundingUp           = (TH1D*) histo1->Clone(Form("histo_WH_CMS_MVAMETResBoundingUp"));      
-  TH1D* histo_WH_CMS_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_WH_CMS_MVAMETResBoundingDown"));
-  TH1D* histo_qqH_CMS_MVAMETResBoundingUp          = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_MVAMETResBoundingUp"));     
-  TH1D* histo_qqH_CMS_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_MVAMETResBoundingDown"));
-  TH1D* histo_ggH_CMS_MVAMETResBoundingUp          = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVAMETResBoundingUp"));     
-  TH1D* histo_ggH_CMS_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVAMETResBoundingDown"));
-  TH1D* histo_qqWW_CMS_MVAMETResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVAMETResBoundingUp"));
-  TH1D* histo_qqWW_CMS_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVAMETResBoundingDown"));
-  TH1D* histo_ggWW_CMS_MVAMETResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_MVAMETResBoundingUp"));
-  TH1D* histo_ggWW_CMS_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_MVAMETResBoundingDown"));
-  TH1D* histo_VV_CMS_MVAMETResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_VV_CMS_MVAMETResBoundingUp"));
-  TH1D* histo_VV_CMS_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_VV_CMS_MVAMETResBoundingDown"));
-  TH1D* histo_Top_CMS_MVAMETResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_Top_CMS_MVAMETResBoundingUp"));
-  TH1D* histo_Top_CMS_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Top_CMS_MVAMETResBoundingDown"));
-  TH1D* histo_Wgamma_CMS_MVAMETResBoundingUp       = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_MVAMETResBoundingUp"));  
-  TH1D* histo_Wgamma_CMS_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_MVAMETResBoundingDown"));
-  TH1D* histo_Ztt_CMS_MVAMETResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_MVAMETResBoundingUp"));
-  TH1D* histo_Ztt_CMS_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_MVAMETResBoundingDown"));
+  TH1D* histo_ttH_CMS_hww_MVAMETResBoundingUp          = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_hww_MVAMETResBoundingUp"));    
+  TH1D* histo_ttH_CMS_hww_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_hww_MVAMETResBoundingDown"));
+  TH1D* histo_ZH_CMS_hww_MVAMETResBoundingUp           = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_hww_MVAMETResBoundingUp"));      
+  TH1D* histo_ZH_CMS_hww_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_hww_MVAMETResBoundingDown"));
+  TH1D* histo_WH_CMS_hww_MVAMETResBoundingUp           = (TH1D*) histo1->Clone(Form("histo_WH_CMS_hww_MVAMETResBoundingUp"));      
+  TH1D* histo_WH_CMS_hww_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_WH_CMS_hww_MVAMETResBoundingDown"));
+  TH1D* histo_qqH_CMS_hww_MVAMETResBoundingUp          = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_hww_MVAMETResBoundingUp"));     
+  TH1D* histo_qqH_CMS_hww_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_hww_MVAMETResBoundingDown"));
+  TH1D* histo_ggH_CMS_hww_MVAMETResBoundingUp          = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_hww_MVAMETResBoundingUp"));     
+  TH1D* histo_ggH_CMS_hww_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_hww_MVAMETResBoundingDown"));
+  TH1D* histo_qqWW_CMS_hww_MVAMETResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVAMETResBoundingUp"));
+  TH1D* histo_qqWW_CMS_hww_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVAMETResBoundingDown"));
+  TH1D* histo_ggWW_CMS_hww_MVAMETResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_hww_MVAMETResBoundingUp"));
+  TH1D* histo_ggWW_CMS_hww_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_hww_MVAMETResBoundingDown"));
+  TH1D* histo_VV_CMS_hww_MVAMETResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_VV_CMS_hww_MVAMETResBoundingUp"));
+  TH1D* histo_VV_CMS_hww_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_VV_CMS_hww_MVAMETResBoundingDown"));
+  TH1D* histo_Top_CMS_hww_MVAMETResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_Top_CMS_hww_MVAMETResBoundingUp"));
+  TH1D* histo_Top_CMS_hww_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Top_CMS_hww_MVAMETResBoundingDown"));
+  TH1D* histo_Wgamma_CMS_hww_MVAMETResBoundingUp       = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_hww_MVAMETResBoundingUp"));  
+  TH1D* histo_Wgamma_CMS_hww_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_hww_MVAMETResBoundingDown"));
+  TH1D* histo_Ztt_CMS_hww_MVAMETResBoundingUp	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_hww_MVAMETResBoundingUp"));
+  TH1D* histo_Ztt_CMS_hww_MVAMETResBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_hww_MVAMETResBoundingDown"));
 
-  TH1D* histo_ttH_CMS_MVAJESBoundingUp             = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_MVAJESBoundingUp"));    
-  TH1D* histo_ttH_CMS_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_MVAJESBoundingDown"));
-  TH1D* histo_ZH_CMS_MVAJESBoundingUp              = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_MVAJESBoundingUp"));      
-  TH1D* histo_ZH_CMS_MVAJESBoundingDown	           = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_MVAJESBoundingDown"));
-  TH1D* histo_WH_CMS_MVAJESBoundingUp              = (TH1D*) histo1->Clone(Form("histo_WH_CMS_MVAJESBoundingUp"));      
-  TH1D* histo_WH_CMS_MVAJESBoundingDown	           = (TH1D*) histo1->Clone(Form("histo_WH_CMS_MVAJESBoundingDown"));
-  TH1D* histo_qqH_CMS_MVAJESBoundingUp             = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_MVAJESBoundingUp"));     
-  TH1D* histo_qqH_CMS_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_MVAJESBoundingDown"));
-  TH1D* histo_ggH_CMS_MVAJESBoundingUp             = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVAJESBoundingUp"));     
-  TH1D* histo_ggH_CMS_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVAJESBoundingDown"));
-  TH1D* histo_qqWW_CMS_MVAJESBoundingUp	           = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVAJESBoundingUp"));
-  TH1D* histo_qqWW_CMS_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_MVAJESBoundingDown"));
-  TH1D* histo_ggWW_CMS_MVAJESBoundingUp	           = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_MVAJESBoundingUp"));
-  TH1D* histo_ggWW_CMS_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_MVAJESBoundingDown"));
-  TH1D* histo_VV_CMS_MVAJESBoundingUp	           = (TH1D*) histo1->Clone(Form("histo_VV_CMS_MVAJESBoundingUp"));
-  TH1D* histo_VV_CMS_MVAJESBoundingDown	           = (TH1D*) histo1->Clone(Form("histo_VV_CMS_MVAJESBoundingDown"));
-  TH1D* histo_Top_CMS_MVAJESBoundingUp	           = (TH1D*) histo1->Clone(Form("histo_Top_CMS_MVAJESBoundingUp"));
-  TH1D* histo_Top_CMS_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Top_CMS_MVAJESBoundingDown"));
-  TH1D* histo_Wgamma_CMS_MVAJESBoundingUp          = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_MVAJESBoundingUp"));  
-  TH1D* histo_Wgamma_CMS_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_MVAJESBoundingDown"));
-  TH1D* histo_Ztt_CMS_MVAJESBoundingUp	           = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_MVAJESBoundingUp"));
-  TH1D* histo_Ztt_CMS_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_MVAJESBoundingDown"));
+  TH1D* histo_ttH_CMS_hww_MVAJESBoundingUp             = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_hww_MVAJESBoundingUp"));    
+  TH1D* histo_ttH_CMS_hww_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ttH_CMS_hww_MVAJESBoundingDown"));
+  TH1D* histo_ZH_CMS_hww_MVAJESBoundingUp              = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_hww_MVAJESBoundingUp"));      
+  TH1D* histo_ZH_CMS_hww_MVAJESBoundingDown	           = (TH1D*) histo1->Clone(Form("histo_ZH_CMS_hww_MVAJESBoundingDown"));
+  TH1D* histo_WH_CMS_hww_MVAJESBoundingUp              = (TH1D*) histo1->Clone(Form("histo_WH_CMS_hww_MVAJESBoundingUp"));      
+  TH1D* histo_WH_CMS_hww_MVAJESBoundingDown	           = (TH1D*) histo1->Clone(Form("histo_WH_CMS_hww_MVAJESBoundingDown"));
+  TH1D* histo_qqH_CMS_hww_MVAJESBoundingUp             = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_hww_MVAJESBoundingUp"));     
+  TH1D* histo_qqH_CMS_hww_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqH_CMS_hww_MVAJESBoundingDown"));
+  TH1D* histo_ggH_CMS_hww_MVAJESBoundingUp             = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_hww_MVAJESBoundingUp"));     
+  TH1D* histo_ggH_CMS_hww_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_hww_MVAJESBoundingDown"));
+  TH1D* histo_qqWW_CMS_hww_MVAJESBoundingUp	           = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVAJESBoundingUp"));
+  TH1D* histo_qqWW_CMS_hww_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVAJESBoundingDown"));
+  TH1D* histo_ggWW_CMS_hww_MVAJESBoundingUp	           = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_hww_MVAJESBoundingUp"));
+  TH1D* histo_ggWW_CMS_hww_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_ggWW_CMS_hww_MVAJESBoundingDown"));
+  TH1D* histo_VV_CMS_hww_MVAJESBoundingUp	           = (TH1D*) histo1->Clone(Form("histo_VV_CMS_hww_MVAJESBoundingUp"));
+  TH1D* histo_VV_CMS_hww_MVAJESBoundingDown	           = (TH1D*) histo1->Clone(Form("histo_VV_CMS_hww_MVAJESBoundingDown"));
+  TH1D* histo_Top_CMS_hww_MVAJESBoundingUp	           = (TH1D*) histo1->Clone(Form("histo_Top_CMS_hww_MVAJESBoundingUp"));
+  TH1D* histo_Top_CMS_hww_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Top_CMS_hww_MVAJESBoundingDown"));
+  TH1D* histo_Wgamma_CMS_hww_MVAJESBoundingUp          = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_hww_MVAJESBoundingUp"));  
+  TH1D* histo_Wgamma_CMS_hww_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Wgamma_CMS_hww_MVAJESBoundingDown"));
+  TH1D* histo_Ztt_CMS_hww_MVAJESBoundingUp	           = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_hww_MVAJESBoundingUp"));
+  TH1D* histo_Ztt_CMS_hww_MVAJESBoundingDown	   = (TH1D*) histo1->Clone(Form("histo_Ztt_CMS_hww_MVAJESBoundingDown"));
 
-  TH1D* histo_ggH_CMS_MVAggHBoundingUp             = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVAggHBoundingUp"));    
-  TH1D* histo_ggH_CMS_MVAggHBoundingDown           = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_MVAggHBoundingDown"));    
+  TH1D* histo_ggH_CMS_hww_MVAggHBoundingUp             = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_hww_MVAggHBoundingUp"));    
+  TH1D* histo_ggH_CMS_hww_MVAggHBoundingDown           = (TH1D*) histo1->Clone(Form("histo_ggH_CMS_hww_MVAggHBoundingDown"));    
 
   TH1D* histoS = new TH1D("histoS", "histoS", 180, 0, 180);
   TH1D* histoB = new TH1D("histoB", "histoB", 180, 0, 180);
@@ -1112,39 +1112,39 @@ void PlotHiggsRes2012
         double addLepEffDown = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1,-1)*
                                leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2,-1);
         if     (nSigBin == 1){
-	  histo_ttH_CMS_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
-	  histo_ttH_CMS_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_ttH_CMS_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ttH_CMS_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ttH_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ttH_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
+	  histo_ttH_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
+	  histo_ttH_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ttH_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ttH_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	}
         else if(nSigBin == 2){
-	  histo_ZH_CMS_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
-	  histo_ZH_CMS_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_ZH_CMS_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ZH_CMS_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ZH_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ZH_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
+	  histo_ZH_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
+	  histo_ZH_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ZH_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ZH_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	}
         else if(nSigBin == 3){
-	  histo_WH_CMS_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
-	  histo_WH_CMS_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_WH_CMS_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_WH_CMS_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_WH_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_WH_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
+	  histo_WH_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
+	  histo_WH_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_WH_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_WH_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	}
         else if(nSigBin == 4){
-	  histo_qqH_CMS_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
-	  histo_qqH_CMS_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_qqH_CMS_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_qqH_CMS_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_qqH_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_qqH_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
+	  histo_qqH_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
+	  histo_qqH_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_qqH_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_qqH_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	}
         else if(nSigBin == 5){
-	  histo_ggH_CMS_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
-	  histo_ggH_CMS_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_ggH_CMS_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ggH_CMS_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ggH_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ggH_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
+	  histo_ggH_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
+	  histo_ggH_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ggH_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ggH_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	}
       }
       // WARNING, THIS IS ONLY GOOD FOR BDTG!
@@ -1153,8 +1153,8 @@ void PlotHiggsRes2012
       // Gluon Fusion Higgs Missing Higher Order Corrections (weights [0] & [5])
       //----------------------------------------------------------------------------
       if(useggHTemplates == true && nSigBin == 5 && addggH != 0){
-	histo_ggH_CMS_MVAggHBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addggHSyst[0]/addggH);
-	histo_ggH_CMS_MVAggHBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addggHSyst[5]/addggH);
+	histo_ggH_CMS_hww_MVAggHBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addggHSyst[0]/addggH);
+	histo_ggH_CMS_hww_MVAggHBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addggHSyst[5]/addggH);
       }
 
       //----------------------------------------------------------------------------
@@ -1179,24 +1179,24 @@ void PlotHiggsRes2012
     //----------------------------------------------------------------------------
     if(passMVAPreselCuts == true && useJESTemplates == true && (passJetCut[1] == true || passJetCut[2] == true)){ // Begin JES
       if     (nSigBin == 1){
-        if(passJetCut[1] == true) histo_ttH_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-        if(passJetCut[2] == true) histo_ttH_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[1] == true) histo_ttH_CMS_hww_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[2] == true) histo_ttH_CMS_hww_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
       else if(nSigBin == 2){
-        if(passJetCut[1] == true) histo_ZH_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-        if(passJetCut[2] == true) histo_ZH_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[1] == true) histo_ZH_CMS_hww_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[2] == true) histo_ZH_CMS_hww_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
       else if(nSigBin == 3){
-        if(passJetCut[1] == true) histo_WH_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-        if(passJetCut[2] == true) histo_WH_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[1] == true) histo_WH_CMS_hww_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[2] == true) histo_WH_CMS_hww_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
       else if(nSigBin == 4){
-        if(passJetCut[1] == true) histo_qqH_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-        if(passJetCut[2] == true) histo_qqH_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[1] == true) histo_qqH_CMS_hww_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[2] == true) histo_qqH_CMS_hww_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
       else if(nSigBin == 5){
-        if(passJetCut[1] == true) histo_ggH_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-        if(passJetCut[2] == true) histo_ggH_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[1] == true) histo_ggH_CMS_hww_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[2] == true) histo_ggH_CMS_hww_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
     } // End JES
   } // end loop over signal events
@@ -1804,48 +1804,48 @@ void PlotHiggsRes2012
         double addLepEffDown = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1,-1)*
                                leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2,-1);
         if     (fDecay == 0){
-	  histo_qqWW_CMS_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
-	  histo_qqWW_CMS_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_qqWW_CMS_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_qqWW_CMS_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_qqWW_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_qqWW_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
+	  histo_qqWW_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
+	  histo_qqWW_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_qqWW_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_qqWW_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	}
         else if(fDecay == 1){
-	  histo_ggWW_CMS_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
-	  histo_ggWW_CMS_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_ggWW_CMS_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ggWW_CMS_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ggWW_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ggWW_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
+	  histo_ggWW_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
+	  histo_ggWW_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ggWW_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ggWW_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	}
         else if(fDecay == 2){
-	  histo_VV_CMS_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
-	  histo_VV_CMS_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_VV_CMS_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_VV_CMS_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_VV_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_VV_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
+	  histo_VV_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
+	  histo_VV_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_VV_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_VV_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	}
         else if(fDecay == 3){
-	  histo_Top_CMS_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Top_CMS_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Top_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Top_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Top_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Top_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	}
         else if(fDecay == 4){
 	}
         else if(fDecay == 5){
 	}
         else if(fDecay == 6 && useWgammaTemplates == false){
-	  histo_Wgamma_CMS_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
-	  histo_Wgamma_CMS_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_Wgamma_CMS_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Wgamma_CMS_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Wgamma_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Wgamma_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
+	  histo_Wgamma_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
+	  histo_Wgamma_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Wgamma_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Wgamma_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	}
         else if(fDecay == 7){
-	  histo_Ztt_CMS_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
-	  histo_Ztt_CMS_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_Ztt_CMS_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Ztt_CMS_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Ztt_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Ztt_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
+	  histo_Ztt_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
+	  histo_Ztt_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Ztt_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Ztt_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 	}
       }
 
@@ -1875,32 +1875,32 @@ void PlotHiggsRes2012
     //----------------------------------------------------------------------------
     if(passMVAPreselCuts == true && useJESTemplates == true && (passJetCut[1] == true || passJetCut[2] == true)){
       if     (fDecay == 0){
-        if(passJetCut[1] == true) histo_qqWW_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-        if(passJetCut[2] == true) histo_qqWW_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[1] == true) histo_qqWW_CMS_hww_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[2] == true) histo_qqWW_CMS_hww_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
       else if(fDecay == 1){
-        if(passJetCut[1] == true) histo_ggWW_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-        if(passJetCut[2] == true) histo_ggWW_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[1] == true) histo_ggWW_CMS_hww_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[2] == true) histo_ggWW_CMS_hww_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
       else if(fDecay == 2){
-        if(passJetCut[1] == true) histo_VV_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-        if(passJetCut[2] == true) histo_VV_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[1] == true) histo_VV_CMS_hww_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[2] == true) histo_VV_CMS_hww_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
       else if(fDecay == 3){
-       if(passJetCut[1] == true) histo_Top_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-       if(passJetCut[2] == true) histo_Top_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+       if(passJetCut[1] == true) histo_Top_CMS_hww_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+       if(passJetCut[2] == true) histo_Top_CMS_hww_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
       else if(fDecay == 4){
       }
       else if(fDecay == 5){
       }
       else if(fDecay == 6 && useWgammaTemplates == false){
-        if(passJetCut[1] == true) histo_Wgamma_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-        if(passJetCut[2] == true) histo_Wgamma_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[1] == true) histo_Wgamma_CMS_hww_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[2] == true) histo_Wgamma_CMS_hww_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
       else if(fDecay == 7){
-        if(passJetCut[1] == true) histo_Ztt_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-        if(passJetCut[2] == true) histo_Ztt_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[1] == true) histo_Ztt_CMS_hww_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[2] == true) histo_Ztt_CMS_hww_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
     } // End JES
   } // end loop over bkg events
@@ -2378,11 +2378,11 @@ void PlotHiggsRes2012
           		       leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2,1);
           double addLepEffDown = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1,-1)*
           			 leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2,-1);
-	  histo_Wgamma_CMS_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
-	  histo_Wgamma_CMS_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_Wgamma_CMS_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Wgamma_CMS_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Wgamma_CMS_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Wgamma_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
+	  histo_Wgamma_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
+	  histo_Wgamma_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Wgamma_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Wgamma_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
         }
       }
     } // passMVAPreselCuts
@@ -2392,8 +2392,8 @@ void PlotHiggsRes2012
     //----------------------------------------------------------------------------
     if(passMVAPreselCuts == true && useJESTemplates == true && (passJetCut[1] == true || passJetCut[2] == true)){
       if(fDecay == 6 && useWgammaTemplates == true){
-        if(passJetCut[1] == true) histo_Wgamma_CMS_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-        if(passJetCut[2] == true) histo_Wgamma_CMS_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[1] == true) histo_Wgamma_CMS_hww_MVAJESBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+        if(passJetCut[2] == true) histo_Wgamma_CMS_hww_MVAJESBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
       }
     }
   } // end loop over systematics bkg events
@@ -2900,21 +2900,21 @@ void PlotHiggsRes2012
       if(scaleWg > 0){
       	histo_Wgamma->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
       	if(useExpTemplates == true){ // Allow for different normalization
-      	  histo_Wgamma_CMS_MVALepEffBoundingUp  ->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
-      	  histo_Wgamma_CMS_MVALepEffBoundingDown->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
-      	  histo_Wgamma_CMS_MVALepResBoundingUp  ->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
-      	  histo_Wgamma_CMS_MVALepResBoundingDown->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
-      	  histo_Wgamma_CMS_MVAMETResBoundingUp  ->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
+      	  histo_Wgamma_CMS_hww_MVALepEffBoundingUp  ->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
+      	  histo_Wgamma_CMS_hww_MVALepEffBoundingDown->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
+      	  histo_Wgamma_CMS_hww_MVALepResBoundingUp  ->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
+      	  histo_Wgamma_CMS_hww_MVALepResBoundingDown->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
+      	  histo_Wgamma_CMS_hww_MVAMETResBoundingUp  ->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/scaleWg);
       	}
       }
       else {
       	histo_Wgamma->Add(bgdMVADecays[useVar][6]);
       	if(useExpTemplates == true){ // Allow for different normalization
-      	  histo_Wgamma_CMS_MVALepEffBoundingUp  ->Add(bgdMVADecays[useVar][6]);
-      	  histo_Wgamma_CMS_MVALepEffBoundingDown->Add(bgdMVADecays[useVar][6]);
-      	  histo_Wgamma_CMS_MVALepResBoundingUp  ->Add(bgdMVADecays[useVar][6]);
-      	  histo_Wgamma_CMS_MVALepResBoundingDown->Add(bgdMVADecays[useVar][6]);
-      	  histo_Wgamma_CMS_MVAMETResBoundingUp  ->Add(bgdMVADecays[useVar][6]);
+      	  histo_Wgamma_CMS_hww_MVALepEffBoundingUp  ->Add(bgdMVADecays[useVar][6]);
+      	  histo_Wgamma_CMS_hww_MVALepEffBoundingDown->Add(bgdMVADecays[useVar][6]);
+      	  histo_Wgamma_CMS_hww_MVALepResBoundingUp  ->Add(bgdMVADecays[useVar][6]);
+      	  histo_Wgamma_CMS_hww_MVALepResBoundingDown->Add(bgdMVADecays[useVar][6]);
+      	  histo_Wgamma_CMS_hww_MVAMETResBoundingUp  ->Add(bgdMVADecays[useVar][6]);
       	}
       }
     }
@@ -3065,31 +3065,31 @@ void PlotHiggsRes2012
     //----------------------------------------------------------------------------
     if(useStatTemplates == true){
       histo_ttH_CMS_MVAttHStatBounding_8TeVUp	   ->Rebin(rebinMVAHist);
-      histo_ttH_CMS_MVAttHStatBoundingDown         ->Rebin(rebinMVAHist);
+      histo_ttH_CMS_MVAttHStatBounding_8TeVDown         ->Rebin(rebinMVAHist);
       histo_ZH_CMS_MVAZHStatBounding_8TeVUp	   ->Rebin(rebinMVAHist);
-      histo_ZH_CMS_MVAZHStatBoundingDown	   ->Rebin(rebinMVAHist);
+      histo_ZH_CMS_MVAZHStatBounding_8TeVDown	   ->Rebin(rebinMVAHist);
       histo_WH_CMS_MVAWHStatBounding_8TeVUp	   ->Rebin(rebinMVAHist);
-      histo_WH_CMS_MVAWHStatBoundingDown	   ->Rebin(rebinMVAHist);
+      histo_WH_CMS_MVAWHStatBounding_8TeVDown	   ->Rebin(rebinMVAHist);
       histo_qqH_CMS_MVAqqHStatBounding_8TeVUp	   ->Rebin(rebinMVAHist);
-      histo_qqH_CMS_MVAqqHStatBoundingDown         ->Rebin(rebinMVAHist);
+      histo_qqH_CMS_MVAqqHStatBounding_8TeVDown         ->Rebin(rebinMVAHist);
       histo_ggH_CMS_MVAggHStatBounding_8TeVUp      ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_MVAggHStatBoundingDown         ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_MVAggHStatBounding_8TeVDown         ->Rebin(rebinMVAHist);
       histo_qqWW_CMS_MVAqqWWStatBounding_8TeVUp    ->Rebin(rebinMVAHist);
-      histo_qqWW_CMS_MVAqqWWStatBoundingDown       ->Rebin(rebinMVAHist);
+      histo_qqWW_CMS_MVAqqWWStatBounding_8TeVDown       ->Rebin(rebinMVAHist);
       histo_ggWW_CMS_MVAggWWStatBounding_8TeVUp    ->Rebin(rebinMVAHist);
-      histo_ggWW_CMS_MVAggWWStatBoundingDown       ->Rebin(rebinMVAHist);
+      histo_ggWW_CMS_MVAggWWStatBounding_8TeVDown       ->Rebin(rebinMVAHist);
       histo_VV_CMS_MVAVVStatBounding_8TeVUp	   ->Rebin(rebinMVAHist);
-      histo_VV_CMS_MVAVVStatBoundingDown	   ->Rebin(rebinMVAHist);
+      histo_VV_CMS_MVAVVStatBounding_8TeVDown	   ->Rebin(rebinMVAHist);
       histo_Top_CMS_MVATopStatBounding_8TeVUp	   ->Rebin(rebinMVAHist);
-      histo_Top_CMS_MVATopStatBoundingDown         ->Rebin(rebinMVAHist);
+      histo_Top_CMS_MVATopStatBounding_8TeVDown         ->Rebin(rebinMVAHist);
       histo_Zjets_CMS_MVAZjetsStatBounding_8TeVUp  ->Rebin(rebinMVAHist);
-      histo_Zjets_CMS_MVAZjetsStatBoundingDown     ->Rebin(rebinMVAHist);
+      histo_Zjets_CMS_MVAZjetsStatBounding_8TeVDown     ->Rebin(rebinMVAHist);
       histo_Wjets_CMS_MVAWjetsStatBounding_8TeVUp  ->Rebin(rebinMVAHist);
-      histo_Wjets_CMS_MVAWjetsStatBoundingDown     ->Rebin(rebinMVAHist);
+      histo_Wjets_CMS_MVAWjetsStatBounding_8TeVDown     ->Rebin(rebinMVAHist);
       histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVUp->Rebin(rebinMVAHist);
-      histo_Wgamma_CMS_MVAWgammaStatBoundingDown   ->Rebin(rebinMVAHist);
+      histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVDown   ->Rebin(rebinMVAHist);
       histo_Ztt_CMS_MVAZttStatBounding_8TeVUp	   ->Rebin(rebinMVAHist);
-      histo_Ztt_CMS_MVAZttStatBoundingDown         ->Rebin(rebinMVAHist);
+      histo_Ztt_CMS_MVAZttStatBounding_8TeVDown         ->Rebin(rebinMVAHist);
       if(histo_ttH_CMS_MVAttHStatBounding_8TeVUp->GetNbinsX() != histo_ttH->GetNbinsX()) {printf("PROBLEMMMMM\n");return;}
       for(int i=1; i<=histo_ttH->GetNbinsX(); i++){
         double factorUp = +1.0; double factorDown = -1.0;
@@ -3099,58 +3099,58 @@ void PlotHiggsRes2012
 	  else                                      {factorUp = +1.0; factorDown = -1.0;}
 	}
     	histo_ttH_CMS_MVAttHStatBounding_8TeVUp      ->SetBinContent(i,TMath::Max(histo_ttH   ->GetBinContent(i)+factorUp  *histo_ttH   ->GetBinError(i),0.000001));
-    	histo_ttH_CMS_MVAttHStatBoundingDown         ->SetBinContent(i,TMath::Max(histo_ttH   ->GetBinContent(i)+factorDown*histo_ttH   ->GetBinError(i),0.000001));
+    	histo_ttH_CMS_MVAttHStatBounding_8TeVDown         ->SetBinContent(i,TMath::Max(histo_ttH   ->GetBinContent(i)+factorDown*histo_ttH   ->GetBinError(i),0.000001));
     	histo_ZH_CMS_MVAZHStatBounding_8TeVUp	     ->SetBinContent(i,TMath::Max(histo_ZH    ->GetBinContent(i)+factorUp  *histo_ZH    ->GetBinError(i),0.000001));
-    	histo_ZH_CMS_MVAZHStatBoundingDown           ->SetBinContent(i,TMath::Max(histo_ZH    ->GetBinContent(i)+factorDown*histo_ZH    ->GetBinError(i),0.000001));
+    	histo_ZH_CMS_MVAZHStatBounding_8TeVDown           ->SetBinContent(i,TMath::Max(histo_ZH    ->GetBinContent(i)+factorDown*histo_ZH    ->GetBinError(i),0.000001));
     	histo_WH_CMS_MVAWHStatBounding_8TeVUp	     ->SetBinContent(i,TMath::Max(histo_WH    ->GetBinContent(i)+factorUp  *histo_WH    ->GetBinError(i),0.000001));
-    	histo_WH_CMS_MVAWHStatBoundingDown           ->SetBinContent(i,TMath::Max(histo_WH    ->GetBinContent(i)+factorDown*histo_WH    ->GetBinError(i),0.000001));
+    	histo_WH_CMS_MVAWHStatBounding_8TeVDown           ->SetBinContent(i,TMath::Max(histo_WH    ->GetBinContent(i)+factorDown*histo_WH    ->GetBinError(i),0.000001));
     	histo_qqH_CMS_MVAqqHStatBounding_8TeVUp      ->SetBinContent(i,TMath::Max(histo_qqH   ->GetBinContent(i)+factorUp  *histo_qqH   ->GetBinError(i),0.000001));
-    	histo_qqH_CMS_MVAqqHStatBoundingDown         ->SetBinContent(i,TMath::Max(histo_qqH   ->GetBinContent(i)+factorDown*histo_qqH   ->GetBinError(i),0.000001));
+    	histo_qqH_CMS_MVAqqHStatBounding_8TeVDown         ->SetBinContent(i,TMath::Max(histo_qqH   ->GetBinContent(i)+factorDown*histo_qqH   ->GetBinError(i),0.000001));
     	histo_ggH_CMS_MVAggHStatBounding_8TeVUp      ->SetBinContent(i,TMath::Max(histo_ggH   ->GetBinContent(i)+factorUp  *histo_ggH   ->GetBinError(i),0.000001));
-    	histo_ggH_CMS_MVAggHStatBoundingDown         ->SetBinContent(i,TMath::Max(histo_ggH   ->GetBinContent(i)+factorDown*histo_ggH   ->GetBinError(i),0.000001));
+    	histo_ggH_CMS_MVAggHStatBounding_8TeVDown         ->SetBinContent(i,TMath::Max(histo_ggH   ->GetBinContent(i)+factorDown*histo_ggH   ->GetBinError(i),0.000001));
     	histo_qqWW_CMS_MVAqqWWStatBounding_8TeVUp    ->SetBinContent(i,TMath::Max(histo_qqWW  ->GetBinContent(i)+factorUp  *histo_qqWW  ->GetBinError(i),0.000001));
-    	histo_qqWW_CMS_MVAqqWWStatBoundingDown       ->SetBinContent(i,TMath::Max(histo_qqWW  ->GetBinContent(i)+factorDown*histo_qqWW  ->GetBinError(i),0.000001));
+    	histo_qqWW_CMS_MVAqqWWStatBounding_8TeVDown       ->SetBinContent(i,TMath::Max(histo_qqWW  ->GetBinContent(i)+factorDown*histo_qqWW  ->GetBinError(i),0.000001));
     	histo_ggWW_CMS_MVAggWWStatBounding_8TeVUp    ->SetBinContent(i,TMath::Max(histo_ggWW  ->GetBinContent(i)+factorUp  *histo_ggWW  ->GetBinError(i),0.000001));
-    	histo_ggWW_CMS_MVAggWWStatBoundingDown       ->SetBinContent(i,TMath::Max(histo_ggWW  ->GetBinContent(i)+factorDown*histo_ggWW  ->GetBinError(i),0.000001));
+    	histo_ggWW_CMS_MVAggWWStatBounding_8TeVDown       ->SetBinContent(i,TMath::Max(histo_ggWW  ->GetBinContent(i)+factorDown*histo_ggWW  ->GetBinError(i),0.000001));
     	histo_VV_CMS_MVAVVStatBounding_8TeVUp	     ->SetBinContent(i,TMath::Max(histo_VV    ->GetBinContent(i)+factorUp  *histo_VV    ->GetBinError(i),0.000001));
-    	histo_VV_CMS_MVAVVStatBoundingDown           ->SetBinContent(i,TMath::Max(histo_VV    ->GetBinContent(i)+factorDown*histo_VV    ->GetBinError(i),0.000001));
+    	histo_VV_CMS_MVAVVStatBounding_8TeVDown           ->SetBinContent(i,TMath::Max(histo_VV    ->GetBinContent(i)+factorDown*histo_VV    ->GetBinError(i),0.000001));
     	histo_Top_CMS_MVATopStatBounding_8TeVUp      ->SetBinContent(i,TMath::Max(histo_Top   ->GetBinContent(i)+factorUp  *histo_Top   ->GetBinError(i),0.000001));
-    	histo_Top_CMS_MVATopStatBoundingDown         ->SetBinContent(i,TMath::Max(histo_Top   ->GetBinContent(i)+factorDown*histo_Top   ->GetBinError(i),0.000001));
+    	histo_Top_CMS_MVATopStatBounding_8TeVDown         ->SetBinContent(i,TMath::Max(histo_Top   ->GetBinContent(i)+factorDown*histo_Top   ->GetBinError(i),0.000001));
     	histo_Zjets_CMS_MVAZjetsStatBounding_8TeVUp  ->SetBinContent(i,TMath::Max(histo_Zjets ->GetBinContent(i)+factorUp  *histo_Zjets ->GetBinError(i),0.000001));
-    	histo_Zjets_CMS_MVAZjetsStatBoundingDown     ->SetBinContent(i,TMath::Max(histo_Zjets ->GetBinContent(i)+factorDown*histo_Zjets ->GetBinError(i),0.000001));
+    	histo_Zjets_CMS_MVAZjetsStatBounding_8TeVDown     ->SetBinContent(i,TMath::Max(histo_Zjets ->GetBinContent(i)+factorDown*histo_Zjets ->GetBinError(i),0.000001));
     	histo_Wjets_CMS_MVAWjetsStatBounding_8TeVUp  ->SetBinContent(i,TMath::Max(histo_Wjets ->GetBinContent(i)+factorUp  *histo_Wjets ->GetBinError(i),0.000001));
-    	histo_Wjets_CMS_MVAWjetsStatBoundingDown     ->SetBinContent(i,TMath::Max(histo_Wjets ->GetBinContent(i)+factorDown*histo_Wjets ->GetBinError(i),0.000001));
+    	histo_Wjets_CMS_MVAWjetsStatBounding_8TeVDown     ->SetBinContent(i,TMath::Max(histo_Wjets ->GetBinContent(i)+factorDown*histo_Wjets ->GetBinError(i),0.000001));
     	histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVUp->SetBinContent(i,TMath::Max(histo_Wgamma->GetBinContent(i)+factorUp  *histo_Wgamma->GetBinError(i),0.000001));
-    	histo_Wgamma_CMS_MVAWgammaStatBoundingDown   ->SetBinContent(i,TMath::Max(histo_Wgamma->GetBinContent(i)+factorDown*histo_Wgamma->GetBinError(i),0.000001));
+    	histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVDown   ->SetBinContent(i,TMath::Max(histo_Wgamma->GetBinContent(i)+factorDown*histo_Wgamma->GetBinError(i),0.000001));
     	histo_Ztt_CMS_MVAZttStatBounding_8TeVUp      ->SetBinContent(i,TMath::Max(histo_Ztt   ->GetBinContent(i)+factorUp  *histo_Ztt   ->GetBinError(i),0.000001));
-    	histo_Ztt_CMS_MVAZttStatBoundingDown         ->SetBinContent(i,TMath::Max(histo_Ztt   ->GetBinContent(i)+factorDown*histo_Ztt   ->GetBinError(i),0.000001));
+    	histo_Ztt_CMS_MVAZttStatBounding_8TeVDown         ->SetBinContent(i,TMath::Max(histo_Ztt   ->GetBinContent(i)+factorDown*histo_Ztt   ->GetBinError(i),0.000001));
       }
       histo_ttH_CMS_MVAttHStatBounding_8TeVUp	    ->Write();
-      histo_ttH_CMS_MVAttHStatBoundingDown          ->Write();
+      histo_ttH_CMS_MVAttHStatBounding_8TeVDown          ->Write();
       histo_ZH_CMS_MVAZHStatBounding_8TeVUp	    ->Write();
-      histo_ZH_CMS_MVAZHStatBoundingDown	    ->Write();
+      histo_ZH_CMS_MVAZHStatBounding_8TeVDown	    ->Write();
       histo_WH_CMS_MVAWHStatBounding_8TeVUp	    ->Write();
-      histo_WH_CMS_MVAWHStatBoundingDown	    ->Write();
+      histo_WH_CMS_MVAWHStatBounding_8TeVDown	    ->Write();
       histo_qqH_CMS_MVAqqHStatBounding_8TeVUp	    ->Write();
-      histo_qqH_CMS_MVAqqHStatBoundingDown          ->Write();
+      histo_qqH_CMS_MVAqqHStatBounding_8TeVDown          ->Write();
       histo_ggH_CMS_MVAggHStatBounding_8TeVUp	    ->Write();
-      histo_ggH_CMS_MVAggHStatBoundingDown          ->Write();
+      histo_ggH_CMS_MVAggHStatBounding_8TeVDown          ->Write();
       histo_qqWW_CMS_MVAqqWWStatBounding_8TeVUp     ->Write();
-      histo_qqWW_CMS_MVAqqWWStatBoundingDown        ->Write();
+      histo_qqWW_CMS_MVAqqWWStatBounding_8TeVDown        ->Write();
       histo_ggWW_CMS_MVAggWWStatBounding_8TeVUp     ->Write();
-      histo_ggWW_CMS_MVAggWWStatBoundingDown        ->Write();
+      histo_ggWW_CMS_MVAggWWStatBounding_8TeVDown        ->Write();
       histo_VV_CMS_MVAVVStatBounding_8TeVUp	    ->Write();
-      histo_VV_CMS_MVAVVStatBoundingDown	    ->Write();
+      histo_VV_CMS_MVAVVStatBounding_8TeVDown	    ->Write();
       histo_Top_CMS_MVATopStatBounding_8TeVUp	    ->Write();
-      histo_Top_CMS_MVATopStatBoundingDown          ->Write();
+      histo_Top_CMS_MVATopStatBounding_8TeVDown          ->Write();
       histo_Zjets_CMS_MVAZjetsStatBounding_8TeVUp   ->Write();
-      histo_Zjets_CMS_MVAZjetsStatBoundingDown      ->Write();
+      histo_Zjets_CMS_MVAZjetsStatBounding_8TeVDown      ->Write();
       histo_Wjets_CMS_MVAWjetsStatBounding_8TeVUp   ->Write();
-      histo_Wjets_CMS_MVAWjetsStatBoundingDown      ->Write();
+      histo_Wjets_CMS_MVAWjetsStatBounding_8TeVDown      ->Write();
       histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVUp ->Write();
-      histo_Wgamma_CMS_MVAWgammaStatBoundingDown    ->Write();
+      histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVDown    ->Write();
       histo_Ztt_CMS_MVAZttStatBounding_8TeVUp	    ->Write();
-      histo_Ztt_CMS_MVAZttStatBoundingDown          ->Write();
+      histo_Ztt_CMS_MVAZttStatBounding_8TeVDown          ->Write();
     }
 
     //----------------------------------------------------------------------------
@@ -3200,12 +3200,12 @@ void PlotHiggsRes2012
     // ggH Systematics Shapes : missing higher order corrections
     //----------------------------------------------------------------------------
     if(useggHTemplates == true){
-      histo_ggH_CMS_MVAggHBoundingUp  ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_MVAggHBoundingDown->Rebin(rebinMVAHist);
-      histo_ggH_CMS_MVAggHBoundingUp  ->Scale(histo_ggH->GetSumOfWeights()/histo_ggH_CMS_MVAggHBoundingUp  ->GetSumOfWeights());
-      histo_ggH_CMS_MVAggHBoundingDown->Scale(histo_ggH->GetSumOfWeights()/histo_ggH_CMS_MVAggHBoundingDown->GetSumOfWeights());
-      histo_ggH_CMS_MVAggHBoundingUp  ->Write();
-      histo_ggH_CMS_MVAggHBoundingDown->Write();
+      histo_ggH_CMS_hww_MVAggHBoundingUp  ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVAggHBoundingDown->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVAggHBoundingUp  ->Scale(histo_ggH->GetSumOfWeights()/histo_ggH_CMS_hww_MVAggHBoundingUp  ->GetSumOfWeights());
+      histo_ggH_CMS_hww_MVAggHBoundingDown->Scale(histo_ggH->GetSumOfWeights()/histo_ggH_CMS_hww_MVAggHBoundingDown->GetSumOfWeights());
+      histo_ggH_CMS_hww_MVAggHBoundingUp  ->Write();
+      histo_ggH_CMS_hww_MVAggHBoundingDown->Write();
     }
  
     //----------------------------------------------------------------------------
@@ -3215,214 +3215,214 @@ void PlotHiggsRes2012
     // - MET Resolution
     //----------------------------------------------------------------------------
     if(useExpTemplates == true){
-      histo_ttH_CMS_MVALepEffBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_ttH_CMS_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_ZH_CMS_MVALepEffBoundingUp  	 ->Rebin(rebinMVAHist);
-      histo_ZH_CMS_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_WH_CMS_MVALepEffBoundingUp  	 ->Rebin(rebinMVAHist);
-      histo_WH_CMS_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_qqH_CMS_MVALepEffBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_qqH_CMS_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_MVALepEffBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_qqWW_CMS_MVALepEffBoundingUp	 ->Rebin(rebinMVAHist);  if(mH < 200) histo_qqWW_CMS_MVALepEffBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_MVALepEffBoundingUp  ->GetSumOfWeights());
-      histo_qqWW_CMS_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);  if(mH < 200) histo_qqWW_CMS_MVALepEffBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_MVALepEffBoundingDown->GetSumOfWeights());
-      histo_ggWW_CMS_MVALepEffBoundingUp	 ->Rebin(rebinMVAHist);  if(mH < 200) histo_ggWW_CMS_MVALepEffBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_MVALepEffBoundingUp  ->GetSumOfWeights());
-      histo_ggWW_CMS_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);  if(mH < 200) histo_ggWW_CMS_MVALepEffBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_MVALepEffBoundingDown->GetSumOfWeights());
-      histo_VV_CMS_MVALepEffBoundingUp  	 ->Rebin(rebinMVAHist);
-      histo_VV_CMS_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_Wgamma_CMS_MVALepEffBoundingUp	 ->Rebin(rebinMVAHist);
-      histo_Wgamma_CMS_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_Ztt_CMS_MVALepEffBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_Ztt_CMS_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_ttH_CMS_MVALepEffBoundingUp 	 ->Write();
-      histo_ttH_CMS_MVALepEffBoundingDown	 ->Write();
-      histo_ZH_CMS_MVALepEffBoundingUp  	 ->Write();
-      histo_ZH_CMS_MVALepEffBoundingDown	 ->Write();
-      histo_WH_CMS_MVALepEffBoundingUp  	 ->Write();
-      histo_WH_CMS_MVALepEffBoundingDown	 ->Write();
-      histo_qqH_CMS_MVALepEffBoundingUp 	 ->Write();
-      histo_qqH_CMS_MVALepEffBoundingDown	 ->Write();
-      histo_ggH_CMS_MVALepEffBoundingUp 	 ->Write();
-      histo_ggH_CMS_MVALepEffBoundingDown	 ->Write();
-      histo_qqWW_CMS_MVALepEffBoundingUp	 ->Write();
-      histo_qqWW_CMS_MVALepEffBoundingDown	 ->Write();
-      histo_ggWW_CMS_MVALepEffBoundingUp	 ->Write();
-      histo_ggWW_CMS_MVALepEffBoundingDown	 ->Write();
-      histo_VV_CMS_MVALepEffBoundingUp  	 ->Write();
-      histo_VV_CMS_MVALepEffBoundingDown	 ->Write();
-      histo_Wgamma_CMS_MVALepEffBoundingUp	 ->Write();
-      histo_Wgamma_CMS_MVALepEffBoundingDown	 ->Write();
-      histo_Ztt_CMS_MVALepEffBoundingUp 	 ->Write();
-      histo_Ztt_CMS_MVALepEffBoundingDown	 ->Write();
+      histo_ttH_CMS_hww_MVALepEffBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_ttH_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_ZH_CMS_hww_MVALepEffBoundingUp  	 ->Rebin(rebinMVAHist);
+      histo_ZH_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_WH_CMS_hww_MVALepEffBoundingUp  	 ->Rebin(rebinMVAHist);
+      histo_WH_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_qqH_CMS_hww_MVALepEffBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_qqH_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVALepEffBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_qqWW_CMS_hww_MVALepEffBoundingUp	 ->Rebin(rebinMVAHist);  if(mH < 200) histo_qqWW_CMS_hww_MVALepEffBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepEffBoundingUp  ->GetSumOfWeights());
+      histo_qqWW_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);  if(mH < 200) histo_qqWW_CMS_hww_MVALepEffBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepEffBoundingDown->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVALepEffBoundingUp	 ->Rebin(rebinMVAHist);  if(mH < 200) histo_ggWW_CMS_hww_MVALepEffBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepEffBoundingUp  ->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);  if(mH < 200) histo_ggWW_CMS_hww_MVALepEffBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepEffBoundingDown->GetSumOfWeights());
+      histo_VV_CMS_hww_MVALepEffBoundingUp  	 ->Rebin(rebinMVAHist);
+      histo_VV_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_Wgamma_CMS_hww_MVALepEffBoundingUp	 ->Rebin(rebinMVAHist);
+      histo_Wgamma_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_Ztt_CMS_hww_MVALepEffBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_Ztt_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_ttH_CMS_hww_MVALepEffBoundingUp 	 ->Write();
+      histo_ttH_CMS_hww_MVALepEffBoundingDown	 ->Write();
+      histo_ZH_CMS_hww_MVALepEffBoundingUp  	 ->Write();
+      histo_ZH_CMS_hww_MVALepEffBoundingDown	 ->Write();
+      histo_WH_CMS_hww_MVALepEffBoundingUp  	 ->Write();
+      histo_WH_CMS_hww_MVALepEffBoundingDown	 ->Write();
+      histo_qqH_CMS_hww_MVALepEffBoundingUp 	 ->Write();
+      histo_qqH_CMS_hww_MVALepEffBoundingDown	 ->Write();
+      histo_ggH_CMS_hww_MVALepEffBoundingUp 	 ->Write();
+      histo_ggH_CMS_hww_MVALepEffBoundingDown	 ->Write();
+      histo_qqWW_CMS_hww_MVALepEffBoundingUp	 ->Write();
+      histo_qqWW_CMS_hww_MVALepEffBoundingDown	 ->Write();
+      histo_ggWW_CMS_hww_MVALepEffBoundingUp	 ->Write();
+      histo_ggWW_CMS_hww_MVALepEffBoundingDown	 ->Write();
+      histo_VV_CMS_hww_MVALepEffBoundingUp  	 ->Write();
+      histo_VV_CMS_hww_MVALepEffBoundingDown	 ->Write();
+      histo_Wgamma_CMS_hww_MVALepEffBoundingUp	 ->Write();
+      histo_Wgamma_CMS_hww_MVALepEffBoundingDown	 ->Write();
+      histo_Ztt_CMS_hww_MVALepEffBoundingUp 	 ->Write();
+      histo_Ztt_CMS_hww_MVALepEffBoundingDown	 ->Write();
 
-      histo_ttH_CMS_MVALepResBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_ttH_CMS_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_ZH_CMS_MVALepResBoundingUp  	 ->Rebin(rebinMVAHist);
-      histo_ZH_CMS_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_WH_CMS_MVALepResBoundingUp  	 ->Rebin(rebinMVAHist);
-      histo_WH_CMS_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_qqH_CMS_MVALepResBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_qqH_CMS_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_MVALepResBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_qqWW_CMS_MVALepResBoundingUp	 ->Rebin(rebinMVAHist); if(mH < 200) histo_qqWW_CMS_MVALepResBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_MVALepResBoundingUp  ->GetSumOfWeights());
-      histo_qqWW_CMS_MVALepResBoundingDown	 ->Rebin(rebinMVAHist); if(mH < 200) histo_qqWW_CMS_MVALepResBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_MVALepResBoundingDown->GetSumOfWeights());
-      histo_ggWW_CMS_MVALepResBoundingUp	 ->Rebin(rebinMVAHist); if(mH < 200) histo_ggWW_CMS_MVALepResBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_MVALepResBoundingUp  ->GetSumOfWeights());
-      histo_ggWW_CMS_MVALepResBoundingDown	 ->Rebin(rebinMVAHist); if(mH < 200) histo_ggWW_CMS_MVALepResBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_MVALepResBoundingDown->GetSumOfWeights());
-      histo_VV_CMS_MVALepResBoundingUp  	 ->Rebin(rebinMVAHist);
-      histo_VV_CMS_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_Top_CMS_MVALepResBoundingUp 	 ->Rebin(rebinMVAHist);  histo_Top_CMS_MVALepResBoundingUp    ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_MVALepResBoundingUp  ->GetSumOfWeights());
-      histo_Top_CMS_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);  histo_Top_CMS_MVALepResBoundingDown  ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_MVALepResBoundingDown->GetSumOfWeights());
-      histo_Wgamma_CMS_MVALepResBoundingUp	 ->Rebin(rebinMVAHist);
-      histo_Wgamma_CMS_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_Ztt_CMS_MVALepResBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_Ztt_CMS_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_ttH_CMS_MVALepResBoundingUp 	 ->Write();
-      histo_ttH_CMS_MVALepResBoundingDown	 ->Write();
-      histo_ZH_CMS_MVALepResBoundingUp  	 ->Write();
-      histo_ZH_CMS_MVALepResBoundingDown	 ->Write();
-      histo_WH_CMS_MVALepResBoundingUp  	 ->Write();
-      histo_WH_CMS_MVALepResBoundingDown	 ->Write();
-      histo_qqH_CMS_MVALepResBoundingUp 	 ->Write();
-      histo_qqH_CMS_MVALepResBoundingDown	 ->Write();
-      histo_ggH_CMS_MVALepResBoundingUp 	 ->Write();
-      histo_ggH_CMS_MVALepResBoundingDown	 ->Write();
-      histo_qqWW_CMS_MVALepResBoundingUp	 ->Write();
-      histo_qqWW_CMS_MVALepResBoundingDown	 ->Write();
-      histo_ggWW_CMS_MVALepResBoundingUp	 ->Write();
-      histo_ggWW_CMS_MVALepResBoundingDown	 ->Write();
-      histo_VV_CMS_MVALepResBoundingUp  	 ->Write();
-      histo_VV_CMS_MVALepResBoundingDown	 ->Write();
-      histo_Top_CMS_MVALepResBoundingUp 	 ->Write();
-      histo_Top_CMS_MVALepResBoundingDown	 ->Write();
-      histo_Wgamma_CMS_MVALepResBoundingUp	 ->Write();
-      histo_Wgamma_CMS_MVALepResBoundingDown	 ->Write();
-      histo_Ztt_CMS_MVALepResBoundingUp 	 ->Write();
-      histo_Ztt_CMS_MVALepResBoundingDown	 ->Write();
+      histo_ttH_CMS_hww_MVALepResBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_ttH_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_ZH_CMS_hww_MVALepResBoundingUp  	 ->Rebin(rebinMVAHist);
+      histo_ZH_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_WH_CMS_hww_MVALepResBoundingUp  	 ->Rebin(rebinMVAHist);
+      histo_WH_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_qqH_CMS_hww_MVALepResBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_qqH_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVALepResBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_qqWW_CMS_hww_MVALepResBoundingUp	 ->Rebin(rebinMVAHist); if(mH < 200) histo_qqWW_CMS_hww_MVALepResBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepResBoundingUp  ->GetSumOfWeights());
+      histo_qqWW_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist); if(mH < 200) histo_qqWW_CMS_hww_MVALepResBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepResBoundingDown->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVALepResBoundingUp	 ->Rebin(rebinMVAHist); if(mH < 200) histo_ggWW_CMS_hww_MVALepResBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepResBoundingUp  ->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist); if(mH < 200) histo_ggWW_CMS_hww_MVALepResBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepResBoundingDown->GetSumOfWeights());
+      histo_VV_CMS_hww_MVALepResBoundingUp  	 ->Rebin(rebinMVAHist);
+      histo_VV_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_Top_CMS_hww_MVALepResBoundingUp 	 ->Rebin(rebinMVAHist);  histo_Top_CMS_hww_MVALepResBoundingUp    ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVALepResBoundingUp  ->GetSumOfWeights());
+      histo_Top_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);  histo_Top_CMS_hww_MVALepResBoundingDown  ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVALepResBoundingDown->GetSumOfWeights());
+      histo_Wgamma_CMS_hww_MVALepResBoundingUp	 ->Rebin(rebinMVAHist);
+      histo_Wgamma_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_Ztt_CMS_hww_MVALepResBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_Ztt_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_ttH_CMS_hww_MVALepResBoundingUp 	 ->Write();
+      histo_ttH_CMS_hww_MVALepResBoundingDown	 ->Write();
+      histo_ZH_CMS_hww_MVALepResBoundingUp  	 ->Write();
+      histo_ZH_CMS_hww_MVALepResBoundingDown	 ->Write();
+      histo_WH_CMS_hww_MVALepResBoundingUp  	 ->Write();
+      histo_WH_CMS_hww_MVALepResBoundingDown	 ->Write();
+      histo_qqH_CMS_hww_MVALepResBoundingUp 	 ->Write();
+      histo_qqH_CMS_hww_MVALepResBoundingDown	 ->Write();
+      histo_ggH_CMS_hww_MVALepResBoundingUp 	 ->Write();
+      histo_ggH_CMS_hww_MVALepResBoundingDown	 ->Write();
+      histo_qqWW_CMS_hww_MVALepResBoundingUp	 ->Write();
+      histo_qqWW_CMS_hww_MVALepResBoundingDown	 ->Write();
+      histo_ggWW_CMS_hww_MVALepResBoundingUp	 ->Write();
+      histo_ggWW_CMS_hww_MVALepResBoundingDown	 ->Write();
+      histo_VV_CMS_hww_MVALepResBoundingUp  	 ->Write();
+      histo_VV_CMS_hww_MVALepResBoundingDown	 ->Write();
+      histo_Top_CMS_hww_MVALepResBoundingUp 	 ->Write();
+      histo_Top_CMS_hww_MVALepResBoundingDown	 ->Write();
+      histo_Wgamma_CMS_hww_MVALepResBoundingUp	 ->Write();
+      histo_Wgamma_CMS_hww_MVALepResBoundingDown	 ->Write();
+      histo_Ztt_CMS_hww_MVALepResBoundingUp 	 ->Write();
+      histo_Ztt_CMS_hww_MVALepResBoundingDown	 ->Write();
 
-      histo_ttH_CMS_MVAMETResBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_ttH_CMS_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_ZH_CMS_MVAMETResBoundingUp  	 ->Rebin(rebinMVAHist);
-      histo_ZH_CMS_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_WH_CMS_MVAMETResBoundingUp  	 ->Rebin(rebinMVAHist);
-      histo_WH_CMS_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_qqH_CMS_MVAMETResBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_qqH_CMS_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_MVAMETResBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_qqWW_CMS_MVAMETResBoundingUp	 ->Rebin(rebinMVAHist); 
-      histo_qqWW_CMS_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist); 
-      histo_ggWW_CMS_MVAMETResBoundingUp	 ->Rebin(rebinMVAHist); 
-      histo_ggWW_CMS_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist); 
-      histo_VV_CMS_MVAMETResBoundingUp  	 ->Rebin(rebinMVAHist);
-      histo_VV_CMS_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_Top_CMS_MVAMETResBoundingUp 	 ->Rebin(rebinMVAHist); 
-      histo_Top_CMS_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist); 
-      histo_Wgamma_CMS_MVAMETResBoundingUp	 ->Rebin(rebinMVAHist);
-      histo_Wgamma_CMS_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_Ztt_CMS_MVAMETResBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_Ztt_CMS_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
-      if(histo_qqWW_CMS_MVAMETResBoundingUp->GetNbinsX() != histo_qqWW->GetNbinsX()) {printf("Different binning in METRes!\n"); return;}
+      histo_ttH_CMS_hww_MVAMETResBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_ttH_CMS_hww_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_ZH_CMS_hww_MVAMETResBoundingUp  	 ->Rebin(rebinMVAHist);
+      histo_ZH_CMS_hww_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_WH_CMS_hww_MVAMETResBoundingUp  	 ->Rebin(rebinMVAHist);
+      histo_WH_CMS_hww_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_qqH_CMS_hww_MVAMETResBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_qqH_CMS_hww_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVAMETResBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_qqWW_CMS_hww_MVAMETResBoundingUp	 ->Rebin(rebinMVAHist); 
+      histo_qqWW_CMS_hww_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist); 
+      histo_ggWW_CMS_hww_MVAMETResBoundingUp	 ->Rebin(rebinMVAHist); 
+      histo_ggWW_CMS_hww_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist); 
+      histo_VV_CMS_hww_MVAMETResBoundingUp  	 ->Rebin(rebinMVAHist);
+      histo_VV_CMS_hww_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_Top_CMS_hww_MVAMETResBoundingUp 	 ->Rebin(rebinMVAHist); 
+      histo_Top_CMS_hww_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist); 
+      histo_Wgamma_CMS_hww_MVAMETResBoundingUp	 ->Rebin(rebinMVAHist);
+      histo_Wgamma_CMS_hww_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_Ztt_CMS_hww_MVAMETResBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_Ztt_CMS_hww_MVAMETResBoundingDown	 ->Rebin(rebinMVAHist);
+      if(histo_qqWW_CMS_hww_MVAMETResBoundingUp->GetNbinsX() != histo_qqWW->GetNbinsX()) {printf("Different binning in METRes!\n"); return;}
       double mean,up,diff;
-      for(int i=1; i<=histo_ttH_CMS_MVAMETResBoundingUp->GetNbinsX(); i++){
+      for(int i=1; i<=histo_ttH_CMS_hww_MVAMETResBoundingUp->GetNbinsX(); i++){
       
         mean = histo_ttH                        ->GetBinContent(i);
-        up   = histo_ttH_CMS_MVAMETResBoundingUp->GetBinContent(i);
+        up   = histo_ttH_CMS_hww_MVAMETResBoundingUp->GetBinContent(i);
         diff = TMath::Abs(mean-up);
-        if     (mean-up >0) histo_ttH_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
-        else		    histo_ttH_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
+        if     (mean-up >0) histo_ttH_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
+        else		    histo_ttH_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
 
         mean = histo_ZH                        ->GetBinContent(i);
-        up   = histo_ZH_CMS_MVAMETResBoundingUp->GetBinContent(i);
+        up   = histo_ZH_CMS_hww_MVAMETResBoundingUp->GetBinContent(i);
         diff = TMath::Abs(mean-up);
-        if     (mean-up >0) histo_ZH_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
-        else		    histo_ZH_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
+        if     (mean-up >0) histo_ZH_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
+        else		    histo_ZH_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
 
         mean = histo_WH                        ->GetBinContent(i);
-        up   = histo_WH_CMS_MVAMETResBoundingUp->GetBinContent(i);
+        up   = histo_WH_CMS_hww_MVAMETResBoundingUp->GetBinContent(i);
         diff = TMath::Abs(mean-up);
-        if     (mean-up >0) histo_WH_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
-        else		    histo_WH_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
+        if     (mean-up >0) histo_WH_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
+        else		    histo_WH_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
 
         mean = histo_qqH                        ->GetBinContent(i);
-        up   = histo_qqH_CMS_MVAMETResBoundingUp->GetBinContent(i);
+        up   = histo_qqH_CMS_hww_MVAMETResBoundingUp->GetBinContent(i);
         diff = TMath::Abs(mean-up);
-        if     (mean-up >0) histo_qqH_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
-        else		    histo_qqH_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
+        if     (mean-up >0) histo_qqH_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
+        else		    histo_qqH_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
 
         mean = histo_ggH                        ->GetBinContent(i);
-        up   = histo_ggH_CMS_MVAMETResBoundingUp->GetBinContent(i);
+        up   = histo_ggH_CMS_hww_MVAMETResBoundingUp->GetBinContent(i);
         diff = TMath::Abs(mean-up);
-        if     (mean-up >0) histo_ggH_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
-        else		    histo_ggH_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
+        if     (mean-up >0) histo_ggH_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
+        else		    histo_ggH_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
 
         mean = histo_qqWW                        ->GetBinContent(i);
-        up   = histo_qqWW_CMS_MVAMETResBoundingUp->GetBinContent(i);
+        up   = histo_qqWW_CMS_hww_MVAMETResBoundingUp->GetBinContent(i);
         diff = TMath::Abs(mean-up);
-        if     (mean-up >0) histo_qqWW_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
-        else		    histo_qqWW_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
+        if     (mean-up >0) histo_qqWW_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
+        else		    histo_qqWW_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
 
         mean = histo_ggWW                        ->GetBinContent(i);
-        up   = histo_ggWW_CMS_MVAMETResBoundingUp->GetBinContent(i);
+        up   = histo_ggWW_CMS_hww_MVAMETResBoundingUp->GetBinContent(i);
         diff = TMath::Abs(mean-up);
-        if     (mean-up >0) histo_ggWW_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
-        else		    histo_ggWW_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
+        if     (mean-up >0) histo_ggWW_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
+        else		    histo_ggWW_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
 
         mean = histo_VV                        ->GetBinContent(i);
-        up   = histo_VV_CMS_MVAMETResBoundingUp->GetBinContent(i);
+        up   = histo_VV_CMS_hww_MVAMETResBoundingUp->GetBinContent(i);
         diff = TMath::Abs(mean-up);
-        if     (mean-up >0) histo_VV_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
-        else		    histo_VV_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
+        if     (mean-up >0) histo_VV_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
+        else		    histo_VV_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
 
         mean = histo_Top                        ->GetBinContent(i);
-        up   = histo_Top_CMS_MVAMETResBoundingUp->GetBinContent(i);
+        up   = histo_Top_CMS_hww_MVAMETResBoundingUp->GetBinContent(i);
         diff = TMath::Abs(mean-up);
-        if     (mean-up >0) histo_Top_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
-        else		    histo_Top_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
+        if     (mean-up >0) histo_Top_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
+        else		    histo_Top_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
 
         mean = histo_Wgamma                        ->GetBinContent(i);
-        up   = histo_Wgamma_CMS_MVAMETResBoundingUp->GetBinContent(i);
+        up   = histo_Wgamma_CMS_hww_MVAMETResBoundingUp->GetBinContent(i);
         diff = TMath::Abs(mean-up);
-        if     (mean-up >0) histo_Wgamma_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
-        else		    histo_Wgamma_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
+        if     (mean-up >0) histo_Wgamma_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
+        else		    histo_Wgamma_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
 
         mean = histo_Ztt                        ->GetBinContent(i);
-        up   = histo_Ztt_CMS_MVAMETResBoundingUp->GetBinContent(i);
+        up   = histo_Ztt_CMS_hww_MVAMETResBoundingUp->GetBinContent(i);
         diff = TMath::Abs(mean-up);
-        if     (mean-up >0) histo_Ztt_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
-        else		    histo_Ztt_CMS_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
+        if     (mean-up >0) histo_Ztt_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
+        else		    histo_Ztt_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
       }
 
-      if(mH < 200) histo_qqWW_CMS_MVAMETResBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_MVAMETResBoundingUp  ->GetSumOfWeights());
-      if(mH < 200) histo_qqWW_CMS_MVAMETResBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_MVAMETResBoundingDown->GetSumOfWeights());
-      if(mH < 200) histo_ggWW_CMS_MVAMETResBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_MVAMETResBoundingUp  ->GetSumOfWeights());
-      if(mH < 200) histo_ggWW_CMS_MVAMETResBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_MVAMETResBoundingDown->GetSumOfWeights());
-      histo_Top_CMS_MVAMETResBoundingUp    ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_MVAMETResBoundingUp  ->GetSumOfWeights());
-      histo_Top_CMS_MVAMETResBoundingDown  ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_MVAMETResBoundingDown->GetSumOfWeights());
+      if(mH < 200) histo_qqWW_CMS_hww_MVAMETResBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAMETResBoundingUp  ->GetSumOfWeights());
+      if(mH < 200) histo_qqWW_CMS_hww_MVAMETResBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAMETResBoundingDown->GetSumOfWeights());
+      if(mH < 200) histo_ggWW_CMS_hww_MVAMETResBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAMETResBoundingUp  ->GetSumOfWeights());
+      if(mH < 200) histo_ggWW_CMS_hww_MVAMETResBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAMETResBoundingDown->GetSumOfWeights());
+      histo_Top_CMS_hww_MVAMETResBoundingUp    ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVAMETResBoundingUp  ->GetSumOfWeights());
+      histo_Top_CMS_hww_MVAMETResBoundingDown  ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVAMETResBoundingDown->GetSumOfWeights());
 
-      histo_ttH_CMS_MVAMETResBoundingUp 	 ->Write();
-      histo_ttH_CMS_MVAMETResBoundingDown	 ->Write();
-      histo_ZH_CMS_MVAMETResBoundingUp  	 ->Write();
-      histo_ZH_CMS_MVAMETResBoundingDown	 ->Write();
-      histo_WH_CMS_MVAMETResBoundingUp  	 ->Write();
-      histo_WH_CMS_MVAMETResBoundingDown	 ->Write();
-      histo_qqH_CMS_MVAMETResBoundingUp 	 ->Write();
-      histo_qqH_CMS_MVAMETResBoundingDown	 ->Write();
-      histo_ggH_CMS_MVAMETResBoundingUp 	 ->Write();
-      histo_ggH_CMS_MVAMETResBoundingDown	 ->Write();
-      histo_qqWW_CMS_MVAMETResBoundingUp	 ->Write();
-      histo_qqWW_CMS_MVAMETResBoundingDown	 ->Write();
-      histo_ggWW_CMS_MVAMETResBoundingUp	 ->Write();
-      histo_ggWW_CMS_MVAMETResBoundingDown	 ->Write();
-      histo_VV_CMS_MVAMETResBoundingUp  	 ->Write();
-      histo_VV_CMS_MVAMETResBoundingDown	 ->Write();
-      histo_Top_CMS_MVAMETResBoundingUp 	 ->Write();
-      histo_Top_CMS_MVAMETResBoundingDown	 ->Write();
-      histo_Wgamma_CMS_MVAMETResBoundingUp	 ->Write();
-      histo_Wgamma_CMS_MVAMETResBoundingDown	 ->Write();
-      histo_Ztt_CMS_MVAMETResBoundingUp 	 ->Write();
-      histo_Ztt_CMS_MVAMETResBoundingDown	 ->Write();
+      histo_ttH_CMS_hww_MVAMETResBoundingUp 	 ->Write();
+      histo_ttH_CMS_hww_MVAMETResBoundingDown	 ->Write();
+      histo_ZH_CMS_hww_MVAMETResBoundingUp  	 ->Write();
+      histo_ZH_CMS_hww_MVAMETResBoundingDown	 ->Write();
+      histo_WH_CMS_hww_MVAMETResBoundingUp  	 ->Write();
+      histo_WH_CMS_hww_MVAMETResBoundingDown	 ->Write();
+      histo_qqH_CMS_hww_MVAMETResBoundingUp 	 ->Write();
+      histo_qqH_CMS_hww_MVAMETResBoundingDown	 ->Write();
+      histo_ggH_CMS_hww_MVAMETResBoundingUp 	 ->Write();
+      histo_ggH_CMS_hww_MVAMETResBoundingDown	 ->Write();
+      histo_qqWW_CMS_hww_MVAMETResBoundingUp	 ->Write();
+      histo_qqWW_CMS_hww_MVAMETResBoundingDown	 ->Write();
+      histo_ggWW_CMS_hww_MVAMETResBoundingUp	 ->Write();
+      histo_ggWW_CMS_hww_MVAMETResBoundingDown	 ->Write();
+      histo_VV_CMS_hww_MVAMETResBoundingUp  	 ->Write();
+      histo_VV_CMS_hww_MVAMETResBoundingDown	 ->Write();
+      histo_Top_CMS_hww_MVAMETResBoundingUp 	 ->Write();
+      histo_Top_CMS_hww_MVAMETResBoundingDown	 ->Write();
+      histo_Wgamma_CMS_hww_MVAMETResBoundingUp	 ->Write();
+      histo_Wgamma_CMS_hww_MVAMETResBoundingDown	 ->Write();
+      histo_Ztt_CMS_hww_MVAMETResBoundingUp 	 ->Write();
+      histo_Ztt_CMS_hww_MVAMETResBoundingDown	 ->Write();
     }
 
     //----------------------------------------------------------------------------
@@ -3430,58 +3430,58 @@ void PlotHiggsRes2012
     // - Jet Energy Scale 
     //----------------------------------------------------------------------------
     if(useJESTemplates == true){
-      histo_ttH_CMS_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_ttH_CMS_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_ZH_CMS_MVAJESBoundingUp  	 ->Rebin(rebinMVAHist);
-      histo_ZH_CMS_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_WH_CMS_MVAJESBoundingUp  	 ->Rebin(rebinMVAHist);
-      histo_WH_CMS_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_qqH_CMS_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_qqH_CMS_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_qqWW_CMS_MVAJESBoundingUp	 ->Rebin(rebinMVAHist); if(mH < 200) histo_qqWW_CMS_MVAJESBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_MVAJESBoundingUp  ->GetSumOfWeights());
-      histo_qqWW_CMS_MVAJESBoundingDown	 ->Rebin(rebinMVAHist); if(mH < 200) histo_qqWW_CMS_MVAJESBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_MVAJESBoundingDown->GetSumOfWeights());
-      histo_ggWW_CMS_MVAJESBoundingUp	 ->Rebin(rebinMVAHist); if(mH < 200) histo_ggWW_CMS_MVAJESBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_MVAJESBoundingUp  ->GetSumOfWeights());
-      histo_ggWW_CMS_MVAJESBoundingDown	 ->Rebin(rebinMVAHist); if(mH < 200) histo_ggWW_CMS_MVAJESBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_MVAJESBoundingDown->GetSumOfWeights());
-      histo_VV_CMS_MVAJESBoundingUp  	 ->Rebin(rebinMVAHist);
-      histo_VV_CMS_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_Top_CMS_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist); histo_Top_CMS_MVAJESBoundingUp    ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_MVAJESBoundingUp  ->GetSumOfWeights());
-      histo_Top_CMS_MVAJESBoundingDown	 ->Rebin(rebinMVAHist); histo_Top_CMS_MVAJESBoundingDown  ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_MVAJESBoundingDown->GetSumOfWeights());
-      histo_Wgamma_CMS_MVAJESBoundingUp	 ->Rebin(rebinMVAHist);
-      histo_Wgamma_CMS_MVAJESBoundingDown->Rebin(rebinMVAHist);
-      histo_Ztt_CMS_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist);
-      histo_Ztt_CMS_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
-      if(histo_ttH_CMS_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_ttH_CMS_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
-      if(histo_ttH_CMS_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_ttH_CMS_MVAJESBoundingDown->SetBinContent(1,0.000001);}
-      histo_ttH_CMS_MVAJESBoundingUp 	 ->Write();
-      histo_ttH_CMS_MVAJESBoundingDown	 ->Write();
-      if(histo_ZH_CMS_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_ZH_CMS_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
-      if(histo_ZH_CMS_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_ZH_CMS_MVAJESBoundingDown->SetBinContent(1,0.000001);}
-      histo_ZH_CMS_MVAJESBoundingUp  	 ->Write();
-      histo_ZH_CMS_MVAJESBoundingDown	 ->Write();
-      if(histo_WH_CMS_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_WH_CMS_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
-      if(histo_WH_CMS_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_WH_CMS_MVAJESBoundingDown->SetBinContent(1,0.000001);}
-      histo_WH_CMS_MVAJESBoundingUp  	 ->Write();
-      histo_WH_CMS_MVAJESBoundingDown	 ->Write();
-      histo_qqH_CMS_MVAJESBoundingUp 	 ->Write();
-      histo_qqH_CMS_MVAJESBoundingDown	 ->Write();
-      histo_ggH_CMS_MVAJESBoundingUp 	 ->Write();
-      histo_ggH_CMS_MVAJESBoundingDown	 ->Write();
-      histo_qqWW_CMS_MVAJESBoundingUp	 ->Write();
-      histo_qqWW_CMS_MVAJESBoundingDown	 ->Write();
-      histo_ggWW_CMS_MVAJESBoundingUp	 ->Write();
-      histo_ggWW_CMS_MVAJESBoundingDown	 ->Write();
-      histo_VV_CMS_MVAJESBoundingUp  	 ->Write();
-      histo_VV_CMS_MVAJESBoundingDown	 ->Write();
-      histo_Top_CMS_MVAJESBoundingUp 	 ->Write();
-      histo_Top_CMS_MVAJESBoundingDown	 ->Write();
-      if(histo_Wgamma_CMS_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_Wgamma_CMS_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
-      if(histo_Wgamma_CMS_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_Wgamma_CMS_MVAJESBoundingDown->SetBinContent(1,0.000001);}
-      histo_Wgamma_CMS_MVAJESBoundingUp	 ->Write();
-      histo_Wgamma_CMS_MVAJESBoundingDown->Write();
-      histo_Ztt_CMS_MVAJESBoundingUp 	 ->Write();
-      histo_Ztt_CMS_MVAJESBoundingDown	 ->Write();
+      histo_ttH_CMS_hww_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_ttH_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_ZH_CMS_hww_MVAJESBoundingUp  	 ->Rebin(rebinMVAHist);
+      histo_ZH_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_WH_CMS_hww_MVAJESBoundingUp  	 ->Rebin(rebinMVAHist);
+      histo_WH_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_qqH_CMS_hww_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_qqH_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_qqWW_CMS_hww_MVAJESBoundingUp	 ->Rebin(rebinMVAHist); if(mH < 200) histo_qqWW_CMS_hww_MVAJESBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights());
+      histo_qqWW_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist); if(mH < 200) histo_qqWW_CMS_hww_MVAJESBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAJESBoundingDown->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVAJESBoundingUp	 ->Rebin(rebinMVAHist); if(mH < 200) histo_ggWW_CMS_hww_MVAJESBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist); if(mH < 200) histo_ggWW_CMS_hww_MVAJESBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAJESBoundingDown->GetSumOfWeights());
+      histo_VV_CMS_hww_MVAJESBoundingUp  	 ->Rebin(rebinMVAHist);
+      histo_VV_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
+      histo_Top_CMS_hww_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist); histo_Top_CMS_hww_MVAJESBoundingUp    ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights());
+      histo_Top_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist); histo_Top_CMS_hww_MVAJESBoundingDown  ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVAJESBoundingDown->GetSumOfWeights());
+      histo_Wgamma_CMS_hww_MVAJESBoundingUp	 ->Rebin(rebinMVAHist);
+      histo_Wgamma_CMS_hww_MVAJESBoundingDown->Rebin(rebinMVAHist);
+      histo_Ztt_CMS_hww_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist);
+      histo_Ztt_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
+      if(histo_ttH_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_ttH_CMS_hww_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
+      if(histo_ttH_CMS_hww_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_ttH_CMS_hww_MVAJESBoundingDown->SetBinContent(1,0.000001);}
+      histo_ttH_CMS_hww_MVAJESBoundingUp 	 ->Write();
+      histo_ttH_CMS_hww_MVAJESBoundingDown	 ->Write();
+      if(histo_ZH_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_ZH_CMS_hww_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
+      if(histo_ZH_CMS_hww_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_ZH_CMS_hww_MVAJESBoundingDown->SetBinContent(1,0.000001);}
+      histo_ZH_CMS_hww_MVAJESBoundingUp  	 ->Write();
+      histo_ZH_CMS_hww_MVAJESBoundingDown	 ->Write();
+      if(histo_WH_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_WH_CMS_hww_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
+      if(histo_WH_CMS_hww_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_WH_CMS_hww_MVAJESBoundingDown->SetBinContent(1,0.000001);}
+      histo_WH_CMS_hww_MVAJESBoundingUp  	 ->Write();
+      histo_WH_CMS_hww_MVAJESBoundingDown	 ->Write();
+      histo_qqH_CMS_hww_MVAJESBoundingUp 	 ->Write();
+      histo_qqH_CMS_hww_MVAJESBoundingDown	 ->Write();
+      histo_ggH_CMS_hww_MVAJESBoundingUp 	 ->Write();
+      histo_ggH_CMS_hww_MVAJESBoundingDown	 ->Write();
+      histo_qqWW_CMS_hww_MVAJESBoundingUp	 ->Write();
+      histo_qqWW_CMS_hww_MVAJESBoundingDown	 ->Write();
+      histo_ggWW_CMS_hww_MVAJESBoundingUp	 ->Write();
+      histo_ggWW_CMS_hww_MVAJESBoundingDown	 ->Write();
+      histo_VV_CMS_hww_MVAJESBoundingUp  	 ->Write();
+      histo_VV_CMS_hww_MVAJESBoundingDown	 ->Write();
+      histo_Top_CMS_hww_MVAJESBoundingUp 	 ->Write();
+      histo_Top_CMS_hww_MVAJESBoundingDown	 ->Write();
+      if(histo_Wgamma_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_Wgamma_CMS_hww_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
+      if(histo_Wgamma_CMS_hww_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_Wgamma_CMS_hww_MVAJESBoundingDown->SetBinContent(1,0.000001);}
+      histo_Wgamma_CMS_hww_MVAJESBoundingUp	 ->Write();
+      histo_Wgamma_CMS_hww_MVAJESBoundingDown->Write();
+      histo_Ztt_CMS_hww_MVAJESBoundingUp 	 ->Write();
+      histo_Ztt_CMS_hww_MVAJESBoundingDown	 ->Write();
     }
     outFileLimits->Close();
 
@@ -3663,9 +3663,9 @@ void PlotHiggsRes2012
       newcardShape << Form("rate  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f\n",yield[1],yield[2],yield[3],yield[4],yield[5],yield[6],yield[7],yield[8],yield[9],TMath::Max((double)yield[10],0.0),yield[11],yield[12]);
       newcardShape << Form("lumi                             lnN 1.022 1.022 1.022 1.022 %5.3f %5.3f 1.022   -     -     -   1.022 1.022\n",lumiErr,lumiErr);				 
       if(useExpTemplates == true){
-      newcardShape << Form("CMS_MVALepEffBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000   -     -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
-      newcardShape << Form("CMS_MVALepResBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
-      newcardShape << Form("CMS_MVAMETResBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
+      newcardShape << Form("CMS_hww_MVALepEffBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000   -     -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
+      newcardShape << Form("CMS_hww_MVALepResBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
+      newcardShape << Form("CMS_hww_MVAMETResBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
       }
       else {
       newcardShape << Form("CMS_eff_m                        lnN 1.030 1.030 1.030 1.030 1.030 1.030 1.030   -     -     -   1.030 1.030\n");
@@ -3675,20 +3675,20 @@ void PlotHiggsRes2012
       newcardShape << Form("CMS_hww_met_resolution           lnN 1.020 1.020 1.020 1.020 1.020 1.020 1.020   -     -     -   1.020 1.020\n");
       }
       if(useJESTemplates == true){
-      newcardShape << Form("CMS_MVAJESBounding             shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
+      newcardShape << Form("CMS_hww_MVAJESBounding             shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
       }
       else {
       newcardShape << Form("CMS_scale_j                      lnN %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f   -     -     -   %5.3f %5.3f\n",jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E);	     
       }
       newcardShape << Form("FakeRate              	     lnN   -     -     -     -     -     -     -     -     -   1.360   -     -  \n");
       if(useWJetsTemplates == true){
-        newcardShape << Form("CMS_MVAWBounding_hww          shape  -     -     -     -     -     -     -     -     -   1.000   -     -  \n");
+        newcardShape << Form("CMS_hww_MVAWBounding          shape  -     -     -     -     -     -     -     -     -   1.000   -     -  \n");
       }
       if(useWJetsMCTemplates == true){
-        newcardShape << Form("CMS_MVAWMCBounding_hww        shape  -     -     -     -     -     -     -     -     -   1.000   -     -  \n");
+        newcardShape << Form("CMS_hww_MVAWMCBounding        shape  -     -     -     -     -     -     -     -     -   1.000   -     -  \n");
       }
       if(useggHTemplates == true && histo_ggH->GetSumOfWeights() > 0.0){
-        newcardShape << Form("CMS_MVAggHBounding            shape  -     -     -   1.000   -     -     -     -     -     -    -     -  \n");
+        newcardShape << Form("CMS_hww_MVAggHBounding            shape  -     -     -   1.000   -     -     -     -     -     -    -     -  \n");
       }
       newcardShape << Form("UEPS 		             lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",UEPS);
       newcardShape << Form("theoryUncXS_HighMH               lnN %5.3f %5.3f %5.3f %5.3f   -     -     -     -	   -     -     -     -  \n",theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH);
@@ -3703,7 +3703,7 @@ void PlotHiggsRes2012
       newcardShape << Form("QCDscale_WW1in		     lnN   -	 -     -     -	 %5.3f	 -     -     -	   -	 -     -     -  \n",XS_QCDscale_WW[1]);  
       newcardShape << Form("QCDscale_WW2in		     lnN   -	 -     -     -	 %5.3f	 -     -     -	   -	 -     -     -  \n",XS_QCDscale_WW[2]);  
       newcardShape << Form("QCDscale_VV           	     lnN   -     -     -     -     -     -   1.040   -     -     -     -     -  \n");
-      newcardShape << Form("QCDscale_V           	     lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",1.30);
+      newcardShape << Form("QCDscale_Vgamma                  lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",1.30);
       newcardShape << Form("QCDscale_ggVV	             lnN   -     -     -     -     -   1.300   -     -     -     -     -     -  \n");
       newcardShape << Form("QCDscale_WW_EXTRAP               lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
       newcardShape << Form("QCDscale_ggH_ACCEPT              lnN   -     -     -   1.020   -     -     -     -     -     -     -     -  \n");
@@ -3714,35 +3714,35 @@ void PlotHiggsRes2012
       newcardShape << Form("%s                               lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",theWWThString,wwXS_E_MVA,wwXS_E_MVA);				
       newcardShape << Form("CMS_hww_Ztt           	     lnN   -     -     -     -     -     -     -     -     -     -     -   %5.3f\n",ZttScaleFactorKappa());
       if(useZjetsTemplates == true){
-        newcardShape << Form("CMS_MVAZBounding_hww%s_%1dj           shape   -     -      -    -      -     -	 -     -    1.0    -	 -     -   \n",finalStateName,nJetsType);			  
+        newcardShape << Form("CMS_hww%s_%1dj_MVAZBounding           shape   -     -      -    -      -     -	 -     -    1.0    -	 -     -   \n",finalStateName,nJetsType);			  
       }
       if(useTopTemplates == true){
-        newcardShape << Form("CMS_MVATopBounding_hww                shape   -     -      -    -      -    -	 -    1.0    -     -	 -     -   \n");			  
+        newcardShape << Form("CMS_hww_MVATopBounding                shape   -     -      -    -      -    -	 -    1.0    -     -	 -     -   \n");			  
       }
       if(useWWTemplates == true){
-        newcardShape << Form("CMS_MVAWWBounding_hww                 shape   -     -      -    -     1.0    -	 -     -     -     -	 -     -   \n");			 
-        newcardShape << Form("CMS_MVAWWNLOBounding_hww              shape   -     -      -    -     1.0    -	 -     -     -     -	 -     -   \n");			 
+        newcardShape << Form("CMS_hww_MVAWWBounding                 shape   -     -      -    -     1.0    -	 -     -     -     -	 -     -   \n");			 
+        newcardShape << Form("CMS_hww_MVAWWNLOBounding              shape   -     -      -    -     1.0    -	 -     -     -     -	 -     -   \n");			 
       }
       if(useStatTemplates == true){
 	if(histo_ZH->GetSumOfWeights() > 0)
-      	newcardShape << Form("CMS_MVAZHStatBounding_hww%s_%1dj_8TeV      shape  %s     -      -    -      -	   -	 -     -     -	   -	 -     -  \n",finalStateName,nJetsType,theZHString);
+      	newcardShape << Form("CMS_hww%s_%1dj_MVAZHStatBounding_8TeV      shape  %s     -      -    -      -	   -	 -     -     -	   -	 -     -  \n",finalStateName,nJetsType,theZHString);
 	if(histo_WH->GetSumOfWeights() > 0)
-      	newcardShape << Form("CMS_MVAWHStatBounding_hww%s_%1dj_8TeV      shape   -     %s     -    -      -	   -	 -     -     -	   -	 -     -  \n",finalStateName,nJetsType,theWHString);
+      	newcardShape << Form("CMS_hww%s_%1dj_MVAWHStatBounding_8TeV      shape   -     %s     -    -      -	   -	 -     -     -	   -	 -     -  \n",finalStateName,nJetsType,theWHString);
 	if(histo_qqH->GetSumOfWeights() > 0)
-      	newcardShape << Form("CMS_MVAqqHStatBounding_hww%s_%1dj_8TeV     shape   -     -    1.0    -      -     -	 -     -     -     -	 -     -  \n",finalStateName,nJetsType);
+      	newcardShape << Form("CMS_hww%s_%1dj_MVAqqHStatBounding_8TeV     shape   -     -    1.0    -      -     -	 -     -     -     -	 -     -  \n",finalStateName,nJetsType);
 	if(histo_ggH->GetSumOfWeights() > 0)
-      	newcardShape << Form("CMS_MVAggHStatBounding_hww%s_%1dj_8TeV     shape   -     -	 -    1.0    -     -	 -     -     -     -	 -     -  \n",finalStateName,nJetsType);
-      	newcardShape << Form("CMS_MVAqqWWStatBounding_hww%s_%1dj_8TeV    shape   -     -	 -     -    1.0    -	 -     -     -     -	 -     -  \n",finalStateName,nJetsType);
+      	newcardShape << Form("CMS_hww%s_%1dj_MVAggHStatBounding_8TeV     shape   -     -	 -    1.0    -     -	 -     -     -     -	 -     -  \n",finalStateName,nJetsType);
+      	newcardShape << Form("CMS_hww%s_%1dj_MVAqqWWStatBounding_8TeV    shape   -     -	 -     -    1.0    -	 -     -     -     -	 -     -  \n",finalStateName,nJetsType);
 	if(histo_ggWW->GetSumOfWeights() > 0)
-      	newcardShape << Form("CMS_MVAggWWStatBounding_hww%s_%1dj_8TeV    shape   -     -	 -     -     -    1.0    -     -     -     -	 -     -  \n",finalStateName,nJetsType);
-      	newcardShape << Form("CMS_MVAVVStatBounding_hww%s_%1dj_8TeV      shape   -     -	 -     -     -     -    1.0    -     -     -	 -     -  \n",finalStateName,nJetsType);
-      	newcardShape << Form("CMS_MVATopStatBounding_hww%s_%1dj_8TeV     shape   -     -	 -     -     -     -	 -    1.0    -     -	 -     -  \n",finalStateName,nJetsType);
-      	newcardShape << Form("CMS_MVAZjetsStatBounding_hww%s_%1dj_8TeV   shape   -     -	 -     -     -     -	 -     -    1.0    -	 -     -  \n",finalStateName,nJetsType);
-      	newcardShape << Form("CMS_MVAWjetsStatBounding_hww%s_%1dj_8TeV   shape   -     -	 -     -     -     -	 -     -     -    1.0    -     -  \n",finalStateName,nJetsType);
+      	newcardShape << Form("CMS_hww%s_%1dj_MVAggWWStatBounding_8TeV    shape   -     -	 -     -     -    1.0    -     -     -     -	 -     -  \n",finalStateName,nJetsType);
+      	newcardShape << Form("CMS_hww%s_%1dj_MVAVVStatBounding_8TeV      shape   -     -	 -     -     -     -    1.0    -     -     -	 -     -  \n",finalStateName,nJetsType);
+      	newcardShape << Form("CMS_hww%s_%1dj_MVATopStatBounding_8TeV     shape   -     -	 -     -     -     -	 -    1.0    -     -	 -     -  \n",finalStateName,nJetsType);
+      	newcardShape << Form("CMS_hww%s_%1dj_MVAZjetsStatBounding_8TeV   shape   -     -	 -     -     -     -	 -     -    1.0    -	 -     -  \n",finalStateName,nJetsType);
+      	newcardShape << Form("CMS_hww%s_%1dj_MVAWjetsStatBounding_8TeV   shape   -     -	 -     -     -     -	 -     -     -    1.0    -     -  \n",finalStateName,nJetsType);
 	if(histo_Wgamma->GetSumOfWeights() > 0)
-      	newcardShape << Form("CMS_MVAWgammaStatBounding_hww%s_%1dj_8TeV  shape   -     -	 -     -     -     -	 -     -     -     -    %s    -  \n",finalStateName,nJetsType,theWgammaString);
+      	newcardShape << Form("CMS_hww%s_%1dj_MVAWgammaStatBounding_8TeV  shape   -     -	 -     -     -     -	 -     -     -     -    %s    -  \n",finalStateName,nJetsType,theWgammaString);
 	if(histo_Ztt->GetSumOfWeights() > 0)
-	newcardShape << Form("CMS_MVAZttStatBounding_hww%s_%1dj_8TeV     shape   -     -	 -     -     -     -	 -     -     -     -	 -    %s  \n",finalStateName,nJetsType,theZttString);
+	newcardShape << Form("CMS_hww%s_%1dj_MVAZttStatBounding_8TeV     shape   -     -	 -     -     -     -	 -     -     -     -	 -    %s  \n",finalStateName,nJetsType,theZttString);
       }
       else {
       	newcardShape << Form("CMS_hww%s_stat_%1dj_ZH_bin%d_8TeV     lnN %5.3f   -	 -     -     -     -	 -     -     -     -	 -     -  \n",finalStateName,nJetsType,i,yieldE[1]+1.0);
@@ -3808,7 +3808,7 @@ void PlotHiggsRes2012
     newcardCut << Form("QCDscale_WW1in  	   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[1]);  
     newcardCut << Form("QCDscale_WW2in  	   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[2]);  
     newcardCut << Form("QCDscale_VV           	   lnN   -     -     -     -     -     -   1.040   -     -     -     -     -  \n");
-    newcardCut << Form("QCDscale_V           	   lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",1.30);
+    newcardCut << Form("QCDscale_Vgamma            lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",1.30);
     newcardCut << Form("QCDscale_ggVV         	   lnN   -     -     -     -     -   1.300   -     -     -     -     -     -  \n");
     newcardCut << Form("QCDscale_WW_EXTRAP         lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
     newcardCut << Form("QCDscale_ggH_ACCEPT   	   lnN   -     -     -   1.020   -     -     -     -     -     -     -     -  \n");
@@ -3880,7 +3880,7 @@ void PlotHiggsRes2012
     newcardMVA << Form("QCDscale_WW1in  	   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[1]);  
     newcardMVA << Form("QCDscale_WW2in  	   lnN   -     -     -     -   %5.3f   -     -     -	 -     -     -     -  \n",XS_QCDscale_WW[2]);  
     newcardMVA << Form("QCDscale_VV           	   lnN   -     -     -     -     -     -   1.040   -     -     -     -     -  \n");
-    newcardMVA << Form("QCDscale_V           	   lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",1.30);
+    newcardMVA << Form("QCDscale_Vgamma            lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -  \n",1.30);
     newcardMVA << Form("QCDscale_ggVV         	   lnN   -     -     -     -     -   1.300   -     -     -     -     -     -  \n");
     newcardMVA << Form("QCDscale_WW_EXTRAP         lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -  \n",wwXS_E_jet_extrap);
     newcardMVA << Form("QCDscale_ggH_ACCEPT   	   lnN   -     -     -   1.020   -     -     -     -     -     -     -     -  \n");

@@ -1,4 +1,4 @@
-Double_t DYBkgScaleFactor(Int_t mH, Int_t jetBin) {
+static Double_t DYBkgScaleFactor(Int_t mH, Int_t jetBin) {
   Int_t mHiggs[18] = {115,118,120,122,124,126,128,130,135,140,150,160,170,180,190,200,250,300};
   Double_t DYBkgScaleFactorWWPreselection[3] = { 2.71735, 3.56158, 7.86249  };
   Double_t DYBkgScaleFactorHiggsSelection[3][18] = { 
@@ -17,7 +17,7 @@ Double_t DYBkgScaleFactor(Int_t mH, Int_t jetBin) {
   }
 }
 
-Double_t DYBkgScaleFactorKappa(Int_t mH, Int_t jetBin) {
+static Double_t DYBkgScaleFactorKappa(Int_t mH, Int_t jetBin) {
   Int_t mHiggs[18] = {115,118,120,122,124,126,128,130,135,140,150,160,170,180,190,200,250,300};
   Double_t DYBkgScaleFactorWWPreselectionKappa[3] = { 1.63116, 1.19547, 1.18884  };
   Double_t DYBkgScaleFactorHiggsSelectionKappa[3][18] = { 

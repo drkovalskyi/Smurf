@@ -941,7 +941,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   //***************************************************************************
   ofstream outf("DYBkgScaleFactors.h");
 
-  outf << "Double_t DYBkgScaleFactor(Int_t mH, Int_t jetBin) {" << endl;
+  outf << "static Double_t DYBkgScaleFactor(Int_t mH, Int_t jetBin) {" << endl;
   
   outf << "  Int_t mHiggs[" << nmass-1 << "] = {";
   for (UInt_t i = 0; i < nmass-1 ; ++i) {
@@ -992,7 +992,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   outf << endl;
 
 
-  outf << "Double_t DYBkgScaleFactorKappa(Int_t mH, Int_t jetBin) {" << endl;
+  outf << "static Double_t DYBkgScaleFactorKappa(Int_t mH, Int_t jetBin) {" << endl;
   
   outf << "  Int_t mHiggs[" << nmass-1 << "] = {";
   for (UInt_t i = 0; i < nmass-1 ; ++i) {
