@@ -178,7 +178,7 @@ void dytt(const unsigned int nToys, const double lumi,
 	  const char* zll, dy::EventType zll_type,
 	  const char* mc_dytt)
 {
-  const unsigned int prescale = 10;
+  const unsigned int prescale = 1;
   // Assume that we deal with data, where we have both Zee and Zmm events
   // In this case we get additional branching fraction from tau to e and 
   // tau to mu decays. Out of all 4 final states, we need only 2: em and me.
