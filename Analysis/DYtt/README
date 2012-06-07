@@ -1,0 +1,10 @@
+To produce SmurfTree DYtt from Zll:
+
+root -l dytt.cxx
+
+Adjust dytt.cxx for your needs.
+
+To make sure shat everything is fine, you can run a check for different distributions:
+
+root -l compareTree.cxx
+

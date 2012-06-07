@@ -50,7 +50,7 @@
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > p4d;
 typedef ROOT::Math::DisplacementVector3D<ROOT::Math::Cartesian3D<double> > Vector;
-typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > LorentzVector;
+typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 typedef ROOT::Math::Boost Boost; 
 
 
