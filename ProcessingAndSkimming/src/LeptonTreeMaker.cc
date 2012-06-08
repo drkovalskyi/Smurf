@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.41 2012/05/25 09:42:08 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.42 2012/05/28 20:11:45 dlevans Exp $
 //
 //
 
@@ -1484,7 +1484,8 @@ void LeptonTreeMaker::getTriggerVersions(const edm::Event& iEvent, const edm::Ev
 
                 TObjArray *substrArr = re.MatchS(hltTrigName);
                 if (substrArr->GetLast() == 1) {
-                    versions[t] = ((TObjString*)substrArr->At(1))->GetString().Atoi();
+                    unsigned int version = ((TObjString*)substrArr->At(1))->GetString().Atoi();
+                    versions[t] = version;
                 } else {
                     versions[t] = 0;
                 }
