@@ -85,29 +85,29 @@ The plots in Figure \ref{fig:WgammaStar}, displaying data and MC
 distributions for the muon pair associated with the virtual photon,
 (left: opening angle, center: di-muon mass, right: \pt\ of the softest
 muon) assess the compatibility of the data belonging to the control
-region with the expectations from the \Wgstar\ Monte Carlo.  The small
-differences between the data and MC shapes can be explained by the
-mismodeling in the Monte Carlo of the reconstruction efficiencies for
-very soft leptons (scale factors to match the data trigger and
-reconstruction efficiencies are computed for leptons only down to 10
-GeV). 
+region with the expectations from the \Wgstar\ Monte Carlo.  
 The contribution from other backgrounds is very limited, 
 the only process which is not completely negligible is $\Wjets$
 which is computed directly from data by means of the fake rate
 method described in section \ref{sec:bkg_fakes}.
+A small difference is observed between the data and MC shapes
+for the mass of the virtual photon candidate; 
+as this mismodelling was also observed in 2011 data we will discuss the
+related systematics in the following.
 
-%The contribution for the top background is negligible.  As a
-%further cross check, we estimated the data yields for events
-%satisfying the \Wgstar\ selections but with the muons with smallest
-%invariant mass having the same sign.  Contrary to \Wgstar\, QCD and
-%top backgrounds have about the same chance to produce same sign and
-%opposite muons. Only four data counts are found the mass region
-%relevant for the \Wgstar\ process
-%(\ensuremath{M_{\mu^{\pm}\mu^{\pm}}<12} GeV), confirming thus that the
-%contamination from processes other than \Wgstar\ is very limited.
+\begin{figure}[hbt]
+\begin{center}
+\includegraphics[width=0.3\linewidth]{figures/gammaDR_m12.png} 
+\includegraphics[width=0.3\linewidth]{figures/gammaMass_m12.png}
+\includegraphics[width=0.3\linewidth]{figures/gammaLep3Pt_m12.png}
+\caption{\label{fig:WgammaStar}\protect Comparison of data and Monte Carlo for three 
+main distributions of the muons associated with the virtual photon in
+the \Wgstar~ control region.  Left: opening angle (\delR).  Center:
+di-muon mass.  Right:. softest muon \pt.}
+\end{center}
+\end{figure}
 
-
-\begin{table}[!h]
+\begin{table}[!hbt]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
@@ -144,23 +144,22 @@ the one measured with the 2011 dataset ~\cite{HWW2011}.
 The {\em k}-factors measured for other EWK processes computed at the leading
 order resulted very similar to the one obtained here, giving therefore 
 further confidence on the accuracy of the Monte Carlo simulation.  
-The {\em k-}factor is used hereafter for the other
-final states where the virtual photon decays to an electron pair.
-Once normalized to data as just described, the Madgraph Monte Carlo is
-used to predict the yields after the standard Higgs selection.
-Comparing same sign and opposite sign event yields in data we see a
-difference of $12\pm11$, which means that we have consistent yields as
-expected.
+As a further cross check, the event yields for same sign and opposite sign 
+(where the pair of highest \pt leptons is considered) have been looked at in data:
+as shown in table \ref{tab:wgamma}, a very good agreement is observed for each final 
+state.
 
-\begin{figure}[hbt]
-\begin{center}
-\includegraphics[width=0.3\linewidth]{figures/gammaDR_m12.png} 
-\includegraphics[width=0.3\linewidth]{figures/gammaMass_m12.png}
-\includegraphics[width=0.3\linewidth]{figures/gammaLep3Pt_m12.png}
-\caption{\label{fig:WgammaStar}\protect Comparison of data and Monte Carlo for three 
-main distributions of the muons associated with the virtual photon in
-the \Wgstar~ control region.  Left: opening angle (\delR).  Center:
-di-muon mass.  Right:. softest muon \pt.}
-\end{center}
-\end{figure}
+To estimate the systematic uncertainty related to the data versus Monte Carlo 
+disagreement on the virtual photon mass shape (most likely due to mismodeling
+of reconstruction efficiency of close-by muon one of which at very low \pt),
+the scale factor has been computed in sub-regions of the mass spectrum and compared to what
+obtained from the full range. 
+We performed the same analysis on 2011 data obtaining almost identical results as
+from the 2012 dataset (four scale factors estimations): 
+the scale factor in the [0-2] GeV mass range results smaller ($\sim1.3$),
+whereas in the range [2-12] it results larger ($\sim2.2$).
+To account for this effect we assign a systematic uncertainty corresponding to
+the average of the spreads of the fours estimates w.r.t the central value, obtaining
+an error of $0.25\%$. 
+
 
