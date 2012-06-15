@@ -63,22 +63,26 @@ void LR(int mH, TString fileName, TString inputSmurfFDir, TString meFDir, int ne
   unsigned int run_ = 0;
   unsigned int event_ = 0; 
   LorentzVector*  dilep_ = 0;
+  LorentzVector*  jet1_ = 0;
   float mt_ = 0.;
   float pmet_ = 0.;
   float pTrackMet_ = 0.;
-  unsigned int nvtx_ = 0;
-  LorentzVector*  lep2_ = 0;
+  float dymva_ = 0.;
+  float dPhiDiLepJet1_ = 0.;
+  unsigned int njets_ = 0;
 
   ch->SetBranchAddress( "run",   &run_);
   ch->SetBranchAddress( "event", &event_);
   ch->SetBranchAddress( "type",  &type_);
   ch->SetBranchAddress("dXsec",  &dXsec_);
   ch->SetBranchAddress( "dilep", &dilep_); 
-  ch->SetBranchAddress( "lep2", &lep2_); 
+  ch->SetBranchAddress( "jet1", &jet1_);
+  ch->SetBranchAddress( "njets",  &njets_); 
   ch->SetBranchAddress( "mt",  &mt_);
   ch->SetBranchAddress( "pmet"          , &pmet_     );     
   ch->SetBranchAddress( "pTrackMet"     , &pTrackMet_     );   
-  ch->SetBranchAddress( "nvtx"          , &nvtx_      );   
+  ch->SetBranchAddress( "dymva",  &dymva_);
+  ch->SetBranchAddress( "dPhiDiLepJet1",  &dPhiDiLepJet1_);
 
   //==========================================
   // Loop All Events
@@ -96,20 +100,19 @@ void LR(int mH, TString fileName, TString inputSmurfFDir, TString meFDir, int ne
   getProcess(mH, k, massCut);
 
   // note this is completely useless for HWW, just temporary be here as not to break the hzz analysis
-  float metCut(0.0), dphiCut(0.0), mtCut(0.0);
+  float metCut(0.0), dphiCut(0.0);
+  float mtCut = float(mH);
   
   Proc *higgs = new Proc(k, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut, mtCut);
   Proc *ww    =  new Proc(TVar::WW, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut, mtCut);
   Proc *wpj    = new Proc(TVar::Wp_1jet, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut, mtCut);
   Proc *wmj    = new Proc(TVar::Wm_1jet, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut, mtCut);
-  Proc *dyll   = new Proc(TVar::Z_2l, lumi, massCut, meFDir, HWWANALYSIS, metCut, dphiCut, mtCut);  
-
-if (verbosity >= TVar::DEBUG) {
+  
+  if (verbosity >= TVar::DEBUG) {
     cout << "higgs->GetMCFMXsec() = " << higgs->GetMCFMXsec() << "\n";
     cout << "ww->GetMCFMXsec() = " << ww->GetMCFMXsec() << "\n";
     cout << "wpj->GetMCFMXsec() = " << wpj->GetMCFMXsec() << "\n";
     cout << "wmj->GetMCFMXsec() = " << wmj->GetMCFMXsec() << "\n";
-    cout << "dyll->GetMCFMXsec() = " << dyll->GetMCFMXsec() << "\n";
   }
  
   for(int ievt=0;ievt<Ntot;ievt++){
@@ -120,18 +123,34 @@ if (verbosity >= TVar::DEBUG) {
       cout << "\n ** START LR Construction, run = " << run_ << "; event = " << event_ << " for Signal " << TVar::SmurfProcessName(k) << "\n"; 
     
     // calculate the LR only for the events that pass the pre-selection
-    if ( dilep_->mass() > massCut || mt_ < 80. || dilep_->Pt() < 45. 
-	 || ( (type_ == 0 || type_ == 3) && (dilep_->mass() < 20 || lep2_->Pt() < 15 ) ) 
-	 )
-      LR[k] = 0.0;
-    else {
+
+    bool passPresel = true;
+    if ( dilep_->mass() > massCut || mt_ < 80. || mt_ > mtCut || dilep_->Pt() < 45. ) 
+      passPresel = false;
+
+    // Do not apply any DY cuts....because the DY shape later is filled with a side band!!
+    /*
+    if ( type_ == 0 || type_ == 3 ) {
+      if ( mH <= 140. ) {
+	if (njets_ == 0 && dymva_ < 0.6 ) passPresel = false;
+	if (njets_ == 1 && dymva_ < 0.3 ) passPresel = false;
+      } else {
+	if ( min(pmet_, pTrackMet_ ) < 45. ) passPresel = false;
+	if ( jet1_->Pt() > 15. && dPhiDiLepJet1_ > 165.*TMath::Pi()/180. ) passPresel = false;
+      }
+    }
+    */
+
+    if ( !passPresel ) {
+      LR[k] = 0.;
+    }  else {
       // get the signal event probability
       double numer = dXsec_[k] / (higgs->GetMCFMXsec() * higgs->GetAcceptance(type_)); 
       if (verbosity >= TVar::DEBUG)
 	cout<< "PHWW " << TVar::SmurfProcessName(k) << " "  <<numer<< "\t dXsec "<< dXsec_[k] << "\n";
       
       // get the background yields
-      double yield_bg = ww->GetYield(type_) + wpj->GetYield(type_) + dyll->GetYield(type_);
+      double yield_bg = ww->GetYield(type_) + wpj->GetYield(type_);
 
       if (verbosity >= TVar::DEBUG)
 	cout<<"bg_yield="<<yield_bg<<"\n";
@@ -142,11 +161,6 @@ if (verbosity >= TVar::DEBUG) {
       if (verbosity >= TVar::DEBUG)
 	cout<<" PWW = "<<  dXsec_[TVar::WW] / (ww->GetMCFMXsec() * ww->GetAcceptance(type_)) * ww->GetYield(type_)/yield_bg;
 
-      // add DY background to the denominator
-      denom += dXsec_[TVar::Z_2l] / (dyll->GetMCFMXsec() * dyll->GetAcceptance(type_)) * dyll->GetYield(type_)/yield_bg;
-      if (verbosity >= TVar::DEBUG)
-	cout<<" PWW = "<<  dXsec_[TVar::Z_2l] / (dyll->GetMCFMXsec() * dyll->GetAcceptance(type_)) * dyll->GetYield(type_)/yield_bg;
-      
       // add Wjet background combining W+jet and W-jet assume the same acceptance for Wpj and Wmj 
 
       if ( wpj->GetAcceptance(type_) > 0) {
@@ -192,6 +206,10 @@ if (verbosity >= TVar::DEBUG) {
 void getProcess(int mH, TVar::Process & k, float& massCut)
 {
   switch (mH) {
+  case (110):
+    k = TVar::HWW110;
+    massCut = 70.0;
+    break;
   case (115):
     k = TVar::HWW115;
     massCut = 70.0;
@@ -200,16 +218,32 @@ void getProcess(int mH, TVar::Process & k, float& massCut)
     k = TVar::HWW120;
     massCut = 70.0;
     break;
+  case (125):
+    k = TVar::HWW125;
+    massCut = 70.0;
+    break;
   case (130):
     k = TVar::HWW130;
     massCut = 80.0;
+    break;
+  case (135):
+    k = TVar::HWW135;
+    massCut = 90.0;
     break;
   case (140):
     k = TVar::HWW140;
     massCut = 90.0;
     break;
+  case (145):
+    k = TVar::HWW145;
+    massCut = 90.0;
+    break;
   case (150):
     k = TVar::HWW150;
+    massCut = 100.0;
+    break;
+  case (155):
+    k = TVar::HWW155;
     massCut = 100.0;
     break;
   case (160):
@@ -231,18 +265,6 @@ void getProcess(int mH, TVar::Process & k, float& massCut)
   case (200):
     k = TVar::HWW200;
     massCut = 130.0;
-    break;
-  case (210):
-    k = TVar::HWW210;
-    massCut = 140.0;
-    break;
-  case (220):
-    k = TVar::HWW220;
-    massCut = 150.0;
-    break;
-  case (230):
-    k = TVar::HWW230;
-    massCut = 230.0;
     break;
   case (250):
     k = TVar::HWW250;
