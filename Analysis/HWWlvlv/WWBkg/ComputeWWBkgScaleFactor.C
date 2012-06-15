@@ -16,9 +16,9 @@
 #include "TSystem.h"
 #include "Smurf/Analysis/HWWlvlv/HWWCuts.h"
 #include "Smurf/Analysis/HWWlvlv/factors.h"
-#include "Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors.h"
-#include "Smurf/Analysis/HWWlvlv/DYBkgScaleFactors.h"
-#include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h"
+#include "Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors_8TeV.h"
+#include "Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h"
+#include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h"
 
 //------------------------------------------------------------------------------
 // WW control region macro
@@ -39,10 +39,10 @@ void ComputeWWBkgScaleFactor (
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
   if	 (period == 0){ // Full2011-Fall11-V9
-    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-03_V0/summary.root";
-    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-03_V0/summary.root";
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-04_V1/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-04_V1/summary.root";
     puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12.root";
-    scaleFactorLum     = 1.616;minRun =      0;maxRun = 999999;
+    scaleFactorLum     =3.553;minRun =      0;maxRun = 999999;
     bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundA_skim2.root";
     dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/data_skim2.root";
   }
@@ -448,7 +448,7 @@ void ComputeWWBkgScaleFactor (
     	add = add*fakeRate(lep2->pt(), lep2->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
     										      (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
 
-        add = add*nPUScaleFactor(fhDPUS4,npu);
+        add = add*nPUScaleFactor2012(fhDPUS4,npu);
     	add = add*leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1);
     	add = add*leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
 
@@ -474,7 +474,7 @@ void ComputeWWBkgScaleFactor (
  
 
       add = 1.0;
-      add = add*nPUScaleFactor(fhDPUS4,npu);
+      add = add*nPUScaleFactor2012(fhDPUS4,npu);
       add = add*leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1);
       add = add*leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
       add = add*trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 

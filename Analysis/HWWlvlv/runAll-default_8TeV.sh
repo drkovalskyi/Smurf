@@ -20,9 +20,9 @@ endif
 ### data_Summer12
 setenv SIG_TEST data2012/${TAG}_hww${MH}.root
 setenv BKG_TEST data2012/${TAG}_backgroundA_skim2.root
-#setenv DAT_TEST data2012/${TAG}_data_skim2.root;
-setenv DAT_TEST data2012/${TAG}_backgroundA_skim2.root;
-setenv SYS_TEST data2012/${TAG}_hww_syst_skim2.root;
+setenv DAT_TEST data2012/${TAG}_data_skim2.root;
+#setenv DAT_TEST data2012/${TAG}_backgroundA_skim2.root;
+setenv SYS_TEST data2012/${TAG}_hww_syst_skim6.root;
 
 ### Perform analysis
  #root -l -q -b PlotHiggsRes2012.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",0,1,0,\"$SYS_TEST\",$CAT\); --> mm

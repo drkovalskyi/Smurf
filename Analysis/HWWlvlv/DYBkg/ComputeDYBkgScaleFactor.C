@@ -17,8 +17,8 @@
 #include "Smurf/Core/RecoilCorrector.hh"
 #include "Smurf/Core/LeptonScaleLookup.h"
 #include "Smurf/Core/SmurfTree.h"
-#include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h"
-#include "Smurf/Analysis/HWWlvlv/WWBkgScaleFactors.h"
+#include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h"
+#include "Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h"
 #include "Smurf/Analysis/HWWlvlv/HWWCuts.h"
 #include "Smurf/Analysis/HWWlvlv/factors.h"
 #endif
@@ -61,6 +61,8 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   double ptLepMin = 10.0;
   if(WWXSSel == true) ptLepMin = 20.;
 
+  bool forBDTAna = false;
+
   Double_t lumi = 1;
   TString filesPath   = "dummy";
   unsigned int minRun = 0;
@@ -71,7 +73,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   if(useRecoilModel) nmet = 100;
 
   if     (period == 0){ // Full2011-Fall11-V9
-    lumi = 1.616;minRun =      0;maxRun = 999999;
+    lumi = 3.553;minRun =      0;maxRun = 999999;
     filesPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets";
   }
   else if(period == 1){ // Full2011-Fall11-V7
@@ -415,18 +417,27 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 	  Double_t minpfmet  = TMath::Min(projectedMET(pfmet,pfmetphi,tree.lep1_.Phi()),  projectedMET(pfmet,pfmetphi,tree.lep2_.Phi()));
           Double_t mintrkmet = TMath::Min(projectedMET(trkmet,trkmetphi,tree.lep1_.Phi()),projectedMET(trkmet,trkmetphi,tree.lep2_.Phi()));
           Double_t minmet    = TMath::Min(minpfmet,mintrkmet);
-          if(minmet>=49) minmet=49;	
+          if(minmet>=49) minmet=49;
 	  Double_t mt = sqrt( 2.0 * (tree.dilep_.Pt()) * pfmet * (1.0-cos( acos(cos(tree.dilep_.Phi() - pfmetphi)) ) ));
 
           //loop over Higgs masses
 	  for(Int_t imass=0; imass<nmass; imass++) {
-    
-	    if(tree.lep1_.Pt() < cutPtMaxLow(mH[imass])) continue;
-	    if(tree.lep2_.Pt() < cutPtMinLow(mH[imass],0)) continue;
+	    int whichIMass = imass;
+	    double theCutMassHigh = cutMassHigh(mH[imass]);
+            bool passMtCut = mt > cutMTLow(mH[imass]) && mt < cutMTHigh(mH[imass]);
+
+            if(forBDTAna == true && imass != 0){
+	      whichIMass = 0;
+	      theCutMassHigh = DileptonMassPreselectionCut(mH[imass]);
+	      passMtCut = mt > 80.0 && mt < mH[imass];
+	    }
+	    
+	    if(tree.lep1_.Pt() < cutPtMaxLow(mH[whichIMass])) continue;
+	    if(tree.lep2_.Pt() < cutPtMinLow(mH[whichIMass],0)) continue;
 	    if(tree.dilep_.Pt() <= 45.0) continue;
 	    if(minmet <= 20.0) continue;
 
- 	    if(tree.dPhi_ > cutDeltaphiHigh(mH[imass])*TMath::Pi()/180.) continue;
+ 	    if(tree.dPhi_ > cutDeltaphiHigh(mH[whichIMass])*TMath::Pi()/180.) continue;
 
             bool dPhiDiLepJetCut = kTRUE;
             if(useDYMVA[imass] == kFALSE){
@@ -447,7 +458,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 	      if(finalState==kMuMu   && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) {
                 hNin_rmm_mc[ijet][imass]->Fill(varMet,weight/(Double_t)nmet);              	 
               }
-            } else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < cutMassHigh(mH[imass])) {
+            } else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < theCutMassHigh) {
 	      if(finalState==kEleEle && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) {
                 hNout_ree_mc[ijet][imass]->Fill(varMet,weight/(Double_t)nmet);	
               }
@@ -456,7 +467,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
               }
             }
 	
- 	    if(mt < cutMTLow(mH[imass]) || mt > cutMTHigh(mH[imass])) continue;
+ 	    if(!passMtCut) continue;
             bool passMET = minmet > 20.;
             if(useDYMVA[imass] == kTRUE){
               if     (tree.njets_ == 0) passMET = passMET && dymva >  0.60;
@@ -479,9 +490,9 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 	      if(finalState==kMuMu   && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) { 
 	        nin_mm_dy[ijet][imass]+=weight/(Double_t)nmet; 
 	        varin_mm_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet;
-	      }	  
-	 
-             } else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < cutMassHigh(mH[imass])) {
+	      }
+
+             } else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < theCutMassHigh) {
 
 	      if(finalState==kEleEle && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) { 
 	        nout_ee_dy[ijet][imass]+=weight/(Double_t)nmet; 
@@ -506,14 +517,24 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 	Double_t mt = sqrt( 2.0 * (tree.dilep_.Pt()) * pfmet * (1.0-cos(acos(cos(tree.dilep_.Phi()-pfmetphi)))) );
 	
 	for(Int_t imass=0; imass<nmass; imass++) {
-          if(tree.lep1_.Pt() < cutPtMaxLow(mH[imass])) continue;
-          if(tree.lep2_.Pt() < cutPtMinLow(mH[imass],0)) continue;
+	  int whichIMass = imass;
+	  double theCutMassHigh = cutMassHigh(mH[imass]);
+          bool passMtCut = mt > cutMTLow(mH[imass]) && mt < cutMTHigh(mH[imass]);
+
+          if(forBDTAna == true && imass != 0){
+	    whichIMass = 0;
+	    theCutMassHigh = DileptonMassPreselectionCut(mH[imass]);
+	    passMtCut = mt > 80.0 && mt < mH[imass];
+	  }
+
+          if(tree.lep1_.Pt() < cutPtMaxLow(mH[whichIMass])) continue;
+          if(tree.lep2_.Pt() < cutPtMinLow(mH[whichIMass],0)) continue;
           if(tree.dilep_.Pt() <= 45.0) continue;
 	  if(minmet <= 20.0) continue;
           
-          if(tree.dPhi_ > cutDeltaphiHigh(mH[imass])*TMath::Pi()/180.) continue;         
+          if(tree.dPhi_ > cutDeltaphiHigh(mH[whichIMass])*TMath::Pi()/180.) continue;         
 
-          if(mt < cutMTLow(mH[imass]) || mt > cutMTHigh(mH[imass])) continue;
+          if(!passMtCut) continue;
 
           bool dPhiDiLepJetCut = kTRUE;
           if(useDYMVA[imass] == kFALSE){
@@ -621,7 +642,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 
           } 
           // Out of Z peak region
-          else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < cutMassHigh(mH[imass])) {
+          else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < theCutMassHigh) {
 
 	    if(finalState==kEleEle) {
               if (ProcessType == 1) {
@@ -646,7 +667,10 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   //--------------------------------------------------------------------------------------------------------------
   // Summary print out
   //============================================================================================================== 
-  ofstream fout("DYEstimateTable.txt");
+  char DYEstimateTableName[200];
+  sprintf(DYEstimateTableName,"DYEstimateTable.txt");
+  if(forBDTAna == true) sprintf(DYEstimateTableName,"DYEstimateTableBDT.txt");
+  ofstream fout(DYEstimateTableName);
 
   vector<vector<Double_t> > DYBkgScaleFactorHiggsSelection;
   vector<vector<Double_t> > DYBkgScaleFactorHiggsSelectionErr;
@@ -939,9 +963,13 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   //***************************************************************************
   // Generate DY Scale Factor and Systematics Code for card creation
   //***************************************************************************
-  ofstream outf("DYBkgScaleFactors.h");
+  char DYBkgScaleFactorsName[200];
+  sprintf(DYBkgScaleFactorsName,"DYBkgScaleFactors.h");
+  if(forBDTAna == true) sprintf(DYBkgScaleFactorsName,"DYBkgScaleFactorsBDT.h");
+  ofstream outf(DYBkgScaleFactorsName);
 
-  outf << "static Double_t DYBkgScaleFactor(Int_t mH, Int_t jetBin) {" << endl;
+  if(forBDTAna == true) outf << "static Double_t DYBkgScaleFactorBDT(Int_t mH, Int_t jetBin) {" << endl;
+  else                  outf << "static Double_t DYBkgScaleFactor(Int_t mH, Int_t jetBin) {" << endl;
   
   outf << "  Int_t mHiggs[" << nmass-1 << "] = {";
   for (UInt_t i = 0; i < nmass-1 ; ++i) {
@@ -992,7 +1020,8 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   outf << endl;
 
 
-  outf << "static Double_t DYBkgScaleFactorKappa(Int_t mH, Int_t jetBin) {" << endl;
+  if(forBDTAna == true) outf << "static Double_t DYBkgScaleFactorBDTKappa(Int_t mH, Int_t jetBin) {" << endl;
+  else                  outf << "static Double_t DYBkgScaleFactorKappa(Int_t mH, Int_t jetBin) {" << endl;
   
   outf << "  Int_t mHiggs[" << nmass-1 << "] = {";
   for (UInt_t i = 0; i < nmass-1 ; ++i) {

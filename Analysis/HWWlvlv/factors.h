@@ -854,6 +854,7 @@ double fakeRate(double pt, double eta, TH2D *fhDFRMu, TH2D *fhDFREl, int fm, int
 
 double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, int lid, int syst){
   // lid == 13 (muon), 11 (electron)
+  if(pt<=10) return 1.0;
   double mypt   = TMath::Min(pt,49.999);
   double myeta  = TMath::Min(fabs(eta),2.4999);
   double prob = 1.0;
