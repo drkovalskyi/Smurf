@@ -63,14 +63,10 @@ enum Selection {
 };
 
 // ww-preselection information available through bits (extra cuts are needed)
-// http://www.t2.ucsd.edu/tastwiki/bin/view/Smurf/ReferenceSelections#SmurfWW_V6_with_42X
-// UInt_t ww = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
 UInt_t ww = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|ZVeto|ExtraLeptonVeto;
 // relax met
-//UInt_t ww_nomet = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|ZVeto|TopVeto|ExtraLeptonVeto;
 UInt_t ww_nomet = BaseLine|ChargeMatch|Lep1FullSelection|Lep2FullSelection|ZVeto|ExtraLeptonVeto;
 // relax the lepton requirements
-// UInt_t ww_lepfo = BaseLine|ChargeMatch|FullMET|ZVeto|TopVeto|ExtraLeptonVeto;
 UInt_t ww_lepfo = BaseLine|ChargeMatch|ZVeto|ExtraLeptonVeto;
 // zz baseline selections using the bits setup in the smurfntuples
 // http://www.t2.ucsd.edu/tastwiki/bin/view/Smurf/HZZllvvEventSelections#Reference_selection_V1
@@ -89,7 +85,6 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
   
   TString outputFileName = outputDir + fileName;
   if (cutstring == "PassFail")   outputFileName.ReplaceAll(".root","_PassFail.root");
-  if (cutstring == "LooseMET")   outputFileName.ReplaceAll(".root","_LooseMET.root");
   if (cutstring == "ZZBTAG")   outputFileName.ReplaceAll(".root","_BTAG.root");
   
   TFile *newfile= new TFile(outputFileName,"recreate");
@@ -163,20 +158,18 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
     if ( jetbin < 2 && int(njets_) != jetbin ) continue;
     if ( jetbin == 2 && int(njets_) < 2 ) continue; 
     if ( dilep_->mass() < 12.0) continue;
+    if ( dilep_->Pt() < 45) continue;    
+    if (TMath::Min(pmet_,pTrackMet_) < 20.)  continue;
+    if ( ! (cuts_ & TopVeto) ) continue;
     
     // cuts to select the WW pre-selection
     if (cutstring == "WW") {
       if ((cuts_ & ww) != ww) continue;
-      if (TMath::Min(pmet_,pTrackMet_) < 20.)  continue;
-      if ( dilep_->Pt() < 30) continue;
     }
     
     // select the PassFail sample for the wjets studies
     else if (cutstring == "PassFail") {  
-      if (TMath::Min(pmet_,pTrackMet_) < 20.)  continue;
       if ( (cuts_ & ww_lepfo) != ww_lepfo) continue;
-      if ( dilep_->Pt() < 30) continue;
-      
       // skip events with no lepton pass the full selection
       if ( ( (cuts_ & Lep1FullSelection) != Lep1FullSelection)  &&  
 	   ( (cuts_ & Lep2FullSelection) != Lep2FullSelection) ) continue;
@@ -189,7 +182,6 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
       if ( cuts_ & Lep1FullSelection ) {
 	if ( ! ( (cuts_ & Lep2LooseEleV4) || (cuts_ & Lep2LooseMuV2) ) ) continue;
       }
-      
       // if lep2 pass full selection, but none of the lep1 pass the FO definition, skip the event
       if ( cuts_ & Lep2FullSelection ) {
 	if ( ! ( (cuts_ & Lep1LooseEleV4) || (cuts_ & Lep1LooseMuV2) ) ) continue;
