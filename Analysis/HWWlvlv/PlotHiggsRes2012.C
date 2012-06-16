@@ -125,6 +125,7 @@ void PlotHiggsRes2012
   output.ReplaceAll(".root",replace);
 
   unsigned int patternTopTag = SmurfTree::TopTag;
+  unsigned int patternTopTagNotInJets = SmurfTree::TopTagNotInJets;
 
   int channel = HiggsMassIndex(mH)-1;
 
@@ -765,6 +766,7 @@ void PlotHiggsRes2012
   UInt_t          nSoftMuons;
   Float_t         jet1Btag;
   Float_t         jet2Btag;
+  Float_t         jet3Btag;
   Int_t 	  lep1McId;
   Int_t 	  lep2McId;
   Int_t 	  lep1MotherMcId;
@@ -829,6 +831,7 @@ void PlotHiggsRes2012
   signal->SetBranchAddress( "nSoftMuons"   , &nSoftMuons   );
   signal->SetBranchAddress( "jet1Btag"     , &jet1Btag     );
   signal->SetBranchAddress( "jet2Btag"     , &jet2Btag     );
+  signal->SetBranchAddress( "jet3Btag"     , &jet3Btag     );
   signal->SetBranchAddress(Form("bdt_hww%i_%djet_ww"	  ,mH,nJetsType), &bdt        );
   signal->SetBranchAddress(Form("bdtd_hww%i_%djet_ww"	  ,mH,nJetsType), &bdtd       );
   signal->SetBranchAddress(Form("nn_hww%i_%djet_ww"	  ,mH,nJetsType), &nn	      );
@@ -932,10 +935,8 @@ void PlotHiggsRes2012
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
     //if( lid3 != 0	                                                 ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
-    //if( jetLowBtag >= 2.1	    					 ) continue; // cut on anti b-tagging
-    //if( nSoftMuons != 0                                                ) continue; // cut on soft muons veto
-    //if( jet1Btag >= 2.1             					 ) continue; // cut on jet1Btag
-    //if( jet2Btag >= 2.1             					 ) continue; // cut on jet2Btag
+    if( (cuts & patternTopTagNotInJets) == patternTopTagNotInJets ||
+        jet1Btag >= 2.1 || jet2Btag >= 2.1 || jet3Btag >= 2.1            ) continue; // cut on TopTagNotInJets
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
     bool dPhiDiLepJetCut = kTRUE;
@@ -1258,6 +1259,7 @@ void PlotHiggsRes2012
   background->SetBranchAddress( "nSoftMuons"    , &nSoftMuons	  );
   background->SetBranchAddress( "jet1Btag"      , &jet1Btag	  );
   background->SetBranchAddress( "jet2Btag"      , &jet2Btag	  );
+  background->SetBranchAddress( "jet3Btag"      , &jet3Btag	  );
   background->SetBranchAddress( "lep1McId"      , &lep1McId	  );
   background->SetBranchAddress( "lep2McId"      , &lep2McId	  );
   background->SetBranchAddress( "lep1MotherMcId", &lep1MotherMcId );
@@ -1368,10 +1370,8 @@ void PlotHiggsRes2012
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
     //if( lid3 != 0	                                                 ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
-    //if( jetLowBtag >= 2.1	    					 ) continue; // cut on anti b-tagging
-    //if( nSoftMuons != 0		    			         ) continue; // cut on soft muons veto
-    //if( jet1Btag >= 2.1             					 ) continue; // cut on jet1Btag
-    //if( jet2Btag >= 2.1             					 ) continue; // cut on jet2Btag
+    if( (cuts & patternTopTagNotInJets) == patternTopTagNotInJets ||
+        jet1Btag >= 2.1 || jet2Btag >= 2.1 || jet3Btag >= 2.1            ) continue; // cut on TopTagNotInJets
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
     bool dPhiDiLepJetCut = kTRUE;
@@ -1972,6 +1972,7 @@ void PlotHiggsRes2012
   treeSyst->SetBranchAddress( "nSoftMuons"    , &nSoftMuons	);
   treeSyst->SetBranchAddress( "jet1Btag"      , &jet1Btag	);
   treeSyst->SetBranchAddress( "jet2Btag"      , &jet2Btag	);
+  treeSyst->SetBranchAddress( "jet3Btag"      , &jet3Btag	);
   treeSyst->SetBranchAddress( "lep1McId"      , &lep1McId	);
   treeSyst->SetBranchAddress( "lep2McId"      , &lep2McId	);
   treeSyst->SetBranchAddress( "lep1MotherMcId", &lep1MotherMcId );
@@ -2074,6 +2075,8 @@ void PlotHiggsRes2012
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
+    if( (cuts & patternTopTagNotInJets) == patternTopTagNotInJets ||
+        jet1Btag >= 2.1 || jet2Btag >= 2.1 || jet3Btag >= 2.1            ) continue; // cut on TopTagNotInJets
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
     bool dPhiDiLepJetCut = kTRUE;
@@ -2476,6 +2479,7 @@ void PlotHiggsRes2012
   data->SetBranchAddress( "nSoftMuons"   , &nSoftMuons   );
   data->SetBranchAddress( "jet1Btag"	 , &jet1Btag	 );
   data->SetBranchAddress( "jet2Btag"	 , &jet2Btag	 );
+  data->SetBranchAddress( "jet3Btag"	 , &jet3Btag	 );
   data->SetBranchAddress(Form("bdt_hww%i_%djet_ww"	,mH,nJetsType), &bdt	    );
   data->SetBranchAddress(Form("bdtd_hww%i_%djet_ww"	,mH,nJetsType), &bdtd	    );
   data->SetBranchAddress(Form("nn_hww%i_%djet_ww"	,mH,nJetsType), &nn	    );
@@ -2561,10 +2565,8 @@ void PlotHiggsRes2012
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
     //if( lid3 != 0	                                                 ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
-    //if( jetLowBtag >= 2.1	    					 ) continue; // cut on anti b-tagging
-    //if( nSoftMuons != 0                                                ) continue; // cut on soft muons veto
-    //if( jet1Btag >= 2.1             					 ) continue; // cut on jet1Btag
-    //if( jet2Btag >= 2.1             					 ) continue; // cut on jet2Btag
+    if( (cuts & patternTopTagNotInJets) == patternTopTagNotInJets ||
+        jet1Btag >= 2.1 || jet2Btag >= 2.1 || jet3Btag >= 2.1            ) continue; // cut on TopTagNotInJets
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
     bool dPhiDiLepJetCut = kTRUE;
