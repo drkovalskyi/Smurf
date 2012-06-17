@@ -460,7 +460,8 @@ void ComputeTopScaleFactors
 	  }
 	  else if(ivbf>=2){
 	    passAllCuts = bgdEvent.dilep_.M() <  DileptonMassPreselectionCut(mH[ivbf]) && 
-	                  bgdEvent.mt_ > 30.0 && bgdEvent.mt_ < mH[ivbf] && passWBFSel == true;
+	                  bgdEvent.mt_ > 30.0 && bgdEvent.mt_ < mH[ivbf] && 
+			  bgdEvent.lep1_.Pt() > cutPtMaxLow(mH[ivbf]) && passWBFSel == true;
 	  }
 	  if(passAllCuts == true){
             if(bTagMax[0] >= 2.10){
@@ -651,7 +652,8 @@ void ComputeTopScaleFactors
 	  }
 	  else if(ivbf>=2){
 	    passAllCuts = dataEvent.dilep_.M() <  DileptonMassPreselectionCut(mH[ivbf]) && 
-	                  dataEvent.mt_ > 30.0 && dataEvent.mt_ < mH[ivbf] && passWBFSel == true;
+	                  dataEvent.mt_ > 30.0 && dataEvent.mt_ < mH[ivbf] && 
+			  dataEvent.lep1_.Pt() > cutPtMaxLow(mH[ivbf]) && passWBFSel == true;
 	  }
 	  if(passAllCuts == true){
             if(bTagMax[0] >= 2.10){
@@ -1064,7 +1066,7 @@ void ComputeTopScaleFactors
   outVBF << "};" << endl;
   outVBF << "  Double_t TopVBFBkgSF[" << nmass-1 << "] = { " << endl;
   for (UInt_t i = 0; i < nmass-1; ++i) {
-    outVBF << TopBkgScaleFactor_2Jet_vbf[i+1];    
+    outVBF << TopBkgScaleFactor_2Jet_vbf[i+1];
     if (i < nmass-1-1) outVBF << ",";
   }
   outVBF << "};" << endl;
@@ -1087,6 +1089,7 @@ void ComputeTopScaleFactors
   outVBF << "};" << endl;
   outVBF << "  Double_t TopVBFBkgKappa[" << nmass-1 << "] = { " << endl;
   for (UInt_t i = 0; i < nmass-1; ++i) {
+    if(TopBkgScaleFactor_2Jet_vbf[i+1] == 0) TopBkgScaleFactor_2Jet_vbf[i+1] = 1.0;
     outVBF << (1.0 + TopBkgScaleFactorUncertainty_2Jet_vbf[i+1]/TopBkgScaleFactor_2Jet_vbf[i+1]);    
     if (i < nmass-1-1) outVBF << ",";
   }

@@ -431,13 +431,28 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 	      theCutMassHigh = DileptonMassPreselectionCut(mH[imass]);
 	      passMtCut = mt > 80.0 && mt < mH[imass];
 	    }
-	    
-	    if(tree.lep1_.Pt() < cutPtMaxLow(mH[whichIMass])) continue;
-	    if(tree.lep2_.Pt() < cutPtMinLow(mH[whichIMass],0)) continue;
+
+	    bool passKinCuts = tree.lep1_.Pt() > cutPtMaxLow(mH[whichIMass])   &&
+	                       tree.lep2_.Pt() > cutPtMinLow(mH[whichIMass],0) &&
+			       tree.dPhi_ < cutDeltaphiHigh(mH[whichIMass])*TMath::Pi()/180.;
+	    bool passWBFSel = true;
+            if(tree.njets_ >= 2 && imass != 0){
+	      theCutMassHigh = DileptonMassPreselectionCut(mH[imass]);
+	      passMtCut = mt > 30.0 && mt < mH[imass];  
+              int centrality = 0;
+	      if(((tree.jet1_.Eta()-tree.lep1_.Eta() > 0 && tree.jet2_.Eta()-tree.lep1_.Eta() < 0) ||
+        	  (tree.jet2_.Eta()-tree.lep1_.Eta() > 0 && tree.jet1_.Eta()-tree.lep1_.Eta() < 0)) &&
+        	 ((tree.jet1_.Eta()-tree.lep2_.Eta() > 0 && tree.jet2_.Eta()-tree.lep2_.Eta() < 0) ||
+        	  (tree.jet2_.Eta()-tree.lep2_.Eta() > 0 && tree.jet1_.Eta()-tree.lep2_.Eta() < 0))) centrality = 1; 
+	      passWBFSel = (tree.jet1_+tree.jet2_).M() > 450. && TMath::Abs(tree.jet1_.Eta()-tree.jet2_.Eta()) > 3.5 && 
+                            centrality == 1;
+	      passKinCuts = true;
+	    }
+            if(!passWBFSel) continue;
+
+	    if(!passKinCuts) continue;
 	    if(tree.dilep_.Pt() <= 45.0) continue;
 	    if(minmet <= 20.0) continue;
-
- 	    if(tree.dPhi_ > cutDeltaphiHigh(mH[whichIMass])*TMath::Pi()/180.) continue;
 
             bool dPhiDiLepJetCut = kTRUE;
             if(useDYMVA[imass] == kFALSE){
@@ -527,12 +542,27 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 	    passMtCut = mt > 80.0 && mt < mH[imass];
 	  }
 
-          if(tree.lep1_.Pt() < cutPtMaxLow(mH[whichIMass])) continue;
-          if(tree.lep2_.Pt() < cutPtMinLow(mH[whichIMass],0)) continue;
+	  bool passKinCuts = tree.lep1_.Pt() > cutPtMaxLow(mH[whichIMass])   &&
+	  		     tree.lep2_.Pt() > cutPtMinLow(mH[whichIMass],0) &&
+	        	     tree.dPhi_ < cutDeltaphiHigh(mH[whichIMass])*TMath::Pi()/180.;
+	  bool passWBFSel = true;
+          if(tree.njets_ >= 2 && imass != 0){
+	    theCutMassHigh = DileptonMassPreselectionCut(mH[imass]);
+	    passMtCut = mt > 30.0 && mt < mH[imass];  
+            int centrality = 0;
+	    if(((tree.jet1_.Eta()-tree.lep1_.Eta() > 0 && tree.jet2_.Eta()-tree.lep1_.Eta() < 0) ||
+        	(tree.jet2_.Eta()-tree.lep1_.Eta() > 0 && tree.jet1_.Eta()-tree.lep1_.Eta() < 0)) &&
+               ((tree.jet1_.Eta()-tree.lep2_.Eta() > 0 && tree.jet2_.Eta()-tree.lep2_.Eta() < 0) ||
+        	(tree.jet2_.Eta()-tree.lep2_.Eta() > 0 && tree.jet1_.Eta()-tree.lep2_.Eta() < 0))) centrality = 1; 
+	    passWBFSel = (tree.jet1_+tree.jet2_).M() > 450. && TMath::Abs(tree.jet1_.Eta()-tree.jet2_.Eta()) > 3.5 && 
+                          centrality == 1;
+	    passKinCuts = true;
+	  }
+          if(!passWBFSel) continue;
+
+	  if(!passKinCuts) continue;
           if(tree.dilep_.Pt() <= 45.0) continue;
 	  if(minmet <= 20.0) continue;
-          
-          if(tree.dPhi_ > cutDeltaphiHigh(mH[whichIMass])*TMath::Pi()/180.) continue;         
 
           if(!passMtCut) continue;
 

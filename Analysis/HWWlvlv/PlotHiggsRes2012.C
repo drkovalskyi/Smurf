@@ -295,7 +295,7 @@ void PlotHiggsRes2012
   // The nominal MVA shape is taken from the MET sideband 
   // (20 < Met < norminal met cut)
   //----------------------------------------------------------------------------
-  TH1D *hDZjetsTemplate;
+  TH1D *hDZjetsMCTemplate,*hDZjetsDATemplate;
   if(useZjetsTemplates == true) printf("***********useZjetsTemplates = true***************\n");
   else                          printf("***********useZjetsTemplates = false***************\n");
   if(useZjetsTemplates == true){
@@ -303,17 +303,27 @@ void PlotHiggsRes2012
     if(period == 0 || period == 1) fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/histo_Zjets_Templates.root");
     else                           assert(0);
     char ZjetsHistName[100];
-    sprintf(ZjetsHistName, "hDZjets%d_%d", mH,TMath::Min((int)nJetsType,1));
-    hDZjetsTemplate = (TH1D*)(fZjetsTemplatesFile->Get(ZjetsHistName));
-    if (hDZjetsTemplate) {
-      hDZjetsTemplate->SetDirectory(0);
+    sprintf(ZjetsHistName, "hDMCZjets%d_%d", mH,TMath::Min((int)nJetsType,1));
+    hDZjetsMCTemplate = (TH1D*)(fZjetsTemplatesFile->Get(ZjetsHistName));
+    if (hDZjetsMCTemplate) {
+      hDZjetsMCTemplate->SetDirectory(0);
     }
-    assert(hDZjetsTemplate);
+    assert(hDZjetsMCTemplate);
+    sprintf(ZjetsHistName, "hDDAZjets%d_%d", mH,TMath::Min((int)nJetsType,1));
+    hDZjetsDATemplate = (TH1D*)(fZjetsTemplatesFile->Get(ZjetsHistName));
+    if (hDZjetsDATemplate) {
+      hDZjetsDATemplate->SetDirectory(0);
+    }
+    assert(hDZjetsDATemplate);
     fZjetsTemplatesFile->Close();
     delete fZjetsTemplatesFile;
-    if(hDZjetsTemplate->GetSumOfWeights() != 1.0){
-      printf("hDZjetsTemplate(%d) norm = %f --> normalizing to 1\n",mH,hDZjetsTemplate->GetSumOfWeights());
-      hDZjetsTemplate->Scale(1./hDZjetsTemplate->GetSumOfWeights());
+    if(hDZjetsMCTemplate->GetSumOfWeights() != 1.0){
+      printf("hDZjetsMCTemplate(%d) norm = %f --> normalizing to 1\n",mH,hDZjetsMCTemplate->GetSumOfWeights());
+      hDZjetsMCTemplate->Scale(1./hDZjetsMCTemplate->GetSumOfWeights());
+    }
+    if(hDZjetsDATemplate->GetSumOfWeights() != 1.0){
+      printf("hDZjetsDATemplate(%d) norm = %f --> normalizing to 1\n",mH,hDZjetsDATemplate->GetSumOfWeights());
+      hDZjetsDATemplate->Scale(1./hDZjetsDATemplate->GetSumOfWeights());
     }
   }
 
@@ -1667,7 +1677,7 @@ void PlotHiggsRes2012
       //----------------------------------------------------------------------------      
       if(fDecay == 4&& (dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
                        (type   == SmurfTree::mm   || type   == SmurfTree::ee)){
-	if(nJetsType != 2 && mH <= 300 && (wwDecay == 4 || wwDecay == 5)){
+	if(((nJetsType != 2 && mH <= 300) || nJetsType == 2) && (wwDecay == 4 || wwDecay == 5)){
           //newWeight=newWeight*DYBkgScaleFactor(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2))/DYBkgScaleFactor(0,TMath::Min((int)nJetsType,2));
           newWeight=0.0;
 	}
@@ -1697,8 +1707,8 @@ void PlotHiggsRes2012
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       double myWeightMVA = myWeight;
 
-      if(fDecay == 4&& (dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
-                       (type   == SmurfTree::mm   || type   == SmurfTree::ee)){
+      if(fDecay == 4 && (dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
+                        (type   == SmurfTree::mm   || type   == SmurfTree::ee) && makeZjetsTemplates == false){
 	if(nJetsType != 2 && mH <= 300 && (wwDecay == 4 || wwDecay == 5)){
           myWeightMVA = 0.0;
 	}
@@ -1708,12 +1718,11 @@ void PlotHiggsRes2012
       // nominal MET cut.
       //----------------------------------------------------------------------------
       if(fDecay == 4 && (dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
-	                (type   == SmurfTree::mm   || type   == SmurfTree::ee)){
+	                (type   == SmurfTree::mm   || type   == SmurfTree::ee) && makeZjetsTemplates == false){
 	DYXS[0] = DYXS[0] + myWeightMVA;
-	if(useZjetsTemplates == true) {histo_Zjets_CMS_MVAZBoundingUp->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);}
 	myWeightMVA = 0.0;
       }
-      else if(fDecay == 4){
+      else if(fDecay == 4 && makeZjetsTemplates == false){
 	VVXS[0] = VVXS[0] + myWeightMVA;
 	histoVV->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeightMVA);
       }
@@ -1728,7 +1737,7 @@ void PlotHiggsRes2012
       // Otherwise, include the DY->tautau bkg into "histo1" as well
       //----------------------------------------------------------------------------
       if      (((fDecay == 4 || fDecay == 7) && makeZjetsTemplates == false) ||
-               ((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) &&
+               ((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) && fDecay == 4 &&
 	        (type   == SmurfTree::mm   || type   == SmurfTree::ee) && makeZjetsTemplates == true)){ // Z+jets
 	if     (useVar == 0) histo1->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
 	else if(useVar == 1) histo1->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
@@ -2547,7 +2556,8 @@ void PlotHiggsRes2012
     //To create the DY bkg systematics MVA shapes (makeZjetsTemplates == true)
     //we loosen the MET cut to "minmet > 20 GeV". 
     //----------------------------------------------------------------------------
-    if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
+    if     ( makeZjetsTemplates == true && passMET == true ) passMET = false;
+    else if( makeZjetsTemplates == true && passMET == false) passMET = minmet > 20.;
 
     //----------------------------------------------------------------------------
     // WW Preselection
@@ -2589,6 +2599,9 @@ void PlotHiggsRes2012
     else if(wwDecay == 3) wwDecayCut = (type == SmurfTree::em);
     else if(wwDecay == 5) wwDecayCut = (type == SmurfTree::mm || type == SmurfTree::ee);
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
+
+    if(wwDecay == 5 && makeZjetsTemplates == true) wwDecayCut = true; // we use em events too
+
     if(wwDecayCut == false) continue;
 
     //bdtg = ((CalcGammaMRstar(*lep1,*lep2)-50.0)/(dilmass_cut-20.0)-0.5)*2.0;
@@ -2617,6 +2630,7 @@ void PlotHiggsRes2012
     if(signalInjection == true) {
       myWeight = sfWeightPU*sfWeightEff*sfWeightTrig*sfWeightHPt*scaleFactorLum*scale1fb;
     }
+    if(wwDecay == 5 && makeZjetsTemplates == true && (type == SmurfTree::me || type == SmurfTree::em)) myWeight = -1.0;
 
     if(myWeight == 0) continue;
 
@@ -2690,15 +2704,23 @@ void PlotHiggsRes2012
     } // passMVAPreselCuts
   } // end loop over data events
 
+  // remove VV component when making Zjets templates
+  if(wwDecay == 5 && makeZjetsTemplates == true) histo5->Add(histoVV,-1.0);
+
   // cut-based 0/1 jet bin analyses
   if(nJetsType != 2 && mH <= 300 && (wwDecay == 4 || wwDecay == 5)){
     DYXS[1] = DYBkgScaleFactor(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2));
     nBgdCutDecays[4] += DYXS[1];
     nBgdCut += DYXS[1];
   }
+  if(nJetsType == 2 && (wwDecay == 4 || wwDecay == 5)){
+    DYXS[1] = DYBkgScaleFactor(TMath::Min(TMath::Max((int)mH,115),300),TMath::Min((int)nJetsType,2));
+    nBgdCutDecays[4] += DYXS[1];
+    nBgdCut += DYXS[1];
+  }
 
   // shape-based 0/1 jet bin analyses
-  if(nJetsType != 2 && mH <= 300 && (wwDecay == 4 || wwDecay == 5)){
+  if(nJetsType != 2 && mH <= 300 && (wwDecay == 4 || wwDecay == 5) && makeZjetsTemplates == false){
     DYXS[0] = DYBkgScaleFactorBDT(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,2));
   }
   nBgdAccDecays[4] += DYXS[0];
@@ -2742,28 +2764,22 @@ void PlotHiggsRes2012
   //----------------------------------------------------------------------------
   if(useZjetsTemplates == true){
     //----------------------------------------------------------------------------
-    // hDZjetsTemplate is the nominal MVA shape for the DY bkg
+    // hDZjetsDATemplate is the nominal MVA shape for the DY bkg
+    // normalize the histogram to the predicted DY background yield
+    // hDZjetsMCTemplate is the alternative MVA shape for the DY bkg
     // normalize the histogram to the predicted DY background yield
     // 
     // histo_Zjets_CMS_MVAZBounding   : nominal MVA shape
-    // histo_Zjets_CMS_MVAZBoundingUp : systematics shape (with Met>20 cut)
     //----------------------------------------------------------------------------
-    hDZjetsTemplate->Scale(DYXS[0]);
-    histo_Zjets_CMS_MVAZBounding->Add(hDZjetsTemplate);
-
-    //Check that nominal shape and systematics shape has the same normalization
-    if(TMath::Abs(histo_Zjets_CMS_MVAZBounding->GetSumOfWeights()-histo_Zjets_CMS_MVAZBoundingUp->GetSumOfWeights())/
-                  histo_Zjets_CMS_MVAZBounding->GetSumOfWeights() > 0.00001) 
-      {printf("Warning, different Zjets norm (nominal/up) %f - %f!\n",histo_Zjets_CMS_MVAZBounding  ->GetSumOfWeights(),
-                                                                      histo_Zjets_CMS_MVAZBoundingUp->GetSumOfWeights());}
-    if(histo_Zjets_CMS_MVAZBounding->GetSumOfWeights() > 0)
-       histo_Zjets_CMS_MVAZBounding->Scale(histo_Zjets_CMS_MVAZBoundingUp->GetSumOfWeights()/histo_Zjets_CMS_MVAZBounding->GetSumOfWeights());
+    hDZjetsMCTemplate->Scale(DYXS[0]);
+    hDZjetsDATemplate->Scale(DYXS[0]);
+    histo_Zjets_CMS_MVAZBounding  ->Add(hDZjetsDATemplate);
+    histo_Zjets_CMS_MVAZBoundingUp->Add(hDZjetsMCTemplate);
 
     //rebin the MVA shape histograms
     histo_Zjets_CMS_MVAZBounding->Rebin(rebinMVAHist);
     histo_Zjets_CMS_MVAZBoundingUp->Rebin(rebinMVAHist);
     histo_Zjets_CMS_MVAZBoundingDown->Rebin(rebinMVAHist);
-    if(histo_Zjets_CMS_MVAZBoundingUp->GetNbinsX() != histo_Zjets_CMS_MVAZBounding->GetNbinsX()) {printf("Different binning in Zjets!\n"); return;}
 
     //----------------------------------------------------------------------------
     // Construct Opposite Bounding Shape
@@ -2789,22 +2805,22 @@ void PlotHiggsRes2012
     histo_Zjets_CMS_MVAZBoundingUp  ->Add(histoVV);
     histo_Zjets_CMS_MVAZBoundingDown->Add(histoVV);
 
-    bgdMVA[4]->Add(hDZjetsTemplate);
-    bgdMVADecays[4][4]->Add(hDZjetsTemplate);
-    histo1->Add(hDZjetsTemplate);
+    bgdMVA[4]->Add(hDZjetsMCTemplate);
+    bgdMVADecays[4][4]->Add(hDZjetsMCTemplate);
+    histo1->Add(hDZjetsMCTemplate);
     printf("Zjets norm up/default/down: %f/%f/%f\n",histo_Zjets_CMS_MVAZBoundingUp->GetSumOfWeights(),bgdMVADecays[4][4]->GetSumOfWeights(),histo_Zjets_CMS_MVAZBoundingDown->GetSumOfWeights());
   }
 
   //----------------------------------------------------------------------------
   // Compute DY Bkg Uncertainties on the yield
   //----------------------------------------------------------------------------
-  if(nBgdAccDecays[4] > 0 && TMath::Abs(DYXS[0]+VVXS[0]-nBgdAccDecays[4])/nBgdAccDecays[4] > 0.001) {printf("Problem: %f %f %f\n",DYXS[0],VVXS[0],nBgdAccDecays[4]); assert(0);}
-  if(nBgdCutDecays[4] > 0 && TMath::Abs(DYXS[1]+VVXS[1]-nBgdCutDecays[4])/nBgdCutDecays[4] > 0.001) {printf("Problem: %f %f %f\n",DYXS[1],VVXS[1],nBgdCutDecays[4]); assert(0);}
-  if(nBgdMVADecays[4] > 0 && TMath::Abs(DYXS[2]+VVXS[2]-nBgdMVADecays[4])/nBgdMVADecays[4] > 0.001) {printf("Problem: %f %f %f\n",DYXS[2],VVXS[2],nBgdMVADecays[4]); assert(0);}
+  if(nBgdAccDecays[4] > 0 && makeZjetsTemplates == false && TMath::Abs(DYXS[0]+VVXS[0]-nBgdAccDecays[4])/nBgdAccDecays[4] > 0.001) {printf("Problem: %f %f %f\n",DYXS[0],VVXS[0],nBgdAccDecays[4]); assert(0);}
+  if(nBgdCutDecays[4] > 0 && makeZjetsTemplates == false && TMath::Abs(DYXS[1]+VVXS[1]-nBgdCutDecays[4])/nBgdCutDecays[4] > 0.001) {printf("Problem: %f %f %f\n",DYXS[1],VVXS[1],nBgdCutDecays[4]); assert(0);}
+  if(nBgdMVADecays[4] > 0 && makeZjetsTemplates == false && TMath::Abs(DYXS[2]+VVXS[2]-nBgdMVADecays[4])/nBgdMVADecays[4] > 0.001) {printf("Problem: %f %f %f\n",DYXS[2],VVXS[2],nBgdMVADecays[4]); assert(0);}
   int MhForError = mH;
   if(mH >= 110 && mH < 115) MhForError = mH;
-  if(nJetsType == 2) MhForError = 0;
   if(mH > 300) MhForError = 0;
+  if(nJetsType == 2 && mH > 300) MhForError = 300;
   if(nBgdAccDecays[4] > 0.0) ZXS_E[0] = sqrt(DYXS[0]*DYXS[0]*(DYBkgScaleFactorBDTKappa(MhForError,TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorBDTKappa(MhForError,TMath::Min((int)nJetsType,2))-1.0)+
                                              VVXS[0]*VVXS[0]*0.10*0.10)/nBgdAccDecays[4]; else ZXS_E[0] = 0;
   if(nBgdCutDecays[4] > 0.0) ZXS_E[1] = sqrt(DYXS[1]*DYXS[1]*(DYBkgScaleFactorKappa   (MhForError,TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorKappa   (MhForError,TMath::Min((int)nJetsType,2))-1.0)+
@@ -3762,8 +3778,7 @@ void PlotHiggsRes2012
       newcardShape << Form("%s                               lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -  \n",theWWThString,wwXS_E_MVA,wwXS_E_MVA);				
       newcardShape << Form("CMS_hww_Ztt           	     lnN   -     -     -     -     -     -     -     -     -     -     -   %5.3f\n",ZttScaleFactorKappa());
       if(useZjetsTemplates == true){
-        // This is intetional, lack of MC events
-        //newcardShape << Form("CMS_hww%s_%1dj_MVAZBounding           shape   -     -      -    -      -     -	 -     -    1.0    -	 -     -   \n",finalStateName,nJetsType);			  
+        newcardShape << Form("CMS_hww%s_%1dj_MVAZBounding           shape   -     -      -    -      -     -	 -     -    2.0    -	 -     -   \n",finalStateName,nJetsType);			  
       }
       if(useTopTemplates == true){
         newcardShape << Form("CMS_hww_MVATopBounding                shape   -     -      -    -      -    -	 -    1.0    -     -	 -     -   \n");			  
