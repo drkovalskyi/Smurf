@@ -205,7 +205,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 4.5;
     MCFMXsec_ = 0.333;
     if ( EightTeV ) {
-      NLOXsec_ = 4.5;
+      NLOXsec_ = 4.5*1.22;
       MCFMXsec_ = 0.4;
     }
     break;
@@ -214,7 +214,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 31314.0;
     MCFMXsec_ = 18788.0/3.0;
     if ( EightTeV ) {
-      NLOXsec_ = 4.5;
+      NLOXsec_ = 4.5*1.16;
       MCFMXsec_ = 21222./3.0;
     }
     break;
@@ -223,7 +223,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 31314.0;
     MCFMXsec_ =  12525.0/3.0;
     if ( EightTeV ) {
-      NLOXsec_ = 31314.0;
+      NLOXsec_ = 31314.0*1.16;
       MCFMXsec_ =  14995.0/3.0;
     }
     break;
@@ -232,7 +232,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.165009;
     MCFMXsec_ = 0.003447;
     if ( EightTeV ) {
-      NLOXsec_ = 0.165009;
+      NLOXsec_ = 0.165009*1.27;
       MCFMXsec_ = 0.00479;
     }
     
@@ -242,7 +242,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.165009;
     MCFMXsec_ = 0.005754;
     if ( EightTeV ) {
-      NLOXsec_ = 0.165009;
+      NLOXsec_ = 0.165009*1.27;
       MCFMXsec_ = 0.007462;
     }
     break;
@@ -251,7 +251,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.249642;
     MCFMXsec_ = 0.008743;
     if ( EightTeV ) {
-      NLOXsec_ = 0.249642;
+      NLOXsec_ = 0.249642*1.28;
       MCFMXsec_ = 0.011372;
     }
     break;
@@ -260,7 +260,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.249642;
     MCFMXsec_ = 0.012234;
     if ( EightTeV ) {
-      NLOXsec_ = 0.249642;
+      NLOXsec_ = 0.249642*1.28;
       MCFMXsec_ = 0.015957;
     }
     break;
@@ -269,7 +269,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.452090;
     MCFMXsec_ = 0.0159;
     if ( EightTeV ) {
-      NLOXsec_ = 0.452090;
+      NLOXsec_ = 0.452090*1.284;
       MCFMXsec_ = 0.0208;
     }
     break;
@@ -278,7 +278,7 @@ void Proc::initTotXsec() {
    NLOXsec_ = 0.452090;
    MCFMXsec_ = 0.01936;
     if ( EightTeV ) {
-      NLOXsec_ = 0.452090;
+      NLOXsec_ = 0.452090*1.288;
       MCFMXsec_ = 0.0254;
     }
     break;
@@ -287,7 +287,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.641773;
     MCFMXsec_ = 0.02234;
     if ( EightTeV ) {
-      NLOXsec_ = 0.641773;
+      NLOXsec_ = 0.641773*1.291;
       MCFMXsec_ = 0.0294;
     }
     break;
@@ -296,7 +296,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.641773;
     MCFMXsec_ = 0.025;
     if ( EightTeV ) {
-      NLOXsec_ = 0.641773;
+      NLOXsec_ = 0.641773*1.294;
       MCFMXsec_ = 0.033;
     }
     break;
@@ -305,7 +305,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.770471;
     MCFMXsec_ = 0.02674;
     if ( EightTeV ) {
-      NLOXsec_ = 0.770471;
+      NLOXsec_ = 0.770471*1.298;
       MCFMXsec_ = 0.0354;
     }
     break;
@@ -314,7 +314,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.770471;
     MCFMXsec_ = 0.0281;
     if ( EightTeV ) {
-      NLOXsec_ = 0.770471;
+      NLOXsec_ = 0.770471*1.30;
       MCFMXsec_ = 0.0373;
     }
     break;
@@ -324,7 +324,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.866443;
     MCFMXsec_ = 0.0293;
     if ( EightTeV ) {
-      NLOXsec_ = 0.782962;
+      NLOXsec_ = 0.782962*1.30;
       MCFMXsec_ = 0.039;
     }
     break;
@@ -333,7 +333,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.782962;
     MCFMXsec_ = 0.0269;
     if ( EightTeV ) {
-      NLOXsec_ = 0.782962;
+      NLOXsec_ = 0.782962*1.31;
       MCFMXsec_ = 0.036;
     }
     break;
@@ -342,7 +342,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.659328;
     MCFMXsec_ = 0.0225;
     if ( EightTeV ) {
-      NLOXsec_ = 0.659328;
+      NLOXsec_ = 0.659328*1.32;
       MCFMXsec_ = 0.030;
     }
     break;
@@ -351,7 +351,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.486486;
     MCFMXsec_ = 0.0164;
     if ( EightTeV ) {
-      NLOXsec_ = 0.486486;
+      NLOXsec_ = 0.486486*1.32;
       MCFMXsec_ = 0.0222;
     }
     break;
@@ -360,7 +360,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.408305;
     MCFMXsec_ = 0.0136;
     if ( EightTeV ) {
-      NLOXsec_ = 0.408305;
+      NLOXsec_ = 0.408305*1.33;
       MCFMXsec_ = 0.0185;
     }
     break;
@@ -369,7 +369,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.243724;
     MCFMXsec_ = 0.007;
     if ( EightTeV ) {
-      NLOXsec_ = 0.243724;
+      NLOXsec_ = 0.243724*1.355;
       MCFMXsec_ = 0.0097;
     }
     break;
@@ -378,7 +378,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.175652;
     MCFMXsec_ = 0.004024;
     if ( EightTeV ) {
-      NLOXsec_ = 0.175652;
+      NLOXsec_ = 0.175652*1.382;
       MCFMXsec_ = 0.0057;
     }
     break;
@@ -387,7 +387,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.160052;
     MCFMXsec_ = 0.002439;
     if ( EightTeV ) {
-      NLOXsec_ = 0.160052;
+      NLOXsec_ = 0.160052*1.407;
       MCFMXsec_ = 0.00353;
     }
     break;
@@ -396,7 +396,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.124330;
     MCFMXsec_ = 0.0013;
     if ( EightTeV ) {
-      NLOXsec_ = 0.124330;
+      NLOXsec_ = 0.124330*1.43;
       MCFMXsec_ = 0.00192;
     }
     break;
@@ -405,7 +405,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.078433;
     MCFMXsec_ = 0.0008;
     if ( EightTeV ) {
-      NLOXsec_ = 0.124330;
+      NLOXsec_ = 0.124330*1.455;
       MCFMXsec_ = 0.0012;
     }
     break;
@@ -414,7 +414,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.048702;
     MCFMXsec_ = 0.00052;
     if ( EightTeV ) {
-      NLOXsec_ = 0.048702;
+      NLOXsec_ = 0.048702*1.48;
       MCFMXsec_ = 0.0008;
     }
     break;
@@ -423,7 +423,7 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.030364;
     MCFMXsec_ = 0.000356;
     if ( EightTeV ) {
-      NLOXsec_ = 0.030364;
+      NLOXsec_ = 0.030364*1.502;
       MCFMXsec_ = 0.000559;
     }
     break;
@@ -432,11 +432,11 @@ void Proc::initTotXsec() {
     NLOXsec_ = 0.019184;
     MCFMXsec_ = 0.00025;
     if ( EightTeV ) {
-      NLOXsec_ = 0.019184;
+      NLOXsec_ = 0.019184*1.53;
       MCFMXsec_ = 0.0004;
     }
     break;
-
+    // WARNING: the NLO Xsec_ are not updated
   case (TVar::HWW700):
     NLOXsec_ = 0.019184;
     MCFMXsec_ = 0.000126;
