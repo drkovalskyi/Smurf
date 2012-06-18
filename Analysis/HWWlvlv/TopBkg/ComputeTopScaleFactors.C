@@ -426,7 +426,7 @@ void ComputeTopScaleFactors
       else												     Njet3 = 2;
       if(bgdEvent.njets_ < 2 || bgdEvent.njets_ > 3)							     Njet3 = 0;
 
-      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 2.10 && bgdEvent.jet3Btag_ < 2.1 && Njet3 == 2){
+      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bgdEvent.nSoftMuons_ == 0 && bTagMax[1] < 2.10 && bgdEvent.jet3Btag_ < 2.1 && Njet3 == 2){
         int nEta = TMath::Min(etaMin,2.499)/2.5*5;
         btag_central_2j_den[classType][nEta] 	     += theWeight;
         btag_central_2j_den_error[classType][nEta]   += theWeight*theWeight;
@@ -451,7 +451,7 @@ void ComputeTopScaleFactors
                          centrality == 1;
       if(WWXSSel == true) {passWBFSel = true;}
 
-      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 2.10 && bgdEvent.jet3Btag_ < 2.1 && Njet3 == 2){
+      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bgdEvent.nSoftMuons_ == 0 && bTagMax[1] < 2.10 && bgdEvent.jet3Btag_ < 2.1 && Njet3 == 2){
         int nEta = TMath::Min(etaMin,2.499)/2.5*5;
         for(int ivbf=0; ivbf<nVBFLoop; ivbf++){
 	  bool passAllCuts = true;
@@ -611,14 +611,14 @@ void ComputeTopScaleFactors
       }
 
       unsigned int Njet3 = dataEvent.njets_;
-      if(dataEvent.jet3_.pt() <= 30)									     Njet3 = 2;
+      if(dataEvent.jet3_.pt() <= 30)									         Njet3 = 2;
       else if(dataEvent.jet3_.pt() > 30 && (
         (dataEvent.jet1_.eta()-dataEvent.jet3_.eta() > 0 && dataEvent.jet2_.eta()-dataEvent.jet3_.eta() < 0) ||
         (dataEvent.jet2_.eta()-dataEvent.jet3_.eta() > 0 && dataEvent.jet1_.eta()-dataEvent.jet3_.eta() < 0)))   Njet3 = 0;
-      else												     Njet3 = 2;
-      if(dataEvent.njets_ < 2 || dataEvent.njets_ > 3)							     Njet3 = 0;
+      else												         Njet3 = 2;
+      if(dataEvent.njets_ < 2 || dataEvent.njets_ > 3)							         Njet3 = 0;
 
-      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 2.10 && dataEvent.jet3Btag_ < 2.1 && Njet3 == 2){
+      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && dataEvent.nSoftMuons_ == 0 && bTagMax[1] < 2.10 && dataEvent.jet3Btag_ < 2.1 && Njet3 == 2){
         int nEta = TMath::Min(etaMin,2.499)/2.5*5;
         btag_central_2j_den[classType][nEta] 	     += theWeight;
         btag_central_2j_den_error[classType][nEta]   += theWeight*theWeight;
@@ -643,7 +643,7 @@ void ComputeTopScaleFactors
                          centrality == 1;
       if(WWXSSel == true) {passWBFSel = true;}
 
-      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagMax[1] < 2.10 && dataEvent.jet3Btag_ < 2.1 && Njet3 == 2){
+      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && dataEvent.nSoftMuons_ == 0 && bTagMax[1] < 2.10 && dataEvent.jet3Btag_ < 2.1 && Njet3 == 2){
         int nEta = TMath::Min(etaMin,2.499)/2.5*5;
         for(int ivbf=0; ivbf<nVBFLoop; ivbf++){
 	  bool passAllCuts = true;

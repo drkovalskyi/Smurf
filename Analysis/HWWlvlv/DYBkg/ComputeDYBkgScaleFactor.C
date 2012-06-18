@@ -38,7 +38,7 @@ static const Bool_t verbose = kFALSE;
 Double_t projectedMET(const Double_t met, const Double_t metPhi, const Double_t lepPhi);
 
 // compute systematic uncertainty
-Double_t computeSyst(const TH1F *hout, const TH1F *hin, Int_t binUsed);
+Double_t computeSyst(const TH1D *hout, const TH1D *hin, Int_t binUsed, Double_t rErrorMax);
 
 //=== MAIN MACRO =================================================================================================
 // Options:
@@ -62,6 +62,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   if(WWXSSel == true) ptLepMin = 20.;
 
   bool forBDTAna = false;
+  bool useRFromData[3] = {0, 0, 1};
 
   Double_t lumi = 1;
   TString filesPath   = "dummy";
@@ -130,7 +131,8 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   //*******************************************************
   vector<Double_t> nin_kee_data, nin_kmm_data;
   
-  vector<vector<TH1F*> > hNin_ree_mc,   hNout_ree_mc,   hNin_rmm_mc,   hNout_rmm_mc;
+  vector<vector<TH1D*> > hNin_ree_mc,   hNout_ree_mc,   hNin_rmm_mc,   hNout_rmm_mc;
+  vector<vector<TH1D*> > hNin_ree_da,   hNout_ree_da,   hNin_rmm_da,   hNout_rmm_da;
 
   vector<vector<Double_t> > nin_ee_dy, nout_ee_dy, nin_ee_vz, nout_ee_vz, nin_ee_data;  
   vector<vector<Double_t> > nin_mm_dy, nout_mm_dy, nin_mm_vz, nout_mm_vz, nin_mm_data;
@@ -151,7 +153,8 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   
   for(UInt_t jetIndex = 0; jetIndex < 3; ++jetIndex) {
     Double_t tmp_nin_kee_data=0, tmp_nin_kmm_data=0;
-    vector<TH1F*> tmp_hNin_ree_mc,   tmp_hNout_ree_mc,   tmp_hNin_rmm_mc,   tmp_hNout_rmm_mc;
+    vector<TH1D*> tmp_hNin_ree_mc,   tmp_hNout_ree_mc,   tmp_hNin_rmm_mc,   tmp_hNout_rmm_mc;
+    vector<TH1D*> tmp_hNin_ree_da,   tmp_hNout_ree_da,   tmp_hNin_rmm_da,   tmp_hNout_rmm_da;
     
     vector<Double_t> tmp_nin_ee_dy, tmp_nout_ee_dy, tmp_nin_ee_vz, tmp_nout_ee_vz, tmp_nin_ee_data;  
     vector<Double_t> tmp_nin_mm_dy, tmp_nout_mm_dy, tmp_nin_mm_vz, tmp_nout_mm_vz, tmp_nin_mm_data;
@@ -185,10 +188,15 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 	bins[0] = 20; bins[1] = 25; bins[2] = 30; bins[3] =  45; bins[4] = 50; 
       }
 
-      sprintf(hname,"hNin_%iJet_ree_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_ree_mc.push_back(new TH1F(hname,"",nbins,bins));  tmp_hNin_ree_mc[imass]->Sumw2();
-      sprintf(hname,"hNout_%iJet_ree_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]); tmp_hNout_ree_mc.push_back(new TH1F(hname,"",nbins,bins)); tmp_hNout_ree_mc[imass]->Sumw2();
-      sprintf(hname,"hNin_%iJet_rmm_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_rmm_mc.push_back(new TH1F(hname,"",nbins,bins));  tmp_hNin_rmm_mc[imass]->Sumw2();
-      sprintf(hname,"hNout_%iJet_rmm_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]); tmp_hNout_rmm_mc.push_back(new TH1F(hname,"",nbins,bins)); tmp_hNout_rmm_mc[imass]->Sumw2();
+      sprintf(hname,"hNin_%iJet_ree_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_ree_mc.push_back(new TH1D(hname,"",nbins,bins));  tmp_hNin_ree_mc[imass]->Sumw2();
+      sprintf(hname,"hNout_%iJet_ree_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]); tmp_hNout_ree_mc.push_back(new TH1D(hname,"",nbins,bins)); tmp_hNout_ree_mc[imass]->Sumw2();
+      sprintf(hname,"hNin_%iJet_rmm_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_rmm_mc.push_back(new TH1D(hname,"",nbins,bins));  tmp_hNin_rmm_mc[imass]->Sumw2();
+      sprintf(hname,"hNout_%iJet_rmm_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]); tmp_hNout_rmm_mc.push_back(new TH1D(hname,"",nbins,bins)); tmp_hNout_rmm_mc[imass]->Sumw2();
+      
+      sprintf(hname,"hNin_%iJet_ree_da_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_ree_da.push_back(new TH1D(hname,"",nbins,bins));  tmp_hNin_ree_da[imass]->Sumw2();
+      sprintf(hname,"hNout_%iJet_ree_da_m%i",Int_t(jetIndex),(Int_t)mH[imass]); tmp_hNout_ree_da.push_back(new TH1D(hname,"",nbins,bins)); tmp_hNout_ree_da[imass]->Sumw2();
+      sprintf(hname,"hNin_%iJet_rmm_da_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_rmm_da.push_back(new TH1D(hname,"",nbins,bins));  tmp_hNin_rmm_da[imass]->Sumw2();
+      sprintf(hname,"hNout_%iJet_rmm_da_m%i",Int_t(jetIndex),(Int_t)mH[imass]); tmp_hNout_rmm_da.push_back(new TH1D(hname,"",nbins,bins)); tmp_hNout_rmm_da[imass]->Sumw2();
       
       tmp_nin_ee_dy.push_back(0), tmp_nout_ee_dy.push_back(0), tmp_nin_ee_vz.push_back(0), tmp_nout_ee_vz.push_back(0), tmp_nin_ee_data.push_back(0);
       tmp_nin_mm_dy.push_back(0), tmp_nout_mm_dy.push_back(0), tmp_nin_mm_vz.push_back(0), tmp_nout_mm_vz.push_back(0), tmp_nin_mm_data.push_back(0);
@@ -214,6 +222,11 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
     hNout_ree_mc.push_back(tmp_hNout_ree_mc); 
     hNin_rmm_mc.push_back(tmp_hNin_rmm_mc); 
     hNout_rmm_mc.push_back(tmp_hNout_rmm_mc);
+
+    hNin_ree_da.push_back(tmp_hNin_ree_da); 
+    hNout_ree_da.push_back(tmp_hNout_ree_da); 
+    hNin_rmm_da.push_back(tmp_hNin_rmm_da); 
+    hNout_rmm_da.push_back(tmp_hNout_rmm_da);
 
     nin_ee_dy.push_back(tmp_nin_ee_dy);
     nout_ee_dy.push_back(tmp_nout_ee_dy);
@@ -483,6 +496,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
             }
 	
  	    if(!passMtCut) continue;
+
             bool passMET = minmet > 20.;
             if(useDYMVA[imass] == kTRUE){
               if     (tree.njets_ == 0) passMET = passMET && dymva >  0.60;
@@ -564,8 +578,6 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
           if(tree.dilep_.Pt() <= 45.0) continue;
 	  if(minmet <= 20.0) continue;
 
-          if(!passMtCut) continue;
-
           bool dPhiDiLepJetCut = kTRUE;
           if(useDYMVA[imass] == kFALSE){
             if(tree.njets_ <= 1) dPhiDiLepJetCut = tree.jet1_.Pt() <= 15. || tree.dPhiDiLepJet1_*180.0/TMath::Pi() < 165.;
@@ -573,6 +585,24 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
           }
           if(tree.njets_ >= 2) dPhiDiLepJetCut = DeltaPhi((tree.jet1_+tree.jet2_).Phi(),tree.dilep_.Phi())*180.0/TMath::Pi() < 165.;
 	  if(dPhiDiLepJetCut == kFALSE) continue;
+
+	  Double_t varMet = minmet;
+	  if	 (ijet == 2)		    varMet = tree.met_;
+	  else if(useDYMVA[imass] == kTRUE) varMet = dymva;
+          double theDataWeight = 0.0;
+          if     (ProcessType == -1 && (finalState==kEleEle||finalState==kMuMu)) theDataWeight =  1.0;
+	  else if(ProcessType == -1                                            ) theDataWeight = -1.0;
+	  else if(ProcessType ==  1 && weight > 0                              ) theDataWeight = weight;
+	  // In reality ee == ee+mm for data
+	  if(theDataWeight > 0.0){
+	    if(mZ - tree.dilep_.M() < MassCutLow && tree.dilep_.M() - mZ < MassCutHigh) {
+              hNin_ree_da[ijet][imass]->Fill(varMet,theDataWeight/(Double_t)nmet);                
+            } else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < theCutMassHigh) {
+              hNout_ree_da[ijet][imass]->Fill(varMet,theDataWeight/(Double_t)nmet);	
+            }
+          }
+	  
+          if(!passMtCut) continue;
 
           bool passMET = minmet > 20.;
           if(useDYMVA[imass] == kTRUE){
@@ -767,41 +797,60 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
       Double_t RllErrStat = 0;
       Double_t RllErrSyst = 0;
 
-      nout_ee   = hNout_ree_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
-      errout_ee = hNout_ree_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
-      nout_mm   = hNout_rmm_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
-      errout_mm = hNout_rmm_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
-      nout_ll   = nout_ee+nout_mm;
-      errout_ll = sqrt(errout_ee*errout_ee + errout_mm*errout_mm);
+      if(useRFromData[jetIndex] == false){
+	nout_ee   = hNout_ree_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
+	errout_ee = hNout_ree_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
+	nout_mm   = hNout_rmm_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
+	errout_mm = hNout_rmm_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
+	nout_ll   = nout_ee+nout_mm;
+	errout_ll = sqrt(errout_ee*errout_ee + errout_mm*errout_mm);
 
-      nin_ee   = hNin_ree_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
-      errin_ee = hNin_ree_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
-      nin_mm   = hNin_rmm_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
-      errin_mm = hNin_rmm_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
-      nin_ll   = nin_ee+nin_mm;
-      errin_ll = sqrt(errin_ee*errin_ee + errin_mm*errin_mm);
-              
-      Ree        = nout_ee/nin_ee;
-      ReeErrStat = Ree*sqrt(errin_ee*errin_ee/nin_ee/nin_ee + errout_ee*errout_ee/nout_ee/nout_ee);
-      ReeErrSyst = computeSyst(hNout_ree_mc[jetIndex][imass],hNin_ree_mc[jetIndex][imass], MetBinToComputeRoutin);    
-    
-      Rmm        = nout_mm/nin_mm;
-      RmmErrStat = Rmm*sqrt(errin_mm*errin_mm/nin_mm/nin_mm + errout_mm*errout_mm/nout_mm/nout_mm);
-      RmmErrSyst = computeSyst(hNout_rmm_mc[jetIndex][imass],hNin_rmm_mc[jetIndex][imass], MetBinToComputeRoutin);
+	nin_ee   = hNin_ree_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
+	errin_ee = hNin_ree_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
+	nin_mm   = hNin_rmm_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
+	errin_mm = hNin_rmm_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
+	nin_ll   = nin_ee+nin_mm;
+	errin_ll = sqrt(errin_ee*errin_ee + errin_mm*errin_mm);
 
+	Ree        = nout_ee/nin_ee;
+	ReeErrStat = Ree*sqrt(errin_ee*errin_ee/nin_ee/nin_ee + errout_ee*errout_ee/nout_ee/nout_ee);
+	ReeErrSyst = computeSyst(hNout_ree_mc[jetIndex][imass],hNin_ree_mc[jetIndex][imass], MetBinToComputeRoutin, 0.4);    
 
-      TH1F *hout = (TH1F*)hNout_ree_mc[jetIndex][imass]->Clone("hout");
-      hout->Add(hNout_rmm_mc[jetIndex][imass]);
-      TH1F *hin = (TH1F*)hNin_ree_mc[jetIndex][imass]->Clone("hin");
-      hin->Add(hNin_rmm_mc[jetIndex][imass]);
-      Rll        = nout_ll/nin_ll;
-      RllErrStat = Rll*sqrt(errin_ll*errin_ll/nin_ll/nin_ll + errout_ll*errout_ll/nout_ll/nout_ll);
-      RllErrSyst = computeSyst(hout,hin, MetBinToComputeRoutin);
+	Rmm        = nout_mm/nin_mm;
+	RmmErrStat = Rmm*sqrt(errin_mm*errin_mm/nin_mm/nin_mm + errout_mm*errout_mm/nout_mm/nout_mm);
+	RmmErrSyst = computeSyst(hNout_rmm_mc[jetIndex][imass],hNin_rmm_mc[jetIndex][imass], MetBinToComputeRoutin, 0.4);
 
+	TH1D *hout = (TH1D*)hNout_ree_mc[jetIndex][imass]->Clone("hout");
+	hout->Add(hNout_rmm_mc[jetIndex][imass]);
+	TH1D *hin = (TH1D*)hNin_ree_mc[jetIndex][imass]->Clone("hin");
+	hin->Add(hNin_rmm_mc[jetIndex][imass]);
+	Rll        = nout_ll/nin_ll;
+	RllErrStat = Rll*sqrt(errin_ll*errin_ll/nin_ll/nin_ll + errout_ll*errout_ll/nout_ll/nout_ll);
+	RllErrSyst = computeSyst(hout,hin, MetBinToComputeRoutin, 0.4);
 
-      delete hout;
-      delete hin;
+	delete hout;
+	delete hin;
+      } else {
+	nout_ll   = hNout_ree_da[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
+	errout_ll = hNout_ree_da[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
 
+	nin_ll   = hNin_ree_da[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
+	errin_ll = hNin_ree_da[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
+
+	TH1D *hout = (TH1D*)hNout_ree_da[jetIndex][imass]->Clone("hout");
+	TH1D *hin = (TH1D*)hNin_ree_da[jetIndex][imass]->Clone("hin");
+
+	Rll        = nout_ll/nin_ll;
+	RllErrStat = Rll*sqrt(errin_ll*errin_ll/nin_ll/nin_ll + errout_ll*errout_ll/nout_ll/nout_ll);
+	Double_t rErrorMax = 0.4;
+	RllErrSyst = computeSyst(hout,hin,MetBinToComputeRoutin,rErrorMax);
+        while(RllErrSyst <= 0.0 && rErrorMax < 1.0){
+	  rErrorMax += 0.1;
+	  RllErrSyst = computeSyst(hout,hin,MetBinToComputeRoutin,rErrorMax);
+	}  
+	delete hout;
+	delete hin;
+      }
 
       sprintf(buffer,"%.2f +/- %.2f +/- %.2f",Rll,RllErrStat,RllErrSyst);
 //     sprintf(buffer,"%.3f +/- %.3f +/- %.3f",Ree,ReeErrStat,ReeErrSyst);
@@ -939,7 +988,6 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
       Double_t nout_ll_sta = nout_ll_pre*sqrt((RllErrStat*RllErrStat)/Rll/Rll + err_ll_sub*err_ll_sub/nin_ll_sub/nin_ll_sub);
       Double_t nout_ll_sys = nout_ll_pre*RllErrSyst/Rll;
       Double_t nout_ll_err = sqrt(nout_ll_sys*nout_ll_sys + nout_ll_sta*nout_ll_sta);
-    
 
       sprintf(buffer,"%.2f +/- %.2f +/- %.2f",nout_ll_pre,nout_ll_sta,nout_ll_sys);
 //    sprintf(buffer,"%.2f +/- %.2f +/- %.2f",nout_ee_pre,nout_ee_sta,nout_ee_sys);
@@ -1114,36 +1162,34 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 //--------------------------------------------------------------------------------------------------
     Double_t projectedMET(const Double_t met, const Double_t metPhi, const Double_t lepPhi) 
 {
-  const Double_t pi = 3.14159265358979;
   Double_t dphi = acos(cos(lepPhi-metPhi));
-  if(dphi > 0.5*pi)
+  if(dphi > 0.5*TMath::Pi())
     return met;
     
   return met*sin(dphi);
 }
 
 //--------------------------------------------------------------------------------------------------
-Double_t computeSyst(const TH1F *hout, const TH1F *hin, Int_t binUsed)
+Double_t computeSyst(const TH1D *hout, const TH1D *hin, Int_t binUsed, Double_t rErrorMax)
 {
   const Int_t nbins = hout->GetXaxis()->GetNbins();
   Double_t r0=(hout->GetBinContent(binUsed))/(hin->GetBinContent(binUsed));
   Double_t dr=0;
-//   cout << "R0 = " << r0 << endl;
+  //cout << "R0 = " << r0 << endl;
   for(Int_t ibin=1; ibin<=nbins; ibin++) {
     Double_t r = (hout->GetBinContent(ibin))/(hin->GetBinContent(ibin));
 
     //only consider last bin for systematics if the uncertainty is less than 40% to protect against statistical fluctuations
     Double_t rError = sqrt( pow(hout->GetBinError(ibin)/hout->GetBinContent(ibin),2) + pow(hin->GetBinError(ibin)/hin->GetBinContent(ibin),2));
-    if (rError > 0.40) continue;
+    if (rError > rErrorMax) continue;
 
     if(fabs(r-r0) > dr) dr = fabs(r-r0);
-//     cout << "Nin = " << hin->GetBinContent(ibin) << ", Nout = " << hout->GetBinContent(ibin) << ", R = " << r << ", dr = " << dr << endl;
+    //cout << "Nin = " << hin->GetBinContent(ibin) << ", Nout = " << hout->GetBinContent(ibin) << ", R = " << r << ", dr = " << dr << endl;
   }
   return dr;
 }
 
-
-TGraphErrors* MakeRoutinGraph(const TH1F *hout, const TH1F *hin, string graphname) {
+TGraphErrors* MakeRoutinGraph(const TH1D *hout, const TH1D *hin, string graphname) {
 
   Int_t nbins = hout->GetNbinsX();
   assert(nbins <= 200);
@@ -1195,11 +1241,11 @@ TGraphErrors* MakeRoutinGraph(const TH1F *hout, const TH1F *hin, string graphnam
 
 
 
-TGraphErrors* MakeRoutinGraphDataDrivenOFSubtraction(const TH1F *hout_ee_data, const TH1F *hin_ee_data, 
-                                                     const TH1F *hout_mm_data, const TH1F *hin_mm_data, 
-                                                     const TH1F *hout_ee_vz, const TH1F *hin_ee_vz, 
-                                                     const TH1F *hout_mm_vz, const TH1F *hin_mm_vz, 
-                                                     const TH1F *hout_OF_data, const TH1F *hin_OF_data, 
+TGraphErrors* MakeRoutinGraphDataDrivenOFSubtraction(const TH1D *hout_ee_data, const TH1D *hin_ee_data, 
+                                                     const TH1D *hout_mm_data, const TH1D *hin_mm_data, 
+                                                     const TH1D *hout_ee_vz, const TH1D *hin_ee_vz, 
+                                                     const TH1D *hout_mm_vz, const TH1D *hin_mm_vz, 
+                                                     const TH1D *hout_OF_data, const TH1D *hin_OF_data, 
                                                      Double_t EleToMuEffRatio, Double_t EleToMuEffRatioErr,
                                                      Int_t FinalState, string graphname) {
   Double_t vzNormSystematic = 0.10;
@@ -1354,18 +1400,18 @@ TGraphErrors* MakeRoutinGraphDataDrivenOFSubtraction(const TH1F *hout_ee_data, c
 }
 
 
-TGraphErrors* MakeRoutinGraphDataDrivenMCSubtraction(const TH1F *hout_ee_data, const TH1F *hin_ee_data, 
-                                                     const TH1F *hout_mm_data, const TH1F *hin_mm_data, 
-                                                     const TH1F *hout_ee_vz, const TH1F *hin_ee_vz, 
-                                                     const TH1F *hout_mm_vz, const TH1F *hin_mm_vz, 
-                                                     const TH1F *hout_ee_ww, const TH1F *hin_ee_ww, 
-                                                     const TH1F *hout_mm_ww, const TH1F *hin_mm_ww, 
-                                                     const TH1F *hout_ee_wjets, const TH1F *hin_ee_wjets, 
-                                                     const TH1F *hout_mm_wjets, const TH1F *hin_mm_wjets, 
-                                                     const TH1F *hout_ee_top, const TH1F *hin_ee_top, 
-                                                     const TH1F *hout_mm_top, const TH1F *hin_mm_top, 
-                                                     const TH1F *hout_ee_dytt, const TH1F *hin_ee_dytt, 
-                                                     const TH1F *hout_mm_dytt, const TH1F *hin_mm_dytt, 
+TGraphErrors* MakeRoutinGraphDataDrivenMCSubtraction(const TH1D *hout_ee_data, const TH1D *hin_ee_data, 
+                                                     const TH1D *hout_mm_data, const TH1D *hin_mm_data, 
+                                                     const TH1D *hout_ee_vz, const TH1D *hin_ee_vz, 
+                                                     const TH1D *hout_mm_vz, const TH1D *hin_mm_vz, 
+                                                     const TH1D *hout_ee_ww, const TH1D *hin_ee_ww, 
+                                                     const TH1D *hout_mm_ww, const TH1D *hin_mm_ww, 
+                                                     const TH1D *hout_ee_wjets, const TH1D *hin_ee_wjets, 
+                                                     const TH1D *hout_mm_wjets, const TH1D *hin_mm_wjets, 
+                                                     const TH1D *hout_ee_top, const TH1D *hin_ee_top, 
+                                                     const TH1D *hout_mm_top, const TH1D *hin_mm_top, 
+                                                     const TH1D *hout_ee_dytt, const TH1D *hin_ee_dytt, 
+                                                     const TH1D *hout_mm_dytt, const TH1D *hin_mm_dytt, 
                                                      Double_t WWSystematicError, Double_t TopSystematicError,
                                                      Int_t FinalState, string graphname) {
 

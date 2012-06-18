@@ -104,9 +104,9 @@ void ComputeWWBkgScaleFactor (
   //Define Histograms & Yields
   //***********************************************************************************************
 
-   const Int_t nmass = 18;
-  const Double_t mH[nmass]     = {115,118,120,122,124,125,126,128,130,135,140,145,150,155,160,170,180,190};  
-        Bool_t useDYMVA[nmass] = {  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0};
+   const Int_t nmass = 19;
+  const Double_t mH[nmass]     = {115,118,120,122,124,125,126,128,130,135,140,145,150,155,160,170,180,190,200};  
+        Bool_t useDYMVA[nmass] = {  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0};
 
   // 2011 analysis does not use DYMVA
   if(period == 1) for(int i=0; i<nmass; i++) useDYMVA[i] = 0;
@@ -664,13 +664,13 @@ void ComputeWWBkgScaleFactor (
       cout << "Total Bkg : " 
            << Yield_WWControlRegion_Bkg[classIndex][imass] << " +/- " 
            << YieldUncertainty_WWControlRegion_Bkg[classIndex][imass] << endl;
-      cout << "******************************************************************\n";
       cout << "WW Yield from MC : " 
            << Yield_WWControlRegion_WWMC[classIndex][imass] << " +/- " 
            << YieldUncertainty_WWControlRegion_WWMC[classIndex][imass] << endl;
       cout << "ScaleFactor : " 
            << WWScaleFactor[classIndex][imass] << " +/- " 
            << WWScaleFactorUncertainty[classIndex][imass] << endl;
+      cout << "******************************************************************\n";
     }
   }
 

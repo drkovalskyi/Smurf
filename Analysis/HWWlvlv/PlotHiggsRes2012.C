@@ -73,13 +73,13 @@ void PlotHiggsRes2012
   bool isSM4          = false;
 
   verboseLevel = TheVerboseLevel;
-  bool useZjetsTemplates   = true; // it is true, but we do not use it
+  bool useZjetsTemplates   = true;
   bool useWWTemplates      = true;
   bool useStatTemplates    = true;
   bool useExpTemplates     = true;
   bool useJESTemplates     = true;
   bool useWJetsTemplates   = true;
-  bool useWJetsMCTemplates = false; // default -was- true
+  bool useWJetsMCTemplates = false;
   bool useTopTemplates     = true;
   bool useggHTemplates     = false; // default is false in 2012 analysis
   bool useWgammaTemplates  = false; // this is intentional
@@ -394,8 +394,8 @@ void PlotHiggsRes2012
   TH1D* histo_Wjets_CMS_MVAWBoundingUp   = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_hww_MVAWBoundingUp"));
   TH1D* histo_Wjets_CMS_MVAWBoundingDown = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_hww_MVAWBoundingDown"));
 
-  TH1D* histo_Wjets_CMS_MVAWMCBoundingUp   = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_hww_MVAWMCBoundingUp"));
-  TH1D* histo_Wjets_CMS_MVAWMCBoundingDown = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_hww_MVAWMCBoundingDown"));
+  TH1D* histo_Wjets_CMS_hww_MVAWMCBoundingUp   = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_hww_MVAWMCBoundingUp"));
+  TH1D* histo_Wjets_CMS_hww_MVAWMCBoundingDown = (TH1D*) histo1->Clone(Form("histo_Wjets_CMS_hww_MVAWMCBoundingDown"));
 
   TH1D* histo_qqWW_CMS_MVAWWBoundingUp      = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVAWWBoundingUp"));
   TH1D* histo_qqWW_CMS_MVAWWBoundingDown    = (TH1D*) histo1->Clone(Form("histo_qqWW_CMS_hww_MVAWWBoundingDown"));
@@ -1726,6 +1726,9 @@ void PlotHiggsRes2012
 	VVXS[0] = VVXS[0] + myWeightMVA;
 	histoVV->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeightMVA);
       }
+      else if(fDecay == 4 && (dstype == SmurfTree::wz || dstype == SmurfTree::zz)){
+	histoVV->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeightMVA);
+      }
       nBgdAcc  = nBgdAcc  + myWeightMVA;
       nBgdEAcc = nBgdEAcc + myWeightMVA*myWeightMVA;
       nBgdAccDecays[fDecay]  = nBgdAccDecays[fDecay]  + myWeightMVA;
@@ -2216,6 +2219,8 @@ void PlotHiggsRes2012
 	if(category == 1) add = add*1.10; // HACK!!!
 	fDecay  	      = 5;
         myWeight	      = add;
+	// WE SHOULD NOT HAVE DATA EVENTS HERE
+	assert(0);
       }
 
       //----------------------------------------------------------------------------
@@ -2271,7 +2276,7 @@ void PlotHiggsRes2012
     							  fabs(lep2->eta()), lep2->pt(), 
     							  TMath::Abs( lid1), TMath::Abs(lid2));
 	if(category == 1) add = add*1.10; // HACK!!!
-        fDecay  	       = 5;
+        fDecay  	       = 7; // SENT TO A GARBAGGE CATEGORY!!!
         myWeight	       = -1.0 * scale1fb*scaleFactorLum*add;
       }
 
@@ -2293,6 +2298,7 @@ void PlotHiggsRes2012
     //----------------------------------------------------------------------------
     else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
       myWeight = ZttScaleFactor(nvtx,period,scale1fb)*scaleFactorLum;
+      assert(0);
     }
 
     //----------------------------------------------------------------------------
@@ -2341,9 +2347,9 @@ void PlotHiggsRes2012
       }
 
       //----------------------------------------------------------------------------      
-      // Apply W+Jets Bkg Scale Factor for MC (not nominally used)
+      // Apply 0.0 scale factor to W+Jets
       //----------------------------------------------------------------------------
-      if(fDecay == 5) add=add*WJetsMCScaleFactor(); 
+      if(fDecay == 5) add=add*0.0; 
 
       //----------------------------------------------------------------------------      
       // Apply W+gamma* normalization scale factor
@@ -2406,7 +2412,7 @@ void PlotHiggsRes2012
       //systematics shapes for WJets bkg (Madgraph W+jets MC)
       //----------------------------------------------------------------------------
       if(useWJetsMCTemplates == true && fDecay == 5){
-        histo_Wjets_CMS_MVAWMCBoundingUp->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);
+        histo_Wjets_CMS_hww_MVAWMCBoundingUp->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);
       }
 
       //----------------------------------------------------------------------------
@@ -2705,7 +2711,11 @@ void PlotHiggsRes2012
   } // end loop over data events
 
   // remove VV component when making Zjets templates
-  if(wwDecay == 5 && makeZjetsTemplates == true) histo5->Add(histoVV,-1.0);
+  if(wwDecay == 5 && makeZjetsTemplates == true) {
+    printf("Z data template data-VV: %f - %f = ",histo5->GetSumOfWeights(),histoVV->GetSumOfWeights());
+    histo5->Add(histoVV,-1.0);
+    printf("%f\n",histo5->GetSumOfWeights());
+  }
 
   // cut-based 0/1 jet bin analyses
   if(nJetsType != 2 && mH <= 300 && (wwDecay == 4 || wwDecay == 5)){
@@ -2764,17 +2774,17 @@ void PlotHiggsRes2012
   //----------------------------------------------------------------------------
   if(useZjetsTemplates == true){
     //----------------------------------------------------------------------------
-    // hDZjetsDATemplate is the nominal MVA shape for the DY bkg
+    // hDZjetsMCTemplate is the nominal MVA shape for the DY bkg
     // normalize the histogram to the predicted DY background yield
-    // hDZjetsMCTemplate is the alternative MVA shape for the DY bkg
+    // hDZjetsDATemplate is the alternative MVA shape for the DY bkg
     // normalize the histogram to the predicted DY background yield
     // 
     // histo_Zjets_CMS_MVAZBounding   : nominal MVA shape
     //----------------------------------------------------------------------------
     hDZjetsMCTemplate->Scale(DYXS[0]);
     hDZjetsDATemplate->Scale(DYXS[0]);
-    histo_Zjets_CMS_MVAZBounding  ->Add(hDZjetsDATemplate);
-    histo_Zjets_CMS_MVAZBoundingUp->Add(hDZjetsMCTemplate);
+    histo_Zjets_CMS_MVAZBounding  ->Add(hDZjetsMCTemplate);
+    histo_Zjets_CMS_MVAZBoundingUp->Add(hDZjetsDATemplate);
 
     //rebin the MVA shape histograms
     histo_Zjets_CMS_MVAZBounding->Rebin(rebinMVAHist);
@@ -3238,22 +3248,22 @@ void PlotHiggsRes2012
       histo_Wjets_CMS_MVAWBoundingDown->Write();
     }
     if(useWJetsMCTemplates == true){
-      histo_Wjets_CMS_MVAWMCBoundingUp 	->Rebin(rebinMVAHist);
-      histo_Wjets_CMS_MVAWMCBoundingDown->Rebin(rebinMVAHist);
+      histo_Wjets_CMS_hww_MVAWMCBoundingUp 	->Rebin(rebinMVAHist);
+      histo_Wjets_CMS_hww_MVAWMCBoundingDown->Rebin(rebinMVAHist);
       double mean,up,diff;
-      if(histo_Wjets_CMS_MVAWMCBoundingUp->GetNbinsX() != histo_Wjets->GetNbinsX()) {printf("Different binning in W!\n"); return;}
-      if(histo_Wjets_CMS_MVAWMCBoundingUp  ->GetSumOfWeights() == 0) assert(0);
-      histo_Wjets_CMS_MVAWMCBoundingUp  ->Scale(histo_Wjets->GetSumOfWeights()/histo_Wjets_CMS_MVAWMCBoundingUp  ->GetSumOfWeights());
-      for(int i=1; i<=histo_Wjets_CMS_MVAWMCBoundingUp->GetNbinsX(); i++){
+      if(histo_Wjets_CMS_hww_MVAWMCBoundingUp->GetNbinsX() != histo_Wjets->GetNbinsX()) {printf("Different binning in W!\n"); return;}
+      if(histo_Wjets_CMS_hww_MVAWMCBoundingUp  ->GetSumOfWeights() == 0) assert(0);
+      histo_Wjets_CMS_hww_MVAWMCBoundingUp  ->Scale(histo_Wjets->GetSumOfWeights()/histo_Wjets_CMS_hww_MVAWMCBoundingUp  ->GetSumOfWeights());
+      for(int i=1; i<=histo_Wjets_CMS_hww_MVAWMCBoundingUp->GetNbinsX(); i++){
         mean = histo_Wjets                   ->GetBinContent(i);
-        up   = histo_Wjets_CMS_MVAWMCBoundingUp->GetBinContent(i);
+        up   = histo_Wjets_CMS_hww_MVAWMCBoundingUp->GetBinContent(i);
         diff = TMath::Abs(mean-up);
-        if     (mean-up >0) histo_Wjets_CMS_MVAWMCBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
-        else		    histo_Wjets_CMS_MVAWMCBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
+        if     (mean-up >0) histo_Wjets_CMS_hww_MVAWMCBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
+        else		    histo_Wjets_CMS_hww_MVAWMCBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
       }
-      histo_Wjets_CMS_MVAWMCBoundingDown->Scale(histo_Wjets->GetSumOfWeights()/histo_Wjets_CMS_MVAWMCBoundingDown->GetSumOfWeights());
-      histo_Wjets_CMS_MVAWMCBoundingUp  ->Write();
-      histo_Wjets_CMS_MVAWMCBoundingDown->Write();
+      histo_Wjets_CMS_hww_MVAWMCBoundingDown->Scale(histo_Wjets->GetSumOfWeights()/histo_Wjets_CMS_hww_MVAWMCBoundingDown->GetSumOfWeights());
+      histo_Wjets_CMS_hww_MVAWMCBoundingUp  ->Write();
+      histo_Wjets_CMS_hww_MVAWMCBoundingDown->Write();
     }
 
     //----------------------------------------------------------------------------
@@ -3285,10 +3295,10 @@ void PlotHiggsRes2012
       histo_qqH_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
       histo_ggH_CMS_hww_MVALepEffBoundingUp 	 ->Rebin(rebinMVAHist);
       histo_ggH_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_qqWW_CMS_hww_MVALepEffBoundingUp	 ->Rebin(rebinMVAHist);  if(mH < 200) histo_qqWW_CMS_hww_MVALepEffBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepEffBoundingUp  ->GetSumOfWeights());
-      histo_qqWW_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);  if(mH < 200) histo_qqWW_CMS_hww_MVALepEffBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepEffBoundingDown->GetSumOfWeights());
-      histo_ggWW_CMS_hww_MVALepEffBoundingUp	 ->Rebin(rebinMVAHist);  if(mH < 200) histo_ggWW_CMS_hww_MVALepEffBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepEffBoundingUp  ->GetSumOfWeights());
-      histo_ggWW_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);  if(mH < 200) histo_ggWW_CMS_hww_MVALepEffBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepEffBoundingDown->GetSumOfWeights());
+      histo_qqWW_CMS_hww_MVALepEffBoundingUp	 ->Rebin(rebinMVAHist);  if(mH <= 200) histo_qqWW_CMS_hww_MVALepEffBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepEffBoundingUp  ->GetSumOfWeights());
+      histo_qqWW_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);  if(mH <= 200) histo_qqWW_CMS_hww_MVALepEffBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepEffBoundingDown->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVALepEffBoundingUp	 ->Rebin(rebinMVAHist);  if(mH <= 200) histo_ggWW_CMS_hww_MVALepEffBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepEffBoundingUp  ->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);  if(mH <= 200) histo_ggWW_CMS_hww_MVALepEffBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepEffBoundingDown->GetSumOfWeights());
       histo_VV_CMS_hww_MVALepEffBoundingUp  	 ->Rebin(rebinMVAHist);
       histo_VV_CMS_hww_MVALepEffBoundingDown	 ->Rebin(rebinMVAHist);
       histo_Wgamma_CMS_hww_MVALepEffBoundingUp	 ->Rebin(rebinMVAHist);
@@ -3326,10 +3336,10 @@ void PlotHiggsRes2012
       histo_qqH_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
       histo_ggH_CMS_hww_MVALepResBoundingUp 	 ->Rebin(rebinMVAHist);
       histo_ggH_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_qqWW_CMS_hww_MVALepResBoundingUp	 ->Rebin(rebinMVAHist); if(mH < 200) histo_qqWW_CMS_hww_MVALepResBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepResBoundingUp  ->GetSumOfWeights());
-      histo_qqWW_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist); if(mH < 200) histo_qqWW_CMS_hww_MVALepResBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepResBoundingDown->GetSumOfWeights());
-      histo_ggWW_CMS_hww_MVALepResBoundingUp	 ->Rebin(rebinMVAHist); if(mH < 200) histo_ggWW_CMS_hww_MVALepResBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepResBoundingUp  ->GetSumOfWeights());
-      histo_ggWW_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist); if(mH < 200) histo_ggWW_CMS_hww_MVALepResBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepResBoundingDown->GetSumOfWeights());
+      histo_qqWW_CMS_hww_MVALepResBoundingUp	 ->Rebin(rebinMVAHist); if(mH <= 200) histo_qqWW_CMS_hww_MVALepResBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepResBoundingUp  ->GetSumOfWeights());
+      histo_qqWW_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist); if(mH <= 200) histo_qqWW_CMS_hww_MVALepResBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepResBoundingDown->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVALepResBoundingUp	 ->Rebin(rebinMVAHist); if(mH <= 200) histo_ggWW_CMS_hww_MVALepResBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepResBoundingUp  ->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist); if(mH <= 200) histo_ggWW_CMS_hww_MVALepResBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepResBoundingDown->GetSumOfWeights());
       histo_VV_CMS_hww_MVALepResBoundingUp  	 ->Rebin(rebinMVAHist);
       histo_VV_CMS_hww_MVALepResBoundingDown	 ->Rebin(rebinMVAHist);
       histo_Top_CMS_hww_MVALepResBoundingUp 	 ->Rebin(rebinMVAHist);  histo_Top_CMS_hww_MVALepResBoundingUp    ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVALepResBoundingUp  ->GetSumOfWeights());
@@ -3454,10 +3464,10 @@ void PlotHiggsRes2012
         else		    histo_Ztt_CMS_hww_MVAMETResBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
       }
 
-      if(mH < 200) histo_qqWW_CMS_hww_MVAMETResBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAMETResBoundingUp  ->GetSumOfWeights());
-      if(mH < 200) histo_qqWW_CMS_hww_MVAMETResBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAMETResBoundingDown->GetSumOfWeights());
-      if(mH < 200) histo_ggWW_CMS_hww_MVAMETResBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAMETResBoundingUp  ->GetSumOfWeights());
-      if(mH < 200) histo_ggWW_CMS_hww_MVAMETResBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAMETResBoundingDown->GetSumOfWeights());
+      if(mH <= 200) histo_qqWW_CMS_hww_MVAMETResBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAMETResBoundingUp  ->GetSumOfWeights());
+      if(mH <= 200) histo_qqWW_CMS_hww_MVAMETResBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAMETResBoundingDown->GetSumOfWeights());
+      if(mH <= 200) histo_ggWW_CMS_hww_MVAMETResBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAMETResBoundingUp  ->GetSumOfWeights());
+      if(mH <= 200) histo_ggWW_CMS_hww_MVAMETResBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAMETResBoundingDown->GetSumOfWeights());
       histo_Top_CMS_hww_MVAMETResBoundingUp    ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVAMETResBoundingUp  ->GetSumOfWeights());
       histo_Top_CMS_hww_MVAMETResBoundingDown  ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVAMETResBoundingDown->GetSumOfWeights());
 
@@ -3500,10 +3510,10 @@ void PlotHiggsRes2012
       histo_qqH_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
       histo_ggH_CMS_hww_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist);
       histo_ggH_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
-      histo_qqWW_CMS_hww_MVAJESBoundingUp	 ->Rebin(rebinMVAHist); if(mH < 200) histo_qqWW_CMS_hww_MVAJESBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights());
-      histo_qqWW_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist); if(mH < 200) histo_qqWW_CMS_hww_MVAJESBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAJESBoundingDown->GetSumOfWeights());
-      histo_ggWW_CMS_hww_MVAJESBoundingUp	 ->Rebin(rebinMVAHist); if(mH < 200) histo_ggWW_CMS_hww_MVAJESBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights());
-      histo_ggWW_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist); if(mH < 200) histo_ggWW_CMS_hww_MVAJESBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAJESBoundingDown->GetSumOfWeights());
+      histo_qqWW_CMS_hww_MVAJESBoundingUp	 ->Rebin(rebinMVAHist); if(mH <= 200) histo_qqWW_CMS_hww_MVAJESBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights());
+      histo_qqWW_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist); if(mH <= 200) histo_qqWW_CMS_hww_MVAJESBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAJESBoundingDown->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVAJESBoundingUp	 ->Rebin(rebinMVAHist); if(mH <= 200) histo_ggWW_CMS_hww_MVAJESBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist); if(mH <= 200) histo_ggWW_CMS_hww_MVAJESBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAJESBoundingDown->GetSumOfWeights());
       histo_VV_CMS_hww_MVAJESBoundingUp  	 ->Rebin(rebinMVAHist);
       histo_VV_CMS_hww_MVAJESBoundingDown	 ->Rebin(rebinMVAHist);
       histo_Top_CMS_hww_MVAJESBoundingUp 	 ->Rebin(rebinMVAHist); histo_Top_CMS_hww_MVAJESBoundingUp    ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights());
@@ -3551,16 +3561,16 @@ void PlotHiggsRes2012
     //
     //----------------------------------------------------------------------------
     double theoryUncXS_HighMH = 1.0;
-    if(mH >= 200) theoryUncXS_HighMH = 1.0+1.5*(mH/1000.0)*(mH/1000.0)*(mH/1000.0);
+    if(mH > 200) theoryUncXS_HighMH = 1.0+1.5*(mH/1000.0)*(mH/1000.0)*(mH/1000.0);
     double wwXS_E_jet_extrap = 1.060;
     double jeteff_E 	     = 1.02;
     double topXS_E  	     = TopBkgScaleFactorKappa(nJetsType); if(nJetsType==2) topXS_E = TopVBFBkgScaleFactorKappa(mH);
-    double wwXS_E_MVA        = WWBkgScaleFactorKappaMVA     (TMath::Max((int)mH,115),TMath::Min((int)nJetsType,1)); if(mH>=200) wwXS_E_MVA = 1.000;
-    double wwXS_E_Cut        = WWBkgScaleFactorKappaCutBased(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,1)); if(mH>=200) wwXS_E_Cut = 1.000;
-    char theWWThString[20]; sprintf(theWWThString,"CMS_hww_%1dj_WW_8TeV",nJetsType); if(mH>=200) sprintf(theWWThString,"CMS_hww_WW");
+    double wwXS_E_MVA        = WWBkgScaleFactorKappaMVA     (TMath::Max((int)mH,115),TMath::Min((int)nJetsType,1)); if(mH > 200) wwXS_E_MVA = 1.000;
+    double wwXS_E_Cut        = WWBkgScaleFactorKappaCutBased(TMath::Max((int)mH,115),TMath::Min((int)nJetsType,1)); if(mH > 200) wwXS_E_Cut = 1.000;
+    char theWWThString[20]; sprintf(theWWThString,"CMS_hww_%1dj_WW_8TeV",nJetsType); if(mH > 200) sprintf(theWWThString,"CMS_hww_WW");
 
     double XS_QCDscale_WW[3] = {1.0, 1.0, 1.0};
-    if(mH>=200) {XS_QCDscale_WW[0] = 1.042; XS_QCDscale_WW[1] = 0.978; XS_QCDscale_WW[2] = 1.000;}
+    if(mH > 200) {XS_QCDscale_WW[0] = 1.042; XS_QCDscale_WW[1] = 0.978; XS_QCDscale_WW[2] = 1.000;}
 
     double pdf_ggH = PDFgHHSystematics(mH);
 
@@ -3583,17 +3593,17 @@ void PlotHiggsRes2012
 
     //                                eff_m,eff_e,scale_m,scale_e,hww_met_resolution
     double theExpUncertainties[5] = {1.030, 1.040, 1.015, 1.020, 1.020};
-    if(mH<200) for(int i=0; i<5; i++) theExpUncertainties[i] = 1.0;
+    if(mH <= 200) for(int i=0; i<5; i++) theExpUncertainties[i] = 1.0;
 
     if     (nJetsType == 1) {
       jeteff_E  	= 1.05;
-      if(mH>=200) {XS_QCDscale_WW[0] = 1.000; XS_QCDscale_WW[1] = 1.076; XS_QCDscale_WW[2] = 0.914;}
+      if(mH > 200) {XS_QCDscale_WW[0] = 1.000; XS_QCDscale_WW[1] = 1.076; XS_QCDscale_WW[2] = 0.914;}
     }
     else if(nJetsType == 2) {
       jeteff_E  	= 1.10;
-      if(mH>=200) {XS_QCDscale_WW[0] = 1.000; XS_QCDscale_WW[1] = 1.000; XS_QCDscale_WW[2] = 1.420;}
+      if(mH > 200) {XS_QCDscale_WW[0] = 1.000; XS_QCDscale_WW[1] = 1.000; XS_QCDscale_WW[2] = 1.420;}
     }
-    double lumiErr = 1.000; if(mH>=200) lumiErr = 1.050;
+    double lumiErr = 1.000; if(mH > 200) lumiErr = 1.050;
 
     for(int i=0; i<8; i++) if(nBgdAccDecays[i] < 0) nBgdAccDecays[i] = 0.0;
     for(int i=0; i<8; i++) if(nBgdCutDecays[i] < 0) nBgdCutDecays[i] = 0.0;
