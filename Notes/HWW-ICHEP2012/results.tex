@@ -53,8 +53,8 @@ document, we are totally/partially missing $\wgamma$, $\wgamma^{*}$ and $\WZ$
 in simulation. Thus, Monte Carlo yields and data/MC scale factors 
 are preliminary.
 
-First we estimate the $\dyll$ (Table~\ref{tab:dy}-\ref{tab:dy_wwlevel}). As it was seen
-before the simulation significantly underestimates this type of
+First we estimate the $\dyll$ at the WW selection level shown in Table~\ref{tab:dy_wwlevel}. 
+As it was seen before the simulation significantly underestimates this type of
 background. It is important to keep in mind that $\WZ$ and $\ZZ$ 
 contributions in the $\Z$-peak region are sizable, so the method depends
 on the Monte Carlo simulation of these processes. It is not a problem
@@ -62,6 +62,11 @@ since the uncertainties on these di-boson contributions in the Z-peak
 region are small compared with the systematic uncertainties of the
 R-value extraction and the statistical uncertainties on the number of
 the events in Z-peak region.
+As we do not have enough statistics in the MC at the higgs selection level, 
+we estimate directly at the Higgs selection level for both the 
+cut-based and shape-based analyses. 
+The results are shown in Table~\ref{tab:dy} and Table~\ref{tab:dy_shape}. 
+
 
 The $\Wjets$ background contribution is summarized in Table~\ref{tab:fake_est}. 
 The same sign closure test in the 0-jet bin finds 87 events in data while 
@@ -78,9 +83,6 @@ DY MVA(Table~\ref{tab:wwselection_all_dymva}). Higgs contribution at
 hypotheses. For the signal extraction we estimate the \WW\ background
 contribution in data looking at events with large di-lepton mass, i.e.
 $m_{ll}>100$~\GeV{} (Table~\ref{tab:ww_est}). 
-We find roughly 37\%(25\%) more \WW\ events in data than in Monte Carlo for 0(1)-jet
-case. The large discrepancy might be due to missing some Mote Carlo samples. 
-We will update the result later including them.  
 Figures~\ref{fig:ww_ptmax}-\ref{fig:ww_deltaphi} show a few key distributions at \WW\ selection level.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -88,52 +90,15 @@ Figures~\ref{fig:ww_ptmax}-\ref{fig:ww_deltaphi} show a few key distributions at
 \begin{center}
 \begin{tabular}{c c c c c c}
 \hline
-\hline
-\multicolumn{5}{c}{0-jet} \\
-\hline
-       mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
-\hline
- 115 \GeV & 31.7 $\pm$ 6.9 & 0.37 $\pm$ 0.04 $\pm$ 0.04 & 11.8 $\pm$ 2.8 $\pm$ 1.4 & 2.44 $\pm$ 0.88 \\
- 120 \GeV & 31.1 $\pm$ 7.8 & 0.37 $\pm$ 0.04 $\pm$ 0.04 & 11.5 $\pm$ 3.1 $\pm$ 1.4 & 2.52 $\pm$ 0.89 \\
- 125 \GeV & 16.8 $\pm$ 5.9 & 0.78 $\pm$ 0.09 $\pm$ 0.22 & 13.2 $\pm$ 4.9 $\pm$ 3.6 & 2.54 $\pm$ 0.89 \\
- 130 \GeV & 10.6 $\pm$ 5.1 & 1.13 $\pm$ 0.15 $\pm$ 0.37 & 12.0 $\pm$ 5.9 $\pm$ 4.0 & 1.84 $\pm$ 0.73 \\
- 135 \GeV & 11.4 $\pm$ 5.2 & 1.06 $\pm$ 0.14 $\pm$ 0.43 & 12.1 $\pm$ 5.7 $\pm$ 4.9 & 1.65 $\pm$ 0.72 \\
- 140 \GeV & 10.7 $\pm$ 4.6 & 0.95 $\pm$ 0.13 $\pm$ 0.40 & 10.2 $\pm$ 4.6 $\pm$ 4.3 & 1.65 $\pm$ 0.72 \\
- 145 \GeV & 24.0 $\pm$ 5.9 & 0.69 $\pm$ 0.10 $\pm$ 0.30 & 16.6 $\pm$ 4.8 $\pm$ 7.3 & 3.43 $\pm$ 0.84 \\
- 150 \GeV & 16.7 $\pm$ 6.1 & 0.26 $\pm$ 0.08 $\pm$ 0.18 & 4.4 $\pm$ 2.1 $\pm$ 3.0 & 2.19 $\pm$ 0.75 \\
- 160 \GeV & 9.2 $\pm$ 4.4 & 0.40 $\pm$ 0.14 $\pm$ 0.70 & 3.7 $\pm$ 2.2 $\pm$ 6.4 & 1.54 $\pm$ 0.68 \\
- 170 \GeV & 2.9 $\pm$ 3.7 & 0.22 $\pm$ 0.09 $\pm$ 1.25 & 0.6 $\pm$ 0.8 $\pm$ 3.6 & 0.60 $\pm$ 0.18 \\
- 180 \GeV & 3.6 $\pm$ 3.9 & 0.17 $\pm$ 0.06 $\pm$ 0.43 & 0.6 $\pm$ 0.7 $\pm$ 1.6 & 0.99 $\pm$ 0.33 \\
- 190 \GeV & 10.1 $\pm$ 5.7 & 0.24 $\pm$ 0.07 $\pm$ 0.20 & 2.4 $\pm$ 1.5 $\pm$ 2.0 & 1.06 $\pm$ 0.33 \\
- 200 \GeV & 13.0 $\pm$ 7.4 & 0.17 $\pm$ 0.05 $\pm$ 0.07 & 2.2 $\pm$ 1.4 $\pm$ 0.9 & 1.06 $\pm$ 0.33 \\
- 250 \GeV & 27.2 $\pm$ 10.3 & 0.05 $\pm$ 0.01 $\pm$ 0.03 & 1.3 $\pm$ 0.6 $\pm$ 0.7 & 1.12 $\pm$ 0.62 \\
- 300 \GeV & 12.3 $\pm$ 7.6 & 0.13 $\pm$ 0.04 $\pm$ 0.03 & 1.6 $\pm$ 1.1 $\pm$ 0.4 & 0.40 $\pm$ 0.17 \\
-\vspace{-3mm} && \\
-\hline
-\hline
-\multicolumn{5}{c}{1-jet} \\
-\hline
-       mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
-\hline
- 115 \GeV & 7.6 $\pm$ 3.0 & 0.44 $\pm$ 0.11 $\pm$ 0.25 & 3.3 $\pm$ 1.6 $\pm$ 1.9  & 0.00 $\pm$ 0.00 \\
- 120 \GeV & 9.4 $\pm$ 3.5 & 0.44 $\pm$ 0.11 $\pm$ 0.25 & 4.1 $\pm$ 1.8 $\pm$ 2.3  & 0.00 $\pm$ 0.00 \\
- 125 \GeV & 5.3 $\pm$ 3.0 & 0.68 $\pm$ 0.18 $\pm$ 0.38 & 3.5 $\pm$ 2.2 $\pm$ 2.0  & 0.00 $\pm$ 0.00 \\
- 130 \GeV & 6.7 $\pm$ 2.8 & 0.92 $\pm$ 0.26 $\pm$ 0.53 & 6.2 $\pm$ 3.2 $\pm$ 3.5  & 0.00 $\pm$ 0.00 \\
- 135 \GeV & 6.6 $\pm$ 2.8 & 0.89 $\pm$ 0.26 $\pm$ 0.52 & 5.8 $\pm$ 3.1 $\pm$ 3.4  & 0.00 $\pm$ 0.00 \\
- 140 \GeV & 4.5 $\pm$ 2.5 & 0.81 $\pm$ 0.25 $\pm$ 0.45 & 3.7 $\pm$ 2.3 $\pm$ 2.1  & 0.00 $\pm$ 0.00 \\
- 145 \GeV & 34.2 $\pm$ 6.2 & 0.35 $\pm$ 0.03 $\pm$ 0.15 & 11.8 $\pm$ 2.4 $\pm$ 5.0  & 4.13 $\pm$ 1.09 \\
- 150 \GeV & 55.8 $\pm$ 8.1 & 0.17 $\pm$ 0.03 $\pm$ 0.10 & 9.7 $\pm$ 2.0 $\pm$ 5.6  & 3.50 $\pm$ 0.93 \\
- 160 \GeV & 19.6 $\pm$ 4.8 & 0.45 $\pm$ 0.08 $\pm$ 0.16 & 8.8 $\pm$ 2.6 $\pm$ 3.1  & 3.29 $\pm$ 0.93 \\
- 170 \GeV & 20.4 $\pm$ 5.1 & 0.39 $\pm$ 0.07 $\pm$ 0.16 & 8.0 $\pm$ 2.5 $\pm$ 3.3  & 2.56 $\pm$ 0.88 \\
- 180 \GeV & 30.4 $\pm$ 6.3 & 0.30 $\pm$ 0.05 $\pm$ 0.12 & 9.3 $\pm$ 2.5 $\pm$ 3.7  & 1.92 $\pm$ 0.77 \\
- 190 \GeV & 64.6 $\pm$ 8.9 & 0.20 $\pm$ 0.03 $\pm$ 0.10 & 12.8 $\pm$ 2.5 $\pm$ 6.2  & 2.53 $\pm$ 0.85 \\
- 200 \GeV & 79.7 $\pm$ 10.0 & 0.14 $\pm$ 0.02 $\pm$ 0.06 & 11.2 $\pm$ 2.1 $\pm$ 4.8  & 2.53 $\pm$ 0.85 \\
- 250 \GeV & 96.7 $\pm$ 11.2 & 0.09 $\pm$ 0.01 $\pm$ 0.02 & 8.3 $\pm$ 1.5 $\pm$ 1.7  & 2.48 $\pm$ 0.81 \\
- 300 \GeV & 69.6 $\pm$ 9.5 & 0.07 $\pm$ 0.01 $\pm$ 0.07 & 5.2 $\pm$ 1.2 $\pm$ 4.8  & 0.54 $\pm$ 0.20 \\
+       nJets & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
+ 0 & 239.6 $\pm$ 24.0 & 0.28 $\pm$ 0.02 $\pm$ 0.02 & 68.1 $\pm$ 8.7 $\pm$ 5.2 & 13.25 $\pm$ 2.01 \\
+ 1 & 313.6 $\pm$ 21.1 & 0.25 $\pm$ 0.02 $\pm$ 0.06 & 78.8 $\pm$ 7.2 $\pm$ 19.6  & 19.46 $\pm$ 2.89 \\
+ 2 & 616.8 $\pm$ 26.3 & 0.24 $\pm$ 0.02 $\pm$ 0.04 & 145.9 $\pm$ 12.4 $\pm$ 22.7  & 81.80 $\pm$ 8.78 \\
 \hline
 \end{tabular}
-\caption{The Drell-Yan estimation in the same flavor final state, for the cut-based selections.}
-\label{tab:dy}
+\caption{The Drell-Yan estimation in the same flavor final state at WW preselection level, using the min-pMET at 
+0 and 1 Jet bins and the pfMET at the 2-jet bins. }
+\label{tab:dy_wwlevel}
 \end{center}
 \end{table}
 
@@ -142,31 +107,123 @@ Figures~\ref{fig:ww_ptmax}-\ref{fig:ww_deltaphi} show a few key distributions at
 \begin{center}
 \begin{tabular}{c c c c c c}
 \hline
-       mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
 \hline
 \multicolumn{5}{c}{0-jet} \\
 \hline
-   min-pMET $>$ 45 \GeV & 128.8 $\pm$ 18.6 & 0.29 $\pm$ 0.02 $\pm$ 0.02 & 36.8 $\pm$ 6.1 $\pm$ 3.2 & 8.25 $\pm$ 1.36 \\
- DYMVA $>$ 0.6 & 83.5 $\pm$ 11.8 & 0.35 $\pm$ 0.03 $\pm$ 0.12 & 28.9 $\pm$ 4.7 $\pm$ 10.4 & 4.00 $\pm$ 1.13 \\
+       mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
+\hline
+ 115 \GeV & 49.3 $\pm$ 8.4 & 0.37 $\pm$ 0.04 $\pm$ 0.05 & 18.4 $\pm$ 3.6 $\pm$ 2.2 & 3.80 $\pm$ 1.28 \\
+ 120 \GeV & 53.5 $\pm$ 9.5 & 0.37 $\pm$ 0.04 $\pm$ 0.05 & 19.9 $\pm$ 4.0 $\pm$ 2.4 & 3.94 $\pm$ 1.29 \\
+ 125 \GeV & 33.3 $\pm$ 7.3 & 0.78 $\pm$ 0.09 $\pm$ 0.21 & 26.0 $\pm$ 6.4 $\pm$ 7.1 & 3.98 $\pm$ 1.29 \\
+ 130 \GeV & 23.6 $\pm$ 6.3 & 1.13 $\pm$ 0.14 $\pm$ 0.37 & 26.6 $\pm$ 7.8 $\pm$ 8.7 & 2.92 $\pm$ 1.07 \\
+ 135 \GeV & 24.3 $\pm$ 6.4 & 1.06 $\pm$ 0.13 $\pm$ 0.43 & 25.7 $\pm$ 7.5 $\pm$ 10.6 & 2.59 $\pm$ 1.04 \\
+ 140 \GeV & 23.6 $\pm$ 6.0 & 0.95 $\pm$ 0.13 $\pm$ 0.40 & 22.4 $\pm$ 6.4 $\pm$ 9.5 & 2.59 $\pm$ 1.04 \\
+ 145 \GeV & 46.5 $\pm$ 7.8 & 0.70 $\pm$ 0.10 $\pm$ 0.30 & 32.3 $\pm$ 7.1 $\pm$ 14.0 & 5.59 $\pm$ 1.25 \\
+ 150 \GeV & 33.6 $\pm$ 7.8 & 0.27 $\pm$ 0.07 $\pm$ 0.18 & 9.0 $\pm$ 3.3 $\pm$ 6.0 & 3.50 $\pm$ 1.11 \\
+ 160 \GeV & 12.4 $\pm$ 5.2 & 0.41 $\pm$ 0.13 $\pm$ 0.68 & 5.1 $\pm$ 2.7 $\pm$ 8.4 & 2.47 $\pm$ 0.99 \\
+ 170 \GeV & 3.9 $\pm$ 4.4 & 0.23 $\pm$ 0.09 $\pm$ 1.21 & 0.9 $\pm$ 1.1 $\pm$ 4.7 & 1.07 $\pm$ 0.32 \\
+ 180 \GeV & 6.1 $\pm$ 4.9 & 0.18 $\pm$ 0.06 $\pm$ 0.82 & 1.1 $\pm$ 1.0 $\pm$ 5.0 & 1.67 $\pm$ 0.52 \\
+ 190 \GeV & 21.1 $\pm$ 7.1 & 0.24 $\pm$ 0.07 $\pm$ 0.20 & 5.0 $\pm$ 2.2 $\pm$ 4.3 & 1.80 $\pm$ 0.53 \\
+ 200 \GeV & 32.8 $\pm$ 9.5 & 0.17 $\pm$ 0.04 $\pm$ 0.08 & 5.6 $\pm$ 2.2 $\pm$ 2.7 & 1.80 $\pm$ 0.53 \\
 \vspace{-3mm} && \\
+\hline
 \hline
 \multicolumn{5}{c}{1-jet} \\
 \hline
-min-pMET $>$ 45 \GeV & 191.0 $\pm$ 16.4 & 0.25 $\pm$ 0.02 $\pm$ 0.06 & 48.2 $\pm$ 5.2 $\pm$ 12.3  & 12.58 $\pm$ 1.99 \\
- DYMVA $>$ 0.3 & 43.7 $\pm$ 9.8 & 0.46 $\pm$ 0.09 $\pm$ 0.23 & 20.0 $\pm$ 6.0 $\pm$ 10.0  & 2.29 $\pm$ 0.91 \\
+       mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
+\hline
+ 115 \GeV & 20.4 $\pm$ 5.2 & 0.27 $\pm$ 0.06 $\pm$ 0.13 & 5.5 $\pm$ 1.9 $\pm$ 2.8  & 0.00 $\pm$ 0.00 \\
+ 120 \GeV & 30.4 $\pm$ 6.4 & 0.27 $\pm$ 0.06 $\pm$ 0.13 & 8.1 $\pm$ 2.6 $\pm$ 4.1  & 0.00 $\pm$ 0.00 \\
+ 125 \GeV & 32.4 $\pm$ 6.9 & 0.28 $\pm$ 0.07 $\pm$ 0.14 & 8.9 $\pm$ 2.8 $\pm$ 4.6  & 0.00 $\pm$ 0.00 \\
+ 130 \GeV & 30.9 $\pm$ 7.1 & 0.29 $\pm$ 0.07 $\pm$ 0.15 & 8.9 $\pm$ 2.9 $\pm$ 4.6  & 0.00 $\pm$ 0.00 \\
+ 135 \GeV & 30.9 $\pm$ 7.5 & 0.29 $\pm$ 0.07 $\pm$ 0.15 & 8.9 $\pm$ 3.0 $\pm$ 4.6  & 0.00 $\pm$ 0.00 \\
+ 140 \GeV & 31.3 $\pm$ 7.7 & 0.29 $\pm$ 0.07 $\pm$ 0.15 & 9.0 $\pm$ 3.0 $\pm$ 4.6  & 0.00 $\pm$ 0.00 \\
+ 145 \GeV & 172.6 $\pm$ 14.2 & 0.15 $\pm$ 0.01 $\pm$ 0.04 & 25.8 $\pm$ 3.0 $\pm$ 7.2  & 6.49 $\pm$ 1.60 \\
+ 150 \GeV & 243.7 $\pm$ 17.3 & 0.16 $\pm$ 0.01 $\pm$ 0.05 & 38.2 $\pm$ 4.0 $\pm$ 11.6  & 5.54 $\pm$ 1.38 \\
+ 160 \GeV & 260.3 $\pm$ 18.1 & 0.16 $\pm$ 0.01 $\pm$ 0.05 & 40.7 $\pm$ 4.3 $\pm$ 12.4  & 5.16 $\pm$ 1.37 \\
+ 170 \GeV & 222.5 $\pm$ 17.0 & 0.16 $\pm$ 0.01 $\pm$ 0.05 & 34.8 $\pm$ 3.8 $\pm$ 10.6  & 3.94 $\pm$ 1.28 \\
+ 180 \GeV & 160.6 $\pm$ 15.2 & 0.18 $\pm$ 0.01 $\pm$ 0.06 & 28.6 $\pm$ 3.4 $\pm$ 10.4  & 2.95 $\pm$ 1.11 \\
+ 190 \GeV & 168.2 $\pm$ 15.6 & 0.21 $\pm$ 0.01 $\pm$ 0.08 & 35.7 $\pm$ 4.1 $\pm$ 12.6  & 3.92 $\pm$ 1.23 \\
+ 200 \GeV & 176.1 $\pm$ 15.9 & 0.21 $\pm$ 0.01 $\pm$ 0.08 & 37.4 $\pm$ 4.2 $\pm$ 13.2  & 3.92 $\pm$ 1.23 \\
 \hline
 \multicolumn{5}{c}{2-jet} \\
 \hline
-	 MET $>$ 45 \GeV & 413.2 $\pm$ 21.4 & 0.24 $\pm$ 0.02 $\pm$ 0.04 & 97.8 $\pm$ 9.0 $\pm$ 14.8  & 54.87 $\pm$ 6.20 \\
+       mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
+\hline
+ 115 \GeV & 8.9 $\pm$ 3.0 & 0.22 $\pm$ 0.10 $\pm$ 0.22 & 2.0 $\pm$ 1.1 $\pm$ 2.0  & 0.26 $\pm$ 0.14 \\
+ 120 \GeV & 9.9 $\pm$ 3.2 & 0.22 $\pm$ 0.10 $\pm$ 0.22 & 2.2 $\pm$ 1.2 $\pm$ 2.2  & 0.26 $\pm$ 0.14 \\
+ 125 \GeV & 10.9 $\pm$ 3.3 & 0.22 $\pm$ 0.10 $\pm$ 0.22 & 2.4 $\pm$ 1.3 $\pm$ 2.4  & 0.26 $\pm$ 0.14 \\
+ 130 \GeV & 11.9 $\pm$ 3.5 & 0.22 $\pm$ 0.10 $\pm$ 0.22 & 2.6 $\pm$ 1.4 $\pm$ 2.6  & 0.26 $\pm$ 0.14 \\
+ 135 \GeV & 11.9 $\pm$ 3.5 & 0.22 $\pm$ 0.10 $\pm$ 0.22 & 2.6 $\pm$ 1.4 $\pm$ 2.6  & 0.26 $\pm$ 0.14 \\
+ 140 \GeV & 12.9 $\pm$ 3.6 & 0.22 $\pm$ 0.10 $\pm$ 0.22 & 2.9 $\pm$ 1.5 $\pm$ 2.9  & 0.26 $\pm$ 0.14 \\
+ 145 \GeV & 12.9 $\pm$ 3.6 & 0.22 $\pm$ 0.10 $\pm$ 0.22 & 2.9 $\pm$ 1.5 $\pm$ 2.9  & 0.26 $\pm$ 0.14 \\
+ 150 \GeV & 13.9 $\pm$ 3.7 & 0.22 $\pm$ 0.10 $\pm$ 0.22 & 3.1 $\pm$ 1.6 $\pm$ 3.1  & 0.26 $\pm$ 0.14 \\
+ 160 \GeV & 16.8 $\pm$ 4.1 & 0.22 $\pm$ 0.10 $\pm$ 0.22 & 3.7 $\pm$ 1.8 $\pm$ 3.7  & 0.26 $\pm$ 0.14 \\
+ 170 \GeV & 16.8 $\pm$ 4.1 & 0.22 $\pm$ 0.10 $\pm$ 0.22 & 3.7 $\pm$ 1.8 $\pm$ 3.7  & 0.26 $\pm$ 0.14 \\
+ 180 \GeV & 17.8 $\pm$ 4.2 & 0.22 $\pm$ 0.10 $\pm$ 0.22 & 3.9 $\pm$ 1.9 $\pm$ 3.9  & 0.26 $\pm$ 0.14 \\
+ 190 \GeV & 19.8 $\pm$ 4.5 & 0.22 $\pm$ 0.10 $\pm$ 0.22 & 4.4 $\pm$ 2.1 $\pm$ 4.4  & 0.26 $\pm$ 0.14 \\
+ 200 \GeV & 21.8 $\pm$ 4.7 & 0.22 $\pm$ 0.10 $\pm$ 0.22 & 4.8 $\pm$ 2.3 $\pm$ 4.8  & 0.26 $\pm$ 0.14 \\
 \hline
 \end{tabular}
-\caption{The Drell-Yan estimation in the same flavor final state at WW preselection level using cuts on min-pMET and DYMVA 
-in the 0/1 Jet bins and MET in the 2-jet bins. 
-The scale factors derived using the min-pMET in the 0 and 1 jet bins are used to normalize the Drell-Yan background for the 
-shape based analyses. }
-\label{tab:dy_wwlevel}
+\caption{The Drell-Yan estimation in the same flavor final state, for the cut-based selections.}
+\label{tab:dy}
 \end{center}
 \end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}
+\begin{center}
+\begin{tabular}{c c c c c c}
+\hline
+\hline
+\multicolumn{5}{c}{0-jet} \\
+\hline
+       mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
+\hline
+ 115 \GeV & 49.3 $\pm$ 8.4 & 0.37 $\pm$ 0.04 $\pm$ 0.05 & 18.4 $\pm$ 3.6 $\pm$ 2.2 & 3.80 $\pm$ 1.28 \\
+ 120 \GeV & 53.5 $\pm$ 9.5 & 0.37 $\pm$ 0.04 $\pm$ 0.05 & 19.9 $\pm$ 4.0 $\pm$ 2.4 & 3.94 $\pm$ 1.29 \\
+ 125 \GeV & 33.3 $\pm$ 7.3 & 0.78 $\pm$ 0.09 $\pm$ 0.21 & 26.0 $\pm$ 6.4 $\pm$ 7.1 & 3.98 $\pm$ 1.29 \\
+ 130 \GeV & 23.6 $\pm$ 6.3 & 1.13 $\pm$ 0.14 $\pm$ 0.37 & 26.6 $\pm$ 7.8 $\pm$ 8.7 & 2.92 $\pm$ 1.07 \\
+ 135 \GeV & 24.3 $\pm$ 6.4 & 1.06 $\pm$ 0.13 $\pm$ 0.43 & 25.7 $\pm$ 7.5 $\pm$ 10.6 & 2.59 $\pm$ 1.04 \\
+ 140 \GeV & 23.6 $\pm$ 6.0 & 0.95 $\pm$ 0.13 $\pm$ 0.40 & 22.4 $\pm$ 6.4 $\pm$ 9.5 & 2.59 $\pm$ 1.04 \\
+ 145 \GeV & 46.5 $\pm$ 7.8 & 0.70 $\pm$ 0.10 $\pm$ 0.30 & 32.3 $\pm$ 7.1 $\pm$ 14.0 & 5.59 $\pm$ 1.25 \\
+ 150 \GeV & 33.6 $\pm$ 7.8 & 0.27 $\pm$ 0.07 $\pm$ 0.18 & 9.0 $\pm$ 3.3 $\pm$ 6.0 & 3.50 $\pm$ 1.11 \\
+ 160 \GeV & 12.4 $\pm$ 5.2 & 0.41 $\pm$ 0.13 $\pm$ 0.68 & 5.1 $\pm$ 2.7 $\pm$ 8.4 & 2.47 $\pm$ 0.99 \\
+ 170 \GeV & 3.9 $\pm$ 4.4 & 0.23 $\pm$ 0.09 $\pm$ 1.21 & 0.9 $\pm$ 1.1 $\pm$ 4.7 & 1.07 $\pm$ 0.32 \\
+ 180 \GeV & 6.1 $\pm$ 4.9 & 0.18 $\pm$ 0.06 $\pm$ 0.82 & 1.1 $\pm$ 1.0 $\pm$ 5.0 & 1.67 $\pm$ 0.52 \\
+ 190 \GeV & 21.1 $\pm$ 7.1 & 0.24 $\pm$ 0.07 $\pm$ 0.20 & 5.0 $\pm$ 2.2 $\pm$ 4.3 & 1.80 $\pm$ 0.53 \\
+ 200 \GeV & 32.8 $\pm$ 9.5 & 0.17 $\pm$ 0.04 $\pm$ 0.08 & 5.6 $\pm$ 2.2 $\pm$ 2.7 & 1.80 $\pm$ 0.53 \\
+\vspace{-3mm} && \\
+\hline
+\hline
+\multicolumn{5}{c}{1-jet} \\
+\hline
+       mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
+\hline
+ 115 \GeV & 20.4 $\pm$ 5.2 & 0.27 $\pm$ 0.06 $\pm$ 0.13 & 5.5 $\pm$ 1.9 $\pm$ 2.8  & 0.00 $\pm$ 0.00 \\
+ 120 \GeV & 30.4 $\pm$ 6.4 & 0.27 $\pm$ 0.06 $\pm$ 0.13 & 8.1 $\pm$ 2.6 $\pm$ 4.1  & 0.00 $\pm$ 0.00 \\
+ 125 \GeV & 32.4 $\pm$ 6.9 & 0.28 $\pm$ 0.07 $\pm$ 0.14 & 8.9 $\pm$ 2.8 $\pm$ 4.6  & 0.00 $\pm$ 0.00 \\
+ 130 \GeV & 30.9 $\pm$ 7.1 & 0.29 $\pm$ 0.07 $\pm$ 0.15 & 8.9 $\pm$ 2.9 $\pm$ 4.6  & 0.00 $\pm$ 0.00 \\
+ 135 \GeV & 30.9 $\pm$ 7.5 & 0.29 $\pm$ 0.07 $\pm$ 0.15 & 8.9 $\pm$ 3.0 $\pm$ 4.6  & 0.00 $\pm$ 0.00 \\
+ 140 \GeV & 31.3 $\pm$ 7.7 & 0.29 $\pm$ 0.07 $\pm$ 0.15 & 9.0 $\pm$ 3.0 $\pm$ 4.6  & 0.00 $\pm$ 0.00 \\
+ 145 \GeV & 172.6 $\pm$ 14.2 & 0.15 $\pm$ 0.01 $\pm$ 0.04 & 25.8 $\pm$ 3.0 $\pm$ 7.2  & 6.49 $\pm$ 1.60 \\
+ 150 \GeV & 243.7 $\pm$ 17.3 & 0.16 $\pm$ 0.01 $\pm$ 0.05 & 38.2 $\pm$ 4.0 $\pm$ 11.6  & 5.54 $\pm$ 1.38 \\
+ 160 \GeV & 260.3 $\pm$ 18.1 & 0.16 $\pm$ 0.01 $\pm$ 0.05 & 40.7 $\pm$ 4.3 $\pm$ 12.4  & 5.16 $\pm$ 1.37 \\
+ 170 \GeV & 222.5 $\pm$ 17.0 & 0.16 $\pm$ 0.01 $\pm$ 0.05 & 34.8 $\pm$ 3.8 $\pm$ 10.6  & 3.94 $\pm$ 1.28 \\
+ 180 \GeV & 160.6 $\pm$ 15.2 & 0.18 $\pm$ 0.01 $\pm$ 0.06 & 28.6 $\pm$ 3.4 $\pm$ 10.4  & 2.95 $\pm$ 1.11 \\
+ 190 \GeV & 168.2 $\pm$ 15.6 & 0.21 $\pm$ 0.01 $\pm$ 0.08 & 35.7 $\pm$ 4.1 $\pm$ 12.6  & 3.92 $\pm$ 1.23 \\
+ 200 \GeV & 176.1 $\pm$ 15.9 & 0.21 $\pm$ 0.01 $\pm$ 0.08 & 37.4 $\pm$ 4.2 $\pm$ 13.2  & 3.92 $\pm$ 1.23 \\
+\hline
+\end{tabular}
+\caption{The Drell-Yan estimation in the same flavor final state, for the shape-based selections.}
+\label{tab:dy_shape}
+\end{center}
+\end{table}
+
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -228,9 +285,9 @@ In the 1-jet bin, the scale factor is derived in a region that is slightly diffe
        & $WZ$/$ZZ$ not included in the $\dyll$ & $\dyll+WZ+ZZ$ & $W+\gamma/\gamma^*$ \\
   \hline
   \hline
-	0-jet	&	21.0 $\pm$  0.3	&	 84.067 $\pm$ 10.3 & 32.1 $\pm$  3.9  \\
-	1-jet	&	20.1 $\pm$  0.3	&	115.338 $\pm$ 13.1 & 15.3 $\pm$  2.8  \\
-	2-jet	&	10.7 $\pm$  0.2	&	200.782 $\pm$ 19.4 &  4.5 $\pm$  1.6  \\
+	0-jet	&	21.0 $\pm$  0.3	&	 84.1 $\pm$ 10.3 & 32.1 $\pm$  3.9  \\
+	1-jet	&	20.1 $\pm$  0.3	&	115.3 $\pm$ 13.1 & 15.3 $\pm$  2.8  \\
+	2-jet	&	10.7 $\pm$  0.2	&	200.8 $\pm$ 19.4 &  4.5 $\pm$  1.6  \\
  \hline
  \hline
   \end{tabular}
