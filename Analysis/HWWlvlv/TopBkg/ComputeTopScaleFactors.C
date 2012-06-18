@@ -517,7 +517,7 @@ void ComputeTopScaleFactors
 	  else if(ivbf>=2){
 	    passAllCuts = bgdEvent.dilep_.M() <  DileptonMassPreselectionCut(mH[ivbf]) && 
 	                  bgdEvent.mt_ > 30.0 && bgdEvent.mt_ < mH[ivbf] && 
-			  bgdEvent.lep1_.Pt() > cutPtMaxLow(mH[ivbf]) && passWBFSel == true;
+			  passWBFSel == true;
 	  }
 	  if(passAllCuts == true){
             if(bTagMax[0] >= 2.10){
@@ -751,7 +751,7 @@ void ComputeTopScaleFactors
 	  else if(ivbf>=2){
 	    passAllCuts = dataEvent.dilep_.M() <  DileptonMassPreselectionCut(mH[ivbf]) && 
 	                  dataEvent.mt_ > 30.0 && dataEvent.mt_ < mH[ivbf] && 
-			  dataEvent.lep1_.Pt() > cutPtMaxLow(mH[ivbf]) && passWBFSel == true;
+			  passWBFSel == true;
 	  }
 	  if(passAllCuts == true){
             if(bTagMax[0] >= 2.10){
@@ -1278,7 +1278,7 @@ void ComputeTopScaleFactors
     if (i < nmass-1-1) outVBF << ",";    
   }
   outVBF << "};" << endl;
-  outVBF << "  Double_t TopVBFBkgSF[" << nmass-1 << "] = { " << endl;
+  outVBF << "  Double_t TopVBFBkgOF[" << nmass-1 << "] = { " << endl;
   for (UInt_t i = 0; i < nmass-1; ++i) {
     outVBF << TopBkgScaleFactor_2Jet_vbfOF[i+1];
     if (i < nmass-1-1) outVBF << ",";
@@ -1289,7 +1289,7 @@ void ComputeTopScaleFactors
   outVBF << "    if (mH == mHiggs[m]) massIndex = m;" << endl;
   outVBF << "  }" << endl;
   outVBF << "  if (massIndex >= 0) {" << endl;  
-  outVBF << "    return TopVBFBkgSF[massIndex];" << endl;
+  outVBF << "    return TopVBFBkgOF[massIndex];" << endl;
   outVBF << "  } else { assert(0); }" << endl;
   outVBF << "  return 1.0;" << endl;
   outVBF << "}" << endl;
@@ -1301,7 +1301,7 @@ void ComputeTopScaleFactors
     if (i < nmass-1-1) outVBF << ",";    
   }
   outVBF << "};" << endl;
-  outVBF << "  Double_t TopVBFBkgKappa[" << nmass-1 << "] = { " << endl;
+  outVBF << "  Double_t TopVBFOFBkgKappa[" << nmass-1 << "] = { " << endl;
   for (UInt_t i = 0; i < nmass-1; ++i) {
     if(TopBkgScaleFactor_2Jet_vbfOF[i+1] == 0) TopBkgScaleFactor_2Jet_vbfOF[i+1] = 1.0;
     outVBF << (1.0 + TopBkgScaleFactorUncertainty_2Jet_vbfOF[i+1]/TopBkgScaleFactor_2Jet_vbfOF[i+1]);    
@@ -1313,7 +1313,7 @@ void ComputeTopScaleFactors
   outVBF << "    if (mH == mHiggs[m]) massIndex = m;" << endl;
   outVBF << "  }" << endl;
   outVBF << "  if (massIndex >= 0) {" << endl;  
-  outVBF << "    return TopVBFBkgKappa[massIndex];" << endl;
+  outVBF << "    return TopVBFOFBkgKappa[massIndex];" << endl;
   outVBF << "  } else { assert(0); }" << endl;
   outVBF << "  return 1.0;" << endl;
   outVBF << "}" << endl;
@@ -1351,7 +1351,7 @@ void ComputeTopScaleFactors
     if (i < nmass-1-1) outVBF << ",";    
   }
   outVBF << "};" << endl;
-  outVBF << "  Double_t TopVBFBkgKappa[" << nmass-1 << "] = { " << endl;
+  outVBF << "  Double_t TopVBFSFBkgKappa[" << nmass-1 << "] = { " << endl;
   for (UInt_t i = 0; i < nmass-1; ++i) {
     if(TopBkgScaleFactor_2Jet_vbfSF[i+1] == 0) TopBkgScaleFactor_2Jet_vbfSF[i+1] = 1.0;
     outVBF << (1.0 + TopBkgScaleFactorUncertainty_2Jet_vbfSF[i+1]/TopBkgScaleFactor_2Jet_vbfSF[i+1]);    
@@ -1363,57 +1363,7 @@ void ComputeTopScaleFactors
   outVBF << "    if (mH == mHiggs[m]) massIndex = m;" << endl;
   outVBF << "  }" << endl;
   outVBF << "  if (massIndex >= 0) {" << endl;  
-  outVBF << "    return TopVBFBkgKappa[massIndex];" << endl;
-  outVBF << "  } else { assert(0); }" << endl;
-  outVBF << "  return 1.0;" << endl;
-  outVBF << "}" << endl;
-
-  outVBF << endl;
-
-
-  outVBF << "static Double_t TopVBFOFYield(Int_t mH) {" << endl;
-  outVBF << "  Int_t mHiggs[" << nmass-1 << "] = {";
-  for (UInt_t i = 0; i < nmass-1 ; ++i) {
-    outVBF << mH[i+1];
-    if (i < nmass-1-1) outVBF << ",";    
-  }
-  outVBF << "};" << endl;
-  outVBF << "  Double_t TopVBFBkgSF[" << nmass-1 << "] = { " << endl;
-  for (UInt_t i = 0; i < nmass-1; ++i) {
-    outVBF << TopBkgScaleFactor_2Jet_vbfOF[i+1];
-    if (i < nmass-1-1) outVBF << ",";
-  }
-  outVBF << "};" << endl;
-  outVBF << "  Int_t massIndex = -1;" << endl;
-  outVBF << "  for (UInt_t m=0; m < " << nmass-1 << " ; ++m) {" << endl;
-  outVBF << "    if (mH == mHiggs[m]) massIndex = m;" << endl;
-  outVBF << "  }" << endl;
-  outVBF << "  if (massIndex >= 0) {" << endl;  
-  outVBF << "    return TopVBFBkgSF[massIndex];" << endl;
-  outVBF << "  } else { assert(0); }" << endl;
-  outVBF << "  return 1.0;" << endl;
-  outVBF << "}" << endl;
-
-  outVBF << "static Double_t TopVBFOFYieldKappa(Int_t mH) {" << endl;
-  outVBF << "  Int_t mHiggs[" << nmass-1 << "] = {";
-  for (UInt_t i = 0; i < nmass-1 ; ++i) {
-    outVBF << mH[i+1];
-    if (i < nmass-1-1) outVBF << ",";    
-  }
-  outVBF << "};" << endl;
-  outVBF << "  Double_t TopVBFBkgKappa[" << nmass-1 << "] = { " << endl;
-  for (UInt_t i = 0; i < nmass-1; ++i) {
-    if(TopBkgScaleFactor_2Jet_vbfOF[i+1] == 0) TopBkgScaleFactor_2Jet_vbfOF[i+1] = 1.0;
-    outVBF << (1.0 + TopBkgScaleFactorUncertainty_2Jet_vbfOF[i+1]/TopBkgScaleFactor_2Jet_vbfOF[i+1]);    
-    if (i < nmass-1-1) outVBF << ",";
-  }
-  outVBF << "};" << endl;
-  outVBF << "  Int_t massIndex = -1;" << endl;
-  outVBF << "  for (UInt_t m=0; m < " << nmass-1 << " ; ++m) {" << endl;
-  outVBF << "    if (mH == mHiggs[m]) massIndex = m;" << endl;
-  outVBF << "  }" << endl;
-  outVBF << "  if (massIndex >= 0) {" << endl;  
-  outVBF << "    return TopVBFBkgKappa[massIndex];" << endl;
+  outVBF << "    return TopVBFSFBkgKappa[massIndex];" << endl;
   outVBF << "  } else { assert(0); }" << endl;
   outVBF << "  return 1.0;" << endl;
   outVBF << "}" << endl;

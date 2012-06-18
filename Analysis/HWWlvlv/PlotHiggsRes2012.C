@@ -2828,7 +2828,7 @@ void PlotHiggsRes2012
   if(nBgdCutDecays[4] > 0 && makeZjetsTemplates == false && TMath::Abs(DYXS[1]+VVXS[1]-nBgdCutDecays[4])/nBgdCutDecays[4] > 0.001) {printf("Problem: %f %f %f\n",DYXS[1],VVXS[1],nBgdCutDecays[4]); assert(0);}
   if(nBgdMVADecays[4] > 0 && makeZjetsTemplates == false && TMath::Abs(DYXS[2]+VVXS[2]-nBgdMVADecays[4])/nBgdMVADecays[4] > 0.001) {printf("Problem: %f %f %f\n",DYXS[2],VVXS[2],nBgdMVADecays[4]); assert(0);}
   int MhForError = mH;
-  if(mH >= 110 && mH < 115) MhForError = mH;
+  if(mH >= 110 && mH < 115) MhForError = 115;
   if(mH > 300) MhForError = 0;
   if(nJetsType == 2 && mH > 300) MhForError = 300;
   if(nBgdAccDecays[4] > 0.0) ZXS_E[0] = sqrt(DYXS[0]*DYXS[0]*(DYBkgScaleFactorBDTKappa(MhForError,TMath::Min((int)nJetsType,2))-1.0)*(DYBkgScaleFactorBDTKappa(MhForError,TMath::Min((int)nJetsType,2))-1.0)+
