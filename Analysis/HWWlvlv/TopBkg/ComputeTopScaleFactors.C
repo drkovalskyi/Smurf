@@ -39,11 +39,11 @@ void ComputeTopScaleFactors
   if(WWXSSel == true) ptLepMin = 20.;
   Bool_t useDYMVA = false;
 
-  const Int_t nmass = 34;
+  const Int_t nmass = 32;
   const Double_t mH[nmass] = {  0,  0,110,115,118,120,122,124,125,126,
                               128,130,135,140,145,150,155,160,170,180,
 			      190,200,250,300,350,400,450,500,550,600,
-			      700,800,900,1000};  
+			      700,800};  
   int nVBFLoop = nmass;
   if(WWXSSel == true) {nVBFLoop = 1;}
 
@@ -132,6 +132,14 @@ void ComputeTopScaleFactors
   vector<vector<double> > btag_vbf_2j_den1,btag_vbf_2j_num1,btag_vbf_2j_den1_error,btag_vbf_2j_num1_error;
   vector<vector<double> > btag_vbf_2j_den2,btag_vbf_2j_num2,btag_vbf_2j_den2_error,btag_vbf_2j_num2_error;
   vector<vector<double> > btag_vbf_2j_den3,btag_vbf_2j_num3,btag_vbf_2j_den3_error,btag_vbf_2j_num3_error;
+  vector<vector<double> > btag_vbfSF_2j_den0,btag_vbfSF_2j_num0,btag_vbfSF_2j_den0_error,btag_vbfSF_2j_num0_error;
+  vector<vector<double> > btag_vbfSF_2j_den1,btag_vbfSF_2j_num1,btag_vbfSF_2j_den1_error,btag_vbfSF_2j_num1_error;
+  vector<vector<double> > btag_vbfSF_2j_den2,btag_vbfSF_2j_num2,btag_vbfSF_2j_den2_error,btag_vbfSF_2j_num2_error;
+  vector<vector<double> > btag_vbfSF_2j_den3,btag_vbfSF_2j_num3,btag_vbfSF_2j_den3_error,btag_vbfSF_2j_num3_error;
+  vector<vector<double> > btag_vbfOF_2j_den0,btag_vbfOF_2j_num0,btag_vbfOF_2j_den0_error,btag_vbfOF_2j_num0_error;
+  vector<vector<double> > btag_vbfOF_2j_den1,btag_vbfOF_2j_num1,btag_vbfOF_2j_den1_error,btag_vbfOF_2j_num1_error;
+  vector<vector<double> > btag_vbfOF_2j_den2,btag_vbfOF_2j_num2,btag_vbfOF_2j_den2_error,btag_vbfOF_2j_num2_error;
+  vector<vector<double> > btag_vbfOF_2j_den3,btag_vbfOF_2j_num3,btag_vbfOF_2j_den3_error,btag_vbfOF_2j_num3_error;
 
   for(int j=0; j<5; j++){
     btag_central_All_2j_den.push_back(0),btag_central_All_2j_num.push_back(0),btag_central_All_2j_den_error.push_back(0),btag_central_All_2j_num_error.push_back(0);
@@ -142,11 +150,27 @@ void ComputeTopScaleFactors
     vector<double> tmpbtag_vbf_2j_den1,tmpbtag_vbf_2j_num1,tmpbtag_vbf_2j_den1_error,tmpbtag_vbf_2j_num1_error;
     vector<double> tmpbtag_vbf_2j_den2,tmpbtag_vbf_2j_num2,tmpbtag_vbf_2j_den2_error,tmpbtag_vbf_2j_num2_error;
     vector<double> tmpbtag_vbf_2j_den3,tmpbtag_vbf_2j_num3,tmpbtag_vbf_2j_den3_error,tmpbtag_vbf_2j_num3_error;
+    vector<double> tmpbtag_vbfSF_2j_den0,tmpbtag_vbfSF_2j_num0,tmpbtag_vbfSF_2j_den0_error,tmpbtag_vbfSF_2j_num0_error;
+    vector<double> tmpbtag_vbfSF_2j_den1,tmpbtag_vbfSF_2j_num1,tmpbtag_vbfSF_2j_den1_error,tmpbtag_vbfSF_2j_num1_error;
+    vector<double> tmpbtag_vbfSF_2j_den2,tmpbtag_vbfSF_2j_num2,tmpbtag_vbfSF_2j_den2_error,tmpbtag_vbfSF_2j_num2_error;
+    vector<double> tmpbtag_vbfSF_2j_den3,tmpbtag_vbfSF_2j_num3,tmpbtag_vbfSF_2j_den3_error,tmpbtag_vbfSF_2j_num3_error;
+    vector<double> tmpbtag_vbfOF_2j_den0,tmpbtag_vbfOF_2j_num0,tmpbtag_vbfOF_2j_den0_error,tmpbtag_vbfOF_2j_num0_error;
+    vector<double> tmpbtag_vbfOF_2j_den1,tmpbtag_vbfOF_2j_num1,tmpbtag_vbfOF_2j_den1_error,tmpbtag_vbfOF_2j_num1_error;
+    vector<double> tmpbtag_vbfOF_2j_den2,tmpbtag_vbfOF_2j_num2,tmpbtag_vbfOF_2j_den2_error,tmpbtag_vbfOF_2j_num2_error;
+    vector<double> tmpbtag_vbfOF_2j_den3,tmpbtag_vbfOF_2j_num3,tmpbtag_vbfOF_2j_den3_error,tmpbtag_vbfOF_2j_num3_error;
     for(int j=0; j<5; j++){
       tmpbtag_vbf_2j_den0.push_back(0),tmpbtag_vbf_2j_num0.push_back(0),tmpbtag_vbf_2j_den0_error.push_back(0),tmpbtag_vbf_2j_num0_error.push_back(0);
       tmpbtag_vbf_2j_den1.push_back(0),tmpbtag_vbf_2j_num1.push_back(0),tmpbtag_vbf_2j_den1_error.push_back(0),tmpbtag_vbf_2j_num1_error.push_back(0);
       tmpbtag_vbf_2j_den2.push_back(0),tmpbtag_vbf_2j_num2.push_back(0),tmpbtag_vbf_2j_den2_error.push_back(0),tmpbtag_vbf_2j_num2_error.push_back(0);
       tmpbtag_vbf_2j_den3.push_back(0),tmpbtag_vbf_2j_num3.push_back(0),tmpbtag_vbf_2j_den3_error.push_back(0),tmpbtag_vbf_2j_num3_error.push_back(0);
+      tmpbtag_vbfSF_2j_den0.push_back(0),tmpbtag_vbfSF_2j_num0.push_back(0),tmpbtag_vbfSF_2j_den0_error.push_back(0),tmpbtag_vbfSF_2j_num0_error.push_back(0);
+      tmpbtag_vbfSF_2j_den1.push_back(0),tmpbtag_vbfSF_2j_num1.push_back(0),tmpbtag_vbfSF_2j_den1_error.push_back(0),tmpbtag_vbfSF_2j_num1_error.push_back(0);
+      tmpbtag_vbfSF_2j_den2.push_back(0),tmpbtag_vbfSF_2j_num2.push_back(0),tmpbtag_vbfSF_2j_den2_error.push_back(0),tmpbtag_vbfSF_2j_num2_error.push_back(0);
+      tmpbtag_vbfSF_2j_den3.push_back(0),tmpbtag_vbfSF_2j_num3.push_back(0),tmpbtag_vbfSF_2j_den3_error.push_back(0),tmpbtag_vbfSF_2j_num3_error.push_back(0);
+      tmpbtag_vbfOF_2j_den0.push_back(0),tmpbtag_vbfOF_2j_num0.push_back(0),tmpbtag_vbfOF_2j_den0_error.push_back(0),tmpbtag_vbfOF_2j_num0_error.push_back(0);
+      tmpbtag_vbfOF_2j_den1.push_back(0),tmpbtag_vbfOF_2j_num1.push_back(0),tmpbtag_vbfOF_2j_den1_error.push_back(0),tmpbtag_vbfOF_2j_num1_error.push_back(0);
+      tmpbtag_vbfOF_2j_den2.push_back(0),tmpbtag_vbfOF_2j_num2.push_back(0),tmpbtag_vbfOF_2j_den2_error.push_back(0),tmpbtag_vbfOF_2j_num2_error.push_back(0);
+      tmpbtag_vbfOF_2j_den3.push_back(0),tmpbtag_vbfOF_2j_num3.push_back(0),tmpbtag_vbfOF_2j_den3_error.push_back(0),tmpbtag_vbfOF_2j_num3_error.push_back(0);
     }
 
     btag_vbf_2j_den0.push_back(tmpbtag_vbf_2j_den0),
@@ -165,6 +189,38 @@ void ComputeTopScaleFactors
       btag_vbf_2j_num3.push_back(tmpbtag_vbf_2j_num3);
     btag_vbf_2j_den3_error.push_back(tmpbtag_vbf_2j_den3_error),
       btag_vbf_2j_num3_error.push_back(tmpbtag_vbf_2j_num3_error);
+    btag_vbfSF_2j_den0.push_back(tmpbtag_vbfSF_2j_den0),
+      btag_vbfSF_2j_num0.push_back(tmpbtag_vbfSF_2j_num0);
+    btag_vbfSF_2j_den0_error.push_back(tmpbtag_vbfSF_2j_den0_error),
+      btag_vbfSF_2j_num0_error.push_back(tmpbtag_vbfSF_2j_num0_error);
+    btag_vbfSF_2j_den1.push_back(tmpbtag_vbfSF_2j_den1),
+      btag_vbfSF_2j_num1.push_back(tmpbtag_vbfSF_2j_num1);
+    btag_vbfSF_2j_den1_error.push_back(tmpbtag_vbfSF_2j_den1_error),
+      btag_vbfSF_2j_num1_error.push_back(tmpbtag_vbfSF_2j_num1_error);
+    btag_vbfSF_2j_den2.push_back(tmpbtag_vbfSF_2j_den2),
+      btag_vbfSF_2j_num2.push_back(tmpbtag_vbfSF_2j_num2);
+    btag_vbfSF_2j_den2_error.push_back(tmpbtag_vbfSF_2j_den2_error),
+      btag_vbfSF_2j_num2_error.push_back(tmpbtag_vbfSF_2j_num2_error);
+    btag_vbfSF_2j_den3.push_back(tmpbtag_vbfSF_2j_den3),
+      btag_vbfSF_2j_num3.push_back(tmpbtag_vbfSF_2j_num3);
+    btag_vbfSF_2j_den3_error.push_back(tmpbtag_vbfSF_2j_den3_error),
+      btag_vbfSF_2j_num3_error.push_back(tmpbtag_vbfSF_2j_num3_error);
+    btag_vbfOF_2j_den0.push_back(tmpbtag_vbfOF_2j_den0),
+      btag_vbfOF_2j_num0.push_back(tmpbtag_vbfOF_2j_num0);
+    btag_vbfOF_2j_den0_error.push_back(tmpbtag_vbfOF_2j_den0_error),
+      btag_vbfOF_2j_num0_error.push_back(tmpbtag_vbfOF_2j_num0_error);
+    btag_vbfOF_2j_den1.push_back(tmpbtag_vbfOF_2j_den1),
+      btag_vbfOF_2j_num1.push_back(tmpbtag_vbfOF_2j_num1);
+    btag_vbfOF_2j_den1_error.push_back(tmpbtag_vbfOF_2j_den1_error),
+      btag_vbfOF_2j_num1_error.push_back(tmpbtag_vbfOF_2j_num1_error);
+    btag_vbfOF_2j_den2.push_back(tmpbtag_vbfOF_2j_den2),
+      btag_vbfOF_2j_num2.push_back(tmpbtag_vbfOF_2j_num2);
+    btag_vbfOF_2j_den2_error.push_back(tmpbtag_vbfOF_2j_den2_error),
+      btag_vbfOF_2j_num2_error.push_back(tmpbtag_vbfOF_2j_num2_error);
+    btag_vbfOF_2j_den3.push_back(tmpbtag_vbfOF_2j_den3),
+      btag_vbfOF_2j_num3.push_back(tmpbtag_vbfOF_2j_num3);
+    btag_vbfOF_2j_den3_error.push_back(tmpbtag_vbfOF_2j_den3_error),
+      btag_vbfOF_2j_num3_error.push_back(tmpbtag_vbfOF_2j_num3_error);
   }
 
   for(int i=0; i<4; i++){
@@ -468,23 +524,65 @@ void ComputeTopScaleFactors
 	      if       (classType == kOther) {
         	btag_vbf_2j_num0[ivbf][nEta]	   += theWeight;
         	btag_vbf_2j_num0_error[ivbf][nEta] += theWeight*theWeight;
+		if(bgdEvent.type_ == SmurfTree::mm || bgdEvent.type_ == SmurfTree::ee){
+        	  btag_vbfSF_2j_num0[ivbf][nEta]       += theWeight;
+        	  btag_vbfSF_2j_num0_error[ivbf][nEta] += theWeight*theWeight;		  
+		} else {
+        	  btag_vbfOF_2j_num0[ivbf][nEta]       += theWeight;
+        	  btag_vbfOF_2j_num0_error[ivbf][nEta] += theWeight*theWeight;		  
+		}
 	      } else if(classType == kTTBAR) {
         	btag_vbf_2j_num1[ivbf][nEta]	   += theWeight;
         	btag_vbf_2j_num1_error[ivbf][nEta] += theWeight*theWeight;
+		if(bgdEvent.type_ == SmurfTree::mm || bgdEvent.type_ == SmurfTree::ee){
+        	  btag_vbfSF_2j_num1[ivbf][nEta]       += theWeight;
+        	  btag_vbfSF_2j_num1_error[ivbf][nEta] += theWeight*theWeight;		  
+		} else {
+        	  btag_vbfOF_2j_num1[ivbf][nEta]       += theWeight;
+        	  btag_vbfOF_2j_num1_error[ivbf][nEta] += theWeight*theWeight;		  
+		}
 	      } else if(classType == kTW) {
         	btag_vbf_2j_num2[ivbf][nEta]	   += theWeight;
         	btag_vbf_2j_num2_error[ivbf][nEta] += theWeight*theWeight;
+		if(bgdEvent.type_ == SmurfTree::mm || bgdEvent.type_ == SmurfTree::ee){
+        	  btag_vbfSF_2j_num2[ivbf][nEta]       += theWeight;
+        	  btag_vbfSF_2j_num2_error[ivbf][nEta] += theWeight*theWeight;		  
+		} else {
+        	  btag_vbfOF_2j_num2[ivbf][nEta]       += theWeight;
+        	  btag_vbfOF_2j_num2_error[ivbf][nEta] += theWeight*theWeight;		  
+		}
 	      }
             } else {
 	      if       (classType == kOther) {
         	btag_vbf_2j_den0[ivbf][nEta]	   += theWeight;
         	btag_vbf_2j_den0_error[ivbf][nEta] += theWeight*theWeight;
+		if(bgdEvent.type_ == SmurfTree::mm || bgdEvent.type_ == SmurfTree::ee){
+        	  btag_vbfSF_2j_den0[ivbf][nEta]       += theWeight;
+        	  btag_vbfSF_2j_den0_error[ivbf][nEta] += theWeight*theWeight;		  
+		} else {
+        	  btag_vbfOF_2j_den0[ivbf][nEta]       += theWeight;
+        	  btag_vbfOF_2j_den0_error[ivbf][nEta] += theWeight*theWeight;		  
+		}
 	      } else if(classType == kTTBAR) {
         	btag_vbf_2j_den1[ivbf][nEta]	   += theWeight;
         	btag_vbf_2j_den1_error[ivbf][nEta] += theWeight*theWeight;
+		if(bgdEvent.type_ == SmurfTree::mm || bgdEvent.type_ == SmurfTree::ee){
+        	  btag_vbfSF_2j_den1[ivbf][nEta]       += theWeight;
+        	  btag_vbfSF_2j_den1_error[ivbf][nEta] += theWeight*theWeight;		  
+		} else {
+        	  btag_vbfOF_2j_den1[ivbf][nEta]       += theWeight;
+        	  btag_vbfOF_2j_den1_error[ivbf][nEta] += theWeight*theWeight;		  
+		}
 	      } else if(classType == kTW) {
         	btag_vbf_2j_den2[ivbf][nEta]	   += theWeight;
         	btag_vbf_2j_den2_error[ivbf][nEta] += theWeight*theWeight;
+		if(bgdEvent.type_ == SmurfTree::mm || bgdEvent.type_ == SmurfTree::ee){
+        	  btag_vbfSF_2j_den2[ivbf][nEta]       += theWeight;
+        	  btag_vbfSF_2j_den2_error[ivbf][nEta] += theWeight*theWeight;		  
+		} else {
+        	  btag_vbfOF_2j_den2[ivbf][nEta]       += theWeight;
+        	  btag_vbfOF_2j_den2_error[ivbf][nEta] += theWeight*theWeight;		  
+		}
 	      }
 	    }
 	  } // passAllCuts
@@ -659,9 +757,23 @@ void ComputeTopScaleFactors
             if(bTagMax[0] >= 2.10){
               btag_vbf_2j_num3[ivbf][nEta]	 += theWeight;
               btag_vbf_2j_num3_error[ivbf][nEta] += theWeight*theWeight;
+		if(dataEvent.type_ == SmurfTree::mm || dataEvent.type_ == SmurfTree::ee){
+        	  btag_vbfSF_2j_num3[ivbf][nEta]       += theWeight;
+        	  btag_vbfSF_2j_num3_error[ivbf][nEta] += theWeight*theWeight;		  
+		} else {
+        	  btag_vbfOF_2j_num3[ivbf][nEta]       += theWeight;
+        	  btag_vbfOF_2j_num3_error[ivbf][nEta] += theWeight*theWeight;		  
+		}
             } else {
               btag_vbf_2j_den3[ivbf][nEta]       += theWeight;
               btag_vbf_2j_den3_error[ivbf][nEta] += theWeight*theWeight;
+	      if(dataEvent.type_ == SmurfTree::mm || dataEvent.type_ == SmurfTree::ee){
+                btag_vbfSF_2j_den3[ivbf][nEta]       += theWeight;
+                btag_vbfSF_2j_den3_error[ivbf][nEta] += theWeight*theWeight;		
+	      } else {
+                btag_vbfOF_2j_den3[ivbf][nEta]       += theWeight;
+                btag_vbfOF_2j_den3_error[ivbf][nEta] += theWeight*theWeight;		
+	      }
 	    }
 	  } // passAllCuts
 	} // Loop over masses
@@ -776,6 +888,58 @@ void ComputeTopScaleFactors
     TopBkgScaleFactor_2Jet_vbf[imass] = NonTaggedTopDA/NonTaggedTopMC;
     TopBkgScaleFactorUncertainty_2Jet_vbf[imass] = sqrt(NonTaggedTopDA_error)/NonTaggedTopMC;
     printf("data/MC(%6.3f/%6.3f) -> scaleFactorVBF(%3d): %6.3f +/- %6.3f\n",NonTaggedTopDA,NonTaggedTopMC,(int)mH[imass],TopBkgScaleFactor_2Jet_vbf[imass],TopBkgScaleFactorUncertainty_2Jet_vbf[imass]);
+  }
+  printf("**********eff vbf jet 2-j SF**********\n");
+  double evtMC_vbfSF_2j[5],evtMC_vbfSF_2j_error[5],evtDA_vbfSF_2j[5],evtDA_vbfSF_2j_error[5];
+  double TopBkgScaleFactor_2Jet_vbfSF[nmass],TopBkgScaleFactorUncertainty_2Jet_vbfSF[nmass];
+  for(int imass = 0; imass<nVBFLoop; imass++){
+    for(int i=0; i<5; i++) {
+
+      evtMC_vbfSF_2j[i] = (btag_vbfSF_2j_num1[imass][i]+btag_vbfSF_2j_num2[imass][i])*(1.0-effttMC_btag_central_tt_2j[i])/effttMC_btag_central_tt_2j[i];
+      evtDA_vbfSF_2j[i] = TMath::Max(btag_vbfSF_2j_num3[imass][i]-btag_vbfSF_2j_num0[imass][i],0.0)*(1.0-effttDA_btag_central_2j[i])/effttDA_btag_central_2j[i];
+
+      evtMC_vbfSF_2j_error[i] = (btag_vbfSF_2j_num1[imass][i]+btag_vbfSF_2j_num2[imass][i])*effttMC_btag_central_tt_2j_error[i]/effttMC_btag_central_tt_2j[i]/effttMC_btag_central_tt_2j[i];
+      double errDa[2] = {sqrt(TMath::Max(btag_vbfSF_2j_num3[imass][i],0.0))*(1.0-effttDA_btag_central_2j[i])/effttDA_btag_central_2j[i],
+                	 TMath::Max(btag_vbfSF_2j_num3[imass][i]-btag_vbfSF_2j_num0[imass][i],0.0)*effttDA_btag_central_2j_error[i]/effttDA_btag_central_2j[i]/effttDA_btag_central_2j[i]};
+      evtDA_vbfSF_2j_error[i] = sqrt(errDa[0]*errDa[0]+errDa[1]*errDa[1]);
+    }
+    for(int i=0; i<5; i++) printf("eventsTaggedVBFSF(%d) --> top: %6.3f  data: %5d  bck:%6.3f\n",i,btag_vbfSF_2j_num1[imass][i]+btag_vbfSF_2j_num2[imass][i],
+                           (int)btag_vbfSF_2j_num3[imass][i],btag_vbfSF_2j_num0[imass][i]);
+    for(int i=0; i<5; i++) printf("eventsNonTaggedVBFSF(%d) --> %6.3f  --> %6.3f +/- %6.3f | %6.3f +/- %6.3f\n",i,btag_vbfSF_2j_den1[imass][i]+btag_vbfSF_2j_den2[imass][i],
+               evtMC_vbfSF_2j[i],evtMC_vbfSF_2j_error[i],evtDA_vbfSF_2j[i],evtDA_vbfSF_2j_error[i]);
+
+    double NonTaggedTopMC = 0; for(int i=0; i<5; i++) NonTaggedTopMC = NonTaggedTopMC + btag_vbfSF_2j_den1[imass][i]+btag_vbfSF_2j_den2[imass][i];
+    double NonTaggedTopDA = 0; for(int i=0; i<5; i++) NonTaggedTopDA = NonTaggedTopDA + evtDA_vbfSF_2j[i];
+    double NonTaggedTopDA_error = 0; for(int i=0; i<5; i++) NonTaggedTopDA_error = NonTaggedTopDA_error + evtDA_vbfSF_2j_error[i]*evtDA_vbfSF_2j_error[i];
+    TopBkgScaleFactor_2Jet_vbfSF[imass] = NonTaggedTopDA/NonTaggedTopMC;
+    TopBkgScaleFactorUncertainty_2Jet_vbfSF[imass] = sqrt(NonTaggedTopDA_error)/NonTaggedTopMC;
+    printf("data/MC(%6.3f/%6.3f) -> scaleFactorVBFSF(%3d): %6.3f +/- %6.3f\n",NonTaggedTopDA,NonTaggedTopMC,(int)mH[imass],TopBkgScaleFactor_2Jet_vbfSF[imass],TopBkgScaleFactorUncertainty_2Jet_vbfSF[imass]);
+  }
+  printf("**********eff vbf jet 2-j OF**********\n");
+  double evtMC_vbfOF_2j[5],evtMC_vbfOF_2j_error[5],evtDA_vbfOF_2j[5],evtDA_vbfOF_2j_error[5];
+  double TopBkgScaleFactor_2Jet_vbfOF[nmass],TopBkgScaleFactorUncertainty_2Jet_vbfOF[nmass];
+  for(int imass = 0; imass<nVBFLoop; imass++){
+    for(int i=0; i<5; i++) {
+
+      evtMC_vbfOF_2j[i] = (btag_vbfOF_2j_num1[imass][i]+btag_vbfOF_2j_num2[imass][i])*(1.0-effttMC_btag_central_tt_2j[i])/effttMC_btag_central_tt_2j[i];
+      evtDA_vbfOF_2j[i] = TMath::Max(btag_vbfOF_2j_num3[imass][i]-btag_vbfOF_2j_num0[imass][i],0.0)*(1.0-effttDA_btag_central_2j[i])/effttDA_btag_central_2j[i];
+
+      evtMC_vbfOF_2j_error[i] = (btag_vbfOF_2j_num1[imass][i]+btag_vbfOF_2j_num2[imass][i])*effttMC_btag_central_tt_2j_error[i]/effttMC_btag_central_tt_2j[i]/effttMC_btag_central_tt_2j[i];
+      double errDa[2] = {sqrt(TMath::Max(btag_vbfOF_2j_num3[imass][i],0.0))*(1.0-effttDA_btag_central_2j[i])/effttDA_btag_central_2j[i],
+                	 TMath::Max(btag_vbfOF_2j_num3[imass][i]-btag_vbfOF_2j_num0[imass][i],0.0)*effttDA_btag_central_2j_error[i]/effttDA_btag_central_2j[i]/effttDA_btag_central_2j[i]};
+      evtDA_vbfOF_2j_error[i] = sqrt(errDa[0]*errDa[0]+errDa[1]*errDa[1]);
+    }
+    for(int i=0; i<5; i++) printf("eventsTaggedVBFOF(%d) --> top: %6.3f  data: %5d  bck:%6.3f\n",i,btag_vbfOF_2j_num1[imass][i]+btag_vbfOF_2j_num2[imass][i],
+                           (int)btag_vbfOF_2j_num3[imass][i],btag_vbfOF_2j_num0[imass][i]);
+    for(int i=0; i<5; i++) printf("eventsNonTaggedVBFOF(%d) --> %6.3f  --> %6.3f +/- %6.3f | %6.3f +/- %6.3f\n",i,btag_vbfOF_2j_den1[imass][i]+btag_vbfOF_2j_den2[imass][i],
+               evtMC_vbfOF_2j[i],evtMC_vbfOF_2j_error[i],evtDA_vbfOF_2j[i],evtDA_vbfOF_2j_error[i]);
+
+    double NonTaggedTopMC = 0; for(int i=0; i<5; i++) NonTaggedTopMC = NonTaggedTopMC + btag_vbfOF_2j_den1[imass][i]+btag_vbfOF_2j_den2[imass][i];
+    double NonTaggedTopDA = 0; for(int i=0; i<5; i++) NonTaggedTopDA = NonTaggedTopDA + evtDA_vbfOF_2j[i];
+    double NonTaggedTopDA_error = 0; for(int i=0; i<5; i++) NonTaggedTopDA_error = NonTaggedTopDA_error + evtDA_vbfOF_2j_error[i]*evtDA_vbfOF_2j_error[i];
+    TopBkgScaleFactor_2Jet_vbfOF[imass] = NonTaggedTopDA/NonTaggedTopMC;
+    TopBkgScaleFactorUncertainty_2Jet_vbfOF[imass] = sqrt(NonTaggedTopDA_error)/NonTaggedTopMC;
+    printf("data/MC(%6.3f/%6.3f) -> scaleFactorVBFOF(%3d): %6.3f +/- %6.3f\n",NonTaggedTopDA,NonTaggedTopMC,(int)mH[imass],TopBkgScaleFactor_2Jet_vbfOF[imass],TopBkgScaleFactorUncertainty_2Jet_vbfOF[imass]);
   }
   //*******************************************************************************
   //2-Jet Bin : BTag Efficiency for highest pt jet
@@ -1104,6 +1268,155 @@ void ComputeTopScaleFactors
   outVBF << "  return 1.0;" << endl;
   outVBF << "}" << endl;
 
+  outVBF << endl;
+
+
+  outVBF << "static Double_t TopVBFOFYield(Int_t mH) {" << endl;
+  outVBF << "  Int_t mHiggs[" << nmass-1 << "] = {";
+  for (UInt_t i = 0; i < nmass-1 ; ++i) {
+    outVBF << mH[i+1];
+    if (i < nmass-1-1) outVBF << ",";    
+  }
+  outVBF << "};" << endl;
+  outVBF << "  Double_t TopVBFBkgSF[" << nmass-1 << "] = { " << endl;
+  for (UInt_t i = 0; i < nmass-1; ++i) {
+    outVBF << TopBkgScaleFactor_2Jet_vbfOF[i+1];
+    if (i < nmass-1-1) outVBF << ",";
+  }
+  outVBF << "};" << endl;
+  outVBF << "  Int_t massIndex = -1;" << endl;
+  outVBF << "  for (UInt_t m=0; m < " << nmass-1 << " ; ++m) {" << endl;
+  outVBF << "    if (mH == mHiggs[m]) massIndex = m;" << endl;
+  outVBF << "  }" << endl;
+  outVBF << "  if (massIndex >= 0) {" << endl;  
+  outVBF << "    return TopVBFBkgSF[massIndex];" << endl;
+  outVBF << "  } else { assert(0); }" << endl;
+  outVBF << "  return 1.0;" << endl;
+  outVBF << "}" << endl;
+
+  outVBF << "static Double_t TopVBFOFYieldKappa(Int_t mH) {" << endl;
+  outVBF << "  Int_t mHiggs[" << nmass-1 << "] = {";
+  for (UInt_t i = 0; i < nmass-1 ; ++i) {
+    outVBF << mH[i+1];
+    if (i < nmass-1-1) outVBF << ",";    
+  }
+  outVBF << "};" << endl;
+  outVBF << "  Double_t TopVBFBkgKappa[" << nmass-1 << "] = { " << endl;
+  for (UInt_t i = 0; i < nmass-1; ++i) {
+    if(TopBkgScaleFactor_2Jet_vbfOF[i+1] == 0) TopBkgScaleFactor_2Jet_vbfOF[i+1] = 1.0;
+    outVBF << (1.0 + TopBkgScaleFactorUncertainty_2Jet_vbfOF[i+1]/TopBkgScaleFactor_2Jet_vbfOF[i+1]);    
+    if (i < nmass-1-1) outVBF << ",";
+  }
+  outVBF << "};" << endl;
+  outVBF << "  Int_t massIndex = -1;" << endl;
+  outVBF << "  for (UInt_t m=0; m < " << nmass-1 << " ; ++m) {" << endl;
+  outVBF << "    if (mH == mHiggs[m]) massIndex = m;" << endl;
+  outVBF << "  }" << endl;
+  outVBF << "  if (massIndex >= 0) {" << endl;  
+  outVBF << "    return TopVBFBkgKappa[massIndex];" << endl;
+  outVBF << "  } else { assert(0); }" << endl;
+  outVBF << "  return 1.0;" << endl;
+  outVBF << "}" << endl;
+
+  outVBF << endl;
+
+
+  outVBF << "static Double_t TopVBFSFYield(Int_t mH) {" << endl;
+  outVBF << "  Int_t mHiggs[" << nmass-1 << "] = {";
+  for (UInt_t i = 0; i < nmass-1 ; ++i) {
+    outVBF << mH[i+1];
+    if (i < nmass-1-1) outVBF << ",";    
+  }
+  outVBF << "};" << endl;
+  outVBF << "  Double_t TopVBFBkgSF[" << nmass-1 << "] = { " << endl;
+  for (UInt_t i = 0; i < nmass-1; ++i) {
+    outVBF << TopBkgScaleFactor_2Jet_vbfSF[i+1];
+    if (i < nmass-1-1) outVBF << ",";
+  }
+  outVBF << "};" << endl;
+  outVBF << "  Int_t massIndex = -1;" << endl;
+  outVBF << "  for (UInt_t m=0; m < " << nmass-1 << " ; ++m) {" << endl;
+  outVBF << "    if (mH == mHiggs[m]) massIndex = m;" << endl;
+  outVBF << "  }" << endl;
+  outVBF << "  if (massIndex >= 0) {" << endl;  
+  outVBF << "    return TopVBFBkgSF[massIndex];" << endl;
+  outVBF << "  } else { assert(0); }" << endl;
+  outVBF << "  return 1.0;" << endl;
+  outVBF << "}" << endl;
+
+  outVBF << "static Double_t TopVBFSFYieldKappa(Int_t mH) {" << endl;
+  outVBF << "  Int_t mHiggs[" << nmass-1 << "] = {";
+  for (UInt_t i = 0; i < nmass-1 ; ++i) {
+    outVBF << mH[i+1];
+    if (i < nmass-1-1) outVBF << ",";    
+  }
+  outVBF << "};" << endl;
+  outVBF << "  Double_t TopVBFBkgKappa[" << nmass-1 << "] = { " << endl;
+  for (UInt_t i = 0; i < nmass-1; ++i) {
+    if(TopBkgScaleFactor_2Jet_vbfSF[i+1] == 0) TopBkgScaleFactor_2Jet_vbfSF[i+1] = 1.0;
+    outVBF << (1.0 + TopBkgScaleFactorUncertainty_2Jet_vbfSF[i+1]/TopBkgScaleFactor_2Jet_vbfSF[i+1]);    
+    if (i < nmass-1-1) outVBF << ",";
+  }
+  outVBF << "};" << endl;
+  outVBF << "  Int_t massIndex = -1;" << endl;
+  outVBF << "  for (UInt_t m=0; m < " << nmass-1 << " ; ++m) {" << endl;
+  outVBF << "    if (mH == mHiggs[m]) massIndex = m;" << endl;
+  outVBF << "  }" << endl;
+  outVBF << "  if (massIndex >= 0) {" << endl;  
+  outVBF << "    return TopVBFBkgKappa[massIndex];" << endl;
+  outVBF << "  } else { assert(0); }" << endl;
+  outVBF << "  return 1.0;" << endl;
+  outVBF << "}" << endl;
+
+  outVBF << endl;
+
+
+  outVBF << "static Double_t TopVBFOFYield(Int_t mH) {" << endl;
+  outVBF << "  Int_t mHiggs[" << nmass-1 << "] = {";
+  for (UInt_t i = 0; i < nmass-1 ; ++i) {
+    outVBF << mH[i+1];
+    if (i < nmass-1-1) outVBF << ",";    
+  }
+  outVBF << "};" << endl;
+  outVBF << "  Double_t TopVBFBkgSF[" << nmass-1 << "] = { " << endl;
+  for (UInt_t i = 0; i < nmass-1; ++i) {
+    outVBF << TopBkgScaleFactor_2Jet_vbfOF[i+1];
+    if (i < nmass-1-1) outVBF << ",";
+  }
+  outVBF << "};" << endl;
+  outVBF << "  Int_t massIndex = -1;" << endl;
+  outVBF << "  for (UInt_t m=0; m < " << nmass-1 << " ; ++m) {" << endl;
+  outVBF << "    if (mH == mHiggs[m]) massIndex = m;" << endl;
+  outVBF << "  }" << endl;
+  outVBF << "  if (massIndex >= 0) {" << endl;  
+  outVBF << "    return TopVBFBkgSF[massIndex];" << endl;
+  outVBF << "  } else { assert(0); }" << endl;
+  outVBF << "  return 1.0;" << endl;
+  outVBF << "}" << endl;
+
+  outVBF << "static Double_t TopVBFOFYieldKappa(Int_t mH) {" << endl;
+  outVBF << "  Int_t mHiggs[" << nmass-1 << "] = {";
+  for (UInt_t i = 0; i < nmass-1 ; ++i) {
+    outVBF << mH[i+1];
+    if (i < nmass-1-1) outVBF << ",";    
+  }
+  outVBF << "};" << endl;
+  outVBF << "  Double_t TopVBFBkgKappa[" << nmass-1 << "] = { " << endl;
+  for (UInt_t i = 0; i < nmass-1; ++i) {
+    if(TopBkgScaleFactor_2Jet_vbfOF[i+1] == 0) TopBkgScaleFactor_2Jet_vbfOF[i+1] = 1.0;
+    outVBF << (1.0 + TopBkgScaleFactorUncertainty_2Jet_vbfOF[i+1]/TopBkgScaleFactor_2Jet_vbfOF[i+1]);    
+    if (i < nmass-1-1) outVBF << ",";
+  }
+  outVBF << "};" << endl;
+  outVBF << "  Int_t massIndex = -1;" << endl;
+  outVBF << "  for (UInt_t m=0; m < " << nmass-1 << " ; ++m) {" << endl;
+  outVBF << "    if (mH == mHiggs[m]) massIndex = m;" << endl;
+  outVBF << "  }" << endl;
+  outVBF << "  if (massIndex >= 0) {" << endl;  
+  outVBF << "    return TopVBFBkgKappa[massIndex];" << endl;
+  outVBF << "  } else { assert(0); }" << endl;
+  outVBF << "  return 1.0;" << endl;
+  outVBF << "}" << endl;
 
   outVBF << endl;
 
