@@ -17,7 +17,7 @@ neutrino transverse components are missing. It is therefore necessary to integra
 over these unknown quantities, which we perform using the importance sampling 
 integration method.
 The Matrix Element functions used in the determination of the differential cross sections
-for this analysis are obtained from  MCFM v5.8.  While MCFM 
+for this analysis are obtained from  MCFM v6.2.  While MCFM 
 provides both leading order (LO) and next-to leading (NLO) cross-section calculations for 
 some relevant background and Higgs processes in $pp$ collisions, only the
 LO is currently used.
@@ -70,12 +70,11 @@ observables, $y$, consistent with the measured quantities $x_{obs}$.
 The constant $<\sigma(\alpha)>$ normalizes the total event probability to unity
 
 The efficiency function is the probability for a parton-level object with momentum 
-$p$ to be reconstructed as a lepton with momentum $q$. In the calculation of the event 
-probabilities we assume that the parton level lepton momentum is equal to the reconstructed 
-momentum. The lepton efficiency is parameterized as a function of transverse momentum and 
-pseudo-rapidity and extracted from $WW$ Monte Carlo. 
+$p$ to be reconstructed as a lepton with momentum $q$. The lepton efficiency is parameterized 
+as a function of transverse momentum and pseudo-rapidity and extracted from $WW$ Monte Carlo. 
 Note that the efficiency function in Equation~\ref{eqn:EvtProb} can be factorized out of
 the integral when calculating event probabilities.
+The lepton momenta are smeared according to the measured lepton mometum resolutions. 
 
 Treatment of the $W+jet$ event probability calculation deserves special discussion.
 For these events to be reconstructed in the dilepton final state,
@@ -97,9 +96,8 @@ We verify the $P(parton\rightarrow lepton)$ values we obtain from this method by
 comparing them to ones measured in a $\gamma+jet$ Monte Carlo sample and $\gamma+jet$ data.
 The probabilities agree within the uncertainty of $30\%$.  
 
-One final complication that must be considered is the boost of the initial state.
+One final complication that must be considered is the boost of the initial state. 
 In the leading order Matrix Element calculation there is no initial state radiation. 
-The initial state partons collide head-on and the system has no transverse boost. 
 To account for the transverse recoil and thus improve the performance of our discriminant
 on data, we integrate over the possible values of the system boost $k_{T}(k_{x},k_{y})$. 
 The $k_T$ model is extracted for each jet bin from Monte Carlo for each process separately. 
@@ -120,19 +118,17 @@ the value of $LR$ is close to one for signal and zero for background processes.
 The calculation of $P_s$ is a function of Higgs mass, so the likelihood ratio
 shape depends on $m_H$. This is true for both signal and background templates of $LR$. 
 
-It is important to note that because the $LR$ distribution is calculated the same way for data, 
-signal and backgrounds, the fact that we use a LO Matrix Element and make certain 
-approximations in the analytic calculation may result in less than optimal sensitivity, 
-but not expected to lead to significant bias.
-
 \subsection{\texorpdfstring{Results with $\intlumiEightTeV$}{Results on data}}
 
-We compute the upper limits using the shape of the LR to maximize the analysis sensitivity,
-Systematic uncertainties are treated with the same methods as in the BDT-shape-based analysis.
+Figure~\ref{fig:XXX} shows the matrix element output distributions, comparing data and MC for 
+several higgs mass hypotheses. We then perform the shape analysis based on these output in the 
+same way as in the BDT based shape analysis. The same treatment of the shape variations 
+are applied as well. 
+
 The expected and observed upper limits at 95\%C.L. for each mass point are shown in Table~\ref{tab:limits_me_5fb} 
 and Figure~\ref{fig:limits_me_5fb} for the dataset corresponding to $\intlumiEightTeV$. 
 The sensitivity performance of the matrix element method are
-consistent with the BDT-based approach shown in Section~\ref{sec:data_methods}. 
+consistent with the BDT-based approach shown in Section~\ref{sec:appendix_limits_bychannel}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!hbtp]
