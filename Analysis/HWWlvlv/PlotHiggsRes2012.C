@@ -971,24 +971,9 @@ void PlotHiggsRes2012
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    //bdtg = ((CalcGammaMRstar(*lep1,*lep2)-50.0)/(dilmass_cut-20.0)-0.5)*2.0;
     //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
-    //bdtg = ((mt-80.0)/(mH-80.0)-0.5)*2.0;
-    //bdtg = (knn-0.5)*2.0;
-    //if(mH<500) bdtg = (bdtg+0.15)/0.85;
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
-    
-    //bdtg = TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)*
-    //       TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)+
-    //	   TMath::Max(TMath::Min((bdtg_wjets+1.0)/2.0,1.0),0.0)*
-    //       TMath::Max(TMath::Min((bdtg_wjets+1.0)/2.0,1.0),0.0)-1.0;
-    // bdtg = (bdtg+bdtg_wjets)/2.0;
-    //if(nJetsType == 0 && bdtg_wjets <= 0.8) continue;
-    //if(nJetsType == 1 && bdtg_wjets <= 0.9) continue;
-    //bdtg = TMath::Min(knn-0.5,0.999)/0.5;
-    //bdtg = (dilep->mass()-12.0)/(dilmass_cut-12.0);
-    //if(bdtg<=0) bdtg = 0.001; if(bdtg>=1) bdtg = 0.999; bdtg = (bdtg-0.5)*2.0;
 
     //----------------------------------------------------------------------------
     // Define event weights    
@@ -1440,24 +1425,9 @@ void PlotHiggsRes2012
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    //bdtg = ((CalcGammaMRstar(*lep1,*lep2)-50.0)/(dilmass_cut-20.0)-0.5)*2.0;
     //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
-    //bdtg = ((mt-80.0)/(mH-80.0)-0.5)*2.0;
-    //bdtg = (knn-0.5)*2.0;
-    //if(mH<500) bdtg = (bdtg+0.15)/0.85;
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
-
-    //bdtg = TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)*
-    //       TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)+
-    //	   TMath::Max(TMath::Min((bdtg_wjets+1.0)/2.0,1.0),0.0)*
-    //       TMath::Max(TMath::Min((bdtg_wjets+1.0)/2.0,1.0),0.0)-1.0;
-    // bdtg = (bdtg+bdtg_wjets)/2.0;
-    //if(nJetsType == 0 && bdtg_wjets <= 0.8) continue;
-    //if(nJetsType == 1 && bdtg_wjets <= 0.9) continue;
-    //bdtg = TMath::Min(knn-0.5,0.999)/0.5;
-    //bdtg = (dilep->mass()-12.0)/(dilmass_cut-12.0);
-    //if(bdtg<=0) bdtg = 0.001; if(bdtg>=1) bdtg = 0.999; bdtg = (bdtg-0.5)*2.0;
 
     //----------------------------------------------------------------------------
     // Define event weights    
@@ -2151,24 +2121,9 @@ void PlotHiggsRes2012
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    //bdtg = ((CalcGammaMRstar(*lep1,*lep2)-50.0)/(dilmass_cut-20.0)-0.5)*2.0;
     //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
-    //bdtg = ((mt-80.0)/(mH-80.0)-0.5)*2.0;
-    //bdtg = (knn-0.5)*2.0;
-    //if(mH<500) bdtg = (bdtg+0.15)/0.85;
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
-
-    //bdtg = TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)*
-    //       TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)+
-    //	   TMath::Max(TMath::Min((bdtg_wjets+1.0)/2.0,1.0),0.0)*
-    //       TMath::Max(TMath::Min((bdtg_wjets+1.0)/2.0,1.0),0.0)-1.0;
-    // bdtg = (bdtg+bdtg_wjets)/2.0;
-    //if(nJetsType == 0 && bdtg_wjets <= 0.8) continue;
-    //if(nJetsType == 1 && bdtg_wjets <= 0.9) continue;
-    //bdtg = TMath::Min(knn-0.5,0.999)/0.5;
-    //bdtg = (dilep->mass()-12.0)/(dilmass_cut-12.0);
-    //if(bdtg<=0) bdtg = 0.001; if(bdtg>=1) bdtg = 0.999; bdtg = (bdtg-0.5)*2.0;
 
     //----------------------------------------------------------------------------
     // Define event weights    
@@ -2610,24 +2565,9 @@ void PlotHiggsRes2012
 
     if(wwDecayCut == false) continue;
 
-    //bdtg = ((CalcGammaMRstar(*lep1,*lep2)-50.0)/(dilmass_cut-20.0)-0.5)*2.0;
     //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
-    //bdtg = ((mt-80.0)/(mH-80.0)-0.5)*2.0;
-    //bdtg = (knn-0.5)*2.0;
-    //if(mH<500) bdtg = (bdtg+0.15)/0.85;
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
-
-    //bdtg = TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)*
-    //       TMath::Max(TMath::Min((bdtg+1.0)/2.0,1.0),0.0)+
-    //	   TMath::Max(TMath::Min((bdtg_wjets+1.0)/2.0,1.0),0.0)*
-    //       TMath::Max(TMath::Min((bdtg_wjets+1.0)/2.0,1.0),0.0)-1.0;
-    // bdtg = (bdtg+bdtg_wjets)/2.0;
-    //if(nJetsType == 0 && bdtg_wjets <= 0.8) continue;
-    //if(nJetsType == 1 && bdtg_wjets <= 0.9) continue;
-    //bdtg = TMath::Min(knn-0.5,0.999)/0.5;
-    //bdtg = (dilep->mass()-12.0)/(dilmass_cut-12.0);
-    //if(bdtg<=0) bdtg = 0.001; if(bdtg>=1) bdtg = 0.999; bdtg = (bdtg-0.5)*2.0;
 
     //----------------------------------------------------------------------------
     // Weights for signal injection study
