@@ -1,0 +1,232 @@
+Aside from the BDT based multivariate technique, we also employ a Matrix Element technique~\cite{MENote}. 
+This method has already been used in top quark mass and cross-section 
+measurements, the discovery of single top production, and Higgs boson searches at the Tevatron.  
+The Matrix Element method works by calculating the probability for each recorded
+event to originate from a specific physics process.
+This is done by comparing the differential cross sections predicted by Matrix Element 
+calculations for the signal and background processes given the kinematic observables
+on an event-by-event basis.
+The discriminating power arises because the differential cross sections for 
+signal and background events are largest in different regions of the available
+kinematic phase space. 
+
+One complication of the Higgs to $WW$ leptonic final state is that it is not fully 
+reconstructed, with two neutrinos in the final state. 
+Information about the $z$-components of the neutrino momenta as well as the individual 
+neutrino transverse components are missing. It is therefore necessary to integrate 
+over these unknown quantities, which we perform using the importance sampling 
+integration method.
+The Matrix Element functions used in the determination of the differential cross sections
+for this analysis are obtained from  MCFM v5.8.  While MCFM 
+provides both leading order (LO) and next-to leading (NLO) cross-section calculations for 
+some relevant background and Higgs processes in $pp$ collisions, only the
+LO is currently used.
+
+The probabilities for all processes under consideration are combined 
+to construct a single discriminant, called the Likelihood Ratio ($LR$).  
+To construct the optimal discriminant, one should calculate 
+event probabilities for all of the background processes. In reality, however, having 
+probabilities for the signal hypothesis and the main backgrounds is sufficient for the 
+desired level of discrimination. In this analysis we calculate event probabilities 
+for gluon fusion Higgs boson production ($ggH$), electroweak $q\bar{q}\rightarrow WW$ pair 
+production ($WW$) and the $W+jet$ process where a $W$ boson is produced in association with one hadronic jet. 
+
+
+\subsection{Event Probability Calculation}
+
+In the Matrix Element technique we calculate a probability  for each event assuming a
+certain hypothesis.  The probability is denoted by $P(x_{obs};\alpha)$,
+where $\alpha$ is a set of physics 
+parameters of the specific model and $x_{obs}$ are the measured kinematic quantities.
+In the case of Standard Model Higgs Boson production,
+ $\alpha$ is $(m_H, \Gamma_H)$, where  $m_H$ is the Higgs mass 
+and $\Gamma_H$ is the Higgs width. There are eight observables, $x_{obs}$, representing all the 
+lepton kinematic information: lepton momenta $\vec{l}^+$, $\vec{l}^-$ and missing 
+transverse momentum, \met$_x$ and \met$_y$.
+
+It should be noted that additional information such as the number of jets
+produced and the total visible energy might further differentiate the Higgs signal from SM
+$WW$ production,
+but they can suffer from significant  QCD uncertainties. For this reason we 
+deliberately do not use hadronic information at all but use
+only the kinematic information from the leptons and the missing $E_T$, indirectly
+through the system boost (see below).
+
+The event probability density is given by
+\begin{equation}
+P(x_{obs};\alpha) =
+ \frac{1}{ < \sigma(\alpha) > }
+ \int \frac {d \sigma_{0} (y;\alpha) }{ dy }
+ \epsilon (y) G(x_{obs},y) dy,  
+\label{eqn:EvtProb}  
+\end{equation}
+where $y$ denotes the true values of the observables,
+$\frac{d \sigma_{LO}}{dy}$ is the  parton-level differential cross-section differential
+in those observables, $\epsilon(y)$ is the detector acceptance and efficiency function
+and $G(x_{obs},y)$ is the transfer function between the true and measured values of the
+observables, representing the detector resolution.
+Equation (\ref{eqn:EvtProb}) integrates over all possible true values of the
+observables, $y$, consistent with the measured quantities $x_{obs}$.
+The constant $<\sigma(\alpha)>$ normalizes the total event probability to unity
+
+The efficiency function is the probability for a parton-level object with momentum 
+$p$ to be reconstructed as a lepton with momentum $q$. In the calculation of the event 
+probabilities we assume that the parton level lepton momentum is equal to the reconstructed 
+momentum. The lepton efficiency is parameterized as a function of transverse momentum and 
+pseudo-rapidity and extracted from $WW$ Monte Carlo. 
+Note that the efficiency function in Equation~\ref{eqn:EvtProb} can be factorized out of
+the integral when calculating event probabilities.
+
+Treatment of the $W+jet$ event probability calculation deserves special discussion.
+For these events to be reconstructed in the dilepton final state,
+one of the reconstructed leptons has been faked by a parton fragmenting and hadronizing 
+into a QCD jet which then fakes the signature of a lepton in the detector. To account for this 
+effect properly, we multiply the differential cross-section for the $W+jet$ process by the 
+probability for a parton to be reconstructed as a lepton with the measured kinematics. 
+This probability can be factorized into two terms:
+\begin{eqnarray}
+\begin{array}{lcl}
+P(parton\rightarrow lepton)=P(parton\rightarrow FO)\times P(FO\rightarrow lepton)
+\end{array} 
+\end{eqnarray} 
+where FO refers to a so-called "fakeable object" (see Sec.~\ref{sec:bkg_fakes}). 
+The first term in the product is measured using Monte Carlo and parametrized
+in $p_{T}$ and $\eta$.  The second term is the fake rate measured in the data 
+(see Sec.~\ref{sec:bkg_fakes}).
+We verify the $P(parton\rightarrow lepton)$ values we obtain from this method by 
+comparing them to ones measured in a $\gamma+jet$ Monte Carlo sample and $\gamma+jet$ data.
+The probabilities agree within the uncertainty of $30\%$.  
+
+One final complication that must be considered is the boost of the initial state.
+In the leading order Matrix Element calculation there is no initial state radiation. 
+The initial state partons collide head-on and the system has no transverse boost. 
+To account for the transverse recoil and thus improve the performance of our discriminant
+on data, we integrate over the possible values of the system boost $k_{T}(k_{x},k_{y})$. 
+The $k_T$ model is extracted for each jet bin from Monte Carlo for each process separately. 
+
+\subsection{Likelihood Ratio Discriminator}
+Event probabilities, calculated as described above, are used to construct 
+a likelihood ratio discriminant which we use in a one-dimensional template fit, defined as:
+\begin{equation}
+\label{eqn:LR}
+LR = \frac { P_s} { P_s + \sum_i k_{bi} P_{bi}},
+\end{equation}
+where $P_s$  is the probability for the signal, $P_{bi}$ is the probability for background
+process $i$, and
+$k_{bi}$ is the expected fractional contribution of background $i$,
+satisfying the sum $\sum k_{bi} =1$.
+Because signal events are expected to have $P_s>P_b$ and vice-versa for background events, 
+the value of $LR$ is close to one for signal and zero for background processes.
+The calculation of $P_s$ is a function of Higgs mass, so the likelihood ratio
+shape depends on $m_H$. This is true for both signal and background templates of $LR$. 
+
+It is important to note that because the $LR$ distribution is calculated the same way for data, 
+signal and backgrounds, the fact that we use a LO Matrix Element and make certain 
+approximations in the analytic calculation may result in less than optimal sensitivity, 
+but not expected to lead to significant bias.
+
+\subsection{\texorpdfstring{Results with $\intlumiEightTeV$}{Results on data}}
+
+We compute the upper limits using the shape of the LR to maximize the analysis sensitivity,
+Systematic uncertainties are treated with the same methods as in the BDT-shape-based analysis.
+The expected and observed upper limits at 95\%C.L. for each mass point are shown in Table~\ref{tab:limits_me_5fb} 
+and Figure~\ref{fig:limits_me_5fb} for the dataset corresponding to $\intlumiEightTeV$. 
+The sensitivity performance of the matrix element method are
+consistent with the BDT-based approach shown in Section~\ref{sec:data_methods}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!hbtp]
+\centering
+\subfigure[ME 0-Jet OF]{
+\label{subfig:me_0jof}
+%\includegraphics[width=.45\textwidth]{figures/me/limit_0jof_shape_me-CLs-asymptotic.pdf}
+}
+\centering
+\subfigure[ME 0-Jet SF]{
+\label{subfig:me_0jsf}
+%\includegraphics[width=.45\textwidth]{figures/me/limit_0jsf_shape_me-CLs-asymptotic.pdf}
+}\\
+\centering
+\subfigure[ME 0-Jet combined]{
+\label{subfig:me_0j}
+%\includegraphics[width=.45\textwidth]{figures/me/limit_nj_shape_me-CLs-asymptotic.pdf}
+}
+\caption{ Shape analysis upper limits based on the matrix element outputs at 95\% C.L. for $\intlumiEightTeV$ data. }
+\label{fig:limits_me_5fb}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}
+\begin{center}
+\begin{tabular}{c c c c c c}
+\hline\hline
+ Higgs Mass   & Observed & Median expected & Expected range for 68\% & Expected range for 95\%   \\
+\hline
+115 & 2.3 & 2.6 & [1.9, 3.6] & [1.4, 4.8] \\
+120 & 1.6 & 1.6 & [1.1, 2.2] & [0.9, 3.0] \\
+130 & 0.8 & 0.8 & [0.6, 1.1] & [0.4, 1.4] \\
+140 & 0.9 & 0.5 & [0.3, 0.6] & [0.2, 0.9] \\
+150 & 0.6 & 0.3 & [0.2, 0.4] & [0.2, 0.6] \\
+160 & 0.3 & 0.2 & [0.1, 0.3] & [0.1, 0.3] \\
+170 & 0.2 & 0.2 & [0.1, 0.3] & [0.1, 0.4] \\
+180 & 0.3 & 0.2 & [0.2, 0.3] & [0.1, 0.5] \\
+190 & 0.4 & 0.4 & [0.3, 0.5] & [0.2, 0.7] \\
+200 & 0.6 & 0.5 & [0.4, 0.7] & [0.3, 0.9] \\
+250 & 0.7 & 0.9 & [0.6, 1.2] & [0.5, 1.7] \\
+\hline\hline
+\end{tabular}
+\end{center}
+\caption{Expected and observed upper limits for SM Higgs using 
+  {\bf shape analysis based on matrix element output} 
+for $\intlumiEightTeV$ data the matrix element outputs for the combined 0, 1 and 2 jet bins. 
+Note that cut-based analysis is used in the 2-jet bin. }
+\label{tab:limits_me_5fb}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}
+\begin{center}
+\begin{tabular}{c c c c c c}
+\hline\hline
+ Higgs Mass   & Observed & Median expected & Expected range for 68\% & Expected range for 95\%   \\
+\hline
+\multicolumn{5}{c} {0-Jet bin OF} \\
+\hline
+115 & 3.1 & 3.4 & [2.5, 4.8] & [1.8, 6.4] \\
+120 & 2.4 & 2.2 & [1.6, 3.1] & [1.2, 4.1] \\
+130 & 1.2 & 1.1 & [0.8, 1.5] & [0.6, 2.0] \\
+140 & 1.3 & 0.6 & [0.5, 0.9] & [0.3, 1.2] \\
+150 & 0.7 & 0.4 & [0.3, 0.6] & [0.2, 0.8] \\
+160 & 0.3 & 0.2 & [0.2, 0.3] & [0.1, 0.5] \\
+170 & 0.4 & 0.3 & [0.2, 0.4] & [0.1, 0.5] \\
+180 & 0.4 & 0.4 & [0.3, 0.5] & [0.2, 0.7] \\
+190 & 0.6 & 0.6 & [0.4, 0.8] & [0.3, 1.0] \\
+200 & 1.1 & 0.7 & [0.5, 1.0] & [0.4, 1.3] \\
+250 & 1.3 & 1.4 & [1.0, 1.9] & [0.7, 2.6] \\
+\hline
+\multicolumn{5}{c} {0-Jet bin SF} \\
+\hline
+115 & 4.2 & 6.1 & [4.4, 8.5] & [3.3, 11.3] \\
+120 & 2.7 & 3.5 & [2.5, 4.9] & [1.9, 6.6] \\
+130 & 1.3 & 1.5 & [1.1, 2.1] & [0.8, 2.9] \\
+140 & 1.0 & 0.9 & [0.7, 1.3] & [0.5, 1.7] \\
+150 & 0.6 & 0.6 & [0.4, 0.8] & [0.3, 1.1] \\
+160 & 0.3 & 0.3 & [0.2, 0.4] & [0.2, 0.6] \\
+170 & 0.3 & 0.3 & [0.2, 0.5] & [0.2, 0.6] \\
+180 & 0.5 & 0.4 & [0.3, 0.6] & [0.2, 0.8] \\
+190 & 0.7 & 0.6 & [0.5, 0.9] & [0.3, 1.2] \\
+200 & 1.0 & 0.9 & [0.6, 1.2] & [0.5, 1.6] \\
+250 & 1.6 & 1.8 & [1.3, 2.5] & [1.0, 3.4] \\
+\hline\hline
+\end{tabular}
+\end{center}
+\caption{Expected and observed upper limits for SM Higgs using {\bf shape analysis based 
+    on matrix element output} for $\intlumiEightTeV$ data the matrix element outputs 
+  for the {\bf 0-jet} bin two sub-channels. }
+\label{tab:limits_me_5fb_0j}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
