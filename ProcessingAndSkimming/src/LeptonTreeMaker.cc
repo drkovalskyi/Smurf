@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.43 2012/06/08 08:17:39 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.44 2012/06/19 09:14:53 dlevans Exp $
 //
 //
 
@@ -853,10 +853,9 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
             leptonTree_->radiso04_    = smurfselections::getElectronRadialIsolation(*probe, pfNoPUCandCollection_, 0.4);
             leptonTree_->iso2011_     = smurfselections::electronIsoValuePF(pfCandCollection_, *probe, pv_, 0.4, 1.0, 0.1, 0.07, 0.025, -999., 0);
             leptonTree_->ea04_        = ElectronEffectiveArea::GetElectronEffectiveArea(ElectronEffectiveArea::kEleGammaAndNeutralHadronIso04, 
-                leptonTree_->sceta_, ElectronEffectiveArea::kEleEAData2012);
+                probe->superCluster()->eta(), ElectronEffectiveArea::kEleEAData2012);
             leptonTree_->ea03_        = ElectronEffectiveArea::GetElectronEffectiveArea(ElectronEffectiveArea::kEleGammaAndNeutralHadronIso03, 
-                leptonTree_->sceta_, ElectronEffectiveArea::kEleEAData2011);
-
+                probe->superCluster()->eta(), ElectronEffectiveArea::kEleEAData2011);
             // particle flow variations
             float chiso = 0.0; float emiso = 0.0; float nhiso = 0.0; float dbeta = 0.0;
             // remove shared tracks
@@ -1142,9 +1141,9 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         leptonTree_->radiso04_    = smurfselections::getElectronRadialIsolation(*fo, pfNoPUCandCollection_, 0.4);
         leptonTree_->iso2011_     = smurfselections::electronIsoValuePF(pfCandCollection_, *fo, pv_, 0.4, 1.0, 0.1, 0.07, 0.025, -999., 0);
         leptonTree_->ea04_        = ElectronEffectiveArea::GetElectronEffectiveArea(ElectronEffectiveArea::kEleGammaAndNeutralHadronIso04, 
-            leptonTree_->sceta_, ElectronEffectiveArea::kEleEAData2012);
+            fo->superCluster()->eta(), ElectronEffectiveArea::kEleEAData2012);
         leptonTree_->ea03_        = ElectronEffectiveArea::GetElectronEffectiveArea(ElectronEffectiveArea::kEleGammaAndNeutralHadronIso03, 
-            leptonTree_->sceta_, ElectronEffectiveArea::kEleEAData2011);
+            fo->superCluster()->eta(), ElectronEffectiveArea::kEleEAData2011);
 
         // particle flow variations
         float chiso = 0.0; float emiso = 0.0; float nhiso = 0.0; float dbeta = 0.0;
