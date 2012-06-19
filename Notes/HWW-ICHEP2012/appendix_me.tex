@@ -284,5 +284,114 @@ predictions in Figures \ref{fig:me_lr_115_120}, \ref{fig:me_lr_130_140},
 
 %%%%%%%%%%%%%%%%%%%%%%
 
+\subsection{Correlation between likelihood ratio and BDT output}
+
+In this section we examine the correlation
+between the matrix element LR discriminator 
+and the BDT output.  
+To do this, we select events in the samples of simulated
+Higgs boson decays with $m_{H}=125 \GeV$ and
+simulated $qq\rightarrow WW$ decays, using the standard
+BDT analysis preselection in the zero jet bin.
+The data are selected in the same way.
+We then calculate the correlation co-efficients 
+between the two discriminators, and between each
+discriminator and relevant kinematic variables.
+
+We observe the correlation co-efficient between the
+matrix element LR discriminator and the BDT output to be $0.66$ in the 
+signal sample and $0.78$ in the background sample.
+While the matrix element and the BDT have similar
+expected sensitivity to the Higgs boson signal, they are not
+$100\%$ correlated.  This means that the matrix element
+discrimnator can be used to provide a partially independent
+cross check of the BDT based analysis.
+
+The correlation co-efficients between the
+two discriminating variables, and the event kinematic variables
+are given in Table \ref{tab:bdt_me_correlations} using the simulated samples.
+We observe that the value of both discriminators is highly
+correlated with $M_{ll}$, however less so for the 
+matrix element than the BDT.
+
+The correlation between the output of the two discriminators
+is shown for the data and the expected signal and background
+in Figures \ref{fig:me_correlations_all}, 
+\ref{fig:me_correlations_sf} and \ref{fig:me_correlations_of}.
+The output assigned to data events in both discriminators
+is qualitatively consistent with expectations.
+Signal like events have a high score in both discriminators,
+and background like events have a low score in both discriminators.
+
+\vspace{30pt}
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{l|c|c}
+\hline
+Variable        &   Signal Events   & Background Events \\ \hline
+\hline
+\multicolumn{3}{c}{Matrix Element LR} \\
+\hline
+
+$p_{T} (trail)$ &   -0.508485       &  -0.553587 \\
+$M_{ll}$        &   -0.489669       &  -0.709396 \\
+$p_{T} (lead)$  &   -0.327346       &  -0.306577 \\
+$M_{T}$         &   -0.270782       &  -0.212003 \\
+$MET$           &  -0.247144        &  -0.201313 \\
+$\Delta\phi$    &   -0.170118       &  -0.310511  \\
+\hline
+\multicolumn{3}{c}{BDT} \\
+\hline
+$M_{ll}$        &  -0.738705       &  -0.873989 \\
+$p_{T} (trail)$ &  -0.55488        &  -0.542548 \\
+$\Delta\phi$    &  -0.403576       &  -0.510162  \\
+$M_{T}$         &  -0.2568         &  -0.266183  \\
+$p_{T} (lead)$  &  -0.217102       &  -0.342558 \\
+$MET$           &  -0.138572       &  -0.156602 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{ The correlations of the matrix element LR and BDT discriminators, with
+event kinematic variables in simulated events.  Rows are sorted by highest correlation in signal events. }
+\label{tab:bdt_me_correlations}
+\end{table}
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[$m_{H}=125$~GeV]{\label{subfig:fig_me_correlations_s}
+\includegraphics[width=.45\textwidth]{figures/bdt_me_hww125_all.pdf}}
+\subfigure[$qq\rightarrow WW$]{\label{subfig:fig_me_correlations_b}
+\includegraphics[width=.45\textwidth]{figures/bdt_me_qqww_all.pdf}}
+\caption{Correlation between BDT and ME LR in data
+and simulated $qq\rightarrow WW$ and $m_{H}=125$~GeV decays.
+Events are shown in all lepton channels.  Correlation is $0.66$ for signal and $0.78$ for background.}.
+\label{fig:me_correlations_all}
+\end{figure}
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[$m_{H}=125$~GeV]{\label{subfig:fig_me_correlations_s}
+\includegraphics[width=.45\textwidth]{figures/bdt_me_hww125_sf.pdf}}
+\subfigure[$qq\rightarrow WW$]{\label{subfig:fig_me_correlations_b}
+\includegraphics[width=.45\textwidth]{figures/bdt_me_qqww_sf.pdf}}
+\caption{Correlation between BDT and ME LR in data
+and simulated $qq\rightarrow WW$ and $m_{H}=125$~GeV decays.
+Events are shown in the $\mu\mu$ and $ee$ channels. Correlation is $0.66$ for signal and $0.79$ for background.}
+\label{fig:me_correlations_sf}
+\end{figure}
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[$m_{H}=125$~GeV]{\label{subfig:fig_me_correlations_s}
+\includegraphics[width=.45\textwidth]{figures/bdt_me_hww125_of.pdf}}
+\subfigure[$qq\rightarrow WW$]{\label{subfig:fig_me_correlations_b}
+\includegraphics[width=.45\textwidth]{figures/bdt_me_qqww_of.pdf}}
+\caption{Correlation between BDT and ME LR in data
+and simulated $qq\rightarrow WW$ and $m_{H}=125$~GeV decays.
+Events are shown in the $e\mu$ and $\mu e$ channels. Correlation is $0.69$ for signal and $0.80$ for background.}
+\label{fig:me_correlations_of}
+\end{figure}
+
+
 \clearpage
 
