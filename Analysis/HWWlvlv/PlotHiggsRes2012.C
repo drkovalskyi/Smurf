@@ -79,7 +79,7 @@ void PlotHiggsRes2012
   bool useExpTemplates     = true;
   bool useJESTemplates     = true;
   bool useWJetsTemplates   = true;
-  bool useWJetsMCTemplates = false;
+  bool useWJetsMCTemplates = false; // default is false in 2012 analysis
   bool useTopTemplates     = true;
   bool useggHTemplates     = false; // default is false in 2012 analysis
   bool useWgammaTemplates  = false; // this is intentional
