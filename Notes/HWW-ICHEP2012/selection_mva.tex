@@ -6,9 +6,9 @@ statistical significance of a signal extraction
 It requires less training than other multivariate classifiers and 
 it is insensitive to the inclusion of poorly discriminating input variables.
 
-In addition to the $\WW$ preselection, we apply a loose cut on the
-maximum $\mll$ to enhance the signal-to-background ratio shown in 
-Table~\ref{tab:presel_tmva_analysis} and a cut on $\mt$: (80-$\mHi$) $\GeV$ to 
+To improve the search sensitivity, we apply a loose cut in addition to the 
+$\WW$ preselection, based on the
+maximum $\mll$ Table~\ref{tab:presel_tmva_analysis} and a cut on $\mt$: (80-$\mHi$) $\GeV$ to 
 supress the $\dytt$ and $\wgamma$ backgrounds. 
 In addition to the selection variables for the cut-based analysis, the multivariate signal extraction 
 procedure uses the following ones: 
@@ -54,3 +54,17 @@ in the training of the multivariate classifier used for the signal
 extraction.\label{tab:presel_tmva_analysis}}
 \end{center}
 \end{table}
+
+
+Aside from the BDT based multivariate technique, we also employ a Matrix Element technique~\cite{MENote}. 
+The Matrix Element method works by calculating the probability for each recorded
+event to originate from a specific physics process.
+This is done by comparing the differential cross sections predicted by Matrix Element 
+calculations for the signal and background processes given the kinematic observables
+on an event-by-event basis.
+The discriminating power arises because the differential cross sections for 
+signal and background events are largest in different regions of the available
+kinematic phase space. More details are given in Appendix~\ref{app:appendix_me}. 
+
+As a cross-check we also perform a shape-based analysis using a single kinematic observable 
+chosen as the dilepton mass. 

@@ -1,58 +1,18 @@
-Aside from the BDT based multivariate technique, we also employ a Matrix Element technique~\cite{MENote}. 
-This method has already been used in top quark mass and cross-section 
-measurements, the discovery of single top production, and Higgs boson searches at the Tevatron.  
-The Matrix Element method works by calculating the probability for each recorded
-event to originate from a specific physics process.
-This is done by comparing the differential cross sections predicted by Matrix Element 
-calculations for the signal and background processes given the kinematic observables
-on an event-by-event basis.
-The discriminating power arises because the differential cross sections for 
-signal and background events are largest in different regions of the available
-kinematic phase space. 
-
-One complication of the Higgs to $WW$ leptonic final state is that it is not fully 
-reconstructed, with two neutrinos in the final state. 
-Information about the $z$-components of the neutrino momenta as well as the individual 
-neutrino transverse components are missing. It is therefore necessary to integrate 
-over these unknown quantities, which we perform using the importance sampling 
-integration method.
-The Matrix Element functions used in the determination of the differential cross sections
-for this analysis are obtained from  MCFM v6.2.  While MCFM 
-provides both leading order (LO) and next-to leading (NLO) cross-section calculations for 
-some relevant background and Higgs processes in $pp$ collisions, only the
-LO is currently used.
-
-The probabilities for all processes under consideration are combined 
-to construct a single discriminant, called the Likelihood Ratio ($LR$).  
-To construct the optimal discriminant, one should calculate 
-event probabilities for all of the background processes. In reality, however, having 
-probabilities for the signal hypothesis and the main backgrounds is sufficient for the 
-desired level of discrimination. In this analysis we calculate event probabilities 
-for gluon fusion Higgs boson production ($ggH$), electroweak $q\bar{q}\rightarrow WW$ pair 
-production ($WW$) and the $W+jet$ process where a $W$ boson is produced in association with one hadronic jet. 
-
-
 \subsection{Event Probability Calculation}
 
-In the Matrix Element technique we calculate a probability  for each event assuming a
-certain hypothesis.  The probability is denoted by $P(x_{obs};\alpha)$,
+In the Matrix Element method we calculate event-by-event based probability assuming a
+certain hypothesis. In this analysis we calculate event probabilities 
+for gluon fusion Higgs boson production ($ggH$), electroweak $q\bar{q}\rightarrow WW$ pair 
+production ($WW$) and the $\Wjets$ process where a $W$ boson is produced in association with one hadronic jet. 
+The Matrix Element functions used in the determination of the differential cross sections
+for this analysis are obtained from MCFM v6.2 at the leading order. 
+
+The probability is denoted by $P(x_{obs};\alpha)$,
 where $\alpha$ is a set of physics 
 parameters of the specific model and $x_{obs}$ are the measured kinematic quantities.
 In the case of Standard Model Higgs Boson production,
  $\alpha$ is $(m_H, \Gamma_H)$, where  $m_H$ is the Higgs mass 
-and $\Gamma_H$ is the Higgs width. There are eight observables, $x_{obs}$, representing all the 
-lepton kinematic information: lepton momenta $\vec{l}^+$, $\vec{l}^-$ and missing 
-transverse momentum, \met$_x$ and \met$_y$.
-
-It should be noted that additional information such as the number of jets
-produced and the total visible energy might further differentiate the Higgs signal from SM
-$WW$ production,
-but they can suffer from significant  QCD uncertainties. For this reason we 
-deliberately do not use hadronic information at all but use
-only the kinematic information from the leptons and the missing $E_T$, indirectly
-through the system boost (see below).
-
-The event probability density is given by
+and $\Gamma_H$ is the Higgs width. The event probability density is given by
 \begin{equation}
 P(x_{obs};\alpha) =
  \frac{1}{ < \sigma(\alpha) > }
@@ -68,20 +28,27 @@ observables, representing the detector resolution.
 Equation (\ref{eqn:EvtProb}) integrates over all possible true values of the
 observables, $y$, consistent with the measured quantities $x_{obs}$.
 The constant $<\sigma(\alpha)>$ normalizes the total event probability to unity
+There are eight observables, $x_{obs}$, representing all the 
+lepton kinematic information: lepton momenta $\vec{l}^+$, $\vec{l}^-$ and missing 
+transverse momentum, \met$_x$ and \met$_y$.
 
-The efficiency function is the probability for a parton-level object with momentum 
-$p$ to be reconstructed as a lepton with momentum $q$. The lepton efficiency is parameterized 
+The efficiency $\epsilon(y)$ is defined as the probability for a parton-level object with momentum 
+$p$ to be reconstructed as a lepton with momentum $q$. It is parameterized 
 as a function of transverse momentum and pseudo-rapidity and extracted from $WW$ Monte Carlo. 
 Note that the efficiency function in Equation~\ref{eqn:EvtProb} can be factorized out of
 the integral when calculating event probabilities.
 The lepton momenta are smeared according to the measured lepton mometum resolutions. 
 
-Treatment of the $W+jet$ event probability calculation deserves special discussion.
-For these events to be reconstructed in the dilepton final state,
-one of the reconstructed leptons has been faked by a parton fragmenting and hadronizing 
-into a QCD jet which then fakes the signature of a lepton in the detector. To account for this 
-effect properly, we multiply the differential cross-section for the $W+jet$ process by the 
-probability for a parton to be reconstructed as a lepton with the measured kinematics. 
+The $WW$ leptonic final state is not fully reconstructed with two neutrinos in the final state. 
+The $z$-components of the neutrino momenta as well as the individual 
+neutrino transverse components are missing. We therefore integrate over 
+these unknown quantities, performed using the importance sampling integration method.
+
+For the $\Wjets$ events reconstructed in the dilepton final state, one of the reconstructed 
+leptons has been faked by a parton fragmenting and hadronizing into a QCD jet 
+which then fakes the signature of a lepton in the detector. 
+To account for this effect properly, we multiply the differential cross-section for the $\Wjets$ 
+process by the probability for a parton to be reconstructed as a lepton with the measured kinematics. 
 This probability can be factorized into two terms:
 \begin{eqnarray}
 \begin{array}{lcl}
@@ -96,15 +63,14 @@ We verify the $P(parton\rightarrow lepton)$ values we obtain from this method by
 comparing them to ones measured in a $\gamma+jet$ Monte Carlo sample and $\gamma+jet$ data.
 The probabilities agree within the uncertainty of $30\%$.  
 
-One final complication that must be considered is the boost of the initial state. 
-In the leading order Matrix Element calculation there is no initial state radiation. 
-To account for the transverse recoil and thus improve the performance of our discriminant
-on data, we integrate over the possible values of the system boost $k_{T}(k_{x},k_{y})$. 
+As we are using the LO matrix element based calculations we account for the 
+transverse recoil %and thus improve the performance of our discriminant on data
+by integrating over the possible values of the system boost $k_{T}(k_{x},k_{y})$. 
 The $k_T$ model is extracted for each jet bin from Monte Carlo for each process separately. 
 
 \subsection{Likelihood Ratio Discriminator}
-Event probabilities, calculated as described above, are used to construct 
-a likelihood ratio discriminant which we use in a one-dimensional template fit, defined as:
+The probabilities for all processes under consideration are combined 
+to construct a single discriminant, called the Likelihood Ratio ($LR$), defined as
 \begin{equation}
 \label{eqn:LR}
 LR = \frac { P_s} { P_s + \sum_i k_{bi} P_{bi}},
@@ -117,6 +83,7 @@ Because signal events are expected to have $P_s>P_b$ and vice-versa for backgrou
 the value of $LR$ is close to one for signal and zero for background processes.
 The calculation of $P_s$ is a function of Higgs mass, so the likelihood ratio
 shape depends on $m_H$. This is true for both signal and background templates of $LR$. 
+This variable is then used in a shape based analysis to extract the final results. 
 
 \subsection{\texorpdfstring{Results with $\intlumiEightTeV$}{Results on data}}
 
@@ -125,11 +92,70 @@ Figures~~\ref{fig:me_lr_115_120},~\ref{fig:me_lr_130_140},
 distributions, comparing data and MC for several higgs mass hypotheses. We then perform the 
 shape analysis based on these output in the same way as in the BDT based shape analysis. 
 The same treatment of the shape variations are applied as well. 
-
 The expected and observed upper limits at 95\%C.L. for each mass point are shown in Table~\ref{tab:limits_me_5fb_0j} 
 and Figure~\ref{fig:limits_me_5fb} for the dataset corresponding to $\intlumiEightTeV$. 
 The sensitivity performance of the matrix element method are
 consistent with the BDT-based approach shown in Section~\ref{app:appendix_limits_bychannel}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%        
+\begin{figure}[!hbtp]
+\centering
+\subfigure[$mH=115 GeV$]{
+\centering                    
+\label{subfig:lr115}      
+\includegraphics[width=.45\textwidth]{figures/hww_analysis19_115_lr_incl_0j.pdf}}
+\subfigure[$mH=120 GeV$]{               
+\centering
+\label{subfig:lr120}      
+\includegraphics[width=.45\textwidth]{figures/hww_analysis19_120_lr_incl_0j.pdf}}
+\caption{Likelihood ratio for Higgs mass hypotheses 115 and 120 \GeV.}
+\label{fig:me_lr_115_120}
+\end{figure}
+
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[$mH=125 GeV$]{
+\label{subfig:lr125}
+\includegraphics[width=.45\textwidth]{figures/hww_analysis19_125_lr_incl_0j.pdf}}
+\subfigure[$mH=130 GeV$]{
+\centering
+\label{subfig:lr130}
+\includegraphics[width=.45\textwidth]{figures/hww_analysis19_130_lr_incl_0j.pdf}}
+\caption{Likelihood ratio for Higgs mass hypotheses 125 and 130 \GeV.}
+\label{fig:me_lr_130_140}
+\end{figure}
+
+
+\begin{figure}[!hbtp]
+\subfigure[$mH=140 GeV$]{
+\centering
+\label{subfig:lr140}
+\includegraphics[width=.45\textwidth]{figures/hww_analysis19_140_lr_incl_0j.pdf}}
+\subfigure[$mH=150 GeV$]{
+\centering
+\label{subfig:lr150}
+\includegraphics[width=.45\textwidth]{figures/hww_analysis19_150_lr_incl_0j.pdf}}
+\caption{Likelihood ratio for Higgs mass hypotheses 140 and 150 \GeV.}
+\label{fig:me_lr_140_150}
+\end{figure}
+
+\begin{figure}[!hbtp]
+\subfigure[$mH=160 GeV$]{
+\centering
+\label{subfig:lr160}
+\includegraphics[width=.45\textwidth]{figures/hww_analysis19_160_lr_incl_0j.pdf}}
+\subfigure[$mH=200 GeV$]{
+\centering
+\label{subfig:lr200}
+\includegraphics[width=.45\textwidth]{figures/hww_analysis19_200_lr_incl_0j.pdf}}
+\caption{Likelihood ratio for Higgs mass hypotheses 160 and 200 \GeV.}
+\label{fig:me_lr_160_200}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!hbtp]
@@ -221,69 +247,7 @@ consistent with the BDT-based approach shown in Section~\ref{app:appendix_limits
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \clearpage
-\subsection{\texorpdfstring{Likelihood ratio distributionswith $\intlumiEightTeV$}{Likelihood ratio distributions}}
 
-The likelihood ratio output is shown for the observed data and the background
-predictions in Figures \ref{fig:me_lr_115_120}, \ref{fig:me_lr_130_140}, 
-\ref{fig:me_lr_140_150} and \ref{fig:me_lr_160_200}.
-
-%%%%%%%%%%%%%%%%%%%%%%        
-\begin{figure}[!hbtp]
-\centering
-\subfigure[$mH=115 GeV$]{
-\centering                    
-\label{subfig:lr115}      
-\includegraphics[width=.45\textwidth]{figures/hww_analysis19_115_lr_incl_0j.pdf}}
-\subfigure[$mH=120 GeV$]{               
-\centering
-\label{subfig:lr120}      
-\includegraphics[width=.45\textwidth]{figures/hww_analysis19_120_lr_incl_0j.pdf}}
-\caption{Likelihood ratio for Higgs mass hypotheses 115 and 120 \GeV.}
-\label{fig:me_lr_115_120}
-\end{figure}
-
-
-\begin{figure}[!hbtp]
-\centering
-\subfigure[$mH=125 GeV$]{
-\label{subfig:lr125}
-\includegraphics[width=.45\textwidth]{figures/hww_analysis19_125_lr_incl_0j.pdf}}
-\subfigure[$mH=130 GeV$]{
-\centering
-\label{subfig:lr130}
-\includegraphics[width=.45\textwidth]{figures/hww_analysis19_130_lr_incl_0j.pdf}}
-\caption{Likelihood ratio for Higgs mass hypotheses 125 and 130 \GeV.}
-\label{fig:me_lr_130_140}
-\end{figure}
-
-
-\begin{figure}[!hbtp]
-\subfigure[$mH=140 GeV$]{
-\centering
-\label{subfig:lr140}
-\includegraphics[width=.45\textwidth]{figures/hww_analysis19_140_lr_incl_0j.pdf}}
-\subfigure[$mH=150 GeV$]{
-\centering
-\label{subfig:lr150}
-\includegraphics[width=.45\textwidth]{figures/hww_analysis19_150_lr_incl_0j.pdf}}
-\caption{Likelihood ratio for Higgs mass hypotheses 140 and 150 \GeV.}
-\label{fig:me_lr_140_150}
-\end{figure}
-
-\begin{figure}[!hbtp]
-\subfigure[$mH=160 GeV$]{
-\centering
-\label{subfig:lr160}
-\includegraphics[width=.45\textwidth]{figures/hww_analysis19_160_lr_incl_0j.pdf}}
-\subfigure[$mH=200 GeV$]{
-\centering
-\label{subfig:lr200}
-\includegraphics[width=.45\textwidth]{figures/hww_analysis19_200_lr_incl_0j.pdf}}
-\caption{Likelihood ratio for Higgs mass hypotheses 160 and 200 \GeV.}
-\label{fig:me_lr_160_200}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Correlation between likelihood ratio and BDT output}
 
