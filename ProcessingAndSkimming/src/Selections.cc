@@ -314,10 +314,10 @@ bool smurfselections::passMuonIso2011(const edm::View<reco::Muon>::const_iterato
     float eta = fabs(muon->eta());
     if (pt > 20.0) {
         if      (eta < 1.479  && isoVal >= 0.13)              return false;
-        else if (eta >= 1.479 && isoVal >= 0.09)              return false;
+        if      (eta >= 1.479 && isoVal >= 0.09)              return false;
     } else {
         if      (eta < 1.479  && isoVal >= 0.06)              return false;
-        else if (eta >= 1.479 && isoVal >= 0.05)              return false;
+        if      (eta >= 1.479 && isoVal >= 0.05)              return false;
     }
     return true;
 }
@@ -519,13 +519,13 @@ bool smurfselections::passElectronID2012(const reco::GsfElectronRef &electron,
 
     float eta = fabs(electron->superCluster()->eta());
     if (electron->pt() > 20.0) {
-        if      (eta < 0.8                 && mvaValue <= 0.94) return false;
-        else if (eta >= 0.8 && eta < 1.479 && mvaValue <= 0.85) return false;
-        else if (eta >= 1.479              && mvaValue <= 0.92) return false;
+        if (eta < 0.8                 && mvaValue <= 0.94) return false;
+        if (eta >= 0.8 && eta < 1.479 && mvaValue <= 0.85) return false;
+        if (eta >= 1.479              && mvaValue <= 0.92) return false;
     } else {
-        if      (eta < 0.8                 && mvaValue <= 0.00) return false;
-        else if (eta >= 0.8 && eta < 1.479 && mvaValue <= 0.10) return false;
-        else if (eta >= 1.479              && mvaValue <= 0.62) return false;
+        if (eta < 0.8                 && mvaValue <= 0.00) return false;
+        if (eta >= 0.8 && eta < 1.479 && mvaValue <= 0.10) return false;
+        if (eta >= 1.479              && mvaValue <= 0.62) return false;
     }
 
     if (!passElectronFO2012(electron, vertex, beamspot, conversions))   return false;
@@ -615,11 +615,11 @@ bool smurfselections::passMuonIso2012(const edm::View<reco::Muon>::const_iterato
 {
     float eta = fabs(muon->eta());
     if (muon->pt() > 20.0) {
-        if      (eta < 1.479  && mvaValue <= 0.82)   return false;
-        else if (eta >= 1.479 && mvaValue <= 0.86)   return false;
+        if (eta < 1.479  && mvaValue <= 0.82)   return false;
+        if (eta >= 1.479 && mvaValue <= 0.86)   return false;
     } else {        
-        if      (eta < 1.479  && mvaValue <= 0.86)   return false;
-        else if (eta >= 1.479 && mvaValue <= 0.82)   return false;
+        if (eta < 1.479  && mvaValue <= 0.86)   return false;
+        if (eta >= 1.479 && mvaValue <= 0.82)   return false;
     }               
     return true;
 }
