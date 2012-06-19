@@ -1,6 +1,5 @@
 
 #grep -e data: -e S: Smurf/Analysis/HWWlvlv/headers/log_ww_sel.txt| awk '{if(NR%2==1)printf("%d ",$2);else printf("%f %f\n",$2,$4);}'| awk '{if(NR%7==1)a="ll";else if(NR%7==2)a="SF";else if(NR%7==3)a="OF";else if(NR%7==4)a="mm";else if(NR%7==5)a="em";else if(NR%7==6)a="me";else if(NR%7==0)a="ee";if(NR<=7)b="0j";else if(NR<=14)b="1j";else if(NR<=21)b="2j";else if(NR<=28)b="0j";else if(NR<=35)b="1j";else if(NR<=42)b="2j";printf("chan(%2s-%2s) ==> data: %4d S: %7.2f B: %7.2f -> %5.3f +/- %5.3f\n",b,a,$1,$2,$3,($1-$3)/$2,sqrt($1)/$2);}'
-#grep -e data: -e S: Smurf/Analysis/HWWlvlv/headers/log_ww_sel.txt| 
 
 export NSEL=$1;
 
