@@ -1072,8 +1072,6 @@ void PlotHiggsRes2012
       nSigECut[nSigBin] = nSigECut[nSigBin] + myWeight*myWeight;
       sigMVA[5][0]      ->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), myWeight);
       sigMVA[5][nSigBin]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), myWeight);
-      double myVar = dPhi*180.0/TMath::Pi(); myVar = mt;
-      histoS->Fill(myVar,myWeight);
     }
 
     //----------------------------------------------------------------------------
@@ -1086,6 +1084,11 @@ void PlotHiggsRes2012
       nSigEAcc[0] = nSigEAcc[0] + myWeight*myWeight;
       nSigAcc[nSigBin]  = nSigAcc[nSigBin]  + myWeight;
       nSigEAcc[nSigBin] = nSigEAcc[nSigBin] + myWeight*myWeight;
+
+      if(bdtg>-1.0&&bdtg<1){
+        double myVar = dPhi*180.0/TMath::Pi(); myVar = CalcGammaMRstar(*lep1,*lep2);
+        histoS->Fill(myVar,myWeight);
+      }
 
       if     (useVar == 0) histos   ->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),       myWeight);
       else if(useVar == 1) histos   ->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),       myWeight);
@@ -1665,8 +1668,6 @@ void PlotHiggsRes2012
       nBgdECutDecays[fDecay] = nBgdECutDecays[fDecay] + newWeight*newWeight;
       bgdMVA[5]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), newWeight);
       bgdMVADecays[5][fDecay]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), newWeight);
-      double myVar = dPhi*180.0/TMath::Pi(); myVar = mt;
-      histoB->Fill(myVar,myWeight);
     }
 
     //----------------------------------------------------------------------------
@@ -1762,6 +1763,11 @@ void PlotHiggsRes2012
 	else if(useVar == 3) histo0->Fill(TMath::Max(TMath::Min((double)knn,maxHis[3]-0.001),minHis[3]+0.001),  myWeightMVA);
 	else if(useVar == 4) histo0->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
 	else if(useVar == 5) histo0->Fill(TMath::Max(TMath::Min((double)bdtg_wjets,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
+      }
+
+      if(bdtg>-1.0&&bdtg<1){
+        double myVar = dPhi*180.0/TMath::Pi(); myVar = CalcGammaMRstar(*lep1,*lep2);
+        histoB->Fill(myVar,myWeightMVA);
       }
 
       //----------------------------------------------------------------------------
@@ -2614,8 +2620,6 @@ void PlotHiggsRes2012
     if(passAllCuts == true) {
       nDatCut = nDatCut + myWeight;
       datMVA[5]->Fill(TMath::Max(TMath::Min((double)mt,maxHis[5]-0.001),minHis[5]+0.001), myWeight);
-      double myVar = dPhi*180.0/TMath::Pi(); myVar = mt;
-      histoD->Fill(myVar,myWeight);
     }
 
     //----------------------------------------------------------------------------
@@ -2625,6 +2629,10 @@ void PlotHiggsRes2012
     bool passMVAPreselCuts = mt > 80 && mt < mtUpperCut; if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true){
       nDatAcc = nDatAcc + myWeight;
+      if(bdtg>-1.0&&bdtg<1){
+        double myVar = dPhi*180.0/TMath::Pi(); myVar = CalcGammaMRstar(*lep1,*lep2);
+        histoD->Fill(myVar,myWeight);
+      }
       if     (useVar == 0) histo5->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),       myWeight);
       else if(useVar == 1) histo5->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),       myWeight);
       else if(useVar == 2) histo5->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),         myWeight);
