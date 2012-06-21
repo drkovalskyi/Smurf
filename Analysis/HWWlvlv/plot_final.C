@@ -71,6 +71,7 @@ void plot_final(int nsel = 0, int ReBin = 1, char XTitle[300] = "MVA Output", ch
   }
   
   cv->cd(1);
+  printf("D: %f B: %f S: %f\n",histoD->GetSumOfWeights(),histoB->GetSumOfWeights(),histoS->GetSumOfWeights());
   histoB_empty->Draw("hist");
   histoB->Draw("hist,same");
   if	 (nsel == 2 ||  nsel == 3 ||  nsel == 4){
@@ -110,47 +111,6 @@ void plot_final(int nsel = 0, int ReBin = 1, char XTitle[300] = "MVA Output", ch
   }
 
   leg ->Draw();
-
-  double S = 0.0;
-  double B = 0.0;
-  double fsig = 0.30;
-  cv->cd(2);
-  TH1D *hDSignif1 = new TH1D("hDSignif1","hDSignif1",histoS->GetNbinsX(),
-					    -0.5,histoS->GetNbinsX()-0.5);
-  for(int i=1; i<=histoS->GetNbinsX(); i++){
-    S = S + histoS->GetBinContent(i);
-    B = B + histoB->GetBinContent(i);
-    if(B>0){
-      double var = TMath::Sqrt(B+fsig*fsig*B*B);
-      //var = TMath::Sqrt(S+B);
-      hDSignif1->SetBinContent(i,S/var);
-    }
-    else {
-      hDSignif1->SetBinContent(i,0.0);
-    }
-  }
-  hDSignif1->SetDirectory(0);
-  hDSignif1->Draw();
-
-  cv->cd(3);
-  S = 0.0;
-  B = 0.0;
-  TH1D *hDSignif2 = new TH1D("hDSignif2","hDSignif2",histoS->GetNbinsX(),
-					    -0.5,histoS->GetNbinsX()-0.5);
-  for(int i=histoS->GetNbinsX(); i>=1; i--){
-    S = S + histoS->GetBinContent(i);
-    B = B + histoB->GetBinContent(i);
-    if(B>0){
-      double var = TMath::Sqrt(B+fsig*fsig*B*B);
-      //var = TMath::Sqrt(S+B);
-      hDSignif2->SetBinContent(i,S/var);
-    }
-    else {
-      hDSignif2->SetBinContent(i,0.0);
-    }
-  }
-  hDSignif2->SetDirectory(0);
-  hDSignif2->Draw();
 }
 
 void setTDRStyle() {

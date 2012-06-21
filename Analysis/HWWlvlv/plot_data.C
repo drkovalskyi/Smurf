@@ -111,6 +111,7 @@ void plot_data(int nsel = 0, int ReBin = 10, char XTitle[300] = "MVA Output", ch
       histoB_empty->SetMaximum(max*3.8);
     }
   
+    printf("D: %f B: %f S: %f\n",histoD->GetSumOfWeights(),histoB->GetSumOfWeights(),histoS->GetSumOfWeights());
     histoB_empty->Draw("hist");
     histoB->Draw("hist,same");
     if     (nsel == 2 ||  nsel == 3 ||  nsel == 4){
@@ -160,8 +161,8 @@ void plot_data(int nsel = 0, int ReBin = 10, char XTitle[300] = "MVA Output", ch
   c1->SaveAs(myOutputFile);
   //sprintf(myOutputFile,"plots/%s.png",outputName);
   //c1->SaveAs(myOutputFile);
-  sprintf(myOutputFile,"plots/%s.pdf",outputName);
-  c1->SaveAs(myOutputFile);
+  //sprintf(myOutputFile,"plots/%s.pdf",outputName);
+  //c1->SaveAs(myOutputFile);
 }
 
 void setTDRStyle() {

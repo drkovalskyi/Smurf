@@ -19,6 +19,7 @@ endif
 
 ### data_Summer12
 setenv SIG_TEST data2012/${TAG}_hww${MH}.root
+#setenv SIG_TEST data2012/${TAG}_hww130.root
 setenv BKG_TEST data2012/${TAG}_backgroundA_skim2.root
 setenv DAT_TEST data2012/${TAG}_data_skim2.root;
 #setenv DAT_TEST data2012/${TAG}_backgroundA_skim2.root;
