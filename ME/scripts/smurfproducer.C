@@ -160,7 +160,7 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
     if ( dilep_->mass() < 12.0) continue;
     if ( dilep_->Pt() < 45) continue;    
     if (TMath::Min(pmet_,pTrackMet_) < 20.)  continue;
-    if ( ! (cuts_ & TopVeto) ) continue;
+    // if ( ! (cuts_ & TopVeto) ) continue;
     
     // cuts to select the WW pre-selection
     if (cutstring == "WW") {
