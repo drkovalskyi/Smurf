@@ -1,12 +1,10 @@
+
 #!/bin/bash
 
 #
 # script to skim smurf ntuples
-# it outputs 3 different selections
-# WW pre-selections
-# ZZ pre-selections
-# PassFail samples for the WW analysis
-#
+# choose from WW preselection, and PassFail Selections
+# 
 
 INPUTDIR=$1
 OUTPUTDIR=$2
@@ -16,7 +14,7 @@ if [ ! $# -eq 3 ]; then
     echo "USAGE: ./skim.sh   INPUTDIR OUTPUTDIR
         INPUTDIR - location of smurf ntuples to skim (e.g. /smurf/data/Run2011_Spring11_SmurfV3/mitf-alljets/)
         OUTPUTDIR - location to output skimmed ntuples
-        SELECTION - selection, choose from ZZ, WW, PassFail, LooseMET, Wgamma"
+        SELECTION - selection, choose from WW, PassFail"
     exit 1
 fi
 
@@ -39,31 +37,32 @@ fi
 if [ "$SELECTION" == 'WW' ]; then
 rm -f list_samples.txt
 cat > list_samples.txt <<EOF
+hww150.root
+hww155.root
+EOF
+fi
 data.root
-data-emb-tau123.root
-zz_py.root
+data_3l.root
+zz.root
 wz.root
 ttbar.root
 tw.root
 qqww.root
 ggww.root
 wjets.root
+dyll.root
 wgamma.root
-wg3l.root    
-dyee.root
-dymm.root
-dytt.root
-ww_mcnlo_down.root
-ww_mcnlo_up.root
-ww_mcnlo.root
-ttbar_mg.root
-tw_ds.root
+wglll.root
 hww110.root
 hww115.root
 hww120.root
+hww125.root
 hww130.root
+hww135.root
 hww140.root
+hww145.root
 hww150.root
+hww155.root
 hww160.root
 hww170.root
 hww180.root
@@ -77,29 +76,31 @@ hww450.root
 hww500.root
 hww550.root
 hww600.root
-EOF
-fi
+hww700.root
+hww800.root
+hww900.root
+hww1000.root
+wwmcnlo.root
+wwmcnloup.root
+wwmcnlodown.root
+ttbar_powheg.root
+
+
 
 if [ "$SELECTION" == 'PassFail' ]; then
 rm -f list_samples.txt
 cat > list_samples.txt <<EOF
 data.root
-zz_py.root
+zz.root
 wz.root
 ttbar.root
 tw.root
 qqww.root
 ggww.root
 wgamma.root
-wg3l.root
-EOF
-fi
-
-if [ "$SELECTION" == 'LooseMET' ]; then
-rm -f list_samples.txt
-cat > list_samples.txt <<EOF
-dyee.root
-dymm.root
+wglll.root
+dyll.root
+wjets.root
 EOF
 fi
 
@@ -111,49 +112,10 @@ for FILE in `cat list_samples.txt` ; do
 	if [ "$SELECTION" == 'PassFail' ]; then
 	    outputdir=$OUTPUTDIR/WW/${JETBIN}j/
 	fi
-	if [ "$SELECTION" == 'LooseMET' ]; then
-	    outputdir=$OUTPUTDIR/WW/${JETBIN}j/
-	fi
-	
 	mkdir -p $outputdir
 	echo doing "root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",$JETBIN\);"
 	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"$FILE\",\"$outputdir\",\"$SELECTION\",$JETBIN\);
     done
 done
 
-# if the selection is the PassFail merge all the files
-if [ "$SELECTION" == 'PassFail' ]; then
-    for JETBIN in 0 1 2 ; do 
-	outputdir=$OUTPUTDIR/WW/${JETBIN}j/
-	rm -f ${outputdir}/wjets_PassFail.root
-	rm  merge.C
-	touch merge.C
-	echo -e "{\tTChain s(\"tree\");" >> merge.C
-	for fn in $outputdir/*_PassFail.root; do
-	        if [ .$fn = ."" ]; then 
-		    echo "ERROR : File _PassFail.root not found, skip"  
-		        else 
-		    echo -e "\ts.Add(\"$fn\");" >> merge.C
-		        fi
-		    i=$((i+1))
-		    done
-	
-	echo -e "\ts.SetMaxTreeSize(1e9);" >> merge.C
-	echo -e "\ts.SetBranchStatus(\"quadlep\", 0);" >> merge.C
-	echo -e "\ts.Merge(\"$outputdir/wjets_data.root\");" >> merge.C
-	echo "}" >> merge.C
-	echo "Merging $PROCESS"
-	root -l -q merge.C
-	rm -f ${outputdir}/*_PassFail.root
-    done
-fi
-
-
-# now add the special pass and fail cases for wjets MC 
-if [ "$SELECTION" == 'PassFail' ]; then  	    
-    for JETBIN in 0 1 2 ; do 
-	outputdir=$OUTPUTDIR/WW/${JETBIN}j/
-	root -l -b -q smurfproducer.C+\(\"$INPUTDIR\",\"wjets.root\",\"$outputdir\",\"$SELECTION\",$JETBIN\);
-    done
-fi
  
