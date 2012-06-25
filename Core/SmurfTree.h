@@ -306,6 +306,7 @@ class SmurfTree {
   float          sfWeightTrig_;
   float          sfWeightEff_;
   float          sfWeightHPt_;
+  float          dymva_;
   unsigned int   npu_;
   unsigned int   npuPlusOne_;
   unsigned int   npuMinusOne_;
@@ -430,6 +431,7 @@ class SmurfTree {
     tree_->Branch("sfWeightTrig",  &sfWeightTrig_ ,   "sfWeightTrig/F");
     tree_->Branch("sfWeightEff",   &sfWeightEff_  ,   "sfWeightEff/F");
     tree_->Branch("sfWeightHPt",   &sfWeightHPt_  ,   "sfWeightHPt/F");
+    tree_->Branch("dymva",         &dymva_        ,   "dymva/F");
 
     tree_->Branch("lep3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr3_);
     tree_->Branch("lq3",           &lq3_,          "lq3/I");
@@ -545,6 +547,7 @@ class SmurfTree {
     tree_->SetBranchAddress("sfWeightTrig",  &sfWeightTrig_);
     tree_->SetBranchAddress("sfWeightEff",   &sfWeightEff_);
     tree_->SetBranchAddress("sfWeightHPt",   &sfWeightHPt_);
+    tree_->SetBranchAddress("dymva",         &dymva_);
 
     tree_->SetBranchAddress("lep3",	     &lepPtr3_);
     tree_->SetBranchAddress("lq3",	     &lq3_);
@@ -821,6 +824,7 @@ SmurfTree::InitVariables(){
   sfWeightTrig_  = -999;
   sfWeightEff_   = -999;
   sfWeightHPt_   = -999;
+  dymva_         = -999;
   npu_           = -999;
   npuPlusOne_    = -999;
   npuMinusOne_   = -999;
@@ -919,6 +923,7 @@ SmurfTree::Get(std::string value)
   if(value=="sfWeightTrig"  ) { return this->sfWeightTrig_;  } 
   if(value=="sfWeightEff"   ) { return this->sfWeightEff_;   } 
   if(value=="sfWeightHPt"   ) { return this->sfWeightHPt_;   } 
+  if(value=="dymva"         ) { return this->dymva_;   } 
   if(value=="npu"	    ) { return this->npu_;           } 
   if(value=="npuPlusOne"    ) { return this->npuPlusOne_;    } 
   if(value=="npuMinusOne"   ) { return this->npuMinusOne_;   } 
