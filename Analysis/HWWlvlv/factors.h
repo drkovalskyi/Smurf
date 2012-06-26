@@ -6,6 +6,7 @@
 #include "Math/LorentzVector.h"
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
+TH1D * SmurfRebin(const TH1D *old, const unsigned int rebin);
 double CalcGammaMRstar(LorentzVector ja, LorentzVector jb);
 double CalcMTR(LorentzVector ja, LorentzVector jb, double metValue, double metPhi);
 Double_t CalcMR(LorentzVector ja, LorentzVector jb);
@@ -21,6 +22,25 @@ double nVtxScaleFactor(TH1D *fhDNvtx, int nvtx);
 double nPUScaleFactor2011(TH1D *fhDPU, int npu);
 double nPUScaleFactor2012(TH1D *fhDPU, int npu);
 double mt_atlas(LorentzVector dilep, double met, double metPhi);
+double poorManMetSyst(LorentzVector l1, LorentzVector l2, LorentzVector l3, 
+                      int lid1, int lid2, int lid3, double met, double metPhi,
+                      LorentzVector j1, LorentzVector j2, LorentzVector j3, LorentzVector j4, int nsyst);
+
+TH1D * SmurfRebin(const TH1D *old, const unsigned int rebin)
+{
+  TH1D *h1_new = (TH1D*)old->Clone(TString(old->GetName()) + "_rebinned");
+  TH1D *h1_old_tmp = (TH1D*)old->Clone("old_tmp");
+  h1_old_tmp->Rebin(rebin);
+
+  for(int i=1; i<=h1_new->GetNbinsX(); ++i){
+    int bin = h1_old_tmp->FindBin(h1_new->GetBinCenter(i));
+    h1_new->SetBinContent(i, h1_old_tmp->GetBinContent(bin)/rebin);
+    h1_new->SetBinError  (i, h1_old_tmp->GetBinError  (bin)/rebin);
+  }
+
+  delete h1_old_tmp;
+  return h1_new;
+}
 
 double CalcGammaMRstar(LorentzVector ja, LorentzVector jb){
   double A = ja.P();
@@ -909,3 +929,56 @@ double mt_atlas(LorentzVector dilep, double met, double metPhi){
   
   return mt;
 }
+
+double poorManMetSyst(LorentzVector l1, LorentzVector l2, LorentzVector l3, 
+                      int lid1, int lid2, int lid3, double met, double metPhi,
+                      LorentzVector j1, LorentzVector j2, LorentzVector j3, LorentzVector j4, int nsyst){
+  double rec_x = met*cos(metPhi) + l1.Px() + l2.Px() + l3.Px();
+  double rec_y = met*sin(metPhi) + l1.Py() + l2.Py() + l3.Py();
+  if(j1.Pt() > 10) {
+    rec_x = rec_x + j1.Px();
+    rec_y = rec_y + j1.Py();
+  }
+  if(j2.Pt() > 10) {
+    rec_x = rec_x + j2.Px();
+    rec_y = rec_y + j2.Py();
+  }
+  if(j3.Pt() > 10) {
+    rec_x = rec_x + j3.Px();
+    rec_y = rec_y + j3.Py();
+  }
+  if(j4.Pt() > 10) {
+    rec_x = rec_x + j4.Px();
+    rec_y = rec_y + j4.Py();
+  }
+  double corr_x = met*cos(metPhi);
+  double corr_y = met*sin(metPhi);
+  if(nsyst > 0){
+    corr_x = rec_x*1.1;
+    if(abs(lid1) == 13) corr_x+= l1.Px()*1.002; if(abs(lid1) == 13) corr_y+= l1.Py()*1.002;
+    if(abs(lid2) == 13) corr_x+= l2.Px()*1.002; if(abs(lid2) == 13) corr_y+= l2.Py()*1.002;
+    if(abs(lid3) == 13) corr_x+= l3.Px()*1.002; if(abs(lid3) == 13) corr_y+= l3.Py()*1.002;
+    if(abs(lid1) == 11) corr_x+= l1.Px()*1.006; if(abs(lid1) == 11) corr_y+= l1.Py()*1.006;
+    if(abs(lid2) == 11) corr_x+= l2.Px()*1.006; if(abs(lid2) == 11) corr_y+= l2.Py()*1.006;
+    if(abs(lid3) == 11) corr_x+= l3.Px()*1.006; if(abs(lid3) == 11) corr_y+= l3.Py()*1.006;
+    if(j1.Pt() > 10)    corr_x+= j1.Px()*1.1;	if(j1.Pt() > 10)    corr_y+= j1.Py()*1.1;
+    if(j2.Pt() > 10)    corr_x+= j2.Px()*1.1;	if(j2.Pt() > 10)    corr_y+= j2.Py()*1.1;
+    if(j3.Pt() > 10)    corr_x+= j3.Px()*1.1;	if(j3.Pt() > 10)    corr_y+= j3.Py()*1.1;
+    if(j4.Pt() > 10)    corr_x+= j4.Px()*1.1;	if(j4.Pt() > 10)    corr_y+= j4.Py()*1.1;
+  } else if(nsyst < 0){
+    corr_x = rec_x/1.1;
+    if(abs(lid1) == 13) corr_x+= l1.Px()/1.002; if(abs(lid1) == 13) corr_y+= l1.Py()/1.002;
+    if(abs(lid2) == 13) corr_x+= l2.Px()/1.002; if(abs(lid2) == 13) corr_y+= l2.Py()/1.002;
+    if(abs(lid3) == 13) corr_x+= l3.Px()/1.002; if(abs(lid3) == 13) corr_y+= l3.Py()/1.002;
+    if(abs(lid1) == 11) corr_x+= l1.Px()/1.006; if(abs(lid1) == 11) corr_y+= l1.Py()/1.006;
+    if(abs(lid2) == 11) corr_x+= l2.Px()/1.006; if(abs(lid2) == 11) corr_y+= l2.Py()/1.006;
+    if(abs(lid3) == 11) corr_x+= l3.Px()/1.006; if(abs(lid3) == 11) corr_y+= l3.Py()/1.006;
+    if(j1.Pt() > 10)    corr_x+= j1.Px()/1.1;	if(j1.Pt() > 10)    corr_y+= j1.Py()/1.1;
+    if(j2.Pt() > 10)    corr_x+= j2.Px()/1.1;	if(j2.Pt() > 10)    corr_y+= j2.Py()/1.1;
+    if(j3.Pt() > 10)    corr_x+= j3.Px()/1.1;	if(j3.Pt() > 10)    corr_y+= j3.Py()/1.1;
+    if(j4.Pt() > 10)    corr_x+= j4.Px()/1.1;	if(j4.Pt() > 10)    corr_y+= j4.Py()/1.1;
+  } else return met;
+  if(j4.Pt() > 10) return met;
+  return sqrt(corr_x*corr_x+corr_y*corr_y);
+}
+

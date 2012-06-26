@@ -55,21 +55,29 @@ void ComputeTopScaleFactors
   TString puPath   = "";
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
-  if	 (period == 0){ // Full2011-Fall11-V9
+  if	 (period == 0){ // Full2011-Fall11-V9-3500ipb
     effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-04_V1/summary.root";
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-04_V1/summary.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_3500ipb.root";
     lumi     = 3.553;minRun =      0;maxRun = 999999;
-    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundA_skim2.root";
-    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/data_skim2.root";
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_3500ipb/backgroundA_skim2.root";
+    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_3500ipb/data_skim2.root";
   }
-  else if(period == 1){ // Full2011-Fall11-V9 NoJetId
+  else if(period == -1){ // Full2011-Fall11-V9 NoJetId
     effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-04_V1/summary.root";
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-04_V1/summary.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_3500ipb.root";
     lumi     = 3.553;minRun =      0;maxRun = 999999;
     bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_NoJetId/backgroundA_skim2.root";
     dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_NoJetId/data_skim2.root";
+  }
+  else if(period == 1){ // Full2011-Fall11-V9-5000ipb
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
+    lumi     = 5.098;minRun =      0;maxRun = 999999;
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundA_skim2.root";
+    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/data_skim2.root";
   }
   else {
     printf("Wrong period(%d)\n",period);

@@ -38,21 +38,29 @@ void ComputeWWBkgScaleFactor (
   TString puPath   = "";
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
-  if	 (period == 0){ // Full2011-Fall11-V9
+  if	 (period == 0){ // Full2011-Fall11-V9-3500ipb
     effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-04_V1/summary.root";
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-04_V1/summary.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_3500ipb.root";
     scaleFactorLum     =3.553;minRun =      0;maxRun = 999999;
-    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundA_skim2.root";
-    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/data_skim2.root";
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_3500ipb/backgroundA_skim2.root";
+    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_3500ipb/data_skim2.root";
   }
-  else if(period == 1){ // Full2011-Fall11-V9 NoJetId
+  else if(period == -1){ // Full2011-Fall11-V9 NoJetId
     effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-04_V1/summary.root";
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-04_V1/summary.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_3500ipb.root";
     scaleFactorLum     =3.553;minRun =      0;maxRun = 999999;
     bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_NoJetId/backgroundA_skim2.root";
     dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_NoJetId/data_skim2.root";
+  }
+  if	 (period == 1){ // Full2011-Fall11-V9-5000ipb
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
+    scaleFactorLum     =5.098;minRun =      0;maxRun = 999999;
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundA_skim2.root";
+    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/data_skim2.root";
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -107,9 +115,6 @@ void ComputeWWBkgScaleFactor (
    const Int_t nmass = 19;
   const Double_t mH[nmass]     = {115,118,120,122,124,125,126,128,130,135,140,145,150,155,160,170,180,190,200};  
         Bool_t useDYMVA[nmass] = {  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0};
-
-  // 2011 analysis does not use DYMVA
-  if(period == 1) for(int i=0; i<nmass; i++) useDYMVA[i] = 0;
 
   //scale factors for 4 classes of selections
   enum { kCutBasedZeroJet, kCutBasedOneJet, kMVAZeroJet, kMVAOneJet };
@@ -255,6 +260,8 @@ void ComputeWWBkgScaleFactor (
 
     if(dstype == SmurfTree::data && run <  minRun) continue;
     if(dstype == SmurfTree::data && run >  maxRun) continue;
+    if(dstype == SmurfTree::data &&
+       (cuts & SmurfTree::Trigger) != SmurfTree::Trigger ) continue; 
 
     bool passNewCuts = dilep->pt() > 45;
 
@@ -379,6 +386,8 @@ void ComputeWWBkgScaleFactor (
 
     if(dstype == SmurfTree::data && run <  minRun) continue;
     if(dstype == SmurfTree::data && run >  maxRun) continue;
+    if(dstype == SmurfTree::data &&
+       (cuts & SmurfTree::Trigger) != SmurfTree::Trigger ) continue; 
 
     bool MinPreselCut = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) ||
       ((cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
