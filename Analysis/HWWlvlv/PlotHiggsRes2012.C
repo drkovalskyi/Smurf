@@ -934,8 +934,6 @@ void PlotHiggsRes2012
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
     //if( lid3 != 0	                                                 ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
-    if( (cuts & patternTopTagNotInJets) == patternTopTagNotInJets ||
-        jet1Btag >= 2.1 || jet2Btag >= 2.1 || jet3Btag >= 2.1            ) continue; // cut on TopTagNotInJets
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
     bool dPhiDiLepJetCut = kTRUE;
@@ -1357,8 +1355,6 @@ void PlotHiggsRes2012
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
     //if( lid3 != 0	                                                 ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
-    if( (cuts & patternTopTagNotInJets) == patternTopTagNotInJets ||
-        jet1Btag >= 2.1 || jet2Btag >= 2.1 || jet3Btag >= 2.1            ) continue; // cut on TopTagNotInJets
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
     bool dPhiDiLepJetCut = kTRUE;
@@ -2052,8 +2048,6 @@ void PlotHiggsRes2012
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
-    if( (cuts & patternTopTagNotInJets) == patternTopTagNotInJets ||
-        jet1Btag >= 2.1 || jet2Btag >= 2.1 || jet3Btag >= 2.1            ) continue; // cut on TopTagNotInJets
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
     bool dPhiDiLepJetCut = kTRUE;
@@ -2522,8 +2516,6 @@ void PlotHiggsRes2012
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
     //if( lid3 != 0	                                                 ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
-    if( (cuts & patternTopTagNotInJets) == patternTopTagNotInJets ||
-        jet1Btag >= 2.1 || jet2Btag >= 2.1 || jet3Btag >= 2.1            ) continue; // cut on TopTagNotInJets
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
     bool dPhiDiLepJetCut = kTRUE;
