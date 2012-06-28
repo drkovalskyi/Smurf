@@ -38,7 +38,7 @@ static const Bool_t verbose = kFALSE;
 Double_t projectedMET(const Double_t met, const Double_t metPhi, const Double_t lepPhi);
 
 // compute systematic uncertainty
-Double_t computeSyst(const TH1D *hout, const TH1D *hin, Int_t binUsed, Double_t rErrorMax);
+Double_t computeSyst(const TH1D *hout, const TH1D *hin, Int_t binUsed, Double_t rErrorMax, Bool_t isDebug = false);
 
 //=== MAIN MACRO =================================================================================================
 // Options:
@@ -594,9 +594,9 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
           double theDataWeight = 0.0;
           if     (ProcessType == -1 && (finalState==kEleEle||finalState==kMuMu)) theDataWeight =  1.0;
 	  else if(ProcessType == -1                                            ) theDataWeight = -1.0;
-	  else if(ProcessType ==  1 && weight > 0                              ) theDataWeight = weight;
+	  else if(ProcessType ==  1 && weight > 0                              ) theDataWeight = -1.0 * weight;
 	  // In reality ee == ee+mm for data
-	  if(theDataWeight > 0.0){
+	  if(theDataWeight != 0.0){
 	    if(mZ - tree.dilep_.M() < MassCutLow && tree.dilep_.M() - mZ < MassCutHigh) {
               hNin_ree_da[ijet][imass]->Fill(varMet,theDataWeight/(Double_t)nmet);                
             } else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < theCutMassHigh) {
@@ -844,12 +844,13 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 
 	Rll        = nout_ll/nin_ll;
 	RllErrStat = Rll*sqrt(errin_ll*errin_ll/nin_ll/nin_ll + errout_ll*errout_ll/nout_ll/nout_ll);
-	Double_t rErrorMax = 0.4;
-	RllErrSyst = computeSyst(hout,hin,MetBinToComputeRoutin,rErrorMax);
-        while(RllErrSyst <= 0.0 && rErrorMax < 1.0){
-	  rErrorMax += 0.1;
-	  RllErrSyst = computeSyst(hout,hin,MetBinToComputeRoutin,rErrorMax);
-	}  
+	Double_t rErrorMax = 100000.4;
+	cout << "M: " << mH[imass] << endl;
+	RllErrSyst = computeSyst(hout,hin,MetBinToComputeRoutin,rErrorMax,true);
+        //while(RllErrSyst <= 0.0 && rErrorMax < 1.0){
+	//  rErrorMax += 0.1;
+	//  RllErrSyst = computeSyst(hout,hin,MetBinToComputeRoutin,rErrorMax);
+	//}  
 	delete hout;
 	delete hin;
       }
@@ -1172,21 +1173,23 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 }
 
 //--------------------------------------------------------------------------------------------------
-Double_t computeSyst(const TH1D *hout, const TH1D *hin, Int_t binUsed, Double_t rErrorMax)
+Double_t computeSyst(const TH1D *hout, const TH1D *hin, Int_t binUsed, Double_t rErrorMax, Bool_t isDebug)
 {
   const Int_t nbins = hout->GetXaxis()->GetNbins();
   Double_t r0=(hout->GetBinContent(binUsed))/(hin->GetBinContent(binUsed));
   Double_t dr=0;
-  //cout << "R0 = " << r0 << endl;
   for(Int_t ibin=1; ibin<=nbins; ibin++) {
     Double_t r = (hout->GetBinContent(ibin))/(hin->GetBinContent(ibin));
 
-    //only consider last bin for systematics if the uncertainty is less than 40% to protect against statistical fluctuations
+    //only consider last bin for systematics if the uncertainty is less than rErrorMax to protect against statistical fluctuations
     Double_t rError = sqrt( pow(hout->GetBinError(ibin)/hout->GetBinContent(ibin),2) + pow(hin->GetBinError(ibin)/hin->GetBinContent(ibin),2));
-    if (rError > rErrorMax) continue;
+
+    if(r < 0.0) r = 0.0;
+    if(isDebug == true) printf("bin(%1d) Nin = %8.3f Nout = %8.3f R0 = %5.3f R = %5.3f dr = %5.3f drMax = %5.3f rError = %5.3f\n",ibin,hin->GetBinContent(ibin),hout->GetBinContent(ibin),r0,r,fabs(r-r0),dr,rError);
+
+    if(rError > rErrorMax) continue;
 
     if(fabs(r-r0) > dr) dr = fabs(r-r0);
-    //cout << "Nin = " << hin->GetBinContent(ibin) << ", Nout = " << hout->GetBinContent(ibin) << ", R = " << r << ", dr = " << dr << endl;
   }
   return dr;
 }

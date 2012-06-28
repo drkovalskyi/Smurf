@@ -683,6 +683,31 @@ void ComputeWWBkgScaleFactor (
     }
   }
 
+  printf("*****************************************\n");
+  printf("\\begin{table}\n");
+  printf("\\begin{center}\n");
+  printf("{\\normalsize\n");
+  printf("\\hline\n");
+  printf(" Sample & 0-jet & 1-jet \\\\\n");
+  printf("        & \\multicolumn{2}{|c|}{cut-based} \\\\\n");
+  printf("\\hline\n");
+  for (Int_t i = 0; i < nmass ; ++i)
+  printf(" %d & %5.2f  $\\pm$ %5.2f  & %5.2f  $\\pm$ %5.2f \\\\\n",(int)mH[i],WWScaleFactor[kCutBasedZeroJet][i],WWScaleFactorUncertainty[kCutBasedZeroJet][i],
+  WWScaleFactor[kMVAOneJet][i],WWScaleFactorUncertainty[kCutBasedOneJet][i]); 
+  printf("\\hline\n");
+  printf("\\hline\n");
+  printf(" Sample & 0-jet & 1-jet \\\\\n");
+  printf("        & \\multicolumn{2}{|c|}{shape-based} \\\\\n");
+  printf("\\hline\n");
+  for (Int_t i = 0; i < nmass ; ++i)
+  printf(" %d & %5.2f  $\\pm$ %5.2f  & %5.2f  $\\pm$ %5.2f \\\\\n",(int)mH[i],WWScaleFactor[kMVAZeroJet][i],WWScaleFactorUncertainty[kMVAZeroJet][i],
+  WWScaleFactor[kMVAOneJet][i],WWScaleFactorUncertainty[kMVAOneJet][i]); 
+  printf("\\hline\n");
+  printf("\\end{tabular}\n");
+  printf("}\n");
+  printf("\\end{center}\n");
+  printf("\\end{table}\n");
+  printf("*****************************************\n");
   //********************************************************
   // Output WW Scale Factor
   //********************************************************

@@ -94,37 +94,38 @@ sed -ie 's/) useDYMVA = true/) useDYMVA = false/' optimalCuts_52x.C;
 rm optimalCuts_52x.Ce;
 
 elif [ $1 == 2 ]; then
+echo "making nice plots";
 cd $CMSSW_BASE/src/Ana/nt_scripts/;
 
-root -l -b -q optimalCuts_52x.C+'(29,"","",1,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,4,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh130_ptlmax.root
-root -l -b -q optimalCuts_52x.C+'(29,"","",2,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,4,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh130_ptmin.root
-root -l -b -q optimalCuts_52x.C+'(29,"","",7,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,4,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh130_massll.root
-root -l -b -q optimalCuts_52x.C+'(29,"","",8,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,4,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh130_mt.root
-root -l -b -q optimalCuts_52x.C+'(29,"","",20,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,4,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh130_deltaphill.root
-root -l -b -q optimalCuts_52x.C+'(29,"","",57,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,4,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh130_deltarll.root
+root -l -b -q optimalCuts_52x.C+'(29,"","",1,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,4,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh125_ptmax.root;
+root -l -b -q optimalCuts_52x.C+'(29,"","",2,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,4,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh125_ptmin.root;
+root -l -b -q optimalCuts_52x.C+'(29,"","",7,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,4,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh125_massll.root;
+root -l -b -q optimalCuts_52x.C+'(29,"","",8,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,4,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh125_mt.root;
+root -l -b -q optimalCuts_52x.C+'(29,"","",20,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,4,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh125_deltaphill.root;
+root -l -b -q optimalCuts_52x.C+'(29,"","",57,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,4,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh125_deltarll.root;
 
-root -l -b -q optimalCuts_52x.C+'(29,"","",1,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,14,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh130_ptlmax.root
-root -l -b -q optimalCuts_52x.C+'(29,"","",2,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,14,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh130_ptmin.root
-root -l -b -q optimalCuts_52x.C+'(29,"","",7,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,14,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh130_massll.root
-root -l -b -q optimalCuts_52x.C+'(29,"","",8,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,14,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh130_mt.root
-root -l -b -q optimalCuts_52x.C+'(29,"","",20,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,14,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh130_deltaphill.root
-root -l -b -q optimalCuts_52x.C+'(29,"","",57,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,14,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh130_deltarll.root
-root -l -b -q optimalCuts_52x.C+'(29,"","",55,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,14,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh130_dphidilepmet.root
-root -l -b -q optimalCuts_52x.C+'(29,"","",53,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww130.root","ntuples_52x/data_skim2.root",0,14,1)';
-mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh130_dphidilepjet.root
+root -l -b -q optimalCuts_52x.C+'(29,"","",1,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,14,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_ptmax.root;
+root -l -b -q optimalCuts_52x.C+'(29,"","",2,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,14,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_ptmin.root;
+root -l -b -q optimalCuts_52x.C+'(29,"","",7,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,14,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_massll.root;
+root -l -b -q optimalCuts_52x.C+'(29,"","",8,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,14,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_mt.root;
+root -l -b -q optimalCuts_52x.C+'(29,"","",20,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,14,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_deltaphill.root;
+root -l -b -q optimalCuts_52x.C+'(29,"","",57,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,14,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_deltarll.root;
+root -l -b -q optimalCuts_52x.C+'(29,"","",55,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,14,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_dphidilepmet.root;
+root -l -b -q optimalCuts_52x.C+'(29,"","",53,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww125.root","ntuples_52x/data_skim2.root",0,14,1)';
+mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_dphidilepjet.root;
 
 else
 

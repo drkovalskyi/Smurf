@@ -88,14 +88,14 @@ Double_t reweightBToA(Int_t nvtx){
 Double_t TopMCScaleFactor_VHqqll(int nJetsType) {
   if     (nJetsType == 2) return 4.670;
   else if(nJetsType == 1) return 1.703;
-  else                    assert(0);
+  else                    return 1.000;
   return 1.0;
 }
 
 Double_t TopMCScaleFactor_VHqqll_Kappa(int nJetsType) {
   if     (nJetsType == 2) return 1.298;
   else if(nJetsType == 1) return 1.334;
-  else                    assert(0);
+  else                    return 1.000;
   return 1.0;
 }
 
@@ -110,13 +110,13 @@ Double_t WrongChargeScaleFactor_VHqqll_Kappa() {
 Double_t DYMCScaleFactor_VHqqll(int nJetsType) {
   if     (nJetsType == 2) return 1.700;
   else if(nJetsType == 1) return 1.400;
-  else                    assert(0);
+  else                    return 1.000;
   return 1.0;
 }
 
 Double_t DYMCScaleFactor_VHqqll_Kappa(int nJetsType) {
   if     (nJetsType == 2) return 1.400;
   else if(nJetsType == 1) return 1.400;
-  else                    assert(0);
+  else                    return 1.000;
   return 1.0;
 }

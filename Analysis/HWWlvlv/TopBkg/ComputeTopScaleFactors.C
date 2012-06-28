@@ -1222,6 +1222,38 @@ void ComputeTopScaleFactors
            estimationDA_btag_lowpt_0j[i],estimationDA_btag_lowpt_0j_error[i]);
   }
 
+  // Writing results in latex format
+  double NonTaggedTopMC = 0; for(int i=0; i<5; i++) NonTaggedTopMC = NonTaggedTopMC + btag_vbf_2j_den1[1][i]+btag_vbf_2j_den2[1][i];
+  double NonTaggedTopDA = 0; for(int i=0; i<5; i++) NonTaggedTopDA = NonTaggedTopDA + evtDA_vbf_2j[i];
+  double NonTaggedTopDA_error = 0; for(int i=0; i<5; i++) NonTaggedTopDA_error = NonTaggedTopDA_error + evtDA_vbf_2j_error[i]*evtDA_vbf_2j_error[i];
+  int Chan = 4;
+  printf("*****************************************\n");
+  printf("\\begin{table}\n");
+  printf("\\begin{center}\n");
+  printf("{\\tiny\n");
+  printf("\\hline\n");
+  printf(" Sample & 0-jet & 1-jet & 2-jet \\\\\n");
+  printf("\\hline\n");
+  printf("estimated top events in simulation  & %5.1f $\\pm$ %5.1f &  %5.1f $\\pm$ %5.1f & %5.1f $\\pm$ %5.1f \\\\\n",N_top_expected_0j[Chan],estimationMC_btag_lowpt_0j_error[Chan],
+  (btag_highestpt_1j_den[1][Chan]+btag_highestpt_1j_den[2][Chan])-(btag_highestpt_1j_num[1][Chan]+btag_highestpt_1j_num[2][Chan]),estimationMC_btag_highestpt_1j_err[Chan],
+  NonTaggedTopMC,NonTaggedTopMC*0.04);
+  printf("tagging efficiency     (\\%)         & %4.1f $\\pm$ %4.1f & %4.1f $\\pm$ %4.1f & - \\\\ \n",effDA_btag_lowpt_0j[Chan]*100,effDA_btag_lowpt_0j_error[Chan]*100,effttDA_btag_highestpt_1j[Chan]*100,effttDA_btag_highestpt_1j_error[Chan]*100);
+  printf("data events in control region       & %4d & %4d & -\n",(int)btag_lowpt_0j_num[3][Chan],(int)btag_highestpt_1j_num[3][Chan]);
+  printf("background events in control region & %5.1f $\\pm$ %5.1f &  %5.1f $\\pm$ %5.1f & - \\\\ \n",btag_lowpt_0j_num[0][Chan],btag_lowpt_0j_num[0][Chan]*0.15,
+  btag_highestpt_1j_num[0][Chan],btag_highestpt_1j_num[0][Chan]*0.20);
+  printf("top estimation in data              &  %5.1f $\\pm$ %5.1f &  %5.1f $\\pm$ %5.1f & %5.1f $\\pm$ %5.1f \\\\\n",estimationDA_btag_lowpt_0j[Chan],estimationDA_btag_lowpt_0j_error[Chan],
+  estimationDA_btag_highestpt_1j[Chan],estimationDA_btag_highestpt_1j_error[Chan],NonTaggedTopDA,sqrt(NonTaggedTopDA_error));
+  printf("data/simulation scale factor        &  %5.2f $\\pm$ %5.2f &  %5.2f $\\pm$ %5.2f & %5.2f $\\pm$ %5.2f \\\\\n",
+  estimationDA_btag_lowpt_0j[Chan] / N_top_expected_0j[Chan],  estimationDA_btag_lowpt_0j_error[Chan] / N_top_expected_0j[Chan],
+  TopBkgScaleFactor_1Jet,TopBkgScaleFactorUncertainty_1Jet,TopBkgScaleFactor_2Jet_vbf[1],TopBkgScaleFactor_2Jet_vbf[1]);
+  printf("\\hline\n");
+  printf("\\end{tabular}\n");
+  printf("}\n");
+  printf("\\end{center}\n");
+  printf("\\end{table}\n");
+  printf("*****************************************\n");
+
+  // Writing scale factors in *.h files
   double TopBkgScaleFactor_0Jet = estimationDA_btag_lowpt_0j[4] / N_top_expected_0j[4];
   double TopBkgScaleFactorUncertainty_0Jet = estimationDA_btag_lowpt_0j_error[4] / N_top_expected_0j[4];
 
