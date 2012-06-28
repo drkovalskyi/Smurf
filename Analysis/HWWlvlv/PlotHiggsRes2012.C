@@ -124,7 +124,6 @@ void PlotHiggsRes2012
   output.ReplaceAll(".root",replace);
 
   unsigned int patternTopTag = SmurfTree::TopTag;
-  unsigned int patternTopTagNotInJets = SmurfTree::TopTagNotInJets;
 
   int channel = HiggsMassIndex(mH)-1;
 
