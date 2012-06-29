@@ -59,6 +59,8 @@ my $tableEnd = << 'EOF';
 \end{table}
 EOF
 
+open(OUTPAS,">$dir/$name-reportPAS.tex");
+
 open(OUT,">$dir/$name-report.tex");
 print OUT << 'EOF';
 \documentclass{report}
@@ -70,12 +72,14 @@ EOF
 foreach my $card(0..$nCardsPerMassPoint-1){
     my $title;
     my @names = ("") x $nCardsPerMassPoint;
+    print OUTPAS $card,"\n";
     foreach my $mass( sort {$a<=>$b} keys %cards ){
 	my $cardname = $cards{$mass}->[$card];
 	my $file = "$dir/$cardname";
 	$cardname =~ s/(\d+\/)//;
 	$names[$card] = $cardname;
 	# print "$file\n";
+	my @columnsPAS;
 	my @columns;
 	my @errors2;
 	my $observation;
@@ -127,6 +131,19 @@ foreach my $card(0..$nCardsPerMassPoint-1){
 	}
 	my $sum = 0;
 	my $sumErr2 = 0;
+	my $sumH = $columns[1]+$columns[2];
+	my $sumHErr = sqrt($errors2[1]*$columns[1]*$columns[1]+$errors2[2]*$columns[2]*$columns[2]);
+	my $sumWW = $columns[3]+$columns[4];
+	my $sumWWErr = sqrt($errors2[3]*$columns[3]*$columns[3]+$errors2[4]*$columns[4]*$columns[4]);
+	my $sumVV = $columns[5]+$columns[7]+$columns[10];
+	my $sumVVErr = sqrt($errors2[5]*$columns[5]*$columns[5]+$errors2[7]*$columns[7]*$columns[7]+
+	                    $errors2[10]*$columns[10]*$columns[10]);
+	my $sumTop = $columns[6];
+	my $sumTopErr = sqrt($errors2[6]*$columns[6]*$columns[6]);
+	my $sumWjets = $columns[8];
+	my $sumWjetsErr = sqrt($errors2[8]*$columns[8]*$columns[8]);
+	my $sumWg = $columns[9];
+	my $sumWgErr = sqrt($errors2[9]*$columns[9]*$columns[9]);
 	foreach my $i(1..$#columns){
 	    if ($i>2){ # skip first two columns, which are qqH and ggH
 		$sum += $columns[$i];
@@ -137,6 +154,12 @@ foreach my $card(0..$nCardsPerMassPoint-1){
 	push @columns, sprintf("\$%0.1f\\pm%0.1f\$", $sum, sqrt($sumErr2));
 	push @columns, "$observation";
 	print OUT join(" & ",@columns)." \\\\\n";
+
+	push @columnsPAS, sprintf(" \$%d\$ & \$%0.1f\\pm%0.1f\$ & \$%0.1f\\pm%0.1f\$ & \$%0.1f\\pm%0.1f\$ & \$%0.1f\\pm%0.1f\$ & \$%0.1f\\pm%0.1f\$ & \$%0.1f\\pm%0.1f\$ & \$%0.1f\\pm%0.1f\$ & \$%d\$", 
+				   $mass,
+				   $sumH,$sumHErr,$sumWW,$sumWWErr,$sumVV,$sumVVErr,$sumTop,$sumTopErr,
+				   $sumWjets,$sumWjetsErr,$sumWg,$sumWgErr,$sum,sqrt($sumErr2),$observation);
+	print OUTPAS @columnsPAS," \\\\\n";
     }
     my $tab = $tableEnd;
     my $label = $names[$card];
