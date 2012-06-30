@@ -166,7 +166,8 @@ We now calculate the $\WW$ production cross section according to equation \ref{e
 \end{equation}
 
 Where $N_{data}$ is the number of events observed in data, $N_{bkg}$ is the estimated number
-of background events, which are summarised with their uncertainties in Table \ref{tab:data_yields}. 
+of background events, which are summarised with their uncertainties in Table \ref{tab:data_yields},
+and illustrated in Figure \ref{fig:xs_kinematics}.
 The efficiency to select $\sigma_{WW \to 2\ell 2\nu}$
 candidates, $\varepsilon$, is computed as the weighted mean of
 the $qq\to\WW$ and $gg\to\WW$ efficiencies in simulation.
@@ -217,29 +218,16 @@ we obtain the following $WW$ cross-section measurement:
 
 The fiducial acceptance for the $WW$ decays to produce two leptons 
 with $p_{T}>20\GeV$ within $|\eta|<2.50$ is found to be $(57.0\pm0.1~\mathrm{(stat.)})\%$.
-This value can be used to correct the measured cross section to that
-defined within this fiducial region.  Doing so, one would 
-obtain a central value of the measured cross section of $39.05$~pb.
 
 %%%%%%%%
 \begin{figure}[!hbtp]
-\begin{center}
-\subfigure[Leading lepton $p_{T}$]{\label{subfig:fig_inclplots_pt1}
-\includegraphics[width=.45\textwidth]{figures/ww_analysis20_pt1_incl_0j.pdf}}
-\subfigure[Trailing lepton $p_{T}$]{\label{subfig:fig_inclplots_pt2}
-\includegraphics[width=.45\textwidth]{figures/ww_analysis20_pt2_incl_0j.pdf}}
-\subfigure[Dilepton system $p_{T}$]{\label{subfig:fig_inclplots_ptll}
-\includegraphics[width=.45\textwidth]{figures/ww_analysis20_ptll_incl_0j.pdf}}
-\subfigure[Dilepton system invariant mass]{\label{subfig:fig_inclplots_M}
-\includegraphics[width=.45\textwidth]{figures/ww_analysis20_mll_incl_0j.pdf}}
+\centering
+\includegraphics[width=1\textwidth]{figures/ww_analysis20_0_ALL_incl_0j.pdf} %FIXME
 \caption{Kinematic distributions for expected and observed events in the  $\mu\mu$, $\mu{e}$, $e\mu$ and $ee$ channels.
 %The dilepton system invariant mass distribution has the $Z$ mass veto relaxed.
-The uncertainty on the expected events includes both statistical and systematic components.}
-\label{fig:inclplots}
-\end{center}
+The uncertainty on the expected events includes both statistical and systematic components.
+The WW component has been scaled to the measured cross section.}
+\label{fig:xs_kinematics}
 \end{figure}
 %%%%%%%%
-
-
-
 
