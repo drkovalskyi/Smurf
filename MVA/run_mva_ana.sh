@@ -19,6 +19,7 @@ export TAG=ntuples2012_${MH}train_${NJETS}jets;
 #export TAG=TEST_ntuples_${MH}train_${NJETS}jets;
 #export METHODS=BDT,Likelihood,BDTG,BDTD,BDTB,MLP,MLPBFGS,MLPBNN,CFMlpANN,TMlpANN,BoostedFisher,LikelihoodD,LikelihoodPCA,FDA_GA,RuleFit;
 export METHODS=Likelihood,BDT,BDTD,BDTG;
+###export METHODS=BDT,BDTD,BDTG;
 
 ### Training: change done hand made, it's an expert option
 export trainMVA_smurfFile=trainMVA_smurf.C+;
@@ -55,27 +56,9 @@ fi
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
 data/hww${MH}.root
-data/backgroundA.root
-data/backgroundB.root
-data/data.root
-data/data_mit.root
-data/hww_syst.root
-data/dyll.root
-data/ggww.root
-data/qqww.root
-data/qqww_py.root
-data/training.root
-data/ttbar.root
-data/ttbar_powheg.root
-data/tw.root
-data/wgamma.root
-data/wglll.root
-data/wjets.root
-data/wwmcnlo.root
-data/wwmcnlodown.root
-data/wwmcnloup.root
-data/wz.root
-data/zz.root
+data/hww_syst_skim6.root
+data/data_skim2.root
+data/backgroundA_skim2.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf_hww.C+;

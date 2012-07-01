@@ -1245,7 +1245,7 @@ void ComputeTopScaleFactors
   estimationDA_btag_highestpt_1j[Chan],estimationDA_btag_highestpt_1j_error[Chan],NonTaggedTopDA,sqrt(NonTaggedTopDA_error));
   printf("data/simulation scale factor        &  %5.2f $\\pm$ %5.2f &  %5.2f $\\pm$ %5.2f & %5.2f $\\pm$ %5.2f \\\\\n",
   estimationDA_btag_lowpt_0j[Chan] / N_top_expected_0j[Chan],  estimationDA_btag_lowpt_0j_error[Chan] / N_top_expected_0j[Chan],
-  TopBkgScaleFactor_1Jet,TopBkgScaleFactorUncertainty_1Jet,TopBkgScaleFactor_2Jet_vbf[1],TopBkgScaleFactor_2Jet_vbf[1]);
+  TopBkgScaleFactor_1Jet,TopBkgScaleFactorUncertainty_1Jet,TopBkgScaleFactor_2Jet_vbf[1],TopBkgScaleFactorUncertainty_2Jet_vbf[1]);
   printf("\\hline\n");
   printf("\\end{tabular}\n");
   printf("}\n");

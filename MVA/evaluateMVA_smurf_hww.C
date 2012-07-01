@@ -234,10 +234,15 @@ TString suffix       = "ww"
     TString effPath  = "";
     TString fakePath = "";
     TString puPath   = "";
-    if	 (period == 0){ // Full2012-Summer12-V9
-      effPath  = "/smurf/dlevans/Efficiencies/V00-02-03_V0/summary.root";
-      fakePath = "/smurf/dlevans/FakeRates/V00-02-03_V0/summary.root";
-      puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12.root";
+    if	   (period == 0){ // Full2012-Summer12-V9-3500ipb
+      effPath  = "/smurf/dlevans/Efficiencies/V00-02-04_V1/summary.root";
+      fakePath = "/smurf/dlevans/FakeRates/V00-02-04_V1/summary.root";
+      puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_3500ipb.root";
+    }
+    else if(period == 1){ // Full2012-Summer12-V9-5000ipb
+      effPath  = "/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
+      fakePath = "/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
+      puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
     }
     else {
       printf("Wrong period(%d)\n",period);
@@ -610,7 +615,7 @@ TString suffix       = "ww"
             smurfTree.sfWeightFR_ = -1.0 * smurfTree.sfWeightFR_;
             if(nFake > 1) smurfTree.sfWeightFR_ = -1.0 * smurfTree.sfWeightFR_;
 
-            smurfTree.sfWeightPU_ = nPUScaleFactor(fhDPUS4,smurfTree.npu_);
+            smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPUS4,smurfTree.npu_);
 
             smurfTree.sfWeightEff_ = 1.0;
             smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep1_.pt(), smurfTree.lep1_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid1_);
@@ -621,8 +626,20 @@ TString suffix       = "ww"
             smurfTree.sfWeightTrig_ = 1.0;
             if((smurfTree.cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto)
               smurfTree.sfWeightTrig_ = trigLookup.GetExpectedTriggerEfficiency(fabs(smurfTree.lep1_.eta()), smurfTree.lep1_.pt() , 
-        								fabs(smurfTree.lep2_.eta()), smurfTree.lep2_.pt(), 
-        								TMath::Abs( smurfTree.lid1_), TMath::Abs(smurfTree.lid2_));
+        								        fabs(smurfTree.lep2_.eta()), smurfTree.lep2_.pt(), 
+        							 	 TMath::Abs( smurfTree.lid1_), TMath::Abs(smurfTree.lid2_));
+            else {
+              double trigEff0         = trigLookup.GetExpectedTriggerEfficiency(fabs(smurfTree.lep1_.Eta()), smurfTree.lep1_.Pt() , 
+     	 							                fabs(smurfTree.lep2_.Eta()), smurfTree.lep2_.Pt(), 
+        						                 TMath::Abs( smurfTree.lid1_), TMath::Abs(smurfTree.lid2_));
+              double trigEff1         = trigLookup.GetExpectedTriggerEfficiency(fabs(smurfTree.lep1_.Eta()), smurfTree.lep1_.Pt() , 
+     	 					            		        fabs(smurfTree.lep3_.Eta()), smurfTree.lep3_.Pt(), 
+        						                 TMath::Abs( smurfTree.lid1_), TMath::Abs(smurfTree.lid3_));
+              double trigEff2         = trigLookup.GetExpectedTriggerEfficiency(fabs(smurfTree.lep3_.Eta()), smurfTree.lep3_.Pt() , 
+     	 							                fabs(smurfTree.lep2_.Eta()), smurfTree.lep2_.Pt(), 
+        						                 TMath::Abs( smurfTree.lid3_), TMath::Abs(smurfTree.lid2_));
+              smurfTree.sfWeightTrig_ = 1.0 - ((1.0-trigEff0)*(1.0-trigEff1)*(1.0-trigEff2));
+	    }
             smurfTree.sfWeightHPt_     = 1.0;
           }
           else {
@@ -635,7 +652,7 @@ TString suffix       = "ww"
         }
         else if(smurfTree.dstype_ != SmurfTree::data){
           smurfTree.sfWeightFR_ = 1.0;
-     	  smurfTree.sfWeightPU_ = nPUScaleFactor(fhDPUS4,smurfTree.npu_);
+     	  smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPUS4,smurfTree.npu_);
 
           smurfTree.sfWeightEff_ = 1.0;
           smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep1_.pt(), smurfTree.lep1_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid1_);
@@ -646,8 +663,20 @@ TString suffix       = "ww"
           smurfTree.sfWeightTrig_ = 1.0;
           if((smurfTree.cuts_ & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto)
             smurfTree.sfWeightTrig_ = trigLookup.GetExpectedTriggerEfficiency(fabs(smurfTree.lep1_.eta()), smurfTree.lep1_.pt() , 
-        						      fabs(smurfTree.lep2_.eta()), smurfTree.lep2_.pt(), 
-        						      TMath::Abs( smurfTree.lid1_), TMath::Abs(smurfTree.lid2_));
+        						                      fabs(smurfTree.lep2_.eta()), smurfTree.lep2_.pt(), 
+        						               TMath::Abs( smurfTree.lid1_), TMath::Abs(smurfTree.lid2_));
+          else {
+            double trigEff0	    = trigLookup.GetExpectedTriggerEfficiency(fabs(smurfTree.lep1_.Eta()), smurfTree.lep1_.Pt() , 
+     	        							      fabs(smurfTree.lep2_.Eta()), smurfTree.lep2_.Pt(), 
+                						       TMath::Abs( smurfTree.lid1_), TMath::Abs(smurfTree.lid2_));
+            double trigEff1	    = trigLookup.GetExpectedTriggerEfficiency(fabs(smurfTree.lep1_.Eta()), smurfTree.lep1_.Pt() , 
+     	        							      fabs(smurfTree.lep3_.Eta()), smurfTree.lep3_.Pt(), 
+                						       TMath::Abs( smurfTree.lid1_), TMath::Abs(smurfTree.lid3_));
+            double trigEff2	    = trigLookup.GetExpectedTriggerEfficiency(fabs(smurfTree.lep3_.Eta()), smurfTree.lep3_.Pt() , 
+     	        							      fabs(smurfTree.lep2_.Eta()), smurfTree.lep2_.Pt(), 
+                						       TMath::Abs( smurfTree.lid3_), TMath::Abs(smurfTree.lid2_));
+            smurfTree.sfWeightTrig_ = 1.0 - ((1.0-trigEff0)*(1.0-trigEff1)*(1.0-trigEff2));
+	  }
           smurfTree.sfWeightHPt_	  = 1.0;
           if (smurfTree.processId_ == 10010) {
             smurfTree.sfWeightHPt_ = smurfTree.sfWeightHPt_ * HiggsPtKFactor->GetBinContent( HiggsPtKFactor->GetXaxis()->FindFixBin(smurfTree.higgsPt_));
