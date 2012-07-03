@@ -490,7 +490,8 @@ void ComputeTopScaleFactors
       else												     Njet3 = 2;
       if(bgdEvent.njets_ < 2 || bgdEvent.njets_ > 3)							     Njet3 = 0;
 
-      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bgdEvent.nSoftMuons_ == 0 && bTagMax[1] < 2.10 && bgdEvent.jet3Btag_ < 2.1 && Njet3 == 2){
+      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bgdEvent.nSoftMuons_ == 0 && bTagMax[1] < 2.10 && 
+          bgdEvent.jet3Btag_ < 2.1 && Njet3 == 2 && (bgdEvent.jet1_+bgdEvent.jet2_).M() > 0){
         int nEta = TMath::Min(etaMin,2.499)/2.5*5;
         btag_central_2j_den[classType][nEta] 	     += theWeight;
         btag_central_2j_den_error[classType][nEta]   += theWeight*theWeight;
@@ -724,7 +725,8 @@ void ComputeTopScaleFactors
       else												         Njet3 = 2;
       if(dataEvent.njets_ < 2 || dataEvent.njets_ > 3)							         Njet3 = 0;
 
-      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && dataEvent.nSoftMuons_ == 0 && bTagMax[1] < 2.10 && dataEvent.jet3Btag_ < 2.1 && Njet3 == 2){
+      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && dataEvent.nSoftMuons_ == 0 && bTagMax[1] < 2.10 && 
+          dataEvent.jet3Btag_ < 2.1 && Njet3 == 2 && (dataEvent.jet1_+dataEvent.jet2_).M() > 0){
         int nEta = TMath::Min(etaMin,2.499)/2.5*5;
         btag_central_2j_den[classType][nEta] 	     += theWeight;
         btag_central_2j_den_error[classType][nEta]   += theWeight*theWeight;
@@ -890,12 +892,13 @@ void ComputeTopScaleFactors
     for(int i=0; i<5; i++) printf("eventsNonTaggedVBF(%d) --> %6.3f  --> %6.3f +/- %6.3f | %6.3f +/- %6.3f\n",i,btag_vbf_2j_den1[imass][i]+btag_vbf_2j_den2[imass][i],
                evtMC_vbf_2j[i],evtMC_vbf_2j_error[i],evtDA_vbf_2j[i],evtDA_vbf_2j_error[i]);
 
-    double NonTaggedTopMC = 0; for(int i=0; i<5; i++) NonTaggedTopMC = NonTaggedTopMC + btag_vbf_2j_den1[imass][i]+btag_vbf_2j_den2[imass][i];
-    double NonTaggedTopDA = 0; for(int i=0; i<5; i++) NonTaggedTopDA = NonTaggedTopDA + evtDA_vbf_2j[i];
+    double NonTaggedTopMCPred = 0; for(int i=0; i<5; i++) NonTaggedTopMCPred = NonTaggedTopMCPred + evtMC_vbf_2j[i];
+    double NonTaggedTopMC     = 0; for(int i=0; i<5; i++) NonTaggedTopMC     = NonTaggedTopMC     + btag_vbf_2j_den1[imass][i]+btag_vbf_2j_den2[imass][i];
+    double NonTaggedTopDA     = 0; for(int i=0; i<5; i++) NonTaggedTopDA     = NonTaggedTopDA     + evtDA_vbf_2j[i];
     double NonTaggedTopDA_error = 0; for(int i=0; i<5; i++) NonTaggedTopDA_error = NonTaggedTopDA_error + evtDA_vbf_2j_error[i]*evtDA_vbf_2j_error[i];
     TopBkgScaleFactor_2Jet_vbf[imass] = NonTaggedTopDA/NonTaggedTopMC;
     TopBkgScaleFactorUncertainty_2Jet_vbf[imass] = sqrt(NonTaggedTopDA_error)/NonTaggedTopMC;
-    printf("data/MC(%6.3f/%6.3f) -> scaleFactorVBF(%3d): %6.3f +/- %6.3f\n",NonTaggedTopDA,NonTaggedTopMC,(int)mH[imass],TopBkgScaleFactor_2Jet_vbf[imass],TopBkgScaleFactorUncertainty_2Jet_vbf[imass]);
+    printf("data/MC/MCPred(%6.3f/%6.3f/%6.3f) -> scaleFactorVBF(%3d): %6.3f +/- %6.3f\n",NonTaggedTopDA,NonTaggedTopMC,NonTaggedTopMCPred,(int)mH[imass],TopBkgScaleFactor_2Jet_vbf[imass],TopBkgScaleFactorUncertainty_2Jet_vbf[imass]);
   }
   printf("**********eff vbf jet 2-j SF**********\n");
   double evtMC_vbfSF_2j[5],evtMC_vbfSF_2j_error[5],evtDA_vbfSF_2j[5],evtDA_vbfSF_2j_error[5];
@@ -916,12 +919,13 @@ void ComputeTopScaleFactors
     for(int i=0; i<5; i++) printf("eventsNonTaggedVBFSF(%d) --> %6.3f  --> %6.3f +/- %6.3f | %6.3f +/- %6.3f\n",i,btag_vbfSF_2j_den1[imass][i]+btag_vbfSF_2j_den2[imass][i],
                evtMC_vbfSF_2j[i],evtMC_vbfSF_2j_error[i],evtDA_vbfSF_2j[i],evtDA_vbfSF_2j_error[i]);
 
-    double NonTaggedTopMC = 0; for(int i=0; i<5; i++) NonTaggedTopMC = NonTaggedTopMC + btag_vbfSF_2j_den1[imass][i]+btag_vbfSF_2j_den2[imass][i];
-    double NonTaggedTopDA = 0; for(int i=0; i<5; i++) NonTaggedTopDA = NonTaggedTopDA + evtDA_vbfSF_2j[i];
+    double NonTaggedTopMCPred = 0; for(int i=0; i<5; i++) NonTaggedTopMCPred = NonTaggedTopMCPred + evtMC_vbfSF_2j[i];
+    double NonTaggedTopMC     = 0; for(int i=0; i<5; i++) NonTaggedTopMC     = NonTaggedTopMC + btag_vbfSF_2j_den1[imass][i]+btag_vbfSF_2j_den2[imass][i];
+    double NonTaggedTopDA     = 0; for(int i=0; i<5; i++) NonTaggedTopDA     = NonTaggedTopDA + evtDA_vbfSF_2j[i];
     double NonTaggedTopDA_error = 0; for(int i=0; i<5; i++) NonTaggedTopDA_error = NonTaggedTopDA_error + evtDA_vbfSF_2j_error[i]*evtDA_vbfSF_2j_error[i];
     TopBkgScaleFactor_2Jet_vbfSF[imass] = NonTaggedTopDA/NonTaggedTopMC;
     TopBkgScaleFactorUncertainty_2Jet_vbfSF[imass] = sqrt(NonTaggedTopDA_error)/NonTaggedTopMC;
-    printf("data/MC(%6.3f/%6.3f) -> scaleFactorVBFSF(%3d): %6.3f +/- %6.3f\n",NonTaggedTopDA,NonTaggedTopMC,(int)mH[imass],TopBkgScaleFactor_2Jet_vbfSF[imass],TopBkgScaleFactorUncertainty_2Jet_vbfSF[imass]);
+    printf("data/MC/MCPred(%6.3f/%6.3f/%6.3f) -> scaleFactorVBFSF(%3d): %6.3f +/- %6.3f\n",NonTaggedTopDA,NonTaggedTopMC,NonTaggedTopMCPred,(int)mH[imass],TopBkgScaleFactor_2Jet_vbfSF[imass],TopBkgScaleFactorUncertainty_2Jet_vbfSF[imass]);
   }
   printf("**********eff vbf jet 2-j OF**********\n");
   double evtMC_vbfOF_2j[5],evtMC_vbfOF_2j_error[5],evtDA_vbfOF_2j[5],evtDA_vbfOF_2j_error[5];
@@ -942,12 +946,13 @@ void ComputeTopScaleFactors
     for(int i=0; i<5; i++) printf("eventsNonTaggedVBFOF(%d) --> %6.3f  --> %6.3f +/- %6.3f | %6.3f +/- %6.3f\n",i,btag_vbfOF_2j_den1[imass][i]+btag_vbfOF_2j_den2[imass][i],
                evtMC_vbfOF_2j[i],evtMC_vbfOF_2j_error[i],evtDA_vbfOF_2j[i],evtDA_vbfOF_2j_error[i]);
 
-    double NonTaggedTopMC = 0; for(int i=0; i<5; i++) NonTaggedTopMC = NonTaggedTopMC + btag_vbfOF_2j_den1[imass][i]+btag_vbfOF_2j_den2[imass][i];
-    double NonTaggedTopDA = 0; for(int i=0; i<5; i++) NonTaggedTopDA = NonTaggedTopDA + evtDA_vbfOF_2j[i];
+    double NonTaggedTopMCPred = 0; for(int i=0; i<5; i++) NonTaggedTopMCPred = NonTaggedTopMCPred + evtMC_vbfOF_2j[i];
+    double NonTaggedTopMC     = 0; for(int i=0; i<5; i++) NonTaggedTopMC     = NonTaggedTopMC + btag_vbfOF_2j_den1[imass][i]+btag_vbfOF_2j_den2[imass][i];
+    double NonTaggedTopDA     = 0; for(int i=0; i<5; i++) NonTaggedTopDA     = NonTaggedTopDA + evtDA_vbfOF_2j[i];
     double NonTaggedTopDA_error = 0; for(int i=0; i<5; i++) NonTaggedTopDA_error = NonTaggedTopDA_error + evtDA_vbfOF_2j_error[i]*evtDA_vbfOF_2j_error[i];
     TopBkgScaleFactor_2Jet_vbfOF[imass] = NonTaggedTopDA/NonTaggedTopMC;
     TopBkgScaleFactorUncertainty_2Jet_vbfOF[imass] = sqrt(NonTaggedTopDA_error)/NonTaggedTopMC;
-    printf("data/MC(%6.3f/%6.3f) -> scaleFactorVBFOF(%3d): %6.3f +/- %6.3f\n",NonTaggedTopDA,NonTaggedTopMC,(int)mH[imass],TopBkgScaleFactor_2Jet_vbfOF[imass],TopBkgScaleFactorUncertainty_2Jet_vbfOF[imass]);
+    printf("data/MC/MCPred(%6.3f/%6.3f/%6.3f) -> scaleFactorVBFOF(%3d): %6.3f +/- %6.3f\n",NonTaggedTopDA,NonTaggedTopMC,NonTaggedTopMCPred,(int)mH[imass],TopBkgScaleFactor_2Jet_vbfOF[imass],TopBkgScaleFactorUncertainty_2Jet_vbfOF[imass]);
   }
   //*******************************************************************************
   //2-Jet Bin : BTag Efficiency for highest pt jet
