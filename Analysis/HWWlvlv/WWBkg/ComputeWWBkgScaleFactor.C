@@ -59,7 +59,7 @@ void ComputeWWBkgScaleFactor (
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
     puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
     scaleFactorLum     =5.098;minRun =      0;maxRun = 999999;
-    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundA_skim2.root";
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundB_skim2.root";
     dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/data_skim2.root";
   }
   else {
@@ -413,6 +413,7 @@ void ComputeWWBkgScaleFactor (
     else if(dstype == SmurfTree::ggww            ) BkgType = 0;
     else if(dstype == SmurfTree::wz              ) BkgType = 1;
     else if(dstype == SmurfTree::zz              ) BkgType = 1;
+    else if(dstype == SmurfTree::www             ) BkgType = 1;
     else if(dstype == SmurfTree::tw              ) BkgType = 2;
     else if(dstype == SmurfTree::ttbar           ) BkgType = 2;
     else if(dstype == SmurfTree::dyee            ) BkgType = 3;

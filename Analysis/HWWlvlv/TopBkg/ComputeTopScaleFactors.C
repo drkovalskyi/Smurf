@@ -76,7 +76,7 @@ void ComputeTopScaleFactors
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
     puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
     lumi     = 5.098;minRun =      0;maxRun = 999999;
-    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundA_skim2.root";
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundB_skim2.root";
     dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/data_skim2.root";
   }
   else {
@@ -303,6 +303,7 @@ void ComputeTopScaleFactors
     else if(bgdEvent.dstype_ == SmurfTree::qqww            ) fDecay = 29;
     else if(bgdEvent.dstype_ == SmurfTree::wz              ) fDecay = 27;
     else if(bgdEvent.dstype_ == SmurfTree::zz              ) fDecay = 28;
+    else if(bgdEvent.dstype_ == SmurfTree::www             ) fDecay = 21;
     else if(bgdEvent.dstype_ == SmurfTree::ggww            ) fDecay = 30;
     else if(bgdEvent.dstype_ == SmurfTree::wgamma          ) fDecay = 19;
     else if(bgdEvent.dstype_ == SmurfTree::wgstar          ) fDecay = 20;
