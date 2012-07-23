@@ -5,24 +5,23 @@ setenv MH         $2;
 setenv MAKEINPUTS $3;
 setenv CAT         1; # 2/3 Summer11/Fall11
 
-setenv TAG       ntuples2012_${MH}train_${NJETS}jets;
+setenv TAG       ntuples2012_PostICHEP_${MH}train_${NJETS}jets;
 if ($MH == 0) then
-  setenv TAG       ntuples2012_160train_${NJETS}jets;
+  setenv TAG       ntuples2012_PostICHEP_160train_${NJETS}jets;
 endif
 
 if ($NJETS == 2) then
-  setenv TAG       ntuples2012_${MH}train_1jets;
+  setenv TAG       ntuples2012_PostICHEP_${MH}train_1jets;
   if ($MH == 0) then
-    setenv TAG       ntuples2012_160train_1jets;
+    setenv TAG       ntuples2012_PostICHEP_160train_1jets;
   endif
 endif
 
 ### data_Summer12
 setenv SIG_TEST data2012/${TAG}_hww${MH}.root
-#setenv SIG_TEST data2012/${TAG}_hww130.root
-setenv BKG_TEST data2012/${TAG}_backgroundA_skim2.root
+#setenv SIG_TEST data2012/${TAG}_hww125.root
+setenv BKG_TEST data2012/${TAG}_backgroundB_skim2.root
 setenv DAT_TEST data2012/${TAG}_data_skim2.root;
-#setenv DAT_TEST data2012/${TAG}_backgroundA_skim2.root;
 setenv SYS_TEST data2012/${TAG}_hww_syst_skim6.root;
 
 ### Perform analysis

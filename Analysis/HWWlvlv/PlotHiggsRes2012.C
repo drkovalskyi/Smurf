@@ -296,7 +296,7 @@ void PlotHiggsRes2012
   if(useZjetsTemplates == true){
     TFile *fZjetsTemplatesFile;
     if     (period == 0 || period == -1) fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/histo_Zjets_Templates_3500ipb.root");
-    else if(period == 1                ) fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/histo_Zjets_Templates_5000ipb.root");
+    else if(period == 1                ) fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/histo_Zjets_Templates_5000ipb_PostICHEP.root");
     else                            assert(0);
     char ZjetsHistName[100];
     sprintf(ZjetsHistName, "hDMCZjets%d_%d", mH,TMath::Min((int)nJetsType,1));
@@ -1385,6 +1385,7 @@ void PlotHiggsRes2012
     else if(dstype == SmurfTree::qqww   	 ) fDecay = 0;
     else if(dstype == SmurfTree::wz     	 ) fDecay = 2;
     else if(dstype == SmurfTree::zz     	 ) fDecay = 2;
+    else if(dstype == SmurfTree::www     	 ) fDecay = 2;
     else if(dstype == SmurfTree::ggww   	 ) fDecay = 1;
     else if(dstype == SmurfTree::wgamma 	 ) fDecay = 6;
     else if(dstype == SmurfTree::wgstar 	 ) fDecay = 6;
@@ -2082,6 +2083,7 @@ void PlotHiggsRes2012
     else if(dstype == SmurfTree::qqww   	 ) fDecay = 0;
     else if(dstype == SmurfTree::wz     	 ) fDecay = 2;
     else if(dstype == SmurfTree::zz     	 ) fDecay = 2;
+    else if(dstype == SmurfTree::www     	 ) fDecay = 2;
     else if(dstype == SmurfTree::ggww   	 ) fDecay = 1;
     else if(dstype == SmurfTree::wgamma 	 ) fDecay = 6;
     else if(dstype == SmurfTree::wgstar 	 ) fDecay = 6;
