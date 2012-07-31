@@ -54,12 +54,20 @@ void ComputeWWBkgScaleFactor (
     bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_NoJetId/backgroundA_skim2.root";
     dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_NoJetId/data_skim2.root";
   }
-  if	 (period == 1){ // Full2011-Fall11-V9-5000ipb
+  else if(period == 1){ // Full2011-Fall11-V9-5000ipb
     effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
     puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
     scaleFactorLum     =5.098;minRun =      0;maxRun = 999999;
-    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundB_skim2.root";
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_5000ipb/backgroundB_skim2.root";
+    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_5000ipb/data_skim2.root";
+  }
+  else if(period == 2){ // Full2011-Fall11-V9-5000ipb
+    effPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/efficiency_results_HWWIDIsoMVAV4.root";
+    fakePath = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/fakerate_results_HWWIDIsoMVAV4.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
+    scaleFactorLum     =5.098;minRun =      0;maxRun = 999999;
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundA_skim2.root";
     dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/data_skim2.root";
   }
   else {
