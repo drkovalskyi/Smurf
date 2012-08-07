@@ -578,28 +578,20 @@ summarized in Appendix~\ref{app:appendix_mll_bdt2011}.
 The results of the shape analysis based on the Matrix Element method 
 are summarized in Appendix~\ref{app:appendix_me}. 
 
+
+
 \begin{figure}[!hbtp]
 \centering
 \subfigure[SM Higgs (cut-based)]{
 \centering
 \label{subfig:sm_cut}
-\includegraphics[width=.45\textwidth]{figures/limits_nj_cut_8TeV-CLs-asymptotic_log.pdf} %FIXME 
-}
-\subfigure[SM Higgs Zoomed (cut-based)]{
-\centering
-\label{subfig:sm_cut_zoom}
-\includegraphics[width=.45\textwidth]{figures/limits_nj_cut_8TeV-CLs-asymptotic_zoom_log.pdf} %FIXME 
+\includegraphics[width=.45\textwidth]{figures/limits_nj_cut_8TeV-CLs-asymptotic_log.pdf}
 }
 \centering
 \subfigure[SM Higgs (shape-based)]{
 \centering
 \label{subfig:sm_shape}
-\includegraphics[width=.45\textwidth]{figures/limits_nj_shape_8TeV-CLs-asymptotic_log.pdf} %FIXME 
-}
-\subfigure[SM Higgs Zoomed (shape-based)]{
-\centering
-\label{subfig:sm_shape_zoom}
-\includegraphics[width=.45\textwidth]{figures/limits_nj_shape_8TeV-CLs-asymptotic_zoom_log.pdf}%FIXME 
+\includegraphics[width=.45\textwidth]{figures/ana_ICHEP2012_limits_ofshape_8TeV_log.pdf}
 }
 \label{fig:uls}
 \end{figure}
@@ -641,11 +633,10 @@ are summarized in Appendix~\ref{app:appendix_me}.
   {\bf cut-based} analysis with \intlumiEightTeV\ of data.}
 \label{tab:cutbase_uls}
 \end{center}
-\end{table}
+%\end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[hbp!]
+%\begin{table}[hbp!]
 \begin{center}
 \begin{tabular}{c c c c c}
 \hline
@@ -653,54 +644,175 @@ are summarized in Appendix~\ref{app:appendix_me}.
  Higgs Mass & Observed  & Median expected & Expected range for 68\% & Expected range for 95\%   \\
 \vspace{-3mm} && \\
 \hline
-110 & 6.64 & 4.64 & [3.34, 6.45] & [2.49, 8.65] \\
-115 & 4.45 & 2.67 & [1.92, 3.71] & [1.43, 4.98] \\
-120 & 3.15 & 1.64 & [1.18, 2.28] & [0.88, 3.06] \\
-125 & 2.18 & 1.06 & [0.77, 1.48] & [0.57, 1.99] \\
-130 & 1.34 & 0.73 & [0.52, 1.01] & [0.39, 1.35] \\
-135 & 1.11 & 0.58 & [0.42, 0.80] & [0.31, 1.08] \\
-140 & 0.90 & 0.44 & [0.32, 0.61] & [0.23, 0.82] \\
-145 & 0.63 & 0.33 & [0.24, 0.46] & [0.18, 0.62] \\
-150 & 0.72 & 0.27 & [0.20, 0.38] & [0.15, 0.51] \\
-160 & 0.29 & 0.17 & [0.12, 0.24] & [0.09, 0.32] \\
-170 & 0.42 & 0.19 & [0.14, 0.26] & [0.10, 0.35] \\
-180 & 0.61 & 0.23 & [0.17, 0.32] & [0.13, 0.44] \\
-190 & 0.78 & 0.36 & [0.26, 0.50] & [0.19, 0.67] \\
-200 & 1.29 & 0.43 & [0.31, 0.60] & [0.23, 0.81] \\
-% 200 & 0.34 & 0.43 & [0.31, 0.60] & [0.23, 0.81] \\ rMax = 50 for observed
-250 & 1.11 & 0.72 & [0.52, 1.00] & [0.38, 1.34] \\
-300 & 0.90 & 0.79 & [0.57, 1.10] & [0.43, 1.48] \\
-350 & 0.53 & 0.69 & [0.50, 0.96] & [0.37, 1.29] \\
-400 & 0.62 & 0.79 & [0.57, 1.11] & [0.43, 1.48] \\
-450 & 0.78 & 1.04 & [0.75, 1.45] & [0.56, 1.94] \\
-500 & 1.15 & 1.33 & [0.96, 1.86] & [0.72, 2.49] \\
-550 & 1.83 & 1.71 & [1.23, 2.37] & [0.92, 3.18] \\
-600 & 2.25 & 2.45 & [1.77, 3.41] & [1.32, 4.57] \\
+110 & 6.87 & 5.26 & [3.79, 7.32] & [2.82, 9.81] \\
+115 & 4.68 & 2.71 & [1.95, 3.77] & [1.46, 5.06] \\
+120 & 3.48 & 1.67 & [1.20, 2.32] & [0.90, 3.11] \\
+125 & 1.96 & 1.09 & [0.78, 1.51] & [0.58, 2.03] \\
+130 & 1.33 & 0.78 & [0.56, 1.08] & [0.42, 1.45] \\
+135 & 1.12 & 0.62 & [0.45, 0.86] & [0.33, 1.15] \\
+140 & 0.82 & 0.44 & [0.32, 0.62] & [0.24, 0.83] \\
+145 & 0.55 & 0.35 & [0.25, 0.49] & [0.19, 0.66] \\
+150 & 0.64 & 0.29 & [0.21, 0.40] & [0.15, 0.54] \\
+155 & 0.44 & 0.23 & [0.17, 0.32] & [0.12, 0.43] \\
+160 & 0.24 & 0.18 & [0.13, 0.25] & [0.10, 0.33] \\
+170 & 0.34 & 0.19 & [0.14, 0.26] & [0.10, 0.35] \\
+180 & 0.41 & 0.25 & [0.18, 0.35] & [0.13, 0.47] \\
+190 & 0.63 & 0.34 & [0.25, 0.48] & [0.18, 0.64] \\
+250 & 1.28 & 0.71 & [0.51, 0.98] & [0.38, 1.32] \\
+300 & 0.93 & 0.88 & [0.63, 1.22] & [0.47, 1.64] \\
+350 & 0.58 & 0.79 & [0.57, 1.10] & [0.42, 1.47] \\
+400 & 0.62 & 0.90 & [0.65, 1.25] & [0.48, 1.67] \\
+450 & 0.81 & 1.14 & [0.82, 1.59] & [0.61, 2.13] \\
+500 & 1.06 & 1.57 & [1.13, 2.19] & [0.84, 2.93] \\
+550 & 1.77 & 1.99 & [1.44, 2.78] & [1.07, 3.72] \\
+600 & 2.28 & 2.69 & [1.94, 3.74] & [1.44, 5.02] \\
 \hline
 \end{tabular}
-\caption{Expected and observed upper limits for SM Higgs using the
-  {\bf shape-based} analysis with \intlumiEightTeV\ of data.}
+\caption{Expected and observed upper limits for SM Higgs with \intlumiEightTeV\ of data, 
+  combining the {\bf shape-based} analysis in the $e\mu$ final state and the 
+  {\bf cut-based} anaysis in the $ee/\mu\mu$ final state. }
 \label{tab:mvabase_uls}
 \end{center}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The left plot of Figure~\ref{fig:uls} displays the expected and observed significance
-for the cut-based analysis in the mass range $110<\ensuremath{m_{\mathrm{H}}}<150$ GeV. 
-The right plot of Figure~\ref{fig:uls} shows the best fit value of $\sigma/\sigma_{SM}$
-as a function of \mHi for the cut-based analysis.
+We also calculate the expected and observed significance and best 
+fit value of $\sigma/\sigma_{SM}$ in the mass 
+range $110<\ensuremath{m_{\mathrm{H}}}<150$ GeV for both the 
+cut-based and mva shape based analyses, shown in Figure~\ref{fig:sig_mu_8tev}.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!hbtp]
 \centering
 \subfigure[Significance (cut-based)]{
 \centering
-\label{subfig:significance_8TeV}
+\label{subfig:significance_8TeV_cut}
 \includegraphics[width=.45\textwidth]{figures/significance_hWW8TeV.pdf}
 }
 \subfigure[best fit for $\sigma/\sigma_{SM}$ (cut-based)]{
 \centering
-\label{subfig:muHat}
-\includegraphics[width=.45\textwidth]{figures/hWW_mlf8TeV.pdf} 
+\label{subfig:muHat_cut}
+\includegraphics[width=.45\textwidth]{figures/hWW_mlf8TeV.pdf}
 }
-\label{fig:uls}
+\centering
+\subfigure[Significance (shape-based)\fixme]{
+\centering
+\label{subfig:significance_8TeV_shape}
+\includegraphics[width=.45\textwidth]{figures/significance_hWW8TeV.pdf} % FIXME 
+}
+\subfigure[best fit for $\sigma/\sigma_{SM}$ (shape-based)\fixme]{
+\centering
+\label{subfig:muHat_shape}
+\includegraphics[width=.45\textwidth]{figures/hWW_mlf8TeV.pdf} % FIXME
+}
+\label{fig:sig_mu_8tev}
+\caption{
+The expected and observed significance and best 
+fit value of $\sigma/\sigma_{SM}$ in the mass 
+range $110<\ensuremath{m_{\mathrm{H}}}<150$ GeV for both the 
+cut-based and mva shape based analyses. 
+Results correspond to the $\intlumiEightTeV$ dataset at 8 TeV. 
+}
+
 \end{figure}
+%%%%%%%%%%%
+
+\clearpage 
+
+
+\subsection{Final Results for the Higgs Search Combing 7 TeV and 8 TeV Data}
+\label{sec:search_results_finalcomb}
+
+In this section we document the Higgs search results combining the 7 \TeV\ and 8 \TeV\ data.  
+For the 0 and 1 Jet bin final states, the 7 TeV analysis uses the shape based approach for all 
+lepton flavor final states, while the 8 TeV analysis uses the shape based approach only 
+in the $e\mu$ channel. 
+The expected and observed upper limits at 95\% C.L. are shown in Figure~\ref{fig:uls_finalcomb_shape} 
+and Table~\ref{tab:uls_finalcomb_shape}.  We also calculate the expected and observed significance and best 
+fit value of $\sigma/\sigma_{SM}$ in the mass 
+range $110<\ensuremath{m_{\mathrm{H}}}<150$ GeV for this combination, shown in 
+Figure~\ref{fig:sig_mu_finalcomb}.
+
+
+Appendix~\ref{app:appendix_limits_combination7and8} documents the 
+results combining the shape based approach in 7 TeV and the cut based approach in 8 TeV, as shown 
+in the ICHEP 2012 conference. 
+ 
+%%%%%%%%%%%
+\begin{figure}[!hbtp]
+\centering
+\includegraphics[width=.75\textwidth]{figures/ana_ICHEP2012_finalcomb-CLs-asymptotic_log.pdf}
+\caption{Expected and observed upper limits for SM Higgs combining the $\intlumiSevenTeV$ data 
+at 7 TeV and the $\intlumiEightTeV$ at 8 TeV. 
+For the 0 and 1 Jet bin final states, the 7 TeV analysis uses the shape based approach for all 
+lepton flavor final states, while the 8 TeV analysis uses combines the shape based approach only 
+in the $e\mu$ channel. 
+}
+\label{fig:uls_finalcomb_shape}
+\end{figure}
+%%%%%%%%%%%
+
+%%%%%%%%%%%
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c c c c c}
+\hline
+\vspace{-3mm} && \\
+Higgs Mass & Observed  & Median expected & Expected range for 68\% & Expected range for 95\%   \\
+\hline
+\vspace{-3mm} && \\
+110 & 5.67 & 3.66 & [2.63, 5.09] & [1.96, 6.82] \\
+115 & 3.85 & 1.86 & [1.34, 2.59] & [1.00, 3.47] \\
+120 & 2.52 & 1.13 & [0.81, 1.57] & [0.61, 2.11] \\
+125 & 1.52 & 0.77 & [0.56, 1.08] & [0.42, 1.44] \\
+130 & 1.04 & 0.55 & [0.40, 0.76] & [0.29, 1.03] \\
+135 & 0.81 & 0.42 & [0.30, 0.58] & [0.22, 0.78] \\
+140 & 0.61 & 0.32 & [0.23, 0.44] & [0.17, 0.59] \\
+150 & 0.50 & 0.22 & [0.16, 0.30] & [0.12, 0.41] \\
+160 & 0.21 & 0.15 & [0.11, 0.20] & [0.08, 0.27] \\
+170 & 0.26 & 0.16 & [0.11, 0.22] & [0.08, 0.29] \\
+180 & 0.25 & 0.19 & [0.14, 0.27] & [0.10, 0.36] \\
+190 & 0.38 & 0.27 & [0.19, 0.37] & [0.14, 0.50] \\
+200 & 0.64 & 0.35 & [0.25, 0.48] & [0.19, 0.65] \\
+250 & 0.69 & 0.60 & [0.43, 0.83] & [0.32, 1.12] \\
+300 & 0.70 & 0.67 & [0.48, 0.93] & [0.36, 1.25] \\
+350 & 0.45 & 0.60 & [0.43, 0.83] & [0.32, 1.11] \\
+400 & 0.55 & 0.65 & [0.47, 0.91] & [0.35, 1.21] \\
+450 & 0.64 & 0.85 & [0.61, 1.18] & [0.45, 1.58] \\
+500 & 0.75 & 1.14 & [0.82, 1.59] & [0.61, 2.13] \\
+550 & 1.18 & 1.52 & [1.09, 2.11] & [0.81, 2.83] \\
+600 & 1.46 & 2.11 & [1.52, 2.94] & [1.13, 3.95] \\
+\hline
+\end{tabular}
+\caption{Expected and observed upper limits for SM Higgs combining the $\intlumiSevenTeV$ data 
+at 7 TeV and the $\intlumiEightTeV$ at 8 TeV, shown in Figure~\ref{fig:uls_finalcomb_shape}.
+For the 0 and 1 Jet bin final states, the 7 TeV analysis uses the shape based approach for all 
+lepton flavor final states, while the 8 TeV analysis uses combines the shape based approach only 
+in the $e\mu$ channel. }
+\label{tab:uls_finalcomb_shape}
+\end{center}
+\end{table} 
+%%%%%%%%%%
+
+
+
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[Significance\fixme]{
+\centering
+\label{subfig:significance_8TeV}
+\includegraphics[width=.45\textwidth]{figures/significance_hWW8TeV.pdf}
+}
+\subfigure[best fit for $\sigma/\sigma_{SM}$\fixme]{
+\centering
+\label{subfig:muHat}
+\includegraphics[width=.45\textwidth]{figures/hWW_mlf8TeV.pdf} % FIXME
+}
+\label{fig:sig_mu_finalcomb}
+\caption{
+The expected and observed significance and best 
+fit value of $\sigma/\sigma_{SM}$ in the mass 
+range $110<\ensuremath{m_{\mathrm{H}}}<150$ GeV. 
+Results correspond to the combined the 7 \TeV\ ($\intlumiSevenTeV$) and 8 \TeV\ data ($\intlumiEightTeV$).}
+\end{figure}%%%%%%%%%%%
