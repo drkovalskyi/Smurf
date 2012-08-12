@@ -6,6 +6,8 @@
 #include "Math/LorentzVector.h"
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
+double Unroll2VarTo1Var(double varA, double varB, int binsA, int binsB, bool verbose = false);
+TH1F* Unroll2DTo1D(TH2F* h2, const char* hname);
 TH1D * SmurfRebin(const TH1D *old, const unsigned int rebin);
 double CalcGammaMRstar(LorentzVector ja, LorentzVector jb);
 double CalcMTR(LorentzVector ja, LorentzVector jb, double metValue, double metPhi);
@@ -25,6 +27,45 @@ double mt_atlas(LorentzVector dilep, double met, double metPhi);
 double poorManMetSyst(LorentzVector l1, LorentzVector l2, LorentzVector l3, 
                       int lid1, int lid2, int lid3, double met, double metPhi,
                       LorentzVector j1, LorentzVector j2, LorentzVector j3, LorentzVector j4, int nsyst);
+
+double Unroll2VarTo1Var(double varA, double varB, int binsA, int binsB, bool verbose){
+  // variables are supposed to be in the [0,1] range
+  if(varA < 0 || varA > 1 || varB < 0 || varB > 1) return -1.0;
+  if(varA < 0 || varA > 1 || varB < 0 || varB > 1) assert(0);
+  double newVarA = (int)(varA*binsA);
+  double newVarB = (int)(varB*binsB);
+  double finalVar = binsA*newVarA+newVarB;
+  double binRange = binsA*(binsA-1)+(binsB-1);
+  if(binsB > binsA) {finalVar = binsB*newVarB+newVarA; binRange = binsB*(binsB-1)+(binsA-1);}
+  if(verbose == true) std::cout << newVarA  << " " << varA     << " " <<  binsA     	   << " " <<
+                                   newVarB  << " " << varB     << " " <<  binsB      	   << " " <<
+			           finalVar << " " << binRange << " " << finalVar/binRange << std::endl;
+
+  // output is forced to be in the range [-1,1]
+  return ((finalVar/binRange)-0.5)*2.0;
+}
+
+TH1F* Unroll2DTo1D(TH2F* h2, const char* hname) {
+  
+  unsigned int nbinsX = h2->GetXaxis()->GetNbins();
+  unsigned int nbinsY = h2->GetYaxis()->GetNbins();
+  unsigned int nbins  = nbinsX*nbinsY;
+
+  TH1F* h1_unroll = new TH1F(hname, hname, nbins, 0.5, 0.5+nbins);
+
+  for(unsigned int x=1; x <= nbinsX; ++x) {
+    for(unsigned int y=1; y <= nbinsY; ++y) {
+      h1_unroll->SetBinContent( (x-1)*nbinsY + y, h2->GetBinContent(x, y) );
+      h1_unroll->SetBinError( (x-1)*nbinsY + y, h2->GetBinError(x, y) );
+    }
+  }
+
+  // storing entries is needed to calculate stat up bounding for empty bins 
+  h1_unroll->SetEntries(h2->GetEntries()); ;
+
+  return h1_unroll;
+}
+
 
 TH1D * SmurfRebin(const TH1D *old, const unsigned int rebin)
 {

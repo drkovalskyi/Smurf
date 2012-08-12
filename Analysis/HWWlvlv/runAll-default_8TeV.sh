@@ -3,7 +3,7 @@
 setenv NJETS      $1;
 setenv MH         $2;
 setenv MAKEINPUTS $3;
-setenv CAT         1; # 2/3 Summer11/Fall11
+setenv CAT         1;
 
 setenv TAG       ntuples2012_${MH}train_${NJETS}jets;
 if ($MH == 0) then

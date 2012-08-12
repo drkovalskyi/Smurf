@@ -96,6 +96,11 @@ void PlotHiggsRes2012
   unsigned int rebinSmurf = 4;
   TH1D *histSmurfRebin;
 
+  int binVarA = 10;
+  int binVarB = 7;
+  bool is2DAna = false;
+  if(binVarA > 0 && binVarB > 0) is2DAna = true;
+
   bool makeZjetsTemplates = false;
   if(makeZjetsTemplates == true) useZjetsTemplates = false;
 
@@ -132,7 +137,9 @@ void PlotHiggsRes2012
   float dilmass_cut = DileptonMassPreselectionCut(mH);
   if(wwPresel == true) dilmass_cut = 99999.;
   float mtUpperCut = mH;
-  //dilmass_cut = 80.; mtUpperCut = 160.;
+  float mtLowerCut = 80;
+  if     (is2DAna == true && mH <= 250) {dilmass_cut = 200; mtLowerCut = 70; mtUpperCut = 250; useZjetsTemplates = false; useExpTemplates = false;}
+  else if(is2DAna == true && mH >  250) {dilmass_cut = mH;  mtLowerCut = 70; mtUpperCut = mH;  useZjetsTemplates = false; useExpTemplates = false;}
 
   char finalStateName[10];
   sprintf(finalStateName,"ll");
@@ -206,6 +213,12 @@ void PlotHiggsRes2012
     scaleFactorLum     = 0.818;minRun =      0;maxRun = 999999;
   }
   else if(period == 1){ // Full2012-Summer12-V9-5000ipb
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
+    scaleFactorLum     = 5.098;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 2){ // Full2012-Summer12-V9-5000ipb-NewTraining
     effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
     puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
@@ -296,7 +309,8 @@ void PlotHiggsRes2012
   if(useZjetsTemplates == true){
     TFile *fZjetsTemplatesFile;
     if     (period == 0 || period == -1) fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/histo_Zjets_Templates_3500ipb.root");
-    else if(period == 1                ) fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/histo_Zjets_Templates_5000ipb_PostICHEP.root");
+    else if(period == 1                ) fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/histo_Zjets_Templates_5000ipb.root");
+    else if(period == 2                ) fZjetsTemplatesFile = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/histo_Zjets_Templates_5000ipb_PostICHEP.root");
     else                            assert(0);
     char ZjetsHistName[100];
     sprintf(ZjetsHistName, "hDMCZjets%d_%d", mH,TMath::Min((int)nJetsType,1));
@@ -336,9 +350,11 @@ void PlotHiggsRes2012
   // Define Histogram ranges
   //----------------------------------------------------------------------------
   const int nHist = 6;
-  int    nBinHis[nHist] = { 200,  200,  200,  200,  200,  200};
+  int    nBinHis        = 200;
   double minHis[nHist]  = {-1.0, -1.0, -1.0, -0.0, -1.0,  0.0};
   double maxHis[nHist]  = { 1.0,  1.0,  1.0,  1.0,  1.0,200.0};
+
+  if(is2DAna == true) {nBinHis = binVarA*binVarB; rebinMVAHist = 1; rebinSmurf = 1;}
 
   //----------------------------------------------------------------------------
   // Define MVA output histograms
@@ -350,171 +366,171 @@ void PlotHiggsRes2012
   TH1D* bgdMVADecays[nHist][nChan];
   for(int i=0; i<nHist; i++) {
     for(int j=0; j<6; j++){
-      sigMVA[i][j] = new TH1D(Form("sigMVA_%d_%d",i,j), Form("sigMVA_%d_%d",i,j), nBinHis[i], minHis[i], maxHis[i]);
+      sigMVA[i][j] = new TH1D(Form("sigMVA_%d_%d",i,j), Form("sigMVA_%d_%d",i,j), nBinHis, minHis[i], maxHis[i]);
       sigMVA[i][j]->Sumw2();
     }
-    bgdMVA[i] = new TH1D(Form("bgdMVA_%d",i), Form("bgdMVA_%d",i), nBinHis[i], minHis[i], maxHis[i]);
-    datMVA[i] = new TH1D(Form("datMVA_%d",i), Form("datMVA_%d",i), nBinHis[i], minHis[i], maxHis[i]);
+    bgdMVA[i] = new TH1D(Form("bgdMVA_%d",i), Form("bgdMVA_%d",i), nBinHis, minHis[i], maxHis[i]);
+    datMVA[i] = new TH1D(Form("datMVA_%d",i), Form("datMVA_%d",i), nBinHis, minHis[i], maxHis[i]);
     bgdMVA[i]->Sumw2();
     datMVA[i]->Sumw2();
     for(int j=0; j<nChan; j++) {
-      bgdMVADecays[i][j] = new TH1D(Form("bgdMVADecays_%d_%d",i,j), Form("bgdMVADecays_%d_%d",i,j), nBinHis[i], minHis[i], maxHis[i]);
+      bgdMVADecays[i][j] = new TH1D(Form("bgdMVADecays_%d_%d",i,j), Form("bgdMVADecays_%d_%d",i,j), nBinHis, minHis[i], maxHis[i]);
       bgdMVADecays[i][j]->Sumw2();
     }
   }
 
-  TH1D* histos = new TH1D("histos", "histos", nBinHis[1], minHis[1], maxHis[1]); histos->Sumw2(); histos->Scale(0.0);
-  TH1D* histo0 = new TH1D("histo0", "histo0", nBinHis[1], minHis[1], maxHis[1]); histo0->Sumw2(); histo0->Scale(0.0);
-  TH1D* histo1 = new TH1D("histo1", "histo1", nBinHis[1], minHis[1], maxHis[1]); histo1->Sumw2(); histo1->Scale(0.0);
-  TH1D* histo2 = new TH1D("histo2", "histo2", nBinHis[1], minHis[1], maxHis[1]); histo2->Sumw2(); histo2->Scale(0.0);
-  TH1D* histo3 = new TH1D("histo3", "histo3", nBinHis[1], minHis[1], maxHis[1]); histo3->Sumw2(); histo3->Scale(0.0);
-  TH1D* histo4 = new TH1D("histo4", "histo4", nBinHis[1], minHis[1], maxHis[1]); histo4->Sumw2(); histo4->Scale(0.0);
-  TH1D* histo5 = new TH1D("histo5", "histo5", nBinHis[1], minHis[1], maxHis[1]); histo5->Sumw2(); histo5->Scale(0.0);
+  TH1D* histos = new TH1D("histos", "histos", nBinHis, minHis[1], maxHis[1]); histos->Sumw2(); histos->Scale(0.0);
+  TH1D* histo0 = new TH1D("histo0", "histo0", nBinHis, minHis[1], maxHis[1]); histo0->Sumw2(); histo0->Scale(0.0);
+  TH1D* histo1 = new TH1D("histo1", "histo1", nBinHis, minHis[1], maxHis[1]); histo1->Sumw2(); histo1->Scale(0.0);
+  TH1D* histo2 = new TH1D("histo2", "histo2", nBinHis, minHis[1], maxHis[1]); histo2->Sumw2(); histo2->Scale(0.0);
+  TH1D* histo3 = new TH1D("histo3", "histo3", nBinHis, minHis[1], maxHis[1]); histo3->Sumw2(); histo3->Scale(0.0);
+  TH1D* histo4 = new TH1D("histo4", "histo4", nBinHis, minHis[1], maxHis[1]); histo4->Sumw2(); histo4->Scale(0.0);
+  TH1D* histo5 = new TH1D("histo5", "histo5", nBinHis, minHis[1], maxHis[1]); histo5->Sumw2(); histo5->Scale(0.0);
 
   //----------------------------------------------------------------------------
   // Define MVA output systematics histograms
   //----------------------------------------------------------------------------
-  TH1D* histo_Zjets_CMS_MVAZBounding = new TH1D( Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBounding",finalStateName,nJetsType), Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBounding",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_Zjets_CMS_MVAZBounding->Sumw2();
-  TH1D* histo_Zjets_CMS_MVAZBoundingUp = new TH1D( Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBoundingUp",finalStateName,nJetsType), Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBoundingUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_Zjets_CMS_MVAZBoundingUp->Sumw2();
-  TH1D* histo_Zjets_CMS_MVAZBoundingDown = new TH1D( Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBoundingDown",finalStateName,nJetsType), Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBoundingDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_Zjets_CMS_MVAZBoundingDown->Sumw2();
-  TH1D* histoVV = new TH1D("histoVV", "histoVV", nBinHis[1], minHis[1], maxHis[1]);  histoVV->Sumw2();
+  TH1D* histo_Zjets_CMS_MVAZBounding = new TH1D( Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBounding",finalStateName,nJetsType), Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBounding",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_Zjets_CMS_MVAZBounding->Sumw2();
+  TH1D* histo_Zjets_CMS_MVAZBoundingUp = new TH1D( Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBoundingUp",finalStateName,nJetsType), Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBoundingUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_Zjets_CMS_MVAZBoundingUp->Sumw2();
+  TH1D* histo_Zjets_CMS_MVAZBoundingDown = new TH1D( Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBoundingDown",finalStateName,nJetsType), Form("histo_Zjets_CMS_hww%s_%1dj_MVAZBoundingDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_Zjets_CMS_MVAZBoundingDown->Sumw2();
+  TH1D* histoVV = new TH1D("histoVV", "histoVV", nBinHis, minHis[1], maxHis[1]);  histoVV->Sumw2();
 
-  TH1D* histo_Wjets_CMS_MVAWBoundingUp = new TH1D( Form("histo_Wjets_CMS_hww_MVAWBoundingUp"), Form("histo_Wjets_CMS_hww_MVAWBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Wjets_CMS_MVAWBoundingUp->Sumw2();
-  TH1D* histo_Wjets_CMS_MVAWBoundingDown = new TH1D( Form("histo_Wjets_CMS_hww_MVAWBoundingDown"), Form("histo_Wjets_CMS_hww_MVAWBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Wjets_CMS_MVAWBoundingDown->Sumw2();
+  TH1D* histo_Wjets_CMS_MVAWBoundingUp = new TH1D( Form("histo_Wjets_CMS_hww_MVAWBoundingUp"), Form("histo_Wjets_CMS_hww_MVAWBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Wjets_CMS_MVAWBoundingUp->Sumw2();
+  TH1D* histo_Wjets_CMS_MVAWBoundingDown = new TH1D( Form("histo_Wjets_CMS_hww_MVAWBoundingDown"), Form("histo_Wjets_CMS_hww_MVAWBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Wjets_CMS_MVAWBoundingDown->Sumw2();
 
-  TH1D* histo_Wjets_CMS_hww_MVAWMCBoundingUp = new TH1D( Form("histo_Wjets_CMS_hww_MVAWMCBoundingUp"), Form("histo_Wjets_CMS_hww_MVAWMCBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Wjets_CMS_hww_MVAWMCBoundingUp->Sumw2();
-  TH1D* histo_Wjets_CMS_hww_MVAWMCBoundingDown = new TH1D( Form("histo_Wjets_CMS_hww_MVAWMCBoundingDown"), Form("histo_Wjets_CMS_hww_MVAWMCBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Wjets_CMS_hww_MVAWMCBoundingDown->Sumw2();
+  TH1D* histo_Wjets_CMS_hww_MVAWMCBoundingUp = new TH1D( Form("histo_Wjets_CMS_hww_MVAWMCBoundingUp"), Form("histo_Wjets_CMS_hww_MVAWMCBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Wjets_CMS_hww_MVAWMCBoundingUp->Sumw2();
+  TH1D* histo_Wjets_CMS_hww_MVAWMCBoundingDown = new TH1D( Form("histo_Wjets_CMS_hww_MVAWMCBoundingDown"), Form("histo_Wjets_CMS_hww_MVAWMCBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Wjets_CMS_hww_MVAWMCBoundingDown->Sumw2();
 
-  TH1D* histo_qqWW_CMS_MVAWWBoundingUp = new TH1D( Form("histo_qqWW_CMS_hww_MVAWWBoundingUp"), Form("histo_qqWW_CMS_hww_MVAWWBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_MVAWWBoundingUp->Sumw2();
-  TH1D* histo_qqWW_CMS_MVAWWBoundingDown = new TH1D( Form("histo_qqWW_CMS_hww_MVAWWBoundingDown"), Form("histo_qqWW_CMS_hww_MVAWWBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_MVAWWBoundingDown->Sumw2();
+  TH1D* histo_qqWW_CMS_MVAWWBoundingUp = new TH1D( Form("histo_qqWW_CMS_hww_MVAWWBoundingUp"), Form("histo_qqWW_CMS_hww_MVAWWBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_MVAWWBoundingUp->Sumw2();
+  TH1D* histo_qqWW_CMS_MVAWWBoundingDown = new TH1D( Form("histo_qqWW_CMS_hww_MVAWWBoundingDown"), Form("histo_qqWW_CMS_hww_MVAWWBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_MVAWWBoundingDown->Sumw2();
 
-  TH1D* histo_qqWW_CMS_MVAWWNLOBoundingUp = new TH1D( Form("histo_qqWW_CMS_hww_MVAWWNLOBoundingUp"), Form("histo_qqWW_CMS_hww_MVAWWNLOBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_MVAWWNLOBoundingUp->Sumw2();
-  TH1D* histo_qqWW_CMS_MVAWWNLOBoundingDown = new TH1D( Form("histo_qqWW_CMS_hww_MVAWWNLOBoundingDown"), Form("histo_qqWW_CMS_hww_MVAWWNLOBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_MVAWWNLOBoundingDown->Sumw2();
+  TH1D* histo_qqWW_CMS_MVAWWNLOBoundingUp = new TH1D( Form("histo_qqWW_CMS_hww_MVAWWNLOBoundingUp"), Form("histo_qqWW_CMS_hww_MVAWWNLOBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_MVAWWNLOBoundingUp->Sumw2();
+  TH1D* histo_qqWW_CMS_MVAWWNLOBoundingDown = new TH1D( Form("histo_qqWW_CMS_hww_MVAWWNLOBoundingDown"), Form("histo_qqWW_CMS_hww_MVAWWNLOBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_MVAWWNLOBoundingDown->Sumw2();
 
-  TH1D* histo_Top_CMS_MVATopBoundingUp = new TH1D( Form("histo_Top_CMS_hww_MVATopBoundingUp"), Form("histo_Top_CMS_hww_MVATopBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Top_CMS_MVATopBoundingUp->Sumw2();
-  TH1D* histo_Top_CMS_MVATopBoundingDown = new TH1D( Form("histo_Top_CMS_hww_MVATopBoundingDown"), Form("histo_Top_CMS_hww_MVATopBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Top_CMS_MVATopBoundingDown->Sumw2();
+  TH1D* histo_Top_CMS_MVATopBoundingUp = new TH1D( Form("histo_Top_CMS_hww_MVATopBoundingUp"), Form("histo_Top_CMS_hww_MVATopBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Top_CMS_MVATopBoundingUp->Sumw2();
+  TH1D* histo_Top_CMS_MVATopBoundingDown = new TH1D( Form("histo_Top_CMS_hww_MVATopBoundingDown"), Form("histo_Top_CMS_hww_MVATopBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Top_CMS_MVATopBoundingDown->Sumw2();
 
-  TH1D* histo_Wgamma = new TH1D( Form("histo_Wgamma"), Form("histo_Wgamma"), nBinHis[1], minHis[1], maxHis[1]); histo_Wgamma->Sumw2();
+  TH1D* histo_Wgamma = new TH1D( Form("histo_Wgamma"), Form("histo_Wgamma"), nBinHis, minHis[1], maxHis[1]); histo_Wgamma->Sumw2();
 
-  TH1D* histo_ttH_CMS_MVAttHStatBounding_8TeVUp = new TH1D( Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_ttH_CMS_MVAttHStatBounding_8TeVUp->Sumw2();
-  TH1D* histo_ttH_CMS_MVAttHStatBounding_8TeVDown = new TH1D( Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_ttH_CMS_MVAttHStatBounding_8TeVDown->Sumw2();
-  TH1D* histo_ZH_CMS_MVAZHStatBounding_8TeVUp = new TH1D( Form("histo_ZH_CMS_hww%s_%1dj_MVAZHStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_ZH_CMS_hww%s_%1dj_MVAZHStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_ZH_CMS_MVAZHStatBounding_8TeVUp->Sumw2();
-  TH1D* histo_ZH_CMS_MVAZHStatBounding_8TeVDown = new TH1D( Form("histo_ZH_CMS_hww%s_%1dj_MVAZHStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_ZH_CMS_hww%s_%1dj_MVAZHStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_ZH_CMS_MVAZHStatBounding_8TeVDown->Sumw2();
-  TH1D* histo_WH_CMS_MVAWHStatBounding_8TeVUp = new TH1D( Form("histo_WH_CMS_hww%s_%1dj_MVAWHStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_WH_CMS_hww%s_%1dj_MVAWHStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_WH_CMS_MVAWHStatBounding_8TeVUp->Sumw2();
-  TH1D* histo_WH_CMS_MVAWHStatBounding_8TeVDown = new TH1D( Form("histo_WH_CMS_hww%s_%1dj_MVAWHStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_WH_CMS_hww%s_%1dj_MVAWHStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_WH_CMS_MVAWHStatBounding_8TeVDown->Sumw2();
-  TH1D* histo_qqH_CMS_MVAqqHStatBounding_8TeVUp = new TH1D( Form("histo_qqH_CMS_hww%s_%1dj_MVAqqHStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_qqH_CMS_hww%s_%1dj_MVAqqHStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_qqH_CMS_MVAqqHStatBounding_8TeVUp->Sumw2();
-  TH1D* histo_qqH_CMS_MVAqqHStatBounding_8TeVDown = new TH1D( Form("histo_qqH_CMS_hww%s_%1dj_MVAqqHStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_qqH_CMS_hww%s_%1dj_MVAqqHStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_qqH_CMS_MVAqqHStatBounding_8TeVDown->Sumw2();
-  TH1D* histo_ggH_CMS_MVAggHStatBounding_8TeVUp = new TH1D( Form("histo_ggH_CMS_hww%s_%1dj_MVAggHStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_ggH_CMS_hww%s_%1dj_MVAggHStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_ggH_CMS_MVAggHStatBounding_8TeVUp->Sumw2();
-  TH1D* histo_ggH_CMS_MVAggHStatBounding_8TeVDown = new TH1D( Form("histo_ggH_CMS_hww%s_%1dj_MVAggHStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_ggH_CMS_hww%s_%1dj_MVAggHStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_ggH_CMS_MVAggHStatBounding_8TeVDown->Sumw2();
-  TH1D* histo_qqWW_CMS_MVAqqWWStatBounding_8TeVUp = new TH1D( Form("histo_qqWW_CMS_hww%s_%1dj_MVAqqWWStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_qqWW_CMS_hww%s_%1dj_MVAqqWWStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_MVAqqWWStatBounding_8TeVUp->Sumw2();
-  TH1D* histo_qqWW_CMS_MVAqqWWStatBounding_8TeVDown = new TH1D( Form("histo_qqWW_CMS_hww%s_%1dj_MVAqqWWStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_qqWW_CMS_hww%s_%1dj_MVAqqWWStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_MVAqqWWStatBounding_8TeVDown->Sumw2();
-  TH1D* histo_ggWW_CMS_MVAggWWStatBounding_8TeVUp = new TH1D( Form("histo_ggWW_CMS_hww%s_%1dj_MVAggWWStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_ggWW_CMS_hww%s_%1dj_MVAggWWStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_ggWW_CMS_MVAggWWStatBounding_8TeVUp->Sumw2();
-  TH1D* histo_ggWW_CMS_MVAggWWStatBounding_8TeVDown = new TH1D( Form("histo_ggWW_CMS_hww%s_%1dj_MVAggWWStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_ggWW_CMS_hww%s_%1dj_MVAggWWStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_ggWW_CMS_MVAggWWStatBounding_8TeVDown->Sumw2();
-  TH1D* histo_VV_CMS_MVAVVStatBounding_8TeVUp = new TH1D( Form("histo_VV_CMS_hww%s_%1dj_MVAVVStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_VV_CMS_hww%s_%1dj_MVAVVStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_VV_CMS_MVAVVStatBounding_8TeVUp->Sumw2();
-  TH1D* histo_VV_CMS_MVAVVStatBounding_8TeVDown = new TH1D( Form("histo_VV_CMS_hww%s_%1dj_MVAVVStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_VV_CMS_hww%s_%1dj_MVAVVStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_VV_CMS_MVAVVStatBounding_8TeVDown->Sumw2();
-  TH1D* histo_Top_CMS_MVATopStatBounding_8TeVUp = new TH1D( Form("histo_Top_CMS_hww%s_%1dj_MVATopStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_Top_CMS_hww%s_%1dj_MVATopStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_Top_CMS_MVATopStatBounding_8TeVUp->Sumw2();
-  TH1D* histo_Top_CMS_MVATopStatBounding_8TeVDown = new TH1D( Form("histo_Top_CMS_hww%s_%1dj_MVATopStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_Top_CMS_hww%s_%1dj_MVATopStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_Top_CMS_MVATopStatBounding_8TeVDown->Sumw2();
-  TH1D* histo_Zjets_CMS_MVAZjetsStatBounding_8TeVUp = new TH1D( Form("histo_Zjets_CMS_hww%s_%1dj_MVAZjetsStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_Zjets_CMS_hww%s_%1dj_MVAZjetsStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_Zjets_CMS_MVAZjetsStatBounding_8TeVUp->Sumw2();
-  TH1D* histo_Zjets_CMS_MVAZjetsStatBounding_8TeVDown = new TH1D( Form("histo_Zjets_CMS_hww%s_%1dj_MVAZjetsStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_Zjets_CMS_hww%s_%1dj_MVAZjetsStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_Zjets_CMS_MVAZjetsStatBounding_8TeVDown->Sumw2();
-  TH1D* histo_Wjets_CMS_MVAWjetsStatBounding_8TeVUp = new TH1D( Form("histo_Wjets_CMS_hww%s_%1dj_MVAWjetsStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_Wjets_CMS_hww%s_%1dj_MVAWjetsStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_Wjets_CMS_MVAWjetsStatBounding_8TeVUp->Sumw2();
-  TH1D* histo_Wjets_CMS_MVAWjetsStatBounding_8TeVDown = new TH1D( Form("histo_Wjets_CMS_hww%s_%1dj_MVAWjetsStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_Wjets_CMS_hww%s_%1dj_MVAWjetsStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_Wjets_CMS_MVAWjetsStatBounding_8TeVDown->Sumw2();
-  TH1D* histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVUp = new TH1D( Form("histo_Wgamma_CMS_hww%s_%1dj_MVAWgammaStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_Wgamma_CMS_hww%s_%1dj_MVAWgammaStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVUp->Sumw2();
-  TH1D* histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVDown = new TH1D( Form("histo_Wgamma_CMS_hww%s_%1dj_MVAWgammaStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_Wgamma_CMS_hww%s_%1dj_MVAWgammaStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVDown->Sumw2();
-  TH1D* histo_Ztt_CMS_MVAZttStatBounding_8TeVUp = new TH1D( Form("histo_Ztt_CMS_hww%s_%1dj_MVAZttStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_Ztt_CMS_hww%s_%1dj_MVAZttStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_Ztt_CMS_MVAZttStatBounding_8TeVUp->Sumw2();
-  TH1D* histo_Ztt_CMS_MVAZttStatBounding_8TeVDown = new TH1D( Form("histo_Ztt_CMS_hww%s_%1dj_MVAZttStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_Ztt_CMS_hww%s_%1dj_MVAZttStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis[1], minHis[1], maxHis[1]); histo_Ztt_CMS_MVAZttStatBounding_8TeVDown->Sumw2();
+  TH1D* histo_ttH_CMS_MVAttHStatBounding_8TeVUp = new TH1D( Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_ttH_CMS_MVAttHStatBounding_8TeVUp->Sumw2();
+  TH1D* histo_ttH_CMS_MVAttHStatBounding_8TeVDown = new TH1D( Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_ttH_CMS_MVAttHStatBounding_8TeVDown->Sumw2();
+  TH1D* histo_ZH_CMS_MVAZHStatBounding_8TeVUp = new TH1D( Form("histo_ZH_CMS_hww%s_%1dj_MVAZHStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_ZH_CMS_hww%s_%1dj_MVAZHStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_ZH_CMS_MVAZHStatBounding_8TeVUp->Sumw2();
+  TH1D* histo_ZH_CMS_MVAZHStatBounding_8TeVDown = new TH1D( Form("histo_ZH_CMS_hww%s_%1dj_MVAZHStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_ZH_CMS_hww%s_%1dj_MVAZHStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_ZH_CMS_MVAZHStatBounding_8TeVDown->Sumw2();
+  TH1D* histo_WH_CMS_MVAWHStatBounding_8TeVUp = new TH1D( Form("histo_WH_CMS_hww%s_%1dj_MVAWHStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_WH_CMS_hww%s_%1dj_MVAWHStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_WH_CMS_MVAWHStatBounding_8TeVUp->Sumw2();
+  TH1D* histo_WH_CMS_MVAWHStatBounding_8TeVDown = new TH1D( Form("histo_WH_CMS_hww%s_%1dj_MVAWHStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_WH_CMS_hww%s_%1dj_MVAWHStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_WH_CMS_MVAWHStatBounding_8TeVDown->Sumw2();
+  TH1D* histo_qqH_CMS_MVAqqHStatBounding_8TeVUp = new TH1D( Form("histo_qqH_CMS_hww%s_%1dj_MVAqqHStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_qqH_CMS_hww%s_%1dj_MVAqqHStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_qqH_CMS_MVAqqHStatBounding_8TeVUp->Sumw2();
+  TH1D* histo_qqH_CMS_MVAqqHStatBounding_8TeVDown = new TH1D( Form("histo_qqH_CMS_hww%s_%1dj_MVAqqHStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_qqH_CMS_hww%s_%1dj_MVAqqHStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_qqH_CMS_MVAqqHStatBounding_8TeVDown->Sumw2();
+  TH1D* histo_ggH_CMS_MVAggHStatBounding_8TeVUp = new TH1D( Form("histo_ggH_CMS_hww%s_%1dj_MVAggHStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_ggH_CMS_hww%s_%1dj_MVAggHStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_MVAggHStatBounding_8TeVUp->Sumw2();
+  TH1D* histo_ggH_CMS_MVAggHStatBounding_8TeVDown = new TH1D( Form("histo_ggH_CMS_hww%s_%1dj_MVAggHStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_ggH_CMS_hww%s_%1dj_MVAggHStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_MVAggHStatBounding_8TeVDown->Sumw2();
+  TH1D* histo_qqWW_CMS_MVAqqWWStatBounding_8TeVUp = new TH1D( Form("histo_qqWW_CMS_hww%s_%1dj_MVAqqWWStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_qqWW_CMS_hww%s_%1dj_MVAqqWWStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_MVAqqWWStatBounding_8TeVUp->Sumw2();
+  TH1D* histo_qqWW_CMS_MVAqqWWStatBounding_8TeVDown = new TH1D( Form("histo_qqWW_CMS_hww%s_%1dj_MVAqqWWStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_qqWW_CMS_hww%s_%1dj_MVAqqWWStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_MVAqqWWStatBounding_8TeVDown->Sumw2();
+  TH1D* histo_ggWW_CMS_MVAggWWStatBounding_8TeVUp = new TH1D( Form("histo_ggWW_CMS_hww%s_%1dj_MVAggWWStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_ggWW_CMS_hww%s_%1dj_MVAggWWStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_ggWW_CMS_MVAggWWStatBounding_8TeVUp->Sumw2();
+  TH1D* histo_ggWW_CMS_MVAggWWStatBounding_8TeVDown = new TH1D( Form("histo_ggWW_CMS_hww%s_%1dj_MVAggWWStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_ggWW_CMS_hww%s_%1dj_MVAggWWStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_ggWW_CMS_MVAggWWStatBounding_8TeVDown->Sumw2();
+  TH1D* histo_VV_CMS_MVAVVStatBounding_8TeVUp = new TH1D( Form("histo_VV_CMS_hww%s_%1dj_MVAVVStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_VV_CMS_hww%s_%1dj_MVAVVStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_VV_CMS_MVAVVStatBounding_8TeVUp->Sumw2();
+  TH1D* histo_VV_CMS_MVAVVStatBounding_8TeVDown = new TH1D( Form("histo_VV_CMS_hww%s_%1dj_MVAVVStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_VV_CMS_hww%s_%1dj_MVAVVStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_VV_CMS_MVAVVStatBounding_8TeVDown->Sumw2();
+  TH1D* histo_Top_CMS_MVATopStatBounding_8TeVUp = new TH1D( Form("histo_Top_CMS_hww%s_%1dj_MVATopStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_Top_CMS_hww%s_%1dj_MVATopStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_Top_CMS_MVATopStatBounding_8TeVUp->Sumw2();
+  TH1D* histo_Top_CMS_MVATopStatBounding_8TeVDown = new TH1D( Form("histo_Top_CMS_hww%s_%1dj_MVATopStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_Top_CMS_hww%s_%1dj_MVATopStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_Top_CMS_MVATopStatBounding_8TeVDown->Sumw2();
+  TH1D* histo_Zjets_CMS_MVAZjetsStatBounding_8TeVUp = new TH1D( Form("histo_Zjets_CMS_hww%s_%1dj_MVAZjetsStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_Zjets_CMS_hww%s_%1dj_MVAZjetsStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_Zjets_CMS_MVAZjetsStatBounding_8TeVUp->Sumw2();
+  TH1D* histo_Zjets_CMS_MVAZjetsStatBounding_8TeVDown = new TH1D( Form("histo_Zjets_CMS_hww%s_%1dj_MVAZjetsStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_Zjets_CMS_hww%s_%1dj_MVAZjetsStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_Zjets_CMS_MVAZjetsStatBounding_8TeVDown->Sumw2();
+  TH1D* histo_Wjets_CMS_MVAWjetsStatBounding_8TeVUp = new TH1D( Form("histo_Wjets_CMS_hww%s_%1dj_MVAWjetsStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_Wjets_CMS_hww%s_%1dj_MVAWjetsStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_Wjets_CMS_MVAWjetsStatBounding_8TeVUp->Sumw2();
+  TH1D* histo_Wjets_CMS_MVAWjetsStatBounding_8TeVDown = new TH1D( Form("histo_Wjets_CMS_hww%s_%1dj_MVAWjetsStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_Wjets_CMS_hww%s_%1dj_MVAWjetsStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_Wjets_CMS_MVAWjetsStatBounding_8TeVDown->Sumw2();
+  TH1D* histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVUp = new TH1D( Form("histo_Wgamma_CMS_hww%s_%1dj_MVAWgammaStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_Wgamma_CMS_hww%s_%1dj_MVAWgammaStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVUp->Sumw2();
+  TH1D* histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVDown = new TH1D( Form("histo_Wgamma_CMS_hww%s_%1dj_MVAWgammaStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_Wgamma_CMS_hww%s_%1dj_MVAWgammaStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVDown->Sumw2();
+  TH1D* histo_Ztt_CMS_MVAZttStatBounding_8TeVUp = new TH1D( Form("histo_Ztt_CMS_hww%s_%1dj_MVAZttStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_Ztt_CMS_hww%s_%1dj_MVAZttStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_Ztt_CMS_MVAZttStatBounding_8TeVUp->Sumw2();
+  TH1D* histo_Ztt_CMS_MVAZttStatBounding_8TeVDown = new TH1D( Form("histo_Ztt_CMS_hww%s_%1dj_MVAZttStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_Ztt_CMS_hww%s_%1dj_MVAZttStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_Ztt_CMS_MVAZttStatBounding_8TeVDown->Sumw2();
 
-  TH1D* histo_ttH_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_ttH_CMS_hww_MVALepEffBoundingUp"), Form("histo_ttH_CMS_hww_MVALepEffBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVALepEffBoundingUp->Sumw2();
-  TH1D* histo_ttH_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_ttH_CMS_hww_MVALepEffBoundingDown"), Form("histo_ttH_CMS_hww_MVALepEffBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVALepEffBoundingDown->Sumw2();
-  TH1D* histo_ZH_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_ZH_CMS_hww_MVALepEffBoundingUp"), Form("histo_ZH_CMS_hww_MVALepEffBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVALepEffBoundingUp->Sumw2();
-  TH1D* histo_ZH_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_ZH_CMS_hww_MVALepEffBoundingDown"), Form("histo_ZH_CMS_hww_MVALepEffBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVALepEffBoundingDown->Sumw2();
-  TH1D* histo_WH_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_WH_CMS_hww_MVALepEffBoundingUp"), Form("histo_WH_CMS_hww_MVALepEffBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_WH_CMS_hww_MVALepEffBoundingUp->Sumw2();
-  TH1D* histo_WH_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_WH_CMS_hww_MVALepEffBoundingDown"), Form("histo_WH_CMS_hww_MVALepEffBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_WH_CMS_hww_MVALepEffBoundingDown->Sumw2();
-  TH1D* histo_qqH_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_qqH_CMS_hww_MVALepEffBoundingUp"), Form("histo_qqH_CMS_hww_MVALepEffBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVALepEffBoundingUp->Sumw2();
-  TH1D* histo_qqH_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_qqH_CMS_hww_MVALepEffBoundingDown"), Form("histo_qqH_CMS_hww_MVALepEffBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVALepEffBoundingDown->Sumw2();
-  TH1D* histo_ggH_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_ggH_CMS_hww_MVALepEffBoundingUp"), Form("histo_ggH_CMS_hww_MVALepEffBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVALepEffBoundingUp->Sumw2();
-  TH1D* histo_ggH_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_ggH_CMS_hww_MVALepEffBoundingDown"), Form("histo_ggH_CMS_hww_MVALepEffBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVALepEffBoundingDown->Sumw2();
-  TH1D* histo_qqWW_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_qqWW_CMS_hww_MVALepEffBoundingUp"), Form("histo_qqWW_CMS_hww_MVALepEffBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVALepEffBoundingUp->Sumw2();
-  TH1D* histo_qqWW_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_qqWW_CMS_hww_MVALepEffBoundingDown"), Form("histo_qqWW_CMS_hww_MVALepEffBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVALepEffBoundingDown->Sumw2();
-  TH1D* histo_ggWW_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_ggWW_CMS_hww_MVALepEffBoundingUp"), Form("histo_ggWW_CMS_hww_MVALepEffBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVALepEffBoundingUp->Sumw2();
-  TH1D* histo_ggWW_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_ggWW_CMS_hww_MVALepEffBoundingDown"), Form("histo_ggWW_CMS_hww_MVALepEffBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVALepEffBoundingDown->Sumw2();
-  TH1D* histo_VV_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_VV_CMS_hww_MVALepEffBoundingUp"), Form("histo_VV_CMS_hww_MVALepEffBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_VV_CMS_hww_MVALepEffBoundingUp->Sumw2();
-  TH1D* histo_VV_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_VV_CMS_hww_MVALepEffBoundingDown"), Form("histo_VV_CMS_hww_MVALepEffBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_VV_CMS_hww_MVALepEffBoundingDown->Sumw2();
-  TH1D* histo_Wgamma_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_Wgamma_CMS_hww_MVALepEffBoundingUp"), Form("histo_Wgamma_CMS_hww_MVALepEffBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVALepEffBoundingUp->Sumw2();
-  TH1D* histo_Wgamma_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_Wgamma_CMS_hww_MVALepEffBoundingDown"), Form("histo_Wgamma_CMS_hww_MVALepEffBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVALepEffBoundingDown->Sumw2();
-  TH1D* histo_Ztt_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_Ztt_CMS_hww_MVALepEffBoundingUp"), Form("histo_Ztt_CMS_hww_MVALepEffBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVALepEffBoundingUp->Sumw2();
-  TH1D* histo_Ztt_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_Ztt_CMS_hww_MVALepEffBoundingDown"), Form("histo_Ztt_CMS_hww_MVALepEffBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVALepEffBoundingDown->Sumw2();
+  TH1D* histo_ttH_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_ttH_CMS_hww_MVALepEffBoundingUp"), Form("histo_ttH_CMS_hww_MVALepEffBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVALepEffBoundingUp->Sumw2();
+  TH1D* histo_ttH_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_ttH_CMS_hww_MVALepEffBoundingDown"), Form("histo_ttH_CMS_hww_MVALepEffBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVALepEffBoundingDown->Sumw2();
+  TH1D* histo_ZH_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_ZH_CMS_hww_MVALepEffBoundingUp"), Form("histo_ZH_CMS_hww_MVALepEffBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVALepEffBoundingUp->Sumw2();
+  TH1D* histo_ZH_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_ZH_CMS_hww_MVALepEffBoundingDown"), Form("histo_ZH_CMS_hww_MVALepEffBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVALepEffBoundingDown->Sumw2();
+  TH1D* histo_WH_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_WH_CMS_hww_MVALepEffBoundingUp"), Form("histo_WH_CMS_hww_MVALepEffBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_WH_CMS_hww_MVALepEffBoundingUp->Sumw2();
+  TH1D* histo_WH_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_WH_CMS_hww_MVALepEffBoundingDown"), Form("histo_WH_CMS_hww_MVALepEffBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_WH_CMS_hww_MVALepEffBoundingDown->Sumw2();
+  TH1D* histo_qqH_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_qqH_CMS_hww_MVALepEffBoundingUp"), Form("histo_qqH_CMS_hww_MVALepEffBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVALepEffBoundingUp->Sumw2();
+  TH1D* histo_qqH_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_qqH_CMS_hww_MVALepEffBoundingDown"), Form("histo_qqH_CMS_hww_MVALepEffBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVALepEffBoundingDown->Sumw2();
+  TH1D* histo_ggH_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_ggH_CMS_hww_MVALepEffBoundingUp"), Form("histo_ggH_CMS_hww_MVALepEffBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVALepEffBoundingUp->Sumw2();
+  TH1D* histo_ggH_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_ggH_CMS_hww_MVALepEffBoundingDown"), Form("histo_ggH_CMS_hww_MVALepEffBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVALepEffBoundingDown->Sumw2();
+  TH1D* histo_qqWW_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_qqWW_CMS_hww_MVALepEffBoundingUp"), Form("histo_qqWW_CMS_hww_MVALepEffBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVALepEffBoundingUp->Sumw2();
+  TH1D* histo_qqWW_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_qqWW_CMS_hww_MVALepEffBoundingDown"), Form("histo_qqWW_CMS_hww_MVALepEffBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVALepEffBoundingDown->Sumw2();
+  TH1D* histo_ggWW_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_ggWW_CMS_hww_MVALepEffBoundingUp"), Form("histo_ggWW_CMS_hww_MVALepEffBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVALepEffBoundingUp->Sumw2();
+  TH1D* histo_ggWW_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_ggWW_CMS_hww_MVALepEffBoundingDown"), Form("histo_ggWW_CMS_hww_MVALepEffBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVALepEffBoundingDown->Sumw2();
+  TH1D* histo_VV_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_VV_CMS_hww_MVALepEffBoundingUp"), Form("histo_VV_CMS_hww_MVALepEffBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_VV_CMS_hww_MVALepEffBoundingUp->Sumw2();
+  TH1D* histo_VV_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_VV_CMS_hww_MVALepEffBoundingDown"), Form("histo_VV_CMS_hww_MVALepEffBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_VV_CMS_hww_MVALepEffBoundingDown->Sumw2();
+  TH1D* histo_Wgamma_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_Wgamma_CMS_hww_MVALepEffBoundingUp"), Form("histo_Wgamma_CMS_hww_MVALepEffBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVALepEffBoundingUp->Sumw2();
+  TH1D* histo_Wgamma_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_Wgamma_CMS_hww_MVALepEffBoundingDown"), Form("histo_Wgamma_CMS_hww_MVALepEffBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVALepEffBoundingDown->Sumw2();
+  TH1D* histo_Ztt_CMS_hww_MVALepEffBoundingUp = new TH1D( Form("histo_Ztt_CMS_hww_MVALepEffBoundingUp"), Form("histo_Ztt_CMS_hww_MVALepEffBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVALepEffBoundingUp->Sumw2();
+  TH1D* histo_Ztt_CMS_hww_MVALepEffBoundingDown = new TH1D( Form("histo_Ztt_CMS_hww_MVALepEffBoundingDown"), Form("histo_Ztt_CMS_hww_MVALepEffBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVALepEffBoundingDown->Sumw2();
 
-  TH1D* histo_ttH_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_ttH_CMS_hww_MVALepResBoundingUp"), Form("histo_ttH_CMS_hww_MVALepResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVALepResBoundingUp->Sumw2();
-  TH1D* histo_ttH_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_ttH_CMS_hww_MVALepResBoundingDown"), Form("histo_ttH_CMS_hww_MVALepResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVALepResBoundingDown->Sumw2();
-  TH1D* histo_ZH_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_ZH_CMS_hww_MVALepResBoundingUp"), Form("histo_ZH_CMS_hww_MVALepResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVALepResBoundingUp->Sumw2();
-  TH1D* histo_ZH_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_ZH_CMS_hww_MVALepResBoundingDown"), Form("histo_ZH_CMS_hww_MVALepResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVALepResBoundingDown->Sumw2();
-  TH1D* histo_WH_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_WH_CMS_hww_MVALepResBoundingUp"), Form("histo_WH_CMS_hww_MVALepResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_WH_CMS_hww_MVALepResBoundingUp->Sumw2();
-  TH1D* histo_WH_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_WH_CMS_hww_MVALepResBoundingDown"), Form("histo_WH_CMS_hww_MVALepResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_WH_CMS_hww_MVALepResBoundingDown->Sumw2();
-  TH1D* histo_qqH_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_qqH_CMS_hww_MVALepResBoundingUp"), Form("histo_qqH_CMS_hww_MVALepResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVALepResBoundingUp->Sumw2();
-  TH1D* histo_qqH_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_qqH_CMS_hww_MVALepResBoundingDown"), Form("histo_qqH_CMS_hww_MVALepResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVALepResBoundingDown->Sumw2();
-  TH1D* histo_ggH_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_ggH_CMS_hww_MVALepResBoundingUp"), Form("histo_ggH_CMS_hww_MVALepResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVALepResBoundingUp->Sumw2();
-  TH1D* histo_ggH_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_ggH_CMS_hww_MVALepResBoundingDown"), Form("histo_ggH_CMS_hww_MVALepResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVALepResBoundingDown->Sumw2();
-  TH1D* histo_qqWW_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_qqWW_CMS_hww_MVALepResBoundingUp"), Form("histo_qqWW_CMS_hww_MVALepResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVALepResBoundingUp->Sumw2();
-  TH1D* histo_qqWW_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_qqWW_CMS_hww_MVALepResBoundingDown"), Form("histo_qqWW_CMS_hww_MVALepResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVALepResBoundingDown->Sumw2();
-  TH1D* histo_ggWW_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_ggWW_CMS_hww_MVALepResBoundingUp"), Form("histo_ggWW_CMS_hww_MVALepResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVALepResBoundingUp->Sumw2();
-  TH1D* histo_ggWW_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_ggWW_CMS_hww_MVALepResBoundingDown"), Form("histo_ggWW_CMS_hww_MVALepResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVALepResBoundingDown->Sumw2();
-  TH1D* histo_VV_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_VV_CMS_hww_MVALepResBoundingUp"), Form("histo_VV_CMS_hww_MVALepResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_VV_CMS_hww_MVALepResBoundingUp->Sumw2();
-  TH1D* histo_VV_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_VV_CMS_hww_MVALepResBoundingDown"), Form("histo_VV_CMS_hww_MVALepResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_VV_CMS_hww_MVALepResBoundingDown->Sumw2();
-  TH1D* histo_Top_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_Top_CMS_hww_MVALepResBoundingUp"), Form("histo_Top_CMS_hww_MVALepResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Top_CMS_hww_MVALepResBoundingUp->Sumw2();
-  TH1D* histo_Top_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_Top_CMS_hww_MVALepResBoundingDown"), Form("histo_Top_CMS_hww_MVALepResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Top_CMS_hww_MVALepResBoundingDown->Sumw2();
-  TH1D* histo_Wgamma_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_Wgamma_CMS_hww_MVALepResBoundingUp"), Form("histo_Wgamma_CMS_hww_MVALepResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVALepResBoundingUp->Sumw2();
-  TH1D* histo_Wgamma_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_Wgamma_CMS_hww_MVALepResBoundingDown"), Form("histo_Wgamma_CMS_hww_MVALepResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVALepResBoundingDown->Sumw2();
-  TH1D* histo_Ztt_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_Ztt_CMS_hww_MVALepResBoundingUp"), Form("histo_Ztt_CMS_hww_MVALepResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVALepResBoundingUp->Sumw2();
-  TH1D* histo_Ztt_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_Ztt_CMS_hww_MVALepResBoundingDown"), Form("histo_Ztt_CMS_hww_MVALepResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVALepResBoundingDown->Sumw2();
+  TH1D* histo_ttH_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_ttH_CMS_hww_MVALepResBoundingUp"), Form("histo_ttH_CMS_hww_MVALepResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVALepResBoundingUp->Sumw2();
+  TH1D* histo_ttH_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_ttH_CMS_hww_MVALepResBoundingDown"), Form("histo_ttH_CMS_hww_MVALepResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVALepResBoundingDown->Sumw2();
+  TH1D* histo_ZH_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_ZH_CMS_hww_MVALepResBoundingUp"), Form("histo_ZH_CMS_hww_MVALepResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVALepResBoundingUp->Sumw2();
+  TH1D* histo_ZH_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_ZH_CMS_hww_MVALepResBoundingDown"), Form("histo_ZH_CMS_hww_MVALepResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVALepResBoundingDown->Sumw2();
+  TH1D* histo_WH_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_WH_CMS_hww_MVALepResBoundingUp"), Form("histo_WH_CMS_hww_MVALepResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_WH_CMS_hww_MVALepResBoundingUp->Sumw2();
+  TH1D* histo_WH_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_WH_CMS_hww_MVALepResBoundingDown"), Form("histo_WH_CMS_hww_MVALepResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_WH_CMS_hww_MVALepResBoundingDown->Sumw2();
+  TH1D* histo_qqH_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_qqH_CMS_hww_MVALepResBoundingUp"), Form("histo_qqH_CMS_hww_MVALepResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVALepResBoundingUp->Sumw2();
+  TH1D* histo_qqH_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_qqH_CMS_hww_MVALepResBoundingDown"), Form("histo_qqH_CMS_hww_MVALepResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVALepResBoundingDown->Sumw2();
+  TH1D* histo_ggH_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_ggH_CMS_hww_MVALepResBoundingUp"), Form("histo_ggH_CMS_hww_MVALepResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVALepResBoundingUp->Sumw2();
+  TH1D* histo_ggH_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_ggH_CMS_hww_MVALepResBoundingDown"), Form("histo_ggH_CMS_hww_MVALepResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVALepResBoundingDown->Sumw2();
+  TH1D* histo_qqWW_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_qqWW_CMS_hww_MVALepResBoundingUp"), Form("histo_qqWW_CMS_hww_MVALepResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVALepResBoundingUp->Sumw2();
+  TH1D* histo_qqWW_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_qqWW_CMS_hww_MVALepResBoundingDown"), Form("histo_qqWW_CMS_hww_MVALepResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVALepResBoundingDown->Sumw2();
+  TH1D* histo_ggWW_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_ggWW_CMS_hww_MVALepResBoundingUp"), Form("histo_ggWW_CMS_hww_MVALepResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVALepResBoundingUp->Sumw2();
+  TH1D* histo_ggWW_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_ggWW_CMS_hww_MVALepResBoundingDown"), Form("histo_ggWW_CMS_hww_MVALepResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVALepResBoundingDown->Sumw2();
+  TH1D* histo_VV_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_VV_CMS_hww_MVALepResBoundingUp"), Form("histo_VV_CMS_hww_MVALepResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_VV_CMS_hww_MVALepResBoundingUp->Sumw2();
+  TH1D* histo_VV_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_VV_CMS_hww_MVALepResBoundingDown"), Form("histo_VV_CMS_hww_MVALepResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_VV_CMS_hww_MVALepResBoundingDown->Sumw2();
+  TH1D* histo_Top_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_Top_CMS_hww_MVALepResBoundingUp"), Form("histo_Top_CMS_hww_MVALepResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Top_CMS_hww_MVALepResBoundingUp->Sumw2();
+  TH1D* histo_Top_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_Top_CMS_hww_MVALepResBoundingDown"), Form("histo_Top_CMS_hww_MVALepResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Top_CMS_hww_MVALepResBoundingDown->Sumw2();
+  TH1D* histo_Wgamma_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_Wgamma_CMS_hww_MVALepResBoundingUp"), Form("histo_Wgamma_CMS_hww_MVALepResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVALepResBoundingUp->Sumw2();
+  TH1D* histo_Wgamma_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_Wgamma_CMS_hww_MVALepResBoundingDown"), Form("histo_Wgamma_CMS_hww_MVALepResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVALepResBoundingDown->Sumw2();
+  TH1D* histo_Ztt_CMS_hww_MVALepResBoundingUp = new TH1D( Form("histo_Ztt_CMS_hww_MVALepResBoundingUp"), Form("histo_Ztt_CMS_hww_MVALepResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVALepResBoundingUp->Sumw2();
+  TH1D* histo_Ztt_CMS_hww_MVALepResBoundingDown = new TH1D( Form("histo_Ztt_CMS_hww_MVALepResBoundingDown"), Form("histo_Ztt_CMS_hww_MVALepResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVALepResBoundingDown->Sumw2();
 
-  TH1D* histo_ttH_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_ttH_CMS_hww_MVAMETResBoundingUp"), Form("histo_ttH_CMS_hww_MVAMETResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVAMETResBoundingUp->Sumw2();
-  TH1D* histo_ttH_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_ttH_CMS_hww_MVAMETResBoundingDown"), Form("histo_ttH_CMS_hww_MVAMETResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVAMETResBoundingDown->Sumw2();
-  TH1D* histo_ZH_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_ZH_CMS_hww_MVAMETResBoundingUp"), Form("histo_ZH_CMS_hww_MVAMETResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVAMETResBoundingUp->Sumw2();
-  TH1D* histo_ZH_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_ZH_CMS_hww_MVAMETResBoundingDown"), Form("histo_ZH_CMS_hww_MVAMETResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVAMETResBoundingDown->Sumw2();
-  TH1D* histo_WH_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_WH_CMS_hww_MVAMETResBoundingUp"), Form("histo_WH_CMS_hww_MVAMETResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_WH_CMS_hww_MVAMETResBoundingUp->Sumw2();
-  TH1D* histo_WH_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_WH_CMS_hww_MVAMETResBoundingDown"), Form("histo_WH_CMS_hww_MVAMETResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_WH_CMS_hww_MVAMETResBoundingDown->Sumw2();
-  TH1D* histo_qqH_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_qqH_CMS_hww_MVAMETResBoundingUp"), Form("histo_qqH_CMS_hww_MVAMETResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVAMETResBoundingUp->Sumw2();
-  TH1D* histo_qqH_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_qqH_CMS_hww_MVAMETResBoundingDown"), Form("histo_qqH_CMS_hww_MVAMETResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVAMETResBoundingDown->Sumw2();
-  TH1D* histo_ggH_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_ggH_CMS_hww_MVAMETResBoundingUp"), Form("histo_ggH_CMS_hww_MVAMETResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAMETResBoundingUp->Sumw2();
-  TH1D* histo_ggH_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_ggH_CMS_hww_MVAMETResBoundingDown"), Form("histo_ggH_CMS_hww_MVAMETResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAMETResBoundingDown->Sumw2();
-  TH1D* histo_qqWW_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_qqWW_CMS_hww_MVAMETResBoundingUp"), Form("histo_qqWW_CMS_hww_MVAMETResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVAMETResBoundingUp->Sumw2();
-  TH1D* histo_qqWW_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_qqWW_CMS_hww_MVAMETResBoundingDown"), Form("histo_qqWW_CMS_hww_MVAMETResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVAMETResBoundingDown->Sumw2();
-  TH1D* histo_ggWW_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_ggWW_CMS_hww_MVAMETResBoundingUp"), Form("histo_ggWW_CMS_hww_MVAMETResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVAMETResBoundingUp->Sumw2();
-  TH1D* histo_ggWW_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_ggWW_CMS_hww_MVAMETResBoundingDown"), Form("histo_ggWW_CMS_hww_MVAMETResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVAMETResBoundingDown->Sumw2();
-  TH1D* histo_VV_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_VV_CMS_hww_MVAMETResBoundingUp"), Form("histo_VV_CMS_hww_MVAMETResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_VV_CMS_hww_MVAMETResBoundingUp->Sumw2();
-  TH1D* histo_VV_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_VV_CMS_hww_MVAMETResBoundingDown"), Form("histo_VV_CMS_hww_MVAMETResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_VV_CMS_hww_MVAMETResBoundingDown->Sumw2();
-  TH1D* histo_Top_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_Top_CMS_hww_MVAMETResBoundingUp"), Form("histo_Top_CMS_hww_MVAMETResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Top_CMS_hww_MVAMETResBoundingUp->Sumw2();
-  TH1D* histo_Top_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_Top_CMS_hww_MVAMETResBoundingDown"), Form("histo_Top_CMS_hww_MVAMETResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Top_CMS_hww_MVAMETResBoundingDown->Sumw2();
-  TH1D* histo_Wgamma_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_Wgamma_CMS_hww_MVAMETResBoundingUp"), Form("histo_Wgamma_CMS_hww_MVAMETResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVAMETResBoundingUp->Sumw2();
-  TH1D* histo_Wgamma_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_Wgamma_CMS_hww_MVAMETResBoundingDown"), Form("histo_Wgamma_CMS_hww_MVAMETResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVAMETResBoundingDown->Sumw2();
-  TH1D* histo_Ztt_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_Ztt_CMS_hww_MVAMETResBoundingUp"), Form("histo_Ztt_CMS_hww_MVAMETResBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVAMETResBoundingUp->Sumw2();
-  TH1D* histo_Ztt_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_Ztt_CMS_hww_MVAMETResBoundingDown"), Form("histo_Ztt_CMS_hww_MVAMETResBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVAMETResBoundingDown->Sumw2();
+  TH1D* histo_ttH_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_ttH_CMS_hww_MVAMETResBoundingUp"), Form("histo_ttH_CMS_hww_MVAMETResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVAMETResBoundingUp->Sumw2();
+  TH1D* histo_ttH_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_ttH_CMS_hww_MVAMETResBoundingDown"), Form("histo_ttH_CMS_hww_MVAMETResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVAMETResBoundingDown->Sumw2();
+  TH1D* histo_ZH_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_ZH_CMS_hww_MVAMETResBoundingUp"), Form("histo_ZH_CMS_hww_MVAMETResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVAMETResBoundingUp->Sumw2();
+  TH1D* histo_ZH_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_ZH_CMS_hww_MVAMETResBoundingDown"), Form("histo_ZH_CMS_hww_MVAMETResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVAMETResBoundingDown->Sumw2();
+  TH1D* histo_WH_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_WH_CMS_hww_MVAMETResBoundingUp"), Form("histo_WH_CMS_hww_MVAMETResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_WH_CMS_hww_MVAMETResBoundingUp->Sumw2();
+  TH1D* histo_WH_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_WH_CMS_hww_MVAMETResBoundingDown"), Form("histo_WH_CMS_hww_MVAMETResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_WH_CMS_hww_MVAMETResBoundingDown->Sumw2();
+  TH1D* histo_qqH_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_qqH_CMS_hww_MVAMETResBoundingUp"), Form("histo_qqH_CMS_hww_MVAMETResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVAMETResBoundingUp->Sumw2();
+  TH1D* histo_qqH_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_qqH_CMS_hww_MVAMETResBoundingDown"), Form("histo_qqH_CMS_hww_MVAMETResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVAMETResBoundingDown->Sumw2();
+  TH1D* histo_ggH_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_ggH_CMS_hww_MVAMETResBoundingUp"), Form("histo_ggH_CMS_hww_MVAMETResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAMETResBoundingUp->Sumw2();
+  TH1D* histo_ggH_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_ggH_CMS_hww_MVAMETResBoundingDown"), Form("histo_ggH_CMS_hww_MVAMETResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAMETResBoundingDown->Sumw2();
+  TH1D* histo_qqWW_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_qqWW_CMS_hww_MVAMETResBoundingUp"), Form("histo_qqWW_CMS_hww_MVAMETResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVAMETResBoundingUp->Sumw2();
+  TH1D* histo_qqWW_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_qqWW_CMS_hww_MVAMETResBoundingDown"), Form("histo_qqWW_CMS_hww_MVAMETResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVAMETResBoundingDown->Sumw2();
+  TH1D* histo_ggWW_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_ggWW_CMS_hww_MVAMETResBoundingUp"), Form("histo_ggWW_CMS_hww_MVAMETResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVAMETResBoundingUp->Sumw2();
+  TH1D* histo_ggWW_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_ggWW_CMS_hww_MVAMETResBoundingDown"), Form("histo_ggWW_CMS_hww_MVAMETResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVAMETResBoundingDown->Sumw2();
+  TH1D* histo_VV_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_VV_CMS_hww_MVAMETResBoundingUp"), Form("histo_VV_CMS_hww_MVAMETResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_VV_CMS_hww_MVAMETResBoundingUp->Sumw2();
+  TH1D* histo_VV_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_VV_CMS_hww_MVAMETResBoundingDown"), Form("histo_VV_CMS_hww_MVAMETResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_VV_CMS_hww_MVAMETResBoundingDown->Sumw2();
+  TH1D* histo_Top_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_Top_CMS_hww_MVAMETResBoundingUp"), Form("histo_Top_CMS_hww_MVAMETResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Top_CMS_hww_MVAMETResBoundingUp->Sumw2();
+  TH1D* histo_Top_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_Top_CMS_hww_MVAMETResBoundingDown"), Form("histo_Top_CMS_hww_MVAMETResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Top_CMS_hww_MVAMETResBoundingDown->Sumw2();
+  TH1D* histo_Wgamma_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_Wgamma_CMS_hww_MVAMETResBoundingUp"), Form("histo_Wgamma_CMS_hww_MVAMETResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVAMETResBoundingUp->Sumw2();
+  TH1D* histo_Wgamma_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_Wgamma_CMS_hww_MVAMETResBoundingDown"), Form("histo_Wgamma_CMS_hww_MVAMETResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVAMETResBoundingDown->Sumw2();
+  TH1D* histo_Ztt_CMS_hww_MVAMETResBoundingUp = new TH1D( Form("histo_Ztt_CMS_hww_MVAMETResBoundingUp"), Form("histo_Ztt_CMS_hww_MVAMETResBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVAMETResBoundingUp->Sumw2();
+  TH1D* histo_Ztt_CMS_hww_MVAMETResBoundingDown = new TH1D( Form("histo_Ztt_CMS_hww_MVAMETResBoundingDown"), Form("histo_Ztt_CMS_hww_MVAMETResBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVAMETResBoundingDown->Sumw2();
 
-  TH1D* histo_ttH_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_ttH_CMS_hww_MVAJESBoundingUp"), Form("histo_ttH_CMS_hww_MVAJESBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVAJESBoundingUp->Sumw2();
-  TH1D* histo_ttH_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_ttH_CMS_hww_MVAJESBoundingDown"), Form("histo_ttH_CMS_hww_MVAJESBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVAJESBoundingDown->Sumw2();
-  TH1D* histo_ZH_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_ZH_CMS_hww_MVAJESBoundingUp"), Form("histo_ZH_CMS_hww_MVAJESBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVAJESBoundingUp->Sumw2();
-  TH1D* histo_ZH_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_ZH_CMS_hww_MVAJESBoundingDown"), Form("histo_ZH_CMS_hww_MVAJESBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVAJESBoundingDown->Sumw2();
-  TH1D* histo_WH_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_WH_CMS_hww_MVAJESBoundingUp"), Form("histo_WH_CMS_hww_MVAJESBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_WH_CMS_hww_MVAJESBoundingUp->Sumw2();
-  TH1D* histo_WH_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_WH_CMS_hww_MVAJESBoundingDown"), Form("histo_WH_CMS_hww_MVAJESBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_WH_CMS_hww_MVAJESBoundingDown->Sumw2();
-  TH1D* histo_qqH_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_qqH_CMS_hww_MVAJESBoundingUp"), Form("histo_qqH_CMS_hww_MVAJESBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVAJESBoundingUp->Sumw2();
-  TH1D* histo_qqH_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_qqH_CMS_hww_MVAJESBoundingDown"), Form("histo_qqH_CMS_hww_MVAJESBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVAJESBoundingDown->Sumw2();
-  TH1D* histo_ggH_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_ggH_CMS_hww_MVAJESBoundingUp"), Form("histo_ggH_CMS_hww_MVAJESBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAJESBoundingUp->Sumw2();
-  TH1D* histo_ggH_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_ggH_CMS_hww_MVAJESBoundingDown"), Form("histo_ggH_CMS_hww_MVAJESBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAJESBoundingDown->Sumw2();
-  TH1D* histo_qqWW_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_qqWW_CMS_hww_MVAJESBoundingUp"), Form("histo_qqWW_CMS_hww_MVAJESBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVAJESBoundingUp->Sumw2();
-  TH1D* histo_qqWW_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_qqWW_CMS_hww_MVAJESBoundingDown"), Form("histo_qqWW_CMS_hww_MVAJESBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVAJESBoundingDown->Sumw2();
-  TH1D* histo_ggWW_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_ggWW_CMS_hww_MVAJESBoundingUp"), Form("histo_ggWW_CMS_hww_MVAJESBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVAJESBoundingUp->Sumw2();
-  TH1D* histo_ggWW_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_ggWW_CMS_hww_MVAJESBoundingDown"), Form("histo_ggWW_CMS_hww_MVAJESBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVAJESBoundingDown->Sumw2();
-  TH1D* histo_VV_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_VV_CMS_hww_MVAJESBoundingUp"), Form("histo_VV_CMS_hww_MVAJESBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_VV_CMS_hww_MVAJESBoundingUp->Sumw2();
-  TH1D* histo_VV_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_VV_CMS_hww_MVAJESBoundingDown"), Form("histo_VV_CMS_hww_MVAJESBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_VV_CMS_hww_MVAJESBoundingDown->Sumw2();
-  TH1D* histo_Top_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_Top_CMS_hww_MVAJESBoundingUp"), Form("histo_Top_CMS_hww_MVAJESBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Top_CMS_hww_MVAJESBoundingUp->Sumw2();
-  TH1D* histo_Top_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_Top_CMS_hww_MVAJESBoundingDown"), Form("histo_Top_CMS_hww_MVAJESBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Top_CMS_hww_MVAJESBoundingDown->Sumw2();
-  TH1D* histo_Wgamma_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_Wgamma_CMS_hww_MVAJESBoundingUp"), Form("histo_Wgamma_CMS_hww_MVAJESBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVAJESBoundingUp->Sumw2();
-  TH1D* histo_Wgamma_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_Wgamma_CMS_hww_MVAJESBoundingDown"), Form("histo_Wgamma_CMS_hww_MVAJESBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVAJESBoundingDown->Sumw2();
-  TH1D* histo_Ztt_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_Ztt_CMS_hww_MVAJESBoundingUp"), Form("histo_Ztt_CMS_hww_MVAJESBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVAJESBoundingUp->Sumw2();
-  TH1D* histo_Ztt_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_Ztt_CMS_hww_MVAJESBoundingDown"), Form("histo_Ztt_CMS_hww_MVAJESBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVAJESBoundingDown->Sumw2();
+  TH1D* histo_ttH_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_ttH_CMS_hww_MVAJESBoundingUp"), Form("histo_ttH_CMS_hww_MVAJESBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVAJESBoundingUp->Sumw2();
+  TH1D* histo_ttH_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_ttH_CMS_hww_MVAJESBoundingDown"), Form("histo_ttH_CMS_hww_MVAJESBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ttH_CMS_hww_MVAJESBoundingDown->Sumw2();
+  TH1D* histo_ZH_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_ZH_CMS_hww_MVAJESBoundingUp"), Form("histo_ZH_CMS_hww_MVAJESBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVAJESBoundingUp->Sumw2();
+  TH1D* histo_ZH_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_ZH_CMS_hww_MVAJESBoundingDown"), Form("histo_ZH_CMS_hww_MVAJESBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ZH_CMS_hww_MVAJESBoundingDown->Sumw2();
+  TH1D* histo_WH_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_WH_CMS_hww_MVAJESBoundingUp"), Form("histo_WH_CMS_hww_MVAJESBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_WH_CMS_hww_MVAJESBoundingUp->Sumw2();
+  TH1D* histo_WH_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_WH_CMS_hww_MVAJESBoundingDown"), Form("histo_WH_CMS_hww_MVAJESBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_WH_CMS_hww_MVAJESBoundingDown->Sumw2();
+  TH1D* histo_qqH_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_qqH_CMS_hww_MVAJESBoundingUp"), Form("histo_qqH_CMS_hww_MVAJESBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVAJESBoundingUp->Sumw2();
+  TH1D* histo_qqH_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_qqH_CMS_hww_MVAJESBoundingDown"), Form("histo_qqH_CMS_hww_MVAJESBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_qqH_CMS_hww_MVAJESBoundingDown->Sumw2();
+  TH1D* histo_ggH_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_ggH_CMS_hww_MVAJESBoundingUp"), Form("histo_ggH_CMS_hww_MVAJESBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAJESBoundingUp->Sumw2();
+  TH1D* histo_ggH_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_ggH_CMS_hww_MVAJESBoundingDown"), Form("histo_ggH_CMS_hww_MVAJESBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAJESBoundingDown->Sumw2();
+  TH1D* histo_qqWW_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_qqWW_CMS_hww_MVAJESBoundingUp"), Form("histo_qqWW_CMS_hww_MVAJESBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVAJESBoundingUp->Sumw2();
+  TH1D* histo_qqWW_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_qqWW_CMS_hww_MVAJESBoundingDown"), Form("histo_qqWW_CMS_hww_MVAJESBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_hww_MVAJESBoundingDown->Sumw2();
+  TH1D* histo_ggWW_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_ggWW_CMS_hww_MVAJESBoundingUp"), Form("histo_ggWW_CMS_hww_MVAJESBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVAJESBoundingUp->Sumw2();
+  TH1D* histo_ggWW_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_ggWW_CMS_hww_MVAJESBoundingDown"), Form("histo_ggWW_CMS_hww_MVAJESBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ggWW_CMS_hww_MVAJESBoundingDown->Sumw2();
+  TH1D* histo_VV_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_VV_CMS_hww_MVAJESBoundingUp"), Form("histo_VV_CMS_hww_MVAJESBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_VV_CMS_hww_MVAJESBoundingUp->Sumw2();
+  TH1D* histo_VV_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_VV_CMS_hww_MVAJESBoundingDown"), Form("histo_VV_CMS_hww_MVAJESBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_VV_CMS_hww_MVAJESBoundingDown->Sumw2();
+  TH1D* histo_Top_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_Top_CMS_hww_MVAJESBoundingUp"), Form("histo_Top_CMS_hww_MVAJESBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Top_CMS_hww_MVAJESBoundingUp->Sumw2();
+  TH1D* histo_Top_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_Top_CMS_hww_MVAJESBoundingDown"), Form("histo_Top_CMS_hww_MVAJESBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Top_CMS_hww_MVAJESBoundingDown->Sumw2();
+  TH1D* histo_Wgamma_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_Wgamma_CMS_hww_MVAJESBoundingUp"), Form("histo_Wgamma_CMS_hww_MVAJESBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVAJESBoundingUp->Sumw2();
+  TH1D* histo_Wgamma_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_Wgamma_CMS_hww_MVAJESBoundingDown"), Form("histo_Wgamma_CMS_hww_MVAJESBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Wgamma_CMS_hww_MVAJESBoundingDown->Sumw2();
+  TH1D* histo_Ztt_CMS_hww_MVAJESBoundingUp = new TH1D( Form("histo_Ztt_CMS_hww_MVAJESBoundingUp"), Form("histo_Ztt_CMS_hww_MVAJESBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVAJESBoundingUp->Sumw2();
+  TH1D* histo_Ztt_CMS_hww_MVAJESBoundingDown = new TH1D( Form("histo_Ztt_CMS_hww_MVAJESBoundingDown"), Form("histo_Ztt_CMS_hww_MVAJESBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Ztt_CMS_hww_MVAJESBoundingDown->Sumw2();
 
-  TH1D* histo_ggH_CMS_hww_MVAggHBoundingUp = new TH1D( Form("histo_ggH_CMS_hww_MVAggHBoundingUp"), Form("histo_ggH_CMS_hww_MVAggHBoundingUp"), nBinHis[1], minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAggHBoundingUp->Sumw2();
-  TH1D* histo_ggH_CMS_hww_MVAggHBoundingDown = new TH1D( Form("histo_ggH_CMS_hww_MVAggHBoundingDown"), Form("histo_ggH_CMS_hww_MVAggHBoundingDown"), nBinHis[1], minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAggHBoundingDown->Sumw2();
+  TH1D* histo_ggH_CMS_hww_MVAggHBoundingUp = new TH1D( Form("histo_ggH_CMS_hww_MVAggHBoundingUp"), Form("histo_ggH_CMS_hww_MVAggHBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAggHBoundingUp->Sumw2();
+  TH1D* histo_ggH_CMS_hww_MVAggHBoundingDown = new TH1D( Form("histo_ggH_CMS_hww_MVAggHBoundingDown"), Form("histo_ggH_CMS_hww_MVAggHBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAggHBoundingDown->Sumw2();
 
   TH1D* histoS = new TH1D("histoS", "histoS", 180, 0, 180);
   TH1D* histoB = new TH1D("histoB", "histoB", 180, 0, 180);
@@ -957,7 +973,11 @@ void PlotHiggsRes2012
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
+    if(is2DAna == true) {
+      double varA = (dilep->mass()-12.0)/(dilmass_cut-12.0);
+      double varB = (mt-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+    }
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
 
@@ -1046,6 +1066,14 @@ void PlotHiggsRes2012
 		    mt > 30 && mt < mtUpperCut &&
 		    centrality == 1 &&
 		    passJetCut[0]==true;
+      if(is2DAna == true) {
+        passAllCuts = passAllCuts &&
+                      dilep->mass()         < theCutMassHigh &&
+        	      mt 		    < theCutMTHigh &&
+        	      lep1->pt() 	    > theCutPtMaxLow &&
+        	      lep2->pt() 	    > theCutPtMinLow &&
+        	      dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh;
+      }
     }
 
     //----------------------------------------------------------------------------
@@ -1064,7 +1092,8 @@ void PlotHiggsRes2012
     // Add signal yields and fill MVA output distributions for MVA Shape analysis
     // Apply mT_Higgs cut for MVA Shape analysis
     //----------------------------------------------------------------------------
-    bool passMVAPreselCuts = mt > 80 && mt < mtUpperCut; if(wwPresel == true) passMVAPreselCuts = true;
+    bool passMVAPreselCuts = mt > mtLowerCut && mt < mtUpperCut; if(wwPresel == true) passMVAPreselCuts = true;
+    if(is2DAna == true) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > theCutPtMaxLow;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       nSigAcc[0]  = nSigAcc[0]  + myWeight;
       nSigEAcc[0] = nSigEAcc[0] + myWeight*myWeight;
@@ -1413,7 +1442,11 @@ void PlotHiggsRes2012
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
+    if(is2DAna == true) {
+      double varA = (dilep->mass()-12.0)/(dilmass_cut-12.0);
+      double varB = (mt-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+    }
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
 
@@ -1611,6 +1644,14 @@ void PlotHiggsRes2012
 		    mt > 30 && mt < mtUpperCut &&
 		    centrality == 1 &&
 		    passJetCut[0]==true;
+      if(is2DAna == true) {
+        passAllCuts = passAllCuts &&
+                      dilep->mass()         < theCutMassHigh &&
+        	      mt 		    < theCutMTHigh &&
+        	      lep1->pt() 	    > theCutPtMaxLow &&
+        	      lep2->pt() 	    > theCutPtMinLow &&
+        	      dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh;
+      }
     }
 
     //----------------------------------------------------------------------------
@@ -1659,7 +1700,8 @@ void PlotHiggsRes2012
     // Add bkg yields and fill MVA output distributions for MVA Shape analysis
     // Apply mT_Higgs cut for MVA Shape analysis
     //----------------------------------------------------------------------------
-    bool passMVAPreselCuts = mt > 80 && mt < mtUpperCut; if(wwPresel == true) passMVAPreselCuts = true;
+    bool passMVAPreselCuts = mt > mtLowerCut && mt < mtUpperCut; if(wwPresel == true) passMVAPreselCuts = true;
+    if(is2DAna == true) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > theCutPtMaxLow;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       double myWeightMVA = myWeight;
 
@@ -2111,7 +2153,11 @@ void PlotHiggsRes2012
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
+    if(is2DAna == true) {
+      double varA = (dilep->mass()-12.0)/(dilmass_cut-12.0);
+      double varB = (mt-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+    }
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
 
@@ -2321,7 +2367,8 @@ void PlotHiggsRes2012
     // Add bkg yields and fill MVA output distributions for MVA Shape analysis
     // Apply mT_Higgs cut for MVA Shape analysis
     //----------------------------------------------------------------------------
-    bool passMVAPreselCuts = mt > 80 && mt < mtUpperCut; if(wwPresel == true) passMVAPreselCuts = true;
+    bool passMVAPreselCuts = mt > mtLowerCut && mt < mtUpperCut; if(wwPresel == true) passMVAPreselCuts = true;
+    if(is2DAna == true) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > theCutPtMaxLow;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       nSystAcc  = nSystAcc  + myWeight;
       nSystEAcc = nSystEAcc + myWeight*myWeight;
@@ -2544,7 +2591,11 @@ void PlotHiggsRes2012
 
     if(wwDecayCut == false) continue;
 
-    //bdtg = ((dilep->mass()-12.0)/(dilmass_cut-12.0)-0.5)*2.0;
+    if(is2DAna == true) {
+      double varA = (dilep->mass()-12.0)/(dilmass_cut-12.0);
+      double varB = (mt-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+    }
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
 
@@ -2585,6 +2636,14 @@ void PlotHiggsRes2012
                     TMath::Abs(jet1->eta()-jet2->eta()) > 3.5 &&
 		    mt > 30 && mt < mtUpperCut &&
 		    centrality == 1;
+      if(is2DAna == true) {
+        passAllCuts = passAllCuts &&
+                      dilep->mass()         < theCutMassHigh &&
+        	      mt 		    < theCutMTHigh &&
+        	      lep1->pt() 	    > theCutPtMaxLow &&
+        	      lep2->pt() 	    > theCutPtMinLow &&
+        	      dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh;
+      }
     }
 
     //----------------------------------------------------------------------------
@@ -2599,7 +2658,8 @@ void PlotHiggsRes2012
     // Data yields and fill MVA output distributions for MVA Shape analysis
     // Apply mT_Higgs cut for MVA Shape analysis
     //----------------------------------------------------------------------------
-    bool passMVAPreselCuts = mt > 80 && mt < mtUpperCut; if(wwPresel == true) passMVAPreselCuts = true;
+    bool passMVAPreselCuts = mt > mtLowerCut && mt < mtUpperCut; if(wwPresel == true) passMVAPreselCuts = true;
+    if(is2DAna == true) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > theCutPtMaxLow;
     if(passMVAPreselCuts == true){
       nDatAcc = nDatAcc + myWeight;
       if(bdtg>-1.0&&bdtg<1){
@@ -2874,19 +2934,19 @@ void PlotHiggsRes2012
     cout << bgdMVADecays[useVar][5]->GetSumOfWeights() << " ";
     cout << bgdMVADecays[useVar][6]->GetSumOfWeights() << " ";
     cout << bgdMVADecays[useVar][7]->GetSumOfWeights() << endl;
-    TH1D* histo_ttH    = new TH1D("histo_ttH",	"histo_ttH",	nBinHis[1], minHis[1], maxHis[1]);
-    TH1D* histo_ZH     = new TH1D("histo_ZH",	"histo_ZH",	nBinHis[1], minHis[1], maxHis[1]);
-    TH1D* histo_WH     = new TH1D("histo_WH",	"histo_WH",	nBinHis[1], minHis[1], maxHis[1]);
-    TH1D* histo_qqH    = new TH1D("histo_qqH",	"histo_qqH",	nBinHis[1], minHis[1], maxHis[1]);
-    TH1D* histo_ggH    = new TH1D("histo_ggH",	"histo_ggH",	nBinHis[1], minHis[1], maxHis[1]);
-    TH1D* histo_Data   = new TH1D("histo_Data",	"histo_Data",	nBinHis[1], minHis[1], maxHis[1]);
-    TH1D* histo_qqWW   = new TH1D("histo_qqWW",	"histo_qqWW",	nBinHis[1], minHis[1], maxHis[1]);
-    TH1D* histo_ggWW   = new TH1D("histo_ggWW",	"histo_ggWW",	nBinHis[1], minHis[1], maxHis[1]);
-    TH1D* histo_VV     = new TH1D("histo_VV",	"histo_VV",	nBinHis[1], minHis[1], maxHis[1]);
-    TH1D* histo_Top    = new TH1D("histo_Top",	"histo_Top",	nBinHis[1], minHis[1], maxHis[1]);
-    TH1D* histo_Zjets  = new TH1D("histo_Zjets","histo_Zjets",  nBinHis[1], minHis[1], maxHis[1]);
-    TH1D* histo_Wjets  = new TH1D("histo_Wjets","histo_Wjets",  nBinHis[1], minHis[1], maxHis[1]);
-    TH1D* histo_Ztt    = new TH1D("histo_Ztt",	"histo_Ztt",	nBinHis[1], minHis[1], maxHis[1]);
+    TH1D* histo_ttH    = new TH1D("histo_ttH",	"histo_ttH",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_ZH     = new TH1D("histo_ZH",	"histo_ZH",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_WH     = new TH1D("histo_WH",	"histo_WH",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_qqH    = new TH1D("histo_qqH",	"histo_qqH",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_ggH    = new TH1D("histo_ggH",	"histo_ggH",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_Data   = new TH1D("histo_Data",	"histo_Data",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_qqWW   = new TH1D("histo_qqWW",	"histo_qqWW",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_ggWW   = new TH1D("histo_ggWW",	"histo_ggWW",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_VV     = new TH1D("histo_VV",	"histo_VV",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_Top    = new TH1D("histo_Top",	"histo_Top",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_Zjets  = new TH1D("histo_Zjets","histo_Zjets",  nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_Wjets  = new TH1D("histo_Wjets","histo_Wjets",  nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_Ztt    = new TH1D("histo_Ztt",	"histo_Ztt",	nBinHis, minHis[1], maxHis[1]);
 
     histo_ttH   ->Add(sigMVA[useVar][1]);
     histo_ZH	->Add(sigMVA[useVar][2]);

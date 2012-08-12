@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.11 2012/04/04 18:20:08 yygao Exp $
+// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.12 2012/05/31 06:27:04 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -122,13 +122,14 @@ void trainMVA_smurf(
   mvaVar[ "type" ]              = 1;  //dilepton flavor type
   mvaVar[ "pmet" ]              = 0;  //projected met
   mvaVar[ "met" ]               = 0;  //met
-  mvaVar[ "mt" ]                = 1;  //tranvserse higgs mass
+  mvaVar[ "mt" ]                = 0;  //tranvserse higgs mass
   mvaVar[ "mt1" ]               = 0;  //transverse mass of leading lepton and met
   mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
   mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
   mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
   mvaVar[ "dPhiDiLepMET" ]	= 0;  //delta phi btw dilepton and met
   mvaVar[ "dPhiDiLepJet1" ]	= 0;  //delta phi btw dilepton and jet1 (only for njet>0)
+  mvaVar[ "dilpt" ]	        = 1;  //dilepton pt
   if(nJetsType == 1){
     mvaVar[ "dPhiDiLepMET" ]    = 1;
     mvaVar[ "dPhiDiLepJet1" ]   = 1;
@@ -300,6 +301,7 @@ void trainMVA_smurf(
   if (mvaVar["dPhiLep2MET"])  factory->AddVariable( "dPhiLep2MET",   "dphi(lep2,MET)",      "GeV", 'F' );
   if (mvaVar["dPhiDiLepMET"]) factory->AddVariable( "dPhiDiLepMET",  "dphi(dilep,MET)",     "",    'F' );
   if (mvaVar["dPhiDiLepJet1"])factory->AddVariable( "dPhiDiLepJet1", "dphi(dilep,jet)",     "",    'F' );
+  if (mvaVar["dilpt"])        factory->AddVariable( "dilpt",         "dilepton pt",         "GeV", 'F' );
   if (mvaVar["razor"])        factory->AddVariable( "razor",         "razor",               "",    'F' );
   if (mvaVar["mjj"])          factory->AddVariable( "mjj",           "mjj",                 "",    'F' );
   if (mvaVar["detajj"])       factory->AddVariable( "detajj",        "detajj",              "",    'F' );
@@ -322,6 +324,7 @@ void trainMVA_smurf(
   if (mvaVar["dPhiLep2MET"])  { cout << "Adding variable to MVA training: dPhiLep2MET"    << endl; nVariablesTemp++; }
   if (mvaVar["dPhiDiLepMET"]) { cout << "Adding variable to MVA training: dPhiDiLepMET"   << endl; nVariablesTemp++; }
   if (mvaVar["dPhiDiLepJet1"]){ cout << "Adding variable to MVA training: dPhiDiLepJet1"  << endl; nVariablesTemp++; }
+  if (mvaVar["dilpt"])        { cout << "Adding variable to MVA training: dil.pt()"       << endl; nVariablesTemp++; }
   if (mvaVar["razor"])        { cout << "Adding variable to MVA training: razor"          << endl; nVariablesTemp++; }
   if (mvaVar["mjj"])          { cout << "Adding variable to MVA training: mjj"            << endl; nVariablesTemp++; }
   if (mvaVar["detajj"])       { cout << "Adding variable to MVA training: detajj"         << endl; nVariablesTemp++; }
@@ -480,9 +483,11 @@ void trainMVA_smurf(
       (type == mm || 
        type == ee)                              ) continue; // cut on Z veto for ee/mm lepton-pair
     if( lid3 != 0	                        ) continue; // cut on dileptons
-    if( dilep->pt() <= 40                       ) continue; // cut on dilepton pt
+    if( dilep->pt() <= 45                       ) continue; // cut on dilepton pt
     if( (cuts & patternTopTag) == patternTopTag ) continue; // cut on btagging
     if( njets >= 1 && dPhiDiLepJet1 > 100       ) continue; // cut on impossible dPhiDiLepJet1
+    if( mt <= 80                                ) continue;
+    if( mt >= mH                                ) continue;
 
     // VBF Cuts
     if ( nJetsType == 2 ) {
@@ -514,13 +519,14 @@ void trainMVA_smurf(
     if (mvaVar["dPhiLep2MET"])   vars[varCounter++] = dPhiLep2MET;
     if (mvaVar["dPhiDiLepMET"])  vars[varCounter++] = dPhiDiLepMET;
     if (mvaVar["dPhiDiLepJet1"]) vars[varCounter++] = dPhiDiLepJet1;
+    if (mvaVar["dilpt"])         vars[varCounter++] = dilep->pt();
     if (mvaVar["razor"])         vars[varCounter++] = CalcGammaMRstar(*lep1,*lep2);
     if (mvaVar["mjj"])           vars[varCounter++] = (*jet1+*jet2).M();
     if (mvaVar["detajj"])        vars[varCounter++] = TMath::Abs(jet1->Eta() - jet2->Eta());
     if (mvaVar["jet1eta"])       vars[varCounter++] = jet1->Eta();
 
 
-    if ( event%2 != 0 ){
+    if ( event%2 != 1 ){
       factory->AddSignalTrainingEvent( vars, scale1fb );
       nsigtrain++;
     }
@@ -597,9 +603,11 @@ void trainMVA_smurf(
       (type == mm || 
        type == ee)                              ) continue; // cut on Z veto for ee/mm lepton-pair
     if( lid3 != 0	                        ) continue; // cut on dileptons
-    if( dilep->pt() <= 40                       ) continue; // cut on dilepton pt
+    if( dilep->pt() <= 45                       ) continue; // cut on dilepton pt
     if( (cuts & patternTopTag) == patternTopTag ) continue; // cut on btagging
     if( njets >= 1 && dPhiDiLepJet1 > 100       ) continue; // cut on impossible dPhiDiLepJet1
+    if( mt <= 80                                ) continue;
+    if( mt >= mH                                ) continue;
 
     // VBF Cuts
     if ( nJetsType == 2 ) {
@@ -631,12 +639,13 @@ void trainMVA_smurf(
     if (mvaVar["dPhiLep2MET"])   vars[varCounter++] = dPhiLep2MET;
     if (mvaVar["dPhiDiLepMET"])  vars[varCounter++] = dPhiDiLepMET;
     if (mvaVar["dPhiDiLepJet1"]) vars[varCounter++] = dPhiDiLepJet1;
+    if (mvaVar["dilpt"])         vars[varCounter++] = dilep->pt();
     if (mvaVar["razor"])         vars[varCounter++] = CalcGammaMRstar(*lep1,*lep2);
     if (mvaVar["mjj"])           vars[varCounter++] = (*jet1+*jet2).M();
     if (mvaVar["detajj"])        vars[varCounter++] = TMath::Abs(jet1->Eta() - jet2->Eta());
     if (mvaVar["jet1eta"])       vars[varCounter++] = jet1->Eta();
 
-    if ( event%2 != 0 ){
+    if ( event%2 != 1 ){
       factory->AddBackgroundTrainingEvent( vars, scale1fb );
       nbkgtrain++;
     }
@@ -836,7 +845,7 @@ void trainMVA_smurf(
   // Boosted Decision Trees
   if (Use["BDTG"]) // Gradient Boost
     factory->BookMethod( TMVA::Types::kBDT, "BDTG",
-                         "!H:!V:NTrees=500:BoostType=Grad:Shrinkage=0.10:UseBaggedGrad:GradBaggingFraction=0.5:nCuts=2000:NNodesMax=5" );
+                         "!H:!V:NTrees=500:BoostType=Grad:Shrinkage=0.10:UseBaggedGrad:GradBaggingFraction=0.5:nCuts=1000:NNodesMax=5" );
 
   if (Use["BDT"])  // Adaptive Boost
     factory->BookMethod(TMVA::Types::kBDT,"BDT",

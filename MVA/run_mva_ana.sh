@@ -17,6 +17,7 @@ export WEIGHTSONLY=$3;
 export TAG=ntuples2012_${MH}train_${NJETS}jets;
 #export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
 #export TAG=TEST_ntuples_${MH}train_${NJETS}jets;
+export TAG=ntuples2012_PostICHEP_${MH}train_${NJETS}jets;
 #export METHODS=BDT,Likelihood,BDTG,BDTD,BDTB,MLP,MLPBFGS,MLPBNN,CFMlpANN,TMlpANN,BoostedFisher,LikelihoodD,LikelihoodPCA,FDA_GA,RuleFit;
 export METHODS=Likelihood,BDT,BDTD,BDTG;
 ###export METHODS=BDT,BDTD,BDTG;

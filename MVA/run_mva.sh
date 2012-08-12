@@ -14,7 +14,7 @@ export WEIGHTSONLY=$3;
 
 #export TAG=TEST_${MH}train_${NJETS}jets;
 #export METHODS=BDTG;
-export TAG=ntuples2012_${MH}train_${NJETS}jets;
+export TAG=ntuples2012_PostICHEP_${MH}train_${NJETS}jets;
 #export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
 #export TAG=TEST_ntuples_${MH}train_${NJETS}jets;
 #export METHODS=BDT,Likelihood,BDTG,BDTD,BDTB,MLP,MLPBFGS,MLPBNN,CFMlpANN,TMlpANN,BoostedFisher,LikelihoodD,LikelihoodPCA,FDA_GA,RuleFit;
@@ -55,10 +55,11 @@ fi
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
 data/hww${MH}.root
+data/vhtt${MH}.root
 data/backgroundA.root
 data/backgroundB.root
 data/data.root
-data/data_mit.root
+data/data_llg.root
 data/hww_syst.root
 data/dyll.root
 data/ggww.root
@@ -69,6 +70,10 @@ data/ttbar.root
 data/ttbar_powheg.root
 data/tw.root
 data/wgamma.root
+data/zgamma.root
+data/wgammafo.root
+data/zgammafo.root
+data/www.root
 data/wglll.root
 data/wjets.root
 data/wwmcnlo.root
@@ -93,9 +98,9 @@ for i in `cat list_samples.txt` ; do
   dataset=${i%%,*};
   echo "filling MVA information in sample: "  $dataset
   if [ ${WEIGHTSONLY} == "1" ]; then
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",1\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",2\);
   else
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",1\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",2\);
   fi
   
 done
