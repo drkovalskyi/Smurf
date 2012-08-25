@@ -1,0 +1,126 @@
+\documentclass{cmspaper}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage[pdfborder=0 0 0,
+            colorlinks,
+            urlcolor = blue,
+            linkcolor = black,
+            citecolor = black,
+            menucolor = black,]
+           {hyperref}
+%% \usepackage[colorlinks]{hyperref}
+%% \usepackage{url}
+\usepackage[toc,page]{appendix}
+\usepackage{varioref} 
+\renewcommand{\appendixname}{Appendix}
+%% \renewcommand{\appendixtocname}{List of appendices}
+
+% \input{privsym}
+\input{commands.tex}
+
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+\setcounter{secnumdepth}{6}
+%===================================================================================================
+\begin{document}
+\begin{titlepage}
+
+  \analysisnote{2012/XXX}
+
+  \date{\today}
+
+  \title{A 2-dimensional Shape Analysis for Higgs Boson Search in the Fully Leptonic $W^+W^-$ Final State}
+
+  \input{authors.tex}
+
+  \begin{abstract}
+    This note describes a 2-dimensional shape analysis searching
+	for the Higgs boson in the $W^+W^- \to 2\ell2\nu$ final state. 
+	The study is done with events in $e\mu$ final states containing 
+	0 or 1 reconstructed jets. We report expected significances 
+	in \intlumiEightTeV at $\sqrt s = 8~\TeV$ as well as projection
+	to 20~\ifb.  
+  \end{abstract} 
+
+\end{titlepage}
+\tableofcontents
+%\listoftables
+%\listoffigures
+\newpage 
+
+%===================================================================================================
+\section{Introduction}
+  \label{sec:overview}
+  \input{introduction.tex}
+
+%
+\newpage
+\section{Method}
+  \label{sec:method}
+  \input{method_intro.tex}
+
+  \subsection{Choice of variables}
+  \label{sec:choice_var}
+  \input{choice_var.tex}
+  
+  \subsection{Event Selection}
+  \label{sec:evt_selection}
+  \input{evt_selection.tex}
+  
+  \subsection{Bin Size and Range}
+  \label{sec:binsize_range}
+  \input{binsize_range.tex}
+  
+  \subsection{Unrolling}
+  \label{sec:unrolling}
+  \input{unrolling.tex}
+  
+  \subsection{Templates}
+  \label{sec:templates}
+  \input{templates.tex}
+  
+  \subsection{Shape Uncertainties}
+  \label{sec:shape_uncert}
+  \input{shape_uncert.tex}
+
+%
+\newpage
+\section{Performance}
+  \label{sec:performance}
+  \input{performance_intro.tex}
+  
+  \subsection{Expected Significance at \intlumiEightTeV }
+  \label{sec:exp_significance_5fb}
+  \input{exp_significance_5fb.tex}
+  
+  \newpage
+  \subsection{Expected Significance at 20~\ifb }
+  \label{sec:exp_significance_20fb}
+  \input{exp_significance_20fb.tex}
+
+%
+\newpage
+\section{Summary}
+     \label{sec:summary}
+     \input{summary.tex}
+
+%===================================================================================================
+\input{biblio.tex}
+%===================================================================================================
+
+\clearpage 
+\appendix
+\appendixpage
+  \section{Templates at \mHi = 160 \GeV~and 200 \GeV}
+     \label{app:templates_160_200}
+     \input{appendix_templates_160_200}
+  
+  \newpage
+  \section{S/B with various bin sizes}
+     \label{app:binsize}
+     \input{appendix_binsize}
+
+\end{document}
