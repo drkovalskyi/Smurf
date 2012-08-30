@@ -6,6 +6,7 @@
 #include "RooCategory.h"
 #include "TH1.h"
 #include "TVirtualFitter.h"
+#include "TMath.h"
 
 ClassImp(RooATGCPdf);
 
@@ -148,6 +149,12 @@ Parabola::Parabola( std::vector<Measurement>* _m )
   errD = fitter->GetParError(3);
   errE = fitter->GetParError(4);
   errF = fitter->GetParError(5);
+  std::cout << "=======================================================" << std::endl;
+  std::cout << "Chi2 = " << chi2() << std::endl;
+  std::cout << "Probability = " << TMath::Prob(chi2(),6) << std::endl;  
+  std::cout << "=======================================================" << std::endl;
+
+  // if (TMath::Prob(
   m = 0;
 }
 
@@ -162,6 +169,21 @@ Parabola::myfcn(Int_t &, Double_t *, Double_t &f, Double_t *par, Int_t)
     Double_t d = (v-(*m)[i].xs)/(*m)[i].xserr;
     f += d*d;
   }
+}
+
+double Parabola::chi2(){
+  Int_t dummy1(0), dummy2(0);
+  Double_t* dummy3(0);
+  Double_t f;
+  Double_t par[6];
+  par[0] = A;
+  par[1] = B;
+  par[2] = C;
+  par[3] = D;
+  par[4] = E;
+  par[5] = F;
+  myfcn(dummy1,dummy3,f,par,dummy2);
+  return f;
 }
 
 std::vector<Measurement>* Parabola::m = 0;

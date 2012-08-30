@@ -968,8 +968,8 @@ void ww1DFits(const char* file = "smurf/qqww.root", bool smurfFormat=true, int N
 
 TH1F* wwATGC1DFit(const char* file, const char* name, double lz, double dkz)
 {
-  x_par->setRange(-1,1);
-  y_par->setRange(-1,1);
+  x_par->setRange(-1.5,1.5);
+  y_par->setRange(-1.5,1.5);
   assert(lz==0||dkz==0);
   
   RooAbsData* dataset = MakeOldDataset(file);
@@ -988,7 +988,7 @@ TH1F* wwATGC1DFit(const char* file, const char* name, double lz, double dkz)
   // TRandom::Poisson
 
   // TH1F* h = new TH1F(Form("h_%s",name),"Fit of on WW with anomalous couplings",40,-1,1);
-  TH1F* h = new TH1F(Form("h_%s",name),"Fit of on WW with anomalous couplings",40,0,1);
+  TH1F* h = new TH1F(Form("h_%s",name),"Fit of on WW with anomalous couplings",60,0,1.5);
   h->SetDirectory(0);
   unsigned int nEvents(ww_expected);
   while ( firstEntry <= size - nEvents ){
@@ -1466,4 +1466,202 @@ void yieldDataFit()
   cpdf->plotOn(frame,RooFit::Precision(1e-5)) ;
   new TCanvas("cc2","cc2",600,600);
   frame->Draw();
+}
+
+TH1F* toy_wwATGC1DFit(const char* name, double lz, double dkz, unsigned int ntoys=1000)
+{
+  x_par->setRange(-1,1);
+  y_par->setRange(-1,1);
+  assert(lz==0||dkz==0);
+
+  unsigned int nEvents(ww_expected);
+  glb_data=0;
+  // TH1F* h = new TH1F(Form("h_%s",name),"Fit of on WW with anomalous couplings",40,-1,1);
+  TH1F* h = new TH1F(Form("h_%s",name),"Fit of on WW toy MC data with anomalous couplings",60,0,1.5);
+  h->SetDirectory(0);
+
+  for(unsigned int i=0; i<ntoys; ++i){
+    x_par->setVal(lz);
+    y_par->setVal(dkz);
+    // TRandom::Poisson
+    RooDataSet* dataset = atgcPdf->generate(*var_pt1,nEvents);
+    if (glb_data) delete glb_data;
+    glb_data = dataset;
+
+    if ( lz==0 ){
+      x_par->setConstant(1);
+      y_par->setConstant(0);
+    } else {
+      x_par->setConstant(0);
+      y_par->setConstant(1);
+    }      
+    atgcPdf->fitTo(*glb_data);
+    cout << "\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" << endl;
+    if ( lz==0 )
+      h->Fill(fabs(y_par->getVal()));
+    else
+      h->Fill(fabs(x_par->getVal()));
+  }
+  h->SetFillColor(kMagenta);
+  return h;
+}
+
+TH1F* toy_fullATGC1DFit(const char* name, double lz, double dkz, unsigned int ntoys=1000, bool fit1 = true) // when fit1 false fit the other variable
+{
+  x_par->setRange(-1,1);
+  y_par->setRange(-1,1);
+  cpdf = new RooAddPdf("cpdf","combined pdf",RooArgList(*cSigPdf,*cBkgPdf));
+
+  unsigned int nEvents(ww_expected+top_expected+wjets_expected+wz_expected+zz_expected+dy_expected);
+  glb_data=0;
+  // TH1F* h = new TH1F(Form("h_%s",name),"Fit of on WW with anomalous couplings",40,-1,1);
+  TH1F* h = new TH1F(Form("h_%s",name),"Fit of on WW toy MC data with anomalous couplings",100,-0.5,0.5);
+  h->SetDirectory(0);
+  for(unsigned int i=0; i<ntoys; ++i){
+    x_par->setVal(lz);
+    y_par->setVal(dkz);
+    // TRandom::Poisson
+    RooDataSet* dataset = cpdf->generate(*var_pt1,nEvents);
+    if (glb_data) delete glb_data;
+    glb_data = dataset;
+
+    if ( fit1 ){
+      x_par->setConstant(0);
+      y_par->setConstant(1);
+    } else {
+      x_par->setConstant(1);
+      y_par->setConstant(0);
+    }  
+    RooAbsReal* nll = cpdf->createNLL(*glb_data,RooFit::Extended(),RooFit::Constrain(RooArgSet(*n_top,*n_wjets,*n_wz,*n_zz,*n_dy)));
+    // RooMinuit m(*nll);                                                                                                                                                         
+    RooMinimizer m(*nll);
+    m.setMinimizerType("Minuit2");
+    m.setErrorLevel(0.5); //68% C.L.                                                                                                                                              
+    m.migrad();
+    
+    cout << "\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" << endl;
+    if ( fit1 )
+      h->Fill(x_par->getVal());
+    else
+      h->Fill(y_par->getVal());
+  }
+  h->SetFillColor(kMagenta);
+  return h;
+}
+
+void toy_wwATGC1DFits()
+{
+  TCanvas* c8 = new TCanvas("c8toy","Fit results",800,800);
+  c8->Divide(2,2);
+  
+  c8->cd(1);
+  TH1F* h1 = toy_wwATGC1DFit("sm_p",0,0.75);
+  h1->SetTitle("#lambda_{Z}=0, #Delta g^{Z}_{1}=0.75");
+  h1->GetXaxis()->SetTitle("|#Delta g^{Z}_{1}=0.75|");
+  h1->Draw();
+
+  c8->cd(2);
+  TH1F* h2 = toy_wwATGC1DFit("sm_m",0,-0.75);
+  h2->SetTitle("#lambda_{Z}=0, #Delta g^{Z}_{1}=-0.75");
+  h2->GetXaxis()->SetTitle("|#Delta g^{Z}_{1}|");
+  h2->Draw();
+
+  c8->cd(3);
+  TH1F* h3 = toy_wwATGC1DFit("p_sm",0.5,0);
+  h3->SetTitle("#lambda_{Z}=0.5, #Delta g^{Z}_{1}=0");
+  h3->GetXaxis()->SetTitle("|#lambda_{Z}|");
+  h3->Draw();
+    
+  c8->cd(4);
+  TH1F* h4 = toy_wwATGC1DFit("p_sm",-0.5,0);
+  h4->SetTitle("#lambda_{Z}=-0.5, #Delta g^{Z}_{1}=0");
+  h4->GetXaxis()->SetTitle("|#lambda_{Z}|");
+  h4->Draw();
+}
+
+void toy_wwATGC1DLzKgFits()
+{
+  TCanvas* c8 = new TCanvas("c8toy2","Fit results",800,400);
+  c8->Divide(2,1);
+  
+  c8->cd(1);
+  TH1F* h1 = toy_wwATGC1DFit("sm_p",0,0.7);
+  h1->SetTitle(Form("%s 0.7",y_par->GetTitle()));
+  h1->GetXaxis()->SetTitle(y_par->GetTitle());
+  h1->Draw();
+
+  c8->cd(2);
+  TH1F* h2 = toy_wwATGC1DFit("sm_m",0,-0.7);
+  h2->SetTitle(Form("%s -0.7",y_par->GetTitle()));
+  h2->GetXaxis()->SetTitle(y_par->GetTitle());
+  h2->Draw();
+}
+
+void toy_fullATGC1DFits()
+{
+  TCanvas* c81 = new TCanvas("c8fulltoy_gz1","Fit results",800,800);
+  c81->cd();
+  TH1F* h1 = toy_fullATGC1DFit("toy_gz1",0,0,1000,false);
+  h1->SetTitle("#lambda_{Z}=0, #Delta g^{Z}_{1}=0");
+  h1->GetXaxis()->SetTitle("#Delta g^{Z}_{1}");
+  h1->Draw();
+
+  TCanvas* c82 = new TCanvas("c8fulltoy_lz","Fit results",800,800);
+  c82->cd();
+  TH1F* h3 = toy_fullATGC1DFit("toy_lz",0,0,1000,true);
+  h3->SetTitle("#lambda_{Z}=0, #Delta g^{Z}_{1}=0");
+  h3->GetXaxis()->SetTitle("#lambda_{Z}");
+  h3->Draw();
+}
+
+void toy_fullATGC1DLzKgFits()
+{
+  TCanvas* c8 = new TCanvas("c8fulltoy_kg","Fit results",800,800);
+  c8->cd(1);
+  TH1F* h1 = toy_fullATGC1DFit("toy_kg",0,0,1000,false);
+  h1->SetTitle(Form("%s 0.7",y_par->GetTitle()));
+  h1->GetXaxis()->SetTitle(y_par->GetTitle());
+  h1->Draw();
+}
+
+// just one sample (fitted like signal)
+void simpleFitForATGC(const char* file, bool oldformat=false)
+{
+  // n_ww->setConstant(0);
+  x_par->setRange(-1.5,1.5);
+  y_par->setRange(-1.5,1.5);
+
+  RooDataSet* dataset(0);
+  if (!oldformat) 
+    dataset = MakeDataset(file,"ds");
+  else 
+    dataset = MakeOldDataset(file);
+  glb_data = dataset;
+  cout << "Num entries: " << glb_data->numEntries() << endl;
+
+  x_par->setVal(0);
+  y_par->setVal(0);
+  // first fit
+  x_par->setConstant(0);
+  y_par->setConstant(1);
+  cout << "\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+  cout << "First fit (Y is constant)" << endl;
+  cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" << endl;
+  atgcPdf->fitTo(*glb_data);
+  cout << "\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+  cout << "First fit is done" << endl;
+  cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" << endl;
+
+  x_par->setVal(0);
+  y_par->setVal(0);
+  // second fit
+  x_par->setConstant(1);
+  y_par->setConstant(0);
+  cout << "\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+  cout << "Second fit (X is constant)" << endl;
+  cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" << endl;
+  atgcPdf->fitTo(*glb_data);
+  cout << "\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+  cout << "Second fit is done" << endl;
+  cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" << endl;
 }
