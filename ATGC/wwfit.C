@@ -1036,7 +1036,7 @@ void wwATGC1DFits()
   TH1F* h1 = wwATGC1DFit("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz175_lz0_gz1750000.root",
 			 "sm_p",0,0.75);
   h1->SetTitle("#lambda_{Z}=0, #Delta g^{Z}_{1}=0.75");
-  h1->GetXaxis()->SetTitle("|#Delta g^{Z}_{1}=0.75|");
+  h1->GetXaxis()->SetTitle("|#Delta g^{Z}_{1}|");
   h1->Draw();
 
   c8->cd(2);
