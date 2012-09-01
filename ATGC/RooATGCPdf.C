@@ -58,9 +58,10 @@ bool RooATGCPdf::build(){
       {
 	Measurement m = itr->first;
 	double scale = itr->second->GetBinContent(i)/itr->second->Integral(1,size);
-	// ignore histogram errors for now
+	// use simplified histogram uncertainty propagation (only bin uncertainty, not integral)
+	double scale_err = itr->second->GetBinError(i)/itr->second->Integral(1,size);
+	m.xserr = sqrt(pow(scale*m.xserr,2)+pow(scale_err*m.xs,2));
 	m.xs *= scale;
-	m.xserr *= scale;
 	mb.push_back(m);
       }
     params.at(i) = Parabola( &mb );

@@ -311,60 +311,61 @@ void setSigPdf_LZ_GZ()
   Int_t i=0;
   c1->cd(i+1);
   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz100_lz0_gz1000000.root", "sm_sm",0,0);
+
   // samples[i] = Sample(MakeDataset("smurf/qqww.root","ds_ww"),0,0);
-//   samples[i].hist()->Draw();
-//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*3.09163, norm*0.0547394), samples[i].hist());
-//   i++;			    
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*3.09163, norm*0.0547394), samples[i].hist());
+  i++;			    
 
-//   c1->cd(i+1);
-//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz175_lz0_gz1750000.root", "sm_p",0,0.75);
-//   samples[i].hist()->Draw();
-//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.12261, 0.112729*norm), samples[i].hist());
-//   i++;			    
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz175_lz0_gz1750000.root", "sm_p",0,0.75);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.12261, 0.112729*norm), samples[i].hist());
+  i++;			    
 
-//   c1->cd(i+1);
-//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz25_lz0_gz250000.root", "sm_m",0,-0.75);
-//   samples[i].hist()->Draw();
-//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.01277, 0.112194*norm), samples[i].hist());
-//   i++;			    
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz25_lz0_gz250000.root", "sm_m",0,-0.75);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.01277, 0.112194*norm), samples[i].hist());
+  i++;			    
 
-//   c1->cd(i+1);
-//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz100_lz50_gz1000000.root", "p_sm", 0.5, 0);
-//   samples[i].hist()->Draw();
-//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.53635, 0.103594*norm), samples[i].hist());
-//   i++;			    
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz100_lz50_gz1000000.root", "p_sm", 0.5, 0);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.53635, 0.103594*norm), samples[i].hist());
+  i++;			    
 
-//   c1->cd(i+1);
-//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz175_lz50_gz1750000.root", "p_p",0.5,0.75);
-//   samples[i].hist()->Draw();
-//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.43854, 0.178215*norm), samples[i].hist());
-//   i++;			    
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz175_lz50_gz1750000.root", "p_p",0.5,0.75);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.43854, 0.178215*norm), samples[i].hist());
+  i++;			    
 
-//   c1->cd(i+1);
-//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz25_lz50_gz250000.root", "p_m",0.5,-0.75);
-//   samples[i].hist()->Draw();
-//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*7.22219, 0.13752*norm), samples[i].hist());
-//   i++;			    
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz25_lz50_gz250000.root", "p_m",0.5,-0.75);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*7.22219, 0.13752*norm), samples[i].hist());
+  i++;			    
 
-//   c1->cd(i+1);
-//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz100_lzm50_gz1000000.root", "m_sm",-0.5,0);
-//   samples[i].hist()->Draw();
-//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.20204, 0.0981948*norm), samples[i].hist());
-//   i++;			    
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz100_lzm50_gz1000000.root", "m_sm",-0.5,0);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.20204, 0.0981948*norm), samples[i].hist());
+  i++;			    
 
-//   c1->cd(i+1);
-//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz175_lzm50_gz1750000.root", "m_p",-0.5,0.75);
-//   samples[i].hist()->Draw();
-//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.89533, 0.131155*norm), samples[i].hist());
-//   i++;			    
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz175_lzm50_gz1750000.root", "m_p",-0.5,0.75);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*6.89533, 0.131155*norm), samples[i].hist());
+  i++;			    
 
-//   c1->cd(i+1);
-//   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz25_lzm50_gz25000.root", "m_m",-0.5,-0.75);
-//   samples[i].hist()->Draw();
-//   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.72764, 0.183288*norm), samples[i].hist());
-//   i++;			    
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz25_lzm50_gz25000.root", "m_m",-0.5,-0.75);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.72764, 0.183288*norm), samples[i].hist());
+  i++;			    
 
-
+    /*
   samples[i].hist()->Draw();
   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*547.541, norm*1.947), samples[i].hist());
   i++;			    
@@ -415,7 +416,9 @@ void setSigPdf_LZ_GZ()
   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz25_lzm50_gz25000.root", "m_m",-0.5,-0.75);
   samples[i].hist()->Draw();
   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*2295.906, 4.985*norm), samples[i].hist());
-  i++;			    
+  i++;
+    */
+
   atgcPdf->build();
 
   c1->cd(1);
@@ -453,6 +456,8 @@ void setSigPdf_LZ_GZ()
   c1->cd(9);
   x_par->setVal(-0.5); y_par->setVal(-0.75);
   DrawPdf(atgcPdf,"h_m_m","",kWhite,kBlue,"same p0");
+  c1->Print("pdfs.pdf");
+
 }
 
 void setSigPdf_LZ_KG()
@@ -561,6 +566,7 @@ void setSigPdf_LZ_KG()
   c1->cd(9);
   x_par->setVal(-0.5); y_par->setVal(-0.75);
   DrawPdf(atgcPdf,"h_m_m","",kWhite,kBlue,"same p0");
+  c1->Print("pdfs2.pdf");
 }
 
 void setBkgPdf()
@@ -1026,32 +1032,38 @@ void wwATGC1DFits()
   c8->Divide(2,2);
   
   c8->cd(1);
-  TH1F* h1 = wwATGC1DFit("samples/processed_data_WW_1j_kg100_lg0_gg100_kz175_lz0_gz175_fastsim386_v1.root",
+  // TH1F* h1 = wwATGC1DFit("samples/processed_data_WW_1j_kg100_lg0_gg100_kz175_lz0_gz175_fastsim386_v1.root",
+  TH1F* h1 = wwATGC1DFit("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz175_lz0_gz1750000.root",
 			 "sm_p",0,0.75);
   h1->SetTitle("#lambda_{Z}=0, #Delta g^{Z}_{1}=0.75");
   h1->GetXaxis()->SetTitle("|#Delta g^{Z}_{1}=0.75|");
   h1->Draw();
 
   c8->cd(2);
-  TH1F* h2 = wwATGC1DFit("samples/processed_data_WW_1j_kg100_lg0_gg100_kz25_lz0_gz25_fastsim386_v1.root",
+  // TH1F* h2 = wwATGC1DFit("samples/processed_data_WW_1j_kg100_lg0_gg100_kz25_lz0_gz25_fastsim386_v1.root",
+  TH1F* h2 = wwATGC1DFit("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz25_lz0_gz250000.root",
 			 "sm_m",0,-0.75);
   h2->SetTitle("#lambda_{Z}=0, #Delta g^{Z}_{1}=-0.75");
   h2->GetXaxis()->SetTitle("|#Delta g^{Z}_{1}|");
   h2->Draw();
 
   c8->cd(3);
-  TH1F* h3 = wwATGC1DFit("samples/processed_data_WW_1j_kg100_lg50_gg100_kz100_lz50_gz100_fastsim386_v1.root",
+  // TH1F* h3 = wwATGC1DFit("samples/processed_data_WW_1j_kg100_lg50_gg100_kz100_lz50_gz100_fastsim386_v1.root",
+  TH1F* h3 = wwATGC1DFit("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz100_lz50_gz1000000.root",
 			 "p_sm",0.5,0);
   h3->SetTitle("#lambda_{Z}=0.5, #Delta g^{Z}_{1}=0");
   h3->GetXaxis()->SetTitle("|#lambda_{Z}|");
   h3->Draw();
     
   c8->cd(4);
-  TH1F* h4 = wwATGC1DFit("samples/processed_data_WW_1j_kg100_lgm50_gg100_kz100_lzm50_gz100_fastsim386_v1.root",
+  // TH1F* h4 = wwATGC1DFit("samples/processed_data_WW_1j_kg100_lgm50_gg100_kz100_lzm50_gz100_fastsim386_v1.root",
+  TH1F* h4 = wwATGC1DFit("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz100_lzm50_gz1000000.root",
 			 "p_sm",-0.5,0);
   h4->SetTitle("#lambda_{Z}=-0.5, #Delta g^{Z}_{1}=0");
   h4->GetXaxis()->SetTitle("|#lambda_{Z}|");
   h4->Draw();
+  c8->Print("fit_wwATGC_mc_1D_abs.pdf");
+
 }
 
 void wwATGC1DLzKgFits()
@@ -1060,18 +1072,21 @@ void wwATGC1DLzKgFits()
   c8->Divide(2,1);
   
   c8->cd(1);
-  TH1F* h1 = wwATGC1DFit("samples/processed_data_WW_1j_kg170_lg0_gg100_kz779311_lz0_gz100.root",
+  // TH1F* h1 = wwATGC1DFit("samples/processed_data_WW_1j_kg170_lg0_gg100_kz779311_lz0_gz100.root",
+  TH1F* h1 = wwATGC1DFit("samples/processed_data_job_WW_1j_kg170_lg0_gg100_kz779311_lz0_gz100.root",
 			 "sm_p",0,0.7);
   h1->SetTitle(Form("%s 0.7",y_par->GetTitle()));
   h1->GetXaxis()->SetTitle(y_par->GetTitle());
   h1->Draw();
 
   c8->cd(2);
-  TH1F* h2 = wwATGC1DFit("samples/processed_data_WW_1j_kg30_lg0_gg100_kz1220689_lz0_gz100.root",
+  // TH1F* h2 = wwATGC1DFit("samples/processed_data_WW_1j_kg30_lg0_gg100_kz1220689_lz0_gz100.root",
+  TH1F* h2 = wwATGC1DFit("samples/processed_data_job_WW_1j_kg30_lg0_gg100_kz1220689_lz0_gz100.root",
 			 "sm_m",0,-0.7);
   h2->SetTitle(Form("%s -0.7",y_par->GetTitle()));
   h2->GetXaxis()->SetTitle(y_par->GetTitle());
   h2->Draw();
+  c8->Print("fit_wwATGC_mc_1D_abs2.pdf");
 }
 
 void prepareForDataFits(){
