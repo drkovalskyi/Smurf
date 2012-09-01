@@ -65,23 +65,42 @@ events expected. The normalization is treated as a nuisance parameter
 and left free floating in the fit. The distributions of fitted
 anomalous couplings are shown for 1000 toy experiments.
 
-From these studies we find no bias in the model itself. 
+Figure~\ref{fig:fulltoys} shows the toy Monte Carlo studies using full
+PDF setting all anomalous couplings to zero during generation and
+letting them free in the fit. The results can be used to estimate the
+expected uncertainties on the couplings: $\sigma(\lambda_{Z})=0.022$,
+$\sigma(\Delta g^Z_1)=0.038$ and $\sigma(\Delta\kappa_\gamma)=0.088$.
+
+From these studies we find no bias in the fitter. 
 
 \begin{figure}[tp]
   \centering
     \includegraphics[width=0.8\textwidth]{figures/fit_wwATGC_toymc_1D_abs}
     \includegraphics[width=0.8\textwidth]{figures/fit_wwATGC_toymc_1D_abs2}
 
-  \caption[Toy Monte Carlo studies] {Fit results for
-  2-dimentional $\lambda_{Z}$-$\Delta g^Z_1$ (top) and
-  $\lambda_{Z}$-$\Delta\kappa_\gamma$ (bottom) aTGC models using 50
-  independent pseudo-data experiments made of Madgraph Standard
-  Model \ww\ simulated data. Only one coupling floating in the fit,
-  while the other one is fixed to the Standard Model
-  value. Backgrounds are excluded from the fits.}
+  \caption[Toy Monte Carlo studies] {Fit results for 2-dimentional
+  $\lambda_{Z}$-$\Delta g^Z_1$ (top) and
+  $\lambda_{Z}$-$\Delta\kappa_\gamma$ (bottom) aTGC models using toy
+  Monte Carlo experiments in which the leading lepton \pt\
+  distribution is generated from the signal PDF with non-zero
+  anomalous couplings. Backgrounds are excluded from the fits.}
 
 \label{fig:toys}
 \end{figure}
+
+\begin{figure}[tp]
+  \centering
+    \includegraphics[width=0.3\textwidth]{figures/fulltoy_lz.pdf}
+    \includegraphics[width=0.3\textwidth]{figures/fulltoy_gz1.pdf}
+    \includegraphics[width=0.3\textwidth]{figures/fulltoy_kg.pdf}
+
+  \caption[Expected uncertainties]{Fits for anomalous couplings using
+  the leading \pt\ distribution generated with zero anomalous
+  couplings using toys Monte Carlo trials}
+
+\label{fig:fulltoys}
+\end{figure}
+
 
 \subsection{Pseudo-experiments}
 Figures~\ref{fig:fit_ww_mc_1D} and \ref{fig:fit_wwATGC_mc_1D_abs} show
@@ -90,12 +109,17 @@ anomalous couplings and excluding backgrounds. If only one coupling is
 fitted it is not possible to get the sign right, so only absolute
 values can be measured.
 
-Pseudo-experiments with Standard Model \ww\ Monte Carlo are performed to look
-for bias in the fit for the central value and to test the uncertainty
-estimation. No significant deviation from zero is
-found. Pseudo-experiments with non-zero anomalous couplings underestimate 
-the true value by 20-30\%. To take this effect into
-account we rescale final results.
+Pseudo-experiments with Standard Model \ww\ Monte Carlo are performed
+to look for bias in the fit for the central value and to test the
+uncertainty estimation. No significant deviation from zero is
+found. Pseudo-experiments with non-zero anomalous couplings show
+results consistent with anomalous couplings used to generate the
+samples.
+
+These tests conclude that the modeling of the leading lepton \pt\
+distribution in terms of anomalous couplings does not lead to any
+sizable deviation and the model can be used to measure anomalous
+couplings in data.
 
 \begin{figure}[tp]
   \centering
