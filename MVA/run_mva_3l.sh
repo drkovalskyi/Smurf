@@ -14,7 +14,7 @@ export WEIGHTSONLY=$3;
 
 #export TAG=TEST_${MH}train_${NJETS}jets;
 #export METHODS=BDTG;
-export TAG=ntuples2012_PostICHEP_${MH}train_${NJETS}jets;
+export TAG=ntuples2012_${MH}train_${NJETS}jets;
 #export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
 #export TAG=TEST_ntuples_${MH}train_${NJETS}jets;
 #export METHODS=BDT,Likelihood,BDTG,BDTD,BDTB,MLP,MLPBFGS,MLPBNN,CFMlpANN,TMlpANN,BoostedFisher,LikelihoodD,LikelihoodPCA,FDA_GA,RuleFit;
@@ -30,7 +30,7 @@ elif [ ${NJETS} == "wh3l" ]; then
   export TAG=ntuples_wh3l_${MH}train
 fi
 
-export DO_TRAINING=1;
+export DO_TRAINING=0;
 if [ ${DO_TRAINING} == "1" ]; then
   export SIG_TRAIN=data/hww${MH}.root;
   export BKG_TRAIN=data/training.root;
@@ -54,33 +54,31 @@ fi
 ### samples must be in "data" folder
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-data/hww${MH}.root
-data/vhtt${MH}.root
-data/backgroundA.root
-data/backgroundB.root
-data/data.root
-data/data_llg.root
-data/hww_syst.root
-data/dyll.root
-data/ggww.root
-data/qqww.root
-data/qqww_py.root
-data/training.root
-data/ttbar.root
-data/ttbar_powheg.root
-data/tw.root
-data/wgamma.root
-data/zgamma.root
-data/wgammafo.root
-data/zgammafo.root
-data/www.root
-data/wglll.root
-data/wjets.root
-data/wwmcnlo.root
-data/wwmcnlodown.root
-data/wwmcnloup.root
-data/wz.root
-data/zz.root
+data/hww110.root
+data/hww115.root
+data/hww120.root
+data/hww125.root
+data/hww130.root
+data/hww135.root
+data/hww140.root
+data/hww150.root
+data/hww160.root
+data/hww170.root
+data/hww180.root
+data/hww190.root
+data/hww200.root
+data/vhtt110.root
+data/vhtt115.root
+data/vhtt120.root
+data/vhtt125.root
+data/vhtt130.root
+data/vhtt135.root
+data/vhtt140.root
+data/vhtt150.root
+data/vhtt160.root
+data/hww_syst_3l.root
+data/data_3l.root
+data/backgroundA_3l.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf_hww.C+;
@@ -98,9 +96,9 @@ for i in `cat list_samples.txt` ; do
   dataset=${i%%,*};
   echo "filling MVA information in sample: "  $dataset
   if [ ${WEIGHTSONLY} == "1" ]; then
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",1\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",2\);
   else
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",1\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",2\);
   fi
   
 done
