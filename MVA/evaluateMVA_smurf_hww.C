@@ -574,6 +574,9 @@ TString suffix       = "ww"
 
       smurfTree.tree_->GetEntry(ievt);
 
+      // Fixing the random seed for a given event
+      gRandom->SetSeed(smurfTree.event_+smurfTree.lumi_);
+
       //--------------------------------------------------------
       // important: here we associate branches to MVA variables
       //--------------------------------------------------------
