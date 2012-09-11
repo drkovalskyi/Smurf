@@ -6,15 +6,10 @@ setenv MAKEINPUTS $3;
 setenv CAT         1;
 
 setenv TAG       ntuples2012_${MH}train_${NJETS}jets;
-if ($MH == 0) then
-  setenv TAG       ntuples2012_160train_${NJETS}jets;
-endif
 
 if ($NJETS == 2) then
+  #setenv TAG       ntuples2012_125train_${NJETS}jets;
   setenv TAG       ntuples2012_${MH}train_1jets;
-  if ($MH == 0) then
-    setenv TAG       ntuples2012_160train_1jets;
-  endif
 endif
 
 ### data_Summer12
@@ -68,10 +63,10 @@ if ($MAKEINPUTS == "") then
   else if ($NJETS == 2) then
    root -l -q -b PlotHiggsRes2012.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",5,1,\"$SYS_TEST\",$CAT\);
    root -l -q -b PlotHiggsRes2012.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",6,1,\"$SYS_TEST\",$CAT\);
-   #mv hwwsf${STRCATB}_2j.input_8TeV.root ${INPUTDIR}/${MH}/.
-   #mv output/histo_limits_${TAG}_2j_chan5_mh${MH}_shape${STRCATA}_8TeV.txt ${INPUTDIR}/${MH}/hwwsf${STRCATB}_2j_shape_8TeV.txt
-   #mv hwwof${STRCATB}_2j.input_8TeV.root ${INPUTDIR}/${MH}/.
-   #mv output/histo_limits_${TAG}_2j_chan6_mh${MH}_shape${STRCATA}_8TeV.txt ${INPUTDIR}/${MH}/hwwof${STRCATB}_2j_shape_8TeV.txt
+   mv hwwsf${STRCATB}_2j.input_8TeV.root ${INPUTDIR}/${MH}/.
+   mv output/histo_limits_${TAG}_2j_chan5_mh${MH}_shape${STRCATA}_8TeV.txt ${INPUTDIR}/${MH}/hwwsf${STRCATB}_2j_shape_8TeV.txt
+   mv hwwof${STRCATB}_2j.input_8TeV.root ${INPUTDIR}/${MH}/.
+   mv output/histo_limits_${TAG}_2j_chan6_mh${MH}_shape${STRCATA}_8TeV.txt ${INPUTDIR}/${MH}/hwwof${STRCATB}_2j_shape_8TeV.txt
    mv output/histo_limits_${TAG}_2j_chan5_mh${MH}_cut${STRCATA}_8TeV.txt   ${INPUTDIR}/${MH}/hwwsf${STRCATB}_2j_cut_8TeV.txt
    mv output/histo_limits_${TAG}_2j_chan6_mh${MH}_cut${STRCATA}_8TeV.txt   ${INPUTDIR}/${MH}/hwwof${STRCATB}_2j_cut_8TeV.txt
 

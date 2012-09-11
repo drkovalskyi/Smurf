@@ -80,7 +80,16 @@ void PlotHiggsRes2012
   bool useTopTemplates     = true;
   bool useggHTemplates     = false; // default is false in 2012 analysis
   bool useWgammaTemplates  = false; // this is intentional
-  if(nJetsType != 0 && nJetsType != 1){
+  int rebinMVAHist        = 10;
+  unsigned int rebinSmurf = 4;
+  TH1D *histSmurfRebin;
+
+  int binVarA = 0;//8;
+  int binVarB = 0;//10;
+  bool is2DAna = false;
+  if(binVarA > 0 && binVarB > 0) is2DAna = true; if(nJetsType == 2 && is2DAna == true) {binVarA = 4;binVarB = 4;}
+
+  if(nJetsType == 2 && is2DAna == false){
     useZjetsTemplates	= false;
     useWWTemplates	= false;
     useStatTemplates	= false;
@@ -92,14 +101,6 @@ void PlotHiggsRes2012
     useggHTemplates	= false;
     useWgammaTemplates  = false;
   }
-  int rebinMVAHist        = 10;
-  unsigned int rebinSmurf = 4;
-  TH1D *histSmurfRebin;
-
-  int binVarA = 10;
-  int binVarB = 7;
-  bool is2DAna = false;
-  if(binVarA > 0 && binVarB > 0) is2DAna = true;
 
   bool makeZjetsTemplates = false;
   if(makeZjetsTemplates == true) useZjetsTemplates = false;
@@ -134,12 +135,19 @@ void PlotHiggsRes2012
 
   if(channel == -1) return;
 
+  float mllLowerRange = 0.0;
   float dilmass_cut = DileptonMassPreselectionCut(mH);
   if(wwPresel == true) dilmass_cut = 99999.;
   float mtUpperCut = mH;
-  float mtLowerCut = 80;
-  if     (is2DAna == true && mH <= 250) {dilmass_cut = 200; mtLowerCut = 70; mtUpperCut = 250; useZjetsTemplates = false; useExpTemplates = false;}
-  else if(is2DAna == true && mH >  250) {dilmass_cut = mH;  mtLowerCut = 70; mtUpperCut = mH;  useZjetsTemplates = false; useExpTemplates = false;}
+  float mtLowerCut = 80; if(nJetsType == 2) mtLowerCut = 30;
+  if     (is2DAna == true && mH <= 250) {dilmass_cut = 200; mtLowerCut = 80; mtUpperCut = 280; useZjetsTemplates = false;}
+  else if(is2DAna == true && mH >  250) {dilmass_cut = mH;  mtLowerCut = 80; mtUpperCut = mH;  useZjetsTemplates = false;}
+
+  //if     (mH <= 250) {dilmass_cut = 200; mtLowerCut = 80; mtUpperCut = 280; useZjetsTemplates = false;}
+  //else if(mH >  250) {dilmass_cut = mH;  mtLowerCut = 80; mtUpperCut = mH;  useZjetsTemplates = false;}
+
+  int mHAna = mH;
+  if(is2DAna == true && nJetsType == 2) mHAna = 125;
 
   char finalStateName[10];
   sprintf(finalStateName,"ll");
@@ -532,217 +540,23 @@ void PlotHiggsRes2012
   TH1D* histo_ggH_CMS_hww_MVAggHBoundingUp = new TH1D( Form("histo_ggH_CMS_hww_MVAggHBoundingUp"), Form("histo_ggH_CMS_hww_MVAggHBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAggHBoundingUp->Sumw2();
   TH1D* histo_ggH_CMS_hww_MVAggHBoundingDown = new TH1D( Form("histo_ggH_CMS_hww_MVAggHBoundingDown"), Form("histo_ggH_CMS_hww_MVAggHBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAggHBoundingDown->Sumw2();
 
-  TH1D* histoS = new TH1D("histoS", "histoS", 180, 0, 180);
-  TH1D* histoB = new TH1D("histoB", "histoB", 180, 0, 180);
-  TH1D* histoD = new TH1D("histoD", "histoD", 180, 0, 180);
+  TH1D* histoS = new TH1D("histoS", "histoS", 40, -1, 1);
+  TH1D* histoS2 = new TH1D("histoS2", "histoS2", 40, -1, 1);
+  TH1D* histoB = new TH1D("histoB", "histoB", 40, -1, 1);
+  TH1D* histoD = new TH1D("histoD", "histoD", 40, -1, 1);
   histoS->Sumw2();
+  histoS2->Sumw2();
   histoB->Sumw2();
   histoD->Sumw2();
 
   //----------------------------------------------------------------------------
   // Define MVA cut values (known a posteriori)
   //----------------------------------------------------------------------------
-  int useVar = 0; // which MVA to be used
+  int useVar = 4; // which MVA to be used
   double useCut = -999.0;
-  if    (nJetsType == 0){
-    if     (mH == 110){
-      //useVar = 2;
-      //useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.405-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 115 || mH == 118 ||  mH == 122 || mH == 124 || mH == 125 || mH == 126 || mH == 128 || mH == 135 || mH == 145){
-      //useVar = 2;
-      //useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.405-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 120 || mH == 155 || mH == 700 || mH == 800 || mH == 900 || mH == 1000){
-      //useVar = 2;
-      //useCut =  0.675-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut =  0.375-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 130){
-      //useVar = 2;
-      //useCut =  0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut =  0.375-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 140){
-      //useVar = 2;
-      //useCut = 0.735-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.485-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 150){
-      //useVar = 2;
-      //useCut = 0.795-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.585-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 160){
-      //useVar = 2;
-      //useCut = 0.945-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.875-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }
-    else if(mH == 170){
-      //useVar = 2;
-      //useCut = 0.855-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.725-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 180){
-      //useVar = 2;
-      //useCut = 0.855-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.715-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 190){
-      //useVar = 2;
-      //useCut = 0.805-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.615-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 200){
-      //useVar = 2;
-      //useCut = 0.815-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.625-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 250){
-      //useVar = 2;
-      //useCut = 0.785-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.585-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 300){
-      //useVar = 2;
-      //useCut = 0.805-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.605-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 350){
-      //useVar = 2;
-      //useCut = 0.835-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.675-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 400){
-      //useVar = 2;
-      //useCut = 0.845-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.705-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 450){
-      //useVar = 2;
-      //useCut = 0.895-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.785-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }
-    else if(mH == 500){
-      //useVar = 2;
-      //useCut = 0.915-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.845-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }
-    else if(mH == 550){
-      //useVar = 2;
-      //useCut = 0.925-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.845-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 600){
-      //useVar = 2;
-      //useCut = 0.945-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.885-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-  }
-  else if(nJetsType == 1){
-    if     (mH == 110){
-      useVar = 4;
-      useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 115 || mH == 118 ||  mH == 122 || mH == 124 || mH == 125 || mH == 126 || mH == 128 || mH == 135 || mH == 145){
-      useVar = 4;
-      useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 120 || mH == 155 || mH == 700 || mH == 800 || mH == 900 || mH == 1000){
-      useVar = 4;
-      useCut = 0.665-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 130){
-      //useVar = 2;
-      //useCut = 0.885-datMVA[useVar]->GetBinWidth(0)/2.0;
-      useVar = 4;
-      useCut = 0.685-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 140){
-      useVar = 4;
-      useCut = 0.725-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 150){
-      useVar = 4;
-      useCut = 0.785-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 160){
-      useVar = 4;
-      useCut = 0.815-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 170){
-      useVar = 4;
-      useCut = 0.835-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 180){
-      useVar = 4;
-      useCut = 0.815-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 190){
-      useVar = 4;
-      useCut = 0.745-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 200){
-      useVar = 4;
-      useCut = 0.735-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 250){
-      useVar = 4;
-      useCut = 0.655-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 300){
-      useVar = 4;
-      useCut = 0.765-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 350){
-      useVar = 4;
-      useCut = 0.785-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 400){
-      useVar = 4;
-      useCut = 0.815-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 450){
-      useVar = 4;
-      useCut = 0.885-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 500){
-      useVar = 4;
-      useCut = 0.915-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 550){
-      useVar = 4;
-      useCut = 0.925-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-    else if(mH == 600){
-      useVar = 4;
-      useCut = 0.945-datMVA[useVar]->GetBinWidth(0)/2.0;
-    }	
-  }
-  if(nJetsType !=2 && useVar != 4) assert(0);
   //----------------------------------------------------------------------------
 
+  Float_t         qqHMVA = -999;
   UInt_t          cuts;
   UInt_t          dstype;
   UInt_t          nvtx;
@@ -801,6 +615,12 @@ void PlotHiggsRes2012
   Float_t         sfWeightTrig;
   Float_t         sfWeightHPt;
   Float_t         dymva = -100.0;
+  Float_t         mll_lepup = 0.0;
+  Float_t         mt_lepup = 0.0;
+  Float_t         mll_lepdown = 0.0;
+  Float_t         mt_lepdown = 0.0; 
+  Float_t         mll_metup = 0.0;  
+  Float_t         mt_metup = 0.0;   
 
   //****************************************************************************
   //
@@ -846,22 +666,28 @@ void PlotHiggsRes2012
   signal->SetBranchAddress( "jet1Btag"     , &jet1Btag     );
   signal->SetBranchAddress( "jet2Btag"     , &jet2Btag     );
   signal->SetBranchAddress( "jet3Btag"     , &jet3Btag     );
-  signal->SetBranchAddress(Form("bdt_hww%i_%djet_ww"	  ,mH,nJetsType), &bdt        );
-  signal->SetBranchAddress(Form("bdtd_hww%i_%djet_ww"	  ,mH,nJetsType), &bdtd       );
-  signal->SetBranchAddress(Form("nn_hww%i_%djet_ww"	  ,mH,nJetsType), &nn	      );
-  signal->SetBranchAddress(Form("knn_hww%i_%djet_ww"	  ,mH,nJetsType), &knn        );
-  signal->SetBranchAddress(Form("bdtg_hww%i_%djet_ww"	  ,mH,nJetsType), &bdtg       );
-  signal->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux0",mH,nJetsType), &bdtg_aux0  );
-  signal->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux1",mH,nJetsType), &bdtg_aux1  );
-  signal->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux2",mH,nJetsType), &bdtg_aux2  );
+  signal->SetBranchAddress(Form("bdt_hww%i_%djet_ww"	  ,mHAna,nJetsType), &bdt        );
+  signal->SetBranchAddress(Form("bdtd_hww%i_%djet_ww"	  ,mHAna,nJetsType), &bdtd       );
+  //signal->SetBranchAddress(Form("nn_hww%i_%djet_ww"	  ,mHAna,nJetsType), &nn	      );
+  signal->SetBranchAddress(Form("knn_hww%i_%djet_ww"	  ,mHAna,nJetsType), &knn        );
+  signal->SetBranchAddress(Form("bdtg_hww%i_%djet_ww"	  ,mHAna,nJetsType), &bdtg       );
+  signal->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux0",mHAna,nJetsType), &bdtg_aux0  );
+  signal->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux1",mHAna,nJetsType), &bdtg_aux1  );
+  signal->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux2",mHAna,nJetsType), &bdtg_aux2  );
   signal->SetBranchAddress( "higgsPt"      , &higgsPt      );
-  //signal->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
-  //signal->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
+  //signal->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mHAna,nJetsType), &bdtg_wjets );
+  //signal->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mHAna,nJetsType), &knn_wjets  );
   signal->SetBranchAddress( "sfWeightPU"     , &sfWeightPU     );
   signal->SetBranchAddress( "sfWeightEff"    , &sfWeightEff    );
   signal->SetBranchAddress( "sfWeightTrig"   , &sfWeightTrig   );
   signal->SetBranchAddress( "sfWeightHPt"    , &sfWeightHPt    );
   signal->SetBranchAddress( "dymva"          , &dymva          );
+  signal->SetBranchAddress( "mll_lepup"      , &mll_lepup      );
+  signal->SetBranchAddress( "mt_lepup"       , &mt_lepup       );
+  signal->SetBranchAddress( "mll_lepdown"    , &mll_lepdown    );
+  signal->SetBranchAddress( "mt_lepdown"     , &mt_lepdown     );
+  signal->SetBranchAddress( "mll_metup"      , &mll_metup      );
+  signal->SetBranchAddress( "mt_metup"       , &mt_metup       );
 
   float nSigAcc[6]  = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   float nSigCut[6]  = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -879,6 +705,7 @@ void PlotHiggsRes2012
     			    ((cuts & SmurfTree::Lep1LooseEleV1)    == SmurfTree::Lep1LooseEleV1    && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection);
     if(!lId) continue;
 
+    qqHMVA = bdtg; // keep it forever, otherwise lost later in the chain
     //----------------------------------------------------------------------------
     //for data require that the event fired one of the designated signal triggers
     //----------------------------------------------------------------------------
@@ -910,6 +737,8 @@ void PlotHiggsRes2012
     if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 4.7  			       ) passJetCut[2] = true;
     if(nJetsType == 1 && jet1->pt()*1.05 > 30 && jet2->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 4.7 && TMath::Abs(jet2->eta()) < 4.7) passJetCut[1] = true;
     if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 4.7 && TMath::Abs(jet2->eta()) < 4.7) passJetCut[2] = true;
+    if(nJetsType == 2 && jet2->pt()*1.05 > 30 && jet3->pt()*1.05 < 30 && TMath::Abs(jet2->eta()) < 4.7 && TMath::Abs(jet3->eta()) < 4.7) passJetCut[1] = true;
+    if(nJetsType == 2 && jet2->pt()*0.95 > 30 && jet3->pt()*0.95 < 30 && TMath::Abs(jet2->eta()) < 4.7 && TMath::Abs(jet3->eta()) < 4.7) passJetCut[2] = true;
 
     double minmet = TMath::Min(pmet,pTrackMet);
     bool passMET = minmet > 20.;
@@ -974,12 +803,30 @@ void PlotHiggsRes2012
     if(wwDecayCut == false) continue;
 
     if(is2DAna == true) {
-      double varA = (dilep->mass()-12.0)/(dilmass_cut-12.0);
+      double varA = (dilep->mass()-mllLowerRange)/(dilmass_cut-mllLowerRange);
       double varB = (mt-mtLowerCut)/(mtUpperCut-mtLowerCut);
       bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+
+      varA = (mll_lepup-mllLowerRange)/(dilmass_cut-mllLowerRange);
+      varB = (mt_lepup-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg_aux0 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+
+      varA = (mll_lepdown-mllLowerRange)/(dilmass_cut-mllLowerRange);
+      varB = (mt_lepdown-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg_aux1 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+
+      varA = (mll_metup-mllLowerRange)/(dilmass_cut-mllLowerRange);
+      varB = (mt_metup-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
+    if(bdtg_aux0 < -1.0) bdtg_aux0 = -0.999;
+    if(bdtg_aux0 > +1.0) bdtg_aux0 =  0.999;
+    if(bdtg_aux1 < -1.0) bdtg_aux1 = -0.999;
+    if(bdtg_aux1 > +1.0) bdtg_aux1 =  0.999;
+    if(bdtg_aux2 < -1.0) bdtg_aux2 = -0.999;
+    if(bdtg_aux2 > +1.0) bdtg_aux2 =  0.999;
 
     //----------------------------------------------------------------------------
     // Define event weights    
@@ -1063,7 +910,7 @@ void PlotHiggsRes2012
           (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
       passAllCuts = (*jet1+*jet2).M() > 450. &&
                     TMath::Abs(jet1->eta()-jet2->eta()) > 3.5 &&
-		    mt > 30 && mt < mtUpperCut &&
+		    mt > mtLowerCut && mt < mtUpperCut &&
 		    centrality == 1 &&
 		    passJetCut[0]==true;
       if(is2DAna == true) {
@@ -1093,17 +940,29 @@ void PlotHiggsRes2012
     // Apply mT_Higgs cut for MVA Shape analysis
     //----------------------------------------------------------------------------
     bool passMVAPreselCuts = mt > mtLowerCut && mt < mtUpperCut; if(wwPresel == true) passMVAPreselCuts = true;
-    if(is2DAna == true) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > theCutPtMaxLow;
-    if(passMVAPreselCuts == true && passJetCut[0] == true){
+    if(is2DAna == true && mH > 250) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > theCutPtMaxLow;
+    if(nJetsType == 2){
+      int centrality = 0;
+      if(((jet1->eta()-lep1->eta() > 0 && jet2->eta()-lep1->eta() < 0) ||
+          (jet2->eta()-lep1->eta() > 0 && jet1->eta()-lep1->eta() < 0)) &&
+         ((jet1->eta()-lep2->eta() > 0 && jet2->eta()-lep2->eta() < 0) ||
+          (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 200. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.0 && centrality == 1;
+      if(passMVAPreselCuts == true && processId==10001){
+        double myVar = dPhi*180.0/TMath::Pi(); myVar = qqHMVA;
+        histoS->Fill(myVar,myWeight);
+      }
+      if(passMVAPreselCuts == true && processId!=10001){
+        double myVar = dPhi*180.0/TMath::Pi(); myVar = qqHMVA;
+        histoS2->Fill(myVar,myWeight);
+      }
+      passMVAPreselCuts = passMVAPreselCuts && qqHMVA > 0.1;;
+    }
+    if(passMVAPreselCuts == true){
       nSigAcc[0]  = nSigAcc[0]  + myWeight;
       nSigEAcc[0] = nSigEAcc[0] + myWeight*myWeight;
       nSigAcc[nSigBin]  = nSigAcc[nSigBin]  + myWeight;
       nSigEAcc[nSigBin] = nSigEAcc[nSigBin] + myWeight*myWeight;
-
-      if(bdtg>-1.0&&bdtg<1){
-        double myVar = dPhi*180.0/TMath::Pi(); myVar = CalcGammaMRstar(*lep1,*lep2);
-        histoS->Fill(myVar,myWeight);
-      }
 
       if     (useVar == 0) histos   ->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),       myWeight);
       else if(useVar == 1) histos   ->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),       myWeight);
@@ -1277,17 +1136,23 @@ void PlotHiggsRes2012
   background->SetBranchAddress( "lep2McId"      , &lep2McId	  );
   background->SetBranchAddress( "lep1MotherMcId", &lep1MotherMcId );
   background->SetBranchAddress( "lep2MotherMcId", &lep2MotherMcId );
-  background->SetBranchAddress(Form("bdt_hww%i_%djet_ww"      ,mH,nJetsType), &bdt	  );
-  background->SetBranchAddress(Form("bdtd_hww%i_%djet_ww"     ,mH,nJetsType), &bdtd	  );
-  background->SetBranchAddress(Form("nn_hww%i_%djet_ww"       ,mH,nJetsType), &nn	  );
-  background->SetBranchAddress(Form("knn_hww%i_%djet_ww"      ,mH,nJetsType), &knn	  );
-  background->SetBranchAddress(Form("bdtg_hww%i_%djet_ww"     ,mH,nJetsType), &bdtg	  );
-  background->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux0",mH,nJetsType), &bdtg_aux0  );
-  background->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux1",mH,nJetsType), &bdtg_aux1  );
-  background->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux2",mH,nJetsType), &bdtg_aux2  );
-  //background->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
-  //background->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
+  background->SetBranchAddress(Form("bdt_hww%i_%djet_ww"      ,mHAna,nJetsType), &bdt	  );
+  background->SetBranchAddress(Form("bdtd_hww%i_%djet_ww"     ,mHAna,nJetsType), &bdtd	  );
+  //background->SetBranchAddress(Form("nn_hww%i_%djet_ww"       ,mHAna,nJetsType), &nn	  );
+  background->SetBranchAddress(Form("knn_hww%i_%djet_ww"      ,mHAna,nJetsType), &knn	  );
+  background->SetBranchAddress(Form("bdtg_hww%i_%djet_ww"     ,mHAna,nJetsType), &bdtg	  );
+  background->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux0",mHAna,nJetsType), &bdtg_aux0  );
+  background->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux1",mHAna,nJetsType), &bdtg_aux1  );
+  background->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux2",mHAna,nJetsType), &bdtg_aux2  );
+  //background->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mHAna,nJetsType), &bdtg_wjets );
+  //background->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mHAna,nJetsType), &knn_wjets  );
   background->SetBranchAddress( "dymva"          , &dymva          );
+  background->SetBranchAddress( "mll_lepup"      , &mll_lepup      );
+  background->SetBranchAddress( "mt_lepup"       , &mt_lepup       );
+  background->SetBranchAddress( "mll_lepdown"    , &mll_lepdown    );
+  background->SetBranchAddress( "mt_lepdown"     , &mt_lepdown     );
+  background->SetBranchAddress( "mll_metup"      , &mll_metup      );
+  background->SetBranchAddress( "mt_metup"       , &mt_metup       );
 
   float nBgdAcc = 0.0;
   float nBgdCut = 0.0;
@@ -1306,6 +1171,7 @@ void PlotHiggsRes2012
     background->GetEntry(i);
     if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
 
+    qqHMVA = bdtg; // keep it forever, otherwise lost later in the chain
     //----------------------------------------------------------------------------
     //for data require that the event fired one of the designated signal triggers
     //----------------------------------------------------------------------------
@@ -1339,6 +1205,8 @@ void PlotHiggsRes2012
     if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 4.7  			       ) passJetCut[2] = true;
     if(nJetsType == 1 && jet1->pt()*1.05 > 30 && jet2->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 4.7 && TMath::Abs(jet2->eta()) < 4.7) passJetCut[1] = true;
     if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 4.7 && TMath::Abs(jet2->eta()) < 4.7) passJetCut[2] = true;
+    if(nJetsType == 2 && jet2->pt()*1.05 > 30 && jet3->pt()*1.05 < 30 && TMath::Abs(jet2->eta()) < 4.7 && TMath::Abs(jet3->eta()) < 4.7) passJetCut[1] = true;
+    if(nJetsType == 2 && jet2->pt()*0.95 > 30 && jet3->pt()*0.95 < 30 && TMath::Abs(jet2->eta()) < 4.7 && TMath::Abs(jet3->eta()) < 4.7) passJetCut[2] = true;
 
     double minmet = TMath::Min(pmet,pTrackMet);
     bool passMET = minmet > 20.;
@@ -1443,12 +1311,30 @@ void PlotHiggsRes2012
     if(wwDecayCut == false) continue;
 
     if(is2DAna == true) {
-      double varA = (dilep->mass()-12.0)/(dilmass_cut-12.0);
+      double varA = (dilep->mass()-mllLowerRange)/(dilmass_cut-mllLowerRange);
       double varB = (mt-mtLowerCut)/(mtUpperCut-mtLowerCut);
       bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+
+      varA = (mll_lepup-mllLowerRange)/(dilmass_cut-mllLowerRange);
+      varB = (mt_lepup-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg_aux0 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+
+      varA = (mll_lepdown-mllLowerRange)/(dilmass_cut-mllLowerRange);
+      varB = (mt_lepdown-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg_aux1 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+
+      varA = (mll_metup-mllLowerRange)/(dilmass_cut-mllLowerRange);
+      varB = (mt_metup-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
+    if(bdtg_aux0 < -1.0) bdtg_aux0 = -0.999;
+    if(bdtg_aux0 > +1.0) bdtg_aux0 =  0.999;
+    if(bdtg_aux1 < -1.0) bdtg_aux1 = -0.999;
+    if(bdtg_aux1 > +1.0) bdtg_aux1 =  0.999;
+    if(bdtg_aux2 < -1.0) bdtg_aux2 = -0.999;
+    if(bdtg_aux2 > +1.0) bdtg_aux2 =  0.999;
 
     //----------------------------------------------------------------------------
     // Define event weights    
@@ -1641,7 +1527,7 @@ void PlotHiggsRes2012
           (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
       passAllCuts = (*jet1+*jet2).M() > 450. &&
                     TMath::Abs(jet1->eta()-jet2->eta()) > 3.5 &&
-		    mt > 30 && mt < mtUpperCut &&
+		    mt > mtLowerCut && mt < mtUpperCut &&
 		    centrality == 1 &&
 		    passJetCut[0]==true;
       if(is2DAna == true) {
@@ -1701,7 +1587,20 @@ void PlotHiggsRes2012
     // Apply mT_Higgs cut for MVA Shape analysis
     //----------------------------------------------------------------------------
     bool passMVAPreselCuts = mt > mtLowerCut && mt < mtUpperCut; if(wwPresel == true) passMVAPreselCuts = true;
-    if(is2DAna == true) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > theCutPtMaxLow;
+    if(is2DAna == true && mH > 250) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > theCutPtMaxLow;
+    if(nJetsType == 2){
+      int centrality = 0;
+      if(((jet1->eta()-lep1->eta() > 0 && jet2->eta()-lep1->eta() < 0) ||
+          (jet2->eta()-lep1->eta() > 0 && jet1->eta()-lep1->eta() < 0)) &&
+         ((jet1->eta()-lep2->eta() > 0 && jet2->eta()-lep2->eta() < 0) ||
+          (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 200. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.0 && centrality == 1;
+      if(passMVAPreselCuts == true && passJetCut[0] == true){
+        double myVar = dPhi*180.0/TMath::Pi(); myVar = qqHMVA;
+        histoB->Fill(myVar,myWeight);
+      }
+      passMVAPreselCuts = passMVAPreselCuts && qqHMVA > 0.1;;
+    }
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       double myWeightMVA = myWeight;
 
@@ -1790,11 +1689,6 @@ void PlotHiggsRes2012
 	else if(useVar == 3) histo0->Fill(TMath::Max(TMath::Min((double)knn,maxHis[3]-0.001),minHis[3]+0.001),  myWeightMVA);
 	else if(useVar == 4) histo0->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
 	else if(useVar == 5) histo0->Fill(TMath::Max(TMath::Min((double)bdtg_wjets,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
-      }
-
-      if(bdtg>-1.0&&bdtg<1){
-        double myVar = dPhi*180.0/TMath::Pi(); myVar = CalcGammaMRstar(*lep1,*lep2);
-        histoB->Fill(myVar,myWeightMVA);
       }
 
       //----------------------------------------------------------------------------
@@ -1992,17 +1886,23 @@ void PlotHiggsRes2012
   treeSyst->SetBranchAddress( "lep2McId"      , &lep2McId	);
   treeSyst->SetBranchAddress( "lep1MotherMcId", &lep1MotherMcId );
   treeSyst->SetBranchAddress( "lep2MotherMcId", &lep2MotherMcId );
-  treeSyst->SetBranchAddress(Form("bdt_hww%i_%djet_ww"      ,mH,nJetsType), &bdt	);
-  treeSyst->SetBranchAddress(Form("bdtd_hww%i_%djet_ww"     ,mH,nJetsType), &bdtd	);
-  treeSyst->SetBranchAddress(Form("nn_hww%i_%djet_ww"	    ,mH,nJetsType), &nn 	);
-  treeSyst->SetBranchAddress(Form("knn_hww%i_%djet_ww"      ,mH,nJetsType), &knn	);
-  treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_ww"     ,mH,nJetsType), &bdtg	);
-  treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux0",mH,nJetsType), &bdtg_aux0  );
-  treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux1",mH,nJetsType), &bdtg_aux1  );
-  treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux2",mH,nJetsType), &bdtg_aux2  );
-  //treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
-  //treeSyst->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
+  treeSyst->SetBranchAddress(Form("bdt_hww%i_%djet_ww"      ,mHAna,nJetsType), &bdt	);
+  treeSyst->SetBranchAddress(Form("bdtd_hww%i_%djet_ww"     ,mHAna,nJetsType), &bdtd	);
+  //treeSyst->SetBranchAddress(Form("nn_hww%i_%djet_ww"	    ,mHAna,nJetsType), &nn 	);
+  treeSyst->SetBranchAddress(Form("knn_hww%i_%djet_ww"      ,mHAna,nJetsType), &knn	);
+  treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_ww"     ,mHAna,nJetsType), &bdtg	);
+  treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux0",mHAna,nJetsType), &bdtg_aux0  );
+  treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux1",mHAna,nJetsType), &bdtg_aux1  );
+  treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_ww_aux2",mHAna,nJetsType), &bdtg_aux2  );
+  //treeSyst->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mHAna,nJetsType), &bdtg_wjets );
+  //treeSyst->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mHAna,nJetsType), &knn_wjets  );
   treeSyst->SetBranchAddress( "dymva"          , &dymva          );
+  treeSyst->SetBranchAddress( "mll_lepup"      , &mll_lepup      );
+  treeSyst->SetBranchAddress( "mt_lepup"       , &mt_lepup       );
+  treeSyst->SetBranchAddress( "mll_lepdown"    , &mll_lepdown    );
+  treeSyst->SetBranchAddress( "mt_lepdown"     , &mt_lepdown     );
+  treeSyst->SetBranchAddress( "mll_metup"      , &mll_metup      );
+  treeSyst->SetBranchAddress( "mt_metup"       , &mt_metup       );
   printf("--- Finished treeSyst loop\n");
 
   float nSystAcc  = 0.0;
@@ -2014,6 +1914,7 @@ void PlotHiggsRes2012
     treeSyst->GetEntry(i);
     if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)treeSyst->GetEntries());
 
+    qqHMVA = bdtg; // keep it forever, otherwise lost later in the chain
     //----------------------------------------------------------------------------
     //for data require that the event fired one of the designated signal triggers
     //----------------------------------------------------------------------------
@@ -2047,6 +1948,8 @@ void PlotHiggsRes2012
     if(nJetsType == 0 && 			 jet1->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 4.7  			       ) passJetCut[2] = true;
     if(nJetsType == 1 && jet1->pt()*1.05 > 30 && jet2->pt()*1.05 < 30 && TMath::Abs(jet1->eta()) < 4.7 && TMath::Abs(jet2->eta()) < 4.7) passJetCut[1] = true;
     if(nJetsType == 1 && jet1->pt()*0.95 > 30 && jet2->pt()*0.95 < 30 && TMath::Abs(jet1->eta()) < 4.7 && TMath::Abs(jet2->eta()) < 4.7) passJetCut[2] = true;
+    if(nJetsType == 2 && jet2->pt()*1.05 > 30 && jet3->pt()*1.05 < 30 && TMath::Abs(jet2->eta()) < 4.7 && TMath::Abs(jet3->eta()) < 4.7) passJetCut[1] = true;
+    if(nJetsType == 2 && jet2->pt()*0.95 > 30 && jet3->pt()*0.95 < 30 && TMath::Abs(jet2->eta()) < 4.7 && TMath::Abs(jet3->eta()) < 4.7) passJetCut[2] = true;
 
     double minmet = TMath::Min(pmet,pTrackMet);
     bool passMET = minmet > 20.;
@@ -2154,12 +2057,30 @@ void PlotHiggsRes2012
     if(wwDecayCut == false) continue;
 
     if(is2DAna == true) {
-      double varA = (dilep->mass()-12.0)/(dilmass_cut-12.0);
+      double varA = (dilep->mass()-mllLowerRange)/(dilmass_cut-mllLowerRange);
       double varB = (mt-mtLowerCut)/(mtUpperCut-mtLowerCut);
       bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+
+      varA = (mll_lepup-mllLowerRange)/(dilmass_cut-mllLowerRange);
+      varB = (mt_lepup-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg_aux0 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+
+      varA = (mll_lepdown-mllLowerRange)/(dilmass_cut-mllLowerRange);
+      varB = (mt_lepdown-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg_aux1 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+
+      varA = (mll_metup-mllLowerRange)/(dilmass_cut-mllLowerRange);
+      varB = (mt_metup-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
+    if(bdtg_aux0 < -1.0) bdtg_aux0 = -0.999;
+    if(bdtg_aux0 > +1.0) bdtg_aux0 =  0.999;
+    if(bdtg_aux1 < -1.0) bdtg_aux1 = -0.999;
+    if(bdtg_aux1 > +1.0) bdtg_aux1 =  0.999;
+    if(bdtg_aux2 < -1.0) bdtg_aux2 = -0.999;
+    if(bdtg_aux2 > +1.0) bdtg_aux2 =  0.999;
 
     //----------------------------------------------------------------------------
     // Define event weights    
@@ -2368,7 +2289,16 @@ void PlotHiggsRes2012
     // Apply mT_Higgs cut for MVA Shape analysis
     //----------------------------------------------------------------------------
     bool passMVAPreselCuts = mt > mtLowerCut && mt < mtUpperCut; if(wwPresel == true) passMVAPreselCuts = true;
-    if(is2DAna == true) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > theCutPtMaxLow;
+    if(is2DAna == true && mH > 250) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > theCutPtMaxLow;
+    if(nJetsType == 2){
+      int centrality = 0;
+      if(((jet1->eta()-lep1->eta() > 0 && jet2->eta()-lep1->eta() < 0) ||
+          (jet2->eta()-lep1->eta() > 0 && jet1->eta()-lep1->eta() < 0)) &&
+         ((jet1->eta()-lep2->eta() > 0 && jet2->eta()-lep2->eta() < 0) ||
+          (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 200. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.0 && centrality == 1;
+      passMVAPreselCuts = passMVAPreselCuts && qqHMVA > 0.1;;
+    }
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       nSystAcc  = nSystAcc  + myWeight;
       nSystEAcc = nSystEAcc + myWeight*myWeight;
@@ -2478,13 +2408,13 @@ void PlotHiggsRes2012
   data->SetBranchAddress( "jet1Btag"	 , &jet1Btag	 );
   data->SetBranchAddress( "jet2Btag"	 , &jet2Btag	 );
   data->SetBranchAddress( "jet3Btag"	 , &jet3Btag	 );
-  data->SetBranchAddress(Form("bdt_hww%i_%djet_ww"	,mH,nJetsType), &bdt	    );
-  data->SetBranchAddress(Form("bdtd_hww%i_%djet_ww"	,mH,nJetsType), &bdtd	    );
-  data->SetBranchAddress(Form("nn_hww%i_%djet_ww"	,mH,nJetsType), &nn	    );
-  data->SetBranchAddress(Form("knn_hww%i_%djet_ww"	,mH,nJetsType), &knn	    );
-  data->SetBranchAddress(Form("bdtg_hww%i_%djet_ww"	,mH,nJetsType), &bdtg	    );
-  //data->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mH,nJetsType), &bdtg_wjets );
-  //data->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mH,nJetsType), &knn_wjets  );
+  data->SetBranchAddress(Form("bdt_hww%i_%djet_ww"	,mHAna,nJetsType), &bdt	    );
+  data->SetBranchAddress(Form("bdtd_hww%i_%djet_ww"	,mHAna,nJetsType), &bdtd	    );
+  //data->SetBranchAddress(Form("nn_hww%i_%djet_ww"	,mHAna,nJetsType), &nn	    );
+  data->SetBranchAddress(Form("knn_hww%i_%djet_ww"	,mHAna,nJetsType), &knn	    );
+  data->SetBranchAddress(Form("bdtg_hww%i_%djet_ww"	,mHAna,nJetsType), &bdtg	    );
+  //data->SetBranchAddress(Form("bdtg_hww%i_%djet_wjets"  ,mHAna,nJetsType), &bdtg_wjets );
+  //data->SetBranchAddress(Form("knn_hww%i_%djet_wjets"   ,mHAna,nJetsType), &knn_wjets  );
   data->SetBranchAddress( "sfWeightPU"     , &sfWeightPU     );
   data->SetBranchAddress( "sfWeightEff"    , &sfWeightEff    );
   data->SetBranchAddress( "sfWeightTrig"   , &sfWeightTrig   );
@@ -2504,6 +2434,7 @@ void PlotHiggsRes2012
     			    ((cuts & SmurfTree::Lep1LooseEleV1)    == SmurfTree::Lep1LooseEleV1    && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection);
     if(!lId) continue;
 
+    qqHMVA = bdtg; // keep it forever, otherwise lost later in the chain
     //----------------------------------------------------------------------------
     //for data require that the event fired one of the designated signal triggers
     //----------------------------------------------------------------------------
@@ -2592,12 +2523,30 @@ void PlotHiggsRes2012
     if(wwDecayCut == false) continue;
 
     if(is2DAna == true) {
-      double varA = (dilep->mass()-12.0)/(dilmass_cut-12.0);
+      double varA = (dilep->mass()-mllLowerRange)/(dilmass_cut-mllLowerRange);
       double varB = (mt-mtLowerCut)/(mtUpperCut-mtLowerCut);
       bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+
+      varA = (mll_lepup-mllLowerRange)/(dilmass_cut-mllLowerRange);
+      varB = (mt_lepup-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg_aux0 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+
+      varA = (mll_lepdown-mllLowerRange)/(dilmass_cut-mllLowerRange);
+      varB = (mt_lepdown-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg_aux1 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+
+      varA = (mll_metup-mllLowerRange)/(dilmass_cut-mllLowerRange);
+      varB = (mt_metup-mtLowerCut)/(mtUpperCut-mtLowerCut);
+      bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
+    if(bdtg_aux0 < -1.0) bdtg_aux0 = -0.999;
+    if(bdtg_aux0 > +1.0) bdtg_aux0 =  0.999;
+    if(bdtg_aux1 < -1.0) bdtg_aux1 = -0.999;
+    if(bdtg_aux1 > +1.0) bdtg_aux1 =  0.999;
+    if(bdtg_aux2 < -1.0) bdtg_aux2 = -0.999;
+    if(bdtg_aux2 > +1.0) bdtg_aux2 =  0.999;
 
     //----------------------------------------------------------------------------
     // Weights for signal injection study
@@ -2634,7 +2583,7 @@ void PlotHiggsRes2012
           (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
       passAllCuts = (*jet1+*jet2).M() > 450. &&
                     TMath::Abs(jet1->eta()-jet2->eta()) > 3.5 &&
-		    mt > 30 && mt < mtUpperCut &&
+		    mt > mtLowerCut && mt < mtUpperCut &&
 		    centrality == 1;
       if(is2DAna == true) {
         passAllCuts = passAllCuts &&
@@ -2659,13 +2608,22 @@ void PlotHiggsRes2012
     // Apply mT_Higgs cut for MVA Shape analysis
     //----------------------------------------------------------------------------
     bool passMVAPreselCuts = mt > mtLowerCut && mt < mtUpperCut; if(wwPresel == true) passMVAPreselCuts = true;
-    if(is2DAna == true) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > theCutPtMaxLow;
-    if(passMVAPreselCuts == true){
-      nDatAcc = nDatAcc + myWeight;
-      if(bdtg>-1.0&&bdtg<1){
-        double myVar = dPhi*180.0/TMath::Pi(); myVar = CalcGammaMRstar(*lep1,*lep2);
+    if(is2DAna == true && mH > 250) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > theCutPtMaxLow;
+    if(nJetsType == 2){
+      int centrality = 0;
+      if(((jet1->eta()-lep1->eta() > 0 && jet2->eta()-lep1->eta() < 0) ||
+          (jet2->eta()-lep1->eta() > 0 && jet1->eta()-lep1->eta() < 0)) &&
+         ((jet1->eta()-lep2->eta() > 0 && jet2->eta()-lep2->eta() < 0) ||
+          (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 200. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.0 && centrality == 1;
+      if(passMVAPreselCuts == true){
+        double myVar = dPhi*180.0/TMath::Pi(); myVar = qqHMVA;
         histoD->Fill(myVar,myWeight);
       }
+      passMVAPreselCuts = passMVAPreselCuts && qqHMVA > 0.1;;
+    }
+    if(passMVAPreselCuts == true){
+      nDatAcc = nDatAcc + myWeight;
       if     (useVar == 0) histo5->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),       myWeight);
       else if(useVar == 1) histo5->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),       myWeight);
       else if(useVar == 2) histo5->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),         myWeight);
@@ -2900,6 +2858,7 @@ void PlotHiggsRes2012
   outFilePlotsNote->cd();
   for(int i=0; i<nHist; i++) {
     histoS->Write();
+    histoS2->Write();
     histoB->Write();
     histoD->Write();    
     for(int j=0; j<4; j++){
@@ -3582,7 +3541,7 @@ void PlotHiggsRes2012
     //
     //----------------------------------------------------------------------------
     double theoryUncXS_HighMH = 1.0;
-    if(mH > 200) theoryUncXS_HighMH = 1.0+1.5*(mH/1000.0)*(mH/1000.0)*(mH/1000.0);
+    //if(mH > 200) theoryUncXS_HighMH = 1.0+1.5*(mH/1000.0)*(mH/1000.0)*(mH/1000.0);
     double wwXS_E_jet_extrap = 1.060;
     double jeteff_E 	     = 1.02;
     double topXS_E  	     = TopBkgScaleFactorKappa(nJetsType); if(nJetsType==2) topXS_E = TopVBFBkgScaleFactorKappa(mH);

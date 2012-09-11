@@ -32,11 +32,12 @@ double Unroll2VarTo1Var(double varA, double varB, int binsA, int binsB, bool ver
   // variables are supposed to be in the [0,1] range
   if(varA < 0 || varA > 1 || varB < 0 || varB > 1) return -1.0;
   if(varA < 0 || varA > 1 || varB < 0 || varB > 1) assert(0);
+
   double newVarA = (int)(varA*binsA);
   double newVarB = (int)(varB*binsB);
-  double finalVar = binsA*newVarA+newVarB;
-  double binRange = binsA*(binsA-1)+(binsB-1);
-  if(binsB > binsA) {finalVar = binsB*newVarB+newVarA; binRange = binsB*(binsB-1)+(binsA-1);}
+  double finalVar = binsB*newVarA+newVarB;
+  double binRange = binsA*binsB-1;
+  if(binsB > binsA) {finalVar = binsA*newVarB+newVarA;}
   if(verbose == true) std::cout << newVarA  << " " << varA     << " " <<  binsA     	   << " " <<
                                    newVarB  << " " << varB     << " " <<  binsB      	   << " " <<
 			           finalVar << " " << binRange << " " << finalVar/binRange << std::endl;
@@ -923,15 +924,15 @@ double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, i
     Int_t ptbin = fhDEffMu->GetXaxis()->FindBin(mypt);
     Int_t etabin = fhDEffMu->GetYaxis()->FindBin(myeta);	 
     prob = fhDEffMu->GetBinContent(ptbin,etabin);
-    if     (syst > 0) prob = prob + fhDEffMu->GetBinError(ptbin,etabin) + 0.01;
-    else if(syst < 0) prob = prob - fhDEffMu->GetBinError(ptbin,etabin) - 0.01;
+    if     (syst > 0) prob = prob + sqrt(fhDEffMu->GetBinError(ptbin,etabin)*fhDEffMu->GetBinError(ptbin,etabin) + 0.015*0.015);
+    else if(syst < 0) prob = prob - sqrt(fhDEffMu->GetBinError(ptbin,etabin)*fhDEffMu->GetBinError(ptbin,etabin) + 0.015*0.015);
   }
   else if(TMath::Abs(lid) == 11){
     Int_t ptbin = fhDEffEl->GetXaxis()->FindBin(mypt);
     Int_t etabin = fhDEffEl->GetYaxis()->FindBin(myeta);	 
     prob = fhDEffEl->GetBinContent(ptbin,etabin);
-    if     (syst > 0) prob = prob + fhDEffEl->GetBinError(ptbin,etabin) + 0.01;
-    else if(syst < 0) prob = prob - fhDEffEl->GetBinError(ptbin,etabin) - 0.01;
+    if     (syst > 0) prob = prob + sqrt(fhDEffEl->GetBinError(ptbin,etabin)*fhDEffEl->GetBinError(ptbin,etabin) + 0.02*0.02);
+    else if(syst < 0) prob = prob - sqrt(fhDEffEl->GetBinError(ptbin,etabin)*fhDEffEl->GetBinError(ptbin,etabin) + 0.02*0.02);
   }
   return prob;
 }
