@@ -1,50 +1,36 @@
-\begin{table}[ht!]
-	\begin{center}
-	\begin{tabular}{l|c|c}
-	\hline
-	Variable        &   Signal Events   & Background Events \\ \hline
-	\hline
-	\mll        	&  -0.74      		&  -0.87 \\
-	\ptlmin 		&  -0.55        	&  -0.54 \\
-	\delphill    	&  -0.40       		&  -0.51  \\
- 	\mt         	&  -0.26         	&  -0.27  \\
-	\ptlmax  		&  -0.22       		&  -0.34 \\
-	\met           	&  -0.14       		&  -0.16 \\
-	\hline
-	\end{tabular}
-	\end{center}
-	\caption{ The correlations of the BDT discriminators with event kinematic variables in simulated events.  
- 		 	  Rows are sorted by highest correlation in signal events. }
-	\label{tab:bdt_correlations}
-\end{table}
+We use \mll~and \mt~to construct 2D templates. Exact definitions of 
+them are as follows.  
 
-Table~\ref{tab:bdt_correlations} shows the correlations between BDT discriminator and
-kinimatic variables for signal(\mHi=125~\GeV) and background events. \mll is the most 
-correlated variable for both signal and background.   
+%
+\begin{itemize}
+\item the dilepton mass $\mll$;
+\item transverse Higgs mass, 
+$\mt^{\ell\ell\met} = \sqrt{2\pt^{ll}\met(1-cos(\Delta\phi_{\ell\ell-\met}))}$ where 
+$\Delta\phi_{\ell\ell-\met}$ is the angle between dilepton
+direction and \met in the transverse plane.
+\end{itemize} 
 
-\begin{table}[ht!]
-	\begin{center}
-	\begin{tabular}{l|c|c}
-	\hline
-	Variable        &   Signal Events   & Background Events \\ \hline
-	\hline
-	\delphill    	&   0.71      	&  0.67 	\\
-	\ptlmax  		&  	0.51       	&  0.61 	\\
-	\ptlmin			&   0.31      	&  0.62	 	\\
-	\met           	&  -0.05       	& -0.04 	\\
- 	\mt         	&  	0.01       	&  0.12  	\\
-	\hline
-	\end{tabular}
-	\end{center}
-	\caption{ The correlations of \mll with event kinematic variables in simulated events.  
- 		 	  Rows are sorted by highest correlation in signal events. }
-	\label{tab:mll_correlations}
-\end{table} 
+Figure~\ref{fig:templates_125_ex} shows 2D templates for 
+signal at \mHi = 125 \GeV~(left) and \qqww (right).
 
-Table~\ref{tab:mll_correlations} shows correlations between \mll~and other kinematic variables
-for signal(\mHi=125~\GeV) and background events. \delphill, \ptlmax, and \ptlmin~are strongly 
-correlated with \mll~while \met~and \mt~are not.
+%
+\begin{figure}[!hbtp]
+	
+	%
+	\centering
+	\subfigure[Signal]{
+	\centering
+	\label{subfig:template_signal_125}
+		\includegraphics[width=.35\textwidth]{figures/templates/sig_2D_mH125_0j_of.pdf}
+	}
+	\subfigure[\qqww]{
+	\centering
+	\label{subfig:template_qqWW_125}
+		\includegraphics[width=.35\textwidth]{figures/templates/qqWW_2D_mH125_0j_of.pdf}
+	}
+	
+	\caption{2D templates at \mHi = 125 \GeV} 
+	\label{fig:templates_125_ex}
 
-Therefore, we choose \mll~because it is the most correlated variable with BDT discriminator.
-The second variable is \mt~because it is second most correlated with BDT discriminator 
-excluding variables strongly correlated with \mll.
+\end{figure}
+	
