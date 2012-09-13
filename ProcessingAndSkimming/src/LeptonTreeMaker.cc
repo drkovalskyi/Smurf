@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.44 2012/06/19 09:14:53 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.45 2012/06/19 16:29:34 dlevans Exp $
 //
 //
 
@@ -809,7 +809,7 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
         // 2012 Iso selection
         float chiso     = 0.0; float emiso = 0.0; float nhiso = 0.0; float dbeta = 0.0;
         float ea04      = ElectronEffectiveArea::GetElectronEffectiveArea(ElectronEffectiveArea::kEleGammaAndNeutralHadronIso04,
-                tag->eta(), ElectronEffectiveArea::kEleEAData2012);
+                tag->superCluster()->eta(), ElectronEffectiveArea::kEleEAData2012);
         smurfselections::PFIsolation2012(*tag, pfCandCollection_, vertexCollection_, pfPileUpAlgo_, 0, 0.4,
                 chiso, emiso, nhiso, dbeta, false, true, true, false);
         if (!smurfselections::passElectronIso2012(tag, chiso, emiso, nhiso, ea04, rhoIsoAll_)) continue;
