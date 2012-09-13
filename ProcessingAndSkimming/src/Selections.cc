@@ -690,6 +690,12 @@ void smurfselections::PFIsolation2012(const reco::GsfElectron& el, const reco::P
             if (pf->particleId() == reco::PFCandidate::gamma  && dEta <= 0.025)    continue;
         }
 
+        // remove mis-identified electron super-clusters
+        if (el.gsfTrack()->trackerExpectedHitsInner().numberOfHits() > 0 
+                && pf->mva_nothing_gamma() > 0.99 && el.superCluster().isNonnull() 
+                && pf->superClusterRef().isNonnull() 
+                && el.superCluster() == pf->superClusterRef())   continue;
+
         // add to isolation sum
         if (pf->particleId() == reco::PFCandidate::h)       pfiso_ch += pf->pt();
         if (pf->particleId() == reco::PFCandidate::gamma)   pfiso_em += pf->pt();
