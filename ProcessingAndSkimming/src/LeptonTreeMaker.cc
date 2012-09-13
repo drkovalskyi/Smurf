@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.45 2012/06/19 16:29:34 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.46 2012/09/13 14:19:35 dlevans Exp $
 //
 //
 
@@ -693,7 +693,7 @@ void LeptonTreeMaker::testElectronObjects(const edm::Event& iEvent, const edm::E
         // look for good tag
         reco::GsfElectronRef ele(els_h, itag);
         if (ele->pt() < 20.0)       continue;
-        if (fabs(ele->eta()) > 2.5) continue;
+        if (fabs(ele->superCluster()->eta()) > 2.5) continue;
    
         bool passFO = false;
         if (smurfselections::passElectronFO2012(ele, pv_, thebs.position(), conversions_h)) {
@@ -800,7 +800,7 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
         // look for good tag
         reco::GsfElectronRef tag(els_h, itag);
         if (tag->pt() < 20.0)       continue;
-        if (fabs(tag->eta()) > 2.5) continue;
+        if (fabs(tag->superCluster()->eta()) > 2.5) continue;
 
         // 2012 ID selection
         float mvaValue  = reader_egammaTrigMVA_->mvaValue(*tag, pv_, *ttBuilder, *clusterTools, false);
@@ -821,7 +821,7 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
 
             // look for good probe
             if (probe->pt() < 10.0)       continue;
-            if (fabs(probe->eta()) > 2.5) continue;
+            if (fabs(probe->superCluster()->eta()) > 2.5) continue;
 
             // construct tag and probe mass
             LorentzVector p4 = tag->p4() + probe->p4();
@@ -1100,7 +1100,7 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
     for (unsigned int iele = 0; iele < nEle; ++iele) {
         reco::GsfElectronRef ele(els_h, iele);
         if (ele->pt()        < 10.0) continue;
-        if (fabs(ele->eta()) > 2.4)  continue;
+        if (fabs(ele->superCluster()->eta()) > 2.5)  continue;
         if (!smurfselections::passElectronFO2012(ele, pv_, thebs.position(), conversions_h)) continue;
         ++nFO;
         fo = ele;
