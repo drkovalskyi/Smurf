@@ -264,6 +264,8 @@ class SmurfTree {
   float          dPhiLep2MET_;
   float          dPhiDiLepMET_;
   float          dPhiDiLepJet1_;
+  float          lep1DetEta_;
+  float          lep2DetEta_;
   int            lep1McId_;
   int            lep2McId_;
   int            lep1MotherMcId_;
@@ -418,6 +420,8 @@ class SmurfTree {
     tree_->Branch("dPhiLep1MET"  , &dPhiLep1MET_  ,   "dPhiLep1MET/F");
     tree_->Branch("dPhiLep2MET"  , &dPhiLep2MET_  ,   "dPhiLep2MET/F");
     tree_->Branch("dPhiDiLepJet1", &dPhiDiLepJet1_,   "dPhiDiLepJet1/F");
+    tree_->Branch("lep1DetEta"	 , &lep1DetEta_   ,   "lep1DetEta/F");
+    tree_->Branch("lep2DetEta"	 , &lep2DetEta_   ,   "lep2DetEta/F");
     tree_->Branch("lep1McId"     , &lep1McId_     ,   "lep1McId/I");
     tree_->Branch("lep2McId"     , &lep2McId_     ,   "lep2McId/I");
     tree_->Branch("lep1MotherMcId",&lep1MotherMcId_,  "lep1MotherMcId/I");
@@ -534,6 +538,8 @@ class SmurfTree {
     tree_->SetBranchAddress("dPhiLep1MET",   &dPhiLep1MET_);
     tree_->SetBranchAddress("dPhiLep2MET",   &dPhiLep2MET_);
     tree_->SetBranchAddress("dPhiDiLepJet1", &dPhiDiLepJet1_);
+    tree_->SetBranchAddress("lep1DetEta",    &lep1DetEta_);
+    tree_->SetBranchAddress("lep2DetEta",    &lep2DetEta_);
     tree_->SetBranchAddress("lep1McId",      &lep1McId_);
     tree_->SetBranchAddress("lep2McId",      &lep2McId_);
     tree_->SetBranchAddress("lep1MotherMcId",&lep1MotherMcId_);
@@ -777,6 +783,8 @@ SmurfTree::InitVariables(){
   dPhiLep2MET_   = -999.;
   dPhiDiLepMET_  = -999.;
   dPhiDiLepJet1_ = -999.;
+  lep1DetEta_    = -999.;
+  lep2DetEta_    = -999.;
   lep1McId_   	 = 0;
   lep2McId_   	 = 0;
   lep1MotherMcId_= 0;
@@ -885,6 +893,8 @@ SmurfTree::Get(std::string value)
   if(value=="dPhiLep1MET"   ) { return this->dPhiLep1MET_;   }
   if(value=="dPhiLep2MET"   ) { return this->dPhiLep2MET_;   }
   if(value=="dPhiDiLepJet1" ) { return this->dPhiDiLepJet1_; }
+  if(value=="lep1DetEta"    ) { return this->lep1DetEta_; }
+  if(value=="lep2DetEta"    ) { return this->lep2DetEta_; }
   if(value=="lep1McId"      ) { return this->lep1McId_;      }
   if(value=="lep2McId"      ) { return this->lep2McId_;      }
   if(value=="lep1MotherMcId") { return this->lep1MotherMcId_;}
