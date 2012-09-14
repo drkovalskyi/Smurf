@@ -220,6 +220,19 @@ float smurfselections::muonIsoValuePF(const reco::PFCandidateCollection &pfCandC
     return (pfciso+pfniso)/mu.pt();
 }
 
+int smurfselections::FirstGoodPV(const edm::Handle<reco::VertexCollection> &pvCollection)
+{
+    for (int ivtx = 0; ivtx < int(pvCollection->size()); ++ivtx)
+    {
+        if (pvCollection->at(ivtx).isFake())                    continue;
+        if (pvCollection->at(ivtx).ndof() <= 4.)                continue;
+        if (pvCollection->at(ivtx).position().Rho() > 2.0)      continue;
+        if (fabs(pvCollection->at(ivtx).position().Z()) > 24.0) continue;
+        return ivtx;
+    }
+    return -1;
+}
+
 unsigned int smurfselections::CountGoodPV(const edm::Handle<reco::VertexCollection> &pvCollection)
 {
     unsigned int nvtx = 0; 

@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.46 2012/09/13 14:19:35 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.47 2012/09/13 14:54:12 dlevans Exp $
 //
 //
 
@@ -570,7 +570,8 @@ LeptonTreeMaker::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
     // vertices
     iEvent.getByLabel(primaryVertexInputTag_, vtx_h_);
     vertexCollection_ = *(vtx_h_.product());
-    if (vertexCollection_.size() > 0) pv_ = vertexCollection_.at(0);
+    int ipv = smurfselections::FirstGoodPV(vtx_h_);
+    if (ipv >= 0) pv_ = vertexCollection_.at(ipv);
     else return;
 
     //
@@ -839,7 +840,6 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
             leptonTree_->tag_                = tag->p4();
             leptonTree_->qTag_               = tag->charge();
             leptonTree_->tagAndProbeMass_    = p4.M();
-
             leptonTree_->electronHWW2011MVA_       = reader_electronHWW2011MVA_->MVAValue(&*probe, pv_, *clusterTools, ttBuilder, pfCandCollection_, rhoIsoAll_);
             leptonTree_->egammaPOG2012MVA_         = reader_egammaTrigMVA_->mvaValue(*probe, pv_, *ttBuilder, *clusterTools, false);
             //leptonTree_->el_egammaNonTrigMVA_      = reader_egammaNonTrigMVA_->mvaValue(*probe, pv_, *ttBuilder, *clusterTools, false);

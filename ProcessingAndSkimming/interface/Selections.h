@@ -48,6 +48,8 @@ std::pair<double,double> trackerMET(std::vector<const reco::Candidate*>& objs,
 				    double deltaZCut, 
 				    const reco::PFCandidateCollection &pfCandCollection,
 				    const reco::Vertex &vertex);
+
+int FirstGoodPV(const edm::Handle<reco::VertexCollection> &pvCollection);
 unsigned int CountGoodPV(const edm::Handle<reco::VertexCollection> &pvCollection);
 
 //
