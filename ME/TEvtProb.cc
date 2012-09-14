@@ -372,7 +372,7 @@ void TEvtProb::XsecCalc(TVar::Process proc, const hzz4l_event_type &hzz4l_event,
     double qX=mcfm_event.p[0].Px()+mcfm_event.p[1].Px();
     double qY=mcfm_event.p[0].Py()+mcfm_event.p[1].Py();
     
-    if((qX*qX+qY*qY)>0){bi
+    if((qX*qX+qY*qY)>0){
       double qE = mcfm_event.p[0].Energy()+mcfm_event.p[1].Energy();
       TVector3 boostV(qX/qE,qY/qE,0);
       for(int ipt=0;ipt<6;ipt++) mcfm_event.p[ipt].Boost(-boostV);
