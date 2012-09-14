@@ -91,6 +91,10 @@ public:
 			 const cdf_event_type &cdf_event,
 			 double *Xsec,
 			 double *XsecErr, TVar::VerbosityLevel verbosity);
+
+  void XsecCalc(TVar::Process proc,
+		         const hzz4l_event_type &hzz4l_event,
+			 double Xsec, double XsecErr, TVar::VerbosityLevel verbosity);
   
   // this appears to be some kind of 
   // way of setting MCFM parameters through
