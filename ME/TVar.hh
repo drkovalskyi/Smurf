@@ -225,6 +225,14 @@ static const TString branch_format_particle =
  "Eta/D:"
  "Phi/D";
 
+// in development
+struct hzz4l_event_type{
+  int PdgCode[4];
+  TLorentzVector p[4];
+  double Xsec   [10];
+  double XsecErr[10];  
+};
+// in development
   
 struct cdf_event_type{
   int PdgCode[2];
