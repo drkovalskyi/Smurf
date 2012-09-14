@@ -354,7 +354,7 @@ void TEvtProb::XsecCalc(TVar::Process proc, const hzz4l_event_type &hzz4l_event,
     double qE = (hzz4l_event.p[0] + hzz4l_event.p[1] + hzz4l_event.p[2] + hzz4l_event.p[3]).Energy();
     mcfm_event_type mcfm_event; 
     mcfm_event.p[0].SetPxPyPzE   (0., 0., 0.5*qE, 0.5*qE);
-    mcfm_event.p[1].SetPxPyPzE   (0., 0., 0.5*qE, 0.5*qE);
+    mcfm_event.p[1].SetPxPyPzE   (0., 0., -0.5*qE, 0.5*qE);
     mcfm_event.p[2].SetPxPyPzE   (hzz4l_event.p[0].Px(), hzz4l_event.p[0].Py(), hzz4l_event.p[0].Pz(), hzz4l_event.p[0].Energy());
     mcfm_event.p[3].SetPxPyPzE   (hzz4l_event.p[1].Px(), hzz4l_event.p[1].Py(), hzz4l_event.p[1].Pz(), hzz4l_event.p[1].Energy());
     mcfm_event.p[4].SetPxPyPzE   (hzz4l_event.p[2].Px(), hzz4l_event.p[2].Py(), hzz4l_event.p[2].Pz(), hzz4l_event.p[2].Energy());
