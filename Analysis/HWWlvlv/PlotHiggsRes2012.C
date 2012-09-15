@@ -84,8 +84,8 @@ void PlotHiggsRes2012
   unsigned int rebinSmurf = 4;
   TH1D *histSmurfRebin;
 
-  int binVarA = 0;//8;
-  int binVarB = 0;//10;
+  int binVarA = 8;
+  int binVarB = 10;
   bool is2DAna = false;
   if(binVarA > 0 && binVarB > 0) is2DAna = true; if(nJetsType == 2 && is2DAna == true) {binVarA = 4;binVarB = 4;}
 
@@ -140,11 +140,12 @@ void PlotHiggsRes2012
   if(wwPresel == true) dilmass_cut = 99999.;
   float mtUpperCut = mH;
   float mtLowerCut = 80; if(nJetsType == 2) mtLowerCut = 30;
-  if     (is2DAna == true && mH <= 250) {dilmass_cut = 200; mtLowerCut = 80; mtUpperCut = 280; useZjetsTemplates = false;}
-  else if(is2DAna == true && mH >  250) {dilmass_cut = mH;  mtLowerCut = 80; mtUpperCut = mH;  useZjetsTemplates = false;}
 
-  //if     (mH <= 250) {dilmass_cut = 200; mtLowerCut = 80; mtUpperCut = 280; useZjetsTemplates = false;}
-  //else if(mH >  250) {dilmass_cut = mH;  mtLowerCut = 80; mtUpperCut = mH;  useZjetsTemplates = false;}
+  if     (mH <= 250) 			{dilmass_cut = 200; mtLowerCut = 80; mtUpperCut = 280; useZjetsTemplates = false;}
+  else if(mH >  250) 			{dilmass_cut = mH;  mtLowerCut = 80; mtUpperCut = mH;  useZjetsTemplates = false;}
+
+  if     (is2DAna == true && mH <= 250) {dilmass_cut = 200; mtLowerCut = 80; mtUpperCut = 280; useZjetsTemplates = false;}
+  else if(is2DAna == true && mH >  250) {dilmass_cut = 600; mtLowerCut = 80; mtUpperCut = 600; useZjetsTemplates = false;}
 
   int mHAna = mH;
   if(is2DAna == true && nJetsType == 2) mHAna = 125;
@@ -956,9 +957,12 @@ void PlotHiggsRes2012
         double myVar = dPhi*180.0/TMath::Pi(); myVar = qqHMVA;
         histoS2->Fill(myVar,myWeight);
       }
-      passMVAPreselCuts = passMVAPreselCuts && qqHMVA > 0.1;;
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 450. && TMath::Abs(jet1->eta()-jet2->eta()) > 3.5;
     }
-    if(passMVAPreselCuts == true){
+    if(passMVAPreselCuts == true && passJetCut[0] == true){
+      //if(processId==10001){
+      //  printf("AAA %12d - %f - %6.2f %6.2f %6.2f %6.2f - %6.2f %6.2f %6.2f %6.2f - %6.2f %6.2f %6.2f %6.2f\n",event,myWeight,dilep->mass(),mll_lepup,mll_lepdown,mll_metup,mt,mt_lepup,mt_lepdown,mt_metup,bdtg,bdtg_aux0,bdtg_aux1,bdtg_aux2);
+      //}
       nSigAcc[0]  = nSigAcc[0]  + myWeight;
       nSigEAcc[0] = nSigEAcc[0] + myWeight*myWeight;
       nSigAcc[nSigBin]  = nSigAcc[nSigBin]  + myWeight;
@@ -1599,7 +1603,7 @@ void PlotHiggsRes2012
         double myVar = dPhi*180.0/TMath::Pi(); myVar = qqHMVA;
         histoB->Fill(myVar,myWeight);
       }
-      passMVAPreselCuts = passMVAPreselCuts && qqHMVA > 0.1;;
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 450. && TMath::Abs(jet1->eta()-jet2->eta()) > 3.5;
     }
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       double myWeightMVA = myWeight;
@@ -2297,7 +2301,7 @@ void PlotHiggsRes2012
          ((jet1->eta()-lep2->eta() > 0 && jet2->eta()-lep2->eta() < 0) ||
           (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
       passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 200. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.0 && centrality == 1;
-      passMVAPreselCuts = passMVAPreselCuts && qqHMVA > 0.1;;
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 450. && TMath::Abs(jet1->eta()-jet2->eta()) > 3.5;
     }
     if(passMVAPreselCuts == true && passJetCut[0] == true){
       nSystAcc  = nSystAcc  + myWeight;
@@ -2620,7 +2624,7 @@ void PlotHiggsRes2012
         double myVar = dPhi*180.0/TMath::Pi(); myVar = qqHMVA;
         histoD->Fill(myVar,myWeight);
       }
-      passMVAPreselCuts = passMVAPreselCuts && qqHMVA > 0.1;;
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 450. && TMath::Abs(jet1->eta()-jet2->eta()) > 3.5;
     }
     if(passMVAPreselCuts == true){
       nDatAcc = nDatAcc + myWeight;
