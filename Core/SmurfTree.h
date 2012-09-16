@@ -284,10 +284,11 @@ class SmurfTree {
   LorentzVector  jet4_;
   float          jet4Btag_;
   float          jet4ProbBtag_;
-  int            lep3McId_;
-  int            lep3MotherMcId_;
   int            jet3McId_;
   int            jet4McId_;
+  float          lep3DetEta_;
+  int            lep3McId_;
+  int            lep3MotherMcId_;
   float          dPhiLep3Jet1_;
   float          dRLep3Jet1_;
   float          dPhiLep3MET_;
@@ -447,6 +448,7 @@ class SmurfTree {
     tree_->Branch("jet4", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr4_);
     tree_->Branch("jet4Btag",      &jet4Btag_,      "jet4Btag/F");
     tree_->Branch("jet4ProbBtag",  &jet4ProbBtag_,  "jet4ProbBtag/F");
+    tree_->Branch("lep3DetEta"	 , &lep3DetEta_,    "lep3DetEta/F");
     tree_->Branch("lep3McId",      &lep3McId_,      "lep3McId/I");
     tree_->Branch("lep3MotherMcId",&lep3MotherMcId_,"lep3MotherMcId/I");
     tree_->Branch("jet3McId",      &jet3McId_,      "jet3McId/I");
@@ -565,10 +567,11 @@ class SmurfTree {
     tree_->SetBranchAddress("jet4",	     &jetPtr4_);
     tree_->SetBranchAddress("jet4Btag",      &jet4Btag_);
     tree_->SetBranchAddress("jet4ProbBtag",  &jet4ProbBtag_);
-    tree_->SetBranchAddress("lep3McId",      &lep3McId_);
-    tree_->SetBranchAddress("lep3MotherMcId",&lep3MotherMcId_);
     tree_->SetBranchAddress("jet3McId",      &jet3McId_);
     tree_->SetBranchAddress("jet4McId",      &jet4McId_);
+    tree_->SetBranchAddress("lep3DetEta",    &lep3DetEta_);
+    tree_->SetBranchAddress("lep3McId",      &lep3McId_);
+    tree_->SetBranchAddress("lep3MotherMcId",&lep3MotherMcId_);
     tree_->SetBranchAddress("dPhiLep3Jet1",  &dPhiLep3Jet1_);
     tree_->SetBranchAddress("dRLep3Jet1",    &dRLep3Jet1_);
     tree_->SetBranchAddress("dPhiLep3MET",   &dPhiLep3MET_);
@@ -808,10 +811,11 @@ SmurfTree::InitVariables(){
   jet4_       	 = LorentzVector();
   jet4Btag_	 = -999.;
   jet4ProbBtag_	 = -999.;
-  lep3McId_	 = 0;
-  lep3MotherMcId_= 0;
   jet3McId_	 = 0;
   jet4McId_	 = 0;
+  lep3DetEta_    = -999.;
+  lep3McId_	 = 0;
+  lep3MotherMcId_= 0;
   dPhiLep3Jet1_  = -999.;
   dRLep3Jet1_	 = -999.;
   dPhiLep3MET_   = -999.;
@@ -909,10 +913,11 @@ SmurfTree::Get(std::string value)
   if(value=="jet3ProbBtag"  ) { return this->jet3ProbBtag_;  } 
   if(value=="jet4Btag"	    ) { return this->jet4Btag_;      } 
   if(value=="jet4ProbBtag"  ) { return this->jet4ProbBtag_;  } 
-  if(value=="lep3McId"	    ) { return this->lep3McId_;      } 
-  if(value=="lep3MotherMcId") { return this->lep3MotherMcId_;} 
   if(value=="jet3McId"	    ) { return this->jet3McId_;      } 
   if(value=="jet4McId"	    ) { return this->jet4McId_;      } 
+  if(value=="lep3DetEta"    ) { return this->lep3DetEta_; }
+  if(value=="lep3McId"	    ) { return this->lep3McId_;      } 
+  if(value=="lep3MotherMcId") { return this->lep3MotherMcId_;} 
   if(value=="dPhiLep3Jet1"  ) { return this->dPhiLep3Jet1_;  } 
   if(value=="dRLep3Jet1"    ) { return this->dRLep3Jet1_;    } 
   if(value=="dPhiLep3MET"   ) { return this->dPhiLep3MET_;   } 
