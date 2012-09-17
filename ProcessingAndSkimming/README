@@ -19,8 +19,8 @@ cvs co -rHWWID_V00-00-00 HiggsAnalysis/HiggsToWW2Leptons/
 
 # for EGamma MVA
 cvs co -rV00-00-06 -dEGamma/EGammaAnalysisTools UserCode/EGamma/EGammaAnalysisTools
-cvs up -rCutBasedId_V00-00-02 EGamma/EGammaAnalysisTools/src/EGammaCutBasedEleId.cc
-cvs up -rCutBasedId_V00-00-02 EGamma/EGammaAnalysisTools/interface/EGammaCutBasedEleId.h
+cvs up -rCutBasedId_V00-00-05 EGamma/EGammaAnalysisTools/src/EGammaCutBasedEleId.cc
+cvs up -rCutBasedId_V00-00-05 EGamma/EGammaAnalysisTools/interface/EGammaCutBasedEleId.h
 cvs up -r1.3 EGamma/EGammaAnalysisTools/interface/ElectronEffectiveArea.h
 cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat1.weights.xml Smurf/ProcessingAndSkimming/data/
 cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat2.weights.xml Smurf/ProcessingAndSkimming/data/
@@ -30,6 +30,7 @@ cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV
 cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat6.weights.xml Smurf/ProcessingAndSkimming/data/
 
 # 2012 HZZ ID+Iso combined MVA
+# also needed for muon effective areas
 cvs co -rR2012A_V2 -d Muon/MuonAnalysisTools UserCode/sixie/Muon/MuonAnalysisTools
 
 # emulate pf no pileup (these tags are for 52X - may run into problems in earlier releases)
