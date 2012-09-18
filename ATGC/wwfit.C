@@ -29,6 +29,7 @@
 #include "RooKeysPdf.h"
 #include "TStyle.h"
 #include "RooDataHist.h"
+#include <fstream>
 
 double ww_expected = 774.0+45.9;
 const double ww_uncertainty = sqrt(55.8*55.8+14.1*14.1);
@@ -51,8 +52,8 @@ const unsigned int Nbins = 9;
 const double minPt = 20;
 const double maxPt = 200;
 
-const double rangeX = 0.5;
-const double rangeY = 0.5;
+const double rangeX = 0.2;
+const double rangeY = 0.4; //tmp!!! (should be 0.2)
 const double lumi = 4.9;
 
 const int smooth = 0; // don't use it unless you have to
@@ -60,31 +61,44 @@ const int smooth = 0; // don't use it unless you have to
 // const char* oldSampleSelection = "selected==1&&unique==1";
 const char* oldSampleSelection = "selected==1&&unique==1&&dilpt>45";
 
-RooRealVar* var_pt1;
-RooRealVar* x_par;
-RooRealVar* y_par;
-RooRealVar* var_dummy;
+RooRealVar* var_pt1(0);
+RooRealVar* x_par(0);
+RooRealVar* y_par(0);
+RooRealVar* var_dummy(0);
 
-RooRealVar* n_ww;
-RooRealVar* n_top;
-RooRealVar* n_wjets;
-RooRealVar* n_wz;
-RooRealVar* n_zz;
-RooRealVar* n_dy;
+RooRealVar* n_ww(0);
+RooRealVar* n_top(0);
+RooRealVar* n_wjets(0);
+RooRealVar* n_wz(0);
+RooRealVar* n_zz(0);
+RooRealVar* n_dy(0);
 
-RooATGCPdf* atgcPdf;
-RooAbsPdf*  pdf_bkg;
-RooDataSet* glb_data;
-RooAbsPdf*  cpdf;
-RooAbsPdf*  cSigPdf;
-RooAbsPdf*  cBkgPdf;
+RooATGCPdf* atgcPdf(0);
+RooAbsPdf*  pdf_bkg(0);
+RooDataSet* glb_data(0);
+RooAbsPdf*  cpdf(0);
+RooAbsPdf*  cSigPdf(0);
+RooAbsPdf*  cBkgPdf(0);
 
-RooAbsPdf* n_ww_con;
-RooAbsPdf* n_top_con;
-RooAbsPdf* n_wjets_con;
-RooAbsPdf* n_wz_con;
-RooAbsPdf* n_zz_con;
-RooAbsPdf* n_dy_con;
+RooAbsPdf* n_ww_con(0);
+RooAbsPdf* n_top_con(0);
+RooAbsPdf* n_wjets_con(0);
+RooAbsPdf* n_wz_con(0);
+RooAbsPdf* n_zz_con(0);
+RooAbsPdf* n_dy_con(0);
+
+struct ProcessInfo{
+  RooAbsPdf* pdf;
+  TString name;
+  double yield;
+  double error;
+  bool signal;
+  ProcessInfo():pdf(0),yield(0),error(0),signal(false){}
+  ProcessInfo(RooAbsPdf* ipdf, const char* iname, double iyield, double ierror, bool isignal=false):
+    pdf(ipdf),name(iname),yield(iyield),error(ierror),signal(isignal){}
+};
+
+std::vector<ProcessInfo> processes;
 
 RooDataSet* MakeDatasetWithOverflow(const RooDataSet* ds, const char* varname){
   RooDataSet* ds_out = dynamic_cast<RooDataSet*>(ds->emptyClone());
@@ -307,6 +321,10 @@ void setSigPdf_LZ_GZ()
 
   atgcPdf = new RooATGCPdf("pdf", "pdf", *var_pt1, *n_ww, *x_par, *y_par);
   cSigPdf = new RooProdPdf("cSigPdf","model with constraint",RooArgSet(*atgcPdf,*n_ww_con)) ;
+  // one is for signal
+  processes.push_back(ProcessInfo(atgcPdf,"ww",ww_expected,ww_uncertainty,true));
+  // one is for WW SM
+  processes.push_back(ProcessInfo(atgcPdf,"ww",ww_expected,ww_uncertainty));
   
   Int_t i=0;
   c1->cd(i+1);
@@ -365,7 +383,7 @@ void setSigPdf_LZ_GZ()
   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*9.72764, 0.183288*norm), samples[i].hist());
   i++;			    
 
-    /*
+  /*
   samples[i].hist()->Draw();
   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*547.541, norm*1.947), samples[i].hist());
   i++;			    
@@ -417,8 +435,7 @@ void setSigPdf_LZ_GZ()
   samples[i].hist()->Draw();
   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*2295.906, 4.985*norm), samples[i].hist());
   i++;
-    */
-
+  */
   atgcPdf->build();
 
   c1->cd(1);
@@ -471,8 +488,11 @@ void setSigPdf_LZ_KG()
 
   atgcPdf = new RooATGCPdf("pdf", "pdf", *var_pt1, *n_ww, *x_par, *y_par);
   cSigPdf = new RooProdPdf("cSigPdf","model with constraint",RooArgSet(*atgcPdf,*n_ww_con)) ;
+  processes.push_back(ProcessInfo(atgcPdf,"ww",ww_expected,ww_uncertainty,true));
   
   Int_t i=0;
+
+  /*
   c1->cd(i+1);
   samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz100_lz0_gz1000000.root", "sm_sm",0,0);
   // samples[i] = Sample(MakeDataset("smurf/qqww.root","ds_ww"),0,0);
@@ -529,6 +549,64 @@ void setSigPdf_LZ_KG()
   samples[i].hist()->Draw();
   atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*1279.312, 2.999*norm), samples[i].hist());
   i++;			    
+  */
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz100_lz0_gz1000000.root", "sm_sm",0,0);
+  // samples[i] = Sample(MakeDataset("smurf/qqww.root","ds_ww"),0,0);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*3.09163, 0.0547394*norm), samples[i].hist());
+  i++;			    
+
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg170_lg0_gg100_kz779311_lz0_gz100.root", "sm_p",0,0.70);
+  // samples[i] = Sample(MakeDataset("/afs/cern.ch/work/d/dmytro/atgc/mcfm/WWqqbr_tota_mstw8nl_80__80__kg170_lg0_kZ7795_lZ0_gZ100_smurf.root","sm_p"),0,0.70);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*3.2987, 0.0592563*norm), samples[i].hist());
+  i++;			    
+
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg30_lg0_gg100_kz1220689_lz0_gz100.root", "sm_m",0,-0.70);
+  // samples[i] = Sample(MakeDataset("/afs/cern.ch/work/d/dmytro/atgc/mcfm/WWqqbr_tota_mstw8nl_80__80__kg30_lg0_kZ12205_lZ0_gZ100_smurf.root","sm_p"),0,-0.70);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*3.35685, 0.0604608*norm), samples[i].hist());
+  i++;			    
+
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz100_lz50_gz1000000.root", "p_sm", 0.5, 0);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.53635, 0.103594*norm), samples[i].hist());
+  i++;			    
+
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg170_lg50_gg100_kz779311_lz50_gz100.root", "p_p",0.5,0.70);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.82764, 0.108893*norm), samples[i].hist());
+  i++;			    
+
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg30_lg50_gg100_kz1220689_lz50_gz100.root", "p_m",0.5,-0.70);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.76679, 0.108426*norm), samples[i].hist());
+  i++;			    
+
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg100_lgm50_gg100_kz100_lzm50_gz1000000.root", "m_sm",-0.5,0);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.20204, 0.0981948*norm), samples[i].hist());
+  i++;			    
+
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg170_lgm50_gg100_kz779311_lzm50_gz100.root", "m_p",-0.5,0.70);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.76225, 0.107762*norm), samples[i].hist());
+  i++;			    
+
+  c1->cd(i+1);
+  samples[i] = Sample("samples/processed_data_job_WW_1j_kg30_lgm50_gg100_kz1220689_lzm50_gz100.root", "m_m",-0.5,-0.70);
+  samples[i].hist()->Draw();
+  atgcPdf->addPoint(Measurement(samples[i].refX(), samples[i].refY(), norm*5.75791, 0.107823*norm), samples[i].hist());
+  i++;			    
+
   atgcPdf->build();
   
   c1->cd(1);
@@ -584,11 +662,13 @@ void setBkgPdf()
   RooDataSet* ds_wjets_pt1 = MakeDataset("smurf/wjets.root","ds_wjets");
   RooAbsPdf*  pdf_wjets    = MakePdfFromDataset(ds_wjets_pt1,var_pt1);
   DrawPdf(pdf_wjets, "Wjets","Leading lepton pt, [GeV]");
+  processes.push_back(ProcessInfo(pdf_wjets,"wjets",wjets_expected,wjets_uncertainty));
 
   c9->cd(3);
   RooDataSet* ds_ttbar_pt1 = MakeDataset("smurf/ttbar.root","ds_ttbar");
   RooAbsPdf*  pdf_ttbar    = MakePdfFromDataset(ds_ttbar_pt1,var_pt1);
   DrawPdf(pdf_ttbar, "TTbar","Leading lepton pt, [GeV]");
+  processes.push_back(ProcessInfo(pdf_ttbar,"top",top_expected,top_uncertainty));
 
   c9->cd(4);
   RooDataSet* ds_tw_pt1 = MakeDataset("smurf/tw.root","ds_tw");
@@ -599,11 +679,13 @@ void setBkgPdf()
   RooDataSet* ds_wz_pt1 = MakeDataset("smurf/wz.root","ds_wz");
   RooAbsPdf*  pdf_wz    = MakePdfFromDataset(ds_wz_pt1,var_pt1);
   DrawPdf(pdf_wz, "WZ","Leading lepton pt, [GeV]");
+  processes.push_back(ProcessInfo(pdf_wz,"wz",wz_expected,wz_uncertainty));
 
   c9->cd(6);
   RooDataSet* ds_zz_pt1 = MakeDataset("smurf/zz_py.root","ds_zz");
   RooAbsPdf*  pdf_zz    = MakePdfFromDataset(ds_zz_pt1,var_pt1);
   DrawPdf(pdf_zz, "ZZ","Leading lepton pt, [GeV]");
+  processes.push_back(ProcessInfo(pdf_zz,"zz",zz_expected,zz_uncertainty));
 
   c9->cd(7);
   RooDataSet* ds_dyee_pt1 = MakeDataset("smurf/dyee.root","ds_dyee");
@@ -620,6 +702,7 @@ void setBkgPdf()
   ds_dy_pt1->append(*ds_dymm_pt1);
   RooAbsPdf*  pdf_dy    = MakePdfFromDataset(ds_dy_pt1,var_pt1);
   DrawPdf(pdf_dy, "DY","Leading lepton pt, [GeV]");
+  processes.push_back(ProcessInfo(pdf_dy,"dy",dy_expected,dy_uncertainty));
 
   c9->cd(8);
   // extended pdfs
@@ -628,6 +711,7 @@ void setBkgPdf()
   RooAbsPdf* epdf_wz = new RooExtendPdf("epdf_wz","epdf_wz",*pdf_wz,*n_wz);
   RooAbsPdf* epdf_zz = new RooExtendPdf("epdf_zz","epdf_zz",*pdf_zz,*n_zz);
   RooAbsPdf* epdf_dy = new RooExtendPdf("epdf_dy","epdf_dy",*pdf_dy,*n_dy);
+  
   pdf_bkg = new RooAddPdf("pdf_bkg","pdf_bkg",RooArgList(*epdf_wjets,*epdf_top, *epdf_wz, *epdf_zz, *epdf_dy));
   cBkgPdf = new RooProdPdf("cBkgPdf","model with constraint",RooArgSet(*pdf_bkg,*n_top_con,*n_wjets_con,*n_wz_con,*n_zz_con,*n_dy_con)) ;
   DrawPdf(cBkgPdf, "Background PDF","Leading lepton pt, [GeV]");
@@ -1422,9 +1506,9 @@ void fitTop()
 TH1* MakePlot(RooDataSet* ds, const char* name){
   TTree* iTree = const_cast<TTree*>(ds->tree());
   assert(iTree);
-  iTree->Draw(Form("pt1>>%s(%u,%f,%f)",name,Nbins,minPt,maxPt),"weight","goff");
+  iTree->Draw(Form("pt1>>%s(%u,%f,%f)",name,Nbins,minPt,maxPt),"weight","goff e");
   TH1* hist = (TH1*)gDirectory->Get(name);
-  hist->Sumw2();
+  // hist->Sumw2();
   hist->Scale(1/hist->Integral());
   return hist;
 }
@@ -1437,19 +1521,29 @@ void compareDistributions()
 
   new TCanvas("cc","cc",500,500);
   // TH1* h1 = MakePlot(MakeOldDataset("samples/processed_data_job_WW_1j_kg100_lg0_gg100_kz100_lz0_gz1000000.root"),"Sherpa-FastSim");
-  TH1* h1 = MakePlot(MakeOldDataset("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz100_lz50_gz1000000.root"),"Sherpa-FastSim");
+  // TH1* h1 = MakePlot(MakeOldDataset("samples/processed_data_job_WW_1j_kg100_lg50_gg100_kz100_lz50_gz1000000.root"),"Sherpa-FastSim");
+  TH1* h1 = MakePlot(MakeDataset("smurf/ww_mcnlo.root","qqww_ref"),"h1");
   h1->SetLineColor(kBlue);
   h1->SetLineWidth(2);
   h1->Draw("hist");
-//   TH1* h2 = MakePlot(MakeDataset("smurf/qqww.root","qqww1"),"Madgraph-FullSim");
-//   h2->SetLineColor(kBlack);
-//   h2->SetLineWidth(2);
-//   //  h2->Draw("same hist c");
-//   h2->Draw("same hist");
-  TH1* h3 = MakePlot(MakeDataset("WWqqbr_tota_mstw8nl_80__80__kg100_lg50_kZ100_lZ50_gZ100_smurf.root","qqww2"),"MCFM-GenOnly");
-  h3->SetLineColor(kRed);
+  TH1* h2 = MakePlot(MakeDataset("smurf/ww_mcnlo_up.root","qqww1"),"h2");
+  h2->SetLineColor(kBlack);
+  h2->SetLineWidth(2);
+  //  h2->Draw("same hist c");
+  h2->Draw("same hist");
+  // TH1* h3 = MakePlot(MakeDataset("WWqqbr_tota_mstw8nl_80__80__kg100_lg50_kZ100_lZ50_gZ100_smurf.root","qqww2"),"MCFM-GenOnly");
+  // h3->SetLineColor(kRed);
+  // h3->SetLineWidth(2);
+  // h3->Draw("same hist");
+  TH1* h3 = MakePlot(MakeDataset("smurf/ww_mcnlo_down.root","qqww2"),"h3");
+  h3->SetMarkerColor(kBlue);
   h3->SetLineWidth(2);
   h3->Draw("same hist");
+  new TCanvas("cc2","cc2",500,500);
+  h2->Divide(h1);
+  h3->Divide(h1);
+  h2->Draw();
+  h3->Draw("same");
 } 
 
 void getDataYield(){
@@ -1479,6 +1573,9 @@ void yieldDataFit()
   RooPlot* frame = var_pt1->frame(RooFit::Title("Leading lepton Pt distribution in Data")) ;
   glb_data->plotOn(frame) ;
   cpdf->plotOn(frame,RooFit::Precision(1e-5)) ;
+  x_par->setVal(0.05);
+  y_par->setVal(0);
+  cpdf->plotOn(frame,RooFit::Precision(1e-5),RooFit::LineColor(kRed),RooFit::LineStyle(2)) ;
   new TCanvas("cc2","cc2",600,600);
   frame->Draw();
 }
@@ -1679,4 +1776,98 @@ void simpleFitForATGC(const char* file, bool oldformat=false)
   cout << "\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
   cout << "Second fit is done" << endl;
   cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" << endl;
+}
+
+void makeCard(const char* idir, const char* iname, double x, double y){
+  if (fabs(x)<1e-5&&fabs(y)<1e-5) return; // don't know how to handle zero,zero
+  std::string name = Form("%s_x%.3f_y%0.3f",iname,x,y);
+  std::ofstream fout(Form("%s/%s.card",idir,name.c_str()));
+  TFile* froot = TFile::Open(Form("%s/%s.root",idir,name.c_str()),"RECREATE");
+  fout << "imax 1  number of channels\n";
+  fout << "jmax *  number of backgrounds\n";
+  fout << "kmax *  number of nuisance parameters (sources of systematic uncertainties)\n";
+  TString s_bin, s_process, s_process2, s_rate, s_syst;
+  assert(glb_data);
+  ((TTree*)glb_data->tree())->Draw(Form("pt1>>histo_Data(%u,%f,%f)",Nbins,minPt,maxPt),"","e goff");
+  TH1* histo_Data = (TH1*)gDirectory->Get("histo_Data");
+  assert(histo_Data);
+  froot->cd();
+  histo_Data->Write();
+  fout << "Observation " << histo_Data->Integral() << "\n";
+  fout << "shapes *   *   " << name << ".root  histo_$PROCESS\n";
+  fout << "shapes data_obs * " << name << ".root  histo_Data\n";
+  assert(processes.front().signal); // make sure the first process is signal
+  for (unsigned int i=0; i<processes.size(); ++i){
+    if (processes[i].yield<=0) continue;
+    s_bin.Append(Form("%12d",1));
+    std::string pname = processes[i].name.Data();
+    TH1* hist(0);
+    if (RooATGCPdf* atgcpdf = dynamic_cast<RooATGCPdf*>(processes[i].pdf)){
+      x_par->setVal(x);
+      y_par->setVal(y);
+      TH1* hsb = processes[i].pdf->createHistogram("hsb",*var_pt1);
+      hsb->Scale(atgcpdf->expectedEvents(RooArgSet()));
+      x_par->setVal(0);
+      y_par->setVal(0);
+      TH1* hb = processes[i].pdf->createHistogram("hb",*var_pt1);
+      hb->Scale(processes[i].yield);
+      
+      if (processes[i].signal){
+	// atgc part
+	hsb->Add(hb,-1);
+	for(int b=1; b<=hsb->GetNbinsX(); ++b)
+	  if (hsb->GetBinContent(b)<0){
+	    printf("WARNING: aTGC histogram, bin %d has negative value (%.2f). Set it to zero\n",
+		   b, hsb->GetBinContent(b));
+	    hsb->SetBinContent(b,0);
+	  }
+	hist = hsb;
+	pname = "atgc";
+      } else {
+	// ww part
+	hist = hb;
+	pname = "ww";
+      }
+    } else {
+      hist = processes[i].pdf->createHistogram("hist",*var_pt1);
+      hist->Scale(processes[i].yield);
+    }
+    std::string hname(Form("histo_%s",pname.c_str()));
+    hist->SetName(hname.c_str());
+    s_process.Append(Form("%12s",pname.c_str()));
+    s_process2.Append(Form("%12d",i));
+    s_rate.Append(Form("%12.3f",hist->Integral()));
+    if ( !processes[i].signal){
+      s_syst.Append(Form("n_%-8s lnN",pname.c_str()));
+      if (i==1) // assume that WW SM is second!
+	s_syst.Append(Form("%12.3f",processes[i].error/processes[i].yield+1));
+      else
+	for(unsigned int j=0; j<i; ++j) s_syst.Append(Form("%12s","-"));
+      s_syst.Append(Form("%12.3f",processes[i].error/processes[i].yield+1));
+      for(unsigned int j=i+1; j<processes.size(); ++j) s_syst.Append(Form("%12s","-"));
+      s_syst.Append("\n");
+    }
+    froot->cd();
+    hist->Write();
+  }
+  fout << "bin           " << s_bin.Data() << "\n";
+  fout << "process       " << s_process.Data() << "\n";
+  fout << "process       " << s_process2.Data() << "\n";
+  fout << "rate          " << s_rate.Data() << "\n";
+  fout << s_syst;
+  fout.close();
+  froot->Close();
+}
+
+void makeGrid()
+{
+  const unsigned int nSteps = 40;
+  double xstep = 2*rangeX/nSteps;
+  double ystep = 2*rangeY/nSteps;
+  for (double x = -rangeX; x < rangeX+xstep; x+=xstep){
+    for (double y = -rangeY; y < rangeY+ystep; y+=ystep){
+      printf("Grid point x=%0.3f y=%0.3f\n",x,y);
+      makeCard("cards","atgc",x,y);
+    }
+  }
 }

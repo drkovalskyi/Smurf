@@ -8,3 +8,6 @@ wwfit.C
 Data samples:
   UserCode/JRibnik/CMS2/NtupleMacros/WW/fit/samples - last year Sherpa samples
   smurf - directory with smurf ntuples
+
+
+python make_cls_plot.py --input "cards/higgsCombine*root" --par1=x --par2=y --par1Latex="#lambda_{Z}" --par2Latex="#Delta g^{Z}_{1}"

@@ -1,18 +1,15 @@
+// data fits
 {
   gSystem->CompileMacro("RooATGCPdf.C","k");
   gSystem->CompileMacro("wwfit.C","k");
   setDefaults();
   setSigPdf_LZ_GZ();
-  // setSigPdf_LZ_KG();
-  
-  // setOldBkgPdf();
   setBkgPdf();
-  // sensitivity();
-  // ww1DFits();
-  // wwATGC1DFits();
-  // wwATGC1DLzKgFits();
-  // fitData(true,true,true,true);
   fitData();
   yieldDataFit();
-  // fitTop();
+  c12->Print("lz_dgz_contourplot.pdf");
+  c12->Print("lz_dgz_contourplot.root");
+  cc1->Print("correlations.root");
+  cc2->Print("lz_dgz_pdf_data.pdf");
+  cc2->Print("lz_dgz_pdf_data.root");
 }
