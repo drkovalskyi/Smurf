@@ -75,8 +75,6 @@ void ZllNormalization
 
   //----------------------------------------------------------------------------
 
-
-
   double NZmmSelected_Data = 0;
   double NZmmSelected_MC = 0;
   double NZmmSelected_MCUnCorr = 0;
