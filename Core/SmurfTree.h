@@ -310,9 +310,9 @@ class SmurfTree {
   float          sfWeightEff_;
   float          sfWeightHPt_;
   float          dymva_;
-  unsigned int   npu_;
-  unsigned int   npuPlusOne_;
-  unsigned int   npuMinusOne_;
+  float          npu_;
+  float          npuPlusOne_;
+  float          npuMinusOne_;
 
   float          auxVar0_;
 
@@ -466,9 +466,9 @@ class SmurfTree {
     tree_->Branch("id2",           &id2_	,     "id2/F");
     tree_->Branch("x2",            &x2_	,     "x2/F");
     tree_->Branch("pdf2",          &pdf2_	,     "pdf2/F");
-    tree_->Branch("npu",           &npu_,           "npu/i");
-    tree_->Branch("npuPlusOne",    &npuPlusOne_,    "npuPlusOne/i");
-    tree_->Branch("npuMinusOne",   &npuMinusOne_,   "npuMinusOne/i");
+    tree_->Branch("npu",           &npu_,           "npu/F");
+    tree_->Branch("npuPlusOne",    &npuPlusOne_,    "npuPlusOne/F");
+    tree_->Branch("npuMinusOne",   &npuMinusOne_,   "npuMinusOne/F");
 
     tree_->Branch("auxVar0",	   &auxVar0_	  ,   "auxVar0/F");
   }
@@ -837,11 +837,11 @@ SmurfTree::InitVariables(){
   sfWeightEff_   = -999;
   sfWeightHPt_   = -999;
   dymva_         = -999;
-  npu_           = -999;
-  npuPlusOne_    = -999;
-  npuMinusOne_   = -999;
+  npu_           = -999.;
+  npuPlusOne_    = -999.;
+  npuMinusOne_   = -999.;
 
-  auxVar0_	 = -999;
+  auxVar0_	 = -999.;
 }
 
 inline double
