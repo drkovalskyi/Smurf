@@ -237,6 +237,7 @@ TString suffix       = "ww"
     TString effPath  = "";
     TString fakePath = "";
     TString puPath   = "";
+    TString puPath2  = "";
     if	   (period == 0){ // Full2012-Summer12-V9-3500ipb
       effPath  = "/smurf/dlevans/Efficiencies/V00-02-04_V1/summary.root";
       fakePath = "/smurf/dlevans/FakeRates/V00-02-04_V1/summary.root";
@@ -247,10 +248,11 @@ TString suffix       = "ww"
       fakePath = "/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
       puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
     }
-    else if(period == 2){ // Full2012-Summer12-V9-5000ipb-NewId
-      effPath  = "/smurf/data/Run2012_Summer12_SmurfV10_52X/auxiliar/efficiency_results_HWWIDIsoMVAV4.root";
-      fakePath = "/smurf/data/Run2012_Summer12_SmurfV10_52X/auxiliar/fakerate_results_HWWIDIsoMVAV4.root";
-      puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
+    else if(period == 2){ //  Full2012-Summer12-V9-12000ipb
+      effPath  = "/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
+      fakePath = "/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
+      puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x.root";
+      puPath2  = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_52x.root";
     }
     else {
       printf("Wrong period(%d)\n",period);
@@ -281,11 +283,17 @@ TString suffix       = "ww"
 
     LeptonScaleLookup trigLookup(Form("%s%s",InputPath.Data(),effPath.Data()));
 
-    TFile *fPUS4File = TFile::Open(Form("%s%s",InputPath.Data(),puPath.Data()));
-    TH1D *fhDPUS4 = (TH1D*)(fPUS4File->Get("puWeights"));
-    assert(fhDPUS4);
-    fhDPUS4->SetDirectory(0);
-    delete fPUS4File;
+    TFile *fPUFile = TFile::Open(Form("%s%s",InputPath.Data(),puPath.Data()));
+    TH1D *fhDPU = (TH1D*)(fPUFile->Get("puWeights"));
+    assert(fhDPU);
+    fhDPU->SetDirectory(0);
+    delete fPUFile;
+
+    TFile *fPUFile2 = TFile::Open(Form("%s%s",InputPath.Data(),puPath2.Data()));
+    TH1D *fhDPU2 = (TH1D*)(fPUFile2->Get("puWeights"));
+    assert(fhDPU2);
+    fhDPU2->SetDirectory(0);
+    delete fPUFile2;
 
     int newMH = mH;
     if(newMH == 110) newMH = 115; // there is no correction for mh=110!
@@ -503,6 +511,9 @@ TString suffix       = "ww"
     Float_t mll_lepup,mt_lepup;
     Float_t mll_lepdown,mt_lepdown;
     Float_t mll_metup,mt_metup;
+    Float_t bdtgV0;
+    Float_t bdtgV1;
+    Float_t bdtgV2;
 
     TBranch* br_bdt         = 0;
     TBranch* br_bdtd        = 0;
@@ -520,6 +531,9 @@ TString suffix       = "ww"
     TBranch* br_mt_lepdown  = 0;
     TBranch* br_mll_metup   = 0;
     TBranch* br_mt_metup    = 0;
+    TBranch* br_bdtgV0      = 0;
+    TBranch* br_bdtgV1      = 0;
+    TBranch* br_bdtgV2      = 0;
 
     if(Use["BDT"])         br_bdt        = clone->Branch(Form("bdt_hww%i_%djet_%s"  ,mH,njet,suffix.Data()) , &bdt   , Form("bdt_hww%i_%djet_%s/F"   ,mH,njet,suffix.Data()) );
     if(Use["BDTD"])        br_bdtd       = clone->Branch(Form("bdtd_hww%i_%djet_%s" ,mH,njet,suffix.Data()) , &bdtd  , Form("bdtd_hww%i_%djet_%s/F"  ,mH,njet,suffix.Data()) );
@@ -538,6 +552,12 @@ TString suffix       = "ww"
       br_mt_lepdown     = clone->Branch(Form("mt_lepdown")				       , &mt_lepdown 	  , Form("mt_lepdown")  );
       br_mll_metup      = clone->Branch(Form("mll_metup")				       , &mll_metup  	  , Form("mll_metup")   );
       br_mt_metup       = clone->Branch(Form("mt_metup")				       , &mt_metup   	  , Form("mt_metup")    );
+    }
+
+    if(Use["BDTG"] && njet == 20){
+      br_bdtgV0 	= clone->Branch(Form("bdtgV0") , &bdtgV0  , Form("bdtgV0"));
+      br_bdtgV1 	= clone->Branch(Form("bdtgV1") , &bdtgV1  , Form("bdtgV1"));
+      br_bdtgV2 	= clone->Branch(Form("bdtgV2") , &bdtgV2  , Form("bdtgV2"));
     }
 
     if(Use["BDT"])         br_bdt       -> SetTitle(Form("BDT Output H%i_%dj"    , mH,njet));
@@ -655,7 +675,8 @@ TString suffix       = "ww"
             smurfTree.sfWeightFR_ = -1.0 * smurfTree.sfWeightFR_;
             if(nFake > 1) smurfTree.sfWeightFR_ = -1.0 * smurfTree.sfWeightFR_;
 
-            smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPUS4,smurfTree.npu_);
+            smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPU,smurfTree.npu_);
+            if(smurfTree.dstype_ == SmurfTree::ttbar && period == 2) smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPU2,smurfTree.npu_);
 
             smurfTree.sfWeightEff_ = 1.0;
             smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep1_.pt(), smurfTree.lep1_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid1_);
@@ -692,7 +713,8 @@ TString suffix       = "ww"
         }
         else if(smurfTree.dstype_ != SmurfTree::data){
           smurfTree.sfWeightFR_ = 1.0;
-     	  smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPUS4,smurfTree.npu_);
+     	  smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPU,smurfTree.npu_);
+          if(smurfTree.dstype_ == SmurfTree::ttbar && period == 2) smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPU2,smurfTree.npu_);
 
           smurfTree.sfWeightEff_ = 1.0;
           smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep1_.pt(), smurfTree.lep1_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid1_);
@@ -739,6 +761,12 @@ TString suffix       = "ww"
       }
       if (Use["BDTG"]){
         bdtg  = reader->EvaluateMVA( "BDTG method" );
+	if(njet == 20){
+	  const std::vector< Float_t > bdtgV = reader->EvaluateMulticlass( "BDTG method" );
+          bdtgV0 = bdtgV[0];
+          bdtgV1 = bdtgV[1];
+          bdtgV2 = bdtgV[2];
+        }
 
 	if(doShapes == true){ // momentum scale +
 	  double corr[2] = {1.0, 1.0};
