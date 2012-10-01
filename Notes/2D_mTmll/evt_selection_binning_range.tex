@@ -1,13 +1,20 @@
-The 2D templates are made with selections to increase S/B.   
-As done in the cut-based and BDT-based analyses, we first 
-choose events with two W bosons \cite{HWW2012ICHEP}. 
-%Given the different kinematics in different \mHi hypotheses, 
-%we make low-\mHi ($\mHi<300~\GeV$) and high-\mHi ($\mHi\ge 300~\GeV$) templates individually.   
-The motivation of 2D analysis is to have a single template 
-across all \mHi hypotheses. However, since event kinematics changes by \mHi, 
-we make separate templates for low-\mHi ($\mHi<300~\GeV$) and high-\mHi ($\mHi\ge 300~\GeV$) hypotheses.   
+Before filling the 2D templates, we first apply a 
+preselection to increase the overall S/B.
+Identically to the cut-based and BDT-based analyses, we first
+choose events with two W bosons \cite{HWW2012ICHEP}.
+
+Because the signal event kinematics change with \mHi, it is necessary
+to change the preselection with \mHi. In the BDT-based analysis
+the \mll~and \mt~ selection changes with each mass point.  In the 
+2D analysis, by defining an appropriate range and binning 
+for these two variables we are able to use a single template definition
+for low-\mHi ($\mHi<300~\GeV$) and 
+a single template definition for high-\mHi ($\mHi\ge 300~\GeV$) hypotheses.
+This is advantageous because it avoids unnecessary statistical fluctuations
+between the data selected for nearby hypotheses.
+
 On top of WW preselection, we apply  $\ptlmax > 50~\GeV$ for high-\mHi~hypotheses.
-For VBF channel, we apply additional requirements as follows to select VBF events. 
+For the VBF channel, we apply additional requirements as follows to preselect VBF events. 
 
 \begin{itemize}
 	\item two reconstructed jets with $\pt~>~30~\GeV$ and no other jets between
@@ -18,13 +25,15 @@ For VBF channel, we apply additional requirements as follows to select VBF event
     \item $m_{T}^{\ell\ell\met}>30\GeV$.
 \end{itemize}  
 
-In order to perform a maximum likelihood fit with templates, 
-it is important to avoid empty bins in the background templates. 
-Therefore, one can not have as small bins as they want. 
-Also, if S/B does not change by making bin size smaller
-then we can use larger bins to have better statistics in each bin. 
-In appendix~\ref{app:binsize} it is shown that S/B stays at the same level 
-by changing the bin size by factor 4. 
+When defining the templates, we take care to avoid empty
+bins in the background templates, given the available
+simulation and control sample statistics.
+Thus, the bins cannot be arbitrarily small.
+The parameters used to construct the templates
+are summarized in Table~\ref{tab:binning_range}
+In Appendix~\ref{app:binsize} we show that
+changing the chosen bin size by a factor of 4
+does not change the S/B.
 
 \begin{table}[!htb] 
 	\centering
@@ -40,7 +49,7 @@ by changing the bin size by factor 4.
    	\hline \hline
 	\end{tabular}
 	\label{tab:binning_range}
-	\caption{Summary of binning and range. For high-\mHi~templates, overflow to \mt/\mll=600~\GeV~ is allowed.}
+	\caption{Summary of template parameters. For the high-\mHi~templates, overflow to \mt/\mll=600~\GeV~ is included
+in the content of the last bin.}
 \end{table}
 
-Considering all these, we construct templates as summarized in Table~\ref{tab:binning_range}.

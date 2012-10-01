@@ -1,21 +1,25 @@
-In order to perform a statistical interpretation, we have to prepare cards 
-along with central and alternative shapes(histograms). The available tools \cite{lands}, \cite{combine}
-do not take 2-dimensional histogram as an input, but 1-dimensional histograms
-transformed from 2-dimensional ones. Since, the tools do nat care about 
-how bins are arranged, we can unroll a 2-dimensional histogram to 1-dimensional one.
+To perform the statistical interpretation of the data, we use
+the standard Higgs group combination tools~cite{lands}, \cite{combine}.
+These tools require input cards describing the nuisance parameters
+along with central and alternative shapes (histograms), which 
+are required to be 1-dimensional.  Because the maximum likelihood
+fit does not care how the bins are arranged, we ``unroll'' the 
+2-dimensional histograms into the 1-dimensional format.
 
 \begin{figure}[htp]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/unrolling_schematic.pdf}
 	\caption{ Schematic of how unrolling is done from 4x4 2D to 1D histogram. 
-			  Same numbers in the 2D and 1D histograms indicates same bins.} 
+			  The numbers in the 2D and 1D histograms indicate the same bins.} 
   	\label{fig:unrolling_sch}
 \end{figure}
 
-Figure~\ref{fig:unrolling_sch} shows how unrolling is done for this study. 
-In case of a 4x4 2D template, the first column in the 2D histogram 
+Figure~\ref{fig:unrolling_sch} shows how the unrolling is done.
+In the case of a 4x4 2D template, the first column in the 2D histogram 
 becomes the 1st - 4th bins in the 1D histogram. The second column becomes 
 5th - 8th bins in the 1D. Same thing goes until the last column.  
+Figure~\ref{fig:unrolling_ex} shows an example of 2D template and
+the corresponding unrolled template.
 
 \begin{figure}[htp]
 	\centering
@@ -23,10 +27,4 @@ becomes the 1st - 4th bins in the 1D histogram. The second column becomes
 	\caption{ Example of how unrolling is done from 4x4 2D to 1D histogram.} 
   	\label{fig:unrolling_ex}
 \end{figure}
-
-Figure~\ref{fig:unrolling_ex} shows an example of 2D template and 
-the corresponding unrolled template.  
-
-On technical point of view, we can replace BDT template by unrolled 
-template and run the same machinery.  
 

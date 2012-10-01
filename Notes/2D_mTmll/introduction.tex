@@ -1,27 +1,41 @@
-Current $\Hi\To\WW \To \Lep\Lprime\Nu\Nubar$ analysis is performed
-with two complementary approaches, cut-based and shape-based. The
-cut-based analysis is a simple cut-and-counting experiment and its
-sensitivity is limited by systematic uncertainties.  The shape-based
-approach uses the full shape of BDT output to maximize sensitivity.
+The current $\Hi\To\WW \To \Lep\Lprime\Nu\Nubar$ analysis \cite{HWW2012ICHEP}
+is performed with two complementary approaches, cut-based and shape-based. 
+The cut-based analysis is a single bin counting experiment and is
+limited in sensitivity by systematic uncertainties. In the shape-based
+approach a multivariate discriminator (BDT) is constructed to separate
+signal and background. To maximise the sensitivity to the signal,
+a binned fit is performed on the BDT output distribution.
 
-The BDT shape analysis uses both multivariate technique and maximum
-likelihood fit to the shape of BDT discriminator to improve
-sensitivity of the analysis. One of the drawbacks of a multi-variate
-discriminator like BDT is that when something unexpected is observed
-in data it is hard to interpret the results since MVA output has
-non-trivial dependence on its input variables. Additionally, for Higgs
-mass below 140 GeV the power of BDT shape analysis comes mostly from
-using shapes rather than using multivariate technique. This is shown
-by performing $m_{ll}$ shape analyis with 2011 data which gives about
-90 \% sensitivity compared to the BDT approach.
+The shape-based analysis is more sensitive than the cut-based analysis
+for two reasons:
+
+\begin{itemize}
+    \item The BDT exploits the correlation between multiple
+input variables described in Ref. \cite{HWW2012ICHEP} to 
+separate signal and background more efficiently than orthogonal cuts.
+    \item The fit to the BDT output allows the inclusion of additional
+low signal to background ratio bins, and consequently additional
+constrains on the background.
+\end{itemize}
+
+One of the drawbacks of the BDT approach is the 
+non-trivial dependence of the discriminator value on 
+the input variables. This means that physical interpretation
+of the data in the BDT discriminator can be difficult. Additionally,
+for Higgs boson masses below 140 GeV, most of the additional
+sensitivity of the shape-analysis cames from the fit
+rather than the BDT itself. This has been shown
+by performing $m_{ll}$ shape analyis with 2011 data \cite{HWW2011CommonNote}
+which gives about 90 \% of the sensitivity of the BDT approach.
 
 In this document we present an alternative approach that allows for a
-simple interpretation of observed data with a sensitivity that is
-better than the default BDT-based shape analysis in low \mHi hypotheses.
-We developed a 2-dimensional shape analysis using two independent variables: $m_{ll}$
-and $m_T$. In this study we use only $e\mu$ final state. 
-Same-flavor final states have marginal contribution due to
-sever Drell-Yan background. 
+simpler physical interpretation of the observed data with a sensitivity that is
+better than the default BDT shape-analysis for low \mHi hypotheses.
+We have developed a 2-dimensional shape analysis using two independent variables: $m_{ll}$
+and $m_T$. We have applied the method to the $e\mu$ final state,
+which is the most sensitive. Same-flavor final states contribute
+marginally due to the severe Drell-Yan background.
 
-The 2D method is described in section~\ref{sec:method} 
-and its performance is shown in section~\ref{sec:performance}.  
+The 2-dimensional method is described in section~\ref{sec:method} 
+and its performance is shown in section~\ref{sec:performance}.
+
