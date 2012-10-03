@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.1 2012/05/11 10:10:34 dmytro Exp $
+# $Id: Makefile,v 1.1 2012/10/03 17:16:54 yygao Exp $
 
 DVIPS = dvips
 DVIPSPREFLAGS = -t letter
@@ -29,4 +29,4 @@ all: $(SORCE)
 
 .PHONY: clean
 clean:
-	rm -f *.pdf *.aux *.dvi *.log *.qsl *.sol *.lof *.lot *.toc *~
+	rm -f *.out *.pdf *.aux *.dvi *.log *.qsl *.sol *.lof *.lot *.toc *~
