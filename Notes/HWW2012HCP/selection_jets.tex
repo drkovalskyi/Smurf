@@ -1,0 +1,51 @@
+Jets are reconstructed using calorimeter and tracker information using a particle flow 
+algorithm~\cite{jetpas}. The anti-${\rm k_T}$ clustering algorithm~\cite{antikt} 
+with ${\rm R=0.5}$ is used. We apply the standard jet energy 
+corrections~\cite{jes} to the reconstructed jets, where the L1 Fast Jets 
+corrections are included. The latter corrections are rather important since 
+they help in flatening the reconstruction efficiency as a function of the 
+number of overlapping events.
+To exclude electrons and muons from the jet sample, these 
+jets are required to be separated from the selected leptons in $\Delta R$ 
+by at least $\Delta R^{\mathrm{jet-lepton}}>0.3$.
+In order to reject jets from pileup, MVA-based jet identification~\cite{mvajetid} is applied. 
+This idenfication takes advantage of difference in shape of energy deposit in a jet cone.
+Jets from pileup are soft, so they need to be overlaid to pass the jet $\pt$ threshold. 
+Therefore, energy deposit of pileup jets are more spread than the one from hard interactions.
+We select jets of which MVA outputs are greater than the values 
+which correspond to the loose working point in Table~\ref{tab:jetidcut}.
+
+\begin{table}[htp]
+	\centering
+		\begin{tabular}{c|c|c|c|c}
+			\hline
+									&  $0<|\eta|<2.5$ 	& $2.5<|\eta|<2.75$		& $2.75<|\eta|<3.0$ 	& $3.0<|\eta|<4.7$ 		\\ 
+			\hline \hline
+				$\pt<10$ \GeV		& 0.0 				& 0.0					& 0.0	 				& 0.2					\\ 
+				$10<\pt<20$	\GeV 	& -0.4 				& -0.4					& -0.4	 				& 0.4					\\
+				$20<\pt<30$	\GeV	& 0.0 				& 0.0					& 0.2	 				& 0.6					\\ 
+				$\pt>30$ \GeV 		& 0.0 				& 0.0					& 0.6	 				& 0.2					\\
+			\hline 
+		\end{tabular}
+		\caption{Cut values on jet identification MVA outputs. MVA output is required to be greater than 
+				these values to be counted as a jet.}
+	\label{tab:jetidcut}
+\end{table}
+
+In this analysis we use high $\pt$ jets to define the analysis jet bin
+and low $\pt$ jets to do the top events veto.
+We define:
+\begin{itemize}
+\item {\it counted jet}: a reconstructed jets with $\pt > ~30 ~\GeV$ within $|\eta|<4.7$;
+\item {\it low $\pt$ jet}: a reconstructed jets with $10~ < \pt < ~30~\GeV$ within $|\eta|<4.7$
+\end{itemize}
+
+We analyze the events separately based on the number of counted jets in the event.
+In the events containing two or more jets, there are additional requirements. 
+Our focus in these events is on VBF production where there are two energetic jets  
+well separated in forward and backward regions without significant hadronic 
+activities in the central region.  
+Therefore, we reject events where there is a third jet with $\pt > 30 \GeV$ 
+between the first and second energetic jets. In addition, events with more than 
+3 jets are rejected because there can be more than 3 jets in background processes such as \ttbar 
+while there are less jets in the signal process. 

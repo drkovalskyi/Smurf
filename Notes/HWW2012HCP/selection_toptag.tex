@@ -1,0 +1,34 @@
+Because the production cross-section is substantially higher than the
+$\WW$ cross-section, top backgrounds pose a significant challenge.
+To reduce the top background, we introduce two top tagging methods.
+Both methods rely on the fact that top quarks decay to $Wb$ with
+almost 100\% probability.
+
+The first method vetoes events
+containing soft muons from the $b$-quark decays.
+The requirements used to select soft muons are:
+
+\begin{itemize}
+    \item $\pt > 3$ GeV;
+    \item reconstructed as a TrackerMuon;
+    \item meets $\mathrm{TMLastStationAngTight}$ muon id requirements;
+    \item more than 5 tracker layers;
+    \item the transverse impact parameter with respect to the Primary Vertex, $|d_{0}| < 0.2$~cm;
+    \item the longitudinal impact parameter with respect to the Primary Vertex $|d_{z}| <0.2$~cm;
+    \item non-isolated $({\rm{Iso}_{Total}}/{\pt}~>~0.1)$ if $\pt>20~\GeV$.
+\end{itemize}
+
+The second method uses standard $b$-jet tagging~\cite{HWW2011}.
+In this method, we use different taggers for jets with $\pt>~30$ GeV and $\pt<~30$ GeV. 
+For jets with $\pt>~30$ GeV, $\mathrm{jetBProbability}$~\cite{btag} algorithm is used with 
+a discriminator cut value at 1.05. For jets with $\pt<~30$ GeV, 
+$\mathrm{TrkCountingHighEff}$~\cite{btag} algorithm is used with a discriminator cut value 
+at 2.1. Events containing jets tagged with these btaggers are rejected 
+if discriminators are less than the cut values. These algorithms are applied to jets 
+with the same definition as Section \ref{sec:sel_jets}, with the exception that 
+we consider jets with $\Et ~>~10~\GeV$. The MVA-based jet identification which is applied 
+for selecting jets reduces mistag rate and dependency on pile-up.
+%This requirement is different with respect to~\cite{HWW2011}, 
+By using the expected tagging efficiency for the two methods,
+it is possible to estimate the residual top background after the vetoes
+have been applied. This is described in detail in Section~\ref{sec:bkg_top}.

@@ -1,0 +1,66 @@
+Electrons are identified by using a multivariate approach.~\cite{EGammaMvaId}. 
+We use ``triggered (\texttt{EGammaMvaEleEstimator::kTrig})" version. 
+The variables used in the MVA-based electron identifcation are the following.  
+\begin{itemize}
+\item kinematics : $\pt$,  $\eta$
+\item shower shape : $\sigma_{I\eta I\eta}$, $\phi_{I\eta I\eta}$, $\Delta \phi_{SC}$, $\Delta \eta_{SC}$, $E_{3\times3}/E_{5\times5}$(R9), $E_{1\times5}/E_{5\times5}$
+\item track fit quality : $\chi^2(\textrm{GSF})/\textrm{ndof} $, $\chi^2(\textrm{CTF})/\textrm{ndof}$ 
+\item number of tracker layers  
+\item cluter-track matching (geometry) : $\Delta \phi_{in}$, $\Delta \eta_{in}$, $\Delta \eta_{out}$
+\item cluter-track matching (energy-momentum) : $E_{in}/p$, $E/p_{out}$, $1/E_\textrm{ECAL} - 1/p_{\textrm{GSF track}}$ 
+\item fraction of energy carried away by bremstraulung : $f_{brem}$ 
+\item ratio of hadronic energy to EM energy  : $H/E$ 
+\item impact parameter :  transverse and 3D impact parameters w.r.t. primary vertex
+\item $E_{\textrm{ES}}/E_{\textrm{SC}}$
+\end{itemize}
+
+In addition, we require some minimal requirements to make sure the electron candidate 
+is as tight as the trigger selection:
+
+\begin{itemize}
+  \item $p_T>10$~GeV and $|\eta| < 2.5$
+  \item $\sigma_{i\eta i\eta} < 0.01/0.03$ (barrel/endcap)
+  \item $|\Delta\phi_{in}| < 0.15/0.10$
+  \item $|\Delta\eta_{in}| < 0.007/0.009$
+  \item $H/E< 0.12/0.10$ (barrel/endcap)
+  \item $\frac{\sum_{\rm trk}\Et}{\pt^{\rm ele}}<0.2$
+  \item $\frac{\left[\sum_{\rm ECAL}\Et\right]-1}{\pt^{\rm ele}}<0.2$
+  \item $\frac{\sum_{\rm HCAL}\Et}{\pt^{\rm ele}}<0.2$
+\end{itemize}
+
+Isolation requirements are then imposed by computing the particle flow isolation,
+defined as the scalar sum of the \pt\ of the particle flow candidates satisfying 
+the following requirements:
+
+\begin{itemize}
+\item $\Delta R~<~0.4$ to the electron in the $\eta \times \phi$ plane,
+\item PF electrons and muons are vetoed,
+\item for gamma PF candidates, require that they are outside the footprint veto regoin of $\Delta R~<~0.08$ ,
+\item for charged hadron PF candidates, require that they are outside the footprint veto regoin of $\Delta R~<~0.015$ ,
+\item for charged hadron PF candiates, require that they are associated with the primary vertex,
+\item Neutral components are corrected by subtracting pileup contribution which is calculated by $\rho \times A_{\rm{eff}}$,
+\end{itemize}
+where $\rho$ (\texttt{kt6PFJets}) is the event-by-event energy density and $A_{eff}$ is the effective area.
+
+The isolation variable we cut on is thus 
+\begin{equation} 
+\frac{\rm{Iso}_{PF}}{p_T} 
+= 
+\left[ \rm{Iso}_{charged \, hadron} + \left\{ \rm{Iso}_{gamma} + \rm{Iso}_{neutral \, hadron} -\rho \times A_{eff} \right\} \right]
+\times \frac{1}{p_T}  
+\end{equation} 
+where $\rm{Iso}_{charged \, hadron}$, $\rm{Iso}_{gamma}$, and $\rm{Iso}_{neutral \, hadron}$ are 
+the scalar sum of the \pt\ of charged hadron, gamma and neutral hadron PF candidates, respectivlely,
+in the isolation cone of 0.4 around the electron.
+
+We require $\frac{\rm{Iso}_{PF}}{\pt}~<~0.15$ for electrons in barrel and endcap.  
+
+In order to veto fake electrons from converted photons, 
+we look for a reconstructed conversion vertex where one of the two tracks 
+is compatible with the electron~\cite{ConversionNote}.
+The vertex fit probability is required to be $>10^{-6}$.
+We then require that there are no missing expected missing hits forming the electron track~\cite{ConversionNote},~\cite{NExpHits}. 
+Finally to reduce fake electrons from non-prompt sources,
+we require the transverse and longitudinal impact parameters with
+respect to the primary vertex to be less than $0.02$ and $0.1$~cm respectively.
+

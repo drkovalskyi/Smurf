@@ -1,0 +1,828 @@
+\subsection{Statistical Methods}
+We derive upper limits on the product of the Higgs boson production
+cross section and the $\Hi \to \WW$ branching fraction,
+$\sigma_{\rm{H}} \times $BR($\Hi \to \WW)$, with respect to the SM
+expectation, i.e. $\sigma^{95\%}/\sigma^{SM}$. Two different
+statistical methods are used to report results. The first method is
+based on Bayesian inference~\cite{bayesian} and the second one, known
+as $CL_{s}$, is the modified frequentist approach~\cite{cls1,cls2}.
+
+The likelihood function is defined as:
+\begin{eqnarray}
+  L(\rm{data}|\mu,\theta)&=&\rm{Poisson}(\rm{data}|\mu\cdot s(\theta)+b(\theta))\cdot p(\tilde{\theta}|\theta) \nonumber\\
+ &=&\prod_i\frac{(\mu s_i+b_i)^{n_i}}{n_i!}e^{-\mu s_i-b_i}\cdot p(\tilde{\theta}|\theta)
+\label{eq:likelihood}
+\end{eqnarray}
+where $\mu$ is the signal strength modifier which is often reported in
+the upper limit results as a ratio of the cross-section upper limit
+over the standard model cross-section and $\theta$ represents a full
+set of nuisance parameters that are used to incorporate systematic
+uncertainties. 
+
+The first method (Bayesian) is based on interpreting the likelihood
+(Eq.~\ref{eq:likelihood}) as a probability distribution function with
+a flat prior for the signal strength and a set of pdfs for nuisance
+parameters, which are often approximated with the log-normal
+distribution. Integrating over the nuisance parameters we find the
+upper limit for the signal strength.
+
+For $CL_{s}$ method the test statistic is defined as a likelihood
+ratio:
+\begin{equation}
+\tilde{q_\mu}=-2\log\frac{L(\rm{data}|\mu,\hat\theta_\mu)}{L(\rm{data}|\hat\mu,\hat\theta)}
+\end{equation}
+where the numerator corresponds to the maximum likelihood for given
+``data'' and $\mu$ profiling over the nuisance parameters and the
+denominator corresponds to the maximum likelihood for given ``data''
+profiling over the nuisance parameters and $\mu$. This test statistic
+differs from the ones used at LEP (no profiling of systematic errors)
+and at Tevatron (the denominator likelihood uses $\mu=0$ and only
+systematic errors are profiled).
+
+The results obtained using the two methods may differ but in most cases
+they are very close. To perform the computation of the limits, the
+software packages
+\texttt{RooStats}~\cite{rootstat} and \texttt{LandS}~\cite{lands} have 
+been used.
+
+\subsection{Background Estimation}
+
+The estimation of the backgrounds follows the strategies described in
+Section~\ref{sec:backgrounds}. As mentioned at the begining of the 
+document, we are totally/partially missing $\wgamma$, $\wgamma^{*}$ and $\WZ$
+in simulation. Thus, Monte Carlo yields and data/MC scale factors 
+are preliminary.
+
+First we estimate the $\dyll$ at the WW selection level shown in Table~\ref{tab:dy_wwlevel}. 
+As it was seen before the simulation significantly underestimates this type of
+background. It is important to keep in mind that $\WZ$ and $\ZZ$ 
+contributions in the $\Z$-peak region are sizable, so the method depends
+on the Monte Carlo simulation of these processes. It is not a problem
+since the uncertainties on these di-boson contributions in the Z-peak
+region are small compared with the systematic uncertainties of the
+R-value extraction and the statistical uncertainties on the number of
+the events in Z-peak region.
+As we do not have enough statistics in the MC at the higgs selection level, 
+we estimate directly at the Higgs selection level for both the 
+cut-based and shape-based analyses. 
+The results are shown in Table~\ref{tab:dy} and Table~\ref{tab:dy_shape}. 
+
+
+The $\Wjets$ background contribution is summarized in Table~\ref{tab:fake_est}. 
+The same sign closure test in the 0-jet bin finds 127 events in data while 
+the background expectation is $132 \pm 6~(stat.)$.
+
+The top background estimation is shown in
+Table~\ref{tab:ttbar_est}. The scale factors are consistent with unity within 
+the current large statistical uncertainties. 
+For the 2-Jet bin we perform the top background estimations 
+directly at the Higgs selection level shown in Table~\ref{tab:ttbar_est_vbf}. This is because 
+with the statistics in the 2012 Top Madgraph MC sample is limited. 
+
+
+With these results, we compare the yields after the $\WW$ preselection 
+in data and MC with min-MET(Table~\ref{tab:wwselection_all_minmet}) and 
+DY MVA(Table~\ref{tab:wwselection_all_dymva}). Higgs contribution at
+\WW\ selection level is negligible for not excluded Higgs mass
+hypotheses. For the signal extraction we estimate the \WW\ background
+contribution in data looking at events with large di-lepton mass, i.e.
+$m_{ll}>100$~\GeV{} (Table~\ref{tab:ww_est}). 
+Figures~\ref{fig:ww_ptmax}-\ref{fig:ww_deltaphi} show a few key distributions at \WW\ selection level.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}
+\begin{center}
+\begin{tabular}{c c c c c c}
+\hline
+       nJets & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
+%/0 & 239.6 $\pm$ 24.0 & 0.28 $\pm$ 0.02 $\pm$ 0.02 & 68.1 $\pm$ 8.7 $\pm$ 5.2 & 13.25 $\pm$ 2.01 \\
+% 1 & 313.6 $\pm$ 21.1 & 0.25 $\pm$ 0.02 $\pm$ 0.06 & 78.8 $\pm$ 7.2 $\pm$ 19.6  & 19.46 $\pm$ 2.89 \\
+% 2 & 616.8 $\pm$ 26.3 & 0.24 $\pm$ 0.02 $\pm$ 0.04 & 145.9 $\pm$ 12.4 $\pm$ 22.7  & 81.80 $\pm$ 8.78 \\
+0 & 360.5 $\pm$ 29.7 & 0.27 $\pm$ 0.02 $\pm$ 0.02 & 96.6 $\pm$ 10.6 $\pm$ 5.7 & 21.01 $\pm$ 2.85 \\
+1 & 507.0 $\pm$ 26.5 & 0.24 $\pm$ 0.01 $\pm$ 0.05 & 121.8 $\pm$ 9.4 $\pm$ 25.4  & 30.02 $\pm$ 4.09 \\
+2 & 879.7 $\pm$ 31.6 & 0.23 $\pm$ 0.02 $\pm$ 0.04 & 198.6 $\pm$ 15.0 $\pm$ 32.1  & 116.04 $\pm$ 11.27 \\
+\hline
+\end{tabular}
+\caption{The Drell-Yan estimation in the same flavor final state at WW preselection level, using the min-pMET at 
+0 and 1 Jet bins and the pfMET at the 2-jet bins. }
+\label{tab:dy_wwlevel}
+\end{center}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}
+\begin{center}
+\begin{tabular}{c c c c c c}
+\hline
+\hline
+\multicolumn{5}{c}{0-jet} \\
+\hline
+       mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
+\hline
+115 \GeV & 70.8 $\pm$ 9.9 & 0.35 $\pm$ 0.03 $\pm$ 0.05 & 24.6 $\pm$ 4.1 $\pm$ 3.6 & 5.61 $\pm$ 1.77 \\
+120 \GeV & 79.8 $\pm$ 11.2 & 0.35 $\pm$ 0.03 $\pm$ 0.05 & 27.8 $\pm$ 4.6 $\pm$ 4.1 & 5.80 $\pm$ 1.78 \\
+125 \GeV & 47.1 $\pm$ 8.2 & 0.74 $\pm$ 0.07 $\pm$ 0.22 & 34.7 $\pm$ 7.0 $\pm$ 10.3 & 5.88 $\pm$ 1.79 \\
+130 \GeV & 35.7 $\pm$ 7.3 & 1.07 $\pm$ 0.12 $\pm$ 0.37 & 38.1 $\pm$ 8.8 $\pm$ 13.2 & 4.40 $\pm$ 1.47 \\
+135 \GeV & 36.3 $\pm$ 7.3 & 1.01 $\pm$ 0.11 $\pm$ 0.41 & 36.5 $\pm$ 8.4 $\pm$ 15.0 & 3.89 $\pm$ 1.42 \\
+140 \GeV & 35.6 $\pm$ 7.0 & 0.90 $\pm$ 0.11 $\pm$ 0.38 & 32.1 $\pm$ 7.4 $\pm$ 13.6 & 3.89 $\pm$ 1.42 \\
+145 \GeV & 68.9 $\pm$ 9.5 & 0.68 $\pm$ 0.08 $\pm$ 0.28 & 46.6 $\pm$ 8.7 $\pm$ 19.0 & 8.86 $\pm$ 1.79 \\
+150 \GeV & 48.0 $\pm$ 9.3 & 0.27 $\pm$ 0.06 $\pm$ 0.16 & 12.7 $\pm$ 4.0 $\pm$ 7.9 & 5.68 $\pm$ 1.58 \\
+160 \GeV & 21.3 $\pm$ 6.3 & 0.43 $\pm$ 0.12 $\pm$ 0.60 & 9.1 $\pm$ 3.7 $\pm$ 12.9 & 4.06 $\pm$ 1.38 \\
+170 \GeV & 10.7 $\pm$ 5.5 & 0.26 $\pm$ 0.09 $\pm$ 1.07 & 2.8 $\pm$ 1.7 $\pm$ 11.4 & 2.03 $\pm$ 0.58 \\
+180 \GeV & 8.2 $\pm$ 5.7 & 0.21 $\pm$ 0.06 $\pm$ 0.79 & 1.7 $\pm$ 1.3 $\pm$ 6.5 & 2.95 $\pm$ 0.86 \\
+190 \GeV & 21.7 $\pm$ 8.1 & 0.24 $\pm$ 0.06 $\pm$ 0.21 & 5.2 $\pm$ 2.4 $\pm$ 4.5 & 3.20 $\pm$ 0.88 \\
+200 \GeV & 37.3 $\pm$ 10.9 & 0.17 $\pm$ 0.04 $\pm$ 0.10 & 6.5 $\pm$ 2.4 $\pm$ 3.6 & 3.20 $\pm$ 0.88 \\
+\vspace{-3mm} && \\
+\hline
+\hline
+\multicolumn{5}{c}{1-jet} \\
+\hline
+       mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
+\hline
+115 \GeV & 17.1 $\pm$ 4.5 & 0.37 $\pm$ 0.09 $\pm$ 0.19 & 6.4 $\pm$ 2.2 $\pm$ 3.2  & 0.00 $\pm$ 0.00 \\
+120 \GeV & 26.9 $\pm$ 5.7 & 0.37 $\pm$ 0.09 $\pm$ 0.19 & 10.0 $\pm$ 3.1 $\pm$ 5.1  & 0.00 $\pm$ 0.00 \\
+125 \GeV & 12.6 $\pm$ 4.3 & 0.59 $\pm$ 0.14 $\pm$ 0.30 & 7.4 $\pm$ 3.1 $\pm$ 3.8  & 0.00 $\pm$ 0.00 \\
+130 \GeV & 9.4 $\pm$ 3.8 & 0.81 $\pm$ 0.21 $\pm$ 0.42 & 7.6 $\pm$ 3.6 $\pm$ 4.0  & 0.00 $\pm$ 0.00 \\
+135 \GeV & 11.2 $\pm$ 4.0 & 0.78 $\pm$ 0.21 $\pm$ 0.41 & 8.7 $\pm$ 3.9 $\pm$ 4.6  & 0.00 $\pm$ 0.00 \\
+140 \GeV & 8.1 $\pm$ 3.9 & 0.72 $\pm$ 0.20 $\pm$ 0.36 & 5.8 $\pm$ 3.2 $\pm$ 2.9  & 0.00 $\pm$ 0.00 \\
+145 \GeV & 97.1 $\pm$ 10.6 & 0.33 $\pm$ 0.03 $\pm$ 0.15 & 31.9 $\pm$ 4.5 $\pm$ 14.3  & 10.20 $\pm$ 2.28 \\
+150 \GeV & 142.9 $\pm$ 13.0 & 0.18 $\pm$ 0.02 $\pm$ 0.09 & 25.3 $\pm$ 4.0 $\pm$ 13.1  & 9.04 $\pm$ 2.02 \\
+160 \GeV & 61.1 $\pm$ 8.3 & 0.44 $\pm$ 0.07 $\pm$ 0.15 & 27.0 $\pm$ 5.5 $\pm$ 9.2  & 8.31 $\pm$ 2.00 \\
+170 \GeV & 60.6 $\pm$ 8.4 & 0.39 $\pm$ 0.06 $\pm$ 0.15 & 23.9 $\pm$ 5.0 $\pm$ 9.2  & 6.22 $\pm$ 1.85 \\
+180 \GeV & 75.5 $\pm$ 9.7 & 0.31 $\pm$ 0.05 $\pm$ 0.11 & 23.2 $\pm$ 4.5 $\pm$ 8.5  & 4.67 $\pm$ 1.60 \\
+190 \GeV & 158.3 $\pm$ 14.1 & 0.20 $\pm$ 0.02 $\pm$ 0.08 & 32.3 $\pm$ 4.8 $\pm$ 13.3  & 6.27 $\pm$ 1.79 \\
+200 \GeV & 208.2 $\pm$ 16.2 & 0.15 $\pm$ 0.02 $\pm$ 0.05 & 30.4 $\pm$ 4.3 $\pm$ 11.0  & 6.27 $\pm$ 1.79 \\\hline
+\multicolumn{5}{c}{2-jet} \\
+\hline
+       mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
+\hline
+115 \GeV & 10.9 $\pm$ 3.3 & 0.25 $\pm$ 0.09 $\pm$ 0.20 & 2.8 $\pm$ 1.3 $\pm$ 2.1  & 0.43 $\pm$ 0.23 \\
+120 \GeV & 11.9 $\pm$ 3.5 & 0.25 $\pm$ 0.09 $\pm$ 0.20 & 3.0 $\pm$ 1.4 $\pm$ 2.3  & 0.43 $\pm$ 0.23 \\
+125 \GeV & 12.9 $\pm$ 3.6 & 0.25 $\pm$ 0.09 $\pm$ 0.20 & 3.3 $\pm$ 1.5 $\pm$ 2.5  & 0.43 $\pm$ 0.23 \\
+130 \GeV & 15.9 $\pm$ 4.0 & 0.25 $\pm$ 0.09 $\pm$ 0.20 & 4.0 $\pm$ 1.8 $\pm$ 3.1  & 0.43 $\pm$ 0.23 \\
+135 \GeV & 15.8 $\pm$ 4.0 & 0.25 $\pm$ 0.09 $\pm$ 0.20 & 4.0 $\pm$ 1.8 $\pm$ 3.1  & 0.43 $\pm$ 0.23 \\
+140 \GeV & 17.8 $\pm$ 4.2 & 0.25 $\pm$ 0.09 $\pm$ 0.20 & 4.5 $\pm$ 1.9 $\pm$ 3.5  & 0.43 $\pm$ 0.23 \\
+145 \GeV & 17.8 $\pm$ 4.2 & 0.25 $\pm$ 0.09 $\pm$ 0.20 & 4.5 $\pm$ 1.9 $\pm$ 3.5  & 0.43 $\pm$ 0.23 \\
+150 \GeV & 17.8 $\pm$ 4.5 & 0.25 $\pm$ 0.09 $\pm$ 0.20 & 4.5 $\pm$ 2.0 $\pm$ 3.5  & 0.43 $\pm$ 0.23 \\
+160 \GeV & 19.7 $\pm$ 4.9 & 0.25 $\pm$ 0.09 $\pm$ 0.20 & 5.0 $\pm$ 2.2 $\pm$ 3.9  & 0.43 $\pm$ 0.23 \\
+170 \GeV & 20.7 $\pm$ 5.0 & 0.25 $\pm$ 0.09 $\pm$ 0.20 & 5.2 $\pm$ 2.3 $\pm$ 4.0  & 0.43 $\pm$ 0.23 \\
+180 \GeV & 21.7 $\pm$ 5.1 & 0.25 $\pm$ 0.09 $\pm$ 0.20 & 5.5 $\pm$ 2.4 $\pm$ 4.2  & 0.43 $\pm$ 0.23 \\
+190 \GeV & 23.6 $\pm$ 5.3 & 0.25 $\pm$ 0.09 $\pm$ 0.20 & 6.0 $\pm$ 2.5 $\pm$ 4.6  & 0.43 $\pm$ 0.23 \\
+200 \GeV & 25.6 $\pm$ 5.5 & 0.25 $\pm$ 0.09 $\pm$ 0.20 & 6.5 $\pm$ 2.7 $\pm$ 5.0  & 0.43 $\pm$ 0.23 \\
+\hline
+\end{tabular}
+\caption{The Drell-Yan estimation in the same flavor final state, for the cut-based selections.}
+\label{tab:dy}
+\end{center}
+\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}
+\begin{center}
+\begin{tabular}{c c c c c c}
+\hline
+\hline
+\multicolumn{5}{c}{0-jet} \\
+\hline
+       mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
+\vspace{-3mm} && \\
+\hline
+115 \GeV & 191.5 $\pm$ 16.2 & 0.25 $\pm$ 0.02 $\pm$ 0.07 & 48.7 $\pm$ 5.5 $\pm$ 13.5 & 7.19 $\pm$ 1.89 \\
+120 \GeV & 198.3 $\pm$ 16.8 & 0.25 $\pm$ 0.02 $\pm$ 0.07 & 50.4 $\pm$ 5.7 $\pm$ 14.0 & 7.19 $\pm$ 1.89 \\
+125 \GeV & 213.1 $\pm$ 17.6 & 0.27 $\pm$ 0.02 $\pm$ 0.07 & 58.4 $\pm$ 6.4 $\pm$ 15.8 & 7.33 $\pm$ 1.90 \\
+130 \GeV & 217.6 $\pm$ 18.0 & 0.27 $\pm$ 0.02 $\pm$ 0.07 & 59.6 $\pm$ 6.5 $\pm$ 16.1 & 7.33 $\pm$ 1.90 \\
+135 \GeV & 220.2 $\pm$ 18.1 & 0.27 $\pm$ 0.02 $\pm$ 0.07 & 60.3 $\pm$ 6.6 $\pm$ 16.3 & 7.33 $\pm$ 1.90 \\
+140 \GeV & 220.2 $\pm$ 18.1 & 0.27 $\pm$ 0.02 $\pm$ 0.07 & 60.3 $\pm$ 6.6 $\pm$ 16.3 & 7.33 $\pm$ 1.90 \\
+145 \GeV & 359.7 $\pm$ 23.5 & 0.23 $\pm$ 0.02 $\pm$ 0.01 & 82.6 $\pm$ 8.3 $\pm$ 4.8 & 17.16 $\pm$ 2.50 \\
+150 \GeV & 360.6 $\pm$ 24.1 & 0.23 $\pm$ 0.02 $\pm$ 0.01 & 82.8 $\pm$ 8.4 $\pm$ 4.8 & 17.44 $\pm$ 2.51 \\
+160 \GeV & 361.3 $\pm$ 24.8 & 0.23 $\pm$ 0.02 $\pm$ 0.01 & 82.9 $\pm$ 8.5 $\pm$ 4.8 & 17.89 $\pm$ 2.53 \\
+170 \GeV & 358.8 $\pm$ 25.5 & 0.23 $\pm$ 0.02 $\pm$ 0.01 & 82.4 $\pm$ 8.6 $\pm$ 4.7 & 17.89 $\pm$ 2.53 \\
+180 \GeV & 354.4 $\pm$ 26.0 & 0.24 $\pm$ 0.02 $\pm$ 0.02 & 83.9 $\pm$ 8.9 $\pm$ 6.6 & 19.22 $\pm$ 2.77 \\
+190 \GeV & 352.7 $\pm$ 26.5 & 0.25 $\pm$ 0.02 $\pm$ 0.02 & 86.8 $\pm$ 9.2 $\pm$ 6.2 & 19.88 $\pm$ 2.82 \\
+200 \GeV & 355.8 $\pm$ 26.9 & 0.25 $\pm$ 0.02 $\pm$ 0.02 & 88.2 $\pm$ 9.4 $\pm$ 7.3 & 20.02 $\pm$ 2.82 \\
+250 \GeV & 368.2 $\pm$ 28.4 & 0.27 $\pm$ 0.02 $\pm$ 0.01 & 97.9 $\pm$ 10.4 $\pm$ 5.3 & 20.65 $\pm$ 2.85 \\
+300 \GeV & 358.1 $\pm$ 28.9 & 0.27 $\pm$ 0.02 $\pm$ 0.02 & 95.4 $\pm$ 10.3 $\pm$ 6.2 & 20.65 $\pm$ 2.85 \\
+\hline
+\multicolumn{5}{c}{1-jet} \\
+\hline
+       mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
+\hline
+115 \GeV & 39.1 $\pm$ 7.1 & 0.32 $\pm$ 0.06 $\pm$ 0.14 & 12.3 $\pm$ 3.2 $\pm$ 5.5  & 0.00 $\pm$ 0.00 \\
+120 \GeV & 44.0 $\pm$ 7.6 & 0.32 $\pm$ 0.06 $\pm$ 0.14 & 13.9 $\pm$ 3.5 $\pm$ 6.2  & 0.00 $\pm$ 0.00 \\
+125 \GeV & 45.0 $\pm$ 8.4 & 0.36 $\pm$ 0.07 $\pm$ 0.17 & 16.1 $\pm$ 4.2 $\pm$ 7.6  & 0.60 $\pm$ 0.60 \\
+130 \GeV & 47.8 $\pm$ 9.1 & 0.36 $\pm$ 0.07 $\pm$ 0.17 & 17.1 $\pm$ 4.5 $\pm$ 8.1  & 0.60 $\pm$ 0.60 \\
+135 \GeV & 51.0 $\pm$ 9.6 & 0.36 $\pm$ 0.07 $\pm$ 0.17 & 18.2 $\pm$ 4.8 $\pm$ 8.7  & 0.60 $\pm$ 0.60 \\
+140 \GeV & 51.1 $\pm$ 10.0 & 0.36 $\pm$ 0.07 $\pm$ 0.17 & 18.3 $\pm$ 5.0 $\pm$ 8.7  & 0.60 $\pm$ 0.60 \\
+145 \GeV & 373.8 $\pm$ 21.1 & 0.20 $\pm$ 0.01 $\pm$ 0.06 & 75.4 $\pm$ 6.2 $\pm$ 23.1  & 17.98 $\pm$ 2.90 \\
+150 \GeV & 401.0 $\pm$ 22.0 & 0.20 $\pm$ 0.01 $\pm$ 0.06 & 80.8 $\pm$ 6.6 $\pm$ 24.8  & 19.27 $\pm$ 2.98 \\
+160 \GeV & 432.7 $\pm$ 23.1 & 0.20 $\pm$ 0.01 $\pm$ 0.06 & 87.2 $\pm$ 7.0 $\pm$ 26.7  & 19.83 $\pm$ 2.99 \\
+170 \GeV & 457.5 $\pm$ 23.9 & 0.20 $\pm$ 0.01 $\pm$ 0.06 & 92.2 $\pm$ 7.3 $\pm$ 28.3  & 19.88 $\pm$ 2.99 \\
+180 \GeV & 473.5 $\pm$ 24.4 & 0.21 $\pm$ 0.01 $\pm$ 0.04 & 98.8 $\pm$ 7.8 $\pm$ 20.6  & 23.88 $\pm$ 3.59 \\
+190 \GeV & 486.1 $\pm$ 24.8 & 0.22 $\pm$ 0.01 $\pm$ 0.06 & 109.2 $\pm$ 8.5 $\pm$ 28.2  & 24.15 $\pm$ 3.60 \\
+200 \GeV & 500.2 $\pm$ 25.2 & 0.23 $\pm$ 0.01 $\pm$ 0.06 & 115.3 $\pm$ 8.9 $\pm$ 31.1  & 24.41 $\pm$ 3.60 \\
+250 \GeV & 504.0 $\pm$ 25.8 & 0.24 $\pm$ 0.01 $\pm$ 0.05 & 120.8 $\pm$ 9.3 $\pm$ 25.4  & 28.65 $\pm$ 4.02 \\
+300 \GeV & 504.7 $\pm$ 26.2 & 0.24 $\pm$ 0.01 $\pm$ 0.05 & 121.2 $\pm$ 9.4 $\pm$ 25.4  & 28.71 $\pm$ 4.02 \\
+\hline
+\end{tabular}
+\caption{The Drell-Yan estimation in the same flavor final state, for the shape-based selections.}
+\label{tab:dy_shape}
+\end{center}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{c c c c c c} 
+\hline
+jet-bin &	 $\mu\mu$ &	 $e \mu$ &	 $\mu e$ &	 $ee$ &	 total \\ 
+\hline
+0 &  23.02 $\pm$	3.26   &  30.60 $\pm$   2.88     &  85.84 $\pm$   4.97  & 11.66 $\pm$   1.07  & 151.12 $\pm$   6.69 \\
+1 &  67.19 $\pm$	4.91   &  24.61 $\pm$   3.56     &  67.19 $\pm$   4.91  &  7.18 $\pm$   0.95  & 108.05 $\pm$   6.71 \\ 
+2 &  41.13 $\pm$	3.96   &  16.15 $\pm$   2.87     &  41.13 $\pm$   3.96  &  5.02 $\pm$   0.96  &  80.46 $\pm$   6.33 \\ 
+\hline
+\end{tabular}
+\caption{Predictions of the fake-induced background contribution 
+in the data-driven estimation after the $\WW$ preselection using the DYMVA. 
+The analyzed data correspond to $\intlumiEightTeV$, where the reported uncertainties are statistical only.}
+\label{tab:fake_est}
+\end{center}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{l c c c}
+\hline
+                                   Sample & 0-jet           & 1-jet           & vbf       \\
+\hline
+       Estimated top events in simulation & 194.5 $\pm$ 5.4   & 571.5 $\pm$ 7.9   &   12.9 $\pm$ 0.6   \\
+	              tagging efficiency (\%) &  53.4 $\pm$ 3.0   &  66.1 $\pm$ 0.9   &  - \\
+			    top-tagged events in data & 326.0 $\pm$ 18.1  & 1303.0 $\pm$ 36.1  &  - \\
+	  background events in control region &  81.4 $\pm$ 17.3  &  77.3 $\pm$ 17.2  &  - \\
+	  Data-driven top background estimate & 213.2 $\pm$ 33.4  & 628.2 $\pm$ 33.5  &   12.0 $\pm$ 4.8   \\
+	                        Scale factors &  1.10 $\pm$ 0.17 &  1.10 $\pm$ 0.06 &  0.93 $\pm$ 0.37 \\
+\hline
+\end{tabular}
+\caption{Monte Carlo to data scale factor for the top background contribution for $\intlumiEightTeV$. 
+In the 1-jet bin, the scale factor is derived in a region that is slightly different from the signal region.}
+\label{tab:ttbar_est}
+\end{center}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{c c c}
+\hline
+  Mass & MC Prediction & Data-driven Prediction \\
+\hline
+110 \GeV & 1.7 $\pm$ 0.2 & 1.3 $\pm$ 0.9  \\
+115 \GeV & 2.0 $\pm$ 0.2 & 3.1 $\pm$ 2.2  \\
+120 \GeV & 2.1 $\pm$ 0.2 & 3.1 $\pm$ 2.2  \\
+125 \GeV & 2.8 $\pm$ 0.3 & 5.4 $\pm$ 3.1  \\
+130 \GeV & 3.0 $\pm$ 0.3 & 5.1 $\pm$ 3.1  \\
+135 \GeV & 3.5 $\pm$ 0.3 & 5.6 $\pm$ 3.4  \\
+140 \GeV & 3.8 $\pm$ 0.3 & 5.6 $\pm$ 3.4  \\
+145 \GeV & 4.7 $\pm$ 0.4 & 6.1 $\pm$ 3.4  \\
+150 \GeV & 5.1 $\pm$ 0.4 & 6.2 $\pm$ 3.4  \\
+155 \GeV & 5.2 $\pm$ 0.4 & 6.8 $\pm$ 3.5  \\
+160 \GeV & 5.4 $\pm$ 0.4 & 6.7 $\pm$ 3.5  \\
+170 \GeV & 5.9 $\pm$ 0.4 & 6.2 $\pm$ 3.5  \\
+180 \GeV & 6.1 $\pm$ 0.4 & 6.2 $\pm$ 3.5  \\
+190 \GeV & 6.5 $\pm$ 0.5 & 5.5 $\pm$ 3.6  \\
+200 \GeV & 6.6 $\pm$ 0.5 & 5.5 $\pm$ 3.6  \\
+250 \GeV & 11.6 $\pm$ 0.6 & 11.5 $\pm$ 4.7  \\
+300 \GeV & 12.1 $\pm$ 0.6 & 12.1 $\pm$ 4.8  \\
+350 \GeV & 12.2 $\pm$ 0.6 & 12.1 $\pm$ 4.8  \\
+400 \GeV & 12.5 $\pm$ 0.6 & 12.2 $\pm$ 4.8  \\
+450 \GeV & 12.6 $\pm$ 0.6 & 12.0 $\pm$ 4.8  \\
+500 \GeV & 12.6 $\pm$ 0.6 & 12.0 $\pm$ 4.8  \\
+550 \GeV & 12.6 $\pm$ 0.6 & 12.0 $\pm$ 4.8  \\
+600 \GeV & 12.6 $\pm$ 0.6 & 12.0 $\pm$ 4.8  \\
+\hline
+\end{tabular}
+\caption{The top background estimations from Monte Carlo and data-driven methods for the 2-Jet bin, evaluated 
+at the Higgs selection level. }
+\label{tab:ttbar_est_vbf}
+\end{center}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{table}[ht!]
+ \begin{center}
+{\small
+\begin{tabular} {|c|c|c|c|c|c|c|}
+\hline
+          &   data & all bkg. & $qq \to \WW$ & $gg \to \WW$ &  $\ttbar+tW$   & $\Wjets$    \\
+ \hline
+ \hline
+0-jet  & 1936 & 1665.0 $\pm$ 18.3 & 1033.5 $\pm$  6.7 & 71.5 $\pm$  1.3 & 218.3 $\pm$  6.1 & 152.0 $\pm$  7.2 \\
+1-jet  & 1374 & 1331.9 $\pm$ 22.1 & 410.3 $\pm$  4.2 & 23.5 $\pm$  0.7 & 569.8 $\pm$  8.3 & 107.5 $\pm$  7.1 \\
+2-jet  & 1270 & 1205.7 $\pm$ 27.0 & 169.8 $\pm$  2.7 &  4.6 $\pm$  0.3 & 650.9 $\pm$  6.6 & 73.0 $\pm$  6.4 \\
+\hline
+\hline
+\end{tabular}
+\begin{tabular} {|c|c|c|c|c|}
+\hline
+       & $WZ$/$ZZ$ not included in the $\dyll$ & $\dyll+WZ+ZZ$ & $W+\gamma/\gamma^*$ \\
+\hline
+\hline
+0-jet  & 28.3 $\pm$  0.5 & 118.5 $\pm$ 6.2 & 42.9 $\pm$  4.8 \\
+1-jet  & 27.5 $\pm$  0.5 & 171.8 $\pm$ 18.3 & 21.6 $\pm$  3.8 \\
+2-jet  & 14.6 $\pm$  0.3 & 286.6 $\pm$ 25.1 &  6.2 $\pm$  2.2 \\
+\hline
+\hline
+\end{tabular}
+}
+\caption{Expected number of signal and background events from the data-driven methods for 
+an integrated luminosity of \intlumiEightTeV after applying the $\WW$ selection requirements with min-MET. 
+Only statistical uncertainties on the processes are reported. 
+$\WW$ yield is from MC (the $\WW$ data driven scale factor is evaluated depending on the Higgs mass hypothesis).}
+\label{tab:wwselection_all_minmet}
+\end{center}
+\end{table}
+
+\begin{table}[ht!]
+  \begin{center}
+ {\small
+  \begin{tabular} {|c|c|c|c|c|c|c|}
+\hline
+          &   data & all bkg. & $qq \to \WW$ & $gg \to \WW$ &  $\ttbar+tW$   & $\Wjets$    \\
+  \hline
+  \hline
+	0-jet	&   1594 & 1320.41 $\pm$ 15.49 &   853.83  $\pm$  6.17 & 51.96 $\pm$  1.13 &  160.48 $\pm$  5.41  & 151.12 $\pm$  6.69  \\	   
+	1-jet	&   1171 & 1159.81 $\pm$ 15.92 &   391.48  $\pm$  4.22 & 21.32 $\pm$  0.73 &  526.30 $\pm$  8.04  & 108.05 $\pm$  6.71  \\   
+ \hline
+ \hline
+  \end{tabular}
+  \begin{tabular} {|c|c|c|c|c|}
+\hline
+       & $WZ$/$ZZ$ not included in the $\dyll$ & $\dyll+WZ+ZZ$ & $W+\gamma$ \\
+  \hline
+  \hline
+	0-jet 	&  23.36 $\pm$  0.42 & 51.82 $\pm$ 10.64 & 27.84 $\pm$  3.62 \\ 
+	1-jet 	&  26.39 $\pm$  0.45 & 66.10 $\pm$ 10.51 & 20.17 $\pm$  3.83 \\
+ \hline
+ \hline
+  \end{tabular}
+  }
+  \caption{Expected number of signal and background events from the data-driven methods for 
+  an integrated luminosity of \intlumiEightTeV after applying the $\WW$ selection requirements with DY MVA. 
+  Only statistical uncertainties on the processes are reported.
+  $\WW$ yield is from MC (the $\WW$ data driven scale factor is evaluated depending on the Higgs mass hypothesis).}
+   \label{tab:wwselection_all_dymva}
+  \end{center}
+\end{table}
+
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[]{
+\centering
+\label{subfig:ww_ptmin_0j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_0j_pt2.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:ww_ptmin_1j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_1j_pt2.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:ww_ptmin_2j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_2j_pt2.pdf}
+}
+\caption{Trailing lepton $p_T$ distribution after WW selection for \intlumiEightTeV of data in the 0-jet \subref{subfig:ww_ptmin_0j}, 
+1-jet \subref{subfig:ww_ptmin_1j} and 2-jet \subref{subfig:ww_ptmin_2j} bin analyses. 
+MC is scaled to data-driven estimates for all processes.}
+\label{fig:ww_ptmin}
+\end{figure}
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[]{
+\centering
+\label{subfig:ww_ptmax_0j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_0j_pt1.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:ww_ptmax_1j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_1j_pt1.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:ww_ptmax_2j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_2j_pt1.pdf}
+}\\
+\caption{Leading lepton $p_T$ distribution after WW selection for \intlumiEightTeV of data in the 0-jet \subref{subfig:ww_ptmax_0j}, 
+1-jet \subref{subfig:ww_ptmax_1j} and 2-jet \subref{subfig:ww_ptmax_2j} bin analyses. 
+MC is scaled to data-driven estimates for all processes.}
+\label{fig:ww_ptmax}
+\end{figure}
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[]{
+\centering
+\label{subfig:ww_pmet_0j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_0j_met.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:ww_pmet_1j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_1j_met.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:ww_pmet_2j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_2j_met.pdf}
+}\\
+\caption{The $\met$ distributions distribution after WW selection for \intlumiEightTeV of data in the 0-jet \subref{subfig:ww_pmet_0j}, 
+1-jet \subref{subfig:ww_pmet_1j} and 2-jet \subref{subfig:ww_pmet_2j} bin analyses. 
+Note that for the 0 and 1 Jet bins, $min(\text{proj}_\text{trk-MET}, \text{proj}_\text{PFMET})$ are plotted, 
+while for the 2-jet bin, PFMET is used. MC is scaled to data-driven estimates for all processes.}
+\label{fig:ww_pmet}
+\end{figure}
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[]{
+\centering
+\label{subfig:ww_mt_0j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_0j_mt.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:ww_mt_1j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_1j_mt.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:ww_mt_2j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_2j_mt.pdf}
+} \\
+\caption{Transverse mass distribution after WW selection for \intlumiEightTeV of data in the 0-jet \subref{subfig:ww_mt_0j}, 
+1-jet \subref{subfig:ww_mt_1j} and 2-jet \subref{subfig:ww_mt_2j} bin analyses. 
+MC is scaled to data-driven estimates for all processes.}
+\label{fig:ww_mt}
+\end{figure}
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[]{
+\centering
+\label{subfig:ww_dilmass_0j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_0j_mll.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:ww_dilmass_1j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_1j_mll.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:ww_dilmass_2j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_2j_mll.pdf}
+} \\
+\caption{Invariant dilepton mass distribution after WW selection for \intlumiEightTeV of data in the 0-jet \subref{subfig:ww_dilmass_0j}, 
+1-jet \subref{subfig:ww_dilmass_1j} and 2-jet \subref{subfig:ww_dilmass_2j} bin analyses. 
+MC is scaled to data-driven estimates for all processes.}
+\label{fig:ww_dilmass}
+\end{figure}
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[]{
+\centering
+\label{subfig:ww_deltaphi_0j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_0j_dphi.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:ww_deltaphi_1j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_1j_dphi.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:ww_deltaphi_2j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_2j_dphi.pdf}
+} \\
+\caption{Dilepton $\Delta\phi$ distribution after WW selection for \intlumiEightTeV of data in the 0-jet \subref{subfig:ww_deltaphi_0j}, 
+1-jet \subref{subfig:ww_deltaphi_1j} and 2-jet \subref{subfig:ww_deltaphi_2j} bin analyses. 
+MC is scaled to data-driven estimates.}
+\label{fig:ww_deltaphi}
+\end{figure}
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[]{
+\centering
+\label{subfig:ww_mjj_2j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_2j_mjj.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:ww_detajj_2j}
+\includegraphics[width=.3\textwidth]{figures/hww_analysis16_0_ALL_incl_2j_detajj.pdf}
+}
+\caption{Di-jet invariant mass \subref{subfig:ww_mjj_2j} and $\Delta\eta(j_1, j_2)$ \subref{subfig:ww_detajj_2j} distributions after the 
+WW selection. MC is scaled to data-driven estimates for all processes.}
+\label{fig:ww_2j}
+\end{figure}
+
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{c | c | c } 
+\hline
+            & \multicolumn{1}{c|}{0-jet} & \multicolumn{1}{c}{1-jet} \\
+mass [\GeV] & scale factor & scale factor \\
+\hline
+%115 & 1.21 $\pm$ 0.10 & 0.93 $\pm$ 0.13 \\
+120 & 1.21 $\pm$ 0.10 & 0.93 $\pm$ 0.13 \\
+%125 & 1.21 $\pm$ 0.10 & 0.93 $\pm$ 0.13 \\
+130 & 1.21 $\pm$ 0.10 & 0.93 $\pm$ 0.13 \\
+%135 & 1.21 $\pm$ 0.10 & 0.94 $\pm$ 0.13 \\
+140 & 1.22 $\pm$ 0.10 & 0.95 $\pm$ 0.13 \\
+%145 & 1.15 $\pm$ 0.08 & 0.99 $\pm$ 0.15 \\
+150 & 1.11 $\pm$ 0.08 & 0.97 $\pm$ 0.15 \\
+160 & 1.10 $\pm$ 0.08 & 0.97 $\pm$ 0.15 \\
+170 & 1.10 $\pm$ 0.08 & 0.96 $\pm$ 0.15 \\
+180 & 1.10 $\pm$ 0.08 & 0.97 $\pm$ 0.15 \\
+190 & 1.10 $\pm$ 0.08 & 0.96 $\pm$ 0.15 \\
+200 & 1.09 $\pm$ 0.08 & 0.94 $\pm$ 0.15 \\
+\hline
+\end{tabular}
+\caption{WW background estimation for $\intlumiEightTeV$.}
+\label{tab:ww_est}
+\end{center}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\subsection{Final Results for the Higgs Search with \intlumiEightTeV{}}
+\label{sec:search_results}
+
+The expected and observed upper limits at 95\% C.L. for the cut based and
+multivariate analyses are shown in Tables~\ref{tab:cutbase_uls}
+and~\ref{tab:mvabase_uls}, respectively. The corresponding exclusion
+limits are shown in Figure~\ref{fig:uls}. The detailed event yields 
+for both analyses are summarized in Appendices.~\ref{app:appendix_cutresults} 
+and~\ref{app:appendix_bdtresults}. 
+The expected and observed upper limits at 95\% C.L. for the individual channels 
+are summarized in Appendices~\ref{app:appendix_limits_bychannel}. 
+The results of the shape analysis using the dilepton mass single variable are 
+summarized in Appendix~\ref{app:appendix_mll_bdt2011}.
+The results of the shape analysis based on the Matrix Element method 
+are summarized in Appendix~\ref{app:appendix_me}. 
+
+
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[SM Higgs (cut-based)]{
+\centering
+\label{subfig:sm_cut}
+\includegraphics[width=.45\textwidth]{figures/limits_nj_cut_8TeV-CLs-asymptotic_log.pdf}
+}
+\centering
+\subfigure[SM Higgs (shape-based)]{
+\centering
+\label{subfig:sm_shape}
+\includegraphics[width=.45\textwidth]{figures/ana_ICHEP2012_limits_ofshape_8TeV_log.pdf}
+}
+\label{fig:uls}
+\caption{
+Expected and observed upper limits for SM Higgs for both the 
+cut-based and mva shape based analyses. Here shape-based refers to the combination of 
+shape-based in the $e\mu$ final state and the cut-based anaysis in the $ee/\mu\mu$ final state.
+Results correspond to the $\intlumiEightTeV$ dataset at 8 TeV. 
+}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[hbp!]
+\begin{center}
+\begin{tabular}{c c c c c}
+\hline
+\vspace{-3mm} && \\
+ Higgs Mass & Observed  & Median expected & Expected range for 68\% & Expected range for 95\%   \\
+\vspace{-3mm} && \\
+\hline
+110 & 8.92 & 5.43 & [3.91, 7.56] & [2.91, 10.13] \\
+115 & 4.44 & 2.94 & [2.12, 4.09] & [1.58, 5.49] \\
+120 & 3.17 & 1.79 & [1.29, 2.48] & [0.96, 3.33] \\
+125 & 1.92 & 1.17 & [0.84, 1.63] & [0.63, 2.18] \\
+130 & 1.38 & 0.83 & [0.60, 1.15] & [0.45, 1.55] \\
+135 & 0.98 & 0.64 & [0.46, 0.89] & [0.34, 1.19] \\
+140 & 0.75 & 0.50 & [0.36, 0.70] & [0.27, 0.94] \\
+145 & 0.65 & 0.43 & [0.31, 0.60] & [0.23, 0.81] \\
+150 & 0.67 & 0.35 & [0.25, 0.48] & [0.19, 0.65] \\
+160 & 0.39 & 0.21 & [0.15, 0.30] & [0.11, 0.40] \\
+170 & 0.41 & 0.22 & [0.16, 0.31] & [0.12, 0.42] \\
+180 & 0.52 & 0.30 & [0.21, 0.41] & [0.16, 0.55] \\
+190 & 0.79 & 0.42 & [0.30, 0.59] & [0.23, 0.79] \\
+200 & 1.11 & 0.54 & [0.39, 0.74] & [0.29, 1.00] \\
+250 & 2.28 & 1.05 & [0.76, 1.46] & [0.56, 1.96] \\
+300 & 1.90 & 1.19 & [0.86, 1.65] & [0.64, 2.21] \\
+350 & 1.29 & 1.08 & [0.78, 1.50] & [0.58, 2.02] \\
+400 & 1.26 & 1.25 & [0.90, 1.74] & [0.67, 2.33] \\
+450 & 1.26 & 1.54 & [1.11, 2.15] & [0.83, 2.88] \\
+500 & 1.48 & 2.10 & [1.51, 2.92] & [1.13, 3.91] \\
+550 & 1.99 & 2.73 & [1.97, 3.81] & [1.47, 5.10] \\
+600 & 2.70 & 3.78 & [2.73, 5.26] & [2.03, 7.06] \\
+\hline
+\end{tabular}
+\caption{Expected and observed upper limits for SM Higgs using the
+  {\bf cut-based} analysis with \intlumiEightTeV\ of data.}
+\label{tab:cutbase_uls}
+\end{center}
+%\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{table}[hbp!]
+\begin{center}
+\begin{tabular}{c c c c c}
+\hline
+\vspace{-3mm} && \\
+ Higgs Mass & Observed  & Median expected & Expected range for 68\% & Expected range for 95\%   \\
+\vspace{-3mm} && \\
+\hline
+110 & 6.87 & 5.26 & [3.79, 7.32] & [2.82, 9.81] \\
+115 & 4.68 & 2.71 & [1.95, 3.77] & [1.46, 5.06] \\
+120 & 3.48 & 1.67 & [1.20, 2.32] & [0.90, 3.11] \\
+125 & 1.96 & 1.09 & [0.78, 1.51] & [0.58, 2.03] \\
+130 & 1.33 & 0.78 & [0.56, 1.08] & [0.42, 1.45] \\
+135 & 1.12 & 0.62 & [0.45, 0.86] & [0.33, 1.15] \\
+140 & 0.82 & 0.44 & [0.32, 0.62] & [0.24, 0.83] \\
+145 & 0.55 & 0.35 & [0.25, 0.49] & [0.19, 0.66] \\
+150 & 0.64 & 0.29 & [0.21, 0.40] & [0.15, 0.54] \\
+155 & 0.44 & 0.23 & [0.17, 0.32] & [0.12, 0.43] \\
+160 & 0.24 & 0.18 & [0.13, 0.25] & [0.10, 0.33] \\
+170 & 0.34 & 0.19 & [0.14, 0.26] & [0.10, 0.35] \\
+180 & 0.41 & 0.25 & [0.18, 0.35] & [0.13, 0.47] \\
+190 & 0.63 & 0.34 & [0.25, 0.48] & [0.18, 0.64] \\
+250 & 1.28 & 0.71 & [0.51, 0.98] & [0.38, 1.32] \\
+300 & 0.93 & 0.88 & [0.63, 1.22] & [0.47, 1.64] \\
+350 & 0.58 & 0.79 & [0.57, 1.10] & [0.42, 1.47] \\
+400 & 0.62 & 0.90 & [0.65, 1.25] & [0.48, 1.67] \\
+450 & 0.81 & 1.14 & [0.82, 1.59] & [0.61, 2.13] \\
+500 & 1.06 & 1.57 & [1.13, 2.19] & [0.84, 2.93] \\
+550 & 1.77 & 1.99 & [1.44, 2.78] & [1.07, 3.72] \\
+600 & 2.28 & 2.69 & [1.94, 3.74] & [1.44, 5.02] \\
+\hline
+\end{tabular}
+\caption{Expected and observed upper limits for SM Higgs with \intlumiEightTeV\ of data, 
+  combining the {\bf shape-based} analysis in the $e\mu$ final state and the 
+  {\bf cut-based} anaysis in the $ee/\mu\mu$ final state. }
+\label{tab:mvabase_uls}
+\end{center}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We also calculate the expected and observed significance and best 
+fit value of $\sigma/\sigma_{SM}$ in the mass 
+range $110<\ensuremath{m_{\mathrm{H}}}<150$ GeV for both the 
+cut-based and mva shape based analyses, shown in Figure~\ref{fig:sig_mu_8tev}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!hbtp]
+\centering
+\subfigure[Significance (cut-based)]{
+\centering
+\label{subfig:significance_8TeV_cut}
+\includegraphics[width=.45\textwidth]{figures/significance_hWW8TeV.pdf}
+}
+\subfigure[best fit for $\sigma/\sigma_{SM}$ (cut-based)]{
+\centering
+\label{subfig:muHat_cut}
+\includegraphics[width=.45\textwidth]{figures/hWW_mlf8TeV.pdf}
+}
+\centering
+\subfigure[Significance (shape-based)]{
+\centering
+\label{subfig:significance_8TeV_shape}
+%\includegraphics[width=.45\textwidth]{figures/significance8TeV_zoom_shape.png}
+\includegraphics[width=.45\textwidth]{figures/significance8TeV_reducedRange_shape.png}
+}
+\subfigure[best fit for $\sigma/\sigma_{SM}$ (shape-based)]{
+\centering
+\label{subfig:muHat_shape}
+%\includegraphics[width=.45\textwidth]{figures/mlf8TeV_shape.png}
+\includegraphics[width=.45\textwidth]{figures/mlf8TeV_reducedRange_shape.png}
+}
+\label{fig:sig_mu_8tev}
+\caption{
+The expected and observed significance and best 
+fit value of $\sigma/\sigma_{SM}$ in the mass 
+range $110<\ensuremath{m_{\mathrm{H}}}<150$ GeV for both the 
+cut-based and mva shape based analyses. Here shape based refers to the combination of 
+shape-based in the $e\mu$ final state and the cut-based anaysis in the $ee/\mu\mu$ final state.
+Results correspond to the $\intlumiEightTeV$ dataset at 8 TeV. 
+}
+\end{figure}
+%%%%%%%%%%%
+
+\clearpage 
+
+
+\subsection{Final Results for the Higgs Search Combing 7 TeV and 8 TeV Data}
+\label{sec:search_results_finalcomb}
+
+In this section we document the Higgs search results combining the 7 \TeV\ and 8 \TeV\ data.  
+For the 0 and 1 Jet bin final states, the 7 TeV analysis uses the shape based approach for all 
+lepton flavor final states, while the 8 TeV analysis uses the shape based approach only 
+in the $e\mu$ channel. 
+The expected and observed upper limits at 95\% C.L. are shown in Figure~\ref{fig:uls_finalcomb_shape} 
+and Table~\ref{tab:uls_finalcomb_shape}.  We also calculate the expected and observed significance and best 
+fit value of $\sigma/\sigma_{SM}$ in the mass 
+range $110<\ensuremath{m_{\mathrm{H}}}<150$ GeV for this combination, shown in 
+Figure~\ref{fig:sig_mu_finalcomb}.
+
+
+Appendix~\ref{app:appendix_limits_combination7and8} documents the 
+results combining the shape based approach in 7 TeV and the cut based approach in 8 TeV, as shown 
+in the ICHEP 2012 conference. 
+ 
+%%%%%%%%%%%
+\begin{figure}[!hbtp]
+\centering
+\includegraphics[width=.75\textwidth]{figures/ana_ICHEP2012_finalcomb-CLs-asymptotic_log.pdf}
+\caption{Expected and observed upper limits for SM Higgs combining the $\intlumiSevenTeV$ data 
+at 7 TeV and the $\intlumiEightTeV$ at 8 TeV. 
+For the 0 and 1 Jet bin final states, the 7 TeV analysis uses the shape based approach for all 
+lepton flavor final states, while the 8 TeV analysis uses the shape based approach only 
+in the $e\mu$ channel. 
+}
+\label{fig:uls_finalcomb_shape}
+\end{figure}
+%%%%%%%%%%%
+
+%%%%%%%%%%%
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c c c c c}
+\hline
+\vspace{-3mm} && \\
+Higgs Mass & Observed  & Median expected & Expected range for 68\% & Expected range for 95\%   \\
+\hline
+\vspace{-3mm} && \\
+110 & 5.67 & 3.66 & [2.63, 5.09] & [1.96, 6.82] \\
+115 & 3.85 & 1.86 & [1.34, 2.59] & [1.00, 3.47] \\
+120 & 2.52 & 1.13 & [0.81, 1.57] & [0.61, 2.11] \\
+125 & 1.52 & 0.77 & [0.56, 1.08] & [0.42, 1.44] \\
+130 & 1.04 & 0.55 & [0.40, 0.76] & [0.29, 1.03] \\
+135 & 0.81 & 0.42 & [0.30, 0.58] & [0.22, 0.78] \\
+140 & 0.61 & 0.32 & [0.23, 0.44] & [0.17, 0.59] \\
+150 & 0.50 & 0.22 & [0.16, 0.30] & [0.12, 0.41] \\
+160 & 0.21 & 0.15 & [0.11, 0.20] & [0.08, 0.27] \\
+170 & 0.26 & 0.16 & [0.11, 0.22] & [0.08, 0.29] \\
+180 & 0.25 & 0.19 & [0.14, 0.27] & [0.10, 0.36] \\
+190 & 0.38 & 0.27 & [0.19, 0.37] & [0.14, 0.50] \\
+200 & 0.64 & 0.35 & [0.25, 0.48] & [0.19, 0.65] \\
+250 & 0.69 & 0.60 & [0.43, 0.83] & [0.32, 1.12] \\
+300 & 0.70 & 0.67 & [0.48, 0.93] & [0.36, 1.25] \\
+350 & 0.45 & 0.60 & [0.43, 0.83] & [0.32, 1.11] \\
+400 & 0.55 & 0.65 & [0.47, 0.91] & [0.35, 1.21] \\
+450 & 0.64 & 0.85 & [0.61, 1.18] & [0.45, 1.58] \\
+500 & 0.75 & 1.14 & [0.82, 1.59] & [0.61, 2.13] \\
+550 & 1.18 & 1.52 & [1.09, 2.11] & [0.81, 2.83] \\
+600 & 1.46 & 2.11 & [1.52, 2.94] & [1.13, 3.95] \\
+\hline
+\end{tabular}
+\caption{Expected and observed upper limits for SM Higgs combining the $\intlumiSevenTeV$ data 
+at 7 TeV and the $\intlumiEightTeV$ at 8 TeV, shown in Figure~\ref{fig:uls_finalcomb_shape}.
+For the 0 and 1 Jet bin final states, the 7 TeV analysis uses the shape based approach for all 
+lepton flavor final states, while the 8 TeV analysis uses the shape based approach only 
+in the $e\mu$ channel. }
+\label{tab:uls_finalcomb_shape}
+\end{center}
+\end{table} 
+%%%%%%%%%%
+
+
+
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[Significance]{
+\centering
+\label{subfig:significance_8TeV}
+%\includegraphics[width=.45\textwidth]{figures/significance7p8TeV_zoom.png}
+\includegraphics[width=.45\textwidth]{figures/significance7p8TeV_reducedRange.png}
+}
+\subfigure[best fit for $\sigma/\sigma_{SM}$]{
+\centering
+\label{subfig:muHat}
+%\includegraphics[width=.45\textwidth]{figures/mlf7p8TeV.png}
+\includegraphics[width=.45\textwidth]{figures/mlf7p8TeV_reducedRange.png}
+}
+\label{fig:sig_mu_finalcomb}
+\caption{
+The expected and observed significance and best 
+fit value of $\sigma/\sigma_{SM}$ in the mass 
+range $110<\ensuremath{m_{\mathrm{H}}}<150$ GeV. 
+Results correspond to the combined the 7 \TeV\ ($\intlumiSevenTeV$) and 8 \TeV\ data ($\intlumiEightTeV$).}
+\end{figure}%%%%%%%%%%%

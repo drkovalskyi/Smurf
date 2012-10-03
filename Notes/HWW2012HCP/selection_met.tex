@@ -1,0 +1,53 @@
+
+The missing transverse energy is used to reject background events
+where there is no natural source of missing energy, like in Drell-Yan and
+QCD events. In the $\dytt$ process there is a large difference in the masses of 
+$\tau$ and $\Z$. The taus are produced with large boost and their decay products, including 
+neutrinos, are aligned with the leptons. Therefore a transverse component 
+of missing energy with respect to the leptons is a better measure of true 
+missing energy in the event, not originating from $\tau$ decay. 
+To reject such background events with a small opening angle
+between \met\ and one of the leptons, we used the projected \met~\cite{HWW2011} for 
+event selection, defined as:
+\begin{equation}
+\text{with } \Delta\phi_{min} =  min(\Delta\phi(\ell_1,\met),\Delta\phi(\ell_2,\met))\\
+\end{equation}
+\begin{equation}
+= 
+\begin{cases} \met & \text{if $\Delta\phi_{min}>\frac{\pi}{2}$,}
+\\
+\met\sin(\Delta\phi_{min}) & \text{if $\Delta\phi_{min}<\frac{\pi}{2}$}
+\end{cases}
+\end{equation}
+where $\Delta\phi(\ell_i,\met)$ is the angle between \met\ and lepton
+ $i$ in the transverse plane. 
+ In the presence of high multiple-interactions (pile-up), the instrumental \met\ tail in 
+$\dyll$ events increases significantly. 
+
+To improve the signal over background performance of \met\ selections in the presence of pile-up, 
+we have developed a novel \met\ algorithm referred to as ``trk-MET''~\cite{trkMET}, constructed from 
+charged particles consistent with originating from the primary vertex. 
+The event $\met$ trk-MET is defined as 
+\begin{equation}
+\text{trk-MET} \equiv -\overrightarrow{p_T}(l_1) - \overrightarrow{p_T}(l_2) - \sum_i{\overrightarrow{p_T}(i)}, \\
+\label{eq:trkmet}
+\end{equation}
+where $\overrightarrow{p_T}(l_1)$ and $\overrightarrow{p_T}(l_2)$ are the transverse momentum vectors of the two 
+leptons passing the lepton selections described in Section~\ref{sec:sel_muons} and Section~~\ref{sec:sel_electrons}, 
+and $\overrightarrow{p_T}(i)$ represent the tranverse momentum vectors of the charged PFCandidates satisfying the following requirements:
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item the track matched to PFCandidate has $\Delta z < 0.1$~cm with respect to the signal primary vertex;
+\item the track has $\Delta R > 0.1$ with respect to both leptons, to avoid double-counting of the leptons.
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Comparing to the projected PFMet, we observed that the projected trk-MET has 
+a larger tail in $\dyll$ background events~\cite{trkMET}. 
+However these two \met\ values are weakly-correlated in $\dyll$ backgrounds with no geninue $\met$, and 
+strongly correlated for the signal processes with geninue $\met$. 
+Therefore the signal over background ratio is improved if we select the events 
+based on the mininum of these two projected $\met$ values, $\text{min-MET} \equiv min(\text{proj}_\text{trk-MET}, \text{proj}_\text{PFMET})$. 
+
+A baseline selection requiring $\textrm{min-MET} > 20~ \GeV$ is applied in all final states and jet bins.
+As discussed in Section~\ref{sec:sel_sf}, tighter requirements to suppress the \dyll\ background are applied in the same-flavor final states.

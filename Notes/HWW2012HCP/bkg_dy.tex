@@ -1,0 +1,104 @@
+We apply a data-driven method~\cite{dyestnote} to estimate the $\dyll$
+contributions in the same flavor $\ell^+\ell^-$ final states.
+The expected contributions from $\dyll$ events outside the $Z$-mass
+region in data can be estimated by counting the number of events near
+the $Z$ mass region in data, subtracting from it the non-$Z$
+contributions, and scaling it by a ratio $R_{out/in}$ defined as the
+fraction of events outside and inside the $Z$-mass region in the
+simulation. The $Z$-mass region is selected to be within 7.5 \GeV\, of 
+the nominal $Z$ mass. The tight window is chosen to reduce the non-$Z$ 
+contributions from top and multi-boson backgrounds. 
+The non-$Z$ contributions close to the $Z$-mass region in
+data is estimated from the number of events in the $e^\pm\mu^\mp$
+final state $N_{in}^{e\mu}$, applying a correction factor that
+normalizes the electron-to-muon efficiency $k_{ee/\mu\mu}$. 
+$R_{out/in}$ can be obtained both from simulation and
+data.  In simulation it is defined as the ratio
+$N_{out}^{MC}/N_{in}^{MC}$. 
+
+This method is described mathematically as:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{eqnarray}
+N_{out}^{ll,exp} = R_{out/in}^{ll}(N_{in}^{ll} - 0.5N_{in}^{e\mu}k_{ll}), 
+\label{eq:dyest}
+\end{eqnarray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+where $k_{ee} = \sqrt{\frac{N_{in}^{ee,loose}}{N_{in}^{\mu\mu,loose}}}$ for 
+$\dyee$ and $k_{mm} = \sqrt{\frac{N_{in}^{\mu\mu,loose}}{N_{in}^{ee,loose}}}$ 
+for $\dymm$. In the $k_{ll}$ calcualtion, we apply a loose $\met$ cut on 
+min-MET of 20 GeV. 
+
+The ZZ/ZW processes contribute to the events in the control region 
+of the $m_{\ell\ell}$ region dominated by the DY. 
+The contribution from ZZ/ZW becomes comparable to the Drell-Yan background 
+after a tight projected \met selection in the same flavor final states. 
+The ZZ/ZW events contain natural \met, for which
+the detector simulation is reliable\footnote{The ZZ/ZW events with
+no \met are suppressed by the same large factor as the DY ones, and
+therefore their contribution is as negligible at the level of the
+final selection as it would be in the yield at the Z peak without \met
+requirement.}. 
+We subtract the expected peaking ZZ/ZW
+contribution to the yield in the Z peak using the simulation in the 
+estimation of number of events within the $Z$ window in data:
+%%%%%%%%%%
+\begin{equation}\label{eq:dyExtrapM3}
+  N(\ell\ell)_{\textrm{signal}} ^{\textrm{DY}}=
+  (N(\ell\ell)_{\textrm{control}}^{\textrm{data}}-0.5\times
+  N(e\mu)_{\textrm{control}} ^{\textrm{data}}\times k_{\ell\ell}
+  -N_{\textrm{control}}^{\textrm{ZV, sim.}} )  \times
+  R(\ell\ell)_{out/in}^{DY}
+\end{equation}
+%%%%%%%%%%%%
+The ZZ/ZW contribution in the same flavor final states is then 
+taken directly from simulation. 
+Seperating the Drell-Yan and ZZ/WZ components 
+accounts for the fact that the extrapolation from control 
+region to signal region can be different for the two processes when
+considering the full Higgs selection. We assume an overall 10\%
+uncertainty on the ZZ/ZW yield in the peak, which is anyway
+overshadowed by the statistical uncertainty on the observed events in
+the Z peak in data.
+
+This $\dyll$ estimation method relies on the assumption that
+the dependence of the ratio $R_{out/in}$ on the $\met$ cut is well
+modelled by simulation and is relatively flat. 
+The value of $R_{out/in}$ changes according to the different kinematics 
+requirements applied to select the Higgs signal region for different 
+Higgs hypothesis. 
+Therefore we evaluate the $R_{out/in}$ applying selections close to 
+the full Higgs selections. 
+
+However the statistics in MC is limited after the tight $\met$ (or DY MVA) cuts. 
+To gain statistical power, we relax the transverse mass cuts and requiring a looser $\met$ selection. 
+The variations in the $R_{out/in}$ in different $\met$ regions are assigned as systematics. 
+The $\met$ regions considered are listed in Table~\ref{tab:routinbins}. 
+As we do not see any statistical difference between the ee and $\mu\mu$ final states, 
+we combine the two final states to gain statistical stability.
+
+We cross-checked the $R_{out/in}$ value in data as well. Background processes
+contribute equally to $ee$, $e\mu$, $\mu e$ and $\mu\mu$ final states
+(after efficiency corrections), while Drell-Yan only contributes to
+$ee$ and $\mu\mu$. Therefore we can subtract $e\mu$ and $\mu e$
+contribtutions from $ee$ and $\mu\mu$ ones to get an estimate of
+Drell-Yan.
+
+%%%%%
+\begin{table}[!h]
+\begin{center}
+\begin{tabular} {|c|c|c|}
+\hline
+region & \mHi$>$140 \GeV\ \& \WW\ & \mHi$\leq$140 \GeV\ \\
+\hline
+1                 & 20$<$\met$<$25 \GeV\ & -0.90$<$DY MVA$<$-0.85 \\
+2                 & 25$<$\met$<$30 \GeV\ & -0.85$<$DY MVA$<$-0.60 \\
+3                 & 30$<$\met$<$37 \GeV\ & -0.60$<$DY MVA$<$WP    \\
+4 (signal region) & \met$>$45 \GeV\      & DY MVA$>$WP            \\
+\hline
+\end{tabular}
+\caption{Definition of bins for \routin\ determination. \met\ stands for min-MET in 0- and 1-jet bins and for pfMet in the 2-jet bin;
+WP stands for Working Point and corresponds to the final cut value on the DY MVA output.}
+\label{tab:routinbins}
+\end{center}
+\end{table}
+%%%%%

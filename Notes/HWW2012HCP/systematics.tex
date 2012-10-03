@@ -1,0 +1,393 @@
+This analysis does not have any clear mass peak anywhere, hence is to a 
+large extent a counting experiment.
+Therefore it is important to understand the 
+signal efficiency and the background predictions.
+We have taken into account the following systematic uncertainties:
+
+\begin{itemize}
+\item {\it Luminosity:} We assume an uncertainty of 5.0\%.
+
+\item {\it Lepton identification and trigger efficiencies:} 
+We measure the efficiencies in data using the tag and probe method that is described
+in detail in Section~\ref{sec:efficiency}. 
+The estimated uncertainty is about $2\%$ per lepton leg.
+
+\item {\it Momentum scale:} 
+Due to several factors, the energy scale for electrons and the momentum 
+scale for muons have relatively large uncertainties in the current data
+processing. 
+We assign a systematic uncertainty by varying the transverse momentum of the muons by $1\%$, 
+and $2\%$ and $5\%$ for electrons in the barrel and the endcap, respectively. 
+The contribution to the uncertainty on the dilepton efficiency is about $1.5\%$.
+
+\item {\it $\met$ modeling:} We use a data-driven method to estimate the $\dyll$
+background, which is affected by the $\met$ resolution. 
+Events with neutrinos giving real $\met$ in the final state also have a small uncertainty. 
+We assess this uncertainty on the event selection efficiency by varying the $\met$ in signal events
+by an additional $10\%$. We find an uncertainty on the event selection efficiency of around 2\%.
+
+\item {\it Background estimation:} 
+The methods to estimate the different backgrounds are explained in 
+Section~\ref{sec:backgrounds}.
+Here we summarize the systematic uncertainties associated with the methods used.
+  \begin{itemize}
+  \item $\WW$ Background: the relative uncertainty on this background is about $25-37\%$ for $\intlumiEightTeV$. 
+    There is an additional theoretical uncertainty on the $gg \to WW$ contribution, which is around $50\%$.
+  \item Jet induced backgrounds, $\Wjets$ and $QCD$: the associated systematic
+    uncertainty is 36\%.
+  \item Top background: this background is estimated using $b$-tagged events and
+    the $b$-tagging efficiency, which is measured in control regions in data.
+    The associated systematic uncertainties are below $5\%$, 
+    while the statistical component is about $25\%$ for $\intlumiEightTeV$.
+  \item Drell-Yan background: The uncertainty arises from the limited knowledge of
+    events with large $\met$ tails. 
+    We conservatively quantify such uncertainty from the variation of the ratio $R_{out/in}$
+    as a function of the $\met$ requirement,
+    leading to an estimate of about $50\%$. 
+    As very few $\dyll$ events are selected, this has anyhow a small affect on the final analysis results ($\sim1\%$).
+  \item Other backgrounds: The sub-dominant backgrounds are estimated from simulation 
+    with appropriate systematic uncertainties on their cross section.
+    We take $3\%$ for $\WZ$ and $\ZZ$ events. %and $10\%$ for $W+\gamma$ events.
+    These uncertainties must be augmented by the luminosity normalization uncertainty.
+  \end{itemize}
+
+\item {\it Pileup:} an incorrect modeling of the pileup in the Monte Carlo samples 
+can bias the expected event yields. The simulated events have been re-weighted 
+on the basis of the number of reconstructed
+primary vertices. The re-weighting procedure affects only slightly the results of the analysis,
+the event yields changing by $\sim$1\%. The latter is conservatively assumed as 
+the corresponding systematic uncertainty. 
+
+\item {\it Higgs cross section:} these uncertainties are taken from the Higgs cross
+section working group~\cite{LHCHiggsCrossSectionWorkingGroup:2011ti}. The uncertainty 
+on the $gg \to H$ production is about 15\% and it is one of the dominant effects.
+
+\item {\it Jet counting and theoretical uncertainties:} 
+we must make sure that the jet multiplicity is well reproduced by our 
+simulation because we split our analysis in different jet bins. 
+Experimental and theoretical uncertainties are both important.
+The experimental jet counting efficiency is measured in data 
+using $\dyll$ events. The effect of the statistical uncertainty 
+of the jet energy correction measurement on the extrapolation
+of the jet counting efficiency from $\dyll$ events to Higgs signal
+events is propagated and accounted for as the experimental 
+systematic uncertainty. 
+We consider the theoretical uncertainties on the Parton Distribution Functions (PDFs), 
+the uncertainty due to higher order corrections and the effect of the fragmentation and 
+hadronization process. The overall uncertainties on the signal efficiency are 
+about $7\%$, $10\%$ and $20\%$ for the 0-jet, 1-jet and 2-jet bins, respectively.
+Correlations between different jet bins are taken into account when computing
+the upper limits. A detailed discussion of the method and procedures for estimating
+theoretical uncertainties on the signal yield can be found in 
+Section \ref{sec:theorySystematicsSignal} below.
+
+\item {\it Monte Carlo statistics:} We also take into account the 
+size of the simulated event samples. 
+This contributes an uncertainty of about $2-3\%$ to the signal
+efficiencies, but it is as large as $100\%$ for some background components on specific
+Higgs mass points.
+
+\item {\it Shape uncertainties for multivariate analyses:} these uncertainties 
+are discussed in detail in~\cite{MVASyst}. We have used those methods 
+to estimate them.
+\end{itemize}
+
+\subsection{Theoretical Systematic Uncertainties on Signal Efficiency}
+\label{sec:theorySystematicsSignal}
+The theoretical systematic uncertainties on the signal yield is factorized into the
+product of two components, assumed to be independent. The first component is the uncertainty
+on the fraction of events categorized into the different jet bins and the effect
+of migrations across jet bins. The second component is the uncertainty
+on the lepton acceptance and the selection efficiency of all other cuts. The effect of
+parton distribution function and the value of $\alpha_{s}$, and the effect of 
+higher order corrections are considered for both components. For the jet categorization,
+we consider, additionally, the effect of higher order log terms via the uncertainty in the 
+parton shower model and the underlying event.
+
+\subsubsection{Systematic Uncertainties on the Jet Bin Fractions}
+\label{sec:HiggsJetBinFractionSystematics}
+We consider the effect on the jet counting categorization without imposing any additional
+selection cuts on the signal. A jet in the event will be counted if it has $p_{T} > 30$ GeV. 
+We define the jet bin fractions $f_{0}$, $f_{1}$, $f_{2}$
+as the fraction of Higgs events with $0$, $1$, and $2$ or more counted jets. 
+
+The uncertainty due to higher order corrections is evaluated by comparing the effect of
+varying the renormalization scale and factorization scale on the jet bin fractions. To 
+estimate these jet bin fractions, we combine the inclusive $gg \to H$ production cross section
+computed at NNLO \cite{LHCHiggsCrossSectionWorkingGroup:2011ti} ($\sigma_{\geq 0}$) and the 
+NLO calculations from MCFM \cite{MCFMHiggsProduction} for the inclusive production cross section 
+of $gg \to H+1$jet ($\sigma_{\geq 1}$) and $gg \to H+2$jet ($\sigma_{\geq 2}$), 
+through the following relations:
+
+\begin{eqnarray}
+\label{eqn:jetBinFractions}
+  f_{0} = (\sigma_{\geq 0} - \sigma_{\geq 1} ) / \sigma_{\geq 0} \\
+  f_{1} = (\sigma_{\geq 1} - \sigma_{\geq 2} ) / \sigma_{\geq 0} \\
+  f_{2} = \sigma_{\geq 2} / \sigma_{\geq 0} \\
+\end{eqnarray}
+
+The systematic uncertainties on $\sigma_{\geq 0}$, $\sigma_{\geq 1}$, and $\sigma_{\geq 2}$, are reflected by 
+the values of $\kappa_{\geq 0}$, $\kappa_{\geq 1}$, and $\kappa_{\geq 2}$ respectively. 
+The central values of the cross sections are computed  using the MSTW2008 NLO parton distribution functions and 
+assuming a factorization and renormalization scale of $m_{H} / 2$. The uncertainty on the inclusive
+production cross section, $\kappa_{\geq 0}$, is cited from the CERN Yellow Report 
+\cite{LHCHiggsCrossSectionWorkingGroup:2011ti}.  The systematic uncertainties
+$\kappa_{\geq 1}$, and $\kappa_{\geq 2}$ are estimated by performing the following four variations on
+the factorization scale ($\mu_{f}$) and renormalization scale ($\mu_{r}$):
+
+\begin{itemize}
+\item: $\mu_{f} = m_{H} $, $\mu_{r} = m_{H}$,
+\item: $\mu_{f} = m_{H} / 4$, $\mu_{r} = m_{H} / 4$,
+\item: $\mu_{f} = m_{H} $, $\mu_{r} = m_{H} / 2$,
+\item: $\mu_{f} = m_{H} / 2$, $\mu_{r} = m_{H} $,
+
+\end{itemize}
+using MCFM and evaluating the largest positive and largest negative difference from the central
+value for $\sigma_{\geq 1}$ and $\sigma_{\geq 2}$. We symmetrize the uncertainties via the formula:
+
+\begin{eqnarray}
+\label{eqn:kappaSymmetrization}
+  \kappa_{\mathrm{symmetrized}} = \sqrt{e^{\Delta_{+}} \times e^{\Delta_{-}}} ,
+\end{eqnarray}
+
+where $\Delta_{\mathrm{+/-}}$ are the relative positive and negative uncertainty respectively.
+The results for $\kappa_{\geq 0}$, $\kappa_{\geq 1}$, and $\kappa_{\geq 2}$ are summarized in Table 
+\ref{tab:InclXS_ScaleVariation}.
+
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+
+\hline
+Higgs Mass     &     $\kappa_{\geq 0}$        &   $\kappa_{\geq 1}$        &     $\kappa_{\geq 2}$       \\
+\hline
+ 115 & $ 1.106$  & $ 1.226$  & $ 1.149$  \\
+ 120 & $ 1.104$  & $ 1.224$  & $ 1.120$  \\
+ 130 & $ 1.100$  & $ 1.230$  & $ 1.117$  \\
+ 140 & $ 1.096$  & $ 1.220$  & $ 1.129$  \\
+ 150 & $ 1.095$  & $ 1.220$  & $ 1.124$  \\
+ 160 & $ 1.095$  & $ 1.221$  & $ 1.199$  \\
+ 170 & $ 1.090$  & $ 1.222$  & $ 1.175$  \\
+ 180 & $ 1.089$  & $ 1.218$  & $ 1.171$  \\
+ 190 & $ 1.087$  & $ 1.217$  & $ 1.171$  \\
+ 200 & $ 1.087$  & $ 1.213$  & $ 1.197$  \\
+ 250 & $ 1.083$  & $ 1.208$  & $ 1.230$  \\
+ 300 & $ 1.082$  & $ 1.208$  & $ 1.205$  \\
+ 350 & $ 1.090$  & $ 1.207$  & $ 1.209$  \\
+ 400 & $ 1.075$  & $ 1.195$  & $ 1.195$  \\
+ 450 & $ 1.078$  & $ 1.194$  & $ 1.196$  \\
+ 500 & $ 1.087$  & $ 1.188$  & $ 1.174$  \\
+ 550 & $ 1.089$  & $ 1.191$  & $ 1.194$  \\
+ 600 & $ 1.090$  & $ 1.187$  & $ 1.192$  \\
+
+\hline
+\end{tabular}
+\caption{ $\kappa$ values for the systematic uncertainties due to missing higher order corrections
+for the inclusive Higgs production cross section, the inclusive Higgs+1Jet production cross section, 
+and inclusive Higgs+2Jet production cross section. }
+\label{tab:InclXS_ScaleVariation}
+\end{center}
+\end{table}
+
+Using the expressions given in Table \ref{tab:JetBinFractionCorrelatedSystematicsFormulas}, we calculate 
+the systematic uncertainties expressed in log-normal form on the jet bin fractions $f_{0}$, $f_{1}$, 
+and $f_{2}$. There are three systematic uncertainties for each jet bin fraction due to the higher order
+corrections on the three inclusive cross section calculations $\sigma_{\geq 0}$, $\sigma_{\geq 1}$, 
+and $\sigma_{\geq 2}$, for a total of $9$ systematic uncertainties, of which only $5$ are non-zero.
+The values of these $\kappa$'s reflecting the systematic uncertainties and their correlations are 
+summarized in Table \ref{tab:JetBinFractionSystematics_ScaleVariation} for all Higgs masses considered.
+
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+
+\hline
+Nuisance Parameter & $\kappa$'s for $0$ jet bin                                                       & $\kappa$'s for $1$ jet bin                                                      & $\kappa$'s for $2$ jet bin                       \\
+\hline
+QCDscale\_ggH       & $\kappa^{0}_{\mathrm{QCDscale\_ggH}} = (\kappa_{\geq 0})^{\frac{1}{f_{0}}}$                & $1.0$                                                                           & $1.0$                                            \\
+\hline
+QCDscale\_ggH1in    & $\kappa^{0}_{\mathrm{QCDscale\_ggH1in}} = (\kappa_{\geq 1})^{- \frac{f_{1}+f_{2}}{f_{0}}}$ & $\kappa^{1}_{\mathrm{QCDscale\_ggH1in}} = (\kappa_{\geq 1})^{\frac{f_{1}+f_{2}}{f_{1}}}$  & $1.0$                                            \\
+\hline
+QCDscale\_ggH2in    & $1.0$                                                                            & $\kappa^{1}_{\mathrm{QCDscale\_ggH2in}} = (\kappa_{\geq 2})^{- \frac{f_{2}}{f_{1}}} $     & $\kappa^{2}_{\mathrm{QCDscale\_ggH2in}} = \kappa_{\geq 2}$ \\
+\hline
+
+\end{tabular}
+\caption{Table of formulas expressing the $\kappa$ values for the systematic uncertainties on the
+jet bin fractions due to the missing higher order corrections on the total inclusive Higgs cross section, 
+the inclusive Higgs+1jet cross section, and the inclusive Higgs+2jet cross section, in terms of the 
+$\kappa$ values for these cross sections.  }
+\label{tab:JetBinFractionCorrelatedSystematicsFormulas}
+\end{center}
+\end{table}
+
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+
+\hline
+Higgs Mass     & $\kappa^{0}_{\mathrm{QCDscale\_ggH}}$ & $\kappa^{0}_{\mathrm{QCDscale\_ggH1in}}$ & $\kappa^{1}_{\mathrm{QCDscale\_ggH1in}}$  & $\kappa^{1}_{\mathrm{QCDscale_ggH2in}}$  & $\kappa^{2}_{\mathrm{QCDscale\_ggH2in}}$   \\
+\hline
+ 115 & $ 1.16$  & $ 0.92$  & $ 1.28$  & $ 0.97$  & $ 1.15$  \\
+ 120 & $ 1.16$  & $ 0.92$  & $ 1.28$  & $ 0.97$  & $ 1.12$  \\
+ 130 & $ 1.15$  & $ 0.91$  & $ 1.29$  & $ 0.98$  & $ 1.12$  \\
+ 140 & $ 1.15$  & $ 0.91$  & $ 1.28$  & $ 0.97$  & $ 1.13$  \\
+ 150 & $ 1.15$  & $ 0.90$  & $ 1.28$  & $ 0.97$  & $ 1.12$  \\
+ 160 & $ 1.15$  & $ 0.90$  & $ 1.28$  & $ 0.96$  & $ 1.20$  \\
+ 170 & $ 1.15$  & $ 0.89$  & $ 1.28$  & $ 0.96$  & $ 1.18$  \\
+ 180 & $ 1.15$  & $ 0.89$  & $ 1.28$  & $ 0.96$  & $ 1.17$  \\
+ 190 & $ 1.15$  & $ 0.88$  & $ 1.28$  & $ 0.96$  & $ 1.17$  \\
+ 200 & $ 1.15$  & $ 0.88$  & $ 1.27$  & $ 0.96$  & $ 1.20$  \\
+ 250 & $ 1.16$  & $ 0.86$  & $ 1.27$  & $ 0.96$  & $ 1.17$  \\
+ 300 & $ 1.17$  & $ 0.84$  & $ 1.27$  & $ 0.95$  & $ 1.20$  \\
+ 350 & $ 1.20$  & $ 0.83$  & $ 1.27$  & $ 0.95$  & $ 1.21$  \\
+ 400 & $ 1.17$  & $ 0.82$  & $ 1.26$  & $ 0.95$  & $ 1.20$  \\
+ 450 & $ 1.19$  & $ 0.81$  & $ 1.26$  & $ 0.95$  & $ 1.20$  \\
+ 500 & $ 1.22$  & $ 0.80$  & $ 1.25$  & $ 0.95$  & $ 1.17$  \\
+ 550 & $ 1.24$  & $ 0.78$  & $ 1.26$  & $ 0.95$  & $ 1.19$  \\
+ 600 & $ 1.25$  & $ 0.78$  & $ 1.26$  & $ 0.94$  & $ 1.19$  \\
+
+\hline
+
+\end{tabular}
+\caption{ Table of $\kappa$ values for the systematic uncertainties for the jet bin 
+fractions due to missing higher order corrections for the total inclusive Higgs
+cross section, the inclusive Higgs+1jet cross section, and the inclusive Higgs+2jet
+cross section. }
+\label{tab:JetBinFractionSystematics_ScaleVariation}
+\end{center}
+\end{table}
+
+
+%% The uncertainties due to the parton distribution functions and $\alpha_{s}$ on the jet bin fractions 
+%% are evaluated using the prescription from the PDF4LHC Recommendations \cite{PDF4LHC}. As for the systematic
+%% uncertainties due to missing higher order corrections, we evaluate the effect of the PDF uncertainties 
+%% on the value of $\sigma_{\geq 0}$, $\sigma_{\geq 1}$, and $\sigma_{\geq 2}$ and propagate them to 
+%% the jet bin fractions using the formulas from Equations \ref{eqn:jetBinFractions}.
+
+Finally, we estimate the systematic uncertainty due to higher order log terms by testing the default 
+parton shower and hadronization model, Pythia, with the results obtained using an alternative
+parton shower and hadronization model, Herwig. In the first case, Powheg is used for the matrix
+element calculation, while in the second case MC@NLO is used. In order to isolate the effect of the 
+parton shower and hadronization model, we reweight the Higgs $p_{T}$ distribution to the reference 
+NNLO+NNLL resummed calculation, in both cases. Since the underlying event model in the two Monte Carlo 
+are also different, this estimate includes also the effect of the underlying event model. 
+
+The relative differences in the jet bin fractions, $f_{0}$, $f_{1}$, and $f_{2}$, 
+between the two results are taken as a systematic uncertainty and are 
+summarized in Table \ref{tab:JetBinFractionSystematics_PartonShower}.
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+
+\hline
+               &   \multicolumn{3}{|c|}{ $\kappa$ values for systematic uncertainties on: } \\
+\hline
+Higgs Mass     &   $f_{0}$   &  $f_{1}$       &   $f_{2}$       \\
+\hline
+115 & $0.941$ & $1.128$ & $1.212$ \\
+120 & $0.940$ & $1.110$ & $1.293$ \\
+130 & $0.937$ & $1.113$ & $1.237$ \\
+140 & $0.941$ & $1.104$ & $1.168$ \\
+150 & $0.942$ & $1.093$ & $1.156$ \\
+160 & $0.943$ & $1.084$ & $1.138$ \\
+170 & $0.946$ & $1.075$ & $1.108$ \\
+180 & $0.947$ & $1.067$ & $1.092$ \\
+190 & $0.948$ & $1.068$ & $1.083$ \\
+200 & $0.952$ & $1.055$ & $1.059$ \\
+250 & $0.955$ & $1.058$ & $0.990$ \\
+300 & $0.958$ & $1.061$ & $0.942$ \\
+350 & $0.964$ & $1.068$ & $0.889$ \\
+400 & $0.966$ & $1.078$ & $0.856$ \\
+450 & $0.954$ & $1.092$ & $0.864$ \\
+500 & $0.946$ & $1.102$ & $0.868$ \\
+550 & $0.931$ & $1.117$ & $0.861$ \\
+600 & $0.920$ & $1.121$ & $0.872$ \\
+\hline
+\end{tabular}
+\caption{Table of $\kappa$ values for the systematic uncertainty on the jet bin fractions
+due to  uncertainties in the parton shower and hadronization model and uncertainties
+on the model of the underlying event, as a function of the assumed Higgs mass.  }
+\label{tab:JetBinFractionSystematics_PartonShower}
+\end{center}
+\end{table}
+
+
+
+\subsubsection{Lepton Acceptance and Selection Efficiency }
+
+The effect of the parton distribution function and the value of $\alpha_{s}$
+ on the lepton acceptance and the efficiency of all the selection cuts are 
+estimated using the prescription from the PDF4LHC recommendations \cite{PDF4LHC}. We 
+propagate the uncertainty for each of the three PDF sets, MSTW2008, CT10, and
+NNPDF, according to their own prescriptions, and then take the envelope
+of the systematic uncertainties as the total PDF+$\alpha_{s}$  uncertainty. 
+
+%The effect of the missing higher order corrections are accounted for by
+%reweighting the Higgs $p_{T}$ spectrum to the one obtained from the
+%NNLO+NNLL calculation with the renormalization and factorization scales
+%varied by factors of $2$ and $1/2$. 
+It is assumed that any change in the
+lepton acceptance and the efficiency of other selection cuts are only
+influenced via the Higgs $p_{T}$ spectrum. This effect is much smaller in 
+magnitude than the effect on the jet bin fractions in any case, and 
+essentially can be neglected.
+
+
+
+\subsection{Summary of Systematic Uncertainties}
+All systematic uncertainties taken into account in this analysis
+are summarized in Table~\ref{tab:systhww}, although they should be taken as 
+guidelines, the actual values depend on this Higgs mass hypothesis. 
+The total uncertainty depends on the Higgs mass and jet bin considered,
+however is typically $15\%$ on the background estimation and about $20\%$ 
+on the signal efficiency. The uncertainties are treated as log-normal 
+distributions, and hence the values are of the order of one unit. It is worth 
+noting there are several systematic uncertainties which include an effect 
+not only on the normalization, but also on the shape of the multivariate output 
+classifier, as discussed in~\cite{MVASyst}.
+
+\begin{table}[ht!]
+\begin{center}
+\caption{\label{tab:systhww} Summary of all systematic uncertainties (relative). As most of the 
+systematic uncertainties are evaluated separately for each higgs mass at each jet bins, 
+the values quoted here reflect a rough range of given quantities. More details on 
+the systematic errors evaluated for the background normalization can be found in 
+Section~\ref{sec:dataresults}. }
+\vspace{5pt}
+{\footnotesize
+\begin{tabular}{l|c|c|c|c|c|c|c|c}
+\hline
+%&       \multicolumn{8}{|c|}{Relative Uncertainty (\%)} \\
+%Source      &                            $H \to \WW$ & $qq \to \WW$ & $gg \to \WW$ & $VV$ non-$\Z$ resonant & top & $\dyll$ & $\Wjets$ & $V(W/Z)+\gamma$    \\              
+\multirow{2}{*}{Source} & $H $ & $qq \to$ & $gg \to$  & non-$\Z$ resonant & top & DY & $\Wjets$ & $V(W/Z)+\gamma$    \\
+                        & $\to WW$   & $\WW$    & $\WW$       & $VV$              &     &         &       &                     \\
+\hline
+
+\hline
+Luminosity                    & 5.0 & --- & --- & 5.0 & --- & --- & ---  &  5.0  \\
+Trigger efficiencies          & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- & ---  &  1.5  \\
+Muon efficiency               & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- & ---  &  1.5  \\
+Electron id efficiency        & 2.5 & 2.5 & 2.5 & 2.5 & --- & --- & ---  &  2.5  \\
+Momentum scale                & 1.5 & 1.5 & 1.5 & 1.5 & --- & --- & ---  &  1.5  \\
+$\met$ resolution             & 2.0 & 2.0 & 2.0 & 2.0 & 2.0 & 3.0 & ---  &  1.0  \\
+PDF uncertainties             & 7.2 & 4.0 & 4.0 & 4.0 & --  & --  & ---  &  --  \\ 
+QCD scale uncertainties       &15-25 & -- & -- & 4.0 & -- & --  & --- & --  \\ 
+%Jet counting                 &15-25& --- & 5.4 & 5.4 & --- & --- & ---  &  5.4  \\  
+%Higgs cross section          & 5-15& --- & --- & --- & --- & --- & --- \\ %&  ---  \\
+%$WZ/ZZ$ cross section         & --- & --- & --- & 3.0 & --- & --- & --- &  ---  \\
+$qq \to WW$ norm.             & --- &  15 & --- & --- & --- & --- & --- &  ---  \\
+$gg \to WW$ norm.             & --- & --- &  30 & --- & --- & --- & ---  &  ---  \\
+$\Wjets$ norm.                & --- & --- & --- & --- & --- & --- &  36  &  ---  \\
+$W\gamma/\gamma^*$ norm.      & --- & --- & --- & --- & --- & --- &  --- & 30   \\
+top  norm.                    & --- & --- & --- & --- & 10-25 & --- & ---  &  ---  \\
+$\dyll$ norm.                 & --- & --- & --- & --- & --- & 20-100 & ---  &  ---  \\
+%Monte Carlo statistics        & 2-5 &	4  &  6  &   4 &   6 &  20 &  -   \\ %&  10   \\
+\hline
+\end{tabular}
+}
+\end{center}
+\end{table}

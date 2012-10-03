@@ -1,0 +1,88 @@
+ 
+To determine the efficiency of the dilepton triggers, 
+we derive the efficiency of the requirements imposed on each leg separately.
+This requires a modification to the tag and probe method described above in 
+the case of the double electron and double muon triggers used in 2012.
+In these cases the trigger objects are saved after the requirement that there are two valid objects, 
+thus there is a 100\% correlation between the decision we can probe on each lepton.
+This means that we must pick exactly one tag candidate for each event a priori, which we do 
+randomly. 
+If the randomly selected tag candidate meets the tight requirements then we are free to 
+probe the other lepton.
+
+In the 2012 dataset, the double electron and double muon triggers contain 
+a final selection requirement on the $dZ$ of the vertices of both leptons, 
+in addition to the per lepton requirements.  Thus we split the trigger efficiency 
+measurement into two parts: the efficiency for the leading and trailing leg 
+requirements with respect to the offline selection, and the efficiency of the 
+last step given both legs have passed the previous steps.
+While the $dZ$ cut was desgined to be highly efficient,
+for technical reasons there was a roughly 15\% inefficiency in
+the early part of the 2012A dataset for the double muon triggers.
+In the full dataset, the inefficiency roughly 5\%.
+In this analysis, the inefficiency is absorbed by the single triggers, 
+leading to a negligible overall efficiency loss.
+
+Because there are different requirements imposed on the two legs of the 
+double electron trigger at level-1, we measure the efficiency of 
+both legs separately.
+The efficiency of the leading $p_T$ threshold leg with respect to an electron passing
+offline selection is tabulated in 
+Table \ref{tab:eff_ele_lead_dbl} of Appendix 
+\ref{app:appendix_efficiency_trigger}. The efficiency for the trailing 
+leg is given in Table \ref{tab:eff_ele_trail_dbl}. 
+The efficiency of the single electron trigger with respect to
+an electron passing offline selection is given in Table \ref{tab:eff_ele_sgl}.
+
+The efficiency of the leading and trailing legs of the double muon trigger
+is summarized in Tables \ref{tab:eff_muon_lead_dbl} and
+\ref{tab:eff_muon_trail_dbl}. The efficiency of the single
+muon trigger is given in Table \ref{tab:eff_muon_sgl}.
+
+In the case of the $e\mu$ triggers, we assume that the leading
+and trailing electron and muon legs can be modelled by the measurements
+of those legs in the double electron and muon triggers. This assumption was cross 
+checked in the 2011 analysis by comparing the model with
+a direct measurement of the $e\mu$ trigger efficiency in
+dilepton $t\bar{t}$ events requiring that the event has missing transverse
+energy greater than $20$ \GeV.
+The efficiency of 
+the muon leg was measured using events passing the single electron trigger,
+while the efficiency of the electron leg was measured using events passing the
+single muon trigger. The results were found to be consistent
+with the model based on the double trigger measurements within the 
+statistical uncertainties. 
+
+Having measured the per lepton trigger efficiencies 
+and for the double and single trigger,
+we compute the efficiency for dilepton events to be selected.
+We do this by taking into account the two ways an event can be selected: 
+the double trigger can pass or the double trigger can fail because one leg is bad
+but the good leg can pass the single trigger.  If the double trigger fails
+because of the $dZ$ cut, which is assumed to be uncorrelated with the per leg requirements,
+then both legs may be eligible to pass the single trigger. 
+If both legs are bad in the double trigger they will also both be bad in the single trigger
+because the requirements of the single trigger are tighter than any single leg of the double trigger.
+Thus taking into account combinatorics, the event efficiency $\varepsilon_{\ell\ell'}(p_T,\:\eta,\:p'_T,\:\eta')$
+is given in Equation \ref{eqn:evteff}, where $\varepsilon_{S}(p_T,\:\eta)$ is the single 
+lepton trigger efficiency,
+$\varepsilon_{\mathrm{D,leading}}(p_T,\:\eta)$ is the efficiency of the leading leg of the 
+appropriate double trigger, and $\varepsilon_{\mathrm{D,trailing}}(p_T,\:\eta)$ is the 
+efficiency of the trailing leg of the appropriate double trigger, and $\varepsilon_{dZ}$ is the efficiency
+of the $dZ$ cut in the double trigger.
+
+\begin{eqnarray}
+\label{eqn:evteff}
+\varepsilon_{\ell\ell'}(p_T,\:\eta,\:p'_T,\:\eta') & = & 1 - [(1-\varepsilon_{dZ})\varepsilon_{\mathrm{D,leading}}(p_T,\:\eta)\varepsilon_{\mathrm{D,leading}}(p_T',\:\eta') \\
+               &   & (1-\varepsilon_{\mathrm{D,leading}}(p_T,\:\eta))(1-\varepsilon_{\mathrm{D,leading}}(p_T',\:\eta')) \\
+               &   & +~\varepsilon_{\mathrm{D,leading}}(p_T,\:\eta)(1-\varepsilon_{\mathrm{D,trailing}}(p_T',\:\eta')) \\
+               &   & +~\varepsilon_{\mathrm{D,leading}}(p_T',\:\eta')(1-\varepsilon_{\mathrm{D,trailing}}(p_T,\:\eta))] \\
+               &   & +~\varepsilon_{S}(p_T',\:\eta')(1-\varepsilon_{\mathrm{D,trailing}}(p_T,\:\eta)) \nonumber\\
+               &   & +~\varepsilon_{S}(p_T,\:\eta)(1-\varepsilon_{\mathrm{D,trailing}}(p_T',\:\eta')) \\
+               &   & +~(1-(1-\varepsilon_{S}(p_T,\:\eta))(1-\varepsilon_{S}(p_T',\:\eta'))(1-\varepsilon_{dZ})
+\end{eqnarray}
+
+The procedure of Equation \ref{eqn:evteff} is applied to simulated Higgs boson decays to obtain an event-by-event weight factor. We find a 
+trigger efficiency with respect to the offline selection of around $99\%$ for WW events.
+In the current analysis, we set the $\varepsilon_{dZ}$ term to one.  
+

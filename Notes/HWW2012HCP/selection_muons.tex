@@ -1,0 +1,116 @@
+Muons in CMS are reconstructed as either $StandAloneMuons$ (track
+in the muon detector with low momentum resolution), $GlobalMuons$
+(outside-in approach seeded by a $StandAloneMuon$ with a global fit
+using hits in the muon, silicon strip and pixel 
+detectors) and $TrackerMuons$ (inside-out approach seeded by an offline 
+silicon strip track, using the muon detector only for muon identification 
+without refitting the track). Most good quality muons are reconstructed as 
+all three types at the same time and the momentum resolution is dominated by the inner
+tracker system up to about 200~$\GeV$ in transverse momentum.  
+We require the muon to be reconstructed as $GlobalMuon$, with $\chi^2/{\mathrm{ndof}} < 10$ 
+on the global fit, must have at least one good muon hit, and at least two 
+matches to muon segments in different muon stations; 
+or $TrackerMuon$, provided it satisfies the ``Tracker Muon Last Station 
+Tight" selection requiring at least two muon segments matched at 
+3$\sigma$ in local X and Y coordinates, with one being in the outermost muon station.
+
+In addition, the following specific requirements to select good prompt isolated 
+muons are the following:
+\begin{itemize}
+\item more than 5 tracker layers;
+\item at least one pixel hit;
+\item impact parameter in the transverse plane $|d_{0}| < 0.02~(0.01)$~cm for
+      muons with $\pt$ greater (smaller) than 20 $\GeV$,
+      calculated with respect to the primary vertex;
+\item longitudinal impact parameter $|d_{z}| <0.1$~cm,
+      calculated with respect to the primary vertex;
+\item pseudorapidity $|\eta|$ must be smaller than 2.4;
+\item relative \pt\ resolution is better than 10\%;
+\item decay in flight with the kink finding algorithm: $\chi^2/{\mathrm{ndof}} < 20$
+\item identified as a PF Muon. 
+\end{itemize}
+
+Furthermore, the MVA-based isolation variable~\cite{MuonRingIso} is used to reduce contamination from non-isolated muons 
+originating from jets. We used energy deposits of PF candidates in three different categories, charged hadron, gamma, 
+and neutral hadrons in concentric isolation cones. 
+Neutral components are corrected by subtracting pileup contribution which is calculated by $\rho \times A_{eff}$
+where $\rho$ (\texttt{kt6PFJets}) is the event-by-event energy density and $A_{eff}$ is the effective area.  
+Effective areas are from Fall 11 simulation (\texttt{kMuEAFall11MC}) and values are shown in Table~\ref{tab:muAeff}.  
+Exact definition of input variables to the MVA is the following. 
+\begin{itemize}
+\item PF charged hadron
+	\begin{itemize}
+    \item minimum of $\textrm{Iso}_\textrm{PF charged, 01}/\pt$ and 2.5	
+    \item minimum of $\textrm{Iso}_\textrm{PF charged, 12}/\pt$ and 2.5	
+    \item minimum of $\textrm{Iso}_\textrm{PF charged, 23}/\pt$ and 2.5	
+    \item minimum of $\textrm{Iso}_\textrm{PF charged, 34}/\pt$ and 2.5	
+    \item minimum of $\textrm{Iso}_\textrm{PF charged, 45}/\pt$ and 2.5	
+	\end{itemize}
+\item PF gamma : If negative, 0.0 is assigned
+	\begin{itemize}
+    \item minimum of $\left[\textrm{Iso}_\textrm{PF gamma, 01} - \rho \times A_{eff}\right]/\pt$ and 2.5 
+    \item minimum of $\left[\textrm{Iso}_\textrm{PF gamma, 12} - \rho \times A_{eff}\right]/\pt$ and 2.5 
+    \item minimum of $\left[\textrm{Iso}_\textrm{PF gamma, 23} - \rho \times A_{eff}\right]/\pt$ and 2.5 
+    \item minimum of $\left[\textrm{Iso}_\textrm{PF gamma, 34} - \rho \times A_{eff}\right]/\pt$ and 2.5 
+    \item minimum of $\left[\textrm{Iso}_\textrm{PF gamma, 45} - \rho \times A_{eff}\right]/\pt$ and 2.5 
+	\end{itemize}
+\item PF neutral hadron : If negative, 0.0 is assigned
+	\begin{itemize}
+    \item minimum of $\left[\textrm{Iso}_\textrm{PF neutral, 01} - \rho \times A_{eff}\right]/\pt$ and 2.5 
+    \item minimum of $\left[\textrm{Iso}_\textrm{PF neutral, 12} - \rho \times A_{eff}\right]/\pt$ and 2.5 
+    \item minimum of $\left[\textrm{Iso}_\textrm{PF neutral, 23} - \rho \times A_{eff}\right]/\pt$ and 2.5 
+    \item minimum of $\left[\textrm{Iso}_\textrm{PF neutral, 34} - \rho \times A_{eff}\right]/\pt$ and 2.5 
+    \item minimum of $\left[\textrm{Iso}_\textrm{PF neutral, 45} - \rho \times A_{eff}\right]/\pt$ and 2.5 
+	\end{itemize}
+\end{itemize}
+where we defined 
+\begin{eqnarray} 
+\textrm{Iso}_\textrm{PF,XY} = \textrm{the scalar sum of \pt\ of PF candidates in the cone of 
+									  0.X} < \Delta R^{\mu-\textrm{PF candidate}} < \textrm{0.Y}.
+\end{eqnarray} 
+We require the MVA output to be greater than 0.82 (0.86) in $10~<~p_T~<~20$ GeV 
+and 0.86 (0.82) in $p_T~>~20$ GeV. Cut values correspond to the ones in barrel (endcap).
+
+\begin{table}[htp]
+	\centering
+		\begin{tabular}{c|c|c|c|c|c|c}
+			\hline 
+				\multicolumn{7}{c}{PF gamma} \\
+	  	    \hline
+			 	$|\eta|$     & $0.0 - 1.0$ & $1.0 - 1.479$ & $1.479 - 2.0$ & $2.0 - 2.2$ & $2.2 - 2.3$ & $2.3-$ \\       		
+	  	    \hline \hline
+				$0.0<dR<0.1$ & 0.004& 0.002& 0.003& 0.009& 0.003& 0.011 \\
+				$0.1<dR<0.2$ & 0.012& 0.008& 0.006& 0.012& 0.019& 0.024 \\
+				$0.2<dR<0.3$ & 0.026& 0.020& 0.012& 0.022& 0.027& 0.034 \\
+				$0.3<dR<0.4$ & 0.042& 0.033& 0.022& 0.036& 0.059& 0.068 \\
+				$0.4<dR<0.5$ & 0.060& 0.043& 0.036& 0.055& 0.092& 0.115 \\
+	  	    \hline \hline 
+				\multicolumn{7}{c}{PF neutral hadron} \\
+	  	    \hline 
+			 	$|\eta|$     & $0.0 - 1.0$ & $1.0 - 1.479$ & $1.479 - 2.0$ & $2.0 - 2.2$ & $2.2 - 2.3$ & $2.3-$ \\       		
+	  	    \hline \hline
+				$0.0<dR<0.1$ & 0.002& 0.004& 0.004& 0.004& 0.010& 0.014 \\
+			    $0.1<dR<0.2$ & 0.005& 0.007& 0.009& 0.009& 0.015& 0.017 \\
+			    $0.2<dR<0.3$ & 0.009& 0.015& 0.016& 0.018& 0.022& 0.026 \\ 
+				$0.3<dR<0.4$ & 0.013& 0.021& 0.026& 0.032& 0.037& 0.042 \\ 
+				$0.4<dR<0.5$ & 0.017& 0.026& 0.035& 0.046& 0.063& 0.135 \\ 
+			\hline
+		\end{tabular}
+		\caption{ Effective areas used for muon isolation. They were calculated with Fall11 MC sample.}
+	\label{tab:muAeff}
+\end{table}
+
+%\begin{itemize}
+%\item $\rm{Iso}_{PF}$: defined as the scalar sum of the \pt\ of the 
+%    particle flow candidates satisfying the following requirements:
+%    \begin{itemize}
+%    \item $\Delta R~<~0.3$ to the muon in the $\eta \times \phi$ plane,
+%    \item $|d_{z}(\mathrm{PF Candidate}) - d_{z}(\mathrm{muon})| < 0.1$~cm, if the PF candidate is charged,
+%    \item \pt $>1.0$ GeV, if the PF candidate is classified as a neutral hadron or a photon.
+%    \end{itemize}
+%\end{itemize}
+%
+%We require $\frac{\rm{Iso}_{PF}}{\pt}~<~0.13~(0.06)$ for muons in the barrel 
+%with $\pt$ greater (smaller) than 20 $\GeV$. For muons in the endcap, we
+%require $\frac{\rm{Iso}_{PF}}{\pt}~<~0.09~(0.05)$ for muons with $\pt$ 
+%greater (smaller) than 20 $\GeV$.

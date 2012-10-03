@@ -1,0 +1,58 @@
+ 
+We used the tag and probe method on \dyll~events to provide an unbiased, high-purity, 
+lepton sample with which to measure both online and offline selection efficiencies.
+This method, which is now described, 
+has been used successfully in previous CMS analyses \cite{ref:tagprobe_mit_w}\cite{ref:tagprobe_snt_top}.
+
+\subsubsection{Method}
+For both electrons and muons we used the lowest threshold unprescaled single trigger sample
+available in the Prompt Reco.  This corresponds to:
+
+\begin{itemize}
+    \item Muons: HLT\_IsoMu24\_eta2p1\_v*
+    \item Electrons: HLT\_Ele27\_WP80\_v*
+\end{itemize}
+
+At least one of the leptons, the {\it tag}, was required to pass the full selection criteria
+while the other lepton, the {\it probe}, was required to pass a set of identification criteria leaving 
+it unbiased with respect to the criterion under study. By requiring that the tag was able to have passed 
+the single lepton trigger on which the events were acquired, we reduced the bias due to the trigger on 
+the probe. Also, the tight criteria imposed on the tag coupled with the invariant mass requirement 
+improves the purity of the sample. 
+
+To reduce the background to the offline selection measurements,
+the selections were split into the ID and isolation parts.  
+The efficiency of the ID part was measured with respect to the isolation
+requirements, and vice versa, in both data and simulation.
+This is referred to as the N-1 method.
+The bias on the efficiency from changing the denominator is
+expected to be negligible is the scale factors for each step used
+are close to one.
+To estimate and subtract any residual background contribution in the data measurements,
+a simultaneous fit was performed to the mass distributions
+of passing and failing probes in the range $60<M_{ll}<120$ GeV.
+The signal model was taken from a simulation template, 
+with a gaussian smearing component to take into account the resolution.
+The background model is an exponential times an error function.
+This method and its associated systematics are discussed in detail in Reference \cite{ref:tagprobe_mit_w}
+In the simulation measurements, simple counting was used.
+To remove to mis-reconstructed leptons from the simulation sample,
+the probe was required to be within $dR<0.2$ of the closest generated lepton
+of the same flavor after FSR (status 1 leptons in Pythia). 
+The trigger efficiency is measured with respect to the full offline selection,
+and thus the probe sample is very pure.  In this case the efficiencies were
+extracted by simple counting in the mass range $81<M_{ll}<101$ GeV.
+
+To produce overall data-MC scale factors to apply in the analysis, we factorise the efficiency measurements
+into two steps such that
+
+\begin{equation}
+\varepsilon_{total} = \varepsilon_{offline} \times \varepsilon_{trigger}.
+\end{equation}
+
+The offline efficiency $\varepsilon_{offline} = \varepsilon_{offline}^{l1} \times \varepsilon_{offline}^{l2}$
+is the product of the efficiencies of the two leptons and is discussed in more detail in Sections \ref{sec:eff_electron}
+and \ref{sec:eff_muon} for electrons and muons respectively.
+The trigger efficiency is measured with respect to the offline selection and
+is discussed in more detail in Section \ref{sec:eff_trigger}.
+
