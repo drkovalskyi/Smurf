@@ -68,6 +68,7 @@ int  njet            = 0,
 bool doWeights       = true,
 bool doShapes        = true,
 TString InputPath    = "",
+bool doMultiClass    = false,
 int period           = 2,
 TString suffix       = "ww"
 ) {   
@@ -95,20 +96,20 @@ TString suffix       = "ww"
     mvaVar[ "dPhi" ]              = 1;  //delta phi btw leptons
     mvaVar[ "dR" ]                = 1;  //delta R btw leptons
     mvaVar[ "dilmass" ]           = 1;  //dilepton mass
-    mvaVar[ "type" ]              = 1;  //dilepton flavor type
+    mvaVar[ "type" ]              = 0;  //dilepton flavor type
     mvaVar[ "pmet" ]              = 0;  //projected met
     mvaVar[ "met" ]               = 0;  //met
     mvaVar[ "mt" ]                = 1;  //transverse higgs mass
-    mvaVar[ "mt1" ]               = 0;  //transverse mass of leading lepton and met
-    mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
+    mvaVar[ "mt1" ]               = 1;  //transverse mass of leading lepton and met
+    mvaVar[ "mt2" ]               = 1;  //transverse mass of sub-leading lepton and met
     mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
     mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
-    mvaVar[ "dilpt" ]	          = 0;  //dilepton pt
+    mvaVar[ "dilpt" ]	          = 1;  //dilepton pt
     mvaVar[ "razor" ]             = 0;  //razor
   }
   if(njet == 1){
-    mvaVar[ "dPhiDiLepMET" ]   = 1; //delta phi btw dilepton and met
-    mvaVar[ "dPhiDiLepJet1" ]  = 1; //delta phi btw dilepton and jet1
+    mvaVar[ "dPhiDiLepMET" ]   = 0; //delta phi btw dilepton and met
+    mvaVar[ "dPhiDiLepJet1" ]  = 0; //delta phi btw dilepton and jet1
   }
   if (njet == 2) {
     mvaVar[ "mjj" ]     	= 1;  //invariant mass of the dijet
@@ -515,6 +516,15 @@ TString suffix       = "ww"
     Float_t bdtgV0;
     Float_t bdtgV1;
     Float_t bdtgV2;
+    Float_t bdtgV0_aux0;
+    Float_t bdtgV1_aux0;
+    Float_t bdtgV2_aux0;
+    Float_t bdtgV0_aux1;
+    Float_t bdtgV1_aux1;
+    Float_t bdtgV2_aux1;
+    Float_t bdtgV0_aux2;
+    Float_t bdtgV1_aux2;
+    Float_t bdtgV2_aux2;
 
     TBranch* br_bdt         = 0;
     TBranch* br_bdtd        = 0;
@@ -535,6 +545,15 @@ TString suffix       = "ww"
     TBranch* br_bdtgV0      = 0;
     TBranch* br_bdtgV1      = 0;
     TBranch* br_bdtgV2      = 0;
+    TBranch* br_bdtgV0_aux0 = 0;
+    TBranch* br_bdtgV1_aux0 = 0;
+    TBranch* br_bdtgV2_aux0 = 0;
+    TBranch* br_bdtgV0_aux1 = 0;
+    TBranch* br_bdtgV1_aux1 = 0;
+    TBranch* br_bdtgV2_aux1 = 0;
+    TBranch* br_bdtgV0_aux2 = 0;
+    TBranch* br_bdtgV1_aux2 = 0;
+    TBranch* br_bdtgV2_aux2 = 0;
 
     if(Use["BDT"])         br_bdt        = clone->Branch(Form("bdt_hww%i_%djet_%s"  ,mH,njet,suffix.Data()) , &bdt   , Form("bdt_hww%i_%djet_%s/F"   ,mH,njet,suffix.Data()) );
     if(Use["BDTD"])        br_bdtd       = clone->Branch(Form("bdtd_hww%i_%djet_%s" ,mH,njet,suffix.Data()) , &bdtd  , Form("bdtd_hww%i_%djet_%s/F"  ,mH,njet,suffix.Data()) );
@@ -555,10 +574,19 @@ TString suffix       = "ww"
       br_mt_metup       = clone->Branch(Form("mt_metup")				       , &mt_metup   	  , Form("mt_metup")    );
     }
 
-    if(Use["BDTG"] && njet == 20){
-      br_bdtgV0 	= clone->Branch(Form("bdtgV0") , &bdtgV0  , Form("bdtgV0"));
-      br_bdtgV1 	= clone->Branch(Form("bdtgV1") , &bdtgV1  , Form("bdtgV1"));
-      br_bdtgV2 	= clone->Branch(Form("bdtgV2") , &bdtgV2  , Form("bdtgV2"));
+    if(Use["BDTG"] && doMultiClass == true){
+      br_bdtgV0 	= clone->Branch(Form("bdtgV0")      , &bdtgV0       , Form("bdtgV0")     );
+      br_bdtgV1 	= clone->Branch(Form("bdtgV1")      , &bdtgV1       , Form("bdtgV1")     );
+      br_bdtgV2 	= clone->Branch(Form("bdtgV2")      , &bdtgV2       , Form("bdtgV2")     );
+      br_bdtgV0_aux0	= clone->Branch(Form("bdtgV0_aux0") , &bdtgV0_aux0  , Form("bdtgV0_aux0"));
+      br_bdtgV1_aux0	= clone->Branch(Form("bdtgV1_aux0") , &bdtgV1_aux0  , Form("bdtgV1_aux0"));
+      br_bdtgV2_aux0	= clone->Branch(Form("bdtgV2_aux0") , &bdtgV2_aux0  , Form("bdtgV2_aux0"));
+      br_bdtgV0_aux1	= clone->Branch(Form("bdtgV0_aux1") , &bdtgV0_aux1  , Form("bdtgV0_aux1"));
+      br_bdtgV1_aux1	= clone->Branch(Form("bdtgV1_aux1") , &bdtgV1_aux1  , Form("bdtgV1_aux1"));
+      br_bdtgV2_aux1	= clone->Branch(Form("bdtgV2_aux1") , &bdtgV2_aux1  , Form("bdtgV2_aux1"));
+      br_bdtgV0_aux2	= clone->Branch(Form("bdtgV0_aux2") , &bdtgV0_aux2  , Form("bdtgV0_aux2"));
+      br_bdtgV1_aux2	= clone->Branch(Form("bdtgV1_aux2") , &bdtgV1_aux2  , Form("bdtgV1_aux2"));
+      br_bdtgV2_aux2	= clone->Branch(Form("bdtgV2_aux2") , &bdtgV2_aux2  , Form("bdtgV2_aux2"));
     }
 
     if(Use["BDT"])         br_bdt       -> SetTitle(Form("BDT Output H%i_%dj"    , mH,njet));
@@ -762,7 +790,7 @@ TString suffix       = "ww"
       }
       if (Use["BDTG"]){
         bdtg  = reader->EvaluateMVA( "BDTG method" );
-	if(njet == 20){
+	if(doMultiClass == true){
 	  const std::vector< Float_t > bdtgV = reader->EvaluateMulticlass( "BDTG method" );
           bdtgV0 = bdtgV[0];
           bdtgV1 = bdtgV[1];
@@ -821,6 +849,12 @@ TString suffix       = "ww"
           mll_lepup = dilmass;
 	  mt_lepup  = mt;
           bdtg_aux0  = reader->EvaluateMVA( "BDTG method" );
+	  if(doMultiClass == true){
+	    const std::vector< Float_t > bdtgV = reader->EvaluateMulticlass( "BDTG method" );
+            bdtgV0_aux0 = bdtgV[0];
+            bdtgV1_aux0 = bdtgV[1];
+            bdtgV2_aux0 = bdtgV[2];
+          }
         }
 
 	if(doShapes == true){ // momentum scale -
@@ -875,6 +909,12 @@ TString suffix       = "ww"
           mll_lepdown = dilmass;
 	  mt_lepdown  = mt;
           bdtg_aux1  = reader->EvaluateMVA( "BDTG method" );
+	  if(doMultiClass == true){
+	    const std::vector< Float_t > bdtgV = reader->EvaluateMulticlass( "BDTG method" );
+            bdtgV0_aux1 = bdtgV[0];
+            bdtgV1_aux1 = bdtgV[1];
+            bdtgV2_aux1 = bdtgV[2];
+          }
         }
 
 	if(doShapes == true){ // met
@@ -940,6 +980,12 @@ TString suffix       = "ww"
           mll_metup = dilmass;
 	  mt_metup  = mt;
           bdtg_aux2  = reader->EvaluateMVA( "BDTG method" );
+	  if(doMultiClass == true){
+	    const std::vector< Float_t > bdtgV = reader->EvaluateMulticlass( "BDTG method" );
+            bdtgV0_aux2 = bdtgV[0];
+            bdtgV1_aux2 = bdtgV[1];
+            bdtgV2_aux2 = bdtgV[2];
+          }
         }
 	
 	if(doShapes == true && smurfTree.njets_ > 1){ // jes + 

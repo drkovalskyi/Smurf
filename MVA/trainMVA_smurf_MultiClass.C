@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.14 2012/09/03 15:08:47 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf_MultiClass.C,v 1.14 2012/09/03 15:08:47 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -33,6 +33,7 @@
 #include <string>
 #include <vector>
 #include <set>
+#include "TRandom.h"
 
 #include "TChain.h"
 #include "TMath.h"
@@ -69,7 +70,7 @@ enum Type {
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
-void trainMVA_smurf(
+void trainMVA_smurf_MultiClass(
  UInt_t  nJetsType       = 0,			   
  TString sigInputFile    = "data/histo_hww130_std_pu11_randomized.training.root",
  TString bgdInputFile    = "data/histo_w10-ggww-z2-v8-pu11_all_noskim_normalized.root",
@@ -119,20 +120,20 @@ void trainMVA_smurf(
     mvaVar[ "dPhi" ]              = 1;  //delta phi btw leptons
     mvaVar[ "dR" ]                = 1;  //delta R btw leptons
     mvaVar[ "dilmass" ]           = 1;  //dilepton mass
-    mvaVar[ "type" ]              = 1;  //dilepton flavor type
+    mvaVar[ "type" ]              = 0;  //dilepton flavor type
     mvaVar[ "pmet" ]              = 0;  //projected met
     mvaVar[ "met" ]               = 0;  //met
     mvaVar[ "mt" ]                = 1;  //transverse higgs mass
-    mvaVar[ "mt1" ]               = 0;  //transverse mass of leading lepton and met
-    mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
+    mvaVar[ "mt1" ]               = 1;  //transverse mass of leading lepton and met
+    mvaVar[ "mt2" ]               = 1;  //transverse mass of sub-leading lepton and met
     mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
     mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
-    mvaVar[ "dilpt" ]	          = 0;  //dilepton pt
+    mvaVar[ "dilpt" ]	          = 1;  //dilepton pt
     mvaVar[ "razor" ]             = 0;  //razor
   }
   if(nJetsType == 1){
-    mvaVar[ "dPhiDiLepMET" ]   = 1; //delta phi btw dilepton and met
-    mvaVar[ "dPhiDiLepJet1" ]  = 1; //delta phi btw dilepton and jet1
+    mvaVar[ "dPhiDiLepMET" ]   = 0; //delta phi btw dilepton and met
+    mvaVar[ "dPhiDiLepJet1" ]  = 0; //delta phi btw dilepton and jet1
   }
   if (nJetsType == 2) {
     mvaVar[ "mjj" ]             = 1;  //invariant mass of the dijet
@@ -146,12 +147,17 @@ void trainMVA_smurf(
   
   float dilmass_cut = DileptonMassPreselectionCut(mH);
   if(mH <= 250) dilmass_cut = 200;
+  else          dilmass_cut = 600;
   float mt_cut = mH;
   if(mH <= 250) mt_cut = 280;
+  else          mt_cut = 600;
 
   cout << "Using dilepton mass < " << dilmass_cut << endl;
   cout << "Using mt mass       < " << mt_cut      << endl;
 
+  double rndLim[3] = {1.0,1.0,1.0};
+  if(mH==125 && nJetsType == 0) {rndLim[1] = 1.00;rndLim[2] = 0.03;}
+  if(mH==125 && nJetsType == 1) {rndLim[1] = 1.00;rndLim[2] = 0.05;}
   //---------------------------------
   //choose bkg samples to include
   //---------------------------------
@@ -276,7 +282,7 @@ void trainMVA_smurf(
   // All TMVA output can be suppressed by removing the "!" (not) in
   // front of the "Silent" argument in the option string
   TMVA::Factory *factory = new TMVA::Factory( outTag.Data(), outputFile,
-                                              "!V:!Silent:Color:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=Classification" );
+                                              "!V:!Silent:Color:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=multiclass" );
 
   // If you wish to modify default settings
   // (please check "src/Config.h" to see all available global options)
@@ -463,8 +469,8 @@ void trainMVA_smurf(
 
   int nsigtrain = 0;
   int nsigtest  = 0;
-  int nbkgtrain = 0;
-  int nbkgtest  = 0;
+  int nbkgtrain[3] = {0,0,0};
+  int nbkgtest[3]  = {0,0,0};
 
   for (UInt_t i=0; i<signal->GetEntries(); i++) {
     
@@ -474,6 +480,7 @@ void trainMVA_smurf(
     // SIGNAL EVENT SELECTION
     //--------------------------------------------------
 
+    int classType = 0;
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
       if(jet3->pt() <= 30)					           Njet3 = 2;
@@ -482,7 +489,7 @@ void trainMVA_smurf(
     	(jet2->eta()-jet3->eta() > 0 && jet1->eta()-jet3->eta() < 0)))     Njet3 = 3;
       else							           Njet3 = 2;
       if(njets < 2 || njets > 3)                                           Njet3 = 3;
-      if(processId != 10001)                                               Njet3 = 3;
+      if(processId != 10001) classType = 1;
     }
 
     if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
@@ -548,12 +555,16 @@ void trainMVA_smurf(
     if (mvaVar["higgspt"])	 vars[varCounter++] = sqrt(higgsV[0]*higgsV[0]+higgsV[1]*higgsV[1]);
     if (mvaVar["dphihjj"]) 	 vars[varCounter++] = DeltaPhi((*jet1+*jet2).Phi(),TMath::ATan2(higgsV[1],higgsV[0]));
 
-    if ( event%2 != 1 ){
-      factory->AddSignalTrainingEvent( vars, scale1fb );
+    if ( gRandom->Uniform(0,1) < 0.5 ){
+      if     (classType == 0) factory->AddTestEvent( "sig" , vars, scale1fb );
+      else if(classType == 1) factory->AddTestEvent( "bkg0", vars, scale1fb );
+      else if(classType == 2) factory->AddTestEvent( "bkg1", vars, scale1fb );
       nsigtrain++;
     }
     else{
-      factory->AddSignalTestEvent    ( vars, scale1fb );
+      if     (classType == 0) factory->AddTrainingEvent( "sig" , vars, scale1fb );
+      else if(classType == 1) factory->AddTrainingEvent( "bkg0", vars, scale1fb );
+      else if(classType == 2) factory->AddTrainingEvent( "bkg1", vars, scale1fb );
       nsigtest++;
     }
   }
@@ -590,7 +601,7 @@ void trainMVA_smurf(
   background->SetBranchAddress( "nSoftMuons"   , &nSoftMuons   );
   background->SetBranchAddress( "jet1Btag"     , &jet1Btag     );
 
-  cout << "Add background events" << endl;
+  cout << "Add signal events" << endl;
   cout << "Added " << nsigtrain << " training events" << endl;
   cout << "Added " << nsigtest  << " test events" << endl;
   
@@ -612,8 +623,10 @@ void trainMVA_smurf(
       if(njets < 2 || njets > 3)                                           Njet3 = 3;
     }
 
-    if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
-         (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
+    bool lId = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
+                (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
+		dstype == SmurfTree::wgamma;
+    if(!lId) continue; // two good leptons || wgamma
 
     if( Njet3 != nJetsType                      ) continue; // select n-jet type events
     if( dilep->mass() > dilmass_cut             ) continue; // cut on dilepton mass
@@ -633,6 +646,7 @@ void trainMVA_smurf(
     if( mt >= mt_cut                            ) continue;
 
     // VBF Cuts
+    int classType = 1;
     if ( nJetsType == 2 ) {
       // centrality cut
       float largestEta = jet1->Eta();
@@ -645,7 +659,25 @@ void trainMVA_smurf(
       if(! (lep2->Eta() > smallestEta && lep2->Eta() < largestEta)) continue;
       if( TMath::Abs(jet1->Eta() - jet2->Eta()) <= 2.0            ) continue;
       if( (*jet1+*jet2).M() <= 200                                ) continue;
+      classType = 2;
     }
+    
+    if(nJetsType == 0){
+      if     (dstype == SmurfTree::wgamma) classType = 1;
+      else if(dstype == SmurfTree::qqww)   classType = 2;
+      else if(dstype == SmurfTree::ggww)   classType = 2;
+      else                                 classType = 3;
+    }
+    if(nJetsType == 1){
+      if     (dstype == SmurfTree::wgamma) classType = 1;
+      else if(dstype == SmurfTree::ttbar)  classType = 2;
+      else if(dstype == SmurfTree::tw)     classType = 2;
+      else if(dstype == SmurfTree::qqww)   classType = 2;
+      else if(dstype == SmurfTree::ggww)   classType = 2;
+      else                                 classType = 3;
+    }
+    
+    if(classType == 3) continue;
 
     int varCounter = 0;
     
@@ -675,19 +707,30 @@ void trainMVA_smurf(
     if (mvaVar["higgspt"])	 vars[varCounter++] = sqrt(higgsV[0]*higgsV[0]+higgsV[1]*higgsV[1]);
     if (mvaVar["dphihjj"]) 	 vars[varCounter++] = DeltaPhi((*jet1+*jet2).Phi(),TMath::ATan2(higgsV[1],higgsV[0]));
 
-    if ( event%2 != 1 ){
-      factory->AddBackgroundTrainingEvent( vars, scale1fb );
-      nbkgtrain++;
+    if ( gRandom->Uniform(0,1) < 0.5 ){
+      if     (classType == 0) {factory->AddTestEvent( "sig" , vars, scale1fb );nbkgtrain[0]++;}
+      else if(classType == 1 && gRandom->Uniform(0,1) < rndLim[1]) 
+                              {factory->AddTestEvent( "bkg0", vars, scale1fb );nbkgtrain[1]++;}
+      else if(classType == 2 && gRandom->Uniform(0,1) < rndLim[2]) 
+                              {factory->AddTestEvent( "bkg1", vars, scale1fb );nbkgtrain[2]++;}
+      
     }
     else{
-      factory->AddBackgroundTestEvent    ( vars, scale1fb );
-      nbkgtest++;
+      if     (classType == 0) {factory->AddTrainingEvent( "sig" , vars, scale1fb );nbkgtest[0]++;}
+      else if(classType == 1 && gRandom->Uniform(0,1) < rndLim[1]) 
+                              {factory->AddTrainingEvent( "bkg0", vars, scale1fb );nbkgtest[1]++;}
+      else if(classType == 2 && gRandom->Uniform(0,1) < rndLim[2])
+                              {factory->AddTrainingEvent( "bkg1", vars, scale1fb );nbkgtest[2]++;}
     }
   }
   
   cout << "Done adding background" << endl;
-  cout << "Added " << nbkgtrain << " training events" << endl;
-  cout << "Added " << nbkgtest  << " test events" << endl;
+  cout << "Added0 " << nbkgtrain[0] << " training events" << endl;
+  cout << "Added1 " << nbkgtrain[1] << " training events" << endl;
+  cout << "Added2 " << nbkgtrain[2] << " training events" << endl;
+  cout << "Added0 " << nbkgtest[0]  << " test events" << endl;
+  cout << "Added1 " << nbkgtest[1]  << " test events" << endl;
+  cout << "Added2 " << nbkgtest[2]  << " test events" << endl;
   
 
   // --- end ------------------------------------------------------------
@@ -695,8 +738,8 @@ void trainMVA_smurf(
   // --- end of tree registration 
    
   // Set individual event weights (the variables must exist in the original TTree)
-  factory->SetSignalWeightExpression    ("scale1fb");
-  factory->SetBackgroundWeightExpression("scale1fb");
+  //factory->SetSignalWeightExpression    ("scale1fb");
+  //factory->SetBackgroundWeightExpression("scale1fb");
   cout << "Done setting weights" << endl;
 
   // Apply additional cuts on the signal and background samples (can be different)
@@ -713,8 +756,7 @@ void trainMVA_smurf(
   //                                         "NSigTrain=3000:NBkgTrain=3000:NSigTest=3000:NBkgTest=3000:SplitMode=Random:!V" );
    
   //Use random splitting
-  factory->PrepareTrainingAndTestTree( mycuts, mycutb,
-                                       "nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
+  factory->PrepareTrainingAndTestTree( "", "SplitMode=Random:NormMode=NumEvents:!V" );
 
   //Use alternate splitting 
   //(this is preferable since its easier to track which events were used for training, but the job crashes! need to fix this...)
