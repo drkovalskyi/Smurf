@@ -4,17 +4,16 @@ $\Mp\Mm$ final states we apply a few additional cuts.
 First, to avoid the peaking component of \dyll, we veto events with a dilepton invariant mass within $15~\GeV$ of the $\Z$.  
 Then, depending on the jet bin and the Higgs mass hypothesis, different approaches are exploited.
 
-For the low Higgs mass analyses containing less than two jets, a MVA-based Drell-Yan suppression 
-techique~\cite{dymva} (DY MVA) is used; 
+In the 0 and 1 jet final states, a MVA-based Drell-Yan suppression techique~\cite{dymva} (DY MVA) is used; 
 DY MVA combines information from variables related to missing energy, kinematic and topological variables
 maximising the signal-to-background ratio.
 
-For the high Higgs mass and $\WW$ analyses containing less than two jets, the signal has larger \met\ and
-the \dyll\ background is less important; therefore, a multivariate approach does not improve the performance and 
-min-MET is used as a discrimiating variable. 
-In addition, in order to reject events where the $\Z$ boson recoils against jets, the angle in 
-the transverse plane between the dilepton system and the most energetic jet with $\pt^{jet}~>~15~\GeV$ 
-must be smaller than $165$ degrees.
+%For the high Higgs mass and $\WW$ analyses containing less than two jets, the signal has larger \met\ and
+%the \dyll\ background is less important; therefore, a multivariate approach does not improve the performance and 
+%min-MET is used as a discrimiating variable. 
+%In addition, in order to reject events where the $\Z$ boson recoils against jets, the angle in 
+%the transverse plane between the dilepton system and the most energetic jet with $\pt^{jet}~>~15~\GeV$ 
+%must be smaller than $165$ degrees.
 
 In events with two or more jets, pileup effects are not dominant since fake \met\ in \dyll\ is mainly due to the mismeasurement of 
 the hadronic recoil; therefore, the use of track-MET degradres the performance and plain pf-MET is used. 
@@ -26,21 +25,17 @@ The selection requirements are summarized in Table~\ref{tab:metsel}.
 \begin{table}[htp]
 \centering
 \setlength{\tabcolsep}{15pt}
-\begin{tabular}{|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|}
 \hline 
-        	 & \multicolumn{2}{|c|}{Low \mHi} & \multicolumn{2}{|c|}{High \mHi} &           \\
-variable 	 & 0-jet & 1-jet & 0-jet & 1-jet & 2-jet \\
+variable 	 & 0-jet & 1-jet & 2-jet \\
 \hline \hline 
-DY MVA		      & $>$0.6 & $>$0.3 & - & - & - \\
-$\textrm{min-MET}$    & - & - & $>$45 \GeV\ & $>$45 \GeV\ & - \\
-$\Delta\phi$(\Lep\Lep,j)  & - & - & $<$165$^\circ$ & $<$165$^\circ$  & - \\
-pfMet    & - & - &  - & - & $>$45 \GeV\ \\
-$\Delta\phi$(\Lep\Lep,jj)  & - & - & - & - & $<$165$^\circ$ \\
+DY MVA		 & $>$0.88 & $>$0.84 & - \\
+pfMet            &  -  & - & $>$45 \GeV\ \\
+$\Delta\phi$(\Lep\Lep,jj)  & - & - & $<$165$^\circ$ \\
 \hline \hline 
-$|$\mll\ - $m_\Z$$|$  & \multicolumn{5}{|c|}{$>$15 \GeV} \\
+$|$\mll\ - $m_\Z$$|$  & \multicolumn{3}{|c|}{$>$15 \GeV} \\
 \hline 
 \end{tabular}
-\caption{Selection cuts specific for same-flavor final states. ``Low \mHi'' stands for $\mHi\leq140 ~\GeV$, 
-``High \mHi'' for $\mHi>140 ~\GeV$ and $\WW$ analyses.}
+\caption{Selection cuts specific for same-flavor final states. }
 \label{tab:metsel}
 \end{table}
