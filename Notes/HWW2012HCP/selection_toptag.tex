@@ -20,15 +20,14 @@ The requirements used to select soft muons are:
 
 The second method uses standard $b$-jet tagging~\cite{HWW2011}.
 In this method, we use different taggers for jets with $\pt>~30$ GeV and $\pt<~30$ GeV. 
-For jets with $\pt>~30$ GeV, $\mathrm{jetBProbability}$~\cite{btag} algorithm is used with 
-a discriminator cut value at 1.05. For jets with $\pt<~30$ GeV, 
-$\mathrm{TrkCountingHighEff}$~\cite{btag} algorithm is used with a discriminator cut value 
+%For jets with $\pt>~30$ GeV, $\mathrm{jetBProbability}$~\cite{btag} algorithm is used with 
+%a discriminator cut value at 1.05. 
+For all jets $\mathrm{TrkCountingHighEff}$~\cite{btag} algorithm is used with a discriminator cut value 
 at 2.1. Events containing jets tagged with these btaggers are rejected 
 if discriminators are less than the cut values. These algorithms are applied to jets 
 with the same definition as Section \ref{sec:sel_jets}, with the exception that 
 we consider jets with $\Et ~>~10~\GeV$. The MVA-based jet identification which is applied 
 for selecting jets reduces mistag rate and dependency on pile-up.
-%This requirement is different with respect to~\cite{HWW2011}, 
 By using the expected tagging efficiency for the two methods,
 it is possible to estimate the residual top background after the vetoes
 have been applied. This is described in detail in Section~\ref{sec:bkg_top}.
