@@ -158,7 +158,7 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
     if ( jetbin < 2 && int(njets_) != jetbin ) continue;
     if ( jetbin == 2 && int(njets_) < 2 ) continue; 
     if ( dilep_->mass() < 12.0) continue;
-    if ( dilep_->Pt() < 45) continue;    
+    if ( dilep_->Pt() < 30.) continue;    
     if (TMath::Min(pmet_,pTrackMet_) < 20.)  continue;
     // if ( ! (cuts_ & TopVeto) ) continue;
     
