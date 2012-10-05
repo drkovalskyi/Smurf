@@ -51,7 +51,10 @@ rm -f output
 ln -s $OUTPUTDIR output
 
 # this is the prefix added to the BDT added ntuples
-export TAG=ntuples2012_${MH}train_${NJETS}jets;
+export TAG=ntuples2012_PostICHEP_${MH}train_${NJETS}jets;
+if [ ${NJETS} == "2" ]; then  
+    TAG=ntuples2012_PostICHEP_125train_2jets;
+fi
 export METHODS=BDTG;
 
 
@@ -81,7 +84,7 @@ cat > list_samples.txt <<EOF
 data
 qqww
 ggww
-ttbar
+ttbar_powheg
 tw
 wz
 zz
@@ -89,21 +92,25 @@ dyll
 wgamma
 wglll
 wjets
+www
+zgamma
+www_PassFail
+zgamma_PassFail
 data_PassFail
 qqww_PassFail
 ggww_PassFail
 wjets_PassFail
-ttbar_powheg_PassFail
 tw_PassFail
 wz_PassFail
 zz_PassFail
 dyll_PassFail
 wgamma_PassFail
 wglll_PassFail
+ttbar_powheg_PassFail
 wwmcnlo
 wwmcnloup
 wwmcnlodown
-ttbar_powheg
+ttbar
 EOF
 
 
@@ -115,21 +122,25 @@ export evaluateMVAFile=evaluateMVA_smurf_hww.C+;
 # set running perid setting these depend on the lepton efficiency, fakerate and pu histograms 
 # check the script directly to make sure all the histograms are read correctly
 
-export PERIOD=0 
+export PERIOD=2 
 
 # add mva for the signal  
 ./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/hww${MH}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",$PERIOD\);
 mv $OUTPUTDIR/${TAG}_hww${MH}.root $OUTPUTDIR/hww${MH}_${NJETS}j.root
 
-# add mva for all background 
-for i in `cat list_samples.txt` ; do
-    dataset=${i%%,*};
-    echo "filling MVA information in sample: "  $dataset
-    PERIOD=0
-    echo "period = $PERIOD"
-    ./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/${dataset}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",$PERIOD\);
-    mv $OUTPUTDIR/${TAG}_${dataset}.root $OUTPUTDIR/${dataset}_${NJETS}j.root
-done
+# add mva for all background
+# add this for 0/1 Jet all mass points and only add 125 for the 2-jet bin
+if [ ${NJETS} -lt 2 ] || [ $MH -eq 125 ]; then
+    echo njets = $NJETS
+    for i in `cat list_samples.txt` ; do
+	dataset=${i%%,*};
+	echo "filling MVA information in sample: "  $dataset
+	PERIOD=2
+	echo "period = $PERIOD"
+	./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/${dataset}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",$PERIOD\);
+	mv $OUTPUTDIR/${TAG}_${dataset}.root $OUTPUTDIR/${dataset}_${NJETS}j.root
+    done
+fi
 
 rm -f list_samples.txt;
 
