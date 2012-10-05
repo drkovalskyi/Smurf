@@ -36,7 +36,8 @@ fi
 
 ## add bdt
 echo "adding the BDT..."
-for MASS in 115 120 130 140 150 160 170 180 190 200 250 300 350 400 450 500 550 600; do
+for MASS in 110 115 120 130 135 140 145 150 155 160 170 180 190 200 250 300 350 400 450 500 550 600;do
+#for MASS in 125; do
     echo doing $MASS
     cd ../../MVA
     nohup ./add_bdt_42X.sh $NJETS $MASS $INPUTDIR $OUTPUTDIR $MEFLAG >& ../ME/scripts/log/addbdt_${MASS}_${NJETS}j.log 

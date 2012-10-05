@@ -37,10 +37,6 @@ fi
 if [ "$SELECTION" == 'WW' ]; then
 rm -f list_samples.txt
 cat > list_samples.txt <<EOF
-hww150.root
-hww155.root
-EOF
-fi
 data.root
 data_3l.root
 zz.root
@@ -53,6 +49,7 @@ wjets.root
 dyll.root
 wgamma.root
 wglll.root
+wwww.root
 hww110.root
 hww115.root
 hww120.root
@@ -84,12 +81,16 @@ wwmcnlo.root
 wwmcnloup.root
 wwmcnlodown.root
 ttbar_powheg.root
-
+EOF
+fi
 
 
 if [ "$SELECTION" == 'PassFail' ]; then
 rm -f list_samples.txt
 cat > list_samples.txt <<EOF
+data.root
+www.root
+zgamma.root
 data.root
 zz.root
 wz.root
@@ -101,8 +102,10 @@ wgamma.root
 wglll.root
 dyll.root
 wjets.root
+ttbar_powheg.root
 EOF
 fi
+
 
 
 # Do the skimming...
