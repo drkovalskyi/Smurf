@@ -21,7 +21,7 @@ double fakeRate(double pt, double eta, TH2D *fhDFRMu, TH2D *fhDFREl, int fm, int
 double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, int lid, int syst = 0);
 double hzz2l_cuts(double mass, int opt);
 double nVtxScaleFactor(TH1D *fhDNvtx, int nvtx);
-double nPUScaleFactor2011(TH1D *fhDPU, int npu);
+double nPUScaleFactor2011(TH1D *fhDPU, float npu);
 double nPUScaleFactor2012(TH1D *fhDPU, float npu);
 double mt_atlas(LorentzVector dilep, double met, double metPhi);
 double poorManMetSyst(LorentzVector l1, LorentzVector l2, LorentzVector l3, 
@@ -193,14 +193,14 @@ double nVtxScaleFactor(TH1D *fhDNvtx, int nvtx){
   return fhDNvtx->GetBinContent(nvtxbin);
 }
 
-double nPUScaleFactor2011(TH1D *fhDPU, int npu){
-  double mynpu = TMath::Min((double)npu,49.499);
+double nPUScaleFactor2011(TH1D *fhDPU, float npu){
+  double mynpu = TMath::Min(npu,(float)49.499);
   Int_t npuxbin = fhDPU->GetXaxis()->FindBin(mynpu);
   return fhDPU->GetBinContent(npuxbin);
 }
 
 double nPUScaleFactor2012(TH1D *fhDPU, float npu){
-  double mynpu = TMath::Min((double)npu,49.499);
+  double mynpu = TMath::Min(npu,(float)49.499);
   Int_t npuxbin = fhDPU->GetXaxis()->FindBin(mynpu);
   return fhDPU->GetBinContent(npuxbin);
 }

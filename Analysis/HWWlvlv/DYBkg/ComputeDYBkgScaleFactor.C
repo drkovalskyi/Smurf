@@ -86,9 +86,9 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
     //filesPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_5000ipb";
     filesPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets";
   }
-  else if(period == 2){ // Full2011-Fall11-V9-5000ipb-newId
-    lumi = 5.098;minRun =      0;maxRun = 999999;
-    filesPath  = "/data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets";
+  else if(period == 2){ // Full2012-Summer12-V9-12000ipb
+    lumi = 12.1;minRun =      0;maxRun = 999999;
+    filesPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets";
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -131,8 +131,8 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 
   const Int_t nmass = 22;
   const Double_t mH[nmass]     = {0,115,118,120,122,124,125,126,128,130,135,140,145,150,155,160,170,180,190,200,250,300};  
-        Bool_t useDYMVA[nmass] = {0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
-  
+        Bool_t useDYMVA[nmass] = {1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1};
+
   //*******************************************************
   //Yields and  histograms
   //*******************************************************
@@ -183,10 +183,10 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
     for(Int_t imass=0; imass<nmass; imass++) {
       if     (useDYMVA[imass] == kTRUE){
         if     (jetIndex == 0){
-	  bins[0] = -0.90; bins[1] = -0.85; bins[2] = -0.60; bins[3] =  0.60; bins[4] = 1.0; 
+	  bins[0] = -0.90; bins[1] = -0.85; bins[2] = -0.60; bins[3] =  0.88; bins[4] = 1.0; 
 	}
 	else if(jetIndex == 1){
-	  bins[0] = -0.90; bins[1] = -0.85; bins[2] = -0.60; bins[3] =  0.30; bins[4] = 1.0; 
+	  bins[0] = -0.90; bins[1] = -0.85; bins[2] = -0.60; bins[3] =  0.84; bins[4] = 1.0; 
 	}
 	else if(jetIndex == 2){
 	  bins[0] = 20; bins[1] = 25; bins[2] = 30; bins[3] =  45; bins[4] = 50; 
@@ -292,8 +292,6 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
     cout << "Processing " << infilenamev[ifile] << "..." << endl;
     tree.LoadTree(infilenamev[ifile]);
     tree.InitTree(0);
-    Float_t dymva = -100.0;
-    tree.tree_->SetBranchAddress(Form("dymva"), &dymva);
     
     for(UInt_t ientry = 0; ientry <tree.tree_->GetEntries(); ientry++){
       tree.tree_->GetEntry(ientry);
@@ -446,31 +444,37 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 	    double theCutMassHigh = cutMassHigh(mH[imass]);
             bool passMtCut = mt > cutMTLow(mH[imass]) && mt < cutMTHigh(mH[imass]);
 
-            if(forBDTAna == true && imass != 0){
-	      whichIMass = 0;
-	      theCutMassHigh = DileptonMassPreselectionCut(mH[imass]);
-	      passMtCut = mt > 80.0 && mt < mH[imass];
-	    }
-
 	    bool passKinCuts = tree.lep1_.Pt() > cutPtMaxLow(mH[whichIMass])   &&
 	                       tree.lep2_.Pt() > cutPtMinLow(mH[whichIMass],0) &&
 			       tree.dPhi_ < cutDeltaphiHigh(mH[whichIMass])*TMath::Pi()/180.;
+
 	    bool passWBFSel = true;
             if(tree.njets_ >= 2 && imass != 0){
-	      theCutMassHigh = DileptonMassPreselectionCut(mH[imass]);
-	      passMtCut = mt > 30.0 && mt < mH[imass];  
+	      passMtCut = mt > 30.0 && mt < cutMTHigh(mH[imass]); 
               int centrality = 0;
 	      if(((tree.jet1_.Eta()-tree.lep1_.Eta() > 0 && tree.jet2_.Eta()-tree.lep1_.Eta() < 0) ||
-        	  (tree.jet2_.Eta()-tree.lep1_.Eta() > 0 && tree.jet1_.Eta()-tree.lep1_.Eta() < 0)) &&
-        	 ((tree.jet1_.Eta()-tree.lep2_.Eta() > 0 && tree.jet2_.Eta()-tree.lep2_.Eta() < 0) ||
-        	  (tree.jet2_.Eta()-tree.lep2_.Eta() > 0 && tree.jet1_.Eta()-tree.lep2_.Eta() < 0))) centrality = 1; 
-	      passWBFSel = (tree.jet1_+tree.jet2_).M() > 450. && TMath::Abs(tree.jet1_.Eta()-tree.jet2_.Eta()) > 3.5 && 
-                            centrality == 1;
-	      passKinCuts = true;
+            	  (tree.jet2_.Eta()-tree.lep1_.Eta() > 0 && tree.jet1_.Eta()-tree.lep1_.Eta() < 0)) &&
+            	 ((tree.jet1_.Eta()-tree.lep2_.Eta() > 0 && tree.jet2_.Eta()-tree.lep2_.Eta() < 0) ||
+            	  (tree.jet2_.Eta()-tree.lep2_.Eta() > 0 && tree.jet1_.Eta()-tree.lep2_.Eta() < 0))) centrality = 1; 
+	      passWBFSel = (tree.jet1_+tree.jet2_).M() > 500. && TMath::Abs(tree.jet1_.Eta()-tree.jet2_.Eta()) > 3.5 && centrality == 1;
 	    }
+            if(forBDTAna == true && imass != 0){
+	      whichIMass = 0;
+	      if     (mH[imass] ==   0) theCutMassHigh = 10000;
+	      else if(mH[imass] <= 250) theCutMassHigh = 200;
+	      else			theCutMassHigh = 600;
+	      if     (mH[imass] ==   0) passMtCut = mt > 80.0 && mt < 10000;
+	      else if(mH[imass] <= 250) passMtCut = mt > 80.0 && mt < 280;
+	      else if(tree.njets_ >= 2) passMtCut = mt > 80.0 && mt < 600;
+	      else			passMtCut = mt > 30.0 && mt < 600;
+	      if(mH[imass] <= 250) passKinCuts = true;
+	      else                 passKinCuts = tree.lep1_.Pt() > 50.0;
+	    }
+
             if(!passWBFSel) continue;
 
 	    if(!passKinCuts) continue;
+
 	    if(tree.dilep_.Pt() <= 45.0) continue;
 	    if(minmet <= 20.0) continue;
 
@@ -484,7 +488,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 
 	    Double_t varMet = minmet;
 	    if     (ijet == 2)                varMet = tree.met_;
-	    else if(useDYMVA[imass] == kTRUE) varMet = dymva;
+	    else if(useDYMVA[imass] == kTRUE) varMet = tree.dymva_;
 
 	    if(mZ - tree.dilep_.M() < MassCutLow && tree.dilep_.M() - mZ < MassCutHigh) {
 	      if(finalState==kEleEle && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) {
@@ -506,9 +510,9 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 
             bool passMET = minmet > 20.;
             if(useDYMVA[imass] == kTRUE){
-              if     (tree.njets_ == 0) passMET = passMET && dymva >  0.60;
-              else if(tree.njets_ == 1) passMET = passMET && dymva >  0.30;
-              else                      passMET = passMET && tree.met_ > 45.0;
+              if     (tree.njets_ == 0) passMET = passMET && tree.dymva_ >  0.88;
+              else if(tree.njets_ == 1) passMET = passMET && tree.dymva_ >  0.84;
+              else                      passMET = passMET && tree.met_   > 45.0;
             } else {
               if     (tree.njets_ == 0) passMET = passMET && minmet > 45.;
               else if(tree.njets_ == 1) passMET = passMET && minmet > 45.;
@@ -557,31 +561,37 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 	  double theCutMassHigh = cutMassHigh(mH[imass]);
           bool passMtCut = mt > cutMTLow(mH[imass]) && mt < cutMTHigh(mH[imass]);
 
-          if(forBDTAna == true && imass != 0){
-	    whichIMass = 0;
-	    theCutMassHigh = DileptonMassPreselectionCut(mH[imass]);
-	    passMtCut = mt > 80.0 && mt < mH[imass];
-	  }
-
 	  bool passKinCuts = tree.lep1_.Pt() > cutPtMaxLow(mH[whichIMass])   &&
-	  		     tree.lep2_.Pt() > cutPtMinLow(mH[whichIMass],0) &&
-	        	     tree.dPhi_ < cutDeltaphiHigh(mH[whichIMass])*TMath::Pi()/180.;
+	 		     tree.lep2_.Pt() > cutPtMinLow(mH[whichIMass],0) &&
+	 		     tree.dPhi_ < cutDeltaphiHigh(mH[whichIMass])*TMath::Pi()/180.;
+
 	  bool passWBFSel = true;
           if(tree.njets_ >= 2 && imass != 0){
-	    theCutMassHigh = DileptonMassPreselectionCut(mH[imass]);
-	    passMtCut = mt > 30.0 && mt < mH[imass];  
+	    passMtCut = mt > 30.0 && mt < cutMTHigh(mH[imass]); 
             int centrality = 0;
 	    if(((tree.jet1_.Eta()-tree.lep1_.Eta() > 0 && tree.jet2_.Eta()-tree.lep1_.Eta() < 0) ||
-        	(tree.jet2_.Eta()-tree.lep1_.Eta() > 0 && tree.jet1_.Eta()-tree.lep1_.Eta() < 0)) &&
+         	(tree.jet2_.Eta()-tree.lep1_.Eta() > 0 && tree.jet1_.Eta()-tree.lep1_.Eta() < 0)) &&
                ((tree.jet1_.Eta()-tree.lep2_.Eta() > 0 && tree.jet2_.Eta()-tree.lep2_.Eta() < 0) ||
-        	(tree.jet2_.Eta()-tree.lep2_.Eta() > 0 && tree.jet1_.Eta()-tree.lep2_.Eta() < 0))) centrality = 1; 
-	    passWBFSel = (tree.jet1_+tree.jet2_).M() > 450. && TMath::Abs(tree.jet1_.Eta()-tree.jet2_.Eta()) > 3.5 && 
-                          centrality == 1;
-	    passKinCuts = true;
+         	(tree.jet2_.Eta()-tree.lep2_.Eta() > 0 && tree.jet1_.Eta()-tree.lep2_.Eta() < 0))) centrality = 1; 
+	    passWBFSel = (tree.jet1_+tree.jet2_).M() > 500. && TMath::Abs(tree.jet1_.Eta()-tree.jet2_.Eta()) > 3.5 && centrality == 1;
 	  }
+          if(forBDTAna == true && imass != 0){
+	    whichIMass = 0;
+	    if     (mH[imass] ==   0) theCutMassHigh = 10000;
+	    else if(mH[imass] <= 250) theCutMassHigh = 200;
+	    else		      theCutMassHigh = 600;
+	    if     (mH[imass] ==   0) passMtCut = mt > 80.0 && mt < 10000;
+	    else if(mH[imass] <= 250) passMtCut = mt > 80.0 && mt < 280;
+	    else if(tree.njets_ >= 2) passMtCut = mt > 80.0 && mt < 600;
+	    else                      passMtCut = mt > 30.0 && mt < 600;
+	    if(mH[imass] <= 250) passKinCuts = true;
+	    else		 passKinCuts = tree.lep1_.Pt() > 50.0;
+	  }
+
           if(!passWBFSel) continue;
 
 	  if(!passKinCuts) continue;
+
           if(tree.dilep_.Pt() <= 45.0) continue;
 	  if(minmet <= 20.0) continue;
 
@@ -595,7 +605,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 
 	  Double_t varMet = minmet;
 	  if	 (ijet == 2)		    varMet = tree.met_;
-	  else if(useDYMVA[imass] == kTRUE) varMet = dymva;
+	  else if(useDYMVA[imass] == kTRUE) varMet = tree.dymva_;
           double theDataWeight = 0.0;
           if     (ProcessType == -1 && (finalState==kEleEle||finalState==kMuMu)) theDataWeight =  1.0;
 	  else if(ProcessType == -1                                            ) theDataWeight = -1.0;
@@ -613,9 +623,9 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 
           bool passMET = minmet > 20.;
           if(useDYMVA[imass] == kTRUE){
-            if     (tree.njets_ == 0) passMET = passMET && dymva >  0.60;
-            else if(tree.njets_ == 1) passMET = passMET && dymva >  0.30;
-            else		      passMET = passMET && tree.met_ > 45.0;
+            if     (tree.njets_ == 0) passMET = passMET && tree.dymva_ >  0.88;
+            else if(tree.njets_ == 1) passMET = passMET && tree.dymva_ >  0.84;
+            else		      passMET = passMET && tree.met_   > 45.0;
           } else {
             if     (tree.njets_ == 0) passMET = passMET && minmet > 45.;
             else if(tree.njets_ == 1) passMET = passMET && minmet > 45.;

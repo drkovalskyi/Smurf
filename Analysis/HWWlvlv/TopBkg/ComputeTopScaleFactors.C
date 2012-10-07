@@ -37,7 +37,7 @@ void ComputeTopScaleFactors
   bool WWXSSel = false;
   double ptLepMin = 10.0;
   if(WWXSSel == true) ptLepMin = 20.;
-  Bool_t useDYMVA = false;
+  Bool_t useDYMVA = true;
 
   const Int_t nmass = 32;
   const Double_t mH[nmass] = {  0,  0,110,115,118,120,122,124,125,126,
@@ -75,19 +75,19 @@ void ComputeTopScaleFactors
     effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
     puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
-    lumi     =5.098;minRun =      0;maxRun = 999999;
+    lumi     = 5.098;minRun =      0;maxRun = 999999;
     //bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_5000ipb/backgroundB_skim2.root";
     //dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets_5000ipb/data_skim2.root";
     bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/backgroundB_skim2.root";
     dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/mitf-alljets/data_skim2.root";
   }
-  else if(period == 2){ // Full2011-Fall11-V9-5000ipb-newId
-    effPath  = "/data/smurf/data/Run2012_Summer12_SmurfV10_52X/auxiliar/efficiency_results_HWWIDIsoMVAV4.root";
-    fakePath = "/data/smurf/data/Run2012_Summer12_SmurfV10_52X/auxiliar/fakerate_results_HWWIDIsoMVAV4.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
-    lumi     =5.098;minRun =      0;maxRun = 999999;
-    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/backgroundA_skim2.root";
-    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/data_skim2.root";
+  else if(period == 2){ //  Full2012-Summer12-V9-12000ipb
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True.root";
+    lumi     = 12.1;minRun =      0;maxRun = 999999;
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/backgroundA_skim2.root";
+    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data_skim2.root";
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -128,12 +128,12 @@ void ComputeTopScaleFactors
   fLeptonFRFileE->Close();
   delete fLeptonFRFileE;
  
-  TFile *fPUS4File = TFile::Open(Form("%s",puPath.Data()));
-  TH1D *fhDPUS4 = (TH1D*)(fPUS4File->Get("puWeights"));
-  assert(fhDPUS4);
-  fhDPUS4->SetDirectory(0);
-  delete fPUS4File;
-
+  TFile *fPUFile = TFile::Open(Form("%s",puPath.Data()));
+  TH1D *fhDPU = (TH1D*)(fPUFile->Get("puWeights"));
+  assert(fhDPU);
+  fhDPU->SetDirectory(0);
+  delete fPUFile;
+ 
   //*******************************************************************************
   //Yields and Histograms
   //*******************************************************************************
@@ -287,8 +287,6 @@ void ComputeTopScaleFactors
   //*******************************************************************************
   //Background Events
   //*******************************************************************************
-  Float_t dymva = -100.0;
-  bgdEvent.tree_->SetBranchAddress(Form("dymva"), &dymva);
   int nBgd=bgdEvent.tree_->GetEntries();
   for (int i=0; i<nBgd; ++i) {
 
@@ -329,9 +327,9 @@ void ComputeTopScaleFactors
       else if(bgdEvent.njets_ == 1) passMET = passMET && (minmet > 45. || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
       else                          passMET = passMET && (bgdEvent.met_ > 45.0 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
     } else {
-      if     (bgdEvent.njets_ == 0) passMET = passMET && (dymva >  0.60 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
-      else if(bgdEvent.njets_ == 1) passMET = passMET && (dymva >  0.30 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
-      else                          passMET = passMET && (bgdEvent.met_ > 45.0 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+      if     (bgdEvent.njets_ == 0) passMET = passMET && (bgdEvent.dymva_ >  0.88 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+      else if(bgdEvent.njets_ == 1) passMET = passMET && (bgdEvent.dymva_ >  0.84 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
+      else                          passMET = passMET && (bgdEvent.met_   >  45.0 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
     }
 
     bool passNewCuts = bgdEvent.dilep_.Pt() > 45;
@@ -370,7 +368,7 @@ void ComputeTopScaleFactors
 											(bgdEvent.cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (bgdEvent.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
         add = add*fakeRate(bgdEvent.lep2_.Pt(), bgdEvent.lep2_.Eta(), fhDFRMu, fhDFREl, (bgdEvent.cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
 											(bgdEvent.cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (bgdEvent.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
-	add = add*nPUScaleFactor2012(fhDPUS4,bgdEvent.npu_);
+	add = add*nPUScaleFactor2012(fhDPU,bgdEvent.npu_);
         add = add*leptonEfficiency(bgdEvent.lep1_.Pt(), bgdEvent.lep1_.Eta(), fhDEffMu, fhDEffEl, bgdEvent.lid1_);
 	add = add*leptonEfficiency(bgdEvent.lep2_.Pt(), bgdEvent.lep2_.Eta(), fhDEffMu, fhDEffEl, bgdEvent.lid2_);
         double trigEff = trigLookup.GetExpectedTriggerEfficiency(fabs(bgdEvent.lep1_.Eta()), bgdEvent.lep1_.Pt() , 
@@ -385,7 +383,7 @@ void ComputeTopScaleFactors
       theWeight = ZttScaleFactor(bgdEvent.nvtx_,period,bgdEvent.scale1fb_)*lumi;
     }
     else if(bgdEvent.dstype_ != SmurfTree::data){
-      double add1 = nPUScaleFactor2012(fhDPUS4,bgdEvent.npu_);
+      double add1 = nPUScaleFactor2012(fhDPU,bgdEvent.npu_);
 
       double add2 = leptonEfficiency(bgdEvent.lep1_.Pt(), bgdEvent.lep1_.Eta(), fhDEffMu, fhDEffEl, bgdEvent.lid1_);
       add2   = add2*leptonEfficiency(bgdEvent.lep2_.Pt(), bgdEvent.lep2_.Eta(), fhDEffMu, fhDEffEl, bgdEvent.lid2_);
@@ -523,7 +521,7 @@ void ComputeTopScaleFactors
           (bgdEvent.jet2_.Eta()-bgdEvent.lep1_.Eta() > 0 && bgdEvent.jet1_.Eta()-bgdEvent.lep1_.Eta() < 0)) &&
          ((bgdEvent.jet1_.Eta()-bgdEvent.lep2_.Eta() > 0 && bgdEvent.jet2_.Eta()-bgdEvent.lep2_.Eta() < 0) ||
           (bgdEvent.jet2_.Eta()-bgdEvent.lep2_.Eta() > 0 && bgdEvent.jet1_.Eta()-bgdEvent.lep2_.Eta() < 0))) centrality = 1; 
-      bool passWBFSel = (bgdEvent.jet1_+bgdEvent.jet2_).M() > 450. && TMath::Abs(bgdEvent.jet1_.Eta()-bgdEvent.jet2_.Eta()) > 3.5 && 
+      bool passWBFSel = (bgdEvent.jet1_+bgdEvent.jet2_).M() > 500. && TMath::Abs(bgdEvent.jet1_.Eta()-bgdEvent.jet2_.Eta()) > 3.5 && 
                          centrality == 1;
       if(WWXSSel == true) {passWBFSel = true;}
 
@@ -535,8 +533,11 @@ void ComputeTopScaleFactors
 	    passAllCuts = passWBFSel == true;
 	  }
 	  else if(ivbf>=2){
-	    passAllCuts = bgdEvent.dilep_.M() <  DileptonMassPreselectionCut(mH[ivbf]) && 
-	                  bgdEvent.mt_ > 30.0 && bgdEvent.mt_ < mH[ivbf] && 
+	    passAllCuts = bgdEvent.lep1_.Pt() > cutPtMaxLow(mH[ivbf])   &&
+	 		  bgdEvent.lep2_.Pt() > cutPtMinLow(mH[ivbf],0) &&
+	 		  bgdEvent.dPhi_ < cutDeltaphiHigh(mH[ivbf])*TMath::Pi()/180. &&
+			  bgdEvent.mt_ > 30 && bgdEvent.mt_ < cutMTHigh(mH[ivbf]) &&
+			  bgdEvent.dilep_.M() < cutMassHigh(mH[ivbf]) &&
 			  passWBFSel == true;
 	  }
 	  if(passAllCuts == true){
@@ -614,8 +615,6 @@ void ComputeTopScaleFactors
   //*******************************************************************************
   //Data Events
   //*******************************************************************************
-  dymva = -100.0;
-  dataEvent.tree_->SetBranchAddress(Form("dymva"), &dymva);
   int nData=dataEvent.tree_->GetEntries();
   for (int i=0; i<nData; ++i) {
 
@@ -639,9 +638,9 @@ void ComputeTopScaleFactors
       else if(dataEvent.njets_ == 1) passMET = passMET && (minmet > 45. || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
       else                          passMET = passMET && (dataEvent.met_ > 45.0 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
     } else {
-      if     (dataEvent.njets_ == 0) passMET = passMET && (dymva >  0.60 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
-      else if(dataEvent.njets_ == 1) passMET = passMET && (dymva >  0.30 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
-      else                          passMET = passMET && (dataEvent.met_ > 45.0 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+      if     (dataEvent.njets_ == 0) passMET = passMET && (dataEvent.dymva_ >  0.88 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+      else if(dataEvent.njets_ == 1) passMET = passMET && (dataEvent.dymva_ >  0.84 || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
+      else                           passMET = passMET && (dataEvent.met_   > 45.0  || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
     }
 
     bool passNewCuts = dataEvent.dilep_.Pt() > 45;
@@ -758,7 +757,7 @@ void ComputeTopScaleFactors
           (dataEvent.jet2_.Eta()-dataEvent.lep1_.Eta() > 0 && dataEvent.jet1_.Eta()-dataEvent.lep1_.Eta() < 0)) &&
          ((dataEvent.jet1_.Eta()-dataEvent.lep2_.Eta() > 0 && dataEvent.jet2_.Eta()-dataEvent.lep2_.Eta() < 0) ||
           (dataEvent.jet2_.Eta()-dataEvent.lep2_.Eta() > 0 && dataEvent.jet1_.Eta()-dataEvent.lep2_.Eta() < 0))) centrality = 1;
-      bool passWBFSel = (dataEvent.jet1_+dataEvent.jet2_).M() > 450. && TMath::Abs(dataEvent.jet1_.Eta()-dataEvent.jet2_.Eta()) > 3.5 && 
+      bool passWBFSel = (dataEvent.jet1_+dataEvent.jet2_).M() > 500. && TMath::Abs(dataEvent.jet1_.Eta()-dataEvent.jet2_.Eta()) > 3.5 && 
                          centrality == 1;
       if(WWXSSel == true) {passWBFSel = true;}
 
@@ -770,8 +769,11 @@ void ComputeTopScaleFactors
 	    passAllCuts = passWBFSel == true;
 	  }
 	  else if(ivbf>=2){
-	    passAllCuts = dataEvent.dilep_.M() <  DileptonMassPreselectionCut(mH[ivbf]) && 
-	                  dataEvent.mt_ > 30.0 && dataEvent.mt_ < mH[ivbf] && 
+	    passAllCuts = dataEvent.lep1_.Pt() > cutPtMaxLow(mH[ivbf])   &&
+	 		  dataEvent.lep2_.Pt() > cutPtMinLow(mH[ivbf],0) &&
+	 		  dataEvent.dPhi_ < cutDeltaphiHigh(mH[ivbf])*TMath::Pi()/180. &&
+			  dataEvent.mt_ > 30 && dataEvent.mt_ < cutMTHigh(mH[ivbf]) &&
+			  dataEvent.dilep_.M() < cutMassHigh(mH[ivbf]) &&
 			  passWBFSel == true;
 	  }
 	  if(passAllCuts == true){

@@ -760,7 +760,7 @@ void MakeSameSignControlSampleTables
 //             (jet2->eta()-lep1->eta() > 0 && jet1->eta()-lep1->eta() < 0)) &&
 //            ((jet1->eta()-lep2->eta() > 0 && jet2->eta()-lep2->eta() < 0) ||
 //             (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
-//         passAllCuts = (*jet1+*jet2).M() > 450. &&
+//         passAllCuts = (*jet1+*jet2).M() > 500. &&
 //           TMath::Abs(jet1->eta()-jet2->eta()) > 3.5 &&
 //           (mH > 200 || dilep->mass() < 100.) &&
 //           centrality == 1 &&
@@ -1190,7 +1190,7 @@ void MakeSameSignControlSampleTables
             (jet2->eta()-lep1->eta() > 0 && jet1->eta()-lep1->eta() < 0)) &&
            ((jet1->eta()-lep2->eta() > 0 && jet2->eta()-lep2->eta() < 0) ||
             (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
-        passAllCuts = (*jet1+*jet2).M() > 450. &&
+        passAllCuts = (*jet1+*jet2).M() > 500. &&
           TMath::Abs(jet1->eta()-jet2->eta()) > 3.5 &&
           (mH > 200 || dilep->mass()< 100.) &&
           centrality == 1;
