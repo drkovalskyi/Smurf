@@ -22,7 +22,7 @@ double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, i
 double hzz2l_cuts(double mass, int opt);
 double nVtxScaleFactor(TH1D *fhDNvtx, int nvtx);
 double nPUScaleFactor2011(TH1D *fhDPU, int npu);
-double nPUScaleFactor2012(TH1D *fhDPU, int npu);
+double nPUScaleFactor2012(TH1D *fhDPU, float npu);
 double mt_atlas(LorentzVector dilep, double met, double metPhi);
 double poorManMetSyst(LorentzVector l1, LorentzVector l2, LorentzVector l3, 
                       int lid1, int lid2, int lid3, double met, double metPhi,
@@ -199,7 +199,7 @@ double nPUScaleFactor2011(TH1D *fhDPU, int npu){
   return fhDPU->GetBinContent(npuxbin);
 }
 
-double nPUScaleFactor2012(TH1D *fhDPU, int npu){
+double nPUScaleFactor2012(TH1D *fhDPU, float npu){
   double mynpu = TMath::Min((double)npu,49.499);
   Int_t npuxbin = fhDPU->GetXaxis()->FindBin(mynpu);
   return fhDPU->GetBinContent(npuxbin);
