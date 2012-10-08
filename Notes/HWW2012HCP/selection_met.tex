@@ -24,9 +24,12 @@ where $\Delta\phi(\ell_i,\met)$ is the angle between \met\ and lepton
  In the presence of high multiple-interactions (pile-up), the instrumental \met\ tail in 
 $\dyll$ events increases significantly. 
 
-To improve the signal over background performance of \met\ selections in the presence of pile-up, 
-we have developed a novel \met\ algorithm referred to as ``trk-MET''~\cite{trkMET}, constructed from 
-charged particles consistent with originating from the primary vertex. 
+In the analysis, two \met\ definitions are used: PFMet and trk-MET.
+PFMet is constructed from all PFCandidates in the event~\cite{PFMET}; in order to correct for the $\phi$ modulation observed both in data and in MC, 
+we apply a ``x/y shift'' correction~\cite{xyShiftMetCorr}. 
+The ``trk-MET''~\cite{trkMET} algorithm is a novel \met\ definition we have developed in order to 
+improve the signal over background performance of \met\ selections in the presence of pile-up; 
+it is constructed from charged particles consistent with originating from the primary vertex. 
 The event $\met$ trk-MET is defined as 
 \begin{equation}
 \text{trk-MET} \equiv -\overrightarrow{p_T}(l_1) - \overrightarrow{p_T}(l_2) - \sum_i{\overrightarrow{p_T}(i)}, \\
