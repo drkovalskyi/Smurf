@@ -1,27 +1,42 @@
-One of the drawbacks of the BDT approach is the non-trivial dependence of the discriminator value 
-on the input variables. This means that physical interpretation of the data in the BDT discriminator 
-can be difficult. Additionally, for Higgs boson masses below 140 GeV, most of the additional sensitivity 
-of the shape-analysis cames from the fit rather than the BDT itself. This has been shown by performing 
-mll shape analyis with 2011 data which gives about 90 \% of the sensitivity of the BDT approach.
+In the approach described in the previous section, the shape of 
+the BDT output is used to separate signal and background.
+In this section we describe an alternate approach,
+using a binned fit to the 2D distribution of two physical variables.
+The analysis method is described in brief here,
+and in detail detail in Ref.~\cite{2DNote}.
 
-Thus, we explore an alternative approach that allows for a simpler physical interpretation of the 
-observed data with a sensitivity that is better than the default BDT shape-analysis for low \mHi hypotheses. 
-We have developed a 2-dimensional shape analysis using two independent variables: \mll~and \mt.
-They are defined as 
+This method uses two physical variables,
+which are also inputs to the BDT discriminant: \mll~and \mt.
+They are defined as follows:
 
 \begin{itemize}
 \item the dilepton mass $\mll$;
-\item transverse Higgs mass, 
-$\mt^{\ell\ell\met} = \sqrt{2\pt^{ll}\met(1-cos(\Delta\phi_{\ell\ell-\met}))}$ where 
+\item transverse Higgs mass,
+$\mt^{\ell\ell\met} = \sqrt{2\pt^{ll}\met(1-cos(\Delta\phi_{\ell\ell-\met}))}$ where
 $\Delta\phi_{\ell\ell-\met}$ is the angle between dilepton
 direction and \met in the transverse plane.
-\end{itemize} 
+\end{itemize}
 
-The 2D templates are constructed with WW preselection. For the high mass hypotheses ($\mHi\ge300~\GeV$),
+We aim to improve upon 
+two aspects of the BDT approach:
+
+\begin{itemize}
+    \item The position assigned to each event 
+in \mll~and \mt~ is simpler to interpret physically 
+than the output of the BDT, which depends non-trivially 
+on the values of the input variables.
+    \item The value of each event in \mll~and \mt~
+is independent of the Higgs boson mass hypothesis considered,
+and the dependence of the preselection requirements is reduced.
+\end{itemize}
+
+The 2D templates for signal and background processes are constructed 
+with the WW preselection. For the high mass hypotheses ($\mHi\ge300~\GeV$),
 we apply $\ptlmax > 50~\GeV$ to increase S/B. The bin size is chosen to avoid empty 
 bins in the background templates, given the the available simulation and control sample statistics.  
 Table~\ref{tab:binning_range} summarizes the bin size and range of templates. 
 
+\vspace{25pt}
 \begin{table}[!htb]
 \centering
 \begin{tabular}{c | c | c }
@@ -38,8 +53,13 @@ Table~\ref{tab:binning_range} summarizes the bin size and range of templates.
 		  	 in the content of the last bin.}
 \end{table}
 
-
-We have applied the method to the $e\mu$ final state in 0 and 1 jet bins, which are the most sensitive channels.  
-Details of the 2D analysis is described in \cite{2DNote}. 
-
+We have applied the method to the $e\mu$ final state in the 0 and 1 jet bins, 
+which are the most sensitive channels.  The performance of the 2D analysis
+compared with the BDT analysis is discussed in more detail
+in ~\cite{2DNote} and the current results are given 
+in this document.  We have observed an increase in sensitivity
+at low Higgs boson mass compared to the BDT analysis. 
+This is found to be a result of the improved background
+constraints provided by the low signal/high background regions
+of the 2D plane~\cite{YY2DTalk}.
 
