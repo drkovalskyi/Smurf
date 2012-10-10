@@ -86,8 +86,8 @@ void PlotHiggsRes2012
   bool is2DBDT = false;
   if(nJetsType == 2) is2DBDT = false;
 
-  int binVarA = 0;
-  int binVarB = 0;
+  int binVarA = 8;
+  int binVarB = 10;
   bool is2DAna = false;
   if(binVarA > 0 && binVarB > 0) is2DAna = true; 
   if(nJetsType == 2 && is2DAna == true && mH <= 250) {binVarA = 4;binVarB = 4;}
@@ -811,6 +811,8 @@ void PlotHiggsRes2012
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
+    //if(dilep->mass()<50&&mt<125) continue;
+
     bool dPhiDiLepJetCut = kTRUE;
     if(useDYMVA == kFALSE){
       if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
@@ -1322,6 +1324,8 @@ void PlotHiggsRes2012
     //if( lid3 != 0	                                                 ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
+
+    //if(dilep->mass()<50&&mt<125) continue;
 
     bool dPhiDiLepJetCut = kTRUE;
     if(useDYMVA == kFALSE){
@@ -2101,6 +2105,8 @@ void PlotHiggsRes2012
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
+    //if(dilep->mass()<50&&mt<125) continue;
+
     bool dPhiDiLepJetCut = kTRUE;
     if(useDYMVA == kFALSE){
       if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
@@ -2642,6 +2648,8 @@ void PlotHiggsRes2012
     //if( lid3 != 0	                                                 ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
+
+    //if(dilep->mass()<50&&mt<125) continue;
 
     bool dPhiDiLepJetCut = kTRUE;
     if(useDYMVA == kFALSE){
@@ -3510,7 +3518,7 @@ void PlotHiggsRes2012
       histo_Top_CMS_hww_MVALepResBoundingUp 	 ->Write();
       histo_Top_CMS_hww_MVALepResBoundingDown	 ->Write();
       histo_Wgamma_CMS_hww_MVALepResBoundingUp	 ->Write();
-      histo_Wgamma_CMS_hww_MVALepResBoundingDown	 ->Write();
+      histo_Wgamma_CMS_hww_MVALepResBoundingDown ->Write();
       histo_Ztt_CMS_hww_MVALepResBoundingUp 	 ->Write();
       histo_Ztt_CMS_hww_MVALepResBoundingDown	 ->Write();
 
@@ -3767,7 +3775,8 @@ void PlotHiggsRes2012
     for(int i=0; i<6; i++) if(nSigMVA[i] <= 0) nSigMVA[i] = 0.000;
     double yieldE[13],yield[13];
     int nData;
-    int nTotalBins = 1; // histo_VH->GetNbinsX();
+    int nTotalBins = 1;//histo_qqH->GetNbinsX();
+    if(nTotalBins != 1) {useExpTemplates = false; useJESTemplates = false; useWJetsTemplates = false; useZjetsTemplates = false; useTopTemplates = false; useWWTemplates = false;}
 
     //----------------------------------------------------------------------------
     // Yields for MVA Shape Analysis
@@ -3775,19 +3784,6 @@ void PlotHiggsRes2012
     char outputLimitsShape[200];
     for(int i=1; i<=nTotalBins; i++){
       if(nTotalBins != 1){
-        if(histo_ttH   ->GetBinContent(i) > 0) { yieldE[0] = histo_ttH   ->GetBinError(i)/histo_ttH   ->GetBinContent(i);} else {yieldE[0] = 0.0;}
-        if(histo_ZH    ->GetBinContent(i) > 0) { yieldE[1] = histo_ZH    ->GetBinError(i)/histo_ZH    ->GetBinContent(i);} else {yieldE[1] = 0.0;}
-        if(histo_WH    ->GetBinContent(i) > 0) { yieldE[2] = histo_WH    ->GetBinError(i)/histo_WH    ->GetBinContent(i);} else {yieldE[2] = 0.0;}
-        if(histo_qqH   ->GetBinContent(i) > 0) { yieldE[3] = histo_qqH   ->GetBinError(i)/histo_qqH   ->GetBinContent(i);} else {yieldE[3] = 0.0;}
-        if(histo_ggH   ->GetBinContent(i) > 0) { yieldE[4] = histo_ggH   ->GetBinError(i)/histo_ggH   ->GetBinContent(i);} else {yieldE[4] = 0.0;}
-        if(histo_qqWW  ->GetBinContent(i) > 0) { yieldE[5] = histo_qqWW  ->GetBinError(i)/histo_qqWW  ->GetBinContent(i);} else {yieldE[5] = 0.0;}
-        if(histo_ggWW  ->GetBinContent(i) > 0) { yieldE[6] = histo_ggWW  ->GetBinError(i)/histo_ggWW  ->GetBinContent(i);} else {yieldE[6] = 0.0;}
-        if(histo_VV    ->GetBinContent(i) > 0) { yieldE[7] = histo_VV    ->GetBinError(i)/histo_VV    ->GetBinContent(i);} else {yieldE[7] = 0.0;}
-        if(histo_Top   ->GetBinContent(i) > 0) { yieldE[8] = histo_Top   ->GetBinError(i)/histo_Top   ->GetBinContent(i);} else {yieldE[8] = 0.0;}
-        if(histo_Zjets ->GetBinContent(i) > 0) { yieldE[9] = histo_Zjets ->GetBinError(i)/histo_Zjets ->GetBinContent(i);} else {yieldE[9] = 0.0;}
-        if(histo_Wjets ->GetBinContent(i) > 0) { yieldE[10]= histo_Wjets ->GetBinError(i)/histo_Wjets ->GetBinContent(i);} else {yieldE[10]= 0.0;}
-        if(histo_Wgamma->GetBinContent(i) > 0) { yieldE[11]= histo_Wgamma->GetBinError(i)/histo_Wgamma->GetBinContent(i);} else {yieldE[11]= 0.0;}
-        if(histo_Ztt   ->GetBinContent(i) > 0) { yieldE[12]= histo_Ztt   ->GetBinError(i)/histo_Ztt   ->GetBinContent(i);} else {yieldE[12]= 0.0;}
 	yield[0] = histo_ttH   ->GetBinContent(i);
 	yield[1] = histo_ZH    ->GetBinContent(i);
 	yield[2] = histo_WH    ->GetBinContent(i);
@@ -3798,9 +3794,25 @@ void PlotHiggsRes2012
 	yield[7] = histo_VV    ->GetBinContent(i);
 	yield[8] = histo_Top   ->GetBinContent(i);
 	yield[9] = histo_Zjets ->GetBinContent(i);
-	yield[10]= histo_Wjets ->GetBinContent(i);
+	yield[10]= histo_Wjets ->GetBinContent(i); if(yield[10] <= 0) yield[10] = 0.0;
 	yield[11]= histo_Wgamma->GetBinContent(i);
 	yield[12]= histo_Ztt   ->GetBinContent(i);
+        if(yield[0]  > 0) { yieldE[0] = histo_ttH   ->GetBinError(i)/yield[0] ;} else {yieldE[0] = 0.0;}
+        if(yield[1]  > 0) { yieldE[1] = histo_ZH    ->GetBinError(i)/yield[1] ;} else {yieldE[1] = 0.0;}
+        if(yield[2]  > 0) { yieldE[2] = histo_WH    ->GetBinError(i)/yield[2] ;} else {yieldE[2] = 0.0;}
+        if(yield[3]  > 0) { yieldE[3] = histo_qqH   ->GetBinError(i)/yield[3] ;} else {yieldE[3] = 0.0;}
+        if(yield[4]  > 0) { yieldE[4] = histo_ggH   ->GetBinError(i)/yield[4] ;} else {yieldE[4] = 0.0;}
+        if(yield[5]  > 0) { yieldE[5] = histo_qqWW  ->GetBinError(i)/yield[5] ;} else {yieldE[5] = 0.0;}
+        if(yield[6]  > 0) { yieldE[6] = histo_ggWW  ->GetBinError(i)/yield[6] ;} else {yieldE[6] = 0.0;}
+        if(yield[7]  > 0) { yieldE[7] = histo_VV    ->GetBinError(i)/yield[7] ;} else {yieldE[7] = 0.0;}
+        if(yield[8]  > 0) { yieldE[8] = histo_Top   ->GetBinError(i)/yield[8] ;} else {yieldE[8] = 0.0;}
+        if(yield[9]  > 0) { yieldE[9] = histo_Zjets ->GetBinError(i)/yield[9] ;} else {yieldE[9] = 0.0;}
+        if(yield[10] > 0) { yieldE[10]= histo_Wjets ->GetBinError(i)/yield[10];} else {yieldE[10]= 0.0;}
+        if(yield[11] > 0) { yieldE[11]= histo_Wgamma->GetBinError(i)/yield[11];} else {yieldE[11]= 0.0;}
+        if(yield[12] > 0) { yieldE[12]= histo_Ztt   ->GetBinError(i)/yield[12];} else {yieldE[12]= 0.0;}
+	
+	if(yield[10] > 0 && yieldE[10] > 2) yieldE[10] = 2.0;
+
 	nData    = (int)histo_Data->GetBinContent(i);
       }
       else {
@@ -3842,11 +3854,11 @@ void PlotHiggsRes2012
 	}
       }
       if(nTotalBins != 1){
-        sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape_bin%d_8TeV.txt",outTag.Data(),nJetsType,wwDecay,mH,i);
+                          sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape_bin%d_8TeV.txt"   ,outTag.Data(),nJetsType,wwDecay,mH,i);
 	if(category == 1) sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape_bin%d_lt_8TeV.txt",outTag.Data(),nJetsType,wwDecay,mH,i);
       }
       else {
-        sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape_8TeV.txt",outTag.Data(),nJetsType,wwDecay,mH);
+                          sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape_8TeV.txt"   ,outTag.Data(),nJetsType,wwDecay,mH);
 	if(category == 1) sprintf(outputLimitsShape,"output/histo_limits_%s_%dj_chan%d_mh%d_shape_lt_8TeV.txt",outTag.Data(),nJetsType,wwDecay,mH);
       }
       char theZttString[20];
