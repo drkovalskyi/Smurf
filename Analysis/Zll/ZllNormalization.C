@@ -112,6 +112,7 @@ void ZllNormalization
   delete fPU2012File;
 
   double massCut[2] = {82,100};
+  double metCut[2] = {-30,30};
   //----------------------------------------------------------------------------
 
   double NZmmSelected_MC = 0;
@@ -144,33 +145,57 @@ void ZllNormalization
   TH1D *ZeeMass_CorMC_EE = new TH1D("ZeeMass_CorMC_EE", ";Mass [GeV/c^{2}]; NEvents; ", 200, massCut[0],massCut[1]);
   TH1D *ZeeMass_CorMC_EB = new TH1D("ZeeMass_CorMC_EB", ";Mass [GeV/c^{2}]; NEvents; ", 200, massCut[0],massCut[1]);
 
+  TH1D *Zll0Met_MC_X         = new TH1D("Zll0Met_MC_X"         , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll0Met_MC_Y         = new TH1D("Zll0Met_MC_Y"         , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll0TrackMet_MC_X    = new TH1D("Zll0TrackMet_MC_X"    , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll0TrackMet_MC_Y    = new TH1D("Zll0TrackMet_MC_Y"    , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll0Met_DA_X         = new TH1D("Zll0Met_DA_X"         , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll0Met_DA_Y         = new TH1D("Zll0Met_DA_Y"         , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll0TrackMet_DA_X    = new TH1D("Zll0TrackMet_DA_X"    , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll0TrackMet_DA_Y    = new TH1D("Zll0TrackMet_DA_Y"    , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll0Met_CorMC_X      = new TH1D("Zll0Met_CorMC_X"      , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll0Met_CorMC_Y      = new TH1D("Zll0Met_CorMC_Y"      , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll0TrackMet_CorMC_X = new TH1D("Zll0TrackMet_CorMC_X" , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll0TrackMet_CorMC_Y = new TH1D("Zll0TrackMet_CorMC_Y" , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll1Met_MC_X         = new TH1D("Zll1Met_MC_X"         , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll1Met_MC_Y         = new TH1D("Zll1Met_MC_Y"         , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll1TrackMet_MC_X    = new TH1D("Zll1TrackMet_MC_X"    , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll1TrackMet_MC_Y    = new TH1D("Zll1TrackMet_MC_Y"    , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll1Met_DA_X         = new TH1D("Zll1Met_DA_X"         , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll1Met_DA_Y         = new TH1D("Zll1Met_DA_Y"         , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll1TrackMet_DA_X    = new TH1D("Zll1TrackMet_DA_X"    , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll1TrackMet_DA_Y    = new TH1D("Zll1TrackMet_DA_Y"    , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll1Met_CorMC_X      = new TH1D("Zll1Met_CorMC_X"      , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll1Met_CorMC_Y      = new TH1D("Zll1Met_CorMC_Y"      , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll1TrackMet_CorMC_X = new TH1D("Zll1TrackMet_CorMC_X" , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll1TrackMet_CorMC_Y = new TH1D("Zll1TrackMet_CorMC_Y" , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll2Met_MC_X         = new TH1D("Zll2Met_MC_X"         , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll2Met_MC_Y         = new TH1D("Zll2Met_MC_Y"         , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll2TrackMet_MC_X    = new TH1D("Zll2TrackMet_MC_X"    , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll2TrackMet_MC_Y    = new TH1D("Zll2TrackMet_MC_Y"    , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll2Met_DA_X         = new TH1D("Zll2Met_DA_X"         , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll2Met_DA_Y         = new TH1D("Zll2Met_DA_Y"         , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll2TrackMet_DA_X    = new TH1D("Zll2TrackMet_DA_X"    , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll2TrackMet_DA_Y    = new TH1D("Zll2TrackMet_DA_Y"    , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll2Met_CorMC_X      = new TH1D("Zll2Met_CorMC_X"      , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll2Met_CorMC_Y      = new TH1D("Zll2Met_CorMC_Y"      , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll2TrackMet_CorMC_X = new TH1D("Zll2TrackMet_CorMC_X" , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+  TH1D *Zll2TrackMet_CorMC_Y = new TH1D("Zll2TrackMet_CorMC_Y" , ";Missing Energy [GeV]; NEvents; ", 200, metCut[0],metCut[1]);
+
   //----------------------------------------------------------------------------
   UInt_t          cuts;
   UInt_t          dstype;
   UInt_t          nvtx;
   UInt_t          njets;
-  UInt_t          event;
-  UInt_t          run;
-  UInt_t          lumi;
   Float_t         scale1fb;
   LorentzVector*  lep1  = 0;
   LorentzVector*  lep2  = 0;
-  LorentzVector*  jet1  = 0;
-  LorentzVector*  jet2  = 0;
-  Float_t         dPhi;
-  Float_t         dR;
   LorentzVector*  dilep = 0;
   UInt_t          type;
-  Float_t         pmet;
-  Float_t         pTrackMet;
   Float_t         met;
-  Float_t         mt;
-  Float_t         mt1;
-  Float_t         mt2;
-  Float_t         dPhiLep1MET;
-  Float_t         dPhiLep2MET;
-  Float_t         dPhiDiLepMET;
-  Float_t         dPhiDiLepJet1;
+  Float_t         trackMet;
+  Float_t         metPhi;
+  Float_t         trackMetPhi;
   Int_t           lq1;
   Int_t           lq2;
   Int_t           lid1;
@@ -193,26 +218,15 @@ void ZllNormalization
   background->SetBranchAddress( "dstype"        , &dstype	  );
   background->SetBranchAddress( "nvtx"          , &nvtx 	  );
   background->SetBranchAddress( "njets"         , &njets	  );
-  background->SetBranchAddress( "event"         , &event	  );
   background->SetBranchAddress( "scale1fb"      , &scale1fb	  );
   background->SetBranchAddress( "lep1"          , &lep1 	  );
   background->SetBranchAddress( "lep2"          , &lep2 	  );
-  background->SetBranchAddress( "jet1"          , &jet1 	  );
-  background->SetBranchAddress( "jet2"          , &jet2 	  );
-  background->SetBranchAddress( "dPhi"          , &dPhi 	  );
-  background->SetBranchAddress( "dR"            , &dR		  );
   background->SetBranchAddress( "dilep"         , &dilep	  );
   background->SetBranchAddress( "type"          , &type 	  );
-  background->SetBranchAddress( "pmet"          , &pmet 	  );
-  background->SetBranchAddress( "pTrackMet"     , &pTrackMet	  );
-  background->SetBranchAddress( "met"           , &met  	  );
-  background->SetBranchAddress( "mt"            , &mt		  );
-  background->SetBranchAddress( "mt1"           , &mt1  	  );
-  background->SetBranchAddress( "mt2"           , &mt2  	  );
-  background->SetBranchAddress( "dPhiLep1MET"   , &dPhiLep1MET    );
-  background->SetBranchAddress( "dPhiLep2MET"   , &dPhiLep2MET    );
-  background->SetBranchAddress( "dPhiDiLepMET"  , &dPhiDiLepMET   );
-  background->SetBranchAddress( "dPhiDiLepJet1" , &dPhiDiLepJet1  );
+  background->SetBranchAddress( "met"	     	, &met            );
+  background->SetBranchAddress( "trackMet"   	, &trackMet       );
+  background->SetBranchAddress( "metPhi"	, &metPhi         );
+  background->SetBranchAddress( "trackMetPhi"	, &trackMetPhi    );
   background->SetBranchAddress( "lq1"           , &lq1  	  );
   background->SetBranchAddress( "lq2"           , &lq2  	  );
   background->SetBranchAddress( "lid1"          , &lid1 	  );
@@ -233,7 +247,7 @@ void ZllNormalization
     if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
 
     if ( lep1->pt() > 20 && lep2->pt() > 10 && dilep->mass() > massCut[0] && dilep->mass() < massCut[1]
-         && (cuts & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto
+         && (cuts & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto && lq1*lq2 < 0
 	 && (cuts & SmurfTree::TopTag) != SmurfTree::TopTag
       ) {
 
@@ -405,6 +419,56 @@ void ZllNormalization
         NZeeSelected_MC += eventWeight;
       }
 
+      double metx=0.0;double mety=0.0;double trkmetx=0.0;double trkmety=0.0;
+      if    (njets == 0){
+        metx	= met*cos(metPhi)	   -0.45189+gRandom->Gaus(0.0,3.2);
+        mety	= met*sin(metPhi)	   -0.20148+gRandom->Gaus(0.0,3.2);
+        trkmetx = trackMet*cos(trackMetPhi)+0.12580+gRandom->Gaus(0.0,2.0);
+        trkmety = trackMet*sin(trackMetPhi)+0.02615+gRandom->Gaus(0.0,2.0);
+      }
+      else if(njets == 1){
+        metx	= met*cos(metPhi)	   -0.39040+gRandom->Gaus(0.0,3.6);
+        mety	= met*sin(metPhi)	   -0.20427+gRandom->Gaus(0.0,3.6);
+        trkmetx = trackMet*cos(trackMetPhi)+0.07639+gRandom->Gaus(0.0,4.5);
+        trkmety = trackMet*sin(trackMetPhi)+0.01167+gRandom->Gaus(0.0,4.5);
+      }
+      else if(njets >= 2){
+        metx	= met*cos(metPhi)	   -0.27127+gRandom->Gaus(0.0,4.3);
+        mety	= met*sin(metPhi)	   -0.18935+gRandom->Gaus(0.0,4.3);
+        trkmetx = trackMet*cos(trackMetPhi)+0.13328+gRandom->Gaus(0.0,6.0);
+        trkmety = trackMet*sin(trackMetPhi)-0.01351+gRandom->Gaus(0.0,6.0);
+      }
+      if     (njets == 0){
+        Zll0Met_MC_X     ->Fill(met*cos(metPhi)  	  , eventWeight);
+	Zll0Met_MC_Y     ->Fill(met*sin(metPhi) 	  , eventWeight);
+	Zll0TrackMet_MC_X->Fill(trackMet*cos(trackMetPhi) , eventWeight);
+	Zll0TrackMet_MC_Y->Fill(trackMet*sin(trackMetPhi) , eventWeight);
+        Zll0Met_CorMC_X     ->Fill(metx  	     	  , eventWeight);
+	Zll0Met_CorMC_Y     ->Fill(mety 	     	  , eventWeight);
+	Zll0TrackMet_CorMC_X->Fill(trkmetx 		  , eventWeight);
+	Zll0TrackMet_CorMC_Y->Fill(trkmety 		  , eventWeight);
+      } 
+      else if(njets == 1){
+        Zll1Met_MC_X     ->Fill(met*cos(metPhi)  	  , eventWeight);
+	Zll1Met_MC_Y     ->Fill(met*sin(metPhi) 	  , eventWeight);
+	Zll1TrackMet_MC_X->Fill(trackMet*cos(trackMetPhi) , eventWeight);
+	Zll1TrackMet_MC_Y->Fill(trackMet*sin(trackMetPhi) , eventWeight);
+        Zll1Met_CorMC_X     ->Fill(metx  	     	  , eventWeight);
+	Zll1Met_CorMC_Y     ->Fill(mety 	     	  , eventWeight);
+	Zll1TrackMet_CorMC_X->Fill(trkmetx 		  , eventWeight);
+	Zll1TrackMet_CorMC_Y->Fill(trkmety 		  , eventWeight);
+      } 
+      else if(njets >= 2){
+        Zll2Met_MC_X     ->Fill(met*cos(metPhi)  	  , eventWeight);
+	Zll2Met_MC_Y     ->Fill(met*sin(metPhi) 	  , eventWeight);
+	Zll2TrackMet_MC_X->Fill(trackMet*cos(trackMetPhi) , eventWeight);
+	Zll2TrackMet_MC_Y->Fill(trackMet*sin(trackMetPhi) , eventWeight);
+        Zll2Met_CorMC_X     ->Fill(metx  	     	  , eventWeight);
+	Zll2Met_CorMC_Y     ->Fill(mety 	     	  , eventWeight);
+	Zll2TrackMet_CorMC_X->Fill(trkmetx 		  , eventWeight);
+	Zll2TrackMet_CorMC_Y->Fill(trkmety 		  , eventWeight);
+      } 
+
     }
   }
   printf("--- Finished Bgdnal loop\n");
@@ -416,28 +480,15 @@ void ZllNormalization
   data->SetBranchAddress( "cuts"         , &cuts         );
   data->SetBranchAddress( "nvtx"         , &nvtx         );
   data->SetBranchAddress( "njets"        , &njets        );
-  data->SetBranchAddress( "event"        , &event        );
-  data->SetBranchAddress( "run"          , &run          );
-  data->SetBranchAddress( "lumi"         , &lumi         );
   data->SetBranchAddress( "scale1fb"     , &scale1fb     );
   data->SetBranchAddress( "lep1"         , &lep1         );
   data->SetBranchAddress( "lep2"         , &lep2         );
-  data->SetBranchAddress( "jet1"         , &jet1         );
-  data->SetBranchAddress( "jet2"         , &jet2         );
-  data->SetBranchAddress( "dPhi"         , &dPhi         );
-  data->SetBranchAddress( "dR"           , &dR           );
   data->SetBranchAddress( "dilep"        , &dilep        );
   data->SetBranchAddress( "type"         , &type         );
-  data->SetBranchAddress( "pmet"         , &pmet         );
-  data->SetBranchAddress( "pTrackMet"    , &pTrackMet    );
-  data->SetBranchAddress( "met"          , &met          );
-  data->SetBranchAddress( "mt"           , &mt           );
-  data->SetBranchAddress( "mt1"          , &mt1          );
-  data->SetBranchAddress( "mt2"          , &mt2          );
-  data->SetBranchAddress( "dPhiLep1MET"  , &dPhiLep1MET  );
-  data->SetBranchAddress( "dPhiLep2MET"  , &dPhiLep2MET  );
-  data->SetBranchAddress( "dPhiDiLepMET" , &dPhiDiLepMET );
-  data->SetBranchAddress( "dPhiDiLepJet1", &dPhiDiLepJet1);
+  data->SetBranchAddress( "met" 	 , &met 	 );
+  data->SetBranchAddress( "trackMet"	 , &trackMet	 );
+  data->SetBranchAddress( "metPhi"	 , &metPhi	 );
+  data->SetBranchAddress( "trackMetPhi"  , &trackMetPhi  );
   data->SetBranchAddress( "lq1"          , &lq1          );
   data->SetBranchAddress( "lq2"          , &lq2          );
   data->SetBranchAddress( "lid1"         , &lid1         );
@@ -451,7 +502,7 @@ void ZllNormalization
     if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)data->GetEntries());
 
     if ( lep1->pt() > 20 && lep2->pt() > 10 && dilep->mass() > massCut[0] && dilep->mass() < massCut[1]
-         && (cuts & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto
+         && (cuts & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto && lq1*lq2 < 0
 	 && (cuts & SmurfTree::TopTag) != SmurfTree::TopTag
          && ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection)
          && ((cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)
@@ -474,6 +525,25 @@ void ZllNormalization
 	else                                                                        ZeeMass_DA_EB->Fill(dilep->mass() , eventWeight);
         NZeeSelected_DA += eventWeight;
       }
+
+      if     (njets == 0){
+        Zll0Met_DA_X     ->Fill(met*cos(metPhi) , eventWeight); 
+	Zll0Met_DA_Y     ->Fill(met*sin(metPhi) , eventWeight);
+	Zll0TrackMet_DA_X->Fill(trackMet*cos(trackMetPhi) , eventWeight);
+	Zll0TrackMet_DA_Y->Fill(trackMet*sin(trackMetPhi) , eventWeight);
+      } 
+      else if(njets == 1){
+        Zll1Met_DA_X     ->Fill(met*cos(metPhi) , eventWeight); 
+	Zll1Met_DA_Y     ->Fill(met*sin(metPhi) , eventWeight);
+	Zll1TrackMet_DA_X->Fill(trackMet*cos(trackMetPhi) , eventWeight);
+	Zll1TrackMet_DA_Y->Fill(trackMet*sin(trackMetPhi) , eventWeight);
+      } 
+      else if(njets >= 2){
+        Zll2Met_DA_X     ->Fill(met*cos(metPhi) , eventWeight); 
+	Zll2Met_DA_Y     ->Fill(met*sin(metPhi) , eventWeight);
+	Zll2TrackMet_DA_X->Fill(trackMet*cos(trackMetPhi) , eventWeight);
+	Zll2TrackMet_DA_Y->Fill(trackMet*sin(trackMetPhi) , eventWeight);
+      } 
 
     }
   }
@@ -547,6 +617,117 @@ void ZllNormalization
   printf("bias:  %8.5f  %8.5f  %8.5f  %8.5f\n",bias[0],bias[1],bias[2],bias[3]);
   printf("smear: %8.5f  %8.5f  %8.5f  %8.5f\n",smear[0],smear[1],smear[2],smear[3]);
 
+  Zll0Met_MC_X     ->Scale(Zll0Met_DA_X     ->GetSumOfWeights()/Zll0Met_MC_X	 ->GetSumOfWeights());
+  Zll0Met_MC_Y     ->Scale(Zll0Met_DA_Y     ->GetSumOfWeights()/Zll0Met_MC_Y	 ->GetSumOfWeights());
+  Zll0TrackMet_MC_X->Scale(Zll0TrackMet_DA_X->GetSumOfWeights()/Zll0TrackMet_MC_X->GetSumOfWeights());
+  Zll0TrackMet_MC_Y->Scale(Zll0TrackMet_DA_Y->GetSumOfWeights()/Zll0TrackMet_MC_Y->GetSumOfWeights());
+  Zll1Met_MC_X     ->Scale(Zll1Met_DA_X     ->GetSumOfWeights()/Zll1Met_MC_X	 ->GetSumOfWeights());
+  Zll1Met_MC_Y     ->Scale(Zll1Met_DA_Y     ->GetSumOfWeights()/Zll1Met_MC_Y	 ->GetSumOfWeights());
+  Zll1TrackMet_MC_X->Scale(Zll1TrackMet_DA_X->GetSumOfWeights()/Zll1TrackMet_MC_X->GetSumOfWeights());
+  Zll1TrackMet_MC_Y->Scale(Zll1TrackMet_DA_Y->GetSumOfWeights()/Zll1TrackMet_MC_Y->GetSumOfWeights());
+  Zll2Met_MC_X     ->Scale(Zll2Met_DA_X     ->GetSumOfWeights()/Zll2Met_MC_X	 ->GetSumOfWeights());
+  Zll2Met_MC_Y     ->Scale(Zll2Met_DA_Y     ->GetSumOfWeights()/Zll2Met_MC_Y	 ->GetSumOfWeights());
+  Zll2TrackMet_MC_X->Scale(Zll2TrackMet_DA_X->GetSumOfWeights()/Zll2TrackMet_MC_X->GetSumOfWeights());
+  Zll2TrackMet_MC_Y->Scale(Zll2TrackMet_DA_Y->GetSumOfWeights()/Zll2TrackMet_MC_Y->GetSumOfWeights());
+  Zll0Met_CorMC_X     ->Scale(Zll0Met_DA_X     ->GetSumOfWeights()/Zll0Met_MC_X	    ->GetSumOfWeights());
+  Zll0Met_CorMC_Y     ->Scale(Zll0Met_DA_Y     ->GetSumOfWeights()/Zll0Met_MC_Y	    ->GetSumOfWeights());
+  Zll0TrackMet_CorMC_X->Scale(Zll0TrackMet_DA_X->GetSumOfWeights()/Zll0TrackMet_MC_X->GetSumOfWeights());
+  Zll0TrackMet_CorMC_Y->Scale(Zll0TrackMet_DA_Y->GetSumOfWeights()/Zll0TrackMet_MC_Y->GetSumOfWeights());
+  Zll1Met_CorMC_X     ->Scale(Zll1Met_DA_X     ->GetSumOfWeights()/Zll1Met_MC_X	    ->GetSumOfWeights());
+  Zll1Met_CorMC_Y     ->Scale(Zll1Met_DA_Y     ->GetSumOfWeights()/Zll1Met_MC_Y	    ->GetSumOfWeights());
+  Zll1TrackMet_CorMC_X->Scale(Zll1TrackMet_DA_X->GetSumOfWeights()/Zll1TrackMet_MC_X->GetSumOfWeights());
+  Zll1TrackMet_CorMC_Y->Scale(Zll1TrackMet_DA_Y->GetSumOfWeights()/Zll1TrackMet_MC_Y->GetSumOfWeights());
+  Zll2Met_CorMC_X     ->Scale(Zll2Met_DA_X     ->GetSumOfWeights()/Zll2Met_MC_X	    ->GetSumOfWeights());
+  Zll2Met_CorMC_Y     ->Scale(Zll2Met_DA_Y     ->GetSumOfWeights()/Zll2Met_MC_Y	    ->GetSumOfWeights());
+  Zll2TrackMet_CorMC_X->Scale(Zll2TrackMet_DA_X->GetSumOfWeights()/Zll2TrackMet_MC_X->GetSumOfWeights());
+  Zll2TrackMet_CorMC_Y->Scale(Zll2TrackMet_DA_Y->GetSumOfWeights()/Zll2TrackMet_MC_Y->GetSumOfWeights());
+
+  printf("********MET******************\n");
+  printf("   MeanMC: %8.5f  %8.5f  %8.5f  %8.5f | %8.5f  %8.5f  %8.5f  %8.5f | %8.5f  %8.5f  %8.5f  %8.5f\n",
+         Zll0Met_MC_X->GetMean(),Zll0Met_MC_Y->GetMean(),Zll0TrackMet_MC_X->GetMean(),Zll0TrackMet_MC_Y->GetMean(),
+         Zll1Met_MC_X->GetMean(),Zll1Met_MC_Y->GetMean(),Zll1TrackMet_MC_X->GetMean(),Zll1TrackMet_MC_Y->GetMean(),
+         Zll2Met_MC_X->GetMean(),Zll2Met_MC_Y->GetMean(),Zll2TrackMet_MC_X->GetMean(),Zll2TrackMet_MC_Y->GetMean());
+  printf("   MeanDA: %8.5f  %8.5f  %8.5f  %8.5f | %8.5f  %8.5f  %8.5f  %8.5f | %8.5f  %8.5f  %8.5f  %8.5f\n",
+         Zll0Met_DA_X->GetMean(),Zll0Met_DA_Y->GetMean(),Zll0TrackMet_DA_X->GetMean(),Zll0TrackMet_DA_Y->GetMean(),
+         Zll1Met_DA_X->GetMean(),Zll1Met_DA_Y->GetMean(),Zll1TrackMet_DA_X->GetMean(),Zll1TrackMet_DA_Y->GetMean(),
+         Zll2Met_DA_X->GetMean(),Zll2Met_DA_Y->GetMean(),Zll2TrackMet_DA_X->GetMean(),Zll2TrackMet_DA_Y->GetMean());
+  printf("MeanCorMC: %8.5f  %8.5f  %8.5f  %8.5f | %8.5f  %8.5f  %8.5f  %8.5f | %8.5f  %8.5f  %8.5f  %8.5f\n",
+         Zll0Met_CorMC_X->GetMean(),Zll0Met_CorMC_Y->GetMean(),Zll0TrackMet_CorMC_X->GetMean(),Zll0TrackMet_CorMC_Y->GetMean(),
+         Zll1Met_CorMC_X->GetMean(),Zll1Met_CorMC_Y->GetMean(),Zll1TrackMet_CorMC_X->GetMean(),Zll1TrackMet_CorMC_Y->GetMean(),
+         Zll2Met_CorMC_X->GetMean(),Zll2Met_CorMC_Y->GetMean(),Zll2TrackMet_CorMC_X->GetMean(),Zll2TrackMet_CorMC_Y->GetMean());
+  printf("   RMSMC: %8.5f  %8.5f  %8.5f  %8.5f | %8.5f  %8.5f  %8.5f  %8.5f | %8.5f  %8.5f  %8.5f  %8.5f\n",
+         Zll0Met_MC_X->GetRMS(),Zll0Met_MC_Y->GetRMS(),Zll0TrackMet_MC_X->GetRMS(),Zll0TrackMet_MC_Y->GetRMS(),
+         Zll1Met_MC_X->GetRMS(),Zll1Met_MC_Y->GetRMS(),Zll1TrackMet_MC_X->GetRMS(),Zll1TrackMet_MC_Y->GetRMS(),
+         Zll2Met_MC_X->GetRMS(),Zll2Met_MC_Y->GetRMS(),Zll2TrackMet_MC_X->GetRMS(),Zll2TrackMet_MC_Y->GetRMS());
+  printf("   RMSDA: %8.5f  %8.5f  %8.5f  %8.5f | %8.5f  %8.5f  %8.5f  %8.5f | %8.5f  %8.5f  %8.5f  %8.5f\n",
+         Zll0Met_DA_X->GetRMS(),Zll0Met_DA_Y->GetRMS(),Zll0TrackMet_DA_X->GetRMS(),Zll0TrackMet_DA_Y->GetRMS(),
+         Zll1Met_DA_X->GetRMS(),Zll1Met_DA_Y->GetRMS(),Zll1TrackMet_DA_X->GetRMS(),Zll1TrackMet_DA_Y->GetRMS(),
+         Zll2Met_DA_X->GetRMS(),Zll2Met_DA_Y->GetRMS(),Zll2TrackMet_DA_X->GetRMS(),Zll2TrackMet_DA_Y->GetRMS());
+  printf("RMSCorMC: %8.5f  %8.5f  %8.5f  %8.5f | %8.5f  %8.5f  %8.5f  %8.5f | %8.5f  %8.5f  %8.5f  %8.5f\n",
+         Zll0Met_CorMC_X->GetRMS(),Zll0Met_CorMC_Y->GetRMS(),Zll0TrackMet_CorMC_X->GetRMS(),Zll0TrackMet_CorMC_Y->GetRMS(),
+         Zll1Met_CorMC_X->GetRMS(),Zll1Met_CorMC_Y->GetRMS(),Zll1TrackMet_CorMC_X->GetRMS(),Zll1TrackMet_CorMC_Y->GetRMS(),
+         Zll2Met_CorMC_X->GetRMS(),Zll2Met_CorMC_Y->GetRMS(),Zll2TrackMet_CorMC_X->GetRMS(),Zll2TrackMet_CorMC_Y->GetRMS());
+  bias[0]  = Zll0Met_DA_X     ->GetMean()-Zll0Met_MC_X     ->GetMean();
+  bias[1]  = Zll0Met_DA_Y     ->GetMean()-Zll0Met_MC_Y     ->GetMean();
+  bias[2]  = Zll0TrackMet_DA_X->GetMean()-Zll0TrackMet_MC_X->GetMean();
+  bias[3]  = Zll0TrackMet_DA_Y->GetMean()-Zll0TrackMet_MC_Y->GetMean();
+  smear[0] = sqrt(TMath::Max(Zll0Met_DA_X     ->GetRMS()*Zll0Met_DA_X	  ->GetRMS()-Zll0Met_MC_X     ->GetRMS()*Zll0Met_MC_X	  ->GetRMS(),0.));
+  smear[1] = sqrt(TMath::Max(Zll0Met_DA_Y     ->GetRMS()*Zll0Met_DA_Y	  ->GetRMS()-Zll0Met_MC_Y     ->GetRMS()*Zll0Met_MC_Y	  ->GetRMS(),0.));
+  smear[2] = sqrt(TMath::Max(Zll0TrackMet_DA_X->GetRMS()*Zll0TrackMet_DA_X->GetRMS()-Zll0TrackMet_MC_X->GetRMS()*Zll0TrackMet_MC_X->GetRMS(),0.));
+  smear[3] = sqrt(TMath::Max(Zll0TrackMet_DA_Y->GetRMS()*Zll0TrackMet_DA_Y->GetRMS()-Zll0TrackMet_MC_Y->GetRMS()*Zll0TrackMet_MC_Y->GetRMS(),0.));
+  printf(" bias0:  %8.5f  %8.5f  %8.5f  %8.5f\n",bias[0],bias[1],bias[2],bias[3]);
+  printf("smear0: %8.5f  %8.5f  %8.5f  %8.5f\n",smear[0],smear[1],smear[2],smear[3]);
+  bias[0]  = Zll0Met_DA_X     ->GetMean()-Zll0Met_CorMC_X     ->GetMean();
+  bias[1]  = Zll0Met_DA_Y     ->GetMean()-Zll0Met_CorMC_Y     ->GetMean();
+  bias[2]  = Zll0TrackMet_DA_X->GetMean()-Zll0TrackMet_CorMC_X->GetMean();
+  bias[3]  = Zll0TrackMet_DA_Y->GetMean()-Zll0TrackMet_CorMC_Y->GetMean();
+  smear[0] = sqrt(TMath::Max(Zll0Met_CorMC_X     ->GetRMS()*Zll0Met_CorMC_X     ->GetRMS()-Zll0Met_DA_X     ->GetRMS()*Zll0Met_DA_X     ->GetRMS(),0.));
+  smear[1] = sqrt(TMath::Max(Zll0Met_CorMC_Y     ->GetRMS()*Zll0Met_CorMC_Y     ->GetRMS()-Zll0Met_DA_Y     ->GetRMS()*Zll0Met_DA_Y     ->GetRMS(),0.));
+  smear[2] = sqrt(TMath::Max(Zll0TrackMet_CorMC_X->GetRMS()*Zll0TrackMet_CorMC_X->GetRMS()-Zll0TrackMet_DA_X->GetRMS()*Zll0TrackMet_DA_X->GetRMS(),0.));
+  smear[3] = sqrt(TMath::Max(Zll0TrackMet_CorMC_Y->GetRMS()*Zll0TrackMet_CorMC_Y->GetRMS()-Zll0TrackMet_DA_Y->GetRMS()*Zll0TrackMet_DA_Y->GetRMS(),0.));
+  printf(" biasCor0:  %8.5f  %8.5f  %8.5f  %8.5f\n",bias[0],bias[1],bias[2],bias[3]);
+  printf("smearCor0: %8.5f  %8.5f  %8.5f  %8.5f\n",smear[0],smear[1],smear[2],smear[3]);
+  bias[0]  = Zll1Met_DA_X     ->GetMean()-Zll1Met_MC_X     ->GetMean();
+  bias[1]  = Zll1Met_DA_Y     ->GetMean()-Zll1Met_MC_Y     ->GetMean();
+  bias[2]  = Zll1TrackMet_DA_X->GetMean()-Zll1TrackMet_MC_X->GetMean();
+  bias[3]  = Zll1TrackMet_DA_Y->GetMean()-Zll1TrackMet_MC_Y->GetMean();
+  smear[0] = sqrt(TMath::Max(Zll1Met_DA_X     ->GetRMS()*Zll1Met_DA_X	  ->GetRMS()-Zll1Met_MC_X     ->GetRMS()*Zll1Met_MC_X	  ->GetRMS(),0.));
+  smear[1] = sqrt(TMath::Max(Zll1Met_DA_Y     ->GetRMS()*Zll1Met_DA_Y	  ->GetRMS()-Zll1Met_MC_Y     ->GetRMS()*Zll1Met_MC_Y	  ->GetRMS(),0.));
+  smear[2] = sqrt(TMath::Max(Zll1TrackMet_DA_X->GetRMS()*Zll1TrackMet_DA_X->GetRMS()-Zll1TrackMet_MC_X->GetRMS()*Zll1TrackMet_MC_X->GetRMS(),0.));
+  smear[3] = sqrt(TMath::Max(Zll1TrackMet_DA_Y->GetRMS()*Zll1TrackMet_DA_Y->GetRMS()-Zll1TrackMet_MC_Y->GetRMS()*Zll1TrackMet_MC_Y->GetRMS(),0.));
+  printf(" bias1:  %8.5f  %8.5f  %8.5f  %8.5f\n",bias[0],bias[1],bias[2],bias[3]);
+  printf("smear1: %8.5f  %8.5f  %8.5f  %8.5f\n",smear[0],smear[1],smear[2],smear[3]);
+  bias[0]  = Zll1Met_DA_X     ->GetMean()-Zll1Met_CorMC_X     ->GetMean();
+  bias[1]  = Zll1Met_DA_Y     ->GetMean()-Zll1Met_CorMC_Y     ->GetMean();
+  bias[2]  = Zll1TrackMet_DA_X->GetMean()-Zll1TrackMet_CorMC_X->GetMean();
+  bias[3]  = Zll1TrackMet_DA_Y->GetMean()-Zll1TrackMet_CorMC_Y->GetMean();
+  smear[0] = sqrt(TMath::Max(Zll1Met_CorMC_X     ->GetRMS()*Zll1Met_CorMC_X     ->GetRMS()-Zll1Met_DA_X     ->GetRMS()*Zll1Met_DA_X     ->GetRMS(),0.));
+  smear[1] = sqrt(TMath::Max(Zll1Met_CorMC_Y     ->GetRMS()*Zll1Met_CorMC_Y     ->GetRMS()-Zll1Met_DA_Y     ->GetRMS()*Zll1Met_DA_Y     ->GetRMS(),0.));
+  smear[2] = sqrt(TMath::Max(Zll1TrackMet_CorMC_X->GetRMS()*Zll1TrackMet_CorMC_X->GetRMS()-Zll1TrackMet_DA_X->GetRMS()*Zll1TrackMet_DA_X->GetRMS(),0.));
+  smear[3] = sqrt(TMath::Max(Zll1TrackMet_CorMC_Y->GetRMS()*Zll1TrackMet_CorMC_Y->GetRMS()-Zll1TrackMet_DA_Y->GetRMS()*Zll1TrackMet_DA_Y->GetRMS(),0.));
+  printf(" biasCor1:  %8.5f  %8.5f  %8.5f  %8.5f\n",bias[0],bias[1],bias[2],bias[3]);
+  printf("smearCor1: %8.5f  %8.5f  %8.5f  %8.5f\n",smear[0],smear[1],smear[2],smear[3]);
+  bias[0]  = Zll2Met_DA_X     ->GetMean()-Zll2Met_MC_X     ->GetMean();
+  bias[1]  = Zll2Met_DA_Y     ->GetMean()-Zll2Met_MC_Y     ->GetMean();
+  bias[2]  = Zll2TrackMet_DA_X->GetMean()-Zll2TrackMet_MC_X->GetMean();
+  bias[3]  = Zll2TrackMet_DA_Y->GetMean()-Zll2TrackMet_MC_Y->GetMean();
+  smear[0] = sqrt(TMath::Max(Zll2Met_DA_X     ->GetRMS()*Zll2Met_DA_X	  ->GetRMS()-Zll2Met_MC_X     ->GetRMS()*Zll2Met_MC_X	  ->GetRMS(),0.));
+  smear[1] = sqrt(TMath::Max(Zll2Met_DA_Y     ->GetRMS()*Zll2Met_DA_Y	  ->GetRMS()-Zll2Met_MC_Y     ->GetRMS()*Zll2Met_MC_Y	  ->GetRMS(),0.));
+  smear[2] = sqrt(TMath::Max(Zll2TrackMet_DA_X->GetRMS()*Zll2TrackMet_DA_X->GetRMS()-Zll2TrackMet_MC_X->GetRMS()*Zll2TrackMet_MC_X->GetRMS(),0.));
+  smear[3] = sqrt(TMath::Max(Zll2TrackMet_DA_Y->GetRMS()*Zll2TrackMet_DA_Y->GetRMS()-Zll2TrackMet_MC_Y->GetRMS()*Zll2TrackMet_MC_Y->GetRMS(),0.));
+  printf(" bias2:  %8.5f  %8.5f  %8.5f  %8.5f\n",bias[0],bias[1],bias[2],bias[3]);
+  printf("smear2: %8.5f  %8.5f  %8.5f  %8.5f\n",smear[0],smear[1],smear[2],smear[3]);
+  bias[0]  = Zll2Met_DA_X     ->GetMean()-Zll2Met_CorMC_X     ->GetMean();
+  bias[1]  = Zll2Met_DA_Y     ->GetMean()-Zll2Met_CorMC_Y     ->GetMean();
+  bias[2]  = Zll2TrackMet_DA_X->GetMean()-Zll2TrackMet_CorMC_X->GetMean();
+  bias[3]  = Zll2TrackMet_DA_Y->GetMean()-Zll2TrackMet_CorMC_Y->GetMean();
+  smear[0] = sqrt(TMath::Max(Zll2Met_CorMC_X     ->GetRMS()*Zll2Met_CorMC_X     ->GetRMS()-Zll2Met_DA_X     ->GetRMS()*Zll2Met_DA_X     ->GetRMS(),0.));
+  smear[1] = sqrt(TMath::Max(Zll2Met_CorMC_Y     ->GetRMS()*Zll2Met_CorMC_Y     ->GetRMS()-Zll2Met_DA_Y     ->GetRMS()*Zll2Met_DA_Y     ->GetRMS(),0.));
+  smear[2] = sqrt(TMath::Max(Zll2TrackMet_CorMC_X->GetRMS()*Zll2TrackMet_CorMC_X->GetRMS()-Zll2TrackMet_DA_X->GetRMS()*Zll2TrackMet_DA_X->GetRMS(),0.));
+  smear[3] = sqrt(TMath::Max(Zll2TrackMet_CorMC_Y->GetRMS()*Zll2TrackMet_CorMC_Y->GetRMS()-Zll2TrackMet_DA_Y->GetRMS()*Zll2TrackMet_DA_Y->GetRMS(),0.));
+  printf(" biasCor2:  %8.5f  %8.5f  %8.5f  %8.5f\n",bias[0],bias[1],bias[2],bias[3]);
+  printf("smearCor2: %8.5f  %8.5f  %8.5f  %8.5f\n",smear[0],smear[1],smear[2],smear[3]);
+
   TFile *f = new TFile("zyield.root", "UPDATE");
   f->cd();
   ZmmMass_MC   ->Write();
@@ -573,5 +754,41 @@ void ZllNormalization
   ZeeMass_CorMC_BB->Write();
   ZeeMass_CorMC_EE->Write();
   ZeeMass_CorMC_EB->Write();
+  Zll0Met_MC_X         ->Write();
+  Zll0Met_MC_Y         ->Write();
+  Zll0TrackMet_MC_X    ->Write();
+  Zll0TrackMet_MC_Y    ->Write();
+  Zll0Met_DA_X         ->Write();
+  Zll0Met_DA_Y         ->Write();
+  Zll0TrackMet_DA_X    ->Write();
+  Zll0TrackMet_DA_Y    ->Write();
+  Zll0Met_CorMC_X      ->Write();
+  Zll0Met_CorMC_Y      ->Write();
+  Zll0TrackMet_CorMC_X ->Write();
+  Zll0TrackMet_CorMC_Y ->Write();
+  Zll1Met_MC_X         ->Write();
+  Zll1Met_MC_Y         ->Write();
+  Zll1TrackMet_MC_X    ->Write();
+  Zll1TrackMet_MC_Y    ->Write();
+  Zll1Met_DA_X         ->Write();
+  Zll1Met_DA_Y         ->Write();
+  Zll1TrackMet_DA_X    ->Write();
+  Zll1TrackMet_DA_Y    ->Write();
+  Zll1Met_CorMC_X      ->Write();
+  Zll1Met_CorMC_Y      ->Write();
+  Zll1TrackMet_CorMC_X ->Write();
+  Zll1TrackMet_CorMC_Y ->Write();
+  Zll2Met_MC_X         ->Write();
+  Zll2Met_MC_Y         ->Write();
+  Zll2TrackMet_MC_X    ->Write();
+  Zll2TrackMet_MC_Y    ->Write();
+  Zll2Met_DA_X         ->Write();
+  Zll2Met_DA_Y         ->Write();
+  Zll2TrackMet_DA_X    ->Write();
+  Zll2TrackMet_DA_Y    ->Write();
+  Zll2Met_CorMC_X      ->Write();
+  Zll2Met_CorMC_Y      ->Write();
+  Zll2TrackMet_CorMC_X ->Write();
+  Zll2TrackMet_CorMC_Y ->Write();
   f->Close();
 }
