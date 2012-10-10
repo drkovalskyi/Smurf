@@ -11,26 +11,36 @@
 export NJETS=$1;
 export MH=$2;
 export WEIGHTSONLY=$3;
+export doMultiClass=0;
 
 #export TAG=TEST_${MH}train_${NJETS}jets;
-#export METHODS=BDTG;
+#export METHODS=Likelihood,BDT,BDTD,BDTG;
 export TAG=ntuples2012_PostICHEP_${MH}train_${NJETS}jets;
-#export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
 #export TAG=TEST_ntuples_${MH}train_${NJETS}jets;
 #export METHODS=BDT,Likelihood,BDTG,BDTD,BDTB,MLP,MLPBFGS,MLPBNN,CFMlpANN,TMlpANN,BoostedFisher,LikelihoodD,LikelihoodPCA,FDA_GA,RuleFit;
-export METHODS=Likelihood,BDT,BDTD,BDTG;
+export METHODS=BDTG;
 
 ### Training: change done hand made, it's an expert option
 export trainMVA_smurfFile=trainMVA_smurf.C+;
+if [ ${doMultiClass} == "1" ]; then
+  export TAG=ntuples2012_MultiClass_${MH}train_${NJETS}jets;
+  export trainMVA_smurfFile=trainMVA_smurf_MultiClass.C+;
+  export METHODS=BDTG;
+fi
+
 if [ ${NJETS} == "hzz" ]; then
   export trainMVA_smurfFile=trainMVA_smurf_hzz.C+;
   export TAG=ntuples_hzz_${MH}train
 elif [ ${NJETS} == "wh3l" ]; then
   export trainMVA_smurfFile=trainMVA_smurf_wh3l.C+;
   export TAG=ntuples_wh3l_${MH}train
+elif [ ${NJETS} == "3" ]; then
+  export trainMVA_smurfFile=trainMVA_smurf_MultiClass.C+;
+  export NJETS=2;
+  export TAG=ntuples2012_PostICHEP_${MH}train_${NJETS}jets;
 fi
 
-export DO_TRAINING=1;
+export DO_TRAINING=0;
 if [ ${DO_TRAINING} == "1" ]; then
   export SIG_TRAIN=data/hww${MH}.root;
   export BKG_TRAIN=data/training.root;
@@ -41,8 +51,8 @@ if [ ${DO_TRAINING} == "1" ]; then
   elif [ ${NJETS} == "wh3l" ]; then
     export NJETS=999;
     export SIG_TRAIN=data/hww_training.root;
-    export BKG_TRAIN=data/backgroundD_3l.root
-  fi
+    export BKG_TRAIN=data/backgroundD_3l.root;
+ fi
   mkdir -p weights;
   root -l -q -b ${trainMVA_smurfFile}\(${NJETS},\"${SIG_TRAIN}\",\"${BKG_TRAIN}\",\"${TAG}\",\"${METHODS}\",${MH}\);
   exit;
@@ -58,29 +68,28 @@ data/hww${MH}.root
 data/vhtt${MH}.root
 data/backgroundA.root
 data/backgroundB.root
-data/data.root
 data/data_llg.root
+data/data.root
 data/hww_syst.root
 data/dyll.root
 data/ggww.root
 data/qqww.root
-data/qqww_py.root
 data/training.root
 data/ttbar.root
-data/ttbar_powheg.root
 data/tw.root
-data/wgamma.root
-data/zgamma.root
 data/wgammafo.root
-data/zgammafo.root
-data/www.root
+data/wgamma.root
 data/wglll.root
 data/wjets.root
-data/wwmcnlo.root
-data/wwmcnlodown.root
-data/wwmcnloup.root
+data/www.root
 data/wz.root
+data/zgammafo.root
+data/zgamma.root
 data/zz.root
+data/ttbar_powheg.root
+data/wwmcnlodown.root
+data/wwmcnlo.root
+data/wwmcnloup.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf_hww.C+;
@@ -98,9 +107,9 @@ for i in `cat list_samples.txt` ; do
   dataset=${i%%,*};
   echo "filling MVA information in sample: "  $dataset
   if [ ${WEIGHTSONLY} == "1" ]; then
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",1\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",${doMultiClass},2\);
   else
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",1\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",${doMultiClass},2\);
   fi
   
 done

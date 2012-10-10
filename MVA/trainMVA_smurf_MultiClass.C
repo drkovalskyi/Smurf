@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf_MultiClass.C,v 1.14 2012/09/03 15:08:47 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf_MultiClass.C,v 1.1 2012/10/03 07:12:02 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -156,8 +156,8 @@ void trainMVA_smurf_MultiClass(
   cout << "Using mt mass       < " << mt_cut      << endl;
 
   double rndLim[3] = {1.0,1.0,1.0};
-  if(mH==125 && nJetsType == 0) {rndLim[1] = 1.00;rndLim[2] = 0.03;}
-  if(mH==125 && nJetsType == 1) {rndLim[1] = 1.00;rndLim[2] = 0.05;}
+  if(mH==125 && nJetsType == 0) {rndLim[0] = 0.5;rndLim[1] = 1.00;rndLim[2] = 1;}
+  if(mH==125 && nJetsType == 1) {rndLim[0] = 0.5;rndLim[1] = 1.00;rndLim[2] = 1;}
   //---------------------------------
   //choose bkg samples to include
   //---------------------------------
@@ -556,16 +556,14 @@ void trainMVA_smurf_MultiClass(
     if (mvaVar["dphihjj"]) 	 vars[varCounter++] = DeltaPhi((*jet1+*jet2).Phi(),TMath::ATan2(higgsV[1],higgsV[0]));
 
     if ( gRandom->Uniform(0,1) < 0.5 ){
-      if     (classType == 0) factory->AddTestEvent( "sig" , vars, scale1fb );
-      else if(classType == 1) factory->AddTestEvent( "bkg0", vars, scale1fb );
-      else if(classType == 2) factory->AddTestEvent( "bkg1", vars, scale1fb );
-      nsigtrain++;
+      if     (classType == 0 && gRandom->Uniform(0,1) < rndLim[0]) {factory->AddTestEvent( "sig" , vars, scale1fb ); nsigtrain++;}
+      else if(classType == 1 && gRandom->Uniform(0,1) < rndLim[1]) {factory->AddTestEvent( "bkg0", vars, scale1fb ); assert(0);}
+      else if(classType == 2 && gRandom->Uniform(0,1) < rndLim[2]) {factory->AddTestEvent( "bkg1", vars, scale1fb ); assert(0);}
     }
     else{
-      if     (classType == 0) factory->AddTrainingEvent( "sig" , vars, scale1fb );
-      else if(classType == 1) factory->AddTrainingEvent( "bkg0", vars, scale1fb );
-      else if(classType == 2) factory->AddTrainingEvent( "bkg1", vars, scale1fb );
-      nsigtest++;
+      if     (classType == 0 && gRandom->Uniform(0,1) < rndLim[0]) {factory->AddTrainingEvent( "sig" , vars, scale1fb ); nsigtest++;}
+      else if(classType == 1 && gRandom->Uniform(0,1) < rndLim[1]) {factory->AddTrainingEvent( "bkg0", vars, scale1fb ); assert(0);}
+      else if(classType == 2 && gRandom->Uniform(0,1) < rndLim[2]) {factory->AddTrainingEvent( "bkg1", vars, scale1fb ); assert(0);}
     }
   }
 
@@ -708,19 +706,15 @@ void trainMVA_smurf_MultiClass(
     if (mvaVar["dphihjj"]) 	 vars[varCounter++] = DeltaPhi((*jet1+*jet2).Phi(),TMath::ATan2(higgsV[1],higgsV[0]));
 
     if ( gRandom->Uniform(0,1) < 0.5 ){
-      if     (classType == 0) {factory->AddTestEvent( "sig" , vars, scale1fb );nbkgtrain[0]++;}
-      else if(classType == 1 && gRandom->Uniform(0,1) < rndLim[1]) 
-                              {factory->AddTestEvent( "bkg0", vars, scale1fb );nbkgtrain[1]++;}
-      else if(classType == 2 && gRandom->Uniform(0,1) < rndLim[2]) 
-                              {factory->AddTestEvent( "bkg1", vars, scale1fb );nbkgtrain[2]++;}
+      if     (classType == 0 && gRandom->Uniform(0,1) < rndLim[0]) {factory->AddTestEvent( "sig" , vars, scale1fb );nbkgtrain[0]++;}
+      else if(classType == 1 && gRandom->Uniform(0,1) < rndLim[1]) {factory->AddTestEvent( "bkg0", vars, scale1fb );nbkgtrain[1]++;}
+      else if(classType == 2 && gRandom->Uniform(0,1) < rndLim[2]) {factory->AddTestEvent( "bkg1", vars, scale1fb );nbkgtrain[2]++;}
       
     }
     else{
-      if     (classType == 0) {factory->AddTrainingEvent( "sig" , vars, scale1fb );nbkgtest[0]++;}
-      else if(classType == 1 && gRandom->Uniform(0,1) < rndLim[1]) 
-                              {factory->AddTrainingEvent( "bkg0", vars, scale1fb );nbkgtest[1]++;}
-      else if(classType == 2 && gRandom->Uniform(0,1) < rndLim[2])
-                              {factory->AddTrainingEvent( "bkg1", vars, scale1fb );nbkgtest[2]++;}
+      if     (classType == 0 && gRandom->Uniform(0,1) < rndLim[0]) {factory->AddTrainingEvent( "sig" , vars, scale1fb );nbkgtest[0]++;}
+      else if(classType == 1 && gRandom->Uniform(0,1) < rndLim[1]) {factory->AddTrainingEvent( "bkg0", vars, scale1fb );nbkgtest[1]++;}
+      else if(classType == 2 && gRandom->Uniform(0,1) < rndLim[2]) {factory->AddTrainingEvent( "bkg1", vars, scale1fb );nbkgtest[2]++;}
     }
   }
   
