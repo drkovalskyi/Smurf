@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf_MultiClass.C,v 1.1 2012/10/03 07:12:02 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf_MultiClass.C,v 1.2 2012/10/10 17:46:22 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -156,8 +156,8 @@ void trainMVA_smurf_MultiClass(
   cout << "Using mt mass       < " << mt_cut      << endl;
 
   double rndLim[3] = {1.0,1.0,1.0};
-  if(mH==125 && nJetsType == 0) {rndLim[0] = 0.5;rndLim[1] = 1.00;rndLim[2] = 1;}
-  if(mH==125 && nJetsType == 1) {rndLim[0] = 0.5;rndLim[1] = 1.00;rndLim[2] = 1;}
+  if(mH==125 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 1.00;rndLim[2] = 0.03;}
+  if(mH==125 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 1.00;rndLim[2] = 0.05;}
   //---------------------------------
   //choose bkg samples to include
   //---------------------------------

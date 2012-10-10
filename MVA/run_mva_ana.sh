@@ -11,25 +11,33 @@
 export NJETS=$1;
 export MH=$2;
 export WEIGHTSONLY=$3;
+export doMultiClass=1;
 
 #export TAG=TEST_${MH}train_${NJETS}jets;
-#export METHODS=BDTG;
-export TAG=ntuples2012_${MH}train_${NJETS}jets;
-#export METHODS=KNN,BDT,BDTD,MLPBNN,BDTG;
+#export METHODS=Likelihood,BDT,BDTD,BDTG;
+export TAG=ntuples2012_MultiClass_${MH}train_${NJETS}jets;
 #export TAG=TEST_ntuples_${MH}train_${NJETS}jets;
-export TAG=ntuples2012_PostICHEP_${MH}train_${NJETS}jets;
 #export METHODS=BDT,Likelihood,BDTG,BDTD,BDTB,MLP,MLPBFGS,MLPBNN,CFMlpANN,TMlpANN,BoostedFisher,LikelihoodD,LikelihoodPCA,FDA_GA,RuleFit;
-export METHODS=Likelihood,BDT,BDTD,BDTG;
-###export METHODS=BDT,BDTD,BDTG;
+export METHODS=BDTG;
 
 ### Training: change done hand made, it's an expert option
 export trainMVA_smurfFile=trainMVA_smurf.C+;
+if [ ${doMultiClass} == "1" ]; then
+  export TAG=ntuples2012_MultiClass_${MH}train_${NJETS}jets;
+  export trainMVA_smurfFile=trainMVA_smurf_MultiClass.C+;
+  export METHODS=BDTG;
+fi
+
 if [ ${NJETS} == "hzz" ]; then
   export trainMVA_smurfFile=trainMVA_smurf_hzz.C+;
   export TAG=ntuples_hzz_${MH}train
 elif [ ${NJETS} == "wh3l" ]; then
   export trainMVA_smurfFile=trainMVA_smurf_wh3l.C+;
   export TAG=ntuples_wh3l_${MH}train
+elif [ ${NJETS} == "3" ]; then
+  export trainMVA_smurfFile=trainMVA_smurf_MultiClass.C+;
+  export NJETS=2;
+  export TAG=ntuples2012_PostICHEP_${MH}train_${NJETS}jets;
 fi
 
 export DO_TRAINING=0;
@@ -43,8 +51,8 @@ if [ ${DO_TRAINING} == "1" ]; then
   elif [ ${NJETS} == "wh3l" ]; then
     export NJETS=999;
     export SIG_TRAIN=data/hww_training.root;
-    export BKG_TRAIN=data/backgroundD_3l.root
-  fi
+    export BKG_TRAIN=data/backgroundD_3l.root;
+ fi
   mkdir -p weights;
   root -l -q -b ${trainMVA_smurfFile}\(${NJETS},\"${SIG_TRAIN}\",\"${BKG_TRAIN}\",\"${TAG}\",\"${METHODS}\",${MH}\);
   exit;
@@ -57,8 +65,8 @@ fi
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
 data/hww${MH}.root
-data/hww_syst_skim6.root
 data/data_skim2.root
+data/hww_syst_skim6.root
 data/backgroundA_skim2.root
 EOF
 
@@ -77,9 +85,9 @@ for i in `cat list_samples.txt` ; do
   dataset=${i%%,*};
   echo "filling MVA information in sample: "  $dataset
   if [ ${WEIGHTSONLY} == "1" ]; then
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",1\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",${doMultiClass},2\);
   else
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",1\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",${doMultiClass},2\);
   fi
   
 done
