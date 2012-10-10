@@ -68,6 +68,7 @@ int  njet            = 0,
 bool doWeights       = true,
 bool doShapes        = true,
 TString InputPath    = "",
+bool doMultiClass    = false,
 int period           = 2,
 TString suffix       = "ww"
 ) {   
@@ -258,6 +259,11 @@ TString suffix       = "ww"
       effPath  = "/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
       fakePath = "/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
       puPath   = "/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
+    }
+    else if(period == 4){ // Full2011-Fall11-V9
+      effPath  = "/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
+      fakePath = "/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+      puPath   = "/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/puWeights_Fall11_42x_True.root";
     }
 
     TFile *fLeptonEffFile = TFile::Open(Form("%s%s",InputPath.Data(),effPath.Data()));

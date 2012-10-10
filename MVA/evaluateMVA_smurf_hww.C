@@ -96,20 +96,20 @@ TString suffix       = "ww"
     mvaVar[ "dPhi" ]              = 1;  //delta phi btw leptons
     mvaVar[ "dR" ]                = 1;  //delta R btw leptons
     mvaVar[ "dilmass" ]           = 1;  //dilepton mass
-    mvaVar[ "type" ]              = 1;  //dilepton flavor type
+    mvaVar[ "type" ]              = 0;  //dilepton flavor type
     mvaVar[ "pmet" ]              = 0;  //projected met
     mvaVar[ "met" ]               = 0;  //met
     mvaVar[ "mt" ]                = 1;  //transverse higgs mass
-    mvaVar[ "mt1" ]               = 0;  //transverse mass of leading lepton and met
-    mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
+    mvaVar[ "mt1" ]               = 1;  //transverse mass of leading lepton and met
+    mvaVar[ "mt2" ]               = 1;  //transverse mass of sub-leading lepton and met
     mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
     mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
-    mvaVar[ "dilpt" ]	          = 0;  //dilepton pt
+    mvaVar[ "dilpt" ]	          = 1;  //dilepton pt
     mvaVar[ "razor" ]             = 0;  //razor
   }
   if(njet == 1){
-    mvaVar[ "dPhiDiLepMET" ]   = 1; //delta phi btw dilepton and met
-    mvaVar[ "dPhiDiLepJet1" ]  = 1; //delta phi btw dilepton and jet1
+    mvaVar[ "dPhiDiLepMET" ]   = 0; //delta phi btw dilepton and met
+    mvaVar[ "dPhiDiLepJet1" ]  = 0; //delta phi btw dilepton and jet1
   }
   if (njet == 2) {
     mvaVar[ "mjj" ]     	= 1;  //invariant mass of the dijet
@@ -250,7 +250,7 @@ TString suffix       = "ww"
     }
     else if(period == 2){ //  Full2012-Summer12-V9-12000ipb
       effPath  = "/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
-      fakePath = "/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
+      fakePath = "/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
       puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True.root";
     }
     else {
@@ -788,24 +788,30 @@ TString suffix       = "ww"
 
 	if(doShapes == true){ // momentum scale +
 	  double corr[2] = {1.0, 1.0};
-	  if     (TMath::Abs(smurfTree.lid1_) == 13){
-            corr[0] = 1.01 + gRandom->Gaus(0.00,0.01);
-	  }
-	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
-            corr[0] = 1.01 + gRandom->Gaus(0.00,0.02);
-	  }
-	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
-            corr[0] = 1.06 + gRandom->Gaus(0.00,0.06);
-	  }
-	  if     (TMath::Abs(smurfTree.lid2_) == 13){
-            corr[1] = 1.01 + gRandom->Gaus(0.00,0.01);
-	  }
-	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
-            corr[1] = 1.01 + gRandom->Gaus(0.00,0.02);
-	  }
-	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
-            corr[1] = 1.06 + gRandom->Gaus(0.00,0.06);
-	  }
+      	  if	 (TMath::Abs(smurfTree.lid1_) == 13 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
+      	    corr[0] = 1./0.99920 + gRandom->Gaus(0.00,0.014);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid1_) == 13 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
+      	    corr[0] = 1./0.99934 + gRandom->Gaus(0.00,0.021);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
+      	    corr[0] = 1./0.99807 + gRandom->Gaus(0.00,0.018);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
+      	    corr[0] = 1./0.99952 + gRandom->Gaus(0.00,0.033);
+      	  }
+      	  if	 (TMath::Abs(smurfTree.lid2_) == 13 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
+      	    corr[1] = 1./0.99920 + gRandom->Gaus(0.00,0.014);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid2_) == 13 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
+      	    corr[1] = 1./0.99934 + gRandom->Gaus(0.00,0.021);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
+      	    corr[1] = 1./0.99807 + gRandom->Gaus(0.00,0.018);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
+      	    corr[1] = 1./0.99952 + gRandom->Gaus(0.00,0.033);
+      	  }
 	  lep1pt = smurfTree.lep1_.pt()*corr[0]; // 0
 	  lep2pt = smurfTree.lep2_.pt()*corr[1]; // 1
 	  double pllx  = smurfTree.lep1_.px()*corr[0]+smurfTree.lep2_.px()*corr[1];
@@ -848,24 +854,30 @@ TString suffix       = "ww"
 
 	if(doShapes == true){ // momentum scale -
 	  double corr[2] = {1.0, 1.0};
-	  if     (TMath::Abs(smurfTree.lid1_) == 13){
-            corr[0] = 0.99 - gRandom->Gaus(0.00,0.01);
-	  }
-	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
-            corr[0] = 0.99 - gRandom->Gaus(0.00,0.02);
-	  }
-	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
-            corr[0] = 0.94 - gRandom->Gaus(0.00,0.06);
-	  }
-	  if     (TMath::Abs(smurfTree.lid2_) == 13){
-            corr[1] = 0.99 - gRandom->Gaus(0.00,0.01);
-	  }
-	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
-            corr[1] = 0.99 - gRandom->Gaus(0.00,0.02);
-	  }
-	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
-            corr[1] = 0.94 - gRandom->Gaus(0.00,0.06);
-	  }
+      	  if	 (TMath::Abs(smurfTree.lid1_) == 13 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
+      	    corr[0] = 0.99920 - gRandom->Gaus(0.00,0.014);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid1_) == 13 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
+      	    corr[0] = 0.99934 - gRandom->Gaus(0.00,0.021);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
+      	    corr[0] = 0.99807 - gRandom->Gaus(0.00,0.018);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
+      	    corr[0] = 0.99952 - gRandom->Gaus(0.00,0.033);
+      	  }
+      	  if	 (TMath::Abs(smurfTree.lid2_) == 13 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
+      	    corr[1] = 0.99920 - gRandom->Gaus(0.00,0.014);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid2_) == 13 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
+      	    corr[1] = 0.99934 - gRandom->Gaus(0.00,0.021);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
+      	    corr[1] = 0.99807 - gRandom->Gaus(0.00,0.018);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
+      	    corr[1] = 0.99952 - gRandom->Gaus(0.00,0.033);
+      	  }
 	  lep1pt = smurfTree.lep1_.pt()*corr[0]; // 0
 	  lep2pt = smurfTree.lep2_.pt()*corr[1]; // 1
 	  double pllx  = smurfTree.lep1_.px()*corr[0]+smurfTree.lep2_.px()*corr[1];
@@ -909,22 +921,22 @@ TString suffix       = "ww"
 	if(doShapes == true){ // met
       	  double metx=0.0;double mety=0.0;double trkmetx=0.0;double trkmety=0.0;
 	  if	(smurfTree.njets_ == 0){
-      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)+gRandom->Gaus(0.0,3.2);
-      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)+gRandom->Gaus(0.0,3.2);
-      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,2.1);
-      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,2.1);
+      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)	     -0.45189+gRandom->Gaus(0.0,3.2);
+      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)	     -0.20148+gRandom->Gaus(0.0,3.2);
+      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+0.12580+gRandom->Gaus(0.0,2.0);
+      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+0.02615+gRandom->Gaus(0.0,2.0);
       	  }
       	  else if(smurfTree.njets_ == 1){
-      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)+gRandom->Gaus(0.0,3.6);
-      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)+gRandom->Gaus(0.0,3.6);
-      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,7.6);
-      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,7.6);
+      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)	     -0.39040+gRandom->Gaus(0.0,3.6);
+      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)	     -0.20427+gRandom->Gaus(0.0,3.6);
+      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+0.07639+gRandom->Gaus(0.0,4.5);
+      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+0.01167+gRandom->Gaus(0.0,4.5);
       	  }
       	  else if(smurfTree.njets_ >= 2){
-      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)+gRandom->Gaus(0.0,4.3);
-      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)+gRandom->Gaus(0.0,4.3);
-      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,12.4);
-      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,12.4);
+      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)	     -0.27127+gRandom->Gaus(0.0,4.3);
+      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)	     -0.18935+gRandom->Gaus(0.0,4.3);
+      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+0.13328+gRandom->Gaus(0.0,6.0);
+      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)-0.01351+gRandom->Gaus(0.0,6.0);
       	  }
       	  double newMet      = sqrt(metx*metx+mety*mety);
       	  double newTrackMet = sqrt(trkmetx*trkmetx+trkmety*trkmety);

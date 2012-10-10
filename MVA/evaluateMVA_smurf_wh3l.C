@@ -667,33 +667,42 @@ TString suffix       = "wh3l"
 
 	if(doShapes == true){ // momentum scale +
 	  double corr[3] = {1.0, 1.0, 1.0};
-	  if     (TMath::Abs(smurfTree.lid1_) == 13){
-            corr[0] = 1.01 + gRandom->Gaus(0.00,0.01);
-	  }
-	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
-            corr[0] = 1.01 + gRandom->Gaus(0.00,0.02);
-	  }
-	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
-            corr[0] = 1.06 + gRandom->Gaus(0.00,0.06);
-	  }
-	  if     (TMath::Abs(smurfTree.lid2_) == 13){
-            corr[1] = 1.01 + gRandom->Gaus(0.00,0.01);
-	  }
-	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
-            corr[1] = 1.01 + gRandom->Gaus(0.00,0.02);
-	  }
-	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
-            corr[1] = 1.06 + gRandom->Gaus(0.00,0.06);
-	  }
-	  if     (TMath::Abs(smurfTree.lid3_) == 13){
-            corr[2] = 1.01 + gRandom->Gaus(0.00,0.01);
-	  }
-	  else if(TMath::Abs(smurfTree.lid3_) == 11 && TMath::Abs(smurfTree.lep3_.eta()) <  1.479){
-            corr[2] = 1.01 + gRandom->Gaus(0.00,0.02);
-	  }
-	  else if(TMath::Abs(smurfTree.lid3_) == 11 && TMath::Abs(smurfTree.lep3_.eta()) >= 1.479){
-            corr[2] = 1.06 + gRandom->Gaus(0.00,0.06);
-	  }
+      	  if	 (TMath::Abs(smurfTree.lid1_) == 13 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
+      	    corr[0] = 1./0.99920 + gRandom->Gaus(0.00,0.014);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid1_) == 13 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
+      	    corr[0] = 1./0.99934 + gRandom->Gaus(0.00,0.021);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
+      	    corr[0] = 1./0.99807 + gRandom->Gaus(0.00,0.018);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
+      	    corr[0] = 1./0.99952 + gRandom->Gaus(0.00,0.033);
+      	  }
+      	  if	 (TMath::Abs(smurfTree.lid2_) == 13 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
+      	    corr[1] = 1./0.99920 + gRandom->Gaus(0.00,0.014);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid2_) == 13 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
+      	    corr[1] = 1./0.99934 + gRandom->Gaus(0.00,0.021);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
+      	    corr[1] = 1./0.99807 + gRandom->Gaus(0.00,0.018);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
+      	    corr[1] = 1./0.99952 + gRandom->Gaus(0.00,0.033);
+      	  }
+      	  if	 (TMath::Abs(smurfTree.lid3_) == 13 && TMath::Abs(smurfTree.lep3_.eta()) <  1.479){
+      	    corr[2] = 1./0.99920 + gRandom->Gaus(0.00,0.014);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid3_) == 13 && TMath::Abs(smurfTree.lep3_.eta()) >= 1.479){
+      	    corr[2] = 1./0.99934 + gRandom->Gaus(0.00,0.021);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid3_) == 11 && TMath::Abs(smurfTree.lep3_.eta()) <  1.479){
+      	    corr[2] = 1./0.99807 + gRandom->Gaus(0.00,0.018);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid3_) == 11 && TMath::Abs(smurfTree.lep3_.eta()) >= 1.479){
+      	    corr[2] = 1./0.99952 + gRandom->Gaus(0.00,0.033);
+      	  }
 	  lep1pt = smurfTree.lep1_.pt()*corr[0];
 	  lep2pt = smurfTree.lep2_.pt()*corr[1];
 	  lep3pt = smurfTree.lep3_.pt()*corr[2];
@@ -708,33 +717,43 @@ TString suffix       = "wh3l"
 
 	if(doShapes == true){ // momentum scale -
 	  double corr[3] = {1.0, 1.0, 1.0};
-	  if     (TMath::Abs(smurfTree.lid1_) == 13){
-            corr[0] = 0.99 - gRandom->Gaus(0.00,0.01);
-	  }
-	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
-            corr[0] = 0.99 - gRandom->Gaus(0.00,0.02);
-	  }
-	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
-            corr[0] = 0.94 - gRandom->Gaus(0.00,0.06);
-	  }
-	  if     (TMath::Abs(smurfTree.lid2_) == 13){
-            corr[1] = 0.99 - gRandom->Gaus(0.00,0.01);
-	  }
-	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
-            corr[1] = 0.99 - gRandom->Gaus(0.00,0.02);
-	  }
-	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
-            corr[1] = 0.94 - gRandom->Gaus(0.00,0.06);
-	  }
-	  if     (TMath::Abs(smurfTree.lid3_) == 13){
-            corr[2] = 0.99 - gRandom->Gaus(0.00,0.01);
-	  }
-	  else if(TMath::Abs(smurfTree.lid3_) == 11 && TMath::Abs(smurfTree.lep3_.eta()) <  1.479){
-            corr[2] = 0.99 - gRandom->Gaus(0.00,0.02);
-	  }
-	  else if(TMath::Abs(smurfTree.lid3_) == 11 && TMath::Abs(smurfTree.lep3_.eta()) >= 1.479){
-            corr[2] = 0.94 - gRandom->Gaus(0.00,0.06);
-	  }
+	  double corr[2] = {1.0, 1.0};
+      	  if	 (TMath::Abs(smurfTree.lid1_) == 13 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
+      	    corr[0] = 0.99920 - gRandom->Gaus(0.00,0.014);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid1_) == 13 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
+      	    corr[0] = 0.99934 - gRandom->Gaus(0.00,0.021);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
+      	    corr[0] = 0.99807 - gRandom->Gaus(0.00,0.018);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
+      	    corr[0] = 0.99952 - gRandom->Gaus(0.00,0.033);
+      	  }
+      	  if	 (TMath::Abs(smurfTree.lid2_) == 13 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
+      	    corr[1] = 0.99920 - gRandom->Gaus(0.00,0.014);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid2_) == 13 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
+      	    corr[1] = 0.99934 - gRandom->Gaus(0.00,0.021);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
+      	    corr[1] = 0.99807 - gRandom->Gaus(0.00,0.018);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
+      	    corr[1] = 0.99952 - gRandom->Gaus(0.00,0.033);
+      	  }
+      	  if	 (TMath::Abs(smurfTree.lid3_) == 13 && TMath::Abs(smurfTree.lep3_.eta()) <  1.479){
+      	    corr[2] = 0.99920 - gRandom->Gaus(0.00,0.014);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid3_) == 13 && TMath::Abs(smurfTree.lep3_.eta()) >= 1.479){
+      	    corr[2] = 0.99934 - gRandom->Gaus(0.00,0.021);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid3_) == 11 && TMath::Abs(smurfTree.lep3_.eta()) <  1.479){
+      	    corr[2] = 0.99807 - gRandom->Gaus(0.00,0.018);
+      	  }
+      	  else if(TMath::Abs(smurfTree.lid3_) == 11 && TMath::Abs(smurfTree.lep3_.eta()) >= 1.479){
+      	    corr[2] = 0.99952 - gRandom->Gaus(0.00,0.033);
+      	  }
 	  lep1pt = smurfTree.lep1_.pt()*corr[0];
 	  lep2pt = smurfTree.lep2_.pt()*corr[1];
 	  lep3pt = smurfTree.lep3_.pt()*corr[2];
@@ -749,10 +768,24 @@ TString suffix       = "wh3l"
 
 	if(doShapes == true){ // met
       	  double metx=0.0;double mety=0.0;double trkmetx=0.0;double trkmety=0.0;
-      	  metx    = smurfTree.met_*cos(smurfTree.metPhi_)+gRandom->Gaus(0.0,3.2);
-      	  mety    = smurfTree.met_*sin(smurfTree.metPhi_)+gRandom->Gaus(0.0,3.2);
-      	  trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,2.1);
-      	  trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+gRandom->Gaus(0.0,2.1);
+	  if	(smurfTree.njets_ == 0){
+      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)	     -0.45189+gRandom->Gaus(0.0,3.2);
+      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)	     -0.20148+gRandom->Gaus(0.0,3.2);
+      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+0.12580+gRandom->Gaus(0.0,2.0);
+      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+0.02615+gRandom->Gaus(0.0,2.0);
+      	  }
+      	  else if(smurfTree.njets_ == 1){
+      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)	     -0.39040+gRandom->Gaus(0.0,3.6);
+      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)	     -0.20427+gRandom->Gaus(0.0,3.6);
+      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+0.07639+gRandom->Gaus(0.0,4.5);
+      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+0.01167+gRandom->Gaus(0.0,4.5);
+      	  }
+      	  else if(smurfTree.njets_ >= 2){
+      	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)	     -0.27127+gRandom->Gaus(0.0,4.3);
+      	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)	     -0.18935+gRandom->Gaus(0.0,4.3);
+      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+0.13328+gRandom->Gaus(0.0,6.0);
+      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)-0.01351+gRandom->Gaus(0.0,6.0);
+      	  }
       	  double newMet      = sqrt(metx*metx+mety*mety);
       	  double newTrackMet = sqrt(trkmetx*trkmetx+trkmety*trkmety);
 	  double deltaPhiA[3] = {TMath::Abs(smurfTree.lep1_.Phi()-TMath::ATan2(mety,metx)),TMath::Abs(smurfTree.lep2_.Phi()-TMath::ATan2(mety,metx)),0.0};
