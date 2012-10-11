@@ -665,43 +665,47 @@ TString suffix       = "wh3l"
       if (Use["BDTG"]){
         bdtg  = reader->EvaluateMVA( "BDTG method" );
 
+        double rndMon[12] = {gRandom->Gaus(0.00,0.014),gRandom->Gaus(0.00,0.021),gRandom->Gaus(0.00,0.018),gRandom->Gaus(0.00,0.033),
+	                     gRandom->Gaus(0.00,0.014),gRandom->Gaus(0.00,0.021),gRandom->Gaus(0.00,0.018),gRandom->Gaus(0.00,0.033),
+	                     gRandom->Gaus(0.00,0.014),gRandom->Gaus(0.00,0.021),gRandom->Gaus(0.00,0.018),gRandom->Gaus(0.00,0.033)};
+	                     
 	if(doShapes == true){ // momentum scale +
 	  double corr[3] = {1.0, 1.0, 1.0};
       	  if	 (TMath::Abs(smurfTree.lid1_) == 13 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
-      	    corr[0] = 1./0.99920 + gRandom->Gaus(0.00,0.014);
+      	    corr[0] = 1./0.99920 + rndMon[0];
       	  }
       	  else if(TMath::Abs(smurfTree.lid1_) == 13 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
-      	    corr[0] = 1./0.99934 + gRandom->Gaus(0.00,0.021);
+      	    corr[0] = 1./0.99934 + rndMon[1];
       	  }
       	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
-      	    corr[0] = 1./0.99807 + gRandom->Gaus(0.00,0.018);
+      	    corr[0] = 1./0.99807 + rndMon[2];
       	  }
       	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
-      	    corr[0] = 1./0.99952 + gRandom->Gaus(0.00,0.033);
+      	    corr[0] = 1./0.99952 + rndMon[3];
       	  }
       	  if	 (TMath::Abs(smurfTree.lid2_) == 13 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
-      	    corr[1] = 1./0.99920 + gRandom->Gaus(0.00,0.014);
+      	    corr[1] = 1./0.99920 + rndMon[4];
       	  }
       	  else if(TMath::Abs(smurfTree.lid2_) == 13 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
-      	    corr[1] = 1./0.99934 + gRandom->Gaus(0.00,0.021);
+      	    corr[1] = 1./0.99934 + rndMon[5];
       	  }
       	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
-      	    corr[1] = 1./0.99807 + gRandom->Gaus(0.00,0.018);
+      	    corr[1] = 1./0.99807 + rndMon[6];
       	  }
       	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
-      	    corr[1] = 1./0.99952 + gRandom->Gaus(0.00,0.033);
+      	    corr[1] = 1./0.99952 + rndMon[7];
       	  }
       	  if	 (TMath::Abs(smurfTree.lid3_) == 13 && TMath::Abs(smurfTree.lep3_.eta()) <  1.479){
-      	    corr[2] = 1./0.99920 + gRandom->Gaus(0.00,0.014);
+      	    corr[2] = 1./0.99920 + rndMon[8];
       	  }
       	  else if(TMath::Abs(smurfTree.lid3_) == 13 && TMath::Abs(smurfTree.lep3_.eta()) >= 1.479){
-      	    corr[2] = 1./0.99934 + gRandom->Gaus(0.00,0.021);
+      	    corr[2] = 1./0.99934 + rndMon[9];
       	  }
       	  else if(TMath::Abs(smurfTree.lid3_) == 11 && TMath::Abs(smurfTree.lep3_.eta()) <  1.479){
-      	    corr[2] = 1./0.99807 + gRandom->Gaus(0.00,0.018);
+      	    corr[2] = 1./0.99807 + rndMon[10];
       	  }
       	  else if(TMath::Abs(smurfTree.lid3_) == 11 && TMath::Abs(smurfTree.lep3_.eta()) >= 1.479){
-      	    corr[2] = 1./0.99952 + gRandom->Gaus(0.00,0.033);
+      	    corr[2] = 1./0.99952 + rndMon[11];
       	  }
 	  lep1pt = smurfTree.lep1_.pt()*corr[0];
 	  lep2pt = smurfTree.lep2_.pt()*corr[1];
@@ -717,42 +721,41 @@ TString suffix       = "wh3l"
 
 	if(doShapes == true){ // momentum scale -
 	  double corr[3] = {1.0, 1.0, 1.0};
-	  double corr[2] = {1.0, 1.0};
       	  if	 (TMath::Abs(smurfTree.lid1_) == 13 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
-      	    corr[0] = 0.99920 - gRandom->Gaus(0.00,0.014);
+      	    corr[0] = 0.99920 - rndMon[0];
       	  }
       	  else if(TMath::Abs(smurfTree.lid1_) == 13 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
-      	    corr[0] = 0.99934 - gRandom->Gaus(0.00,0.021);
+      	    corr[0] = 0.99934 - rndMon[1];
       	  }
       	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) <  1.479){
-      	    corr[0] = 0.99807 - gRandom->Gaus(0.00,0.018);
+      	    corr[0] = 0.99807 - rndMon[2];
       	  }
       	  else if(TMath::Abs(smurfTree.lid1_) == 11 && TMath::Abs(smurfTree.lep1_.eta()) >= 1.479){
-      	    corr[0] = 0.99952 - gRandom->Gaus(0.00,0.033);
+      	    corr[0] = 0.99952 - rndMon[3];
       	  }
       	  if	 (TMath::Abs(smurfTree.lid2_) == 13 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
-      	    corr[1] = 0.99920 - gRandom->Gaus(0.00,0.014);
+      	    corr[1] = 0.99920 - rndMon[4];
       	  }
       	  else if(TMath::Abs(smurfTree.lid2_) == 13 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
-      	    corr[1] = 0.99934 - gRandom->Gaus(0.00,0.021);
+      	    corr[1] = 0.99934 - rndMon[5];
       	  }
       	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) <  1.479){
-      	    corr[1] = 0.99807 - gRandom->Gaus(0.00,0.018);
+      	    corr[1] = 0.99807 - rndMon[6];
       	  }
       	  else if(TMath::Abs(smurfTree.lid2_) == 11 && TMath::Abs(smurfTree.lep2_.eta()) >= 1.479){
-      	    corr[1] = 0.99952 - gRandom->Gaus(0.00,0.033);
+      	    corr[1] = 0.99952 - rndMon[7];
       	  }
       	  if	 (TMath::Abs(smurfTree.lid3_) == 13 && TMath::Abs(smurfTree.lep3_.eta()) <  1.479){
-      	    corr[2] = 0.99920 - gRandom->Gaus(0.00,0.014);
+      	    corr[2] = 0.99920 - rndMon[8];
       	  }
       	  else if(TMath::Abs(smurfTree.lid3_) == 13 && TMath::Abs(smurfTree.lep3_.eta()) >= 1.479){
-      	    corr[2] = 0.99934 - gRandom->Gaus(0.00,0.021);
+      	    corr[2] = 0.99934 - rndMon[9];
       	  }
       	  else if(TMath::Abs(smurfTree.lid3_) == 11 && TMath::Abs(smurfTree.lep3_.eta()) <  1.479){
-      	    corr[2] = 0.99807 - gRandom->Gaus(0.00,0.018);
+      	    corr[2] = 0.99807 - rndMon[10];
       	  }
       	  else if(TMath::Abs(smurfTree.lid3_) == 11 && TMath::Abs(smurfTree.lep3_.eta()) >= 1.479){
-      	    corr[2] = 0.99952 - gRandom->Gaus(0.00,0.033);
+      	    corr[2] = 0.99952 - rndMon[10];
       	  }
 	  lep1pt = smurfTree.lep1_.pt()*corr[0];
 	  lep2pt = smurfTree.lep2_.pt()*corr[1];
