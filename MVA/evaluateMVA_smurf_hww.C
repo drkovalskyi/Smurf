@@ -96,15 +96,15 @@ TString suffix       = "ww"
     mvaVar[ "dPhi" ]              = 1;  //delta phi btw leptons
     mvaVar[ "dR" ]                = 1;  //delta R btw leptons
     mvaVar[ "dilmass" ]           = 1;  //dilepton mass
-    mvaVar[ "type" ]              = 0;  //dilepton flavor type
+    mvaVar[ "type" ]              = 1;  //dilepton flavor type
     mvaVar[ "pmet" ]              = 0;  //projected met
     mvaVar[ "met" ]               = 0;  //met
     mvaVar[ "mt" ]                = 1;  //transverse higgs mass
-    mvaVar[ "mt1" ]               = 1;  //transverse mass of leading lepton and met
-    mvaVar[ "mt2" ]               = 1;  //transverse mass of sub-leading lepton and met
+    mvaVar[ "mt1" ]               = 0;  //transverse mass of leading lepton and met
+    mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
     mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
     mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
-    mvaVar[ "dilpt" ]	          = 1;  //dilepton pt
+    mvaVar[ "dilpt" ]	          = 0;  //dilepton pt
     mvaVar[ "razor" ]             = 0;  //razor
   }
   if(njet == 1){

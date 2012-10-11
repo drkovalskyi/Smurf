@@ -233,10 +233,10 @@ TString suffix       = "wh3l"
       fakePath = "/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
       puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
     }
-    else if(period == 2){ // Full2012-Summer12-V9-5000ipb-NewId
-      effPath  = "/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/efficiency_results_HWWIDIsoMVAV4.root";
-      fakePath = "/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/fakerate_results_HWWIDIsoMVAV4.root";
-      puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
+    else if(period == 2){ //  Full2012-Summer12-V9-12000ipb
+      effPath  = "/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
+      fakePath = "/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
+      puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True.root";
     }
     else {
       printf("Wrong period(%d)\n",period);
@@ -267,11 +267,11 @@ TString suffix       = "wh3l"
 
     LeptonScaleLookup trigLookup(Form("%s%s",InputPath.Data(),effPath.Data()));
 
-    TFile *fPUS4File = TFile::Open(Form("%s%s",InputPath.Data(),puPath.Data()));
-    TH1D *fhDPUS4 = (TH1D*)(fPUS4File->Get("puWeights"));
-    assert(fhDPUS4);
-    fhDPUS4->SetDirectory(0);
-    delete fPUS4File;
+    TFile *fPUFile = TFile::Open(Form("%s%s",InputPath.Data(),puPath.Data()));
+    TH1D *fhDPU = (TH1D*)(fPUFile->Get("puWeights"));
+    assert(fhDPU);
+    fhDPU->SetDirectory(0);
+    delete fPUFile;
 
     int newMH = mH;
     if(newMH == 110) newMH = 115; // there is no correction for mh=110!
@@ -592,7 +592,7 @@ TString suffix       = "wh3l"
             smurfTree.sfWeightFR_ = -1.0 * smurfTree.sfWeightFR_;
             if(nFake > 1) smurfTree.sfWeightFR_ = -1.0 * smurfTree.sfWeightFR_;
 
-            smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPUS4,smurfTree.npu_);
+            smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPU,smurfTree.npu_);
 
             smurfTree.sfWeightEff_ = 1.0;
             smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep1_.pt(), smurfTree.lep1_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid1_);
@@ -617,7 +617,7 @@ TString suffix       = "wh3l"
         }
         else if(smurfTree.dstype_ != SmurfTree::data){
           smurfTree.sfWeightFR_ = 1.0;
-     	  smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPUS4,smurfTree.npu_);
+     	  smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPU,smurfTree.npu_);
 
           smurfTree.sfWeightEff_ = 1.0;
           smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep1_.pt(), smurfTree.lep1_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid1_);
