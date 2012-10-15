@@ -5,8 +5,9 @@
 #include "TRandom.h"
 #include "TH1D.h"
 #include "TStyle.h"
+#include <iostream>
 
-void test_ZllNormalization(){
+void test_ZllNormalization(Int_t theReBin = 4){
   gROOT->SetStyle("Plain");
   gStyle->SetOptStat(0);
   TFile *_file0 = TFile::Open("zyield.root");
@@ -59,12 +60,47 @@ void test_ZllNormalization(){
   ZeeMass_CorMC_BB->SetDirectory(0);
   ZeeMass_CorMC_EE->SetDirectory(0);
   ZeeMass_CorMC_EB->SetDirectory(0);
-  ZmmMass_CorMC   ->Scale(1.10);
-  ZmmMass_CorMC_BB->Scale(1.09);
-  ZmmMass_CorMC_EB->Scale(1.15);
-  ZmmMass_CorMC_EE->Scale(1.05);
-  ZeeMass_CorMC_BB->Scale(1.01);
-  ZeeMass_CorMC_EE->Scale(0.93);
+  ZmmMass_MC      ->Rebin(theReBin);
+  ZmmMass_MC_BB   ->Rebin(theReBin);
+  ZmmMass_MC_EE   ->Rebin(theReBin);
+  ZmmMass_MC_EB   ->Rebin(theReBin);
+  ZeeMass_MC      ->Rebin(theReBin);
+  ZeeMass_MC_BB   ->Rebin(theReBin);
+  ZeeMass_MC_EE   ->Rebin(theReBin);
+  ZeeMass_MC_EB   ->Rebin(theReBin);
+  ZmmMass_DA      ->Rebin(theReBin);
+  ZmmMass_DA_BB   ->Rebin(theReBin);
+  ZmmMass_DA_EE   ->Rebin(theReBin);
+  ZmmMass_DA_EB   ->Rebin(theReBin);
+  ZeeMass_DA      ->Rebin(theReBin);
+  ZeeMass_DA_BB   ->Rebin(theReBin);
+  ZeeMass_DA_EE   ->Rebin(theReBin);
+  ZeeMass_DA_EB   ->Rebin(theReBin);
+  ZmmMass_CorMC   ->Rebin(theReBin);
+  ZmmMass_CorMC_BB->Rebin(theReBin);
+  ZmmMass_CorMC_EE->Rebin(theReBin);
+  ZmmMass_CorMC_EB->Rebin(theReBin);
+  ZeeMass_CorMC   ->Rebin(theReBin);
+  ZeeMass_CorMC_BB->Rebin(theReBin);
+  ZeeMass_CorMC_EE->Rebin(theReBin);
+  ZeeMass_CorMC_EB->Rebin(theReBin);
+       
+  ZmmMass_CorMC   ->Scale(ZmmMass_DA   ->GetSumOfWeights()/ZmmMass_CorMC   ->GetSumOfWeights());
+  ZmmMass_CorMC_BB->Scale(ZmmMass_DA_BB->GetSumOfWeights()/ZmmMass_CorMC_BB->GetSumOfWeights());
+  ZmmMass_CorMC_EB->Scale(ZmmMass_DA_EB->GetSumOfWeights()/ZmmMass_CorMC_EB->GetSumOfWeights());
+  ZmmMass_CorMC_EE->Scale(ZmmMass_DA_EE->GetSumOfWeights()/ZmmMass_CorMC_EE->GetSumOfWeights());
+  ZmmMass_MC   ->Scale(ZmmMass_DA   ->GetSumOfWeights()   /ZmmMass_MC   ->GetSumOfWeights());
+  ZmmMass_MC_BB->Scale(ZmmMass_DA_BB->GetSumOfWeights()   /ZmmMass_MC_BB->GetSumOfWeights());
+  ZmmMass_MC_EB->Scale(ZmmMass_DA_EB->GetSumOfWeights()   /ZmmMass_MC_EB->GetSumOfWeights());
+  ZmmMass_MC_EE->Scale(ZmmMass_DA_EE->GetSumOfWeights()   /ZmmMass_MC_EE->GetSumOfWeights());
+  ZeeMass_CorMC   ->Scale(ZeeMass_DA   ->GetSumOfWeights()/ZeeMass_CorMC   ->GetSumOfWeights());
+  ZeeMass_CorMC_BB->Scale(ZeeMass_DA_BB->GetSumOfWeights()/ZeeMass_CorMC_BB->GetSumOfWeights());
+  ZeeMass_CorMC_EB->Scale(ZeeMass_DA_EB->GetSumOfWeights()/ZeeMass_CorMC_EB->GetSumOfWeights());
+  ZeeMass_CorMC_EE->Scale(ZeeMass_DA_EE->GetSumOfWeights()/ZeeMass_CorMC_EE->GetSumOfWeights());
+  ZeeMass_MC   ->Scale(ZeeMass_DA   ->GetSumOfWeights()   /ZeeMass_MC   ->GetSumOfWeights());
+  ZeeMass_MC_BB->Scale(ZeeMass_DA_BB->GetSumOfWeights()   /ZeeMass_MC_BB->GetSumOfWeights());
+  ZeeMass_MC_EB->Scale(ZeeMass_DA_EB->GetSumOfWeights()   /ZeeMass_MC_EB->GetSumOfWeights());
+  ZeeMass_MC_EE->Scale(ZeeMass_DA_EE->GetSumOfWeights()   /ZeeMass_MC_EE->GetSumOfWeights());
   TCanvas *cv = new TCanvas("cv", "cv", 1000, 1000);
   cv->Divide(4,2);
   cv->cd(1);
@@ -243,7 +279,7 @@ void test_ZllNormalization(){
   ZeeMass_CorMC_EE->SetLineWidth(2);
   ZeeMass_CorMC_EE->Draw("same,hist");
   legend8->Draw();
-  cv->SaveAs("test_zll.pdf");
+  cv->SaveAs("test_lep_zll.pdf");
   
   TH1D* Zll0Met_MC_X	    	   = (TH1D*) gROOT->FindObject("Zll0Met_MC_X");	    
   TH1D* Zll0Met_MC_Y	    	   = (TH1D*) gROOT->FindObject("Zll0Met_MC_Y");	    
@@ -317,12 +353,66 @@ void test_ZllNormalization(){
   Zll2Met_CorMC_Y     ->SetDirectory(0);
   Zll2TrackMet_CorMC_X->SetDirectory(0);
   Zll2TrackMet_CorMC_Y->SetDirectory(0);
-  Zll0TrackMet_CorMC_X->Scale(1.05);
-  Zll0TrackMet_CorMC_Y->Scale(1.05);
-  Zll1Met_CorMC_X->Scale(0.98);
-  Zll1Met_CorMC_Y->Scale(0.98);
-  Zll2Met_CorMC_X->Scale(0.98);
-  Zll2Met_CorMC_Y->Scale(0.98);
+  Zll0Met_MC_X        ->Rebin(theReBin);
+  Zll0Met_MC_Y        ->Rebin(theReBin);
+  Zll0TrackMet_MC_X   ->Rebin(theReBin);
+  Zll0TrackMet_MC_Y   ->Rebin(theReBin);
+  Zll0Met_DA_X        ->Rebin(theReBin);
+  Zll0Met_DA_Y        ->Rebin(theReBin);
+  Zll0TrackMet_DA_X   ->Rebin(theReBin);
+  Zll0TrackMet_DA_Y   ->Rebin(theReBin);
+  Zll0Met_CorMC_X     ->Rebin(theReBin);
+  Zll0Met_CorMC_Y     ->Rebin(theReBin);
+  Zll0TrackMet_CorMC_X->Rebin(theReBin);
+  Zll0TrackMet_CorMC_Y->Rebin(theReBin);
+  Zll1Met_MC_X        ->Rebin(theReBin);
+  Zll1Met_MC_Y        ->Rebin(theReBin);
+  Zll1TrackMet_MC_X   ->Rebin(theReBin);
+  Zll1TrackMet_MC_Y   ->Rebin(theReBin);
+  Zll1Met_DA_X        ->Rebin(theReBin);
+  Zll1Met_DA_Y        ->Rebin(theReBin);
+  Zll1TrackMet_DA_X   ->Rebin(theReBin);
+  Zll1TrackMet_DA_Y   ->Rebin(theReBin);
+  Zll1Met_CorMC_X     ->Rebin(theReBin);
+  Zll1Met_CorMC_Y     ->Rebin(theReBin);
+  Zll1TrackMet_CorMC_X->Rebin(theReBin);
+  Zll1TrackMet_CorMC_Y->Rebin(theReBin);
+  Zll2Met_MC_X        ->Rebin(theReBin);
+  Zll2Met_MC_Y        ->Rebin(theReBin);
+  Zll2TrackMet_MC_X   ->Rebin(theReBin);
+  Zll2TrackMet_MC_Y   ->Rebin(theReBin);
+  Zll2Met_DA_X        ->Rebin(theReBin);
+  Zll2Met_DA_Y        ->Rebin(theReBin);
+  Zll2TrackMet_DA_X   ->Rebin(theReBin);
+  Zll2TrackMet_DA_Y   ->Rebin(theReBin);
+  Zll2Met_CorMC_X     ->Rebin(theReBin);
+  Zll2Met_CorMC_Y     ->Rebin(theReBin);
+  Zll2TrackMet_CorMC_X->Rebin(theReBin);
+  Zll2TrackMet_CorMC_Y->Rebin(theReBin);
+  Zll0Met_MC_X     ->Scale(Zll0Met_DA_X     ->GetSumOfWeights()/Zll0Met_MC_X     ->GetSumOfWeights());
+  Zll0Met_MC_Y     ->Scale(Zll0Met_DA_Y     ->GetSumOfWeights()/Zll0Met_MC_Y     ->GetSumOfWeights());
+  Zll0TrackMet_MC_X->Scale(Zll0TrackMet_DA_X->GetSumOfWeights()/Zll0TrackMet_MC_X->GetSumOfWeights());
+  Zll0TrackMet_MC_Y->Scale(Zll0TrackMet_DA_Y->GetSumOfWeights()/Zll0TrackMet_MC_Y->GetSumOfWeights());
+  Zll0Met_CorMC_X     ->Scale(Zll0Met_DA_X     ->GetSumOfWeights()/Zll0Met_CorMC_X     ->GetSumOfWeights());
+  Zll0Met_CorMC_Y     ->Scale(Zll0Met_DA_Y     ->GetSumOfWeights()/Zll0Met_CorMC_Y     ->GetSumOfWeights());
+  Zll0TrackMet_CorMC_X->Scale(Zll0TrackMet_DA_X->GetSumOfWeights()/Zll0TrackMet_CorMC_X->GetSumOfWeights());
+  Zll0TrackMet_CorMC_Y->Scale(Zll0TrackMet_DA_Y->GetSumOfWeights()/Zll0TrackMet_CorMC_Y->GetSumOfWeights());
+  Zll1Met_MC_X     ->Scale(Zll1Met_DA_X     ->GetSumOfWeights()/Zll1Met_MC_X     ->GetSumOfWeights());
+  Zll1Met_MC_Y     ->Scale(Zll1Met_DA_Y     ->GetSumOfWeights()/Zll1Met_MC_Y     ->GetSumOfWeights());
+  Zll1TrackMet_MC_X->Scale(Zll1TrackMet_DA_X->GetSumOfWeights()/Zll1TrackMet_MC_X->GetSumOfWeights());
+  Zll1TrackMet_MC_Y->Scale(Zll1TrackMet_DA_Y->GetSumOfWeights()/Zll1TrackMet_MC_Y->GetSumOfWeights());
+  Zll1Met_CorMC_X     ->Scale(Zll1Met_DA_X     ->GetSumOfWeights()/Zll1Met_CorMC_X     ->GetSumOfWeights());
+  Zll1Met_CorMC_Y     ->Scale(Zll1Met_DA_Y     ->GetSumOfWeights()/Zll1Met_CorMC_Y     ->GetSumOfWeights());
+  Zll1TrackMet_CorMC_X->Scale(Zll1TrackMet_DA_X->GetSumOfWeights()/Zll1TrackMet_CorMC_X->GetSumOfWeights());
+  Zll1TrackMet_CorMC_Y->Scale(Zll1TrackMet_DA_Y->GetSumOfWeights()/Zll1TrackMet_CorMC_Y->GetSumOfWeights());
+  Zll2Met_MC_X     ->Scale(Zll2Met_DA_X     ->GetSumOfWeights()/Zll2Met_MC_X     ->GetSumOfWeights());
+  Zll2Met_MC_Y     ->Scale(Zll2Met_DA_Y     ->GetSumOfWeights()/Zll2Met_MC_Y     ->GetSumOfWeights());
+  Zll2TrackMet_MC_X->Scale(Zll2TrackMet_DA_X->GetSumOfWeights()/Zll2TrackMet_MC_X->GetSumOfWeights());
+  Zll2TrackMet_MC_Y->Scale(Zll2TrackMet_DA_Y->GetSumOfWeights()/Zll2TrackMet_MC_Y->GetSumOfWeights());
+  Zll2Met_CorMC_X     ->Scale(Zll2Met_DA_X     ->GetSumOfWeights()/Zll2Met_CorMC_X     ->GetSumOfWeights());
+  Zll2Met_CorMC_Y     ->Scale(Zll2Met_DA_Y     ->GetSumOfWeights()/Zll2Met_CorMC_Y     ->GetSumOfWeights());
+  Zll2TrackMet_CorMC_X->Scale(Zll2TrackMet_DA_X->GetSumOfWeights()/Zll2TrackMet_CorMC_X->GetSumOfWeights());
+  Zll2TrackMet_CorMC_Y->Scale(Zll2TrackMet_DA_Y->GetSumOfWeights()/Zll2TrackMet_CorMC_Y->GetSumOfWeights());
 
   TCanvas *cv0 = new TCanvas("cv0", "cv0", 1000, 1000);
   cv0->Divide(2,2);
@@ -414,7 +504,7 @@ void test_ZllNormalization(){
   Zll0TrackMet_CorMC_Y->SetLineWidth(2);
   Zll0TrackMet_CorMC_Y->Draw("same,hist");
   legend04->Draw();
-  cv0->SaveAs("test0_zll.pdf");
+  cv0->SaveAs("test0_met_zll.pdf");
   
   TCanvas *cv1 = new TCanvas("cv1", "cv1", 1000, 1000);
   cv1->Divide(2,2);
@@ -506,7 +596,7 @@ void test_ZllNormalization(){
   Zll1TrackMet_CorMC_Y->SetLineWidth(2);
   Zll1TrackMet_CorMC_Y->Draw("same,hist");
   legend14->Draw();
-  cv1->SaveAs("test1_zll.pdf");
+  cv1->SaveAs("test1_met_zll.pdf");
 
   TCanvas *cv2 = new TCanvas("cv2", "cv2", 1000, 1000);
   cv2->Divide(2,2);
@@ -598,6 +688,6 @@ void test_ZllNormalization(){
   Zll2TrackMet_CorMC_Y->SetLineWidth(2);
   Zll2TrackMet_CorMC_Y->Draw("same,hist");
   legend24->Draw();
-  cv2->SaveAs("test2_zll.pdf");
+  cv2->SaveAs("test2_met_zll.pdf");
 
 }

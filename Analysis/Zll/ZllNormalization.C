@@ -365,28 +365,28 @@ void ZllNormalization
 
       double corr[2] = {1.0, 1.0};
       if     (TMath::Abs(lid1) == 13 && TMath::Abs(lep1->eta()) <  1.479){
-        corr[0] = 0.99920 + gRandom->Gaus(0.00,0.014);
+        corr[0] = 0.99920 + gRandom->Gaus(0.00,0.010);
       }
       else if(TMath::Abs(lid1) == 13 && TMath::Abs(lep1->eta()) >= 1.479){
-        corr[0] = 0.99934 + gRandom->Gaus(0.00,0.021);
+        corr[0] = 0.99934 + gRandom->Gaus(0.00,0.017);
       }
       else if(TMath::Abs(lid1) == 11 && TMath::Abs(lep1->eta()) <  1.479){
-        corr[0] = 0.99807 + gRandom->Gaus(0.00,0.018);
+        corr[0] = 0.99807 + gRandom->Gaus(0.00,0.015);
       }
       else if(TMath::Abs(lid1) == 11 && TMath::Abs(lep1->eta()) >= 1.479){
-        corr[0] = 0.99952 + gRandom->Gaus(0.00,0.033);
+        corr[0] = 0.99952 + gRandom->Gaus(0.00,0.030);
       }
       if     (TMath::Abs(lid2) == 13 && TMath::Abs(lep2->eta()) <  1.479){
-        corr[1] = 0.99920 + gRandom->Gaus(0.00,0.014);
+        corr[1] = 0.99920 + gRandom->Gaus(0.00,0.010);
       }
       else if(TMath::Abs(lid2) == 13 && TMath::Abs(lep2->eta()) >= 1.479){
-        corr[1] = 0.99934 + gRandom->Gaus(0.00,0.021);
+        corr[1] = 0.99934 + gRandom->Gaus(0.00,0.017);
       }
       else if(TMath::Abs(lid2) == 11 && TMath::Abs(lep2->eta()) <  1.479){
-        corr[1] = 0.99807 + gRandom->Gaus(0.00,0.018);
+        corr[1] = 0.99807 + gRandom->Gaus(0.00,0.015);
       }
       else if(TMath::Abs(lid2) == 11 && TMath::Abs(lep2->eta()) >= 1.479){
-        corr[1] = 0.99952 + gRandom->Gaus(0.00,0.033);
+        corr[1] = 0.99952 + gRandom->Gaus(0.00,0.030);
       }
       double pllx  = lep1->px()*corr[0]+lep2->px()*corr[1];
       double plly  = lep1->py()*corr[0]+lep2->py()*corr[1];
@@ -423,8 +423,8 @@ void ZllNormalization
       if    (njets == 0){
         metx	= met*cos(metPhi)	   -0.45189+gRandom->Gaus(0.0,3.2);
         mety	= met*sin(metPhi)	   -0.20148+gRandom->Gaus(0.0,3.2);
-        trkmetx = trackMet*cos(trackMetPhi)+0.12580+gRandom->Gaus(0.0,2.0);
-        trkmety = trackMet*sin(trackMetPhi)+0.02615+gRandom->Gaus(0.0,2.0);
+        trkmetx = trackMet*cos(trackMetPhi)+0.12580+gRandom->Gaus(0.0,1.0);
+        trkmety = trackMet*sin(trackMetPhi)+0.02615+gRandom->Gaus(0.0,1.0);
       }
       else if(njets == 1){
         metx	= met*cos(metPhi)	   -0.39040+gRandom->Gaus(0.0,3.6);
