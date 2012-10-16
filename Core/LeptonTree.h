@@ -118,6 +118,7 @@ class LeptonTree {
 
         // input variables
         float sceta_;
+        float scphi_;
         float scenergy_;
         bool chargesAgree_;
         float pfmva_;
@@ -242,6 +243,7 @@ std::cout << "~LeptonTree() done" << std::endl;
             tree_->Branch("tightId"          , &tightId_          ,   "tightId/i");
             tree_->Branch("pfmva"               , &pfmva_               ,   "pfmva/F");
             tree_->Branch("sceta"               , &sceta_               ,   "sceta/F");
+            tree_->Branch("scphi"               , &scphi_               ,   "scphi/F");
             tree_->Branch("scenergy"               , &scenergy_               ,   "scenergy/F");
             tree_->Branch("chargesAgree"               , &chargesAgree_               ,   "chargesAgree/O");
             tree_->Branch("eopin"               , &eopin_               ,   "eopin/F");
@@ -339,7 +341,7 @@ std::cout << "~LeptonTree() done" << std::endl;
             tree_->SetBranchAddress("mediumId",            &mediumId_);
             tree_->SetBranchAddress("tightId",            &tightId_);
             tree_->SetBranchAddress("pfmva",          &pfmva_);
-            tree_->SetBranchAddress("sceta",          &sceta_);
+            tree_->SetBranchAddress("scphi",          &scphi_);
             tree_->SetBranchAddress("scenergy",          &scenergy_);
             tree_->SetBranchAddress("chargesAgree",          &chargesAgree_);
             tree_->SetBranchAddress("eopin",          &eopin_);
@@ -448,7 +450,7 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("mediumId"));
         variables_.push_back(std::string("tightId"));
         variables_.push_back(std::string("pfmva"));
-        variables_.push_back(std::string("sceta"));
+        variables_.push_back(std::string("scphi"));
         variables_.push_back(std::string("scenergy"));
         variables_.push_back(std::string("chargesAgree"));
         variables_.push_back(std::string("eopin"));  
@@ -535,7 +537,7 @@ LeptonTree::InitVariables(){
     mediumId_ = 0;
     tightId_ = 0;
     pfmva_ = 0;
-    sceta_ = 0;
+    scphi_ = 0;
     scenergy_ = 0;
     chargesAgree_ = 0;
     eopin_ = 0;
@@ -617,7 +619,7 @@ LeptonTree::Get(std::string value)
     if(value=="mediumId"              ) { return this->mediumId_;           }
     if(value=="tightId"              ) { return this->tightId_;           }
     if(value=="pfmva"              ) { return this->pfmva_;           }
-    if(value=="sceta"              ) { return this->sceta_;           }
+    if(value=="scphi"              ) { return this->scphi_;           }
     if(value=="scenergy"              ) { return this->scenergy_;           }
     if(value=="chargesAgree"              ) { return this->chargesAgree_;           }
     if(value=="eopin"              ) { return this->eopin_;           }
