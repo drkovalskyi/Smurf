@@ -17,7 +17,7 @@ setenv SIG_TEST data2012/${TAG}_hww${MH}.root
 #setenv SIG_TEST data2012/${TAG}_hww125.root
 setenv BKG_TEST data2012/${TAG}_backgroundA_skim2.root
 setenv DAT_TEST data2012/${TAG}_data_skim2.root;
-#setenv DAT_TEST data2012/${TAG}_hww125.root;
+#setenv DAT_TEST data2012/ntuples2012_125train_${NJETS}jets_hww125.root;
 setenv SYS_TEST data2012/${TAG}_hww_syst_skim6.root;
 
 if($MH == 0) then

@@ -62,7 +62,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   if(WWXSSel == true) ptLepMin = 20.;
 
   bool forBDTAna = false;
-  bool useRFromData[3] = {0, 0, 1};
+  bool useRFromData[3] = {1, 1, 1};
 
   Double_t lumi = 1;
   TString filesPath   = "dummy";
@@ -506,7 +506,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
               }
             }
 	
- 	    if(!passMtCut) continue;
+ 	    if(!passMtCut) continue; // MT AFTER R IS COMPUTED!!!
 
             bool passMET = minmet > 20.;
             if(useDYMVA[imass] == kTRUE){
@@ -618,8 +618,8 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
               hNout_ree_da[ijet][imass]->Fill(varMet,theDataWeight/(Double_t)nmet);	
             }
           }
-	  
-          if(!passMtCut) continue;
+
+ 	  if(!passMtCut) continue; // MT AFTER R IS COMPUTED!!!
 
           bool passMET = minmet > 20.;
           if(useDYMVA[imass] == kTRUE){
@@ -869,6 +869,11 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 	delete hout;
 	delete hin;
       }
+
+      // DO NOT ALLOW FOR MORE THAN 100% uncertainty
+      if(RllErrSyst > 1.0*Rll) RllErrSyst = 1.0*Rll;
+      // DO NOT ALLOW FOR LESS THAN 20% uncertainty
+      if(RllErrSyst < 0.2*Rll) RllErrSyst = 0.2*Rll;
 
       sprintf(buffer,"%.2f +/- %.2f +/- %.2f",Rll,RllErrStat,RllErrSyst);
 //     sprintf(buffer,"%.3f +/- %.3f +/- %.3f",Ree,ReeErrStat,ReeErrSyst);
@@ -1194,6 +1199,7 @@ Double_t computeSyst(const TH1D *hout, const TH1D *hin, Int_t binUsed, Double_t 
   Double_t r0=(hout->GetBinContent(binUsed))/(hin->GetBinContent(binUsed));
   Double_t dr=0;
   for(Int_t ibin=1; ibin<=nbins; ibin++) {
+    if(hin->GetBinContent(ibin) <= 0) continue;
     Double_t r = (hout->GetBinContent(ibin))/(hin->GetBinContent(ibin));
 
     //only consider last bin for systematics if the uncertainty is less than rErrorMax to protect against statistical fluctuations
