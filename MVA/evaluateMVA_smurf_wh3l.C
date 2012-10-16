@@ -665,9 +665,9 @@ TString suffix       = "wh3l"
       if (Use["BDTG"]){
         bdtg  = reader->EvaluateMVA( "BDTG method" );
 
-        double rndMon[12] = {gRandom->Gaus(0.00,0.014),gRandom->Gaus(0.00,0.021),gRandom->Gaus(0.00,0.018),gRandom->Gaus(0.00,0.033),
-	                     gRandom->Gaus(0.00,0.014),gRandom->Gaus(0.00,0.021),gRandom->Gaus(0.00,0.018),gRandom->Gaus(0.00,0.033),
-	                     gRandom->Gaus(0.00,0.014),gRandom->Gaus(0.00,0.021),gRandom->Gaus(0.00,0.018),gRandom->Gaus(0.00,0.033)};
+        double rndMon[12] = {gRandom->Gaus(0.00,0.010),gRandom->Gaus(0.00,0.017),gRandom->Gaus(0.00,0.015),gRandom->Gaus(0.00,0.030),
+	                     gRandom->Gaus(0.00,0.010),gRandom->Gaus(0.00,0.017),gRandom->Gaus(0.00,0.015),gRandom->Gaus(0.00,0.030),
+	                     gRandom->Gaus(0.00,0.010),gRandom->Gaus(0.00,0.017),gRandom->Gaus(0.00,0.015),gRandom->Gaus(0.00,0.030)};
 	                     
 	if(doShapes == true){ // momentum scale +
 	  double corr[3] = {1.0, 1.0, 1.0};
@@ -774,8 +774,8 @@ TString suffix       = "wh3l"
 	  if	(smurfTree.njets_ == 0){
       	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)	     -0.45189+gRandom->Gaus(0.0,3.2);
       	    mety    = smurfTree.met_*sin(smurfTree.metPhi_)	     -0.20148+gRandom->Gaus(0.0,3.2);
-      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+0.12580+gRandom->Gaus(0.0,2.0);
-      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+0.02615+gRandom->Gaus(0.0,2.0);
+      	    trkmetx = smurfTree.trackMet_*cos(smurfTree.trackMetPhi_)+0.12580+gRandom->Gaus(0.0,1.0);
+      	    trkmety = smurfTree.trackMet_*sin(smurfTree.trackMetPhi_)+0.02615+gRandom->Gaus(0.0,1.0);
       	  }
       	  else if(smurfTree.njets_ == 1){
       	    metx    = smurfTree.met_*cos(smurfTree.metPhi_)	     -0.39040+gRandom->Gaus(0.0,3.6);
