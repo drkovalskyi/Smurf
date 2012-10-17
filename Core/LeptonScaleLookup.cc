@@ -104,6 +104,9 @@ float LeptonScaleLookup::GetExpectedTriggerEfficiency(float eta1, float pt1, flo
     float eff_dbl_1_leadingleg, eff_dbl_2_leadingleg;
     float eff_dbl_1_trailingleg, eff_dbl_2_trailingleg;
     
+    // TEMPORAL HACK!
+    pt1 = pt1*100.;
+    pt2 = pt2*100.;
 
     // get individual leg efficiencies
 
