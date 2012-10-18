@@ -45,13 +45,14 @@ if [ ! -d $INPUTDIR ]; then
 fi
 
 # make output directory
-OUTPUTDIR=${OUTPUTDIR}/mva/$MH/
+OUTPUTDIR=${OUTPUTDIR}/mva/$MH/ 
 mkdir -p $OUTPUTDIR
 rm -f output
 ln -s $OUTPUTDIR output
 
 # this is the prefix added to the BDT added ntuples
-export TAG=ntuples2012_PostICHEP_${MH}train_${NJETS}jets;
+#export TAG=ntuples2012_PostICHEP_${MH}train_${NJETS}jets; #FIXME : new BDT weights
+export TAG=ntuples2012_${MH}train_${NJETS}jets;  
 if [ ${NJETS} == "2" ]; then  
     TAG=ntuples2012_PostICHEP_125train_2jets;
 fi
@@ -125,7 +126,7 @@ export evaluateMVAFile=evaluateMVA_smurf_hww.C+;
 export PERIOD=2 
 
 # add mva for the signal  
-./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/hww${MH}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",$PERIOD\);
+./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/hww${MH}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",0,$PERIOD\);
 mv $OUTPUTDIR/${TAG}_hww${MH}.root $OUTPUTDIR/hww${MH}_${NJETS}j.root
 
 # add mva for all background
@@ -137,7 +138,7 @@ if [ ${NJETS} -lt 2 ] || [ $MH -eq 125 ]; then
 	echo "filling MVA information in sample: "  $dataset
 	PERIOD=2
 	echo "period = $PERIOD"
-	./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/${dataset}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",$PERIOD\);
+	./root-5.28.sh -l -q -b ${evaluateMVAFile}\(\"data/${dataset}.root\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"\",0,$PERIOD\);
 	mv $OUTPUTDIR/${TAG}_${dataset}.root $OUTPUTDIR/${dataset}_${NJETS}j.root
     done
 fi
