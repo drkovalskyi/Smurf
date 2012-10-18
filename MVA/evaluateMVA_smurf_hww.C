@@ -96,20 +96,23 @@ TString suffix       = "ww"
     mvaVar[ "dPhi" ]              = 1;  //delta phi btw leptons
     mvaVar[ "dR" ]                = 1;  //delta R btw leptons
     mvaVar[ "dilmass" ]           = 1;  //dilepton mass
-    mvaVar[ "type" ]              = 1;  //dilepton flavor type
     mvaVar[ "pmet" ]              = 0;  //projected met
     mvaVar[ "met" ]               = 0;  //met
     mvaVar[ "mt" ]                = 1;  //transverse higgs mass
-    mvaVar[ "mt1" ]               = 0;  //transverse mass of leading lepton and met
-    mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
     mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
     mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
-    mvaVar[ "dilpt" ]	          = 0;  //dilepton pt
     mvaVar[ "razor" ]             = 0;  //razor
+    if(doMultiClass == true){
+      mvaVar[ "mt1" ]             = 1;  //transverse mass of leading lepton and met
+      mvaVar[ "mt2" ]             = 1;  //transverse mass of sub-leading lepton and met
+      mvaVar[ "dilpt" ]	          = 1;  //dilepton pt
+    } else {
+      mvaVar[ "type" ]            = 1;  //dilepton flavor type
+    }
   }
-  if(njet == 1){
-    mvaVar[ "dPhiDiLepMET" ]   = 0; //delta phi btw dilepton and met
-    mvaVar[ "dPhiDiLepJet1" ]  = 0; //delta phi btw dilepton and jet1
+  if(njet == 1 && doMultiClass == false){
+    mvaVar[ "dPhiDiLepMET" ]   = 1; //delta phi btw dilepton and met
+    mvaVar[ "dPhiDiLepJet1" ]  = 1; //delta phi btw dilepton and jet1
   }
   if (njet == 2) {
     mvaVar[ "mjj" ]     	= 1;  //invariant mass of the dijet
@@ -249,7 +252,7 @@ TString suffix       = "ww"
       puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
     }
     else if(period == 2){ //  Full2012-Summer12-V9-12000ipb
-      effPath  = "/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
+      effPath  = "/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
       fakePath = "/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
       puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True.root";
     }

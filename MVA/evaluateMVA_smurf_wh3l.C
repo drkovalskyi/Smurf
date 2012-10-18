@@ -234,7 +234,7 @@ TString suffix       = "wh3l"
       puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
     }
     else if(period == 2){ //  Full2012-Summer12-V9-12000ipb
-      effPath  = "/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
+      effPath  = "/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
       fakePath = "/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
       puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True.root";
     }
