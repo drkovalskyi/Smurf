@@ -30,7 +30,7 @@ double poorManMetSyst(LorentzVector l1, LorentzVector l2, LorentzVector l3,
 
 double Unroll2VarTo1Var(double varA, double varB, int binsA, int binsB, bool verbose){
   // variables are supposed to be in the [0,1] range
-  if(varA < 0 || varA > 1 || varB < 0 || varB > 1) return -1.0;
+  if(varA < 0 || varA > 1 || varB < 0 || varB > 1) return -9.0;
   if(varA < 0 || varA > 1 || varB < 0 || varB > 1) assert(0);
 
   double newVarA = (int)(varA*binsA);
@@ -43,7 +43,9 @@ double Unroll2VarTo1Var(double varA, double varB, int binsA, int binsB, bool ver
 			           finalVar << " " << binRange << " " << finalVar/binRange << std::endl;
 
   // output is forced to be in the range [-1,1]
-  return ((finalVar/binRange)-0.5)*2.0;
+  double val = ((finalVar/binRange)-0.5)*2.0;
+  if(val == 1) val = 0.99999;
+  return val;
 }
 
 TH1F* Unroll2DTo1D(TH2F* h2, const char* hname) {

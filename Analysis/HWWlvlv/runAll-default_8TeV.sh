@@ -8,7 +8,6 @@ setenv CAT         2;
 setenv TAG       ntuples2012_${MH}train_${NJETS}jets;
 
 if ($NJETS == 2) then
-  #setenv TAG       ntuples2012_125train_${NJETS}jets;
   setenv TAG       ntuples2012_${MH}train_1jets;
 endif
 

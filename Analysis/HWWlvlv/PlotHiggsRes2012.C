@@ -150,8 +150,8 @@ void PlotHiggsRes2012
 
   if(nJetsType == 2) mtLowerCut = 30;
 
-  double dilmass_cutFor2D = dilmass_cut;
-  double mtUpperCutFor2D  = mtUpperCut;  
+  float dilmass_cutFor2D = dilmass_cut;
+  float mtUpperCutFor2D  = mtUpperCut;  
   if(mH > 250) {
     dilmass_cutFor2D = 450.;
     mtUpperCutFor2D  = 380.;
@@ -841,19 +841,22 @@ void PlotHiggsRes2012
       if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
+      if(mll_lepup < dilmass_cut) mll_lepup = TMath::Min(mll_lepup,dilmass_cutFor2D);
+      if( mt_lepup <  mtUpperCut)  mt_lepup = TMath::Min( mt_lepup, mtUpperCutFor2D);
       varA = (mll_lepup-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       varB = (mt_lepup-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux0 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
+      if(mll_lepdown < dilmass_cut) mll_lepdown = TMath::Min(mll_lepdown,dilmass_cutFor2D);
+      if( mt_lepdown <  mtUpperCut)  mt_lepdown = TMath::Min( mt_lepdown, mtUpperCutFor2D);
       varA = (mll_lepdown-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       varB = (mt_lepdown-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux1 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
+      if(mll_metup < dilmass_cut) mll_metup = TMath::Min(mll_metup,dilmass_cutFor2D);
+      if( mt_metup <  mtUpperCut)  mt_metup = TMath::Min( mt_metup, mtUpperCutFor2D);
       varA = (mll_metup-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       varB = (mt_metup-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
     if(is2DAna == true && is2DBDT == true) {
@@ -864,27 +867,18 @@ void PlotHiggsRes2012
 
       varA = bdtgV0_aux0;
       varB = bdtgV1_aux0;
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux0 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
       varA = bdtgV0_aux1;
       varB = bdtgV1_aux1;
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux1 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
       varA = bdtgV0_aux2;
       varB = bdtgV1_aux2;
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
-    if(bdtg_aux0 < -1.0) bdtg_aux0 = -0.999;
-    if(bdtg_aux0 > +1.0) bdtg_aux0 =  0.999;
-    if(bdtg_aux1 < -1.0) bdtg_aux1 = -0.999;
-    if(bdtg_aux1 > +1.0) bdtg_aux1 =  0.999;
-    if(bdtg_aux2 < -1.0) bdtg_aux2 = -0.999;
-    if(bdtg_aux2 > +1.0) bdtg_aux2 =  0.999;
 
     //----------------------------------------------------------------------------
     // Define event weights    
@@ -1058,37 +1052,37 @@ void PlotHiggsRes2012
         if     (nSigBin == 1){
 	  histo_ttH_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
 	  histo_ttH_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_ttH_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ttH_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ttH_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ttH_CMS_hww_MVALepResBoundingUp  ->Fill(bdtg_aux0, myWeight);
+	  histo_ttH_CMS_hww_MVALepResBoundingDown->Fill(bdtg_aux1, myWeight);
+	  histo_ttH_CMS_hww_MVAMETResBoundingUp  ->Fill(bdtg_aux2, myWeight);
 	}
         else if(nSigBin == 2){
 	  histo_ZH_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
 	  histo_ZH_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_ZH_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ZH_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ZH_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ZH_CMS_hww_MVALepResBoundingUp  ->Fill(bdtg_aux0, myWeight);
+	  histo_ZH_CMS_hww_MVALepResBoundingDown->Fill(bdtg_aux1, myWeight);
+	  histo_ZH_CMS_hww_MVAMETResBoundingUp  ->Fill(bdtg_aux2, myWeight);
 	}
         else if(nSigBin == 3){
 	  histo_WH_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
 	  histo_WH_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_WH_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_WH_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_WH_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_WH_CMS_hww_MVALepResBoundingUp  ->Fill(bdtg_aux0, myWeight);
+	  histo_WH_CMS_hww_MVALepResBoundingDown->Fill(bdtg_aux1, myWeight);
+	  histo_WH_CMS_hww_MVAMETResBoundingUp  ->Fill(bdtg_aux2, myWeight);
 	}
         else if(nSigBin == 4){
 	  histo_qqH_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
 	  histo_qqH_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_qqH_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_qqH_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_qqH_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_qqH_CMS_hww_MVALepResBoundingUp  ->Fill(bdtg_aux0, myWeight);
+	  histo_qqH_CMS_hww_MVALepResBoundingDown->Fill(bdtg_aux1, myWeight);
+	  histo_qqH_CMS_hww_MVAMETResBoundingUp  ->Fill(bdtg_aux2, myWeight);
 	}
         else if(nSigBin == 5){
 	  histo_ggH_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
 	  histo_ggH_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_ggH_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ggH_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ggH_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ggH_CMS_hww_MVALepResBoundingUp  ->Fill(bdtg_aux0, myWeight);
+	  histo_ggH_CMS_hww_MVALepResBoundingDown->Fill(bdtg_aux1, myWeight);
+	  histo_ggH_CMS_hww_MVAMETResBoundingUp  ->Fill(bdtg_aux2, myWeight);
 	}
       }
       // WARNING, THIS IS ONLY GOOD FOR BDTG!
@@ -1390,19 +1384,22 @@ void PlotHiggsRes2012
       if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
+      if(mll_lepup < dilmass_cut) mll_lepup = TMath::Min(mll_lepup,dilmass_cutFor2D);
+      if( mt_lepup <  mtUpperCut)  mt_lepup = TMath::Min( mt_lepup, mtUpperCutFor2D);
       varA = (mll_lepup-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       varB = (mt_lepup-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux0 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
+      if(mll_lepdown < dilmass_cut) mll_lepdown = TMath::Min(mll_lepdown,dilmass_cutFor2D);
+      if( mt_lepdown <  mtUpperCut)  mt_lepdown = TMath::Min( mt_lepdown, mtUpperCutFor2D);
       varA = (mll_lepdown-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       varB = (mt_lepdown-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux1 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
+      if(mll_metup < dilmass_cut) mll_metup = TMath::Min(mll_metup,dilmass_cutFor2D);
+      if( mt_metup <  mtUpperCut)  mt_metup = TMath::Min( mt_metup, mtUpperCutFor2D);
       varA = (mll_metup-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       varB = (mt_metup-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
     if(is2DAna == true && is2DBDT == true) {
@@ -1413,27 +1410,18 @@ void PlotHiggsRes2012
 
       varA = bdtgV0_aux0;
       varB = bdtgV1_aux0;
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux0 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
       varA = bdtgV0_aux1;
       varB = bdtgV1_aux1;
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux1 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
       varA = bdtgV0_aux2;
       varB = bdtgV1_aux2;
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
-    if(bdtg_aux0 < -1.0) bdtg_aux0 = -0.999;
-    if(bdtg_aux0 > +1.0) bdtg_aux0 =  0.999;
-    if(bdtg_aux1 < -1.0) bdtg_aux1 = -0.999;
-    if(bdtg_aux1 > +1.0) bdtg_aux1 =  0.999;
-    if(bdtg_aux2 < -1.0) bdtg_aux2 = -0.999;
-    if(bdtg_aux2 > +1.0) bdtg_aux2 =  0.999;
 
     //----------------------------------------------------------------------------
     // Define event weights    
@@ -1835,28 +1823,28 @@ void PlotHiggsRes2012
         if     (fDecay == 0){
 	  histo_qqWW_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
 	  histo_qqWW_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_qqWW_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_qqWW_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_qqWW_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_qqWW_CMS_hww_MVALepResBoundingUp  ->Fill(bdtg_aux0, myWeight);
+	  histo_qqWW_CMS_hww_MVALepResBoundingDown->Fill(bdtg_aux1, myWeight);
+	  histo_qqWW_CMS_hww_MVAMETResBoundingUp  ->Fill(bdtg_aux2, myWeight);
 	}
         else if(fDecay == 1){
 	  histo_ggWW_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
 	  histo_ggWW_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_ggWW_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ggWW_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_ggWW_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_ggWW_CMS_hww_MVALepResBoundingUp  ->Fill(bdtg_aux0, myWeight);
+	  histo_ggWW_CMS_hww_MVALepResBoundingDown->Fill(bdtg_aux1, myWeight);
+	  histo_ggWW_CMS_hww_MVAMETResBoundingUp  ->Fill(bdtg_aux2, myWeight);
 	}
         else if(fDecay == 2){
 	  histo_VV_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
 	  histo_VV_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_VV_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_VV_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_VV_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_VV_CMS_hww_MVALepResBoundingUp  ->Fill(bdtg_aux0, myWeight);
+	  histo_VV_CMS_hww_MVALepResBoundingDown->Fill(bdtg_aux1, myWeight);
+	  histo_VV_CMS_hww_MVAMETResBoundingUp  ->Fill(bdtg_aux2, myWeight);
 	}
         else if(fDecay == 3){
-	  histo_Top_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Top_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Top_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Top_CMS_hww_MVALepResBoundingUp  ->Fill(bdtg_aux0, myWeight);
+	  histo_Top_CMS_hww_MVALepResBoundingDown->Fill(bdtg_aux1, myWeight);
+	  histo_Top_CMS_hww_MVAMETResBoundingUp  ->Fill(bdtg_aux2, myWeight);
 	}
         else if(fDecay == 4){
 	}
@@ -1865,16 +1853,16 @@ void PlotHiggsRes2012
         else if(fDecay == 6 && useWgammaTemplates == false){
 	  histo_Wgamma_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
 	  histo_Wgamma_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_Wgamma_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Wgamma_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Wgamma_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Wgamma_CMS_hww_MVALepResBoundingUp  ->Fill(bdtg_aux0, myWeight);
+	  histo_Wgamma_CMS_hww_MVALepResBoundingDown->Fill(bdtg_aux1, myWeight);
+	  histo_Wgamma_CMS_hww_MVAMETResBoundingUp  ->Fill(bdtg_aux2, myWeight);
 	}
         else if(fDecay == 7){
 	  histo_Ztt_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
 	  histo_Ztt_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_Ztt_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Ztt_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Ztt_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Ztt_CMS_hww_MVALepResBoundingUp  ->Fill(bdtg_aux0, myWeight);
+	  histo_Ztt_CMS_hww_MVALepResBoundingDown->Fill(bdtg_aux1, myWeight);
+	  histo_Ztt_CMS_hww_MVAMETResBoundingUp  ->Fill(bdtg_aux2, myWeight);
 	}
       }
 
@@ -2174,19 +2162,22 @@ void PlotHiggsRes2012
       if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
+      if(mll_lepup < dilmass_cut) mll_lepup = TMath::Min(mll_lepup,dilmass_cutFor2D);
+      if( mt_lepup <  mtUpperCut)  mt_lepup = TMath::Min( mt_lepup, mtUpperCutFor2D);
       varA = (mll_lepup-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       varB = (mt_lepup-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux0 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
+      if(mll_lepdown < dilmass_cut) mll_lepdown = TMath::Min(mll_lepdown,dilmass_cutFor2D);
+      if( mt_lepdown <  mtUpperCut)  mt_lepdown = TMath::Min( mt_lepdown, mtUpperCutFor2D);
       varA = (mll_lepdown-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       varB = (mt_lepdown-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux1 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
+      if(mll_metup < dilmass_cut) mll_metup = TMath::Min(mll_metup,dilmass_cutFor2D);
+      if( mt_metup <  mtUpperCut)  mt_metup = TMath::Min( mt_metup, mtUpperCutFor2D);
       varA = (mll_metup-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       varB = (mt_metup-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
     if(is2DAna == true && is2DBDT == true) {
@@ -2197,27 +2188,18 @@ void PlotHiggsRes2012
 
       varA = bdtgV0_aux0;
       varB = bdtgV1_aux0;
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux0 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
       varA = bdtgV0_aux1;
       varB = bdtgV1_aux1;
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux1 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
       varA = bdtgV0_aux2;
       varB = bdtgV1_aux2;
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
-    if(bdtg_aux0 < -1.0) bdtg_aux0 = -0.999;
-    if(bdtg_aux0 > +1.0) bdtg_aux0 =  0.999;
-    if(bdtg_aux1 < -1.0) bdtg_aux1 = -0.999;
-    if(bdtg_aux1 > +1.0) bdtg_aux1 =  0.999;
-    if(bdtg_aux2 < -1.0) bdtg_aux2 = -0.999;
-    if(bdtg_aux2 > +1.0) bdtg_aux2 =  0.999;
 
     //----------------------------------------------------------------------------
     // Define event weights    
@@ -2481,9 +2463,9 @@ void PlotHiggsRes2012
           			 leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2,-1);
 	  histo_Wgamma_CMS_hww_MVALepEffBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffUp  /addLepEff);
 	  histo_Wgamma_CMS_hww_MVALepEffBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addLepEffDown/addLepEff);
-	  histo_Wgamma_CMS_hww_MVALepResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux0,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Wgamma_CMS_hww_MVALepResBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg_aux1,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
-	  histo_Wgamma_CMS_hww_MVAMETResBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg_aux2,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
+	  histo_Wgamma_CMS_hww_MVALepResBoundingUp  ->Fill(bdtg_aux0, myWeight);
+	  histo_Wgamma_CMS_hww_MVALepResBoundingDown->Fill(bdtg_aux1, myWeight);
+	  histo_Wgamma_CMS_hww_MVAMETResBoundingUp  ->Fill(bdtg_aux2, myWeight);
         }
       }
     } // passMVAPreselCuts
@@ -2682,19 +2664,22 @@ void PlotHiggsRes2012
       if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
+      if(mll_lepup < dilmass_cut) mll_lepup = TMath::Min(mll_lepup,dilmass_cutFor2D);
+      if( mt_lepup <  mtUpperCut)  mt_lepup = TMath::Min( mt_lepup, mtUpperCutFor2D);
       varA = (mll_lepup-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       varB = (mt_lepup-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux0 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
+      if(mll_lepdown < dilmass_cut) mll_lepdown = TMath::Min(mll_lepdown,dilmass_cutFor2D);
+      if( mt_lepdown <  mtUpperCut)  mt_lepdown = TMath::Min( mt_lepdown, mtUpperCutFor2D);
       varA = (mll_lepdown-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       varB = (mt_lepdown-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux1 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
+      if(mll_metup < dilmass_cut) mll_metup = TMath::Min(mll_metup,dilmass_cutFor2D);
+      if( mt_metup <  mtUpperCut)  mt_metup = TMath::Min( mt_metup, mtUpperCutFor2D);
       varA = (mll_metup-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       varB = (mt_metup-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
     if(is2DAna == true && is2DBDT == true) {
@@ -2705,27 +2690,18 @@ void PlotHiggsRes2012
 
       varA = bdtgV0_aux0;
       varB = bdtgV1_aux0;
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux0 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
       varA = bdtgV0_aux1;
       varB = bdtgV1_aux1;
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux1 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
 
       varA = bdtgV0_aux2;
       varB = bdtgV1_aux2;
-      if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
       bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
     if(bdtg < -1.0) bdtg = -0.999;
     if(bdtg > +1.0) bdtg =  0.999;
-    if(bdtg_aux0 < -1.0) bdtg_aux0 = -0.999;
-    if(bdtg_aux0 > +1.0) bdtg_aux0 =  0.999;
-    if(bdtg_aux1 < -1.0) bdtg_aux1 = -0.999;
-    if(bdtg_aux1 > +1.0) bdtg_aux1 =  0.999;
-    if(bdtg_aux2 < -1.0) bdtg_aux2 = -0.999;
-    if(bdtg_aux2 > +1.0) bdtg_aux2 =  0.999;
 
     //----------------------------------------------------------------------------
     // Weights for signal injection study
@@ -3729,7 +3705,7 @@ void PlotHiggsRes2012
     char theWWThStringMVA[20]; sprintf(theWWThStringMVA,"CMS_hww_%1dj_WW_8TeV",nJetsType);
     char theWWThStringCut[20]; sprintf(theWWThStringCut,"CMS_hww_%1dj_WW_8TeV",nJetsType); if(mH > 200) sprintf(theWWThStringCut,"CMS_hww_WW");
 
-    if(njets >= 2) {wwXS_E_MVA = 1.50; wwXS_E_Cut = 1.50;}
+    if(nJetsType >= 2) {wwXS_E_MVA = 1.50; wwXS_E_Cut = 1.50;}
 
     double XS_QCDscale_WW[3] = {1.0, 1.0, 1.0};
     if(mH > 200) {XS_QCDscale_WW[0] = 1.042; XS_QCDscale_WW[1] = 0.978; XS_QCDscale_WW[2] = 1.000;}
