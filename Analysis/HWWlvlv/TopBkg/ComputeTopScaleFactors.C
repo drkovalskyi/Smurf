@@ -913,6 +913,10 @@ void ComputeTopScaleFactors
     TopBkgScaleFactorUncertainty_2Jet_vbf[imass] = sqrt(NonTaggedTopDA_error)/NonTaggedTopMC;
     printf("data/MC/MCPred(%6.3f/%6.3f/%6.3f) -> scaleFactorVBF(%3d): %6.3f +/- %6.3f\n",NonTaggedTopDA,NonTaggedTopMC,NonTaggedTopMCPred,(int)mH[imass],TopBkgScaleFactor_2Jet_vbf[imass],TopBkgScaleFactorUncertainty_2Jet_vbf[imass]);
   }
+  double systMC_2j = NonTaggedTopMC/NonTaggedTopMCPred;
+  if(systMC_2j < 1.0) systMC_2j = 1.0/systMC_2j;
+  systMC_2j = 1.0-systMC_2j;
+
   printf("**********eff vbf jet 2-j SF**********\n");
   double evtMC_vbfSF_2j[5],evtMC_vbfSF_2j_error[5],evtDA_vbfSF_2j[5],evtDA_vbfSF_2j_error[5];
   double TopBkgScaleFactor_2Jet_vbfSF[nmass],TopBkgScaleFactorUncertainty_2Jet_vbfSF[nmass];
@@ -1074,6 +1078,7 @@ void ComputeTopScaleFactors
     
   }
 
+  double systMC_1j[5];
   printf("Predicted ttbar+tW background for 1jet analysis (fails btag):  top background scale factor\n");
   printf("               MC(tt + tW)     Predicted from MC     | Prediction from Data   |    Scale Factor \n");
   for(int i=0; i<5; i++) {
@@ -1083,6 +1088,9 @@ void ComputeTopScaleFactors
            estimationDA_btag_highestpt_1j[i],estimationDA_btag_highestpt_1j_error[i],
            estimationDA_btag_highestpt_1j[i]      /((btag_highestpt_1j_den[1][i]+btag_highestpt_1j_den[2][i])-(btag_highestpt_1j_num[1][i]+btag_highestpt_1j_num[2][i])),
            estimationDA_btag_highestpt_1j_error[i]/((btag_highestpt_1j_den[1][i]+btag_highestpt_1j_den[2][i])-(btag_highestpt_1j_num[1][i]+btag_highestpt_1j_num[2][i])));
+    systMC_1j[i] = ((btag_highestpt_1j_den[1][i]+btag_highestpt_1j_den[2][i])-(btag_highestpt_1j_num[1][i]+btag_highestpt_1j_num[2][i]))/estimationMC_btag_highestpt_1j[i];
+    if(systMC_1j[i] < 1.0) systMC_1j[i] = 1.0/systMC_1j[i];
+    systMC_1j[i] = 1.0-systMC_1j[i];
   }
 
   printf("**********************************************************\n");
@@ -1098,6 +1106,7 @@ void ComputeTopScaleFactors
   printf("btagSFTW = %f\n",btagSFTW);
   double TopBkgScaleFactor_1Jet = btagSFTW;
   double TopBkgScaleFactorUncertainty_1Jet = estimationDA_btag_highestpt_1j_error[4]/((btag_highestpt_1j_den[1][4]+btag_highestpt_1j_den[2][4])-(btag_highestpt_1j_num[1][4]+btag_highestpt_1j_num[2][4]));
+  TopBkgScaleFactorUncertainty_1Jet = sqrt(TopBkgScaleFactorUncertainty_1Jet*TopBkgScaleFactorUncertainty_1Jet+systMC_1j[4]*systMC_1j[4]);
 
   double effttMC_btag_lowpt_1j[5],effttMC_btag_lowpt_1j_error[5],effttMC_btag_lowpt_tt_1j[5],effttMC_btag_lowpt_tt_1j_error[5];
   double effttDA_btag_lowpt_1j[5],effttDA_btag_lowpt_1j_error[5],effttMC_btag_lowpt_tw_1j[5],effttMC_btag_lowpt_tw_1j_error[5];

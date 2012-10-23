@@ -811,7 +811,7 @@ void PlotHiggsRes2012
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    //if(dilep->mass()<50&&mt<125) continue;
+    //if(dilep->mass()<60&&mt<140) continue;
 
     bool dPhiDiLepJetCut = kTRUE;
     if(useDYMVA == kFALSE){
@@ -1319,7 +1319,7 @@ void PlotHiggsRes2012
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    //if(dilep->mass()<50&&mt<125) continue;
+    //if(dilep->mass()<60&&mt<140) continue;
 
     bool dPhiDiLepJetCut = kTRUE;
     if(useDYMVA == kFALSE){
@@ -2093,7 +2093,7 @@ void PlotHiggsRes2012
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    //if(dilep->mass()<50&&mt<125) continue;
+    //if(dilep->mass()<60&&mt<140) continue;
 
     bool dPhiDiLepJetCut = kTRUE;
     if(useDYMVA == kFALSE){
@@ -2631,7 +2631,7 @@ void PlotHiggsRes2012
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    //if(dilep->mass()<50&&mt<125) continue;
+    //if(dilep->mass()<60&&mt<140) continue;
 
     bool dPhiDiLepJetCut = kTRUE;
     if(useDYMVA == kFALSE){
@@ -3879,9 +3879,9 @@ void PlotHiggsRes2012
       newcardShape << Form("rate  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f\n",yield[1],yield[2],yield[3],yield[4],yield[5],yield[6],yield[7],yield[8],yield[9],TMath::Max((double)yield[10],0.0),yield[11],yield[12]);
       newcardShape << Form("lumi_8TeV                        lnN 1.044 1.044 1.044 1.044 %5.3f %5.3f 1.044   -     -     -   1.044 1.044\n",lumiErr,lumiErr);				 
       if(useExpTemplates == true){
-      newcardShape << Form("CMS_hww_MVALepEffBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000   -     -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
-      newcardShape << Form("CMS_hww_MVALepResBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
-      newcardShape << Form("CMS_hww_MVAMETResBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
+      newcardShape << Form("CMS_hww_MVALepEffBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000   -     -     -   -     -\n",theZHString,theWHString,theqqHString,theggHString);
+      newcardShape << Form("CMS_hww_MVALepResBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   -     -\n",theZHString,theWHString,theqqHString,theggHString);
+      newcardShape << Form("CMS_hww_MVAMETResBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   -     -\n",theZHString,theWHString,theqqHString,theggHString);
       }
       else {
       newcardShape << Form("CMS_eff_m                        lnN 1.030 1.030 1.030 1.030 %5.3f %5.3f 1.030   -     -	 -   1.030 1.030\n",theExpUncertainties[0],theExpUncertainties[0]);
@@ -3891,7 +3891,7 @@ void PlotHiggsRes2012
       newcardShape << Form("CMS_hww_met_resolution           lnN 1.020 1.020 1.020 1.020 %5.3f %5.3f 1.020   -     -	 -   1.020 1.020\n",theExpUncertainties[4],theExpUncertainties[4]);
       }
       if(useJESTemplates == true){
-      newcardShape << Form("CMS_hww_MVAJESBounding             shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   %s %s\n",theZHString,theWHString,theqqHString,theggHString,theWgammaString,theZttString);			   
+      newcardShape << Form("CMS_hww_MVAJESBounding             shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   -     -\n",theZHString,theWHString,theqqHString,theggHString);			   
       }
       else {
       newcardShape << Form("CMS_scale_j                      lnN %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f   -     -     -   %5.3f %5.3f\n",jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E);	     

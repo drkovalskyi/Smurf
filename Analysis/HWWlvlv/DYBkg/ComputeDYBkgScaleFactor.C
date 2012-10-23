@@ -38,7 +38,7 @@ static const Bool_t verbose = kFALSE;
 Double_t projectedMET(const Double_t met, const Double_t metPhi, const Double_t lepPhi);
 
 // compute systematic uncertainty
-Double_t computeSyst(const TH1D *hout, const TH1D *hin, Int_t binUsed, Double_t rErrorMax, Bool_t isDebug = false);
+Double_t computeSyst(const TH1D *hout, const TH1D *hin, Int_t binUsed, Double_t rErrorMax, Bool_t useRFromData = false, Bool_t isDebug = false);
 
 //=== MAIN MACRO =================================================================================================
 // Options:
@@ -861,19 +861,15 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 	RllErrStat = Rll*sqrt(errin_ll*errin_ll/nin_ll/nin_ll + errout_ll*errout_ll/nout_ll/nout_ll);
 	Double_t rErrorMax = 100000.4;
 	cout << "M: " << mH[imass] << endl;
-	RllErrSyst = computeSyst(hout,hin,MetBinToComputeRoutin,rErrorMax,true);
-        //while(RllErrSyst <= 0.0 && rErrorMax < 1.0){
-	//  rErrorMax += 0.1;
-	//  RllErrSyst = computeSyst(hout,hin,MetBinToComputeRoutin,rErrorMax);
-	//}  
+	RllErrSyst = computeSyst(hout,hin,MetBinToComputeRoutin,rErrorMax,true,true);
 	delete hout;
 	delete hin;
       }
 
       // DO NOT ALLOW FOR MORE THAN 100% uncertainty
       if(RllErrSyst > 1.0*Rll) RllErrSyst = 1.0*Rll;
-      // DO NOT ALLOW FOR LESS THAN 20% uncertainty
-      if(RllErrSyst < 0.2*Rll) RllErrSyst = 0.2*Rll;
+      // DO NOT ALLOW FOR LESS THAN 30% uncertainty
+      if(RllErrSyst < 0.3*Rll) RllErrSyst = 0.3*Rll;
 
       sprintf(buffer,"%.2f +/- %.2f +/- %.2f",Rll,RllErrStat,RllErrSyst);
 //     sprintf(buffer,"%.3f +/- %.3f +/- %.3f",Ree,ReeErrStat,ReeErrSyst);
@@ -1178,8 +1174,6 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 
 }
 
-
-
 //=== FUNCTION DEFINITIONS ======================================================================================
 
 //--------------------------------------------------------------------------------------------------
@@ -1193,13 +1187,14 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
 }
 
 //--------------------------------------------------------------------------------------------------
-Double_t computeSyst(const TH1D *hout, const TH1D *hin, Int_t binUsed, Double_t rErrorMax, Bool_t isDebug)
+Double_t computeSyst(const TH1D *hout, const TH1D *hin, Int_t binUsed, Double_t rErrorMax, Bool_t useRFromData, Bool_t isDebug)
 {
   const Int_t nbins = hout->GetXaxis()->GetNbins();
   Double_t r0=(hout->GetBinContent(binUsed))/(hin->GetBinContent(binUsed));
   Double_t dr=0;
   for(Int_t ibin=1; ibin<=nbins; ibin++) {
     if(hin->GetBinContent(ibin) <= 0) continue;
+    if(useRFromData == true && ibin == nbins) continue;
     Double_t r = (hout->GetBinContent(ibin))/(hin->GetBinContent(ibin));
 
     //only consider last bin for systematics if the uncertainty is less than rErrorMax to protect against statistical fluctuations
