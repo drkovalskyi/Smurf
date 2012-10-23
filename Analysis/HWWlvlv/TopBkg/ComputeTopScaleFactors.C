@@ -913,9 +913,6 @@ void ComputeTopScaleFactors
     TopBkgScaleFactorUncertainty_2Jet_vbf[imass] = sqrt(NonTaggedTopDA_error)/NonTaggedTopMC;
     printf("data/MC/MCPred(%6.3f/%6.3f/%6.3f) -> scaleFactorVBF(%3d): %6.3f +/- %6.3f\n",NonTaggedTopDA,NonTaggedTopMC,NonTaggedTopMCPred,(int)mH[imass],TopBkgScaleFactor_2Jet_vbf[imass],TopBkgScaleFactorUncertainty_2Jet_vbf[imass]);
   }
-  double systMC_2j = NonTaggedTopMC/NonTaggedTopMCPred;
-  if(systMC_2j < 1.0) systMC_2j = 1.0/systMC_2j;
-  systMC_2j = 1.0-systMC_2j;
 
   printf("**********eff vbf jet 2-j SF**********\n");
   double evtMC_vbfSF_2j[5],evtMC_vbfSF_2j_error[5],evtDA_vbfSF_2j[5],evtDA_vbfSF_2j_error[5];
