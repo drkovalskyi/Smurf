@@ -61,11 +61,13 @@ on the Monte Carlo simulation of these processes. It is not a problem
 since the uncertainties on these di-boson contributions in the Z-peak
 region are small compared with the systematic uncertainties of the
 R-value extraction and the statistical uncertainties on the number of
-the events in Z-peak region.
-As we do not have enough statistics in the MC at the higgs selection level, 
-we estimate directly at the Higgs selection level for both the 
-cut-based and shape-based analyses. 
-The results are shown in Table~\ref{tab:dy}. 
+the events in Z-peak region. 
+Given the current luminosity, the R-value is now estimated from data with a precision better or comparable to MC.
+Results at the higgs selection level for cut-based analysis are shown in Table~\ref{tab:dy}. 
+A comparison of \dyll\ estimation with the alternative zeta method~\cite{ZetaNote},\cite{ichep2012Note} 
+is shown in Table~\ref{tab:dy_zeta}. The two methods give results compatible at the $\sim$1$\sigma$ level.
+Based on this comparison, we assing a minimum systematic uncertainty of 30\% to the default \dyll\ prediction
+\footnote{Tables~\ref{tab:dy_wwlevel} and \ref{tab:dy} already includes the 30\% minimum uncertainty.}. 
 
 The $\Wjets$ background contribution is summarized in Table~\ref{tab:fake_est}. 
 The same sign closure test in the 0-jet bin finds 276 events in data while 
@@ -90,9 +92,9 @@ Figures~\ref{fig:ww_ptmax}-\ref{fig:ww_deltaphi} show a few key distributions at
 \hline
        nJets & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
 \hline
-0 & $409.58\pm50.99$  	& $0.29\pm0.01\pm0.18$ & $119.74\pm15.28\pm74.72$   & $19.03\pm5.61$  \\ 
-1 & $188.66\pm27.54$ 	& $0.25\pm0.01\pm0.10$ & $46.99\pm6.97\pm19.58$    	& $13.97\pm4.82$ \\
-2 & $1962.31\pm48.96$ 	& $0.27\pm0.01\pm0.05$ & $528.88\pm21.61\pm105.78$ 	& $280.18\pm21.11$ \\
+0 & $409.58\pm50.99$  	& $0.29\pm0.01\pm0.09$ & $119.74\pm15.28\pm35.92$   & $19.03\pm5.61$  \\ 
+1 & $188.66\pm27.54$ 	& $0.25\pm0.01\pm0.07$ & $ 46.99\pm 6.97\pm14.10$    	& $13.97\pm4.82$ \\
+2 & $1962.31\pm48.96$ 	& $0.27\pm0.01\pm0.08$ & $528.88\pm21.61\pm158.66$ 	& $280.18\pm21.11$ \\
 \hline
 \end{tabular}
 \caption{The Drell-Yan estimation in the same flavor final state at WW preselection level, using the DYMVA in 
@@ -111,20 +113,20 @@ Figures~\ref{fig:ww_ptmax}-\ref{fig:ww_deltaphi} show a few key distributions at
 \hline
 mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
 \hline
-115 \GeV& $78.46\pm11.52 $&$0.32\pm0.01\pm0.21 $&$25.23\pm3.81\pm16.36 $&$6.08\pm3.58$\\
-120 \GeV& $128.34\pm15.58 $&$0.32\pm0.01\pm0.21 $&$41.27\pm5.21\pm26.76 $&$10.39\pm4.31$\\
-125 \GeV& $82.31\pm12.44 $&$0.61\pm0.02\pm0.41 $&$50.58\pm7.87\pm34.08 $&$10.39\pm4.31$\\
-130 \GeV& $63.50\pm10.98 $&$0.90\pm0.04\pm0.70 $&$57.14\pm10.13\pm44.48 $&$10.39\pm4.31$\\
-135 \GeV& $58.88\pm11.14 $&$0.87\pm0.04\pm0.72 $&$51.05\pm9.87\pm42.43 $&$8.96\pm4.07$\\
-140 \GeV& $58.61\pm11.14 $&$0.77\pm0.03\pm0.36 $&$45.30\pm8.83\pm21.17 $&$8.96\pm4.07$\\
-150 \GeV& $44.07\pm11.19 $&$0.42\pm0.03\pm0.17 $&$18.46\pm4.85\pm7.42 $&$0.97\pm0.97$\\
-160 \GeV& $12.73\pm6.80 $&$0.90\pm0.08\pm0.63 $&$11.51\pm6.24\pm7.99 $&$0.97\pm0.97$\\
-170 \GeV& $3.40\pm6.20 $&$0.84\pm0.09\pm0.36 $&$2.85\pm5.20\pm1.23 $&$0.97\pm0.97$\\
-180 \GeV& $3.40\pm7.36 $&$0.62\pm0.06\pm0.57 $&$2.10\pm4.56\pm1.94 $&$0.00\pm0.00$\\
-190 \GeV& $23.70\pm11.52 $&$0.34\pm0.03\pm0.14 $&$8.10\pm4.00\pm3.30 $&$1.36\pm1.36$\\
-200 \GeV& $34.16\pm15.83 $&$0.22\pm0.02\pm0.22 $&$7.36\pm3.46\pm7.36 $&$1.36\pm1.36$\\
-250 \GeV& $87.18\pm25.44 $&$0.06\pm0.00\pm0.06 $&$5.34\pm1.62\pm5.34 $&$4.58\pm2.65$\\
-300 \GeV& $32.07\pm19.29 $&$0.13\pm0.01\pm0.13 $&$4.11\pm2.51\pm4.11 $&$4.58\pm2.65$\\
+115 \GeV& $78.46\pm11.52 $&$0.32\pm0.01\pm0.10 $&$25.23\pm 3.81\pm 7.57 $&$6.08\pm3.58$\\
+120 \GeV& $128.34\pm15.58$&$0.32\pm0.01\pm0.10 $&$41.27\pm 5.21\pm12.38 $&$10.39\pm4.31$\\
+125 \GeV& $82.31\pm12.44 $&$0.61\pm0.02\pm0.19 $&$50.58\pm 7.87\pm15.78 $&$10.39\pm4.31$\\
+130 \GeV& $63.50\pm10.98 $&$0.90\pm0.04\pm0.27 $&$57.14\pm10.13\pm17.14 $&$10.39\pm4.31$\\
+135 \GeV& $58.88\pm11.14 $&$0.87\pm0.04\pm0.09 $&$51.05\pm 9.87\pm15.32 $&$8.96\pm4.07$\\
+140 \GeV& $58.61\pm11.14 $&$0.77\pm0.03\pm0.23 $&$45.30\pm 8.83\pm13.59 $&$8.96\pm4.07$\\
+150 \GeV& $44.07\pm11.19 $&$0.42\pm0.03\pm0.13 $&$18.46\pm 4.85\pm 5.70 $&$0.97\pm0.97$\\
+160 \GeV& $12.73\pm6.80  $&$0.90\pm0.08\pm0.30 $&$11.51\pm 6.24\pm 3.88 $&$0.97\pm0.97$\\
+170 \GeV& $3.40\pm6.20   $&$0.84\pm0.09\pm0.36 $&$ 2.85\pm 5.20\pm 1.23 $&$0.97\pm0.97$\\
+180 \GeV& $3.40\pm7.36   $&$0.62\pm0.06\pm0.24 $&$ 2.10\pm 4.56\pm 0.81 $&$0.00\pm0.00$\\
+190 \GeV& $23.70\pm11.52 $&$0.34\pm0.03\pm0.11 $&$ 8.10\pm 4.00\pm 2.64 $&$1.36\pm1.36$\\
+200 \GeV& $34.16\pm15.83 $&$0.22\pm0.02\pm0.06 $&$ 7.36\pm 3.46\pm 2.21 $&$1.36\pm1.36$\\
+250 \GeV& $87.18\pm25.44 $&$0.06\pm0.00\pm0.02 $&$ 5.34\pm 1.62\pm 1.86 $&$4.58\pm2.65$\\
+300 \GeV& $32.07\pm19.29 $&$0.13\pm0.01\pm0.04 $&$ 4.11\pm 2.51\pm 1.23 $&$4.58\pm2.65$\\
 \vspace{-3mm}  \\
 \hline
 \hline
@@ -132,20 +134,20 @@ mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}
 \hline
 mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\ 
 \hline
-115 \GeV& $19.08\pm6.70 $&$0.19\pm0.01\pm0.05 $&$3.57\pm1.26\pm0.91 $&$0.00\pm0.00$\\
-120 \GeV& $42.51\pm9.34 $&$0.19\pm0.01\pm0.05 $&$7.95\pm1.76\pm2.02 $&$0.00\pm0.00$\\
-125 \GeV& $32.58\pm7.88 $&$0.27\pm0.01\pm0.20 $&$8.82\pm2.15\pm6.36 $&$0.00\pm0.00$\\
-130 \GeV& $30.30\pm7.34 $&$0.36\pm0.01\pm0.20 $&$10.86\pm2.65\pm6.15 $&$0.00\pm0.00$\\
-135 \GeV& $29.44\pm7.62 $&$0.34\pm0.01\pm0.33 $&$10.00\pm2.61\pm9.73 $&$0.00\pm0.00$\\
-140 \GeV& $27.07\pm7.62 $&$0.31\pm0.01\pm0.31 $&$8.37\pm2.38\pm8.37 $&$0.00\pm0.00$\\
-150 \GeV& $35.58\pm9.18 $&$0.20\pm0.01\pm0.20 $&$7.23\pm1.90\pm7.16 $&$0.00\pm0.00$\\
-160 \GeV& $12.78\pm4.94 $&$0.43\pm0.02\pm0.43 $&$5.51\pm2.15\pm5.51 $&$0.00\pm0.00$\\
-170 \GeV& $13.92\pm5.35 $&$0.40\pm0.02\pm0.40 $&$5.51\pm2.14\pm5.51 $&$0.00\pm0.00$\\
-180 \GeV& $14.22\pm5.93 $&$0.32\pm0.02\pm0.32 $&$4.52\pm1.90\pm4.52 $&$0.00\pm0.00$\\
-190 \GeV& $43.97\pm10.39 $&$0.22\pm0.01\pm0.07 $&$9.64\pm2.33\pm3.20 $&$0.00\pm0.00$\\
-200 \GeV& $59.12\pm12.57 $&$0.16\pm0.01\pm0.03 $&$9.63\pm2.10\pm1.93 $&$0.00\pm0.00$\\
-250 \GeV& $70.84\pm16.17 $&$0.09\pm0.01\pm0.09 $&$6.44\pm1.51\pm6.44 $&$1.62\pm1.62$\\
-300 \GeV& $40.14\pm13.19 $&$0.10\pm0.01\pm0.10 $&$4.21\pm1.42\pm4.21 $&$3.19\pm2.26$\\
+115 \GeV& $19.08\pm6.70  $&$0.19\pm0.01\pm0.06 $&$ 3.57\pm1.26\pm1.07 $&$0.00\pm0.00$\\
+120 \GeV& $42.51\pm9.34  $&$0.19\pm0.01\pm0.06 $&$ 7.95\pm1.76\pm2.38 $&$0.00\pm0.00$\\
+125 \GeV& $32.58\pm7.88  $&$0.27\pm0.01\pm0.08 $&$ 8.82\pm2.15\pm2.65 $&$0.00\pm0.00$\\
+130 \GeV& $30.30\pm7.34  $&$0.36\pm0.01\pm0.11 $&$10.86\pm2.65\pm3.26 $&$0.00\pm0.00$\\
+135 \GeV& $29.44\pm7.62  $&$0.34\pm0.01\pm0.10 $&$10.00\pm2.61\pm3.00 $&$0.00\pm0.00$\\
+140 \GeV& $27.07\pm7.62  $&$0.31\pm0.01\pm0.09 $&$ 8.37\pm2.38\pm2.51 $&$0.00\pm0.00$\\
+150 \GeV& $35.58\pm9.18  $&$0.20\pm0.01\pm0.06 $&$ 7.23\pm1.90\pm2.17 $&$0.00\pm0.00$\\
+160 \GeV& $12.78\pm4.94  $&$0.43\pm0.02\pm0.13 $&$ 5.51\pm2.15\pm1.65 $&$0.00\pm0.00$\\
+170 \GeV& $13.92\pm5.35  $&$0.40\pm0.02\pm0.12 $&$ 5.51\pm2.14\pm1.65 $&$0.00\pm0.00$\\
+180 \GeV& $14.22\pm5.93  $&$0.32\pm0.02\pm0.09 $&$ 4.52\pm1.90\pm1.36 $&$0.00\pm0.00$\\
+190 \GeV& $43.97\pm10.39 $&$0.22\pm0.01\pm0.07 $&$ 9.64\pm2.33\pm2.89 $&$0.00\pm0.00$\\
+200 \GeV& $59.12\pm12.57 $&$0.16\pm0.01\pm0.05 $&$ 9.63\pm2.10\pm2.89 $&$0.00\pm0.00$\\
+250 \GeV& $70.84\pm16.17 $&$0.09\pm0.01\pm0.03 $&$ 6.44\pm1.51\pm1.93 $&$1.62\pm1.62$\\
+300 \GeV& $40.14\pm13.19 $&$0.10\pm0.01\pm0.03 $&$ 4.21\pm1.42\pm1.26 $&$3.19\pm2.26$\\
 \vspace{-3mm}  \\
 \hline
 \hline
@@ -153,26 +155,73 @@ mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}
 \hline
 mass & $N_{in}$(data)        & $R_{out/in}$        & $N_{out}$(data)  & $N_{out}$ (MC) \\
 \hline
-115 \GeV& $6.93\pm2.65 $&$0.25\pm0.06\pm0.11 $&$1.72\pm0.79\pm0.77 $&$2.14\pm1.53$\\
-120 \GeV& $12.88\pm3.61 $&$0.25\pm0.06\pm0.11 $&$3.20\pm1.21\pm1.42 $&$2.14\pm1.53$\\
-125 \GeV& $6.90\pm2.65 $&$0.35\pm0.09\pm0.16 $&$2.40\pm1.11\pm1.07 $&$2.14\pm1.53$\\
-130 \GeV& $5.94\pm2.45 $&$0.47\pm0.13\pm0.12 $&$2.78\pm1.37\pm0.70 $&$2.14\pm1.53$\\
-135 \GeV& $7.94\pm2.83 $&$0.45\pm0.12\pm0.24 $&$3.54\pm1.59\pm1.94 $&$2.14\pm1.53$\\
-140 \GeV& $7.94\pm2.83 $&$0.48\pm0.13\pm0.28 $&$3.80\pm1.72\pm2.21 $&$0.89\pm0.89$\\
-150 \GeV& $11.84\pm3.75 $&$0.27\pm0.10\pm0.17 $&$3.22\pm1.54\pm2.03 $&$0.00\pm0.00$\\
-160 \GeV& $4.95\pm2.24 $&$0.76\pm0.34\pm0.62 $&$3.76\pm2.38\pm3.05 $&$0.00\pm0.00$\\
-170 \GeV& $6.94\pm2.65 $&$0.76\pm0.34\pm0.76 $&$5.26\pm3.08\pm5.26 $&$0.00\pm0.00$\\
-180 \GeV& $10.83\pm3.61 $&$0.45\pm0.18\pm0.45 $&$4.91\pm2.57\pm4.91 $&$0.00\pm0.00$\\
-190 \GeV& $18.68\pm4.80 $&$0.33\pm0.11\pm0.33 $&$6.09\pm2.57\pm6.09 $&$0.00\pm0.00$\\
-200 \GeV& $19.56\pm4.91 $&$0.22\pm0.07\pm0.22 $&$4.32\pm1.81\pm4.32 $&$0.00\pm0.00$\\
-250 \GeV& $34.14\pm6.25 $&$0.15\pm0.05\pm0.15 $&$5.19\pm2.01\pm5.19 $&$0.00\pm0.00$\\
-300 \GeV& $25.27\pm5.67 $&$0.09\pm0.06\pm0.09 $&$2.26\pm1.52\pm2.26 $&$0.00\pm0.00$\\
+115 \GeV& $6.93\pm2.65  $&$0.25\pm0.06\pm0.07 $&$1.72\pm0.79\pm0.52 $&$2.14\pm1.53$\\
+120 \GeV& $12.88\pm3.61 $&$0.25\pm0.06\pm0.07 $&$3.20\pm1.21\pm0.96 $&$2.14\pm1.53$\\
+125 \GeV& $6.90\pm2.65  $&$0.35\pm0.09\pm0.10 $&$2.40\pm1.11\pm0.72 $&$2.14\pm1.53$\\
+130 \GeV& $5.94\pm2.45  $&$0.47\pm0.13\pm0.14 $&$2.78\pm1.37\pm0.84 $&$2.14\pm1.53$\\
+135 \GeV& $7.94\pm2.83  $&$0.45\pm0.12\pm0.08 $&$3.54\pm1.59\pm1.06 $&$2.14\pm1.53$\\
+140 \GeV& $7.94\pm2.83  $&$0.48\pm0.13\pm0.25 $&$3.80\pm1.72\pm1.98 $&$0.89\pm0.89$\\
+150 \GeV& $11.84\pm3.75 $&$0.27\pm0.10\pm0.15 $&$3.22\pm1.54\pm1.81 $&$0.00\pm0.00$\\
+160 \GeV& $4.95\pm2.24  $&$0.76\pm0.34\pm0.59 $&$3.76\pm2.38\pm2.94 $&$0.00\pm0.00$\\
+170 \GeV& $6.94\pm2.65  $&$0.76\pm0.34\pm0.76 $&$5.26\pm3.08\pm5.26 $&$0.00\pm0.00$\\
+180 \GeV& $10.83\pm3.61 $&$0.45\pm0.18\pm0.33 $&$4.91\pm2.57\pm3.58 $&$0.00\pm0.00$\\
+190 \GeV& $18.68\pm4.80 $&$0.33\pm0.11\pm0.20 $&$6.09\pm2.57\pm3.72 $&$0.00\pm0.00$\\
+200 \GeV& $19.56\pm4.91 $&$0.22\pm0.07\pm0.12 $&$4.32\pm1.81\pm2.43 $&$0.00\pm0.00$\\
+250 \GeV& $34.14\pm6.25 $&$0.15\pm0.05\pm0.05 $&$5.19\pm2.01\pm1.59 $&$0.00\pm0.00$\\
+300 \GeV& $25.27\pm5.67 $&$0.09\pm0.06\pm0.04 $&$2.26\pm1.52\pm1.09 $&$0.00\pm0.00$\\
 \hline 
 \hline
 \end{tabular}
 \caption{The Drell-Yan estimation in the same flavor final state, for the cut-based selections.}
 \label{tab:dy}
 \end{center}
+\end{table}
+
+\begin{table}
+{%\tiny
+ \begin{center}
+ \begin{tabular}{l | c c | c }
+\hline
+\multicolumn{4}{c}{0-jet} \\
+ \hline
+ $m_H$ & $R_{out/in}$ & $\zeta$ & $\Delta$ \\
+ \hline
+         WW & 119.7$\pm$20.7 & 89.5$\pm$37.0 & 30.2$\pm$42.5 \\
+    120 GeV &  41.0$\pm$11.0 & 24.3$\pm$11.0 & 16.7$\pm$15.6 \\
+    140 GeV &  45.0$\pm$10.1 & 29.7$\pm$12.7 & 15.3$\pm$16.2 \\
+    160 GeV &  11.4$\pm$7.3  & 18.0$\pm$7.5  &  6.6$\pm$10.5 \\
+    180 GeV &   2.0$\pm$4.6  & 10.5$\pm$9.4  &  8.5$\pm$10.5 \\
+    200 GeV &   7.2$\pm$3.8  &  9.6$\pm$8.5  &  2.4$\pm$9.3  \\
+ \hline
+ \hline
+\multicolumn{4}{c}{1-jet} \\
+ \hline
+ $m_H$ & $R_{out/in}$ & $\zeta$ & $\Delta$ \\
+ \hline
+         WW & 47.0$\pm$7.3 & 57.8$\pm$23.6 & 10.8$\pm$24.7 \\
+    120 GeV &  7.9$\pm$1.9 & 10.5$\pm$ 4.7 &  2.6$\pm$ 5.1 \\
+    140 GeV &  8.3$\pm$2.6 & 15.6$\pm$ 6.6 &  7.3$\pm$ 7.1 \\
+    160 GeV &  5.5$\pm$2.7 & 13.3$\pm$ 5.4 &  7.8$\pm$ 6.0 \\
+    180 GeV &  4.5$\pm$2.2 & 10.0$\pm$ 4.2 &  5.5$\pm$ 4.7 \\
+    200 GeV &  9.5$\pm$2.3 & 14.4$\pm$ 6.0 &  4.9$\pm$ 6.4 \\
+ \hline
+ \hline
+\multicolumn{4}{c}{2-jet} \\
+ \hline
+ $m_H$ & $R_{out/in}$ & $\zeta$ & $\Delta$ \\
+ \hline
+         WW & 528.9$\pm$57.8 & 327.3$\pm$129.7 & 200.2$\pm$142.0 \\
+    120 GeV &   3.2$\pm$ 1.3 &   2.6$\pm$  1.1 &   0.6$\pm$  1.7 \\
+    140 GeV &   3.8$\pm$ 2.6 &   2.6$\pm$  1.2 &   1.2$\pm$  2.9 \\
+    160 GeV &   3.8$\pm$ 3.8 &   1.2$\pm$  0.6 &   2.6$\pm$  3.8 \\
+    180 GeV &   4.9$\pm$ 4.4 &   1.3$\pm$  0.6 &   3.6$\pm$  4.4 \\
+    200 GeV &   4.3$\pm$ 3.0 &   1.8$\pm$  0.8 &   2.5$\pm$  3.1 \\
+ \hline
+\end{tabular}
+\end{center}
+}
+\caption{Comparison between $R_{out/in}$ amd $\zeta$ method predictions.}
+\label{tab:dy_zeta}
 \end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
