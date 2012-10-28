@@ -1,4 +1,6 @@
-In this section we document the 2D ($m_{ll}, m_T$) template used in this analysis. 
+In this section we document the 2D ($m_{ll}, m_T$) templates used in this analysis.  
+
+\subsection{Signal and background templates}
 Figure~\ref{fig:hww2d_lowmass_0j}-\ref{fig:bkg2d_lowmass_0j} show the 
 templates used for the 0-Jet bin for the signal and background processes. 
 Figure~\ref{fig:hww2d_highmass_0j}-\ref{fig:bkg2d_highmass_0j} show the 
@@ -175,4 +177,61 @@ templates used for the 1-Jet bin for the signal and background processes.
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+\subsection{Data templates for $\mHi<300$ GeV} 
+In this section, we show data templates subtracted by background templates. 
+$\mHi=125$ GeV and $\mHi=200$ GeV signal templates are also shown to compare 
+the shapes.
+
+% 0jet
+\begin{figure}[!hbtp]
+\centering
+\subfigure[$\mHi=125$ GeV]{
+\centering
+\label{subfig:m125_0j}
+\includegraphics[width=.4\textwidth]{figures/125-0j-2d_prefit_sig_PAS.pdf}
+}
+\subfigure[$\mHi=200$ GeV]{
+\centering
+\label{subfig:m200_0j}
+\includegraphics[width=.4\textwidth]{figures/200-0j-2d_prefit_sig_PAS.pdf}
+} \\ 
+\subfigure[Data - background]{
+\centering
+\label{subfig:dataminusbkg_0j}
+\includegraphics[width=.4\textwidth]{figures/125-0j-2d_postfit_dataminusbkg_PAS.pdf}
+} 
+\caption{ The 2D ($m_{ll}, m_T$) templates for signals($\mHi=125~\GeV$ and $\mHi=200~\GeV$) 
+and data subtracted by backgrounds in the 0-Jet bin. The data templates 
+have the same bin size as used in the analysis, but show only 4x4 bins 
+in low \mt~and \mll~ranges.
+}
+\label{fig:dataminusbkg_0j}
+\end{figure}
+
+% 1jet
+\begin{figure}[!hbtp]
+\centering
+\subfigure[$\mHi=125$ GeV]{
+\centering
+\label{subfig:m125_1j}
+\includegraphics[width=.4\textwidth]{figures/125-1j-2d_prefit_sig_PAS.pdf}
+}
+\subfigure[$\mHi=200$ GeV]{
+\centering
+\label{subfig:m200_1j}
+\includegraphics[width=.4\textwidth]{figures/200-1j-2d_prefit_sig_PAS.pdf}
+} \\ 
+\subfigure[Data - background]{
+\centering
+\label{subfig:dataminusbkg_1j}
+\includegraphics[width=.4\textwidth]{figures/125-1j-2d_postfit_dataminusbkg_PAS.pdf}
+} 
+\caption{ The 2D ($m_{ll}, m_T$) templates for signals($\mHi=125~\GeV$ and $\mHi=200~\GeV$) 
+and data subtracted by backgrounds in the 1-Jet bin. The data templates 
+have the same bin size as used in the analysis, but show only 4x4 bins 
+in low \mt~and \mll~ranges.
+}
+\label{fig:dataminusbkg_1j}
+\end{figure}
 
