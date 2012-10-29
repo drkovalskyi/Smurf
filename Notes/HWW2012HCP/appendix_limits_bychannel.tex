@@ -15,7 +15,7 @@ The limits for 2D analysis for 0 and 1-jet different flavor final states are in
 Tables~\ref{tab:uls_2d_0j_of} and~\ref{tab:uls_2d_1j_of}
 and Figures~\ref{fig:uls_2d_0j_of} and~\ref{fig:uls_2d_1j_of},
 respectively.
-The expected and observed significances are summarized in Tables~\ref{tab:signif_cut_0j_of_} and~\ref{tab:signif_2d_1j_of}. 
+The expected and observed significances are summarized in Tables~\ref{tab:signif_cut_2j} and~\ref{tab:signif_2d_1j_of}. 
 
 %%%%%%%%%%%%%%%%%
 % plot
@@ -69,10 +69,10 @@ The cut-based result is used. }
 % plot
 \begin{figure}[!hbtp]
 \centering
-\includegraphics[width=.75\textwidth]{figures/table_limits_nj_cut_log.pdf}
-\caption{Expected upper limits for SM Higgs in $\intlumiEightTeV$ at 8 TeV in all final states combined.
-Cut-based result is used. }
-\label{fig:uls_cut}
+\includegraphics[width=.75\textwidth]{figures/table_limits_nj_shapebdt_of_cut_log.pdf}
+\caption{Expected and observed upper limits for SM Higgs in $\intlumiEightTeV$ at 8 TeV in the $e\mu$ channel. 
+BDT result is used for 0/1jet bin and cut-based result is used for VBF channel. }
+\label{fig:uls_of_bdt01_cut2}
 \end{figure}
 % table
 \begin{table}[!htbp]
@@ -82,36 +82,85 @@ Cut-based result is used. }
 \vspace{-3mm} && \\
 Higgs Mass & Observed  & Median expected & Expected range for 68\% & Expected range for 95\%   \\
 \hline
-110 & 8.51 & 4.10 & [2.96, 5.71] & [2.20, 7.65] \\
-115 & 4.38 & 2.16 & [1.55, 3.00] & [1.16, 4.02] \\
-120 & 2.18 & 1.25 & [0.90, 1.74] & [0.67, 2.34] \\
-125 & 1.60 & 0.86 & [0.62, 1.20] & [0.46, 1.61] \\
-130 & 1.34 & 0.64 & [0.46, 0.89] & [0.34, 1.19] \\
-135 & 0.97 & 0.48 & [0.34, 0.66] & [0.26, 0.89] \\
-140 & 0.73 & 0.39 & [0.28, 0.54] & [0.21, 0.73] \\
-150 & 0.56 & 0.26 & [0.19, 0.36] & [0.14, 0.49] \\
-160 & 0.30 & 0.16 & [0.12, 0.23] & [0.09, 0.31] \\
-170 & 0.27 & 0.17 & [0.12, 0.23] & [0.09, 0.31] \\
-180 & 0.42 & 0.22 & [0.16, 0.30] & [0.12, 0.40] \\
-190 & 0.56 & 0.33 & [0.24, 0.45] & [0.18, 0.61] \\
-200 & 0.85 & 0.43 & [0.31, 0.60] & [0.23, 0.81] \\
-250 & 1.11 & 0.82 & [0.59, 1.13] & [0.44, 1.52] \\
-300 & 1.07 & 0.92 & [0.66, 1.27] & [0.49, 1.71] \\
-350 & 0.73 & 0.85 & [0.61, 1.18] & [0.46, 1.58] \\
-400 & 0.70 & 0.90 & [0.65, 1.26] & [0.49, 1.69] \\
-450 & 0.69 & 1.00 & [0.72, 1.39] & [0.53, 1.86] \\
-500 & 0.83 & 1.24 & [0.89, 1.73] & [0.67, 2.32] \\
-550 & 1.08 & 1.47 & [1.06, 2.04] & [0.79, 2.74] \\
-600 & 1.42 & 1.70 & [1.22, 2.36] & [0.91, 3.17] \\
 \vspace{-3mm} && \\
+110 & 5.27 & 3.29 & [2.37, 4.58] & [1.77, 6.14] \\
+115 & 3.10 & 1.70 & [1.23, 2.37] & [0.91, 3.18] \\
+120 & 1.62 & 1.01 & [0.73, 1.40] & [0.54, 1.88] \\
+125 & 0.98 & 0.67 & [0.48, 0.93] & [0.36, 1.25] \\
+130 & 0.73 & 0.46 & [0.33, 0.64] & [0.25, 0.86] \\
+135 & 0.71 & 0.38 & [0.27, 0.52] & [0.20, 0.70] \\
+140 & 0.54 & 0.29 & [0.21, 0.40] & [0.15, 0.54] \\
+150 & 0.39 & 0.20 & [0.14, 0.27] & [0.10, 0.36] \\
+160 & 0.19 & 0.13 & [0.10, 0.19] & [0.07, 0.25] \\
+170 & 0.27 & 0.14 & [0.10, 0.20] & [0.08, 0.27] \\
+180 & 0.39 & 0.18 & [0.13, 0.25] & [0.10, 0.34] \\
+190 & 0.60 & 0.25 & [0.18, 0.34] & [0.13, 0.46] \\
+200 & 0.79 & 0.32 & [0.23, 0.44] & [0.17, 0.59] \\
+250 & 0.49 & 0.59 & [0.43, 0.83] & [0.32, 1.11] \\
+300 & 0.49 & 0.65 & [0.47, 0.91] & [0.35, 1.22] \\
+350 & 0.38 & 0.59 & [0.43, 0.82] & [0.32, 1.10] \\
+400 & 0.36 & 0.60 & [0.43, 0.83] & [0.32, 1.11] \\
+450 & 0.44 & 0.70 & [0.51, 0.98] & [0.38, 1.31] \\
+500 & 0.54 & 0.86 & [0.62, 1.20] & [0.46, 1.61] \\
+550 & 0.76 & 1.07 & [0.77, 1.48] & [0.57, 1.99] \\
+600 & 0.97 & 1.37 & [0.99, 1.90] & [0.73, 2.55] \\
 \hline
 \end{tabular}
-\caption{Expected upper limits for SM Higgs in $\intlumiEightTeV$ at 8 TeV in all final states combined.
-Cut-based result is used. }
-\label{tab:ulscut}
+\caption{Expected and observed upper limits for SM Higgs in $\intlumiEightTeV$ at 8 TeV in the $e\mu$ channel. 
+BDT result is used for 0/1jet bin and cut-based result is used for VBF channel. }
+\label{tab:uls_of_bdt01_cut2}
 \end{center}
-\end{table}
+\end{table} 
 %%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%
+% plot
+\begin{figure}[!hbtp]
+\centering
+\includegraphics[width=.75\textwidth]{figures/table_limits_nj_shape2d_of_cut_log.pdf}
+\caption{Expected and observed upper limits for SM Higgs in $\intlumiEightTeV$ at 8 TeV in the $e\mu$ channel. 
+2D result is used for 0/1jet bin and cut-based result is used for VBF channel. }
+\label{fig:uls_of_2d01_cut2}
+\end{figure}
+% table
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c c c c c}
+\hline
+\vspace{-3mm} && \\
+Higgs Mass & Observed  & Median expected & Expected range for 68\% & Expected range for 95\%   \\
+\hline
+\vspace{-3mm} && \\
+110 & 6.06 & 3.01 & [2.17, 4.19] & [1.61, 5.61] \\
+115 & 3.23 & 1.55 & [1.11, 2.15] & [0.83, 2.88] \\
+120 & 2.04 & 0.89 & [0.64, 1.25] & [0.48, 1.67] \\
+125 & 1.21 & 0.58 & [0.42, 0.81] & [0.31, 1.08] \\
+130 & 0.90 & 0.41 & [0.30, 0.58] & [0.22, 0.77] \\
+135 & 0.71 & 0.33 & [0.24, 0.46] & [0.18, 0.61] \\
+140 & 0.62 & 0.27 & [0.20, 0.38] & [0.15, 0.51] \\
+150 & 0.41 & 0.20 & [0.15, 0.28] & [0.11, 0.38] \\
+160 & 0.25 & 0.15 & [0.11, 0.21] & [0.08, 0.28] \\
+170 & 0.25 & 0.16 & [0.12, 0.23] & [0.09, 0.30] \\
+180 & 0.33 & 0.20 & [0.14, 0.28] & [0.11, 0.37] \\
+190 & 0.46 & 0.28 & [0.20, 0.39] & [0.15, 0.52] \\
+200 & 0.55 & 0.35 & [0.25, 0.49] & [0.19, 0.65] \\
+250 & 0.56 & 0.60 & [0.43, 0.84] & [0.32, 1.13] \\
+300 & 0.56 & 0.68 & [0.49, 0.95] & [0.37, 1.27] \\
+350 & 0.42 & 0.61 & [0.44, 0.85] & [0.33, 1.13] \\
+400 & 0.41 & 0.64 & [0.46, 0.90] & [0.35, 1.20] \\
+450 & 0.52 & 0.82 & [0.59, 1.14] & [0.44, 1.52] \\
+500 & 0.73 & 1.09 & [0.78, 1.51] & [0.58, 2.03] \\
+550 & 1.17 & 1.36 & [0.98, 1.89] & [0.73, 2.54] \\
+600 & 1.81 & 1.74 & [1.25, 2.42] & [0.93, 3.24] \\
+\hline
+\end{tabular}
+\caption{Expected and observed upper limits for SM Higgs in $\intlumiEightTeV$ at 8 TeV in the $e\mu$ channel. 
+2D result is used for 0/1jet bin and cut-based result is used for VBF channel. }
+\label{tab:uls_of_2d01_cut2}
+\end{center}
+\end{table} 
+%%%%%%%%%% 
+
 
 %%%%%%%%%%%%%%%%%
 % plot
@@ -167,11 +216,13 @@ and in the SF final states. }
 % plot
 \begin{figure}[!hbtp]
 \centering
-\includegraphics[width=.75\textwidth]{figures/table_limits_nj_shape2d_of_cut_sf_log.pdf}
-\caption{Expected upper limits for SM Higgs in $\intlumiEightTeV$ at 8 TeV.
-2D result is used for OF 0/1jet bin and cut-based result is used for VBF channel
-and in the SF final states. }
-\label{fig:uls_2d01_cut2_cutsf}
+\includegraphics[width=.75\textwidth]{figures/table_limits_nj_8TeV_shapebdt_of_cut_7TeV_shape_log.pdf}
+\caption{Expected and observed upper limits for SM Higgs combining the $\intlumiSevenTeV$ data
+at 7 TeV and the $\intlumiEightTeV$ at 8 TeV.
+For the 0 and 1 Jet bin final states, the 7 TeV analysis uses the shape based approach for all
+lepton flavor final states, while the 8 TeV analysis uses the BDT based approach 
+in the $e\mu$ channel in 0/1jet bins and cut-based approch $e\mu$ 2jets and same flavor final states.}
+\label{fig:uls_bdt01_cut2_cutsf_comb}
 \end{figure}
 % table
 \begin{table}[!htbp]
@@ -181,42 +232,46 @@ and in the SF final states. }
 \vspace{-3mm} && \\
 Higgs Mass & Observed  & Median expected & Expected range for 68\% & Expected range for 95\%   \\
 \hline
-110 & 6.89 & 2.97 & [2.14, 4.14] & [1.60, 5.55] \\
-115 & 3.61 & 1.42 & [1.02, 1.98] & [0.76, 2.65] \\
-120 & 1.94 & 0.82 & [0.59, 1.14] & [0.44, 1.53] \\
-125 & 1.31 & 0.54 & [0.39, 0.75] & [0.29, 1.00] \\
-130 & 1.00 & 0.39 & [0.28, 0.54] & [0.21, 0.72] \\
-135 & 0.74 & 0.30 & [0.22, 0.42] & [0.16, 0.57] \\
-140 & 0.61 & 0.26 & [0.18, 0.36] & [0.14, 0.48] \\
-150 & 0.40 & 0.19 & [0.13, 0.26] & [0.10, 0.35] \\
-160 & 0.23 & 0.14 & [0.10, 0.19] & [0.08, 0.26] \\
-170 & 0.24 & 0.15 & [0.11, 0.21] & [0.08, 0.28] \\
-180 & 0.32 & 0.18 & [0.13, 0.25] & [0.10, 0.33] \\
-190 & 0.45 & 0.25 & [0.18, 0.35] & [0.13, 0.47] \\
-200 & 0.54 & 0.32 & [0.23, 0.45] & [0.17, 0.60] \\
-250 & 0.53 & 0.56 & [0.40, 0.78] & [0.30, 1.05] \\
-300 & 0.50 & 0.61 & [0.44, 0.85] & [0.33, 1.14] \\
-350 & 0.36 & 0.55 & [0.39, 0.76] & [0.29, 1.02] \\
-400 & 0.35 & 0.58 & [0.41, 0.80] & [0.31, 1.07] \\
-450 & 0.42 & 0.71 & [0.51, 0.98] & [0.38, 1.32] \\
-500 & 0.58 & 0.92 & [0.66, 1.28] & [0.49, 1.72] \\
-550 & 0.84 & 1.11 & [0.80, 1.54] & [0.60, 2.07] \\
-600 & 1.30 & 1.32 & [0.95, 1.83] & [0.71, 2.46] \\
+110 & 6.17 & 2.45 & [1.77, 3.41] & [1.32, 4.57] \\
+115 & 3.27 & 1.31 & [0.94, 1.82] & [0.70, 2.44] \\
+120 & 1.78 & 0.78 & [0.56, 1.08] & [0.42, 1.45] \\
+125 & 1.09 & 0.53 & [0.38, 0.73] & [0.28, 0.98] \\
+130 & 0.84 & 0.37 & [0.26, 0.51] & [0.20, 0.69] \\
+135 & 0.70 & 0.29 & [0.21, 0.40] & [0.16, 0.54] \\
+140 & 0.55 & 0.23 & [0.17, 0.32] & [0.12, 0.43] \\
+150 & 0.37 & 0.16 & [0.12, 0.23] & [0.09, 0.31] \\
+160 & 0.19 & 0.12 & [0.09, 0.17] & [0.07, 0.23] \\
+170 & 0.23 & 0.13 & [0.09, 0.18] & [0.07, 0.24] \\
+180 & 0.28 & 0.15 & [0.11, 0.21] & [0.08, 0.29] \\
+190 & 0.42 & 0.21 & [0.15, 0.29] & [0.11, 0.39] \\
+200 & 0.55 & 0.26 & [0.19, 0.37] & [0.14, 0.49] \\
+250 & 0.40 & 0.49 & [0.35, 0.68] & [0.26, 0.91] \\
+300 & 0.42 & 0.52 & [0.37, 0.72] & [0.28, 0.97] \\
+350 & 0.31 & 0.45 & [0.32, 0.63] & [0.24, 0.84] \\
+400 & 0.31 & 0.47 & [0.34, 0.65] & [0.25, 0.88] \\
+450 & 0.35 & 0.57 & [0.41, 0.79] & [0.31, 1.06] \\
+500 & 0.43 & 0.72 & [0.52, 1.00] & [0.38, 1.34] \\
+550 & 0.61 & 0.89 & [0.64, 1.24] & [0.48, 1.67] \\
+600 & 0.73 & 1.06 & [0.76, 1.47] & [0.57, 1.98] \\
 \vspace{-3mm} && \\
 \hline
 \end{tabular}
-\caption{Expected upper limits for SM Higgs in $\intlumiEightTeV$ at 8 TeV.
-2D result is used for OF 0/1jet bin and cut-based result is used for VBF channel
-and in the SF final states. }
-\label{tab:uls_2d01_cut2_cutsf}
+\caption{Expected and observed upper limits for SM Higgs combining the $\intlumiSevenTeV$ data
+at 7 TeV and the $\intlumiEightTeV$ at 8 TeV.
+For the 0 and 1 Jet bin final states, the 7 TeV analysis uses the shape based approach for all
+lepton flavor final states, while the 8 TeV analysis uses the BDT based approach 
+in the $e\mu$ channel in 0/1jet bins and cut-based approch $e\mu$ 2jets and same flavor final states.}
+\label{tab:uls_bdt01_cut2_cutsf_comb}
 \end{center}
-\end{table}
+\end{table} 
 %%%%%%%%%%
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%    Individual channels  %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newpage
 %%%%%%%%%%%%%%%%%
 % plot
@@ -865,3 +920,33 @@ Higgs Mass & Observed  & Expected \\
 \label{tab:signif_2d_1j_of}
 \end{center}
 \end{table}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%  THESE NEED TO BE MOVED TO APPROPRIATE PLACES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c | c c | c c  }
+\hline \hline 
+\vspace{-3mm} && \\
+Higgs Mass(\GeV) & \multicolumn{2}{c}{BDT 0/1j OF + cut VBF OF} & \multicolumn{2}{c}{2D 0/1j OF+ cut VBF OF} \\
+\hline 
+				 & Observed  & Expected 					 	& Observed  & Expected  \\
+\hline \hline
+115 & 2.0  	& 1.2 	& 2.2 & 1.4 \\
+125 & 1.1  	& 3.0  	& 2.2 & 3.4 \\
+140 & 2.2  	& 6.8 	& 2.5 & 7.2 \\
+160 & 2.5 	& 17.4  & 2.5 & 15.1 \\
+200 & 3.1 	& 6.1  	& 1.3 & 5.6 \\
+400 & 0 	& 3.2 	& 0   & 2.9 \\
+600 & 0  	& 1.5 	& 0   & 1.1 \\
+\hline \hline
+\end{tabular}
+\caption{Expected and observed significances SM Higgs in $\intlumiEightTeV$ at 8 TeV in DF final states.}
+\label{tab:significance_8TeV}
+\end{center}
+\end{table} 
+
