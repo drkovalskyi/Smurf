@@ -5,25 +5,28 @@ setenv MH         $2;
 setenv MAKEINPUTS $3;
 setenv CAT         2;
 
-setenv TAG       ntuples2012_${MH}train_${NJETS}jets;
+#setenv TAG       ntuples2012_${MH}train_${NJETS}jets;
+setenv TAG       ntuples2012_MultiClass_200train_${NJETS}jets;
 
 if ($NJETS == 2) then
-  setenv TAG       ntuples2012_${MH}train_1jets;
+  #setenv TAG       ntuples2012_${MH}train_1jets;
+  setenv TAG       ntuples2012_MultiClass_200train_1jets;
 endif
 
 ### data_Summer12
 setenv SIG_TEST data2012/${TAG}_hww${MH}.root
 #setenv SIG_TEST data2012/${TAG}_hww125.root
-setenv BKG_TEST data2012/${TAG}_backgroundA_skim2.root
-setenv DAT_TEST data2012/${TAG}_data_skim2.root;
+setenv BKG_TEST data2012/${TAG}_backgroundA_skim6.root
+#setenv BKG_TEST data2012/ntuples2012_HCP_backgroundA_H125.root
+setenv DAT_TEST data2012/${TAG}_data_skim6.root;
 #setenv DAT_TEST data2012/ntuples2012_125train_${NJETS}jets_hww125.root;
 setenv SYS_TEST data2012/${TAG}_hww_syst_skim6.root;
 
 if($MH == 0) then
   setenv TAG       ntuples2012_PostICHEP_160train_${NJETS}jets;
   setenv SIG_TEST data2012/${TAG}_hww160.root
-  setenv BKG_TEST data2012/${TAG}_backgroundA_skim2.root
-  setenv DAT_TEST data2012/${TAG}_data_skim2.root;
+  setenv BKG_TEST data2012/${TAG}_backgroundA_skim6.root
+  setenv DAT_TEST data2012/${TAG}_data_skim6.root;
   setenv SYS_TEST data2012/${TAG}_hww_syst_skim6.root;
 endif
 
