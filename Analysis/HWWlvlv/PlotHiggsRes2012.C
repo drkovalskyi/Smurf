@@ -1357,6 +1357,9 @@ void PlotHiggsRes2012
     else if(dstype == SmurfTree::data   	 ) fDecay = 5;
     else if(dstype == SmurfTree::dyttDataDriven  ) fDecay = 7;
     else if(dstype == SmurfTree::qcd             ) fDecay = 7;
+    else if(dstype == SmurfTree::hww125          ) fDecay = 6;
+    else if(dstype == SmurfTree::vbfhww125       ) fDecay = 6;
+    else if(dstype == SmurfTree::other           ) fDecay = 6;
     else                                 {printf("bad dstype: %d\n",dstype); assert(0);}
     if(dstype == SmurfTree::wz || dstype == SmurfTree::zz) {
       if(lep1MotherMcId == 23 && lep2MotherMcId == 23) {
