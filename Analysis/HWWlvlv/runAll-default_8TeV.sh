@@ -5,12 +5,12 @@ setenv MH         $2;
 setenv MAKEINPUTS $3;
 setenv CAT         2;
 
-setenv TAG       ntuples2012_${MH}train_${NJETS}jets;
-#setenv TAG       ntuples2012_MultiClass_125train_${NJETS}jets;
+#setenv TAG       ntuples2012_${MH}train_${NJETS}jets;
+setenv TAG       ntuples2012_MultiClass_125train_${NJETS}jets;
 
 if ($NJETS == 2) then
-  setenv TAG       ntuples2012_${MH}train_1jets;
-  #setenv TAG       ntuples2012_MultiClass_125train_1jets;
+  #setenv TAG       ntuples2012_${MH}train_1jets;
+  setenv TAG       ntuples2012_MultiClass_125train_1jets;
 endif
 
 ### data_Summer12
