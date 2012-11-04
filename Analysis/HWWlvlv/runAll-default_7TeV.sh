@@ -3,7 +3,7 @@
 setenv NJETS      $1;
 setenv MH         $2;
 setenv MAKEINPUTS $3;
-setenv CAT         2; # 2/3 Summer11/Fall11
+setenv CAT         4;
 
 setenv TAG       ntuples_${MH}train_${NJETS}jets;
 if ($MH == 0) then
@@ -19,15 +19,9 @@ endif
 
 ### data_Summer11
 setenv SIG_TEST data2011/${TAG}_hww${MH}.root
-setenv BKG_TEST data2011/${TAG}_backgroundC_skim2.root
-setenv DAT_TEST data2011/${TAG}_data_2l_skim2.root;
-#setenv DAT_TEST data2011/${TAG}_hww124.root
-setenv SYS_TEST data2011/${TAG}_hww_syst_skim3.root;
-### data_Fall11
-#setenv SIG_TEST data2011/${TAG}_hww${MH}.root
-#setenv BKG_TEST data2011/${TAG}_backgroundD_skim2.root
-#setenv DAT_TEST data2011/${TAG}_data_skim2.root;
-#setenv SYS_TEST data2011/${TAG}_hww_syst_skim3.root;
+setenv BKG_TEST data2011/${TAG}_backgroundA_skim6.root
+setenv DAT_TEST data2011/${TAG}_data_skim6.root;
+setenv SYS_TEST data2011/${TAG}_hww_syst_skim6.root;
 
 ### Perform analysis
  #root -l -q -b PlotHiggsRes2011.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",0,1,0,\"$SYS_TEST\",$CAT\); --> mm
@@ -70,17 +64,14 @@ if ($MAKEINPUTS == "") then
    mv output/histo_limits_${TAG}_1j_chan6_mh${MH}_cut${STRCATA}_7TeV.txt   ${INPUTDIR}/${MH}/hwwof${STRCATB}_1j_cut_7TeV.txt
 
   else if ($NJETS == 2) then
-   #root -l -q -b PlotHiggsRes2011.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",5,1,\"$SYS_TEST\",$CAT\);
-   #root -l -q -b PlotHiggsRes2011.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",6,1,\"$SYS_TEST\",$CAT\);
-   #mv hwwsf${STRCATB}_2j.input_7TeV.root ${INPUTDIR}/${MH}/.
-   #mv output/histo_limits_${TAG}_2j_chan5_mh${MH}_shape${STRCATA}_7TeV.txt ${INPUTDIR}/${MH}/hwwsf${STRCATB}_2j_shape_7TeV.txt
-   #mv hwwof${STRCATB}_2j.input_7TeV.root ${INPUTDIR}/${MH}/.
-   #mv output/histo_limits_${TAG}_2j_chan6_mh${MH}_shape${STRCATA}_7TeV.txt ${INPUTDIR}/${MH}/hwwof${STRCATB}_2j_shape_7TeV.txt
-   #mv output/histo_limits_${TAG}_2j_chan5_mh${MH}_cut${STRCATA}_7TeV.txt   ${INPUTDIR}/${MH}/hwwsf${STRCATB}_2j_cut_7TeV.txt
-   #mv output/histo_limits_${TAG}_2j_chan6_mh${MH}_cut${STRCATA}_7TeV.txt   ${INPUTDIR}/${MH}/hwwof${STRCATB}_2j_cut_7TeV.txt
-
-   root -l -q -b PlotHiggsRes2011.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",4,1,\"$SYS_TEST\",$CAT\);
-   mv output/histo_limits_${TAG}_2j_chan4_mh${MH}_cut${STRCATA}_7TeV.txt   ${INPUTDIR}/${MH}/hww${STRCATB}_2j_cut_7TeV.txt
+   root -l -q -b PlotHiggsRes2011.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",5,1,\"$SYS_TEST\",$CAT\);
+   root -l -q -b PlotHiggsRes2011.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",6,1,\"$SYS_TEST\",$CAT\);
+   mv hwwsf${STRCATB}_2j.input_7TeV.root ${INPUTDIR}/${MH}/.
+   mv output/histo_limits_${TAG}_2j_chan5_mh${MH}_shape${STRCATA}_7TeV.txt ${INPUTDIR}/${MH}/hwwsf${STRCATB}_2j_shape_7TeV.txt
+   mv hwwof${STRCATB}_2j.input_7TeV.root ${INPUTDIR}/${MH}/.
+   mv output/histo_limits_${TAG}_2j_chan6_mh${MH}_shape${STRCATA}_7TeV.txt ${INPUTDIR}/${MH}/hwwof${STRCATB}_2j_shape_7TeV.txt
+   mv output/histo_limits_${TAG}_2j_chan5_mh${MH}_cut${STRCATA}_7TeV.txt   ${INPUTDIR}/${MH}/hwwsf${STRCATB}_2j_cut_7TeV.txt
+   mv output/histo_limits_${TAG}_2j_chan6_mh${MH}_cut${STRCATA}_7TeV.txt   ${INPUTDIR}/${MH}/hwwof${STRCATB}_2j_cut_7TeV.txt
 
   endif
 

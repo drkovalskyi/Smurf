@@ -20,6 +20,7 @@
 #include "HiggsQCDScaleSystematics_8TeV.h"
 #include "PSUESystematics_8TeV.h"
 #include "PDFgHHSystematics_8TeV.h"
+#include "InterfgHHSystematics_8TeV.h"
 #include "/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Core/LeptonScaleLookup.h"
 #include "DYBkgScaleFactors_8TeV.h"
 #include "TopBkgScaleFactors_8TeV.h"
@@ -89,6 +90,7 @@ void PlotHiggsRes2012
   int binVarA = 8;
   int binVarB = 10;
   bool is2DAna = false;
+  if(is2DBDT == true) {binVarA = 10; binVarB = 10;}
   if(binVarA > 0 && binVarB > 0) is2DAna = true; 
   if(nJetsType == 2 && is2DAna == true && mH <= 250) {binVarA = 4;binVarB = 4;}
   if(nJetsType == 2 && is2DAna == true && mH  > 250) {binVarA = 3;binVarB = 2;}
@@ -908,6 +910,9 @@ void PlotHiggsRes2012
     if(isSM4 == true) add = add * enhancementFactor(mH,1); // BR(H->WW) enhancement factor
 
     if (processId == 10010) {
+      // new interference term
+      add = add * InterfgHHSystematics(mH);
+
       //float theMax = 0.00;
       //addggH = HiggsPtKFactor->GetBinContent( HiggsPtKFactor->GetXaxis()->FindFixBin(TMath::Max(higgsPt, theMax)));
       //for(int ns=0; ns<8; ns++) if(HiggsPtKFactorSyst[ns]) addggHSyst[ns] = HiggsPtKFactorSyst[ns]->GetBinContent( HiggsPtKFactorSyst[ns]->GetXaxis()->FindFixBin(TMath::Max(higgsPt, theMax)));
@@ -3698,7 +3703,7 @@ void PlotHiggsRes2012
     // Systematics For Yields
     //
     //----------------------------------------------------------------------------
-    double theoryUncXS_HighMH = 1.0;
+    //double theoryUncXS_HighMH = 1.0;
     //if(mH > 200) theoryUncXS_HighMH = 1.0+1.5*(mH/1000.0)*(mH/1000.0)*(mH/1000.0);
     double wwXS_E_jet_extrap = 1.060;
     double jeteff_E 	     = 1.02;
@@ -3714,6 +3719,7 @@ void PlotHiggsRes2012
     if(mH > 200) {XS_QCDscale_WW[0] = 1.042; XS_QCDscale_WW[1] = 0.978; XS_QCDscale_WW[2] = 1.000;}
 
     double pdf_ggH = PDFgHHSystematics(mH);
+    double interf_ggH = InterfgHHSystematics(mH);
 
     double XS_QCDscale_ggH[3];
     double UEPS  = HiggsSignalPSUESystematics(mH,nJetsType);
@@ -3910,7 +3916,7 @@ void PlotHiggsRes2012
         newcardShape << Form("CMS_hww_MVAggHBounding            shape  -     -     -   1.000   -     -     -     -     -     -    -     -  \n");
       }
       newcardShape << Form("UEPS 		             lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",UEPS);
-      newcardShape << Form("theoryUncXS_HighMH               lnN %5.3f %5.3f %5.3f %5.3f   -     -     -     -	   -     -     -     -  \n",theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH);
+      newcardShape << Form("interf_ggH                       lnN   -     -     -   %5.3f   -     -     -     -	   -     -     -     -  \n",interf_ggH);
       newcardShape << Form("pdf_gg		             lnN   -     -     -   %5.3f   -   1.040   -     -     -     -     -     -  \n",pdf_ggH);
       newcardShape << Form("pdf_qqbar                        lnN %5.3f %5.3f %5.3f   -   1.040   -   1.040   -     -     -   1.040 1.040\n",XS_PDF_VH,XS_PDF_VH,XS_PDF_VH);
       newcardShape << Form("QCDscale_ggH	             lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[0]);  
@@ -4015,7 +4021,7 @@ void PlotHiggsRes2012
     newcardCut << Form("CMS_scale_j           	   lnN %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f   -     -     -   %5.3f %5.3f\n",jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E);		    
     newcardCut << Form("FakeRate              	   lnN   -     -     -     -     -     -     -     -     -   1.360   -     -  \n");
     newcardCut << Form("UEPS 		           lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",UEPS);
-    newcardCut << Form("theoryUncXS_HighMH         lnN %5.3f %5.3f %5.3f %5.3f   -     -     -     -	 -     -     -     -  \n",theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH);
+    newcardCut << Form("interf_ggH                 lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",interf_ggH);
     newcardCut << Form("pdf_gg                	   lnN   -     -     -   %5.3f   -   1.040   -     -     -     -     -     -  \n",pdf_ggH);
     newcardCut << Form("pdf_qqbar             	   lnN %5.3f %5.3f %5.3f   -   1.040   -   1.040   -     -     -   1.040 1.040\n",XS_PDF_VH,XS_PDF_VH,XS_PDF_VH);
     newcardCut << Form("QCDscale_ggH          	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[0]);  
@@ -4087,7 +4093,7 @@ void PlotHiggsRes2012
     newcardMVA << Form("CMS_scale_j           	   lnN %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f   -     -     -   %5.3f %5.3f\n",jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E);	      
     newcardMVA << Form("FakeRate              	   lnN   -     -     -     -     -     -     -     -     -   1.360   -     -  \n");
     newcardMVA << Form("UEPS 		           lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",UEPS);
-    newcardMVA << Form("theoryUncXS_HighMH         lnN %5.3f %5.3f %5.3f %5.3f   -     -     -     -	 -     -     -     -  \n",theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH,theoryUncXS_HighMH);
+    newcardMVA << Form("interf_ggH                 lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",interf_ggH);
     newcardMVA << Form("pdf_gg                	   lnN   -     -     -   %5.3f   -   1.040   -     -     -     -     -     -  \n",pdf_ggH);
     newcardMVA << Form("pdf_qqbar             	   lnN %5.3f %5.3f %5.3f   -   1.040   -   1.040   -     -     -   1.040 1.040\n",XS_PDF_VH,XS_PDF_VH,XS_PDF_VH);
     newcardMVA << Form("QCDscale_ggH          	   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -  \n",XS_QCDscale_ggH[0]);  

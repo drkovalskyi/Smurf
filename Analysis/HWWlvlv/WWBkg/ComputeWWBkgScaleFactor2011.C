@@ -16,31 +16,20 @@
 #include "TSystem.h"
 #include "Smurf/Analysis/HWWlvlv/HWWCuts.h"
 #include "Smurf/Analysis/HWWlvlv/factors.h"
-#include "Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors.h"
-#include "Smurf/Analysis/HWWlvlv/DYBkgScaleFactors.h"
-#include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h"
+#include "Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors_8TeV.h"
+#include "Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h"
+#include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h"
 
 //------------------------------------------------------------------------------
 // WW control region macro
 //------------------------------------------------------------------------------
 // GF  == 10010, WBF == 10001, WH == 26, ZH == 24, ttH=121/122
 void ComputeWWBkgScaleFactor2011 (
-  Int_t period = -1,
-  char* bgdInputFile    = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets/backgroundA_skim1.root",
-  char* dataInputFile   = "/data/smurf/data/Run2011_Spring11_SmurfV6_42X/mitf-alljets/data_2l_skim1.root"
+ Int_t period = 0,
+ TString bgdInputFile    = "",
+ TString dataInputFile   = ""
 )
 {
-
-// ***********************************************************************************************
-// Full Run2011A Data 
-// ***********************************************************************************************
-  TChain *chdata = new TChain("tree");
-  chdata->Add(dataInputFile);
-  TTree *data     = (TTree*) chdata;
-
-  TChain *chbackground = new TChain("tree");
-  chbackground->Add(bgdInputFile);
-  TTree *background = (TTree*) chbackground;
 
   double scaleFactorLum = 1.0;
   
@@ -49,51 +38,28 @@ void ComputeWWBkgScaleFactor2011 (
   TString puPath   = "/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
-  if	 (period == 0){ // Run2011A
-    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
-    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
-    //scaleFactorLum     = 2.1;minRun =      0;maxRun = 173692;
-    scaleFactorLum     = 1.1;minRun =      0;maxRun = 167913;
-  }
-  else if(period == 1){ // Run2011B
-    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
-    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-    //puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
-    //scaleFactorLum     = 1.9;minRun = 173693;maxRun = 999999;
-    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
-    scaleFactorLum     = 3.6;minRun = 167914;maxRun = 999999;
-  }
-  else if(period == 2){ // Full2011-Fall11-V7
-    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
-    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
+  if(period == 4){ // Full2011-Fall11-V9
+    effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
+    fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
+    puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/puWeights_Fall11_42x_True.root";
     scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
-  }
-  else if(period == 3){ // Full2011-Fall11-V7
-    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_Fall11_SmurfV7_Full2011.root";
-    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-    puPath   = "/data/smurf/sixie/Pileup/weights/PileupReweighting.Fall11_To_Full2011.root";
-    scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
-  }
-  else if(period == 4){ // Full2011-Fall11-V8
-    effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
-    fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
-    puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
-    scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
-  }
-  else if(period == 5){ // Full2011-Fall11-V9
-    effPath  = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/efficiency_results_MVAIDIsoCombinedDetIsoSameSigWP_Full2011.root";
-    fakePath = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/FakeRates_MVAIDIsoCombinedDetIsoSameSigWP.root";
-    puPath   = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/auxiliar/PileupReweighting.Fall11DYmm_To_Full2011.root";
-    scaleFactorLum     = 4.924;minRun =      0;maxRun = 999999;
+    bgdInputFile  = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/mitf-alljets/backgroundA_skim6.root";
+    dataInputFile = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/mitf-alljets/data_skim6.root";
   }
   else {
     printf("Wrong period(%d)\n",period);
     return;
   }
 
-  // ***********************************************************************************************
+  TChain *chdata = new TChain("tree");
+  chdata->Add(dataInputFile);
+  TTree *data     = (TTree*) chdata;
+
+  TChain *chbackground = new TChain("tree");
+  chbackground->Add(bgdInputFile);
+  TTree *background = (TTree*) chbackground;
+
+   // ***********************************************************************************************
   // Load Auxiliary Files
   // ***********************************************************************************************
 
@@ -120,21 +86,23 @@ void ComputeWWBkgScaleFactor2011 (
   fLeptonFRFileE->Close();
   delete fLeptonFRFileE;
 
-  TFile *fPUS4File = TFile::Open(Form("%s",puPath.Data()));
-  TH1D *fhDPUS4 = (TH1D*)(fPUS4File->Get("puWeights"));
-  assert(fhDPUS4);
-  fhDPUS4->SetDirectory(0);
-  delete fPUS4File;
+  TFile *fPUFile = TFile::Open(Form("%s",puPath.Data()));
+  TH1D *fhDPU = (TH1D*)(fPUFile->Get("puWeights"));
+  assert(fhDPU);
+  fhDPU->SetDirectory(0);
+  delete fPUFile;
 
   //***********************************************************************************************
   //Define Histograms & Yields
   //***********************************************************************************************
 
-   const Int_t nmass = 15;
-  const Double_t mH[nmass] = {115,118,120,122,124,126,128,130,135,140,150,160,170,180,190};  
+   const Int_t nmass = 19;
+  const Double_t mH[nmass]     = {115,118,120,122,124,125,126,128,130,135,140,145,150,155,160,170,180,190,200};  
+        Bool_t useDYMVA[nmass] = {  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+
   //scale factors for 4 classes of selections
   enum { kCutBasedZeroJet, kCutBasedOneJet, kMVAZeroJet, kMVAOneJet };
-    
+
   vector<vector<Double_t> > Yield_WWControlRegion_Data, Yield_WWControlRegion_Bkg, Yield_WWControlRegion_WWMC; 
   vector<vector<Double_t> > YieldUncertainty_WWControlRegion_Data, YieldUncertainty_WWControlRegion_Bkg, YieldUncertainty_WWControlRegion_WWMC; 
   vector<vector<Double_t> > Yield_WWControlRegion_Top, Yield_WWControlRegion_DY, Yield_WWControlRegion_WJets, Yield_WWControlRegion_Other; 
@@ -180,7 +148,7 @@ void ComputeWWBkgScaleFactor2011 (
   UInt_t          cuts;
   UInt_t          dstype;
   UInt_t          nvtx;
-  UInt_t          npu;
+  Float_t         npu;
   UInt_t          njets;
   UInt_t          run;
   UInt_t          event;
@@ -218,6 +186,7 @@ void ComputeWWBkgScaleFactor2011 (
   Int_t 	  lep1McId;
   Int_t 	  lep2McId;
   Float_t         higgsPt = -999;
+  Float_t         dymva = -100.0;
 
   //***********************************************************************************************
   //Data
@@ -263,6 +232,7 @@ void ComputeWWBkgScaleFactor2011 (
   data->SetBranchAddress( "jet1Btag"     , &jet1Btag     );
   data->SetBranchAddress( "jet2Btag"     , &jet2Btag     );
   data->SetBranchAddress( "higgsPt"      , &higgsPt      );
+  data->SetBranchAddress( "dymva"        , &dymva        );
 
   for (UInt_t i=0; i<data->GetEntries(); i++) {
 
@@ -274,10 +244,8 @@ void ComputeWWBkgScaleFactor2011 (
 
     if(dstype == SmurfTree::data && run <  minRun) continue;
     if(dstype == SmurfTree::data && run >  maxRun) continue;
-
-    double minmet = TMath::Min(pmet,pTrackMet);
-    bool passMET = minmet > 20. &&
-                  (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
+    if(dstype == SmurfTree::data &&
+       (cuts & SmurfTree::Trigger) != SmurfTree::Trigger ) continue; 
 
     bool passNewCuts = true;
     if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
@@ -291,25 +259,37 @@ void ComputeWWBkgScaleFactor2011 (
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( TMath::Min(pmet,pTrackMet) <= 20                                 ) continue; // cut on pmet for all lepton-pair flavors
-    if( passMET == false                                                 ) continue; // cut on pmet for ee/mm lepton-pair
     if( passNewCuts == false                                             ) continue; // ptmin and dileppt cuts
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
-
-    bool dPhiDiLepJetCut = true;
-    if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
-    else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
-    if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
+    if( (cuts & SmurfTree::TopTag) == SmurfTree::TopTag                  ) continue; // cut on btagging
 
     for(UInt_t classIndex = 0; classIndex < 4; ++classIndex) {
       for(Int_t imass=0; imass<nmass; imass++) {
 
+	bool   passMET = TMath::Min(pmet,pTrackMet) > 20.;
+	if(useDYMVA[imass] == false){
+	  if     (njets == 0) passMET = passMET && (TMath::Min(pmet,pTrackMet) > (37.+nvtx/2.0) || type == SmurfTree::em || type == SmurfTree::me);
+	  else if(njets == 1) passMET = passMET && (TMath::Min(pmet,pTrackMet) > (37.+nvtx/2.0) || type == SmurfTree::em || type == SmurfTree::me);
+	  else                passMET = passMET && (TMath::Min(pmet,pTrackMet) > (37.+nvtx/2.0) || type == SmurfTree::em || type == SmurfTree::me);
+	} else {
+	  if     (njets == 0) passMET = passMET && (dymva >  0.88 || type == SmurfTree::em || type == SmurfTree::me);
+	  else if(njets == 1) passMET = passMET && (dymva >  0.84 || type == SmurfTree::em || type == SmurfTree::me);
+	  else                passMET = passMET && (met > 45.0 || type == SmurfTree::em || type == SmurfTree::me);
+	}
+	bool dPhiDiLepJetCut = true;
+	if(useDYMVA[imass] == false){
+          if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
+          else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+	}
+	if(njets >= 2) dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+        passMET = passMET && dPhiDiLepJetCut;
+
         Bool_t passMassCut = kFALSE;        
         if (classIndex == kMVAZeroJet || classIndex == kMVAOneJet) {
-          passMassCut = ( dilep->mass() > 100.0 && dilep->mass() > DileptonMassPreselectionCut(mH[imass]));
- //          passMassCut = ( dilep->mass() > DileptonMassPreselectionCut(mH[imass]));
+          passMassCut = ( dilep->mass() > -100.0);
         } else {
           passMassCut = ( dilep->mass() > 100.0 );
         }
@@ -326,7 +306,7 @@ void ComputeWWBkgScaleFactor2011 (
           passJetBinCut = (njets == 1);
         }
 
-        if (!(passMassCut && passPtMaxCut && passPtMinCut && passJetBinCut)) continue;
+        if (!(passMassCut && passPtMaxCut && passPtMinCut && passJetBinCut && passMET)) continue;
 
         //WW Sideband Selection
         if ( !( (cuts & SmurfTree::TopTag) == SmurfTree::TopTag )
@@ -383,6 +363,7 @@ void ComputeWWBkgScaleFactor2011 (
   background->SetBranchAddress( "jet1Btag"     , &jet1Btag     );
   background->SetBranchAddress( "jet2Btag"     , &jet2Btag     );
   background->SetBranchAddress( "higgsPt"      , &higgsPt      );
+  background->SetBranchAddress( "dymva"        , &dymva        );
   background->SetBranchAddress( "lep1McId"     , &lep1McId     );
   background->SetBranchAddress( "lep2McId"     , &lep2McId     );
 
@@ -394,19 +375,18 @@ void ComputeWWBkgScaleFactor2011 (
 
     if(dstype == SmurfTree::data && run <  minRun) continue;
     if(dstype == SmurfTree::data && run >  maxRun) continue;
-
-    double minmet = TMath::Min(pmet,pTrackMet);
-    bool passMET = minmet > 20. &&
-                  (minmet > 37.+nvtx/2.0 || type == SmurfTree::em || type == SmurfTree::me);
-
-    bool passNewCuts = true;
-    if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
-    if(dilep->pt() <= 45) passNewCuts = false;
+    if(dstype == SmurfTree::data &&
+       (cuts & SmurfTree::Trigger) != SmurfTree::Trigger ) continue; 
 
     bool MinPreselCut = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) ||
       ((cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
       dstype != SmurfTree::data;
     if( MinPreselCut == false                                            ) continue; // cut on MinPreselCut
+
+    bool passNewCuts = true;
+    if(lep2->pt() <= 15 && (type == SmurfTree::mm||type == SmurfTree::ee)) passNewCuts = false;
+    if(dilep->pt() <= 45) passNewCuts = false;
+
     if( lq1*lq2 > 0                 					 ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       					 ) continue; // cut on low dilepton mass
     if( dilep->mass() <= 20.0  &&
@@ -415,7 +395,6 @@ void ComputeWWBkgScaleFactor2011 (
     if( lep1->pt() <= 20	    					 ) continue; // cut on leading lepton pt
     if( lep2->pt() <= 10	    					 ) continue; // cut on trailing lepton pt
     if( TMath::Min(pmet,pTrackMet) <= 20                                 ) continue; // cut on pmet for all lepton-pair flavors
-    if( passMET == false                                                 ) continue; // cut on pmet for ee/mm lepton-pair
     if( passNewCuts == false                                             ) continue; // ptmin and dileppt cuts
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
@@ -423,16 +402,12 @@ void ComputeWWBkgScaleFactor2011 (
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & SmurfTree::TopTag) == SmurfTree::TopTag                  ) continue; // cut on btagging
 
-    bool dPhiDiLepJetCut = true;
-    if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
-    else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
-    if( dPhiDiLepJetCut == false                                         ) continue; // cut on dPhiDiLepJetCut
-
     int BkgType = 0;
     if(dstype == SmurfTree::qqww                 ) BkgType = 0;
     else if(dstype == SmurfTree::ggww            ) BkgType = 0;
     else if(dstype == SmurfTree::wz              ) BkgType = 1;
     else if(dstype == SmurfTree::zz              ) BkgType = 1;
+    else if(dstype == SmurfTree::www             ) BkgType = 1;
     else if(dstype == SmurfTree::tw              ) BkgType = 2;
     else if(dstype == SmurfTree::ttbar           ) BkgType = 2;
     else if(dstype == SmurfTree::dyee            ) BkgType = 3;
@@ -450,17 +425,10 @@ void ComputeWWBkgScaleFactor2011 (
     double myWeight = 1.0;
     double add      = 1.0;
     int nFake = 0;
-    if(dstype == SmurfTree::data ){
-      if(((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-    } else {
-      if(((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-      if(((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-    }
+    if(((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
+    if(((cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+    if(((cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
+    if(((cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
 
     if(nFake > 1){
       myWeight = 0.0;
@@ -484,7 +452,7 @@ void ComputeWWBkgScaleFactor2011 (
     	add = add*fakeRate(lep2->pt(), lep2->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
     										      (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
 
-        add = add*nPUScaleFactor(fhDPUS4,npu);
+        add = add*nPUScaleFactor2012(fhDPU,npu);
     	add = add*leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1);
     	add = add*leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
 
@@ -510,7 +478,7 @@ void ComputeWWBkgScaleFactor2011 (
  
 
       add = 1.0;
-      add = add*nPUScaleFactor(fhDPUS4,npu);
+      add = add*nPUScaleFactor2012(fhDPU,npu);
       add = add*leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1);
       add = add*leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
       add = add*trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
@@ -545,10 +513,27 @@ void ComputeWWBkgScaleFactor2011 (
     for(UInt_t classIndex = 0; classIndex < 4; ++classIndex) {
       for(Int_t imass=0; imass<nmass; imass++) {
 
+	bool   passMET = TMath::Min(pmet,pTrackMet) > 20.;
+	if(useDYMVA[imass] == false){
+	  if     (njets == 0) passMET = passMET && (TMath::Min(pmet,pTrackMet) > (37.+nvtx/2.0) || type == SmurfTree::em || type == SmurfTree::me);
+	  else if(njets == 1) passMET = passMET && (TMath::Min(pmet,pTrackMet) > (37.+nvtx/2.0) || type == SmurfTree::em || type == SmurfTree::me);
+	  else                passMET = passMET && (TMath::Min(pmet,pTrackMet) > (37.+nvtx/2.0) || type == SmurfTree::em || type == SmurfTree::me);
+	} else {
+	  if     (njets == 0) passMET = passMET && (dymva >  0.88 || type == SmurfTree::em || type == SmurfTree::me);
+	  else if(njets == 1) passMET = passMET && (dymva >  0.84 || type == SmurfTree::em || type == SmurfTree::me);
+	  else                passMET = passMET && (met > 45.0 || type == SmurfTree::em || type == SmurfTree::me);
+	}
+	bool dPhiDiLepJetCut = true;
+	if(useDYMVA[imass] == false){
+          if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
+          else           dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+	}
+	if(njets >= 2) dPhiDiLepJetCut = DeltaPhi((*jet1+*jet2).Phi(),dilep->phi())*180.0/TMath::Pi() < 165. || type == SmurfTree::em || type == SmurfTree::me;
+        passMET = passMET && dPhiDiLepJetCut;
+
         Bool_t passMassCut = kFALSE;        
         if (classIndex == kMVAZeroJet || classIndex == kMVAOneJet) {
-          passMassCut = ( dilep->mass() > 100.0 && dilep->mass() > DileptonMassPreselectionCut(mH[imass]));
-//           passMassCut = ( dilep->mass() > DileptonMassPreselectionCut(mH[imass]));
+          passMassCut = ( dilep->mass() > -100.0 );
         } else {
           passMassCut = ( dilep->mass() > 100.0 );
         }
@@ -565,7 +550,7 @@ void ComputeWWBkgScaleFactor2011 (
           passJetBinCut = (njets == 1);
         }
 
-        if (!(passMassCut && passPtMaxCut && passPtMinCut && passJetBinCut)) continue;
+        if (!(passMassCut && passPtMaxCut && passPtMinCut && passJetBinCut && passMET)) continue;
 
   
         //WW Monte Carlo Yields
@@ -683,21 +668,46 @@ void ComputeWWBkgScaleFactor2011 (
       cout << "Total Bkg : " 
            << Yield_WWControlRegion_Bkg[classIndex][imass] << " +/- " 
            << YieldUncertainty_WWControlRegion_Bkg[classIndex][imass] << endl;
-      cout << "******************************************************************\n";
       cout << "WW Yield from MC : " 
            << Yield_WWControlRegion_WWMC[classIndex][imass] << " +/- " 
            << YieldUncertainty_WWControlRegion_WWMC[classIndex][imass] << endl;
       cout << "ScaleFactor : " 
            << WWScaleFactor[classIndex][imass] << " +/- " 
            << WWScaleFactorUncertainty[classIndex][imass] << endl;
+      cout << "******************************************************************\n";
     }
   }
 
+  printf("*****************************************\n");
+  printf("\\begin{table}\n");
+  printf("\\begin{center}\n");
+  printf("{\\normalsize\n");
+  printf("\\hline\n");
+  printf(" Sample & 0-jet & 1-jet \\\\\n");
+  printf("        & \\multicolumn{2}{|c|}{cut-based} \\\\\n");
+  printf("\\hline\n");
+  for (Int_t i = 0; i < nmass ; ++i)
+  printf(" %d & %5.2f  $\\pm$ %5.2f  & %5.2f  $\\pm$ %5.2f \\\\\n",(int)mH[i],WWScaleFactor[kCutBasedZeroJet][i],WWScaleFactorUncertainty[kCutBasedZeroJet][i],
+  WWScaleFactor[kCutBasedOneJet][i],WWScaleFactorUncertainty[kCutBasedOneJet][i]); 
+  printf("\\hline\n");
+  printf("\\hline\n");
+  printf(" Sample & 0-jet & 1-jet \\\\\n");
+  printf("        & \\multicolumn{2}{|c|}{shape-based} \\\\\n");
+  printf("\\hline\n");
+  for (Int_t i = 0; i < nmass ; ++i)
+  printf(" %d & %5.2f  $\\pm$ %5.2f  & %5.2f  $\\pm$ %5.2f \\\\\n",(int)mH[i],WWScaleFactor[kMVAZeroJet][i],WWScaleFactorUncertainty[kMVAZeroJet][i],
+  WWScaleFactor[kMVAOneJet][i],WWScaleFactorUncertainty[kMVAOneJet][i]); 
+  printf("\\hline\n");
+  printf("\\end{tabular}\n");
+  printf("}\n");
+  printf("\\end{center}\n");
+  printf("\\end{table}\n");
+  printf("*****************************************\n");
   //********************************************************
   // Output WW Scale Factor
   //********************************************************
   ofstream outf("WWBkgScaleFactors.h");
-  outf << "Double_t WWBkgScaleFactorCutBased(Int_t mH, Int_t jetBin) {" << endl;
+  outf << "static Double_t WWBkgScaleFactorCutBased(Int_t mH, Int_t jetBin) {" << endl;
   outf << "assert(jetBin >= 0 && jetBin <= 1);" << endl;
 
   outf << "  Int_t mHiggs[" << nmass << "] = {";
@@ -736,7 +746,7 @@ void ComputeWWBkgScaleFactor2011 (
 
 
 
-  outf << "Double_t WWBkgScaleFactorMVA(Int_t mH, Int_t jetBin) {" << endl;
+  outf << "static Double_t WWBkgScaleFactorMVA(Int_t mH, Int_t jetBin) {" << endl;
   outf << "assert(jetBin >= 0 && jetBin <= 1);" << endl;
 
   outf << "  Int_t mHiggs[" << nmass << "] = {";
@@ -774,7 +784,7 @@ void ComputeWWBkgScaleFactor2011 (
   outf << endl;
 
 
-  outf << "Double_t WWBkgScaleFactorKappaCutBased(Int_t mH, Int_t jetBin) {" << endl;
+  outf << "static Double_t WWBkgScaleFactorKappaCutBased(Int_t mH, Int_t jetBin) {" << endl;
   outf << "assert(jetBin >= 0 && jetBin <= 1);" << endl;
 
   outf << "  Int_t mHiggs[" << nmass << "] = {";
@@ -813,7 +823,7 @@ void ComputeWWBkgScaleFactor2011 (
 
 
 
-  outf << "Double_t WWBkgScaleFactorKappaMVA(Int_t mH, Int_t jetBin) {" << endl;
+  outf << "static Double_t WWBkgScaleFactorKappaMVA(Int_t mH, Int_t jetBin) {" << endl;
   outf << "assert(jetBin >= 0 && jetBin <= 1);" << endl;
 
   outf << "  Int_t mHiggs[" << nmass << "] = {";

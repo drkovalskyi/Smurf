@@ -17,9 +17,10 @@
 #include "Smurf/Core/RecoilCorrector.hh"
 #include "Smurf/Core/LeptonScaleLookup.h"
 #include "Smurf/Core/SmurfTree.h"
-#include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h"
-#include "Smurf/Analysis/HWWlvlv/WWBkgScaleFactors.h"
+#include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h"
+#include "Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h"
 #include "Smurf/Analysis/HWWlvlv/HWWCuts.h"
+#include "Smurf/Analysis/HWWlvlv/factors.h"
 #endif
 
 static const unsigned int basic_selection = SmurfTree::BaseLine | 
@@ -37,7 +38,7 @@ static const Bool_t verbose = kFALSE;
 Double_t projectedMET(const Double_t met, const Double_t metPhi, const Double_t lepPhi);
 
 // compute systematic uncertainty
-Double_t computeSyst(const TH1F *hout, const TH1F *hin, Int_t binUsed);
+Double_t computeSyst(const TH1D *hout, const TH1D *hin, Int_t binUsed, Double_t rErrorMax, Bool_t useRFromData = false, Bool_t isDebug = false);
 
 //=== MAIN MACRO =================================================================================================
 // Options:
@@ -49,7 +50,7 @@ Double_t computeSyst(const TH1F *hout, const TH1F *hin, Int_t binUsed);
 // --- MassCutHigh : higher mass cut with respect to z pole mass
 //
 
-void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFALSE, Int_t ZWindowSubtractionMethod = 0, 
+void ComputeDYBkgScaleFactor2011(Int_t period = 0, Bool_t useRecoilModel = kFALSE, Int_t ZWindowSubtractionMethod = 0, 
                                  Double_t MassCutLow = 7.5, Double_t MassCutHigh = 7.5)
 {
 
@@ -59,6 +60,9 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
   bool WWXSSel = false;
   double ptLepMin = 10.0;
   if(WWXSSel == true) ptLepMin = 20.;
+
+  bool forBDTAna = false;
+  bool useRFromData[3] = {1, 1, 1};
 
   Double_t lumi = 1;
   TString filesPath   = "dummy";
@@ -88,11 +92,7 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
     lumi = 4.924;minRun =      0;maxRun = 999999;
     filesPath  = "/data/smurf/data/Run2011_Fall11_SmurfV7_42X/mitf-alljets";
   }
-  else if(period == 4){ // Full2011-Fall11-V8
-    lumi = 4.924;minRun =      0;maxRun = 999999;
-    filesPath  = "/data/smurf/data/Run2011_Fall11_SmurfV8_42X/mitf-alljets";
-  }
-  else if(period == 5){ // Full2011-Fall11-V9
+  else if(period == 4){ // Full2011-Fall11-V9
     lumi = 4.924;minRun =      0;maxRun = 999999;
     filesPath  = "/data/smurf/data/Run2011_Fall11_SmurfV9_42X/mitf-alljets";
   }
@@ -111,10 +111,11 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
   if (ZWindowSubtractionMethod == 0) {
    infilenamev.push_back(Form("%s/dyee.root",filesPath.Data()));
    infilenamev.push_back(Form("%s/dymm.root",filesPath.Data()));
+   infilenamev.push_back(Form("%s/dytt.root",filesPath.Data()));
    infilenamev.push_back(Form("%s/wz.root",filesPath.Data()));
    infilenamev.push_back(Form("%s/zz_py.root",filesPath.Data()));
   } else if (ZWindowSubtractionMethod == 1) {
-    infilenamev.push_back(Form("%s/backgroundD.root",filesPath.Data()));
+    infilenamev.push_back(Form("%s/backgroundA.root",filesPath.Data()));
   }
 
   //*******************************************************
@@ -134,20 +135,19 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
   const Double_t mZ = 91.1876;
   
   const Int_t nbins = 4;  
-  const Float_t bins[nbins+1] = {20, 25, 30, 37, 50};  
+  Float_t bins[nbins+1];
 
-  vector<Double_t> binEdges;
-  for (UInt_t k=0; k<nbins+1; ++k) binEdges.push_back(bins[k]);
-  
-  const Int_t nmass = 19;
-  const Double_t mH[nmass] = {0,115,118,120,122,124,126,128,130,135,140,150,160,170,180,190,200,250,300};  
-    
+  const Int_t nmass = 22;
+  const Double_t mH[nmass]     = {0,115,118,120,122,124,125,126,128,130,135,140,145,150,155,160,170,180,190,200,250,300};  
+        Bool_t useDYMVA[nmass] = {0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+
   //*******************************************************
   //Yields and  histograms
   //*******************************************************
   vector<Double_t> nin_kee_data, nin_kmm_data;
   
-  vector<vector<TH1F*> > hNin_ree_mc,   hNout_ree_mc,   hNin_rmm_mc,   hNout_rmm_mc;
+  vector<vector<TH1D*> > hNin_ree_mc,   hNout_ree_mc,   hNin_rmm_mc,   hNout_rmm_mc;
+  vector<vector<TH1D*> > hNin_ree_da,   hNout_ree_da,   hNin_rmm_da,   hNout_rmm_da;
 
   vector<vector<Double_t> > nin_ee_dy, nout_ee_dy, nin_ee_vz, nout_ee_vz, nin_ee_data;  
   vector<vector<Double_t> > nin_mm_dy, nout_mm_dy, nin_mm_vz, nout_mm_vz, nin_mm_data;
@@ -168,7 +168,8 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
   
   for(UInt_t jetIndex = 0; jetIndex < 3; ++jetIndex) {
     Double_t tmp_nin_kee_data=0, tmp_nin_kmm_data=0;
-    vector<TH1F*> tmp_hNin_ree_mc,   tmp_hNout_ree_mc,   tmp_hNin_rmm_mc,   tmp_hNout_rmm_mc;
+    vector<TH1D*> tmp_hNin_ree_mc,   tmp_hNout_ree_mc,   tmp_hNin_rmm_mc,   tmp_hNout_rmm_mc;
+    vector<TH1D*> tmp_hNin_ree_da,   tmp_hNout_ree_da,   tmp_hNin_rmm_da,   tmp_hNout_rmm_da;
     
     vector<Double_t> tmp_nin_ee_dy, tmp_nout_ee_dy, tmp_nin_ee_vz, tmp_nout_ee_vz, tmp_nin_ee_data;  
     vector<Double_t> tmp_nin_mm_dy, tmp_nout_mm_dy, tmp_nin_mm_vz, tmp_nout_mm_vz, tmp_nin_mm_data;
@@ -188,10 +189,29 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
 
     char hname[50];
     for(Int_t imass=0; imass<nmass; imass++) {
-      sprintf(hname,"hNin_%iJet_ree_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_ree_mc.push_back(new TH1F(hname,"",nbins,bins));  tmp_hNin_ree_mc[imass]->Sumw2();
-      sprintf(hname,"hNout_%iJet_ree_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]); tmp_hNout_ree_mc.push_back(new TH1F(hname,"",nbins,bins)); tmp_hNout_ree_mc[imass]->Sumw2();
-      sprintf(hname,"hNin_%iJet_rmm_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_rmm_mc.push_back(new TH1F(hname,"",nbins,bins));  tmp_hNin_rmm_mc[imass]->Sumw2();
-      sprintf(hname,"hNout_%iJet_rmm_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]); tmp_hNout_rmm_mc.push_back(new TH1F(hname,"",nbins,bins)); tmp_hNout_rmm_mc[imass]->Sumw2();
+      if     (useDYMVA[imass] == kTRUE){
+        if     (jetIndex == 0){
+	  bins[0] = -0.90; bins[1] = -0.85; bins[2] = -0.60; bins[3] =  0.88; bins[4] = 1.0; 
+	}
+	else if(jetIndex == 1){
+	  bins[0] = -0.90; bins[1] = -0.85; bins[2] = -0.60; bins[3] =  0.84; bins[4] = 1.0; 
+	}
+	else if(jetIndex == 2){
+	  bins[0] = 20; bins[1] = 25; bins[2] = 30; bins[3] =  45; bins[4] = 50; 
+	}
+      } else {
+	bins[0] = 20; bins[1] = 25; bins[2] = 30; bins[3] =  37; bins[4] = 50; 
+      }
+
+      sprintf(hname,"hNin_%iJet_ree_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_ree_mc.push_back(new TH1D(hname,"",nbins,bins));  tmp_hNin_ree_mc[imass]->Sumw2();
+      sprintf(hname,"hNout_%iJet_ree_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]); tmp_hNout_ree_mc.push_back(new TH1D(hname,"",nbins,bins)); tmp_hNout_ree_mc[imass]->Sumw2();
+      sprintf(hname,"hNin_%iJet_rmm_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_rmm_mc.push_back(new TH1D(hname,"",nbins,bins));  tmp_hNin_rmm_mc[imass]->Sumw2();
+      sprintf(hname,"hNout_%iJet_rmm_mc_m%i",Int_t(jetIndex),(Int_t)mH[imass]); tmp_hNout_rmm_mc.push_back(new TH1D(hname,"",nbins,bins)); tmp_hNout_rmm_mc[imass]->Sumw2();
+      
+      sprintf(hname,"hNin_%iJet_ree_da_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_ree_da.push_back(new TH1D(hname,"",nbins,bins));  tmp_hNin_ree_da[imass]->Sumw2();
+      sprintf(hname,"hNout_%iJet_ree_da_m%i",Int_t(jetIndex),(Int_t)mH[imass]); tmp_hNout_ree_da.push_back(new TH1D(hname,"",nbins,bins)); tmp_hNout_ree_da[imass]->Sumw2();
+      sprintf(hname,"hNin_%iJet_rmm_da_m%i",Int_t(jetIndex),(Int_t)mH[imass]);  tmp_hNin_rmm_da.push_back(new TH1D(hname,"",nbins,bins));  tmp_hNin_rmm_da[imass]->Sumw2();
+      sprintf(hname,"hNout_%iJet_rmm_da_m%i",Int_t(jetIndex),(Int_t)mH[imass]); tmp_hNout_rmm_da.push_back(new TH1D(hname,"",nbins,bins)); tmp_hNout_rmm_da[imass]->Sumw2();
       
       tmp_nin_ee_dy.push_back(0), tmp_nout_ee_dy.push_back(0), tmp_nin_ee_vz.push_back(0), tmp_nout_ee_vz.push_back(0), tmp_nin_ee_data.push_back(0);
       tmp_nin_mm_dy.push_back(0), tmp_nout_mm_dy.push_back(0), tmp_nin_mm_vz.push_back(0), tmp_nout_mm_vz.push_back(0), tmp_nin_mm_data.push_back(0);
@@ -217,6 +237,11 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
     hNout_ree_mc.push_back(tmp_hNout_ree_mc); 
     hNin_rmm_mc.push_back(tmp_hNin_rmm_mc); 
     hNout_rmm_mc.push_back(tmp_hNout_rmm_mc);
+
+    hNin_ree_da.push_back(tmp_hNin_ree_da); 
+    hNout_ree_da.push_back(tmp_hNout_ree_da); 
+    hNin_rmm_da.push_back(tmp_hNin_rmm_da); 
+    hNout_rmm_da.push_back(tmp_hNout_rmm_da);
 
     nin_ee_dy.push_back(tmp_nin_ee_dy);
     nout_ee_dy.push_back(tmp_nout_ee_dy);
@@ -293,7 +318,7 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
       if( (tree.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
       if( !((tree.cuts_ & SmurfTree::TopVeto) == SmurfTree::TopVeto)             ) continue; // cut on btagging
       if(tree.dilep_.M() < 20) continue;
-        
+
       Int_t ijet = tree.njets_;
       if(ijet >= 2){
         if(tree.jet3_.Pt() <= 30)					                       ijet = 2;
@@ -302,15 +327,12 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
     	  (tree.jet2_.Eta()-tree.jet3_.Eta() > 0 && tree.jet1_.Eta()-tree.jet3_.Eta() < 0)))   ijet = 3;
         else							                               ijet = 2;
         if(tree.njets_ < 2 || tree.njets_ > 3)                                                 ijet = 3;
-
-	if(TMath::Abs(tree.jet1_.Eta()) >= 4.5 ||TMath::Abs(tree.jet2_.Eta()) >= 4.5)          ijet = 3;
       }
       if(ijet>2) continue;
 
       if(tree.lep1_.Pt() < 20) continue;
       if(tree.lep2_.Pt() < ptLepMin) continue;
  
-
       //*******************************************************
       //Classify background type
       //*******************************************************          
@@ -332,22 +354,14 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
       if(tree.dstype_ == SmurfTree::wgamma          )  ProcessType = 4; //wgamma
             
       Double_t weight = 1;
-      Double_t weightSystematicError = 0;
       //*******************************************************
       //Handle Fake Bkg
       //*******************************************************          
       int nFake = 0;
-      if(tree.dstype_ == SmurfTree::data) {
-        if(((tree.cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (tree.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-        if(((tree.cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (tree.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-        if(((tree.cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (tree.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-        if(((tree.cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (tree.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-      } else {
-        if(((tree.cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (tree.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-        if(((tree.cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (tree.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-        if(((tree.cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (tree.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
-        if(((tree.cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (tree.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
-      }
+      if(((tree.cuts_ & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2)  && (tree.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
+      if(((tree.cuts_ & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2)  && (tree.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
+      if(((tree.cuts_ & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4) && (tree.cuts_ & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) nFake++;
+      if(((tree.cuts_ & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4) && (tree.cuts_ & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) nFake++;
       
       if(nFake > 1){
         weight = 0.0;
@@ -360,10 +374,11 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
         // MC real lepton fake contamination
         else if(TMath::Abs(tree.lep1McId_)*TMath::Abs(tree.lep2McId_) > 0 
                 || tree.dstype_ == SmurfTree::wgamma
-                || (0==0)
           ) {
-          weight = -1.0 * lumi*tree.scale1fb_*tree.sfWeightPU_*tree.sfWeightEff_*tree.sfWeightTrig_*tree.sfWeightFR_;
+	  // negative weight is already included
+          weight = lumi*tree.scale1fb_*tree.sfWeightPU_*tree.sfWeightEff_*tree.sfWeightTrig_*tree.sfWeightFR_;
           ProcessType = 4;
+	  if(weight > 0) printf("warning, weight > 0! (%f)\n",weight);
         }
         else {
           weight = 0.0;
@@ -381,15 +396,14 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
         if (!(((tree.cuts_ & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection) 
            && ((tree.cuts_ & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection))) continue;
       }
-
       //*******************************************************
       //Data Driven Normalization Scale Factors
       //*******************************************************          
       //Top Scale Factors
       if(ProcessType == 2) {
-    	if(tree.njets_ == 0) { weight=weight*TopBkgScaleFactor(0); weightSystematicError = (1.0 - TopBkgScaleFactorKappa(0)); }
-    	if(tree.njets_ == 1) { weight=weight*TopBkgScaleFactor(1); weightSystematicError = (1.0 - TopBkgScaleFactorKappa(1)); }
-    	if(tree.njets_ >= 2) { weight=weight*TopBkgScaleFactor(2); weightSystematicError = (1.0 - TopBkgScaleFactorKappa(2)); }
+    	if(tree.njets_ == 0) { weight=weight*TopBkgScaleFactor(0); }
+    	if(tree.njets_ == 1) { weight=weight*TopBkgScaleFactor(1); }
+    	if(tree.njets_ >= 2) { weight=weight*TopBkgScaleFactor(2); }
       }
       //WW Scale Factors
       if(ProcessType == 0) {
@@ -414,15 +428,8 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
         if(finalState==kMuMu)	nin_kmm_data[ijet]++;
       }
       
-      bool dPhiDiLepJetCut = true;
-      if(tree.njets_ <= 1) 
-        dPhiDiLepJetCut = ( tree.jet1_.Pt() <= 15. || tree.dPhiDiLepJet1_*180.0/TMath::Pi() < 165. );
-      else                 
-        dPhiDiLepJetCut = ( acos(cos(((tree.jet1_+tree.jet2_).phi() - tree.dilep_.phi())))*180.0/TMath::Pi() < 165.);
-      if( dPhiDiLepJetCut == false ) continue; // cut on dPhiDiLepJetCut
-      
       //For Z->mm/ee MC
-      if(tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm) {
+      if((tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm) && weight >0) {
 
         //sample Met model many times (nmet times)
         for(Int_t imet=0; imet<nmet; imet++) {
@@ -437,63 +444,116 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
 	  Double_t minpfmet  = TMath::Min(projectedMET(pfmet,pfmetphi,tree.lep1_.Phi()),  projectedMET(pfmet,pfmetphi,tree.lep2_.Phi()));
           Double_t mintrkmet = TMath::Min(projectedMET(trkmet,trkmetphi,tree.lep1_.Phi()),projectedMET(trkmet,trkmetphi,tree.lep2_.Phi()));
           Double_t minmet    = TMath::Min(minpfmet,mintrkmet);
-          if(minmet>=49) minmet=49;	
+          if(minmet>=49) minmet=49;
 	  Double_t mt = sqrt( 2.0 * (tree.dilep_.Pt()) * pfmet * (1.0-cos( acos(cos(tree.dilep_.Phi() - pfmetphi)) ) ));
 
           //loop over Higgs masses
 	  for(Int_t imass=0; imass<nmass; imass++) {
-    
-	    if(tree.lep1_.Pt() < cutPtMaxLow(mH[imass])) continue;
-	    if(tree.lep2_.Pt() < cutPtMinLow(mH[imass],0)) continue;
-	    if(tree.dilep_.Pt() < 45.0) continue;
-	
- 	    if(tree.dPhi_ > cutDeltaphiHigh(mH[imass])*TMath::Pi()/180.) continue;
+	    int whichIMass = imass;
+	    double theCutMassHigh = cutMassHigh(mH[imass]);
+            bool passMtCut = mt > cutMTLow(mH[imass]) && mt < cutMTHigh(mH[imass]);
+
+	    bool passKinCuts = tree.lep1_.Pt() > cutPtMaxLow(mH[whichIMass])   &&
+	                       tree.lep2_.Pt() > cutPtMinLow(mH[whichIMass],0) && tree.lep2_.Pt() > 15.0 &&
+			       tree.dPhi_ < cutDeltaphiHigh(mH[whichIMass])*TMath::Pi()/180.;
+
+	    bool passWBFSel = true;
+            if(tree.njets_ >= 2 && imass != 0){
+	      passMtCut = mt > 30.0 && mt < cutMTHigh(mH[imass]); 
+              int centrality = 0;
+	      if(((tree.jet1_.Eta()-tree.lep1_.Eta() > 0 && tree.jet2_.Eta()-tree.lep1_.Eta() < 0) ||
+            	  (tree.jet2_.Eta()-tree.lep1_.Eta() > 0 && tree.jet1_.Eta()-tree.lep1_.Eta() < 0)) &&
+            	 ((tree.jet1_.Eta()-tree.lep2_.Eta() > 0 && tree.jet2_.Eta()-tree.lep2_.Eta() < 0) ||
+            	  (tree.jet2_.Eta()-tree.lep2_.Eta() > 0 && tree.jet1_.Eta()-tree.lep2_.Eta() < 0))) centrality = 1; 
+	      passWBFSel = (tree.jet1_+tree.jet2_).M() > 500. && TMath::Abs(tree.jet1_.Eta()-tree.jet2_.Eta()) > 3.5 && centrality == 1;
+	    }
+            if(forBDTAna == true && imass != 0){
+	      whichIMass = 0;
+	      if     (mH[imass] ==   0) theCutMassHigh = 10000;
+	      else if(mH[imass] <= 250) theCutMassHigh = 200;
+	      else			theCutMassHigh = 600;
+	      if     (mH[imass] ==   0) passMtCut = mt > 80.0 && mt < 10000;
+	      else if(mH[imass] <= 250) passMtCut = mt > 80.0 && mt < 280;
+	      else if(tree.njets_ >= 2) passMtCut = mt > 80.0 && mt < 600;
+	      else			passMtCut = mt > 30.0 && mt < 600;
+	      if(mH[imass] <= 250) passKinCuts = true;
+	      else                 passKinCuts = tree.lep1_.Pt() > 50.0;
+	    }
+
+            if(!passWBFSel) continue;
+
+	    if(!passKinCuts) continue;
+
+	    if(tree.dilep_.Pt() <= 45.0) continue;
+	    if(minmet <= 20.0) continue;
+
+            bool dPhiDiLepJetCut = kTRUE;
+            if(useDYMVA[imass] == kFALSE){
+              if(tree.njets_ <= 1) dPhiDiLepJetCut = tree.jet1_.Pt() <= 15. || tree.dPhiDiLepJet1_*180.0/TMath::Pi() < 165.;
+              else                 dPhiDiLepJetCut = DeltaPhi((tree.jet1_+tree.jet2_).Phi(),tree.dilep_.Phi())*180.0/TMath::Pi() < 165.;
+            }
+            if(tree.njets_ >= 2) dPhiDiLepJetCut = DeltaPhi((tree.jet1_+tree.jet2_).Phi(),tree.dilep_.Phi())*180.0/TMath::Pi() < 165.;
+	    if(dPhiDiLepJetCut == kFALSE) continue;
+
+	    Double_t varMet = minmet;
+	    if(useDYMVA[imass] == kTRUE) varMet = tree.dymva_;
 
 	    if(mZ - tree.dilep_.M() < MassCutLow && tree.dilep_.M() - mZ < MassCutHigh) {
-	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dyee) {
-                hNin_ree_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);                
+	      if(finalState==kEleEle && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) {
+                hNin_ree_mc[ijet][imass]->Fill(varMet,weight/(Double_t)nmet);                
               }
-	      if(finalState==kMuMu   && tree.dstype_==SmurfTree::dymm) {
-                hNin_rmm_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);              	 
+	      if(finalState==kMuMu   && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) {
+                hNin_rmm_mc[ijet][imass]->Fill(varMet,weight/(Double_t)nmet);              	 
               }
-            } else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < cutMassHigh(mH[imass])) {
-	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dyee) {
-                hNout_ree_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);	
+            } else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < theCutMassHigh) {
+	      if(finalState==kEleEle && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) {
+                hNout_ree_mc[ijet][imass]->Fill(varMet,weight/(Double_t)nmet);	
               }
-	      if(finalState==kMuMu   && tree.dstype_==SmurfTree::dymm) {
-                hNout_rmm_mc[ijet][imass]->Fill(minmet,weight/(Double_t)nmet);
+	      if(finalState==kMuMu   && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) {
+                hNout_rmm_mc[ijet][imass]->Fill(varMet,weight/(Double_t)nmet);
               }
             }
 	
- 	    if(mt < cutMTLow(mH[imass]) || mt > cutMTHigh(mH[imass])) continue;
-            if(minmet < 37 + 0.5 * tree.nvtx_ ) continue;
-	
+ 	    if(!passMtCut) continue; // MT AFTER R IS COMPUTED!!!
+
+            bool passMET = minmet > 20.;
+            if(useDYMVA[imass] == kTRUE){
+              if     (tree.njets_ == 0) passMET = passMET && tree.dymva_ >  0.88;
+              else if(tree.njets_ == 1) passMET = passMET && tree.dymva_ >  0.84;
+              else                      passMET = passMET && tree.met_   > 45.0;
+            } else {
+              if     (tree.njets_ == 0) passMET = passMET && minmet > 37 + 0.5 * tree.nvtx_;
+              else if(tree.njets_ == 1) passMET = passMET && minmet > 37 + 0.5 * tree.nvtx_;
+              else                      passMET = passMET && minmet > 37 + 0.5 * tree.nvtx_;
+            }
+
+            if(passMET == kFALSE) continue;
+
 	    if(mZ - tree.dilep_.M() < MassCutLow && tree.dilep_.M() - mZ < MassCutHigh) {
-	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dyee) { 
+	      if(finalState==kEleEle && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) { 
 	        nin_ee_dy[ijet][imass]+=weight/(Double_t)nmet; 
 	        varin_ee_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet; 
 	      }
 	
-	      if(finalState==kMuMu && tree.dstype_==SmurfTree::dymm) { 
+	      if(finalState==kMuMu   && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) { 
 	        nin_mm_dy[ijet][imass]+=weight/(Double_t)nmet; 
 	        varin_mm_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet;
-	      }	  
-	 
-             } else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < cutMassHigh(mH[imass])) {
-	  
-	      if(finalState==kEleEle && tree.dstype_==SmurfTree::dyee) { 
+	      }
+
+             } else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < theCutMassHigh) {
+
+	      if(finalState==kEleEle && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) { 
 	        nout_ee_dy[ijet][imass]+=weight/(Double_t)nmet; 
 	        varout_ee_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet;
 	      }
 	  
-	      if(finalState==kMuMu && tree.dstype_==SmurfTree::dymm) { 
+	      if(finalState==kMuMu   && (tree.dstype_==SmurfTree::dyee || tree.dstype_==SmurfTree::dymm)) { 
 	        nout_mm_dy[ijet][imass]+=weight/(Double_t)nmet;
 	        varout_mm_dy[ijet][imass]+=weight*weight/(Double_t)nmet/(Double_t)nmet;
 	      }
             }
           }                
 	}
-	
       } else {
       //For Other Bkg MC
 
@@ -505,22 +565,87 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
 	Double_t mt = sqrt( 2.0 * (tree.dilep_.Pt()) * pfmet * (1.0-cos(acos(cos(tree.dilep_.Phi()-pfmetphi)))) );
 	
 	for(Int_t imass=0; imass<nmass; imass++) {
-    
-          if(tree.lep1_.Pt() < cutPtMaxLow(mH[imass])) continue;
-          if(tree.lep2_.Pt() < cutPtMinLow(mH[imass],0)) continue;
-          if(tree.dilep_.Pt() < 45.0) continue;
-          
-          if(tree.dPhi_ > cutDeltaphiHigh(mH[imass])*TMath::Pi()/180.) continue;         
-          if(mt < cutMTLow(mH[imass]) || mt > cutMTHigh(mH[imass])) continue;
+	  int whichIMass = imass;
+	  double theCutMassHigh = cutMassHigh(mH[imass]);
+          bool passMtCut = mt > cutMTLow(mH[imass]) && mt < cutMTHigh(mH[imass]);
 
-          if(minmet < 37 + 0.5 * tree.nvtx_ ) continue;
-          
+	  bool passKinCuts = tree.lep1_.Pt() > cutPtMaxLow(mH[whichIMass])   &&
+	 		     tree.lep2_.Pt() > cutPtMinLow(mH[whichIMass],0) && tree.lep2_.Pt() > 15.0 &&
+	 		     tree.dPhi_ < cutDeltaphiHigh(mH[whichIMass])*TMath::Pi()/180.;
+
+	  bool passWBFSel = true;
+          if(tree.njets_ >= 2 && imass != 0){
+	    passMtCut = mt > 30.0 && mt < cutMTHigh(mH[imass]); 
+            int centrality = 0;
+	    if(((tree.jet1_.Eta()-tree.lep1_.Eta() > 0 && tree.jet2_.Eta()-tree.lep1_.Eta() < 0) ||
+         	(tree.jet2_.Eta()-tree.lep1_.Eta() > 0 && tree.jet1_.Eta()-tree.lep1_.Eta() < 0)) &&
+               ((tree.jet1_.Eta()-tree.lep2_.Eta() > 0 && tree.jet2_.Eta()-tree.lep2_.Eta() < 0) ||
+         	(tree.jet2_.Eta()-tree.lep2_.Eta() > 0 && tree.jet1_.Eta()-tree.lep2_.Eta() < 0))) centrality = 1; 
+	    passWBFSel = (tree.jet1_+tree.jet2_).M() > 500. && TMath::Abs(tree.jet1_.Eta()-tree.jet2_.Eta()) > 3.5 && centrality == 1;
+	  }
+          if(forBDTAna == true && imass != 0){
+	    whichIMass = 0;
+	    if     (mH[imass] ==   0) theCutMassHigh = 10000;
+	    else if(mH[imass] <= 250) theCutMassHigh = 200;
+	    else		      theCutMassHigh = 600;
+	    if     (mH[imass] ==   0) passMtCut = mt > 80.0 && mt < 10000;
+	    else if(mH[imass] <= 250) passMtCut = mt > 80.0 && mt < 280;
+	    else if(tree.njets_ >= 2) passMtCut = mt > 80.0 && mt < 600;
+	    else                      passMtCut = mt > 30.0 && mt < 600;
+	    if(mH[imass] <= 250) passKinCuts = true;
+	    else		 passKinCuts = tree.lep1_.Pt() > 50.0;
+	  }
+
+          if(!passWBFSel) continue;
+
+	  if(!passKinCuts) continue;
+
+          if(tree.dilep_.Pt() <= 45.0) continue;
+	  if(minmet <= 20.0) continue;
+
+          bool dPhiDiLepJetCut = kTRUE;
+          if(useDYMVA[imass] == kFALSE){
+            if(tree.njets_ <= 1) dPhiDiLepJetCut = tree.jet1_.Pt() <= 15. || tree.dPhiDiLepJet1_*180.0/TMath::Pi() < 165.;
+            else		 dPhiDiLepJetCut = DeltaPhi((tree.jet1_+tree.jet2_).Phi(),tree.dilep_.Phi())*180.0/TMath::Pi() < 165.;
+          }
+          if(tree.njets_ >= 2) dPhiDiLepJetCut = DeltaPhi((tree.jet1_+tree.jet2_).Phi(),tree.dilep_.Phi())*180.0/TMath::Pi() < 165.;
+	  if(dPhiDiLepJetCut == kFALSE) continue;
+
+	  Double_t varMet = minmet;
+	  if(useDYMVA[imass] == kTRUE) varMet = tree.dymva_;
+          double theDataWeight = 0.0;
+          if     (ProcessType == -1 && (finalState==kEleEle||finalState==kMuMu)) theDataWeight =  1.0;
+	  else if(ProcessType == -1                                            ) theDataWeight = -1.0;
+	  else if(ProcessType ==  1 && weight > 0                              ) theDataWeight = -1.0 * weight;
+	  // In reality ee == ee+mm for data
+	  if(theDataWeight != 0.0){
+	    if(mZ - tree.dilep_.M() < MassCutLow && tree.dilep_.M() - mZ < MassCutHigh) {
+              hNin_ree_da[ijet][imass]->Fill(varMet,theDataWeight/(Double_t)nmet);                
+            } else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < theCutMassHigh) {
+              hNout_ree_da[ijet][imass]->Fill(varMet,theDataWeight/(Double_t)nmet);	
+            }
+          }
+
+ 	  if(!passMtCut) continue; // MT AFTER R IS COMPUTED!!!
+
+          bool passMET = minmet > 20.;
+          if(useDYMVA[imass] == kTRUE){
+            if     (tree.njets_ == 0) passMET = passMET && tree.dymva_ >  0.88;
+            else if(tree.njets_ == 1) passMET = passMET && tree.dymva_ >  0.84;
+            else		      passMET = passMET && tree.met_   > 45.0;
+          } else {
+            if     (tree.njets_ == 0) passMET = passMET && minmet > 37 + 0.5 * tree.nvtx_;
+            else if(tree.njets_ == 1) passMET = passMET && minmet > 37 + 0.5 * tree.nvtx_;
+            else		      passMET = passMET && minmet > 37 + 0.5 * tree.nvtx_;
+          }
+          if(passMET == kFALSE) continue;
 
           //*********************************************************************
           //Count Yields
           //*********************************************************************
           //In Z peak region
 	  if(mZ - tree.dilep_.M() < MassCutLow && tree.dilep_.M() - mZ < MassCutHigh) {
+            //if(tree.dstype_==SmurfTree::data && ProcessType == -1 && imass==0 && ijet==2) printf("SSS %d %d\n",tree.event_,tree.type_);
 	  
             //first one 
             if(finalState==kEleEle) {
@@ -601,7 +726,7 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
 
           } 
           // Out of Z peak region
-          else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < cutMassHigh(mH[imass])) {
+          else if(fabs(tree.dilep_.M() - mZ) >= 15 && tree.dilep_.M() < theCutMassHigh) {
 
 	    if(finalState==kEleEle) {
               if (ProcessType == 1) {
@@ -626,7 +751,10 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
   //--------------------------------------------------------------------------------------------------------------
   // Summary print out
   //============================================================================================================== 
-  ofstream fout("DYEstimateTable.txt");
+  char DYEstimateTableName[200];
+  sprintf(DYEstimateTableName,"DYEstimateTable.txt");
+  if(forBDTAna == true) sprintf(DYEstimateTableName,"DYEstimateTableBDT.txt");
+  ofstream fout(DYEstimateTableName);
 
   vector<vector<Double_t> > DYBkgScaleFactorHiggsSelection;
   vector<vector<Double_t> > DYBkgScaleFactorHiggsSelectionErr;
@@ -669,7 +797,6 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
       // compute Routin from MC
       //
 
-      Bool_t passProtectionAgainstLargeStatisticalFluctuations = kFALSE;
       Int_t MetBinToComputeRoutin = nbins-1;
 
       Double_t nout_ee   = 0;
@@ -694,41 +821,63 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
       Double_t RllErrStat = 0;
       Double_t RllErrSyst = 0;
 
-      nout_ee   = hNout_ree_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
-      errout_ee = hNout_ree_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
-      nout_mm   = hNout_rmm_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
-      errout_mm = hNout_rmm_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
-      nout_ll   = nout_ee+nout_mm;
-      errout_ll = sqrt(errout_ee*errout_ee + errout_mm*errout_mm);
+      if(useRFromData[jetIndex] == false){
+	nout_ee   = hNout_ree_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
+	errout_ee = hNout_ree_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
+	nout_mm   = hNout_rmm_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
+	errout_mm = hNout_rmm_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
+	nout_ll   = nout_ee+nout_mm;
+	errout_ll = sqrt(errout_ee*errout_ee + errout_mm*errout_mm);
 
-      nin_ee   = hNin_ree_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
-      errin_ee = hNin_ree_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
-      nin_mm   = hNin_rmm_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
-      errin_mm = hNin_rmm_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
-      nin_ll   = nin_ee+nin_mm;
-      errin_ll = sqrt(errin_ee*errin_ee + errin_mm*errin_mm);
-              
-      Ree        = nout_ee/nin_ee;
-      ReeErrStat = Ree*sqrt(errin_ee*errin_ee/nin_ee/nin_ee + errout_ee*errout_ee/nout_ee/nout_ee);
-      ReeErrSyst = computeSyst(hNout_ree_mc[jetIndex][imass],hNin_ree_mc[jetIndex][imass], MetBinToComputeRoutin);    
-    
-      Rmm        = nout_mm/nin_mm;
-      RmmErrStat = Rmm*sqrt(errin_mm*errin_mm/nin_mm/nin_mm + errout_mm*errout_mm/nout_mm/nout_mm);
-      RmmErrSyst = computeSyst(hNout_rmm_mc[jetIndex][imass],hNin_rmm_mc[jetIndex][imass], MetBinToComputeRoutin);
+	nin_ee   = hNin_ree_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
+	errin_ee = hNin_ree_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
+	nin_mm   = hNin_rmm_mc[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
+	errin_mm = hNin_rmm_mc[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
+	nin_ll   = nin_ee+nin_mm;
+	errin_ll = sqrt(errin_ee*errin_ee + errin_mm*errin_mm);
 
+	Ree        = nout_ee/nin_ee;
+	ReeErrStat = Ree*sqrt(errin_ee*errin_ee/nin_ee/nin_ee + errout_ee*errout_ee/nout_ee/nout_ee);
+	ReeErrSyst = computeSyst(hNout_ree_mc[jetIndex][imass],hNin_ree_mc[jetIndex][imass], MetBinToComputeRoutin, 0.4);    
 
-      TH1F *hout = (TH1F*)hNout_ree_mc[jetIndex][imass]->Clone("hout");
-      hout->Add(hNout_rmm_mc[jetIndex][imass]);
-      TH1F *hin = (TH1F*)hNin_ree_mc[jetIndex][imass]->Clone("hin");
-      hin->Add(hNin_rmm_mc[jetIndex][imass]);
-      Rll        = nout_ll/nin_ll;
-      RllErrStat = Rll*sqrt(errin_ll*errin_ll/nin_ll/nin_ll + errout_ll*errout_ll/nout_ll/nout_ll);
-      RllErrSyst = computeSyst(hout,hin, MetBinToComputeRoutin);
+	Rmm        = nout_mm/nin_mm;
+	RmmErrStat = Rmm*sqrt(errin_mm*errin_mm/nin_mm/nin_mm + errout_mm*errout_mm/nout_mm/nout_mm);
+	RmmErrSyst = computeSyst(hNout_rmm_mc[jetIndex][imass],hNin_rmm_mc[jetIndex][imass], MetBinToComputeRoutin, 0.4);
 
+	TH1D *hout = (TH1D*)hNout_ree_mc[jetIndex][imass]->Clone("hout");
+	hout->Add(hNout_rmm_mc[jetIndex][imass]);
+	TH1D *hin = (TH1D*)hNin_ree_mc[jetIndex][imass]->Clone("hin");
+	hin->Add(hNin_rmm_mc[jetIndex][imass]);
+	Rll        = nout_ll/nin_ll;
+	RllErrStat = Rll*sqrt(errin_ll*errin_ll/nin_ll/nin_ll + errout_ll*errout_ll/nout_ll/nout_ll);
+	RllErrSyst = computeSyst(hout,hin, MetBinToComputeRoutin, 0.4);
 
-      delete hout;
-      delete hin;
+	delete hout;
+	delete hin;
+      } else {
+	nout_ll   = hNout_ree_da[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
+	errout_ll = hNout_ree_da[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
 
+	nin_ll   = hNin_ree_da[jetIndex][imass]->GetBinContent(MetBinToComputeRoutin);
+	errin_ll = hNin_ree_da[jetIndex][imass]->GetBinError(MetBinToComputeRoutin);
+
+	TH1D *hout = (TH1D*)hNout_ree_da[jetIndex][imass]->Clone("hout");
+	TH1D *hin = (TH1D*)hNin_ree_da[jetIndex][imass]->Clone("hin");
+
+	Rll        = nout_ll/nin_ll;
+	RllErrStat = Rll*sqrt(errin_ll*errin_ll/nin_ll/nin_ll + errout_ll*errout_ll/nout_ll/nout_ll);
+	Double_t rErrorMax = 100000.4;
+	cout << "M: " << mH[imass] << endl;
+	RllErrSyst = computeSyst(hout,hin,MetBinToComputeRoutin,rErrorMax,true,true);
+	delete hout;
+	delete hin;
+      }
+
+      if(Rll <= 0) {Rll = 0.00001; RllErrStat = 0.0; RllErrSyst = 0.0;}
+      // DO NOT ALLOW FOR MORE THAN 100% uncertainty
+      if(RllErrSyst > 1.0*Rll) RllErrSyst = 1.0*Rll;
+      // DO NOT ALLOW FOR LESS THAN 30% uncertainty
+      if(RllErrSyst < 0.3*Rll) RllErrSyst = 0.3*Rll;
 
       sprintf(buffer,"%.2f +/- %.2f +/- %.2f",Rll,RllErrStat,RllErrSyst);
 //     sprintf(buffer,"%.3f +/- %.3f +/- %.3f",Ree,ReeErrStat,ReeErrSyst);
@@ -866,7 +1015,6 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
       Double_t nout_ll_sta = nout_ll_pre*sqrt((RllErrStat*RllErrStat)/Rll/Rll + err_ll_sub*err_ll_sub/nin_ll_sub/nin_ll_sub);
       Double_t nout_ll_sys = nout_ll_pre*RllErrSyst/Rll;
       Double_t nout_ll_err = sqrt(nout_ll_sys*nout_ll_sys + nout_ll_sta*nout_ll_sta);
-    
 
       sprintf(buffer,"%.2f +/- %.2f +/- %.2f",nout_ll_pre,nout_ll_sta,nout_ll_sys);
 //    sprintf(buffer,"%.2f +/- %.2f +/- %.2f",nout_ee_pre,nout_ee_sta,nout_ee_sys);
@@ -900,8 +1048,11 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
         tmpDYBkgScaleFactorWWPreselection    = sfout_ll;
         tmpDYBkgScaleFactorWWPreselectionErr = sfout_ll_err;
       } else {
-        tmpDYBkgScaleFactorHiggsSelection.push_back(sfout_ll);
-        tmpDYBkgScaleFactorHiggsSelectionErr.push_back(sfout_ll_err);
+        // BIG CHANGE, we quote
+        //tmpDYBkgScaleFactorHiggsSelection.push_back(sfout_ll);
+        //tmpDYBkgScaleFactorHiggsSelectionErr.push_back(sfout_ll_err);
+        tmpDYBkgScaleFactorHiggsSelection.push_back(nout_ll_pre);
+        tmpDYBkgScaleFactorHiggsSelectionErr.push_back(sqrt(nout_ll_sta*nout_ll_sta+nout_ll_sys*nout_ll_sys));
       }
     }
 
@@ -917,9 +1068,13 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
   //***************************************************************************
   // Generate DY Scale Factor and Systematics Code for card creation
   //***************************************************************************
-  ofstream outf("DYBkgScaleFactors.h");
+  char DYBkgScaleFactorsName[200];
+  sprintf(DYBkgScaleFactorsName,"DYBkgScaleFactors.h");
+  if(forBDTAna == true) sprintf(DYBkgScaleFactorsName,"DYBkgScaleFactorsBDT.h");
+  ofstream outf(DYBkgScaleFactorsName);
 
-  outf << "Double_t DYBkgScaleFactor(Int_t mH, Int_t jetBin) {" << endl;
+  if(forBDTAna == true) outf << "static Double_t DYBkgScaleFactorBDT(Int_t mH, Int_t jetBin) {" << endl;
+  else                  outf << "static Double_t DYBkgScaleFactor(Int_t mH, Int_t jetBin) {" << endl;
   
   outf << "  Int_t mHiggs[" << nmass-1 << "] = {";
   for (UInt_t i = 0; i < nmass-1 ; ++i) {
@@ -970,7 +1125,8 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
   outf << endl;
 
 
-  outf << "Double_t DYBkgScaleFactorKappa(Int_t mH, Int_t jetBin) {" << endl;
+  if(forBDTAna == true) outf << "static Double_t DYBkgScaleFactorBDTKappa(Int_t mH, Int_t jetBin) {" << endl;
+  else                  outf << "static Double_t DYBkgScaleFactorKappa(Int_t mH, Int_t jetBin) {" << endl;
   
   outf << "  Int_t mHiggs[" << nmass-1 << "] = {";
   for (UInt_t i = 0; i < nmass-1 ; ++i) {
@@ -1026,43 +1182,43 @@ void ComputeDYBkgScaleFactor2011(Int_t period = -1, Bool_t useRecoilModel = kFAL
 
 }
 
-
-
 //=== FUNCTION DEFINITIONS ======================================================================================
 
 //--------------------------------------------------------------------------------------------------
     Double_t projectedMET(const Double_t met, const Double_t metPhi, const Double_t lepPhi) 
 {
-  const Double_t pi = 3.14159265358979;
   Double_t dphi = acos(cos(lepPhi-metPhi));
-  if(dphi > 0.5*pi)
+  if(dphi > 0.5*TMath::Pi())
     return met;
     
   return met*sin(dphi);
 }
 
 //--------------------------------------------------------------------------------------------------
-Double_t computeSyst(const TH1F *hout, const TH1F *hin, Int_t binUsed)
+Double_t computeSyst(const TH1D *hout, const TH1D *hin, Int_t binUsed, Double_t rErrorMax, Bool_t useRFromData, Bool_t isDebug)
 {
   const Int_t nbins = hout->GetXaxis()->GetNbins();
   Double_t r0=(hout->GetBinContent(binUsed))/(hin->GetBinContent(binUsed));
   Double_t dr=0;
-//   cout << "R0 = " << r0 << endl;
   for(Int_t ibin=1; ibin<=nbins; ibin++) {
+    if(hin->GetBinContent(ibin) <= 0) continue;
+    if(useRFromData == true && ibin == nbins) continue;
     Double_t r = (hout->GetBinContent(ibin))/(hin->GetBinContent(ibin));
 
-    //only consider last bin for systematics if the uncertainty is less than 40% to protect against statistical fluctuations
+    //only consider last bin for systematics if the uncertainty is less than rErrorMax to protect against statistical fluctuations
     Double_t rError = sqrt( pow(hout->GetBinError(ibin)/hout->GetBinContent(ibin),2) + pow(hin->GetBinError(ibin)/hin->GetBinContent(ibin),2));
-    if (rError > 0.40) continue;
+
+    if(r < 0.0) r = 0.0;
+    if(isDebug == true) printf("bin(%1d) Nin = %8.3f Nout = %8.3f R0 = %5.3f R = %5.3f dr = %5.3f drMax = %5.3f rError = %5.3f\n",ibin,hin->GetBinContent(ibin),hout->GetBinContent(ibin),r0,r,fabs(r-r0),dr,rError);
+
+    if(rError > rErrorMax) continue;
 
     if(fabs(r-r0) > dr) dr = fabs(r-r0);
-//     cout << "Nin = " << hin->GetBinContent(ibin) << ", Nout = " << hout->GetBinContent(ibin) << ", R = " << r << ", dr = " << dr << endl;
   }
   return dr;
 }
 
-
-TGraphErrors* MakeRoutinGraph(const TH1F *hout, const TH1F *hin, string graphname) {
+TGraphErrors* MakeRoutinGraph(const TH1D *hout, const TH1D *hin, string graphname) {
 
   Int_t nbins = hout->GetNbinsX();
   assert(nbins <= 200);
@@ -1114,11 +1270,11 @@ TGraphErrors* MakeRoutinGraph(const TH1F *hout, const TH1F *hin, string graphnam
 
 
 
-TGraphErrors* MakeRoutinGraphDataDrivenOFSubtraction(const TH1F *hout_ee_data, const TH1F *hin_ee_data, 
-                                                     const TH1F *hout_mm_data, const TH1F *hin_mm_data, 
-                                                     const TH1F *hout_ee_vz, const TH1F *hin_ee_vz, 
-                                                     const TH1F *hout_mm_vz, const TH1F *hin_mm_vz, 
-                                                     const TH1F *hout_OF_data, const TH1F *hin_OF_data, 
+TGraphErrors* MakeRoutinGraphDataDrivenOFSubtraction(const TH1D *hout_ee_data, const TH1D *hin_ee_data, 
+                                                     const TH1D *hout_mm_data, const TH1D *hin_mm_data, 
+                                                     const TH1D *hout_ee_vz, const TH1D *hin_ee_vz, 
+                                                     const TH1D *hout_mm_vz, const TH1D *hin_mm_vz, 
+                                                     const TH1D *hout_OF_data, const TH1D *hin_OF_data, 
                                                      Double_t EleToMuEffRatio, Double_t EleToMuEffRatioErr,
                                                      Int_t FinalState, string graphname) {
   Double_t vzNormSystematic = 0.10;
@@ -1273,18 +1429,18 @@ TGraphErrors* MakeRoutinGraphDataDrivenOFSubtraction(const TH1F *hout_ee_data, c
 }
 
 
-TGraphErrors* MakeRoutinGraphDataDrivenMCSubtraction(const TH1F *hout_ee_data, const TH1F *hin_ee_data, 
-                                                     const TH1F *hout_mm_data, const TH1F *hin_mm_data, 
-                                                     const TH1F *hout_ee_vz, const TH1F *hin_ee_vz, 
-                                                     const TH1F *hout_mm_vz, const TH1F *hin_mm_vz, 
-                                                     const TH1F *hout_ee_ww, const TH1F *hin_ee_ww, 
-                                                     const TH1F *hout_mm_ww, const TH1F *hin_mm_ww, 
-                                                     const TH1F *hout_ee_wjets, const TH1F *hin_ee_wjets, 
-                                                     const TH1F *hout_mm_wjets, const TH1F *hin_mm_wjets, 
-                                                     const TH1F *hout_ee_top, const TH1F *hin_ee_top, 
-                                                     const TH1F *hout_mm_top, const TH1F *hin_mm_top, 
-                                                     const TH1F *hout_ee_dytt, const TH1F *hin_ee_dytt, 
-                                                     const TH1F *hout_mm_dytt, const TH1F *hin_mm_dytt, 
+TGraphErrors* MakeRoutinGraphDataDrivenMCSubtraction(const TH1D *hout_ee_data, const TH1D *hin_ee_data, 
+                                                     const TH1D *hout_mm_data, const TH1D *hin_mm_data, 
+                                                     const TH1D *hout_ee_vz, const TH1D *hin_ee_vz, 
+                                                     const TH1D *hout_mm_vz, const TH1D *hin_mm_vz, 
+                                                     const TH1D *hout_ee_ww, const TH1D *hin_ee_ww, 
+                                                     const TH1D *hout_mm_ww, const TH1D *hin_mm_ww, 
+                                                     const TH1D *hout_ee_wjets, const TH1D *hin_ee_wjets, 
+                                                     const TH1D *hout_mm_wjets, const TH1D *hin_mm_wjets, 
+                                                     const TH1D *hout_ee_top, const TH1D *hin_ee_top, 
+                                                     const TH1D *hout_mm_top, const TH1D *hin_mm_top, 
+                                                     const TH1D *hout_ee_dytt, const TH1D *hin_ee_dytt, 
+                                                     const TH1D *hout_mm_dytt, const TH1D *hin_mm_dytt, 
                                                      Double_t WWSystematicError, Double_t TopSystematicError,
                                                      Int_t FinalState, string graphname) {
 

@@ -124,4 +124,3 @@ Double_t DYMCScaleFactor_VHqqll_Kappa(int nJetsType) {
 Double_t WWVBFScaleFactor() {
   return 2.0;
 }
-

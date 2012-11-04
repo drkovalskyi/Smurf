@@ -309,7 +309,8 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
       if(!((tree.cuts_ & SmurfTree::ChargeMatch) == SmurfTree::ChargeMatch)      ) continue;
       if( (tree.cuts_ & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
       if( !((tree.cuts_ & SmurfTree::TopVeto) == SmurfTree::TopVeto)             ) continue; // cut on btagging
-         
+      if(tree.dilep_.M() < 12) continue;
+
       Int_t ijet = tree.njets_;
       if(ijet >= 2){
         if(tree.jet3_.Pt() <= 30)					                       ijet = 2;
