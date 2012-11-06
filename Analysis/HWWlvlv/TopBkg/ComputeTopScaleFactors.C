@@ -86,6 +86,7 @@ void ComputeTopScaleFactors
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
     puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True.root";
     lumi     = 12.1;minRun =      0;maxRun = 999999;
+    //lumi = 5.296;minRun =      0;maxRun = 196531;
     bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/backgroundA_skim2.root";
     dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data_skim2.root";
   }

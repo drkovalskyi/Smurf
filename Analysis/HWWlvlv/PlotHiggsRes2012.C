@@ -245,6 +245,7 @@ void PlotHiggsRes2012
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
     puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True.root";
     scaleFactorLum     = 12.1;minRun =      0;maxRun = 999999;
+    //scaleFactorLum = 5.296;minRun =      0;maxRun = 196531;
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -3761,7 +3762,7 @@ void PlotHiggsRes2012
     double yieldE[13],yield[13];
     int nData;
     int nTotalBins = 1;//histo_qqH->GetNbinsX();
-    if(nTotalBins != 1) {useExpTemplates = false; useJESTemplates = false; useWJetsTemplates = false; useZjetsTemplates = false; useTopTemplates = false; useWWTemplates = false;}
+    if(nTotalBins != 1) {useExpTemplates = false; useJESTemplates = false; useWJetsTemplates = false; useZjetsTemplates = false; useTopTemplates = false; useWWTemplates = false; useStatTemplates = false;}
 
     //----------------------------------------------------------------------------
     // Yields for MVA Shape Analysis

@@ -88,6 +88,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
   }
   else if(period == 2){ // Full2012-Summer12-V9-12000ipb
     lumi = 12.1;minRun =      0;maxRun = 999999;
+    //lumi = 5.296;minRun =      0;maxRun = 196531;
     filesPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets";
   }
   else {
