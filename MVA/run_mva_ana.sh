@@ -15,7 +15,7 @@ export doMultiClass=1;
 
 #export TAG=TEST_${MH}train_${NJETS}jets;
 #export METHODS=Likelihood,BDT,BDTD,BDTG;
-export TAG=ntuples2012_MultiClass_${MH}train_${NJETS}jets;
+export TAG=ntuples2012_PostICHEP_${MH}train_${NJETS}jets;
 #export TAG=TEST_ntuples_${MH}train_${NJETS}jets;
 #export METHODS=BDT,Likelihood,BDTG,BDTD,BDTB,MLP,MLPBFGS,MLPBNN,CFMlpANN,TMlpANN,BoostedFisher,LikelihoodD,LikelihoodPCA,FDA_GA,RuleFit;
 export METHODS=BDTG;
@@ -64,10 +64,32 @@ fi
 ### samples must be in "data" folder
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-data/hww${MH}.root
-data/data_skim2.root
+data/hww110.root
+data/hww115.root
+data/hww120.root
+data/hww125.root
+data/hww130.root
+data/hww135.root
+data/hww140.root
+data/hww145.root
+data/hww150.root
+data/hww155.root
+data/hww160.root
+data/hww170.root
+data/hww180.root
+data/hww190.root
+data/hww200.root
+data/hww250.root
+data/hww300.root
+data/hww350.root
+data/hww400.root
+data/hww450.root
+data/hww500.root
+data/hww550.root
+data/hww600.root
+data/data_skim6.root
 data/hww_syst_skim6.root
-data/backgroundA_skim2.root
+data/backgroundA_skim6.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf_hww.C+;

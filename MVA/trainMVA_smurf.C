@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.14 2012/09/03 15:08:47 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.15 2012/10/03 07:12:02 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -119,7 +119,7 @@ void trainMVA_smurf(
     mvaVar[ "dPhi" ]              = 1;  //delta phi btw leptons
     mvaVar[ "dR" ]                = 1;  //delta R btw leptons
     mvaVar[ "dilmass" ]           = 1;  //dilepton mass
-    mvaVar[ "type" ]              = 1;  //dilepton flavor type
+    mvaVar[ "type" ]              = 0;  //dilepton flavor type
     mvaVar[ "pmet" ]              = 0;  //projected met
     mvaVar[ "met" ]               = 0;  //met
     mvaVar[ "mt" ]                = 1;  //transverse higgs mass
@@ -127,12 +127,12 @@ void trainMVA_smurf(
     mvaVar[ "mt2" ]               = 0;  //transverse mass of sub-leading lepton and met
     mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
     mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
-    mvaVar[ "dilpt" ]	          = 0;  //dilepton pt
+    mvaVar[ "dilpt" ]	          = 1;  //dilepton pt
     mvaVar[ "razor" ]             = 0;  //razor
   }
   if(nJetsType == 1){
-    mvaVar[ "dPhiDiLepMET" ]   = 1; //delta phi btw dilepton and met
-    mvaVar[ "dPhiDiLepJet1" ]  = 1; //delta phi btw dilepton and jet1
+    mvaVar[ "dPhiDiLepMET" ]   = 0; //delta phi btw dilepton and met
+    mvaVar[ "dPhiDiLepJet1" ]  = 0; //delta phi btw dilepton and jet1
   }
   if (nJetsType == 2) {
     mvaVar[ "mjj" ]             = 1;  //invariant mass of the dijet
@@ -146,11 +146,61 @@ void trainMVA_smurf(
   
   float dilmass_cut = DileptonMassPreselectionCut(mH);
   if(mH <= 250) dilmass_cut = 200;
+  else          dilmass_cut = 600;
   float mt_cut = mH;
   if(mH <= 250) mt_cut = 280;
+  else          mt_cut = 600;
 
   cout << "Using dilepton mass < " << dilmass_cut << endl;
   cout << "Using mt mass       < " << mt_cut      << endl;
+
+  double rndLim[3] = {1.0,1.0,1.0};
+  if     (mH==110 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.08;}
+  else if(mH==110 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.10;}
+  else if(mH==115 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.10;}
+  else if(mH==115 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.13;}
+  else if(mH==120 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.12;}
+  else if(mH==120 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.16;}
+  else if(mH==125 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.15;}
+  else if(mH==125 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.18;}
+  else if(mH==130 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.18;}
+  else if(mH==130 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.21;}
+  else if(mH==135 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.20;}
+  else if(mH==135 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.21;}
+  else if(mH==140 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.23;}
+  else if(mH==140 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.25;}
+  else if(mH==145 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.24;}
+  else if(mH==145 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.23;}
+  else if(mH==150 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.29;}
+  else if(mH==150 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.30;}
+  else if(mH==155 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.33;}
+  else if(mH==155 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.37;}
+  else if(mH==160 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.39;}
+  else if(mH==160 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.39;}
+  else if(mH==170 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.40;}
+  else if(mH==170 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.40;}
+  else if(mH==180 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.40;}
+  else if(mH==180 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.40;}
+  else if(mH==190 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.40;}
+  else if(mH==190 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.40;}
+  else if(mH==200 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.40;}
+  else if(mH==200 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.40;}
+  else if(mH==250 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.40;}
+  else if(mH==250 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.40;}
+  else if(mH==300 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.26;}
+  else if(mH==300 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.36;}
+  else if(mH==350 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.26;}
+  else if(mH==350 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.36;}
+  else if(mH==400 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.26;}
+  else if(mH==400 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.36;}
+  else if(mH==450 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.28;}
+  else if(mH==450 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.38;}
+  else if(mH==500 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.30;}
+  else if(mH==500 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.40;}
+  else if(mH==550 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.30;}
+  else if(mH==550 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.40;}
+  else if(mH==600 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.30;}
+  else if(mH==600 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.40;}
 
   //---------------------------------
   //choose bkg samples to include
@@ -463,8 +513,8 @@ void trainMVA_smurf(
 
   int nsigtrain = 0;
   int nsigtest  = 0;
-  int nbkgtrain = 0;
-  int nbkgtest  = 0;
+  int nbkgtrain[3] = {0,0,0};
+  int nbkgtest[3]  = {0,0,0};
 
   for (UInt_t i=0; i<signal->GetEntries(); i++) {
     
@@ -474,6 +524,7 @@ void trainMVA_smurf(
     // SIGNAL EVENT SELECTION
     //--------------------------------------------------
 
+    int classType = 0;
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
       if(jet3->pt() <= 30)					           Njet3 = 2;
@@ -549,12 +600,10 @@ void trainMVA_smurf(
     if (mvaVar["dphihjj"]) 	 vars[varCounter++] = DeltaPhi((*jet1+*jet2).Phi(),TMath::ATan2(higgsV[1],higgsV[0]));
 
     if ( event%2 != 1 ){
-      factory->AddSignalTrainingEvent( vars, scale1fb );
-      nsigtrain++;
+      if     (classType == 0 && gRandom->Uniform(0,1) < rndLim[0]) {factory->AddSignalTrainingEvent( vars, scale1fb ); nsigtrain++;}
     }
     else{
-      factory->AddSignalTestEvent    ( vars, scale1fb );
-      nsigtest++;
+      if     (classType == 0 && gRandom->Uniform(0,1) < rndLim[0]) {factory->AddSignalTestEvent    ( vars, scale1fb ); nsigtest++;}
     }
   }
 
@@ -602,6 +651,7 @@ void trainMVA_smurf(
     // BACKGROUND EVENT SELECTION
     //--------------------------------------------------
 
+    int classType = 1;
     unsigned int Njet3 = njets;
     if(nJetsType == 2){ // nJetsType = 0/1/2-jet selection
       if(jet3->pt() <= 30)					           Njet3 = 2;
@@ -612,8 +662,10 @@ void trainMVA_smurf(
       if(njets < 2 || njets > 3)                                           Njet3 = 3;
     }
 
-    if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
-         (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
+    bool lId = ((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
+                (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) ||
+		dstype == SmurfTree::wgamma;
+    if(!lId) continue; // two good leptons || wgamma
 
     if( Njet3 != nJetsType                      ) continue; // select n-jet type events
     if( dilep->mass() > dilmass_cut             ) continue; // cut on dilepton mass
@@ -647,6 +699,23 @@ void trainMVA_smurf(
       if( (*jet1+*jet2).M() <= 200                                ) continue;
     }
 
+    if(nJetsType == 0){
+      if     (dstype == SmurfTree::wgamma) classType = 1;
+      else if(dstype == SmurfTree::qqww)   classType = 2;
+      else if(dstype == SmurfTree::ggww)   classType = 2;
+      else                                 classType = 3;
+    }
+    if(nJetsType == 1){
+      if     (dstype == SmurfTree::wgamma) classType = 1;
+      else if(dstype == SmurfTree::ttbar)  classType = 2;
+      else if(dstype == SmurfTree::tw)     classType = 2;
+      else if(dstype == SmurfTree::qqww)   classType = 2;
+      else if(dstype == SmurfTree::ggww)   classType = 2;
+      else                                 classType = 3;
+    }
+    
+    if(classType == 3) continue;
+
     int varCounter = 0;
     
     double higgsV[2] = {lep1->px()+lep2->px()+met*cos(metPhi),
@@ -675,20 +744,25 @@ void trainMVA_smurf(
     if (mvaVar["higgspt"])	 vars[varCounter++] = sqrt(higgsV[0]*higgsV[0]+higgsV[1]*higgsV[1]);
     if (mvaVar["dphihjj"]) 	 vars[varCounter++] = DeltaPhi((*jet1+*jet2).Phi(),TMath::ATan2(higgsV[1],higgsV[0]));
 
-    if ( event%2 != 1 ){
-      factory->AddBackgroundTrainingEvent( vars, scale1fb );
-      nbkgtrain++;
+    if ( gRandom->Uniform(0,1) < 0.5 ){
+      if     (classType == 0 && gRandom->Uniform(0,1) < rndLim[0]) {factory->AddBackgroundTrainingEvent( vars, scale1fb );nbkgtrain[0]++;}
+      else if(classType == 1 && gRandom->Uniform(0,1) < rndLim[1]) {factory->AddBackgroundTrainingEvent( vars, scale1fb );nbkgtrain[1]++;}
+      else if(classType == 2 && gRandom->Uniform(0,1) < rndLim[2]) {factory->AddBackgroundTrainingEvent( vars, scale1fb );nbkgtrain[2]++;}
     }
     else{
-      factory->AddBackgroundTestEvent    ( vars, scale1fb );
-      nbkgtest++;
+      if     (classType == 0 && gRandom->Uniform(0,1) < rndLim[0]) {factory->AddBackgroundTestEvent    ( vars, scale1fb );nbkgtest[0]++;}
+      else if(classType == 1 && gRandom->Uniform(0,1) < rndLim[1]) {factory->AddBackgroundTestEvent    ( vars, scale1fb );nbkgtest[1]++;}
+      else if(classType == 2 && gRandom->Uniform(0,1) < rndLim[2]) {factory->AddBackgroundTestEvent    ( vars, scale1fb );nbkgtest[2]++;}
     }
   }
   
   cout << "Done adding background" << endl;
-  cout << "Added " << nbkgtrain << " training events" << endl;
-  cout << "Added " << nbkgtest  << " test events" << endl;
-  
+  cout << "Added0 " << nbkgtrain[0] << " training events" << endl;
+  cout << "Added1 " << nbkgtrain[1] << " training events" << endl;
+  cout << "Added2 " << nbkgtrain[2] << " training events" << endl;
+  cout << "Added0 " << nbkgtest[0]  << " test events" << endl;
+  cout << "Added1 " << nbkgtest[1]  << " test events" << endl;
+  cout << "Added2 " << nbkgtest[2]  << " test events" << endl;
 
   // --- end ------------------------------------------------------------
   //

@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf_MultiClass.C,v 1.2 2012/10/10 17:46:22 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf_MultiClass.C,v 1.3 2012/10/10 17:49:14 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -146,7 +146,8 @@ void trainMVA_smurf_MultiClass(
   TCut sel = "";
   
   float dilmass_cut = DileptonMassPreselectionCut(mH);
-  if(mH <= 250) dilmass_cut = 200;
+  if(mH <= 160) dilmass_cut = 100;
+  if(mH <= 250) dilmass_cut = 150;
   else          dilmass_cut = 600;
   float mt_cut = mH;
   if(mH <= 250) mt_cut = 280;
@@ -156,8 +157,13 @@ void trainMVA_smurf_MultiClass(
   cout << "Using mt mass       < " << mt_cut      << endl;
 
   double rndLim[3] = {1.0,1.0,1.0};
-  if(mH==125 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 1.00;rndLim[2] = 0.03;}
-  if(mH==125 && nJetsType == 1) {rndLim[0] = 1.00;rndLim[1] = 1.00;rndLim[2] = 0.05;}
+  if     (mH==125 && nJetsType == 0) {rndLim[0] = 0.35;rndLim[1] = 1.00;rndLim[2] = 0.07;}
+  else if(mH==125 && nJetsType == 1) {rndLim[0] = 0.35;rndLim[1] = 1.00;rndLim[2] = 0.09;}
+  else if(mH==200 && nJetsType == 0) {rndLim[0] = 0.25;rndLim[1] = 1.00;rndLim[2] = 0.10;}
+  else if(mH==200 && nJetsType == 1) {rndLim[0] = 0.25;rndLim[1] = 1.00;rndLim[2] = 0.15;}
+  else if(mH==500 && nJetsType == 0) {rndLim[0] = 0.50;rndLim[1] = 1.00;rndLim[2] = 0.15;}
+  else if(mH==500 && nJetsType == 1) {rndLim[0] = 0.50;rndLim[1] = 1.00;rndLim[2] = 0.20;}
+
   //---------------------------------
   //choose bkg samples to include
   //---------------------------------

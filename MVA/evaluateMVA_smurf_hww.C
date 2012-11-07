@@ -102,17 +102,14 @@ TString suffix       = "ww"
     mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
     mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
     mvaVar[ "razor" ]             = 0;  //razor
-    if(doMultiClass == true){
-      mvaVar[ "mt1" ]             = 1;  //transverse mass of leading lepton and met
-      mvaVar[ "mt2" ]             = 1;  //transverse mass of sub-leading lepton and met
-      mvaVar[ "dilpt" ]	          = 1;  //dilepton pt
-    } else {
-      mvaVar[ "type" ]            = 1;  //dilepton flavor type
-    }
+    mvaVar[ "mt1" ]		  = 1;  //transverse mass of leading lepton and met
+    mvaVar[ "mt2" ]		  = 1;  //transverse mass of sub-leading lepton and met
+    mvaVar[ "dilpt" ]		  = 1;  //dilepton pt
+    mvaVar[ "type" ]		  = 0;  //dilepton flavor type
   }
-  if(njet == 1 && doMultiClass == false){
-    mvaVar[ "dPhiDiLepMET" ]   = 1; //delta phi btw dilepton and met
-    mvaVar[ "dPhiDiLepJet1" ]  = 1; //delta phi btw dilepton and jet1
+  if(njet == 1){
+    mvaVar[ "dPhiDiLepMET" ]   = 0; //delta phi btw dilepton and met
+    mvaVar[ "dPhiDiLepJet1" ]  = 0; //delta phi btw dilepton and jet1
   }
   if (njet == 2) {
     mvaVar[ "mjj" ]     	= 1;  //invariant mass of the dijet
@@ -371,7 +368,7 @@ TString suffix       = "ww"
     // --- Book the MVA methods
 
     //--------------------------------------------------------------------------------------
-    // tell evaluateMVA_smurf_hww where to find the weights dir, which contains the trained MVA's. 
+    // tell evaluateMVA where to find the weights dir, which contains the trained MVA's. 
     // In this example, the weights dir is located at [path]/[dir]
     // and the output root file is written to [path]/[output]
     //--------------------------------------------------------------------------------------

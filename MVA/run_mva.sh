@@ -11,7 +11,7 @@
 export NJETS=$1;
 export MH=$2;
 export WEIGHTSONLY=$3;
-export doMultiClass=0;
+export doMultiClass=1;
 
 #export TAG=TEST_${MH}train_${NJETS}jets;
 #export METHODS=Likelihood,BDT,BDTD,BDTG;
@@ -90,6 +90,9 @@ data/ttbar_powheg.root
 data/wwmcnlodown.root
 data/wwmcnlo.root
 data/wwmcnloup.root
+data/x125ww-0m-8tev.root
+data/x125ww-0p-8tev.root
+data/x125ww-2p-8tev.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf_hww.C+;
