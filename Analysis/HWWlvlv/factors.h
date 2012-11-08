@@ -27,6 +27,14 @@ double mt_atlas(LorentzVector dilep, double met, double metPhi);
 double poorManMetSyst(LorentzVector l1, LorentzVector l2, LorentzVector l3, 
                       int lid1, int lid2, int lid3, double met, double metPhi,
                       LorentzVector j1, LorentzVector j2, LorentzVector j3, LorentzVector j4, int nsyst);
+double ratioPhotonElectron(TH1D *fDRatio, double eta);
+
+double ratioPhotonElectron(TH1D *fDRatio, double eta){
+  eta = abs(eta);
+  if(eta >= 2.5) return 0.0;
+  Int_t bin = fDRatio->GetXaxis()->FindBin(eta);
+  return fDRatio->GetBinContent(bin);
+}
 
 double Unroll2VarTo1Var(double varA, double varB, int binsA, int binsB, bool verbose){
   // variables are supposed to be in the [0,1] range
