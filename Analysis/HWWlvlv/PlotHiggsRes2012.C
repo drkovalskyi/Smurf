@@ -299,7 +299,7 @@ void PlotHiggsRes2012
   delete fLeptonFRFileSyst;
 
   TFile *fRatioPhotonElectron = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/ratio_photon_electron.root");
-  TH1D *fhDRatioPhotonElectron = (TH1D*)(fRatioPhotonElectron->Get("hDLepSel_2"));
+  TH1D *fhDRatioPhotonElectron = (TH1D*)(fRatioPhotonElectron->Get("hDRatioPhotonElectron"));
   assert(fhDRatioPhotonElectron);
   fhDRatioPhotonElectron->SetDirectory(0);
   fRatioPhotonElectron->Close();
