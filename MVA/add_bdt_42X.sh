@@ -112,6 +112,7 @@ wwmcnlo
 wwmcnloup
 wwmcnlodown
 ttbar
+wgammafo_WGFO
 EOF
 
 
