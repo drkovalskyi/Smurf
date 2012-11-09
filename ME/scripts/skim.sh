@@ -73,10 +73,9 @@ hww450.root
 hww500.root
 hww550.root
 hww600.root
-hww700.root
-hww800.root
-hww900.root
-hww1000.root
+x125ww-0m-8tev.root
+x125ww-0p-8tev.root
+x125ww-2p-8tev.root
 wwmcnlo.root
 wwmcnloup.root
 wwmcnlodown.root
