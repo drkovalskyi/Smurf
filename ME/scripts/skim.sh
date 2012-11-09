@@ -14,7 +14,7 @@ if [ ! $# -eq 3 ]; then
     echo "USAGE: ./skim.sh   INPUTDIR OUTPUTDIR
         INPUTDIR - location of smurf ntuples to skim (e.g. /smurf/data/Run2011_Spring11_SmurfV3/mitf-alljets/)
         OUTPUTDIR - location to output skimmed ntuples
-        SELECTION - selection, choose from WW, PassFail"
+        SELECTION - selection, choose from WW, ZZ, PassFail, WGFO"
     exit 1
 fi
 
@@ -106,12 +106,19 @@ EOF
 fi
 
 
+if [ "$SELECTION" == 'WGFO' ]; then
+rm -f list_samples.txt
+cat > list_samples.txt <<EOF
+wgammafo.root
+EOF
+fi
+
 
 # Do the skimming...
 for FILE in `cat list_samples.txt` ; do
     for JETBIN in 0 1 2 ; do 
 	outputdir=$OUTPUTDIR/$SELECTION/${JETBIN}j/
-	if [ "$SELECTION" == 'PassFail' ]; then
+	if [ "$SELECTION" == 'PassFail' ] || [ "$SELECTION" == 'WGFO' ] ; then
 	    outputdir=$OUTPUTDIR/WW/${JETBIN}j/
 	fi
 	mkdir -p $outputdir

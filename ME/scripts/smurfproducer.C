@@ -4,7 +4,8 @@
    0 - location of the smurf ntuples
    1 - the sample to run over
    2 - the location of the skimmed smurf files
-   3 - the cut string, choose only from those "WW", "ZZ" or "PassFail"
+   3 - the cut string, for WW analysis choose from "WW", "PassFail" and "WGFO" 
+                       for ZZ analysis use "ZZ"
  */
 
 #include "TFile.h"
@@ -86,6 +87,8 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
   TString outputFileName = outputDir + fileName;
   if (cutstring == "PassFail")   outputFileName.ReplaceAll(".root","_PassFail.root");
   if (cutstring == "ZZBTAG")   outputFileName.ReplaceAll(".root","_BTAG.root");
+  if (cutstring == "WGFO") outputFileName.ReplaceAll(".root", "_WGFO.root");
+
   
   TFile *newfile= new TFile(outputFileName,"recreate");
   TTree* evt_tree=(TTree*) ch->CloneTree(0, "fast");
@@ -187,6 +190,21 @@ void smurfproducer(TString smurfFDir = "/smurf/data/Run2011_Spring11_SmurfV6/mit
 	if ( ! ( (cuts_ & Lep1LooseEleV4) || (cuts_ & Lep1LooseMuV2) ) ) continue;
       }
     } 
+
+    // select the WGFO for the wgamma studies
+    // dilepton selections using just one lepton pass 
+    else if (cutstring == "WGFO") {  
+      if ( (cuts_ & ww_lepfo) != ww_lepfo) continue;
+      
+      // skip events with no lepton pass the full selection
+      if ( ( (cuts_ & Lep1FullSelection) != Lep1FullSelection)  &&  
+	   ( (cuts_ & Lep2FullSelection) != Lep2FullSelection) ) continue;
+      
+      // skip events with both leptons hat pass the final selection
+      if ( ((cuts_ & Lep1FullSelection) == Lep1FullSelection)
+	   && ((cuts_ & Lep2FullSelection) == Lep2FullSelection)) continue;
+    } 
+
     // cuts to select the ZZ pre-selection
     else if (cutstring == "ZZ") {
       if ( TMath::Abs(dilep_->M()-91.1876) > 15.0 ) continue;
