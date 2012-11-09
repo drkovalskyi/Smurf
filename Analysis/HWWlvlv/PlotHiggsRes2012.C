@@ -87,13 +87,15 @@ void PlotHiggsRes2012
   bool is2DBDT = false;
   if(nJetsType == 2) is2DBDT = false;
 
-  int binVarA = 8;
-  int binVarB = 10;
-  bool is2DAna = false;
+  int binVarA = 0;
+  int binVarB = 0;
+  bool is2DAna = true;
+
+  if(nJetsType <  2 && is2DAna == true && mH <= 250) {binVarA = 9;binVarB = 14;}
+  if(nJetsType <  2 && is2DAna == true && mH  > 250) {binVarA = 8;binVarB = 10;}
+  if(nJetsType == 2 && is2DAna == true && mH <= 250) {binVarA = 4;binVarB =  4;}
+  if(nJetsType == 2 && is2DAna == true && mH  > 250) {binVarA = 3;binVarB =  2;}
   if(is2DBDT == true) {binVarA = 10; binVarB = 10;}
-  if(binVarA > 0 && binVarB > 0) is2DAna = true; 
-  if(nJetsType == 2 && is2DAna == true && mH <= 250) {binVarA = 4;binVarB = 4;}
-  if(nJetsType == 2 && is2DAna == true && mH  > 250) {binVarA = 3;binVarB = 2;}
 
   if(nJetsType == 2 && is2DAna == false){
     useZjetsTemplates	= false;
@@ -147,7 +149,7 @@ void PlotHiggsRes2012
   float mtUpperCut = mH;
   float mtLowerCut = 80;
 
-  if     (mH <= 250) {dilmass_cut = 200; mtLowerCut = 80; mtUpperCut = 280; useZjetsTemplates = false;}
+  if     (mH <= 250) {dilmass_cut = 200; mtLowerCut = 60; mtUpperCut = 280; useZjetsTemplates = false;}
   else if(mH >  250) {dilmass_cut = 600; mtLowerCut = 80; mtUpperCut = 600; useZjetsTemplates = false;}
 
   if(nJetsType == 2) mtLowerCut = 30;
@@ -204,17 +206,6 @@ void PlotHiggsRes2012
   TChain *chsystInputFile = new TChain("tree");
   chsystInputFile->Add(systInputFile);
   TTree *treeSyst = (TTree*) chsystInputFile;
-
-  // k-factor ggH systematics
-  // 0: cc
-  // 1: --
-  // 2: -c
-  // 3: c-
-  // 4: c+
-  // 5: +c
-  // 6: ++
-  // 7: -+
-  // 8: +-
 
   TString effPath      = "";
   TString fakePath     = "";
@@ -304,6 +295,17 @@ void PlotHiggsRes2012
   fhDRatioPhotonElectron->SetDirectory(0);
   fRatioPhotonElectron->Close();
   delete fRatioPhotonElectron;
+
+  double Norm_Powheg_JHU = 1.0;
+  TFile *fRatio_Powheg_JHU = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/ratio_Powheg_JHU.root");
+  TH1D *fhDRatio_Powheg_JHU = (TH1D*)(fRatio_Powheg_JHU->Get("histo_ggH"));
+  assert(fhDRatio_Powheg_JHU);
+  fhDRatio_Powheg_JHU->SetDirectory(0);
+  TH1D *fhDNorm_Powheg_JHU = (TH1D*)(fRatio_Powheg_JHU->Get("hDNorm_Powheg_JHU"));
+  Norm_Powheg_JHU = fhDNorm_Powheg_JHU->GetSumOfWeights();
+  delete fhDNorm_Powheg_JHU;
+  fRatio_Powheg_JHU->Close();
+  delete fRatio_Powheg_JHU;
 
   //----------------------------------------------------------------------------
   // ggH pT spectrum Weights
@@ -794,7 +796,10 @@ void PlotHiggsRes2012
     }
 
     bool passNewCuts = true;
-    if(dilep->pt() <= 45) passNewCuts = false;
+    if(dilep->pt() <= 30) passNewCuts = false;
+    if(dilep->pt() <= 45 &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)) passNewCuts = false;
 
     //----------------------------------------------------------------------------
     //To create the DY bkg systematics MVA shapes (makeZjetsTemplates == true)
@@ -845,7 +850,16 @@ void PlotHiggsRes2012
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    if(is2DAna == true && is2DBDT == false) {
+    if(is2DAna == true && is2DBDT == false && mH <= 250) {
+      bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
+
+      bdtg_aux0 = Unroll2VarTo1VarVersion2(mll_lepup,mt_lepup);
+
+      bdtg_aux1 = Unroll2VarTo1VarVersion2(mll_lepdown,mt_lepdown);
+
+      bdtg_aux2 = Unroll2VarTo1VarVersion2(mll_metup,mt_metup);
+    }
+    else if(is2DAna == true && is2DBDT == false && mH > 250) {
       double varA = (dilep->mass()-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       double varB = (mt-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
       if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
@@ -869,7 +883,7 @@ void PlotHiggsRes2012
       varB = (mt_metup-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
       bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
-    if(is2DAna == true && is2DBDT == true) {
+    else if(is2DAna == true && is2DBDT == true) {
       double varA = bdtgV0;
       double varB = bdtgV1;
       if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
@@ -930,6 +944,9 @@ void PlotHiggsRes2012
         addggH = addggH * enhancementFactor(mH,0); // ggH enhancement factor
 	for(int ns=0; ns<8; ns++) addggHSyst[ns] = addggHSyst[ns] * enhancementFactor(mH,0); // ggH enhancement factor
       }
+      
+      // CAREFUL, THIS IS ONLY for SPIN-2 HYPOTHESIS
+      if(useggHTemplates == true) add = add * Norm_Powheg_JHU;
     }
 
     add = add*addggH;
@@ -959,9 +976,10 @@ void PlotHiggsRes2012
     bool passAllCuts = dilep->mass()         < theCutMassHigh &&
                        mt	             > theCutMTLow &&
                        mt	             < theCutMTHigh &&
-                       lep1->pt()             > theCutPtMaxLow &&
-                       lep2->pt()             > theCutPtMinLow &&
+                       lep1->pt()            > theCutPtMaxLow &&
+                       lep2->pt()            > theCutPtMinLow &&
                        dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh &&
+		       dilep->pt()           > 45 &&
 	               passJetCut[0]==true;
 
     //----------------------------------------------------------------------------
@@ -980,11 +998,12 @@ void PlotHiggsRes2012
 	            passJetCut[0]==true;
 
       passAllCuts = passAllCuts &&
-     	            dilep->mass()          < theCutMassHigh &&
+     	            dilep->mass()         < theCutMassHigh &&
      	            mt  	          < theCutMTHigh &&
      	            lep1->pt()            > theCutPtMaxLow &&
      	            lep2->pt()            > theCutPtMinLow &&
-     	            dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh;
+     	            dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh &&
+		    dilep->pt()           > 45;
     }
 
     //----------------------------------------------------------------------------
@@ -1097,15 +1116,6 @@ void PlotHiggsRes2012
           histo_ggH_CMS_hww_MVALepResBoundingDown->Fill(bdtg_aux1, myWeight);
           histo_ggH_CMS_hww_MVAMETResBoundingUp  ->Fill(bdtg_aux2, myWeight);
 	}
-      }
-      // WARNING, THIS IS ONLY GOOD FOR BDTG!
-      //----------------------------------------------------------------------------
-      // MVA Shape systematics for:
-      // Gluon Fusion Higgs Missing Higher Order Corrections (weights [0] & [5])
-      //----------------------------------------------------------------------------
-      if(useggHTemplates == true && nSigBin == 5 && addggH != 0){
-	histo_ggH_CMS_hww_MVAggHBoundingUp  ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addggHSyst[0]/addggH);
-	histo_ggH_CMS_hww_MVAggHBoundingDown->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addggHSyst[5]/addggH);
       }
 
       //----------------------------------------------------------------------------
@@ -1300,7 +1310,10 @@ void PlotHiggsRes2012
     }
 
     bool passNewCuts = true;
-    if(dilep->pt() <= 45) passNewCuts = false;
+    if(dilep->pt() <= 30) passNewCuts = false;
+    if(dilep->pt() <= 45 &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)) passNewCuts = false;
 
     //----------------------------------------------------------------------------
     //To create the DY bkg systematics MVA shapes (makeZjetsTemplates == true)
@@ -1394,7 +1407,16 @@ void PlotHiggsRes2012
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    if(is2DAna == true && is2DBDT == false) {
+    if(is2DAna == true && is2DBDT == false && mH <= 250) {
+      bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
+
+      bdtg_aux0 = Unroll2VarTo1VarVersion2(mll_lepup,mt_lepup);
+
+      bdtg_aux1 = Unroll2VarTo1VarVersion2(mll_lepdown,mt_lepdown);
+
+      bdtg_aux2 = Unroll2VarTo1VarVersion2(mll_metup,mt_metup);
+    }
+    else if(is2DAna == true && is2DBDT == false && mH > 250) {
       double varA = (dilep->mass()-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       double varB = (mt-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
       if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
@@ -1418,7 +1440,7 @@ void PlotHiggsRes2012
       varB = (mt_metup-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
       bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
-    if(is2DAna == true && is2DBDT == true) {
+    else if(is2DAna == true && is2DBDT == true) {
       double varA = bdtgV0;
       double varB = bdtgV1;
       if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
@@ -1617,9 +1639,10 @@ void PlotHiggsRes2012
     bool passAllCuts = dilep->mass()         < theCutMassHigh &&
                        mt	             > theCutMTLow &&
                        mt	             < theCutMTHigh &&
-                       lep1->pt()             > theCutPtMaxLow &&
-                       lep2->pt()             > theCutPtMinLow &&
+                       lep1->pt()            > theCutPtMaxLow &&
+                       lep2->pt()            > theCutPtMinLow &&
                        dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh &&
+		       dilep->pt()           > 45 &&
 	               passJetCut[0]==true;
 
     //----------------------------------------------------------------------------
@@ -1638,11 +1661,12 @@ void PlotHiggsRes2012
 	            passJetCut[0]==true;
 
       passAllCuts = passAllCuts &&
-     	            dilep->mass()          < theCutMassHigh &&
+     	            dilep->mass()         < theCutMassHigh &&
      	            mt  	          < theCutMTHigh &&
      	            lep1->pt()            > theCutPtMaxLow &&
      	            lep2->pt()            > theCutPtMinLow &&
-     	            dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh;
+     	            dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh &&
+		    dilep->pt()           > 45;
     }
 
     //----------------------------------------------------------------------------
@@ -2078,7 +2102,10 @@ void PlotHiggsRes2012
     }
 
     bool passNewCuts = true;
-    if(dilep->pt() <= 45) passNewCuts = false;
+    if(dilep->pt() <= 30) passNewCuts = false;
+    if(dilep->pt() <= 45 &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)) passNewCuts = false;
 
     //----------------------------------------------------------------------------
     //To create the DY bkg systematics MVA shapes (makeZjetsTemplates == true)
@@ -2172,7 +2199,16 @@ void PlotHiggsRes2012
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    if(is2DAna == true && is2DBDT == false) {
+    if(is2DAna == true && is2DBDT == false && mH <= 250) {
+      bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
+
+      bdtg_aux0 = Unroll2VarTo1VarVersion2(mll_lepup,mt_lepup);
+
+      bdtg_aux1 = Unroll2VarTo1VarVersion2(mll_lepdown,mt_lepdown);
+
+      bdtg_aux2 = Unroll2VarTo1VarVersion2(mll_metup,mt_metup);
+    }
+    else if(is2DAna == true && is2DBDT == false && mH > 250) {
       double varA = (dilep->mass()-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       double varB = (mt-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
       if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
@@ -2196,7 +2232,7 @@ void PlotHiggsRes2012
       varB = (mt_metup-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
       bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
-    if(is2DAna == true && is2DBDT == true) {
+    else if(is2DAna == true && is2DBDT == true) {
       double varA = bdtgV0;
       double varB = bdtgV1;
       if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
@@ -2627,7 +2663,10 @@ void PlotHiggsRes2012
     }
 
     bool passNewCuts = true;
-    if(dilep->pt() <= 45) passNewCuts = false;
+    if(dilep->pt() <= 30) passNewCuts = false;
+    if(dilep->pt() <= 45 &&
+      (type == SmurfTree::mm || 
+       type == SmurfTree::ee)) passNewCuts = false;
 
     //----------------------------------------------------------------------------
     //To create the DY bkg systematics MVA shapes (makeZjetsTemplates == true)
@@ -2654,8 +2693,6 @@ void PlotHiggsRes2012
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    //if(dilep->mass()<60&&mt<140) continue;
-
     bool dPhiDiLepJetCut = kTRUE;
     if(useDYMVA == kFALSE){
       if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
@@ -2681,7 +2718,16 @@ void PlotHiggsRes2012
 
     if(wwDecayCut == false) continue;
 
-    if(is2DAna == true && is2DBDT == false) {
+    if(is2DAna == true && is2DBDT == false && mH <= 250) {
+      bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
+
+      bdtg_aux0 = Unroll2VarTo1VarVersion2(mll_lepup,mt_lepup);
+
+      bdtg_aux1 = Unroll2VarTo1VarVersion2(mll_lepdown,mt_lepdown);
+
+      bdtg_aux2 = Unroll2VarTo1VarVersion2(mll_metup,mt_metup);
+    }
+    else if(is2DAna == true && is2DBDT == false && mH > 250) {
       double varA = (dilep->mass()-mllLowerRange)/(dilmass_cutFor2D-mllLowerRange);
       double varB = (mt-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
       if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
@@ -2705,7 +2751,7 @@ void PlotHiggsRes2012
       varB = (mt_metup-mtLowerCut)/(mtUpperCutFor2D-mtLowerCut);
       bdtg_aux2 = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
     }
-    if(is2DAna == true && is2DBDT == true) {
+    else if(is2DAna == true && is2DBDT == true) {
       double varA = bdtgV0;
       double varB = bdtgV1;
       if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
@@ -2746,9 +2792,10 @@ void PlotHiggsRes2012
     bool passAllCuts = dilep->mass()         < theCutMassHigh &&
                        mt	             > theCutMTLow &&
                        mt	             < theCutMTHigh &&
-                       lep1->pt()             > theCutPtMaxLow &&
-                       lep2->pt()             > theCutPtMinLow &&
-                       dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh;
+                       lep1->pt()            > theCutPtMaxLow &&
+                       lep2->pt()            > theCutPtMinLow &&
+                       dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh &&
+		       dilep->pt()           > 45;
 
     //----------------------------------------------------------------------------
     // VBF selection cuts for 2-Jet bin
@@ -2765,11 +2812,12 @@ void PlotHiggsRes2012
 	            centrality == 1;
 
       passAllCuts = passAllCuts &&
-     	            dilep->mass()          < theCutMassHigh &&
+     	            dilep->mass()         < theCutMassHigh &&
      	            mt  	          < theCutMTHigh &&
      	            lep1->pt()            > theCutPtMaxLow &&
      	            lep2->pt()            > theCutPtMinLow &&
-     	            dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh;
+     	            dPhi*180.0/TMath::Pi()< theCutDeltaphilHigh &&
+		    dilep->pt()           > 45;
     }
 
     //----------------------------------------------------------------------------
@@ -3390,7 +3438,7 @@ void PlotHiggsRes2012
       histo_Wjets_CMS_MVAWBoundingDown->Write();
     }
     if(useWJetsMCTemplates == true){
-      histo_Wjets_CMS_hww_MVAWMCBoundingUp 	->Rebin(rebinMVAHist);
+      histo_Wjets_CMS_hww_MVAWMCBoundingUp  ->Rebin(rebinMVAHist);
       histo_Wjets_CMS_hww_MVAWMCBoundingDown->Rebin(rebinMVAHist);
       double mean,up,diff;
       if(histo_Wjets_CMS_hww_MVAWMCBoundingUp->GetNbinsX() != histo_Wjets->GetNbinsX()) {printf("Different binning in W!\n"); return;}
@@ -3412,6 +3460,16 @@ void PlotHiggsRes2012
     // ggH Systematics Shapes : missing higher order corrections
     //----------------------------------------------------------------------------
     if(useggHTemplates == true){
+      if(fhDRatio_Powheg_JHU->GetNbinsX() != histo_ggH->GetNbinsX()) assert(0);
+      double mean,up,diff;
+      for(int i=1; i<=histo_ggH->GetNbinsX(); i++){
+        histo_ggH_CMS_hww_MVAggHBoundingUp->SetBinContent(i,histo_ggH->GetBinContent(i)*fhDRatio_Powheg_JHU->GetBinContent(i));
+        mean = histo_ggH                         ->GetBinContent(i);
+        up   = histo_ggH_CMS_hww_MVAggHBoundingUp->GetBinContent(i);
+        diff = TMath::Abs(mean-up);
+        if     (mean-up >0) histo_ggH_CMS_hww_MVAggHBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
+        else	            histo_ggH_CMS_hww_MVAggHBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
+      }  
       histo_ggH_CMS_hww_MVAggHBoundingUp  ->Rebin(rebinMVAHist);
       histo_ggH_CMS_hww_MVAggHBoundingDown->Rebin(rebinMVAHist);
       histo_ggH_CMS_hww_MVAggHBoundingUp  ->Scale(histo_ggH->GetSumOfWeights()/histo_ggH_CMS_hww_MVAggHBoundingUp  ->GetSumOfWeights());
