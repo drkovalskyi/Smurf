@@ -3182,12 +3182,12 @@ void PlotHiggsRes2012
     histo_Data   ->Rebin(rebinMVAHist);
     histo_qqWW   ->Rebin(rebinMVAHist);
     histo_ggWW   ->Rebin(rebinMVAHist);
-    histo_VV         ->Rebin(rebinMVAHist);
-    histo_Top         ->Rebin(rebinMVAHist);
+    histo_VV     ->Rebin(rebinMVAHist);
+    histo_Top    ->Rebin(rebinMVAHist);
     histo_Zjets  ->Rebin(rebinMVAHist);
     histo_Wjets  ->Rebin(rebinMVAHist);
     histo_Wgamma ->Rebin(rebinMVAHist);
-    histo_Wg3l    ->Rebin(rebinMVAHist);
+    histo_Wg3l   ->Rebin(rebinMVAHist);
 
     if(rebinSmurf > 1){
        histSmurfRebin = SmurfRebin(histo_Wgamma ,rebinSmurf);histo_Wgamma->Scale(0.0);histo_Wgamma->Add(histSmurfRebin);
@@ -3196,11 +3196,15 @@ void PlotHiggsRes2012
        }
     }
 
+    assert(histo_Wjets ->GetSumOfWeights() == bgdMVADecays[useVar][5]->GetSumOfWeights());
+    assert(TMath::Abs(histo_Wgamma->GetSumOfWeights() - bgdMVADecays[useVar][6]->GetSumOfWeights()) < 0.000001);
     for(int i=1; i<=histo_Wjets->GetNbinsX(); i++){
-      if(histo_Wjets->GetBinContent(i) < 0) histo_Wjets->SetBinContent(i,0.000001);
+      if(histo_Wjets->GetBinContent(i)  < 0) histo_Wjets ->SetBinContent(i,0.000001);
+      if(histo_Wgamma->GetBinContent(i) < 0) histo_Wgamma->SetBinContent(i,0.000001);
     }
     // We need to renormalize
-    if(bgdMVADecays[useVar][5]->GetSumOfWeights() > 0) histo_Wjets->Scale(bgdMVADecays[useVar][5]->GetSumOfWeights()/histo_Wjets ->GetSumOfWeights());
+    if(bgdMVADecays[useVar][5]->GetSumOfWeights() > 0) histo_Wjets ->Scale(bgdMVADecays[useVar][5]->GetSumOfWeights()/histo_Wjets ->GetSumOfWeights());
+    if(bgdMVADecays[useVar][6]->GetSumOfWeights() > 0) histo_Wgamma->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/histo_Wgamma->GetSumOfWeights());
 
     if(signalInjection == true){
       for(int i=1; i<=histo_Data->GetNbinsX(); i++){
