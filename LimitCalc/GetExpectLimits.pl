@@ -12,7 +12,7 @@ use warnings;
 my $lands = "../../LandS/test/lands.exe";
 
 my $useLSF = 1; 
-my $doObserved = 0;
+my $doObserved = 1;
 my $doExpected = 1;
 my $nJobsPerMassPoint = 10;
 # my $outputHostName = "cmswn1927.cern.ch";
@@ -29,6 +29,17 @@ my $type = $ARGV[1];
 my $jobname = "";
 my $expectLimitCommand;
 my $observedLimitCommand;
+
+##
+## Significance
+##
+if ( $type eq "Significance" ){
+    $jobname = "Significance";
+    $expectLimitCommand = "-D asimov_sb --significance 1 -M ProfiledLikelihood";
+    $observedLimitCommand = "--significance 1 -M ProfiledLikelihood";
+    $nJobsPerMassPoint = 1;
+    $useLSF = 0;
+}
 
 ##
 ## Bayesian
