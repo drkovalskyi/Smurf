@@ -31,7 +31,7 @@ double poorManMetSyst(LorentzVector l1, LorentzVector l2, LorentzVector l3,
 double ratioPhotonElectron(TH1D *fDRatio, double eta);
 
 double ratioPhotonElectron(TH1D *fDRatio, double eta){
-  eta = abs(eta);
+  eta = TMath::Abs(eta);
   if(eta >= 2.5) return 0.0;
   Int_t bin = fDRatio->GetXaxis()->FindBin(eta);
   return fDRatio->GetBinContent(bin);
