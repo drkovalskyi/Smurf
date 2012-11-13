@@ -377,6 +377,8 @@ void PlotHiggsRes2012
   double theCutDeltaphilHigh = cutDeltaphiHigh (mH);
   double theCutMTLow         = cutMTLow (mH);
   double theCutMTHigh        = cutMTHigh (mH);
+  double theCutPtll          = 30.0;
+  if(is2DBDT == true) {theCutPtll = 45.0; mtLowerCut = 80;}
 
   //----------------------------------------------------------------------------
   // Define Histogram ranges
@@ -796,7 +798,7 @@ void PlotHiggsRes2012
     }
 
     bool passNewCuts = true;
-    if(dilep->pt() <= 30) passNewCuts = false;
+    if(dilep->pt() <= theCutPtll) passNewCuts = false;
     if(dilep->pt() <= 45 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)) passNewCuts = false;
@@ -1310,7 +1312,7 @@ void PlotHiggsRes2012
     }
 
     bool passNewCuts = true;
-    if(dilep->pt() <= 30) passNewCuts = false;
+    if(dilep->pt() <= theCutPtll) passNewCuts = false;
     if(dilep->pt() <= 45 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)) passNewCuts = false;
@@ -2102,7 +2104,7 @@ void PlotHiggsRes2012
     }
 
     bool passNewCuts = true;
-    if(dilep->pt() <= 30) passNewCuts = false;
+    if(dilep->pt() <= theCutPtll) passNewCuts = false;
     if(dilep->pt() <= 45 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)) passNewCuts = false;
@@ -2176,8 +2178,6 @@ void PlotHiggsRes2012
     else if(dstype == SmurfTree::wgamma          ) fDecay = 6;
     else if(dstype == SmurfTree::wgstar          ) fDecay = 7;
     else if(dstype == SmurfTree::data            ) fDecay = 5;
-    //else if(dstype == SmurfTree::dyttDataDriven  ) fDecay = 7;
-    //else if(dstype == SmurfTree::qcd             ) fDecay = 7;
     else                                 {printf("bad dstype: %d\n",dstype); assert(0);}
     if(dstype == SmurfTree::wz || dstype == SmurfTree::zz) {
       if(lep1MotherMcId == 23 && lep2MotherMcId == 23) {
@@ -2663,7 +2663,7 @@ void PlotHiggsRes2012
     }
 
     bool passNewCuts = true;
-    if(dilep->pt() <= 30) passNewCuts = false;
+    if(dilep->pt() <= theCutPtll) passNewCuts = false;
     if(dilep->pt() <= 45 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)) passNewCuts = false;
