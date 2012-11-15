@@ -81,7 +81,7 @@ void PlotHiggsRes2012
   bool useggHTemplates     = false; // default is false in 2012 analysis
   bool useWgammaTemplates  = true; // this is intentional
   int rebinMVAHist        = 10;
-  unsigned int rebinSmurf = 4;
+  unsigned int rebinSmurf = 1;
   TH1D *histSmurfRebin;
 
   bool is2DBDT = false;
@@ -378,7 +378,7 @@ void PlotHiggsRes2012
   double theCutMTLow         = cutMTLow (mH);
   double theCutMTHigh        = cutMTHigh (mH);
   double theCutPtll          = 30.0;
-  if(is2DBDT == true) {theCutPtll = 45.0; mtLowerCut = 80;}
+  if(is2DBDT == true || is2DAna == false) {theCutPtll = 45.0; mtLowerCut = 80;}
 
   //----------------------------------------------------------------------------
   // Define Histogram ranges
@@ -3196,7 +3196,7 @@ void PlotHiggsRes2012
        }
     }
 
-    assert(histo_Wjets ->GetSumOfWeights() == bgdMVADecays[useVar][5]->GetSumOfWeights());
+    assert(TMath::Abs(histo_Wjets ->GetSumOfWeights() - bgdMVADecays[useVar][5]->GetSumOfWeights()) < 0.000001);
     assert(TMath::Abs(histo_Wgamma->GetSumOfWeights() - bgdMVADecays[useVar][6]->GetSumOfWeights()) < 0.000001);
     for(int i=1; i<=histo_Wjets->GetNbinsX(); i++){
       if(histo_Wjets->GetBinContent(i)  < 0) histo_Wjets ->SetBinContent(i,0.000001);
