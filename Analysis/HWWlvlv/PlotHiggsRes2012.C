@@ -41,7 +41,7 @@ TGraphErrors* makeGraphFromHists   (TH1D* sig, TH1D* bgd, const char* name);
 
 int    verboseLevel =   0;
 const double sigmaB = 0.35;
-const bool UseDyttDataDriven = false; // if true, then remove em events in dyll MC
+const bool UseDyttDataDriven = true; // if true, then remove em events in dyll MC
 
 void PlotHiggsRes2012
 (
@@ -1396,7 +1396,7 @@ void PlotHiggsRes2012
     else if(dstype == SmurfTree::dyttDataDriven  ) fDecay = 8;
     else                                 {printf("bad dstype: %d\n",dstype); assert(0);}
     if(dstype == SmurfTree::wz || dstype == SmurfTree::zz) {
-      if(lep1MotherMcId == 23 && lep2MotherMcId == 23) {
+      if(lep1MotherMcId == 23 && lep2MotherMcId == 23 && UseDyttDataDriven == false) {
         fDecay = 4;
       }
     }
@@ -1561,6 +1561,7 @@ void PlotHiggsRes2012
     //----------------------------------------------------------------------------
     else if(dstype== SmurfTree::dyttDataDriven) {
       myWeight = ZttScaleFactor(period,scale1fb)*scaleFactorLum;
+      if(UseDyttDataDriven == false) myWeight = 0.0;
     }
 
     //----------------------------------------------------------------------------
