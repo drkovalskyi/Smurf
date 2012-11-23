@@ -1,0 +1,79 @@
+\documentclass{cmspaper}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage[pdfborder=0 0 0,
+            colorlinks,
+            urlcolor = blue,
+            linkcolor = black,
+            citecolor = black,
+            menucolor = black,]
+           {hyperref}
+%% \usepackage[colorlinks]{hyperref}
+%% \usepackage{url}
+\usepackage[toc,page]{appendix}
+\usepackage{varioref}
+\renewcommand{\appendixname}{Appendix}
+%% \renewcommand{\appendixtocname}{List of appendices}
+
+% \input{privsym}
+\input{commands.tex}
+
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+\setcounter{secnumdepth}{6}
+%===================================================================================================
+\begin{document}
+\begin{titlepage}
+
+ \analysisnote{2012/XXX}
+
+  \date{\today}
+
+  \title{The Spin of a Single Produced Resonance in the Fully Leptonic $W^+W^-$ Final State }
+
+  \input{authors.tex}
+
+  \begin{abstract}
+    This note describes a study of the spin and parity of a singly produced 
+    resonance in the $W^+W^- \to 2\ell2\nu$ final state with 12.1$\ifb$ of $pp$ collision
+    data at $\sqrt s = 8~\TeV$. The study is based on the $e\mu$ channels with 0 reconstructed jets. 
+  \end{abstract} 
+
+\end{titlepage}
+\tableofcontents
+%\listoftables
+%\listoffigures
+\newpage 
+
+%===================================================================================================
+\section{Introduction}
+\label{sec:overview}
+  
+\section{Data Samples and Event Selection}
+\label{sec:selection} 
+
+\section{Signal Extraction Strategy}
+\label{sec:sigextract}
+
+\section{Systematic Uncertainties}
+\label{sec:systematics}
+
+\section{Expected Sensitivity}
+\label{sec:expresults}
+
+\section{Results}
+\label{sec:dataresults}
+
+\section{Summary}
+\label{sec:summary}
+
+%===================================================================================================
+\input{biblio.tex}
+%===================================================================================================
+
+\clearpage 
+
+\end{document}
