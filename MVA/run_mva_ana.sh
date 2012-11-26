@@ -87,6 +87,9 @@ data/hww450.root
 data/hww500.root
 data/hww550.root
 data/hww600.root
+data/xww0m125.root
+data/xww0p125.root
+data/xww2p125.root
 data/data_skim6.root
 data/hww_syst_skim6.root
 data/backgroundA_skim6.root
@@ -101,15 +104,20 @@ elif [ ${NJETS} == "wh3l" ]; then
   export TAG=ntuples_wh3l_120train;
   export NJETS=999;
   export evaluateMVAFile=evaluateMVA_smurf_wh3l.C+;
+elif [ ${NJETS} == "wh2l" ]; then
+  export METHODS=BDTG;
+  export TAG=ntuples_wh2l_125train;
+  export NJETS=999;
+  export evaluateMVAFile=evaluateMVA_smurf_hww.C+;
 fi
 
 for i in `cat list_samples.txt` ; do
   dataset=${i%%,*};
   echo "filling MVA information in sample: "  $dataset
   if [ ${WEIGHTSONLY} == "1" ]; then
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",${doMultiClass},2\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",${doMultiClass},3\);
   else
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",${doMultiClass},2\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",${doMultiClass},3\);
   fi
   
 done

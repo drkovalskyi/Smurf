@@ -11,7 +11,7 @@
 export NJETS=$1;
 export MH=$2;
 export WEIGHTSONLY=$3;
-export doMultiClass=1;
+export doMultiClass=0;
 
 #export TAG=TEST_${MH}train_${NJETS}jets;
 #export METHODS=Likelihood,BDT,BDTD,BDTG;
@@ -34,6 +34,9 @@ if [ ${NJETS} == "hzz" ]; then
 elif [ ${NJETS} == "wh3l" ]; then
   export trainMVA_smurfFile=trainMVA_smurf_wh3l.C+;
   export TAG=ntuples_wh3l_${MH}train
+elif [ ${NJETS} == "wh2l" ]; then
+  export trainMVA_smurfFile=trainMVA_smurf_wh2l.C+;
+  export TAG=ntuples_wh2l_${MH}train
 elif [ ${NJETS} == "3" ]; then
   export trainMVA_smurfFile=trainMVA_smurf_MultiClass.C+;
   export NJETS=2;
@@ -52,6 +55,10 @@ if [ ${DO_TRAINING} == "1" ]; then
     export NJETS=999;
     export SIG_TRAIN=data/hww_training.root;
     export BKG_TRAIN=data/backgroundD_3l.root;
+  elif [ ${NJETS} == "wh2l" ]; then
+    export NJETS=900;
+    export SIG_TRAIN=data/hww_training.root;
+    export BKG_TRAIN=data/backgroundA_skim8.root;
  fi
   mkdir -p weights;
   root -l -q -b ${trainMVA_smurfFile}\(${NJETS},\"${SIG_TRAIN}\",\"${BKG_TRAIN}\",\"${TAG}\",\"${METHODS}\",${MH}\);
@@ -66,33 +73,34 @@ rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
 data/hww${MH}.root
 data/vhtt${MH}.root
+data/xww0m${MH}.root
+data/xww0p${MH}.root
+data/xww2p${MH}.root
 data/backgroundA.root
 data/backgroundB.root
-data/data_llg.root
-data/data.root
 data/hww_syst.root
+data/data.root
+data/data_llg.root
+data/data_ztt.root
 data/dyll.root
 data/ggww.root
 data/qqww.root
 data/training.root
+data/ttbar_powheg.root
 data/ttbar.root
 data/tw.root
 data/wgammafo.root
 data/wgamma.root
 data/wglll.root
 data/wjets.root
+data/wwmcnlodown.root
+data/wwmcnlo.root
+data/wwmcnloup.root
 data/www.root
 data/wz.root
 data/zgammafo.root
 data/zgamma.root
 data/zz.root
-data/ttbar_powheg.root
-data/wwmcnlodown.root
-data/wwmcnlo.root
-data/wwmcnloup.root
-data/x125ww-0m-8tev.root
-data/x125ww-0p-8tev.root
-data/x125ww-2p-8tev.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf_hww.C+;
@@ -110,9 +118,9 @@ for i in `cat list_samples.txt` ; do
   dataset=${i%%,*};
   echo "filling MVA information in sample: "  $dataset
   if [ ${WEIGHTSONLY} == "1" ]; then
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",${doMultiClass},2\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"\",\"\",\"\",${NJETS},1,0,\"/data\",${doMultiClass},3\);
   else
-    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",${doMultiClass},2\);
+    root -l -q -b ${evaluateMVAFile}\(\"${dataset}\",${MH},\"${METHODS}\",\"${TAG}\",\"\",${NJETS},1,1,\"/data\",${doMultiClass},3\);
   fi
   
 done

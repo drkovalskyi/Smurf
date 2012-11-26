@@ -102,8 +102,8 @@ TString suffix       = "ww"
     mvaVar[ "dPhiLep1MET" ]       = 0;  //delta phi btw leading lepton and met
     mvaVar[ "dPhiLep2MET" ]       = 0;  //delta phi btw leading sub-lepton and met
     mvaVar[ "razor" ]             = 0;  //razor
-    mvaVar[ "mt1" ]		  = 1;  //transverse mass of leading lepton and met
-    mvaVar[ "mt2" ]		  = 1;  //transverse mass of sub-leading lepton and met
+    mvaVar[ "mt1" ]		  = 0;  //transverse mass of leading lepton and met
+    mvaVar[ "mt2" ]		  = 0;  //transverse mass of sub-leading lepton and met
     mvaVar[ "dilpt" ]		  = 1;  //dilepton pt
     mvaVar[ "type" ]		  = 0;  //dilepton flavor type
   }
@@ -118,6 +118,25 @@ TString suffix       = "ww"
     mvaVar[ "ptjj" ]    	= 1;  //pt of the dijet
     mvaVar[ "higgspt" ] 	= 1;  //higgs pt
     mvaVar[ "dphihjj" ] 	= 1;  //dphi between the Higgs and the jj system
+  }
+  if(njet == 999){
+    mvaVar[ "lep1pt" ]  	  = 1;
+    mvaVar[ "lep2pt" ]  	  = 1;
+    mvaVar[ "dPhi" ]		  = 1;
+    mvaVar[ "dR" ]		  = 1;
+    mvaVar[ "dilmass" ] 	  = 1;
+    mvaVar[ "type" ]		  = 1;
+    mvaVar[ "pmet" ]		  = 0;
+    mvaVar[ "met" ]		  = 0;
+    mvaVar[ "mt" ]		  = 1;
+    mvaVar[ "mt1" ]		  = 1;
+    mvaVar[ "mt2" ]		  = 1;
+    mvaVar[ "dPhiLep1MET" ]	  = 1;
+    mvaVar[ "dPhiLep2MET" ]	  = 1;
+    mvaVar[ "dilpt" ]		  = 1;
+    mvaVar[ "razor" ]		  = 0;
+    mvaVar[ "njets" ]		  = 1;
+    mvaVar[ "deltaphiql" ]	  = 1;
   }
   //---------------------------------------------------------------
   // specifies the selection applied to events in the training
@@ -251,7 +270,12 @@ TString suffix       = "ww"
     else if(period == 2){ //  Full2012-Summer12-V9-12000ipb
       effPath  = "/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
       fakePath = "/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
-      puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True.root";
+      puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_12p1ifb.root";
+    }
+    else if(period == 3){ //  Full2012-Summer12-V9-16600ipb
+      effPath  = "/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
+      fakePath = "/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
+      puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_17p6ifb.root";
     }
     else {
       printf("Wrong period(%d)\n",period);
@@ -328,6 +352,8 @@ TString suffix       = "ww"
     Float_t ptjj;
     Float_t higgspt;
     Float_t dphihjj;
+    Float_t njets;
+    Float_t deltaphiql;
 
     if (mvaVar["lep1pt"])        reader->AddVariable( "lep1pt",        &lep1pt       );
     if (mvaVar["lep2pt"])        reader->AddVariable( "lep2pt",        &lep2pt       );
@@ -352,6 +378,8 @@ TString suffix       = "ww"
     if (mvaVar["ptjj"])          reader->AddVariable( "ptjj", 	       &ptjj         );
     if (mvaVar["higgspt"])       reader->AddVariable( "higgspt",       &higgspt      );
     if (mvaVar["dphihjj"])       reader->AddVariable( "dphihjj",       &dphihjj      );
+    if (mvaVar["njets"])         reader->AddVariable( "njets",         &njets        );
+    if (mvaVar["deltaphiql"])    reader->AddVariable( "deltaphiql",    &deltaphiql   );
     // Spectator variables declared in the training have to be added to the reader, too
     //    Float_t spec1,spec2;
     //    reader->AddSpectator( "spec1 := var1*2",   &spec1 );
@@ -623,6 +651,9 @@ TString suffix       = "ww"
 
       double higgsV[2] = {smurfTree.lep1_.px()+smurfTree.lep2_.px()+smurfTree.met_*cos(smurfTree.metPhi_),
                           smurfTree.lep1_.py()+smurfTree.lep2_.py()+smurfTree.met_*sin(smurfTree.metPhi_)};
+      double deltaPhiQQL[3] = {DeltaPhi((smurfTree.jet1_+smurfTree.jet2_).Phi(),smurfTree.lep1_.Phi()),DeltaPhi((smurfTree.jet1_+smurfTree.jet2_).Phi(),smurfTree.lep2_.Phi()),0.0};
+      if(smurfTree.njets_ == 1){deltaPhiQQL[0]=DeltaPhi(smurfTree.jet1_.Phi(),smurfTree.lep1_.Phi());deltaPhiQQL[1]=DeltaPhi(smurfTree.jet1_.Phi(),smurfTree.lep2_.Phi());}
+      deltaPhiQQL[2] = TMath::Min(deltaPhiQQL[0],deltaPhiQQL[1]);
       lep1pt         = smurfTree.lep1_.pt();    //  0
       lep2pt         = smurfTree.lep2_.pt();    //  1
       dPhi           = smurfTree.dPhi_;         //  2
@@ -645,7 +676,9 @@ TString suffix       = "ww"
       dphijj         = DeltaPhi(smurfTree.jet1_.Phi(),smurfTree.jet2_.Phi()); // 19
       ptjj           = (smurfTree.jet1_+smurfTree.jet2_).Pt();; // 20
       higgspt        = sqrt(higgsV[0]*higgsV[0]+higgsV[1]*higgsV[1]); // 21
-      dphihjj         = DeltaPhi((smurfTree.jet1_+smurfTree.jet2_).Phi(),TMath::ATan2(higgsV[1],higgsV[0])); // 22
+      dphihjj        = DeltaPhi((smurfTree.jet1_+smurfTree.jet2_).Phi(),TMath::ATan2(higgsV[1],higgsV[0])); // 22
+      njets          = smurfTree.njets_;
+      deltaphiql     = deltaPhiQQL[2];
       npass++;
       yield+=smurfTree.scale1fb_;
 
