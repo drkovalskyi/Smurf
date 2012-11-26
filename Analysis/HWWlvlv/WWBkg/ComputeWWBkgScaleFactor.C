@@ -20,6 +20,8 @@
 #include "Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h"
 #include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h"
 
+const bool UseDyttDataDriven = true; // if true, then remove em events in dyll MC
+
 //------------------------------------------------------------------------------
 // WW control region macro
 //------------------------------------------------------------------------------
@@ -67,11 +69,19 @@ void ComputeWWBkgScaleFactor (
   else if(period == 2){ //  Full2012-Summer12-V9-12000ipb
     effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_12p1ifb.root";
     scaleFactorLum     = 12.1;minRun =      0;maxRun = 999999;
     //scaleFactorLum = 5.296;minRun =      0;maxRun = 196531;
-    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/backgroundA_skim2.root";
-    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data_skim2.root";
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_12p1ifb/backgroundA_skim6.root";
+    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_12p1ifb/data_skim6.root";
+  }
+  else if(period == 3){ //  Full2012-Summer12-V9-16600ipb
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_17p6ifb.root";
+    scaleFactorLum     = 17.6;minRun =      0;maxRun = 999999;
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/backgroundA_skim6.root";
+    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data_skim6.root";
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -485,7 +495,8 @@ void ComputeWWBkgScaleFactor (
     }
     else if(dstype == SmurfTree::data) myWeight = 0.0;
     else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
-      myWeight = ZttScaleFactor(nvtx,period,scale1fb)*scaleFactorLum;
+      myWeight = ZttScaleFactor(period,scale1fb)*scaleFactorLum;
+      if(UseDyttDataDriven == false) myWeight = 0.0;
     }
     else if(dstype != SmurfTree::data){
       //normal MC
@@ -518,12 +529,18 @@ void ComputeWWBkgScaleFactor (
       }
 
       //WG* Scale Factor
-      if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor();
+      if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor(type,met);
 
       // CAREFUL HERE, no data-driven corrections, just Higgs k-factors
       // add = 1.0;
       myWeight = scale1fb*scaleFactorLum*add;      
     }
+
+    // if true, then remove em events in dyll MC
+    if(UseDyttDataDriven == true &&
+       nFake == 0 &&
+      (dstype == SmurfTree::dymm || dstype == SmurfTree::dyee || dstype == SmurfTree::dytt) &&
+       (type == SmurfTree::em || type == SmurfTree::me)) continue;
 
     if(myWeight == 0) continue;
 

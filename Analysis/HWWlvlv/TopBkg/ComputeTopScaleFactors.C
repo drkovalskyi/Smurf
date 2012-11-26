@@ -19,6 +19,7 @@
 #include "TSystem.h"
 
 const int verboseLevel =   1;
+const bool UseDyttDataDriven = true; // if true, then remove em events in dyll MC
 
 //------------------------------------------------------------------------------
 // dataEstimations
@@ -84,11 +85,19 @@ void ComputeTopScaleFactors
   else if(period == 2){ //  Full2012-Summer12-V9-12000ipb
     effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
     fakePath = "/data/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_12p1ifb.root";
     lumi     = 12.1;minRun =      0;maxRun = 999999;
     //lumi = 5.296;minRun =      0;maxRun = 196531;
-    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/backgroundA_skim2.root";
-    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data_skim2.root";
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_12p1ifb/backgroundA_skim6.root";
+    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets_12p1ifb/data_skim6.root";
+  }
+  else if(period == 3){ //  Full2012-Summer12-V9-16600ipb
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_17p6ifb.root";
+    lumi     = 17.6;minRun =      0;maxRun = 999999;
+    bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/backgroundA_skim6.root";
+    dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data_skim6.root";
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -381,7 +390,8 @@ void ComputeTopScaleFactors
       }
     }
     else if(bgdEvent.dstype_ == SmurfTree::dyttDataDriven || bgdEvent.dstype_ == SmurfTree::qcd) {
-      theWeight = ZttScaleFactor(bgdEvent.nvtx_,period,bgdEvent.scale1fb_)*lumi;
+      theWeight = ZttScaleFactor(period,bgdEvent.scale1fb_)*lumi;
+      if(UseDyttDataDriven == false) theWeight = 0.0;
     }
     else if(bgdEvent.dstype_ != SmurfTree::data){
       double add1 = nPUScaleFactor2012(fhDPU,bgdEvent.npu_);
@@ -400,7 +410,13 @@ void ComputeTopScaleFactors
         if(bgdEvent.njets_ >= 2) add=add*DYBkgScaleFactor(0,2);
       }
       if(fDecay == 3)  add=add*WJetsMCScaleFactor();
-      if(bgdEvent.dstype_ == SmurfTree::wgstar) add = add*WGstarScaleFactor();
+      if(bgdEvent.dstype_ == SmurfTree::wgstar) add = add*WGstarScaleFactor(bgdEvent.type_,bgdEvent.met_);
+
+      // if true, then remove em events in dyll MC
+      if(UseDyttDataDriven == true &&
+        (bgdEvent.dstype_ == SmurfTree::dymm || bgdEvent.dstype_ == SmurfTree::dyee || bgdEvent.dstype_ == SmurfTree::dytt) &&
+        (bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me)) continue;
+
       theWeight = bgdEvent.scale1fb_*lumi*add;
     }
 

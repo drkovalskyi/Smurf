@@ -14,56 +14,56 @@ cd $CMSSW_BASE/src/Ana/nt_scripts/;
 cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/headers/DYBkgScaleFactors_20_20_met.h  $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h;
 cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/headers/TopBkgScaleFactors_20_20_met.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h;
 sed -ie 's/bool WWXSSel = false/bool WWXSSel = true/' optimalCuts_53x.C;
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,4,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,5,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,6,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,0,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,1,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,2,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,3,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,4,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,5,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,6,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,0,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,1,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,2,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,3,3)';
 
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,14,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,15,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,16,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,10,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,11,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,12,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,13,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,14,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,15,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,16,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,10,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,11,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,12,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,13,3)';
 
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,24,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,25,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,26,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,20,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,21,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,22,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,23,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,24,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,25,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,26,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,20,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,21,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,22,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,23,3)';
 
 cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/headers/DYBkgScaleFactors_20_10_met.h  $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h;
 cp $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/headers/TopBkgScaleFactors_20_10_met.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h;
 sed -ie 's/bool WWXSSel = true/bool WWXSSel = false/' optimalCuts_53x.C;
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,4,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,5,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,6,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,0,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,1,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,2,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,3,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,4,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,5,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,6,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,0,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,1,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,2,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,3,3)';
 
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,14,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,15,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,16,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,10,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,11,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,12,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,13,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,14,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,15,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,16,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,10,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,11,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,12,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,13,3)';
 
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,24,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,25,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,26,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,20,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,21,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,22,2)';
-root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,23,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,24,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,25,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,26,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,20,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,21,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,22,3)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",0,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww160.root","ntuples_53x/data_skim2.root",1,23,3)';
 
 rm optimalCuts_53x.Ce;
 
@@ -71,34 +71,34 @@ elif [ $1 == 2 ]; then
 echo "making nice plots";
 cd $CMSSW_BASE/src/Ana/nt_scripts/;
 
-root -l -b -q optimalCuts_53x.C+'(29,"","",1,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,4,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",1,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,4,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh125_ptmax.root;
-root -l -b -q optimalCuts_53x.C+'(29,"","",2,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,4,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",2,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,4,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh125_ptmin.root;
-root -l -b -q optimalCuts_53x.C+'(29,"","",7,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,4,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",7,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,4,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh125_massll.root;
-root -l -b -q optimalCuts_53x.C+'(29,"","",8,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,4,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",8,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,4,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh125_mt.root;
-root -l -b -q optimalCuts_53x.C+'(29,"","",20,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,4,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",20,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,4,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh125_deltaphill.root;
-root -l -b -q optimalCuts_53x.C+'(29,"","",57,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,4,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",57,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,4,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_0j_mh125_deltarll.root;
 
-root -l -b -q optimalCuts_53x.C+'(29,"","",1,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",1,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_ptmax.root;
-root -l -b -q optimalCuts_53x.C+'(29,"","",2,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",2,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_ptmin.root;
-root -l -b -q optimalCuts_53x.C+'(29,"","",7,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",7,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_massll.root;
-root -l -b -q optimalCuts_53x.C+'(29,"","",8,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",8,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_mt.root;
-root -l -b -q optimalCuts_53x.C+'(29,"","",20,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",20,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_deltaphill.root;
-root -l -b -q optimalCuts_53x.C+'(29,"","",57,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",57,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_deltarll.root;
-root -l -b -q optimalCuts_53x.C+'(29,"","",55,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",55,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_dphidilepmet.root;
-root -l -b -q optimalCuts_53x.C+'(29,"","",53,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,2)';
+root -l -b -q optimalCuts_53x.C+'(29,"","",53,"ntuples_53x/backgroundA_skim2.root","ntuples_53x/hww125.root","ntuples_53x/data_skim2.root",1,14,3)';
 mv histo_nice.root /data/smurf/ceballos/distributions/note_hww8tev_ichep2012/dist/wwpresel_1j_mh125_dphidilepjet.root;
 
 else
@@ -106,35 +106,35 @@ else
 sed -ie 's/bool WWXSSel = false/bool WWXSSel = true/' $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C;
 sed -ie 's/bool WWXSSel = false/bool WWXSSel = true/' $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C;
 
-root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+'(2)';
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+'(3)';
 mv DYEstimateTable.txt $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/headers/DYEstimateTable_20_20_met.txt;
 cp DYBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/headers/DYBkgScaleFactors_20_20_met.h;
 mv DYBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h;
 
-root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+'(2)';
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+'(3)';
 cp TopBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/headers/TopBkgScaleFactors_20_20_met.h;
 mv TopBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h;
 
 sed -ie 's/bool WWXSSel = true/bool WWXSSel = false/' $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C;
 sed -ie 's/bool WWXSSel = true/bool WWXSSel = false/' $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C;
 
-root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+'(2)';
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+'(3)';
 mv DYEstimateTable.txt $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/headers/DYEstimateTable_20_10_met.txt;
 cp DYBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/headers/DYBkgScaleFactors_20_10_met.h;
 mv DYBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h;
 
-root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+'(2)';
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+'(3)';
 cp TopBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/headers/TopBkgScaleFactors_20_10_met.h;
 mv TopBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h;
 cp TopVBFBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/headers/TopVBFBkgScaleFactors_20_10_met.h;
 mv TopVBFBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/TopVBFBkgScaleFactors_8TeV.h;
 
-root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor.C+'(2)';
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor.C+'(3)';
 cp WWBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/headers/WWBkgScaleFactors.h;
 mv WWBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h;
 
 sed -ie 's/bool forBDTAna = false/bool forBDTAna = true/' $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C;
-root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+'(2)';
+root -l -b -q $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+'(3)';
 cat $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h DYBkgScaleFactorsBDT.h > DYBkgScaleFactors.h;
 mv DYBkgScaleFactors.h $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h;
 sed -ie 's/bool forBDTAna = true/bool forBDTAna = false/' $CMSSW_BASE/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C;
