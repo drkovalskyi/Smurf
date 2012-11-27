@@ -21,7 +21,7 @@ M1=$3
 M0NAME=`echo ${M0} | sed 's/\.txt//'`
 M1NAME=`echo ${M1} | sed 's/\.txt//'`
 WORKDIR=`pwd`
-LANDSDIR=${WORKDIR}/../../../../LandS
+MACRODIR=${WORKDIR}/../../
 
 
 # combine output
@@ -32,7 +32,10 @@ hadd LL_toyM1_fitM0_maxlls_tree.root output/LL_toy${M1NAME}_fit${M0NAME}_seed*_m
 hadd LL_toyM1_fitM1_maxlls_tree.root output/LL_toy${M1NAME}_fit${M1NAME}_seed*_maxlls_tree.root
 
 # do hypoSeparation
-root -l ${LANDSDIR}/test/hypoSeparation.C\(\"${M0NAME}\",\"LL_toyM0_fitM0_maxlls_tree.root\",\"LL_toyM0_fitM1_maxlls_tree.root\",\"${M1NAME}\",\"LL_toyM1_fitM0_maxlls_tree.root\",\"LL_toyM1_fitM1_maxlls_tree.root\"\)
+export NBINS=500
+export XMIN=-20
+export XMAX=10
+root -l ${MACRODIR}/hypoSeparation.C\(\"${M0NAME}\",\"LL_toyM0_fitM0_maxlls_tree.root\",\"LL_toyM0_fitM1_maxlls_tree.root\",\"${M1NAME}\",\"LL_toyM1_fitM0_maxlls_tree.root\",\"LL_toyM1_fitM1_maxlls_tree.root\",$NBINS,$XMIN,$XMAX\)
 
 cd ${WORKDIR}
 
