@@ -33,6 +33,70 @@ $gg\to Graviton\to WW\to (\tau\nu)(\tau\nu)$           & Graviton2PMToWWToTauTau
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+To validate the JHUGen samples we compare the main kinematic distributions from JHUGen to 
+MCFM at the generator level and to Powheg-Pythia at the reconstruction level. 
+Figure~\ref{fig:jhuvsmcfm} compares the main kinematic observables at generator 
+level between the JHUGen and MCFM for events without any cuts. 
+Both samples are generated without any resonance boost. 
+We have observed that the two matrix element calculations agree 
+within a few percents. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!hbtp]
+\centering
+\subfigure[Leading Lepton $p_T$]{
+\centering
+\label{subfig:leadleppt}
+\includegraphics[width=.3\textwidth]{figures/leadleppt_jhuvsmcfm.pdf}
+}
+\subfigure[Trailing Lepton $p_T$]{
+\centering
+\label{subfig:trailleppt}
+\includegraphics[width=.3\textwidth]{figures/trailleppt_jhuvsmcfm.pdf}
+}
+\subfigure[Leading Lepton $\eta$]{
+\centering
+\label{subfig:leadlepeta}
+\includegraphics[width=.3\textwidth]{figures/leadlepeta_jhuvsmcfm.pdf}
+} \\
+\subfigure[Trailing Lepton $\eta$]{
+\centering
+\label{subfig:traillepeta}
+\includegraphics[width=.3\textwidth]{figures/traillepeta_jhuvsmcfm.pdf}
+}
+\subfigure[Dilepton mass]{
+\centering
+\label{subfig:mll}
+\includegraphics[width=.3\textwidth]{figures/mll_jhuvsmcfm.pdf}
+} 
+\subfigure[Transverse Higgs Mass]{
+\centering
+\label{subfig:mt}
+\includegraphics[width=.3\textwidth]{figures/mt_jhuvsmcfm.pdf}
+}\\
+\subfigure[Dilepton $p_T$]{
+\centering
+\label{subfig:dilpt}
+\includegraphics[width=.3\textwidth]{figures/dilpt_jhuvsmcfm.pdf}
+}
+\subfigure[Neutrino $p_T$]{
+\centering
+\label{subfig:met}
+\includegraphics[width=.3\textwidth]{figures/met_jhuvsmcfm.pdf}
+}
+\subfigure[$\Delta\phi_{\ell\ell}$]{
+\centering
+\label{subfig:met}
+\includegraphics[width=.3\textwidth]{figures/dphill_jhuvsmcfm.pdf}
+}\\
+\caption{The generator level kinematic distributions of the SM Higgs hypothesis 
+comparing the JHUGen and MCFM, without any selections. Both samples 
+are generated with 0 resonance $p_T$. 
+}
+\label{fig:jhuvsmcfm}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Figure~\ref{fig:higgspt_0j} shows the Higgs $p_T$ and the leading jet 
 $p_T$ distributions for the SM Higgs hypothesis comparing the 
 JHUGen-Pythia and Powheg-Pythia~\cite{powheg} samples, after applying the full 
@@ -65,12 +129,12 @@ Additional shape systematics due to this difference is then added as well, see s
 \subfigure[Higgs $p_T$]{
 \centering
 \label{subfig:higgspt_0j}
-\includegraphics[width=.45\textwidth]{figures/higgsPt.pdf}
+\includegraphics[width=.3\textwidth]{figures/higgsPt.pdf}
 }
 \subfigure[Leading Jet $p_T$]{
 \centering
 \label{subfig:jet1pt_0j}
-\includegraphics[width=.45\textwidth]{figures/jet1pt.pdf}
+\includegraphics[width=.3\textwidth]{figures/jet1pt.pdf}
 }\\
 \caption{The Higgs $p_T$ and the leading jet $p_T$ distributions of the 
 SM Higgs hypothesis comparing the powheg generator and JHUGen, after 
@@ -84,33 +148,51 @@ applying the final event selections.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!hbtp]
 \centering
-%\subfigure[Dilepton $p_T$]{
-%\centering
-%\label{subfig:dilpt_0j}
-%\includegraphics[width=.45\textwidth]{figures/dilpt.pdf}
-%}
 \subfigure[Leading Lepton $p_T$]{
 \centering
-\label{subfig:dilpt_0j}
-\includegraphics[width=.45\textwidth]{figures/leadleppt.pdf}
+\label{subfig:leadleppt}
+\includegraphics[width=.3\textwidth]{figures/leadleppt.pdf}
 }
 \subfigure[Trailing Lepton $p_T$]{
 \centering
-\label{subfig:mll_0j}
-\includegraphics[width=.45\textwidth]{figures/trailleppt.pdf}
-}\\
+\label{subfig:trailleppt}
+\includegraphics[width=.3\textwidth]{figures/trailleppt.pdf}
+}
+\subfigure[Leading Lepton $\eta$]{
+\centering
+\label{subfig:leadlepeta}
+\includegraphics[width=.3\textwidth]{figures/leadlepeta.pdf}
+} \\
+\subfigure[Trailing Lepton $\eta$]{
+\centering
+\label{subfig:traillepeta}
+\includegraphics[width=.3\textwidth]{figures/traillepeta.pdf}
+}
 \subfigure[Dilepton mass]{
 \centering
-\label{subfig:mll_0j}
-\includegraphics[width=.45\textwidth]{figures/mll.pdf}
-}
+\label{subfig:mll}
+\includegraphics[width=.3\textwidth]{figures/mll.pdf}
+} 
 \subfigure[Transverse Higgs Mass]{
 \centering
-\label{subfig:mll_0j}
-\includegraphics[width=.45\textwidth]{figures/mt.pdf}
+\label{subfig:mt}
+\includegraphics[width=.3\textwidth]{figures/mt.pdf}
 }\\
-
-
+\subfigure[Dilepton $p_T$]{
+\centering
+\label{subfig:dilpt}
+\includegraphics[width=.3\textwidth]{figures/dilpt.pdf}
+}
+\subfigure[Missing Energy]{
+\centering
+\label{subfig:met}
+\includegraphics[width=.3\textwidth]{figures/met.pdf}
+}
+\subfigure[$\Delta\phi_{\ell\ell}$]{
+\centering
+\label{subfig:met}
+\includegraphics[width=.3\textwidth]{figures/dphill.pdf}
+}\\
 \caption{The event kinematic distributions of the SM Higgs hypothesis 
 comparing the powheg generator and JHUGen, after 
 applying the final event selections. 
@@ -125,12 +207,12 @@ applying the final event selections.
 \subfigure[Higgs $p_T$]{
 \centering
 \label{subfig:higgspt_0j}
-\includegraphics[width=.45\textwidth]{figures/higgsPt_gravitonvshiggs.pdf}
+\includegraphics[width=.3\textwidth]{figures/higgsPt_gravitonvshiggs.pdf}
 }
 \subfigure[Leading Jet $p_T$]{
 \centering
 \label{subfig:jet1pt_0j}
-\includegraphics[width=.45\textwidth]{figures/jet1pt_gravitonvshiggs.pdf}
+\includegraphics[width=.3\textwidth]{figures/jet1pt_gravitonvshiggs.pdf}
 }\\
 \caption{The Higgs $p_T$ and the leading jet $p_T$ distributions of the 
 SM Higgs hypothesis comparing the Graviton ($2_m^+$) and SM Higgs hypothesis, 
@@ -140,5 +222,3 @@ applying the final event selections.
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-{\it add the JHUGen vs MCFM comparisons in the kinematics!}
