@@ -21,7 +21,8 @@ M1=$3
 M0NAME=`echo ${M0} | sed 's/\.txt//'`
 M1NAME=`echo ${M1} | sed 's/\.txt//'`
 WORKDIR=`pwd`
-LANDSDIR=${WORKDIR}/../LandS
+LANDSDIR=${WORKDIR}/../../../../LandS
+
 
 # combine output
 cd ${TASK}

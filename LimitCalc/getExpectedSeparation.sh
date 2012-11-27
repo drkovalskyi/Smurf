@@ -46,7 +46,7 @@ QUEUE="1nd"
 
 WORKDIR=`pwd`
 OUTPUTHOSTNAME="lxplus.cern.ch"
-LANDS="../LandS/test/lands.exe"
+LANDS="../../../../LandS/test/lands.exe"
 WRAPPER="process_job.sh"
 
 #
