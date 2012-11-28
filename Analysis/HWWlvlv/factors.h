@@ -8,7 +8,7 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 
 double Unroll2VarTo1Var(double varA, double varB, int binsA, int binsB, bool verbose = false);
 double Unroll2VarTo1VarVersion2(double mll, double mt);
-double Unroll2VarTo1ForWH(double dRMin, double mTW3);
+double Unroll2VarTo1ForWH(double dRMin, double mTW3, int option);
 TH1F* Unroll2DTo1D(TH2F* h2, const char* hname);
 TH1D * SmurfRebin(const TH1D *old, const unsigned int rebin);
 double CalcGammaMRstar(LorentzVector ja, LorentzVector jb);
@@ -207,23 +207,46 @@ double Unroll2VarTo1VarVersion2(double mll, double mt){
   return val;
 }
 
-double Unroll2VarTo1ForWH(double dRMin, double mTW3){
+double Unroll2VarTo1ForWH(double Var1, double Var2, int option){
   double val = -1.;
-  if     (dRMin >= 0.0 && dRMin <= 1.0 && mTW3 >=  0 && mTW3 <=  60) val =   1;
-  else if(dRMin >= 0.0 && dRMin <= 1.0 && mTW3 >  60 && mTW3 <= 120) val =   2;
-  else if(dRMin >= 0.0 && dRMin <= 1.0 && mTW3 > 120               ) val =   3;
 
-  else if(dRMin >= 1.0 && dRMin <= 2.0 && mTW3 >=  0 && mTW3 <=  60) val =   4;
-  else if(dRMin >= 1.0 && dRMin <= 2.0 && mTW3 >  60 && mTW3 <= 120) val =   5;
-  else if(dRMin >= 1.0 && dRMin <= 2.0 && mTW3 > 120		   ) val =   6;
+  if     (option == 0){ // dRMin vs. mTW3
+    if     (Var1 >= 0.0 && Var1 <= 1.0 && Var2 >=  0 && Var2 <=  60) val =   1;
+    else if(Var1 >= 0.0 && Var1 <= 1.0 && Var2 >  60 && Var2 <= 120) val =   2;
+    else if(Var1 >= 0.0 && Var1 <= 1.0 && Var2 > 120  	           ) val =   3;
 
-  else if(dRMin >= 2.0 && dRMin <= 3.0 && mTW3 >=  0 && mTW3 <=  60) val =   7;
-  else if(dRMin >= 2.0 && dRMin <= 3.0 && mTW3 >  60 && mTW3 <= 120) val =   8;
-  else if(dRMin >= 2.0 && dRMin <= 3.0 && mTW3 > 120		   ) val =   9;
+    else if(Var1 >= 1.0 && Var1 <= 2.0 && Var2 >=  0 && Var2 <=  60) val =   4;
+    else if(Var1 >= 1.0 && Var1 <= 2.0 && Var2 >  60 && Var2 <= 120) val =   5;
+    else if(Var1 >= 1.0 && Var1 <= 2.0 && Var2 > 120  	           ) val =   6;
 
-  else if(dRMin >= 3.0                                             ) val =  10;
+    else if(Var1 >= 2.0 && Var1 <= 3.0 && Var2 >=  0 && Var2 <=  60) val =   7;
+    else if(Var1 >= 2.0 && Var1 <= 3.0 && Var2 >  60 && Var2 <= 120) val =   8;
+    else if(Var1 >= 2.0 && Var1 <= 3.0 && Var2 > 120  	           ) val =   9;
 
-  else assert(0);
+    else if(Var1 >= 3.0					           ) val =  10;
+
+    else assert(0);
+  } 
+  else if(option == 1){ // massMin vs. mTW3
+    if     (Var1 >= 0.0  && Var1 <= 25.0 && Var2 >=  0 && Var2 <=  60) val =   1;
+    else if(Var1 >= 0.0  && Var1 <= 25.0 && Var2 >  60 && Var2 <= 120) val =   2;
+    else if(Var1 >= 0.0  && Var1 <= 25.0 && Var2 > 120  	     ) val =   3;
+
+    else if(Var1 >= 25.0 && Var1 <= 50.0 && Var2 >=  0 && Var2 <=  60) val =   4;
+    else if(Var1 >= 25.0 && Var1 <= 50.0 && Var2 >  60 && Var2 <= 120) val =   5;
+    else if(Var1 >= 25.0 && Var1 <= 50.0 && Var2 > 120  	     ) val =   6;
+
+    else if(Var1 >= 50.0 && Var1 <= 75.0 && Var2 >=  0 && Var2 <=  60) val =   7;
+    else if(Var1 >= 50.0 && Var1 <= 75.0 && Var2 >  60 && Var2 <= 120) val =   8;
+    else if(Var1 >= 50.0 && Var1 <= 75.0 && Var2 > 120  	     ) val =   9;
+
+    else if(Var1 >= 75.0                                             ) val =  10;
+
+    else assert(0);
+  } 
+  else {
+    assert(0);
+  }
   
   val = val - 0.00001;
   val = (val/10.-0.5)*2.0;

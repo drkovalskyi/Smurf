@@ -83,6 +83,7 @@ data/data.root
 data/data_llg.root
 data/data_ztt.root
 data/dyll.root
+data/ww_dps.root
 data/ggww.root
 data/qqww.root
 data/training.root
