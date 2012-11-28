@@ -28,7 +28,11 @@ void hypoSeparation(TString hypo0_name,  TString hypo0_LLH_forToys0, TString hyp
 	gStyle->SetTitleFont(42, "XYZ"); 
 	gStyle->SetTitleSize(0.05, "XYZ");
 	gStyle->SetTitleXOffset(1.2);
-	gStyle->SetTitleYOffset(1.4);
+	gStyle->SetTitleYOffset(1.5);
+	
+	// TGaxis *gaxis = new TGaxis(); 
+	// gaxis->SetMaxDigits(2); 
+
 
 	// Likelihoods 
 	vector<double> vh0t0, vh0t1, vh1t0, vh1t1;  // toys 
@@ -166,8 +170,8 @@ void hypoSeparation(TString hypo0_name,  TString hypo0_LLH_forToys0, TString hyp
 	// hTS1->GetYaxis()->CenterTitle();
 
 	
-	hTS0->Rebin(10);
-	hTS1->Rebin(10);
+	hTS0->Rebin(hTS0->GetNbinsX()/40);
+	hTS1->Rebin(hTS1->GetNbinsX()/40);
 
         hTS0->SetMaximum(max(hTS0->GetMaximum(), hTS1->GetMaximum())*1.15);
 
