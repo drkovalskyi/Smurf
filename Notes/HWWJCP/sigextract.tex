@@ -1,43 +1,52 @@
 We use the same event selections as in the SM Higgs search 
-analysis~\cite{HWWHCP2012} except two changes, dilepton $p_T>$ 30 GeV and 
-transverse mass $m_T>$60 GeV. 
-To improve the signal purity 
-we use events in the 0-Jet bin and different flavor only. 
-Two dimensional templates based on $m_T-m_{\ell\ell}$ 
-are used to extract the final search results as in SM Higgs search analysis.
-The templates are created with the following binnings,
+~\cite{HWWHCP2012} with the exception of two changes.
+To improve the selection efficiency for the $gg\to X\to WW$ hypothesis,
+we apply dilepton $p_T>$ 30 GeV and transverse mass $m_T>$60 GeV.
+To improve the signal purity we use events in the 0-Jet bin 
+and only consider the different lepton flavor final state.
+
+We analyse the data by constructing two dimensional templates based on $m_T-m_{\ell\ell}$.
+This is the same procedure used in the SM Higgs search.
+In this analysis, the templates defined as follows:
+
 %%%%%%%%%%%%%%%%%
 \begin{itemize}
 \item $m_T$ 14 bins: [60,70,80,90,100,110,120,140,160,180,200,220,240,260,280],
 \item $m_{\ell\ell}$ bins: [12,30,45,60,75,100,125,150,175,200].
 \end{itemize}
 %%%%%%%%%%%%%%%%%
-These binnings are chosen to ensure, 
+
+This template binning is chosen to ensure the following conditions are met:
+
 %%%%%%%%%%%%%%%%%
 \begin{itemize}
-\item enough statistics for the main signal and background processes, 
-\item enough granuarity in the signal enriched regions to distinguish between 
+    \item enough statistics for the main signal and background processes, 
+    \item enough granuarity in the signal enriched regions to distinguish between 
 different hypotheses, 
-\item the same binning in the background enriched (mainly $WW$ and $Top$) regions 
-as in the SM Higgs analysis~\cite{HWWHCP2012}. 
+    \item the same binning in the background enriched (mainly $WW$ and $Top$) regions 
+as in the SM Higgs search~\cite{HWWHCP2012}. 
 \end{itemize}
 %%%%%%%%%%%%%%%%%
-Figure~\ref{fig:mtvsmll_sig} shows the $m_T-m_{\ell\ell}$ templates for the SM Higgs 
-and the spin 2 graviton like resonance $2_\text{min}^+$ zoomed in the signal regions expected for \intlumiEightTeV, while 
-Figure~\ref{fig:mtvsmll_bkg} shows the corresponding background templates. 
-Table~\ref{tab:yield} shows the expected signal and background yields 
-for \intlumiEightTeV. 
 
-For a given dataset we construct two different models based on the $m_T-m_{\ell\ell}$ 
-templates for the two signal hypotheses, applying the 
-same event selections and background predictions are used.  
-In each model the specific signal template is used with the 
-signal strength left float in the CLs fit. 
+The $m_T-m_{\ell\ell}$ templates for the SM Higgs boson and 
+the spin-2 graviton like resonance $2_\text{min}^+$, zoomed in the 
+signal enriched regions, are shown normalised to \intlumiEightTeV 
+in Figure~\ref{fig:mtvsmll_sig}.
+The corresponding background temlates are shown in 
+Figure~\ref{fig:mtvsmll_bkg}, and the expected signal and
+background yields for \intlumiEightTeV are shown in Table~\ref{tab:yield}.
+
+To separate the standard model and $gg\to X\to WW$ hypotheses,
+we construct a signal plus background model for each hypothesis.
+The same event selections and background predictions are used for both models.
+We then perform the CLs fit for both models to the data, letting the 
+signal strength float.
 The difference in the best fit likelihoods is then used 
 to quantify the consistency between data and each signal hypothesis. 
-In calculating the expected separation between the SM Higgs and other 
-exotic resonances, we use the same number of events after the full selections as in 
-the SM Higgs case. 
+
+To calculate the expected separation between the SM Higgs and other 
+exotic resonances, we use the same number of events for the exotic resonance
+after the full selections as in the SM Higgs case. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!hbtp]
@@ -104,15 +113,26 @@ normalized to the expectations for \intlumiEightTeV.}
 
 \begin{table}[!hbtp]
 {%\footnotesize
- \tiny
+ %\tiny
  \begin{center}
- \begin{tabular}{| c | c c c c c c c c c  | c}
+
+ \begin{tabular}{| c | c c c c c }
  \hline
- ggH & qqWW & ggWW & VV & Top & Wjets & Wgamma & Wg3l & Ztt & $\sum$Bkg \\
- \hline
-$210.6\pm43.7$ & $3616.2\pm334.7$ & $190.7\pm58.8$ & $120.8\pm8.7$ & $390.8\pm81.3$ & $831.4\pm299.3$ & $100.7\pm30.8$ & $164.7\pm50.4$ & $39.1\pm4.3$ & $5454.4\pm463.9$ \\ 
+ ggH & qqWW & ggWW & VV & Top & Wjets \\ \hline
+$210.6\pm43.7$ & $3616.2\pm334.7$ & $190.7\pm58.8$ & $120.8\pm8.7$ & $390.8\pm81.3$ & $831.4\pm299.3$ \\
 \hline
 \end{tabular}
+
+\vspace{10pt}
+
+ \begin{tabular}{ c c c  | c |}
+ \hline
+ Wgamma & Wg3l & Ztt & $\sum$Bkg \\ \hline
+$100.7\pm30.8$ & $164.7\pm50.4$ & $39.1\pm4.3$ & $5454.4\pm463.9$ \\ 
+\hline
+\end{tabular}
+
+
 \end{center}
 }
 \caption{Expected signal and background yields for \intlumiEightTeV.}
