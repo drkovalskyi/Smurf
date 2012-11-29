@@ -1,14 +1,15 @@
-We use the same event selections as in the SM Higgs search 
-~\cite{HWWHCP2012} with the exception of two changes.
+To distinguish between the standard model Higgs and $2_\text{min}^+$ hypotheses, 
+we construct a signal plus background model for each hypothesis, based on 
+ $m_T-m_{\ell\ell}$ templates.% in the same way as in the SM Higgs search. 
+
+We use the same event selections as in the SM Higgs search~\cite{HWWHCP2012} with the exception of two changes.
 To improve the selection efficiency for the $gg\to X\to WW$ hypothesis,
 we apply dilepton $p_T>$ 30 GeV and transverse mass $m_T>$60 GeV.
 To improve the signal purity we use events in the 0-Jet bin 
 and only consider the different lepton flavor final state.
-
-We analyse the data by constructing two dimensional templates based on $m_T-m_{\ell\ell}$.
-This is the same procedure used in the SM Higgs search.
+%We analyse the data by constructing two dimensional templates based on $m_T-m_{\ell\ell}$.
+%This is the same procedure used in the SM Higgs search.
 In this analysis, the templates defined as follows:
-
 %%%%%%%%%%%%%%%%%
 \begin{itemize}
 \item $m_T$ 14 bins: [60,70,80,90,100,110,120,140,160,180,200,220,240,260,280],
@@ -27,7 +28,6 @@ different hypotheses,
 as in the SM Higgs search~\cite{HWWHCP2012}. 
 \end{itemize}
 %%%%%%%%%%%%%%%%%
-
 The $m_T-m_{\ell\ell}$ templates for the SM Higgs boson and 
 the spin-2 graviton like resonance $2_\text{min}^+$, zoomed in the 
 signal enriched regions, are shown normalised to \intlumiEightTeV 
@@ -36,17 +36,27 @@ The corresponding background temlates are shown in
 Figure~\ref{fig:mtvsmll_bkg}, and the expected signal and
 background yields for \intlumiEightTeV are shown in Table~\ref{tab:yield}.
 
-To separate the standard model and $gg\to X\to WW$ hypotheses,
-we construct a signal plus background model for each hypothesis.
-The same event selections and background predictions are used for both models.
-We then perform the CLs fit for both models to the data, letting the 
-signal strength float.
-The difference in the best fit likelihoods is then used 
-to quantify the consistency between data and each signal hypothesis. 
 
-To calculate the expected separation between the SM Higgs and other 
-exotic resonances, we use the same number of events for the exotic resonance
-after the full selections as in the SM Higgs case. 
+%As in the SM Higgs search, we use two-dimensional templates 
+%$m_T-m_{\ell\ell}$ to distinguish between the SM Higgs and 
+%$2_\text{min}^+$ graviton hypotheses. 
+
+%To distinguish between the standard model Higgs and $2_\text{min}^+$ hypotheses, 
+%we construct a signal plus background model for each hypothesis.
+%The same event selections and background predictions are used for both models.
+For each hypothesis we build a maximum likelihood ($\cal L$) fit, 
+%${\cal L}_{2_\text{min}^+}$ for $2_\text{min}^+$ or ${\cal L}_{0^+}$ for SM Higgs, 
+to extract the signal strength and background contributions simultaneously. 
+This likelihood fit model is the same way as in the SM Higgs search. 
+%The two models, ${\cal L}_{2_\text{min}^+}$ for the $2_\text{min}^+$ graviton 
+%and ${\cal L}_{0^+}$ for SM Higgs, differ only in the signal model and its systematics. 
+For a given dataset we perform the maximum likelihood fits for both models.  
+Here the likelihoods, $\cal L$, are calculated with the signal rates 
+allowed to float indepdently for each signal type and the nuisance 
+parameters are treated as independent. 
+The difference in the best fit likelihoods, 
+$q=-2\text{ln}({\cal L}_{2_\text{min}^+}/{\cal L}_{\text{0}^+})$, 
+is then used to quantify the consistency of data to the two models. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!hbtp]
