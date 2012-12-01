@@ -11,7 +11,7 @@ process.load("Configuration.StandardSequences.MagneticField_cff")
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
 process.GlobalTag.globaltag = "GR_R_52_V7::All"
 process.MessageLogger.cerr.FwkReport.reportEvery = 200
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )
 
 #
 # lepton maker
@@ -31,8 +31,9 @@ process.source = cms.Source("PoolSource",
     )
 )
 
+process.leptonTreeMaker2012.runTP = cms.bool(False)
+process.leptonTreeMaker2012.runGamma = cms.bool(False)
 process.leptonTreeMaker2012.pfJetCorrectorL1FastL2L3 = cms.string('ak5PFL1FastL2L3Residual')
-
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.p = cms.Path(process.muonFilters * process.leptonTreeMakerSequenceData2012FR * process.leptonTreeMaker2012)
 
