@@ -140,6 +140,7 @@ from Smurf.ProcessingAndSkimming.filters_cfi import *
 leptonTreeMakerSequenceMC   = cms.Sequence(fastJetSequence * pfNoPileUpSequence * puJetIdSqeuence)
 leptonTreeMakerSequenceData2011 = cms.Sequence(hltHighLevel2011 * fastJetSequence * pfNoPileUpSequence * puJetIdSqeuence)
 leptonTreeMakerSequenceData2012 = cms.Sequence(hltHighLevel2012 * fastJetSequence * pfNoPileUpSequence * puJetIdSqeuence)
+leptonTreeMakerSequenceData2012FR = cms.Sequence(hltHighLevel2012FR * fastJetSequence * pfNoPileUpSequence * puJetIdSqeuence)
 
 # electrons and muons
 electronFilters = cms.Sequence(highPtElectrons * highPtElectronFilter)

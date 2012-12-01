@@ -2,6 +2,10 @@ import FWCore.ParameterSet.Config as cms
 
 leptonTreeMaker = cms.EDProducer('LeptonTreeMaker',
 
+    runFR                       = cms.bool(True),
+    runTP                       = cms.bool(True),
+    runGamma                    = cms.bool(True),
+
     #
     # input tags
     #
