@@ -9,7 +9,7 @@ process.load("FWCore.MessageService.MessageLogger_cfi")
 process.load("Configuration.StandardSequences.Geometry_cff")
 process.load("Configuration.StandardSequences.MagneticField_cff")
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
-process.GlobalTag.globaltag = "START52_V9::All"
+process.GlobalTag.globaltag = "START53_V7F::All"
 process.MessageLogger.cerr.FwkReport.reportEvery = 200
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 
