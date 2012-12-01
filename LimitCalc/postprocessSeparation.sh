@@ -5,21 +5,17 @@
 # and evaluate hypothesis separation between M0 and M1
 #
 
-if [ ! $# -eq 3 ]; then
+if [ ! $# -eq 1 ]; then
     echo "
 USAGE: ./postprocessSeparation.sh TASK M0 M1
     TASK  - The name of the task directory
-    M0    - The card for model0
-    M1    - The card for model1
 "
     exit 1
 fi
 
 TASK=$1
-M0=$2
-M1=$3
-M0NAME=`echo ${M0} | sed 's/\.txt//'`
-M1NAME=`echo ${M1} | sed 's/\.txt//'`
+M0NAME=SMHiggs
+M1NAME=Graviton
 WORKDIR=`pwd`
 MACRODIR=${WORKDIR}/../../
 
@@ -33,8 +29,8 @@ hadd LL_toyM1_fitM1_maxlls_tree.root output/LL_toy${M1NAME}_fit${M1NAME}_seed*_m
 
 # do hypoSeparation
 export NBINS=200
-export XMIN=-25
-export XMAX=25
+export XMIN=-30
+export XMAX=30
 root -l ${MACRODIR}/hypoSeparation.C\(\"${M0NAME}\",\"LL_toyM0_fitM0_maxlls_tree.root\",\"LL_toyM0_fitM1_maxlls_tree.root\",\"${M1NAME}\",\"LL_toyM1_fitM0_maxlls_tree.root\",\"LL_toyM1_fitM1_maxlls_tree.root\",$NBINS,$XMIN,$XMAX\)
 
 cd ${WORKDIR}
