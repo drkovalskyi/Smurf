@@ -10,21 +10,27 @@ fi
 # input parameters
 FIRSTRUN=$1
 
+#DSET="Run2012A-13Jul2012-v1"
 #DSET="Run2012B-13Jul2012-v1"
-#GTAG="FT_53_V6_AN2"
+#GTAG="FT_53_V6_AN2::All"
 
 #DSET="Run2012A-recover-06Aug2012-v1"
-#GTAG="FT_53_V6C_AN2"
+#GTAG="FT_53_V6C_AN2::All"
 
 #DSET="Run2012C-24Aug2012-v1"
-#GTAG="FT_53_V10_AN2"
+#GTAG="FT_53_V10_AN2::All"
 
-#DSET="Run2012C-PromptReco-v2"
-#GTAG="GR_P_V41_AN2"
+DSET="Run2012C-PromptReco-v2"
+GTAG="GR_P_V41_AN2::All"
 
 DSETS="/SingleElectron/${DSET}/AOD /SingleMu/${DSET}/AOD /DoubleElectron/${DSET}/AOD /DoubleMu/${DSET}/AOD"
 for DATASET in $DSETS
 do
+
+    # annoying
+    if [ "${DATASET}" == "/DoubleMu/Run2012B-13Jul2012-v1/AOD" ]; then
+        DATASET="/DoubleMu/Run2012B-13Jul2012-v4/AOD"
+    fi
 
     # get available run range
     DATASET_NOSLASH=`echo $DATASET | sed 's/\///' | sed 's/\//_/g'`
@@ -52,7 +58,7 @@ use_server = 0
 
 [CMSSW]
 datasetpath             = $DATASET
-pset                    = configs/$PSET
+pset                    = configs/pset_${DATASET_NOSLASH}_${FIRSTRUN}_${LASTRUN}_cfg.py
 total_number_of_lumis   = -1
 lumis_per_job           = 200
 runselection            = ${FIRSTRUN}-${LASTRUN}
@@ -70,10 +76,10 @@ se_black_list = T2_US_Caltech" \
     > crab_RemoteGlidein_${DATASET_NOSLASH}_${FIRSTRUN}_${LASTRUN}.cfg
 
     # change gtag in CMSSW config
-    sed 's/GR_R_52_V7::All/${GTAG}/' ../test/${PSET} > configs/pset_${DATASET_NOSLASH}_${FIRSTRUN}_${LASTRUN}_cfg.py
+    sed s/GR_R_52_V7::All/${GTAG}/ ../test/${PSET} > configs/pset_${DATASET_NOSLASH}_${FIRSTRUN}_${LASTRUN}_cfg.py
 
     # submit
-    crab -create -submit -cfg crab_RemoteGlidein_${DATASET_NOSLASH}_${FIRSTRUN}_${LASTRUN}.cfg
+    echo crab -create -submit -cfg crab_RemoteGlidein_${DATASET_NOSLASH}_${FIRSTRUN}_${LASTRUN}.cfg
 
 done
 
