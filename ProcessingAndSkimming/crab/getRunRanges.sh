@@ -1,29 +1,21 @@
 #!/bin/bash
 
 # input parameter validation
-if [ ! $# -eq 1 ]; then
-    echo "./getRunRanges.sh FIRSTRUN
-    FIRSTRUN - run number of the first run. Enter zero to use first run in dataset"
+if [ ! $# -eq 3 ]; then
+    echo "./getRunRanges.sh FIRSTRUN  DSET  GTAG
+    FIRSTRUN - run number of the first run. Enter zero to use first run in dataset
+    DSET - e.g. Run2012A-13Jul2012-v1
+    GTAG - e.g. FT_53_V6_AN2::All"
     exit 1
 fi
 
 # input parameters
 FIRSTRUN=$1
+DSET=$2
+GTAG=$3
 
-#DSET="Run2012A-13Jul2012-v1"
-#DSET="Run2012B-13Jul2012-v1"
-#GTAG="FT_53_V6_AN2::All"
-
-#DSET="Run2012A-recover-06Aug2012-v1"
-#GTAG="FT_53_V6C_AN2::All"
-
-#DSET="Run2012C-24Aug2012-v1"
-#GTAG="FT_53_V10_AN2::All"
-
-DSET="Run2012C-PromptReco-v2"
-GTAG="GR_P_V41_AN2::All"
-
-DSETS="/SingleElectron/${DSET}/AOD /SingleMu/${DSET}/AOD /DoubleElectron/${DSET}/AOD /DoubleMu/${DSET}/AOD"
+#DSETS="/SingleElectron/${DSET}/AOD /SingleMu/${DSET}/AOD /DoubleElectron/${DSET}/AOD /DoubleMu/${DSET}/AOD"
+DSETS="/DoubleElectron/${DSET}/AOD /DoubleMu/${DSET}/AOD"
 for DATASET in $DSETS
 do
 
@@ -43,9 +35,19 @@ do
 
     # determine pset to use for CMSSW
     PSET=muontreemaker_Data2012_cfg.py
-    if [[ "$DATASET" == *Electron* ]]; then
-        PSET=electrontreemaker_Data2012_cfg.py
-    fi 
+    if [[ "$DATASET" == *Single* ]]; then
+        if [[ "$DATASET" == *Muon* ]]; then
+            PSET=muontreemaker_Data2012_cfg.py
+        elif [[ "$DATASET" == *Electron* ]]; then
+            PSET=muontreemaker_Data2012_cfg.py
+        fi
+    elif [[ "$DATASET" == *Double* ]]; then
+        if [[ "$DATASET" == *Muon* ]]; then
+            PSET=muontreemaker_Data2012FR_cfg.py
+        elif [[ "$DATASET" == *Electron* ]]; then
+            PSET=electrontreemaker_Data2012FR_cfg.py
+        fi
+    fi
 
     # print crab config
     echo "
@@ -72,14 +74,17 @@ ui_working_dir          = RemoteGlidein_${DATASET_NOSLASH}_${FIRSTRUN}_${LASTRUN
 
 [GRID]
 maxtarballsize = 50
-se_black_list = T2_US_Caltech" \
+se_black_list = T2_US_Caltech,T2_US_UCSD" \
     > crab_RemoteGlidein_${DATASET_NOSLASH}_${FIRSTRUN}_${LASTRUN}.cfg
 
     # change gtag in CMSSW config
+    if [ ! -d "configs" ]; then
+        mkdir configs
+    fi
     sed s/GR_R_52_V7::All/${GTAG}/ ../test/${PSET} > configs/pset_${DATASET_NOSLASH}_${FIRSTRUN}_${LASTRUN}_cfg.py
 
     # submit
-    echo crab -create -submit -cfg crab_RemoteGlidein_${DATASET_NOSLASH}_${FIRSTRUN}_${LASTRUN}.cfg
+    crab -create -submit -cfg crab_RemoteGlidein_${DATASET_NOSLASH}_${FIRSTRUN}_${LASTRUN}.cfg
 
 done
 
