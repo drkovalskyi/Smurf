@@ -94,8 +94,8 @@ void PlotHiggsRes2012
 
   if(nJetsType <  2 && is2DAna == true && mH <= 250) {binVarA = 9;binVarB = 14;}
   if(nJetsType <  2 && is2DAna == true && mH  > 250) {binVarA = 8;binVarB = 10;}
-  if(nJetsType == 2 && is2DAna == true && mH <= 250) {binVarA = 4;binVarB =  4;}
-  if(nJetsType == 2 && is2DAna == true && mH  > 250) {binVarA = 3;binVarB =  2;}
+  if(nJetsType == 2 && is2DAna == true && mH <= 250) {binVarA = 1;binVarB = 27;}
+  if(nJetsType == 2 && is2DAna == true && mH  > 250) {binVarA = 1;binVarB = 27;}
   if(is2DBDT == true) {binVarA = 10; binVarB = 10;}
 
   if(nJetsType == 2 && is2DAna == false){
@@ -386,6 +386,7 @@ void PlotHiggsRes2012
   double theCutMTHigh        = cutMTHigh (mH);
   double theCutPtll          = 30.0;
   if(is2DBDT == true || is2DAna == false) {theCutPtll = 45.0; mtLowerCut = 80;}
+  if(nJetsType == 2) {theCutPtll = 45.0;}
 
   //----------------------------------------------------------------------------
   // Define Histogram ranges
@@ -840,7 +841,7 @@ void PlotHiggsRes2012
     if( lq1*lq2 > 0                 				         ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       				         ) continue; // cut on low dilepton mass
     if( lep1->pt() <= 20            				         ) continue; // cut on leading lepton pt
-    if( lep2->pt() <= ptlMin            				         ) continue; // cut on trailing lepton pt
+    if( lep2->pt() <= ptlMin            				 ) continue; // cut on trailing lepton pt
     if( passNewCuts == false                                             ) continue; // cut on new pt cuts
     if( passMET == false                                                 ) continue; // cut on pmet
     if(fabs(dilep->mass()-91.1876) <= 15 &&
@@ -874,7 +875,16 @@ void PlotHiggsRes2012
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    if(is2DAna == true && is2DBDT == false && mH <= 250) {
+    if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),mt,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,mt_lepup,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,mt_lepdown,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,mt_metup,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+    }
+    else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
 
       bdtg_aux0 = Unroll2VarTo1VarVersion2(mll_lepup,mt_lepup);
@@ -988,7 +998,7 @@ void PlotHiggsRes2012
     int nSigBin = -1;
     // GF  == 10010, WBF == 10001, WH == 26, ZH == 24, ttH=121/122
     if     (processId==121 ||
-                processId==122)   nSigBin = 1;
+            processId==122)   nSigBin = 1;
     else if(processId==24)    nSigBin = 2;
     else if(processId==26)    nSigBin = 3;
     else if(processId==10001) nSigBin = 4;
@@ -1067,7 +1077,7 @@ void PlotHiggsRes2012
         double myVar = dPhi*180.0/TMath::Pi(); myVar = qqHMVA;
         histoS2->Fill(myVar,myWeight);
       }
-      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 3.5;
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.5;
     }
     if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
@@ -1430,7 +1440,16 @@ void PlotHiggsRes2012
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    if(is2DAna == true && is2DBDT == false && mH <= 250) {
+    if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),mt,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,mt_lepup,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,mt_lepdown,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,mt_metup,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+    }
+    else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
 
       bdtg_aux0 = Unroll2VarTo1VarVersion2(mll_lepup,mt_lepup);
@@ -1778,7 +1797,7 @@ void PlotHiggsRes2012
         double myVar = dPhi*180.0/TMath::Pi(); myVar = qqHMVA;
         histoB->Fill(myVar,myWeight);
       }
-      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 3.5;
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.5;
     }
     if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
@@ -2197,7 +2216,7 @@ void PlotHiggsRes2012
     if( lq1*lq2 > 0                 				         ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       				         ) continue; // cut on low dilepton mass
     if( lep1->pt() <= 20            				         ) continue; // cut on leading lepton pt
-    if( lep2->pt() <= ptlMin            				         ) continue; // cut on trailing lepton pt
+    if( lep2->pt() <= ptlMin                                             ) continue; // cut on trailing lepton pt
     if( passNewCuts == false                                             ) continue; // cut on new pt cuts
     if( passMET == false                                                 ) continue; // cut on pmet
     if(fabs(dilep->mass()-91.1876) <= 15 &&
@@ -2265,7 +2284,16 @@ void PlotHiggsRes2012
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
-    if(is2DAna == true && is2DBDT == false && mH <= 250) {
+    if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),mt,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,mt_lepup,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,mt_lepdown,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,mt_metup,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+    }
+    else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
 
       bdtg_aux0 = Unroll2VarTo1VarVersion2(mll_lepup,mt_lepup);
@@ -2550,7 +2578,7 @@ void PlotHiggsRes2012
          ((jet1->eta()-lep2->eta() > 0 && jet2->eta()-lep2->eta() < 0) ||
           (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
       passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 200. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.0 && centrality == 1;
-      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 3.5;
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.5;
     }
     if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
@@ -2757,7 +2785,7 @@ void PlotHiggsRes2012
     if( lq1*lq2 > 0                 				         ) continue; // cut on opposite-sign leptons
     if( dilep->mass() <= 12.0       				         ) continue; // cut on low dilepton mass
     if( lep1->pt() <= 20            				         ) continue; // cut on leading lepton pt
-    if( lep2->pt() <= ptlMin            				         ) continue; // cut on trailing lepton pt
+    if( lep2->pt() <= ptlMin                                             ) continue; // cut on trailing lepton pt
     if( passNewCuts == false                                             ) continue; // cut on new pt cuts
     if( passMET == false                                                 ) continue; // cut on pmet
     if(fabs(dilep->mass()-91.1876) <= 15 &&
@@ -2792,7 +2820,16 @@ void PlotHiggsRes2012
 
     if(wwDecayCut == false) continue;
 
-    if(is2DAna == true && is2DBDT == false && mH <= 250) {
+    if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),mt,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,mt_lepup,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,mt_lepdown,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,mt_metup,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
+    }
+    else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
 
       bdtg_aux0 = Unroll2VarTo1VarVersion2(mll_lepup,mt_lepup);
@@ -2919,7 +2956,7 @@ void PlotHiggsRes2012
         double myVar = dPhi*180.0/TMath::Pi(); myVar = qqHMVA;
         histoD->Fill(myVar,myWeight);
       }
-      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 3.5;
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.5;
     }
     if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true){
@@ -4034,6 +4071,8 @@ void PlotHiggsRes2012
         if(yield[13] > 0) { yieldE[13]= histo_Ztt   ->GetBinError(i)/yield[13];} else {yieldE[13]= 0.0;}
         if(yield[14] > 0) { yieldE[14]= histo_WjetsM->GetBinError(i)/yield[14];} else {yieldE[14]= 0.0;}
 
+        for(int ch=0; ch<15; ch++) if(yieldE[ch] > 0.05 && yield[ch] > 0.1) printf("proc/bin(%2d/%2d): %f %f\n",ch,i,yield[ch],yieldE[ch]);
+
 	if(yield[10] > 0 && yieldE[10] > 2) yieldE[10] = 2.0;
 	if(yield[14] > 0 && yieldE[14] > 2) yieldE[14] = 2.0;
 
@@ -4234,7 +4273,7 @@ void PlotHiggsRes2012
       	newcardShape << Form("CMS_hww%s_stat_%1dj_Z_bin%d_8TeV      lnN   -     -         -     -     -     -         -     -   %5.3f   -         -     -     -     -\n",finalStateName,nJetsType,i,yieldE[9]+1.0);
       	newcardShape << Form("CMS_hww%s_stat_%1dj_WjetsE_bin%d_8TeV lnN   -     -         -     -     -     -         -     -     -   %5.3f   -     -     -     -\n",finalStateName,nJetsType,i,yieldE[10]+1.0);
       	newcardShape << Form("CMS_hww%s_stat_%1dj_Wgamma_bin%d_8TeV lnN   -     -         -     -     -     -         -     -     -     -   %5.3f   -     -     -\n",finalStateName,nJetsType,i,yieldE[11]+1.0);
-      	newcardShape << Form("CMS_hww%s_stat_%1dj_Wg3l_bin%d_8TeV   lnN   -     -         -     -     -     -         -     -     -     -         -   %5.3f     -\n",finalStateName,nJetsType,i,yieldE[12]+1.0);
+      	newcardShape << Form("CMS_hww%s_stat_%1dj_Wg3l_bin%d_8TeV   lnN   -     -         -     -     -     -         -     -     -     -         -   %5.3f     -     -\n",finalStateName,nJetsType,i,yieldE[12]+1.0);
       	newcardShape << Form("CMS_hww%s_stat_%1dj_Ztt_bin%d_8TeV    lnN   -     -         -     -     -     -         -     -     -     -         -   -    %5.3f     -\n",finalStateName,nJetsType,i,yieldE[13]+1.0);
       	newcardShape << Form("CMS_hww%s_stat_%1dj_WjetsM_bin%d_8TeV lnN   -     -         -     -     -     -         -     -     -     -   -     -     -     %5.3f\n",finalStateName,nJetsType,i,yieldE[14]+1.0);
       }
