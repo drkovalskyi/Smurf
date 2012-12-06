@@ -499,8 +499,8 @@ void SummarizeFakeLeptonBkgPrediction
       else if(dstype == SmurfTree::wgamma 	 ) fDecay = 6;
       else if(dstype == SmurfTree::wgstar 	 ) fDecay = 6;
       else if(dstype == SmurfTree::data   	 ) fDecay = 5;
-      else if(dstype == SmurfTree::dyttDataDriven  ) fDecay = 7;
-      else if(dstype == SmurfTree::qcd             ) fDecay = 7;
+      else if(dstype == SmurfTree::dyttDataDriven) fDecay = 7;
+      else if(dstype == SmurfTree::qcd           ) fDecay = 7;
       else                                 {printf("bad dstype: %d\n",dstype); assert(0);}
       if(dstype == SmurfTree::wz || dstype == SmurfTree::zz) {
         if(lep1MotherMcId == 23 && lep2MotherMcId == 23) {
