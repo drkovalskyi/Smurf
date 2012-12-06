@@ -18,10 +18,10 @@
 #include "Smurf/Core/SmurfTree.h"
 #include "Smurf/Analysis/HWWlvlv/factors.h"
 #include "Smurf/Core/LeptonScaleLookup.h"
-#include "Smurf/Analysis/HWWlvlv/DYBkgScaleFactors.h"
-#include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors.h"
-#include "Smurf/Analysis/HWWlvlv/WWBkgScaleFactors.h"
-#include "Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors.h"
+#include "Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h"
+#include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h"
+#include "Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h"
+#include "Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors_8TeV.h"
 #include "Smurf/Analysis/HWWlvlv/HWWCuts.h"
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
@@ -38,9 +38,9 @@ void SummarizeFakeLeptonBkgPrediction
 (
 //  UInt_t  nJetsType   	 = 0,
  UInt_t  mH      	 = 0,
- TString wjetsMCInputFile = "/data/smurf/sixie/data/Thesis/Run2011_Summer11_SmurfV7_42X/mitf-alljets_mva/ntuples_130train_0jets_hww_syst_skim3.root",
- TString bgdInputFile    = "/data/smurf/sixie/data/Thesis/Run2011_Summer11_SmurfV7_42X/mitf-alljets_mva/ntuples_130train_0jets_backgroundC_skim2.root",
- int period              = 2
+ TString wjetsMCInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/wjets.root",
+ TString bgdInputFile     = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/backgroundA_skim6.root",
+ int period               = 3
  )
 {
 
@@ -67,38 +67,41 @@ void SummarizeFakeLeptonBkgPrediction
   TTree *wjetsMC = (TTree*) chwjetsMC;
   TTree *background = (TTree*) chbackground;
 
-  TString effPath  = "/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
-  TString fakePath = "/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
-  TString puPath   = "/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
+  double scaleFactorLum = 1.0;
+  TString effPath  = "";
+  TString fakePath = "";
+  TString puPath   = "";
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
-  double scaleFactorLum = 2.121;
-  if	 (period == 0){ // Run2011A
-    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
-    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011A.root";
-    //scaleFactorLum     = 2.1;minRun =      0;maxRun = 173692;
-    scaleFactorLum     = 1.1;minRun =      0;maxRun = 167913;
+  if	 (period == 0){ // Full2011-Fall11-V9-3500ipb
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-04_V1/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-04_V1/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_3500ipb.root";
+    scaleFactorLum     =3.553;minRun =      0;maxRun = 999999;
   }
-  else if(period == 1){ // Run2011B
-    effPath  = "/data/smurf/data/Winter11_4700ipb/auxiliar/efficiency_results_v7_42x_Full2011_4700ipb.root";
-    fakePath = "/data/smurf/data/Winter11_4700ipb/auxiliar/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-    //puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Run2011B.root";
-    //scaleFactorLum     = 1.9;minRun = 173693;maxRun = 999999;
-    puPath   = "/data/smurf/data/Winter11_4700ipb/auxiliar/PileupReweighting.Summer11DYmm_To_Full2011.root";
-    scaleFactorLum     = 3.6;minRun = 167914;maxRun = 999999;
+  else if(period == -1){ // Full2011-Fall11-V9 NoJetId
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-04_V1/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-04_V1/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_3500ipb.root";
+    scaleFactorLum     =3.553;minRun =      0;maxRun = 999999;
   }
-  else if(period == 2){ // Full2011
-    effPath  = "/build/sixie/Thesis/auxiliar/Winter11_4700ipb/efficiency_results_v7_42x_Full2011_4700ipb.root";
-    fakePath = "/build/sixie/Thesis/auxiliar/Winter11_4700ipb/FakeRates_CutBasedMuon_BDTGWithIPInfoElectron.root";
-    puPath   = "/build/sixie/Thesis/auxiliar/Winter11_4700ipb/PileupReweighting.Summer11DYmm_To_Full2011.root";
-    scaleFactorLum     = 4.7;minRun =      0;maxRun = 999999;
+  else if(period == 1){ // Full2011-Fall11-V9-5000ipb
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
+    scaleFactorLum     =5.098;minRun =      0;maxRun = 999999;
   }
-  else if(period == 12){ // Full2011 with MVAIDIsoCombinedSameSigWP Lepton Selection
-    effPath  = "/data/smurf/sixie/data/Run2011_Fall11_MVAIDIsoCombinedSameSigWP/auxiliar/efficiency_results_MVAIDIsoCombinedSameSigWP_Full2011.root";
-    fakePath = "/data/smurf/sixie/data/Run2011_Fall11_MVAIDIsoCombinedSameSigWP/auxiliar/FakeRates_MVAIDIsoCombinedSameSigWP.root";
-    puPath   = "/data/smurf/sixie/data/Run2011_Fall11_MVAIDIsoCombinedSameSigWP/auxiliar/PileupReweighting.Fall11DYmm_To_Run2011B.root";
-    scaleFactorLum     = 4.6;minRun =      0;maxRun = 999999;
+  else if(period == 2){ //  Full2012-Summer12-V9-12000ipb
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_12p1ifb.root";
+    scaleFactorLum     = 12.1;minRun =      0;maxRun = 999999;
+  }
+  else if(period == 3){ //  Full2012-Summer12-V9-16600ipb
+    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
+    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_17p6ifb.root";
+    scaleFactorLum     = 17.6;minRun =      0;maxRun = 999999;
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -135,10 +138,9 @@ void SummarizeFakeLeptonBkgPrediction
   fhDPUS4->SetDirectory(0);
   delete fPUS4File;
 
-
   TFile *fLeptonFRFileSyst = TFile::Open(fakePath.Data());
   TH2D *fhDFRMuSystUp = (TH2D*)(fLeptonFRFileSyst->Get("MuonFakeRate_M2_ptThreshold30_PtEta"));
-  TH2D *fhDFRMuSystDown = (TH2D*)(fLeptonFRFileSyst->Get("MuonFakeRate_M2_ptThreshold0_PtEta"));
+  TH2D *fhDFRMuSystDown = (TH2D*)(fLeptonFRFileSyst->Get("MuonFakeRate_M2_ptThreshold5_PtEta"));
   TH2D *fhDFRElSystUp = (TH2D*)(fLeptonFRFileSyst->Get("ElectronFakeRate_V4_ptThreshold50_PtEta"));
   TH2D *fhDFRElSystDown = (TH2D*)(fLeptonFRFileSyst->Get("ElectronFakeRate_V4_ptThreshold20_PtEta"));
   assert(fhDFRMuSystUp);
@@ -165,7 +167,6 @@ void SummarizeFakeLeptonBkgPrediction
   cout << "theCutDeltaphilHigh: " << theCutDeltaphilHigh << endl;
   cout << "theCutMTLow: " << theCutMTLow << endl;
   cout << "theCutMTHigh: " << theCutMTHigh << endl;
-
 
   //----------------------------------------------------------------------------
   const int nHist = 6;
@@ -194,7 +195,7 @@ void SummarizeFakeLeptonBkgPrediction
   vector<vector<vector<vector<TH1F*> > > > FakeLeptonBkgHists_Data;
   vector<vector<vector<vector<TH1F*> > > > FakeLeptonBkgHists_MC;
 
-  for(UInt_t i = 0; i < 3; ++i) {
+  for(UInt_t i = 0; i < 3; i++) {
     vector<vector<vector<double> > > FakeLeptonBkgYields_tmp1;
     vector<vector<vector<double> > > FakeLeptonBkgYieldsErrSqr_tmp1;
     vector<vector<vector<double> > > FakeLeptonBkgYieldsSystUp_tmp1;
@@ -203,7 +204,7 @@ void SummarizeFakeLeptonBkgPrediction
     vector<vector<vector<double> > > FakeLeptonBkgYieldsSystDownErrSqr_tmp1;
     vector<vector<vector<TH1F*> > > FakeLeptonBkgHists_Data_tmp1;    
     vector<vector<vector<TH1F*> > > FakeLeptonBkgHists_MC_tmp1;    
-    for(UInt_t j = 0; j < 7; ++j) {
+    for(UInt_t j = 0; j < 7; j++) {
     vector<vector<double> > FakeLeptonBkgYields_tmp2;
     vector<vector<double> > FakeLeptonBkgYieldsErrSqr_tmp2;
     vector<vector<double> > FakeLeptonBkgYieldsSystUp_tmp2;
@@ -212,7 +213,7 @@ void SummarizeFakeLeptonBkgPrediction
     vector<vector<double> > FakeLeptonBkgYieldsSystDownErrSqr_tmp2;
     vector<vector<TH1F*> > FakeLeptonBkgHists_Data_tmp2;    
     vector<vector<TH1F*> > FakeLeptonBkgHists_MC_tmp2;    
-      for(UInt_t k = 0; k < 3; ++k) {
+      for(UInt_t k = 0; k < 3; k++) {
         vector<double> FakeLeptonBkgYields_tmp3;
         vector<double> FakeLeptonBkgYieldsErrSqr_tmp3;
         vector<double> FakeLeptonBkgYieldsSystUp_tmp3;
@@ -221,7 +222,7 @@ void SummarizeFakeLeptonBkgPrediction
         vector<double> FakeLeptonBkgYieldsSystDownErrSqr_tmp3;
         vector<TH1F*> FakeLeptonBkgHists_Data_tmp3;    
 
-        for(UInt_t l = 0; l < 7; ++l) {
+        for(UInt_t l = 0; l < 7; l++) {
           FakeLeptonBkgYields_tmp3.push_back(0.0);
           FakeLeptonBkgYieldsErrSqr_tmp3.push_back(0.0);
           FakeLeptonBkgYieldsSystUp_tmp3.push_back(0.0);
@@ -263,9 +264,8 @@ void SummarizeFakeLeptonBkgPrediction
 
         vector<TH1F*> FakeLeptonBkgHists_MC_tmp3;    
 
-
         sprintf(hname,"hMVA_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());      
-        FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 20, -1, 1));  cout << "2\n";  FakeLeptonBkgHists_MC_tmp3[0]->Sumw2(); cout << "3\n"; 
+        FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 20, -1, 1));  FakeLeptonBkgHists_MC_tmp3[0]->Sumw2();
         sprintf(hname,"hFakeLeptonPt_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());  FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 10, 0, 100)); FakeLeptonBkgHists_MC_tmp3[1]->Sumw2();
         sprintf(hname,"hFakeLeptonEta_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str()); FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 10, 0, 2.5)); FakeLeptonBkgHists_MC_tmp3[2]->Sumw2();
         sprintf(hname,"hPtMax_FakeLeptonBkg_MC_%s_%s_%s",fakeLeptonLabel.c_str(),finalStateLabel.c_str(),jetbinLabel.c_str());         FakeLeptonBkgHists_MC_tmp3.push_back(new TH1F(hname,"", 10, 0, 100)); FakeLeptonBkgHists_MC_tmp3[3]->Sumw2();
@@ -304,74 +304,67 @@ void SummarizeFakeLeptonBkgPrediction
     FakeLeptonBkgHists_MC.push_back(FakeLeptonBkgHists_MC_tmp1);
   }
 
-
   cout << "Start\n";
 
-
-  //----------------------------------------------------------------------------
-  UInt_t          cuts;
-  UInt_t          dstype;
-  UInt_t          nvtx;
-  UInt_t          npu;
-  UInt_t          njets;
-  UInt_t          run;
-  UInt_t          event;
-  Float_t         scale1fb;
-  LorentzVector*  lep1  = 0;
-  LorentzVector*  lep2  = 0;
-  LorentzVector*  jet1  = 0;
-  LorentzVector*  jet2  = 0;
-  LorentzVector*  jet3  = 0;
-  Float_t         dPhi;
-  Float_t         dR;
-  LorentzVector*  dilep = 0;
-  UInt_t          type;
-  Float_t         pmet;
-  Float_t         pTrackMet;
-  Float_t         met;
-  Float_t         mt;
-  Float_t         mt1;
-  Float_t         mt2;
-  Float_t         dPhiLep1MET;
-  Float_t         dPhiLep2MET;
-  Float_t         dPhiDiLepMET;
-  Float_t         dPhiDiLepJet1;
-  Int_t           lq1;
-  Int_t           lq2;
-  Int_t           lid1;
-  Int_t           lid2;
-  Int_t           lid3;
-  Int_t           processId;
-  Float_t         jetLowBtag;
-  UInt_t          nSoftMuons;
-  Float_t         jet1Btag;
-  Float_t         jet2Btag;
-  Int_t 	  lep1McId;
-  Int_t 	  lep2McId;
-  Int_t 	  lep1MotherMcId;
-  Int_t 	  lep2MotherMcId;
-  Float_t         bdt = 0.0;
-  Float_t         bdtd = 0.0;
-  Float_t         nn = 0.0;
-  Float_t         knn = 0.0;
-  Float_t         bdtg = 0.0;
-  Float_t         bdtg_aux0 = 0.0;
-  Float_t         bdtg_aux1 = 0.0;
-  Float_t         bdtg_aux2 = 0.0;
-  Float_t         higgsPt = -999;
-  Float_t         bdtg_wjets = 0.0;
-  //Float_t         knn_wjets = 0.0;
-  Float_t         sfWeightPU;
-  Float_t         sfWeightEff;
-  Float_t         sfWeightTrig;
-
-
-
-//   Int_t nJetsType = 0;
-//   {
-//     for (Int_t nJetsType=0; nJetsType < 1; nJetsType++) {
-  for (Int_t nJetsType=0; nJetsType < 3; nJetsType++) {
+  for (UInt_t nJetsType=0; nJetsType < 3; nJetsType++) {
     
+    //----------------------------------------------------------------------------
+    UInt_t          cuts;
+    Int_t           dstype;
+    UInt_t          nvtx;
+    Float_t         npu;
+    UInt_t          njets;
+    UInt_t          run;
+    UInt_t          event;
+    Float_t         scale1fb;
+    LorentzVector*  lep1  = 0;
+    LorentzVector*  lep2  = 0;
+    LorentzVector*  jet1  = 0;
+    LorentzVector*  jet2  = 0;
+    LorentzVector*  jet3  = 0;
+    Float_t         dPhi;
+    Float_t         dR;
+    LorentzVector*  dilep = 0;
+    Int_t           type;
+    Float_t         pmet;
+    Float_t         pTrackMet;
+    Float_t         met;
+    Float_t         mt;
+    Float_t         mt1;
+    Float_t         mt2;
+    Float_t         dPhiLep1MET;
+    Float_t         dPhiLep2MET;
+    Float_t         dPhiDiLepMET;
+    Float_t         dPhiDiLepJet1;
+    Int_t           lq1;
+    Int_t           lq2;
+    Int_t           lid1;
+    Int_t           lid2;
+    Int_t           lid3;
+    Int_t           processId;
+    Float_t         jetLowBtag;
+    UInt_t          nSoftMuons;
+    Float_t         jet1Btag;
+    Float_t         jet2Btag;
+    Int_t 	  lep1McId;
+    Int_t 	  lep2McId;
+    Int_t 	  lep1MotherMcId;
+    Int_t 	  lep2MotherMcId;
+    Float_t         bdt = 0.0;
+    Float_t         bdtd = 0.0;
+    Float_t         nn = 0.0;
+    Float_t         knn = 0.0;
+    Float_t         bdtg = 0.0;
+    Float_t         bdtg_aux0 = 0.0;
+    Float_t         bdtg_aux1 = 0.0;
+    Float_t         bdtg_aux2 = 0.0;
+    Float_t         higgsPt = -999;
+    Float_t         bdtg_wjets = 0.0;
+    //Float_t         knn_wjets = 0.0;
+    Float_t         sfWeightPU;
+    Float_t         sfWeightEff;
+    Float_t         sfWeightTrig;
+
     background->SetBranchAddress( "cuts"          , &cuts 	  );
     background->SetBranchAddress( "dstype"        , &dstype	  );
     background->SetBranchAddress( "nvtx"          , &nvtx 	  );
@@ -426,7 +419,7 @@ void SummarizeFakeLeptonBkgPrediction
     for (UInt_t i=0; i<background->GetEntries(); i++) {
 
       background->GetEntry(i);
-      if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
+      if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
 
       if(dstype == SmurfTree::data &&
          (cuts & SmurfTree::Trigger) != SmurfTree::Trigger) continue;
@@ -501,6 +494,7 @@ void SummarizeFakeLeptonBkgPrediction
       else if(dstype == SmurfTree::qqww   	 ) fDecay = 0;
       else if(dstype == SmurfTree::wz     	 ) fDecay = 2;
       else if(dstype == SmurfTree::zz     	 ) fDecay = 2;
+      else if(dstype == SmurfTree::www           ) fDecay = 2;
       else if(dstype == SmurfTree::ggww   	 ) fDecay = 1;
       else if(dstype == SmurfTree::wgamma 	 ) fDecay = 6;
       else if(dstype == SmurfTree::wgstar 	 ) fDecay = 6;
@@ -605,9 +599,9 @@ void SummarizeFakeLeptonBkgPrediction
           add = addFR;
           addSystUp = addFRSystUp;
           addSystDown = addFRSystDown;
-          add = add*nPUScaleFactor(fhDPUS4,npu);
-          addSystUp = addSystUp*nPUScaleFactor(fhDPUS4,npu);
-          addSystDown = addSystDown*nPUScaleFactor(fhDPUS4,npu);
+          add = add*nPUScaleFactor2012(fhDPUS4,npu);
+          addSystUp = addSystUp*nPUScaleFactor2012(fhDPUS4,npu);
+          addSystDown = addSystDown*nPUScaleFactor2012(fhDPUS4,npu);
 
           addLepEff = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1)*
             leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
@@ -628,9 +622,6 @@ void SummarizeFakeLeptonBkgPrediction
           myWeight	       = -1.0 * scale1fb*scaleFactorLum*add;
           myWeightSystUp       = -1.0 * scale1fb*scaleFactorLum*addSystUp;
           myWeightSystDown     = -1.0 * scale1fb*scaleFactorLum*addSystDown;
-
-
-
         }
         else {
           myWeight = 0.0;
@@ -638,16 +629,11 @@ void SummarizeFakeLeptonBkgPrediction
           myWeightSystDown = 0.0;
         }
 
-
-
         if (myWeight > 0) {
 //           cout << dstype << " : " << myWeight << " : " << scale1fb*scaleFactorLum << " " << add << " : " 
 //                << fakeRate(lep1->pt(), lep1->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, (cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection) << " " 
 //                << fakeRate(lep2->pt(), lep2->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection, (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection) << " "
 //                << endl;
-
-
-
 //           cout << "CUTS: " 
 //                << ( MinPreselCut == false                                            )  << " "
 //                << ( passJetCut[0]==false&&passJetCut[1]==false&&passJetCut[2]==false )  << " "
@@ -670,10 +656,7 @@ void SummarizeFakeLeptonBkgPrediction
 //                << endl;
 
 //           cout << pmet << " " << pTrackMet << " : " << minmet << " -- " << type << " : " << passMET << endl;
-
-
          }
-
 
         //*********************************
         //Find Fake Lepton Type
@@ -709,17 +692,17 @@ void SummarizeFakeLeptonBkgPrediction
               FakeLeptonPtEtaBin = 1;
             } else if (fabs(FakeLeptonEta) < 1.479) {
               FakeLeptonPtEtaBin = 2;
-            } else if (fabs(FakeLeptonEta) < 2.5) {
+            } else if (fabs(FakeLeptonEta) <= 2.5) {
               FakeLeptonPtEtaBin = 3;
-            }
+            } else assert(0);
           } else {
             if (fabs(FakeLeptonEta) < 1.0) {
               FakeLeptonPtEtaBin = 4;
             } else if (fabs(FakeLeptonEta) < 1.479) {
               FakeLeptonPtEtaBin = 5;
-            } else if (fabs(FakeLeptonEta) < 2.5) {
+            } else if (fabs(FakeLeptonEta) <= 2.5) {
               FakeLeptonPtEtaBin = 6;
-            }
+            } else assert(0);
           }
         } else if (FakeLeptonType == 13) {
           if (FakeLeptonPt <= 14.5) {
@@ -811,8 +794,6 @@ void SummarizeFakeLeptonBkgPrediction
         }
         else if(fDecay == 4){
         }
-
-
 
         if (type == SmurfTree::mm) {
           FakeLeptonBkgYields[kFakeLepton][kMuMu][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
@@ -933,6 +914,7 @@ void SummarizeFakeLeptonBkgPrediction
           FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
         }
         if (type == SmurfTree::me) {
+
           FakeLeptonBkgYields[kFakeLepton][kMuEle][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
           FakeLeptonBkgYields[kFakeLepton][kDifferentFlavor][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
           FakeLeptonBkgYields[kFakeLepton][kAllFinalStates][JetBinIndex][FakeLeptonPtEtaBin] += newWeight;
@@ -971,8 +953,6 @@ void SummarizeFakeLeptonBkgPrediction
           FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kSameFlavor][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
           FakeLeptonBkgYieldsSystDownErrSqr[kFakeLepton][kAllFinalStates][JetBinIndex][0] += newWeightSystDown*newWeightSystDown;
         }
-
-
 
         if (FakeLeptonType == 11) {
           if (type == SmurfTree::mm) {
@@ -1291,7 +1271,6 @@ void SummarizeFakeLeptonBkgPrediction
           }
         }
 
-      
         for (UInt_t l=1; l < 9; ++l) {
           Double_t varValue = -9999;
           if (l==1) {
@@ -1386,10 +1365,9 @@ void SummarizeFakeLeptonBkgPrediction
           }     
         }
       }  
-  
+
       bool passMVAPreselCuts = mt > 80 && mt < mH; if(wwPresel == true) passMVAPreselCuts = true;
       if(passMVAPreselCuts == true && passJetCut[0] == true){
-
 
         if (type == SmurfTree::mm) {
           FakeLeptonBkgHists_Data[kFakeLepton][kMuMu][JetBinIndex][0]->Fill(TMath::Max(TMath::Min((double)bdtg,1.0-0.001),-1.0+0.001),  myWeight);
@@ -1460,12 +1438,6 @@ void SummarizeFakeLeptonBkgPrediction
     }
 
     printf("--- Finished Bgdnal loop\n");
-
-
-
-
-
-
     wjetsMC->SetBranchAddress( "cuts"          , &cuts 	  );
     wjetsMC->SetBranchAddress( "dstype"        , &dstype	  );
     wjetsMC->SetBranchAddress( "nvtx"          , &nvtx 	  );
@@ -1519,7 +1491,7 @@ void SummarizeFakeLeptonBkgPrediction
     for (UInt_t i=0; i<wjetsMC->GetEntries(); i++) {
 
       wjetsMC->GetEntry(i);
-      if (i%10000 == 0) printf("--- reading event %5d of %5d\n",i,(int)wjetsMC->GetEntries());
+      if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)wjetsMC->GetEntries());
 
       if(dstype != SmurfTree::wjets ) continue;
       if(dstype == SmurfTree::data && run <  minRun) continue;
@@ -1592,6 +1564,7 @@ void SummarizeFakeLeptonBkgPrediction
       else if(dstype == SmurfTree::qqww   	 ) fDecay = 0;
       else if(dstype == SmurfTree::wz     	 ) fDecay = 2;
       else if(dstype == SmurfTree::zz     	 ) fDecay = 2;
+      else if(dstype == SmurfTree::www           ) fDecay = 2;
       else if(dstype == SmurfTree::ggww   	 ) fDecay = 1;
       else if(dstype == SmurfTree::wgamma 	 ) fDecay = 6;
       else if(dstype == SmurfTree::wgstar 	 ) fDecay = 6;
@@ -1604,7 +1577,6 @@ void SummarizeFakeLeptonBkgPrediction
           fDecay = 4;
         }
       }
-
 
       //****************************************************************************************
       //Find the right bin
@@ -1660,7 +1632,7 @@ void SummarizeFakeLeptonBkgPrediction
       if( (cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection) {
       
         add = 1.0;
-        add = add*nPUScaleFactor(fhDPUS4,npu);
+        add = add*nPUScaleFactor2012(fhDPUS4,npu);
 
         addLepEff = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1)*
           leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
@@ -1680,7 +1652,7 @@ void SummarizeFakeLeptonBkgPrediction
           if(njets >= 2) add=add*TopBkgScaleFactor(2); 
         }
 
-        if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor();
+        if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor(type,met);
 
         if((fDecay == 0 || fDecay == 1) && wwPresel == false){     
           if(njets == 0) add=add*WWBkgScaleFactorMVA(TMath::Max((int)mH,115),0); 
@@ -1898,10 +1870,7 @@ void SummarizeFakeLeptonBkgPrediction
         }
       } // passMVAPreselCuts
     }
-
     printf("--- Finished Bgdnal loop\n");
-
-
   } // loop over NJetBins
 
 
@@ -1920,9 +1889,6 @@ void SummarizeFakeLeptonBkgPrediction
     }
   }
   fileOutput->Close();
-  
-
-
 
   //**********************************************************************
   //Print Tables
@@ -2135,9 +2101,6 @@ void SummarizeFakeLeptonBkgPrediction
                   << endl;
 
   fResultTexTableDetailed << "\\hline" << endl;
-
-
-
 
   //*****************************************************************************************************
   //*****************************************************************************************************
@@ -2564,12 +2527,6 @@ void SummarizeFakeLeptonBkgPrediction
   fResultTexTableDetailed << " \\\\"
                   << endl;
 
-
-
-
-
-
-
   ofstream fResultSystTexTable("FakeLeptonBkgEstimateJetPtSpectrumSystematics.tex");
 
   fResultSystTexTable << "**************\n" 
@@ -2635,12 +2592,10 @@ void SummarizeFakeLeptonBkgPrediction
   fResultSystTexTable << " \\\\"
                   << endl;
 
-
-
   fResultSystTexTable << setw(45) << left << "Systematic Uncertainty"
                   << setw(3) << left << "&";
   
-  sprintf(buffer,"+ %.0f\% - %.0f\%", 
+  sprintf(buffer,"+ %.0f - %.0f", 
           100*fabs(FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][kZeroJetBin][0] - 
                FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kZeroJetBin][0])
           /FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kZeroJetBin][0],
@@ -2651,7 +2606,7 @@ void SummarizeFakeLeptonBkgPrediction
   fResultSystTexTable << setw(20) << left << buffer;
   fResultSystTexTable << setw(3) << left << "&" ;
 
-  sprintf(buffer,"+%.0f\% - %.0f\%", 
+  sprintf(buffer,"+%.0f - %.0f", 
           100*fabs(FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][kOneJetBin][0] - 
                FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kOneJetBin][0])
           /FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kOneJetBin][0],
@@ -2662,7 +2617,7 @@ void SummarizeFakeLeptonBkgPrediction
   fResultSystTexTable << setw(20) << left << buffer;
   fResultSystTexTable << setw(3) << left << "&" ;
 
-  sprintf(buffer,"+%.0f\% - %.0f\%", 
+  sprintf(buffer,"+%.0f - %.0f", 
           100*fabs(FakeLeptonBkgYieldsSystUp[kFakeMuon][kAllFinalStates][kVBFBin][0] - 
                FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kVBFBin][0])
           /FakeLeptonBkgYields[kFakeMuon][kAllFinalStates][kVBFBin][0],
@@ -2673,10 +2628,6 @@ void SummarizeFakeLeptonBkgPrediction
   fResultSystTexTable << setw(20) << left << buffer;
   fResultSystTexTable << " \\\\"
                   << endl;
-
-
-
-
 
   fResultSystTexTable << "**************\n" 
                       << "Fake Electrons \n"
@@ -2741,12 +2692,10 @@ void SummarizeFakeLeptonBkgPrediction
   fResultSystTexTable << " \\\\"
                   << endl;
 
-
-
   fResultSystTexTable << setw(45) << left << "Systematic Uncertainty"
                   << setw(3) << left << "&";
   
-  sprintf(buffer,"+%.0f\% - %.0f\%", 
+  sprintf(buffer,"+%.0f - %.0f", 
           100*fabs(FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][kZeroJetBin][0] - 
                FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kZeroJetBin][0])
           /FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kZeroJetBin][0],
@@ -2757,7 +2706,7 @@ void SummarizeFakeLeptonBkgPrediction
   fResultSystTexTable << setw(20) << left << buffer;
   fResultSystTexTable << setw(3) << left << "&" ;
 
-  sprintf(buffer,"+%.0f\% - %.0f\%", 
+  sprintf(buffer,"+%.0f - %.0f", 
           100*fabs(FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][kOneJetBin][0] - 
                FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kOneJetBin][0])
           /FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kOneJetBin][0],
@@ -2768,7 +2717,7 @@ void SummarizeFakeLeptonBkgPrediction
   fResultSystTexTable << setw(20) << left << buffer;
   fResultSystTexTable << setw(3) << left << "&" ;
 
-  sprintf(buffer,"+%.0f\% - %.0f\%", 
+  sprintf(buffer,"+%.0f - %.0f", 
           100*fabs(FakeLeptonBkgYieldsSystUp[kFakeElectron][kAllFinalStates][kVBFBin][0] - 
                FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kVBFBin][0])
           /FakeLeptonBkgYields[kFakeElectron][kAllFinalStates][kVBFBin][0],
@@ -2779,11 +2728,4 @@ void SummarizeFakeLeptonBkgPrediction
   fResultSystTexTable << setw(20) << left << buffer;
   fResultSystTexTable << " \\\\"
                   << endl;
-
-
-
-
-    
-
 }
-
