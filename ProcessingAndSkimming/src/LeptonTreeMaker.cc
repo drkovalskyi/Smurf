@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.48 2012/09/14 19:00:31 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.49 2012/12/01 11:14:42 dlevans Exp $
 //
 //
 
@@ -1322,8 +1322,8 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
 
         // probe gen matching
         if (!iEvent.isRealData()) {
-            leptonTree_->gen_drs1_ = smurfutilities::MatchGenParticle(genParticleCollection_, fo->p4(), 11, 1);
-            leptonTree_->gen_drs3_ = smurfutilities::MatchGenParticle(genParticleCollection_, fo->p4(), 11, 3);
+            leptonTree_->gen_drs1_ = smurfutilities::MatchGenParticle(genParticleCollection_, fo->p4(), 13, 1);
+            leptonTree_->gen_drs3_ = smurfutilities::MatchGenParticle(genParticleCollection_, fo->p4(), 13, 3);
         }
 
         leptonTree_->eventSelection_    |= LeptonTree::QCDFakeMu;
