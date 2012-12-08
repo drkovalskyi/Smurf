@@ -22,6 +22,9 @@ setenv SIG_TEST data2011/${TAG}_hww${MH}.root
 setenv BKG_TEST data2011/${TAG}_backgroundA_skim6.root
 setenv DAT_TEST data2011/${TAG}_data_skim6.root;
 setenv SYS_TEST data2011/${TAG}_hww_syst_skim6.root;
+setenv BKG_TEST data2011/ntuples_126train_0jets_backgroundA_skim6.root
+setenv DAT_TEST data2011/ntuples_126train_0jets_data_skim6.root;
+setenv SYS_TEST data2011/ntuples_126train_0jets_hww_syst_skim6.root;
 
 ### Perform analysis
  #root -l -q -b PlotHiggsRes2011.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",0,1,0,\"$SYS_TEST\",$CAT\); --> mm

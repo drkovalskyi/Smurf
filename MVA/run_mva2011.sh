@@ -55,9 +55,37 @@ fi
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
 data2011/hww${MH}.root
-data2011/data_skim6.root
-data2011/hww_syst_skim6.root
-data2011/backgroundA_skim6.root
+data2011/h${MH}tt-vtth.root
+data2011/wh3l${MH}.root
+data2011/training.root
+data2011/backgroundA.root
+data2011/hww_syst.root
+data2011/data.root
+data2011/dymm.root
+data2011/dyee.root
+data2011/wz.root
+data2011/wz_py.root
+data2011/zz_mg.root
+data2011/zz_py.root
+data2011/ww_mcnlo.root
+data2011/ww_mcnlo_up.root
+data2011/ww_mcnlo_down.root
+data2011/qqww.root
+data2011/ggww.root
+data2011/tw.root
+data2011/tw_ds.root
+data2011/ttbar.root
+data2011/ttbar_mg.root
+data2011/wjets.root
+data2011/wgamma.root
+data2011/wg3l.root
+data2011/wgamma_lgamma.root
+data2011/www.root
+data2011/dytt.root
+data2011/data_mit_2fake.root
+data2011/x125ww-0m-7tev.root
+data2011/x125ww-0p-7tev.root
+data2011/x125ww-2p-7tev.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf_hww2011.C+;

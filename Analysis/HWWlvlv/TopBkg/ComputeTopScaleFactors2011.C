@@ -19,6 +19,7 @@
 #include "TSystem.h"
 
 const int verboseLevel =   1;
+const bool UseDyttDataDriven = false; // if true, then remove em events in dyll MC
 
 //------------------------------------------------------------------------------
 // dataEstimations
@@ -50,9 +51,9 @@ void ComputeTopScaleFactors2011
   double lumi = 1;
   enum { kOther, kTTBAR, kTW, kData };
 
-  TString effPath  = "/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
-  TString fakePath = "/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
-  TString puPath   = "/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
+  TString effPath  = "";
+  TString fakePath = "";
+  TString puPath   = "";
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
   if(period == 4){ // Full2011-Fall11-V9
@@ -356,7 +357,8 @@ void ComputeTopScaleFactors2011
       }
     }
     else if(bgdEvent.dstype_ == SmurfTree::dyttDataDriven || bgdEvent.dstype_ == SmurfTree::qcd) {
-      theWeight = ZttScaleFactor(bgdEvent.nvtx_,period,bgdEvent.scale1fb_)*lumi;
+      theWeight = ZttScaleFactor(period,bgdEvent.scale1fb_)*lumi;
+      if(UseDyttDataDriven == false) theWeight = 0.0;
     }
     else if(bgdEvent.dstype_ != SmurfTree::data){
       double add1 = nPUScaleFactor2012(fhDPU,bgdEvent.npu_);
@@ -375,7 +377,13 @@ void ComputeTopScaleFactors2011
         if(bgdEvent.njets_ >= 2) add=add*DYBkgScaleFactor(0,2);
       }
       if(fDecay == 3)  add=add*WJetsMCScaleFactor();
-      if(bgdEvent.dstype_ == SmurfTree::wgstar) add = add*WGstarScaleFactor();
+      if(bgdEvent.dstype_ == SmurfTree::wgstar) add = add*WGstarScaleFactor(bgdEvent.type_,bgdEvent.met_);
+
+      // if true, then remove em events in dyll MC
+      if(UseDyttDataDriven == true &&
+        (bgdEvent.dstype_ == SmurfTree::dymm || bgdEvent.dstype_ == SmurfTree::dyee || bgdEvent.dstype_ == SmurfTree::dytt) &&
+        (bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me)) continue;
+
       theWeight = bgdEvent.scale1fb_*lumi*add;
     }
 
@@ -1233,9 +1241,6 @@ void ComputeTopScaleFactors2011
   }
 
   // Writing results in latex format
-  double NonTaggedTopMC = 0;       for(int i=0; i<5; i++) NonTaggedTopMC       = NonTaggedTopMC       + btag_vbf_2j_den1[1][i]+btag_vbf_2j_den2[1][i];
-  double NonTaggedTopDA = 0;       for(int i=0; i<5; i++) NonTaggedTopDA       = NonTaggedTopDA       + evtDA_vbf_2j[i];
-  double NonTaggedTopDA_error = 0; for(int i=0; i<5; i++) NonTaggedTopDA_error = NonTaggedTopDA_error + evtDA_vbf_2j_error[i]*evtDA_vbf_2j_error[i];
   int Chan = 4;
   printf("*****************************************\n");
   printf("\\begin{table}\n");

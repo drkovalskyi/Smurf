@@ -10,7 +10,7 @@ double Unroll2VarTo1Var(double varA, double varB, int binsA, int binsB, bool ver
 double Unroll2VarTo1VarVersion2(double mll, double mt);
 double Unroll2VarTo1ForWH(double dRMin, double mTW3, int option);
 double Unroll2VarTo1ForqqH(double mll, double mt, double detajj, double mjj, int option);
-TH1F* Unroll2DTo1D(TH2F* h2, const char* hname);
+TH1D* Unroll2DTo1D(TH2F* h2, const char* hname);
 TH1D * SmurfRebin(const TH1D *old, const unsigned int rebin);
 double CalcGammaMRstar(LorentzVector ja, LorentzVector jb);
 double CalcMTR(LorentzVector ja, LorentzVector jb, double metValue, double metPhi);
@@ -342,13 +342,13 @@ double Unroll2VarTo1ForqqH(double mll, double mt, double detajj, double mjj, int
   return val;
 }
 
-TH1F* Unroll2DTo1D(TH2F* h2, const char* hname) {
+TH1D* Unroll2DTo1D(TH2F* h2, const char* hname) {
   
   unsigned int nbinsX = h2->GetXaxis()->GetNbins();
   unsigned int nbinsY = h2->GetYaxis()->GetNbins();
   unsigned int nbins  = nbinsX*nbinsY;
 
-  TH1F* h1_unroll = new TH1F(hname, hname, nbins, 0.5, 0.5+nbins);
+  TH1D* h1_unroll = new TH1D(hname, hname, nbins, 0.5, 0.5+nbins);
 
   for(unsigned int x=1; x <= nbinsX; ++x) {
     for(unsigned int y=1; y <= nbinsY; ++y) {

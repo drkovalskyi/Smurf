@@ -20,6 +20,8 @@
 #include "Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h"
 #include "Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h"
 
+const bool UseDyttDataDriven = false; // if true, then remove em events in dyll MC
+
 //------------------------------------------------------------------------------
 // WW control region macro
 //------------------------------------------------------------------------------
@@ -33,9 +35,9 @@ void ComputeWWBkgScaleFactor2011 (
 
   double scaleFactorLum = 1.0;
   
-  TString effPath  = "/data/smurf/data/LP2011/auxiliar/efficiency_results_v6_42x.root";
-  TString fakePath = "/data/smurf/data/LP2011/auxiliar/FakeRates_SmurfV6.LP2011.root";
-  TString puPath   = "/data/smurf/data/LP2011/auxiliar/puWeights_PU4_68mb.root";
+  TString effPath  = "";
+  TString fakePath = "";
+  TString puPath   = "";
   unsigned int minRun = 0;
   unsigned int maxRun = 999999;
   if(period == 4){ // Full2011-Fall11-V9
@@ -468,7 +470,8 @@ void ComputeWWBkgScaleFactor2011 (
     }
     else if(dstype == SmurfTree::data) myWeight = 0.0;
     else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
-      myWeight = ZttScaleFactor(nvtx,period,scale1fb)*scaleFactorLum;
+      myWeight = ZttScaleFactor(period,scale1fb)*scaleFactorLum;
+      if(UseDyttDataDriven == false) myWeight = 0.0;
     }
     else if(dstype != SmurfTree::data){
       //normal MC
@@ -501,12 +504,18 @@ void ComputeWWBkgScaleFactor2011 (
       }
 
       //WG* Scale Factor
-      if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor();
+      if(dstype == SmurfTree::wgstar) add=add*WGstarScaleFactor(type,met);
 
       // CAREFUL HERE, no data-driven corrections, just Higgs k-factors
       // add = 1.0;
       myWeight = scale1fb*scaleFactorLum*add;      
     }
+
+    // if true, then remove em events in dyll MC
+    if(UseDyttDataDriven == true &&
+       nFake == 0 &&
+      (dstype == SmurfTree::dymm || dstype == SmurfTree::dyee || dstype == SmurfTree::dytt) &&
+       (type == SmurfTree::em || type == SmurfTree::me)) continue;
 
     if(myWeight == 0) continue;
 

@@ -81,6 +81,7 @@ void PlotHiggsRes2012
   bool useTopTemplates     = true;
   bool useggHTemplates     = false; // default is false in 2012 analysis
   bool useWgammaTemplates  = true;
+  bool usePDFTemplates     = true;
   int rebinMVAHist        = 10;
   unsigned int rebinSmurf = 1;
   TH1D *histSmurfRebin;
@@ -109,7 +110,10 @@ void PlotHiggsRes2012
     useTopTemplates	= false;
     useggHTemplates	= false;
     useWgammaTemplates  = false;
+    usePDFTemplates     = false;
   }
+  if(nJetsType == 2)   usePDFTemplates = false; // we don't have it otherwise
+  if(is2DAna == false) usePDFTemplates = false; // we don't have it otherwise
 
   bool makeZjetsTemplates = false;
   if(makeZjetsTemplates == true) useZjetsTemplates = false;
@@ -241,7 +245,7 @@ void PlotHiggsRes2012
   }
   else if(period == 3){ // Full2012-Summer12-V9-16600ipb
     effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
-    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
+    fakePath = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes.root";
     puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_17p6ifb.root";
     scaleFactorLum     = 17.6;minRun =      0;maxRun = 999999;
   }
@@ -296,6 +300,9 @@ void PlotHiggsRes2012
   fLeptonFRFileSyst->Close();
   delete fLeptonFRFileSyst;
 
+  //----------------------------------------------------------------------------
+  // radio photon to electron
+  //----------------------------------------------------------------------------
   TFile *fRatioPhotonElectron = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/ratio_photon_electron.root");
   TH1D *fhDRatioPhotonElectron = (TH1D*)(fRatioPhotonElectron->Get("hDRatioPhotonElectron"));
   assert(fhDRatioPhotonElectron);
@@ -303,6 +310,9 @@ void PlotHiggsRes2012
   fRatioPhotonElectron->Close();
   delete fRatioPhotonElectron;
 
+  //----------------------------------------------------------------------------
+  // JHU weights
+  //----------------------------------------------------------------------------
   double Norm_Powheg_JHU = 1.0;
   TFile *fRatio_Powheg_JHU = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/ratio_Powheg_JHU.root");
   TH1D *fhDRatio_Powheg_JHU = (TH1D*)(fRatio_Powheg_JHU->Get("histo_ggH"));
@@ -334,6 +344,40 @@ void PlotHiggsRes2012
   //for(int i=0; i<8; i++) assert(HiggsPtKFactorSyst[i]); // only 1 and 6 are available currently (0 and 5 in c++ version)
   fHiggsPtKFactorFile->Close();
   delete fHiggsPtKFactorFile;
+
+  //----------------------------------------------------------------------------
+  // PDF weights
+  //----------------------------------------------------------------------------
+  TString weightFilePath = "/data/smurf/dlevans/PDFUncertainties/V00-00-01/PDFUncertainty_LowMass.root";
+  if(mH  > 250) weightFilePath = "/data/smurf/dlevans/PDFUncertainties/V00-00-01/PDFUncertainty_HighMass.root";
+  TFile *fPDFWeightsFile = TFile::Open(weightFilePath.Data());
+
+  char sb1[100],sb2[100],sb3[100],sb4[100];
+  if(nJetsType == 0) {
+    sprintf(sb1, "qqWW_DF_0j_alternateUp");
+    sprintf(sb2, "qqWW_DF_0j_alternateDown");
+    sprintf(sb3, "ggWW_DF_0j_alternateUp");
+    sprintf(sb4, "ggWW_DF_0j_alternateDown");
+  } else {
+    sprintf(sb1, "qqWW_DF_1j_alternateUp");
+    sprintf(sb2, "qqWW_DF_1j_alternateDown");
+    sprintf(sb3, "ggWW_DF_1j_alternateUp");
+    sprintf(sb4, "ggWW_DF_1j_alternateDown");
+  }
+  TH2F *pdf_qqWW_alternateUp   = (TH2F*)(fPDFWeightsFile->Get(sb1));
+  TH2F *pdf_qqWW_alternateDown = (TH2F*)(fPDFWeightsFile->Get(sb2));
+  TH2F *pdf_ggWW_alternateUp   = (TH2F*)(fPDFWeightsFile->Get(sb3));
+  TH2F *pdf_ggWW_alternateDown = (TH2F*)(fPDFWeightsFile->Get(sb4));
+  assert(pdf_qqWW_alternateUp  );
+  assert(pdf_qqWW_alternateDown);
+  assert(pdf_ggWW_alternateUp  );
+  assert(pdf_ggWW_alternateDown);
+  pdf_qqWW_alternateUp  ->SetDirectory(0);
+  pdf_qqWW_alternateDown->SetDirectory(0);
+  pdf_ggWW_alternateUp  ->SetDirectory(0);
+  pdf_ggWW_alternateDown->SetDirectory(0);
+  fPDFWeightsFile->Close();
+  delete fPDFWeightsFile;
 
   //----------------------------------------------------------------------------
   // Load MVA distribution histograms for the DY bkg systematics from file
@@ -457,6 +501,11 @@ void PlotHiggsRes2012
   TH1D* histo_Top_CMS_MVATopBoundingDown = new TH1D( Form("histo_Top_CMS_hww_MVATopBoundingDown"), Form("histo_Top_CMS_hww_MVATopBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_Top_CMS_MVATopBoundingDown->Sumw2();
 
   TH1D* histo_Wgamma = new TH1D( Form("histo_Wgamma"), Form("histo_Wgamma"), nBinHis, minHis[1], maxHis[1]); histo_Wgamma->Sumw2();
+
+  TH1D* histo_qqWW_CMS_hww_PDFqqWWUp   = new TH1D( Form("histo_qqWW_CMS_hww_PDFqqWWUp"),   Form("histo_qqWW_CMS_hww_PDFqqWWUp")  , nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_hww_PDFqqWWUp  ->Sumw2();
+  TH1D* histo_qqWW_CMS_hww_PDFqqWWDown = new TH1D( Form("histo_qqWW_CMS_hww_PDFqqWWDown"), Form("histo_qqWW_CMS_hww_PDFqqWWDown"), nBinHis, minHis[1], maxHis[1]); histo_qqWW_CMS_hww_PDFqqWWDown->Sumw2();
+  TH1D* histo_ggWW_CMS_hww_PDFggWWUp   = new TH1D( Form("histo_ggWW_CMS_hww_PDFggWWUp"),   Form("histo_ggWW_CMS_hww_PDFggWWUp")  , nBinHis, minHis[1], maxHis[1]); histo_ggWW_CMS_hww_PDFggWWUp  ->Sumw2();
+  TH1D* histo_ggWW_CMS_hww_PDFggWWDown = new TH1D( Form("histo_ggWW_CMS_hww_PDFggWWDown"), Form("histo_ggWW_CMS_hww_PDFggWWDown"), nBinHis, minHis[1], maxHis[1]); histo_ggWW_CMS_hww_PDFggWWDown->Sumw2();
 
   TH1D* histo_ttH_CMS_MVAttHStatBounding_8TeVUp = new TH1D( Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVUp",finalStateName,nJetsType), Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVUp",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_ttH_CMS_MVAttHStatBounding_8TeVUp->Sumw2();
   TH1D* histo_ttH_CMS_MVAttHStatBounding_8TeVDown = new TH1D( Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVDown",finalStateName,nJetsType), Form("histo_ttH_CMS_hww%s_%1dj_MVAttHStatBounding_8TeVDown",finalStateName,nJetsType), nBinHis, minHis[1], maxHis[1]); histo_ttH_CMS_MVAttHStatBounding_8TeVDown->Sumw2();
@@ -689,7 +738,6 @@ void PlotHiggsRes2012
   // Loop Over Signal Sample
   //
   //****************************************************************************
-
   signal->SetBranchAddress( "cuts"         , &cuts         );
   signal->SetBranchAddress( "dstype"       , &dstype       );
   signal->SetBranchAddress( "nvtx"         , &nvtx         );
@@ -847,11 +895,8 @@ void PlotHiggsRes2012
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
-    //if( lid3 != 0                                                         ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
-
-    //if(dilep->mass()<60&&mt<140) continue;
 
     bool dPhiDiLepJetCut = kTRUE;
     if(useDYMVA == kFALSE){
@@ -1096,16 +1141,16 @@ void PlotHiggsRes2012
       else if(useVar == 4) histos   ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),       myWeight);
       else if(useVar == 5) histos   ->Fill(TMath::Max(TMath::Min((double)bdtg_wjets,maxHis[4]-0.001),minHis[4]+0.001), myWeight);
 
-      sigMVA[0][0]->Fill(TMath::Max(TMath::Min((double)bdt,maxHis[0]-0.001),minHis[0]+0.001),         myWeight);
-      sigMVA[1][0]->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),   myWeight);
-      sigMVA[2][0]->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),         myWeight);
-      sigMVA[3][0]->Fill(TMath::Max(TMath::Min((double)knn,maxHis[3]-0.001),minHis[3]+0.001),         myWeight);
-      sigMVA[4][0]->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),   myWeight);
-      sigMVA[0][nSigBin]->Fill(TMath::Max(TMath::Min((double)bdt,maxHis[0]-0.001),minHis[0]+0.001),    myWeight);
-      sigMVA[1][nSigBin]->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),   myWeight);
-      sigMVA[2][nSigBin]->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),            myWeight);
-      sigMVA[3][nSigBin]->Fill(TMath::Max(TMath::Min((double)knn,maxHis[3]-0.001),minHis[3]+0.001),    myWeight);
-      sigMVA[4][nSigBin]->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),   myWeight);
+      sigMVA[0][0]->Fill(TMath::Max(TMath::Min((double)bdt,maxHis[0]-0.001),minHis[0]+0.001),       myWeight);
+      sigMVA[1][0]->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),      myWeight);
+      sigMVA[2][0]->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),        myWeight);
+      sigMVA[3][0]->Fill(TMath::Max(TMath::Min((double)knn,maxHis[3]-0.001),minHis[3]+0.001),       myWeight);
+      sigMVA[4][0]->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),      myWeight);
+      sigMVA[0][nSigBin]->Fill(TMath::Max(TMath::Min((double)bdt,maxHis[0]-0.001),minHis[0]+0.001), myWeight);
+      sigMVA[1][nSigBin]->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),myWeight);
+      sigMVA[2][nSigBin]->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),  myWeight);
+      sigMVA[3][nSigBin]->Fill(TMath::Max(TMath::Min((double)knn,maxHis[3]-0.001),minHis[3]+0.001), myWeight);
+      sigMVA[4][nSigBin]->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);
       
       // WARNING, THIS IS ONLY GOOD FOR BDTG!
       if(useExpTemplates == true){
@@ -1378,11 +1423,8 @@ void PlotHiggsRes2012
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
-    //if( lid3 != 0                                                         ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
-
-    //if(dilep->mass()<60&&mt<140) continue;
 
     bool dPhiDiLepJetCut = kTRUE;
     if(useDYMVA == kFALSE){
@@ -1409,6 +1451,8 @@ void PlotHiggsRes2012
     if     (dstype == SmurfTree::wjets           ) fDecay = 5;
     else if(dstype == SmurfTree::ttbar           ) fDecay = 3;
     else if(dstype == SmurfTree::dymm            ) fDecay = 4;
+    else if(dstype == SmurfTree::dyee            ) fDecay = 4;
+    else if(dstype == SmurfTree::dytt            ) fDecay = 4;
     else if(dstype == SmurfTree::tw              ) fDecay = 3;
     else if(dstype == SmurfTree::qqww            ) fDecay = 0;
     else if(dstype == SmurfTree::wz              ) fDecay = 2;
@@ -1585,8 +1629,8 @@ void PlotHiggsRes2012
     						          fabs(lep2->eta()), lep2->pt(), 
     						          TMath::Abs( lid1), TMath::Abs(lid2));
 	if(category == 1) add = add*1.10; // HACK!!!
-        fDecay                 = 5;
-        myWeight               = -1.0 * scale1fb*scaleFactorLum*add;
+        fDecay                = 5;
+        myWeight              = -1.0 * scale1fb*scaleFactorLum*add;
 	// new category, W+jetsM
 	if((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2 ||
 	   (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2){
@@ -1838,12 +1882,12 @@ void PlotHiggsRes2012
       if      (((fDecay == 4 || fDecay == 8) && makeZjetsTemplates == false) ||
                ((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) && fDecay == 4 &&
                 (type   == SmurfTree::mm   || type   == SmurfTree::ee) && makeZjetsTemplates == true)){ // Z+jets
-	if     (useVar == 0) histo1->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
-	else if(useVar == 1) histo1->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
-	else if(useVar == 2) histo1->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),    myWeightMVA);
-	else if(useVar == 3) histo1->Fill(TMath::Max(TMath::Min((double)knn,maxHis[3]-0.001),minHis[3]+0.001),  myWeightMVA);
-	else if(useVar == 4) histo1->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
-	else if(useVar == 5) histo1->Fill(TMath::Max(TMath::Min((double)bdtg_wjets,maxHis[4]-0.001),minHis[4]+0.001),  myWeightMVA);
+	if     (useVar == 0) histo1->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),      myWeightMVA);
+	else if(useVar == 1) histo1->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),      myWeightMVA);
+	else if(useVar == 2) histo1->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),        myWeightMVA);
+	else if(useVar == 3) histo1->Fill(TMath::Max(TMath::Min((double)knn,maxHis[3]-0.001),minHis[3]+0.001),       myWeightMVA);
+	else if(useVar == 4) histo1->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),      myWeightMVA);
+	else if(useVar == 5) histo1->Fill(TMath::Max(TMath::Min((double)bdtg_wjets,maxHis[4]-0.001),minHis[4]+0.001),myWeightMVA);
       }
       //----------------------------------------------------------------------------
       // For Top Bkg
@@ -2061,7 +2105,6 @@ void PlotHiggsRes2012
   // Loop Over Background Systematics Sample
   //
   //****************************************************************************
-
   treeSyst->SetBranchAddress( "cuts"          , &cuts           );
   treeSyst->SetBranchAddress( "dstype"        , &dstype         );
   treeSyst->SetBranchAddress( "nvtx"          , &nvtx           );
@@ -2070,30 +2113,30 @@ void PlotHiggsRes2012
   treeSyst->SetBranchAddress( "run"           , &run            );
   treeSyst->SetBranchAddress( "event"         , &event          );
   treeSyst->SetBranchAddress( "scale1fb"      , &scale1fb	);
-  treeSyst->SetBranchAddress( "lep1"              , &lep1	);
-  treeSyst->SetBranchAddress( "lep2"              , &lep2	);
-  treeSyst->SetBranchAddress( "jet1"              , &jet1	);
-  treeSyst->SetBranchAddress( "jet2"              , &jet2	);
-  treeSyst->SetBranchAddress( "jet3"              , &jet3	);
-  treeSyst->SetBranchAddress( "dPhi"              , &dPhi	);
-  treeSyst->SetBranchAddress( "dR"              , &dR		);
-  treeSyst->SetBranchAddress( "dilep"              , &dilep  	);
-  treeSyst->SetBranchAddress( "type"              , &type	);
-  treeSyst->SetBranchAddress( "pmet"              , &pmet	);
+  treeSyst->SetBranchAddress( "lep1"          , &lep1	        );
+  treeSyst->SetBranchAddress( "lep2"          , &lep2	        );
+  treeSyst->SetBranchAddress( "jet1"          , &jet1	        );
+  treeSyst->SetBranchAddress( "jet2"          , &jet2	        );
+  treeSyst->SetBranchAddress( "jet3"          , &jet3	        );
+  treeSyst->SetBranchAddress( "dPhi"          , &dPhi	        );
+  treeSyst->SetBranchAddress( "dR"            , &dR		);
+  treeSyst->SetBranchAddress( "dilep"         , &dilep  	);
+  treeSyst->SetBranchAddress( "type"          , &type		);
+  treeSyst->SetBranchAddress( "pmet"          , &pmet		);
   treeSyst->SetBranchAddress( "pTrackMet"     , &pTrackMet	);
-  treeSyst->SetBranchAddress( "met"              , &met		);
-  treeSyst->SetBranchAddress( "mt"              , &mt		);
-  treeSyst->SetBranchAddress( "mt1"              , &mt1		);
-  treeSyst->SetBranchAddress( "mt2"              , &mt2		);
+  treeSyst->SetBranchAddress( "met"           , &met		);
+  treeSyst->SetBranchAddress( "mt"            , &mt		);
+  treeSyst->SetBranchAddress( "mt1"           , &mt1		);
+  treeSyst->SetBranchAddress( "mt2"           , &mt2		);
   treeSyst->SetBranchAddress( "dPhiLep1MET"   , &dPhiLep1MET	);
   treeSyst->SetBranchAddress( "dPhiLep2MET"   , &dPhiLep2MET	);
   treeSyst->SetBranchAddress( "dPhiDiLepMET"  , &dPhiDiLepMET	);
   treeSyst->SetBranchAddress( "dPhiDiLepJet1" , &dPhiDiLepJet1  );
-  treeSyst->SetBranchAddress( "lq1"              , &lq1		);
-  treeSyst->SetBranchAddress( "lq2"              , &lq2		);
-  treeSyst->SetBranchAddress( "lid1"              , &lid1	);
-  treeSyst->SetBranchAddress( "lid2"              , &lid2	);
-  treeSyst->SetBranchAddress( "lid3"              , &lid3	);
+  treeSyst->SetBranchAddress( "lq1"           , &lq1		);
+  treeSyst->SetBranchAddress( "lq2"           , &lq2		);
+  treeSyst->SetBranchAddress( "lid1"          , &lid1	        );
+  treeSyst->SetBranchAddress( "lid2"          , &lid2	        );
+  treeSyst->SetBranchAddress( "lid3"          , &lid3	        );
   treeSyst->SetBranchAddress( "processId"     , &processId	);
   treeSyst->SetBranchAddress( "jetLowBtag"    , &jetLowBtag	);
   treeSyst->SetBranchAddress( "nSoftMuons"    , &nSoftMuons	);
@@ -2225,8 +2268,6 @@ void PlotHiggsRes2012
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
-    //if(dilep->mass()<60&&mt<140) continue;
-
     bool dPhiDiLepJetCut = kTRUE;
     if(useDYMVA == kFALSE){
       if(njets <= 1) dPhiDiLepJetCut = jet1->pt() <= 15. || dPhiDiLepJet1*180.0/TMath::Pi() < 165.         || type == SmurfTree::em || type == SmurfTree::me;
@@ -2245,8 +2286,8 @@ void PlotHiggsRes2012
     // 3 : Top (ttbar, tW)
     // 4 : DY
     // 5 : W+Jets (fakes)
-    // 6 : W+gamma , W+gamma*
-    // 7 : DY->tautau
+    // 6 : W+gamma
+    // 7 : W+gamma*
     // 
     //----------------------------------------------------------------------------
     int fDecay = 0;
@@ -2407,7 +2448,7 @@ void PlotHiggsRes2012
       // This is not used at the moment. Eventually we want to do photon->electron
       // fake rates, but this is not implemented yet.
       //----------------------------------------------------------------------------
-      else if((dstype == SmurfTree::wgamma && useWgammaTemplates == true ) ||
+      else if((dstype == SmurfTree::wgamma && useWgammaTemplates  == true ) ||
               (dstype == SmurfTree::wjets  && useWJetsMCTemplates == true)){
     	addFR =       fakeRate(lep1->pt(), lep1->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2  && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection, 
     	                					          (cuts & SmurfTree::Lep1LooseEleV4) == SmurfTree::Lep1LooseEleV4 && (cuts & SmurfTree::Lep1FullSelection) != SmurfTree::Lep1FullSelection);
@@ -2428,7 +2469,7 @@ void PlotHiggsRes2012
 	else if(dstype == SmurfTree::wjets)  fDecay = 5;
 	else			             assert(0); 
 	if(category == 1) add = add*1.10; // HACK!!!
-        myWeight               = 1.0 * scale1fb*scaleFactorLum*add;
+        myWeight              = 1.0 * scale1fb*scaleFactorLum*add;
 	// new category, W+jetsM
 	if(dstype == SmurfTree::wjets &&
 	  ((cuts & SmurfTree::Lep1LooseMuV2)  == SmurfTree::Lep1LooseMuV2 ||
@@ -2508,6 +2549,7 @@ void PlotHiggsRes2012
         if(!(TMath::Abs(lep1McId) == 11 || TMath::Abs(lep1McId) == 13)) add = add * ratioPhotonElectron(fhDRatioPhotonElectron,TMath::Abs(lep1->eta()));
         if(!(TMath::Abs(lep2McId) == 11 || TMath::Abs(lep2McId) == 13)) add = add * ratioPhotonElectron(fhDRatioPhotonElectron,TMath::Abs(lep2->eta()));      
       }
+
       //----------------------------------------------------------------------------      
       // Apply DY Bkg Scale Factors
       //----------------------------------------------------------------------------
@@ -2544,7 +2586,7 @@ void PlotHiggsRes2012
       //----------------------------------------------------------------------------
       if((fDecay == 0 || fDecay == 1) && wwPresel == false){     
         if(njets == 0) add=add*WWBkgScaleFactorMVA(TMath::Min(TMath::Max((int)mH,115),200),0); 
-        else               add=add*WWBkgScaleFactorMVA(TMath::Min(TMath::Max((int)mH,115),200),1); 
+        else           add=add*WWBkgScaleFactorMVA(TMath::Min(TMath::Max((int)mH,115),200),1); 
 
 	if(njets >= 2) add=add*WWVBFScaleFactor();
       }
@@ -2690,9 +2732,9 @@ void PlotHiggsRes2012
   data->SetBranchAddress( "processId"    , &processId    );
   data->SetBranchAddress( "jetLowBtag"   , &jetLowBtag   );
   data->SetBranchAddress( "nSoftMuons"   , &nSoftMuons   );
-  data->SetBranchAddress( "jet1Btag"         , &jet1Btag         );
-  data->SetBranchAddress( "jet2Btag"         , &jet2Btag         );
-  data->SetBranchAddress( "jet3Btag"         , &jet3Btag         );
+  data->SetBranchAddress( "jet1Btag"     , &jet1Btag	 );
+  data->SetBranchAddress( "jet2Btag"     , &jet2Btag	 );
+  data->SetBranchAddress( "jet3Btag"     , &jet3Btag	 );
   if(is2DAna == false){
     data->SetBranchAddress(Form("bdtg_hww%i_%djet_ww"	,mHAna,nJetsType), &bdtg            );
   }
@@ -2791,7 +2833,6 @@ void PlotHiggsRes2012
     if(fabs(dilep->mass()-91.1876) <= 15 &&
       (type == SmurfTree::mm || 
        type == SmurfTree::ee)                                            ) continue; // cut on Z veto for ee/mm lepton-pair
-    //if( lid3 != 0                                                         ) continue; // cut on dileptons
     if( (cuts & SmurfTree::ExtraLeptonVeto) != SmurfTree::ExtraLeptonVeto) continue; // cut on dileptons
     if( (cuts & patternTopTag) == patternTopTag                          ) continue; // cut on btagging
 
@@ -3134,8 +3175,7 @@ void PlotHiggsRes2012
   //----------------------------------------------------------------------------
   TCanvas* c3 = new TCanvas("c3","c3",100,100,700,800);
   c3->SetGrid(1,1);
-  TH2D* zone4 = new TH2D("zone4","discriminant vs. significance; Output; Significance",
-		         1, -1, 1, 1, 1.e-3, 2);
+  TH2D* zone4 = new TH2D("zone4","discriminant vs. significance; Output; Significance", 1, -1, 1, 1, 1.e-3, 2);
 
   c3->SetLeftMargin(1.2*c3->GetLeftMargin());
   zone4->DrawCopy();
@@ -3187,7 +3227,7 @@ void PlotHiggsRes2012
   leg4->AddEntry(g4MLP       ,"NN"        ,"L");
   leg4->AddEntry(g4KNN       ,"KNN"       ,"L");
   leg4->AddEntry(g4BDTG      ,"BDTG"      ,"L");
-  leg4->AddEntry(g4MT             ,"MT"        ,"L");
+  leg4->AddEntry(g4MT        ,"MT"        ,"L");
   leg4->Draw("same");
   c4->SaveAs(c2Name);
 
@@ -3232,20 +3272,20 @@ void PlotHiggsRes2012
     cout << bgdMVADecays[useVar][7]->GetSumOfWeights() << " ";
     cout << bgdMVADecays[useVar][8]->GetSumOfWeights() << " ";
     cout << bgdMVADecays[useVar][9]->GetSumOfWeights() << endl;
-    TH1D* histo_ttH    = new TH1D("histo_ttH",	"histo_ttH",	nBinHis, minHis[1], maxHis[1]);
-    TH1D* histo_ZH     = new TH1D("histo_ZH",	"histo_ZH",	nBinHis, minHis[1], maxHis[1]);
-    TH1D* histo_WH     = new TH1D("histo_WH",	"histo_WH",	nBinHis, minHis[1], maxHis[1]);
-    TH1D* histo_qqH    = new TH1D("histo_qqH",	"histo_qqH",	nBinHis, minHis[1], maxHis[1]);
-    TH1D* histo_ggH    = new TH1D("histo_ggH",	"histo_ggH",	nBinHis, minHis[1], maxHis[1]);
-    TH1D* histo_Data   = new TH1D("histo_Data",	"histo_Data",	nBinHis, minHis[1], maxHis[1]);
-    TH1D* histo_qqWW   = new TH1D("histo_qqWW",	"histo_qqWW",	nBinHis, minHis[1], maxHis[1]);
-    TH1D* histo_ggWW   = new TH1D("histo_ggWW",	"histo_ggWW",	nBinHis, minHis[1], maxHis[1]);
-    TH1D* histo_VV     = new TH1D("histo_VV",	"histo_VV",	nBinHis, minHis[1], maxHis[1]);
-    TH1D* histo_Top    = new TH1D("histo_Top",	"histo_Top",	nBinHis, minHis[1], maxHis[1]);
-    TH1D* histo_Zjets  = new TH1D("histo_Zjets","histo_Zjets",  nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_ttH    = new TH1D("histo_ttH",	 "histo_ttH",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_ZH     = new TH1D("histo_ZH",	 "histo_ZH",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_WH     = new TH1D("histo_WH",	 "histo_WH",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_qqH    = new TH1D("histo_qqH",	 "histo_qqH",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_ggH    = new TH1D("histo_ggH",	 "histo_ggH",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_Data   = new TH1D("histo_Data",	 "histo_Data",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_qqWW   = new TH1D("histo_qqWW",	 "histo_qqWW",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_ggWW   = new TH1D("histo_ggWW",	 "histo_ggWW",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_VV     = new TH1D("histo_VV",	 "histo_VV",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_Top    = new TH1D("histo_Top",	 "histo_Top",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_Zjets  = new TH1D("histo_Zjets", "histo_Zjets", nBinHis, minHis[1], maxHis[1]);
     TH1D* histo_WjetsE = new TH1D("histo_WjetsE","histo_WjetsE",nBinHis, minHis[1], maxHis[1]);
-    TH1D* histo_Wg3l   = new TH1D("histo_Wg3l","histo_Wg3l",    nBinHis, minHis[1], maxHis[1]);
-    TH1D* histo_Ztt    = new TH1D("histo_Ztt"  ,"histo_Ztt",	nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_Wg3l   = new TH1D("histo_Wg3l",  "histo_Wg3l",  nBinHis, minHis[1], maxHis[1]);
+    TH1D* histo_Ztt    = new TH1D("histo_Ztt",   "histo_Ztt",	nBinHis, minHis[1], maxHis[1]);
     TH1D* histo_WjetsM = new TH1D("histo_WjetsM","histo_WjetsM",nBinHis, minHis[1], maxHis[1]);
 
     histo_ttH   ->Add(sigMVA[useVar][1]);
@@ -3457,32 +3497,32 @@ void PlotHiggsRes2012
     if(useStatTemplates == true){
       histo_ttH_CMS_MVAttHStatBounding_8TeVUp           ->Rebin(rebinMVAHist);
       histo_ttH_CMS_MVAttHStatBounding_8TeVDown         ->Rebin(rebinMVAHist);
-      histo_ZH_CMS_MVAZHStatBounding_8TeVUp           ->Rebin(rebinMVAHist);
+      histo_ZH_CMS_MVAZHStatBounding_8TeVUp             ->Rebin(rebinMVAHist);
       histo_ZH_CMS_MVAZHStatBounding_8TeVDown           ->Rebin(rebinMVAHist);
-      histo_WH_CMS_MVAWHStatBounding_8TeVUp           ->Rebin(rebinMVAHist);
+      histo_WH_CMS_MVAWHStatBounding_8TeVUp             ->Rebin(rebinMVAHist);
       histo_WH_CMS_MVAWHStatBounding_8TeVDown           ->Rebin(rebinMVAHist);
       histo_qqH_CMS_MVAqqHStatBounding_8TeVUp           ->Rebin(rebinMVAHist);
       histo_qqH_CMS_MVAqqHStatBounding_8TeVDown         ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_MVAggHStatBounding_8TeVUp      ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_MVAggHStatBounding_8TeVUp           ->Rebin(rebinMVAHist);
       histo_ggH_CMS_MVAggHStatBounding_8TeVDown         ->Rebin(rebinMVAHist);
-      histo_qqWW_CMS_MVAqqWWStatBounding_8TeVUp    ->Rebin(rebinMVAHist);
+      histo_qqWW_CMS_MVAqqWWStatBounding_8TeVUp         ->Rebin(rebinMVAHist);
       histo_qqWW_CMS_MVAqqWWStatBounding_8TeVDown       ->Rebin(rebinMVAHist);
-      histo_ggWW_CMS_MVAggWWStatBounding_8TeVUp    ->Rebin(rebinMVAHist);
+      histo_ggWW_CMS_MVAggWWStatBounding_8TeVUp         ->Rebin(rebinMVAHist);
       histo_ggWW_CMS_MVAggWWStatBounding_8TeVDown       ->Rebin(rebinMVAHist);
-      histo_VV_CMS_MVAVVStatBounding_8TeVUp           ->Rebin(rebinMVAHist);
+      histo_VV_CMS_MVAVVStatBounding_8TeVUp             ->Rebin(rebinMVAHist);
       histo_VV_CMS_MVAVVStatBounding_8TeVDown           ->Rebin(rebinMVAHist);
       histo_Top_CMS_MVATopStatBounding_8TeVUp           ->Rebin(rebinMVAHist);
       histo_Top_CMS_MVATopStatBounding_8TeVDown         ->Rebin(rebinMVAHist);
-      histo_Zjets_CMS_MVAZjetsStatBounding_8TeVUp  ->Rebin(rebinMVAHist);
+      histo_Zjets_CMS_MVAZjetsStatBounding_8TeVUp       ->Rebin(rebinMVAHist);
       histo_Zjets_CMS_MVAZjetsStatBounding_8TeVDown     ->Rebin(rebinMVAHist);
-      histo_WjetsE_CMS_MVAWjetsEStatBounding_8TeVUp  ->Rebin(rebinMVAHist);
-      histo_WjetsE_CMS_MVAWjetsEStatBounding_8TeVDown     ->Rebin(rebinMVAHist);
-      histo_WjetsM_CMS_MVAWjetsMStatBounding_8TeVUp  ->Rebin(rebinMVAHist);
-      histo_WjetsM_CMS_MVAWjetsMStatBounding_8TeVDown     ->Rebin(rebinMVAHist);
-      histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVUp->Rebin(rebinMVAHist);
+      histo_WjetsE_CMS_MVAWjetsEStatBounding_8TeVUp     ->Rebin(rebinMVAHist);
+      histo_WjetsE_CMS_MVAWjetsEStatBounding_8TeVDown   ->Rebin(rebinMVAHist);
+      histo_WjetsM_CMS_MVAWjetsMStatBounding_8TeVUp     ->Rebin(rebinMVAHist);
+      histo_WjetsM_CMS_MVAWjetsMStatBounding_8TeVDown   ->Rebin(rebinMVAHist);
+      histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVUp     ->Rebin(rebinMVAHist);
       histo_Wgamma_CMS_MVAWgammaStatBounding_8TeVDown   ->Rebin(rebinMVAHist);
-      histo_Wg3l_CMS_MVAWg3lStatBounding_8TeVUp           ->Rebin(rebinMVAHist);
-      histo_Wg3l_CMS_MVAWg3lStatBounding_8TeVDown         ->Rebin(rebinMVAHist);
+      histo_Wg3l_CMS_MVAWg3lStatBounding_8TeVUp         ->Rebin(rebinMVAHist);
+      histo_Wg3l_CMS_MVAWg3lStatBounding_8TeVDown       ->Rebin(rebinMVAHist);
       histo_Ztt_CMS_MVAZttStatBounding_8TeVUp           ->Rebin(rebinMVAHist);
       histo_Ztt_CMS_MVAZttStatBounding_8TeVDown         ->Rebin(rebinMVAHist);
       if(histo_ttH_CMS_MVAttHStatBounding_8TeVUp->GetNbinsX() != histo_ttH->GetNbinsX()) {printf("PROBLEMMMMM\n");return;}
@@ -3633,7 +3673,31 @@ void PlotHiggsRes2012
     }
 
     //----------------------------------------------------------------------------
-    // ggH Systematics Shapes : missing higher order corrections
+    // PDF Systematics Shapes
+    //----------------------------------------------------------------------------
+    if(usePDFTemplates == true){
+      TH1D* pdf_1d_qqWW_alternateUp   = Unroll2DTo1D(pdf_qqWW_alternateUp  ,"pdf_qqWW_alternateUp");
+      TH1D* pdf_1d_qqWW_alternateDown = Unroll2DTo1D(pdf_qqWW_alternateDown,"pdf_qqWW_alternateDown");
+      TH1D* pdf_1d_ggWW_alternateUp   = Unroll2DTo1D(pdf_ggWW_alternateUp  ,"pdf_ggWW_alternateUp");
+      TH1D* pdf_1d_ggWW_alternateDown = Unroll2DTo1D(pdf_ggWW_alternateDown,"pdf_ggWW_alternateDown");
+      for(int i=1; i<=histo_qqWW->GetNbinsX(); i++){
+        if(histo_qqWW_CMS_hww_PDFqqWWUp  ->GetBinContent(i) == 0) histo_qqWW_CMS_hww_PDFqqWWUp  ->SetBinContent(i,1.0);
+        if(histo_qqWW_CMS_hww_PDFqqWWDown->GetBinContent(i) == 0) histo_qqWW_CMS_hww_PDFqqWWDown->SetBinContent(i,1.0);
+        if(histo_ggWW_CMS_hww_PDFggWWUp  ->GetBinContent(i) == 0) histo_ggWW_CMS_hww_PDFggWWUp  ->SetBinContent(i,1.0);
+        if(histo_ggWW_CMS_hww_PDFggWWDown->GetBinContent(i) == 0) histo_ggWW_CMS_hww_PDFggWWDown->SetBinContent(i,1.0);
+	histo_qqWW_CMS_hww_PDFqqWWUp  ->SetBinContent(i,pdf_1d_qqWW_alternateUp  ->GetBinContent(i)*histo_qqWW->GetBinContent(i));
+	histo_qqWW_CMS_hww_PDFqqWWDown->SetBinContent(i,pdf_1d_qqWW_alternateDown->GetBinContent(i)*histo_qqWW->GetBinContent(i));
+	histo_ggWW_CMS_hww_PDFggWWUp  ->SetBinContent(i,pdf_1d_ggWW_alternateUp  ->GetBinContent(i)*histo_ggWW->GetBinContent(i));
+	histo_ggWW_CMS_hww_PDFggWWDown->SetBinContent(i,pdf_1d_ggWW_alternateDown->GetBinContent(i)*histo_ggWW->GetBinContent(i));
+      }
+      histo_qqWW_CMS_hww_PDFqqWWUp  ->Write();
+      histo_qqWW_CMS_hww_PDFqqWWDown->Write();
+      histo_ggWW_CMS_hww_PDFggWWUp  ->Write();
+      histo_ggWW_CMS_hww_PDFggWWDown->Write();
+    }
+
+    //----------------------------------------------------------------------------
+    // ggH Systematics Shapes : different generators
     //----------------------------------------------------------------------------
     if(useggHTemplates == true){
       if(fhDRatio_Powheg_JHU->GetNbinsX() != histo_ggH->GetNbinsX()) assert(0);
@@ -3662,135 +3726,134 @@ void PlotHiggsRes2012
     //----------------------------------------------------------------------------
     if(useExpTemplates == true){
       histo_ttH_CMS_hww_MVALepEffBoundingUp          ->Rebin(rebinMVAHist);
-      histo_ttH_CMS_hww_MVALepEffBoundingDown         ->Rebin(rebinMVAHist);
+      histo_ttH_CMS_hww_MVALepEffBoundingDown        ->Rebin(rebinMVAHist);
       histo_ZH_CMS_hww_MVALepEffBoundingUp           ->Rebin(rebinMVAHist);
       histo_ZH_CMS_hww_MVALepEffBoundingDown         ->Rebin(rebinMVAHist);
       histo_WH_CMS_hww_MVALepEffBoundingUp           ->Rebin(rebinMVAHist);
       histo_WH_CMS_hww_MVALepEffBoundingDown         ->Rebin(rebinMVAHist);
       histo_qqH_CMS_hww_MVALepEffBoundingUp          ->Rebin(rebinMVAHist);
-      histo_qqH_CMS_hww_MVALepEffBoundingDown         ->Rebin(rebinMVAHist);
+      histo_qqH_CMS_hww_MVALepEffBoundingDown        ->Rebin(rebinMVAHist);
       histo_ggH_CMS_hww_MVALepEffBoundingUp          ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_hww_MVALepEffBoundingDown         ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVALepEffBoundingDown        ->Rebin(rebinMVAHist);
       histo_qqWW_CMS_hww_MVALepEffBoundingUp         ->Rebin(rebinMVAHist);  if(mH <= 200) histo_qqWW_CMS_hww_MVALepEffBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepEffBoundingUp  ->GetSumOfWeights());
-      histo_qqWW_CMS_hww_MVALepEffBoundingDown         ->Rebin(rebinMVAHist);  if(mH <= 200) histo_qqWW_CMS_hww_MVALepEffBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepEffBoundingDown->GetSumOfWeights());
+      histo_qqWW_CMS_hww_MVALepEffBoundingDown       ->Rebin(rebinMVAHist);  if(mH <= 200) histo_qqWW_CMS_hww_MVALepEffBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepEffBoundingDown->GetSumOfWeights());
       histo_ggWW_CMS_hww_MVALepEffBoundingUp         ->Rebin(rebinMVAHist);  if(mH <= 200) histo_ggWW_CMS_hww_MVALepEffBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepEffBoundingUp  ->GetSumOfWeights());
-      histo_ggWW_CMS_hww_MVALepEffBoundingDown         ->Rebin(rebinMVAHist);  if(mH <= 200) histo_ggWW_CMS_hww_MVALepEffBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepEffBoundingDown->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVALepEffBoundingDown       ->Rebin(rebinMVAHist);  if(mH <= 200) histo_ggWW_CMS_hww_MVALepEffBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepEffBoundingDown->GetSumOfWeights());
       histo_VV_CMS_hww_MVALepEffBoundingUp           ->Rebin(rebinMVAHist);
       histo_VV_CMS_hww_MVALepEffBoundingDown         ->Rebin(rebinMVAHist);
-      histo_Wgamma_CMS_hww_MVALepEffBoundingUp         ->Rebin(rebinMVAHist);
-      histo_Wgamma_CMS_hww_MVALepEffBoundingDown         ->Rebin(rebinMVAHist);
-      histo_Wg3l_CMS_hww_MVALepEffBoundingUp          ->Rebin(rebinMVAHist);
-      histo_Wg3l_CMS_hww_MVALepEffBoundingDown         ->Rebin(rebinMVAHist);
+      histo_Wgamma_CMS_hww_MVALepEffBoundingUp       ->Rebin(rebinMVAHist);
+      histo_Wgamma_CMS_hww_MVALepEffBoundingDown     ->Rebin(rebinMVAHist);
+      histo_Wg3l_CMS_hww_MVALepEffBoundingUp         ->Rebin(rebinMVAHist);
+      histo_Wg3l_CMS_hww_MVALepEffBoundingDown       ->Rebin(rebinMVAHist);
       histo_Ztt_CMS_hww_MVALepEffBoundingUp          ->Rebin(rebinMVAHist);
-      histo_Ztt_CMS_hww_MVALepEffBoundingDown         ->Rebin(rebinMVAHist);
+      histo_Ztt_CMS_hww_MVALepEffBoundingDown        ->Rebin(rebinMVAHist);
       if(rebinSmurf > 1){
         histSmurfRebin = SmurfRebin(histo_Wgamma_CMS_hww_MVALepEffBoundingUp  ,rebinSmurf);histo_Wgamma_CMS_hww_MVALepEffBoundingUp  ->Scale(0.0);histo_Wgamma_CMS_hww_MVALepEffBoundingUp  ->Add(histSmurfRebin); 
         histSmurfRebin = SmurfRebin(histo_Wgamma_CMS_hww_MVALepEffBoundingDown,rebinSmurf);histo_Wgamma_CMS_hww_MVALepEffBoundingDown->Scale(0.0);histo_Wgamma_CMS_hww_MVALepEffBoundingDown->Add(histSmurfRebin);
       }
       histo_ttH_CMS_hww_MVALepEffBoundingUp          ->Write();
-      histo_ttH_CMS_hww_MVALepEffBoundingDown         ->Write();
+      histo_ttH_CMS_hww_MVALepEffBoundingDown        ->Write();
       histo_ZH_CMS_hww_MVALepEffBoundingUp           ->Write();
       histo_ZH_CMS_hww_MVALepEffBoundingDown         ->Write();
       histo_WH_CMS_hww_MVALepEffBoundingUp           ->Write();
       histo_WH_CMS_hww_MVALepEffBoundingDown         ->Write();
       histo_qqH_CMS_hww_MVALepEffBoundingUp          ->Write();
-      histo_qqH_CMS_hww_MVALepEffBoundingDown         ->Write();
+      histo_qqH_CMS_hww_MVALepEffBoundingDown        ->Write();
       histo_ggH_CMS_hww_MVALepEffBoundingUp          ->Write();
-      histo_ggH_CMS_hww_MVALepEffBoundingDown         ->Write();
+      histo_ggH_CMS_hww_MVALepEffBoundingDown        ->Write();
       histo_qqWW_CMS_hww_MVALepEffBoundingUp         ->Write();
-      histo_qqWW_CMS_hww_MVALepEffBoundingDown         ->Write();
+      histo_qqWW_CMS_hww_MVALepEffBoundingDown       ->Write();
       histo_ggWW_CMS_hww_MVALepEffBoundingUp         ->Write();
-      histo_ggWW_CMS_hww_MVALepEffBoundingDown         ->Write();
+      histo_ggWW_CMS_hww_MVALepEffBoundingDown       ->Write();
       histo_VV_CMS_hww_MVALepEffBoundingUp           ->Write();
       histo_VV_CMS_hww_MVALepEffBoundingDown         ->Write();
-      histo_Wgamma_CMS_hww_MVALepEffBoundingUp         ->Write();
-      histo_Wgamma_CMS_hww_MVALepEffBoundingDown ->Write();
-      histo_Wg3l_CMS_hww_MVALepEffBoundingUp          ->Write();
-      histo_Wg3l_CMS_hww_MVALepEffBoundingDown         ->Write();
+      histo_Wgamma_CMS_hww_MVALepEffBoundingUp       ->Write();
+      histo_Wgamma_CMS_hww_MVALepEffBoundingDown     ->Write();
+      histo_Wg3l_CMS_hww_MVALepEffBoundingUp         ->Write();
+      histo_Wg3l_CMS_hww_MVALepEffBoundingDown       ->Write();
       histo_Ztt_CMS_hww_MVALepEffBoundingUp          ->Write();
-      histo_Ztt_CMS_hww_MVALepEffBoundingDown         ->Write();
+      histo_Ztt_CMS_hww_MVALepEffBoundingDown        ->Write();
 
       histo_ttH_CMS_hww_MVALepResBoundingUp          ->Rebin(rebinMVAHist);
-      histo_ttH_CMS_hww_MVALepResBoundingDown         ->Rebin(rebinMVAHist);
+      histo_ttH_CMS_hww_MVALepResBoundingDown        ->Rebin(rebinMVAHist);
       histo_ZH_CMS_hww_MVALepResBoundingUp           ->Rebin(rebinMVAHist);
       histo_ZH_CMS_hww_MVALepResBoundingDown         ->Rebin(rebinMVAHist);
       histo_WH_CMS_hww_MVALepResBoundingUp           ->Rebin(rebinMVAHist);
       histo_WH_CMS_hww_MVALepResBoundingDown         ->Rebin(rebinMVAHist);
       histo_qqH_CMS_hww_MVALepResBoundingUp          ->Rebin(rebinMVAHist);
-      histo_qqH_CMS_hww_MVALepResBoundingDown         ->Rebin(rebinMVAHist);
+      histo_qqH_CMS_hww_MVALepResBoundingDown        ->Rebin(rebinMVAHist);
       histo_ggH_CMS_hww_MVALepResBoundingUp          ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_hww_MVALepResBoundingDown         ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVALepResBoundingDown        ->Rebin(rebinMVAHist);
       histo_qqWW_CMS_hww_MVALepResBoundingUp         ->Rebin(rebinMVAHist); if(mH <= 200) histo_qqWW_CMS_hww_MVALepResBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepResBoundingUp  ->GetSumOfWeights());
-      histo_qqWW_CMS_hww_MVALepResBoundingDown         ->Rebin(rebinMVAHist); if(mH <= 200) histo_qqWW_CMS_hww_MVALepResBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepResBoundingDown->GetSumOfWeights());
+      histo_qqWW_CMS_hww_MVALepResBoundingDown       ->Rebin(rebinMVAHist); if(mH <= 200) histo_qqWW_CMS_hww_MVALepResBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVALepResBoundingDown->GetSumOfWeights());
       histo_ggWW_CMS_hww_MVALepResBoundingUp         ->Rebin(rebinMVAHist); if(mH <= 200) histo_ggWW_CMS_hww_MVALepResBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepResBoundingUp  ->GetSumOfWeights());
-      histo_ggWW_CMS_hww_MVALepResBoundingDown         ->Rebin(rebinMVAHist); if(mH <= 200) histo_ggWW_CMS_hww_MVALepResBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepResBoundingDown->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVALepResBoundingDown       ->Rebin(rebinMVAHist); if(mH <= 200) histo_ggWW_CMS_hww_MVALepResBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVALepResBoundingDown->GetSumOfWeights());
       histo_VV_CMS_hww_MVALepResBoundingUp           ->Rebin(rebinMVAHist);
       histo_VV_CMS_hww_MVALepResBoundingDown         ->Rebin(rebinMVAHist);
       histo_Top_CMS_hww_MVALepResBoundingUp          ->Rebin(rebinMVAHist);  histo_Top_CMS_hww_MVALepResBoundingUp    ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVALepResBoundingUp  ->GetSumOfWeights());
-      histo_Top_CMS_hww_MVALepResBoundingDown         ->Rebin(rebinMVAHist);  histo_Top_CMS_hww_MVALepResBoundingDown  ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVALepResBoundingDown->GetSumOfWeights());
-      histo_Wgamma_CMS_hww_MVALepResBoundingUp         ->Rebin(rebinMVAHist);
-      histo_Wgamma_CMS_hww_MVALepResBoundingDown         ->Rebin(rebinMVAHist);
-      histo_Wg3l_CMS_hww_MVALepResBoundingUp          ->Rebin(rebinMVAHist);
-      histo_Wg3l_CMS_hww_MVALepResBoundingDown         ->Rebin(rebinMVAHist);
+      histo_Top_CMS_hww_MVALepResBoundingDown        ->Rebin(rebinMVAHist);  histo_Top_CMS_hww_MVALepResBoundingDown  ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVALepResBoundingDown->GetSumOfWeights());
+      histo_Wgamma_CMS_hww_MVALepResBoundingUp       ->Rebin(rebinMVAHist);
+      histo_Wgamma_CMS_hww_MVALepResBoundingDown     ->Rebin(rebinMVAHist);
+      histo_Wg3l_CMS_hww_MVALepResBoundingUp         ->Rebin(rebinMVAHist);
+      histo_Wg3l_CMS_hww_MVALepResBoundingDown       ->Rebin(rebinMVAHist);
       histo_Ztt_CMS_hww_MVALepResBoundingUp          ->Rebin(rebinMVAHist);
-      histo_Ztt_CMS_hww_MVALepResBoundingDown         ->Rebin(rebinMVAHist);
+      histo_Ztt_CMS_hww_MVALepResBoundingDown        ->Rebin(rebinMVAHist);
       if(rebinSmurf > 1){
         histSmurfRebin = SmurfRebin(histo_Wgamma_CMS_hww_MVALepResBoundingUp  ,rebinSmurf);histo_Wgamma_CMS_hww_MVALepResBoundingUp  ->Scale(0.0);histo_Wgamma_CMS_hww_MVALepResBoundingUp  ->Add(histSmurfRebin);
         histSmurfRebin = SmurfRebin(histo_Wgamma_CMS_hww_MVALepResBoundingDown,rebinSmurf);histo_Wgamma_CMS_hww_MVALepResBoundingDown->Scale(0.0);histo_Wgamma_CMS_hww_MVALepResBoundingDown->Add(histSmurfRebin);
       }
       histo_ttH_CMS_hww_MVALepResBoundingUp          ->Write();
-      histo_ttH_CMS_hww_MVALepResBoundingDown         ->Write();
+      histo_ttH_CMS_hww_MVALepResBoundingDown        ->Write();
       histo_ZH_CMS_hww_MVALepResBoundingUp           ->Write();
       histo_ZH_CMS_hww_MVALepResBoundingDown         ->Write();
       histo_WH_CMS_hww_MVALepResBoundingUp           ->Write();
       histo_WH_CMS_hww_MVALepResBoundingDown         ->Write();
       histo_qqH_CMS_hww_MVALepResBoundingUp          ->Write();
-      histo_qqH_CMS_hww_MVALepResBoundingDown         ->Write();
+      histo_qqH_CMS_hww_MVALepResBoundingDown        ->Write();
       histo_ggH_CMS_hww_MVALepResBoundingUp          ->Write();
-      histo_ggH_CMS_hww_MVALepResBoundingDown         ->Write();
+      histo_ggH_CMS_hww_MVALepResBoundingDown        ->Write();
       histo_qqWW_CMS_hww_MVALepResBoundingUp         ->Write();
-      histo_qqWW_CMS_hww_MVALepResBoundingDown         ->Write();
+      histo_qqWW_CMS_hww_MVALepResBoundingDown       ->Write();
       histo_ggWW_CMS_hww_MVALepResBoundingUp         ->Write();
-      histo_ggWW_CMS_hww_MVALepResBoundingDown         ->Write();
+      histo_ggWW_CMS_hww_MVALepResBoundingDown       ->Write();
       histo_VV_CMS_hww_MVALepResBoundingUp           ->Write();
       histo_VV_CMS_hww_MVALepResBoundingDown         ->Write();
       histo_Top_CMS_hww_MVALepResBoundingUp          ->Write();
-      histo_Top_CMS_hww_MVALepResBoundingDown         ->Write();
-      histo_Wgamma_CMS_hww_MVALepResBoundingUp         ->Write();
-      histo_Wgamma_CMS_hww_MVALepResBoundingDown ->Write();
-      histo_Wg3l_CMS_hww_MVALepResBoundingUp          ->Write();
-      histo_Wg3l_CMS_hww_MVALepResBoundingDown         ->Write();
+      histo_Top_CMS_hww_MVALepResBoundingDown        ->Write();
+      histo_Wgamma_CMS_hww_MVALepResBoundingUp       ->Write();
+      histo_Wgamma_CMS_hww_MVALepResBoundingDown     ->Write();
+      histo_Wg3l_CMS_hww_MVALepResBoundingUp         ->Write();
+      histo_Wg3l_CMS_hww_MVALepResBoundingDown       ->Write();
       histo_Ztt_CMS_hww_MVALepResBoundingUp          ->Write();
-      histo_Ztt_CMS_hww_MVALepResBoundingDown         ->Write();
+      histo_Ztt_CMS_hww_MVALepResBoundingDown        ->Write();
 
       histo_ttH_CMS_hww_MVAMETResBoundingUp          ->Rebin(rebinMVAHist);
-      histo_ttH_CMS_hww_MVAMETResBoundingDown         ->Rebin(rebinMVAHist);
+      histo_ttH_CMS_hww_MVAMETResBoundingDown        ->Rebin(rebinMVAHist);
       histo_ZH_CMS_hww_MVAMETResBoundingUp           ->Rebin(rebinMVAHist);
       histo_ZH_CMS_hww_MVAMETResBoundingDown         ->Rebin(rebinMVAHist);
       histo_WH_CMS_hww_MVAMETResBoundingUp           ->Rebin(rebinMVAHist);
       histo_WH_CMS_hww_MVAMETResBoundingDown         ->Rebin(rebinMVAHist);
       histo_qqH_CMS_hww_MVAMETResBoundingUp          ->Rebin(rebinMVAHist);
-      histo_qqH_CMS_hww_MVAMETResBoundingDown         ->Rebin(rebinMVAHist);
+      histo_qqH_CMS_hww_MVAMETResBoundingDown        ->Rebin(rebinMVAHist);
       histo_ggH_CMS_hww_MVAMETResBoundingUp          ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_hww_MVAMETResBoundingDown         ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVAMETResBoundingDown        ->Rebin(rebinMVAHist);
       histo_qqWW_CMS_hww_MVAMETResBoundingUp         ->Rebin(rebinMVAHist); 
-      histo_qqWW_CMS_hww_MVAMETResBoundingDown         ->Rebin(rebinMVAHist); 
+      histo_qqWW_CMS_hww_MVAMETResBoundingDown       ->Rebin(rebinMVAHist); 
       histo_ggWW_CMS_hww_MVAMETResBoundingUp         ->Rebin(rebinMVAHist); 
-      histo_ggWW_CMS_hww_MVAMETResBoundingDown         ->Rebin(rebinMVAHist); 
+      histo_ggWW_CMS_hww_MVAMETResBoundingDown       ->Rebin(rebinMVAHist); 
       histo_VV_CMS_hww_MVAMETResBoundingUp           ->Rebin(rebinMVAHist);
       histo_VV_CMS_hww_MVAMETResBoundingDown         ->Rebin(rebinMVAHist);
       histo_Top_CMS_hww_MVAMETResBoundingUp          ->Rebin(rebinMVAHist); 
-      histo_Top_CMS_hww_MVAMETResBoundingDown         ->Rebin(rebinMVAHist); 
-      histo_Wgamma_CMS_hww_MVAMETResBoundingUp         ->Rebin(rebinMVAHist);
-      histo_Wgamma_CMS_hww_MVAMETResBoundingDown         ->Rebin(rebinMVAHist);
-      histo_Wg3l_CMS_hww_MVAMETResBoundingUp          ->Rebin(rebinMVAHist);
-      histo_Wg3l_CMS_hww_MVAMETResBoundingDown         ->Rebin(rebinMVAHist);
+      histo_Top_CMS_hww_MVAMETResBoundingDown        ->Rebin(rebinMVAHist); 
+      histo_Wgamma_CMS_hww_MVAMETResBoundingUp       ->Rebin(rebinMVAHist);
+      histo_Wgamma_CMS_hww_MVAMETResBoundingDown     ->Rebin(rebinMVAHist);
+      histo_Wg3l_CMS_hww_MVAMETResBoundingUp         ->Rebin(rebinMVAHist);
+      histo_Wg3l_CMS_hww_MVAMETResBoundingDown       ->Rebin(rebinMVAHist);
       histo_Ztt_CMS_hww_MVAMETResBoundingUp          ->Rebin(rebinMVAHist);
-      histo_Ztt_CMS_hww_MVAMETResBoundingDown         ->Rebin(rebinMVAHist);
+      histo_Ztt_CMS_hww_MVAMETResBoundingDown        ->Rebin(rebinMVAHist);
       if(histo_qqWW_CMS_hww_MVAMETResBoundingUp->GetNbinsX() != histo_qqWW->GetNbinsX()) {printf("Different binning in METRes!\n"); return;}
       double mean,up,diff;
       for(int i=1; i<=histo_ttH_CMS_hww_MVAMETResBoundingUp->GetNbinsX(); i++){
-      
         mean = histo_ttH                        ->GetBinContent(i);
         up   = histo_ttH_CMS_hww_MVAMETResBoundingUp->GetBinContent(i);
         diff = TMath::Abs(mean-up);
@@ -3875,30 +3938,30 @@ void PlotHiggsRes2012
         histSmurfRebin = SmurfRebin(histo_Wgamma_CMS_hww_MVAMETResBoundingUp  ,rebinSmurf);histo_Wgamma_CMS_hww_MVAMETResBoundingUp  ->Scale(0.0);histo_Wgamma_CMS_hww_MVAMETResBoundingUp  ->Add(histSmurfRebin);
         histSmurfRebin = SmurfRebin(histo_Wgamma_CMS_hww_MVAMETResBoundingDown,rebinSmurf);histo_Wgamma_CMS_hww_MVAMETResBoundingDown->Scale(0.0);histo_Wgamma_CMS_hww_MVAMETResBoundingDown->Add(histSmurfRebin);
       }
-      histo_ttH_CMS_hww_MVAMETResBoundingUp          ->Write();
-      histo_ttH_CMS_hww_MVAMETResBoundingDown         ->Write();
-      histo_ZH_CMS_hww_MVAMETResBoundingUp           ->Write();
-      histo_ZH_CMS_hww_MVAMETResBoundingDown         ->Write();
-      histo_WH_CMS_hww_MVAMETResBoundingUp           ->Write();
-      histo_WH_CMS_hww_MVAMETResBoundingDown         ->Write();
-      histo_qqH_CMS_hww_MVAMETResBoundingUp          ->Write();
-      histo_qqH_CMS_hww_MVAMETResBoundingDown         ->Write();
-      histo_ggH_CMS_hww_MVAMETResBoundingUp          ->Write();
-      histo_ggH_CMS_hww_MVAMETResBoundingDown         ->Write();
-      histo_qqWW_CMS_hww_MVAMETResBoundingUp         ->Write();
-      histo_qqWW_CMS_hww_MVAMETResBoundingDown         ->Write();
-      histo_ggWW_CMS_hww_MVAMETResBoundingUp         ->Write();
-      histo_ggWW_CMS_hww_MVAMETResBoundingDown         ->Write();
-      histo_VV_CMS_hww_MVAMETResBoundingUp           ->Write();
-      histo_VV_CMS_hww_MVAMETResBoundingDown         ->Write();
-      histo_Top_CMS_hww_MVAMETResBoundingUp          ->Write();
-      histo_Top_CMS_hww_MVAMETResBoundingDown         ->Write();
-      histo_Wgamma_CMS_hww_MVAMETResBoundingUp         ->Write();
-      histo_Wgamma_CMS_hww_MVAMETResBoundingDown ->Write();
-      histo_Wg3l_CMS_hww_MVAMETResBoundingUp          ->Write();
-      histo_Wg3l_CMS_hww_MVAMETResBoundingDown         ->Write();
-      histo_Ztt_CMS_hww_MVAMETResBoundingUp          ->Write();
-      histo_Ztt_CMS_hww_MVAMETResBoundingDown         ->Write();
+      histo_ttH_CMS_hww_MVAMETResBoundingUp       ->Write();
+      histo_ttH_CMS_hww_MVAMETResBoundingDown     ->Write();
+      histo_ZH_CMS_hww_MVAMETResBoundingUp        ->Write();
+      histo_ZH_CMS_hww_MVAMETResBoundingDown      ->Write();
+      histo_WH_CMS_hww_MVAMETResBoundingUp        ->Write();
+      histo_WH_CMS_hww_MVAMETResBoundingDown      ->Write();
+      histo_qqH_CMS_hww_MVAMETResBoundingUp       ->Write();
+      histo_qqH_CMS_hww_MVAMETResBoundingDown     ->Write();
+      histo_ggH_CMS_hww_MVAMETResBoundingUp       ->Write();
+      histo_ggH_CMS_hww_MVAMETResBoundingDown     ->Write();
+      histo_qqWW_CMS_hww_MVAMETResBoundingUp      ->Write();
+      histo_qqWW_CMS_hww_MVAMETResBoundingDown    ->Write();
+      histo_ggWW_CMS_hww_MVAMETResBoundingUp      ->Write();
+      histo_ggWW_CMS_hww_MVAMETResBoundingDown    ->Write();
+      histo_VV_CMS_hww_MVAMETResBoundingUp        ->Write();
+      histo_VV_CMS_hww_MVAMETResBoundingDown      ->Write();
+      histo_Top_CMS_hww_MVAMETResBoundingUp       ->Write();
+      histo_Top_CMS_hww_MVAMETResBoundingDown     ->Write();
+      histo_Wgamma_CMS_hww_MVAMETResBoundingUp    ->Write();
+      histo_Wgamma_CMS_hww_MVAMETResBoundingDown  ->Write();
+      histo_Wg3l_CMS_hww_MVAMETResBoundingUp      ->Write();
+      histo_Wg3l_CMS_hww_MVAMETResBoundingDown    ->Write();
+      histo_Ztt_CMS_hww_MVAMETResBoundingUp       ->Write();
+      histo_Ztt_CMS_hww_MVAMETResBoundingDown     ->Write();
     }
 
     //----------------------------------------------------------------------------
@@ -3907,29 +3970,29 @@ void PlotHiggsRes2012
     //----------------------------------------------------------------------------
     if(useJESTemplates == true){
       histo_ttH_CMS_hww_MVAJESBoundingUp          ->Rebin(rebinMVAHist);
-      histo_ttH_CMS_hww_MVAJESBoundingDown         ->Rebin(rebinMVAHist);
+      histo_ttH_CMS_hww_MVAJESBoundingDown        ->Rebin(rebinMVAHist);
       histo_ZH_CMS_hww_MVAJESBoundingUp           ->Rebin(rebinMVAHist);
       histo_ZH_CMS_hww_MVAJESBoundingDown         ->Rebin(rebinMVAHist);
       histo_WH_CMS_hww_MVAJESBoundingUp           ->Rebin(rebinMVAHist);
       histo_WH_CMS_hww_MVAJESBoundingDown         ->Rebin(rebinMVAHist);
       histo_qqH_CMS_hww_MVAJESBoundingUp          ->Rebin(rebinMVAHist);
-      histo_qqH_CMS_hww_MVAJESBoundingDown         ->Rebin(rebinMVAHist);
+      histo_qqH_CMS_hww_MVAJESBoundingDown        ->Rebin(rebinMVAHist);
       histo_ggH_CMS_hww_MVAJESBoundingUp          ->Rebin(rebinMVAHist);
-      histo_ggH_CMS_hww_MVAJESBoundingDown         ->Rebin(rebinMVAHist);
+      histo_ggH_CMS_hww_MVAJESBoundingDown        ->Rebin(rebinMVAHist);
       histo_qqWW_CMS_hww_MVAJESBoundingUp         ->Rebin(rebinMVAHist); if(mH <= 200) histo_qqWW_CMS_hww_MVAJESBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights());
-      histo_qqWW_CMS_hww_MVAJESBoundingDown         ->Rebin(rebinMVAHist); if(mH <= 200) histo_qqWW_CMS_hww_MVAJESBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAJESBoundingDown->GetSumOfWeights());
+      histo_qqWW_CMS_hww_MVAJESBoundingDown       ->Rebin(rebinMVAHist); if(mH <= 200) histo_qqWW_CMS_hww_MVAJESBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/ histo_qqWW_CMS_hww_MVAJESBoundingDown->GetSumOfWeights());
       histo_ggWW_CMS_hww_MVAJESBoundingUp         ->Rebin(rebinMVAHist); if(mH <= 200) histo_ggWW_CMS_hww_MVAJESBoundingUp  ->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights());
-      histo_ggWW_CMS_hww_MVAJESBoundingDown         ->Rebin(rebinMVAHist); if(mH <= 200) histo_ggWW_CMS_hww_MVAJESBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAJESBoundingDown->GetSumOfWeights());
+      histo_ggWW_CMS_hww_MVAJESBoundingDown       ->Rebin(rebinMVAHist); if(mH <= 200) histo_ggWW_CMS_hww_MVAJESBoundingDown->Scale(histo_ggWW->GetSumOfWeights()/ histo_ggWW_CMS_hww_MVAJESBoundingDown->GetSumOfWeights());
       histo_VV_CMS_hww_MVAJESBoundingUp           ->Rebin(rebinMVAHist);
       histo_VV_CMS_hww_MVAJESBoundingDown         ->Rebin(rebinMVAHist);
       histo_Top_CMS_hww_MVAJESBoundingUp          ->Rebin(rebinMVAHist); histo_Top_CMS_hww_MVAJESBoundingUp    ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights());
-      histo_Top_CMS_hww_MVAJESBoundingDown         ->Rebin(rebinMVAHist); histo_Top_CMS_hww_MVAJESBoundingDown  ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVAJESBoundingDown->GetSumOfWeights());
-      histo_Wgamma_CMS_hww_MVAJESBoundingUp         ->Rebin(rebinMVAHist);
-      histo_Wgamma_CMS_hww_MVAJESBoundingDown->Rebin(rebinMVAHist);
-      histo_Wg3l_CMS_hww_MVAJESBoundingUp          ->Rebin(rebinMVAHist);
-      histo_Wg3l_CMS_hww_MVAJESBoundingDown         ->Rebin(rebinMVAHist);
+      histo_Top_CMS_hww_MVAJESBoundingDown        ->Rebin(rebinMVAHist); histo_Top_CMS_hww_MVAJESBoundingDown  ->Scale(histo_Top->GetSumOfWeights()/ histo_Top_CMS_hww_MVAJESBoundingDown->GetSumOfWeights());
+      histo_Wgamma_CMS_hww_MVAJESBoundingUp       ->Rebin(rebinMVAHist);
+      histo_Wgamma_CMS_hww_MVAJESBoundingDown     ->Rebin(rebinMVAHist);
+      histo_Wg3l_CMS_hww_MVAJESBoundingUp         ->Rebin(rebinMVAHist);
+      histo_Wg3l_CMS_hww_MVAJESBoundingDown       ->Rebin(rebinMVAHist);
       histo_Ztt_CMS_hww_MVAJESBoundingUp          ->Rebin(rebinMVAHist);
-      histo_Ztt_CMS_hww_MVAJESBoundingDown         ->Rebin(rebinMVAHist);
+      histo_Ztt_CMS_hww_MVAJESBoundingDown        ->Rebin(rebinMVAHist);
       if(histo_ttH_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_ttH_CMS_hww_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
       if(histo_ttH_CMS_hww_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_ttH_CMS_hww_MVAJESBoundingDown->SetBinContent(1,0.000001);}
       if(rebinSmurf > 1){
@@ -3937,7 +4000,7 @@ void PlotHiggsRes2012
         histSmurfRebin = SmurfRebin(histo_Wgamma_CMS_hww_MVAJESBoundingDown,rebinSmurf);histo_Wgamma_CMS_hww_MVAJESBoundingDown->Scale(0.0);histo_Wgamma_CMS_hww_MVAJESBoundingDown->Add(histSmurfRebin);
       }
       histo_ttH_CMS_hww_MVAJESBoundingUp          ->Write();
-      histo_ttH_CMS_hww_MVAJESBoundingDown         ->Write();
+      histo_ttH_CMS_hww_MVAJESBoundingDown        ->Write();
       if(histo_ZH_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_ZH_CMS_hww_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
       if(histo_ZH_CMS_hww_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_ZH_CMS_hww_MVAJESBoundingDown->SetBinContent(1,0.000001);}
       histo_ZH_CMS_hww_MVAJESBoundingUp           ->Write();
@@ -3947,25 +4010,25 @@ void PlotHiggsRes2012
       histo_WH_CMS_hww_MVAJESBoundingUp           ->Write();
       histo_WH_CMS_hww_MVAJESBoundingDown         ->Write();
       histo_qqH_CMS_hww_MVAJESBoundingUp          ->Write();
-      histo_qqH_CMS_hww_MVAJESBoundingDown         ->Write();
+      histo_qqH_CMS_hww_MVAJESBoundingDown        ->Write();
       histo_ggH_CMS_hww_MVAJESBoundingUp          ->Write();
-      histo_ggH_CMS_hww_MVAJESBoundingDown         ->Write();
+      histo_ggH_CMS_hww_MVAJESBoundingDown        ->Write();
       histo_qqWW_CMS_hww_MVAJESBoundingUp         ->Write();
-      histo_qqWW_CMS_hww_MVAJESBoundingDown         ->Write();
+      histo_qqWW_CMS_hww_MVAJESBoundingDown       ->Write();
       histo_ggWW_CMS_hww_MVAJESBoundingUp         ->Write();
-      histo_ggWW_CMS_hww_MVAJESBoundingDown         ->Write();
+      histo_ggWW_CMS_hww_MVAJESBoundingDown       ->Write();
       histo_VV_CMS_hww_MVAJESBoundingUp           ->Write();
       histo_VV_CMS_hww_MVAJESBoundingDown         ->Write();
       histo_Top_CMS_hww_MVAJESBoundingUp          ->Write();
-      histo_Top_CMS_hww_MVAJESBoundingDown         ->Write();
+      histo_Top_CMS_hww_MVAJESBoundingDown        ->Write();
       if(histo_Wgamma_CMS_hww_MVAJESBoundingUp  ->GetSumOfWeights() == 0) {histo_Wgamma_CMS_hww_MVAJESBoundingUp  ->SetBinContent(1,0.000001);}
       if(histo_Wgamma_CMS_hww_MVAJESBoundingDown->GetSumOfWeights() == 0) {histo_Wgamma_CMS_hww_MVAJESBoundingDown->SetBinContent(1,0.000001);}
-      histo_Wgamma_CMS_hww_MVAJESBoundingUp         ->Write();
-      histo_Wgamma_CMS_hww_MVAJESBoundingDown->Write();
-      histo_Wg3l_CMS_hww_MVAJESBoundingUp          ->Write();
-      histo_Wg3l_CMS_hww_MVAJESBoundingDown         ->Write();
+      histo_Wgamma_CMS_hww_MVAJESBoundingUp       ->Write();
+      histo_Wgamma_CMS_hww_MVAJESBoundingDown     ->Write();
+      histo_Wg3l_CMS_hww_MVAJESBoundingUp         ->Write();
+      histo_Wg3l_CMS_hww_MVAJESBoundingDown       ->Write();
       histo_Ztt_CMS_hww_MVAJESBoundingUp          ->Write();
-      histo_Ztt_CMS_hww_MVAJESBoundingDown         ->Write();
+      histo_Ztt_CMS_hww_MVAJESBoundingDown        ->Write();
     }
     outFileLimits->Close();
 
@@ -3977,8 +4040,8 @@ void PlotHiggsRes2012
     //double theoryUncXS_HighMH = 1.0;
     //if(mH > 200) theoryUncXS_HighMH = 1.0+1.5*(mH/1000.0)*(mH/1000.0)*(mH/1000.0);
     double wwXS_E_jet_extrap = 1.060;
-    double jeteff_E              = 1.02;
-    double topXS_E               = TopBkgScaleFactorKappa(nJetsType); if(nJetsType==2) topXS_E = TopVBFBkgScaleFactorKappa(0);
+    double jeteff_E          = 1.02;
+    double topXS_E           = TopBkgScaleFactorKappa(nJetsType); if(nJetsType==2) topXS_E = TopVBFBkgScaleFactorKappa(0);
     double wwXS_E_MVA        = WWBkgScaleFactorKappaMVA     (TMath::Min(TMath::Max((int)mH,115),200),TMath::Min((int)nJetsType,1));
     double wwXS_E_Cut        = WWBkgScaleFactorKappaCutBased(TMath::Min(TMath::Max((int)mH,115),200),TMath::Min((int)nJetsType,1)); if(mH > 200) wwXS_E_Cut = 1.000;
     char theWWThStringMVA[20]; sprintf(theWWThStringMVA,"CMS_hww_%1dj_WW_8TeV",nJetsType);
@@ -4032,7 +4095,8 @@ void PlotHiggsRes2012
     double yieldE[15],yield[15];
     int nData;
     int nTotalBins = 1;//histo_qqH->GetNbinsX();
-    if(nTotalBins != 1) {useExpTemplates = false; useJESTemplates = false; useWJetsTemplates = false; useZjetsTemplates = false; useTopTemplates = false; useWWTemplates = false; useStatTemplates = false;}
+    if(nTotalBins != 1) {useExpTemplates = false; useJESTemplates = false; useWJetsTemplates = false; useZjetsTemplates = false; 
+                         useTopTemplates = false; useWWTemplates  = false; useStatTemplates  = false; usePDFTemplates   = false;}
 
     //----------------------------------------------------------------------------
     // Yields for MVA Shape Analysis
@@ -4205,8 +4269,16 @@ void PlotHiggsRes2012
       }
       newcardShape << Form("UEPS 	                     lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -     -     -\n",UEPS);
       newcardShape << Form("interf_ggH                       lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -     -     -\n",interf_ggH);
+      if(usePDFTemplates == true){
+      newcardShape << Form("pdf_gg	                     lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -     -     -\n",pdf_ggH);
+      newcardShape << Form("pdf_qqbar                        lnN %5.3f %5.3f %5.3f   -     -     -   1.040   -     -     -   1.040 1.040   -     -\n",XS_PDF_VH,XS_PDF_VH,XS_PDF_VH);
+      newcardShape << Form("CMS_hww_PDFggWW                  lnN   -	-     -     -	   -    1.0    -     -	   -	 -     -     -	   -	-\n");
+      newcardShape << Form("CMS_hww_PDFqqWW                  lnN   -	-     -     -	  1.0	 -     -     -	   -	 -     -     -	   -	-\n");
+      }
+      else {
       newcardShape << Form("pdf_gg	                     lnN   -     -     -   %5.3f   -   1.040   -     -     -     -     -     -     -     -\n",pdf_ggH);
-      newcardShape << Form("pdf_qqbar                        lnN %5.3f %5.3f %5.3f   -   1.040   -   1.040   -     -     -   1.040 1.040     -     -\n",XS_PDF_VH,XS_PDF_VH,XS_PDF_VH);
+      newcardShape << Form("pdf_qqbar                        lnN %5.3f %5.3f %5.3f   -   1.040   -   1.040   -     -     -   1.040 1.040   -     -\n",XS_PDF_VH,XS_PDF_VH,XS_PDF_VH);
+      }
       newcardShape << Form("QCDscale_ggH                     lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -     -     -\n",XS_QCDscale_ggH[0]);  
       newcardShape << Form("QCDscale_ggH1in                     lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -     -     -\n",XS_QCDscale_ggH[1]);  
       newcardShape << Form("QCDscale_ggH2in                     lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -     -     -\n",XS_QCDscale_ggH[2]);  
@@ -4217,7 +4289,7 @@ void PlotHiggsRes2012
       newcardShape << Form("QCDscale_WW2in	             lnN   -         -     -     -         %5.3f         -     -     -           -         -     -     -     -     -\n",XS_QCDscale_WW[2]);  
       newcardShape << Form("QCDscale_VV                        lnN   -     -     -     -     -     -   1.040   -     -     -     -     -     -     -\n");
       newcardShape << Form("QCDscale_Vgamma                  lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -     -     -\n",1.30);
-      newcardShape << Form("QCDscale_ggVV                     lnN   -     -     -     -     -   1.300   -     -     -     -     -     -     -     -\n");
+      newcardShape << Form("QCDscale_ggVV                    lnN   -     -     -     -     -   1.300   -     -     -     -     -     -     -     -\n");
       newcardShape << Form("QCDscale_WW_EXTRAP               lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -     -     -\n",wwXS_E_jet_extrap);
       newcardShape << Form("QCDscale_ggH_ACCEPT              lnN   -     -     -   1.020   -     -     -     -     -     -     -     -     -     -\n");
       newcardShape << Form("QCDscale_qqH_ACCEPT              lnN   -     -   1.020   -     -     -     -     -     -     -     -     -     -     -\n");
@@ -4360,7 +4432,6 @@ void PlotHiggsRes2012
       newcardCut << Form("gamma_Hgluglu              lnN   -         -     -   %5.3f   -         -     -     -     -         -     -     -   -     -\n",gamma_Hgluglu);
     }
     newcardCut.close();
-
   }
 
 }
@@ -4391,16 +4462,12 @@ TGraphErrors* makeSignificanceCurve(TH1D* sig, TH1D* bgd, TH1D* dat, const char*
     xs[n] = sig->GetBinCenter(bin);
 
     if(verboseLevel == 1){
-      if (b > 0.01 && s > 0.01) printf("%15s Bin-> Sig= %8.3f - S= %8.3f - B= %8.3f - S/B= %8.3f - Bin= %8.3f | D = %d\n",
-                        name,
-                        ys[n],s,
-                        b,s/b,xs[n],
-			d);
+      if (b > 0.01 && s > 0.01) printf("%15s Bin-> Sig= %8.3f - S= %8.3f - B= %8.3f - S/B= %8.3f - Bin= %8.3f | D = %d\n",name, ys[n],s,b,s/b,xs[n],d);
     }
 
     dxs[n] = 1.e-6;
     dys[n] = 1.e-6;
-           
+
     if (ys[n] > theValue[0]) {
       theValue[0] = ys[n];
       theValue[1] = s;
@@ -4411,10 +4478,7 @@ TGraphErrors* makeSignificanceCurve(TH1D* sig, TH1D* bgd, TH1D* dat, const char*
   }
 
   if(theValue[2] <= 0) theValue[2] = 1000000.;
-  printf("%15s -> Sig= %8.3f - S= %8.3f - B= %8.3f - S/B= %8.3f - Bin= %8.3f\n",
-       name,
-       theValue[0],theValue[1],
-       theValue[2],theValue[1]/theValue[2],theValue[3]);
+  printf("%15s -> Sig= %8.3f - S= %8.3f - B= %8.3f - S/B= %8.3f - Bin= %8.3f\n",name,theValue[0],theValue[1],theValue[2],theValue[1]/theValue[2],theValue[3]);
   TGraphErrors* g = new TGraphErrors(n, xs, ys, dxs, dys);
   g->SetName(name);
   return g;
