@@ -274,8 +274,8 @@ TString suffix       = "ww"
     }
     else if(period == 3){ //  Full2012-Summer12-V9-16600ipb
       effPath  = "/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
-      fakePath = "/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
-      puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_17p6ifb.root";
+      fakePath = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes.root";
+      puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_18p8ifb.root";
     }
     else {
       printf("Wrong period(%d)\n",period);
