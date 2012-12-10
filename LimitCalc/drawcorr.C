@@ -1,3 +1,8 @@
+//
+// This scripts looks up the correlation histograms returned by combine
+// and output the large correlation sources > 20%
+// 
+
 #include "TFile.h"
 #include "TTree.h"
 #include "TLeaf.h"
@@ -18,16 +23,16 @@
 #include "THStack.h"
 
 
-void drawcorr(){
+void drawcorr(TString fileName = "mlfit.root", TString fitName="fit_s", double threshold = 0.2){
 
   gROOT->ProcessLine(".L ~/tdrstyle.C");
   gROOT->ProcessLine("setTDRStyle();");
   gROOT->ForceStyle();
   
   
-  TFile* file = new TFile("mlfit_18fb.root", "READ");
+  TFile* file = new TFile(fileName, "READ");
   TH2F *corr; 
-  RooFitResult *fit = (RooFitResult*)file->Get("fit_s");
+  RooFitResult *fit = (RooFitResult*)file->Get(fitName);
   corr = (TH2F*) fit->correlationHist();
   int nBinsX = corr->GetXaxis()->GetNbins();
   int nBinsY = corr->GetYaxis()->GetNbins();
@@ -40,7 +45,7 @@ void drawcorr(){
       
       if ( ( binx + biny) == (nBinsX+1) ) continue;
 
-      if ( TMath::Abs(bincontent) > 0.2 ) {
+      if ( TMath::Abs(bincontent) > threshold ) {
 	std::cout << Form("Correlation between %s and %s [%i][%i] is %.4f\n", 
 			  corr->GetXaxis()->GetBinLabel(binx), 
 			  corr->GetYaxis()->GetBinLabel(biny), binx, biny, bincontent); 
