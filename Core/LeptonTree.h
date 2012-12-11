@@ -76,6 +76,7 @@ class LeptonTree {
         float          rhoIsoAllCentral_;
         float          rhoIsoNeutral_;
         float          tagAndProbeMass_;
+        Bool_t   tagAndProbeIsRandom_;
         LorentzVector  tag_;
         LorentzVector  probe_;
         int   qTag_;
@@ -89,11 +90,15 @@ class LeptonTree {
         float          trackMet_;
         float          trackMetPhi_;
         unsigned int   njets_;
+        unsigned int   nleps_;
         float          hltPrescale_;
         float          sumet_;
         float          metSig_;
         float          mt_;
         float          dPhiProbeJet1_;
+        float          chargedEmFracJet1_;
+        float          neutralEmFracJet1_;
+        float          chargedMuFracJet1_;
 
         //
         // MVA IDs
@@ -214,6 +219,7 @@ std::cout << "~LeptonTree() done" << std::endl;
             tree_->Branch("rhoIsoAllCentral"              , &rhoIsoAllCentral_              ,   "rhoIsoAllCentral/F");
             tree_->Branch("rhoIsoNeutral"              , &rhoIsoNeutral_              ,   "rhoIsoNeutral/F");
             tree_->Branch("tagAndProbeMass"  , &tagAndProbeMass_  ,   "tagAndProbeMass/F");
+            tree_->Branch("tagAndProbeIsRandom"  , &tagAndProbeIsRandom_  ,   "tagAndProbeIsRandom/O");
             tree_->Branch("tag"              , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &tagPtr_);
             tree_->Branch("probe"            , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &probePtr_);
             tree_->Branch("qTag"             , &qTag_             ,   "qTag/I");
@@ -227,11 +233,15 @@ std::cout << "~LeptonTree() done" << std::endl;
             tree_->Branch("trackMet"         , &trackMet_         ,   "trackMet/F");
             tree_->Branch("trackMetPhi"      , &trackMetPhi_      ,   "trackMetPhi/F");
             tree_->Branch("njets"            , &njets_            ,   "njets/i");
+            tree_->Branch("nleps"            , &nleps_            ,   "nleps/i");
             tree_->Branch("hltPrescale"      , &hltPrescale_      ,   "hltPrescale/F");
             tree_->Branch("sumet"            , &sumet_            ,   "sumet/F");
             tree_->Branch("metSig"           , &metSig_           ,   "metSig/F");
             tree_->Branch("mt"            , &mt_            ,   "mt/F");
             tree_->Branch("dPhiProbeJet1"            , &dPhiProbeJet1_            ,   "dPhiProbeJet1/F");
+            tree_->Branch("chargedEmFracJet1"            , &chargedEmFracJet1_            ,   "chargedEmFracJet1/F");
+            tree_->Branch("neutralEmFracJet1"            , &neutralEmFracJet1_            ,   "neutralEmFracJet1/F");
+            tree_->Branch("chargedMuFracJet1"            , &chargedMuFracJet1_            ,   "chargedMuFracJet1/F");
             tree_->Branch("electronHWW2011MVA"      , &electronHWW2011MVA_      ,   "electronHWW2011MVA/F");
             tree_->Branch("egammaPOG2012MVA"        , &egammaPOG2012MVA_        ,   "egammaPOG2012MVA/F");
             tree_->Branch("muonHZZ2012IsoRingsMVA"        , &muonHZZ2012IsoRingsMVA_        ,   "muonHZZ2012IsoRingsMVA/F");
@@ -313,6 +323,7 @@ std::cout << "~LeptonTree() done" << std::endl;
             tree_->SetBranchAddress("rhoIsoAllCentral",              &rhoIsoAllCentral_);
             tree_->SetBranchAddress("rhoIsoNeutral",              &rhoIsoNeutral_);
             tree_->SetBranchAddress("tagAndProbeMass",  &tagAndProbeMass_);
+            tree_->SetBranchAddress("tagAndProbeIsRandom",  &tagAndProbeIsRandom_);
             tree_->SetBranchAddress("tag",              &tagPtr_);
             tree_->SetBranchAddress("probe",            &probePtr_);
             tree_->SetBranchAddress("qTag",             &qTag_);
@@ -326,12 +337,15 @@ std::cout << "~LeptonTree() done" << std::endl;
             tree_->SetBranchAddress("trackMet",         &trackMet_);
             tree_->SetBranchAddress("trackMetPhi",      &trackMetPhi_);
             tree_->SetBranchAddress("njets",            &njets_);
+            tree_->SetBranchAddress("nleps",            &nleps_);
             tree_->SetBranchAddress("hltPrescale",      &hltPrescale_);
             tree_->SetBranchAddress("sumet",            &sumet_);
             tree_->SetBranchAddress("metSig",           &metSig_);
             tree_->SetBranchAddress("mt",            &mt_);
             tree_->SetBranchAddress("dPhiProbeJet1",            &dPhiProbeJet1_);
-
+            tree_->SetBranchAddress("chargedEmFracJet1",            &chargedEmFracJet1_);
+            tree_->SetBranchAddress("neutralEmFracJet1",            &neutralEmFracJet1_);
+            tree_->SetBranchAddress("chargedMuFracJet1",            &chargedMuFracJet1_);
             tree_->SetBranchAddress("electronHWW2011MVA",      &electronHWW2011MVA_);
             tree_->SetBranchAddress("egammaPOG2012MVA",        &egammaPOG2012MVA_);
             tree_->SetBranchAddress("muonHZZ2012IsoRingsMVA",   &muonHZZ2012IsoRingsMVA_);
@@ -423,6 +437,7 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("rhoIsoAllCentral"              ));
         variables_.push_back(std::string("rhoIsoNeutral"              ));
         variables_.push_back(std::string("tagAndProbeMass"  ));
+        variables_.push_back(std::string("tagAndProbeIsRandom"  ));
         variables_.push_back(std::string("tag"              ));
         variables_.push_back(std::string("probe"            ));
         variables_.push_back(std::string("qTag"             ));
@@ -435,12 +450,15 @@ LeptonTree::InitVariables(){
         variables_.push_back(std::string("metPhi"           ));
         variables_.push_back(std::string("trackMet"         ));
         variables_.push_back(std::string("trackMetPhi"      ));
-        variables_.push_back(std::string("njets"            ));
+        variables_.push_back(std::string("nleps"            ));
         variables_.push_back(std::string("hltPrescale"      ));
         variables_.push_back(std::string("sumet"            ));
         variables_.push_back(std::string("metSig"           ));
         variables_.push_back(std::string("mt"            ));
-        variables_.push_back(std::string("dPhiProbeJet1"            ));;
+        variables_.push_back(std::string("dPhiProbeJet1"            ));
+        variables_.push_back(std::string("chargedEmFracJet1"            ));
+        variables_.push_back(std::string("neutralEmFracJet1"            ));
+        variables_.push_back(std::string("chargedMuFracJet1"            ));
         variables_.push_back(std::string("electronHWW2011MVA"      ));
         variables_.push_back(std::string("egammaPOG2012MVA"        ));
         variables_.push_back(std::string("muonHZZ2012IsoRingsMVA"        ));
@@ -509,6 +527,7 @@ LeptonTree::InitVariables(){
     rhoIsoAllCentral_  = -999;
     rhoIsoNeutral_    = -999;
     tagAndProbeMass_      = -999;
+    tagAndProbeIsRandom_  = 0;
     tag_                  = LorentzVector();
     probe_                = LorentzVector();
     qTag_                 = 0;
@@ -521,13 +540,15 @@ LeptonTree::InitVariables(){
     metPhi_               = -999;
     trackMet_             = -999;
     trackMetPhi_          = -999;
-    njets_                = 0;
+    nleps_                = 0;
     hltPrescale_          = 1;
     sumet_                = -999;
     metSig_               = -999;
     mt_                   = -999;
     dPhiProbeJet1_        = -999;
-
+    chargedEmFracJet1_ = -999.9;
+    neutralEmFracJet1_ = -999.9;
+    chargedMuFracJet1_ = -999.9;
     electronHWW2011MVA_          = -999;
     egammaPOG2012MVA_            = -999;
     muonHZZ2012IsoRingsMVA_              = -999;
@@ -600,6 +621,7 @@ LeptonTree::Get(std::string value)
     if(value=="rhoIsoAllCentral"              ) { return this->rhoIsoAllCentral_;            }
     if(value=="rhoIsoNeutral"              ) { return this->rhoIsoNeutral_;            }
     if(value=="tagAndProbeMass"  ) { return this->tagAndProbeMass_;  }
+    if(value=="tagAndProbeIsRandom"  ) { return this->tagAndProbeIsRandom_;  }
     if(value=="qTag"             ) { return this->qTag_;	           }
     if(value=="qProbe"           ) { return this->qProbe_;           }
     if(value=="scale1fb"         ) { return this->scale1fb_;         }
@@ -607,13 +629,15 @@ LeptonTree::Get(std::string value)
     if(value=="metPhi"           ) { return this->metPhi_;           }
     if(value=="trackMet"         ) { return this->trackMet_;         }
     if(value=="trackMetPhi"      ) { return this->trackMetPhi_;      }
-    if(value=="njets"            ) { return this->njets_;            }
+    if(value=="nleps"            ) { return this->nleps_;            }
     if(value=="hltPrescale"      ) { return this->hltPrescale_;      }
     if(value=="sumet"            ) { return this->sumet_;            }
     if(value=="metSig"           ) { return this->metSig_;           }
     if(value=="mt"            ) { return this->mt_;            }
     if(value=="dPhiProbeJet1"            ) { return this->dPhiProbeJet1_;            }
-
+    if(value=="chargedEmFracJet1"            ) { return this->chargedEmFracJet1_;            }
+    if(value=="neutralEmFracJet1"            ) { return this->neutralEmFracJet1_;            }
+    if(value=="chargedMuFracJet1"            ) { return this->chargedMuFracJet1_;            }
     if(value=="vetoId"              ) { return this->vetoId_;           }
     if(value=="looseId"              ) { return this->looseId_;           }
     if(value=="mediumId"              ) { return this->mediumId_;           }

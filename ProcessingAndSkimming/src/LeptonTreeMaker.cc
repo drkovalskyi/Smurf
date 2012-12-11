@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Dave Evans,510 1-015,+41227679496,
 //         Created:  Thu Mar  8 11:43:50 CET 2012
-// $Id: LeptonTreeMaker.cc,v 1.49 2012/12/01 11:14:42 dlevans Exp $
+// $Id: LeptonTreeMaker.cc,v 1.50 2012/12/07 16:56:57 dlevans Exp $
 //
 //
 
@@ -840,6 +840,12 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
     // triggers
     const trigger::TriggerObjectCollection &allObjects = triggerEvent_->getObjects();
 
+    // flag this event as randomised...
+    // PICK ONE TAG CANDIDATE
+    // USE EACH EVENT ONLY ONCE...
+    bool used = false;
+    bool isRandom = false;
+
     // look for tag and probe
     unsigned int nEle = els_h->size();
     for (unsigned int itag = 0; itag < nEle; ++itag) {
@@ -861,6 +867,12 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
                 chiso, emiso, nhiso, dbeta, false, true, true, false);
         if (!smurfselections::passElectronIso2012(tag, chiso, emiso, nhiso, ea04, rhoIsoAll_)) continue;
 
+        if (used == false && ((rndm_ < 0.5 && tag->charge() < 0) || (rndm_ >= 0.5 && tag->charge() > 0))) {
+            isRandom = true;
+            used = true;
+        }
+        else isRandom = false;
+
         for (unsigned int iprobe = 0; iprobe < nEle; ++iprobe) {
 
             if (itag == iprobe)             continue;
@@ -878,6 +890,7 @@ void LeptonTreeMaker::fillElectronTagAndProbeTree(const edm::Event& iEvent, cons
 
             // this is per event
             fillCommonVariables(iEvent);
+            leptonTree_->tagAndProbeIsRandom_ = isRandom;
 
             // fill the tree
             leptonTree_->eventSelection_     = LeptonTree::ZeeTagAndProbe;
@@ -1011,6 +1024,12 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
     const reco::GsfElectronCollection nullEls;
     const reco::MuonCollection nullMus;
 
+    // flag this event as randomised...
+    // PICK ONE TAG CANDIDATE
+    // USE EACH EVENT ONLY ONCE...
+    bool used = false;
+    bool isRandom = false;
+
     for (tag = muonCollection.begin(); tag != muonCollection.end(); ++tag) {
 
         // look for good tag
@@ -1024,6 +1043,12 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
 
         // 2012 Iso selection
         if (!smurfselections::passMuonIso2012(tag, mvaValue))  continue;
+
+        if (used == false && ((rndm_ < 0.5 && tag->charge() < 0) || (rndm_ >= 0.5 && tag->charge() > 0))) {
+            isRandom = true;
+            used = true;
+        }
+        else isRandom = false;
 
         for (probe = muonCollection.begin(); probe != muonCollection.end(); ++probe) {
 
@@ -1040,6 +1065,7 @@ void LeptonTreeMaker::fillMuonTagAndProbeTree(const edm::Event& iEvent, const ed
 
             // this is per event
             fillCommonVariables(iEvent);
+            leptonTree_->tagAndProbeIsRandom_ = isRandom;
 
             // fill the tree
             leptonTree_->eventSelection_     = LeptonTree::ZmmTagAndProbe;
@@ -1142,11 +1168,13 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
     // look for a good FO
     unsigned int nEle = els_h->size();
     unsigned int nFO = 0;
+    unsigned int nleps = 0;
     reco::GsfElectronRef fo;
     for (unsigned int iele = 0; iele < nEle; ++iele) {
         reco::GsfElectronRef ele(els_h, iele);
         if (ele->pt()        < 10.0) continue;
         if (fabs(ele->superCluster()->eta()) > 2.5)  continue;
+        ++ nleps;
         if (!smurfselections::passElectronFO2012(ele, pv_, thebs.position(), conversions_h)) continue;
         ++nFO;
         fo = ele;
@@ -1173,6 +1201,20 @@ void LeptonTreeMaker::fillElectronFakeRateTree(const edm::Event& iEvent, const e
         if (!iEvent.isRealData()) {
             leptonTree_->gen_drs1_ = smurfutilities::MatchGenParticle(genParticleCollection_, fo->p4(), 11, 1);
             leptonTree_->gen_drs3_ = smurfutilities::MatchGenParticle(genParticleCollection_, fo->p4(), 11, 3);
+        }
+
+        leptonTree_->nleps_ = nleps;
+        if (nleps > 1) {
+            for (unsigned int iele = 0; iele < nEle; ++iele) {
+                reco::GsfElectronRef ele(els_h, iele);
+                if (ele == fo) continue;
+                if (ele->pt()        < 10.0) continue;
+                if (fabs(ele->superCluster()->eta()) > 2.5)  continue;
+                leptonTree_->tag_       = ele->p4();
+                leptonTree_->qTag_      = ele->charge();
+                leptonTree_->tagAndProbeMass_ = (fo->p4() + ele->p4()).M();
+                break;
+            }
         }
 
         leptonTree_->eventSelection_     |= LeptonTree::QCDFakeEle;
@@ -1293,9 +1335,11 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
     const reco::GsfElectronCollection nullEls;
     const reco::MuonCollection nullMus;
     unsigned int nFO = 0;
+    unsigned int nleps = 0;
     for (it = muonCollection.begin(); it != muonCollection.end(); ++it) {
         if (it->pt()        < 10.0) continue;
         if (fabs(it->eta()) > 2.4)  continue;
+        ++nleps;
         float mvaValue = reader_muonHZZ2012IsoRingsMVA_->mvaValue(*it, pv_, pfCandCollection_, rhoIsoAll_, 
             MuonEffectiveArea::kMuEAFall11MC, nullEls, nullMus);
         if (!smurfselections::passMuonFO2012(it, mvaValue, pv_)) continue;
@@ -1324,6 +1368,19 @@ void LeptonTreeMaker::fillMuonFakeRateTree(const edm::Event& iEvent, const edm::
         if (!iEvent.isRealData()) {
             leptonTree_->gen_drs1_ = smurfutilities::MatchGenParticle(genParticleCollection_, fo->p4(), 13, 1);
             leptonTree_->gen_drs3_ = smurfutilities::MatchGenParticle(genParticleCollection_, fo->p4(), 13, 3);
+        }
+
+        leptonTree_->nleps_ = nleps;
+        if (nleps > 1) {
+            for (it = muonCollection.begin(); it != muonCollection.end(); ++it) {
+                if (it == fo)               continue;
+                if (it->pt()        < 10.0) continue;
+                if (fabs(it->eta()) > 2.4)  continue;
+                leptonTree_->tag_       = it->p4();
+                leptonTree_->qTag_      = it->charge();
+                leptonTree_->tagAndProbeMass_ = (fo->p4() + it->p4()).M();
+                break;
+            }
         }
 
         leptonTree_->eventSelection_    |= LeptonTree::QCDFakeMu;
@@ -1515,6 +1572,9 @@ void LeptonTreeMaker::fillJets(const edm::Event& iEvent, const edm::EventSetup &
     std::vector<std::pair<reco::PFJet, float> > jets5 = smurfselections::goodJets(iEvent, iSetup, jets_h_, cand1, jetCorrector, 5.);
     if (jets5.size() > 0) {
         leptonTree_->jet1_          = jets5.at(0).first.p4() * jets5.at(0).second;
+        leptonTree_->chargedEmFracJet1_ = jets5.at(0).first.chargedEmEnergyFraction();
+        leptonTree_->neutralEmFracJet1_ = jets5.at(0).first.neutralEmEnergyFraction();
+        leptonTree_->chargedMuFracJet1_ = jets5.at(0).first.chargedMuEnergyFraction();
         leptonTree_->dPhiProbeJet1_ = reco::deltaPhi(cand1.p4().Phi(), jets5.at(0).first.p4().Phi());
     }
     if (jets5.size() > 1) leptonTree_->jet2_ = jets5.at(1).first.p4() * jets5.at(1).second;
