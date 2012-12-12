@@ -246,8 +246,8 @@ void PlotHiggsRes2012
   else if(period == 3){ // Full2012-Summer12-V9-16600ipb
     effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
     fakePath = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_17p6ifb.root";
-    scaleFactorLum     = 17.6;minRun =      0;maxRun = 999999;
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_18p8ifb.root";
+    scaleFactorLum     = 18.8;minRun =      0;maxRun = 999999;
   }
   else {
     printf("Wrong period(%d)\n",period);

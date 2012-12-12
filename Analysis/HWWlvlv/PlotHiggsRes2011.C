@@ -4069,7 +4069,7 @@ void PlotHiggsRes2011
       jeteff_E  	= 1.10;
       if(mH > 200) {XS_QCDscale_WW[0] = 1.000; XS_QCDscale_WW[1] = 1.000; XS_QCDscale_WW[2] = 1.420;}
     }
-    double lumiErr = 1.000; if(mH > 200) lumiErr = 1.044;
+    double lumiErr = 1.000; if(mH > 200) lumiErr = 1.022;
 
     for(int i=0; i<8; i++) if(nBgdAccDecays[i] < 0) nBgdAccDecays[i] = 0.0;
     for(int i=0; i<8; i++) if(nBgdCutDecays[i] < 0) nBgdCutDecays[i] = 0.0;
@@ -4220,7 +4220,7 @@ void PlotHiggsRes2011
       newcardShape << Form("process ZH WH qqH ggH qqWW ggWW VV Top Zjets WjetsE Wgamma Wg3l Ztt WjetsM\n");
       newcardShape << Form("process -3 -2 -1 0 1 2 3 4 5 6 7 8 9 10\n");
       newcardShape << Form("rate  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f\n",yield[1],yield[2],yield[3],yield[4],yield[5],yield[6],yield[7],yield[8],yield[9],TMath::Max((double)yield[10],0.0),yield[11],yield[12],yield[13],yield[14]);
-      newcardShape << Form("lumi_7TeV                        lnN 1.044 1.044 1.044 1.044 %5.3f %5.3f 1.044   -     -     -   1.044 1.044 1.044     -\n",lumiErr,lumiErr);			         
+      newcardShape << Form("lumi_7TeV                        lnN 1.022 1.022 1.022 1.022 %5.3f %5.3f 1.022   -     -     -   1.022 1.022 1.022     -\n",lumiErr,lumiErr);			         
       if(useExpTemplates == true){
       newcardShape << Form("CMS_hww_MVALepEffBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000   -     -     -   -     -     -     -\n",theZHString,theWHString,theqqHString,theggHString);
       newcardShape << Form("CMS_hww_MVALepResBounding          shape   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   -     -     -     -\n",theZHString,theWHString,theqqHString,theggHString);
@@ -4364,7 +4364,7 @@ void PlotHiggsRes2011
     newcardCut << Form("process ZH WH qqH ggH qqWW ggWW VV Top Zjets WjetsE Wgamma Wg3l Ztt WjetsM\n");
     newcardCut << Form("process -3 -2 -1 0 1 2 3 4 5 6 7 8 9 10\n");
     newcardCut << Form("rate  %6.3f %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f\n",nSigCut[2],nSigCut[3],nSigCut[4],nSigCut[5],nBgdCutDecays[0],nBgdCutDecays[1],nBgdCutDecays[2],nBgdCutDecays[3],nBgdCutDecays[4],TMath::Max((double)nBgdCutDecays[5],0.0),nBgdCutDecays[6],nBgdCutDecays[7],nBgdCutDecays[8],nBgdCutDecays[9]);
-    newcardCut << Form("lumi_7TeV                  lnN 1.044 1.044 1.044 1.044 %5.3f %5.3f 1.044   -         -     -   1.044 1.044 1.044   -\n",lumiErr,lumiErr);			         
+    newcardCut << Form("lumi_7TeV                  lnN 1.022 1.022 1.022 1.022 %5.3f %5.3f 1.022   -         -     -   1.022 1.022 1.022   -\n",lumiErr,lumiErr);			         
     newcardCut << Form("CMS_eff_m	           lnN 1.030 1.030 1.030 1.030 %5.3f %5.3f 1.030   -         -     -   1.030 1.030   -     -\n",theExpUncertainties[0],theExpUncertainties[0]);
     newcardCut << Form("CMS_eff_e	           lnN 1.040 1.040 1.040 1.040 %5.3f %5.3f 1.040   -         -     -   1.040 1.040   -     -\n",theExpUncertainties[1],theExpUncertainties[1]);		            
     newcardCut << Form("CMS_scale_m	           lnN 1.015 1.015 1.015 1.015 %5.3f %5.3f 1.015   -         -     -   1.015 1.015   -     -\n",theExpUncertainties[2],theExpUncertainties[2]);		            
