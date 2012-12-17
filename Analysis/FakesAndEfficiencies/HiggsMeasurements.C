@@ -1,4 +1,6 @@
 
+#include "../../Core/LeptonTree.h"
+
 // I feel very bad
 const bool useTheBitsIfPossible = true;
 //
@@ -403,8 +405,9 @@ bool isProbe(unsigned int option, const LeptonTree &leptonTree, const TriggerRes
         if (triggerResults.HLT_Ele27_WP80_tag_ == 0 && !isMC)                      return false;
         if (!passElectronIso2012(leptonTree))                                       return false;
         if (!passElectronID2012(leptonTree))                                         return false;
-        if ((leptonTree.qTag_ < 0 && leptonTree.rnd_ < 0.5) ||
-            (leptonTree.qTag_ > 0 && leptonTree.rnd_ >= 0.5))                      return false;
+        //if ((leptonTree.qTag_ < 0 && leptonTree.rnd_ < 0.5) ||
+        //    (leptonTree.qTag_ > 0 && leptonTree.rnd_ >= 0.5))                      return false;
+        if (leptonTree.tagAndProbeIsRandom_ != 1)   return false;
     }
 
     if (option == ElectronIDIsoRndTagDblNoDzDenominator) {
@@ -412,8 +415,9 @@ bool isProbe(unsigned int option, const LeptonTree &leptonTree, const TriggerRes
         if (triggerResults.HLT_Ele27_WP80_tag_ == 0 && !isMC)                      return false;
         if (!passElectronIso2012(leptonTree))                                       return false;
         if (!passElectronID2012(leptonTree))                                         return false;
-        if ((leptonTree.qTag_ < 0 && leptonTree.rnd_ < 0.5) ||
-            (leptonTree.qTag_ > 0 && leptonTree.rnd_ >= 0.5))                      return false;
+        //if ((leptonTree.qTag_ < 0 && leptonTree.rnd_ < 0.5) ||
+        //    (leptonTree.qTag_ > 0 && leptonTree.rnd_ >= 0.5))                      return false;
+        if (leptonTree.tagAndProbeIsRandom_ != 1)   return false;
         if (triggerResults.HLT_Ele17_Ele8_TrailingLeg_probe_ == 0 && !isMC)        return false; 
     }
 
@@ -461,8 +465,9 @@ bool isProbe(unsigned int option, const LeptonTree &leptonTree, const TriggerRes
         if (triggerResults.HLT_IsoMu24_eta2p1_tag_ == 0 && !isMC)                  return false;
         if (!passMuonIso2012(leptonTree))                                           return false;
         if (!passMuonID2012(leptonTree))                                           return false;
-        if ((leptonTree.qTag_ < 0 && leptonTree.rnd_ < 0.5) ||
-            (leptonTree.qTag_ > 0 && leptonTree.rnd_ >= 0.5))                      return false;
+        //if ((leptonTree.qTag_ < 0 && leptonTree.rnd_ < 0.5) ||
+        //    (leptonTree.qTag_ > 0 && leptonTree.rnd_ >= 0.5))                      return false;
+        if (leptonTree.tagAndProbeIsRandom_ != 1)   return false;
     }
 
     if (option == MuonIDIsoRndTagDblNoDzDenominator) {
@@ -470,8 +475,9 @@ bool isProbe(unsigned int option, const LeptonTree &leptonTree, const TriggerRes
         if (triggerResults.HLT_IsoMu24_eta2p1_tag_ == 0 && !isMC)                  return false;
         if (!passMuonIso2012(leptonTree))                                           return false;
         if (!passMuonID2012(leptonTree))                                           return false;
-        if ((leptonTree.qTag_ < 0 && leptonTree.rnd_ < 0.5) ||
-            (leptonTree.qTag_ > 0 && leptonTree.rnd_ >= 0.5))                      return false;
+        //if ((leptonTree.qTag_ < 0 && leptonTree.rnd_ < 0.5) ||
+        //    (leptonTree.qTag_ > 0 && leptonTree.rnd_ >= 0.5))                      return false;
+        if (leptonTree.tagAndProbeIsRandom_ != 1)   return false;
         if ((triggerResults.HLT_Mu17_TkMu8_TrailingLeg_probe_ == 0
                 && triggerResults.HLT_Mu17_Mu8_TrailingLeg_probe_ == 0) && !isMC) return false;
     }

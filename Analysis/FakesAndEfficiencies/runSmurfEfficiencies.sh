@@ -14,18 +14,29 @@
 #MCMM=/smurf/dlevans/LeptonTree/V00-02-02/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball_big/merged_mm.root
 #OUTNAME="2012May25V0"
 
-RUNLIST="HCP"
-OUTNAME="_V00-02-07_HCP_V0"
-ELE2012="/smurf/dlevans/LeptonTree/V00-02-07/SingleElectron/merged_${RUNLIST}.root"
-#MU2012="/smurf/dlevans/LeptonTree/V00-02-07/SingleMu/merged_${RUNLIST}.root"
+# for HCP
 
-OUTNAME="_V00-02-07_trigNameFix_HCP_V1"
-MU2012="/smurf/dlevans/LeptonTree/V00-02-07_trigNameFix/SingleMu/merged_${RUNLIST}.root"
+#RUNLIST="HCP"
+#OUTNAME="_V00-02-07_HCP_V0"
+#ELE2012="/smurf/dlevans/LeptonTree/V00-02-07/SingleElectron/merged_${RUNLIST}.root"
+##MU2012="/smurf/dlevans/LeptonTree/V00-02-07/SingleMu/merged_${RUNLIST}.root"
+#OUTNAME="_V00-02-07_trigNameFix_HCP_V1"
+#MU2012="/smurf/dlevans/LeptonTree/V00-02-07_trigNameFix/SingleMu/merged_${RUNLIST}.root"
+#MCEE=/smurf/dlevans/LeptonTree/V00-02-07/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_ee.root
+#MCMM=/smurf/dlevans/LeptonTree/V00-02-07/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_mm.root
+#PU52X=8
+#PU53X=9
 
+# for Moriond
+
+PU53X=10
+RUNLIST="Moriond"
+OUTNAME="_V00-02-09_Moriond_V0"
+#ELE2012="/smurf/dlevans/LeptonTree/V00-02-09/SingleElectron_Run2012C-24Aug2012-v1_AOD_198022_198523/merged_Moriond.root"
+ELE2012="/smurf/dlevans/LeptonTree/V00-02-09/SingleElectron/merged_${RUNLIST}.root"
+MU2012="/smurf/dlevans/LeptonTree/V00-02-09/SingleMu/merged_${RUNLIST}.root"
 MCEE=/smurf/dlevans/LeptonTree/V00-02-07/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_ee.root
 MCMM=/smurf/dlevans/LeptonTree/V00-02-07/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_mm.root
-PU52X=8
-PU53X=9
 
 
 #
@@ -133,31 +144,6 @@ root -b -q plotDataMC.C+\(\"HWW_Muon${OUTNAME}_NM1Eff_TrigLeadDbl/extra\",\"null
 root -b -q printEff.C+\(\"HWW_Muon${OUTNAME}_NM1Eff_TrigLeadDbl/extra\",\"HWW_Muon${OUTNAME}_NM1Eff_TrigLeadDbl/eff.root\",\"HWW_Muon${OUTNAME}_NM1Eff_TrigLeadDbl/eff.root\"\)
 
 # Double Trigger (trailing leg) wrt ID+Iso (random tag)
-
-#DATASETS="DoubleMu_Run2012A-13Jul2012-v1_AOD_190456_193621 \
-#DoubleMu_Run2012A-recover-06Aug2012-v1_AOD_190782_190949 \
-#DoubleMu_Run2012B-13Jul2012-v4_AOD_193834_196531 \
-#DoubleMu_Run2012C-PromptReco-v2_AOD_198934_202950 \
-#DoubleMu_Run2012C-24Aug2012-v1_AOD_198022_198523"
-#for DATASET in $DATASETS; do
-#    DATAPATH=/smurf/dlevans/LeptonTree/V00-02-07/$DATASET/merged_${RUNLIST}.root
-#    TESTOUTNAME=${OUTNAME}_${DATASET}
-#    # default syst jet 15
-#    root -b -q plotEff.C+\(\"MuonFR.bins\",0,0,0,0,\"${DATAPATH}\",\"HWW_Muon${TESTOUTNAME}_FRJet15_IDISO\",\"png\",1,0,0,$MuonFakeRate,$MuonFO15,$MuonIDIsoNumerator2012\)
-#    root -b -q plotDataMC.C+\(\"HWW_Muon${TESTOUTNAME}_FRJet15_IDISO/extra\",\"null\",\"HWW_Muon${TESTOUTNAME}_FRJet15_IDISO/eff.root\"\)
-#    root -b -q printEff.C+\(\"HWW_Muon${TESTOUTNAME}_FRJet15_IDISO/extra\",\"HWW_Muon${TESTOUTNAME}_FRJet15_IDISO/eff.root\",\"HWW_Muon${TESTOUTNAME}_FRJet15_IDISO/eff.root\"\)
-#done
-
-#MU2012="/smurf/dlevans/LeptonTree/V00-02-07/SingleMu_Run2012A-13Jul2012-v1_AOD_190456_193621/merged_${RUNLIST}.root"
-#OUTNAME="_V00-02-07_Run2012A_V0"
-#MU2012="/smurf/dlevans/LeptonTree/V00-02-07/SingleMu_Run2012B-13Jul2012-v1_AOD_193834_196531/merged_${RUNLIST}.root"
-#OUTNAME="_V00-02-07_Run2012B_V0"
-#MU2012="/smurf/dlevans/LeptonTree/V00-02-07/SingleMu_Run2012C-24Aug2012-v1_AOD_198022_198523/merged_${RUNLIST}.root"
-#OUTNAME="_V00-02-07_Run2012Cv1_V0"
-#MU2012="/smurf/dlevans/LeptonTree/V00-02-07/SingleMu_Run2012C-24Aug2012-v1_AOD_198022_198523/merged_${RUNLIST}.root"
-#OUTNAME="_V00-02-07_Run2012Cv2_V0"
-
-
 root -b -q plotEff.C+\(\"MuonTrigger.bins\",0,0,0,0,\"${MU2012}\",\"HWW_Muon${OUTNAME}_NM1Eff_TrigTrailDbl\",\"png\",1,0,0,$MuonTagAndProbe,$MuonIDIsoRndTagDenominator,$MuonTrigDblTrailNumerator2012\,81,101\)
 root -b -q plotDataMC.C+\(\"HWW_Muon${OUTNAME}_NM1Eff_TrigTrailDbl/extra\",\"null\",\"HWW_Muon${OUTNAME}_NM1Eff_TrigTrailDbl/eff.root\"\)
 root -b -q printEff.C+\(\"HWW_Muon${OUTNAME}_NM1Eff_TrigTrailDbl/extra\",\"HWW_Muon${OUTNAME}_NM1Eff_TrigTrailDbl/eff.root\",\"HWW_Muon${OUTNAME}_NM1Eff_TrigTrailDbl/eff.root\"\)

@@ -188,6 +188,9 @@ void plotEff(const TString conf,            // input binning file
     // for HCP
     const TString pufname_HCP_52X("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_52x_Observed.root");
     const TString pufname_HCP_53X("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_Observed.root");
+
+    // for Moriond
+    const TString pufname_Moriond("/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_19p5ifb.root");
  
   // efficiency error calculation method
   // method: 0 -> Clopper-Pearson
@@ -399,6 +402,9 @@ void plotEff(const TString conf,            // input binning file
   if (abs(doPU)==9) {
     if (mode == MuonTagAndProbeMC || mode == ElectronTagAndProbeMC)      pufile = new TFile(pufname_HCP_53X);
   }
+  if (abs(doPU)==10) {
+    if (mode == MuonTagAndProbeMC || mode == ElectronTagAndProbeMC)      pufile = new TFile(pufname_Moriond);
+  } 
   if(doPU!=0) {
     assert(pufile);
     puWeights = (TH1D*)pufile->Get("puWeights");
@@ -478,8 +484,7 @@ gROOT->cd();
     }
 
     Float_t probeEta;
-    if (mode == MuonFakeRate || mode == MuonTagAndProbe || mode == MuonTagAndProbeMC)
-                probeEta = leptonTree->probe_.Eta();
+    if (mode == MuonFakeRate || mode == MuonTagAndProbe || mode == MuonTagAndProbeMC) probeEta = leptonTree->probe_.Eta();
     else        probeEta = leptonTree->sceta_;
  
     wgt  = leptonTree->scale1fb_;
@@ -502,6 +507,7 @@ gROOT->cd();
           ieta = ibin;
       }
     }
+
     if(ieta<0) continue;
 	
     Int_t iphi=-1;
@@ -1269,8 +1275,7 @@ gROOT->cd();
       continue;
   
     Float_t probeEta;
-    if (mode == MuonFakeRate || mode == MuonTagAndProbe || mode == MuonTagAndProbeMC)
-                probeEta = leptonTree->probe_.Eta();
+    if (mode == MuonFakeRate || mode == MuonTagAndProbe || mode == MuonTagAndProbeMC) probeEta = leptonTree->probe_.Eta();
     else        probeEta = leptonTree->sceta_;
  
     if (mode == MuonTagAndProbeMC || mode == ElectronTagAndProbeMC) {
@@ -1497,10 +1502,10 @@ gROOT->cd();
       continue;
 
     Float_t probeEta;
-    if (mode == MuonFakeRate || mode == MuonTagAndProbe || mode == MuonTagAndProbeMC)
-                probeEta = leptonTree->probe_.Eta();
+    if (mode == MuonFakeRate || mode == MuonTagAndProbe || mode == MuonTagAndProbeMC)   probeEta = leptonTree->probe_.Eta();
     else        probeEta = leptonTree->sceta_;
-   
+
+ 
     if (mode == MuonTagAndProbeMC || mode == ElectronTagAndProbeMC) {
         if(leptonTree->gen_drs1_ > 0.2) continue;
     }
