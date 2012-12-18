@@ -76,6 +76,7 @@ data/vhtt${MH}.root
 data/xww0m${MH}.root
 data/xww0p${MH}.root
 data/xww2p${MH}.root
+data/zhww${MH}.root
 data/backgroundA.root
 data/backgroundB.root
 data/hww_syst.root
