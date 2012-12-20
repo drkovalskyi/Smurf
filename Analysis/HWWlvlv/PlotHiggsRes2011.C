@@ -986,7 +986,7 @@ void PlotHiggsRes2011
     // Apply lepton efficiency scale factors, trigger efficiencies
     //----------------------------------------------------------------------------
     double add = 1.0;
-    add = add*nPUScaleFactor2012(fhDPU2012,npu);
+    if(dstype != SmurfTree::wgstar) add = add*nPUScaleFactor2012(fhDPU2012,npu);
 
     double addLepEff = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1)*
                        leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
@@ -1612,7 +1612,7 @@ void PlotHiggsRes2011
     								          (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
 
         add = addFR;
-	add = add*nPUScaleFactor2012(fhDPU2012,npu);
+	if(dstype != SmurfTree::wgstar) add = add*nPUScaleFactor2012(fhDPU2012,npu);
 
         addLepEff = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1)*
                     leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
@@ -1666,7 +1666,7 @@ void PlotHiggsRes2011
       // Pileup weights
       //----------------------------------------------------------------------------
       add = 1.0;
-      add = add*nPUScaleFactor2012(fhDPU2012,npu);
+      if(dstype != SmurfTree::wgstar) add = add*nPUScaleFactor2012(fhDPU2012,npu);
 
       addLepEff = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1)*
                   leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
@@ -2445,7 +2445,7 @@ void PlotHiggsRes2011
     								          (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
 
         add = addFR;
-	add = add*nPUScaleFactor2012(fhDPU2012,npu);
+	if(dstype != SmurfTree::wgstar) add = add*nPUScaleFactor2012(fhDPU2012,npu);
 
         addLepEff = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1)*
                     leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
@@ -2479,7 +2479,7 @@ void PlotHiggsRes2011
     								          (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
 
         add = addFR;
-	add = add*nPUScaleFactor2012(fhDPU2012,npu);
+	if(dstype != SmurfTree::wgstar) add = add*nPUScaleFactor2012(fhDPU2012,npu);
 
         addLepEff = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1)*
                     leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
@@ -2522,7 +2522,7 @@ void PlotHiggsRes2011
       // Apply lepton efficiency scale factors, trigger efficiencies,
       // Pileup weights
       //----------------------------------------------------------------------------
-      add = nPUScaleFactor2012(fhDPU2012,npu);
+      if(dstype != SmurfTree::wgstar) add = nPUScaleFactor2012(fhDPU2012,npu);
 
       addLepEff = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1)*
                   leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);

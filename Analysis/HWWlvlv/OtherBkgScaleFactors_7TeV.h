@@ -9,7 +9,7 @@ Double_t ZttScaleFactorKappa() {
 
 Double_t WGstarScaleFactor(Int_t type, Double_t met) {
   if(type == SmurfTree::ee && met > 130) return 0.0;
-  return 1.60;
+  return 1.50;
 }
 
 Double_t WGstarScaleFactorSyst() {
