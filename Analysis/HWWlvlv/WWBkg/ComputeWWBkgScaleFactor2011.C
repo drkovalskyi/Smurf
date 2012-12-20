@@ -454,7 +454,7 @@ void ComputeWWBkgScaleFactor2011 (
     	add = add*fakeRate(lep2->pt(), lep2->eta(), fhDFRMu, fhDFREl, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
     										      (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
 
-        add = add*nPUScaleFactor2012(fhDPU,npu);
+        if(dstype != SmurfTree::wgstar) add = add*nPUScaleFactor2012(fhDPU,npu);
     	add = add*leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1);
     	add = add*leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
 
@@ -481,7 +481,7 @@ void ComputeWWBkgScaleFactor2011 (
  
 
       add = 1.0;
-      add = add*nPUScaleFactor2012(fhDPU,npu);
+      if(dstype != SmurfTree::wgstar) add = add*nPUScaleFactor2012(fhDPU,npu);
       add = add*leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1);
       add = add*leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
       add = add*trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
