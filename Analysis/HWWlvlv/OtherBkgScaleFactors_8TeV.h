@@ -1,6 +1,6 @@
 Double_t ZttScaleFactor(Int_t period, Double_t scale1fb) {
   if(period != 2 && period != 3) assert(0);
-  return 0.00573547*scale1fb;
+  return 0.00586839*scale1fb;
 }
 
 Double_t ZttScaleFactorKappa() {
@@ -9,7 +9,7 @@ Double_t ZttScaleFactorKappa() {
 
 Double_t WGstarScaleFactor(Int_t type, Double_t met) {
   if(type == SmurfTree::ee && met > 130) return 0.0;
-  return 1.60;
+  return 1.50;
 }
 
 Double_t WGstarScaleFactorSyst() {
