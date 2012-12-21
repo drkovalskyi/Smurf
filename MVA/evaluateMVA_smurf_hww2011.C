@@ -706,7 +706,8 @@ TString suffix       = "ww"
             smurfTree.sfWeightFR_ = -1.0 * smurfTree.sfWeightFR_;
             if(nFake > 1) smurfTree.sfWeightFR_ = -1.0 * smurfTree.sfWeightFR_;
 
-            smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPU,(float)smurfTree.npu_);
+            if(smurfTree.dstype_ != SmurfTree::wgstar) smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPU,(float)smurfTree.npu_);
+            else                                       smurfTree.sfWeightPU_ = 1.0;
 
             smurfTree.sfWeightEff_ = 1.0;
             smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep1_.pt(), smurfTree.lep1_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid1_);
@@ -743,7 +744,8 @@ TString suffix       = "ww"
         }
         else if(smurfTree.dstype_ != SmurfTree::data){
           smurfTree.sfWeightFR_ = 1.0;
-     	  smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPU,(float)smurfTree.npu_);
+          if(smurfTree.dstype_ != SmurfTree::wgstar) smurfTree.sfWeightPU_ = nPUScaleFactor2012(fhDPU,(float)smurfTree.npu_);
+          else  				     smurfTree.sfWeightPU_ = 1.0;
 
           smurfTree.sfWeightEff_ = 1.0;
           smurfTree.sfWeightEff_ = smurfTree.sfWeightEff_*leptonEfficiency(smurfTree.lep1_.pt(), smurfTree.lep1_.eta(), fhDEffMu, fhDEffEl, smurfTree.lid1_);
