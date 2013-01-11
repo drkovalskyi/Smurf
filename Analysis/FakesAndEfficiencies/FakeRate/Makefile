@@ -9,7 +9,7 @@ ifeq ($(shell root-config --platform),macosx)
 	LINKERFLAGS = -dynamiclib -undefined dynamic_lookup -Wl,-x -O -Xlinker -bind_at_load -flat_namespace $(shell root-config --libs) -lEG -lGenVector
 endif
 
-SOURCES = FakeLooper.cc SmurfPlotUtilities.cc ProcessFakeRate.cc
+SOURCES = FakeLooper.cc ZFakeLooper.cc SmurfPlotUtilities.cc ProcessFakeRate.cc
 OBJECTS = $(SOURCES:.cc=.o) LinkDef_out.o
 LIB = libSmurfFakeLooper.so
 
@@ -18,8 +18,8 @@ $(LIB):	$(OBJECTS)
 
 LIBS = $(LIB)
 
-LinkDef_out.cxx: LinkDef.h FakeLooper.h SmurfPlotUtilities.h ProcessFakeRate.h
-	rootcint -f $@ -c $(INCLUDE)  FakeLooper.h SmurfPlotUtilities.h ProcessFakeRate.h $<
+LinkDef_out.cxx: LinkDef.h FakeLooper.h ZFakeLooper.h SmurfPlotUtilities.h ProcessFakeRate.h
+	rootcint -f $@ -c $(INCLUDE) FakeLooper.h ZFakeLooper.h SmurfPlotUtilities.h ProcessFakeRate.h $<
 
 # General rule for making object files
 %.d:	%.cc

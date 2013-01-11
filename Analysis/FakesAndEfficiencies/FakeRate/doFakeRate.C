@@ -22,7 +22,7 @@ void doFakeRate() {
 
     // HCP
     //runFakeLooper(MET20, runEle, runMu, HCP);
-    runFakeLooper(MET20MT15MLL, runEle, runMu, HCP);
+    //runFakeLooper(MET20MT15MLL, runEle, runMu, HCP);
 
     // Moriond
     runFakeLooper(MET20MT15MLL, runEle, runMu, MORIOND);
@@ -51,7 +51,10 @@ void runFakeLooper(Option option, bool runEle, bool runMu, Era era)
         tag = "V00-02-09";
         eraName = "HCP";
         looper->setMuonLumi(1.551, 16.592);
-        looper->setElectronLumi(3.8553, 18.3181);
+        //looper->setElectronLumi(3.8553, 18.3181);
+        // triggers without jet threshold
+        looper->setElectronLumi(2.562, 11.027);
+
     } else if (era == MORIOND) {
         // Moriond good run list
         tag = "V00-02-09";

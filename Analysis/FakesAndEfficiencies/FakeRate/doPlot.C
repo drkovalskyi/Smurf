@@ -48,7 +48,7 @@ void doPlot(TString era, bool defaultOnly = false) {
     ptThresholds.push_back(35);
 
     //printFakeRate("met20", "ElectronFakeRate_V4", ptThresholds);
-    printFakeRate("met20mt15mll_"+era, "ElectronFakeRate_V4", "Electron FR with MET20, MT15 and Mll Veto", ptThresholds);
+    //printFakeRate("met20mt15mll_"+era, "ElectronFakeRate_V4", "Electron FR with MET20, MT15 and Mll Veto", ptThresholds);
 
 }
 

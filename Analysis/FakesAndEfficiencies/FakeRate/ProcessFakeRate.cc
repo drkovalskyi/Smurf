@@ -167,6 +167,7 @@ void printStack(TFile *f, const char* name, const char* fname, Float_t SF_WJets,
     }
     h1_bg->Draw("E2 SAME");
     h1_data->Draw("SAME");
+    st.SetMinimum(0.1);
     st.SetMaximum(std::max(h1_data->GetMaximum(), st.GetMaximum()));
     st.GetXaxis()->SetTitle(h1_dy->GetXaxis()->GetTitle());
     l1->Draw();
@@ -275,8 +276,10 @@ void printFakeRate(const char* file, const char *name, const char* friendlyName,
 
     // print the validation histograms
     fprintf(fout_tex, "\\subsection{DY Background}\n");
+
     printStack(f, Form("%s_num_highPt_etaj", name), file, SF_WJets, Err_WJets, SF_DY, Err_DY);
     printStack(f, Form("%s_num_highPt_mll", name), file, SF_WJets, Err_WJets, SF_DY, Err_DY, true);
+    printStack(f, Form("%s_num_lowPt_mll", name), file, SF_WJets, Err_WJets, SF_DY, Err_DY, true);
     compareSS(f, Form("%s_num_highPt_mll", name), file);
 
     fprintf(fout_tex, "\\begin{figure}[!hbtp]\n");
@@ -396,10 +399,53 @@ void printFakeRate(const char* file, const char *name, const char* friendlyName,
         printline(fout_tex, h2_num_rel_WJets, Form("n(W+Jets) / n(Data in numerator) for jet pT $>$ %u", ptThresholds[i]), false);
         printline(fout_tex, h2_num_rel_DY, Form("n(DY) / n(Data in numerator) for jet pT $>$ %u", ptThresholds[i]), false);
 
+        // projection of the sum of EWK contamination
+        TH2F *h2_num_EWK = (TH2F*)h2_num_WJets->Clone("h2_num_EWK");
+        h2_num_EWK->Add(h2_num_DY);
+        TH1F *h1_num_EWK_projection = (TH1F*)h2_num_EWK->ProjectionX("h1_num_EWK_projection");
+        TH1F *h1_num_Data_projection = (TH1F*)h2_num_Data->ProjectionX("h1_num_Data_projection");
+        TH1F *h1_num_fEWK = (TH1F*)h1_num_EWK_projection->Clone("h1_num_fEWK");
+        h1_num_fEWK->Divide(h1_num_Data_projection);
+        h1_num_fEWK->Draw();
+        h1_num_fEWK->GetYaxis()->SetRangeUser(0, 1.0);
+        c1->SaveAs(Form("plots/%s_ptThreshold%u_PtEta_%s_fEWK_N.png", name, ptThresholds[i], file));        
 
+        TH2F *h2_den_EWK = (TH2F*)h2_den_WJets->Clone("h2_den_EWK");
+        h2_den_EWK->Add(h2_den_DY);
+        TH1F *h1_den_EWK_projection = (TH1F*)h2_den_EWK->ProjectionX("h1_den_EWK_projection");
+        TH1F *h1_den_Data_projection = (TH1F*)h2_den_Data->ProjectionX("h1_den_Data_projection");
+        TH1F *h1_den_fEWK = (TH1F*)h1_den_EWK_projection->Clone("h1_den_fEWK");
+        h1_den_fEWK->Divide(h1_den_Data_projection);
+        h1_den_fEWK->Draw();
+        h1_den_fEWK->GetYaxis()->SetRangeUser(0, 1.0);
+        c1->SaveAs(Form("plots/%s_ptThreshold%u_PtEta_%s_fEWK_D.png", name, ptThresholds[i], file));  
         //
         // make FR
         //
+
+        // projection of corrected and not corrected fake rate
+        TH1F *h1_num_Data = (TH1F*)h2_num_Data->ProjectionX("h1_num_Data");
+        TH1F *h1_den_Data = (TH1F*)h2_den_Data->ProjectionX("h1_den_Data");
+        TH1F *h1_FR = (TH1F*)h1_num_Data->Clone("h1_FR");
+        h1_FR->Divide(h1_den_Data);
+        h1_FR->SetLineColor(kBlue);
+
+        TH1F *h1_num_Data_bgsub = (TH1F*)h1_num_Data->Clone("h1_num_Data_bgsub");
+        h1_num_Data_bgsub->Add(h1_num_EWK_projection, -1.0);
+        TH1F *h1_den_Data_bgsub = (TH1F*)h1_den_Data->Clone("h1_den_Data_bgsub");
+        h1_den_Data_bgsub->Add(h1_den_EWK_projection, -1.0);
+        TH1F *h1_FR_bgsub = (TH1F*)h1_num_Data_bgsub->Clone("h1_FR_bgsub");
+        h1_FR_bgsub->Divide(h1_den_Data_bgsub);
+        h1_FR_bgsub->SetLineColor(kRed);
+
+        h1_num_Data->Draw();
+        h1_num_Data_bgsub->Draw("SAME HIST");
+        c1->SaveAs(Form("plots/%s_ptThreshold%u_TEST_%s.png", name, ptThresholds[i], file));
+
+        h1_FR->Draw();
+        h1_FR_bgsub->Draw("SAME");
+        h1_FR->GetYaxis()->SetRangeUser(0.0, 1.0);
+        c1->SaveAs(Form("plots/%s_ptThreshold%u_PtEta_FRProjectionX_%s.png", name, ptThresholds[i], file));
 
         // make FR with no subtraction
         TH2F* h2_FR = (TH2F*)h2_num_Data->Clone(Form("%s_ptThreshold%u_PtEta_raw", name, ptThresholds[i]));
@@ -435,6 +481,7 @@ void printFakeRate(const char* file, const char *name, const char* friendlyName,
 
         //fprintf(fout_tex, "\\clearpage\n");
         fprintf(fout_tex, "\\subsubsection{Fake Rate} \n");
+        printline(fout_tex, h2_FR, Form("Fake rate before background subtraction for jet pT $>$ %u", ptThresholds[i]), false);
         printline(fout_tex, h2_FR_bgsub, Form("Fake rate after background subtraction for jet pT $>$ %u", ptThresholds[i]), false);
 
 

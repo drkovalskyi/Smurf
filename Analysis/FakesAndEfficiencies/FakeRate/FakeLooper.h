@@ -62,6 +62,8 @@ void fillValidationHistograms(const LeptonTree* leptons,
     TH1F *h1_num_highPt_mll_;
     TH1F *h1_num_highPt_mllss_;
 
+    TH1F *h1_num_lowPt_mll_;
+    TH1F *h1_num_lowPt_mllss_;
 
 };
 

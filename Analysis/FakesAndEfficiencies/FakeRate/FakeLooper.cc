@@ -72,11 +72,15 @@ int FakeLooper::Loop(bool isData, TChain* chain, const char* name,
     h1_num_highPt_mt_          = new TH1F(Form("%s_num_highPt_mt", name),       Form("%s_num_highPt_mt;MT [GeV]", name),       20, 0.0, 200.0);
     h1_num_highPt_mlj_         = new TH1F(Form("%s_num_highPt_mlj", name),      Form("%s_num_highPt_mlj;M(FO,Jet) [GeV]", name),      32, 40.0, 200.0);
     h1_num_highPt_etaj_        = new TH1F(Form("%s_num_highPt_etaj", name),     Form("%s_num_highPt_etaj;#eta(Jet)", name),     25, -5.0, 5.0);
-    h1_num_highPt_mll_  = new TH1F(Form("%s_num_highPt_mll", name),      Form("%s_num_highPt_mll;M(FO,Reco Lepton) [GeV]", name),      25, 40.0, 140.0);
-    h1_num_highPt_mllss_  = new TH1F(Form("%s_num_highPt_mllss", name),      Form("%s_num_highPt_mllss;M(FO,Reco Lepton) [GeV]", name),      25, 40.0, 140.0);
+    h1_num_highPt_mll_  = new TH1F(Form("%s_num_highPt_mll", name),      Form("%s_num_highPt_mll;M(FO,Reco Lepton) [GeV]", name),      70, 0.0, 140.0);
+    h1_num_highPt_mllss_  = new TH1F(Form("%s_num_highPt_mllss", name),      Form("%s_num_highPt_mllss;M(FO,Reco Lepton) [GeV]", name),      70, 0.0, 140.0);
     h1_num_highPt_emfcentralj_ = new TH1F(Form("%s_num_highPt_emfcentralj", name),     Form("%s_num_highPt_emfcentralj;f(EM) [GeV]", name), 20, 0.0, 1.0);
     h1_num_highPt_cemfcentralj_ = new TH1F(Form("%s_num_highPt_cemfcentralj", name),     Form("%s_num_highPt_cemfcentralj;f(EM) [GeV]", name), 20, 0.0, 1.0);
     h1_num_highPt_nemfcentralj_ = new TH1F(Form("%s_num_highPt_nemfcentralj", name),     Form("%s_num_highPt_nemfcentralj;f(EM) [GeV]", name), 20, 0.0, 1.0);
+
+    h1_num_lowPt_mll_  = new TH1F(Form("%s_num_lowPt_mll", name),      Form("%s_num_lowPt_mll;M(FO,Reco Lepton) [GeV]", name),      70, 0.0, 140.0);
+    h1_num_lowPt_mllss_  = new TH1F(Form("%s_num_lowPt_mllss", name),      Form("%s_num_lowPt_mllss;M(FO,Reco Lepton) [GeV]", name),      70, 0.0, 140.0);
+
 
     h1_num_highPt_mt_lowmet_   = new TH1F(Form("%s_num_highPt_mt_lowmet", name),Form("%s_num_highPt_mt_lowmet;MT [GeV]", name),20, 0.0, 200.0);
     h1_num_highPt_met_         = new TH1F(Form("%s_num_highPt_met", name),      Form("%s_num_highPt_met;MET [GeV]", name),     20, 0.0, 100.0);
@@ -90,6 +94,9 @@ int FakeLooper::Loop(bool isData, TChain* chain, const char* name,
     h1_num_highPt_nemfcentralj_->Sumw2();
     h1_num_highPt_mt_lowmet_->Sumw2();
     h1_num_highPt_met_->Sumw2();
+
+    h1_num_lowPt_mll_->Sumw2();
+    h1_num_lowPt_mllss_->Sumw2();
 
     //
     // decide if to loop or not...
@@ -129,8 +136,13 @@ int FakeLooper::Loop(bool isData, TChain* chain, const char* name,
         // to be one in MC
         UInt_t HLT_Mu8_probe = 1;
         UInt_t HLT_Mu17_probe = 1;
+
         UInt_t HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_probe = 1;
         UInt_t HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_probe = 1;
+
+        UInt_t HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_probe = 1;
+        UInt_t HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_probe = 1;
+
         if (isData) {
             leptons->tree_->SetBranchAddress("HLT_Mu8_probe",    &HLT_Mu8_probe);
             leptons->tree_->SetBranchAddress("HLT_Mu17_probe",   &HLT_Mu17_probe);
@@ -138,6 +150,11 @@ int FakeLooper::Loop(bool isData, TChain* chain, const char* name,
                     &HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_probe);
             leptons->tree_->SetBranchAddress("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_probe",                 
                     &HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_probe);
+            leptons->tree_->SetBranchAddress("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_probe",
+                    &HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_probe);
+            leptons->tree_->SetBranchAddress("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_probe",
+                    &HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_probe);
+
         }
 
         // scale...
@@ -213,10 +230,12 @@ int FakeLooper::Loop(bool isData, TChain* chain, const char* name,
                 // trigger selection
                 if (leptons->probe_.Pt() < 20.0) {
                     if (HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_probe == 0) continue;
+                    //if (HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_probe == 0) continue;
                     if (!isData) weight = scale1fb * lumi_HLT_Ele8_ / 1000.0;
                 }
                 else {
                     if (HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_Jet30_probe == 0) continue;
+                    //if (HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_probe == 0) continue;
                     if (!isData) weight = scale1fb * lumi_HLT_Ele17_ / 1000.0; 
                 }
 
@@ -275,7 +294,27 @@ void FakeLooper::fillValidationHistograms(const LeptonTree* leptons, const float
         }
         if (leptons->met_ < 15.0) {
             h1_den_lowPt_mt_lowmet_->Fill(leptons->mt_, weight);
-            if (numerator) h1_num_lowPt_mt_lowmet_->Fill(leptons->mt_, weight);
+            if (numerator) {
+                h1_num_lowPt_mt_lowmet_->Fill(leptons->mt_, weight);
+                // the FO-leading jet invariant mass at low MT
+                if (leptons->mt_ < 15.0) {
+                    if (fabs(leptons->jet1_.Eta()) < 2.5 || muonselection) {
+                        // FO is "probe" and other reco lepton is "tag"
+                        bool passMassVeto = true;
+                        float mass = TMath::Max(0.0, TMath::Min((leptons->probe_ + leptons->tag_).M(), 139.5));
+                        if (leptons->qTag_ * leptons->qProbe_ < 0) {
+                            h1_num_lowPt_mll_->Fill(mass, weight);
+                        }
+                        else if (leptons->qTag_ * leptons->qProbe_ > 0) {
+                            h1_num_lowPt_mllss_->Fill(mass, weight);
+                        }
+                        else {
+                            h1_num_lowPt_mll_->Fill(0.0, weight);
+                        }
+
+                    }
+                }
+            }
         }
     }
 
@@ -303,7 +342,7 @@ void FakeLooper::fillValidationHistograms(const LeptonTree* leptons, const float
 
                         // FO is "probe" and other reco lepton is "tag"
                         bool passMassVeto = true;
-                        float mass = TMath::Max(40.5, TMath::Min((leptons->probe_ + leptons->tag_).M(), 139.5));
+                        float mass = TMath::Max(0.0, TMath::Min((leptons->probe_ + leptons->tag_).M(), 139.5));
                         if (leptons->qTag_ * leptons->qProbe_ < 0) {
                             h1_num_highPt_mll_->Fill(mass, weight);
                         } 
@@ -311,7 +350,7 @@ void FakeLooper::fillValidationHistograms(const LeptonTree* leptons, const float
                             h1_num_highPt_mllss_->Fill(mass, weight);
                         }
                         else {
-                            h1_num_highPt_mll_->Fill(40.5, weight);
+                            h1_num_highPt_mll_->Fill(0.0, weight);
                         }
 
                     }
