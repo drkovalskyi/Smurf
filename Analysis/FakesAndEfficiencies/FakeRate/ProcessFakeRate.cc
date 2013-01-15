@@ -66,21 +66,29 @@ void printline(FILE* fout, TH2F* h2, const char* caption, bool doInt)
 
 void format(TH1F *hist, DataType dataType)
 {
-    Color_t color;
+
+    Color_t color = hist->GetLineColor();
+
     if (dataType == WJETS) {
         color = kGray+1;
-        hist->SetLineColor(color);
-        hist->SetFillColor(color);
     }
     if (dataType == DY) {
         color = kGreen+2;
-        hist->SetLineColor(color);
-        hist->SetFillColor(color);
     }
     if (dataType == DATA) {
         hist->SetMarkerStyle(20);
     }
+    if (dataType == WZ) {
+        color = kAzure-9;
+    }
+    if (dataType == ZZ) {
+        color = kAzure+2;
+    }
 
+    if (dataType != DATA) {
+        hist->SetLineColor(color);
+        hist->SetFillColor(color);
+    }
 }
 
 void compareSS(TFile *f, const char* name, const char* fname)
@@ -94,7 +102,7 @@ void compareSS(TFile *f, const char* name, const char* fname)
     format(h1_wjets, WJETS);
     format(h1_data_ss, DATA);
     h1_wjets_ss->SetMarkerStyle(22);
- 
+
     TLegend *l1 = new TLegend(0.6, 0.6, 0.85, 0.85);
     l1->SetLineColor(kWhite);
     l1->SetFillColor(kWhite);
@@ -102,7 +110,7 @@ void compareSS(TFile *f, const char* name, const char* fname)
     l1->AddEntry(h1_data_ss, "SS Data", "lp");
     l1->AddEntry(h1_wjets, "OS W+jets MC", "f");
     l1->AddEntry(h1_wjets_ss, "SS W+jets MC", "lp");
-    
+
     TCanvas *c1 = new TCanvas();
     c1->cd();
     h1_data_ss->Draw();
@@ -186,6 +194,62 @@ void printStack(TFile *f, const char* name, const char* fname, Float_t SF_WJets,
 
 }
 
+void printZStack(TFile *f, const char* name, const char* fname, Float_t SF_EWK, Float_t Err_EWK)
+{
+
+    TH1F *h1_wz = 0;
+    h1_wz =   (TH1F*)f->Get(Form("WZ_%s", name));
+    
+    TH1F *h1_zz =       (TH1F*)f->Get(Form("ZZ_%s", name));
+    TH1F *h1_data =     (TH1F*)f->Get(Form("Data_%s", name));
+    format(h1_wz, WZ);
+    format(h1_zz, ZZ);
+    format(h1_data, DATA);
+    h1_wz->Scale(SF_EWK);
+    setUncertainty(h1_wz, Err_EWK);
+    h1_zz->Scale(SF_EWK);
+    setUncertainty(h1_zz, Err_EWK);
+
+    TH1F *h1_bg = (TH1F*)h1_wz->Clone("h1_bg");
+    h1_bg->Add(h1_zz);
+    h1_bg->SetFillColor(kBlack);
+    h1_bg->SetFillStyle(3004);
+    THStack st;
+    st.Add(h1_zz);
+    st.Add(h1_wz);
+    
+    TLegend *l1 = new TLegend(0.6, 0.6, 0.85, 0.85);
+    l1->SetLineColor(kWhite);
+    l1->SetFillColor(kWhite);
+    l1->SetShadowColor(kWhite);
+    l1->AddEntry(h1_data, "Data", "lp");
+    l1->AddEntry(h1_wz, "WZ", "f");
+    l1->AddEntry(h1_zz, "ZZ", "f");
+
+    TCanvas *c1 = new TCanvas();
+    c1->cd();
+    st.Draw("HIST");
+    h1_bg->Draw("E2 SAME");
+    h1_data->Draw("SAME");
+    st.SetMinimum(0.1);
+    st.SetMaximum(std::max(h1_data->GetMaximum() + 2*sqrt(h1_data->GetMaximum()), st.GetMaximum()));
+    st.GetXaxis()->SetTitle(h1_zz->GetXaxis()->GetTitle());
+    l1->Draw();
+    c1->SaveAs(Form("plots/Z%s_%s.png", name, fname));
+    c1->SaveAs(Form("plots/Z%s_%s.pdf", name, fname));
+    c1->SetLogy(1);
+    c1->SaveAs(Form("plots/Z%s_%s_log.png", name, fname));
+    c1->SaveAs(Form("plots/Z%s_%s_log.pdf", name, fname));
+
+    delete h1_wz;
+    delete h1_zz;
+    delete h1_data;
+    delete h1_bg;
+    delete c1;
+    delete l1;
+
+}
+
 void printValidationHistograms(const char *file, const char *name, const char* bin)
 {
 
@@ -235,7 +299,7 @@ void printFakeRate(const char* file, const char *name, const char* friendlyName,
     fprintf(fout_tex, "\\documentclass{cmspaper}\n");
     fprintf(fout_tex, "\\usepackage{graphicx}\n");
     fprintf(fout_tex, "\\begin{document}\n");
-    fprintf(fout_tex, "\\title{%s}\n", friendlyName, file);
+    fprintf(fout_tex, "\\title{%s}\n", friendlyName);
     fprintf(fout_tex, "\\tableofcontents\n");
     fprintf(fout_tex, "\\clearpage\n");
 
@@ -307,7 +371,7 @@ void printFakeRate(const char* file, const char *name, const char* friendlyName,
     fprintf(fout_tex, "\\section{Fake Rates}\n");
 
     for (unsigned int i = 0; i < ptThresholds.size(); ++i) 
-//    for (unsigned int i = 0; i < 1; ++i)
+        //    for (unsigned int i = 0; i < 1; ++i)
 
     {
 
@@ -343,7 +407,7 @@ void printFakeRate(const char* file, const char *name, const char* friendlyName,
         // number of events in N and D in data
         //
 
-        fprintf(fout_tex, "\\subsubsection{Event Yields in data} \n", ptThresholds[i]);
+        fprintf(fout_tex, "\\subsubsection{Event Yields in data} \n");
 
         h2_num_Data->SetTitle(Form("%s_ptThreshold%u_PtEta NData (Numer)", name, ptThresholds[i]));
         h2_num_Data->Draw("TEXT");
@@ -514,6 +578,257 @@ void printFakeRate(const char* file, const char *name, const char* friendlyName,
 
 }
 
+void printZFakeRate(const char* file, const char *name, const char* friendlyName)
+{
+
+    // root files
+    TFile *out = new TFile(Form("ZFakeRate_Summary_%s_%s.root", name, file), "RECREATE");
+    TFile *f = new TFile(Form("histos_ZFakeLooper_%s.root", file), "READ");
+    gROOT->cd();
+    gStyle->SetOptStat(0);
+
+    // tex file
+    FILE *fout_tex;
+    fout_tex = fopen(Form("ZFakeRate_Summary_%s_%s.tex", name, file), "w");
+    fprintf(fout_tex, "\\documentclass{cmspaper}\n");
+    fprintf(fout_tex, "\\usepackage{graphicx}\n");
+    fprintf(fout_tex, "\\begin{document}\n");
+    fprintf(fout_tex, "\\title{%s}\n", friendlyName);
+    fprintf(fout_tex, "\\tableofcontents\n");
+    fprintf(fout_tex, "\\clearpage\n");
+
+    Int_t palette[7];
+    palette[0] = kWhite;
+    for (unsigned int i=1;i<7;++i){
+        palette[i] = 18-i;
+    }
+    gStyle->SetPalette(7,palette);
+    gStyle->SetPaintTextFormat("4.3f");
+    gStyle->SetMarkerSize(2);
+
+    TCanvas *c1 = new TCanvas();
+    c1->SetGridx();
+    c1->SetGridy();
+    c1->cd();
+
+    // set scale factor and error on EWK background
+    float SF_EWK = 1.0;
+    float Err_EWK = 0.1;
+
+    // print the validation histograms
+    fprintf(fout_tex, "\\section{Backgrounds}\n");
+    fprintf(fout_tex, "\\subsection{WZ/ZZ Background}\n");
+    printZStack(f, Form("%s_h1_met", name), file, SF_EWK, Err_EWK);
+    fprintf(fout_tex, "\\begin{figure}[!hbtp]\n");
+    fprintf(fout_tex, "\\centering\n");
+    fprintf(fout_tex, "\\includegraphics[width=.8\\textwidth]{plots/Z%s_h1_met_%s.pdf}\n", name, file);
+    fprintf(fout_tex, "\\caption{The MET distribution where FO passes the numberator.");
+    fprintf(fout_tex, "The systematic uncertainty on each of the ZZ and ZZ backgrounds is 10 percent.");
+    fprintf(fout_tex, "The default cut to derive the fake rate is MET $<30$~GeV.}\n");
+    fprintf(fout_tex, "\\end{figure}\n");
+
+    fprintf(fout_tex, "\\section{Fake Rates}\n");
+    // get numerator and denominator
+    //unsigned int ptThreshold = 0;
+    unsigned int ptThreshold = 0;
+    TH2F* h2_den_Data   = (TH2F*)f->Get(Form("den_Data_%s_ptThreshold%u_PtEta", name, ptThreshold));
+    TH2F* h2_num_Data   = (TH2F*)f->Get(Form("num_Data_%s_ptThreshold%u_PtEta", name, ptThreshold));
+    TH2F* h2_den_ZZ  = (TH2F*)f->Get(Form("den_ZZ_%s_ptThreshold%u_PtEta", name, ptThreshold));
+    TH2F* h2_num_ZZ  = (TH2F*)f->Get(Form("num_ZZ_%s_ptThreshold%u_PtEta", name, ptThreshold));
+    TH2F* h2_den_WZ     = (TH2F*)f->Get(Form("den_WZ_%s_ptThreshold%u_PtEta", name, ptThreshold));
+    TH2F* h2_num_WZ     = (TH2F*)f->Get(Form("num_WZ_%s_ptThreshold%u_PtEta", name, ptThreshold));
+
+    // scale MC processes
+    h2_den_ZZ->Scale(SF_EWK);
+    h2_num_ZZ->Scale(SF_EWK);
+    setUncertainty(h2_den_ZZ, Err_EWK);
+    setUncertainty(h2_num_ZZ, Err_EWK);
+    h2_den_WZ->Scale(SF_EWK);
+    h2_num_WZ->Scale(SF_EWK);
+    setUncertainty(h2_den_WZ, Err_EWK);
+    setUncertainty(h2_num_WZ, Err_EWK);
+
+    h2_num_ZZ->Draw("TEXT E1");
+    c1->SaveAs(Form("Z%s_num_ZZ.png", file));
+    h2_num_Data->Draw("TEXT E1");
+    c1->SaveAs(Form("Z%s_num_Data.png", file));
+    h2_num_WZ->Draw("TEXT E1");
+    c1->SaveAs(Form("Z%s_num_WZ.png", file));
+
+        //
+        // number of events in N and D in data
+        //
+
+        fprintf(fout_tex, "\\subsubsection{Event Yields in data} \n");
+
+        h2_num_Data->SetTitle(Form("Z%s_ptThreshold%u_PtEta NData (Numer)", name, ptThreshold));
+        h2_num_Data->Draw("TEXT");
+        c1->SaveAs(Form("plots/Z%s_ptThreshold%u_PtEta_%s_NData_N.png", name, ptThreshold, file));
+        printline(fout_tex, h2_num_Data, Form("Summary of numerator counts for Z pT $>$ %u", ptThreshold), true);
+
+        h2_den_Data->SetTitle(Form("Z%s_ptThreshold%u_PtEta NData (Denom)", name, ptThreshold));
+        h2_den_Data->Draw("TEXT");
+        c1->SaveAs(Form("plots/Z%s_ptThreshold%u_PtEta_%s_NData_D.png", name, ptThreshold, file));
+        printline(fout_tex, h2_den_Data, Form("Summary of denominator counts for Z pT $>$ %u", ptThreshold), true);
+
+    //
+    // compare data to ZZ and WZ
+    //
+
+    fprintf(fout_tex, "\\clearpage\n");
+    fprintf(fout_tex, "\\subsubsection{Estimated background fractions} \n");
+
+    TH2F* h2_den_rel_ZZ = (TH2F*)h2_den_ZZ->Clone("h2_den_rel_ZZ");
+    h2_den_rel_ZZ->SetTitle(Form("%s_ptThreshold%u_PtEta fZZ(Denom)", name, ptThreshold));
+    h2_den_rel_ZZ->Divide(h2_den_Data);
+    h2_den_rel_ZZ->Draw("COLZ TEXT E1");
+    h2_den_rel_ZZ->SetMaximum(1.0);
+    h2_den_rel_ZZ->SetMinimum(0.0);
+    c1->SaveAs(Form("plots/Z%s_ptThreshold%u_PtEta_%s_fZZ_D.png", name, ptThreshold, file));
+
+    TH2F* h2_num_rel_ZZ = (TH2F*)h2_num_ZZ->Clone("h2_num_rel_ZZ");
+    h2_num_rel_ZZ->SetTitle(Form("%s_ptThreshold%u_PtEta fZZ(Numer)", name, ptThreshold));
+    h2_num_rel_ZZ->Divide(h2_num_Data);
+    h2_num_rel_ZZ->Draw("COLZ TEXT E1");
+    h2_num_rel_ZZ->SetMaximum(1.0);
+    h2_num_rel_ZZ->SetMinimum(0.0);
+    c1->SaveAs(Form("plots/Z%s_ptThreshold%u_PtEta_%s_fZZ_N.png", name, ptThreshold, file));
+
+    TH2F* h2_den_rel_WZ = (TH2F*)h2_den_WZ->Clone("h2_den_rel_WZ");
+    h2_den_rel_WZ->SetTitle(Form("%s_ptThreshold%u_PtEta fWZ(Denom)", name, ptThreshold));
+    h2_den_rel_WZ->Divide(h2_den_Data);
+    h2_den_rel_WZ->Draw("COLZ TEXT E1");
+    h2_den_rel_WZ->SetMaximum(1.0);
+    h2_den_rel_WZ->SetMinimum(0.0);
+    c1->SaveAs(Form("plots/Z%s_ptThreshold%u_PtEta_%s_fWZ_D.png", name, ptThreshold, file));
+
+    TH2F* h2_num_rel_WZ = (TH2F*)h2_num_WZ->Clone("h2_num_rel_WZ");
+    h2_num_rel_WZ->SetTitle(Form("%s_ptThreshold%u_PtEta fWZ(Numer)", name, ptThreshold));
+    h2_num_rel_WZ->Divide(h2_num_Data);
+    h2_num_rel_WZ->Draw("COLZ TEXT E1");
+    h2_num_rel_WZ->SetMaximum(1.0);
+    h2_num_rel_WZ->SetMinimum(0.0);
+    c1->SaveAs(Form("plots/Z%s_ptThreshold%u_PtEta_%s_fWZ_N.png", name, ptThreshold, file));
+
+    printline(fout_tex, h2_den_rel_ZZ, Form("n(ZZ) / n(Data in denominator) for jet pT $>$ %u", ptThreshold), false);
+    printline(fout_tex, h2_den_rel_WZ, Form("n(WZ) / n(Data in denominator) for jet pT $>$ %u", ptThreshold), false);
+    printline(fout_tex, h2_num_rel_ZZ, Form("n(ZZ) / n(Data in numerator) for jet pT $>$ %u", ptThreshold), false);
+    printline(fout_tex, h2_num_rel_WZ, Form("n(WZ) / n(Data in numerator) for jet pT $>$ %u", ptThreshold), false);
+
+    // projection of the sum of EWK contamination
+    TH2F *h2_num_EWK = (TH2F*)h2_num_ZZ->Clone("h2_num_EWK");
+    h2_num_EWK->Add(h2_num_WZ);
+    TH1F *h1_num_EWK_projection = (TH1F*)h2_num_EWK->ProjectionX("h1_num_EWK_projection");
+    TH1F *h1_num_Data_projection = (TH1F*)h2_num_Data->ProjectionX("h1_num_Data_projection");
+    TH1F *h1_num_fEWK = (TH1F*)h1_num_EWK_projection->Clone("h1_num_fEWK");
+    h1_num_fEWK->Divide(h1_num_Data_projection);
+    h1_num_fEWK->Draw();
+    h1_num_fEWK->GetYaxis()->SetRangeUser(0, 1.0);
+    c1->SaveAs(Form("plots/Z%s_ptThreshold%u_PtEta_%s_fEWK_N.png", name, ptThreshold, file));        
+
+    TH2F *h2_den_EWK = (TH2F*)h2_den_ZZ->Clone("h2_den_EWK");
+    h2_den_EWK->Add(h2_den_WZ);
+    TH1F *h1_den_EWK_projection = (TH1F*)h2_den_EWK->ProjectionX("h1_den_EWK_projection");
+    TH1F *h1_den_Data_projection = (TH1F*)h2_den_Data->ProjectionX("h1_den_Data_projection");
+    TH1F *h1_den_fEWK = (TH1F*)h1_den_EWK_projection->Clone("h1_den_fEWK");
+    h1_den_fEWK->Divide(h1_den_Data_projection);
+    h1_den_fEWK->Draw();
+    h1_den_fEWK->GetYaxis()->SetRangeUser(0, 1.0);
+    c1->SaveAs(Form("plots/Z%s_ptThreshold%u_PtEta_%s_fEWK_D.png", name, ptThreshold, file));  
+
+    //
+    // make FR
+    //
+
+    // projection of corrected and not corrected fake rate
+    TH1F *h1_num_Data = (TH1F*)h2_num_Data->ProjectionX("h1_num_Data");
+    TH1F *h1_den_Data = (TH1F*)h2_den_Data->ProjectionX("h1_den_Data");
+    TH1F *h1_FR = (TH1F*)h1_num_Data->Clone("h1_FR");
+    h1_FR->Divide(h1_den_Data);
+    h1_FR->SetLineColor(kBlue);
+
+    TH1F *h1_num_Data_bgsub = (TH1F*)h1_num_Data->Clone("h1_num_Data_bgsub");
+    h1_num_Data_bgsub->Add(h1_num_EWK_projection, -1.0);
+    TH1F *h1_den_Data_bgsub = (TH1F*)h1_den_Data->Clone("h1_den_Data_bgsub");
+    h1_den_Data_bgsub->Add(h1_den_EWK_projection, -1.0);
+    TH1F *h1_FR_bgsub = (TH1F*)h1_num_Data_bgsub->Clone("h1_FR_bgsub");
+    h1_FR_bgsub->Divide(h1_den_Data_bgsub);
+    h1_FR_bgsub->SetLineColor(kRed);
+
+    h1_num_Data->Draw();
+    h1_num_Data_bgsub->Draw("SAME HIST");
+    c1->SaveAs(Form("plots/Z%s_ptThreshold%u_TEST_%s.png", name, ptThreshold, file));
+
+    h1_FR->Draw();
+    h1_FR_bgsub->Draw("SAME");
+    h1_FR->GetYaxis()->SetRangeUser(0.0, 1.0);
+    c1->SaveAs(Form("plots/Z%s_ptThreshold%u_PtEta_FRProjectionX_%s.png", name, ptThreshold, file));
+
+    // make FR with no subtraction
+    TH2F* h2_FR = (TH2F*)h2_num_Data->Clone(Form("%s_ptThreshold%u_PtEta_raw", name, ptThreshold));
+    h2_FR->SetTitle(Form("%s_ptThreshold%u_PtEta RAW", name, ptThreshold));
+    h2_FR->Divide(h2_den_Data);
+    h2_FR->Draw("COLZ TEXT E1");
+    h2_FR->SetMaximum(0.5);
+    h2_FR->SetMinimum(0.0);
+    c1->SaveAs(Form("plots/Z%s_ptThreshold%u_PtEta_raw_%s.png",name,  ptThreshold, file));
+
+    // subtract MC from data numerator and denominator
+    h2_den_Data->Add(h2_den_WZ, -1.0);
+    h2_num_Data->Add(h2_num_WZ, -1.0);
+    h2_den_Data->Add(h2_den_ZZ, -1.0);
+    h2_num_Data->Add(h2_num_ZZ, -1.0);
+    TH2F* h2_FR_bgsub = (TH2F*)h2_num_Data->Clone(Form("%s_ptThreshold%u_PtEta", name, ptThreshold));
+    h2_FR_bgsub->SetTitle(Form("%s_ptThreshold%u_PtEta Corrected", name, ptThreshold));
+    h2_FR_bgsub->Divide(h2_den_Data);
+    h2_FR_bgsub->Draw("COLZ TEXT E1");
+    h2_FR_bgsub->SetMaximum(0.5);
+    h2_FR_bgsub->SetMinimum(0.0);
+    c1->SaveAs(Form("plots/Z%s_ptThreshold%u_PtEta_cor_%s.png", name, ptThreshold, file));
+
+    // ratio of fake rate with and without
+    // bg subtraction
+    TH2F* h2_FR_ratio = (TH2F*)h2_FR_bgsub->Clone(Form("%s_ptThreshold%u_PtEta_ratio", name, ptThreshold));
+    h2_FR_ratio->SetTitle(Form("%s_ptThreshold%u_PtEta RAW:Corrected", name, ptThreshold));
+    h2_FR_ratio->Divide(h2_FR);
+    h2_FR_ratio->Draw("COLZ TEXT E1");
+    h2_FR_ratio->SetMaximum(1.0);
+    h2_FR_ratio->SetMinimum(0.0);
+    c1->SaveAs(Form("plots/Z%s_ptThreshold%u_PtEta_ratio_%s.png", name, ptThreshold, file));
+
+    //fprintf(fout_tex, "\\clearpage\n");
+    fprintf(fout_tex, "\\subsubsection{Fake Rate} \n");
+    printline(fout_tex, h2_FR, Form("Fake rate before background subtraction for Z pT $>$ %u", ptThreshold), false);
+    printline(fout_tex, h2_FR_bgsub, Form("Fake rate after background subtraction for Z pT $>$ %u", ptThreshold), false);
+
+
+    out->cd();
+    h2_FR_bgsub->Write();
+    h2_FR->Write();
+
+    delete h2_den_Data;
+    delete h2_num_Data;
+    delete h2_den_WZ;
+    delete h2_num_WZ;
+    delete h2_den_ZZ;
+    delete h2_num_ZZ;
+    delete h2_FR;
+    delete h2_FR_bgsub;
+    delete h2_FR_ratio;
+
+    fprintf(fout_tex, "\\end{document}\n");
+    fclose(fout_tex);
+    gROOT->ProcessLine(Form(".! pdflatex ZFakeRate_Summary_%s_%s.tex", name, file));
+    gROOT->ProcessLine(Form(".! pdflatex ZFakeRate_Summary_%s_%s.tex", name, file));
+
+    delete c1;
+    out->Close();
+    f->Close();
+    delete f;
+    delete out;
+
+}
+
 void getWJetsScaleFactor(TFile *f, const char* name, float &sf, float &err)
 {
 
@@ -542,7 +857,7 @@ void getWJetsScaleFactor(TFile *f, const char* name, float &sf, float &err)
 
 void getDYScaleFactor(TFile *f, const char* name, float &sf, float &err)
 {       
-        
+
     // get the scale factor for the W+jets
     // and its uncertainty
     TH1F *h1_wjets_ctl_mll =    (TH1F*)f->Get(Form("WJets_%s_num_highPt_mll", name))->Clone("wjets");
@@ -569,7 +884,7 @@ void getDYScaleFactor(TFile *f, const char* name, float &sf, float &err)
     delete h1_wjets_ctl_mll;
     delete h1_dy_ctl_mll;
     delete h1_data_ctl_mll;
-        
+
 }
 
 void setUncertainty(TH1F *hist, const float &err)

@@ -67,7 +67,7 @@ int ZFakeLooper::Loop(bool isData, TChain* chain, const char* name,
     unsigned int nEventsTotal = 0;
     int i_permille_old = 0;
 
-    TH1F *h1_met = new TH1F(Form("%s_h1_met", name), "met", 20, 0, 100);
+    TH1F *h1_met = new TH1F(Form("%s_h1_met", name), "met; MET [GeV]", 20, 0, 100);
     h1_met->Sumw2();
 
     //
