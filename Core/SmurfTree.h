@@ -204,7 +204,8 @@ class SmurfTree {
     vbfhww700,
     vbfhww800,
     vbfhww900,
-    vbfhww1000
+    vbfhww1000,
+    qqwwPWG
   };
 
   /// variables
