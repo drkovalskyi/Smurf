@@ -28,25 +28,30 @@ and at the signal strenght for the signal+background fit.
 
 Results are summarized in Table~\ref{tab:toy_summary}.
 We first test the fit performance without any input bias. 
-The signal is estimated without large bias ($\leq 6$\%) and the resolution is 38\% (51\%) in the 0-jet (1-jet) bin 
+The signal is estimated without large bias ($\leq 4$\%) and the resolution is 28\% (35\%) in the 0-jet (1-jet) bin 
 when toy are sampled with statistical variations only. Including systematic effects in the toys does not introduce
-additional bias but worses the signal resolution by $\sim$25\%. All background processes are estimated without bias.
+additional bias but worses the signal resolution by $\sim$30-40\%. All background processes are estimated without bias.
 Then we tested the fit performance in case of problems with the main backgrounds:
 \begin{itemize}
-\item {\bf Wjets} has a large normalization uncertainty (36\%), about three times as the total signal yield (Table~\ref{tab:yield_summary}). 
+
+\item {\bf WjetsM} has a large normalization uncertainty (36\%), about three times as the total signal yield (Table~\ref{tab:yield_summary}). 
 Its shape is well constrained but not very different from the signal one. 
 Therefore, it is crucial to verify that the fit is stable with respect to Wjets variations.
 First, we tested the ability of the fit to distinguish the signal and Wjets shapes by relaxing the Wjets normalization without any input bias to the toys: the signal resolution is slightly degraded but no bias is introduced. 
 Then, we applied an input bias ($\pm$1$\sigma$ normalization and shape) to the toys and analyzed them with the nominal analysis. 
 The normalization bias is a large effect and the fit is only partially able to absorb it into the Wjets component; 
-the resulting bias on the signal is $<$X\% (resolution is unaffected).
+the resulting bias on the signal is about 6\% (resolution is unaffected). 
+The largest bias on the signal yield is 14\%, from the 1-Jet where the WjetsM background input is -36\% less than what 
+the nominal fit assume.
+
 \item {\bf qqWW} is the largest background; it is well constrained both in terms of normalization and shape, but small variations of this 
 process have a large size with respect to the signal. 
 We tested variations on normalization ($\pm$10\%, roughly equal to 1$\sigma$ in the 0-jet bin), 
 on shape (using the alernative shape from MCatNLO as input to the toys) and on both. 
-In all cases, the effect on the signal is small, with biases $\leq$7\%. 
+In all cases, the effect on the signal is small, with biases $\leq$1\% in the 0-Jet.  
 As expected, when relaxing the qqWW normalization uncertainty, it is easier for the fit to account the observed bias to the qqWW process,
 and consequently reduce the already small signal bias (by a factor of 2).
+
 \item {\bf Top} is the main background in the 1-jet bin. 
 and on shape 
 (using the alernative shape from MadGraph as input to the toys) separately. No bias is introduced for the signal. 
@@ -70,34 +75,34 @@ N$_{jets}$ & Test & bias & $\sigma$ & bias & $\sigma$ & bias & $\sigma$ & bias &
 0 & default                             &  2  & 28 & 0.4 & 3 & 0.4 & 11 & 0.5 & 15 & 0.7 & 10  \\
 0 & sampling: stat.+syst.               &  4  & 36 & 0.6 & 7 &  3  & 21 &  6  & 25 & 0.2 & 11 \\
 \hline
-0 & analysis: inflated Wjets error      &  x   &  x & x   & x & x   & x  & x   & x  & x  & x\\
-0 & input: WjetsM +36\% bias             & 6   & 28 & 0.3 & 3 & 0.8 & 11 & {\bf 27}  & 18 & 4  & 10  \\
-0 & input: WjetsM -36\% bias             & -6  & 25  & -1 & 3 & 3   & 11 & {\bf -23} & 10 & -7  & 10\\
-0 & input: WjetsM from altern. shape     & x   & x  & x   & x & x   & x  & x   & x  & x   & x\\
+0 & analysis: inflated Wjets error      &  2   & 29 & -0.3  & 3 & 0.2  & 12  & -0.2   & 19  & -0.6  & 10\\
+0 & input: WjetsM {\bf +36\% bias}      & 6   & 28 & 0.3 & 3 & 0.8 & 11 & {\bf 27}  & 18 & 4  & 10  \\
+0 & input: WjetsM {\bf -36\% bias}      & -6  & 25  & -1 & 3 & 3   & 11 & {\bf -23} & 10 & -7  & 10\\
+0 & input: WjetsM from altern. shape    & x   & x  & x   & x & x   & x  & x   & x  & x   & x\\
 \hline
-0 & input: qqWW +10\% bias              & 0.7 & 28 & {\bf 10}  & 3 & 0.8 & 12 & 0.5 & 14 & 0.4 & 10  \\
-0 & input: qqWW -10\% bias              & 0.2 & 26 & {\bf -10} & 3 & 0.1 & 11 & 0.4 & 15 & 0.4 & 10 \\
+0 & input: qqWW {\bf +10\% bias}        & 0.7 & 28 & {\bf 10}  & 3 & 0.8 & 12 & 0.5 & 14 & 0.4 & 10  \\
+0 & input: qqWW {\bf -10\% bias}        & 0.2 & 26 & {\bf -10} & 3 & 0.1 & 11 & 0.4 & 15 & 0.4 & 10 \\
 0 & input: qqWW from altern. shape      & x   & x  & x   & x & x   & x  & x   & x  & x   & x\\
 \hline
-0 & input: Top +20\% bias               & -2  & 27  & 1   & 3 & {\bf 11} & 12  & -0.5 & 15  & -1   & 9\\
-0 & input: Top -20\% bias               & 3   & 27  & -2  & 3 & {\bf -9} & 10  & 2    & 16  & -0.8 & 10\\
+0 & input: Top {\bf +20\% bias}         & -2  & 27  & 1   & 3 & {\bf 11} & 12  & -0.5 & 15  & -1   & 9\\
+0 & input: Top {\bf -20\% bias}         & 3   & 27  & -2  & 3 & {\bf -9} & 10  & 2    & 16  & -0.8 & 10\\
 0 & input: Top from altern. shape       & x   & x  & x    & x & x   & x  & x   & x  & x   & x\\
 \hline
 \hline
 1 & default                             & -3  & 35 & 2   & 9  & -2  & 5 & -0.1 & 20 & -2 & 12 \\
 1 & sampling: stat.+syst.               & -6  & 48 & 3   & 16 & 0.4 & 6 & 0.6  & 25 & 0.7& 14 \\
 \hline
-1 & analysis: inflated Wjets error      &  x  &  x & x   & x & x   & x  & x   & x  & x   & x\\ 
-1 & input: WjetsM +36\% bias             &  x  &  x & x   & x & x   & x  & x   & x  & x   & x\\ 
-1 & input: WjetsM -36\% bias             &  x  &  x & x   & x & x   & x  & x   & x  & x   & x\\ 
-1 & input: WjetsM from altern. shape     &  x  &  x & x   & x & x   & x  & x   & x  & x   & x\\
+1 & analysis: inflated Wjets error      &  -3 &  37 & 2  & 9 & -2  & 5  & 0.1  & 24  & -2  & 12\\ 
+1 & input: WjetsM {\bf +36\% bias}      &  5  &  35 & 4  & 9 & -2  & 5  & {\bf 26} & 26  & 1   & 12\\ 
+1 & input: WjetsM {\bf -36\% bias}      & -14 &  33 & 0.5& 9 & -1  & 5  & {\bf-20} & 15  & -5  & 11 \\ 
+1 & input: WjetsM from altern. shape    &  x  &  x & x   & x & x   & x  & x   & x  & x   & x\\
 \hline
-1 & input: qqWW +10\% bias              & 4   & 37 & 12  & 9 & -2  & 5  & 0.3  & 19 & 1  & 11 \\
-1 & input: qqWW -10\% bias              & -1  & 33 & -7  & 9 & -2  & 5  & 0.3  & 18 & -2 & 13 \\
+1 & input: qqWW {\bf +10\% bias}        & 4   & 37 & 12  & 9 & -2  & 5  & 0.3  & 19 & 1  & 11 \\
+1 & input: qqWW {\bf -10\% bias}        & -1  & 33 & -7  & 9 & -2  & 5  & 0.3  & 18 & -2 & 13 \\
 1 & input: qqWW from altern. shape      & x   & x  & x   & x & x   & x  & x    & x  & x & x \\
 \hline
-1 & input: Top +5\% bias                & -6  & 35  & 8  & 9 & {\bf -0.5} & 5 & -1  & 17 & -2 & 11 \\
-1 & input: Top -5\% bias                & -2  & 35 & -2  & 9 & {\bf -3} & 5 & 2  & 19 & -1 & 12 \\
+1 & input: Top {\bf +5\% bias}          & -6  & 35  & 8  & 9 & {\bf -0.5} & 5 & -1  & 17 & -2 & 11 \\
+1 & input: Top {\bf -5\% bias}          & -2  & 35 & -2  & 9 & {\bf -3} & 5 & 2  & 19 & -1 & 12 \\
 1 & input: Top from altern. shape       & x   & x  & x & x & x & x & x  & x & x & x \\
 \hline
 \hline
