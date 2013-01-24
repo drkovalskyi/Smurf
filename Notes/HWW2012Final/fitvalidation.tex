@@ -1,0 +1,42 @@
+In this section we summarize the tests on fit behavior using data. 
+There are following control regions where we can do the tests.
+
+\begin{itemize}
+    \item{\textbf{Same-sign \M\M~events} \\}  
+        The sign requirement on the leptons is flipped. To get more statistics, 
+        events in $|\mll - \mZ| < 15 \GeV$ are includeid. Instead of DYMVA, $minMET>35\GeV$
+        is applied because requiring same sign reduces DY contribution (i.e. charge flip rate
+        of muons is very small). This contral region is dominated by W+jets(\M), \Wgstar, and WZ/ZZ.
+    \item{\textbf{Top-enriched sample} \\} 
+        The top-veto requirement is flipped. This control region is dominated by top, WW, and Wjets.
+%    \item{\textbf{WW-enriche} : }
+%        $\mll > 70~\GeV$ is applied. This control region is dominated by WW, top, and Wjets.
+%    \item Tri-lepton : ...  
+\end{itemize}
+
+The rest of selections are identical to the 2D analysis at $\mHi=125\GeV$.
+In each test we perform a Maximum Likelihood fit with signal strength floated 
+and check how normalizations of signal and background change.
+Since signal contains only opposite sign di-lepton pairs, we use these events as signal 
+in the test on same sign \M\M~events. The full 8 TeV data($\mathcal{L}=\intlumiEightTeV$) is used for the study.
+
+Here is the summary of tests. Details(tables and plots) can be found in the appendix \ref{sec:appendix_fitvalidataion}. 
+\begin{itemize}
+    \item{\textbf{Same-sign \M\M~events} (Table \ref{tab:fitval_norm_ssmm_0j}-\ref{tab:fitval_norm_ssmm_1j}) \\ }  
+        Signal contribution is close to 0 after fit. This means fit is able to 
+        get the correct normalization when signal does not exist. Of the background 
+        processes, WZ/ZZ and \Wgstar are not shifted, but Wjets($\mu$) is decreased by 30-40\% by fit.   
+        This indicates a possible over-esitmation of Wjets($\mu$) background.  
+    \item{\textbf{Top-enriched sample} (Table \ref{tab:fitval_norm_top_0j}-\ref{tab:fitval_norm_top_1j}) \\ } 
+        In 0jet bin signal changed by -200\%, but the size of signal with respect to the total background 
+        is only 1 \%. Therefore, change in the signal component is not significant. 
+        Shift in backgrounds is not significant except for top in the 1jet bin. 
+        Given that 94\% of the total background is from top, fit adjusts top to match data.  
+%    \item{\textbf{WW-enriche}(Table \ref{tab:fitval_norm_ww_0j}-\ref{tab:fitval_norm_ww_1j}) : } 
+%    \item Tri-lepton : ...  
+\end{itemize} 
+
+The conclusion is that fit does not show any anomalous behavior
+when it is performed on the two control samples. Fit is able to assign 
+proper normalizations of processes based on data.   
+

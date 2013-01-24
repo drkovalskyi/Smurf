@@ -1,0 +1,39 @@
+We use a combination of data-driven methods and detailed Monte Carlo
+simulation studies to estimate background contributions.  From data we
+can estimate the following backgrounds: $\Wjets$, $\dyll$, top
+, and \WW{} backgrounds. The background from the remaining processes 
+are taken from simulation.
+
+Background composition and yields depend on the final state and on
+the Higgs boson mass hypothesis under study. In the 0-Jet final state, 
+the non-resonant \WW{} background dominates, while \wjets\ background contribution 
+becomes sizable in the low Higgs mass hypotheses. 
+In the 1-jet final state, the largest background contribution comes from 
+top decays, while the non-resonant \ww\ background contribution is the second largest. 
+
+For the backgrounds that can be estimated from data, 
+we perform a data-driven background estimate in the signal region 
+if the expected background contribution is sizable. 
+If the expected contribution in the signal region is limited by statistics, 
+we first estimate the background contribution with the $WW$ preselection from data 
+and then extrapolate this estimation to the signal region using MC. The particular
+choice of which backgrounds are estimated in the first or second way depends on the
+integrated luminosity of the data sample that we analyze.
+
+In the background estimation, the following improvements have been made since HCP 2012 \cite{hcp2012Note}.
+\begin{itemize}
+    \item{\Wjets}
+    \begin{itemize}
+        \item Subtraction of EWK(W/Z) contamination in fake rate estimation
+        \item Split to the cases where e is a fake and \M~is a fake 
+    \end{itemize}
+    \item{\wgamma~and \Wgstar}
+    \begin{itemize}
+        \item split \wgamma~and \Wgstar 
+        \item \wgamma~: To enhance statistics in the template, we select lepton + photon events and apply 
+                        conversion($\gamma \to e$) probability as a function of photon $\eta$. The conversion
+                        probability is measured in MC.
+        \item \Wgstar~: The k-factor is measured using the same technique described in \cite{hcp2012Note}. 
+                        The measured k-factor is 1.5 with 30\% of systematic uncertainty. 
+    \end{itemize}
+\end{itemize}

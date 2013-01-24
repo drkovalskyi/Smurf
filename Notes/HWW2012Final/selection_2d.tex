@@ -1,0 +1,45 @@
+In this section we describe an alternate approach,
+using a binned fit to the 2D distribution of two physical variables.
+The analysis method is described in brief here,
+and in detail detail in Ref.~\cite{2DNote},~\cite{hcp2012Note}.
+
+This method uses two physical variables : \mll~and \mt.
+They are defined as follows:
+
+\begin{itemize}
+\item the dilepton mass $\mll$;
+\item transverse Higgs mass,
+$\mt^{\ell\ell\met} = \sqrt{2\pt^{ll}\met(1-cos(\Delta\phi_{\ell\ell-\met}))}$ where
+$\Delta\phi_{\ell\ell-\met}$ is the angle between dilepton
+direction and \met in the transverse plane.
+\end{itemize}
+
+The 2D templates for signal and background processes are constructed 
+with the WW preselection with relax dilepton transverse momemtun requirement, 
+$\pt^{ll}>30\GeV$ for low mass hypotheses($\mHi<300~\GeV$). For the high mass hypotheses ($\mHi\ge300~\GeV$),
+we apply $\ptlmax > 50~\GeV$ to increase S/B. The bin size is chosen to avoid empty 
+bins in the background templates, given the the available simulation and control sample statistics.  
+Table~\ref{tab:binning_range} summarizes the bin size and range of templates. 
+
+
+\fixme \textcolor{red}{how about draw empty templetes with grid?} 
+\vspace{25pt}
+\begin{table}[!htb]
+\centering
+\begin{tabular}{c | c | c }
+\hline \hline
+     Variable  & $\mHi< 300~\GeV$  & $\mHi\ge 300~\GeV$    \\
+	\hline \hline
+	\mt       & [60,280] 10 bins  & [80,380] 10 bins      \\
+	\mll      & [0,200] 8 bins    & [0,450] 8 bins        \\
+	\hline
+	\end{tabular}
+	\label{tab:binning_range}
+	\caption{Summary of template parameters. For the high-\mHi~templates, 
+			 overflow to \mll=600~\GeV~and~\mt=600~\GeV~is included
+		  	 in the content of the last bin.}
+\end{table}
+
+We have applied the method to the $e\mu$ final state in the 0 and 1 jet bins, 
+which are the most sensitive channels.  
+

@@ -1,0 +1,100 @@
+The datasets used for this analysis are summarized in 
+Tables~\ref{tab:DatasetsData} and~\ref{tab:DatasetsMC} for data and Monte 
+Carlo, respectively. The total integrated luminosity is \intlumiEightTeV. 
+Since some portion of data datasets was not processed, 
+we use a json excluding the missing events~\cite{json}. For Monte Carlo simulation 
+we use madgraph when possible, but different generators such as Pythia and Powheg~\cite{powheg} 
+are also used.  For $gg \to \WW$ a dedicated generator is used. 
+%For \wz\ and \zz\ processes we use Pythia, since MadGraph samples are mixed with $\WW$ in
+%a single $VV$ sample, which is difficult to use properly.
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+ Dataset Description                    &   Dataset Name   \\
+\hline \hline
+\multirow{5}{*}{MuEl}                   &  /MuEG/Run2012A-13Jul2012-v1/AOD              \\
+                                        &  /MuEG/Run2012A-recover-06Aug2012-v1/AOD      \\
+                                        &  /MuEG/Run2012B-13Jul2012-v1/AOD              \\
+                                        &  /MuEG/Run2012C-24Aug2012-v1/AOD              \\
+                                        &  /MuEG/Run2012C-PromptReco-v2/AOD             \\
+                                        &  /MuEG/Run2012D-PromptReco-v1/AOD             \\
+\hline
+\multirow{5}{*}{DiMuon}                 &  /DoubleMu/Run2012A-13Jul2012-v1/AOD              \\
+                                        &  /DoubleMu/Run2012A-recover-06Aug2012-v1/AOD      \\
+                                        &  /DoubleMu/Run2012B-13Jul2012-v4/AOD              \\
+                                        &  /DoubleMu/Run2012C-24Aug2012-v1/AOD              \\
+                                        &  /DoubleMu/Run2012C-PromptReco-v2/AOD             \\
+                                        &  /DoubleMu/Run2012D-PromptReco-v1/AOD             \\
+\hline
+\multirow{5}{*}{DiElectron}             &  /DoubleElectron/Run2012A-13Jul2012-v1/AOD            \\
+                                        &  /DoubleElectron/Run2012A-recover-06Aug2012-v1/AOD    \\
+                                        &  /DoubleElectron/Run2012B-13Jul2012-v1/AOD            \\
+                                        &  /DoubleElectron/Run2012C-24Aug2012-v1/AOD            \\
+                                        &  /DoubleElectron/Run2012C-PromptReco-v2/AOD           \\
+                                        &  /DoubleElectron/Run2012D-PromptReco-v1/AOD           \\
+\hline
+\multirow{5}{*}{SingleMuon}             &  /SingleMuon/Run2012A-13Jul2012-v1/AOD            \\
+                                        &  /SingleMuon/Run2012A-recover-06Aug2012-v1/AOD    \\
+                                        &  /SingleMuon/Run2012B-13Jul2012-v1/AOD            \\
+                                        &  /SingleMuon/Run2012C-24Aug2012-v1/AOD            \\
+                                        &  /SingleMuon/Run2012C-PromptReco-v2/AOD           \\
+                                        &  /SingleMuon/Run2012D-PromptReco-v1/AOD           \\
+\hline
+\multirow{5}{*}{SingleElectron}         &  /SingleElectron/Run2012A-13Jul2012-v1/AOD            \\
+                                        &  /SingleElectron/Run2012A-recover-06Aug2012-v1/AOD    \\
+                                        &  /SingleElectron/Run2012B-13Jul2012-v1/AOD            \\
+                                        &  /SingleElectron/Run2012C-24Aug2012-v1/AOD            \\
+                                        &  /SingleElectron/Run2012C-PromptReco-v2/AOD           \\
+                                        &  /SingleElectron/Run2012D-PromptReco-v1/AOD           \\
+\hline
+\end{tabular}
+\caption{Summary of data datasets used.\label{tab:DatasetsData}}
+\end{center}
+\end{table}
+
+\begin{table}[!ht]
+\begin{center}
+{\footnotesize
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{With Pileup: Processed dataset name is always} \\
+\multicolumn{3}{|c|}{/Summer12\_DR53X-PU\_S10\_START53\_V7A-v*/AODSIM} \\ 
+\hline
+ Dataset Description                    &   Primary Dataset Name   & cross-section (pb)\\
+\hline
+$\ttbar$                                &   /TTTo2L2Nu2B\_8TeV-powheg-pythia6                           &   23.64   \\
+tW                                      &   /T\_tW-channel-DR\_TuneZ2star\_8TeV-powheg-tauola           &   11.18   \\
+$\bar{\textrm{t}}$W                     &   /Tbar\_tW-channel-DR\_TuneZ2star\_8TeV-powheg-tauola        &   11.18   \\
+gg $\rightarrow WW \to 2l 2\nu$         &   /GluGluToWWTo4L\_TuneZ2star\_8TeV-gg2ww-pythia6             &   0.18    \\
+qq $\rightarrow WW$                     &   /WWJetsTo2L2Nu\_TuneZ2star\_8TeV-madgraph-tauola            &   5.81    \\
+WZ $\rightarrow l\nu qq$                &   /WZJetsTo2L2Q\_TuneZ2star\_8TeV-madgraph-tauola             &   5.09    \\
+WZ $\rightarrow 3l\nu$                  &   /WZJetsTo3LNu\_TuneZ2\_8TeV-madgraph-tauola                 &   0.73    \\
+Z[10-50]                                &   /DYJetsToLL\_M-10To50filter\_8TeV-madgraph                  &   860.5   \\
+Z[50-inf]                               &   /DYJetsToLL\_M-50\_TuneZ2Star\_8TeV-madgraph-tarball        &   3532.8  \\
+ZZ $\rightarrow 2l 2\nu$                &   /ZZJetsTo2L2Nu\_TuneZ2star\_8TeV-madgraph-tauola            &   0.365   \\
+ZZ $\rightarrow 2l 2q$                  &   /ZZJetsTo2L2Q\_TuneZ2star\_8TeV-madgraph-tauola             &   1.28    \\
+ZZ $\rightarrow 4l$                     &   /ZZJetsTo4L\_TuneZ2star\_8TeV-madgraph-tauola               &   0.0921  \\ 
+$Z\gamma\rightarrow 2l\gamma$           &   /ZGToLLG\_8TeV-madgraph                                     &  159.12   \\ 
+$W\gamma* \rightarrow l\nu 2\mu$        &   /WGstarToLNu2Mu\_TuneZ2star\_7TeV-madgraph-tauola           &    1.91   \\ 
+$W\gamma* \rightarrow l\nu 2e$          &   /WGstarToLNu2E\_TuneZ2star\_7TeV-madgraph-tauola            &    5.87   \\ 
+$W\gamma \rightarrow l\nu \gamma$       &   /WGToLNuG\_TuneZ2star\_8TeV-madgraph-tauola                 &  553.92   \\ 
+
+$gg \to H \to WW \to 2l 2\nu$           &   /GluGluToHToWWTo2LAndTau2Nu\_M-*\_8TeV-powheg-pythia6       &   vary    \\
+$qqH,~H \to WW \to 2l 2\nu$             &   /VBF\_HToWWTo2LAndTau2Nu\_M-*\_8TeV-powheg-pythia6          &   vary    \\
+$WH/ZH/\ttbar H,~H\to WW$               &   /WH\_ZH\_TTH\_HToWW\_M-*\_8TeV-pythia6                      &   vary    \\
+\hline
+\hline
+\end{tabular}
+}
+\caption{Summary of Monte Carlo datasets used.\label{tab:DatasetsMC}. The cross sections for a SM Higgs boson
+is taken from the LHC Higgs cross-section working group~\cite{LHCHiggsCrossSectionWorkingGroup:2011ti}}
+\end{center}
+\end{table}
+
+%Last year we adjusted the Higgs $\pt$ spectrum because 
+%the spectrum in the simulation (POWHEG 2.0) was harder than the one 
+%in the most precise calculation to NNLO with resummation to NNLL order.
+%In the new version of Powheg (POWHEG 2.1), this problem has been mostly 
+%resolved, thus we do not apply any corrections for the Higss $\pt$.
