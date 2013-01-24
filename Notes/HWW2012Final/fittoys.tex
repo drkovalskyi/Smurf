@@ -51,7 +51,8 @@ and consequently reduce the already small signal bias (by a factor of 2).
 and on shape 
 (using the alernative shape from MadGraph as input to the toys) separately. No bias is introduced for the signal. 
 It is interesting to note that, in case of normalization bias in the 1-jet bin, the fit prefers to account the observed bias 
-into the qqWW component since it has similar shape but larger normalization error.
+into the qqWW component since it has similar shape but larger normalization error. However even in that case the impact 
+on the signal yield is low being 6\%. 
 \end{itemize}
 
 In summary, we find the fit to be very stable with respect to biases at the level of 1$\sigma$ both in terms of shape and 
@@ -69,33 +70,35 @@ N$_{jets}$ & Test & bias & $\sigma$ & bias & $\sigma$ & bias & $\sigma$ & bias &
 0 & default                             &  2  & 28 & 0.4 & 3 & 0.4 & 11 & 0.5 & 15 & 0.7 & 10  \\
 0 & sampling: stat.+syst.               &  4  & 36 & 0.6 & 7 &  3  & 21 &  6  & 25 & 0.2 & 11 \\
 \hline
-0 & analysis: inflated Wjets error      &  x  &  x & x   & x & x   & x  & x   & x  & x  & x\\
-0 & input: Wjets +36\% bias             & 6   & 28 & 0.3 & 3 & 0.8 & 11 & {\bf 27}  & 18 & 4  & 10  \\
-0 & input: Wjets -36\% bias             &  x  &  x & x   & x & x   & x  & x   & x  & x  & x\\
-0 & input: Wjets from altern. shape     & x   & x  & x   & x & x   & x  & x   & x  & x   & x\\
+0 & analysis: inflated Wjets error      &  x   &  x & x   & x & x   & x  & x   & x  & x  & x\\
+0 & input: WjetsM +36\% bias             & 6   & 28 & 0.3 & 3 & 0.8 & 11 & {\bf 27}  & 18 & 4  & 10  \\
+0 & input: WjetsM -36\% bias             & -6  & 25  & -1 & 3 & 3   & 11 & {\bf -23} & 10 & -7  & 10\\
+0 & input: WjetsM from altern. shape     & x   & x  & x   & x & x   & x  & x   & x  & x   & x\\
 \hline
 0 & input: qqWW +10\% bias              & 0.7 & 28 & {\bf 10}  & 3 & 0.8 & 12 & 0.5 & 14 & 0.4 & 10  \\
 0 & input: qqWW -10\% bias              & 0.2 & 26 & {\bf -10} & 3 & 0.1 & 11 & 0.4 & 15 & 0.4 & 10 \\
 0 & input: qqWW from altern. shape      & x   & x  & x   & x & x   & x  & x   & x  & x   & x\\
 \hline
-0 & input: Top +20\% bias               & x   & x  & x   & x & x   & x  & x   & x  & x   & x\\
-0 & input: Top from altern. shape       & x   & x  & x   & x & x   & x  & x   & x  & x   & x\\
+0 & input: Top +20\% bias               & -2  & 27  & 1   & 3 & {\bf 11} & 12  & -0.5 & 15  & -1   & 9\\
+0 & input: Top -20\% bias               & 3   & 27  & -2  & 3 & {\bf -9} & 10  & 2    & 16  & -0.8 & 10\\
+0 & input: Top from altern. shape       & x   & x  & x    & x & x   & x  & x   & x  & x   & x\\
 \hline
 \hline
 1 & default                             & -3  & 35 & 2   & 9  & -2  & 5 & -0.1 & 20 & -2 & 12 \\
 1 & sampling: stat.+syst.               & -6  & 48 & 3   & 16 & 0.4 & 6 & 0.6  & 25 & 0.7& 14 \\
 \hline
 1 & analysis: inflated Wjets error      &  x  &  x & x   & x & x   & x  & x   & x  & x   & x\\ 
-1 & input: Wjets +36\% bias             &  x  &  x & x   & x & x   & x  & x   & x  & x   & x\\ 
-1 & input: Wjets -36\% bias             &  x  &  x & x   & x & x   & x  & x   & x  & x   & x\\ 
-1 & input: Wjets from altern. shape     &  x  &  x & x   & x & x   & x  & x   & x  & x   & x\\
+1 & input: WjetsM +36\% bias             &  x  &  x & x   & x & x   & x  & x   & x  & x   & x\\ 
+1 & input: WjetsM -36\% bias             &  x  &  x & x   & x & x   & x  & x   & x  & x   & x\\ 
+1 & input: WjetsM from altern. shape     &  x  &  x & x   & x & x   & x  & x   & x  & x   & x\\
 \hline
 1 & input: qqWW +10\% bias              & 4   & 37 & 12  & 9 & -2  & 5  & 0.3  & 19 & 1  & 11 \\
 1 & input: qqWW -10\% bias              & -1  & 33 & -7  & 9 & -2  & 5  & 0.3  & 18 & -2 & 13 \\
 1 & input: qqWW from altern. shape      & x   & x  & x   & x & x   & x  & x    & x  & x & x \\
 \hline
-1 & input: Top +5\% bias                & x  & x & x & x & x & x & x  & x & x & x \\
-1 & input: Top from altern. shape       & x  & x & x & x & x & x & x  & x & x & x \\
+1 & input: Top +5\% bias                & -6  & 35  & 8  & 9 & {\bf -0.5} & 5 & -1  & 17 & -2 & 11 \\
+1 & input: Top -5\% bias                & -2  & 35 & -2  & 9 & {\bf -3} & 5 & 2  & 19 & -1 & 12 \\
+1 & input: Top from altern. shape       & x   & x  & x & x & x & x & x  & x & x & x \\
 \hline
 \hline
 \end{tabular}
