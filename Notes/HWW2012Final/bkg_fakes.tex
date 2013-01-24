@@ -1,19 +1,10 @@
-Jet induced fake leptons are an important source of background for many 
-physics channels. 
-In this analysis the main sources of fake leptons are
-$\Wjets$ and QCD events, where at least one of the jets or a
-constituent is misidentified as an isolated lepton. 
-The dominant background is $\Wjets$ because there is already one prompt, 
-well isolated, lepton from the $W$ boson decay.
-Fake non-prompt leptons arise from the leptonic decay
-of heavy quarks, misidentified hadrons or electrons from 
-photon conversion.
-
-A data-driven approach, described in detail in~\cite{fakeLeptonNote1} 
-and~\cite{fakeLeptonNote2}, is pursued to estimate this background. Only 
-a summary of the method is described here, more details can be found 
-in~\cite{HWW2011}. A set of loosely selected lepton-like objects, referred to as the 
-``fakeable object'' or ``denominator'' from here on, is defined in a 
+The ``fake rate'' method is used to estimate the background
+from $\Wjets$ and QCD events, where at least one of the jets or a
+constituent is misidentified as an isolated lepton.  This method
+is described in detail in Refs.~\cite{fakeLeptonNote1} 
+and~\cite{fakeLeptonNote2}. In brief, 
+we define set of loosely selected lepton-like objects, referred to as the 
+``fakeable object'' or ``denominator'' from here on, in a 
 sample of events dominated by dijet production. 
 The efficiency for these denominator objects to pass 
 the full lepton selection critera is measured. 
@@ -23,110 +14,205 @@ object in order to capture any dependence on kinematic and geometric quantities.
 We will denote the fake rate symbollically by $\epsilon_{\mathrm{fake}}$.
 These fake rates are, then, used as weights to extrapolate
 the background yield from a sample of loose denominator objects to the sample
-of fully selected leptons.
+of fully selected leptons. The denominator definitions
+used in the HCP 2012 analysis remain unchanged from those described in
+Ref.~\cite{hcp2012Note}.
 
-\subsubsection{Denominator Object Definitions}
-\label{sec:fakerateDenominatorObjectDef}
-The denominator object definition has significant impact on the
-systematic uncertainty of the method, due to the fact that 
-the sample dependence uncertainties for extrapolating in different 
-isolation and lepton quality criteria are typically different. We consider 
-the following definition:
+Real leptons can contribute to the dijet control region
+through the production and subsequent leptonic decays of W and Z bosons.
+To reduce the W contribution in the previous analysis, we 
+required the $\met$ to be less than 20 GeV. To
+reduce the Z contribution, we required
+there to be no second lepton in the detector 
+meeting the denominator requirement. In this analysis 
+we tighten these requirements, and use simulation to estimate
+and subtract the residual electroweak contamination.
 
-\begin{itemize}
-  \item $\sigma_{i\eta i\eta} < 0.01/0.03$ (barrel/endcap)
-  \item $|\Delta\phi_{in}| < 0.15/0.10$
-  \item $|\Delta\eta_{in}| < 0.007/0.009$
-  \item $H/E< 0.12/0.10$
-  \item full conversion rejection
-  \item $|d_{0}| < 0.02$~cm
-  \item $|d_z| < 0.1$~cm
-  \item $\frac{\sum_{\rm trk}\Et}{\pt^{\rm ele}}<0.2$
-  \item $\frac{\left[\sum_{\rm ECAL}\Et\right]-1}{\pt^{\rm ele}}<0.2$
-  \item $\frac{\sum_{\rm HCAL}\Et}{\pt^{\rm ele}}<0.2$
-\end{itemize}
+To further reduce the contribution from W decays, we require $\mt$
+below 15 GeV.  To estimate the residual contribution to the 
+dijet control sample, we use W+jets simulation normalised to
+the calculated luminosity for the prescaled triggers used to
+acquire the control sample.  We apply an additional scale factor
+to the W+jets simulation to take into account residual data-simulation
+differences, derived by inverting the W+jets rejection requirements
+to $\met>$30 GeV and $60<\mt<90$ GeV and requiring the full lepton selection.
+The systematic uncertainty 
+on the W+jets prediction is taken to be the magnitude of the difference 
+of the scale factor from unity.  The scale factor is 
+$0.81 \pm 0.19 \mathrm{(syst.)}$ and $1.06 \pm 0.06 \mathrm{(syst.)}$
+in the muon and electron final states respectively. The agreement
+between data and simulation after applying these scale factors 
+is shown in Figure \ref{fig:wjets_ctl}.
 
-The situation for muons is simpler. The loose muon selection requirements can differ from
-the tight selection of Section~\ref{sec:sel_muons}, only in less stringent cuts on $d_0$
-and isolation. We consider the following definition:
-\begin{itemize}
- \item $|d_{0}| < 0.2$~cm
- \item $\textrm{Isolation MVA output} > -0.6$
-\end{itemize}
-The detailed of muon isolation MVA can be found in Sec.~\ref{sec:sel_muons}.
+\begin{figure}[!hbtp] 
+\centering
+\subfigure[]{
+\centering
+\label{subfig:el_wjets_ctl}
+\includegraphics[width=.4\textwidth]{figures/ElectronFakeRate_V4_num_highPt_mt_met20mt15mll_Moriond.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:mu_wjets_ctl}
+\includegraphics[width=.4\textwidth]{figures/MuonFakeRate_M2_num_highPt_mt_met20mt15mll_Moriond.pdf}
+}\\
+\caption{W+Jets control region in the fake rate derivation sample 
+for muons (\ref{subfig:mu_wjets_ctl}) and electrons (\ref{subfig:el_wjets_ctl})
+where FO passes the numerator and MET $>$ 30 GeV. 
+The default jet pt threshold is applied, and the DY background is subtracted from simulation.}
+\label{fig:wjets_ctl} 
+\end{figure}
 
-\subsubsection{Fake Rate Measurement}
-\label{sec:fakerateMeasurement}
-The fake rates are measured in calibration data samples dominated by fake leptons 
-resulting from jets in QCD dijet events. 
-The QCD dijet event sample is collected using a combination of different 
-electron and muon triggers.
+To further reduce the contibution from Z decays, we tighten
+the second lepton veto to reject any event with a second
+reconstructed electron or muon if the pair have opposite
+sign and an invariant mass within 15 GeV of the Z boson mass.
+We apply an additional scale factor to the Z simulation
+to take into account residual data-simulation differences,
+derived by inverting the invariant mass veto.  The Z scale 
+factor is derived after the subtraction of residual QCD backgrounds
+by using same sign events.  The values are $1.15 \pm 0.15 \mathrm{(syst.)}$
+and $0.94 \pm 0.06 \mathrm{(syst.)}$ for the muon and electron
+final states respectively.  The agreement between data and simulation
+after applying these scale factors is shown in Figure \ref{fig:zjets_ctl}.
 
-In order to suppress 
-contamination due to signal leptons from the decay of W and Z bosons we require
-that the missing transverse energy is less than $20$ GeV, and that 
-the event contains only a single reconstructed lepton. In order to control the 
-average $p_{T}$ of the jet that fakes the lepton, we impose a $p_{T}$ requirement 
-on the leading jet in the event and require that the lepton denominator object is 
-separated from the leading jet by $\Delta$R $ > 1.0$. The nominal fake rates for
-electrons are measured requiring that the leading jet $p_{T}$ is greater than 
-$35$ GeV, and the nominal fake rates for muons are measured with the requirement 
-that the leading jet $p_{T}$ is greater than $15$ GeV. 
-From these selected event samples, we measure the fake rate 
-($\epsilon_{\mathrm{fake}}$) by counting the number of denominator 
-objects which pass the full lepton selection, in bins of $p_{T}$
-and $\eta$.
+\begin{figure}[!hbtp]
+\centering
+\subfigure[]{
+\centering
+\label{subfig:el_zjets_ctl}
+\includegraphics[width=.4\textwidth]{figures/ElectronFakeRate_V4_num_highPt_mll_met20mt15mll_Moriond_log.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:mu_zjets_ctl}
+\includegraphics[width=.4\textwidth]{figures/MuonFakeRate_M2_num_highPt_mll_met20mt15mll_Moriond_log.pdf}
+}\\
+\caption{Z+Jets control region for muons (\ref{subfig:mu_zjets_ctl}) and electrons (\ref{subfig:el_zjets_ctl})
+where FO passes the numerator and MET $<$ 20 GeV and MT $<$ 15 GeV and $76<\rm{Mll}<106$ GeV. 
+The default jet pt threshold is applied, and the same sign yield is used to subtract the QCD background.}
+\label{fig:zjets_ctl}
+\end{figure}
 
-\subsubsection{Application of Fake Rates}
-\label{sec:fakerateApplication}
+To reject dielectron events where the second electron is 
+outside of the tracker acceptance, we additionally require
+the away jet to be within $|\eta|<2.5$. This requirement is 
+not applied to the muon final state because a second muon
+that falls out of the tracker acceptance will not be detected
+by any other detector and thus the event will already 
+fail the $\met$ veto. The distribution of the away jet $\eta$
+is shown in Figure \ref{fig:awayjet_ctl}.
 
-Having measured the fake rates, parameterized in the kinematic quantities of interest,
-we then use them as weights in order to extrapolate the yield of the sample of loose
-leptons to the sample of fully selected leptons. This is done by selecting events
-passing the full event selection described in Sec.\ref{sec:selection}, 
-with the exception that one of the two lepton
-candidates is required to pass the denominator selection cuts but fail the full 
-lepton selection cuts. This lepton is from here on denoted the ``failing leg''. 
-The other lepton is required to pass the full selection.
-The data sample selected in this way is denoted the ``tight + fail'' sample.
-Each of the events passing this selection is given a weight computed from
-the fake rate in the particular $p_{T}$ and $\eta$ bin of the 
-failing leg, as follows:
+\begin{figure}[!hbtp]
+\centering
+\subfigure[]{
+\centering
+\label{subfig:el_awayjet_ctl}
+\includegraphics[width=.4\textwidth]{figures/ElectronFakeRate_V4_num_highPt_etaj_met20mt15mll_Moriond.pdf}
+}
+\subfigure[]{
+\centering
+\label{subfig:mu_awayjet_ctl}
+\includegraphics[width=.4\textwidth]{figures/MuonFakeRate_M2_num_highPt_etaj_met20mt15mll_Moriond.pdf}
+}\\
+\caption{Distribution of the leading away jet $\eta$ for muons (\ref{subfig:mu_awayjet_ctl}) and electrons (\ref{subfig:el_awayjet_ctl}). 
+When deriving the electron fake rate, the region where the jet is beyond 2.5 is vetoed.}
+\label{fig:awayjet_ctl}
+\end{figure}
 
-\begin{eqnarray}
-  w_{i} = \frac{\epsilon_{\mathrm{fake}}(p_{\mathrm{T i}},\eta_{i})}{1 - \epsilon_{\mathrm{fake}}(p_{\mathrm{T i}},\eta_{i})}
-\end{eqnarray}
+The muon fake rates before and after 
+the electroweak background subtraction are given in
+Tables \ref{tab:mufake_raw} and \ref{tab_mufake_cor} respectively.
+The electron fake rates before and after          
+the electroweak background subtraction are given in
+Tables \ref{tab:elfake_raw} and \ref{tab_elfake_cor} respectively.
+After applying the additional background reduction
+requirements, the residual subtraction affects the fake rate
+by up to 20\% in the electron case and up to 30\% in the muon case.
+The change in the fake rate ompared to the HCP analysis\ref{hcp2012Note},
+is up to 60\% at high $\pt$.  The total effect on the W+jets background
+prediction is smaller than this because the cross-section for high $\pt$
+fakes is smaller than at lower $\pt$.
 
-where $i$ is an index denoting the failing leg, and $p_{\mathrm{T i}}$ and $\eta_{i}$
-are the transverse momentum and pseudorapidity of the failing leg. 
-Summing the weights $w_{i}$ over all such events in the tight + fail sample yields
-the total jet induced background prediction.
+%
+% muons
+%
 
-This tight + fail extrapolation prediction will in fact 
-double count the QCD component of the background, where both leptons are jet induced
-fakes. This is essentially a combinatorial artifact, due to the fact that in the tight
-plus fail selection, one is unable to uniquely distinguish which lepton is required to
-be the tight one and which lepton is required to be the failing one, and therefore
-one customarily selects both combinations. This double fake background is 
-typically very small and accounts for roughly a few percent of the total jet
-induced background. In order to estimate the amount of double counting,
-we perform the fake rate extrapolation on both lepton legs, selecting events
-which pass all event selection criteria, except that both leptons are required
-to pass the denominator selection, but fail the full lepton selection. This
-event sample is denoted as the ``fail + fail'' sample. Events in the fail + fail
-sample are then given weights as follows:
+\begin{table}[!ht]
+{\small
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+\hline
+bin &  0.00 - 1.00  &   1.00 - 1.48  &   1.48 - 2.00  &   2.00 - 2.50 \\
+\hline
+  10.0 - 15.0  &    0.147 $\pm$ 0.002 &     0.166 $\pm$ 0.004 &     0.218 $\pm$ 0.004 &     0.270 $\pm$ 0.007 \\
+  15.0 - 20.0  &    0.141 $\pm$ 0.006 &     0.169 $\pm$ 0.009 &     0.206 $\pm$ 0.011 &     0.262 $\pm$ 0.018 \\
+  20.0 - 25.0  &    0.198 $\pm$ 0.004 &     0.232 $\pm$ 0.007 &     0.217 $\pm$ 0.007 &     0.257 $\pm$ 0.012 \\
+  25.0 - 30.0  &    0.221 $\pm$ 0.008 &     0.257 $\pm$ 0.014 &     0.238 $\pm$ 0.014 &     0.293 $\pm$ 0.025 \\
+  30.0 - 35.0  &    0.252 $\pm$ 0.015 &     0.313 $\pm$ 0.026 &     0.305 $\pm$ 0.026 &     0.349 $\pm$ 0.045 \\
+\hline
+\end{tabular}
+\caption{Muon fake rate before background subtraction for jet pT $>$ 15}
+\label{tab:mufake_raw}
+\end{center}}
+\end{table}
+\begin{table}[!ht]
+{\small
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+\hline
+bin &  0.00 - 1.00  &   1.00 - 1.48  &   1.48 - 2.00  &   2.00 - 2.50 \\
+\hline
+  10.0 - 15.0  &    0.146 $\pm$ 0.002 &     0.165 $\pm$ 0.004 &     0.217 $\pm$ 0.004 &     0.269 $\pm$ 0.007 \\
+  15.0 - 20.0  &    0.137 $\pm$ 0.006 &     0.164 $\pm$ 0.009 &     0.202 $\pm$ 0.011 &     0.257 $\pm$ 0.018 \\
+  20.0 - 25.0  &    0.184 $\pm$ 0.005 &     0.218 $\pm$ 0.008 &     0.200 $\pm$ 0.008 &     0.235 $\pm$ 0.013 \\
+  25.0 - 30.0  &    0.187 $\pm$ 0.011 &     0.223 $\pm$ 0.016 &     0.199 $\pm$ 0.017 &     0.231 $\pm$ 0.030 \\
+  30.0 - 35.0  &    0.187 $\pm$ 0.021 &     0.250 $\pm$ 0.031 &     0.236 $\pm$ 0.033 &     0.247 $\pm$ 0.057 \\
+\hline
+\end{tabular}
+\caption{Muon fake rate after background subtraction for jet pT $>$ 15}
+\label{tab:mufake_cor}
+\end{center}}
+\end{table}
 
-\begin{eqnarray}
-  w_{i,j} = \frac{\epsilon_{\mathrm{fake}}(p_{\mathrm{T i}},\eta_{\mathrm{i}})}{1 - \epsilon_{\mathrm{fake}}(p_{\mathrm{T i}},\eta_{\mathrm{i}})} \times \frac{\epsilon_{\mathrm{fake}}(p_{\mathrm{T j}},\eta_{\mathrm{j}})}{1 - \epsilon_{\mathrm{fake}}(p_{\mathrm{T j}},\eta_{\mathrm{j}})}
-\end{eqnarray}
+%
+% electrons
+%
 
-where $i$ and $j$ denote the two failing leg, and $p_{\mathrm{T i/j}}$ and $\eta_{\mathrm{i/j}}$
-are the transverse momentum and pseudorapidity of the first and second leg.
-Summing the weights $w_{i,j}$ over all such events in the fail + fail sample yields
-the total QCD double fake background. This prediction is then subtracted from the
-tight + loose prediction in order to account for the double counting. 
+\begin{table}[!ht]
+{\small
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+\hline
+bin &  0.00 - 1.00  &   1.00 - 1.48  &   1.48 - 2.00  &   2.00 - 2.50 \\
+\hline
+  10.0 - 15.0  &    0.068 $\pm$ 0.006 &     0.064 $\pm$ 0.007 &     0.024 $\pm$ 0.004 &     0.023 $\pm$ 0.005 \\
+  15.0 - 20.0  &    0.074 $\pm$ 0.008 &     0.080 $\pm$ 0.010 &     0.026 $\pm$ 0.005 &     0.032 $\pm$ 0.006 \\
+  20.0 - 25.0  &    0.070 $\pm$ 0.004 &     0.096 $\pm$ 0.006 &     0.038 $\pm$ 0.004 &     0.045 $\pm$ 0.004 \\
+  25.0 - 30.0  &    0.080 $\pm$ 0.006 &     0.101 $\pm$ 0.008 &     0.044 $\pm$ 0.005 &     0.043 $\pm$ 0.005 \\
+  30.0 - 35.0  &    0.090 $\pm$ 0.007 &     0.115 $\pm$ 0.010 &     0.049 $\pm$ 0.006 &     0.062 $\pm$ 0.007 \\
+\hline
+\end{tabular}
+\caption{Electron fake rate before background subtraction for jet pT $>$ 35}
+\label{tab:elfake_raw}
+\end{center}}
+\end{table}
+\begin{table}[!ht]
+{\small
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+\hline
+bin &  0.00 - 1.00  &   1.00 - 1.48  &   1.48 - 2.00  &   2.00 - 2.50 \\
+\hline
+  10.0 - 15.0  &    0.067 $\pm$ 0.006 &     0.063 $\pm$ 0.007 &     0.023 $\pm$ 0.004 &     0.023 $\pm$ 0.005 \\
+  15.0 - 20.0  &    0.071 $\pm$ 0.008 &     0.077 $\pm$ 0.010 &     0.025 $\pm$ 0.005 &     0.031 $\pm$ 0.006 \\
+  20.0 - 25.0  &    0.063 $\pm$ 0.004 &     0.091 $\pm$ 0.006 &     0.036 $\pm$ 0.004 &     0.043 $\pm$ 0.004 \\
+  25.0 - 30.0  &    0.068 $\pm$ 0.006 &     0.093 $\pm$ 0.008 &     0.039 $\pm$ 0.005 &     0.041 $\pm$ 0.005 \\
+  30.0 - 35.0  &    0.070 $\pm$ 0.008 &     0.102 $\pm$ 0.011 &     0.043 $\pm$ 0.006 &     0.058 $\pm$ 0.007 \\
+\hline
+\end{tabular}
+\caption{Electron fake rate after background subtraction for jet pT $>$ 35}
+\label{tab:elfake_cor}
+\end{center}}
+\end{table}
 
-In this procedure, an over-estimation of the fake lepton contribution due to 
-contamination from real dilepton events, and from $W+\gamma$ events may occur. These contributions 
-are subtracted using the Monte Carlo simulation prediction with the procedure described 
-in~\cite{fakeLeptonNote1} and~\cite{fakeLeptonBkgSpillage1}.
