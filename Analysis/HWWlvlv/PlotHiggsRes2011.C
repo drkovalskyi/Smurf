@@ -4307,13 +4307,14 @@ void PlotHiggsRes2011
     //double theoryUncXS_HighMH = 1.0;
     //if(mH > 200) theoryUncXS_HighMH = 1.0+1.5*(mH/1000.0)*(mH/1000.0)*(mH/1000.0);
     double wwXS_E_jet_extrap = 1.060;
-    if(nJetsType <  2 && is2DAna == true) wwXS_E_jet_extrap = 1.00;
+    if(is2DAna == true && is2DBDT == false) wwXS_E_jet_extrap = 1.00;
     double jeteff_E          = 1.02;
     double topXS_E           = TopBkgScaleFactorKappa(nJetsType); if(nJetsType==2) topXS_E = TopVBFBkgScaleFactorKappa(0);
     double wwXS_E_MVA        = WWBkgScaleFactorKappaMVA     (TMath::Min(TMath::Max((int)mH,115),200),TMath::Min((int)nJetsType,1));
     double wwXS_E_Cut        = WWBkgScaleFactorKappaCutBased(TMath::Min(TMath::Max((int)mH,115),200),TMath::Min((int)nJetsType,1)); if(mH > 200) wwXS_E_Cut = 1.000;
-    char theWWThStringMVA[20]; sprintf(theWWThStringMVA,"CMS_hww_%1dj_WW_7TeV",nJetsType);
-    char theWWThStringCut[20]; sprintf(theWWThStringCut,"CMS_hww_%1dj_WW_7TeV",nJetsType); if(mH > 200) sprintf(theWWThStringCut,"CMS_hww_WW");
+    char theWWThStringMVA[20]; sprintf(theWWThStringMVA,"CMS_hww_%1dj_WW_8TeV",nJetsType);
+    if(is2DAna == true && is2DBDT == false && nJetsType < 2) sprintf(theWWThStringMVA,"%s_SHAPE",theWWThStringMVA);
+    char theWWThStringCut[20]; sprintf(theWWThStringCut,"CMS_hww_%1dj_WW_8TeV",nJetsType); if(mH > 200) sprintf(theWWThStringCut,"CMS_hww_WW");
 
     if(nJetsType >= 2) {wwXS_E_MVA = 1.50; wwXS_E_Cut = 1.50;}
 
@@ -4596,6 +4597,9 @@ void PlotHiggsRes2011
       newcardShape << Form("QCDscale_VH_ACCEPT               lnN 1.020 1.020   -     -     -     -     -     -     -     -     -     -     -     - 1.020 1.020   -     -  \n");
       newcardShape << Form("CMS_hww_%1dj_ttbar_7TeV          lnN   -     -     -     -     -     -     -   %5.3f   -     -     -     -     -     -   -     -	 -     -  \n",nJetsType,topXS_E);      
       newcardShape << Form("CMS_hww%s_%1dj_Z_7TeV            lnN   -     -     -     -     -     -     -     -   %5.3f   -     -     -     -     -   -     -	 -     -  \n",finalStateName,nJetsType,ZXS_E[0]+1.0);		       
+      if(is2DAna == true && is2DBDT == false && nJetsType < 2)
+      newcardShape << Form("%s                               lnU   -     -     -     -    2.0    -     -     -     -     -     -     -     -     -   -     -     -     -  \n",theWWThStringMVA);				
+      else
       newcardShape << Form("%s                               lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -     -     -   -     -     -     -  \n",theWWThStringMVA,wwXS_E_MVA,wwXS_E_MVA);				
       newcardShape << Form("CMS_hww_Wg3l                     lnN   -	 -     -     -     -	 -     -     -     -     -     -   %5.3f   -     -   -	   -     -     -  \n",1.30);
       newcardShape << Form("CMS_hww_Ztt                      lnN   -	 -     -     -     -	 -     -     -     -	 -     -     -    %5.3f  -   -	   -     -     -  \n",1.10);
