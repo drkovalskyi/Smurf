@@ -5,27 +5,59 @@ $\Z$~bosons.  In the SM in its simplest implementation it is
 attributed to the spontaneous breaking of electroweak symmetry caused
 by a new scalar field~\cite{Higgs1, Higgs2, Higgs3}. The existence of
 the associated field quantum, the Higgs boson, has yet to be
-experimentally confirmed.
+experimentally confirmed. 
+
+Direct searches at the CERN $\text{e}^+{\text e}^-$ LEP collider set a limit on 
+the Higgs boson mass $m_{\text H} > 114.4$ GeV at 95\% confidence 
+level(CL)~\cite{lephiggs}. At Tevatron collider, the 
+CDF and D0 experiments state the evidence for a new particle that 
+decays to $b\bar{b}$ quark paris in the mass range 125-135 GeV 
+with a significance of up to 3.3 standard deviations~\cite{tevhiggs}. 
+The LHC experiments, ATLAS and CMS, report the discovery of a new 
+boson at approximately 125 GeV with 5 or more standard deviations 
+each~\cite{atlasdiscovery, cmsdiscovery}. 
 
 The $\Hi\to\WW$ channel is particularly sensitive for Higgs boson
 searches in the intermediate mass range
-($120-200~\GeV$)~\cite{dittmar}. This document describes the search
+($120-200~\GeV$)~\cite{dittmar}. It contributes significantly to 
+the discovery of this new boson near 125 GeV. 
+Based on the full 7~\TeV dataset (4.9 $\ifb$) and the 12.1 $\ifb$ 
+at 8~\TeV, we observed in this channel an excess of events 
+above background which is consistent with the expectations 
+from a Standard Model Higgs boson with mass 125 GeV, with 
+a statistical significance of 3.1 standard deviations~\cite{hwwhcp2012pas}. 
+
+Afte this groundbreaking discovery, the experimental determination of the properties 
+of the newly discovered boson is currently the most crucial task in high energy physics. 
+To confirm the SM Higgs mechanism it is crucial to measure the couplings of the 
+new particle with the known SM particles such as the $WW$ channel. 
+The precise measurement of the signal strength in the $WW$ channel therefore is of 
+great importance for the future updates. 
+In addtion the $WW$ channel can also be used to extract information about the 
+spin of the new particle. Even though this channel is not 
+fully reconstructed, kinematic information such as the 
+transverse higgs mass, dilepton invariant mass and the opening angle between the 
+two leptons can be used to test the consistency of data with beyond the standard model 
+senario, such as the graviton like spin 2 resonance with minimal couplings to the 
+standard model particles~\cite{hwwspinpaper}. 
+
+
+This document describes the search
 for the Higgs boson in the $\Hi\To\WW \To \Lep\Lprime\Nu\Nubar$
 channel, for Higgs boson masses in the range of $110-600~\GeV$ using the 
-full 2011 (7~\TeV) and 2012 (8~\TeV) datasets.
-    
-The study is based on the analysis prepared for the HCP2012
-conference ~\cite{HWWHCP2012}. With the amount of data that CMS
-collected the analysis has enough sensitivity for an observation of
-the Standard Model Higgs in this channel alone. Given that for
-126~\GeV\ Higgs the signal is extracted from a sample with significant
-number of sizable backgrounds, the focus of this update is to make
-sure that the associated systematic effects are well controlled.
+full 2011 (\intlumiSevenTeV at 7\TeV) and 2012 (\intlumiEightTeV, at 8~\TeV) datasets. 
+This update is based on the analysis prepared for the HCP2012
+conference~\cite{hwwhcp2012pas}. The expected significance for 
+the SM Higgs boson with a mass near 125 GeV is about $5\sigma$ in 
+this channel alone. 
+Given that for 125~\GeV\ Higgs the signal is extracted from a sample 
+with significant number of sizable backgrounds, the focus of this update is to 
+validate the key systematic effects in the 2D shape analysis.  
 
 The main analysis strategy is to select events with two opposite
 charged leptons, large missing energy and little jet activity. The two
 leptons are required to be isolated electrons or muons with $\pt$
-greater than 10~\GeV{}. A cut-based analysis optimized for 126~\GeV\
+greater than 10~\GeV{}. A cut-based analysis optimized for 125~\GeV\
 Higgs is systematics limited with about 10~\ifb{}. Main analysis
 sensitivity comes from a two-dimentional binned maximum-likelihood fit
 that uses two mass-like variables (\mll\ and \mt{}) to discrimate
@@ -34,21 +66,26 @@ depends on how well we know shape of various backgrounds and how well
 we account for uncertainties on the shapes and various systematic
 effects.
 
-Here is a list of important developments with respect to the 2012 HCP
-analysis \cite{HWWHCP2012}:
+Here is an overview of important developments with respect to the 2012 HCP
+analysis~\cite{hwwhcp2012pas}:
 \begin{itemize}
 \item 
-Update the analysis to full 2012 dataset (\intlumiEightTeV).
+Update the analysis to full 2012 dataset (\intlumiEightTeV), 
 \item 
 Use 2D shape analysis for different flavor final states to re-analyze
-7~\TeV\ dataset.
+7~\TeV\ dataset consistently, 
 \item
-Spin analysis using 7 and 8~\TeV\ data.
+Add an analysis to distinguish between the SM Higgs resonance and the graviton like 
+spin 2 resonance with minimal couplings to the $WW$ pairs (referred to as $2_m^+$ model), 
 \item 
-Extensive study of fit stubility using toys Monte Carlo study biasing
-the distributions (shape and normalization) in multiple ways
+Loosen the selections on the minimum of the dilepton $pT$ and transverse Higgs mass in the 
+different flavor shape analysis to improve the expected separation between the SM Higgs and 
+the $2_m^+$ graviton, 
+\item 
+Study the fit bias and stablitiy of the 2D shape based fits using pseudo-experiments, 
 \item
-Wide use of control samples to validate all key background shapes
+Validate key background normalization and shapes by performing the analysis fits on signal 
+free background enriched control samples
 \begin{itemize}
   \item {\bf Top-tagged events}. Essentially background free top only
   control sample in 1-jet case and fairly pure top sample in 0-jet
@@ -67,8 +104,8 @@ Wide use of control samples to validate all key background shapes
   usable for W$\gamma$ and W$\gamma*$ background studies.
 \end{itemize}
 \item 
-New alternative WW background NLO Monte Carlo samples to study the fit
-sensitivity to all standard ways to model WW that are currently available.
+Study impacts of the WW shape with alternative generators such as WW@NLO and Powheg. 
+
 \end{itemize}
 
 This analysis note covers only 0 and 1 jet final states. A search for
