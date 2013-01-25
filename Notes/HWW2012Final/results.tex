@@ -60,14 +60,17 @@ contributions in the $\Z$-peak region are sizable, so the method depends
 on the Monte Carlo simulation of these processes. It is not a problem
 since the uncertainties on these di-boson contributions in the Z-peak
 region are small compared with the systematic uncertainties of the
-R-value extraction and the statistical uncertainties on the number of
-the events in Z-peak region. 
+R-value extraction and the statistical uncertainties on the number of the events in Z-peak region. 
 Given the current luminosity, the R-value is now estimated from data with a precision better or comparable to MC.
 Results at the higgs selection level for cut-based analysis are shown in Table~\ref{tab:dy}. 
 A comparison of \dyll\ estimation with the alternative zeta method~\cite{ZetaNote},\cite{ichep2012Note} 
 is shown in~\cite{hcp2012Note}. The two methods give results compatible at the $\sim$1$\sigma$ level.
 Based on this comparison, we assing a minimum systematic uncertainty of 30\% to the default \dyll\ prediction
 
+<<<<<<< results.tex
+The same sign closure test for $\Wjets$ background in the 0-jet bin finds 786 events in data 
+while the background expectation is $970 \pm 20~(\textrm{stat. only})$.
+=======
 The same sign closure test for $\Wjets$ background in the 0-jet bin finds 276 events in data while 
 the background expectation is $310 \pm 10~(stat.) \pm 27 (syst.)$ FIXME  .
 Figure~\ref{fig:ssplots} shows the kinematic distributions for the 
@@ -112,9 +115,10 @@ The WW preselections are applied with dilepton pT above 45 GeV. }
 \label{fig:ssplots}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+>>>>>>> 1.8
 
-The top background estimation is shown in
-Table~\ref{tab:ttbar_est}. The scale factors are consistent with unity within 
+The top background estimation is shown in Table~\ref{tab:ttbar_est}. 
+The scale factors are consistent with unity within 
 the current large statistical uncertainties. 
 Figure~\ref{fig:toptagplots} shows the kinematic distributions in the top enriched 
 region. 
@@ -162,7 +166,7 @@ the WW selection inverting the Top veto requirements. }
 
 
 With these results, we compare the yields after the $\WW$ preselection 
-in data and MC with DY MVA(Table~\ref{tab:wwselection_all_dymva}). 
+in data and MC(Table~\ref{tab:wwselection_all}). 
 Higgs contribution at \WW\ selection level is negligible for not excluded Higgs mass
 hypotheses. For the signal extraction we estimate the \WW\ background
 contribution in data looking at events with large di-lepton mass, i.e.
@@ -271,7 +275,7 @@ In the 1-jet bin, the scale factor is derived in a region that is slightly diffe
 \begin{tabular}{c|c|c|c|c}
 \hline
 \hline
-            & SF-0j                 &  OF-0j              &           SF-1j     & OF-0j               \\
+                & SF-0j                 &  DF-0j              &           SF-1j     & DF-0j               \\
 \hline
 $qq \to \WW$    & 1538.9 $\pm$ 10.0     &  3818.1 $\pm$ 15.7  &   505.1 $\pm$  5.7  &   1342.9 $\pm$  9.3 \\
 $gg \to \WW$    &  107.2 $\pm$  2.0     &  194.3 $\pm$  2.6   &    32.4 $\pm$  1.1  &     72.6 $\pm$  1.6 \\
@@ -285,7 +289,7 @@ $\Zjets$        &  294.0 $\pm$ 59.9     &     80.8 $\pm$  1.8 &   118.2 $\pm$ 29
 \hline
 Total Bkg.      & 2436.4 $\pm$ 62.7     &   6045.3 $\pm$ 35.5 &   1445.3 $\pm$ 33.5 &   3982.5 $\pm$ 26.8   \\
 \hline
-Data            & 2728                  &6361                 &1477                 & 3944    \\
+Data            & 2728                  & 6361                & 1477                & 3944    \\
 \hline
 \hline
 \end{tabular}
@@ -293,7 +297,7 @@ Data            & 2728                  &6361                 &1477             
   an integrated luminosity of \intlumiEightTeV after applying the $\WW$ selection requirements. 
   Only statistical uncertainties on the processes are reported.
   $\WW$ yield is from simulation.}
-   \label{tab:wwselection_all_dymva}
+   \label{tab:wwselection_all}
 \end{center}
 \end{table}
 
@@ -605,48 +609,84 @@ This is a result of cut-based analysis.}
 %%%%%%%%
 \begin{table}[!htbp]
 \begin{center}
-\begin{tabular}{c | c c c  }
+\begin{tabular}{c | c c c | c }
 \hline \hline 
 \vspace{-3mm} && \\
-Higgs Mass(\GeV) & 2D 0jet DF & 2D 1jet DF & cut-based 0+1jet SF \\
-\hline 
+Higgs Mass(\GeV) & 2D 0jet DF & 2D 1jet DF & cut-based 0+1jet SF & all  8 TeV  \\
 \hline \hline
-115	&	1.3	    &	1.1	    &	0.7     \\
-120	&	2.3	    &	1.7	    &	1.2     \\
-125	&	3.5 	&	2.7	    &	1.8     \\
-130	&	5.0   	&	3.5	    &	2.4     \\
-135	&	6.4 	&	4.6 	&	3.2     \\
-140	&	7.9 	&	5.5 	&	4.0     \\
-150	&	10.9  	&	7.7 	&	6.4    \\
-160	&	16.2  	&	12.0	&	9.5    \\
-170	&	14.1  	&	10.6	&	8.4    \\
-180	&	10.4  	&	7.4 	&	6.5    \\
-190	&	7.0 	&	4.7 	&	5.0    \\
-200	&	5.5 	&	3.3 	&	3.8     \\
-250	&	2.8 	&	2.0 	&	1.6     \\
-300	&	2.3 	&	1.9	    &	1.7     \\
-350	&	2.8 	&	2.4	    &	1.9    \\
-400	&	2.6 	&	2.2	    &	1.7     \\
-450	&	1.9 	&	1.7 	&	1.5     \\
-500	&	1.3 	&	1.3 	&	1.2     \\
-550	&	1.0 	&	1.1 	&	0.9    \\
-600	&	0.8	    &	1.1 	&	0.9     \\
+115	&	1.3	    &	1.1	    &	0.7     &   1.8     \\
+120	&	2.3	    &	1.7	    &	1.2     &   3.0     \\
+125	&	3.5 	&	2.7	    &	1.8     &   4.6     \\
+130	&	5.0   	&	3.5	    &	2.4     &   6.4     \\
+135	&	6.4 	&	4.6 	&	3.2     &   8.3     \\
+140	&	7.9 	&	5.5 	&	4.0     &   10.1    \\
+150	&	10.9  	&	7.7 	&	6.4     &   14.1    \\
+160	&	16.2  	&	12.0	&	9.5     &   20.6    \\
+170	&	14.1  	&	10.6	&	8.4     &   17.6    \\
+180	&	10.4  	&	7.4 	&	6.5     &   12.5    \\
+190	&	7.0 	&	4.7 	&	5.0     &   8.7     \\
+200	&	5.5 	&	3.3 	&	3.8     &   6.9     \\
+250	&	2.8 	&	2.0 	&	1.6     &   3.8     \\
+300	&	2.3 	&	1.9	    &	1.7     &   3.4     \\
+350	&	2.8 	&	2.4	    &	1.9     &   4.0     \\
+400	&	2.6 	&	2.2	    &	1.7     &   3.7     \\
+450	&	1.9 	&	1.7 	&	1.5     &   3.0     \\
+500	&	1.3 	&	1.3 	&	1.2     &   2.2     \\
+550	&	1.0 	&	1.1 	&	0.9     &   1.8     \\
+600	&	0.8	    &	1.1 	&	0.9     &   1.6     \\
 \hline \hline
 \end{tabular}
 \caption{Expected significances SM Higgs in $\intlumiEightTeV$ at 8 TeV in DF 0 and 1 jet from 2D analysis 
-and SF 0+1jet from cut-based analysis.}
+, SF 0+1jet from cut-based analysis, and combination of SF+DF 0/1jet.}
 \label{tab:significance_8TeV}
 \end{center}
 \end{table} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
 %%%%%%%%%%%
 \clearpage 
 
-\subsection{Final Results for the Higgs Search Combing 7 TeV and 8 TeV Data}
+\subsection{Final Results for the Higgs Search Combining 7 TeV and 8 TeV Data}
 \label{sec:search_results_finalcomb}
 
-The combined result will come as soon as the fix of statistical tools is available. 
+Table~\ref{tab:significance_78TeV} shows expected significance with combined 7 and 8 TeV data. 
+In 8 TeV, DF 0/1 jet from 2D analysis and SF 0/1jet from cut-based analysis are used.
+In 7 TeV DF 0/1 jet from 2D analysis, and DF 2jet and SF 0/1/2jet from cut-based analysis are used.
+The expected significance on \mHi=125\GeV hypothesis is 5.1 $\sigma$.
+
+%%%%%%%%
+\begin{table}[!htbp]
+\begin{center}
+\begin{tabular}{c | c}
+\hline \hline 
+Higgs Mass(\GeV) & 7 + 8 TeV  \\
+\hline \hline
+115  &  2.1     \\
+120  &  3.4     \\
+125  &  5.1     \\
+130  &  7.2     \\
+135  &  9.3     \\
+140  &  11.3    \\
+150  &  15.4    \\
+160  &  22.5    \\
+170  &  19.3    \\
+180  &  13.5    \\
+190  &  9.4     \\
+200  &  7.4     \\
+250  &  4.4     \\
+300  &  3.8     \\
+350  &  4.5     \\
+400  &  4.2     \\
+450  &  3.4     \\
+500  &  2.6     \\
+550  &  2.1     \\
+600  &  1.9     \\
+\hline \hline
+\end{tabular}
+\caption{Expected significances SM Higgs in $\intlumiSevenTeV$ and  $\intlumiEightTeV$ combined. 
+In 8 TeV, DF 0/1 jet from 2D analysis and SF 0/1jet from cut-based analysis are used. 
+In 7 TeV DF 0/1 jet from 2D analysis, and DF 2jet and SF 0/1/2jet from cut-based analysis are used. }
+\label{tab:significance_78TeV}
+\end{center}
+\end{table} 
