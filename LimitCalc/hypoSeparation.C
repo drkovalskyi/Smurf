@@ -137,15 +137,15 @@ void hypoSeparation(TString hypo0_name,  TString hypo0_LLH_forToys0, TString hyp
 
 	double frac_H0_beyondH1Median = S_H0->Integral(bin_median_H1, nBins) / norm0;
 	double sepH0vsH1 = ROOT::Math::normal_quantile_c(frac_H0_beyondH1Median, 1.0);
-	std::cout << "frac of H0 histogram beyond the H1 median " << frac_H0_beyondH1Median << ", correspond to " << sepH0vsH1 << " sigma\n";
-
+	std::cout << Form("frac of %s histogram beyond the %s histogram median corresponds to %.2f sigma \n", hypo0_name.Data(), hypo1_name.Data(), sepH0vsH1); 
 
 	int bin_median_H0 = getMedianBin(S_H0);
 	std::cout << "bin_median_H0 = " << bin_median_H0 << "\n";
 
 	double frac_H1_beyondH0Median = S_H1->Integral(1, bin_median_H0) / norm1;
 	double sepH1vsH0 = ROOT::Math::normal_quantile_c(frac_H1_beyondH0Median, 1.0);
-	std::cout << "frac of H1 histogram beyond the H0 median " << frac_H1_beyondH0Median << ", correspond to " << sepH1vsH0 << " sigma\n";
+	std::cout << Form("frac of %s histogram beyond the %s histogram median corresponds to %.2f sigma \n", hypo1_name.Data(), hypo0_name.Data(), sepH1vsH0); 
+
 
 
 	// SM plotting settins
@@ -188,7 +188,7 @@ void hypoSeparation(TString hypo0_name,  TString hypo0_LLH_forToys0, TString hyp
 	lineOne->SetLineColor(kBlack);
 	// lineOne->Draw("same");
 
-	TLegend *legend = new TLegend(0.25,0.65,0.45,0.85);
+	TLegend *legend = new TLegend(0.20,0.68,0.40,0.88);
 	legend->SetFillColor(0);
 	legend->SetTextSize(0.05);
 	legend->SetBorderSize(0);
