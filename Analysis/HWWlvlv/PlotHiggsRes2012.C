@@ -244,18 +244,18 @@ void PlotHiggsRes2012
     //scaleFactorLum = 5.296;minRun =      0;maxRun = 196531;
   }
   else if(period == 3){ // Full2012-Summer12-V9-19500ipb
-    //effPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_Moriond_V0.root";
-    //fakePath = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root";
-    //puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_19p5ifb.root";
-    //scaleFactorLum     = 19.467;minRun =      0;maxRun = 999999;
+    effPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_Moriond_V0.root";
+    fakePath = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_19p5ifb.root";
+    scaleFactorLum     = 19.467;minRun =      0;maxRun = 999999;
     //effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
     //fakePath = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_HCP.root";
     //puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_12p1ifb.root";
     //scaleFactorLum	 = 12.1;minRun =      0;maxRun = 203002;
-    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-09/summary_PostHCP_V0.root";
-    fakePath = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_PostHCP.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_postHCP.root";
-    scaleFactorLum     = 7.367;minRun =     203003;maxRun = 999999;
+    //effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-09/summary_PostHCP_V0.root";
+    //fakePath = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_PostHCP.root";
+    //puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_postHCP.root";
+    //scaleFactorLum     = 7.367;minRun =     203003;maxRun = 999999;
   }
   else {
     printf("Wrong period(%d)\n",period);
