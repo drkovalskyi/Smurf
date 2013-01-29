@@ -4585,9 +4585,11 @@ void PlotHiggsRes2011
       newcardShape << Form("QCDscale_ggH2in                  lnN   -	 -     -   %5.3f   -	 -     -     -     -	 -     -     -     -	 -   -     -	 -   %5.3f\n",XS_QCDscale_ggH[2],XS_QCDscale_ggH[2]);  
       newcardShape << Form("QCDscale_qqH                     lnN   -     -   %5.3f   -     -     -     -     -     -     -     -     -     -     -   -     -   %5.3f   -  \n",XS_QCDscale_qqH,XS_QCDscale_qqH);
       newcardShape << Form("QCDscale_VH                      lnN %5.3f %5.3f   -     -     -     -     -     -     -     -     -     -     -     - %5.3f %5.3f   -     -  \n",XS_QCDscale_VH,XS_QCDscale_VH,XS_QCDscale_VH,XS_QCDscale_VH);			
+      if(!(is2DAna == true && is2DBDT == false && nJetsType < 2)){
       newcardShape << Form("QCDscale_WW                      lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -     -     -   -     -	 -     -  \n",XS_QCDscale_WW[0]);  
       newcardShape << Form("QCDscale_WW1in	             lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -     -     -   -     -	 -     -  \n",XS_QCDscale_WW[1]);  
       newcardShape << Form("QCDscale_WW2in	             lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -     -     -   -     -	 -     -  \n",XS_QCDscale_WW[2]);  
+      }
       newcardShape << Form("QCDscale_VV                      lnN   -     -     -     -     -     -   1.040   -     -     -     -     -     -     -   -     -	 -     -  \n");
       newcardShape << Form("QCDscale_Vgamma                  lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -     -     -   -     -	 -     -  \n",1.30);
       newcardShape << Form("QCDscale_ggVV                    lnN   -     -     -     -     -   1.300   -     -     -     -     -     -     -     -   -     -	 -     -  \n");
