@@ -118,9 +118,48 @@ CERTNAME="../runlists/${CERT}.jmu"
 TAG="V00-02-07_trigNameFix"
 CERT="HCP"
 CERTNAME="../runlists/${CERT}.jmu"
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleMu_Run2012A-13Jul2012-v1_AOD_190456_193621/\",\"merged_${CERT}.root\",1\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleMu_Run2012A-recover-06Aug2012-v1_AOD_190782_190949/\",\"merged_${CERT}.root\",1\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleMu_Run2012B-13Jul2012-v1_AOD_193834_196531/\",\"merged_${CERT}.root\",1\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleMu_Run2012C-24Aug2012-v1_AOD_198022_198523/\",\"merged_${CERT}.root\",1\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleMu_Run2012C-PromptReco-v2_AOD_198934_202950/\",\"merged_${CERT}.root\",1\)
+
+
+
+#########
+
+# V00-02-08
+# and then V00-02-09...
+# skim for HCP... but contains more
+
+#TAG="V00-02-08"
+TAG="V00-02-09"
+#CERT="HCP"
+CERT="Moriond"
+CERTNAME="../runlists/${CERT}.jmu"
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/DoubleMu_Run2012A-13Jul2012-v1_AOD_190456_193621/\",\"merged_${CERT}.root\",0\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/DoubleMu_Run2012A-recover-06Aug2012-v1_AOD_190782_190949/\",\"merged_${CERT}.root\",0\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/DoubleMu_Run2012B-13Jul2012-v4_AOD_193834_196531/\",\"merged_${CERT}.root\",0\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/DoubleMu_Run2012C-24Aug2012-v1_AOD_198022_198523/\",\"merged_${CERT}.root\",0\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/DoubleMu_Run2012C-PromptReco-v2_AOD_198934_203755/\",\"merged_${CERT}.root\",0\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/DoubleMu_Run2012D-PromptReco-v1_AOD_203773_208726/\",\"merged_${CERT}.root\",0\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/DoubleElectron_Run2012A-13Jul2012-v1_AOD_190456_193621/\",\"merged_${CERT}.root\",0\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/DoubleElectron_Run2012A-recover-06Aug2012-v1_AOD_190782_190949/\",\"merged_${CERT}.root\",0\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/DoubleElectron_Run2012B-13Jul2012-v1_AOD_193834_196531/\",\"merged_${CERT}.root\",0\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/DoubleElectron_Run2012C-24Aug2012-v1_AOD_198022_198523/\",\"merged_${CERT}.root\",0\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/DoubleElectron_Run2012C-PromptReco-v2_AOD_198934_203755/\",\"merged_${CERT}.root\",0\)
+#root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/DoubleElectron_Run2012D-PromptReco-v1_AOD_203773_208726/\",\"merged_${CERT}.root\",0\)
+
 root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleMu_Run2012A-13Jul2012-v1_AOD_190456_193621/\",\"merged_${CERT}.root\",1\)
 root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleMu_Run2012A-recover-06Aug2012-v1_AOD_190782_190949/\",\"merged_${CERT}.root\",1\)
 root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleMu_Run2012B-13Jul2012-v1_AOD_193834_196531/\",\"merged_${CERT}.root\",1\)
 root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleMu_Run2012C-24Aug2012-v1_AOD_198022_198523/\",\"merged_${CERT}.root\",1\)
-root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleMu_Run2012C-PromptReco-v2_AOD_198934_202950/\",\"merged_${CERT}.root\",1\)
+root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleMu_Run2012C-PromptReco-v2_AOD_198934_203755/\",\"merged_${CERT}.root\",1\)
+root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleMu_Run2012D-PromptReco-v1_AOD_203773_208726/\",\"merged_${CERT}.root\",1\)
+root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleElectron_Run2012A-13Jul2012-v1_AOD_190456_193621/\",\"merged_${CERT}.root\",1\)
+root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleElectron_Run2012A-recover-06Aug2012-v1_AOD_190782_190949/\",\"merged_${CERT}.root\",1\)
+root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleElectron_Run2012B-13Jul2012-v1_AOD_193834_196531/\",\"merged_${CERT}.root\",1\)
+root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleElectron_Run2012C-24Aug2012-v1_AOD_198022_198523/\",\"merged_${CERT}.root\",1\)
+root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleElectron_Run2012C-PromptReco-v2_AOD_198934_203755/\",\"merged_${CERT}.root\",1\)
+root -b -q skimLeptonTree.C+\(\"${CERTNAME}\",\"/smurf/dlevans/LeptonTree/${TAG}/SingleElectron_Run2012D-PromptReco-v1_AOD_203773_208726/\",\"merged_${CERT}.root\",1\)
 

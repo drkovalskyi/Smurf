@@ -4,7 +4,7 @@
 #include <iostream>
 #include "TString.h"
 #include "TROOT.h"
-#include "../../Tools/goodrun.cc"
+#include "goodrun.cc"
 
 void skimLeptonTree (TString runlist, TString inputDir, TString outputFile, bool tp)
 {
