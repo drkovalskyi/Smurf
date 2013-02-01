@@ -276,7 +276,7 @@ void PlotHiggsRes2012
   delete fLeptonEffFile;
 
   TFile *fLeptonFRFileM = TFile::Open(fakePath.Data());
-  TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
+  TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold30_PtEta"));
   assert(fhDFRMu);
   fhDFRMu->SetDirectory(0);
   fLeptonFRFileM->Close();
@@ -299,7 +299,7 @@ void PlotHiggsRes2012
 
   //Fake rate systematics
   TFile *fLeptonFRFileSyst = TFile::Open(fakePath.Data());
-  TH2D *fhDFRMuSyst = (TH2D*)(fLeptonFRFileSyst->Get("MuonFakeRate_M2_ptThreshold30_PtEta"));
+  TH2D *fhDFRMuSyst = (TH2D*)(fLeptonFRFileSyst->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
   TH2D *fhDFRElSyst = (TH2D*)(fLeptonFRFileSyst->Get("ElectronFakeRate_V4_ptThreshold50_PtEta"));
   assert(fhDFRMuSyst);
   assert(fhDFRElSyst);
@@ -974,9 +974,9 @@ void PlotHiggsRes2012
     //----------------------------------------------------------------------------
     bool wwDecayCut = true;
     if     (wwDecay == 0) wwDecayCut = (type == SmurfTree::mm);
-    else if(wwDecay == 1) wwDecayCut = (type == SmurfTree::ee);
-    else if(wwDecay == 2) wwDecayCut = (type == SmurfTree::me);
-    else if(wwDecay == 3) wwDecayCut = (type == SmurfTree::em);
+    else if(wwDecay == 1) wwDecayCut = (type == SmurfTree::me);
+    else if(wwDecay == 2) wwDecayCut = (type == SmurfTree::em);
+    else if(wwDecay == 3) wwDecayCut = (type == SmurfTree::ee);
     else if(wwDecay == 5) wwDecayCut = (type == SmurfTree::mm || type == SmurfTree::ee);
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
@@ -1532,7 +1532,7 @@ void PlotHiggsRes2012
     else if(processId==10010) fDecay = 14;
     else                                 {printf("bad dstype: %d\n",dstype); assert(0);}
     if(dstype == SmurfTree::wz || dstype == SmurfTree::zz) {
-      if(lep1MotherMcId == 23 && lep2MotherMcId == 23 && UseDyttDataDriven == false) {
+      if(lep1MotherMcId == 23 && lep2MotherMcId == 23 && UseDyttDataDriven == false && useZjetsTemplates == true) {
         fDecay = 4;
       }
     }
@@ -1544,9 +1544,9 @@ void PlotHiggsRes2012
     //----------------------------------------------------------------------------
     bool wwDecayCut = true;
     if     (wwDecay == 0) wwDecayCut = (type == SmurfTree::mm);
-    else if(wwDecay == 1) wwDecayCut = (type == SmurfTree::ee);
-    else if(wwDecay == 2) wwDecayCut = (type == SmurfTree::me);
-    else if(wwDecay == 3) wwDecayCut = (type == SmurfTree::em);
+    else if(wwDecay == 1) wwDecayCut = (type == SmurfTree::me);
+    else if(wwDecay == 2) wwDecayCut = (type == SmurfTree::em);
+    else if(wwDecay == 3) wwDecayCut = (type == SmurfTree::ee);
     else if(wwDecay == 5) wwDecayCut = (type == SmurfTree::mm || type == SmurfTree::ee);
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
@@ -2431,7 +2431,7 @@ void PlotHiggsRes2012
     else if(dstype == SmurfTree::qqwwPWG         ) fDecay = 11;
     else                                 {printf("bad dstype: %d\n",dstype); assert(0);}
     if(dstype == SmurfTree::wz || dstype == SmurfTree::zz) {
-      if(lep1MotherMcId == 23 && lep2MotherMcId == 23) {
+      if(lep1MotherMcId == 23 && lep2MotherMcId == 23 && UseDyttDataDriven == false && useZjetsTemplates == true) {
         fDecay = 4;
       }
     }
@@ -2443,9 +2443,9 @@ void PlotHiggsRes2012
     //----------------------------------------------------------------------------
     bool wwDecayCut = true;
     if     (wwDecay == 0) wwDecayCut = (type == SmurfTree::mm);
-    else if(wwDecay == 1) wwDecayCut = (type == SmurfTree::ee);
-    else if(wwDecay == 2) wwDecayCut = (type == SmurfTree::me);
-    else if(wwDecay == 3) wwDecayCut = (type == SmurfTree::em);
+    else if(wwDecay == 1) wwDecayCut = (type == SmurfTree::me);
+    else if(wwDecay == 2) wwDecayCut = (type == SmurfTree::em);
+    else if(wwDecay == 3) wwDecayCut = (type == SmurfTree::ee);
     else if(wwDecay == 5) wwDecayCut = (type == SmurfTree::mm || type == SmurfTree::ee);
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
@@ -2977,9 +2977,9 @@ void PlotHiggsRes2012
     //----------------------------------------------------------------------------
     bool wwDecayCut = true;
     if     (wwDecay == 0) wwDecayCut = (type == SmurfTree::mm);
-    else if(wwDecay == 1) wwDecayCut = (type == SmurfTree::ee);
-    else if(wwDecay == 2) wwDecayCut = (type == SmurfTree::me);
-    else if(wwDecay == 3) wwDecayCut = (type == SmurfTree::em);
+    else if(wwDecay == 1) wwDecayCut = (type == SmurfTree::me);
+    else if(wwDecay == 2) wwDecayCut = (type == SmurfTree::em);
+    else if(wwDecay == 3) wwDecayCut = (type == SmurfTree::ee);
     else if(wwDecay == 5) wwDecayCut = (type == SmurfTree::mm || type == SmurfTree::ee);
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
 
