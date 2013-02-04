@@ -88,6 +88,7 @@ data/dyll.root
 data/ww_dps.root
 data/ggww.root
 data/qqww.root
+data/qqww_powheg.root
 data/training.root
 data/ttbar_powheg.root
 data/ttbar.root
@@ -104,6 +105,9 @@ data/wz.root
 data/zgammafo.root
 data/zgamma.root
 data/zz.root
+data/wglmm.root
+data/wglee.root
+data/zz4l_powheg.root
 EOF
 
 export evaluateMVAFile=evaluateMVA_smurf_hww.C+;

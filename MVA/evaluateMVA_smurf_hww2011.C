@@ -278,7 +278,7 @@ TString suffix       = "ww"
     delete fLeptonEffFile;
 
     TFile *fLeptonFRFileM = TFile::Open(Form("%s%s",InputPath.Data(),fakePath.Data()));
-    TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
+    TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold30_PtEta"));
     assert(fhDFRMu);
     fhDFRMu->SetDirectory(0);
     fLeptonFRFileM->Close();

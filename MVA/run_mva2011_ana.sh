@@ -59,6 +59,9 @@ data2011/hww_syst_skim6.root
 data2011/data_skim6.root
 data2011/backgroundA_skim6.root
 EOF
+#data2011/xww0m${MH}.root
+#data2011/xww0p${MH}.root
+#data2011/xww2p${MH}.root
 
 export evaluateMVAFile=evaluateMVA_smurf_hww2011.C+;
 if [ ${NJETS} == "hzz" ]; then
