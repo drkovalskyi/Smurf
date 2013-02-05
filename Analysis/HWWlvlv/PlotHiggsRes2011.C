@@ -294,7 +294,7 @@ void PlotHiggsRes2011
   //Fake rate systematics
   TFile *fLeptonFRFileSyst = TFile::Open(fakePath.Data());
   TH2D *fhDFRMuSyst = (TH2D*)(fLeptonFRFileSyst->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
-  TH2D *fhDFRElSyst = (TH2D*)(fLeptonFRFileSyst->Get("ElectronFakeRate_V4_ptThreshold50_PtEta"));
+  TH2D *fhDFRElSyst = (TH2D*)(fLeptonFRFileSyst->Get("ElectronFakeRate_V4_ptThreshold20_PtEta"));
   assert(fhDFRMuSyst);
   assert(fhDFRElSyst);
   fhDFRMuSyst->SetDirectory(0);

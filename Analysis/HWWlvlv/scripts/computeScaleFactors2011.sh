@@ -12,29 +12,29 @@ if [ $1 == 1 ]; then
 cd $CMSSW_BASE/src/Ana/nt_scripts/;
 
 sed -ie 's/bool WWXSSel = true/bool WWXSSel = false/' optimalCuts_42x.C;
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,4,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,5,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,6,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,0,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,1,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,2,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,3,2)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,4,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,5,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,6,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,0,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,1,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,2,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,3,4)';
 
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,14,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,15,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,16,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,10,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,11,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,12,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,13,2)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,14,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,15,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,16,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,10,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,11,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,12,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,13,4)';
 
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,24,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,25,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,26,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,20,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,21,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,22,2)';
-root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,23,2)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,24,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,25,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,26,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,20,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,21,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,22,4)';
+root -l -b -q optimalCuts_42x.C+'(29,"","",0,"ntuples_42x_v9/backgroundA_smik6.root","ntuples_42x_v9/hww160.root","ntuples_42x_v9/data_smik6.root",1,23,4)';
 
 else
 

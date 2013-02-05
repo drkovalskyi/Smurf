@@ -90,7 +90,7 @@ void ComputeTopScaleFactors2011
   LeptonScaleLookup trigLookup(effPath.Data());
 
   TFile *fLeptonFRFileM = TFile::Open(fakePath.Data());
-  TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
+  TH2D *fhDFRMu = (TH2D*)(fLeptonFRFileM->Get("MuonFakeRate_M2_ptThreshold30_PtEta"));
   assert(fhDFRMu);
   fhDFRMu->SetDirectory(0);
   fLeptonFRFileM->Close();

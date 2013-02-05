@@ -1205,6 +1205,7 @@ double fakeRate(double pt, double eta, TH2D *fhDFRMu, TH2D *fhDFREl, int fm, int
     //Int_t ptbin = fhDFREl->GetYaxis()->FindBin(mypt);
     //Int_t etabin = fhDFREl->GetXaxis()->FindBin(myeta);  
     //prob = fhDFREl->GetBinContent(etabin,ptbin);
+    //if(pt<15) prob=prob*0.6;
   }
   return prob/(1-prob);
 }
@@ -1226,8 +1227,30 @@ double leptonEfficiency(double pt, double eta, TH2D *fhDEffMu, TH2D *fhDEffEl, i
     Int_t ptbin = fhDEffEl->GetXaxis()->FindBin(mypt);
     Int_t etabin = fhDEffEl->GetYaxis()->FindBin(myeta);	 
     prob = fhDEffEl->GetBinContent(ptbin,etabin);
-    if     (syst > 0) prob = prob + sqrt(fhDEffEl->GetBinError(ptbin,etabin)*fhDEffEl->GetBinError(ptbin,etabin) + 0.02*0.02);
-    else if(syst < 0) prob = prob - sqrt(fhDEffEl->GetBinError(ptbin,etabin)*fhDEffEl->GetBinError(ptbin,etabin) + 0.02*0.02);
+    double eff_syst = 0.00;
+    if     (pt<15 && fabs(eta) < 0.80) eff_syst = 0.075;
+    else if(pt<15 && fabs(eta) < 1.48) eff_syst = 0.043;
+    else if(pt<15 && fabs(eta) < 2.00) eff_syst = 0.089;
+    else if(pt<15 && fabs(eta) <=2.50) eff_syst = 0.091;
+    else if(pt<20 && fabs(eta) < 0.80) eff_syst = 0.020;
+    else if(pt<20 && fabs(eta) < 1.48) eff_syst = 0.018;
+    else if(pt<20 && fabs(eta) < 2.00) eff_syst = 0.045;
+    else if(pt<20 && fabs(eta) <=2.50) eff_syst = 0.041;
+    else if(pt<30 && fabs(eta) < 0.80) eff_syst = 0.005;
+    else if(pt<30 && fabs(eta) < 1.48) eff_syst = 0.007;
+    else if(pt<30 && fabs(eta) < 2.00) eff_syst = 0.016;
+    else if(pt<30 && fabs(eta) <=2.50) eff_syst = 0.006;
+    else if(pt<40 && fabs(eta) < 0.80) eff_syst = 0.001;
+    else if(pt<40 && fabs(eta) < 1.48) eff_syst = 0.001;
+    else if(pt<40 && fabs(eta) < 2.00) eff_syst = 0.003;
+    else if(pt<40 && fabs(eta) <=2.50) eff_syst = 0.001;
+    else if(pt<50 && fabs(eta) < 0.80) eff_syst = 0.000;
+    else if(pt<50 && fabs(eta) < 1.48) eff_syst = 0.000;
+    else if(pt<50 && fabs(eta) < 2.00) eff_syst = 0.000;
+    else if(pt<50 && fabs(eta) <=2.50) eff_syst = 0.001;
+    else                               eff_syst = 0.000;
+    if     (syst > 0) prob = prob + sqrt(fhDEffEl->GetBinError(ptbin,etabin)*fhDEffEl->GetBinError(ptbin,etabin) + 0.02*0.02 + eff_syst*eff_syst);
+    else if(syst < 0) prob = prob - sqrt(fhDEffEl->GetBinError(ptbin,etabin)*fhDEffEl->GetBinError(ptbin,etabin) + 0.02*0.02 + eff_syst*eff_syst);
   }
   return prob;
 }

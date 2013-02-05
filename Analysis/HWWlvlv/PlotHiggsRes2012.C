@@ -244,7 +244,7 @@ void PlotHiggsRes2012
     //scaleFactorLum = 5.296;minRun =      0;maxRun = 196531;
   }
   else if(period == 3){ // Full2012-Summer12-V9-19500ipb
-    effPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_Moriond_V0.root";
+    effPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_Moriond_V1.root";
     fakePath = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root";
     puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_19p5ifb.root";
     scaleFactorLum     = 19.467;minRun =      0;maxRun = 999999;
@@ -300,7 +300,7 @@ void PlotHiggsRes2012
   //Fake rate systematics
   TFile *fLeptonFRFileSyst = TFile::Open(fakePath.Data());
   TH2D *fhDFRMuSyst = (TH2D*)(fLeptonFRFileSyst->Get("MuonFakeRate_M2_ptThreshold15_PtEta"));
-  TH2D *fhDFRElSyst = (TH2D*)(fLeptonFRFileSyst->Get("ElectronFakeRate_V4_ptThreshold50_PtEta"));
+  TH2D *fhDFRElSyst = (TH2D*)(fLeptonFRFileSyst->Get("ElectronFakeRate_V4_ptThreshold20_PtEta"));
   assert(fhDFRMuSyst);
   assert(fhDFRElSyst);
   fhDFRMuSyst->SetDirectory(0);
