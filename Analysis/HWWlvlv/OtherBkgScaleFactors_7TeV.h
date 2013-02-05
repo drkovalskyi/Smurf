@@ -13,7 +13,7 @@ Double_t WGstarScaleFactor(Int_t type, Double_t met) {
 }
 
 Double_t WGstarScaleFactorSyst() {
-  return 0.30;
+  return 0.40;
 }
 
 Double_t WJetsMCScaleFactor() {
