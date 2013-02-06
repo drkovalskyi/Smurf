@@ -30,20 +30,27 @@ int FakeLooper::Loop(bool isData, TChain* chain, const char* name,
     // setup histograms
     //
 
-    gROOT->cd();
-    double binsX[6] = {10, 15, 20, 25, 30, 35};     unsigned int nX = 5;
-    double binsY[5] = {0.0, 1.0, 1.479, 2.0, 2.5};  unsigned int nY = 4;
+    gROOT->cd(); 
+    //double binsX[6] = {10, 15, 20, 25, 30, 35};     unsigned int nX = 5; // default 
+    //double binsY[5] = {0.0, 1.0, 1.479, 2.0, 2.5};  unsigned int nY = 4; // default 
+    double binsX[2] = {10, 35};         unsigned int nX = 1;
+    double binsY[3] = {0.0, 1.5, 2.5};  unsigned int nY = 2;
     std::vector<TH2F*> v_denominator;
     std::vector<TH2F*> v_numerator;
+    std::vector<TH1F*> v_denominator_pt; // for den pT
     for (unsigned int i = 0; i < ptThresholds.size(); ++i) {
         const char* den_name = Form("den_%s_ptThreshold%u_PtEta", name, ptThresholds[i]);
         const char* num_name = Form("num_%s_ptThreshold%u_PtEta", name, ptThresholds[i]);
+        const char* den_name_pt = Form("den_%s_ptThreshold%u_pt", name, ptThresholds[i]);
         v_denominator.push_back(new TH2F(den_name, Form("%s;p_{T} [GeV]; |#eta|", den_name), nX, binsX, nY, binsY));
         v_numerator.push_back(new TH2F(num_name, Form("%s;p_{T} [GeV]; |#eta|", den_name), nX, binsX, nY, binsY));
+        v_denominator_pt.push_back(new TH1F(den_name_pt, Form("%st;p_{T} [GeV]", den_name_pt), 40,0,100));
         v_denominator[i]->Sumw2();
         v_numerator[i]->Sumw2();
+        v_denominator_pt[i]->Sumw2();
         v_denominator[i]->SetMarkerSize(2);
         v_numerator[i]->SetMarkerSize(2);
+        v_denominator_pt[i]->SetMarkerSize(2);
     }
 
     h1_nvtx_ = new TH1F(Form("%s_nvtx", name),       Form("%s_den_lowPt_mt;N_{Vtx}", name),         50, -0.5, 49.5);
@@ -211,13 +218,15 @@ int FakeLooper::Loop(bool isData, TChain* chain, const char* name,
                 if (option_ == MET20MT15 && (leptons->mt_ >= 15.0 || leptons->met_ >= 20.0))   continue;
                 if (option_ == MET20MT15MLL && (leptons->mt_ >= 15.0 || leptons->met_ >= 20.0
                         || (leptons->qProbe_*leptons->qTag_ < 0 && fabs((leptons->probe_+leptons->tag_).M() - 91.0) < 15.0)))   continue;
-                if (option_ == MET20 && leptons->met_ >= 20.0)  continue;
+                if (option_ == MET20 && leptons->met_ >= 20.0)  continue; 
 
                 // fill numerator and denominator according to jet threshold
                 for (unsigned int i = 0; i < ptThresholds.size(); ++i) {
                     if (leptons->jet1_.Pt() >= double(ptThresholds[i])) {
                         v_denominator[i]->Fill(leptons->probe_.Pt(), fabs(leptons->probe_.Eta()), weight);
-                        if (numerator)  v_numerator[i]->Fill(leptons->probe_.Pt(), fabs(leptons->probe_.Eta()), weight); 
+                        if (numerator)  v_numerator[i]->Fill(leptons->probe_.Pt(), fabs(leptons->probe_.Eta()), weight);  
+                        if (!numerator) v_denominator_pt[i]->Fill(leptons->probe_.Pt(), weight); // den pT
+
                     }
                 }
             }
@@ -245,7 +254,7 @@ int FakeLooper::Loop(bool isData, TChain* chain, const char* name,
                 // muon selection   
                 if ((leptons->leptonSelection_ & eleFO) != eleFO)                           continue;
                 if (sqrt(pow(leptons->probe_.Eta() - leptons->jet1_.Eta(), 2) 
-                            + pow(leptons->probe_.Phi() - leptons->jet1_.Phi(), 2)) < 1.0)  continue;
+                            + pow(leptons->probe_.Phi() - leptons->jet1_.Phi(), 2)) < 1.0)  continue; 
 
                 // general properties histograms for MC normalisation checks
                 // for high pt 
@@ -256,12 +265,14 @@ int FakeLooper::Loop(bool isData, TChain* chain, const char* name,
                 if (option_ == MET20MT15MLL && (leptons->mt_ >= 15.0 || leptons->met_ >= 20.0 
                         || (leptons->qProbe_*leptons->qTag_ < 0 && fabs((leptons->probe_+leptons->tag_).M() - 91.0) < 15.0)
                         || fabs(leptons->jet1_.Eta()) > 2.50))   continue;
-                if (option_ == MET20 && leptons->met_ >= 20.0)  continue;
+                if (option_ == MET20 && leptons->met_ >= 20.0)  continue; 
+
                 // fill numerator and denominator according to jet threshold
                 for (unsigned int i = 0; i < ptThresholds.size(); ++i) {
                     if (leptons->jet1_.Pt() >= double(ptThresholds[i])) {
                         v_denominator[i]->Fill(leptons->probe_.Pt(), fabs(leptons->probe_.Eta()), weight);
                         if (numerator)  v_numerator[i]->Fill(leptons->probe_.Pt(), fabs(leptons->probe_.Eta()), weight);
+                        if (!numerator) v_denominator_pt[i]->Fill(leptons->probe_.Pt(), weight); // den pT
                     }
                 }
 
