@@ -385,6 +385,10 @@ void printFakeRate(const char* file, const char *name, const char* friendlyName,
         TH2F* h2_num_WJets  = (TH2F*)f->Get(Form("num_WJets_%s_ptThreshold%u_PtEta", name, ptThresholds[i]));
         TH2F* h2_den_DY     = (TH2F*)f->Get(Form("den_DY_%s_ptThreshold%u_PtEta", name, ptThresholds[i]));
         TH2F* h2_num_DY     = (TH2F*)f->Get(Form("num_DY_%s_ptThreshold%u_PtEta", name, ptThresholds[i]));
+        TH2F* h2_den_qcd    = (TH2F*)f->Get(Form("den_QCD_%s_ptThreshold%u_PtEta", name, ptThresholds[i]));
+        TH2F* h2_num_qcd    = (TH2F*)f->Get(Form("num_QCD_%s_ptThreshold%u_PtEta", name, ptThresholds[i]));
+        TH2F* h2_den_pho    = (TH2F*)f->Get(Form("den_Photon_%s_ptThreshold%u_PtEta", name, ptThresholds[i]));
+        TH2F* h2_num_pho    = (TH2F*)f->Get(Form("num_Photon_%s_ptThreshold%u_PtEta", name, ptThresholds[i]));
 
         // scale MC processes
         h2_den_WJets->Scale(SF_WJets);
@@ -548,10 +552,29 @@ void printFakeRate(const char* file, const char *name, const char* friendlyName,
         printline(fout_tex, h2_FR, Form("Fake rate before background subtraction for jet pT $>$ %u", ptThresholds[i]), false);
         printline(fout_tex, h2_FR_bgsub, Form("Fake rate after background subtraction for jet pT $>$ %u", ptThresholds[i]), false);
 
+        // QCD MC 
+        TH2F* h2_FR_qcd = (TH2F*)h2_num_qcd->Clone(Form("%s_ptThreshold%u_PtEta_QCD", name, ptThresholds[i]));
+        h2_FR_qcd->SetTitle(Form("%s_ptThreshold%u_PtEta QCD MC", name, ptThresholds[i]));
+        h2_FR_qcd->Divide(h2_den_qcd);
+        h2_FR_qcd->Draw("COLZ TEXT E1");
+        h2_FR_qcd->SetMaximum(1.0);
+        h2_FR_qcd->SetMinimum(0.0);
+        c1->SaveAs(Form("plots/%s_ptThreshold%u_PtEta_QCD_%s.png", name, ptThresholds[i], file));
+
+        // Photon + jets MC 
+        TH2F* h2_FR_pho = (TH2F*)h2_num_pho->Clone(Form("%s_ptThreshold%u_PtEta_Photon", name, ptThresholds[i]));
+        h2_FR_pho->SetTitle(Form("%s_ptThreshold%u_PtEta Photon+jets MC", name, ptThresholds[i]));
+        h2_FR_pho->Divide(h2_den_pho);
+        h2_FR_pho->Draw("COLZ TEXT E1");
+        h2_FR_pho->SetMaximum(1.0);
+        h2_FR_pho->SetMinimum(0.0);
+        c1->SaveAs(Form("plots/%s_ptThreshold%u_PtEta_Photon_%s.png", name, ptThresholds[i], file));
 
         out->cd();
         h2_FR_bgsub->Write();
         h2_FR->Write();
+        h2_FR_qcd->Write();
+        h2_FR_pho->Write();
 
         delete h2_den_Data;
         delete h2_num_Data;

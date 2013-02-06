@@ -14,18 +14,19 @@ void doFakeRate() {
     gSystem->Load("libEG.so");
     gSystem->Load("libMathCore.so");
 
-    gROOT->ProcessLine(".L ../../../Core/LeptonTree.h+");
+    gROOT->ProcessLine(".L ../../Smurf/Core/LeptonTree.h+");
     gSystem->Load("libSmurfFakeLooper.so");
 
     bool runEle = true;
-    bool runMu = true;
+    bool runMu  = true;
 
     // HCP
     //runFakeLooper(MET20, runEle, runMu, HCP);
     //runFakeLooper(MET20MT15MLL, runEle, runMu, HCP);
 
     // Moriond
-    runFakeLooper(MET20MT15MLL, runEle, runMu, MORIOND);
+    //runFakeLooper(MET20MT15MLL, runEle, runMu, MORIOND);
+    runFakeLooper(MET20, runEle, runMu, MORIOND);
 
 }
 
@@ -78,7 +79,46 @@ void runFakeLooper(Option option, bool runEle, bool runMu, Era era)
     TChain *ch_dy_e = new TChain("leptons");
     ch_dy_e->Add("/smurf/dlevans/LeptonTree/"+tag+"/FR_DYToEE_M-20_CT10_TuneZ2star_v2_8TeV-powheg-pythia6/merged_e.root");
 
-    // data sample
+    // ------------------ QCD MC ----------------------------------------
+    TChain *ch_qcd_m = new TChain("leptons");
+    //ch_qcd_m->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-5to15_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_m.root");
+    ch_qcd_m->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-15to30_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v2_AODSIM/merged_processed_m.root");
+    ch_qcd_m->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-30to50_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v2_AODSIM/merged_processed_m.root");
+    ch_qcd_m->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-50to80_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v2_AODSIM/merged_processed_m.root");
+    ch_qcd_m->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-80to120_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v3_AODSIM/merged_processed_m.root");
+    ch_qcd_m->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-120to170_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v3_AODSIM/merged_processed_m.root");
+    ch_qcd_m->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-170to300_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v2_AODSIM/merged_processed_m.root");
+    
+    TChain *ch_qcd_e = new TChain("leptons");
+    //ch_qcd_e->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-5to15_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_e.root");
+    ch_qcd_e->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-15to30_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v2_AODSIM/merged_processed_e.root");
+    ch_qcd_e->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-30to50_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v2_AODSIM/merged_processed_e.root");
+    ch_qcd_e->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-50to80_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v2_AODSIM/merged_processed_e.root");
+    ch_qcd_e->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-80to120_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v3_AODSIM/merged_processed_e.root");
+    ch_qcd_e->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-120to170_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v3_AODSIM/merged_processed_e.root");
+    ch_qcd_e->Add("/smurf/dlevans/LeptonTree/"+tag+"/QCD_Pt-170to300_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v2_AODSIM/merged_processed_e.root");
+
+    // ------------------ Photon + jets MC ----------------------------------------
+    TChain *ch_photon_m = new TChain("leptons");
+    //ch_photon_m->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-5to15_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_m.root");
+    ch_photon_m->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-15to30_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_m.root");
+    ch_photon_m->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-30to50_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_m.root");
+    ch_photon_m->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-50to80_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_m.root");
+    ch_photon_m->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-80to120_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_m.root");
+    ch_photon_m->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-120to170_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_m.root");
+    ch_photon_m->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-170to300_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_m.root");
+    
+    TChain *ch_photon_e = new TChain("leptons");
+    //ch_photon_e->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-5to15_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_e.root");
+    ch_photon_e->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-15to30_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_e.root");
+    ch_photon_e->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-30to50_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_e.root");
+    ch_photon_e->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-50to80_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_e.root");
+    ch_photon_e->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-80to120_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_e.root");
+    ch_photon_e->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-120to170_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_e.root");
+    ch_photon_e->Add("/smurf/jaehyeok/LeptonTree/"+tag+"/G_Pt-170to300_TuneZ2star_8TeV_pythia6_Summer12_DR53X-PU_S10_START53_V7A-v1_AODSIM/merged_processed_e.root");
+
+
+    // ------------------ data sample -----------------------------
     TChain *ch_data_m = new TChain("leptons");
     ch_data_m->Add("/smurf/dlevans/LeptonTree/"+tag+"/DoubleMu_Run2012A-13Jul2012-v1_AOD_190456_193621/merged_"+eraName+".root");
     ch_data_m->Add("/smurf/dlevans/LeptonTree/"+tag+"/DoubleMu_Run2012A-recover-06Aug2012-v1_AOD_190782_190949/merged_"+eraName+".root");
@@ -113,9 +153,11 @@ void runFakeLooper(Option option, bool runEle, bool runMu, Era era)
         ptThresholds.push_back(50);
         ptThresholds.push_back(80);
 
-        looper->Loop(false, ch_wjets_m, "WJets_MuonFakeRate_M2",  LeptonTree::QCDFakeMu,  ptThresholds);
-        looper->Loop(false, ch_dy_m,    "DY_MuonFakeRate_M2",     LeptonTree::QCDFakeMu,  ptThresholds);
-        looper->Loop(true,  ch_data_m,  "Data_MuonFakeRate_M2",   LeptonTree::QCDFakeMu,  ptThresholds);
+        looper->Loop(false, ch_wjets_m,     "WJets_MuonFakeRate_M2",    LeptonTree::QCDFakeMu,  ptThresholds);
+        looper->Loop(false, ch_dy_m,        "DY_MuonFakeRate_M2",       LeptonTree::QCDFakeMu,  ptThresholds);
+        looper->Loop(true,  ch_data_m,      "Data_MuonFakeRate_M2",     LeptonTree::QCDFakeMu,  ptThresholds);
+        looper->Loop(false, ch_qcd_m,       "QCD_MuonFakeRate_M2",      LeptonTree::QCDFakeMu,  ptThresholds);
+        looper->Loop(false, ch_photon_m,    "Photon_MuonFakeRate_M2",   LeptonTree::QCDFakeMu,  ptThresholds);
     }
 
     //
@@ -124,6 +166,7 @@ void runFakeLooper(Option option, bool runEle, bool runMu, Era era)
 
     if (runEle) {
         ptThresholds.clear();
+        ptThresholds.push_back(0);
         ptThresholds.push_back(15);
         ptThresholds.push_back(20);
         ptThresholds.push_back(25);
@@ -134,9 +177,11 @@ void runFakeLooper(Option option, bool runEle, bool runMu, Era era)
         ptThresholds.push_back(50);
         ptThresholds.push_back(80);
 
-        looper->Loop(false, ch_wjets_e, "WJets_ElectronFakeRate_V4",  LeptonTree::QCDFakeEle,  ptThresholds);
-        looper->Loop(false, ch_dy_e,    "DY_ElectronFakeRate_V4",     LeptonTree::QCDFakeEle,  ptThresholds);
-        looper->Loop(true,  ch_data_e,  "Data_ElectronFakeRate_V4",   LeptonTree::QCDFakeEle,  ptThresholds);
+        looper->Loop(false, ch_wjets_e,     "WJets_ElectronFakeRate_V4",  LeptonTree::QCDFakeEle,  ptThresholds);
+        looper->Loop(false, ch_dy_e,        "DY_ElectronFakeRate_V4",     LeptonTree::QCDFakeEle,  ptThresholds);
+        looper->Loop(true,  ch_data_e,      "Data_ElectronFakeRate_V4",   LeptonTree::QCDFakeEle,  ptThresholds);
+        looper->Loop(false, ch_qcd_e,       "QCD_ElectronFakeRate_V4",    LeptonTree::QCDFakeEle,  ptThresholds);
+        looper->Loop(false, ch_photon_e,    "Photon_ElectronFakeRate_V4", LeptonTree::QCDFakeEle,  ptThresholds);
     }
 
     //
