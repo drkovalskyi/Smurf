@@ -3473,11 +3473,15 @@ void PlotHiggsRes2011
     assert(TMath::Abs(histo_WjetsM->GetSumOfWeights() - bgdMVADecays[useVar][9]->GetSumOfWeights()) < 0.000001);
     assert(TMath::Abs(histo_Wgamma->GetSumOfWeights() - bgdMVADecays[useVar][6]->GetSumOfWeights()) < 0.000001);
     for(int i=1; i<=histo_WjetsE->GetNbinsX(); i++){
-      if(histo_WjetsE->GetBinContent(i) < 0) histo_WjetsE->SetBinContent(i,0.000001);
-      if(histo_WjetsM->GetBinContent(i) < 0) histo_WjetsM->SetBinContent(i,0.000001);
-      if(histo_Wgamma->GetBinContent(i) < 0) histo_Wgamma->SetBinContent(i,0.000001);
+      if(histo_WjetsE                       ->GetBinContent(i) <= 0) histo_WjetsE			->SetBinContent(i,0.000001);
+      if(histo_WjetsM                       ->GetBinContent(i) <= 0) histo_WjetsM			->SetBinContent(i,0.000001);
+      if(histo_Wgamma                       ->GetBinContent(i) <= 0) histo_Wgamma			->SetBinContent(i,0.000001);
+      if(histo_qqWW_CMS_MVAWWNLOBoundingUp  ->GetBinContent(i) <= 0) histo_qqWW_CMS_MVAWWNLOBoundingUp  ->SetBinContent(i,0.000001);
+      if(histo_qqWW_CMS_MVAWWNLOBoundingDown->GetBinContent(i) <= 0) histo_qqWW_CMS_MVAWWNLOBoundingDown->SetBinContent(i,0.000001);
+      if(histo_qqWW_CMS_MVAWWBoundingUp     ->GetBinContent(i) <= 0) histo_qqWW_CMS_MVAWWBoundingUp	->SetBinContent(i,0.000001);
+      if(histo_qqWW_POWHEG                  ->GetBinContent(i) <= 0) histo_qqWW_POWHEG  		->SetBinContent(i,0.000001);  
     }
-    // We need to renormalize
+    // We need to renormalize, no need to do it for the systematic histograms
     if(bgdMVADecays[useVar][5]->GetSumOfWeights() > 0) histo_WjetsE->Scale(bgdMVADecays[useVar][5]->GetSumOfWeights()/histo_WjetsE->GetSumOfWeights());
     if(bgdMVADecays[useVar][6]->GetSumOfWeights() > 0) histo_Wgamma->Scale(bgdMVADecays[useVar][6]->GetSumOfWeights()/histo_Wgamma->GetSumOfWeights());
     if(bgdMVADecays[useVar][9]->GetSumOfWeights() > 0) histo_WjetsM->Scale(bgdMVADecays[useVar][9]->GetSumOfWeights()/histo_WjetsM->GetSumOfWeights());
