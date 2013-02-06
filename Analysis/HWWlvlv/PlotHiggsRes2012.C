@@ -1092,10 +1092,6 @@ void PlotHiggsRes2012
     add = add*addggH;
     double myWeight = scaleFactorLum * scale1fb * add;
 
-    //CAREFUL, THIS IS A HACK TO AVOID A CRASH IN COMBINE
-    //if(processId==24) continue;
-    //CAREFUL, THIS IS A HACK TO AVOID A CRASH IN COMBINE
-
     if(myWeight == 0) continue;
 
     //----------------------------------------------------------------------------
