@@ -3496,13 +3496,13 @@ void PlotHiggsRes2012
     assert(TMath::Abs(histo_WjetsM->GetSumOfWeights() - bgdMVADecays[useVar][9]->GetSumOfWeights()) < 0.000001);
     assert(TMath::Abs(histo_Wgamma->GetSumOfWeights() - bgdMVADecays[useVar][6]->GetSumOfWeights()) < 0.000001);
     for(int i=1; i<=histo_WjetsE->GetNbinsX(); i++){
-      if(histo_WjetsE                       ->GetBinContent(i) <= 0) histo_WjetsE		       ->SetBinContent(i,0.000001);
-      if(histo_WjetsM                       ->GetBinContent(i) <= 0) histo_WjetsM		       ->SetBinContent(i,0.000001);
-      if(histo_Wgamma                       ->GetBinContent(i) <= 0) histo_Wgamma		       ->SetBinContent(i,0.000001);
+      if(histo_WjetsE                       ->GetBinContent(i) <= 0) histo_WjetsE		        ->SetBinContent(i,0.000001);
+      if(histo_WjetsM                       ->GetBinContent(i) <= 0) histo_WjetsM		        ->SetBinContent(i,0.000001);
+      if(histo_Wgamma                       ->GetBinContent(i) <= 0) histo_Wgamma		        ->SetBinContent(i,0.000001);
       if(histo_qqWW_CMS_MVAWWNLOBoundingUp  ->GetBinContent(i) <= 0) histo_qqWW_CMS_MVAWWNLOBoundingUp  ->SetBinContent(i,0.000001);
       if(histo_qqWW_CMS_MVAWWNLOBoundingDown->GetBinContent(i) <= 0) histo_qqWW_CMS_MVAWWNLOBoundingDown->SetBinContent(i,0.000001);
       if(histo_qqWW_CMS_MVAWWBoundingUp     ->GetBinContent(i) <= 0) histo_qqWW_CMS_MVAWWBoundingUp     ->SetBinContent(i,0.000001);
-      if(histo_qqWW_POWHEG                  ->GetBinContent(i) <= 0) histo_qqWW_POWHEG		       ->SetBinContent(i,0.000001);  
+      if(histo_qqWW_POWHEG                  ->GetBinContent(i) <= 0) histo_qqWW_POWHEG		        ->SetBinContent(i,0.000001);  
     }
     // We need to renormalize, no need to do it for the systematic histograms
     if(bgdMVADecays[useVar][5]->GetSumOfWeights() > 0) histo_WjetsE->Scale(bgdMVADecays[useVar][5]->GetSumOfWeights()/histo_WjetsE->GetSumOfWeights());
@@ -4626,7 +4626,7 @@ void PlotHiggsRes2012
       newcardShape << Form("%s                               lnU   -     -     -     -    2.0    -     -     -     -     -     -     -     -     -   -     -     -     -  \n",theWWThStringMVA);				
       else
       newcardShape << Form("%s                               lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -     -     -   -     -     -     -  \n",theWWThStringMVA,wwXS_E_MVA,wwXS_E_MVA);				
-      newcardShape << Form("CMS_hww_Wg3l                     lnN   -	 -     -     -     -	 -     -     -     -     -     -   %5.3f   -     -   -	   -     -     -  \n",1.30);
+      newcardShape << Form("CMS_hww_Wg3l                     lnN   -	 -     -     -     -	 -     -     -     -     -     -   %5.3f   -     -   -	   -     -     -  \n",1.40);
       newcardShape << Form("CMS_hww_Ztt                      lnN   -	 -     -     -     -	 -     -     -     -	 -     -     -    %5.3f  -   -	   -     -     -  \n",1.10);
       if(useZjetsTemplates == true){
         newcardShape << Form("CMS_hww%s_%1dj_MVAZBounding           shape   -     -      -    -      -     -         -     -    2.0    -         -     -     -    -   -     -      -    -\n",finalStateName,nJetsType);		          
@@ -4751,7 +4751,7 @@ void PlotHiggsRes2012
     newcardCut << Form("CMS_hww_%1dj_ttbar_8TeV    lnN   -	-     -     -	  -	-     -   %5.3f   -	-     -     -	-     -   -	-     -     -\n",nJetsType,topXS_E);         
     newcardCut << Form("CMS_hww%s_%1dj_Z_8TeV      lnN   -     -     -     -     -     -     -     -   %5.3f   -     -     -   -     -   -	-     -     -\n",finalStateName,nJetsType,ZXS_E[1]+1.0);	         
     newcardCut << Form("%s                         lnN   -     -     -     -   %5.3f %5.3f   -     -     -     -     -     -   -     -   -	-     -     -\n",theWWThStringCut,wwXS_E_Cut,wwXS_E_Cut);	              
-    newcardCut << Form("CMS_hww_Wg3l               lnN   -     -     -     -     -     -     -     -     -     -     -   %5.3f   -     -   -	-     -     -\n",1.30);
+    newcardCut << Form("CMS_hww_Wg3l               lnN   -     -     -     -     -     -     -     -     -     -     -   %5.3f   -     -   -	-     -     -\n",1.40);
     newcardCut << Form("CMS_hww_Ztt                lnN   -     -     -     -     -     -     -     -     -     -     -    -    %5.3f     -   -	-     -     -\n",1.10);
     newcardCut << Form("CMS_hww%s_stat_%1dj_ZH_8TeV	lnN %5.3f   -     -     -     -     -     -     -     -     -     -     -   -     -   -	    -     -     -\n",finalStateName,nJetsType,nSigECut[2]/TMath::Max((double)nSigCut[2],0.00001)+1.0);
     newcardCut << Form("CMS_hww%s_stat_%1dj_WH_8TeV	lnN   -   %5.3f   -     -     -     -     -     -     -     -     -     -   -     -   -	    -     -     -\n",finalStateName,nJetsType,nSigECut[3]/TMath::Max((double)nSigCut[3],0.00001)+1.0);
