@@ -3473,13 +3473,13 @@ void PlotHiggsRes2011
     assert(TMath::Abs(histo_WjetsM->GetSumOfWeights() - bgdMVADecays[useVar][9]->GetSumOfWeights()) < 0.000001);
     assert(TMath::Abs(histo_Wgamma->GetSumOfWeights() - bgdMVADecays[useVar][6]->GetSumOfWeights()) < 0.000001);
     for(int i=1; i<=histo_WjetsE->GetNbinsX(); i++){
-      if(histo_WjetsE                       ->GetBinContent(i) <= 0) histo_WjetsE			->SetBinContent(i,0.000001);
-      if(histo_WjetsM                       ->GetBinContent(i) <= 0) histo_WjetsM			->SetBinContent(i,0.000001);
-      if(histo_Wgamma                       ->GetBinContent(i) <= 0) histo_Wgamma			->SetBinContent(i,0.000001);
-      if(histo_qqWW_CMS_MVAWWNLOBoundingUp  ->GetBinContent(i) <= 0) histo_qqWW_CMS_MVAWWNLOBoundingUp  ->SetBinContent(i,0.000001);
-      if(histo_qqWW_CMS_MVAWWNLOBoundingDown->GetBinContent(i) <= 0) histo_qqWW_CMS_MVAWWNLOBoundingDown->SetBinContent(i,0.000001);
-      if(histo_qqWW_CMS_MVAWWBoundingUp     ->GetBinContent(i) <= 0) histo_qqWW_CMS_MVAWWBoundingUp	->SetBinContent(i,0.000001);
-      if(histo_qqWW_POWHEG                  ->GetBinContent(i) <= 0) histo_qqWW_POWHEG  		->SetBinContent(i,0.000001);  
+      if(histo_WjetsE                       ->GetBinContent(i) <= 0) {histo_WjetsE		         ->SetBinContent(i,0.000001);histo_WjetsE			->SetBinError(i,0.000001);}
+      if(histo_WjetsM                       ->GetBinContent(i) <= 0) {histo_WjetsM		         ->SetBinContent(i,0.000001);histo_WjetsM			->SetBinError(i,0.000001);}
+      if(histo_Wgamma                       ->GetBinContent(i) <= 0) {histo_Wgamma		         ->SetBinContent(i,0.000001);histo_Wgamma			->SetBinError(i,0.000001);}
+      if(histo_qqWW_CMS_MVAWWNLOBoundingUp  ->GetBinContent(i) <= 0) {histo_qqWW_CMS_MVAWWNLOBoundingUp  ->SetBinContent(i,0.000001);histo_qqWW_CMS_MVAWWNLOBoundingUp  ->SetBinError(i,0.000001);}
+      if(histo_qqWW_CMS_MVAWWNLOBoundingDown->GetBinContent(i) <= 0) {histo_qqWW_CMS_MVAWWNLOBoundingDown->SetBinContent(i,0.000001);histo_qqWW_CMS_MVAWWNLOBoundingDown->SetBinError(i,0.000001);}
+      if(histo_qqWW_CMS_MVAWWBoundingUp     ->GetBinContent(i) <= 0) {histo_qqWW_CMS_MVAWWBoundingUp     ->SetBinContent(i,0.000001);histo_qqWW_CMS_MVAWWBoundingUp	->SetBinError(i,0.000001);}
+      if(histo_qqWW_POWHEG                  ->GetBinContent(i) <= 0) {histo_qqWW_POWHEG		         ->SetBinContent(i,0.000001);histo_qqWW_POWHEG  		->SetBinError(i,0.000001);}
     }
     // We need to renormalize, no need to do it for the systematic histograms
     if(bgdMVADecays[useVar][5]->GetSumOfWeights() > 0) histo_WjetsE->Scale(bgdMVADecays[useVar][5]->GetSumOfWeights()/histo_WjetsE->GetSumOfWeights());
@@ -3577,11 +3577,27 @@ void PlotHiggsRes2011
         if     (mean-up >0) histo_qqWW_CMS_MVAWWBoundingDown->SetBinContent(i,TMath::Max(mean+diff,0.000001));
         else	            histo_qqWW_CMS_MVAWWBoundingDown->SetBinContent(i,TMath::Max(mean-diff,0.000001));
 
-        double meanNLO = histo_qqWW_CMS_MVAWWBoundingUp->GetBinContent(i);
-	if(meanNLO > 0) histo_qqWW_CMS_MVAWWNLOBoundingUp  ->SetBinContent(i,histo_qqWW->GetBinContent(i)*histo_qqWW_CMS_MVAWWNLOBoundingUp  ->GetBinContent(i)/meanNLO);
-	if(meanNLO > 0) histo_qqWW_CMS_MVAWWNLOBoundingDown->SetBinContent(i,histo_qqWW->GetBinContent(i)*histo_qqWW_CMS_MVAWWNLOBoundingDown->GetBinContent(i)/meanNLO);
+        double meanNLO    = histo_qqWW_CMS_MVAWWBoundingUp     ->GetBinContent(i);
+        double theNLOUp   = histo_qqWW_CMS_MVAWWNLOBoundingUp  ->GetBinContent(i);
+        double theNLODown = histo_qqWW_CMS_MVAWWNLOBoundingDown->GetBinContent(i);
+	if(meanNLO  > 0 && histo_qqWW_CMS_MVAWWBoundingUp   ->GetBinError(i)/meanNLO  < 0.5 &&
+           theNLOUp > 0 && histo_qqWW_CMS_MVAWWNLOBoundingUp->GetBinError(i)/theNLOUp < 0.5 &&
+	    meanNLO/histo_qqWW_CMS_MVAWWBoundingUp->GetSumOfWeights() > 0.000001) {
+	  histo_qqWW_CMS_MVAWWNLOBoundingUp->SetBinContent(i,histo_qqWW->GetBinContent(i)*histo_qqWW_CMS_MVAWWNLOBoundingUp->GetBinContent(i)/meanNLO);
+	}
+	else {
+	  histo_qqWW_CMS_MVAWWNLOBoundingUp->SetBinContent(i,histo_qqWW->GetBinContent(i));
+	}
+	if(meanNLO    > 0 && histo_qqWW_CMS_MVAWWBoundingUp     ->GetBinError(i)/meanNLO    < 0.5 &&
+           theNLODown > 0 && histo_qqWW_CMS_MVAWWNLOBoundingDown->GetBinError(i)/theNLODown < 0.5 &&
+	    meanNLO/histo_qqWW_CMS_MVAWWBoundingUp->GetSumOfWeights() > 0.000001) {
+	  histo_qqWW_CMS_MVAWWNLOBoundingDown->SetBinContent(i,histo_qqWW->GetBinContent(i)*histo_qqWW_CMS_MVAWWNLOBoundingDown->GetBinContent(i)/meanNLO);
+	}
+	else {
+	  histo_qqWW_CMS_MVAWWNLOBoundingDown->SetBinContent(i,histo_qqWW->GetBinContent(i));
+	}
       }
-      histo_qqWW_CMS_MVAWWBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/histo_qqWW_CMS_MVAWWBoundingDown->GetSumOfWeights());
+      histo_qqWW_CMS_MVAWWBoundingDown   ->Scale(histo_qqWW->GetSumOfWeights()/histo_qqWW_CMS_MVAWWBoundingDown   ->GetSumOfWeights());
       histo_qqWW_CMS_MVAWWNLOBoundingUp  ->Scale(histo_qqWW->GetSumOfWeights()/histo_qqWW_CMS_MVAWWNLOBoundingUp  ->GetSumOfWeights());
       histo_qqWW_CMS_MVAWWNLOBoundingDown->Scale(histo_qqWW->GetSumOfWeights()/histo_qqWW_CMS_MVAWWNLOBoundingDown->GetSumOfWeights());
 
