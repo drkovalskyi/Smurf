@@ -691,6 +691,7 @@ void ComputeWWBkgScaleFactor2011 (
   printf("\\begin{table}\n");
   printf("\\begin{center}\n");
   printf("{\\normalsize\n");
+  printf("\\begin{tabular}{|c|c|c|c|}");
   printf("\\hline\n");
   printf(" Sample & 0-jet & 1-jet \\\\\n");
   printf("        & \\multicolumn{2}{|c|}{cut-based} \\\\\n");
