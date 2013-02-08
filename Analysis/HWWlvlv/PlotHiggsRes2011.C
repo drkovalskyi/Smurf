@@ -1708,7 +1708,12 @@ void PlotHiggsRes2011
     // DY->TauTau Embedded sample events: apply normalization weight.
     //----------------------------------------------------------------------------
     else if(dstype== SmurfTree::dyttDataDriven) {
-      myWeight = ZttScaleFactor(period,scale1fb)*scaleFactorLum;
+      double sf_trg = trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
+        						      fabs(lep2->eta()), lep2->pt(), 
+        						      TMath::Abs( lid1), TMath::Abs(lid2));
+      double sf_eff = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1)*
+        	      leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
+      myWeight = ZttScaleFactor(period,scale1fb,sf_trg,sf_eff)*scaleFactorLum;
       if(UseDyttDataDriven == false) myWeight = 0.0;
     }
 
@@ -2623,7 +2628,12 @@ void PlotHiggsRes2011
     // DY->TauTau Embedded sample events: apply normalization weight.
     //----------------------------------------------------------------------------
     else if(dstype== SmurfTree::dyttDataDriven) {
-      myWeight = ZttScaleFactor(period,scale1fb)*scaleFactorLum;
+      double sf_trg = trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
+        						      fabs(lep2->eta()), lep2->pt(), 
+        						      TMath::Abs( lid1), TMath::Abs(lid2));
+      double sf_eff = leptonEfficiency(lep1->pt(), lep1->eta(), fhDEffMu, fhDEffEl, lid1)*
+        	      leptonEfficiency(lep2->pt(), lep2->eta(), fhDEffMu, fhDEffEl, lid2);
+      myWeight = ZttScaleFactor(period,scale1fb,sf_trg,sf_eff)*scaleFactorLum;
       assert(0);
     }
 

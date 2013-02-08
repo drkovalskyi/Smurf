@@ -398,7 +398,12 @@ void ComputeTopScaleFactors
       }
     }
     else if(bgdEvent.dstype_ == SmurfTree::dyttDataDriven || bgdEvent.dstype_ == SmurfTree::qcd) {
-      theWeight = ZttScaleFactor(period,bgdEvent.scale1fb_)*lumi;
+      double sf_trg = trigLookup.GetExpectedTriggerEfficiency(fabs(bgdEvent.lep1_.Eta()), bgdEvent.lep1_.Pt() , 
+	        					      fabs(bgdEvent.lep2_.Eta()), bgdEvent.lep2_.Pt(), 
+							      TMath::Abs( bgdEvent.lid1_), TMath::Abs(bgdEvent.lid2_));
+      double sf_eff = leptonEfficiency(bgdEvent.lep1_.Pt(), bgdEvent.lep1_.Eta(), fhDEffMu, fhDEffEl, bgdEvent.lid1_)*
+        	      leptonEfficiency(bgdEvent.lep2_.Pt(), bgdEvent.lep2_.Eta(), fhDEffMu, fhDEffEl, bgdEvent.lid2_);
+      theWeight = ZttScaleFactor(period,bgdEvent.scale1fb_,sf_trg,sf_eff)*lumi;
       if(UseDyttDataDriven == false) theWeight = 0.0;
     }
     else if(bgdEvent.dstype_ != SmurfTree::data){
