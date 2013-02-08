@@ -1283,6 +1283,7 @@ void ComputeTopScaleFactors
   printf("\\begin{table}\n");
   printf("\\begin{center}\n");
   printf("{\\tiny\n");
+  printf("\\begin{tabular}{|c|c|c|c|}\n");
   printf("\\hline\n");
   printf(" Sample & 0-jet & 1-jet & 2-jet \\\\\n");
   printf("\\hline\n");
@@ -1290,7 +1291,7 @@ void ComputeTopScaleFactors
   (btag_highestpt_1j_den[1][Chan]+btag_highestpt_1j_den[2][Chan])-(btag_highestpt_1j_num[1][Chan]+btag_highestpt_1j_num[2][Chan]),estimationMC_btag_highestpt_1j_err[Chan],
   NonTaggedTopMC_forPrint,NonTaggedTopMC_forPrint*0.04);
   printf("tagging efficiency     (\\%)         & %4.1f $\\pm$ %4.1f & %4.1f $\\pm$ %4.1f & - \\\\ \n",effDA_btag_lowpt_0j[Chan]*100,effDA_btag_lowpt_0j_error[Chan]*100,effttDA_btag_highestpt_1j[Chan]*100,effttDA_btag_highestpt_1j_error[Chan]*100);
-  printf("data events in control region       & %4d & %4d & -\n",(int)btag_lowpt_0j_num[3][Chan],(int)btag_highestpt_1j_num[3][Chan]);
+  printf("data events in control region       & %4d & %4d & - \\\\ \n",(int)btag_lowpt_0j_num[3][Chan],(int)btag_highestpt_1j_num[3][Chan]);
   printf("background events in control region & %5.1f $\\pm$ %5.1f &  %5.1f $\\pm$ %5.1f & - \\\\ \n",btag_lowpt_0j_num[0][Chan],btag_lowpt_0j_num[0][Chan]*0.15,
   btag_highestpt_1j_num[0][Chan],btag_highestpt_1j_num[0][Chan]*0.20);
   printf("top estimation in data              &  %5.1f $\\pm$ %5.1f &  %5.1f $\\pm$ %5.1f & %5.1f $\\pm$ %5.1f \\\\\n",estimationDA_btag_lowpt_0j[Chan],estimationDA_btag_lowpt_0j_error[Chan],
