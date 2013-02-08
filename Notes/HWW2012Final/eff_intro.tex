@@ -2,6 +2,29 @@
 We used the tag and probe method on \dyll~events to provide an unbiased, high-purity, 
 lepton sample with which to measure both online and offline selection efficiencies.
 The details of the method used are the same as the HCP analysis described
-in Ref. \cite{hcp2012Note}, so we only report the results from 
-applying the method to the full dataset in what follows.
+in Ref. \cite{hcp2012Note}, so we report only the results, and differences
+from this reference.
+
+To reduce the background contamination in the failing probe sample,
+we employ an N-1 approach when measuring the simulation-to-data scale factor ($\rm{SF}$)
+for the electron and muon selection. In this analysis,
+we include an additional systematic uncertainty to account for
+the potential bias from this selection efficiency factorisation scheme, compared
+to measuring the efficiency in a single step. 
+
+We define $\rm{SF}$ to be the product
+of the scale factors for the ID and isolation parts of the selection,
+$\rm{SF_{ID}}=\varepsilon_{ID | Iso}^{data}/\varepsilon_{ID | Iso}^{mc}$
+and $\rm{SF_{Iso}} = \varepsilon_{Iso | ID}^{data}/\varepsilon_{Iso | ID}^{mc}$.
+We then compare the efficiency of the full selection measured in a single step
+in simulation with the equivalent efficiency from the N-1 factorisation described above:
+\hbox{$\delta_{\varepsilon} = |1 - \varepsilon_{Iso+ID}^{mc} / (\varepsilon_{ID | Iso}^{mc} \times \varepsilon_{Iso | ID}^{mc})|$}.
+The systematic uncertainty on $\rm{SF}$ is then taken to be $\delta_{\rm{SF}} = |1-\rm{SF}| \times \delta_{\varepsilon}$.
+
+The systematic uncertainties on the offline selection due to the 
+reconstruction efficiency are unchanged from the previous
+analysis at 2\% and 1.5\% for electrons and muons respectively.
+The trigger efficiencies
+are measured with respect to the full offline selection, and do not
+require any additional factorisation systematics.
 
