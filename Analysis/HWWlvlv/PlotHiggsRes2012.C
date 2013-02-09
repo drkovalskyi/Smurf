@@ -42,6 +42,7 @@ TGraphErrors* makeGraphFromHists   (TH1D* sig, TH1D* bgd, const char* name);
 int    verboseLevel =   0;
 const double sigmaB = 0.35;
 const bool UseDyttDataDriven = true; // if true, then remove em events in dyll MC
+const bool KeepGGHOnly       = false; // if true, then remove VH and qqH MC events
 
 void PlotHiggsRes2012
 (
@@ -1094,6 +1095,8 @@ void PlotHiggsRes2012
 
     add = add*addggH;
     double myWeight = scaleFactorLum * scale1fb * add;
+
+    if(useggHTemplates == false && KeepGGHOnly == true && processId != 10010) myWeight = 0.0;
 
     if(myWeight == 0) continue;
 
