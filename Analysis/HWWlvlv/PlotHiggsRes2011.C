@@ -316,15 +316,18 @@ void PlotHiggsRes2011
   // JHU weights
   //----------------------------------------------------------------------------
   double Norm_Powheg_JHU = 1.0;
-  TFile *fRatio_Powheg_JHU = TFile::Open("/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/ratio_Powheg_JHU.root");
-  TH1D *fhDRatio_Powheg_JHU = (TH1D*)(fRatio_Powheg_JHU->Get("histo_ggH"));
-  assert(fhDRatio_Powheg_JHU);
-  fhDRatio_Powheg_JHU->SetDirectory(0);
-  TH1D *fhDNorm_Powheg_JHU = (TH1D*)(fRatio_Powheg_JHU->Get("hDNorm_Powheg_JHU"));
-  Norm_Powheg_JHU = fhDNorm_Powheg_JHU->GetSumOfWeights();
-  delete fhDNorm_Powheg_JHU;
-  fRatio_Powheg_JHU->Close();
-  delete fRatio_Powheg_JHU;
+  TH1D *fhDRatio_Powheg_JHU;
+  if(useggHTemplates == true){
+    TFile *fRatio_Powheg_JHU = TFile::Open(Form("/data/smurf/ceballos/distributions/Powheg_JHU/ratio_Powheg_JHU_7TeV_%dj.root",nJetsType));
+    fhDRatio_Powheg_JHU = (TH1D*)(fRatio_Powheg_JHU->Get("histo_ggH"));
+    assert(fhDRatio_Powheg_JHU);
+    fhDRatio_Powheg_JHU->SetDirectory(0);
+    TH1D *fhDNorm_Powheg_JHU = (TH1D*)(fRatio_Powheg_JHU->Get("hDNorm_Powheg_JHU"));
+    Norm_Powheg_JHU = fhDNorm_Powheg_JHU->GetSumOfWeights();
+    delete fhDNorm_Powheg_JHU;
+    fRatio_Powheg_JHU->Close();
+    delete fRatio_Powheg_JHU;
+  }
 
   //----------------------------------------------------------------------------
   // ggH pT spectrum Weights
