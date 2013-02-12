@@ -4947,8 +4947,8 @@ void PlotHiggsRes2011
     newcardCut << Form("CMS_scale_e	           lnN 1.020 1.020 1.020 1.020 %5.3f %5.3f 1.020   -         -     -   1.020 1.020   -     - 1.020 1.020 1.020 1.020\n",theExpUncertainties[3],theExpUncertainties[3]);
     newcardCut << Form("CMS_hww_met_resolution     lnN 1.020 1.020 1.020 1.020 %5.3f %5.3f 1.020   -         -     -   1.020 1.020   -     - 1.020 1.020 1.020 1.020\n",theExpUncertainties[4],theExpUncertainties[4]);
     newcardCut << Form("CMS_scale_j                lnN %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f   -	     -     -   %5.3f %5.3f   -     - %5.3f %5.3f %5.3f %5.3f\n",jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E);	     
-    newcardCut << Form("FakeRate_e                 lnN   -	 -     -     -     -	 -     -     -     -   1.360   -     -   -     -   -	 -     -     -\n");
-    newcardCut << Form("FakeRate_m                 lnN   -	 -     -     -     -	 -     -     -     -   -   -     -   -     1.360   -	 -     -     -\n");
+    newcardCut << Form("FakeRate_cut_e             lnN   -	 -     -     -     -	 -     -     -     -   1.360   -     -   -     -   -	 -     -     -\n");
+    newcardCut << Form("FakeRate_cut_m             lnN   -	 -     -     -     -	 -     -     -     -   -   -	 -   -     1.360   -	 -     -     -\n");
     newcardCut << Form("UEPS 	                   lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -   -     -   -     -     -   %5.3f\n",UEPS,UEPS);
     newcardCut << Form("interf_ggH                 lnN   -     -     -   %5.3f   -     -     -     -     -     -     -     -   -     -   -     -     -   %5.3f\n",interf_ggH,interf_ggH);
     newcardCut << Form("pdf_gg                     lnN   -     -     -   %5.3f   -   1.040   -     -	 -     -     -     -   -     -   -     -     -   %5.3f\n",pdf_ggH,pdf_ggH);
