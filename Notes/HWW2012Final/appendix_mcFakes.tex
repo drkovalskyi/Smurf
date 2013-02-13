@@ -1,0 +1,91 @@
+\wjets\ background remains to be one of the most complex backgrounds to estimate
+with a sizable systematic uncertainty of 36\%. It helps to see what we
+can learn from Monte Carlo about fakes, keeping in mind that it can be
+wrong especially in regards to the absolute fake rate estimations.
+
+The size of the \wjets\ Monte Carlo sample represents roughly 7~\ifb\
+of equivalent luminosity. To use the sample most efficiently we rely
+on Monte Carlo matching of reco level electrons and muons to the
+corresponding lepton from the W decay. To identify origin of the
+fakes, they are matched to objects in the hard-scatter part of Monte
+Carlo generation information ignoring showering
+details. Table~\ref{tab:appendix_mcFakes_raw} shows the raw
+information about fake composition and origin in Monte Carlo. Based on
+this information we derive fake rates for each fake type in
+Table~\ref{tab:appendix_mcFakes_fakerates}. 
+
+From the tables one can conclude that opposite sign and same sign
+fakes have essentially identical fake rates and therefore same-sign
+control samples can be used as valuable source of information of how
+well we can estimate fakes in the opposite sign events. 
+
+We have one more control sample to study fakes (mostly low \pt{}) -
+Z+fake. Looking at Monte Carlo samples we find the fake rate to be
+$0.108\pm0.014$ for muons and $0.053\pm0.018$ for electrons. These
+results indicate that Z+fake control sample can be used to estimate
+fake rates for \wjets\ opposite-sign dilepton events.
+
+\begin{table}[!t]
+\begin{center}
+\begin{tabular}{|l|r|r|r|r|}
+\hline
+                                                                                        Contribution
+& Final OS & Fakeable OS & Final SS & Fakeable SS \\
+\hline
+                                                                     Total number of electron fakes &         36 &        852 &         24 &        426 \\
+\hline
+                               W+$c$ electron fake (matched to a $c$-quark) &          3 &         44 &          0 &         15 \\
+                                          W+$c$ electron fake (not matched) &          2 &          4 &          0 &          5 \\
+                        W+$c\bar{c}$ electron fake (matched to a $c$-quark) &          0 &          3 &          0 &          3 \\
+                                   W+$c\bar{c}$ electron fake (not matched) &          0 &         18 &          2 &         17 \\
+                        W+$b\bar{b}$ electron fake (matched to a $b$-quark) &          0 &          2 &          0 &          2 \\
+                                   W+$b\bar{b}$ electron fake (not matched) &          0 &          2 &          0 &          0 \\
+                                 W electron fake (matched to $u,d,s$-quark) &         24 &        631 &         19 &        290 \\
+                                       W electron fake (matched to $gluon$) &          0 &         21 &          1 &         25 \\
+                                           W electron fake of uknown origin &          7 &        127 &          2 &         69 \\
+\hline
+\hline
+                                                                      Total number of muon fakes &         45 &        319 &         20 &        180 \\
+\hline
+                                    W+$c$ muon fake (matched to a $c$-quark) &         10 &        115 &          0 &          5 \\
+                                               W+$c$ muon fake (not matched) &          1 &          8 &          1 &          5 \\
+                             W+$c\bar{c}$ muon fake (matched to a $c$-quark) &          0 &          9 &          0 &          6 \\
+                                        W+$c\bar{c}$ muon fake (not matched) &          6 &         22 &          3 &         17 \\
+                             W+$b\bar{b}$ muon fake (matched to a $b$-quark) &          1 &         32 &          1 &         19 \\
+                                        W+$b\bar{b}$ muon fake (not matched) &          1 &         11 &          0 &          7 \\
+                                      W muon fake (matched to $u,d,s$-quark) &          4 &         42 &          2 &         21 \\
+                                            W muon fake (matched to $gluon$) &          3 &          8 &          0 &         15 \\
+                                                W muon fake of uknown origin &         19 &         72 &         13 &         85 \\
+\hline
+\end{tabular}
+\caption{Raw matching information extracted from \wjets\ Monte Carlo.} 
+\label{tab:appendix_mcFakes_raw}
+\end{center}
+\end{table} 
+
+% \begin{table}[!htbp]
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|c|}
+\hline
+Fake type & Fake rate \\
+\hline
+       electron from $c$-quark & 0.064$\pm$0.024\\
+       electron from $b$-quark & 0.000$\pm$0.000\\
+   electron from $u,d,s$-quark & 0.047$\pm$0.007\\
+           electron from gluon & 0.022$\pm$0.022\\
+    electron for all OS events & 0.042$\pm$0.007\\
+    electron for all SS events & 0.056$\pm$0.011\\
+\hline
+           muon from $c$-quark & 0.112$\pm$0.025\\
+           muon from $b$-quark & 0.043$\pm$0.025\\
+       muon from $u,d,s$-quark & 0.095$\pm$0.039\\
+               muon from gluon & 0.130$\pm$0.075\\
+        muon for all OS events & 0.141$\pm$0.021\\
+        muon for all SS events & 0.111$\pm$0.025\\
+\hline
+\end{tabular}
+\caption{Fake rates for different types of fakes extracted from \wjets\ Monte Carlo.} 
+\label{tab:appendix_mcFakes_fakerates}
+\end{center}
+\end{table} 
