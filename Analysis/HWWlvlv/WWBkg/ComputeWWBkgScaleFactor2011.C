@@ -405,7 +405,8 @@ void ComputeWWBkgScaleFactor2011 (
     if( (cuts & SmurfTree::TopTag) == SmurfTree::TopTag                  ) continue; // cut on btagging
 
     int BkgType = 0;
-    if(dstype == SmurfTree::qqww                 ) BkgType = 0;
+    if     (dstype == SmurfTree::qqww            ) BkgType = 0;
+    else if(dstype == SmurfTree::qqwwPWG         ) BkgType = 0;
     else if(dstype == SmurfTree::ggww            ) BkgType = 0;
     else if(dstype == SmurfTree::wz              ) BkgType = 1;
     else if(dstype == SmurfTree::zz              ) BkgType = 1;

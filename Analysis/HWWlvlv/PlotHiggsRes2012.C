@@ -1528,6 +1528,7 @@ void PlotHiggsRes2012
     else if(dstype == SmurfTree::dytt            ) fDecay = 4;
     else if(dstype == SmurfTree::tw              ) fDecay = 3;
     else if(dstype == SmurfTree::qqww            ) fDecay = 0;
+    else if(dstype == SmurfTree::qqwwPWG         ) fDecay = 0;
     else if(dstype == SmurfTree::wz              ) fDecay = 2;
     else if(dstype == SmurfTree::zz              ) fDecay = 2;
     else if(dstype == SmurfTree::www             ) fDecay = 2;
