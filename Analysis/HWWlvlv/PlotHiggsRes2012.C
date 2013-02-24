@@ -4687,8 +4687,8 @@ void PlotHiggsRes2012
       else {
       newcardShape << Form("CMS_scale_j                      lnN %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f   -     -     -   %5.3f %5.3f     -     - %5.3f %5.3f %5.3f %5.3f\n",jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E);             
       }
-      newcardShape << Form("FakeRate_e                           lnU   -     -     -     -     -     -     -     -     -   1.360   -     -     -     -      -     -     -     -\n");
-      newcardShape << Form("FakeRate_m                           lnU   -     -     -     -     -     -     -     -     -      -    -     -     -    1.360   -     -     -     -\n");
+      newcardShape << Form("FakeRate_e                           lnN   -     -     -     -     -     -     -     -     -   1.360   -     -     -     -      -     -     -     -\n");
+      newcardShape << Form("FakeRate_m                           lnN   -     -     -     -     -     -     -     -     -      -    -     -     -    1.360   -     -     -     -\n");
       if(useWJetsTemplates == true){
         newcardShape << Form("CMS_hww_MVAWEBounding          shape  -     -     -     -     -     -     -     -     -   1.000   -     -     -     -     -     -     -     -\n");
         newcardShape << Form("CMS_hww_MVAWMBounding          shape  -     -     -     -     -     -     -     -     -     -     -     -     -    1.000  -     -     -     -\n");
@@ -4846,8 +4846,8 @@ void PlotHiggsRes2012
       else {
       newcardSpin << Form("CMS_scale_j                      lnN %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f   -     -     -   %5.3f %5.3f     -     -\n",jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E);             
       }
-      newcardSpin << Form("FakeRate_e                           lnU   -     -	  -	-     -     -	  -	-     -     -	1.360	-     -     -	  -   \n");
-      newcardSpin << Form("FakeRate_m                           lnU   -     -	  -	-     -     -	  -	-     -     -	   -	-     -     -	 1.360\n");
+      newcardSpin << Form("FakeRate_e                           lnN   -     -	  -	-     -     -	  -	-     -     -	1.360	-     -     -	  -   \n");
+      newcardSpin << Form("FakeRate_m                           lnN   -     -	  -	-     -     -	  -	-     -     -	   -	-     -     -	 1.360\n");
       if(useWJetsTemplates == true){
         newcardSpin << Form("CMS_hww_MVAWEBounding          shape  -	 -     -     -     -	 -     -     -     -	 -   1.000   -     -	 -     -   \n");
         newcardSpin << Form("CMS_hww_MVAWMBounding          shape  -	 -     -     -     -	 -     -     -     -	 -     -     -     -	 -    1.000\n");
