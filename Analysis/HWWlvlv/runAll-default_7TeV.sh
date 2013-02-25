@@ -22,9 +22,9 @@ setenv SIG_TEST data2011/${TAG}_hww${MH}.root
 #setenv SIG_TEST data2011/${TAG}_xww0p125.root
 #setenv SIG_TEST data2011/${TAG}_xww0m125.root
 #setenv SIG_TEST data2011/${TAG}_xww2p125.root
-setenv BKG_TEST data2011/${TAG}_backgroundA_skim6.root
-setenv DAT_TEST data2011/${TAG}_data_skim6.root;
-setenv SYS_TEST data2011/${TAG}_hww_syst_skim6.root;
+#setenv BKG_TEST data2011/${TAG}_backgroundA_skim6.root
+#setenv DAT_TEST data2011/${TAG}_data_skim6.root;
+#setenv SYS_TEST data2011/${TAG}_hww_syst_skim6.root;
 setenv BKG_TEST data2011/ntuples_126train_0jets_backgroundA_skim6.root
 setenv DAT_TEST data2011/ntuples_126train_0jets_data_skim6.root;
 setenv SYS_TEST data2011/ntuples_126train_0jets_hww_syst_skim6.root;
