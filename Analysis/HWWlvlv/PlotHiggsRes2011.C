@@ -29,6 +29,7 @@
 #include "OtherBkgScaleFactors_7TeV.h"
 #include "HWWCuts.h"
 #include "HiggsSM4Systematics_7TeV.h"
+#include "HWWKinematics.cc"
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
@@ -44,6 +45,7 @@ const double sigmaB = 0.35;
 const bool UseDyttDataDriven = false; // if true, then remove em events in dyll MC
 const bool KeepGGHOnly       = false; // if true, then remove VH and qqH MC events
 const double muValueFromData = 1.0; // renormalize Higgs yields
+const bool isRazorAna        = false;
 
 void PlotHiggsRes2011
 (
@@ -100,6 +102,8 @@ void PlotHiggsRes2011
   if(nJetsType == 2 && is2DAna == true && mH <= 250) {binVarA = 1;binVarB = 27;}
   if(nJetsType == 2 && is2DAna == true && mH  > 250) {binVarA = 1;binVarB = 27;}
   if(is2DBDT == true) {binVarA = 10; binVarB = 10;}
+
+  if(isRazorAna) {binVarA = 14; binVarB = 9; usePDFTemplates = false; useExpTemplates = false;}
 
   if(nJetsType == 2 && is2DAna == false){
     useZjetsTemplates	= false;
@@ -746,6 +750,7 @@ void PlotHiggsRes2011
   Float_t         pmet;
   Float_t         pTrackMet;
   Float_t         met;
+  Float_t         metPhi;
   Float_t         mt;
   Float_t         mt1;
   Float_t         mt2;
@@ -828,6 +833,7 @@ void PlotHiggsRes2011
   signal->SetBranchAddress( "pmet"         , &pmet         );
   signal->SetBranchAddress( "pTrackMet"    , &pTrackMet    );
   signal->SetBranchAddress( "met"          , &met          );
+  signal->SetBranchAddress( "metPhi"       , &metPhi       );
   signal->SetBranchAddress( "mt"           , &mt           );
   signal->SetBranchAddress( "mt1"          , &mt1          );
   signal->SetBranchAddress( "mt2"          , &mt2          );
@@ -996,7 +1002,19 @@ void PlotHiggsRes2011
       bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,mt_metup,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
-      bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
+      if(isRazorAna){
+        TLorentzVector Lep1(lep1->px(),lep1->py(),lep1->pz(),lep1->P());
+        TLorentzVector Lep2(lep2->px(),lep2->py(),lep2->pz(),lep2->P());
+        TVector3 theMet(met*cos(metPhi),met*cos(metPhi),0);
+        HWWKinematics HWWKin(Lep1,Lep2,theMet);
+        double varA = TMath::Min(2*HWWKin.CalcMR()-50,349.999)/350.;
+        double varB = TMath::Abs(HWWKin.CalcDeltaPhiRFRAME())/TMath::Pi();
+        if(varA <= 0.0) varA = 0.00001; if(varB <= 0.0) varB = 0.00001;
+        if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
+        bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+      } else {
+        bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
+      }
 
       bdtg_aux0 = Unroll2VarTo1VarVersion2(mll_lepup,mt_lepup);
 
@@ -1340,6 +1358,7 @@ void PlotHiggsRes2011
   background->SetBranchAddress( "pmet"          , &pmet           );
   background->SetBranchAddress( "pTrackMet"     , &pTrackMet      );
   background->SetBranchAddress( "met"           , &met            );
+  background->SetBranchAddress( "metPhi"       , &metPhi       );
   background->SetBranchAddress( "mt"            , &mt	          );
   background->SetBranchAddress( "mt1"           , &mt1            );
   background->SetBranchAddress( "mt2"           , &mt2            );
@@ -1562,7 +1581,19 @@ void PlotHiggsRes2011
       bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,mt_metup,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
-      bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
+      if(isRazorAna){
+        TLorentzVector Lep1(lep1->px(),lep1->py(),lep1->pz(),lep1->P());
+        TLorentzVector Lep2(lep2->px(),lep2->py(),lep2->pz(),lep2->P());
+        TVector3 theMet(met*cos(metPhi),met*cos(metPhi),0);
+        HWWKinematics HWWKin(Lep1,Lep2,theMet);
+        double varA = TMath::Min(2*HWWKin.CalcMR()-50,349.999)/350.;
+        double varB = TMath::Abs(HWWKin.CalcDeltaPhiRFRAME())/TMath::Pi();
+        if(varA <= 0.0) varA = 0.00001; if(varB <= 0.0) varB = 0.00001;
+        if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
+        bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+      } else {
+        bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
+      }
 
       bdtg_aux0 = Unroll2VarTo1VarVersion2(mll_lepup,mt_lepup);
 
@@ -2265,6 +2296,7 @@ void PlotHiggsRes2011
   treeSyst->SetBranchAddress( "pmet"          , &pmet		);
   treeSyst->SetBranchAddress( "pTrackMet"     , &pTrackMet	);
   treeSyst->SetBranchAddress( "met"           , &met		);
+  treeSyst->SetBranchAddress( "metPhi"        , &metPhi         );
   treeSyst->SetBranchAddress( "mt"            , &mt		);
   treeSyst->SetBranchAddress( "mt1"           , &mt1		);
   treeSyst->SetBranchAddress( "mt2"           , &mt2		);
@@ -2472,7 +2504,19 @@ void PlotHiggsRes2011
       bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,mt_metup,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
-      bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
+      if(isRazorAna){
+        TLorentzVector Lep1(lep1->px(),lep1->py(),lep1->pz(),lep1->P());
+        TLorentzVector Lep2(lep2->px(),lep2->py(),lep2->pz(),lep2->P());
+        TVector3 theMet(met*cos(metPhi),met*cos(metPhi),0);
+        HWWKinematics HWWKin(Lep1,Lep2,theMet);
+        double varA = TMath::Min(2*HWWKin.CalcMR()-50,349.999)/350.;
+        double varB = TMath::Abs(HWWKin.CalcDeltaPhiRFRAME())/TMath::Pi();
+        if(varA <= 0.0) varA = 0.00001; if(varB <= 0.0) varB = 0.00001;
+        if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
+        bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+      } else {
+        bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
+      }
 
       bdtg_aux0 = Unroll2VarTo1VarVersion2(mll_lepup,mt_lepup);
 
@@ -2860,6 +2904,7 @@ void PlotHiggsRes2011
   data->SetBranchAddress( "pmet"         , &pmet         );
   data->SetBranchAddress( "pTrackMet"    , &pTrackMet    );
   data->SetBranchAddress( "met"          , &met          );
+  data->SetBranchAddress( "metPhi"       , &metPhi       );
   data->SetBranchAddress( "mt"           , &mt           );
   data->SetBranchAddress( "mt1"          , &mt1          );
   data->SetBranchAddress( "mt2"          , &mt2          );
@@ -3010,7 +3055,19 @@ void PlotHiggsRes2011
       bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,mt_metup,TMath::Abs(jet1->eta()-jet2->eta()),(*jet1+*jet2).M(),0);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
-      bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
+      if(isRazorAna){
+        TLorentzVector Lep1(lep1->px(),lep1->py(),lep1->pz(),lep1->P());
+        TLorentzVector Lep2(lep2->px(),lep2->py(),lep2->pz(),lep2->P());
+        TVector3 theMet(met*cos(metPhi),met*cos(metPhi),0);
+        HWWKinematics HWWKin(Lep1,Lep2,theMet);
+        double varA = TMath::Min(2*HWWKin.CalcMR()-50,349.999)/350.;
+        double varB = TMath::Abs(HWWKin.CalcDeltaPhiRFRAME())/TMath::Pi();
+        if(varA <= 0.0) varA = 0.00001; if(varB <= 0.0) varB = 0.00001;
+        if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
+        bdtg = Unroll2VarTo1Var(varA,varB,binVarA,binVarB,false);
+      } else {
+        bdtg = Unroll2VarTo1VarVersion2(dilep->mass(),mt);
+      }
 
       bdtg_aux0 = Unroll2VarTo1VarVersion2(mll_lepup,mt_lepup);
 
