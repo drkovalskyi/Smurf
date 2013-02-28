@@ -1005,7 +1005,7 @@ void PlotHiggsRes2011
       if(isRazorAna){
         TLorentzVector Lep1(lep1->px(),lep1->py(),lep1->pz(),lep1->P());
         TLorentzVector Lep2(lep2->px(),lep2->py(),lep2->pz(),lep2->P());
-        TVector3 theMet(met*cos(metPhi),met*cos(metPhi),0);
+        TVector3 theMet(met*cos(metPhi),met*sin(metPhi),0);
         HWWKinematics HWWKin(Lep1,Lep2,theMet);
         double varA = TMath::Min(2*HWWKin.CalcMR()-50,349.999)/350.;
         double varB = TMath::Abs(HWWKin.CalcDeltaPhiRFRAME())/TMath::Pi();
@@ -1584,7 +1584,7 @@ void PlotHiggsRes2011
       if(isRazorAna){
         TLorentzVector Lep1(lep1->px(),lep1->py(),lep1->pz(),lep1->P());
         TLorentzVector Lep2(lep2->px(),lep2->py(),lep2->pz(),lep2->P());
-        TVector3 theMet(met*cos(metPhi),met*cos(metPhi),0);
+        TVector3 theMet(met*cos(metPhi),met*sin(metPhi),0);
         HWWKinematics HWWKin(Lep1,Lep2,theMet);
         double varA = TMath::Min(2*HWWKin.CalcMR()-50,349.999)/350.;
         double varB = TMath::Abs(HWWKin.CalcDeltaPhiRFRAME())/TMath::Pi();
@@ -2507,7 +2507,7 @@ void PlotHiggsRes2011
       if(isRazorAna){
         TLorentzVector Lep1(lep1->px(),lep1->py(),lep1->pz(),lep1->P());
         TLorentzVector Lep2(lep2->px(),lep2->py(),lep2->pz(),lep2->P());
-        TVector3 theMet(met*cos(metPhi),met*cos(metPhi),0);
+        TVector3 theMet(met*cos(metPhi),met*sin(metPhi),0);
         HWWKinematics HWWKin(Lep1,Lep2,theMet);
         double varA = TMath::Min(2*HWWKin.CalcMR()-50,349.999)/350.;
         double varB = TMath::Abs(HWWKin.CalcDeltaPhiRFRAME())/TMath::Pi();
@@ -3058,7 +3058,7 @@ void PlotHiggsRes2011
       if(isRazorAna){
         TLorentzVector Lep1(lep1->px(),lep1->py(),lep1->pz(),lep1->P());
         TLorentzVector Lep2(lep2->px(),lep2->py(),lep2->pz(),lep2->P());
-        TVector3 theMet(met*cos(metPhi),met*cos(metPhi),0);
+        TVector3 theMet(met*cos(metPhi),met*sin(metPhi),0);
         HWWKinematics HWWKin(Lep1,Lep2,theMet);
         double varA = TMath::Min(2*HWWKin.CalcMR()-50,349.999)/350.;
         double varB = TMath::Abs(HWWKin.CalcDeltaPhiRFRAME())/TMath::Pi();
