@@ -44,8 +44,8 @@ int    verboseLevel =   0;
 const double sigmaB = 0.35;
 const bool UseDyttDataDriven = true; // if true, then remove em events in dyll MC
 const bool KeepGGHOnly       = false; // if true, then remove VH and qqH MC events
-const double muValueFromDataSM = 1.0; // renormalize SM Higgs yields
-const double muValueFromDataPS = 1.0; // renormalize PS Higgs yields
+const double muValueFromDataSM = 1.00; // renormalize SM Higgs yields
+const double muValueFromDataPS = 1.00; // renormalize PS Higgs yields
 const bool isRazorAna        = false;
 
 void PlotHiggsRes2012
@@ -1865,7 +1865,7 @@ void PlotHiggsRes2012
     if(myWeight == 0) continue;
 
     if(processId==121 || processId==122   || processId==24 || 
-       processId==26  || processId==10001 || processId==10010) myWeight = myWeight * muValueFromDataPS;
+       processId==26  || processId==10001 || processId==10010) myWeight = myWeight * muValueFromDataSM;
 
     //
     // Higgs Signal Selection Cuts
@@ -3634,8 +3634,8 @@ void PlotHiggsRes2012
     double weightSpin = 1.0;
     if(histo_ggH    ->GetSumOfWeights() > 0.0 &&
        histo_ggH_ALT->GetSumOfWeights() > 0.0) {
-      weightSpin = histo_ggH->GetSumOfWeights()/histo_ggH_ALT->GetSumOfWeights();
-      printf("weight SM/ALT = %f\n",weightSpin);
+      weightSpin = muValueFromDataPS/muValueFromDataSM * histo_ggH->GetSumOfWeights()/histo_ggH_ALT->GetSumOfWeights();
+      printf("weight SM/ALT = %f with muValueFromDataPS/muValueFromDataSM = %f \n",weightSpin,muValueFromDataPS/muValueFromDataSM);
       histo_ggH_ALT->Scale(weightSpin);
     }
     //----------------------------------------------------------------------------
