@@ -44,7 +44,8 @@ int    verboseLevel =   0;
 const double sigmaB = 0.35;
 const bool UseDyttDataDriven = false; // if true, then remove em events in dyll MC
 const bool KeepGGHOnly       = false; // if true, then remove VH and qqH MC events
-const double muValueFromData = 1.0; // renormalize Higgs yields
+const double muValueFromDataSM = 1.0; // renormalize SM Higgs yields
+const double muValueFromDataPS = 1.0; // renormalize PS Higgs yields
 const bool isRazorAna        = false;
 
 void PlotHiggsRes2011
@@ -1118,7 +1119,7 @@ void PlotHiggsRes2011
 
     if(myWeight == 0) continue;
 
-    myWeight = myWeight * muValueFromData;
+    myWeight = myWeight * muValueFromDataSM;
 
     //----------------------------------------------------------------------------
     // Classify Signal Events by production mechanism
@@ -1850,7 +1851,7 @@ void PlotHiggsRes2011
     if(myWeight == 0) continue;
 
     if(processId==121 || processId==122   || processId==24 || 
-       processId==26  || processId==10001 || processId==10010) myWeight = myWeight * muValueFromData;
+       processId==26  || processId==10001 || processId==10010) myWeight = myWeight * muValueFromDataPS;
 
     //----------------------------------------------------------------------------
     //
