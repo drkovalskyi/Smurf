@@ -1018,7 +1018,7 @@ void PlotHiggsRes2012
         TLorentzVector Lep2(lep2->px(),lep2->py(),lep2->pz(),lep2->P());
         TVector3 theMet(met*cos(metPhi),met*sin(metPhi),0);
         HWWKinematics HWWKin(Lep1,Lep2,theMet);
-        double varA = TMath::Min(2*HWWKin.CalcMR()-50,349.999)/350.;
+        double varA = TMath::Min(2*HWWKin.CalcMRNEW()-50,349.999)/350.;
         double varB = TMath::Abs(HWWKin.CalcDeltaPhiRFRAME())/TMath::Pi();
         if(varA <= 0.0) varA = 0.00001; if(varB <= 0.0) varB = 0.00001;
         if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
@@ -1601,7 +1601,7 @@ void PlotHiggsRes2012
         TLorentzVector Lep2(lep2->px(),lep2->py(),lep2->pz(),lep2->P());
         TVector3 theMet(met*cos(metPhi),met*sin(metPhi),0);
         HWWKinematics HWWKin(Lep1,Lep2,theMet);
-        double varA = TMath::Min(2*HWWKin.CalcMR()-50,349.999)/350.;
+        double varA = TMath::Min(2*HWWKin.CalcMRNEW()-50,349.999)/350.;
         double varB = TMath::Abs(HWWKin.CalcDeltaPhiRFRAME())/TMath::Pi();
         if(varA <= 0.0) varA = 0.00001; if(varB <= 0.0) varB = 0.00001;
         if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
@@ -2527,7 +2527,7 @@ void PlotHiggsRes2012
         TLorentzVector Lep2(lep2->px(),lep2->py(),lep2->pz(),lep2->P());
         TVector3 theMet(met*cos(metPhi),met*sin(metPhi),0);
         HWWKinematics HWWKin(Lep1,Lep2,theMet);
-        double varA = TMath::Min(2*HWWKin.CalcMR()-50,349.999)/350.;
+        double varA = TMath::Min(2*HWWKin.CalcMRNEW()-50,349.999)/350.;
         double varB = TMath::Abs(HWWKin.CalcDeltaPhiRFRAME())/TMath::Pi();
         if(varA <= 0.0) varA = 0.00001; if(varB <= 0.0) varB = 0.00001;
         if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
@@ -3082,7 +3082,7 @@ void PlotHiggsRes2012
         TLorentzVector Lep2(lep2->px(),lep2->py(),lep2->pz(),lep2->P());
         TVector3 theMet(met*cos(metPhi),met*sin(metPhi),0);
         HWWKinematics HWWKin(Lep1,Lep2,theMet);
-        double varA = TMath::Min(2*HWWKin.CalcMR()-50,349.999)/350.;
+        double varA = TMath::Min(2*HWWKin.CalcMRNEW()-50,349.999)/350.;
         double varB = TMath::Abs(HWWKin.CalcDeltaPhiRFRAME())/TMath::Pi();
         if(varA <= 0.0) varA = 0.00001; if(varB <= 0.0) varB = 0.00001;
         if(varA >= 1.0) varA = 0.99999; if(varB >= 1.0) varB = 0.99999;
