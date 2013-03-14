@@ -14,8 +14,8 @@ FIRSTRUN=$1
 DSET=$2
 GTAG=$3
 
-#DSETS="/SingleElectron/${DSET}/AOD /SingleMu/${DSET}/AOD /DoubleElectron/${DSET}/AOD /DoubleMu/${DSET}/AOD"
-DSETS="/DoubleElectron/${DSET}/AOD /DoubleMu/${DSET}/AOD"
+DSETS="/SingleElectron/${DSET}/AOD /SingleMu/${DSET}/AOD /DoubleElectron/${DSET}/AOD /DoubleMu/${DSET}/AOD"
+#DSETS="/DoubleElectron/${DSET}/AOD /DoubleMu/${DSET}/AOD"
 for DATASET in $DSETS
 do
 
@@ -36,13 +36,13 @@ do
     # determine pset to use for CMSSW
     PSET=muontreemaker_Data2012_cfg.py
     if [[ "$DATASET" == *Single* ]]; then
-        if [[ "$DATASET" == *Muon* ]]; then
+        if [[ "$DATASET" == *Mu* ]]; then
             PSET=muontreemaker_Data2012_cfg.py
         elif [[ "$DATASET" == *Electron* ]]; then
-            PSET=muontreemaker_Data2012_cfg.py
+            PSET=electrontreemaker_Data2012_cfg.py
         fi
     elif [[ "$DATASET" == *Double* ]]; then
-        if [[ "$DATASET" == *Muon* ]]; then
+        if [[ "$DATASET" == *Mu* ]]; then
             PSET=muontreemaker_Data2012FR_cfg.py
         elif [[ "$DATASET" == *Electron* ]]; then
             PSET=electrontreemaker_Data2012FR_cfg.py
