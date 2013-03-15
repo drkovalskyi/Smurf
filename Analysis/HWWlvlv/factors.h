@@ -9,7 +9,7 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 double Unroll2VarTo1Var(double varA, double varB, int binsA, int binsB, bool verbose = false);
 double Unroll2VarTo1VarVersion2(double mll, double mt);
 double Unroll2VarTo1ForWH(double dRMin, double mTW3, int option);
-double Unroll2VarTo1ForqqH(double mll, double mt, double detajj, double mjj, int option);
+double Unroll2VarTo1ForqqH(double mll, int option);
 TH1D* Unroll2DTo1D(TH2F* h2, const char* hname);
 TH1D * SmurfRebin(const TH1D *old, const unsigned int rebin);
 double CalcGammaMRstar(LorentzVector ja, LorentzVector jb);
@@ -254,89 +254,29 @@ double Unroll2VarTo1ForWH(double Var1, double Var2, int option){
   return val;
 }
 
-double Unroll2VarTo1ForqqH(double mll, double mt, double detajj, double mjj, int option){
+double Unroll2VarTo1ForqqH(double mll, int option){
   double val = -1.;
-  double totalBins = 27;
+  double totalBins = 14;
 
   if     (option == 0){
-    if     (mt >=   0 && mt <= 100 && mll >=   0 && mll <=  60 && detajj >=   0 && detajj <= 3.5) val =  1;
-    else if(mt >=   0 && mt <= 100 && mll >=   0 && mll <=  60 && detajj >= 3.5 && detajj <= 5.0) val =  2;
-    else if(mt >=   0 && mt <= 100 && mll >=   0 && mll <=  60 && detajj >= 5.0		        ) val =  3;
-    else if(mt >=   0 && mt <= 100 && mll >=  60 && mll <= 100 && detajj >=   0 && detajj <= 3.5) val =  4;
-    else if(mt >=   0 && mt <= 100 && mll >=  60 && mll <= 100 && detajj >= 3.5 && detajj <= 5.0) val =  5;
-    else if(mt >=   0 && mt <= 100 && mll >=  60 && mll <= 100 && detajj >= 5.0		        ) val =  6;
-    else if(mt >=   0 && mt <= 100 && mll >= 100 &&		  detajj >=   0 && detajj <= 3.5) val =  7;
-    else if(mt >=   0 && mt <= 100 && mll >= 100 &&		  detajj >= 3.5 && detajj <= 5.0) val =  8;
-    else if(mt >=   0 && mt <= 100 && mll >= 100 &&		  detajj >= 5.0		        ) val =  9;
-
-    else if(mt >= 100 && mt <= 140 && mll >=   0 && mll <=  60 && detajj >=   0 && detajj <= 3.5) val = 10;
-    else if(mt >= 100 && mt <= 140 && mll >=   0 && mll <=  60 && detajj >= 3.5 && detajj <= 5.0) val = 11;
-    else if(mt >= 100 && mt <= 140 && mll >=   0 && mll <=  60 && detajj >= 5.0		        ) val = 12;
-    else if(mt >= 100 && mt <= 140 && mll >=  60 && mll <= 100 && detajj >=   0 && detajj <= 3.5) val = 13;
-    else if(mt >= 100 && mt <= 140 && mll >=  60 && mll <= 100 && detajj >= 3.5 && detajj <= 5.0) val = 14;
-    else if(mt >= 100 && mt <= 140 && mll >=  60 && mll <= 100 && detajj >= 5.0		        ) val = 15;
-    else if(mt >= 100 && mt <= 140 && mll >= 100 &&		  detajj >=   0 && detajj <= 3.5) val = 16;
-    else if(mt >= 100 && mt <= 140 && mll >= 100 &&		  detajj >= 3.5 && detajj <= 5.0) val = 17;
-    else if(mt >= 100 && mt <= 140 && mll >= 100 &&		  detajj >= 5.0		        ) val = 18;
-
-    else if(mt >= 140		   && mll >=   0 && mll <=  60 && detajj >=   0 && detajj <= 3.5) val = 19;
-    else if(mt >= 140		   && mll >=   0 && mll <=  60 && detajj >= 3.5 && detajj <= 5.0) val = 20;
-    else if(mt >= 140		   && mll >=   0 && mll <=  60 && detajj >= 5.0  	        ) val = 21;
-    else if(mt >= 140		   && mll >=  60 && mll <= 100 && detajj >=   0 && detajj <= 3.5) val = 22;
-    else if(mt >= 140		   && mll >=  60 && mll <= 100 && detajj >= 3.5 && detajj <= 5.0) val = 23;
-    else if(mt >= 140		   && mll >=  60 && mll <= 100 && detajj >= 5.0  	        ) val = 24;
-    else if(mt >= 140		   && mll >= 100 &&		  detajj >=   0 && detajj <= 3.5) val = 25;
-    else if(mt >= 140		   && mll >= 100 &&		  detajj >= 3.5 && detajj <= 5.0) val = 26;
-    else if(mt >= 140		   && mll >= 100 &&		  detajj >= 5.0  	        ) val = 27;
-    else assert(0);
+    if     (mll >   12 && mll <=  30) val =  1;
+    else if(mll >   30 && mll <=  45) val =  2;
+    else if(mll >   45 && mll <=  60) val =  3;
+    else if(mll >   60 && mll <=  75) val =  4;
+    else if(mll >   75 && mll <= 100) val =  5;
+    else if(mll >  100 && mll <= 125) val =  6;
+    else if(mll >  125 && mll <= 150) val =  7;
+    else if(mll >  150 && mll <= 175) val =  8;
+    else if(mll >  175 && mll <= 200) val =  9;
+    else if(mll >  200 && mll <= 250) val = 10;
+    else if(mll >  250 && mll <= 300) val = 11;
+    else if(mll >  300 && mll <= 350) val = 12;
+    else if(mll >  350 && mll <= 400) val = 13;
+    else if(mll >  400   	    ) val = 14;
+  } else {
+    assert(0);
   }
-  else if(option == 1){
-    if     (mt >=   0 && mt <= 100 && mll >=   0 && mll <=  60 &&  (mjj > 900 || detajj > 5.5)) val =  1;
-    else if(mt >=   0 && mt <= 100 && mll >=   0 && mll <=  60 &&  (mjj > 700 || detajj > 4.5)) val =  2;
-    else if(mt >=   0 && mt <= 100 && mll >=   0 && mll <=  60 && !(mjj > 700 || detajj > 4.5)) val =  3;
-    else if(mt >=   0 && mt <= 100 && mll >=  60 && mll <= 100 &&  (mjj > 900 || detajj > 5.5)) val =  4;
-    else if(mt >=   0 && mt <= 100 && mll >=  60 && mll <= 100 &&  (mjj > 700 || detajj > 4.5)) val =  5;
-    else if(mt >=   0 && mt <= 100 && mll >=  60 && mll <= 100 && !(mjj > 700 || detajj > 4.5)) val =  6;
-    else if(mt >=   0 && mt <= 100 && mll >= 100 &&		   (mjj > 900 || detajj > 5.5)) val =  7;
-    else if(mt >=   0 && mt <= 100 && mll >= 100 &&		   (mjj > 700 || detajj > 4.5)) val =  8;
-    else if(mt >=   0 && mt <= 100 && mll >= 100 &&		  !(mjj > 700 || detajj > 4.5)) val =  9;
 
-    else if(mt >= 100 && mt <= 140 && mll >=   0 && mll <=  60 &&  (mjj > 900 || detajj > 5.5)) val = 10;
-    else if(mt >= 100 && mt <= 140 && mll >=   0 && mll <=  60 &&  (mjj > 700 || detajj > 4.5)) val = 11;
-    else if(mt >= 100 && mt <= 140 && mll >=   0 && mll <=  60 && !(mjj > 700 || detajj > 4.5)) val = 12;
-    else if(mt >= 100 && mt <= 140 && mll >=  60 && mll <= 100 &&  (mjj > 900 || detajj > 5.5)) val = 13;
-    else if(mt >= 100 && mt <= 140 && mll >=  60 && mll <= 100 &&  (mjj > 700 || detajj > 4.5)) val = 14;
-    else if(mt >= 100 && mt <= 140 && mll >=  60 && mll <= 100 && !(mjj > 700 || detajj > 4.5)) val = 15;
-    else if(mt >= 100 && mt <= 140 && mll >= 100 &&		   (mjj > 900 || detajj > 5.5)) val = 16;
-    else if(mt >= 100 && mt <= 140 && mll >= 100 &&		   (mjj > 700 || detajj > 4.5)) val = 17;
-    else if(mt >= 100 && mt <= 140 && mll >= 100 &&		  !(mjj > 700 || detajj > 4.5)) val = 18;
-
-    else if(mt >= 140		  && mll >=   0 && mll <=  60 &&  (mjj > 900 || detajj > 5.5)) val = 19;
-    else if(mt >= 140		  && mll >=   0 && mll <=  60 &&  (mjj > 700 || detajj > 4.5)) val = 20;
-    else if(mt >= 140		  && mll >=   0 && mll <=  60 && !(mjj > 700 || detajj > 4.5)) val = 21;
-    else if(mt >= 140		  && mll >=  60 && mll <= 100 &&  (mjj > 900 || detajj > 5.5)) val = 22;
-    else if(mt >= 140		  && mll >=  60 && mll <= 100 &&  (mjj > 700 || detajj > 4.5)) val = 23;
-    else if(mt >= 140		  && mll >=  60 && mll <= 100 && !(mjj > 700 || detajj > 4.5)) val = 24;
-    else if(mt >= 140		  && mll >= 100 &&		  (mjj > 900 || detajj > 5.5)) val = 25;
-    else if(mt >= 140		  && mll >= 100 &&		  (mjj > 700 || detajj > 4.5)) val = 26;
-    else if(mt >= 140		  && mll >= 100 &&		 !(mjj > 700 || detajj > 4.5)) val = 27;
-    else assert(0);
-  }
-  else if(option == 2){
-    totalBins = 11;
-    if     (mt >=  50 && mt <= 125 && mll >=  12 && mll <=  42 && detajj > 3.5) val =  1;
-    else if(mt >=  50 && mt <= 125 && mll >=  42 && mll <=  72 && detajj > 3.5) val =  2;
-    else if(mt >=  50 && mt <= 125 && mll >=  72 && mll <= 102 && detajj > 3.5) val =  3;
-    else if(mt >=  50 && mt <= 125 && mll >= 102 && mll <= 132 && detajj > 3.5) val =  4;
-    else if(mt >=  50 && mt <= 125 && mll >= 132 && mll <= 162 && detajj > 3.5) val =  5;
-    else if(mt >=  50 && mt <= 125 && mll >= 162 && mll <= 192 && detajj > 3.5) val =  6;
-    else if(mt >=  50 && mt <= 125 && mll >= 192 && mll <= 222 && detajj > 3.5) val =  7;
-    else if(mt >=  50 && mt <= 125 && mll >= 222 && mll <= 252 && detajj > 3.5) val =  8;
-    else if(mt >=  50 && mt <= 125 && mll >= 252 && mll <= 282 && detajj > 3.5) val =  9;
-    else if(mt >=  50 && mt <= 125 && mll >= 282 && mll <= 312 && detajj > 3.5) val = 10;
-    else if(mt >=  50 && mt <= 125 && mll >= 312               && detajj > 3.5) val = 11;
-  }
-  
   val = val - 0.00001;
   val = (val/totalBins-0.5)*2.0;
   return val;
