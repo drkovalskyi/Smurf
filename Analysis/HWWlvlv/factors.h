@@ -9,7 +9,7 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 double Unroll2VarTo1Var(double varA, double varB, int binsA, int binsB, bool verbose = false);
 double Unroll2VarTo1VarVersion2(double mll, double mt);
 double Unroll2VarTo1ForWH(double dRMin, double mTW3, int option);
-double Unroll2VarTo1ForqqH(double mll, int option);
+double Unroll2VarTo1ForqqH(double mll, double mt, int option);
 TH1D* Unroll2DTo1D(TH2F* h2, const char* hname);
 TH1D * SmurfRebin(const TH1D *old, const unsigned int rebin);
 double CalcGammaMRstar(LorentzVector ja, LorentzVector jb);
@@ -248,13 +248,13 @@ double Unroll2VarTo1ForWH(double Var1, double Var2, int option){
   else {
     assert(0);
   }
-  
+
   val = val - 0.00001;
   val = (val/10.-0.5)*2.0;
   return val;
 }
 
-double Unroll2VarTo1ForqqH(double mll, int option){
+double Unroll2VarTo1ForqqH(double mll, double mt, int option){
   double val = -1.;
   double totalBins = 14;
 
@@ -273,6 +273,26 @@ double Unroll2VarTo1ForqqH(double mll, int option){
     else if(mll >  300 && mll <= 350) val = 12;
     else if(mll >  350 && mll <= 400) val = 13;
     else if(mll >  400   	    ) val = 14;
+  }
+  else if(option == 1){
+    totalBins = 17;
+    if     (             mt <=  80) val =  1;
+    else if(mt >   80 && mt <= 100) val =  2;
+    else if(mt >  100 && mt <= 120) val =  3;
+    else if(mt >  120 && mt <= 140) val =  4;
+    else if(mt >  140 && mt <= 160) val =  5;
+    else if(mt >  160 && mt <= 180) val =  6;
+    else if(mt >  180 && mt <= 200) val =  7;
+    else if(mt >  200 && mt <= 225) val =  8;
+    else if(mt >  225 && mt <= 250) val =  9;
+    else if(mt >  250 && mt <= 275) val = 10;
+    else if(mt >  275 && mt <= 300) val = 11;
+    else if(mt >  300 && mt <= 350) val = 12;
+    else if(mt >  350 && mt <= 400) val = 13;
+    else if(mt >  400 && mt <= 450) val = 14;
+    else if(mt >  450 && mt <= 500) val = 15;
+    else if(mt >  500 && mt <= 550) val = 16;
+    else if(mt >  550             ) val = 17;
   } else {
     assert(0);
   }

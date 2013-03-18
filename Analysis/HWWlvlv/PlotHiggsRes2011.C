@@ -46,7 +46,8 @@ const bool UseDyttDataDriven = false; // if true, then remove em events in dyll 
 const bool KeepGGHOnly       = false; // if true, then remove VH and qqH MC events
 const double muValueFromDataSM = 1.00; // renormalize SM Higgs yields
 const double muValueFromDataPS = 1.00; // renormalize PS Higgs yields
-const bool isRazorAna        = false;
+const bool isRazorAna = false;
+const bool useMLLMt = false;
 
 void PlotHiggsRes2011
 (
@@ -100,8 +101,8 @@ void PlotHiggsRes2011
 
   if(nJetsType <  2 && is2DAna == true && mH <= 250) {binVarA = 9;binVarB = 14;}
   if(nJetsType <  2 && is2DAna == true && mH  > 250) {binVarA = 8;binVarB = 10;}
-  if(nJetsType == 2 && is2DAna == true && mH <= 250) {binVarA = 1;binVarB = 14;}
-  if(nJetsType == 2 && is2DAna == true && mH  > 250) {binVarA = 1;binVarB = 14;}
+  if(nJetsType == 2 && is2DAna == true && mH <= 250) {binVarA = 1;binVarB = 14; if(useMLLMt == true) binVarB = 17;}
+  if(nJetsType == 2 && is2DAna == true && mH  > 250) {binVarA = 1;binVarB = 14; if(useMLLMt == true) binVarB = 17;}
   if(is2DBDT == true) {binVarA = 10; binVarB = 10;}
 
   if(isRazorAna) {binVarA = 14; binVarB = 9; usePDFTemplates = false; useExpTemplates = false;}
@@ -164,9 +165,16 @@ void PlotHiggsRes2011
   if     (mH <= 250) {dilmass_cut = 200; mtLowerCut = 60; mtUpperCut = 280; useZjetsTemplates = false;}
   else if(mH >  250) {dilmass_cut = 600; mtLowerCut = 80; mtUpperCut = 600; useZjetsTemplates = false;}
 
-  if(nJetsType == 2) mtLowerCut  = 30;
-  if(nJetsType == 2) mtUpperCut  = mH;
-  if(nJetsType == 2) dilmass_cut = 600;
+  if     (nJetsType == 2 && useMLLMt == false){
+    mtLowerCut  = 30;
+    mtUpperCut  = mH;
+    dilmass_cut = 600;
+  } 
+  else if(nJetsType == 2 && useMLLMt == true){
+    mtLowerCut  = 60;
+    mtUpperCut  = 600;
+    dilmass_cut = mH/2.0+10.0; if(mH >  250) dilmass_cut = mH;
+  }
 
   float dilmass_cutFor2D = dilmass_cut;
   float mtUpperCutFor2D  = mtUpperCut;  
@@ -995,14 +1003,29 @@ void PlotHiggsRes2011
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
+    double theMt[4] = {mt, mt, mt, mt};
+    if(useMLLMt == true) { 
+      double enll[4] = {TMath::Sqrt(dilep->pt()*dilep->pt() + dilep->mass()*dilep->mass()),
+    			TMath::Sqrt(dilep->pt()*dilep->pt() + mll_lepup    *mll_lepup),
+    			TMath::Sqrt(dilep->pt()*dilep->pt() + mll_lepdown  *mll_lepdown),
+    			TMath::Sqrt(dilep->pt()*dilep->pt() + mll_metup    *mll_metup)};
+      double ennn[4] = {TMath::Sqrt(met*met		    + dilep->mass()*dilep->mass()),
+    			TMath::Sqrt(met*met		    + mll_lepup    *mll_lepup),
+    			TMath::Sqrt(met*met		    + mll_lepdown  *mll_lepdown),
+    	 		TMath::Sqrt(met*met		    + mll_metup    *mll_metup)};
+      double enex  = dilep->px() + met*cos(metPhi);
+      double eney  = dilep->py() + met*sin(metPhi);
+      for(int nt=0; nt<=3; nt++) theMt[nt] = TMath::Sqrt(TMath::Max((enll[nt]+ennn[nt])*(enll[nt]+ennn[nt])-enex*enex-eney*eney,0.0));
+      //theMt[0] = mt;  theMt[1] = mt_lepup;  theMt[2] = mt_lepdown; theMt[3] = mt_metup; 
+    }
     if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
-      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),0);
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(int)useMLLMt);
 
-      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,0);
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(int)useMLLMt);
 
-      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,0);
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(int)useMLLMt);
 
-      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,0);
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(int)useMLLMt);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       if(isRazorAna){
@@ -1574,14 +1597,29 @@ void PlotHiggsRes2011
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
+    double theMt[4] = {mt, mt, mt, mt};
+    if(useMLLMt == true) { 
+      double enll[4] = {TMath::Sqrt(dilep->pt()*dilep->pt() + dilep->mass()*dilep->mass()),
+    			TMath::Sqrt(dilep->pt()*dilep->pt() + mll_lepup    *mll_lepup),
+    			TMath::Sqrt(dilep->pt()*dilep->pt() + mll_lepdown  *mll_lepdown),
+    			TMath::Sqrt(dilep->pt()*dilep->pt() + mll_metup    *mll_metup)};
+      double ennn[4] = {TMath::Sqrt(met*met		    + dilep->mass()*dilep->mass()),
+    			TMath::Sqrt(met*met		    + mll_lepup    *mll_lepup),
+    			TMath::Sqrt(met*met		    + mll_lepdown  *mll_lepdown),
+    	 		TMath::Sqrt(met*met		    + mll_metup    *mll_metup)};
+      double enex  = dilep->px() + met*cos(metPhi);
+      double eney  = dilep->py() + met*sin(metPhi);
+      for(int nt=0; nt<=3; nt++) theMt[nt] = TMath::Sqrt(TMath::Max((enll[nt]+ennn[nt])*(enll[nt]+ennn[nt])-enex*enex-eney*eney,0.0));
+      //theMt[0] = mt;  theMt[1] = mt_lepup;  theMt[2] = mt_lepdown; theMt[3] = mt_metup; 
+    }
     if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
-      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),0);
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(int)useMLLMt);
 
-      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,0);
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(int)useMLLMt);
 
-      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,0);
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(int)useMLLMt);
 
-      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,0);
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(int)useMLLMt);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       if(isRazorAna){
@@ -2497,14 +2535,29 @@ void PlotHiggsRes2011
     else if(wwDecay == 6) wwDecayCut = (type == SmurfTree::me || type == SmurfTree::em);
     if(wwDecayCut == false) continue;
 
+    double theMt[4] = {mt, mt, mt, mt};
+    if(useMLLMt == true) { 
+      double enll[4] = {TMath::Sqrt(dilep->pt()*dilep->pt() + dilep->mass()*dilep->mass()),
+    			TMath::Sqrt(dilep->pt()*dilep->pt() + mll_lepup    *mll_lepup),
+    			TMath::Sqrt(dilep->pt()*dilep->pt() + mll_lepdown  *mll_lepdown),
+    			TMath::Sqrt(dilep->pt()*dilep->pt() + mll_metup    *mll_metup)};
+      double ennn[4] = {TMath::Sqrt(met*met		    + dilep->mass()*dilep->mass()),
+    			TMath::Sqrt(met*met		    + mll_lepup    *mll_lepup),
+    			TMath::Sqrt(met*met		    + mll_lepdown  *mll_lepdown),
+    	 		TMath::Sqrt(met*met		    + mll_metup    *mll_metup)};
+      double enex  = dilep->px() + met*cos(metPhi);
+      double eney  = dilep->py() + met*sin(metPhi);
+      for(int nt=0; nt<=3; nt++) theMt[nt] = TMath::Sqrt(TMath::Max((enll[nt]+ennn[nt])*(enll[nt]+ennn[nt])-enex*enex-eney*eney,0.0));
+      //theMt[0] = mt;  theMt[1] = mt_lepup;  theMt[2] = mt_lepdown; theMt[3] = mt_metup; 
+    }
     if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
-      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),0);
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(int)useMLLMt);
 
-      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,0);
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(int)useMLLMt);
 
-      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,0);
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(int)useMLLMt);
 
-      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,0);
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(int)useMLLMt);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       if(isRazorAna){
@@ -3048,14 +3101,29 @@ void PlotHiggsRes2011
 
     if(wwDecayCut == false) continue;
 
+    double theMt[4] = {mt, mt, mt, mt};
+    if(useMLLMt == true) { 
+      double enll[4] = {TMath::Sqrt(dilep->pt()*dilep->pt() + dilep->mass()*dilep->mass()),
+    			TMath::Sqrt(dilep->pt()*dilep->pt() + mll_lepup    *mll_lepup),
+    			TMath::Sqrt(dilep->pt()*dilep->pt() + mll_lepdown  *mll_lepdown),
+    			TMath::Sqrt(dilep->pt()*dilep->pt() + mll_metup    *mll_metup)};
+      double ennn[4] = {TMath::Sqrt(met*met		    + dilep->mass()*dilep->mass()),
+    			TMath::Sqrt(met*met		    + mll_lepup    *mll_lepup),
+    			TMath::Sqrt(met*met		    + mll_lepdown  *mll_lepdown),
+    	 		TMath::Sqrt(met*met		    + mll_metup    *mll_metup)};
+      double enex  = dilep->px() + met*cos(metPhi);
+      double eney  = dilep->py() + met*sin(metPhi);
+      for(int nt=0; nt<=3; nt++) theMt[nt] = TMath::Sqrt(TMath::Max((enll[nt]+ennn[nt])*(enll[nt]+ennn[nt])-enex*enex-eney*eney,0.0));
+      //theMt[0] = mt;  theMt[1] = mt_lepup;  theMt[2] = mt_lepdown; theMt[3] = mt_metup; 
+    }
     if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
-      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),0);
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(int)useMLLMt);
 
-      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,0);
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(int)useMLLMt);
 
-      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,0);
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(int)useMLLMt);
 
-      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,0);
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(int)useMLLMt);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       if(isRazorAna){
