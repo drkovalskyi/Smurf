@@ -2,7 +2,7 @@
 // Script that visualizes the post-fit nuisance parameters
 //
 // Usage :
-//  root -b plotPostNuisance_combine.C'("lands.log")' 
+//  root -b plotPostNuisance_lands.C'("lands.log")' 
 // 
 //  Arguments : 
 //    * lands.log : log of ML fit by LandS
@@ -38,7 +38,6 @@ void plotPostNuisance_lands(char* log="ana_Moriond13_2D_V1/output/limits_0j_shap
     // Read each line in the input log file and store 
     // post-fit results to the containers
     // 
-
     string line;
     ifstream inlog(log); 
 
