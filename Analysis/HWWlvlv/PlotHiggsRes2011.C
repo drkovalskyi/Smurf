@@ -101,8 +101,8 @@ void PlotHiggsRes2011
 
   if(nJetsType <  2 && is2DAna == true && mH <= 250) {binVarA = 9;binVarB = 14;}
   if(nJetsType <  2 && is2DAna == true && mH  > 250) {binVarA = 8;binVarB = 10;}
-  if(nJetsType == 2 && is2DAna == true && mH <= 250) {binVarA = 1;binVarB = 14; if(useMLLMt == true) binVarB = 17;}
-  if(nJetsType == 2 && is2DAna == true && mH  > 250) {binVarA = 1;binVarB = 14; if(useMLLMt == true) binVarB = 17;}
+  if(nJetsType == 2 && is2DAna == true && mH <= 250) {binVarA = 1;binVarB = 15;}
+  if(nJetsType == 2 && is2DAna == true && mH  > 250) {binVarA = 1;binVarB = 15;}
   if(is2DBDT == true) {binVarA = 10; binVarB = 10;}
 
   if(isRazorAna) {binVarA = 14; binVarB = 9; usePDFTemplates = false; useExpTemplates = false;}
@@ -1019,13 +1019,13 @@ void PlotHiggsRes2011
       //theMt[0] = mt;  theMt[1] = mt_lepup;  theMt[2] = mt_lepdown; theMt[3] = mt_metup; 
     }
     if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
-      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(int)useMLLMt);
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],TMath::Abs(jet1->eta()-jet2->eta()),2);
 
-      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(int)useMLLMt);
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],TMath::Abs(jet1->eta()-jet2->eta()),2);
 
-      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(int)useMLLMt);
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],TMath::Abs(jet1->eta()-jet2->eta()),2);
 
-      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(int)useMLLMt);
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],TMath::Abs(jet1->eta()-jet2->eta()),2);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       if(isRazorAna){
@@ -1231,7 +1231,7 @@ void PlotHiggsRes2011
         double myVar = dPhi*180.0/TMath::Pi(); myVar = qqHMVA;
         histoS2->Fill(myVar,myWeight);
       }
-      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 3.5;
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.0;
     }
     if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
@@ -1613,13 +1613,13 @@ void PlotHiggsRes2011
       //theMt[0] = mt;  theMt[1] = mt_lepup;  theMt[2] = mt_lepdown; theMt[3] = mt_metup; 
     }
     if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
-      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(int)useMLLMt);
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],TMath::Abs(jet1->eta()-jet2->eta()),2);
 
-      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(int)useMLLMt);
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],TMath::Abs(jet1->eta()-jet2->eta()),2);
 
-      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(int)useMLLMt);
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],TMath::Abs(jet1->eta()-jet2->eta()),2);
 
-      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(int)useMLLMt);
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],TMath::Abs(jet1->eta()-jet2->eta()),2);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       if(isRazorAna){
@@ -1989,7 +1989,7 @@ void PlotHiggsRes2011
         double myVar = dPhi*180.0/TMath::Pi(); myVar = qqHMVA;
         histoB->Fill(myVar,myWeight);
       }
-      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 3.5;
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.0;
     }
     if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
@@ -2551,13 +2551,13 @@ void PlotHiggsRes2011
       //theMt[0] = mt;  theMt[1] = mt_lepup;  theMt[2] = mt_lepdown; theMt[3] = mt_metup; 
     }
     if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
-      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(int)useMLLMt);
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],TMath::Abs(jet1->eta()-jet2->eta()),2);
 
-      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(int)useMLLMt);
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],TMath::Abs(jet1->eta()-jet2->eta()),2);
 
-      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(int)useMLLMt);
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],TMath::Abs(jet1->eta()-jet2->eta()),2);
 
-      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(int)useMLLMt);
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],TMath::Abs(jet1->eta()-jet2->eta()),2);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       if(isRazorAna){
@@ -2862,7 +2862,7 @@ void PlotHiggsRes2011
          ((jet1->eta()-lep2->eta() > 0 && jet2->eta()-lep2->eta() < 0) ||
           (jet2->eta()-lep2->eta() > 0 && jet1->eta()-lep2->eta() < 0))) centrality = 1; 
       passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 200. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.0 && centrality == 1;
-      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 3.5;
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.0;
     }
     if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true && passJetCut[0] == true){
@@ -3117,13 +3117,13 @@ void PlotHiggsRes2011
       //theMt[0] = mt;  theMt[1] = mt_lepup;  theMt[2] = mt_lepdown; theMt[3] = mt_metup; 
     }
     if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
-      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(int)useMLLMt);
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],TMath::Abs(jet1->eta()-jet2->eta()),2);
 
-      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(int)useMLLMt);
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],TMath::Abs(jet1->eta()-jet2->eta()),2);
 
-      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(int)useMLLMt);
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],TMath::Abs(jet1->eta()-jet2->eta()),2);
 
-      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(int)useMLLMt);
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],TMath::Abs(jet1->eta()-jet2->eta()),2);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       if(isRazorAna){
@@ -3264,7 +3264,7 @@ void PlotHiggsRes2011
         double myVar = dPhi*180.0/TMath::Pi(); myVar = qqHMVA;
         histoD->Fill(myVar,myWeight);
       }
-      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 3.5;
+      passMVAPreselCuts = passMVAPreselCuts && (*jet1+*jet2).M() > 500. && TMath::Abs(jet1->eta()-jet2->eta()) > 2.0;
     }
     if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true){
