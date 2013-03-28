@@ -37,7 +37,7 @@ void ComputeTopScaleFactors
   //*******************************************************************************
   bool WWXSSel = false;
   double ptLepMin = 10.0;
-  if(WWXSSel == true) ptLepMin = 20.;
+  if(WWXSSel == true) ptLepMin = 25.;
   Bool_t useDYMVA = true;
 
   const Int_t nmass = 32;
@@ -106,6 +106,10 @@ void ComputeTopScaleFactors
     //lumi     = 7.367;minRun =     203003;maxRun = 999999;
     bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/backgroundA_skim6.root";
     dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data_skim6.root";
+    if(WWXSSel == true){
+      bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/backgroundA_skim9.root";
+      dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data_skim9.root";    
+    }
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -351,7 +355,8 @@ void ComputeTopScaleFactors
       else                          passMET = passMET && (bgdEvent.met_   >  45.0 || bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me);
     }
 
-    bool passNewCuts = bgdEvent.dilep_.Pt() > 45;
+    bool passNewCuts = bgdEvent.dilep_.Pt() > 30;
+    if(bgdEvent.dilep_.Pt() <= 45 && WWXSSel == false) passNewCuts = false;
 
     // begin computing weights
     double theWeight = 0.0;
@@ -674,7 +679,8 @@ void ComputeTopScaleFactors
       else                           passMET = passMET && (dataEvent.met_   > 45.0  || dataEvent.type_ == SmurfTree::em || dataEvent.type_ == SmurfTree::me);
     }
 
-    bool passNewCuts = dataEvent.dilep_.Pt() > 45;
+    bool passNewCuts = dataEvent.dilep_.Pt() > 30;
+    if(dataEvent.dilep_.Pt() <= 45 && WWXSSel == false) passNewCuts = false;
 
     bool dPhiDiLepJetCut = true;
     if(useDYMVA == false){

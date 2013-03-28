@@ -37,7 +37,7 @@ void ComputeTopScaleFactors2011
   //*******************************************************************************
   bool WWXSSel = false;
   double ptLepMin = 10.0;
-  if(WWXSSel == true) ptLepMin = 20.;
+  if(WWXSSel == true) ptLepMin = 25.;
   Bool_t useDYMVA = false;
 
   const Int_t nmass = 32;
@@ -310,7 +310,8 @@ void ComputeTopScaleFactors2011
 
     bool passNewCuts = true;
     if(bgdEvent.lep2_.Pt() <= 15 && (bgdEvent.type_ == SmurfTree::mm||bgdEvent.type_ == SmurfTree::ee)) passNewCuts = false;
-    if(bgdEvent.dilep_.Pt() <= 45) passNewCuts = false;
+    if(bgdEvent.dilep_.Pt() <= 30) passNewCuts = false;
+    if(bgdEvent.dilep_.Pt() <= 45 && WWXSSel == false) passNewCuts = false;
 
     // begin computing weights
     double theWeight = 0.0;
@@ -636,7 +637,8 @@ void ComputeTopScaleFactors2011
 
     bool passNewCuts = true;
     if(dataEvent.lep2_.Pt() <= 15 && (dataEvent.type_ == SmurfTree::mm||dataEvent.type_ == SmurfTree::ee)) passNewCuts = false;
-    if(dataEvent.dilep_.Pt() <= 45) passNewCuts = false;
+    if(dataEvent.dilep_.Pt() <= 30) passNewCuts = false;
+    if(dataEvent.dilep_.Pt() <= 45 && WWXSSel == false) passNewCuts = false;
 
     bool dPhiDiLepJetCut = true;
     if(useDYMVA == false){

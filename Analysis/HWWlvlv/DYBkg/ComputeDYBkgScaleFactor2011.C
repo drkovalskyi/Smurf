@@ -59,7 +59,7 @@ void ComputeDYBkgScaleFactor2011(Int_t period = 0, Bool_t useRecoilModel = kFALS
   //*******************************************************
   bool WWXSSel = false;
   double ptLepMin = 10.0;
-  if(WWXSSel == true) ptLepMin = 20.;
+  if(WWXSSel == true) ptLepMin = 25.;
 
   bool forBDTAna = false;
   bool useRFromData[3] = {1, 1, 1};
@@ -485,7 +485,8 @@ void ComputeDYBkgScaleFactor2011(Int_t period = 0, Bool_t useRecoilModel = kFALS
 
 	    if(!passKinCuts) continue;
 
-	    if(tree.dilep_.Pt() <= 45.0) continue;
+	    if(tree.dilep_.Pt() <= 30.0) continue;
+	    if(tree.dilep_.Pt() <= 45.0 && WWXSSel == false) continue;
 	    if(minmet <= 20.0) continue;
 
             bool dPhiDiLepJetCut = kTRUE;
@@ -601,7 +602,8 @@ void ComputeDYBkgScaleFactor2011(Int_t period = 0, Bool_t useRecoilModel = kFALS
 
 	  if(!passKinCuts) continue;
 
-          if(tree.dilep_.Pt() <= 45.0) continue;
+	  if(tree.dilep_.Pt() <= 30.0) continue;
+	  if(tree.dilep_.Pt() <= 45.0 && WWXSSel == false) continue;
 	  if(minmet <= 20.0) continue;
 
           bool dPhiDiLepJetCut = kTRUE;
