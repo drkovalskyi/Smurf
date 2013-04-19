@@ -131,12 +131,12 @@ TString suffix       = "ww"
     mvaVar[ "mt" ]		  = 1;
     mvaVar[ "mt1" ]		  = 1;
     mvaVar[ "mt2" ]		  = 1;
-    mvaVar[ "dPhiLep1MET" ]	  = 1;
-    mvaVar[ "dPhiLep2MET" ]	  = 1;
+    mvaVar[ "dPhiLep1MET" ]	  = 0;
+    mvaVar[ "dPhiLep2MET" ]	  = 0;
     mvaVar[ "dilpt" ]		  = 1;
     mvaVar[ "razor" ]		  = 0;
-    mvaVar[ "njets" ]		  = 1;
-    mvaVar[ "deltaphiql" ]	  = 1;
+    mvaVar[ "njets" ]		  = 0;
+    mvaVar[ "deltaphiql" ]	  = 0;
   }
   //---------------------------------------------------------------
   // specifies the selection applied to events in the training
@@ -273,7 +273,7 @@ TString suffix       = "ww"
       puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_12p1ifb.root";
     }
     else if(period == 3){ //  Full2012-Summer12-V9-19500ipb
-      effPath  = "/smurf/dlevans/Efficiencies/V00-02-09/summary_Moriond_V1.root";
+      effPath  = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_Moriond_V1.root";
       fakePath = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root";
       puPath   = "/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_19p5ifb.root";
     }

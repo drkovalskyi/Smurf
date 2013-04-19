@@ -422,6 +422,7 @@ void ComputeWWBkgScaleFactor2011 (
     else if(dstype == SmurfTree::dytt            ) BkgType = 5;
     else if(dstype == SmurfTree::dyttDataDriven  ) BkgType = 5;
     else if(dstype == SmurfTree::qcd             ) BkgType = 5;
+    else if(dstype == SmurfTree::qqww2j          ) BkgType = 6;
     else {cout << dstype << endl;assert(0);}
 
 

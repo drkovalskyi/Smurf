@@ -332,6 +332,7 @@ void ComputeTopScaleFactors
     else if(bgdEvent.dstype_ == SmurfTree::tw              ) fDecay = 13;
     else if(bgdEvent.dstype_ == SmurfTree::qqww            ) fDecay = 29;
     else if(bgdEvent.dstype_ == SmurfTree::qqwwPWG         ) fDecay = 29;
+    else if(bgdEvent.dstype_ == SmurfTree::qqww2j          ) fDecay = 29;
     else if(bgdEvent.dstype_ == SmurfTree::wz              ) fDecay = 27;
     else if(bgdEvent.dstype_ == SmurfTree::zz              ) fDecay = 28;
     else if(bgdEvent.dstype_ == SmurfTree::www             ) fDecay = 21;

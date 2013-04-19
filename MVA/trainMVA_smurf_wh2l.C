@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.16 2012/11/07 12:09:44 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf_wh2l.C,v 1.1 2012/11/26 09:48:34 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -124,17 +124,14 @@ void trainMVA_smurf_wh2l(
   mvaVar[ "mt" ]		= 1;  //transverse higgs mass
   mvaVar[ "mt1" ]		= 1;  //transverse mass of leading lepton and met
   mvaVar[ "mt2" ]		= 1;  //transverse mass of sub-leading lepton and met
-  mvaVar[ "dPhiLep1MET" ]	= 1;  //delta phi btw leading lepton and met
-  mvaVar[ "dPhiLep2MET" ]	= 1;  //delta phi btw leading sub-lepton and met
+  mvaVar[ "dPhiLep1MET" ]	= 0;  //delta phi btw leading lepton and met
+  mvaVar[ "dPhiLep2MET" ]	= 0;  //delta phi btw leading sub-lepton and met
   mvaVar[ "dilpt" ]		= 1;  //dilepton pt
   mvaVar[ "razor" ]		= 0;  //razor
-  mvaVar[ "njets" ]		= 1;  //njets
-  mvaVar[ "deltaphiql" ]        = 1;  //deltaphiql
+  mvaVar[ "njets" ]		= 0;  //njets
+  mvaVar[ "deltaphiql" ]        = 0;  //deltaphiql
 
   TCut sel = "";
-
-  double rndLim[3] = {1.0,1.0,1.0};
-  if     (mH==125 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 0.00;rndLim[2] = 0.15;}
 
   //---------------------------------
   //choose bkg samples to include
@@ -466,26 +463,22 @@ void trainMVA_smurf_wh2l(
          (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
 
     if( njets > 3                               ) continue;
-    if( njets == 0                              ) continue;
     if( dilep->mass() >= 200                    ) continue;
     if( dilep->mass() <= 12                     ) continue;
     if( lq1*lq2 < 0                             ) continue;
     if( lep1->pt() <= 20	                ) continue;
     if( lep2->pt() <= 10	                ) continue;
-    if( TMath::Min(pmet,pTrackMet) <= 20        ) continue;
+    if( TMath::Min(pmet,pTrackMet) <= 30        ) continue;
     if( lid3 != 0	                        ) continue;
     if( (cuts & patternTopTag) == patternTopTag ) continue;
-    if( mt <= 50                                ) continue;
+    if( mt <= 0                                 ) continue;
     if( mt >= 200                               ) continue;
-    //if(fabs(dilep->mass()-91.1876) < 10. &&
-    //   type == SmurfTree::ee                    ) continue;
 
     int varCounter = 0;
     
     double higgsV[2] = {lep1->px()+lep2->px()+met*cos(metPhi),
                         lep1->py()+lep2->py()+met*sin(metPhi)};
     double deltaPhiQQL[3] = {DeltaPhi((*jet1+*jet2).Phi(),lep1->phi()),DeltaPhi((*jet1+*jet2).Phi(),lep2->phi()),0.0};
-    if(njets == 1){deltaPhiQQL[0]=DeltaPhi(jet1->phi(),lep1->phi());deltaPhiQQL[1]=DeltaPhi(jet1->phi(),lep2->phi());}
     deltaPhiQQL[2] = TMath::Min(deltaPhiQQL[0],deltaPhiQQL[1]);
     if (mvaVar["lep1pt"])        vars[varCounter++] = lep1->pt();
     if (mvaVar["lep2pt"])        vars[varCounter++] = lep2->pt();    
@@ -569,19 +562,16 @@ void trainMVA_smurf_wh2l(
     //     (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
 
     if( njets > 3                               ) continue;
-    if( njets == 0                              ) continue;
     if( dilep->mass() >= 200                    ) continue;
     if( dilep->mass() <= 12                     ) continue;
     if( lq1*lq2 < 0                             ) continue;
     if( lep1->pt() <= 20	                ) continue;
     if( lep2->pt() <= 10	                ) continue;
-    if( TMath::Min(pmet,pTrackMet) <= 20        ) continue;
+    if( TMath::Min(pmet,pTrackMet) <= 30        ) continue;
     if( lid3 != 0	                        ) continue;
     if( (cuts & patternTopTag) == patternTopTag ) continue;
-    if( mt <= 50                                ) continue;
+    if( mt <= 0                                 ) continue;
     if( mt >= 200                               ) continue;
-    //if(fabs(dilep->mass()-91.1876) < 10. &&
-    //   type == SmurfTree::ee                    ) continue;
 
     if (!(dstype == SmurfTree::data))   continue;
  
@@ -590,7 +580,6 @@ void trainMVA_smurf_wh2l(
     double higgsV[2] = {lep1->px()+lep2->px()+met*cos(metPhi),
                         lep1->py()+lep2->py()+met*sin(metPhi)};
     double deltaPhiQQL[3] = {DeltaPhi((*jet1+*jet2).Phi(),lep1->phi()),DeltaPhi((*jet1+*jet2).Phi(),lep2->phi()),0.0};
-    if(njets == 1){deltaPhiQQL[0]=DeltaPhi(jet1->phi(),lep1->phi());deltaPhiQQL[1]=DeltaPhi(jet1->phi(),lep2->phi());}
     deltaPhiQQL[2] = TMath::Min(deltaPhiQQL[0],deltaPhiQQL[1]);
     if (mvaVar["lep1pt"])        vars[varCounter++] = lep1->pt();
     if (mvaVar["lep2pt"])        vars[varCounter++] = lep2->pt();    

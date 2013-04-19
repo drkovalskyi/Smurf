@@ -348,6 +348,7 @@ void ComputeDYBkgScaleFactor(Int_t period = 0, Bool_t useRecoilModel = kFALSE, I
       if(tree.dstype_ == SmurfTree::qqww            )  ProcessType = 0; //WW
       if(tree.dstype_ == SmurfTree::qqwwPWG         )  ProcessType = 0; //WW
       if(tree.dstype_ == SmurfTree::ggww            )  ProcessType = 0; //WW
+      if(tree.dstype_ == SmurfTree::qqww2j          )  ProcessType = 0; //WW
       if(tree.dstype_ == SmurfTree::dytt            )  ProcessType = 5; //DYtt
       if(tree.dstype_ == SmurfTree::dyttDataDriven  )  ProcessType = 5; //DYtt
       if(tree.dstype_ == SmurfTree::qcd             )  ProcessType = 5; //DYtt

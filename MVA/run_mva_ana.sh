@@ -34,6 +34,9 @@ if [ ${NJETS} == "hzz" ]; then
 elif [ ${NJETS} == "wh3l" ]; then
   export trainMVA_smurfFile=trainMVA_smurf_wh3l.C+;
   export TAG=ntuples_wh3l_${MH}train
+elif [ ${NJETS} == "wh2l" ]; then
+  export trainMVA_smurfFile=trainMVA_smurf_wh2l.C+;
+  export TAG=ntuples_wh2l_${MH}train
 elif [ ${NJETS} == "3" ]; then
   export trainMVA_smurfFile=trainMVA_smurf_MultiClass.C+;
   export NJETS=2;
@@ -52,6 +55,10 @@ if [ ${DO_TRAINING} == "1" ]; then
     export NJETS=999;
     export SIG_TRAIN=data/hww_training.root;
     export BKG_TRAIN=data/backgroundD_3l.root;
+  elif [ ${NJETS} == "wh2l" ]; then
+    export NJETS=999;
+    export SIG_TRAIN=data/hww_training.root;
+    export BKG_TRAIN=data/backgroundA_skim8.root;
  fi
   mkdir -p weights;
   root -l -q -b ${trainMVA_smurfFile}\(${NJETS},\"${SIG_TRAIN}\",\"${BKG_TRAIN}\",\"${TAG}\",\"${METHODS}\",${MH}\);
@@ -90,6 +97,7 @@ data/hww600.root
 data/xww0p125.root
 data/xww0m125.root
 data/xww2p125.root
+data/xww2pqq125.root
 data/hww_syst_skim6.root
 data/data_skim6.root
 data/backgroundA_skim6.root

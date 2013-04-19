@@ -119,6 +119,25 @@ TString suffix       = "ww"
     mvaVar[ "higgspt" ] 	= 1;  //higgs pt
     mvaVar[ "dphihjj" ] 	= 1;  //dphi between the Higgs and the jj system
   }
+  if(njet == 999){
+    mvaVar[ "lep1pt" ]  	  = 1;
+    mvaVar[ "lep2pt" ]  	  = 1;
+    mvaVar[ "dPhi" ]		  = 1;
+    mvaVar[ "dR" ]		  = 1;
+    mvaVar[ "dilmass" ] 	  = 1;
+    mvaVar[ "type" ]		  = 1;
+    mvaVar[ "pmet" ]		  = 0;
+    mvaVar[ "met" ]		  = 0;
+    mvaVar[ "mt" ]		  = 1;
+    mvaVar[ "mt1" ]		  = 1;
+    mvaVar[ "mt2" ]		  = 1;
+    mvaVar[ "dPhiLep1MET" ]	  = 0;
+    mvaVar[ "dPhiLep2MET" ]	  = 0;
+    mvaVar[ "dilpt" ]		  = 1;
+    mvaVar[ "razor" ]		  = 0;
+    mvaVar[ "njets" ]		  = 0;
+    mvaVar[ "deltaphiql" ]	  = 0;
+  }
   //---------------------------------------------------------------
   // specifies the selection applied to events in the training
   //---------------------------------------------------------------

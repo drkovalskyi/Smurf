@@ -10,7 +10,7 @@ double Unroll2VarTo1Var(double varA, double varB, int binsA, int binsB, bool ver
 double Unroll2VarTo1VarVersion2(double mll, double mt);
 double Unroll2VarTo1ForWH(double dRMin, double mTW3, int option);
 double Unroll2VarTo1ForqqH(double mll, double mt, double deta, int option);
-double Unroll2VarTo1ForWH2l(int njets, double mll, double mt);
+double Unroll2VarTo1ForWH2l(double mll, double mt);
 TH1D* Unroll2DTo1D(TH2F* h2, const char* hname);
 TH1D * SmurfRebin(const TH1D *old, const unsigned int rebin);
 double CalcGammaMRstar(LorentzVector ja, LorentzVector jb);
@@ -324,44 +324,30 @@ double Unroll2VarTo1ForqqH(double mll, double mt, double deta, int option){
   return val;
 }
 
-double Unroll2VarTo1ForWH2l(int njets, double mll, double mt){
+double Unroll2VarTo1ForWH2l(double mll, double mt){
   double val = -1.;
-  double totalBins = 75;
-  if	 (mll >  12 && mll <=  40 && mt >   0 && mt <=  40) val =   1;
-  else if(mll >  40 && mll <=  80 && mt >   0 && mt <=  40) val =   2;
-  else if(mll >  80 && mll <= 120 && mt >   0 && mt <=  40) val =   3;
-  else if(mll > 120 && mll <= 160 && mt >   0 && mt <=  40) val =   4;
-  else if(mll > 160 && mll <= 200 && mt >   0 && mt <=  40) val =   5;
+  double totalBins = 12;
+  if	 (mll >  12 && mll <=  60 && mt >   0 && mt <=  50) val =   1;
+  else if(mll >  60 && mll <= 120 && mt >   0 && mt <=  50) val =   2;
+  else if(mll > 120 && mll <= 200 && mt >   0 && mt <=  50) val =   3;
 
-  else if(mll >  12 && mll <=  40 && mt >  40 && mt <=  80) val =   6;
-  else if(mll >  40 && mll <=  80 && mt >  40 && mt <=  80) val =   7;
-  else if(mll >  80 && mll <= 120 && mt >  40 && mt <=  80) val =   8;
-  else if(mll > 120 && mll <= 160 && mt >  40 && mt <=  80) val =   9;
-  else if(mll > 160 && mll <= 200 && mt >  40 && mt <=  80) val =  10;
+  else if(mll >  12 && mll <=  60 && mt >  50 && mt <= 100) val =   4;
+  else if(mll >  60 && mll <= 120 && mt >  50 && mt <= 100) val =   5;
+  else if(mll > 120 && mll <= 200 && mt >  50 && mt <= 100) val =   6;
 
-  else if(mll >  12 && mll <=  40 && mt >  80 && mt <= 120) val =  11;
-  else if(mll >  40 && mll <=  80 && mt >  80 && mt <= 120) val =  12;
-  else if(mll >  80 && mll <= 120 && mt >  80 && mt <= 120) val =  13;
-  else if(mll > 120 && mll <= 160 && mt >  80 && mt <= 120) val =  14;
-  else if(mll > 160 && mll <= 200 && mt >  80 && mt <= 120) val =  15;
+  else if(mll >  12 && mll <=  60 && mt > 100 && mt <= 150) val =   7;
+  else if(mll >  60 && mll <= 120 && mt > 100 && mt <= 150) val =   8;
+  else if(mll > 120 && mll <= 200 && mt > 100 && mt <= 150) val =   9;
 
-  else if(mll >  12 && mll <=  40 && mt > 120 && mt <= 160) val =  16;
-  else if(mll >  40 && mll <=  80 && mt > 120 && mt <= 160) val =  17;
-  else if(mll >  80 && mll <= 120 && mt > 120 && mt <= 160) val =  18;
-  else if(mll > 120 && mll <= 160 && mt > 120 && mt <= 160) val =  19;
-  else if(mll > 160 && mll <= 200 && mt > 120 && mt <= 160) val =  20;
+  else if(mll >  12 && mll <=  60 && mt > 150 && mt <= 200) val =  10;
+  else if(mll >  60 && mll <= 120 && mt > 150 && mt <= 200) val =  11;
+  else if(mll > 120 && mll <= 200 && mt > 150 && mt <= 200) val =  12;
 
-  else if(mll >  12 && mll <=  40 && mt > 160 && mt <= 200) val =  21;
-  else if(mll >  40 && mll <=  80 && mt > 160 && mt <= 200) val =  22;
-  else if(mll >  80 && mll <= 120 && mt > 160 && mt <= 200) val =  23;
-  else if(mll > 120 && mll <= 160 && mt > 160 && mt <= 200) val =  24;
-  else if(mll > 160 && mll <= 200 && mt > 160 && mt <= 200) val =  25;  
+  if(val   < 0) return -100;
 
-  if(val   < 0) return -1;
-  if(njets > 2) return -1;
+  val = val-0.00001;
+  val = val/totalBins;
 
-  val = (val+njets*25) - 0.00001;
-  val = (val/totalBins-0.5)*2.0;
   return val;  
 }
 

@@ -28,6 +28,9 @@ if [ ${NJETS} == "hzz" ]; then
 elif [ ${NJETS} == "wh3l" ]; then
   export trainMVA_smurfFile=trainMVA_smurf_wh3l.C+;
   export TAG=ntuples_wh3l_${MH}train
+elif [ ${NJETS} == "wh2l" ]; then
+  export trainMVA_smurfFile=trainMVA_smurf_wh2l.C+;
+  export TAG=ntuples_wh2l_${MH}train
 fi
 
 export DO_TRAINING=0;
@@ -42,6 +45,10 @@ if [ ${DO_TRAINING} == "1" ]; then
     export NJETS=999;
     export SIG_TRAIN=data/hww_training.root;
     export BKG_TRAIN=data/backgroundD_3l.root
+  elif [ ${NJETS} == "wh2l" ]; then
+    export NJETS=999;
+    export SIG_TRAIN=data/hww_training.root;
+    export BKG_TRAIN=data/backgroundA_skim8.root;
   fi
   mkdir -p weights;
   root -l -q -b ${trainMVA_smurfFile}\(${NJETS},\"${SIG_TRAIN}\",\"${BKG_TRAIN}\",\"${TAG}\",\"${METHODS}\",${MH}\);
@@ -58,10 +65,12 @@ data2011/hww${MH}.root
 data2011/hww_syst_skim6.root
 data2011/data_skim6.root
 data2011/backgroundA_skim6.root
+data2011/backgroundA_skim6.root
 EOF
 #data2011/xww0m125.root
 #data2011/xww0p125.root
 #data2011/xww2p125.root
+#data2011/xww2pqq125.root
 
 export evaluateMVAFile=evaluateMVA_smurf_hww2011.C+;
 if [ ${NJETS} == "hzz" ]; then
@@ -72,6 +81,11 @@ elif [ ${NJETS} == "wh3l" ]; then
   export TAG=ntuples_wh3l_120train;
   export NJETS=999;
   export evaluateMVAFile=evaluateMVA_smurf_wh3l.C+;
+elif [ ${NJETS} == "wh2l" ]; then
+  export METHODS=BDTG;
+  export TAG=ntuples_wh2l_125train;
+  export NJETS=999;
+  export evaluateMVAFile=evaluateMVA_smurf_hww2011.C+;
 fi
 
 for i in `cat list_samples.txt` ; do

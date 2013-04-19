@@ -18,19 +18,11 @@ setenv SIG_TEST data2012/${TAG}_hww${MH}.root
 #setenv SIG_TEST data2012/${TAG}_xww0p125.root
 #setenv SIG_TEST data2012/${TAG}_xww0m125.root
 #setenv SIG_TEST data2012/${TAG}_xww2p125.root
+#setenv SIG_TEST data2012/${TAG}_xww2pqq125.root
+#setenv SIG_TEST data2012/${TAG}_xww2pqq0p5125.root
 setenv BKG_TEST data2012/${TAG}_backgroundA_skim6.root
-#setenv BKG_TEST data2012/ntuples2012_HCP_backgroundA_H125.root
 setenv DAT_TEST data2012/${TAG}_data_skim6.root;
-#setenv DAT_TEST data2012/ntuples2012_500train_${NJETS}jets_hww125.root;
 setenv SYS_TEST data2012/${TAG}_hww_syst_skim6.root;
-
-if($MH == 0) then
-  setenv TAG       ntuples2012_PostICHEP_160train_${NJETS}jets;
-  setenv SIG_TEST data2012/${TAG}_hww160.root
-  setenv BKG_TEST data2012/${TAG}_backgroundA_skim6.root
-  setenv DAT_TEST data2012/${TAG}_data_skim6.root;
-  setenv SYS_TEST data2012/${TAG}_hww_syst_skim6.root;
-endif
 
 ### Perform analysis
  #root -l -q -b PlotHiggsRes2012.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",0,1,0,\"$SYS_TEST\",$CAT\); --> mm

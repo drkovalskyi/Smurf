@@ -60,6 +60,13 @@ data2011/wh3l${MH}.root
 data2011/xww0m${MH}.root
 data2011/xww0p${MH}.root
 data2011/xww2p${MH}.root
+data2011/xww2pqq${MH}.root
+data2011/zhww${MH}.root
+data2011/zh105inv.root
+data2011/zh115inv.root
+data2011/zh125inv.root
+data2011/zh135inv.root
+data2011/zh145inv.root
 data2011/backgroundA.root
 data2011/data_mit_2fake.root
 data2011/data.root
