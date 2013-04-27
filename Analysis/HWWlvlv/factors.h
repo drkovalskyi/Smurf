@@ -9,7 +9,7 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 double Unroll2VarTo1Var(double varA, double varB, int binsA, int binsB, bool verbose = false);
 double Unroll2VarTo1VarVersion2(double mll, double mt);
 double Unroll2VarTo1ForWH(double dRMin, double mTW3, int option);
-double Unroll2VarTo1ForqqH(double mll, double mt, double deta, int option);
+double Unroll2VarTo1ForqqH(double mll, double mt, double mjj, double eta12, double deta, int option);
 double Unroll2VarTo1ForWH2l(double mll, double mt);
 TH1D* Unroll2DTo1D(TH2F* h2, const char* hname);
 TH1D * SmurfRebin(const TH1D *old, const unsigned int rebin);
@@ -255,7 +255,7 @@ double Unroll2VarTo1ForWH(double Var1, double Var2, int option){
   return val;
 }
 
-double Unroll2VarTo1ForqqH(double mll, double mt, double deta, int option){
+double Unroll2VarTo1ForqqH(double mll, double mt, double mjj, double eta12, double deta, int option){
   double val = -1.;
   double totalBins = 14;
 
@@ -296,8 +296,9 @@ double Unroll2VarTo1ForqqH(double mll, double mt, double deta, int option){
     else if(mt >  550             ) val = 17;
   }
   else if(option == 2){
-    totalBins = 15;
-    if(deta > 4.0){
+    double varMVA = TMath::Min(TMath::Max((1.3491*log(mjj)-0.01163*(eta12)+1.433*TMath::Abs(deta)-7.647)/15.00,0.001),0.999);
+    totalBins = 19;
+    if     (varMVA > 0.55){
       if     (mll >   12 && mll <=  30) val =  1;
       else if(mll >   30 && mll <=  50) val =  2;
       else if(mll >   50 && mll <=  70) val =  3;
@@ -307,13 +308,20 @@ double Unroll2VarTo1ForqqH(double mll, double mt, double deta, int option){
       else if(mll >  150 && mll <= 200) val =  7;
       else if(mll >  200 && mll <= 300) val =  8;
       else if(mll >  300   	      ) val =  9;
-    } else {
-      if     (mll >   12 && mll <=  40) val = 10;
-      else if(mll >   40 && mll <=  70) val = 11;
-      else if(mll >   70 && mll <= 110) val = 12;
-      else if(mll >  110 && mll <= 200) val = 13;
-      else if(mll >  200 && mll <= 300) val = 14;
-      else if(mll >  300     	      ) val = 15;
+    } 
+    else if(varMVA > 0.40){
+      if     (mll >   12 && mll <=  30) val = 10;
+      else if(mll >   30 && mll <=  50) val = 11;
+      else if(mll >   50 && mll <=  70) val = 12;
+      else if(mll >   70 && mll <=  90) val = 13;
+      else if(mll >   90 && mll <= 120) val = 14;
+      else if(mll >  120 && mll <= 150) val = 15;
+      else if(mll >  150 && mll <= 200) val = 16;
+      else if(mll >  200 && mll <= 300) val = 17;
+      else if(mll >  300   	      ) val = 18;
+    }
+    else {
+      val = 19;
     }
   } else {
     assert(0);
