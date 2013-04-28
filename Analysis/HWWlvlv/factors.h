@@ -260,6 +260,7 @@ double Unroll2VarTo1ForqqH(double mll, double mt, double mjj, double eta12, doub
   double totalBins = 14;
 
   if     (option == 0){
+    totalBins = 14;
     if     (mll >   12 && mll <=  30) val =  1;
     else if(mll >   30 && mll <=  45) val =  2;
     else if(mll >   45 && mll <=  60) val =  3;
