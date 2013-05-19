@@ -340,8 +340,8 @@ class SmurfTree {
 
   /// load a SmurfTree
   void LoadTree(const char* file, int type = -1){
-    // to load three different ntuples in the same job HwwTree0/1/2
-    // type == 0/1/2/3 if all variables was added
+    // to load three different ntuples in the same job HwwTree0/1/2/3/4
+    // type == 0/1/2/3/4 if all variables was added
     // type = -1 (default) if a minimum set of variables was added with tree as name
     f_ = TFile::Open(file);
     assert(f_);
@@ -349,6 +349,7 @@ class SmurfTree {
     else if(type == 1) tree_ = dynamic_cast<TTree*>(f_->Get("HwwTree1"));
     else if(type == 2) tree_ = dynamic_cast<TTree*>(f_->Get("HwwTree2"));
     else if(type == 3) tree_ = dynamic_cast<TTree*>(f_->Get("HwwTree3"));
+    else if(type == 4) tree_ = dynamic_cast<TTree*>(f_->Get("HwwTree4"));
     else               tree_ = dynamic_cast<TTree*>(f_->Get("tree"));
     assert(tree_);
   }
@@ -356,13 +357,14 @@ class SmurfTree {
   /// create a SmurfTree
   void CreateTree(int type = -1){
     assert(type==type); // just to suppress warnings
-    // to create three different ntuples in the same job HwwTree0/1/2
-    // type == 0/1/2/3 add all variables
+    // to create three different ntuples in the same job HwwTree0/1/2/3/4
+    // type == 0/1/2/3/4 add all variables
     // type = -1 (default) add a minimum set of variables with tree as name
     if     (type == 0) tree_ = new TTree("HwwTree0","Smurf ntuples");
     else if(type == 1) tree_ = new TTree("HwwTree1","Smurf ntuples");
     else if(type == 2) tree_ = new TTree("HwwTree2","Smurf ntuples");
     else if(type == 3) tree_ = new TTree("HwwTree3","Smurf ntuples");
+    else if(type == 4) tree_ = new TTree("HwwTree4","Smurf ntuples");
     else               tree_ = new TTree("tree","Smurf ntuples");
     f_ = 0;
     InitVariables();
