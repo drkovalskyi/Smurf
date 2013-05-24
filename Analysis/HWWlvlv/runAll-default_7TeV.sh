@@ -5,16 +5,10 @@ setenv MH         $2;
 setenv MAKEINPUTS $3;
 setenv CAT         4;
 
-setenv TAG       ntuples_${MH}train_${NJETS}jets;
-if ($MH == 0) then
-  setenv TAG       ntuples_160train_${NJETS}jets;
-endif
+setenv TAG       ntuples_126train_${NJETS}jets;
 
 if ($NJETS == 2) then
-  setenv TAG       ntuples_${MH}train_1jets;
-  if ($MH == 0) then
-    setenv TAG       ntuples_160train_1jets;
-  endif
+  setenv TAG       ntuples_126train_1jets;
 endif
 
 ### data_Summer11
@@ -31,7 +25,7 @@ setenv BKG_TEST data2011/ntuples_126train_0jets_backgroundA_skim6.root
 setenv DAT_TEST data2011/ntuples_126train_0jets_data_skim6.root;
 setenv SYS_TEST data2011/ntuples_126train_0jets_hww_syst_skim6.root;
 
-### Perform analysis
+### Perform analysis 
  #root -l -q -b PlotHiggsRes2011.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",0,1,0,\"$SYS_TEST\",$CAT\); --> mm
  #root -l -q -b PlotHiggsRes2011.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",1,1,0,\"$SYS_TEST\",$CAT\); --> me
  #root -l -q -b PlotHiggsRes2011.C+\($NJETS,$MH,\"$TAG\",\"$SIG_TEST\",\"$BKG_TEST\"\,\"$DAT_TEST\",2,1,0,\"$SYS_TEST\",$CAT\); --> em
