@@ -106,10 +106,6 @@ void ComputeTopScaleFactors
     //lumi     = 7.367;minRun =     203003;maxRun = 999999;
     bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/backgroundA_skim6.root";
     dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data_skim6.root";
-    if(WWXSSel == true){
-      bgdInputFile  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/backgroundA_skim9.root";
-      dataInputFile = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data_skim9.root";    
-    }
   }
   else {
     printf("Wrong period(%d)\n",period);
