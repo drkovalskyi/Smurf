@@ -164,9 +164,10 @@ void PlotHiggsRes2012
 
   if     (mH <= 250) {dilmass_cut = 200; mtLowerCut = 60; mtUpperCut = 280; useZjetsTemplates = false;}
   else if(mH >  250) {dilmass_cut = 600; mtLowerCut = 80; mtUpperCut = 600; useZjetsTemplates = false;}
+  float mtLowerCutMVA = mtLowerCut;
 
   if     (nJetsType == 2 && useMLLMt == false){
-    mtLowerCut  = 30;
+    mtLowerCut  = 30; mtLowerCutMVA = 50;
     mtUpperCut  = mH;
     dilmass_cut = 600;
   } 
@@ -459,7 +460,7 @@ void PlotHiggsRes2012
   double theCutMTLow         = cutMTLow (mH);
   double theCutMTHigh        = cutMTHigh (mH);
   double theCutPtll          = 30.0;
-  if(is2DBDT == true || is2DAna == false) {theCutPtll = 45.0; mtLowerCut = 80;}
+  if(is2DBDT == true || is2DAna == false) {theCutPtll = 45.0; mtLowerCut = 80; mtLowerCutMVA = mtLowerCut;}
   if(nJetsType == 2) {theCutPtll = 45.0;}
 
   //----------------------------------------------------------------------------
@@ -1246,7 +1247,7 @@ void PlotHiggsRes2012
     // Add signal yields and fill MVA output distributions for MVA Shape analysis
     // Apply mT_Higgs cut for MVA Shape analysis
     //----------------------------------------------------------------------------
-    bool passMVAPreselCuts = mt > mtLowerCut && mt < mtUpperCut;
+    bool passMVAPreselCuts = mt > mtLowerCutMVA && mt < mtUpperCut;
     if(mH > 250) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > 50.0;
     if(nJetsType == 2){
       int centrality = 0;
@@ -2011,7 +2012,7 @@ void PlotHiggsRes2012
     // Add bkg yields and fill MVA output distributions for MVA Shape analysis
     // Apply mT_Higgs cut for MVA Shape analysis
     //----------------------------------------------------------------------------
-    bool passMVAPreselCuts = mt > mtLowerCut && mt < mtUpperCut;
+    bool passMVAPreselCuts = mt > mtLowerCutMVA && mt < mtUpperCut;
     if(mH > 250) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > 50.0;
     if(nJetsType == 2){
       int centrality = 0;
@@ -2912,7 +2913,7 @@ void PlotHiggsRes2012
     // Add bkg yields and fill MVA output distributions for MVA Shape analysis
     // Apply mT_Higgs cut for MVA Shape analysis
     //----------------------------------------------------------------------------
-    bool passMVAPreselCuts = mt > mtLowerCut && mt < mtUpperCut;
+    bool passMVAPreselCuts = mt > mtLowerCutMVA && mt < mtUpperCut;
     if(mH > 250) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > 50.0;
     if(nJetsType == 2){
       int centrality = 0;
@@ -3314,7 +3315,7 @@ void PlotHiggsRes2012
     // Data yields and fill MVA output distributions for MVA Shape analysis
     // Apply mT_Higgs cut for MVA Shape analysis
     //----------------------------------------------------------------------------
-    bool passMVAPreselCuts = mt > mtLowerCut && mt < mtUpperCut;
+    bool passMVAPreselCuts = mt > mtLowerCutMVA && mt < mtUpperCut;
     if(mH > 250) passMVAPreselCuts = passMVAPreselCuts && lep1->pt() > 50.0;
     if(nJetsType == 2){
       int centrality = 0;
@@ -4690,6 +4691,7 @@ void PlotHiggsRes2012
 
     double pdf_ggH = PDFgHHSystematics(mH);
     double interf_ggH = InterfgHHSystematics(mH);
+    double sigmaWW2j = 1.0 + sqrt(0.20*0.20+0.50*0.50);
 
     double XS_QCDscale_ggH[3];
     double UEPS  = HiggsSignalPSUESystematics(mH,nJetsType);
@@ -4983,7 +4985,7 @@ void PlotHiggsRes2012
       newcardShape << Form("QCDscale_WW1in	             lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -     -     -   -     -	 -     -    -\n",XS_QCDscale_WW[1]);  
       newcardShape << Form("QCDscale_WW2in	             lnN   -     -     -     -   %5.3f   -     -     -     -     -     -     -     -     -   -     -	 -     -    -\n",XS_QCDscale_WW[2]);  
       }
-      newcardShape << Form("QCDscale_WW2j                    lnN   -     -     -     -     -     -     -     -     -     -     -     -     -     -   -     -	 -     -   1.200\n");  
+      newcardShape << Form("QCDscale_WW2j                    lnN   -     -     -     -     -     -     -     -     -     -     -     -     -     -   -     -	 -     -   %f\n",sigmaWW2j);
       newcardShape << Form("QCDscale_VV                      lnN   -     -     -     -     -     -   1.040   -     -     -     -     -     -     -   -     -	 -     -    -\n");
       newcardShape << Form("QCDscale_Vgamma                  lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -     -     -   -     -	 -     -    -\n",1.30);
       newcardShape << Form("QCDscale_ggVV                    lnN   -     -     -     -     -   1.300   -     -     -     -     -     -     -     -   -     -	 -     -    -\n");
@@ -5143,7 +5145,7 @@ void PlotHiggsRes2012
       newcardSpin << Form("QCDscale_WW1in	             lnN  -  -   -   -    -  	 -   %5.3f   -     -	 -     -     -     -	 -     -     -    -\n",XS_QCDscale_WW[1]);  
       newcardSpin << Form("QCDscale_WW2in	             lnN  -  -	   -   -    -   -   %5.3f   -     -	 -     -     -     -	 -     -     -    -\n",XS_QCDscale_WW[2]);  
       }
-      newcardSpin << Form("QCDscale_WW2j                    lnN  -    -     -     -     -     -     -     -     -     -     -     -     -     -     -   -     -	 -     -   1.200\n");  
+      newcardSpin << Form("QCDscale_WW2j                    lnN  -    -     -     -     -     -     -     -     -     -     -     -     -     -     -   -     -	 -     -   %f\n",sigmaWW2j);
       newcardSpin << Form("QCDscale_VV                      lnN  -    -   -   -    -  	-     -     -	1.040	-     -     -	  -	-     -     -    -\n");
       newcardSpin << Form("QCDscale_Vgamma                  lnN  -    -   -   -    -  	-     -     -	  -	-     -     -	%5.3f	-     -     -    -\n",1.30);
       newcardSpin << Form("QCDscale_ggVV                    lnN  -    -   -   -    -        -     -   1.300   -	-     -     -	  -	-     -     -    -\n");
@@ -5270,7 +5272,7 @@ void PlotHiggsRes2012
     newcardCut << Form("QCDscale_WW	           lnN   -     -     -     -   %5.3f   -     -     -         -     -     -     -   -     -   -     -     -     -    -\n",XS_QCDscale_WW[0]);  
     newcardCut << Form("QCDscale_WW1in             lnN   -     -     -     -   %5.3f   -     -     -         -     -     -     -   -     -   -     -     -     -    -\n",XS_QCDscale_WW[1]);  
     newcardCut << Form("QCDscale_WW2in             lnN   -     -     -     -   %5.3f   -     -     -         -     -     -     -   -     -   -     -     -     -    -\n",XS_QCDscale_WW[2]);  
-    newcardCut << Form("QCDscale_WW2j              lnN   -     -     -     -     -     -     -     -     -     -     -     -     -     -   -     -	 -     -   1.200\n");  
+    newcardCut << Form("QCDscale_WW2j              lnN   -     -     -     -     -     -     -     -     -     -     -     -     -     -   -     -	 -     -   %f\n",sigmaWW2j);
     newcardCut << Form("QCDscale_VV                lnN   -     -     -     -     -     -   1.040   -     -     -     -     -   -     -   -     -     -     -    -\n");
     newcardCut << Form("QCDscale_Vgamma            lnN   -     -     -     -     -     -     -     -     -     -   %5.3f   -   -     -   -     -     -     -    -\n",1.30);
     newcardCut << Form("QCDscale_ggVV              lnN   -     -     -     -     -   1.300   -     -     -     -     -     -   -     -   -     -     -     -    -\n");
