@@ -4672,7 +4672,7 @@ void PlotHiggsRes2011
 
     double pdf_ggH = PDFgHHSystematics(mH);
     double interf_ggH = InterfgHHSystematics(mH);
-    double sigmaWW2j = 1.0 + sqrt(0.20*0.20+0.00*0.00);
+    double sigmaWW2j = 1.0 + sqrt(0.20*0.20+0.30*0.30);
 
     double XS_QCDscale_ggH[3];
     double UEPS  = HiggsSignalPSUESystematics(mH,nJetsType);
