@@ -101,8 +101,8 @@ void PlotHiggsRes2011
 
   if(nJetsType <  2 && is2DAna == true && mH <= 250) {binVarA = 9;binVarB = 14;}
   if(nJetsType <  2 && is2DAna == true && mH  > 250) {binVarA = 8;binVarB = 10;}
-  if(nJetsType == 2 && is2DAna == true && mH <= 250) {binVarA = 1;binVarB = 14;}
-  if(nJetsType == 2 && is2DAna == true && mH  > 250) {binVarA = 1;binVarB = 14;}
+  if(nJetsType == 2 && is2DAna == true && mH <= 250) {binVarA = 1;binVarB = 10;}
+  if(nJetsType == 2 && is2DAna == true && mH  > 250) {binVarA = 1;binVarB = 10;}
   if(is2DBDT == true) {binVarA = 10; binVarB = 10;}
 
   if(isRazorAna) {binVarA = 14; binVarB = 9; usePDFTemplates = false; useExpTemplates = false;}
@@ -1042,13 +1042,13 @@ void PlotHiggsRes2011
       //theMt[0] = mt;  theMt[1] = mt_lepup;  theMt[2] = mt_lepdown; theMt[3] = mt_metup; 
     }
     if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
-      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
 
-      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
 
-      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
 
-      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       if(isRazorAna){
@@ -1638,13 +1638,13 @@ void PlotHiggsRes2011
       //theMt[0] = mt;  theMt[1] = mt_lepup;  theMt[2] = mt_lepdown; theMt[3] = mt_metup; 
     }
     if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
-      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
 
-      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
 
-      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
 
-      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       if(isRazorAna){
@@ -2596,13 +2596,13 @@ void PlotHiggsRes2011
       //theMt[0] = mt;  theMt[1] = mt_lepup;  theMt[2] = mt_lepdown; theMt[3] = mt_metup; 
     }
     if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
-      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
 
-      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
 
-      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
 
-      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       if(isRazorAna){
@@ -3160,13 +3160,13 @@ void PlotHiggsRes2011
       //theMt[0] = mt;  theMt[1] = mt_lepup;  theMt[2] = mt_lepdown; theMt[3] = mt_metup; 
     }
     if     (is2DAna == true && is2DBDT == false && nJetsType == 2) {
-      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg = Unroll2VarTo1ForqqH(dilep->mass(),theMt[0],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
 
-      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg_aux0 = Unroll2VarTo1ForqqH(mll_lepup,theMt[1],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
 
-      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg_aux1 = Unroll2VarTo1ForqqH(mll_lepdown,theMt[2],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
 
-      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0);
+      bdtg_aux2 = Unroll2VarTo1ForqqH(mll_metup,theMt[3],(*jet1+*jet2).M(),jet1->eta()*jet2->eta(),TMath::Abs(jet1->eta()-jet2->eta()),0,2011);
     }
     else if(is2DAna == true && is2DBDT == false && mH <= 250) {
       if(isRazorAna){
@@ -4672,7 +4672,7 @@ void PlotHiggsRes2011
 
     double pdf_ggH = PDFgHHSystematics(mH);
     double interf_ggH = InterfgHHSystematics(mH);
-    double sigmaWW2j = 1.0 + sqrt(0.20*0.20+0.50*0.50);
+    double sigmaWW2j = 1.0 + sqrt(0.20*0.20+0.00*0.00);
 
     double XS_QCDscale_ggH[3];
     double UEPS  = HiggsSignalPSUESystematics(mH,nJetsType);

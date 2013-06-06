@@ -9,7 +9,7 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector;
 double Unroll2VarTo1Var(double varA, double varB, int binsA, int binsB, bool verbose = false);
 double Unroll2VarTo1VarVersion2(double mll, double mt);
 double Unroll2VarTo1ForWH(double dRMin, double mTW3, int option);
-double Unroll2VarTo1ForqqH(double mll, double mt, double mjj, double eta12, double deta, int option);
+double Unroll2VarTo1ForqqH(double mll, double mt, double mjj, double eta12, double deta, int option, int year = 2012);
 double Unroll2VarTo1ForWH2l(double mll, double mt);
 TH1D* Unroll2DTo1D(TH2F* h2, const char* hname);
 TH1D * SmurfRebin(const TH1D *old, const unsigned int rebin);
@@ -255,26 +255,41 @@ double Unroll2VarTo1ForWH(double Var1, double Var2, int option){
   return val;
 }
 
-double Unroll2VarTo1ForqqH(double mll, double mt, double mjj, double eta12, double deta, int option){
+double Unroll2VarTo1ForqqH(double mll, double mt, double mjj, double eta12, double deta, int option, int year){
   double val = -1.;
   double totalBins = 14;
 
   if     (option == 0){
-    totalBins = 14;
-    if     (mll >   12 && mll <=  30) val =  1;
-    else if(mll >   30 && mll <=  45) val =  2;
-    else if(mll >   45 && mll <=  60) val =  3;
-    else if(mll >   60 && mll <=  75) val =  4;
-    else if(mll >   75 && mll <= 100) val =  5;
-    else if(mll >  100 && mll <= 125) val =  6;
-    else if(mll >  125 && mll <= 150) val =  7;
-    else if(mll >  150 && mll <= 175) val =  8;
-    else if(mll >  175 && mll <= 200) val =  9;
-    else if(mll >  200 && mll <= 250) val = 10;
-    else if(mll >  250 && mll <= 300) val = 11;
-    else if(mll >  300 && mll <= 350) val = 12;
-    else if(mll >  350 && mll <= 400) val = 13;
-    else if(mll >  400   	    ) val = 14;
+    if     (year == 2012) {
+      totalBins = 14;
+      if     (mll >   12 && mll <=  30) val =  1;
+      else if(mll >   30 && mll <=  45) val =  2;
+      else if(mll >   45 && mll <=  60) val =  3;
+      else if(mll >   60 && mll <=  75) val =  4;
+      else if(mll >   75 && mll <= 100) val =  5;
+      else if(mll >  100 && mll <= 125) val =  6;
+      else if(mll >  125 && mll <= 150) val =  7;
+      else if(mll >  150 && mll <= 175) val =  8;
+      else if(mll >  175 && mll <= 200) val =  9;
+      else if(mll >  200 && mll <= 250) val = 10;
+      else if(mll >  250 && mll <= 300) val = 11;
+      else if(mll >  300 && mll <= 350) val = 12;
+      else if(mll >  350 && mll <= 400) val = 13;
+      else if(mll >  400	      ) val = 14;
+    } 
+    else if(year == 2011) {
+      totalBins = 10;
+      if     (mll >   12 && mll <=  45) val =  1;
+      else if(mll >   45 && mll <=  75) val =  2;
+      else if(mll >   75 && mll <= 100) val =  3;
+      else if(mll >  100 && mll <= 150) val =  4;
+      else if(mll >  150 && mll <= 200) val =  5;
+      else if(mll >  200 && mll <= 250) val =  6;
+      else if(mll >  250 && mll <= 300) val =  7;
+      else if(mll >  300 && mll <= 350) val =  8;
+      else if(mll >  350 && mll <= 400) val =  9;
+      else if(mll >  400	      ) val = 10;
+    }
   }
   else if(option == 1){
     totalBins = 17;
