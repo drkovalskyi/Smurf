@@ -877,7 +877,7 @@ void ComputeDYBkgScaleFactor2011(Int_t period = 0, Bool_t useRecoilModel = kFALS
 	delete hin;
       }
 
-      if(Rll <= 0) {Rll = 0.00001; RllErrStat = 0.0; RllErrSyst = 0.0;}
+      if(Rll <= 0) {Rll = 0.10; RllErrStat = 0.10; RllErrSyst = 0.10;}
       // DO NOT ALLOW FOR MORE THAN 100% uncertainty
       if(RllErrSyst > 1.0*Rll) RllErrSyst = 1.0*Rll;
       // DO NOT ALLOW FOR LESS THAN 30% uncertainty
