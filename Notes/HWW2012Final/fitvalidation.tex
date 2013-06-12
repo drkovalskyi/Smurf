@@ -240,3 +240,160 @@ $\Delta\mu$                 & 0                 & 3\%               & 12\%      
 \end{table}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Validation of $qq\rightarrow\WW$ fit model}  
+
+In 2D analysis we rely on simulation for background shapes. 
+The most sensitive channel, 0jet DF, is dominated by $qq\rightarrow\WW$ process. 
+Therefore, it is important to confirm that our fit model (shape and normalization) 
+correctly describes data. In this section, we describe a study on this subject using two 
+control regions dominated by $qq\rightarrow\WW$ process.
+The basic idea is that if the fit model is not correct then the prediction using 
+one region may not be compatible with that using another region. To test this, 
+we use post-fit result in one control region and predict the shape and normalization 
+in another region. Following is the procedure and the result of this test. 
+
+We first select two control regions with similar statistics. It's important that 
+both regions contain similar data events so that both regions have similar statisitical 
+power to constrain backgrounds. 
+%
+\begin{figure}[!hbtp]
+\centering
+\includegraphics[width=.6\textwidth]{figures/WWctl_scheme.pdf}
+\caption{Definition of signal region(SR), and two control regions(CR1 and CR2). 
+SR is defined by $60<\mt<120~\GeV$ and $12<\mll<60~\GeV$. 
+CR1 is defined by $120<\mt<280~\GeV$ and $12<\mll<200~\GeV$ and 
+CR2 is defined by $60<\mt<120~\GeV$ and $60<\mll<200~\GeV$. }
+\label{fig:WWctlregions}
+\end{figure}
+Figure \ref{fig:WWctlregions} shows signal region(SR) which is drawn in black 
+and two control regions, CR1 and CR2, which are drawn in red and in blue, respectively. 
+SR is defined by $60<\mt<120~\GeV$ and $12<\mll<60~\GeV$. 
+CR1 is defined by $120<\mt<280~\GeV$ and $12<\mll<200~\GeV$ and 
+CR2 is defined by $60<\mt<120~\GeV$ and $60<\mll<200~\GeV$. 
+%
+\begin{table}
+\begin{center}
+\begin{tabular}{c|cccccccccc|c}
+\hline
+Region & Signal & qqWW & ggWW & VV & Top & Wjets(e) & Wjets($\mu$) & W$\gamma$ & W$\gamma$* & Ztt & Data \\
+\hline
+CR1 & 27.0  &  1321.0 & 113.2 &  46.2  &  289.6 &  54.9  &  22.4 &   6.0& 19.3 &   2.8 &1892\\
+CR2 & 13.5  & 1672.7 & 54.5   & 51.5  &  146.1 &  108.1 &  128.2 &  19.3 &   21.4  &  19.9 &   2155 \\
+Full range & 238.4 &  3969.6 & 210.6 &  132.6 &  498.7 &  282.8 &  331.8 &  115.6  & 167.8 &  46.0 &   5729 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Definition of signal region(SR), and two control regions(CR1 and CR2).} 
+\label{tab:WWctlregions_composition}
+\end{table}
+The composition of signal and backgrounds in the two control regions is summarized 
+in Table \ref{tab:WWctlregions_composition}. Both regions are dominated by $qq\rightarrow\WW$
+with purity of around 70(75)\% in CR1(2). Signal contamination is negligible (less than 1.5\%). 
+
+Because this test is only on $qq\rightarrow\WW$, other processes have to be fixed in the fit.
+We generate new cards with all processes fixed to post-fit normailzataion and shape except 
+for $qq\rightarrow\WW$ process. The post-fit normalization and shapes are from a nominal fit. 
+Hereafter, this card will be called ``full range" card. In the full range card, all nuisances for 
+$qq\rightarrow\WW$ are included, but all nuisances for other processes are dropped because they are 
+already post-fit results. 
+%
+\begin{figure}[!hbtp]
+\centering
+\includegraphics[width=1.0\textwidth]{figures/2Dshape_sanity.pdf} \\
+\includegraphics[width=.8\textwidth]{figures/1Dshape_sanity.pdf} 
+\caption{Comparison of post-fit shapes from nominal and full range fits.}
+\label{fig:sanity_fullrange}
+\end{figure}
+%
+\begin{table}
+\begin{center}
+\begin{tabular}{c|cccc}
+\hline
+Fit         & VH    & qqH   & ggH   & qqWW          \\
+\hline
+Nominal     & 4.8   & 1.9   & 144.3 &  3945.4       \\
+Full range  & 4.8   & 1.9   & 143.6 &  3947.0       \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Comparison of nomalization from nominal and full range fits.} 
+\label{tab:sanity_fullrange}
+\end{table}
+As a sanity check we compare the post-fit shape and normalization 
+using full range card with those using the nominal card in Figure \ref{fig:sanity_fullrange} and 
+Table \ref{tab:sanity_fullrange}. Both shapes and normalizations using full range card 
+are consistent with the nominal fit results. 
+
+Since the full range card has been validated, we perform two fits using only one control region.
+The fit using CR1(2) will be denoted as CR1(2) fit hereafter. In a fit using one control region, 
+the other region is removed in the card and normalization is fixed accordingly. 
+\begin{figure}[!hbtp]
+\centering
+\includegraphics[width=.8\textwidth]{figures/1Dshape_CR1_plotCR1.pdf} \\
+\includegraphics[width=.8\textwidth]{figures/1Dshape_CR2_plotCR2.pdf} 
+\caption{Comparison of post-fit shapes from the CR1(2) and full range fits in 
+red and black, respectively. Upper plots are for CR1 fit and bottom plots are 
+for CR2 fit. Plots are normalized to unit area.}
+\label{fig:sanity_fullrangeandcr}
+\end{figure}
+Figure \ref{fig:sanity_fullrangeandcr} shows post-fit \mt~and \mll~distributions  
+from CR1(2) and full range fits. Plots are normalized to unit area to compare only shapes. 
+In both fits in the two control regions, shapes are consistent with those of the full range fit.
+Using this result, we can draw one control region using the post-fit normalization  
+from the other control region. For example, we can draw CR1 by renormalizing
+post-fit qqWW distribution from full range fit to the post-fit normalization of the CR2 fit
+in CR2. Same procedure can be followed to draw CR2.
+
+\begin{figure}[!hbtp]
+\centering
+\subfigure[\mll in CR1]{
+\centering
+\label{subfig:cr1_mll}
+\includegraphics[width=.45\textwidth]{figures/mll_CR1_weightedqqww.pdf}
+}
+\subfigure[\mt in CR1]{
+\centering
+\label{subfig:cr1_mT}
+\includegraphics[width=.45\textwidth]{figures/mT_CR1_weightedqqww.pdf}
+}\\
+\subfigure[\mll in CR2]{
+\centering
+\label{subfig:cr2_mll}
+\includegraphics[width=.45\textwidth]{figures/mll_CR2_weightedqqww.pdf}
+}
+\subfigure[\mt in CR2]{
+\centering
+\label{subfig:cr2_mT}
+\includegraphics[width=.45\textwidth]{figures/mT_CR2_weightedqqww.pdf}
+}\\
+\caption{}
+\label{fig:wwctl_final}
+\end{figure}
+
+Figure \ref{fig:wwctl_final} shows \mt~and \mll~distributions in CR1 and CR2 using 
+normalizations from the other control regions. The uncertainty band is from pseudo-data 
+sets generated using the full range card. Variances in each bin of qqWW and all other 
+backgrounds are taken from full range and the nominal fits, repectively, and added in quadrature. 
+The agreement between data and prediction is measured by $\chi^2/n.d.f.$ which is 
+shown on each plot. All distributions show good agreement with data.
+This indicates that our qqWW fit model is not biased.
+%
+\begin{table}
+\begin{center}
+\begin{tabular}{c|ccc}
+\hline
+                    & full range fit    & CR1 fit   & CR2 fit   \\
+\hline
+Best-fit $\mu$      & 0.63              & 0.63      & 0.62      \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Comparison of the best-fit $\mu$ values from nominal, full range, CR1 and CR2 fits.} 
+\label{tab:bestfitmu_compare}
+\end{table}
+Table \ref{tab:bestfitmu_compare} shows the best-fit $\mu$ values from full range, 
+CR1 and CR2 fits. Using different control regions results in consistent best-fit $\mu$ values. 
+This is an another evidence that our fit model is correct. 
+
+Therefore, we conclude that our fit model for qqWW process correctly fits data.  
