@@ -262,14 +262,14 @@ power to constrain backgrounds.
 \includegraphics[width=.6\textwidth]{figures/WWctl_scheme.pdf}
 \caption{Definition of signal region(SR), and two control regions(CR1 and CR2). 
 SR is defined by $60<\mt<120~\GeV$ and $12<\mll<60~\GeV$. 
-CR1 is defined by $120<\mt<280~\GeV$ and $12<\mll<200~\GeV$ and 
+CR1 is defined by $120<\mt<280~\GeV$ and $12<\mll<200~\GeV$. 
 CR2 is defined by $60<\mt<120~\GeV$ and $60<\mll<200~\GeV$. }
 \label{fig:WWctlregions}
 \end{figure}
 Figure \ref{fig:WWctlregions} shows signal region(SR) which is drawn in black 
 and two control regions, CR1 and CR2, which are drawn in red and in blue, respectively. 
 SR is defined by $60<\mt<120~\GeV$ and $12<\mll<60~\GeV$. 
-CR1 is defined by $120<\mt<280~\GeV$ and $12<\mll<200~\GeV$ and 
+CR1 is defined by $120<\mt<280~\GeV$ and $12<\mll<200~\GeV$. 
 CR2 is defined by $60<\mt<120~\GeV$ and $60<\mll<200~\GeV$. 
 %
 \begin{table}
@@ -302,7 +302,9 @@ already post-fit results.
 \centering
 \includegraphics[width=1.0\textwidth]{figures/2Dshape_sanity.pdf} \\
 \includegraphics[width=.8\textwidth]{figures/1Dshape_sanity.pdf} 
-\caption{Comparison of post-fit shapes from nominal and full range fits.}
+\caption{Comparison of post-fit shapes of qqWW from nominal and full range fits. 
+Top plots show individual 2D shapes and ratio(Full range/Nominal). 
+Bottom plots show \mt~and \mll~projections.}
 \label{fig:sanity_fullrange}
 \end{figure}
 %
@@ -333,7 +335,7 @@ the other region is removed in the card and normalization is fixed accordingly.
 \includegraphics[width=.8\textwidth]{figures/1Dshape_CR1_plotCR1.pdf} \\
 \includegraphics[width=.8\textwidth]{figures/1Dshape_CR2_plotCR2.pdf} 
 \caption{Comparison of post-fit shapes from the CR1(2) and full range fits in 
-red and black, respectively. Upper plots are for CR1 fit and bottom plots are 
+red and black, respectively. Top plots are for CR1 fit and bottom plots are 
 for CR2 fit. Plots are normalized to unit area.}
 \label{fig:sanity_fullrangeandcr}
 \end{figure}
@@ -347,27 +349,28 @@ in CR2. Same procedure can be followed to draw CR2.
 
 \begin{figure}[!hbtp]
 \centering
-\subfigure[\mll in CR1]{
+\subfigure[\mll~in CR1]{
 \centering
 \label{subfig:cr1_mll}
 \includegraphics[width=.45\textwidth]{figures/mll_CR1_weightedqqww.pdf}
 }
-\subfigure[\mt in CR1]{
+\subfigure[\mt~in CR1]{
 \centering
 \label{subfig:cr1_mT}
 \includegraphics[width=.45\textwidth]{figures/mT_CR1_weightedqqww.pdf}
 }\\
-\subfigure[\mll in CR2]{
+\subfigure[\mll~in CR2]{
 \centering
 \label{subfig:cr2_mll}
 \includegraphics[width=.45\textwidth]{figures/mll_CR2_weightedqqww.pdf}
 }
-\subfigure[\mt in CR2]{
+\subfigure[\mt~in CR2]{
 \centering
 \label{subfig:cr2_mT}
 \includegraphics[width=.45\textwidth]{figures/mT_CR2_weightedqqww.pdf}
 }\\
-\caption{}
+\caption{\mt~and \mll~plots in CR1(top) and CR2(bottom) using normalization
+of the other control region.}
 \label{fig:wwctl_final}
 \end{figure}
 
