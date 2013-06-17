@@ -361,21 +361,23 @@ N$_{jets}$ & ggH & qqWW & Top & WjetsM & WjetsE & ggH/qqWW & ggH/Top & ggH/Wjets
 
 \subsection{Nuisance Parameters}
 
-In this subsection we summarize fit validation results in terms of nuisance parameters.
+In this subsection we summarize the fit validation studies related to nuisance parameters.
 
-The CL$_S$-LHC statistical method, used by all LHC Higgs analyses, prescribes that nuisance paramters are profiled in the fit, 
-so it is allowed to modify their central value and reduce the associated uncertainty. %fixme add reference
-It is therefore important to establish which nuisance parameters can be constrained by the fit and then to check if the fit 
+The CL$_S$-LHC statistical method, used by all LHC Higgs analyses, prescribes that nuisance parameters are profiled in the fit, 
+so that both their central value and the associated uncertainty can be varied. %fixme add reference
+It is therefore important to establish which nuisance parameters the fit has to power to constrain, and then verify that the fit 
 on data behaves as expected.
 
-The model for the study of nuisances with toy experiments is summarized in Figure~\ref{fig:nuismodel}.
+The model for the study of nuisances with toy experiments is sketched in Figure~\ref{fig:nuismodel}.
 The nuisance model in the data card is here represented by the blue gaussian (the actual model is usually a log-normal distribution).
 The central input value for this nuisance in the card correspond to $<$$nuis_{in}$$>$. 
-Toys are thrown sampling the nuisance paramters according to the input model and will also include variations 
-due to purely statistical effects. Therefore, the width of the nuisance model is $\sigma_{nuis,in} \oplus \sigma_{stat}$; 
-when statistical effects are negligile, the width reduces to $\sigma_{nuis,in}$. 
-In each toy experiment, the fit will determine a value for the nuisance $nuis_{fit}$ together with its post-fit uncertainty 
-$\sigma_{nuis,fit}$ which, in case the fit is able to constrain the parameter, can be smaller than $\sigma_{nuis,in}$.
+Toys are thrown sampling the nuisance parameters according to their pdf; according to the assumed integrated luminosity, 
+toys will also include variations of statistical nature. 
+Therefore, the width of the nuisance model is $\sigma_{nuis,in} \oplus \sigma_{stat}$, and, when statistical effects are negligible, 
+the width reduces to $\sigma_{nuis,in}$. 
+For each toy experiment, the fit will determine a value $nuis_{fit}$ for the nuisance together with its post-fit uncertainty $\sigma_{nuis,fit}$.
+In case the fit is able to constrain the parameter, $\sigma_{nuis,fit}$ will be smaller than $\sigma_{nuis,in}$; in case the fit is able to
+determine the proper value for the nuisance parameter, the pull ($nuis_{fit}$-$<$$nuis_{in}$$>$)/$\sigma_{nuis,in}$ will have mean=0 and width $\sigma_w$=1.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{figure}[!hbtp]
@@ -391,20 +393,21 @@ In this way, we learn how the fit deals with specific issues that will be also p
 
 \subsubsection{Results with Simplified Models}
 
-First we test the fit using a very simple cut based data card, 
-including only one signal process (ggH), one background process (qqWW) and one log-normal nuisance parameter 
-related to the background normalization (CMS\_hww\_0j\_WW\_8TeV) with 10\% input uncertainty  (Table~\ref{tab:modelcutbased}).
+First we test the fit using a very simple cut based data card (simplified model named v0), 
+including only one signal process (ggH), one background process (qqWW) and one log-normal nuisance parameter (CMS\_hww\_0j\_WW\_8TeV)
+corresponding to a 10\% background normalization uncertainty  (Table~\ref{tab:modelcutbased}).
 Pseudo-data are generated according to this data card; each toy is then fit using the same card, where the data 
 yield (and shape for shape-based analyses) is replaced with values from toy.
 
 As shown in Figure~\ref{fig:sm_cut}, in this case, the fit is not able to constrain the nuisance parameter: 
 the post-fit value and its uncertainty are identical to the input. 
 This is expected because in the fit the signal strength is a free parameter and therefore the 
-fit prefers to accounts all variations as to signal rather to move the nuisance parameters 
-(for which it has to pay a penalty according to the model). 
+fit prefers to account all variations to signal rather than moving the nuisance parameter (a penalty has to be paid according to the nuisance model). 
 The post-fit uncertainty on the signal strenght is about 38\%, as expected from the sum in quadrature of the statistical 
-uncertainties on signal and background and of the 10\% systematic uncertainty on the background.
-The pull for the signal strenght paramter is unbiased with width $\sigma_{w}$$\approx$1. 
+uncertainties on signal and background and the 10\% systematic uncertainty on the background.
+The pull for the signal strenght parameter is unbiased with $\sigma_{w}$$\approx$1. 
+Note that, unlike nuisance parameters, the pre-fit uncertainty is not defined for the signal strength parameter; 
+therefore, its uncertainty is expressed as an absolute value (i.e. not normalized to input) and the post-fit uncertainty is used as denominator in the pull. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{table}[!hbtp]
@@ -416,7 +419,7 @@ rate                   &     & 88.9 & 294.8 \\
 CMS\_hww\_0j\_WW\_8TeV & lnN &  -   & 1.100 \\
 \hline
 \end{tabular}
-\caption{Simplified model for cut-based analysis.}
+\caption{Simplified model for cut-based analysis v0.}
 \label{tab:modelcutbased}
 \end{center}
 \end{table}
@@ -446,17 +449,20 @@ CMS\_hww\_0j\_WW\_8TeV & lnN &  -   & 1.100 \\
 \label{subfig:sm_cut_r_0j_pull}
 \includegraphics[width=.45\textwidth]{figures/sm_cut_r_0j_pull.png}
 }
-\caption{Results for cut based simplified model.}
+\caption{Results for cut based simplified model v0. Left column shows uncertainties, right column shows pulls.
+First row is the qqWW normalization nuisance, second row is the signal strength.}
 \label{fig:sm_cut}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The second simplified model is a shape analysis (named v1). 
+The second simplified model is a shape analysis (v1). 
 Again, it includes two processes only and, in addition to the 10\% normalization uncertainty, we also consider a shape 
-uncertainty on the background (Table~\ref{tab:modelshapebased})\footnote{Note that CMS\_hww\_0j\_WW\_8TeV\_SHAPE is not a shape uncertainty but it is a normalization one used in the shape analysis. In this simple test it is log-normal (lnN), while in the full analysis it is flat (lnU).}.
+uncertainty on the background (Table~\ref{tab:modelshapebased})\footnote{Note that CMS\_hww\_0j\_WW\_8TeV\_SHAPE is not
+ a shape uncertainty but it is a normalization one used in the shape analysis. In this simple test it is log-normal (lnN), 
+while in the full analysis it is flat (lnU).}.
 
-In the shape analysis, the fit has a large control region to determine qqWW normalization and shape; 
-threfore, both the normalization and shape nuisances are constrained by the fit, with the input uncertainty reduced 
+In the shape analysis, the fit has a large control region to determine the qqWW normalization and shape; 
+threfore, both the normalization and shape nuisances are constrained by the fit, with the uncertainty reduced 
 by 80\% and 90\% respectively. The signal strength parameter has post-fit ucertainty $\sim$20\%.
 On average no bias is observed and pulls have $\sigma_{w}$$\approx$1 (see Figure~\ref{fig:sm_shapev1}).
 
@@ -474,7 +480,7 @@ CMS\_hww\_MVAWWBounding                   & shape &  -    & 1.000  \\
 CMS\_hwwof\_0j\_MVAqqWWStatBounding\_8TeV & shape &  -    & 1.000  \\
 \hline
 \end{tabular}
-\caption{Simplified model for shape-based analyses. Upper block correspond to v1, while v2 adds also the last line.}
+\caption{Simplified model for shape-based analyses. The upper block corresponds to v1, while v2 adds also the last line.}
 \label{tab:modelshapebased}
 \end{center}
 \end{table}
@@ -513,20 +519,21 @@ CMS\_hwwof\_0j\_MVAqqWWStatBounding\_8TeV & shape &  -    & 1.000  \\
 \label{subfig:sm_shapev1_r_0j_pull}
 \includegraphics[width=.45\textwidth]{figures/sm_shapev1_r_0j_pull.png}
 }
-\caption{Results for shape-based simplified model v1.}
+\caption{Results for shape-based simplified model v1. Left column shows uncertainties, right column shows pulls.
+From top to bottom, rows correspond to the qqWW normalization nuisance, the qqWW shape nuisance and the signal strength.}
 \label{fig:sm_shapev1}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-We then modifiy the simplified model (v2) by adding a second shape uncertainty, corresponding to the statistical uncertainty for 
+We then modifiy the simplified model v1 by adding a second shape uncertainty (v2), corresponding to the statistical uncertainty for 
 the background template (CMS\_hwwof\_0j\_MVAqqWWStatBounding\_8TeV). This additional unceratainty is strongly anti-correlated with the
 normalization nuisance (correlation factor = -0.75), while it is not correlated to the other shape uncertainty.
 
-Results show that the effect of the additional nuisance is that the fit has less power of determining the correlated nuisances: 
+The effect of the additional nuisance is that the fit has less power of determining the correlated nuisances: 
 in fact (see Figure~\ref{fig:sm_shapev2}) the post-fit uncertainty for the normalization nuisance is larger than in v1 and the pulls of the
-correlated nuisances have width<1. 
+correlated nuisances have $\sigma_w$$<$1. 
 The uncorrelated nuisance (CMS\_hww\_MVAWWBounding) and the signal strenght are barely affected, 
-i.e. the signal is well measured even if some nuisances are not properly constrained.
+i.e. the signal is well measured even if some nuisances are not fully constrained.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!hbtp]
@@ -571,15 +578,16 @@ i.e. the signal is well measured even if some nuisances are not properly constra
 \label{subfig:sm_shapev2_r_0j_pull}
 \includegraphics[width=.45\textwidth]{figures/sm_shapev2_r_0j_pull.png}
 }
-\caption{Results for shape-based simplified model v2.}
+\caption{Results for shape-based simplified model v2. Left column shows uncertainties, right column shows pulls.
+From top to bottom, rows correspond to the qqWW normalization nuisance, the qqWW shape nuisance, the qqWW template statistic nuisance 
+and the signal strength.}
 \label{fig:sm_shapev2}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 In summary, simplified models teach us that:
 \begin{itemize}
-\item Cut based analysis is not able to constrain the nuisances which stick to input values; 
-without shapes, all variations are accounted by signal (free to float);
+\item Cut based analysis is not able to constrain the nuisances which stick to input values; all variations are accounted by signal (free to float);
 \item Shape based analysis does constrain the nuisances, both shape and normalization ones; 
 in this case, uncertainties are reduced by 80-90\% and pulls have width $\sim$1;
 \item When many correlated nuisances are present, the fit loses constraining power and pulls may have width$<$1;
@@ -590,28 +598,31 @@ in this case, uncertainties are reduced by 80-90\% and pulls have width $\sim$1;
 
 \subsubsection{HWW Analysis Results}
 
-In this test we consider the 0-jet, DF, 8TeV, 2D shape analysis only (correlations with other channels not taken into account).
+We now validate the post-fit values for the nuisance parameters in the HWW analysis.
+In this test we consider the most sensitive channel, i.e. 0-jet, DF, 8TeV, 2D shape (correlations with other channels not taken into account).
 Pseudo-data are generated according to the corresponding data card, with the only difference that the qqWW normalization systematic is assumed to be
-log-normal with 10\% uncertainty (using flat uncertainty would lead to instability problems in toy generation).
-Each toy is then fit using the default card (i.e. flat qqWW normalization uncertainty), where the data yield and shape are replaced with those from the toy.
+log-normal with 10\% uncertainty (using flat uncertainty would lead to instability problems in the generation of toys).
+Each toy is then fitted using the default card (i.e. flat qqWW normalization uncertainty), where the data yield and shape are replaced with those from the toy.
 
-From the simplified models we expect that normalization nuisances that are not related to a specific shape are not constrained by fit, 
+From the simplified models we expect that normalization nuisances not related to a specific shape are not constrained by fit, 
 that nuisances related to the shape of dominant backgrounds are strongly constrained by the data fit and that, when many nuisances are correlated, 
 the fit constraining power is reduced.
 
-Results for all the $\sim$50 nuisance parameters in the data cards are impractical easy to present, 
+Results for all the $\sim$50 nuisance parameters in the data cards are impractical to present, 
 so we have collected a few representative cases in Figure~\ref{fig:nuis2D0jdf8Tev}.
 The nuisance related to luminosity (\ref{subfig:lumi_8TeV_0j_uncert} and \ref{subfig:lumi_8TeV_0j_central}) is a normalization uncertainties correlated 
 among all processes taken from MC. 
-In this case the fit is not able to determine the nuisance and sticks to the input values; a similar picture is observed for several other nuisances: 
+In this case the fit is not able to determine the nuisance and sticks close to the input values; a similar picture is observed for several other nuisances: 
 e.g. normalization or shape of minor backgrounds, many theoretical uncertainties.
-The WW shape uncertainty (\ref{subfig:CMS_hww_MVAWWBounding_0j_uncert} and \ref{subfig:CMS_hww_MVAWWBounding_0j_central}) is strongly constrained by the fit: 
-the uncertainty is reduced to 17\% and the pull has width not far from 1.
-WjetsE is a process that is difficult to separate from the signal: therefore, its shape (\ref{subfig:CMS_hww_MVAWEBounding_0j_uncert} 
-and \ref{subfig:CMS_hww_MVAWEBounding_0j_central}) is poorly constrained by the fit (uncertainty reduced by $\sim$6\%, pull width $\sim$0.2).
+Shape nuisances can also be poorly constrained: as an example, WjetsE (\ref{subfig:CMS_hww_MVAWEBounding_0j_uncert} and \ref{subfig:CMS_hww_MVAWEBounding_0j_central}) 
+is a process that is difficult to separate from the signal (uncertainty reduced by $\sim$6\%, pull width $\sim$0.2).
+On the contrary, the fit can constrain WW background in the high \mt\ and \mll\ regions; therefore, its shape uncertainty 
+(\ref{subfig:CMS_hww_MVAWWBounding_0j_uncert} and \ref{subfig:CMS_hww_MVAWWBounding_0j_central}) is strongly constrained by the fit, 
+having the uncertainty reduced to 17\% and a pull width not far from 1.
 The shape uncertainty related to the MET resolution (\ref{subfig:CMS_hww_MVAMETResBounding_0j_uncert} and \ref{subfig:CMS_hww_MVAMETResBounding_0j_central}) is constrained
 by the fit, with a 50\% uncertainty reduction and a pull width $\sim$0.8.
 Finally, the signal strenght, shows an average post-fit uncertainty of $\sim$25\% and a pull with mean $\sim$0.2 and width $\sim$1.0.
+The magenta line in the plots corresponds to the result of the real data fit: in all cases it is reasonably compatible with the expectation from toys.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!hbtp]
@@ -666,31 +677,32 @@ Finally, the signal strenght, shows an average post-fit uncertainty of $\sim$25\
 \label{subfig:r_0j_pull}
 \includegraphics[width=.35\textwidth]{figures/r_0j_pull.png}
 }
-\caption{Results for 0-jet, DF, 8TeV, 2D shape analysis. The vertical line in magenta corresponds to the real data result.}
+\caption{Highlights of results for 0-jet, DF, 8TeV, 2D shape analysis. The vertical line in magenta corresponds to the real data result.
+Left column shows uncertainties, right column shows pulls. From top to bottom, rows correspond to luminosity nuisance, qqWW shape nuisance, 
+WjetsE shape nuisance, MET resolution shape nuisance and signal strength.}
 \label{fig:nuis2D0jdf8Tev}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-It is worth noting that the nuisance parameters whose uncertainty is reduced by $>$30\% after the fit are WW shapes ($\sim$85\% reduction), Top shape ($\sim$70\% reduction), 
-Lepton and MET resolution ($\sim$50\% reduction).
-WW (and secondarily Top) shapes are precisely what the fit is supposed to measure (in the analysis strategy): 
-shape variations in signal-free regions are large enough that the fit can determine the correct shape.
-The fact that the fit constrains some nuisances related to experimental effects is a bit surprising and not expected.
-However, considering that such resolutions are not “directly” fitted (e.g. from the width of the Z peak) but they are convoluted with other 
-effects eventually resulting in the shape of each process in the \mt-\mll\ plane, we do not think the present fit provides a reliable measurement 
-of such quantities.
+The nuisance parameters whose uncertainty is reduced by $>$30\% after the fit are WW shapes ($\sim$85\% reduction), Top shape ($\sim$70\% reduction), 
+lepton and MET resolutions ($\sim$50\% reduction).
+The first two are expected because the analysis is designed precisely to determine WW (primarily) and Top (secondarily) in signal-free regions, 
+where the large input variations can be constrained by the fit.
+On the other hand, the fact that the fit constrains some nuisances related to experimental effects may be a bit surprising and is not expected.
+One could argue that the fit is able to measure lepton and MET resolutions with a better precision than what was provided as input.
+However, such resolutions are not “directly” fitted (e.g. from the width of the Z peak) but they convolute with other effects resulting in 
+the \mt-\mll\ shape for each process; therefore, we do not think the present fit provides a reliable measurement of such quantities.
 In any case, variations due to these effects in the signal region are very small and will not affect the main analysis result.
 In fact, we have verified that assuming different models for such nuisances (i.e. removing the experimental effect nuisances or replacing 
 the shape uncertainty with a corresponding normalization uncertainty), the final result is almost unchanged.
 
-In summary, we can observe that:
+In summary, we observe that:
 \begin{itemize}
 \item All nuisance pulls are unbiased;
-\item Many nuisances are not constrained at all by the fit (post-fit value and uncertainty are almost identical to input): 
+\item Many nuisances are not constrained at all by the fit (post-fit value and uncertainty almost identical to input): 
 these are mainly theoretical uncertainties, luminosity, minor backgrounds;
 \item Several nuisance parameters are constrained by the fit; in particular, the uncertainty on shape and normalization of main backgrounds is strongly reduced;
-\item The signal strength has an average unceratinty of 35\% and its pull has mean $\sim$0.2 and width$\approx$1;
-\item Data results in Moriond analysis are fully compatible with expectations from toys.
+\item The signal strength has an average unceratinty of 35\% and its pull has mean $\sim$0.2 and width $\approx$1;
+\item Data results are fully compatible with expectations from toys.
 \end{itemize}
-
-We thus conclude that the fit has a sound behavior
+Therefore, we can conclude that the nuisance parameters are under control in the fit.
