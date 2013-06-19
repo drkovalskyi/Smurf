@@ -1,0 +1,10 @@
+Version (CVS Tag)
+
+(1) WWFITVAL_V1 
+
+    - First commit 
+    - use only normalization of CR1(2) to get post-fit shape in CR2(1) 
+
+(2) WWFITVAL_V2 
+
+    - Actually feed nuisances from CR1(2) to get shape in CR2(1)   
