@@ -1,0 +1,19 @@
+imax 1 number of channels
+jmax * number of background
+kmax * number of nuisance parameters
+Observation 3574
+shapes *   *   /home/users/jaehyeok/HWW/Analysis/DYcode/CMSSW_5_3_2_patch4/src/Smurf/LimitCalc/WWctl_Fit/125/hwwof_0j.input_8TeV_CR1.root  histo_new_$PROCESS histo_new_$PROCESS_$SYSTEMATIC
+shapes data_obs * /home/users/jaehyeok/HWW/Analysis/DYcode/CMSSW_5_3_2_patch4/src/Smurf/LimitCalc/WWctl_Fit/125/hwwof_0j.input_8TeV_CR1.root  histo_new_Data
+bin                               j0of  j0of  j0of  j0of  j0of  j0of  j0of  j0of  j0of  j0of  j0of  j0of j0of j0of
+process                            ZH    WH   qqH   ggH   qqWW   ggWW  VV    Top  Zjets WjetsE Wgamma Wg3l  Ztt  WjetsM
+process                            -3    -2    -1    0      1     2     3     4     5     6     7    8      9    10
+rate                             1.021 2.769 1.790 136.922 2296.943 207.875 81.932 299.924 0.000 150.498 87.968 117.457 26.464 167.381 
+CMS_hww_0j_WW_8TeV_SHAPE               lnU     -     -     -     -   2.000   -     -     -     -     -     -     -     -    -
+CMS_hww_MVAWWBounding                  shape   -     -     -     -    1.0    -     -     -     -     -     -     -     -    -
+CMS_hww_MVAWWNLOBounding               shape   -     -     -     -    1.0    -     -     -     -     -     -     -     -    -
+CMS_hww_MVAJESBounding                 shape   -     -     -     -    1.0    -     -     -     -     -     -     -     -    -
+CMS_hww_MVALepEffBounding              shape   -     -     -     -    1.0    -     -     -     -     -     -     -     -    -
+CMS_hww_MVALepResBounding              shape   -     -     -     -    1.0    -     -     -     -     -     -     -     -    -
+CMS_hww_MVAMETResBounding              shape   -     -     -     -    1.0    -     -     -     -     -     -     -     -    -
+CMS_hww_PDFqqWW                        shape   -     -     -     -    1.0    -     -     -     -     -     -     -     -    -
+CMS_hwwof_0j_MVAqqWWStatBounding_8TeV  shape   -     -     -     -    1.0    -     -     -     -     -     -     -     -    -
