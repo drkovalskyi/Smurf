@@ -329,45 +329,31 @@ are consistent with the nominal fit results.
 
 Since the full range card has been validated, we perform two fits using only one control region.
 The fit using CR1(2) will be denoted as CR1(2) fit hereafter. In a fit using one control region, 
-the other region is removed in the card and normalization is fixed accordingly. 
-\begin{figure}[!hbtp]
-\centering
-\includegraphics[width=.8\textwidth]{figures/1Dshape_CR1_plotCR1.pdf} \\
-\includegraphics[width=.8\textwidth]{figures/1Dshape_CR2_plotCR2.pdf} 
-\caption{Comparison of post-fit shapes from the CR1(2) and full range fits in 
-red and black, respectively. Top plots are for CR1 fit and bottom plots are 
-for CR2 fit. Plots are normalized to unit area.}
-\label{fig:sanity_fullrangeandcr}
-\end{figure}
-Figure \ref{fig:sanity_fullrangeandcr} shows post-fit \mt~and \mll~distributions  
-from CR1(2) and full range fits. Plots are normalized to unit area to compare only shapes. 
-In both fits in the two control regions, shapes are consistent with those of the full range fit.
-Using this result, we can draw one control region using the post-fit normalization  
-from the other control region. For example, we can draw CR1 by renormalizing
-post-fit qqWW distribution from full range fit to the post-fit normalization of the CR2 fit
-in CR2. Same procedure can be followed to draw CR2.
+the other region is removed in the card and normalization is modified accordingly.
+Then, the post-fit nuisances from CR1(2) are fed into the full range model to obtain the 
+shape in CR2(1).  
 
 \begin{figure}[!hbtp]
 \centering
 \subfigure[\mll~in CR1]{
 \centering
 \label{subfig:cr1_mll}
-\includegraphics[width=.45\textwidth]{figures/mll_CR1_weightedqqww.pdf}
+\includegraphics[width=.45\textwidth]{figures/mll_CR1.pdf}
 }
 \subfigure[\mt~in CR1]{
 \centering
 \label{subfig:cr1_mT}
-\includegraphics[width=.45\textwidth]{figures/mT_CR1_weightedqqww.pdf}
+\includegraphics[width=.45\textwidth]{figures/mT_CR1.pdf}
 }\\
 \subfigure[\mll~in CR2]{
 \centering
 \label{subfig:cr2_mll}
-\includegraphics[width=.45\textwidth]{figures/mll_CR2_weightedqqww.pdf}
+\includegraphics[width=.45\textwidth]{figures/mll_CR2.pdf}
 }
 \subfigure[\mt~in CR2]{
 \centering
 \label{subfig:cr2_mT}
-\includegraphics[width=.45\textwidth]{figures/mT_CR2_weightedqqww.pdf}
+\includegraphics[width=.45\textwidth]{figures/mT_CR2.pdf}
 }\\
 \caption{\mt~and \mll~plots in CR1(top) and CR2(bottom) using normalization
 of the other control region.}
@@ -375,7 +361,7 @@ of the other control region.}
 \end{figure}
 
 Figure \ref{fig:wwctl_final} shows \mt~and \mll~distributions in CR1 and CR2 using 
-normalizations from the other control regions. The uncertainty band is from pseudo-data 
+fit result from the other control regions. The uncertainty band is from pseudo-data 
 sets generated using the full range card. Variances in each bin of qqWW and all other 
 backgrounds are taken from full range and the nominal fits, repectively, and added in quadrature. 
 The agreement between data and prediction is measured by $\chi^2/n.d.f.$ which is 
