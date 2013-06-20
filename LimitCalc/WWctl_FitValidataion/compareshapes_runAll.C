@@ -310,29 +310,20 @@ float Chi2(TH1F* h_data, TH1F* h_mc, bool dochi2ndf=true) {
 //
 // main function
 //
-void compareshapes(bool doreweightww=true, char* plotregion="CR1") {
+void compareshapes(char* plotregion="CR1") {
   
-    //bool doreweightww = true;
     int njet = 0;
     char* binsize       = "15-25 GeV";
     char* flavor        = "of";
     char* energy        = "8tev"; 
-    //char* plotregion    = "CR2";
-    char* normregion    = "CR2";
-    if(plotregion=="CR2") normregion = "CR1";
    
 
     cout << "** plot region : " <<  plotregion << endl;
-    cout << "** norm region : " <<  normregion << endl;
 
-    //TFile* postFile_default = TFile::Open("output/fit_default_new1-fit-125-all_fittedShape_floatMu.root"); 
-    //TFile* postFile_fornorm = TFile::Open(Form("output/fit_%s-fit-125-all_fittedShape_floatMu.root", normregion)); 
-    //TFile* rootfile_default = TFile::Open("125/hwwof_0j.input_8TeV.root");
-    TFile* postFile_default = TFile::Open("newdefault_fittedShape_floatMu.root"); 
-    TFile* postFile_fornorm = TFile::Open(Form("%s_fittedShape_floatMu.root", normregion)); 
+    TFile* postFile     = TFile::Open(Form("newdefault_using%sfit_fittedShape_floatMu.root",plotregion)); 
     TFile* rootfile_default = TFile::Open("125/hwwof_0j.input_8TeV.root");
 
-    TH1F *h1post_qqWW, *h1post_qqWW_fornorm;
+    TH1F *h1post_qqWW;
     TH1F *h1_mll_qqWW, *h1_mT_qqWW;
     TH1F *h1post_ZH, *h1post_WH, *h1post_qqH, *h1post_ggH, 
          *h1post_ggWW, *h1post_VV, *h1post_Top, 
@@ -356,31 +347,29 @@ void compareshapes(bool doreweightww=true, char* plotregion="CR1") {
          *h1_mT_data;  
 
     // get qqWW for nominal and control fit 
-    h1post_qqWW_default     = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_qqWW", njet, flavor, "")));   
-    h1post_qqWW_fornorm     = makeHistogram( (TGraphAsymmErrors*) postFile_fornorm->Get(Form("j%i%s%s_qqWW", njet, flavor, "")));   
+    h1post_qqWW     = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_qqWW", njet, flavor, "")));   
     
     // get other processes from nominal fit 
-    h1post_ZH       = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_ZH", njet, flavor, "")));   
-    h1post_WH       = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_WH", njet, flavor, "")));   
-    h1post_qqH      = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_qqH", njet, flavor, "")));   
-    h1post_ggH      = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_ggH", njet, flavor, "")));   
-    h1post_qqWW     = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_qqWW", njet, flavor, "")));   
-    h1post_ggWW     = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_ggWW", njet, flavor, "")));   
-    h1post_VV       = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_VV", njet, flavor, "")));   
-    h1post_Top      = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_Top", njet, flavor, "")));   
-    h1post_Zjets    = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_Zjets", njet, flavor, "")));   
-    h1post_WjetsE   = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_WjetsE", njet, flavor, "")));   
-    h1post_WjetsM   = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_WjetsM", njet, flavor, "")));   
-    h1post_Wgamma   = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_Wgamma", njet, flavor, "")));   
-    h1post_Wg3l     = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_Wg3l", njet, flavor, "")));   
-    h1post_Ztt      = makeHistogram( (TGraphAsymmErrors*) postFile_default->Get(Form("j%i%s%s_Ztt", njet, flavor, "")));   
+    h1post_ZH       = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_ZH", njet, flavor, "")));   
+    h1post_WH       = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_WH", njet, flavor, "")));   
+    h1post_qqH      = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_qqH", njet, flavor, "")));   
+    h1post_ggH      = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_ggH", njet, flavor, "")));   
+    h1post_qqWW     = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_qqWW", njet, flavor, "")));   
+    h1post_ggWW     = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_ggWW", njet, flavor, "")));   
+    h1post_VV       = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_VV", njet, flavor, "")));   
+    h1post_Top      = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_Top", njet, flavor, "")));   
+    h1post_Zjets    = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_Zjets", njet, flavor, "")));   
+    h1post_WjetsE   = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_WjetsE", njet, flavor, "")));   
+    h1post_WjetsM   = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_WjetsM", njet, flavor, "")));   
+    h1post_Wgamma   = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_Wgamma", njet, flavor, "")));   
+    h1post_Wg3l     = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_Wg3l", njet, flavor, "")));   
+    h1post_Ztt      = makeHistogram( (TGraphAsymmErrors*) postFile->Get(Form("j%i%s%s_Ztt", njet, flavor, "")));   
     
     // get data
     h1_data         = (TH1F*)rootfile_default->Get("histo_Data"); 
 
     // make 2d  
-    h2post_qqWW         = Roll1DTo2D(h1post_qqWW_default); 
-    h2post_qqWW_fornorm = Roll1DTo2D(h1post_qqWW_fornorm); 
+    h2post_qqWW         = Roll1DTo2D(h1post_qqWW); 
 
     h2post_ZH       = Roll1DTo2D(h1post_ZH); 
     h2post_WH       = Roll1DTo2D(h1post_WH); 
@@ -397,21 +386,6 @@ void compareshapes(bool doreweightww=true, char* plotregion="CR1") {
     h2post_Ztt      = Roll1DTo2D(h1post_Ztt); 
     
     h2_data         = Roll1DTo2D(h1_data); 
-
-    //
-    // renormalize qqWW using the other control regions  
-    //
-    if(plotregion == "CR1") {
-        float qqww_normCR2  = h2post_qqWW_fornorm->Integral(1,6,4,9); 
-        float qqww          = h2post_qqWW->Integral(1,6,4,9); 
-        cout << "scale in CR2 : " << qqww_normCR2 << " / " << qqww << endl; 
-        if(doreweightww) h2post_qqWW->Scale(qqww_normCR2/qqww);
-    } else { 
-        float qqww_normCR1  = h2post_qqWW_fornorm->Integral(7,14,1,9);  
-        float qqww          = h2post_qqWW->Integral(7,14,1,9); 
-        cout << "scale in CR1 : " << qqww_normCR1 << " / " << qqww << endl; 
-        if(doreweightww) h2post_qqWW->Scale(qqww_normCR1/qqww);
-    }
 
     //
     // project all process to mT and mll in the control region
@@ -649,7 +623,7 @@ void compareshapes(bool doreweightww=true, char* plotregion="CR1") {
     tex_ch->Draw("SAME");
     tex_plotregion->Draw("SAME"); 
     tex_chi2ndf_mll->Draw("SAME");
-    c_mll->Print(Form("mll_%s_%s.pdf", plotregion, doreweightww?"weightedqqww":"unweightedqqww")); 
+    c_mll->Print(Form("mll_%s.pdf", plotregion)); 
 
     TCanvas *c_mT = new TCanvas("mT","mT",600,500);
     c_mT->cd();
@@ -675,7 +649,7 @@ void compareshapes(bool doreweightww=true, char* plotregion="CR1") {
     tex_plotregion->Draw("SAME");
     tex_chi2ndf_mT->Draw("SAME");
 
-    c_mT->Print(Form("mT_%s_%s.pdf", plotregion, doreweightww?"weightedqqww":"unweightedqqww")); 
+    c_mT->Print(Form("mT_%s.pdf", plotregion)); 
 
 //    delete c_mT;
 //    delete c_mll; 
@@ -683,8 +657,6 @@ void compareshapes(bool doreweightww=true, char* plotregion="CR1") {
 
 void compareshapes_runAll() {
 
-    compareshapes(true, "CR1");
-    compareshapes(true, "CR2");
-//    compareshapes(false, "CR1");
-//    compareshapes(false, "CR2");
+    compareshapes("CR1");
+    compareshapes("CR2");
 }

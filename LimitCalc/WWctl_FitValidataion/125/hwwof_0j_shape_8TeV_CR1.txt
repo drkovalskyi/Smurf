@@ -2,8 +2,8 @@ imax 1 number of channels
 jmax * number of background
 kmax * number of nuisance parameters
 Observation 3574
-shapes *   *   /home/users/jaehyeok/HWW/Analysis/DYcode/CMSSW_5_3_2_patch4/src/Smurf/LimitCalc/WWctl_Fit/125/hwwof_0j.input_8TeV_CR1.root  histo_new_$PROCESS histo_new_$PROCESS_$SYSTEMATIC
-shapes data_obs * /home/users/jaehyeok/HWW/Analysis/DYcode/CMSSW_5_3_2_patch4/src/Smurf/LimitCalc/WWctl_Fit/125/hwwof_0j.input_8TeV_CR1.root  histo_new_Data
+shapes *   *   /home/users/jaehyeok/HWW/Analysis/DYcode/CMSSW_5_3_2_patch4/src/Smurf/LimitCalc/WWctl_FitValidataion/125/hwwof_0j.input_8TeV_CR1.root  histo_new_$PROCESS histo_new_$PROCESS_$SYSTEMATIC
+shapes data_obs * /home/users/jaehyeok/HWW/Analysis/DYcode/CMSSW_5_3_2_patch4/src/Smurf/LimitCalc/WWctl_FitValidataion/125/hwwof_0j.input_8TeV_CR1.root  histo_new_Data
 bin                               j0of  j0of  j0of  j0of  j0of  j0of  j0of  j0of  j0of  j0of  j0of  j0of j0of j0of
 process                            ZH    WH   qqH   ggH   qqWW   ggWW  VV    Top  Zjets WjetsE Wgamma Wg3l  Ztt  WjetsM
 process                            -3    -2    -1    0      1     2     3     4     5     6     7    8      9    10

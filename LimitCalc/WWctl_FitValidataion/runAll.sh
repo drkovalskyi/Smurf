@@ -32,17 +32,15 @@ root -b -q remakecards.C\(3\) # CR2
 ../fixPath.pl 125 
 
 ../../../LandS/test/lands.exe --bDumpFitResults -M ScanningMuFit --scanRs 1 -vR 0  --minuitSTRATEGY 1 --maximumFunctionCallsInAFit 50000 --name newdefault -d 125/hwwof_0j_shape_8TeV_newdefault.txt
-rm newdefault_nominalShape.root
-rm newdefault_maxllfit.root
-rm newdefault_fittedShape_mu0.root
-../../../LandS/test/lands.exe --bDumpFitResults -M ScanningMuFit --scanRs 1 -vR 0  --minuitSTRATEGY 1 --maximumFunctionCallsInAFit 50000 --name CR1 -d 125/hwwof_0j_shape_8TeV_CR1.txt
-rm CR1_CR1Shape.root
-rm CR1_maxllfit.root
-rm CR2_fittedShape_mu0.root
-../../../LandS/test/lands.exe --bDumpFitResults -M ScanningMuFit --scanRs 1 -vR 0  --minuitSTRATEGY 1 --maximumFunctionCallsInAFit 50000 --name CR2 -d 125/hwwof_0j_shape_8TeV_CR2.txt
-rm CR2_nominalShape.root
-rm CR2_maxllfit.root
-rm CR2_fittedShape_mu0.root
+../../../LandS/test/lands.exe --bDumpFitResults -M ScanningMuFit --scanRs 1 -vR 0  --minuitSTRATEGY 1 --maximumFunctionCallsInAFit 50000 --name CR1 -d 125/hwwof_0j_shape_8TeV_CR1.txt > log_CR1.txt 2>&1
+../../../LandS/test/lands.exe --bDumpFitResults -M ScanningMuFit --scanRs 1 -vR 0  --minuitSTRATEGY 1 --maximumFunctionCallsInAFit 50000 --name CR2 -d 125/hwwof_0j_shape_8TeV_CR2.txt > log_CR2.txt 2>&1
+
+../../../LandS/test/lands.exe --bDumpFitResults -M ScanningMuFit --scanRs 1 -vR 0  --minuitSTRATEGY 1 --maximumFunctionCallsInAFit 50000 --name newdefault_usingCR1fit -d 125/hwwof_0j_shape_8TeV_newdefault.txt  --ManualNuisanceFeeding log_CR1.txt
+../../../LandS/test/lands.exe --bDumpFitResults -M ScanningMuFit --scanRs 1 -vR 0  --minuitSTRATEGY 1 --maximumFunctionCallsInAFit 50000 --name newdefault_usingCR2fit -d 125/hwwof_0j_shape_8TeV_newdefault.txt  --ManualNuisanceFeeding log_CR2.txt
+
+rm *_nominalShape.root
+rm *_maxllfit.root
+rm *_fittedShape_mu0.root
 
 ####################################################################################
 # Step 2: generate toys 

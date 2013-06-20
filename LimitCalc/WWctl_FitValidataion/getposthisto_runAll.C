@@ -195,40 +195,31 @@ TH2F* CloneTH2F(TH2F* h2, char* title="", int toynumber){
 //
 void getpostqqWW(char* histofile, int toynumber=0, char* TESTNAME) {
   
-    TFile* postFile_newdefault = TFile::Open(Form("fitoutput_%s/fit_newdefault_%i_fittedShape_floatMu.root", TESTNAME, toynumber)); 
-    TFile* postFile_CR1 = TFile::Open(Form("fitoutput_%s/fit_CR1_%i_fittedShape_floatMu.root", TESTNAME, toynumber)); 
-    TFile* postFile_CR2 = TFile::Open(Form("fitoutput_%s/fit_CR2_%i_fittedShape_floatMu.root", TESTNAME, toynumber)); 
+    TFile* postFile_CR1 = TFile::Open(Form("fitoutput_%s/fit_newdefault_usingCR1_%i_fittedShape_floatMu.root", TESTNAME, toynumber)); 
+    TFile* postFile_CR2 = TFile::Open(Form("fitoutput_%s/fit_newdefault_usingCR2_%i_fittedShape_floatMu.root", TESTNAME, toynumber)); 
     
-    TH1F *h1post_qqWW_newdefault, *h1post_qqWW_CR1, *h1post_qqWW_CR2;
-    TH2F *h2post_qqWW_newdefault, *h2post_qqWW_CR1, *h2post_qqWW_CR2;
-    TH2F *h2post_qqWW_newdefault_renormbyCR1, *h2post_qqWW_newdefault_renormbyCR2;
+    TH1F *h1post_qqWW_CR1, *h1post_qqWW_CR2;
+    TH2F *h2post_qqWW_CR1, *h2post_qqWW_CR2;
 
     // get qqWW for nominal and control fit 
-    h1post_qqWW_newdefault  = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_qqWW"));   
     h1post_qqWW_CR1         = makeHistogram( (TGraphAsymmErrors*) postFile_CR1->Get("j0of_qqWW"));   
     h1post_qqWW_CR2         = makeHistogram( (TGraphAsymmErrors*) postFile_CR2->Get("j0of_qqWW"));   
     
     // make 2d  
-    h2post_qqWW_newdefault  = Roll1DTo2D(h1post_qqWW_newdefault);
-    h2post_qqWW_newdefault->SetTitle("h2post_qqWW_newdefault");
-    h2post_qqWW_newdefault->SetName("h2post_qqWW_newdefault");
     h2post_qqWW_CR1         = Roll1DTo2D(h1post_qqWW_CR1); 
+    h2post_qqWW_CR1->SetTitle(Form("h2post_qqWW_CR1_%i",toynumber));   h2post_qqWW_CR1->SetName(Form("h2post_qqWW_CR1_%i",toynumber));
     h2post_qqWW_CR2         = Roll1DTo2D(h1post_qqWW_CR2); 
-    h2post_qqWW_newdefault_renormbyCR1 = CloneTH2F(h2post_qqWW_newdefault,"h2post_qqWW_newdefault_renormbyCR1", toynumber); 
-    h2post_qqWW_newdefault_renormbyCR2 = CloneTH2F(h2post_qqWW_newdefault,"h2post_qqWW_newdefault_renormbyCR2", toynumber);
+    h2post_qqWW_CR2->SetTitle(Form("h2post_qqWW_CR2_%i",toynumber));   h2post_qqWW_CR2->SetName(Form("h2post_qqWW_CR2_%i",toynumber));
 
     if(0) { // debug 
-        cout << h2post_qqWW_newdefault->Integral(1,6,1,3) << endl;
         cout << h2post_qqWW_CR1->Integral(1,6,1,3) << endl;
         cout << h2post_qqWW_CR2->Integral(1,6,1,3) << endl;
 
-        TCanvas *c_debug = new TCanvas("c_debug", "c_debug", 1200, 400); 
-        c_debug->Divide(3,1); 
+        TCanvas *c_debug = new TCanvas("c_debug", "c_debug", 800, 400); 
+        c_debug->Divide(2,1); 
         c_debug->cd(1);
-        h2post_qqWW_newdefault->Draw("colz");
-        c_debug->cd(2);
         h2post_qqWW_CR1->Draw("colz");
-        c_debug->cd(3);
+        c_debug->cd(2);
         h2post_qqWW_CR2->Draw("colz");
 
         c_debug->Print(Form("/home/users/jaehyeok/public_html/misc/2d_debug_%i.pdf", toynumber));
@@ -237,34 +228,13 @@ void getpostqqWW(char* histofile, int toynumber=0, char* TESTNAME) {
     }
 
     
-    //
-    // renormalize qqWW using the other control regions  
-    //
-    float qqww_CR1_normCR1  = h2post_qqWW_CR1->Integral(7,14,1,9); 
-    float qqww_newdefault_normCR1  = h2post_qqWW_newdefault_renormbyCR1->Integral(7,14,1,9); 
-    h2post_qqWW_newdefault_renormbyCR1->Scale(qqww_CR1_normCR1/qqww_newdefault_normCR1);    
-
-    float qqww_CR2_normCR2  = h2post_qqWW_CR2->Integral(1,6,4,9); 
-    float qqww_newdefault_normCR2  = h2post_qqWW_newdefault_renormbyCR2->Integral(1,6,4,9); 
-    h2post_qqWW_newdefault_renormbyCR2->Scale(qqww_CR2_normCR2/qqww_newdefault_normCR2);    
-
-    if(0) { // debug 
-        cout << "newdefault       : " << h2post_qqWW_newdefault->Integral(1,6,1,3) << endl;
-        cout << "CR1              : " << h2post_qqWW_CR1->Integral(1,6,1,3) << endl;
-        cout << "CR2              : " << h2post_qqWW_CR2->Integral(1,6,1,3) << endl;
-        cout << "renorm using CR1 : " << h2post_qqWW_newdefault_renormbyCR1->Integral(1,6,1,3) << endl;
-        cout << "renorm using CR2 : " << h2post_qqWW_newdefault_renormbyCR2->Integral(1,6,1,3) << endl;
-    } 
-    
     TFile *outputrootfile = new TFile(histofile, "UPDATE");
     gROOT->cd();
     outputrootfile->cd();
-    h2post_qqWW_newdefault->SetDirectory(0); h2post_qqWW_newdefault->Write();
-    h2post_qqWW_newdefault_renormbyCR1->SetDirectory(0); h2post_qqWW_newdefault_renormbyCR1->Write();
-    h2post_qqWW_newdefault_renormbyCR2->SetDirectory(0); h2post_qqWW_newdefault_renormbyCR2->Write();
+    h2post_qqWW_CR1->SetDirectory(0); h2post_qqWW_CR1->Write();
+    h2post_qqWW_CR2->SetDirectory(0); h2post_qqWW_CR2->Write();
     outputrootfile->Close();
 
-    postFile_newdefault->Close();
     postFile_CR1->Close(); 
     postFile_CR2->Close();  
     
@@ -272,7 +242,7 @@ void getpostqqWW(char* histofile, int toynumber=0, char* TESTNAME) {
 
 void getpostbkg(char* histofile, int toynumber=0, char* TESTNAME) {
 
-    TFile* postFile_newdefault = TFile::Open(Form("fitoutput_%s/fit_%i_fittedShape_floatMu.root", TESTNAME, toynumber)); 
+    TFile* postFile_nominal = TFile::Open(Form("fitoutput_%s/fit_%i_fittedShape_floatMu.root", TESTNAME, toynumber)); 
     
     TH1F *h1post_ZH, *h1post_WH, *h1post_qqH, *h1post_ggH, *h1post_ggWW, *h1post_VV, *h1post_Top,
          *h1post_Zjets, *h1post_WjetsE, *h1post_WjetsM, *h1post_Wgamma, *h1post_Wg3l, *h1post_Ztt;
@@ -280,19 +250,19 @@ void getpostbkg(char* histofile, int toynumber=0, char* TESTNAME) {
          *h2post_Zjets, *h2post_WjetsE, *h2post_WjetsM, *h2post_Wgamma, *h2post_Wg3l, *h2post_Ztt;
     TH2F *h2post_bkg;
 
-    h1post_ZH     = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_ZH"));     
-    h1post_WH     = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_WH"));     
-    h1post_qqH    = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_qqH"));    
-    h1post_ggH    = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_ggH"));    
-    h1post_ggWW   = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_ggWW"));   
-    h1post_VV     = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_VV"));     
-    h1post_Top    = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_Top"));    
-    h1post_Zjets  = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_Zjets"));    
-    h1post_WjetsE = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_WjetsE")); 
-    h1post_WjetsM = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_WjetsM")); 
-    h1post_Wgamma = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_Wgamma")); 
-    h1post_Wg3l   = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_Wg3l"));   
-    h1post_Ztt    = makeHistogram( (TGraphAsymmErrors*) postFile_newdefault->Get("j0of_Ztt"));    
+    h1post_ZH     = makeHistogram( (TGraphAsymmErrors*) postFile_nominal->Get("j0of_ZH"));     
+    h1post_WH     = makeHistogram( (TGraphAsymmErrors*) postFile_nominal->Get("j0of_WH"));     
+    h1post_qqH    = makeHistogram( (TGraphAsymmErrors*) postFile_nominal->Get("j0of_qqH"));    
+    h1post_ggH    = makeHistogram( (TGraphAsymmErrors*) postFile_nominal->Get("j0of_ggH"));    
+    h1post_ggWW   = makeHistogram( (TGraphAsymmErrors*) postFile_nominal->Get("j0of_ggWW"));   
+    h1post_VV     = makeHistogram( (TGraphAsymmErrors*) postFile_nominal->Get("j0of_VV"));     
+    h1post_Top    = makeHistogram( (TGraphAsymmErrors*) postFile_nominal->Get("j0of_Top"));    
+    h1post_Zjets  = makeHistogram( (TGraphAsymmErrors*) postFile_nominal->Get("j0of_Zjets"));    
+    h1post_WjetsE = makeHistogram( (TGraphAsymmErrors*) postFile_nominal->Get("j0of_WjetsE")); 
+    h1post_WjetsM = makeHistogram( (TGraphAsymmErrors*) postFile_nominal->Get("j0of_WjetsM")); 
+    h1post_Wgamma = makeHistogram( (TGraphAsymmErrors*) postFile_nominal->Get("j0of_Wgamma")); 
+    h1post_Wg3l   = makeHistogram( (TGraphAsymmErrors*) postFile_nominal->Get("j0of_Wg3l"));   
+    h1post_Ztt    = makeHistogram( (TGraphAsymmErrors*) postFile_nominal->Get("j0of_Ztt"));    
 
     h2post_ZH       = Roll1DTo2D(h1post_ZH);
     h2post_WH       = Roll1DTo2D(h1post_WH);
