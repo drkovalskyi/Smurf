@@ -1,6 +1,16 @@
 #!/bin/sh  
 
 ####################################################################################
+# Step 0: replace lands.cc in LandS 
+#   - This is for manually feeding nuisances to get post-fit shape 
+#   - I added  "--ManualNuisanceFeeding" option 
+####################################################################################
+cp lands.cc ../../../LandS/test 
+cd ../../../LandS
+make 
+cd -
+
+####################################################################################
 # Step 1: make cards with prefit qqWW + postfit others and only qqWW syst 
 #
 # make 3 sets of cards : 

@@ -7,4 +7,7 @@ Version (CVS Tag)
 
 (2) WWFITVAL_V2 
 
+    - lands.cc should be copied from this directory to LandS/test 
+    - New lands.cc has option to take nuisances from a fit using CR1(2) and to extract post-fit results in CR2(1)
     - Actually feed nuisances from CR1(2) to get shape in CR2(1)   
+    - all scripts fixed to adopt this change
