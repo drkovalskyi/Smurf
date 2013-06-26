@@ -3389,6 +3389,9 @@ void PlotHiggsRes2012
   //
   //****************************************************************************
 
+  for(int i=0; i<nChan; i++) {
+    if(nBgdCutDecays[i] < 0.0) nBgdCutDecays[i] = 0.0;
+  }
   printf("--- Finished Data loop\n");
   printf("---\tacceptedSPresel  %8.3f +/- %8.3f events\n",nSigAcc[0],nSigEAcc[0]);
   printf("---\tacceptedSCuts    %8.3f +/- %8.3f events\n",nSigCut[0],nSigECut[0]);
