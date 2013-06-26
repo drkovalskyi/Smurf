@@ -167,7 +167,7 @@ void PlotHiggsRes2012
   float mtLowerCutMVA = mtLowerCut;
 
   if     (nJetsType == 2 && useMLLMt == false){
-    mtLowerCut  = 30; mtLowerCutMVA = 50;
+    mtLowerCut  = 30; mtLowerCutMVA = 30;
     mtUpperCut  = mH;
     dilmass_cut = 600;
   } 
