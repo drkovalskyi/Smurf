@@ -753,6 +753,16 @@ void PlotHiggsRes2012
   TH1D* histo_ggH_CMS_hww_MVAggHBoundingUp = new TH1D( Form("histo_ggH_CMS_hww_MVAggHBoundingUp"), Form("histo_ggH_CMS_hww_MVAggHBoundingUp"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAggHBoundingUp->Sumw2();
   TH1D* histo_ggH_CMS_hww_MVAggHBoundingDown = new TH1D( Form("histo_ggH_CMS_hww_MVAggHBoundingDown"), Form("histo_ggH_CMS_hww_MVAggHBoundingDown"), nBinHis, minHis[1], maxHis[1]); histo_ggH_CMS_hww_MVAggHBoundingDown->Sumw2();
 
+  const int nBinMLL = 10;
+  Float_t xbins[nBinMLL+1] = {12,30,45,60,75,100,125,150,175,200,250}; // {12,30,45,60,75,100,125,150,175,200,250,300,350,400,600}
+  TH1D* HISTOS = new TH1D("HISTOS", "HISTOS", nBinMLL, xbins); HISTOS->Sumw2();
+  TH1D* HISTO0 = new TH1D("HISTO0", "HISTO0", nBinMLL, xbins); HISTO0->Sumw2();
+  TH1D* HISTO1 = new TH1D("HISTO1", "HISTO1", nBinMLL, xbins); HISTO1->Sumw2();
+  TH1D* HISTO2 = new TH1D("HISTO2", "HISTO2", nBinMLL, xbins); HISTO2->Sumw2();
+  TH1D* HISTO3 = new TH1D("HISTO3", "HISTO3", nBinMLL, xbins); HISTO3->Sumw2();
+  TH1D* HISTO4 = new TH1D("HISTO4", "HISTO4", nBinMLL, xbins); HISTO4->Sumw2();
+  TH1D* HISTO5 = new TH1D("HISTO5", "HISTO5", nBinMLL, xbins); HISTO5->Sumw2();
+
   TH1D* histoS = new TH1D("histoS", "histoS", 40, -1, 1);
   TH1D* histoS2 = new TH1D("histoS2", "histoS2", 40, -1, 1);
   TH1D* histoB = new TH1D("histoB", "histoB", 40, -1, 1);
@@ -1276,6 +1286,7 @@ void PlotHiggsRes2012
       nSigAcc[nSigBin]  = nSigAcc[nSigBin]  + myWeight;
       nSigEAcc[nSigBin] = nSigEAcc[nSigBin] + myWeight*myWeight;
 
+      HISTOS->Fill(TMath::Min(dilep->M(),599.999),myWeight);
       if     (useVar == 0) histos   ->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),       myWeight);
       else if(useVar == 1) histos   ->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),       myWeight);
       else if(useVar == 2) histos   ->Fill(TMath::Max(TMath::Min((double)nn  ,maxHis[2]-0.001),minHis[2]+0.001),       myWeight);
@@ -2066,6 +2077,7 @@ void PlotHiggsRes2012
       if      (((fDecay == 4 || fDecay == 8) && makeZjetsTemplates == false) ||
                ((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) && fDecay == 4 &&
                 (type   == SmurfTree::mm   || type   == SmurfTree::ee) && makeZjetsTemplates == true)){ // Z+jets
+        HISTO1->Fill(TMath::Min(dilep->M(),599.999),myWeight);
 	if     (useVar == 0) histo1->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),      myWeightMVA);
 	else if(useVar == 1) histo1->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),      myWeightMVA);
 	else if(useVar == 2) histo1->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),        myWeightMVA);
@@ -2077,6 +2089,7 @@ void PlotHiggsRes2012
       // For Top Bkg
       //----------------------------------------------------------------------------
       else if(fDecay == 3){
+        HISTO2->Fill(TMath::Min(dilep->M(),599.999),myWeight);
 	if     (useVar == 0) histo2->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
 	else if(useVar == 1) histo2->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
 	else if(useVar == 2) histo2->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),    myWeightMVA);
@@ -2088,6 +2101,7 @@ void PlotHiggsRes2012
       // For WZ,ZZ Bkg
       //----------------------------------------------------------------------------
       else if(fDecay == 2){ 
+        HISTO3->Fill(TMath::Min(dilep->M(),599.999),myWeight);
 	if     (useVar == 0) histo3->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
 	else if(useVar == 1) histo3->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
 	else if(useVar == 2) histo3->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),    myWeightMVA);
@@ -2099,6 +2113,7 @@ void PlotHiggsRes2012
       // For W+Jets, W+gamma, W+gamma* Bkg
       //----------------------------------------------------------------------------
       else if(fDecay == 5 || fDecay == 6 || fDecay == 7 || fDecay == 9){ 
+        HISTO4->Fill(TMath::Min(dilep->M(),599.999),myWeight);
 	if     (useVar == 0) histo4->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
 	else if(useVar == 1) histo4->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
 	else if(useVar == 2) histo4->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),    myWeightMVA);
@@ -2110,6 +2125,7 @@ void PlotHiggsRes2012
       // For WW Bkg
       //----------------------------------------------------------------------------
       else if(fDecay == 0 || fDecay == 1 || fDecay == 15){ // WW
+        HISTO0->Fill(TMath::Min(dilep->M(),599.999),myWeight);
 	if     (useVar == 0) histo0->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
 	else if(useVar == 1) histo0->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
 	else if(useVar == 2) histo0->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),    myWeightMVA);
@@ -3333,6 +3349,7 @@ void PlotHiggsRes2012
     if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true){
       nDatAcc = nDatAcc + myWeight;
+      HISTO5->Fill(TMath::Min(dilep->M(),599.999),myWeight);
       if     (useVar == 0) histo5->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),       myWeight);
       else if(useVar == 1) histo5->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),       myWeight);
       else if(useVar == 2) histo5->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),         myWeight);
@@ -3744,6 +3761,18 @@ void PlotHiggsRes2012
       }
     }
 
+    char outputMLLName[200];
+    sprintf(outputMLLName,"hww%s_%dj.mll_8TeV.root",finalStateName,nJetsType);
+    TFile* outputMLL = new TFile(outputMLLName,"recreate");
+    outputMLL->cd();
+      HISTOS->Write();
+      HISTO0->Write();
+      HISTO1->Write();
+      HISTO2->Write();
+      HISTO3->Write();
+      HISTO4->Write();
+      HISTO5->Write();
+    outputMLL->Close();
     //----------------------------------------------------------------------------
     //
     // Fill Data Cards and generate MVA shape histograms
