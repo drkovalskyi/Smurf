@@ -320,7 +320,7 @@ void compareshapes(char* plotregion="CR1") {
 
     cout << "** plot region : " <<  plotregion << endl;
 
-    TFile* postFile     = TFile::Open(Form("newdefault_using%sfit_fittedShape_floatMu.root",plotregion)); 
+    TFile* postFile     = TFile::Open(Form("newdefault_using%sfit_fittedShape_floatMu.root",plotregion=="CR1"?"CR2":"CR1")); 
     TFile* rootfile_default = TFile::Open("125/hwwof_0j.input_8TeV.root");
 
     TH1F *h1post_qqWW;
@@ -560,10 +560,10 @@ void compareshapes(char* plotregion="CR1") {
     tex_cmsprel->SetNDC();
     tex_cmsprel->SetTextSize(textSize+0.02);
     tex_cmsprel->SetLineWidth(2);
-    //TLatex *tex_cms = new TLatex(0.5,0.84,"CMS, ");
-    //tex_cms->SetNDC();
-    //tex_cms->SetTextSize(textSize+0.02);
-    //tex_cms->SetLineWidth(2);
+    TLatex *tex_cms = new TLatex(0.5,0.84,"CMS, ");
+    tex_cms->SetNDC();
+    tex_cms->SetTextSize(textSize+0.02);
+    tex_cms->SetLineWidth(2);
     TLatex *tex_8tev = new TLatex(0.6,0.84,Form("#font[%i]{#sqrt{s}=8 TeV, L = %.1f fb^{-1}}", textfont, 19.5));
     tex_8tev->SetNDC();
     tex_8tev->SetTextSize(textSize);
@@ -617,13 +617,14 @@ void compareshapes(char* plotregion="CR1") {
     st_mll->SetMaximum(h1_mll_data->GetMaximum()*2.0);
     st_mll->GetYaxis()->SetTitleOffset(1.4);
     l1->Draw(); 
-    tex_cmsprel->Draw("SAME");
-    //tex_cms->Draw("SAME");
-    //tex_8tev->Draw("SAME");
+    //tex_cmsprel->Draw("SAME");
+    tex_cms->Draw("SAME");
+    tex_8tev->Draw("SAME");
     tex_ch->Draw("SAME");
     tex_plotregion->Draw("SAME"); 
     tex_chi2ndf_mll->Draw("SAME");
     c_mll->Print(Form("mll_%s.pdf", plotregion)); 
+    c_mll->Print(Form("mll_%s.root", plotregion)); 
 
     TCanvas *c_mT = new TCanvas("mT","mT",600,500);
     c_mT->cd();
@@ -642,17 +643,18 @@ void compareshapes(char* plotregion="CR1") {
     st_mT->SetMaximum(h1_mT_data->GetMaximum()*2.0);
     st_mT->GetYaxis()->SetTitleOffset(1.4);
     l1->Draw(); 
-    tex_cmsprel->Draw("SAME");
-    //tex_cms->Draw("SAME");
-    //tex_8tev->Draw("SAME");
+    //tex_cmsprel->Draw("SAME");
+    tex_cms->Draw("SAME");
+    tex_8tev->Draw("SAME");
     tex_ch->Draw("SAME");
     tex_plotregion->Draw("SAME");
     tex_chi2ndf_mT->Draw("SAME");
 
     c_mT->Print(Form("mT_%s.pdf", plotregion)); 
+    c_mT->Print(Form("mT_%s.root", plotregion)); 
 
-//    delete c_mT;
-//    delete c_mll; 
+    delete c_mT;
+    delete c_mll; 
 }
 
 void compareshapes_runAll() {
