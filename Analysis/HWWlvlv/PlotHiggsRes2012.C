@@ -44,8 +44,8 @@ int    verboseLevel =   0;
 const double sigmaB = 0.35;
 const bool UseDyttDataDriven = true; // if true, then remove em events in dyll MC
 const bool KeepGGHOnly       = false; // if true, then remove VH and qqH MC events
-const double muValueFromDataSM = 0.75; // renormalize SM Higgs yields
-const double muValueFromDataPS = 2.00; // renormalize PS Higgs yields
+const double muValueFromDataSM = 1.00; // renormalize SM Higgs yields
+const double muValueFromDataPS = 1.00; // renormalize PS Higgs yields
 const bool isRazorAna = false;
 const bool useMLLMt = false;
 
