@@ -1,0 +1,9 @@
+For CMSSW_5_2_X: 
+cvs co -r V00-00-06 -d EGamma/EGammaAnalysisTools UserCode/EGamma/EGammaAnalysisTools
+cvs up -r1.3 EGamma/EGammaAnalysisTools/interface/ElectronEffectiveArea.h
+cvs co -r V00-03-11 CommonTools/ParticleFlow 
+cvs co -r V15-01-06 RecoParticleFlow/PFProducer 
+cvs co -rR2012A_V2 -d Muon/MuonAnalysisTools UserCode/sixie/Muon/MuonAnalysisTools
+cvs co -rHWWID_V00-00-00 HiggsAnalysis/HiggsToWW2Leptons/
+
+For CMSSW_4_X_Y: 
