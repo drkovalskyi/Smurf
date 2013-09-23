@@ -1,6 +1,6 @@
-
-The following extra packages need to be checked out
-do this from CMSSW_x_y_z/src/
+# -*-sh-*-
+# The following extra packages need to be checked out
+# do this from CMSSW_x_y_z/src/
 
 # get the lepton tree maker
 # with a TAG that you should alredy know from
@@ -22,12 +22,6 @@ cvs co -rV00-00-06 -dEGamma/EGammaAnalysisTools UserCode/EGamma/EGammaAnalysisTo
 cvs up -rCutBasedId_V00-00-05 EGamma/EGammaAnalysisTools/src/EGammaCutBasedEleId.cc
 cvs up -rCutBasedId_V00-00-05 EGamma/EGammaAnalysisTools/interface/EGammaCutBasedEleId.h
 cvs up -r1.3 EGamma/EGammaAnalysisTools/interface/ElectronEffectiveArea.h
-cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat1.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat2.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat3.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat4.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat5.weights.xml Smurf/ProcessingAndSkimming/data/
-cp /afs/cern.ch/cms/higgs/higgsww/dmytro/selectors/summer12/Electrons_BDTG_TrigV0_Cat6.weights.xml Smurf/ProcessingAndSkimming/data/
 
 # 2012 HZZ ID+Iso combined MVA
 # also needed for muon effective areas
