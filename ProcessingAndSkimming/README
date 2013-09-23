@@ -5,8 +5,8 @@
 # get the lepton tree maker
 # with a TAG that you should alredy know from
 # http://www.t2.ucsd.edu/tastwiki/bin/view/Smurf/TPandFR2012
-cvs co -rTAG -d Smurf/Core UserCode/Smurf/Core
-cvs co -rTAG -d Smurf/ProcessingAndSkimming UserCode/Smurf/ProcessingAndSkimming
+# cvs co -rTAG -d Smurf/Core UserCode/Smurf/Core
+# cvs co -rTAG -d Smurf/ProcessingAndSkimming UserCode/Smurf/ProcessingAndSkimming
 
 # egamma pf isolation config
 # see 
