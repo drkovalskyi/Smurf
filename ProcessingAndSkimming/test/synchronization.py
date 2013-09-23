@@ -41,7 +41,8 @@ process.hww = cms.EDFilter('Smurf::SmurfTreeProducer',
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
       # 'file:/afs/cern.ch/cms/higgs/higgsww/dmytro/samples/A6DE4085-8191-E111-BF4E-001E67396D5B.root'
-      'file:/tas/dmytro/samples/MC/A6DE4085-8191-E111-BF4E-001E67396D5B.root'
+      # 'file:/tas/dmytro/samples/MC/A6DE4085-8191-E111-BF4E-001E67396D5B.root'
+      'file:/home/users/dmytro/projects/HWW-53X/src/A6DE4085-8191-E111-BF4E-001E67396D5B.root'
     )
 )
 
