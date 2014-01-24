@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf_wh2l.C,v 1.2 2013/04/19 21:26:54 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf_zhinv.C,v 1.1 2013/09/16 13:31:01 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -69,7 +69,7 @@ enum Type {
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
 
-void trainMVA_smurf_wh2l(
+void trainMVA_smurf_zhinv(
  UInt_t  nJetsType       = 0,			   
  TString sigInputFile    = "data/histo_hww130_std_pu11_randomized.training.root",
  TString bgdInputFile    = "data/histo_w10-ggww-z2-v8-pu11_all_noskim_normalized.root",
@@ -113,25 +113,44 @@ void trainMVA_smurf_wh2l(
   // choose which variables to include in MVA training
   //-----------------------------------------------------
   std::map<std::string,int> mvaVar;
-  mvaVar[ "lep1pt" ]		= 1;  //pt of leading lepton
-  mvaVar[ "lep2pt" ]		= 1;  //pt of sub-leading lepton
-  mvaVar[ "dPhi" ]		= 1;  //delta phi btw leptons
-  mvaVar[ "dR" ]		= 1;  //delta R btw leptons
-  mvaVar[ "dilmass" ]		= 1;  //dilepton mass
-  mvaVar[ "type" ]		= 1;  //dilepton flavor type
-  mvaVar[ "pmet" ]		= 0;  //projected met
-  mvaVar[ "met" ]		= 0;  //met
-  mvaVar[ "mt" ]		= 1;  //transverse higgs mass
-  mvaVar[ "mt1" ]		= 1;  //transverse mass of leading lepton and met
-  mvaVar[ "mt2" ]		= 1;  //transverse mass of sub-leading lepton and met
-  mvaVar[ "dPhiLep1MET" ]	= 0;  //delta phi btw leading lepton and met
-  mvaVar[ "dPhiLep2MET" ]	= 0;  //delta phi btw leading sub-lepton and met
-  mvaVar[ "dilpt" ]		= 1;  //dilepton pt
-  mvaVar[ "razor" ]		= 0;  //razor
-  mvaVar[ "njets" ]		= 0;  //njets
-  mvaVar[ "deltaphiql" ]        = 0;  //deltaphiql
-
+  mvaVar[ "lep1pt" ]	    = 1;  //pt of leading lepton
+  mvaVar[ "lep2pt" ]	    = 1;  //pt of sub-leading lepton
+  mvaVar[ "dPhi" ]	    = 1;  //delta phi btw leptons
+  mvaVar[ "dR" ]	    = 1;  //delta R btw leptons
+  mvaVar[ "dilmass" ]	    = 1;  //dilepton mass
+  mvaVar[ "type" ]	    = 0;  //dilepton flavor type
+  mvaVar[ "pmet" ]	    = 0;  //projected met
+  mvaVar[ "met" ]	    = 1;  //met
+  mvaVar[ "mt" ]	    = 1;  //transverse higgs mass
+  mvaVar[ "mt1" ]	    = 1;  //transverse mass of leading lepton and met
+  mvaVar[ "mt2" ]	    = 1;  //transverse mass of sub-leading lepton and met
+  mvaVar[ "dPhiLep1MET" ]   = 1;  //delta phi btw leading lepton and met
+  mvaVar[ "dPhiLep2MET" ]   = 1;  //delta phi btw leading sub-lepton and met
+  mvaVar[ "dilpt" ]	    = 1;  //dilepton pt
+  mvaVar[ "razor" ]	    = 0;  //razor
+  mvaVar[ "dPhiDiLepMET" ]  = 1; //delta phi btw dilepton and met
+  mvaVar[ "dPhiDiLepJet1" ] = 0; //delta phi btw dilepton and jet1
+  mvaVar[ "ptfrac" ]	    = 1;  //|pt-met|/pt
+  mvaVar[ "mjj" ]	    = 0;  //invariant mass of the dijet
+  mvaVar[ "detajj" ]	    = 0;  //deta of the dijet
+  mvaVar[ "dphijj" ]	    = 0;  //dphi of the dijet
+  mvaVar[ "ptjj" ]	    = 0;  //pt of the dijet
+  mvaVar[ "higgspt" ]	    = 0;  //higgs pt
+  mvaVar[ "dphihjj" ]	    = 0;  //dphi between the Higgs and the jj system
   TCut sel = "";
+  
+  float dilmass_cut = DileptonMassPreselectionCut(mH);
+  if(mH <= 250) dilmass_cut = 200;
+  else          dilmass_cut = 600;
+  float mt_cut = mH;
+  if(mH <= 250) mt_cut = 280;
+  else          mt_cut = 600;
+
+  cout << "Using dilepton mass < " << dilmass_cut << endl;
+  cout << "Using mt mass       < " << mt_cut      << endl;
+
+  double rndLim[3] = {1.0,1.0,1.0};
+  if     (mH==999 && nJetsType == 0) {rndLim[0] = 1.00;rndLim[1] = 1.00;rndLim[2] = 0.00;}
 
   //---------------------------------
   //choose bkg samples to include
@@ -289,14 +308,13 @@ void trainMVA_smurf_wh2l(
   if (mvaVar["razor"])        factory->AddVariable( "razor",         "razor",               "",    'F' );
   if (mvaVar["dPhiDiLepMET"]) factory->AddVariable( "dPhiDiLepMET",  "dphi(dilep,MET)",     "",    'F' );
   if (mvaVar["dPhiDiLepJet1"])factory->AddVariable( "dPhiDiLepJet1", "dphi(dilep,jet)",     "",    'F' );
+  if (mvaVar["ptfrac"])	      factory->AddVariable( "ptfrac",	     "ptfrac",		    "",	   'F' );
   if (mvaVar["mjj"])	      factory->AddVariable( "mjj",	     "mjj",		    "",	   'F' );
   if (mvaVar["detajj"])       factory->AddVariable( "detajj",	     "detajj",		    "",	   'F' );
   if (mvaVar["dphijj"])       factory->AddVariable( "dphijj",	     "dphijj",		    "",	   'F' );
   if (mvaVar["ptjj"])	      factory->AddVariable( "ptjj",	     "ptjj",		    "",	   'F' );
   if (mvaVar["higgspt"])      factory->AddVariable( "higgspt",	     "higgspt",		    "",	   'F' );
   if (mvaVar["dphihjj"])      factory->AddVariable( "dphihjj",	     "dphihjj",		    "",	   'F' );
-  if (mvaVar["njets"])        factory->AddVariable( "njets",         "njets",               "",    'F' );
-  if (mvaVar["deltaphiql"])   factory->AddVariable( "deltaphiql",    "deltaphiql",          "",    'F' );
 
   int nVariablesTemp = 0;
 
@@ -317,14 +335,13 @@ void trainMVA_smurf_wh2l(
   if (mvaVar["razor"])        { cout << "Adding variable to MVA training: razor"          << endl; nVariablesTemp++; }
   if (mvaVar["dPhiDiLepMET"]) { cout << "Adding variable to MVA training: dPhiDiLepMET"   << endl; nVariablesTemp++; }
   if (mvaVar["dPhiDiLepJet1"]){ cout << "Adding variable to MVA training: dPhiDiLepJet1"  << endl; nVariablesTemp++; }
+  if (mvaVar["ptfrac"])	      { cout << "Adding variable to MVA training: ptfrac"  	  << endl; nVariablesTemp++; }
   if (mvaVar["mjj"])	      { cout << "Adding variable to MVA training: mjj"  	  << endl; nVariablesTemp++; }
   if (mvaVar["detajj"])       { cout << "Adding variable to MVA training: detajj"	  << endl; nVariablesTemp++; }
   if (mvaVar["dphijj"])       { cout << "Adding variable to MVA training: dphijj"	  << endl; nVariablesTemp++; }
   if (mvaVar["ptjj"])	      { cout << "Adding variable to MVA training: ptjj"  	  << endl; nVariablesTemp++; }
   if (mvaVar["higgspt"])      { cout << "Adding variable to MVA training: higgspt"	  << endl; nVariablesTemp++; }
   if (mvaVar["dphihjj"])      { cout << "Adding variable to MVA training: dphihjj"	  << endl; nVariablesTemp++; }
-  if (mvaVar["njets"])        { cout << "Adding variable to MVA training: njets"          << endl; nVariablesTemp++; }
-  if (mvaVar["deltaphiql"])   { cout << "Adding variable to MVA training: deltaphiql"     << endl; nVariablesTemp++; }
 
   const unsigned int nVariables = nVariablesTemp;
   cout << "Using " << nVariables << " variables for MVA training" << endl;
@@ -459,27 +476,27 @@ void trainMVA_smurf_wh2l(
     // SIGNAL EVENT SELECTION
     //--------------------------------------------------
 
-    if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection &&
+    int classType = 0;
+
+    if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
          (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
 
-    if( njets > 3                               ) continue;
-    if( dilep->mass() >= 200                    ) continue;
-    if( dilep->mass() <= 12                     ) continue;
-    if( lq1*lq2 < 0                             ) continue;
-    if( lep1->pt() <= 20	                ) continue;
-    if( lep2->pt() <= 10	                ) continue;
-    if( TMath::Min(pmet,pTrackMet) <= 30        ) continue;
-    if( lid3 != 0	                        ) continue;
-    if( (cuts & patternTopTag) == patternTopTag ) continue;
-    if( mt <= 0                                 ) continue;
-    if( mt >= 200                               ) continue;
+    if( njets != 0                              ) continue; // select n-jet type events
+    if( lq1*lq2 > 0                             ) continue; // cut on opposite-sign leptons
+    if( lep1->pt() <= 20	                ) continue; // cut on leading lepton pt
+    if( lep2->pt() <= 20	                ) continue; // cut on trailing lepton pt
+    if( met <= 110                              ) continue; // cut on met
+    if(fabs(dilep->mass()-91.1876) >= 15        ) continue; // cut on Z veto for ee/mm lepton-pair
+    if(type == em || type == me                 ) continue; // cut on Z veto for ee/mm lepton-pair
+    if( lid3 != 0	                        ) continue; // cut on dileptons
+    if( dilep->pt() <= 45                       ) continue; // cut on dilepton pt
+    if( (cuts & patternTopTag) == patternTopTag ) continue; // cut on btagging
+    if( dPhiDiLepMET*180.0/TMath::Pi() < 150    ) continue; // cut on dPhiDiLepMET
 
     int varCounter = 0;
     
     double higgsV[2] = {lep1->px()+lep2->px()+met*cos(metPhi),
                         lep1->py()+lep2->py()+met*sin(metPhi)};
-    double deltaPhiQQL[3] = {DeltaPhi((*jet1+*jet2).Phi(),lep1->phi()),DeltaPhi((*jet1+*jet2).Phi(),lep2->phi()),0.0};
-    deltaPhiQQL[2] = TMath::Min(deltaPhiQQL[0],deltaPhiQQL[1]);
     if (mvaVar["lep1pt"])        vars[varCounter++] = lep1->pt();
     if (mvaVar["lep2pt"])        vars[varCounter++] = lep2->pt();    
     if (mvaVar["dPhi"])          vars[varCounter++] = dPhi;
@@ -497,20 +514,19 @@ void trainMVA_smurf_wh2l(
     if (mvaVar["razor"])         vars[varCounter++] = CalcGammaMRstar(*lep1,*lep2);
     if (mvaVar["dPhiDiLepMET"])  vars[varCounter++] = dPhiDiLepMET;
     if (mvaVar["dPhiDiLepJet1"]) vars[varCounter++] = dPhiDiLepJet1;
+    if (mvaVar["ptfrac"])    	 vars[varCounter++] = TMath::Abs(dilep->pt() - met) / dilep->pt();
     if (mvaVar["mjj"])    	 vars[varCounter++] = (*jet1+*jet2).M();
     if (mvaVar["detajj"]) 	 vars[varCounter++] = TMath::Abs(jet1->Eta() - jet2->Eta());
     if (mvaVar["dphijj"])  	 vars[varCounter++] = DeltaPhi(jet1->Phi(),jet2->Phi());
     if (mvaVar["ptjj"])   	 vars[varCounter++] = (*jet1+*jet2).Pt();
     if (mvaVar["higgspt"])	 vars[varCounter++] = sqrt(higgsV[0]*higgsV[0]+higgsV[1]*higgsV[1]);
     if (mvaVar["dphihjj"]) 	 vars[varCounter++] = DeltaPhi((*jet1+*jet2).Phi(),TMath::ATan2(higgsV[1],higgsV[0]));
-    if (mvaVar["njets"])         vars[varCounter++] = njets;
-    if (mvaVar["deltaphiql"])    vars[varCounter++] = deltaPhiQQL[2];
 
     if ( event%2 != 1 ){
-      factory->AddSignalTrainingEvent( vars, scale1fb ); nsigtrain++;
+      if     (classType == 0 && gRandom->Uniform(0,1) < rndLim[0]) {factory->AddSignalTrainingEvent( vars, scale1fb ); nsigtrain++;}
     }
     else{
-      factory->AddSignalTestEvent    ( vars, scale1fb ); nsigtest++;
+      if     (classType == 0 && gRandom->Uniform(0,1) < rndLim[0]) {factory->AddSignalTestEvent    ( vars, scale1fb ); nsigtest++;}
     }
   }
 
@@ -558,29 +574,27 @@ void trainMVA_smurf_wh2l(
     // BACKGROUND EVENT SELECTION
     //--------------------------------------------------
 
-    //if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection ||
-    //     (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
+    int classType = 1;
 
-    if( njets > 3                               ) continue;
-    if( dilep->mass() >= 200                    ) continue;
-    if( dilep->mass() <= 12                     ) continue;
-    if( lq1*lq2 < 0                             ) continue;
-    if( lep1->pt() <= 20	                ) continue;
-    if( lep2->pt() <= 10	                ) continue;
-    if( TMath::Min(pmet,pTrackMet) <= 30        ) continue;
-    if( lid3 != 0	                        ) continue;
-    if( (cuts & patternTopTag) == patternTopTag ) continue;
-    if( mt <= 0                                 ) continue;
-    if( mt >= 200                               ) continue;
+    if(!((cuts & SmurfTree::Lep1FullSelection) == SmurfTree::Lep1FullSelection && 
+         (cuts & SmurfTree::Lep2FullSelection) == SmurfTree::Lep2FullSelection)) continue; // two good leptons
 
-    if (!(dstype == SmurfTree::data))   continue;
- 
+    if( njets != 0                              ) continue; // select n-jet type events
+    if( lq1*lq2 > 0                             ) continue; // cut on opposite-sign leptons
+    if( lep1->pt() <= 20	                ) continue; // cut on leading lepton pt
+    if( lep2->pt() <= 20	                ) continue; // cut on trailing lepton pt
+    if( met <= 110                              ) continue; // cut on met
+    if(fabs(dilep->mass()-91.1876) >= 15        ) continue; // cut on Z veto for ee/mm lepton-pair
+    if(type == em || type == me                 ) continue; // cut on Z veto for ee/mm lepton-pair
+    if( lid3 != 0	                        ) continue; // cut on dileptons
+    if( dilep->pt() <= 45                       ) continue; // cut on dilepton pt
+    if( (cuts & patternTopTag) == patternTopTag ) continue; // cut on btagging
+    if( dPhiDiLepMET*180.0/TMath::Pi() < 150    ) continue; // cut on dPhiDiLepMET
+    
     int varCounter = 0;
     
     double higgsV[2] = {lep1->px()+lep2->px()+met*cos(metPhi),
                         lep1->py()+lep2->py()+met*sin(metPhi)};
-    double deltaPhiQQL[3] = {DeltaPhi((*jet1+*jet2).Phi(),lep1->phi()),DeltaPhi((*jet1+*jet2).Phi(),lep2->phi()),0.0};
-    deltaPhiQQL[2] = TMath::Min(deltaPhiQQL[0],deltaPhiQQL[1]);
     if (mvaVar["lep1pt"])        vars[varCounter++] = lep1->pt();
     if (mvaVar["lep2pt"])        vars[varCounter++] = lep2->pt();    
     if (mvaVar["dPhi"])          vars[varCounter++] = dPhi;
@@ -598,30 +612,27 @@ void trainMVA_smurf_wh2l(
     if (mvaVar["razor"])         vars[varCounter++] = CalcGammaMRstar(*lep1,*lep2);
     if (mvaVar["dPhiDiLepMET"])  vars[varCounter++] = dPhiDiLepMET;
     if (mvaVar["dPhiDiLepJet1"]) vars[varCounter++] = dPhiDiLepJet1;
+    if (mvaVar["ptfrac"])    	 vars[varCounter++] = TMath::Abs(dilep->pt() - met) / dilep->pt();
     if (mvaVar["mjj"])    	 vars[varCounter++] = (*jet1+*jet2).M();
     if (mvaVar["detajj"]) 	 vars[varCounter++] = TMath::Abs(jet1->Eta() - jet2->Eta());
     if (mvaVar["dphijj"])  	 vars[varCounter++] = DeltaPhi(jet1->Phi(),jet2->Phi());
     if (mvaVar["ptjj"])   	 vars[varCounter++] = (*jet1+*jet2).Pt();
     if (mvaVar["higgspt"])	 vars[varCounter++] = sqrt(higgsV[0]*higgsV[0]+higgsV[1]*higgsV[1]);
     if (mvaVar["dphihjj"]) 	 vars[varCounter++] = DeltaPhi((*jet1+*jet2).Phi(),TMath::ATan2(higgsV[1],higgsV[0]));
-    if (mvaVar["njets"])         vars[varCounter++] = njets;
-    if (mvaVar["deltaphiql"])    vars[varCounter++] = deltaPhiQQL[2];
 
     if ( gRandom->Uniform(0,1) < 0.5 ){
-      factory->AddBackgroundTrainingEvent( vars, scale1fb );nbkgtrain[0]++;
+      if(classType == 1 && gRandom->Uniform(0,1) < rndLim[1]) {factory->AddBackgroundTrainingEvent( vars, scale1fb );nbkgtrain[1]++;}
     }
     else{
-      factory->AddBackgroundTestEvent	 ( vars, scale1fb );nbkgtest[0]++;
+      if(classType == 1 && gRandom->Uniform(0,1) < rndLim[1]) {factory->AddBackgroundTestEvent    ( vars, scale1fb );nbkgtest[1]++;}
     }
   }
   
   cout << "Done adding background" << endl;
   cout << "Added0 " << nbkgtrain[0] << " training events" << endl;
   cout << "Added1 " << nbkgtrain[1] << " training events" << endl;
-  cout << "Added2 " << nbkgtrain[2] << " training events" << endl;
   cout << "Added0 " << nbkgtest[0]  << " test events" << endl;
   cout << "Added1 " << nbkgtest[1]  << " test events" << endl;
-  cout << "Added2 " << nbkgtest[2]  << " test events" << endl;
 
   // --- end ------------------------------------------------------------
   //

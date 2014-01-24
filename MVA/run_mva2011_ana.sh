@@ -61,12 +61,43 @@ fi
 ### samples must be in "data" folder
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
-data2011/hww${MH}.root
+data2011/hww110.root
+data2011/hww115.root
+data2011/hww118.root
+data2011/hww120.root
+data2011/hww122.root
+data2011/hww124.root
+data2011/hww126.root
+data2011/hww128.root
+data2011/hww130.root
+data2011/hww135.root
+data2011/hww140.root
+data2011/hww150.root
+data2011/hww160.root
+data2011/hww170.root
+data2011/hww180.root
+data2011/hww190.root
+data2011/hww200.root
+data2011/hww250.root
+data2011/hww300.root
+data2011/hww350.root
+data2011/hww400.root
+data2011/hww450.root
+data2011/hww500.root
+data2011/hww550.root
+data2011/hww600.root
+data2011/xww0p125.root
+data2011/xww0m125.root
+data2011/xww2p125.root
+data2011/xww2pqq125.root
+data2011/xww1m125_7tev.root
+data2011/xww1p125_7tev.root
+data2011/xww1mix125_7tev.root
 data2011/hww_syst_skim6.root
 data2011/data_skim6.root
 data2011/backgroundA_skim6.root
-data2011/backgroundA_skim6.root
 EOF
+#data2011/hww${MH}.root
 #data2011/xww0m125.root
 #data2011/xww0p125.root
 #data2011/xww2p125.root

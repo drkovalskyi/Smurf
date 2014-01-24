@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.15 2012/10/03 07:12:02 ceballos Exp $
+// @(#)root/tmva $Id: trainMVA_smurf.C,v 1.17 2013/09/16 13:31:01 ceballos Exp $
 /**********************************************************************************
  * Project   : TMVA - a ROOT-integrated toolkit for multivariate data analysis    *
  * Package   : TMVA                                                               *
@@ -137,10 +137,10 @@ void trainMVA_smurf(
   if (nJetsType == 2) {
     mvaVar[ "mjj" ]             = 1;  //invariant mass of the dijet
     mvaVar[ "detajj" ]          = 1;  //deta of the dijet
-    mvaVar[ "dphijj" ]          = 1;  //dphi of the dijet
-    mvaVar[ "ptjj" ]            = 1;  //pt of the dijet
-    mvaVar[ "higgspt" ]         = 1;  //higgs pt
-    mvaVar[ "dphihjj" ]         = 1;  //dphi between the Higgs and the jj system
+    mvaVar[ "dphijj" ]          = 0;  //dphi of the dijet
+    mvaVar[ "ptjj" ]            = 0;  //pt of the dijet
+    mvaVar[ "higgspt" ]         = 0;  //higgs pt
+    mvaVar[ "dphihjj" ]         = 0;  //dphi between the Higgs and the jj system
   }
   TCut sel = "";
   
@@ -565,10 +565,10 @@ void trainMVA_smurf(
 	largestEta = jet2->Eta();
 	smallestEta = jet1->Eta();
       }
-      if( !(lep1->Eta() > smallestEta && lep1->Eta() < largestEta)) continue;
-      if(! (lep2->Eta() > smallestEta && lep2->Eta() < largestEta)) continue;
-      if( TMath::Abs(jet1->Eta() - jet2->Eta()) <= 2.0            ) continue;
-      if( (*jet1+*jet2).M() <= 200                                ) continue;
+      if(!(lep1->Eta() > smallestEta && lep1->Eta() < largestEta)) continue;
+      if(!(lep2->Eta() > smallestEta && lep2->Eta() < largestEta)) continue;
+      if( TMath::Abs(jet1->Eta() - jet2->Eta()) <= 2.0           ) continue;
+      if( (*jet1+*jet2).M() <= 200                               ) continue;
     }
 
     int varCounter = 0;
@@ -693,10 +693,10 @@ void trainMVA_smurf(
 	largestEta = jet2->Eta();
 	smallestEta = jet1->Eta();
       }
-      if( !(lep1->Eta() > smallestEta && lep1->Eta() < largestEta)) continue;
-      if(! (lep2->Eta() > smallestEta && lep2->Eta() < largestEta)) continue;
-      if( TMath::Abs(jet1->Eta() - jet2->Eta()) <= 2.0            ) continue;
-      if( (*jet1+*jet2).M() <= 200                                ) continue;
+      if(!(lep1->Eta() > smallestEta && lep1->Eta() < largestEta)) continue;
+      if(!(lep2->Eta() > smallestEta && lep2->Eta() < largestEta)) continue;
+      if( TMath::Abs(jet1->Eta() - jet2->Eta()) <= 2.0           ) continue;
+      if( (*jet1+*jet2).M() <= 200                               ) continue;
     }
 
     if(nJetsType == 0){

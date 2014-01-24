@@ -94,6 +94,9 @@ data/hww450.root
 data/hww500.root
 data/hww550.root
 data/hww600.root
+data/xww1m125.root
+data/xww1p125.root
+data/xww1mix125.root
 data/xww0p125.root
 data/xww0m125.root
 data/xww2p125.root

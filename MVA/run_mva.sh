@@ -17,8 +17,8 @@ export doMultiClass=0;
 #export METHODS=Likelihood,BDT,BDTD,BDTG;
 export TAG=ntuples2012_PostICHEP_${MH}train_${NJETS}jets;
 #export TAG=TEST_ntuples_${MH}train_${NJETS}jets;
-#export METHODS=BDT,Likelihood,BDTG,BDTD,BDTB,MLP,MLPBFGS,MLPBNN,CFMlpANN,TMlpANN,BoostedFisher,LikelihoodD,LikelihoodPCA,FDA_GA,RuleFit;
-export METHODS=BDTG;
+export METHODS=Fisher,BDT,Likelihood,BDTG,BDTD,BDTB,MLP,MLPBFGS,MLPBNN,CFMlpANN,TMlpANN,BoostedFisher,LikelihoodD,LikelihoodPCA,RuleFit;
+#export METHODS=BDTG;
 
 ### Training: change done hand made, it's an expert option
 export trainMVA_smurfFile=trainMVA_smurf.C+;
@@ -28,8 +28,8 @@ if [ ${doMultiClass} == "1" ]; then
   export METHODS=BDTG;
 fi
 
-if [ ${NJETS} == "hzz" ]; then
-  export trainMVA_smurfFile=trainMVA_smurf_hzz.C+;
+if [ ${NJETS} == "zhinv" ]; then
+  export trainMVA_smurfFile=trainMVA_smurf_zhinv.C+;
   export TAG=ntuples_hzz_${MH}train
 elif [ ${NJETS} == "wh3l" ]; then
   export trainMVA_smurfFile=trainMVA_smurf_wh3l.C+;
@@ -47,10 +47,10 @@ export DO_TRAINING=0;
 if [ ${DO_TRAINING} == "1" ]; then
   export SIG_TRAIN=data/hww${MH}.root;
   export BKG_TRAIN=data/training.root;
-  if [ ${NJETS} == "hzz" ]; then
+  if [ ${NJETS} == "zhinv" ]; then
     export NJETS=999;
-    export SIG_TRAIN=data/hzz${MH}.root;
-    export BKG_TRAIN=data/zz.root;
+    export SIG_TRAIN=output/zh125inv.root;
+    export BKG_TRAIN=output/backgroundA_skim10.root;
   elif [ ${NJETS} == "wh3l" ]; then
     export NJETS=999;
     export SIG_TRAIN=data/hww_training.root;
@@ -59,6 +59,10 @@ if [ ${DO_TRAINING} == "1" ]; then
     export NJETS=900;
     export SIG_TRAIN=data/hww_training.root;
     export BKG_TRAIN=data/backgroundA_skim8.root;
+  elif [ ${NJETS} == "2" ]; then
+    export NJETS=2;
+    export SIG_TRAIN=data/hww_training.root;
+    export BKG_TRAIN=data/training.root;
  fi
   mkdir -p weights;
   root -l -q -b ${trainMVA_smurfFile}\(${NJETS},\"${SIG_TRAIN}\",\"${BKG_TRAIN}\",\"${TAG}\",\"${METHODS}\",${MH}\);
@@ -73,30 +77,53 @@ rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
 data/hww${MH}.root
 data/vhtt${MH}.root
+data/xww1m${MH}.root
+data/xww1p${MH}.root
+data/xww1mix${MH}.root
 data/xww0m${MH}.root
 data/xww0p${MH}.root
 data/xww2p${MH}.root
 data/xww2pqq${MH}.root
 data/zhww${MH}.root
 data/hzz4l${MH}.root
+data/gghww${MH}_minlo.root
+data/dyllpt100.root
+data/bbww_8tev.root
+data/bbww_14tev.root
+data/wwss_qed_2_qcd_99_ls0ls1.root
+data/wwss_qed_4_qcd_99_ls0ls1.root
+data/wwss_qed_2_qcd_99_lt012.root
+data/wwss_qed_4_qcd_99_lt012.root
+data/wwss_qed_2_qcd_99_lm0123.root
+data/wwss_qed_4_qcd_99_lm0123.root
+data/wwss_ph_wh.root
+data/wwss_ph_noh.root
 data/zh105inv.root
 data/zh115inv.root
 data/zh125inv.root
 data/zh135inv.root
 data/zh145inv.root
+data/zh175inv.root
+data/zh200inv.root
+data/zh300inv.root
 data/backgroundA.root
 data/backgroundB.root
 data/backgroundC.root
 data/backgroundD.root
+data/hww_syst.root
 data/data_2fake.root
 data/data_llg.root
 data/data.root
 data/data_ztt.root
-data/dyee.root
 data/dyll.root
+data/gamma50.root
+data/gamma75.root
+data/gamma90.root
 data/ggww.root
-data/hww_syst.root
-data/hww_training.root
+data/hzz4l125.root
+data/lgamma50.root
+data/lgamma75.root
+data/lgamma90.root
 data/qqww_powheg.root
 data/qqww.root
 data/training.root
@@ -111,6 +138,8 @@ data/wglee.root
 data/wglll.root
 data/wglmm.root
 data/wjets.root
+data/ww2j_mg_ewk.root
+data/ww2j_mg_qcd.root
 data/ww2j_ph.root
 data/ww_dps.root
 data/wwmcnlodown.root
@@ -121,6 +150,7 @@ data/www_amcnlo.root
 data/www_mg.root
 data/www.root
 data/wz.root
+data/wz_py.root
 data/wzz_amcnlo.root
 data/wzz_mg.root
 data/zgammafo.root
