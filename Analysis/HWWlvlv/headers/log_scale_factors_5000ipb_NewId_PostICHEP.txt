@@ -1,0 +1,2428 @@
+Script started on Sat Aug 11 12:05:19 2012
+[dtmit02] /home/ceballos/releases/CMSSW_5_2_3_patch3/src > exitSmurf/Analysis/HWWlvlv/scripts/computeScaleFactors.sh
+Smurf/Analysis/HWWlvlv/scripts/computeScaleFactors.sh: line 11: [: ==: unary operator expected
+Smurf/Analysis/HWWlvlv/scripts/computeScaleFactors.sh: line 96: [: ==: unary operator expected
+exit
+eInfo in <ACLiC>: unmodified script has already been compiled and loaded
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+[0mroot [0] 
+Processing /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+(2)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C.so
+xit
+exit
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C: In function 'void ComputeDYBkgScaleFactor(Int_t, Bool_t, Int_t, Double_t, Double_t)':
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:970:16: warning: unused variable 'sfin_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:972:16: warning: unused variable 'sfin_mm_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1017:16: warning: unused variable 'sfout_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1019:16: warning: unused variable 'sfout_mm_err' [-Wunused-variable]
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:960:77: warning: 'err_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:960:77: warning: 'nin_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:972:208: warning: 'err_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:972:208: warning: 'nin_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:970:208: warning: 'err_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:987:34: warning: 'nin_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+Processing /data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/data.root...
+Event 0
+Event 100000
+Event 200000
+Event 300000
+Event 400000
+Event 500000
+Event 600000
+Event 700000
+Event 800000
+Event 900000
+Event 1000000
+Event 1100000
+Event 1200000
+Event 1300000
+Event 1400000
+Event 1500000
+Event 1600000
+Event 1700000
+Event 1800000
+Event 1900000
+Event 2000000
+Event 2100000
+Event 2200000
+Event 2300000
+Event 2400000
+Event 2500000
+Event 2600000
+Event 2700000
+Event 2800000
+Event 2900000
+Event 3000000
+Event 3100000
+Event 3200000
+Event 3300000
+Event 3400000
+Event 3500000
+Event 3600000
+Event 3700000
+Event 3800000
+Event 3900000
+Event 4000000
+Event 4100000
+Event 4200000
+Event 4300000
+Event 4400000
+Event 4500000
+Event 4600000
+Event 4700000
+Event 4800000
+Event 4900000
+Event 5000000
+Processing /data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/dyll.root...
+Event 0
+Event 100000
+Event 200000
+Event 300000
+Event 400000
+Event 500000
+Event 600000
+Event 700000
+Event 800000
+Event 900000
+Event 1000000
+Event 1100000
+Event 1200000
+Event 1300000
+Event 1400000
+Event 1500000
+Event 1600000
+Event 1700000
+Event 1800000
+Event 1900000
+Event 2000000
+Event 2100000
+Event 2200000
+Event 2300000
+Event 2400000
+Event 2500000
+Event 2600000
+Event 2700000
+Event 2800000
+Event 2900000
+Event 3000000
+Event 3100000
+Event 3200000
+Event 3300000
+Event 3400000
+Event 3500000
+Event 3600000
+Event 3700000
+Event 3800000
+Event 3900000
+Event 4000000
+Event 4100000
+Event 4200000
+Event 4300000
+Event 4400000
+Event 4500000
+Event 4600000
+Event 4700000
+Event 4800000
+Event 4900000
+Event 5000000
+Event 5100000
+Event 5200000
+Event 5300000
+Event 5400000
+Event 5500000
+Event 5600000
+Event 5700000
+Event 5800000
+Event 5900000
+Event 6000000
+Event 6100000
+Event 6200000
+Event 6300000
+Event 6400000
+Event 6500000
+Event 6600000
+Event 6700000
+Event 6800000
+Event 6900000
+Event 7000000
+Event 7100000
+Event 7200000
+Event 7300000
+Event 7400000
+Event 7500000
+Event 7600000
+Event 7700000
+Processing /data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/wz.root...
+Event 0
+Event 100000
+Event 200000
+Event 300000
+Event 400000
+Event 500000
+Event 600000
+Event 700000
+Event 800000
+Event 900000
+Event 1000000
+Event 1100000
+Event 1200000
+Event 1300000
+Event 1400000
+Processing /data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/zz.root...
+Event 0
+Event 100000
+Event 200000
+Event 300000
+Event 400000
+Event 500000
+Event 600000
+Event 700000
+Event 800000
+Event 900000
+Event 1000000
+Event 1100000
+Event 1200000
+Event 1300000
+Event 1400000
+Event 1500000
+Event 1600000
+Event 1700000
+Event 1800000
+Event 1900000
+Event 2000000
+Event 2100000
+Event 2200000
+Event 2300000
+Event 2400000
+Event 2500000
+Event 2600000
+Event 2700000
+Event 2800000
+Event 2900000
+Event 3000000
+Event 3100000
+Event 3200000
+Event 3300000
+M: 0
+bin(1) Nin =  938.731 Nout =  241.868 R0 = 0.212 R = 0.258 dr = 0.046 drMax = 0.000 rError = 0.073
+bin(2) Nin =  989.781 Nout =  209.864 R0 = 0.212 R = 0.212 dr = 0.000 drMax = 0.046 rError = 0.080
+bin(3) Nin = 1876.293 Nout =  397.300 R0 = 0.212 R = 0.212 dr = 0.000 drMax = 0.046 rError = 0.060
+bin(4) Nin =  303.574 Nout =   63.356 R0 = 0.212 R = 0.209 dr = 0.003 drMax = 0.046 rError = 0.167
+M: 115
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.993 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 118
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.993 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 120
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.993 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 122
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.993 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 124
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.993 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 125
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.992 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 126
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.992 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 128
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.992 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 130
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.992 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 135
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.992 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 140
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.992 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 145
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.992 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 150
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.992 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 155
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.992 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 160
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.992 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 170
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.992 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =   -0.002 R0 = 0.159 R = 0.000 dr = 0.159 drMax = 0.054 rError = 0.882
+M: 180
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.991 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.440
+bin(4) Nin =    4.972 Nout =    0.998 R0 = 0.159 R = 0.201 dr = 0.041 drMax = 0.054 rError = 1.098
+M: 190
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.159 R = 0.111 dr = 0.048 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.159 R = 0.105 dr = 0.054 drMax = 0.048 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.978 R0 = 0.159 R = 0.159 dr = 0.000 drMax = 0.054 rError = 0.441
+bin(4) Nin =    4.972 Nout =    0.998 R0 = 0.159 R = 0.201 dr = 0.042 drMax = 0.054 rError = 1.098
+M: 200
+bin(1) Nin =   26.881 Nout =    2.980 R0 = 0.158 R = 0.111 dr = 0.047 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    2.932 R0 = 0.158 R = 0.105 dr = 0.053 drMax = 0.047 rError = 0.621
+bin(3) Nin =   37.623 Nout =    5.956 R0 = 0.158 R = 0.158 dr = 0.000 drMax = 0.053 rError = 0.443
+bin(4) Nin =    4.972 Nout =    0.998 R0 = 0.158 R = 0.201 dr = 0.042 drMax = 0.053 rError = 1.098
+M: 250
+bin(1) Nin =   26.881 Nout =    2.978 R0 = 0.104 R = 0.111 dr = 0.006 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    3.932 R0 = 0.104 R = 0.141 dr = 0.037 drMax = 0.006 rError = 0.543
+bin(3) Nin =   37.623 Nout =    3.931 R0 = 0.104 R = 0.104 dr = 0.000 drMax = 0.037 rError = 0.738
+bin(4) Nin =    4.972 Nout =    0.984 R0 = 0.104 R = 0.198 dr = 0.093 drMax = 0.037 rError = 1.112
+M: 300
+bin(1) Nin =   26.881 Nout =    2.978 R0 = 0.104 R = 0.111 dr = 0.006 drMax = 0.000 rError = 0.613
+bin(2) Nin =   27.840 Nout =    4.932 R0 = 0.104 R = 0.177 dr = 0.073 drMax = 0.006 rError = 0.492
+bin(3) Nin =   37.623 Nout =    3.931 R0 = 0.104 R = 0.104 dr = 0.000 drMax = 0.073 rError = 0.738
+bin(4) Nin =    4.972 Nout =    0.984 R0 = 0.104 R = 0.198 dr = 0.093 drMax = 0.073 rError = 1.112
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+[0mroot [0] 
+Processing /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+(2)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C.so
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C: In function 'void ComputeTopScaleFactors(Int_t, TString, TString)':
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:809:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:809:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:809:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:809:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:809:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1256:246: warning: unknown conversion type character ')' in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:817:37: warning: variable 'effttMC_btag_central_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:818:100: warning: variable 'effttMC_btag_central_tw_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:857:38: warning: variable 'effttMC_btag_central_All_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:858:103: warning: variable 'effttMC_btag_central_All_tw_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:20:17: warning: 'Double_t DYBkgScaleFactorKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
+--- reading event     0 of 2385632
+--- reading event 100000 of 2385632
+--- reading event 200000 of 2385632
+--- reading event 300000 of 2385632
+--- reading event 400000 of 2385632
+--- reading event 500000 of 2385632
+--- reading event 600000 of 2385632
+--- reading event 700000 of 2385632
+--- reading event 800000 of 2385632
+--- reading event 900000 of 2385632
+--- reading event 1000000 of 2385632
+--- reading event 1100000 of 2385632
+--- reading event 1200000 of 2385632
+--- reading event 1300000 of 2385632
+--- reading event 1400000 of 2385632
+--- reading event 1500000 of 2385632
+--- reading event 1600000 of 2385632
+--- reading event 1700000 of 2385632
+--- reading event 1800000 of 2385632
+--- reading event 1900000 of 2385632
+--- reading event 2000000 of 2385632
+--- reading event 2100000 of 2385632
+--- reading event 2200000 of 2385632
+--- reading event 2300000 of 2385632
+--- reading event     0 of 86990
+**********eff central jet 2-j**********
+channel               (data/background/top)-num             (data/background/top)-den
+details_central(0) -->   615/  31.83/ 505.09  -  1054/ 239.08/ 705.80
+details_central(1) -->   427/  21.00/ 323.38  -   718/ 130.33/ 451.04
+details_central(2) -->   181/  12.29/ 153.18  -   365/  71.88/ 235.50
+details_central(3) -->    52/   3.62/  57.85  -   138/  27.52/  98.39
+details_central(4) -->    15/   0.79/  14.50  -    53/  12.10/  35.13
+channel                      eff_data              eff_tt            ScaleFactor
+scaleFactor_central(0) -->  0.724 +/-  0.014 |  0.716 +/-  0.003 |  1.011 +/-  0.019
+scaleFactor_central(1) -->  0.702 +/-  0.017 |  0.717 +/-  0.003 |  0.979 +/-  0.024
+scaleFactor_central(2) -->  0.577 +/-  0.026 |  0.650 +/-  0.005 |  0.887 +/-  0.040
+scaleFactor_central(3) -->  0.436 +/-  0.042 |  0.588 +/-  0.008 |  0.741 +/-  0.072
+scaleFactor_central(4) -->  0.354 +/-  0.066 |  0.413 +/-  0.013 |  0.857 +/-  0.159
+details_central(all)         -->  1290/  69.53/1054.00  -  2328/ 480.91/1525.87
+scaleFactor_central_All(all) -->  0.669 +/-  0.010 |  0.691 +/-  0.002 |  0.969 +/-  0.014
+**********eff vbf jet 2-j**********
+eventsTaggedVBF(0) --> top: 549.047  data:   615  bck:31.829
+eventsTaggedVBF(1) --> top: 353.844  data:   427  bck:21.005
+eventsTaggedVBF(2) --> top: 167.128  data:   181  bck:12.286
+eventsTaggedVBF(3) --> top: 65.784  data:    52  bck: 3.620
+eventsTaggedVBF(4) --> top: 15.472  data:    15  bck: 0.790
+eventsNonTaggedVBF(0) --> 226.400  --> 218.173 +/-  2.861 | 222.857 +/- 18.038
+eventsNonTaggedVBF(1) --> 150.072  --> 139.690 +/-  2.315 | 172.183 +/- 16.561
+eventsNonTaggedVBF(2) --> 93.215  --> 89.817 +/-  1.954 | 123.737 +/- 16.408
+eventsNonTaggedVBF(3) --> 50.227  --> 46.098 +/-  1.526 | 62.688 +/- 14.253
+eventsNonTaggedVBF(4) --> 23.138  --> 22.023 +/-  1.207 | 25.972 +/- 10.286
+data/MC/MCPred(607.438/543.053/515.801) -> scaleFactorVBF(  0):  1.119 +/-  0.063
+**********eff vbf jet 2-j SF**********
+eventsTaggedVBFSF(0) --> top: 205.445  data:   228  bck:16.142
+eventsTaggedVBFSF(1) --> top: 129.566  data:   176  bck: 9.433
+eventsTaggedVBFSF(2) --> top: 56.907  data:    66  bck: 4.290
+eventsTaggedVBFSF(3) --> top: 24.649  data:    21  bck: 2.004
+eventsTaggedVBFSF(4) --> top:  6.267  data:     7  bck: 0.328
+eventsNonTaggedVBFSF(0) --> 86.680  --> 81.637 +/-  1.071 | 80.961 +/-  8.024
+eventsNonTaggedVBFSF(1) --> 56.892  --> 51.150 +/-  0.848 | 70.641 +/-  8.056
+eventsNonTaggedVBFSF(2) --> 34.002  --> 30.583 +/-  0.665 | 45.259 +/-  7.648
+eventsNonTaggedVBFSF(3) --> 18.873  --> 17.273 +/-  0.572 | 24.614 +/-  7.288
+eventsNonTaggedVBFSF(4) -->  7.937  -->  8.920 +/-  0.489 | 12.194 +/-  5.972
+data/MC/MCPred(233.669/204.383/189.562) -> scaleFactorVBFSF(  0):  1.143 +/-  0.081
+**********eff vbf jet 2-j OF**********
+eventsTaggedVBFOF(0) --> top: 343.602  data:   387  bck:15.687
+eventsTaggedVBFOF(1) --> top: 224.278  data:   251  bck:11.572
+eventsTaggedVBFOF(2) --> top: 110.221  data:   115  bck: 7.996
+eventsTaggedVBFOF(3) --> top: 41.135  data:    31  bck: 1.616
+eventsTaggedVBFOF(4) --> top:  9.206  data:     8  bck: 0.462
+eventsNonTaggedVBFOF(0) --> 139.721  --> 136.536 +/-  1.790 | 141.896 +/- 12.329
+eventsNonTaggedVBFOF(1) --> 93.180  --> 88.540 +/-  1.467 | 101.542 +/- 10.669
+eventsNonTaggedVBFOF(2) --> 59.213  --> 59.234 +/-  1.289 | 78.478 +/- 11.445
+eventsNonTaggedVBFOF(3) --> 31.354  --> 28.825 +/-  0.954 | 38.074 +/-  9.735
+eventsNonTaggedVBFOF(4) --> 15.201  --> 13.103 +/-  0.718 | 13.778 +/-  6.511
+data/MC/MCPred(373.769/338.670/326.239) -> scaleFactorVBFOF(  0):  1.104 +/-  0.068
+**********eff highest pt jet 2-j**********
+scaleFactor2j(0) -->  1.048 +/-  0.057
+scaleFactor2j(1) -->  1.052 +/-  0.051
+scaleFactor2j(2) -->  0.985 +/-  0.045
+scaleFactor2j(3) -->  0.973 +/-  0.070
+scaleFactor2j(4) -->  1.017 +/-  0.027
+numerator  (mm ) --> data:  346, background:    6.27, tt+tw:  324.20, tt:  315.60, tw:    8.59
+denominator(mm ) --> data:  546, background:   20.21, tt+tw:  473.07, tt:  451.13, tw:   21.94
+numerator  (me ) --> data:  435, background:    1.20, tt+tw:  412.35, tt:  399.11, tw:   13.25
+denominator(me ) --> data:  675, background:    7.99, tt+tw:  603.85, tt:  571.46, tw:   32.39
+numerator  (em ) --> data:  487, background:    6.64, tt+tw:  487.74, tt:  471.60, tw:   16.15
+denominator(em ) --> data:  738, background:   16.51, tt+tw:  717.67, tt:  684.64, tw:   33.03
+numerator  (ee ) --> data:  200, background:    2.13, tt+tw:  203.36, tt:  196.36, tw:    7.01
+denominator(ee ) --> data:  311, background:    8.72, tt+tw:  300.46, tt:  285.71, tw:   14.75
+numerator  (all) --> data: 1468, background:   16.23, tt+tw: 1427.66, tt: 1382.67, tw:   44.99
+denominator(all) --> data: 2270, background:   53.42, tt+tw: 2095.05, tt: 1992.94, tw:  102.11
+channel         eff_tttw             eff_tt                eff_tw               eff_data                         ScaleFactor
+eff (mm ):  0.685 +/-  0.004   0.700 +/-  0.003   0.392 +/-  0.059 -->  0.657 +/-  0.020      : scaleFactor2j(mm ) -->  1.048 +/-  0.057
+eff (me ):  0.683 +/-  0.004   0.698 +/-  0.003   0.409 +/-  0.048 -->  0.663 +/-  0.018      : scaleFactor2j(me ) -->  1.052 +/-  0.051
+eff (em ):  0.680 +/-  0.003   0.689 +/-  0.003   0.489 +/-  0.044 -->  0.674 +/-  0.017      : scaleFactor2j(em ) -->  0.985 +/-  0.045
+eff (ee ):  0.677 +/-  0.005   0.687 +/-  0.004   0.475 +/-  0.075 -->  0.664 +/-  0.027      : scaleFactor2j(ee ) -->  0.973 +/-  0.070
+eff (all):  0.681 +/-  0.002   0.694 +/-  0.002   0.441 +/-  0.027 -->  0.665 +/-  0.010      : scaleFactor2j(all) -->  1.017 +/-  0.027
+****************************************************************************************************************************************
+**********eff highest pt jet 1-j**********
+numerator  (mm ) --> data:  223, background:   22.03, tt+tw:  189.09, tt:  143.34, tw:   45.75
+denominator(mm ) --> data:  484, background:  159.63, tt+tw:  284.00, tt:  212.62, tw:   71.38
+numerator  (me ) --> data:  339, background:   12.64, tt+tw:  306.25, tt:  226.08, tw:   80.17
+denominator(me ) --> data:  675, background:  166.10, tt+tw:  452.39, tt:  331.87, tw:  120.52
+numerator  (em ) --> data:  423, background:   19.90, tt+tw:  363.80, tt:  274.41, tw:   89.39
+denominator(em ) --> data:  815, background:  216.89, tt+tw:  536.31, tt:  402.33, tw:  133.98
+numerator  (ee ) --> data:  114, background:    8.04, tt+tw:  120.97, tt:   90.40, tw:   30.56
+denominator(ee ) --> data:  277, background:  106.44, tt+tw:  177.10, tt:  133.23, tw:   43.87
+numerator  (all) --> data: 1099, background:   62.61, tt+tw:  980.10, tt:  734.23, tw:  245.87
+denominator(all) --> data: 2251, background:  649.06, tt+tw: 1449.81, tt: 1080.06, tw:  369.75
+channel       eff_tttw           eff_tt              eff_tw               eff_data              
+eff (0):  0.666 +/-  0.009   0.674 +/-  0.005   0.641 +/-  0.032 -->  0.614 +/-  0.022  
+eff (1):  0.677 +/-  0.007   0.681 +/-  0.004   0.665 +/-  0.025 -->  0.634 +/-  0.019  
+eff (2):  0.678 +/-  0.006   0.682 +/-  0.004   0.667 +/-  0.022 -->  0.676 +/-  0.016  
+eff (3):  0.683 +/-  0.011   0.679 +/-  0.006   0.697 +/-  0.039 -->  0.595 +/-  0.029  
+eff (4):  0.676 +/-  0.004   0.680 +/-  0.002   0.665 +/-  0.014 -->  0.642 +/-  0.010  
+Predicted ttbar+tW background for 1jet analysis (fails btag):  top background scale factor
+               MC(tt + tW)     Predicted from MC     | Prediction from Data   |    Scale Factor 
+top 1-jet(mm ):     94.914         88.395 +/-  2.007       | 101.100 +/-  8.755        |    1.065 +/- 0.092
+top 1-jet(me ):    146.146        143.163 +/-  2.592       | 164.180 +/- 11.795        |    1.123 +/- 0.081
+top 1-jet(em ):    172.511        170.066 +/-  2.830       | 202.781 +/- 13.726        |    1.175 +/- 0.080
+top 1-jet(ee ):     56.135         56.550 +/-  1.675       |  53.305 +/-  5.871        |    0.950 +/- 0.105
+top 1-jet(all):    469.707        458.174 +/-  4.643       | 521.366 +/- 28.564        |    1.110 +/- 0.061
+**********************************************************
+**********eff low pt jet 1-j**********
+btagSFTW = 1.109982
+numerator(mm )   --> data:   93, background:    3.73, tt+tw:   80.44, tt:   72.16, tw:    8.28
+denominator(mm ) --> data:  316, background:   25.76, tt+tw:  269.53, tt:  215.50, tw:   54.04
+numerator(me )   --> data:  140, background:    2.79, tt+tw:  134.68, tt:  117.75, tw:   16.93
+denominator(me ) --> data:  479, background:   15.42, tt+tw:  440.93, tt:  343.83, tw:   97.10
+numerator(em )   --> data:  204, background:    2.87, tt+tw:  159.05, tt:  143.18, tw:   15.86
+denominator(em ) --> data:  627, background:   22.78, tt+tw:  522.84, tt:  417.59, tw:  105.25
+numerator(ee )   --> data:   66, background:    1.33, tt+tw:   53.89, tt:   46.60, tw:    7.29
+denominator(ee ) --> data:  180, background:    9.37, tt+tw:  174.86, tt:  137.01, tw:   37.85
+numerator(all)   --> data:  503, background:   10.72, tt+tw:  428.06, tt:  379.70, tw:   48.36
+denominator(all) --> data: 1602, background:   73.33, tt+tw: 1408.17, tt: 1113.93, tw:  294.23
+channel       eff_tttw         eff_tt            eff_tw           eff_data              
+eff (0):  0.298 +/-  0.008   0.335 +/-  0.005   0.153 +/-  0.027 -->  0.348 +/-  0.027
+eff (1):  0.305 +/-  0.006   0.342 +/-  0.004   0.174 +/-  0.022 -->  0.333 +/-  0.022
+eff (2):  0.304 +/-  0.006   0.343 +/-  0.004   0.151 +/-  0.019 -->  0.377 +/-  0.019
+eff (3):  0.308 +/-  0.011   0.340 +/-  0.006   0.193 +/-  0.038 -->  0.440 +/-  0.037
+eff (4):  0.304 +/-  0.004   0.341 +/-  0.002   0.164 +/-  0.012 -->  0.365 +/-  0.012
+**********************************************************
+**********eff low pt jet 0-j**********
+ftw_b(0) = 0.153 
+ftw_b(1) = 0.174 
+ftw_b(2) = 0.151 
+ftw_b(3) = 0.193 
+ftw_b(4) = 0.164 
+channel        ttbar MC ( 0Jet / Extrapolated from 1Jet )            tW MC ( 0Jet / Extrapolated from 1Jet) 
+(mm ),                  0.559/0.558                                              0.312/0.335
+(me ),                  0.564/0.568                                              0.388/0.342
+(em ),                  0.559/0.568                                              0.418/0.343
+(ee ),                  0.540/0.565                                              0.425/0.340
+(all),                  0.558/0.566                                              0.390/0.341
+top tagging efficiency
+Channel    fttbar        Eff toptag(MC)    Eff toptag(MC extrapolated)       Eff toptab Data 
+(mm )       0.731,        :  0.480                  0.498 +/-  0.005              0.514 +/-  0.050
+(me )       0.734,        :  0.507                  0.508 +/-  0.004              0.496 +/-  0.048
+(em )       0.701,        :  0.509                  0.501 +/-  0.004              0.541 +/-  0.046
+(ee )       0.706,        :  0.498                  0.499 +/-  0.006              0.614 +/-  0.051
+(all)       0.717,        :  0.501                  0.502 +/-  0.002              0.531 +/-  0.044
+0-Jet Top Background
+Channel    top-tagged region    bkgs top-tagged          MC tt+tW              MC top            Data top   
+              Event Count       region (non-top)    non-top-tagged count     estimation         estimation  
+(mm )               57               13.737                34.188             31.348 +/-  0.274    38.197 +/- 10.332
+(me )               81               12.147                45.698             46.662 +/-  0.408    60.790 +/- 14.101
+(em )               95               20.493                59.629             61.412 +/-  0.537    65.782 +/- 15.586
+(ee )               35                9.400                21.703             21.371 +/-  0.187    22.602 +/-  7.162
+(all)              268               55.777                161.218             160.792 +/-  1.407    187.372 +/- 38.431
+*****************************************
+\begin{table}
+\begin{center}
+{\tiny
+\hline
+ Sample & 0-jet & 1-jet & 2-jet \\
+\hline
+estimated top events in simulation  & 161.2 $\pm$   1.4 &  469.7 $\pm$   4.6 &   0.0 $\pm$   0.0 \\
+tagging efficiency     (\%)         & 53.1 $\pm$  4.4 & 64.2 $\pm$  1.0 & - \\ 
+data events in control region       &  268 & 1099 & -
+background events in control region &  55.8 $\pm$   8.4 &   62.6 $\pm$  12.5 & - \\ 
+top estimation in data              &  187.4 $\pm$  38.4 &  521.4 $\pm$  28.6 & 607.4 $\pm$  34.3 \\
+data/simulation scale factor        &   1.16 $\pm$  0.24 &   1.11 $\pm$  0.06 &  0.00 $\pm$  0.00 \\
+\hline
+\end{tabular}
+}
+\end{center}
+\end{table}
+*****************************************
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+[0mroot [0] 
+Processing /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+(2)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C.so
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C: In function 'void ComputeDYBkgScaleFactor(Int_t, Bool_t, Int_t, Double_t, Double_t)':
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:970:16: warning: unused variable 'sfin_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:972:16: warning: unused variable 'sfin_mm_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1017:16: warning: unused variable 'sfout_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1019:16: warning: unused variable 'sfout_mm_err' [-Wunused-variable]
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:960:77: warning: 'err_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:960:77: warning: 'nin_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:972:208: warning: 'err_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:972:208: warning: 'nin_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:970:208: warning: 'err_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:987:34: warning: 'nin_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+Processing /data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/data.root...
+Event 0
+Event 100000
+Event 200000
+Event 300000
+Event 400000
+Event 500000
+Event 600000
+Event 700000
+Event 800000
+Event 900000
+Event 1000000
+Event 1100000
+Event 1200000
+Event 1300000
+Event 1400000
+Event 1500000
+Event 1600000
+Event 1700000
+Event 1800000
+Event 1900000
+Event 2000000
+Event 2100000
+Event 2200000
+Event 2300000
+Event 2400000
+Event 2500000
+Event 2600000
+Event 2700000
+Event 2800000
+Event 2900000
+Event 3000000
+Event 3100000
+Event 3200000
+Event 3300000
+Event 3400000
+Event 3500000
+Event 3600000
+Event 3700000
+Event 3800000
+Event 3900000
+Event 4000000
+Event 4100000
+Event 4200000
+Event 4300000
+Event 4400000
+Event 4500000
+Event 4600000
+Event 4700000
+Event 4800000
+Event 4900000
+Event 5000000
+Processing /data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/dyll.root...
+Event 0
+Event 100000
+Event 200000
+Event 300000
+Event 400000
+Event 500000
+Event 600000
+Event 700000
+Event 800000
+Event 900000
+Event 1000000
+Event 1100000
+Event 1200000
+Event 1300000
+Event 1400000
+Event 1500000
+Event 1600000
+Event 1700000
+Event 1800000
+Event 1900000
+Event 2000000
+Event 2100000
+Event 2200000
+Event 2300000
+Event 2400000
+Event 2500000
+Event 2600000
+Event 2700000
+Event 2800000
+Event 2900000
+Event 3000000
+Event 3100000
+Event 3200000
+Event 3300000
+Event 3400000
+Event 3500000
+Event 3600000
+Event 3700000
+Event 3800000
+Event 3900000
+Event 4000000
+Event 4100000
+Event 4200000
+Event 4300000
+Event 4400000
+Event 4500000
+Event 4600000
+Event 4700000
+Event 4800000
+Event 4900000
+Event 5000000
+Event 5100000
+Event 5200000
+Event 5300000
+Event 5400000
+Event 5500000
+Event 5600000
+Event 5700000
+Event 5800000
+Event 5900000
+Event 6000000
+Event 6100000
+Event 6200000
+Event 6300000
+Event 6400000
+Event 6500000
+Event 6600000
+Event 6700000
+Event 6800000
+Event 6900000
+Event 7000000
+Event 7100000
+Event 7200000
+Event 7300000
+Event 7400000
+Event 7500000
+Event 7600000
+Event 7700000
+Processing /data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/wz.root...
+Event 0
+Event 100000
+Event 200000
+Event 300000
+Event 400000
+Event 500000
+Event 600000
+Event 700000
+Event 800000
+Event 900000
+Event 1000000
+Event 1100000
+Event 1200000
+Event 1300000
+Event 1400000
+Processing /data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/zz.root...
+Event 0
+Event 100000
+Event 200000
+Event 300000
+Event 400000
+Event 500000
+Event 600000
+Event 700000
+Event 800000
+Event 900000
+Event 1000000
+Event 1100000
+Event 1200000
+Event 1300000
+Event 1400000
+Event 1500000
+Event 1600000
+Event 1700000
+Event 1800000
+Event 1900000
+Event 2000000
+Event 2100000
+Event 2200000
+Event 2300000
+Event 2400000
+Event 2500000
+Event 2600000
+Event 2700000
+Event 2800000
+Event 2900000
+Event 3000000
+Event 3100000
+Event 3200000
+Event 3300000
+M: 0
+bin(1) Nin = 1043.984 Nout =  348.187 R0 = 0.266 R = 0.334 dr = 0.068 drMax = 0.000 rError = 0.063
+bin(2) Nin = 1105.049 Nout =  290.239 R0 = 0.266 R = 0.263 dr = 0.003 drMax = 0.068 rError = 0.069
+bin(3) Nin = 2119.360 Nout =  563.066 R0 = 0.266 R = 0.266 dr = 0.000 drMax = 0.068 rError = 0.051
+bin(4) Nin =  339.965 Nout =   85.178 R0 = 0.266 R = 0.251 dr = 0.015 drMax = 0.068 rError = 0.144
+M: 115
+bin(1) Nin =   28.836 Nout =    1.974 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.030
+bin(2) Nin =   31.830 Nout =    3.932 R0 = 0.216 R = 0.124 dr = 0.093 drMax = 0.148 rError = 0.539
+bin(3) Nin =   41.581 Nout =    8.989 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -1.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 1.786
+M: 118
+bin(1) Nin =   28.836 Nout =    1.974 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.030
+bin(2) Nin =   31.830 Nout =    3.932 R0 = 0.216 R = 0.124 dr = 0.093 drMax = 0.148 rError = 0.539
+bin(3) Nin =   41.581 Nout =    8.989 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -1.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 1.786
+M: 120
+bin(1) Nin =   28.836 Nout =    1.974 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.030
+bin(2) Nin =   31.830 Nout =    3.932 R0 = 0.216 R = 0.124 dr = 0.093 drMax = 0.148 rError = 0.539
+bin(3) Nin =   41.581 Nout =    8.989 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -1.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 1.786
+M: 122
+bin(1) Nin =   28.836 Nout =    1.974 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.030
+bin(2) Nin =   31.830 Nout =    3.932 R0 = 0.216 R = 0.124 dr = 0.093 drMax = 0.148 rError = 0.539
+bin(3) Nin =   41.581 Nout =    8.989 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -1.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 1.786
+M: 124
+bin(1) Nin =   28.836 Nout =    1.974 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.030
+bin(2) Nin =   31.830 Nout =    3.932 R0 = 0.216 R = 0.124 dr = 0.093 drMax = 0.148 rError = 0.539
+bin(3) Nin =   41.581 Nout =    8.989 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -1.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 1.786
+M: 125
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 126
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 128
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 130
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 135
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 140
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 145
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 150
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 155
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 160
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 170
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 180
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =    0.998 R0 = 0.216 R = 0.201 dr = 0.015 drMax = 0.148 rError = 2.286
+M: 190
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.974 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.369
+bin(4) Nin =    4.966 Nout =    0.998 R0 = 0.216 R = 0.201 dr = 0.015 drMax = 0.148 rError = 2.286
+M: 200
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.215 R = 0.068 dr = 0.147 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.215 R = 0.155 dr = 0.060 drMax = 0.147 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.950 R0 = 0.215 R = 0.215 dr = 0.000 drMax = 0.147 rError = 0.370
+bin(4) Nin =    4.966 Nout =    0.998 R0 = 0.215 R = 0.201 dr = 0.014 drMax = 0.147 rError = 2.286
+M: 250
+bin(1) Nin =   28.836 Nout =    1.959 R0 = 0.167 R = 0.068 dr = 0.099 drMax = 0.000 rError = 1.038
+bin(2) Nin =   31.830 Nout =    5.932 R0 = 0.167 R = 0.186 dr = 0.020 drMax = 0.099 rError = 0.450
+bin(3) Nin =   41.581 Nout =    6.925 R0 = 0.167 R = 0.167 dr = 0.000 drMax = 0.099 rError = 0.504
+bin(4) Nin =    4.966 Nout =    0.984 R0 = 0.167 R = 0.198 dr = 0.032 drMax = 0.099 rError = 2.318
+M: 300
+bin(1) Nin =   28.836 Nout =    1.959 R0 = 0.167 R = 0.068 dr = 0.099 drMax = 0.000 rError = 1.038
+bin(2) Nin =   31.830 Nout =    6.932 R0 = 0.167 R = 0.218 dr = 0.051 drMax = 0.099 rError = 0.421
+bin(3) Nin =   41.581 Nout =    6.925 R0 = 0.167 R = 0.167 dr = 0.000 drMax = 0.099 rError = 0.504
+bin(4) Nin =    4.966 Nout =    0.984 R0 = 0.167 R = 0.198 dr = 0.032 drMax = 0.099 rError = 2.318
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+[0mroot [0] 
+Processing /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+(2)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C.so
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C: In function 'void ComputeTopScaleFactors(Int_t, TString, TString)':
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:809:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:809:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:809:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:809:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:809:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1256:246: warning: unknown conversion type character ')' in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:817:37: warning: variable 'effttMC_btag_central_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:818:100: warning: variable 'effttMC_btag_central_tw_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:857:38: warning: variable 'effttMC_btag_central_All_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:858:103: warning: variable 'effttMC_btag_central_All_tw_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:20:17: warning: 'Double_t DYBkgScaleFactorKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
+--- reading event     0 of 2385632
+--- reading event 100000 of 2385632
+--- reading event 200000 of 2385632
+--- reading event 300000 of 2385632
+--- reading event 400000 of 2385632
+--- reading event 500000 of 2385632
+--- reading event 600000 of 2385632
+--- reading event 700000 of 2385632
+--- reading event 800000 of 2385632
+--- reading event 900000 of 2385632
+--- reading event 1000000 of 2385632
+--- reading event 1100000 of 2385632
+--- reading event 1200000 of 2385632
+--- reading event 1300000 of 2385632
+--- reading event 1400000 of 2385632
+--- reading event 1500000 of 2385632
+--- reading event 1600000 of 2385632
+--- reading event 1700000 of 2385632
+--- reading event 1800000 of 2385632
+--- reading event 1900000 of 2385632
+--- reading event 2000000 of 2385632
+--- reading event 2100000 of 2385632
+--- reading event 2200000 of 2385632
+--- reading event 2300000 of 2385632
+--- reading event     0 of 86990
+**********eff central jet 2-j**********
+channel               (data/background/top)-num             (data/background/top)-den
+details_central(0) -->   739/  46.61/ 597.94  -  1284/ 314.88/ 834.93
+details_central(1) -->   496/  29.82/ 382.82  -   847/ 190.54/ 534.79
+details_central(2) -->   233/  18.00/ 182.37  -   451/  99.36/ 279.75
+details_central(3) -->    65/   6.37/  69.10  -   174/  39.40/ 117.37
+details_central(4) -->    19/   1.05/  17.50  -    66/  14.65/  42.50
+channel                      eff_data              eff_tt            ScaleFactor
+scaleFactor_central(0) -->  0.722 +/-  0.012 |  0.716 +/-  0.002 |  1.009 +/-  0.017
+scaleFactor_central(1) -->  0.721 +/-  0.015 |  0.716 +/-  0.003 |  1.007 +/-  0.022
+scaleFactor_central(2) -->  0.620 +/-  0.023 |  0.652 +/-  0.005 |  0.950 +/-  0.035
+scaleFactor_central(3) -->  0.428 +/-  0.038 |  0.589 +/-  0.007 |  0.726 +/-  0.064
+scaleFactor_central(4) -->  0.360 +/-  0.059 |  0.412 +/-  0.012 |  0.875 +/-  0.143
+details_central(all)         -->  1552/ 101.86/1249.74  -  2822/ 658.83/1809.33
+scaleFactor_central_All(all) -->  0.679 +/-  0.009 |  0.691 +/-  0.002 |  0.983 +/-  0.013
+**********eff vbf jet 2-j**********
+eventsTaggedVBF(0) --> top: 649.215  data:   739  bck:46.611
+eventsTaggedVBF(1) --> top: 421.673  data:   496  bck:29.818
+eventsTaggedVBF(2) --> top: 199.141  data:   233  bck:18.004
+eventsTaggedVBF(3) --> top: 78.788  data:    65  bck: 6.371
+eventsTaggedVBF(4) --> top: 18.514  data:    19  bck: 1.052
+eventsNonTaggedVBF(0) --> 267.264  --> 257.310 +/-  3.103 | 266.171 +/- 19.604
+eventsNonTaggedVBF(1) --> 176.624  --> 167.391 +/-  2.541 | 180.680 +/- 16.309
+eventsNonTaggedVBF(2) --> 112.337  --> 106.327 +/-  2.121 | 131.973 +/- 15.863
+eventsNonTaggedVBF(3) --> 58.712  --> 55.037 +/-  1.676 | 78.493 +/- 16.161
+eventsNonTaggedVBF(4) --> 28.323  --> 26.434 +/-  1.321 | 31.860 +/- 11.251
+data/MC/MCPred(689.177/643.260/612.499) -> scaleFactorVBF(  0):  1.071 +/-  0.056
+eventsTaggedVBF(0) --> top:  1.347  data:     1  bck:-0.039
+eventsTaggedVBF(1) --> top:  4.112  data:     2  bck: 1.125
+eventsTaggedVBF(2) --> top:  5.376  data:     7  bck: 0.488
+eventsTaggedVBF(3) --> top:  7.723  data:     3  bck: 1.291
+eventsTaggedVBF(4) --> top:  2.186  data:     3  bck: 0.707
+eventsNonTaggedVBF(0) -->  0.586  -->  0.534 +/-  0.006 |  0.400 +/-  0.385
+eventsNonTaggedVBF(1) -->  1.153  -->  1.632 +/-  0.025 |  0.339 +/-  0.549
+eventsNonTaggedVBF(2) -->  2.827  -->  2.870 +/-  0.057 |  3.997 +/-  1.670
+eventsNonTaggedVBF(3) -->  4.092  -->  5.395 +/-  0.164 |  2.289 +/-  2.345
+eventsNonTaggedVBF(4) -->  4.170  -->  3.121 +/-  0.156 |  4.070 +/-  3.247
+data/MC/MCPred(11.095/12.828/13.552) -> scaleFactorVBF(  0):  0.865 +/-  0.342
+eventsTaggedVBF(0) --> top:  0.168  data:     0  bck:-0.002
+eventsTaggedVBF(1) --> top:  0.344  data:     0  bck:-0.022
+eventsTaggedVBF(2) --> top:  0.742  data:     2  bck: 0.050
+eventsTaggedVBF(3) --> top:  1.534  data:     0  bck: 0.300
+eventsTaggedVBF(4) --> top:  0.322  data:     0  bck:-0.014
+eventsNonTaggedVBF(0) -->  0.071  -->  0.067 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBF(1) -->  0.204  -->  0.136 +/-  0.002 |  0.009 +/-  0.001
+eventsNonTaggedVBF(2) -->  0.320  -->  0.396 +/-  0.008 |  1.197 +/-  0.876
+eventsNonTaggedVBF(3) -->  0.505  -->  1.072 +/-  0.033 |  0.000 +/-  0.000
+eventsNonTaggedVBF(4) -->  0.656  -->  0.460 +/-  0.023 |  0.024 +/-  0.006
+data/MC/MCPred( 1.231/ 1.756/ 2.131) -> scaleFactorVBF(110):  0.701 +/-  0.499
+eventsTaggedVBF(0) --> top:  0.219  data:     0  bck:-0.002
+eventsTaggedVBF(1) --> top:  0.398  data:     0  bck: 0.145
+eventsTaggedVBF(2) --> top:  0.977  data:     2  bck: 0.044
+eventsTaggedVBF(3) --> top:  1.604  data:     0  bck: 0.299
+eventsTaggedVBF(4) --> top:  0.361  data:     1  bck:-0.014
+eventsNonTaggedVBF(0) -->  0.071  -->  0.087 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBF(1) -->  0.215  -->  0.158 +/-  0.002 |  0.000 +/-  0.000
+eventsNonTaggedVBF(2) -->  0.388  -->  0.521 +/-  0.010 |  1.201 +/-  0.876
+eventsNonTaggedVBF(3) -->  0.598  -->  1.121 +/-  0.034 |  0.000 +/-  0.000
+eventsNonTaggedVBF(4) -->  0.707  -->  0.516 +/-  0.026 |  1.799 +/-  1.834
+data/MC/MCPred( 3.001/ 1.980/ 2.402) -> scaleFactorVBF(115):  1.516 +/-  1.027
+eventsTaggedVBF(0) --> top:  0.220  data:     0  bck:-0.002
+eventsTaggedVBF(1) --> top:  0.402  data:     0  bck: 0.143
+eventsTaggedVBF(2) --> top:  1.032  data:     2  bck: 0.043
+eventsTaggedVBF(3) --> top:  1.632  data:     0  bck: 0.296
+eventsTaggedVBF(4) --> top:  0.381  data:     1  bck:-0.014
+eventsNonTaggedVBF(0) -->  0.071  -->  0.087 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBF(1) -->  0.253  -->  0.159 +/-  0.002 |  0.000 +/-  0.000
+eventsNonTaggedVBF(2) -->  0.388  -->  0.551 +/-  0.011 |  1.201 +/-  0.876
+eventsNonTaggedVBF(3) -->  0.611  -->  1.140 +/-  0.035 |  0.000 +/-  0.000
+eventsNonTaggedVBF(4) -->  0.720  -->  0.544 +/-  0.027 |  1.800 +/-  1.834
+data/MC/MCPred( 3.001/ 2.043/ 2.482) -> scaleFactorVBF(118):  1.469 +/-  0.995
+eventsTaggedVBF(0) --> top:  0.220  data:     0  bck:-0.002
+eventsTaggedVBF(1) --> top:  0.405  data:     0  bck: 0.142
+eventsTaggedVBF(2) --> top:  1.062  data:     2  bck: 0.043
+eventsTaggedVBF(3) --> top:  1.684  data:     0  bck: 0.295
+eventsTaggedVBF(4) --> top:  0.381  data:     1  bck:-0.015
+eventsNonTaggedVBF(0) -->  0.097  -->  0.087 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBF(1) -->  0.253  -->  0.161 +/-  0.002 |  0.000 +/-  0.000
+eventsNonTaggedVBF(2) -->  0.389  -->  0.567 +/-  0.011 |  1.201 +/-  0.876
+eventsNonTaggedVBF(3) -->  0.624  -->  1.177 +/-  0.036 |  0.000 +/-  0.000
+eventsNonTaggedVBF(4) -->  0.741  -->  0.544 +/-  0.027 |  1.802 +/-  1.834
+data/MC/MCPred( 3.004/ 2.104/ 2.535) -> scaleFactorVBF(120):  1.428 +/-  0.966
+eventsTaggedVBF(0) --> top:  0.222  data:     0  bck:-0.003
+eventsTaggedVBF(1) --> top:  0.418  data:     0  bck: 0.139
+eventsTaggedVBF(2) --> top:  1.092  data:     2  bck: 0.043
+eventsTaggedVBF(3) --> top:  1.687  data:     0  bck: 0.294
+eventsTaggedVBF(4) --> top:  0.449  data:     1  bck:-0.019
+eventsNonTaggedVBF(0) -->  0.107  -->  0.088 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBF(1) -->  0.314  -->  0.166 +/-  0.003 |  0.000 +/-  0.000
+eventsNonTaggedVBF(2) -->  0.468  -->  0.583 +/-  0.012 |  1.201 +/-  0.876
+eventsNonTaggedVBF(3) -->  0.634  -->  1.178 +/-  0.036 |  0.000 +/-  0.000
+eventsNonTaggedVBF(4) -->  0.766  -->  0.641 +/-  0.032 |  1.808 +/-  1.835
+data/MC/MCPred( 3.011/ 2.289/ 2.656) -> scaleFactorVBF(122):  1.315 +/-  0.888
+eventsTaggedVBF(0) --> top:  0.263  data:     0  bck:-0.003
+eventsTaggedVBF(1) --> top:  0.422  data:     1  bck: 0.139
+eventsTaggedVBF(2) --> top:  1.102  data:     2  bck: 0.043
+eventsTaggedVBF(3) --> top:  1.756  data:     0  bck: 0.294
+eventsTaggedVBF(4) --> top:  0.459  data:     1  bck:-0.019
+eventsNonTaggedVBF(0) -->  0.159  -->  0.104 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBF(1) -->  0.329  -->  0.168 +/-  0.003 |  0.334 +/-  0.388
+eventsNonTaggedVBF(2) -->  0.472  -->  0.589 +/-  0.012 |  1.201 +/-  0.876
+eventsNonTaggedVBF(3) -->  0.663  -->  1.226 +/-  0.037 |  0.000 +/-  0.000
+eventsNonTaggedVBF(4) -->  0.779  -->  0.656 +/-  0.033 |  1.808 +/-  1.835
+data/MC/MCPred( 3.344/ 2.403/ 2.743) -> scaleFactorVBF(124):  1.392 +/-  0.861
+eventsTaggedVBF(0) --> top:  0.280  data:     0  bck:-0.003
+eventsTaggedVBF(1) --> top:  0.468  data:     1  bck: 0.131
+eventsTaggedVBF(2) --> top:  1.133  data:     2  bck: 0.015
+eventsTaggedVBF(3) --> top:  1.850  data:     0  bck: 0.293
+eventsTaggedVBF(4) --> top:  0.527  data:     2  bck:-0.020
+eventsNonTaggedVBF(0) -->  0.166  -->  0.111 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBF(1) -->  0.339  -->  0.186 +/-  0.003 |  0.337 +/-  0.388
+eventsNonTaggedVBF(2) -->  0.639  -->  0.605 +/-  0.012 |  1.219 +/-  0.876
+eventsNonTaggedVBF(3) -->  0.845  -->  1.292 +/-  0.039 |  0.000 +/-  0.000
+eventsNonTaggedVBF(4) -->  0.822  -->  0.753 +/-  0.038 |  3.585 +/-  2.673
+data/MC/MCPred( 5.142/ 2.811/ 2.947) -> scaleFactorVBF(125):  1.829 +/-  1.010
+eventsTaggedVBF(0) --> top:  0.286  data:     0  bck:-0.003
+eventsTaggedVBF(1) --> top:  0.481  data:     1  bck: 0.131
+eventsTaggedVBF(2) --> top:  1.225  data:     2  bck: 0.014
+eventsTaggedVBF(3) --> top:  1.850  data:     0  bck: 0.293
+eventsTaggedVBF(4) --> top:  0.582  data:     2  bck:-0.020
+eventsNonTaggedVBF(0) -->  0.166  -->  0.113 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBF(1) -->  0.339  -->  0.191 +/-  0.003 |  0.337 +/-  0.388
+eventsNonTaggedVBF(2) -->  0.653  -->  0.654 +/-  0.013 |  1.219 +/-  0.876
+eventsNonTaggedVBF(3) -->  0.850  -->  1.292 +/-  0.039 |  0.000 +/-  0.000
+eventsNonTaggedVBF(4) -->  0.863  -->  0.830 +/-  0.042 |  3.586 +/-  2.673
+data/MC/MCPred( 5.143/ 2.871/ 3.081) -> scaleFactorVBF(126):  1.791 +/-  0.989
+eventsTaggedVBF(0) --> top:  0.290  data:     0  bck:-0.005
+eventsTaggedVBF(1) --> top:  0.497  data:     1  bck: 0.129
+eventsTaggedVBF(2) --> top:  1.228  data:     2  bck: 0.014
+eventsTaggedVBF(3) --> top:  1.853  data:     0  bck: 0.293
+eventsTaggedVBF(4) --> top:  0.585  data:     2  bck:-0.014
+eventsNonTaggedVBF(0) -->  0.166  -->  0.115 +/-  0.001 |  0.002 +/-  0.000
+eventsNonTaggedVBF(1) -->  0.381  -->  0.197 +/-  0.003 |  0.337 +/-  0.388
+eventsNonTaggedVBF(2) -->  0.653  -->  0.655 +/-  0.013 |  1.219 +/-  0.876
+eventsNonTaggedVBF(3) -->  0.856  -->  1.295 +/-  0.039 |  0.000 +/-  0.000
+eventsNonTaggedVBF(4) -->  0.878  -->  0.835 +/-  0.042 |  3.576 +/-  2.673
+data/MC/MCPred( 5.134/ 2.934/ 3.097) -> scaleFactorVBF(128):  1.750 +/-  0.968
+eventsTaggedVBF(0) --> top:  0.290  data:     0  bck:-0.013
+eventsTaggedVBF(1) --> top:  0.550  data:     1  bck: 0.130
+eventsTaggedVBF(2) --> top:  1.332  data:     2  bck: 0.525
+eventsTaggedVBF(3) --> top:  1.918  data:     0  bck: 0.292
+eventsTaggedVBF(4) --> top:  0.585  data:     2  bck:-0.017
+eventsNonTaggedVBF(0) -->  0.166  -->  0.115 +/-  0.001 |  0.005 +/-  0.000
+eventsNonTaggedVBF(1) -->  0.383  -->  0.219 +/-  0.003 |  0.337 +/-  0.388
+eventsNonTaggedVBF(2) -->  0.653  -->  0.711 +/-  0.014 |  0.905 +/-  0.873
+eventsNonTaggedVBF(3) -->  0.871  -->  1.340 +/-  0.041 |  0.000 +/-  0.000
+eventsNonTaggedVBF(4) -->  0.906  -->  0.835 +/-  0.042 |  3.581 +/-  2.673
+data/MC/MCPred( 4.828/ 2.979/ 3.220) -> scaleFactorVBF(130):  1.621 +/-  0.953
+eventsTaggedVBF(0) --> top:  0.369  data:     0  bck:-0.013
+eventsTaggedVBF(1) --> top:  0.690  data:     1  bck: 0.126
+eventsTaggedVBF(2) --> top:  1.559  data:     2  bck: 0.522
+eventsTaggedVBF(3) --> top:  2.173  data:     1  bck: 0.286
+eventsTaggedVBF(4) --> top:  0.639  data:     2  bck: 0.325
+eventsNonTaggedVBF(0) -->  0.173  -->  0.146 +/-  0.002 |  0.005 +/-  0.000
+eventsNonTaggedVBF(1) -->  0.412  -->  0.274 +/-  0.004 |  0.339 +/-  0.388
+eventsNonTaggedVBF(2) -->  0.705  -->  0.832 +/-  0.017 |  0.907 +/-  0.873
+eventsNonTaggedVBF(3) -->  1.166  -->  1.518 +/-  0.046 |  0.956 +/-  1.347
+eventsNonTaggedVBF(4) -->  1.064  -->  0.912 +/-  0.046 |  2.973 +/-  2.624
+data/MC/MCPred( 5.180/ 3.520/ 3.682) -> scaleFactorVBF(135):  1.472 +/-  0.881
+eventsTaggedVBF(0) --> top:  0.380  data:     0  bck:-0.014
+eventsTaggedVBF(1) --> top:  0.857  data:     1  bck: 0.078
+eventsTaggedVBF(2) --> top:  1.627  data:     2  bck: 0.516
+eventsTaggedVBF(3) --> top:  2.461  data:     1  bck: 0.634
+eventsTaggedVBF(4) --> top:  0.688  data:     2  bck: 0.323
+eventsNonTaggedVBF(0) -->  0.181  -->  0.150 +/-  0.002 |  0.005 +/-  0.000
+eventsNonTaggedVBF(1) -->  0.414  -->  0.340 +/-  0.005 |  0.357 +/-  0.389
+eventsNonTaggedVBF(2) -->  0.721  -->  0.868 +/-  0.017 |  0.911 +/-  0.873
+eventsNonTaggedVBF(3) -->  1.217  -->  1.719 +/-  0.052 |  0.491 +/-  1.341
+eventsNonTaggedVBF(4) -->  1.325  -->  0.983 +/-  0.049 |  2.976 +/-  2.624
+data/MC/MCPred( 4.740/ 3.858/ 4.061) -> scaleFactorVBF(140):  1.229 +/-  0.803
+eventsTaggedVBF(0) --> top:  0.447  data:     0  bck:-0.014
+eventsTaggedVBF(1) --> top:  1.073  data:     1  bck: 0.077
+eventsTaggedVBF(2) --> top:  2.251  data:     3  bck: 0.500
+eventsTaggedVBF(3) --> top:  3.013  data:     2  bck: 0.631
+eventsTaggedVBF(4) --> top:  0.818  data:     2  bck: 0.313
+eventsNonTaggedVBF(0) -->  0.253  -->  0.177 +/-  0.002 |  0.005 +/-  0.000
+eventsNonTaggedVBF(1) -->  0.454  -->  0.426 +/-  0.006 |  0.358 +/-  0.389
+eventsNonTaggedVBF(2) -->  0.843  -->  1.202 +/-  0.024 |  1.534 +/-  1.074
+eventsNonTaggedVBF(3) -->  1.568  -->  2.105 +/-  0.064 |  1.832 +/-  1.914
+eventsNonTaggedVBF(4) -->  1.626  -->  1.167 +/-  0.058 |  2.995 +/-  2.625
+data/MC/MCPred( 6.725/ 4.743/ 5.077) -> scaleFactorVBF(145):  1.418 +/-  0.726
+eventsTaggedVBF(0) --> top:  0.476  data:     0  bck:-0.031
+eventsTaggedVBF(1) --> top:  1.103  data:     1  bck: 0.076
+eventsTaggedVBF(2) --> top:  2.340  data:     3  bck: 0.495
+eventsTaggedVBF(3) --> top:  3.166  data:     2  bck: 0.611
+eventsTaggedVBF(4) --> top:  0.821  data:     2  bck: 0.313
+eventsNonTaggedVBF(0) -->  0.253  -->  0.189 +/-  0.002 |  0.012 +/-  0.001
+eventsNonTaggedVBF(1) -->  0.469  -->  0.438 +/-  0.007 |  0.358 +/-  0.389
+eventsNonTaggedVBF(2) -->  0.854  -->  1.249 +/-  0.025 |  1.538 +/-  1.074
+eventsNonTaggedVBF(3) -->  1.746  -->  2.211 +/-  0.067 |  1.860 +/-  1.915
+eventsNonTaggedVBF(4) -->  1.736  -->  1.172 +/-  0.059 |  2.995 +/-  2.625
+data/MC/MCPred( 6.763/ 5.058/ 5.259) -> scaleFactorVBF(150):  1.337 +/-  0.681
+eventsTaggedVBF(0) --> top:  0.482  data:     0  bck:-0.032
+eventsTaggedVBF(1) --> top:  1.162  data:     1  bck: 0.079
+eventsTaggedVBF(2) --> top:  2.487  data:     4  bck: 0.492
+eventsTaggedVBF(3) --> top:  4.075  data:     2  bck: 0.607
+eventsTaggedVBF(4) --> top:  0.851  data:     2  bck: 0.288
+eventsNonTaggedVBF(0) -->  0.253  -->  0.191 +/-  0.002 |  0.012 +/-  0.001
+eventsNonTaggedVBF(1) -->  0.492  -->  0.461 +/-  0.007 |  0.357 +/-  0.389
+eventsNonTaggedVBF(2) -->  0.872  -->  1.328 +/-  0.026 |  2.153 +/-  1.245
+eventsNonTaggedVBF(3) -->  1.789  -->  2.847 +/-  0.087 |  1.865 +/-  1.915
+eventsNonTaggedVBF(4) -->  1.787  -->  1.215 +/-  0.061 |  3.040 +/-  2.629
+data/MC/MCPred( 7.427/ 5.194/ 6.041) -> scaleFactorVBF(155):  1.430 +/-  0.675
+eventsTaggedVBF(0) --> top:  0.482  data:     0  bck:-0.033
+eventsTaggedVBF(1) --> top:  1.174  data:     1  bck: 0.079
+eventsTaggedVBF(2) --> top:  2.600  data:     4  bck: 0.490
+eventsTaggedVBF(3) --> top:  4.238  data:     2  bck: 0.705
+eventsTaggedVBF(4) --> top:  0.896  data:     2  bck: 0.286
+eventsNonTaggedVBF(0) -->  0.253  -->  0.191 +/-  0.002 |  0.013 +/-  0.001
+eventsNonTaggedVBF(1) -->  0.515  -->  0.466 +/-  0.007 |  0.357 +/-  0.389
+eventsNonTaggedVBF(2) -->  0.902  -->  1.388 +/-  0.028 |  2.155 +/-  1.245
+eventsNonTaggedVBF(3) -->  1.902  -->  2.960 +/-  0.090 |  1.734 +/-  1.912
+eventsNonTaggedVBF(4) -->  1.873  -->  1.279 +/-  0.064 |  3.043 +/-  2.629
+data/MC/MCPred( 7.301/ 5.445/ 6.284) -> scaleFactorVBF(160):  1.341 +/-  0.643
+eventsTaggedVBF(0) --> top:  0.578  data:     0  bck:-0.035
+eventsTaggedVBF(1) --> top:  1.217  data:     1  bck: 0.078
+eventsTaggedVBF(2) --> top:  2.839  data:     4  bck: 0.468
+eventsTaggedVBF(3) --> top:  4.386  data:     2  bck: 0.696
+eventsTaggedVBF(4) --> top:  1.013  data:     2  bck: 0.577
+eventsNonTaggedVBF(0) -->  0.253  -->  0.229 +/-  0.003 |  0.014 +/-  0.001
+eventsNonTaggedVBF(1) -->  0.545  -->  0.483 +/-  0.007 |  0.357 +/-  0.389
+eventsNonTaggedVBF(2) -->  0.959  -->  1.516 +/-  0.030 |  2.168 +/-  1.246
+eventsNonTaggedVBF(3) -->  1.999  -->  3.064 +/-  0.093 |  1.746 +/-  1.912
+eventsNonTaggedVBF(4) -->  2.051  -->  1.447 +/-  0.072 |  2.525 +/-  2.593
+data/MC/MCPred( 6.811/ 5.807/ 6.738) -> scaleFactorVBF(170):  1.173 +/-  0.598
+eventsTaggedVBF(0) --> top:  0.633  data:     0  bck:-0.036
+eventsTaggedVBF(1) --> top:  2.253  data:     1  bck: 0.068
+eventsTaggedVBF(2) --> top:  3.214  data:     4  bck: 0.465
+eventsTaggedVBF(3) --> top:  4.611  data:     2  bck: 0.681
+eventsTaggedVBF(4) --> top:  1.093  data:     2  bck: 0.577
+eventsNonTaggedVBF(0) -->  0.278  -->  0.251 +/-  0.003 |  0.014 +/-  0.001
+eventsNonTaggedVBF(1) -->  0.663  -->  0.894 +/-  0.014 |  0.361 +/-  0.389
+eventsNonTaggedVBF(2) -->  0.989  -->  1.716 +/-  0.034 |  2.170 +/-  1.246
+eventsNonTaggedVBF(3) -->  2.151  -->  3.221 +/-  0.098 |  1.766 +/-  1.913
+eventsNonTaggedVBF(4) -->  2.241  -->  1.561 +/-  0.078 |  2.526 +/-  2.593
+data/MC/MCPred( 6.836/ 6.321/ 7.644) -> scaleFactorVBF(180):  1.081 +/-  0.550
+eventsTaggedVBF(0) --> top:  0.687  data:     1  bck:-0.036
+eventsTaggedVBF(1) --> top:  2.379  data:     1  bck: 0.062
+eventsTaggedVBF(2) --> top:  3.460  data:     4  bck: 0.455
+eventsTaggedVBF(3) --> top:  4.949  data:     2  bck: 1.243
+eventsTaggedVBF(4) --> top:  1.219  data:     2  bck: 0.644
+eventsNonTaggedVBF(0) -->  0.353  -->  0.272 +/-  0.003 |  0.398 +/-  0.385
+eventsNonTaggedVBF(1) -->  0.773  -->  0.944 +/-  0.014 |  0.363 +/-  0.389
+eventsNonTaggedVBF(2) -->  1.386  -->  1.847 +/-  0.037 |  2.176 +/-  1.246
+eventsNonTaggedVBF(3) -->  2.482  -->  3.457 +/-  0.105 |  1.013 +/-  1.900
+eventsNonTaggedVBF(4) -->  2.500  -->  1.740 +/-  0.087 |  2.407 +/-  2.585
+data/MC/MCPred( 6.358/ 7.492/ 8.260) -> scaleFactorVBF(190):  0.849 +/-  0.465
+eventsTaggedVBF(0) --> top:  0.763  data:     1  bck:-0.036
+eventsTaggedVBF(1) --> top:  2.504  data:     1  bck: 0.560
+eventsTaggedVBF(2) --> top:  3.764  data:     4  bck: 0.452
+eventsTaggedVBF(3) --> top:  5.318  data:     2  bck: 1.233
+eventsTaggedVBF(4) --> top:  1.447  data:     2  bck: 0.644
+eventsNonTaggedVBF(0) -->  0.452  -->  0.302 +/-  0.004 |  0.398 +/-  0.385
+eventsNonTaggedVBF(1) -->  0.785  -->  0.994 +/-  0.015 |  0.171 +/-  0.388
+eventsNonTaggedVBF(2) -->  1.625  -->  2.010 +/-  0.040 |  2.178 +/-  1.246
+eventsNonTaggedVBF(3) -->  2.559  -->  3.715 +/-  0.113 |  1.027 +/-  1.900
+eventsNonTaggedVBF(4) -->  2.714  -->  2.067 +/-  0.103 |  2.408 +/-  2.585
+data/MC/MCPred( 6.181/ 8.135/ 9.087) -> scaleFactorVBF(200):  0.760 +/-  0.428
+eventsTaggedVBF(0) --> top:  1.225  data:     1  bck:-0.040
+eventsTaggedVBF(1) --> top:  3.242  data:     2  bck: 1.118
+eventsTaggedVBF(2) --> top:  4.807  data:     6  bck: 0.410
+eventsTaggedVBF(3) --> top:  7.127  data:     3  bck: 1.222
+eventsTaggedVBF(4) --> top:  1.937  data:     3  bck: 0.701
+eventsNonTaggedVBF(0) -->  0.586  -->  0.486 +/-  0.006 |  0.400 +/-  0.385
+eventsNonTaggedVBF(1) -->  1.050  -->  1.287 +/-  0.020 |  0.342 +/-  0.549
+eventsNonTaggedVBF(2) -->  2.431  -->  2.567 +/-  0.051 |  3.431 +/-  1.540
+eventsNonTaggedVBF(3) -->  3.623  -->  4.978 +/-  0.152 |  2.381 +/-  2.347
+eventsNonTaggedVBF(4) -->  3.868  -->  2.766 +/-  0.138 |  4.080 +/-  3.248
+data/MC/MCPred(10.634/11.558/12.084) -> scaleFactorVBF(250):  0.920 +/-  0.376
+eventsTaggedVBF(0) --> top:  1.255  data:     1  bck:-0.040
+eventsTaggedVBF(1) --> top:  3.299  data:     2  bck: 1.122
+eventsTaggedVBF(2) --> top:  5.082  data:     7  bck: 0.405
+eventsTaggedVBF(3) --> top:  7.301  data:     3  bck: 1.222
+eventsTaggedVBF(4) --> top:  2.022  data:     3  bck: 0.699
+eventsNonTaggedVBF(0) -->  0.586  -->  0.497 +/-  0.006 |  0.400 +/-  0.385
+eventsNonTaggedVBF(1) -->  1.082  -->  1.310 +/-  0.020 |  0.340 +/-  0.549
+eventsNonTaggedVBF(2) -->  2.581  -->  2.713 +/-  0.054 |  4.048 +/-  1.671
+eventsNonTaggedVBF(3) -->  3.726  -->  5.100 +/-  0.155 |  2.380 +/-  2.347
+eventsNonTaggedVBF(4) -->  4.057  -->  2.887 +/-  0.144 |  4.084 +/-  3.248
+data/MC/MCPred(11.253/12.032/12.507) -> scaleFactorVBF(300):  0.935 +/-  0.365
+eventsTaggedVBF(0) --> top:  1.272  data:     1  bck:-0.039
+eventsTaggedVBF(1) --> top:  3.879  data:     2  bck: 1.135
+eventsTaggedVBF(2) --> top:  5.171  data:     7  bck: 0.405
+eventsTaggedVBF(3) --> top:  7.507  data:     3  bck: 1.217
+eventsTaggedVBF(4) --> top:  2.088  data:     3  bck: 0.699
+eventsNonTaggedVBF(0) -->  0.586  -->  0.504 +/-  0.006 |  0.400 +/-  0.385
+eventsNonTaggedVBF(1) -->  1.082  -->  1.540 +/-  0.023 |  0.335 +/-  0.549
+eventsNonTaggedVBF(2) -->  2.626  -->  2.761 +/-  0.055 |  4.048 +/-  1.671
+eventsNonTaggedVBF(3) -->  3.785  -->  5.244 +/-  0.160 |  2.387 +/-  2.348
+eventsNonTaggedVBF(4) -->  4.078  -->  2.981 +/-  0.149 |  4.084 +/-  3.248
+data/MC/MCPred(11.254/12.156/13.030) -> scaleFactorVBF(350):  0.926 +/-  0.361
+eventsTaggedVBF(0) --> top:  1.274  data:     1  bck:-0.039
+eventsTaggedVBF(1) --> top:  3.888  data:     2  bck: 1.135
+eventsTaggedVBF(2) --> top:  5.207  data:     7  bck: 0.405
+eventsTaggedVBF(3) --> top:  7.543  data:     3  bck: 1.217
+eventsTaggedVBF(4) --> top:  2.102  data:     3  bck: 0.699
+eventsNonTaggedVBF(0) -->  0.586  -->  0.505 +/-  0.006 |  0.400 +/-  0.385
+eventsNonTaggedVBF(1) -->  1.102  -->  1.543 +/-  0.023 |  0.335 +/-  0.549
+eventsNonTaggedVBF(2) -->  2.694  -->  2.780 +/-  0.055 |  4.048 +/-  1.671
+eventsNonTaggedVBF(3) -->  3.906  -->  5.269 +/-  0.160 |  2.387 +/-  2.348
+eventsNonTaggedVBF(4) -->  4.108  -->  3.002 +/-  0.150 |  4.085 +/-  3.248
+data/MC/MCPred(11.255/12.397/13.099) -> scaleFactorVBF(400):  0.908 +/-  0.354
+eventsTaggedVBF(0) --> top:  1.299  data:     1  bck:-0.039
+eventsTaggedVBF(1) --> top:  3.904  data:     2  bck: 1.135
+eventsTaggedVBF(2) --> top:  5.237  data:     7  bck: 0.424
+eventsTaggedVBF(3) --> top:  7.601  data:     3  bck: 1.305
+eventsTaggedVBF(4) --> top:  2.102  data:     3  bck: 0.699
+eventsNonTaggedVBF(0) -->  0.586  -->  0.515 +/-  0.006 |  0.400 +/-  0.385
+eventsNonTaggedVBF(1) -->  1.102  -->  1.550 +/-  0.024 |  0.335 +/-  0.549
+eventsNonTaggedVBF(2) -->  2.694  -->  2.796 +/-  0.056 |  4.037 +/-  1.671
+eventsNonTaggedVBF(3) -->  3.947  -->  5.310 +/-  0.162 |  2.269 +/-  2.345
+eventsNonTaggedVBF(4) -->  4.120  -->  3.002 +/-  0.150 |  4.085 +/-  3.248
+data/MC/MCPred(11.125/12.450/13.172) -> scaleFactorVBF(450):  0.894 +/-  0.353
+eventsTaggedVBF(0) --> top:  1.299  data:     1  bck:-0.039
+eventsTaggedVBF(1) --> top:  3.904  data:     2  bck: 1.135
+eventsTaggedVBF(2) --> top:  5.242  data:     7  bck: 0.424
+eventsTaggedVBF(3) --> top:  7.601  data:     3  bck: 1.305
+eventsTaggedVBF(4) --> top:  2.112  data:     3  bck: 0.699
+eventsNonTaggedVBF(0) -->  0.586  -->  0.515 +/-  0.006 |  0.400 +/-  0.385
+eventsNonTaggedVBF(1) -->  1.102  -->  1.550 +/-  0.024 |  0.335 +/-  0.549
+eventsNonTaggedVBF(2) -->  2.694  -->  2.799 +/-  0.056 |  4.037 +/-  1.671
+eventsNonTaggedVBF(3) -->  3.982  -->  5.310 +/-  0.162 |  2.269 +/-  2.345
+eventsNonTaggedVBF(4) -->  4.124  -->  3.016 +/-  0.151 |  4.085 +/-  3.248
+data/MC/MCPred(11.125/12.488/13.189) -> scaleFactorVBF(500):  0.891 +/-  0.352
+eventsTaggedVBF(0) --> top:  1.299  data:     1  bck:-0.039
+eventsTaggedVBF(1) --> top:  3.904  data:     2  bck: 1.135
+eventsTaggedVBF(2) --> top:  5.242  data:     7  bck: 0.424
+eventsTaggedVBF(3) --> top:  7.616  data:     3  bck: 1.305
+eventsTaggedVBF(4) --> top:  2.112  data:     3  bck: 0.699
+eventsNonTaggedVBF(0) -->  0.586  -->  0.515 +/-  0.006 |  0.400 +/-  0.385
+eventsNonTaggedVBF(1) -->  1.102  -->  1.550 +/-  0.024 |  0.335 +/-  0.549
+eventsNonTaggedVBF(2) -->  2.694  -->  2.799 +/-  0.056 |  4.037 +/-  1.671
+eventsNonTaggedVBF(3) -->  3.985  -->  5.320 +/-  0.162 |  2.269 +/-  2.345
+eventsNonTaggedVBF(4) -->  4.124  -->  3.016 +/-  0.151 |  4.085 +/-  3.248
+data/MC/MCPred(11.125/12.492/13.200) -> scaleFactorVBF(550):  0.891 +/-  0.352
+eventsTaggedVBF(0) --> top:  1.299  data:     1  bck:-0.039
+eventsTaggedVBF(1) --> top:  3.958  data:     2  bck: 1.135
+eventsTaggedVBF(2) --> top:  5.242  data:     7  bck: 0.424
+eventsTaggedVBF(3) --> top:  7.616  data:     3  bck: 1.305
+eventsTaggedVBF(4) --> top:  2.112  data:     3  bck: 0.699
+eventsNonTaggedVBF(0) -->  0.586  -->  0.515 +/-  0.006 |  0.400 +/-  0.385
+eventsNonTaggedVBF(1) -->  1.102  -->  1.571 +/-  0.024 |  0.335 +/-  0.549
+eventsNonTaggedVBF(2) -->  2.698  -->  2.799 +/-  0.056 |  4.037 +/-  1.671
+eventsNonTaggedVBF(3) -->  3.985  -->  5.320 +/-  0.162 |  2.269 +/-  2.345
+eventsNonTaggedVBF(4) -->  4.124  -->  3.016 +/-  0.151 |  4.085 +/-  3.248
+data/MC/MCPred(11.125/12.496/13.221) -> scaleFactorVBF(600):  0.890 +/-  0.351
+eventsTaggedVBF(0) --> top:  1.299  data:     1  bck:-0.039
+eventsTaggedVBF(1) --> top:  3.958  data:     2  bck: 1.135
+eventsTaggedVBF(2) --> top:  5.249  data:     7  bck: 0.424
+eventsTaggedVBF(3) --> top:  7.616  data:     3  bck: 1.305
+eventsTaggedVBF(4) --> top:  2.136  data:     3  bck: 0.699
+eventsNonTaggedVBF(0) -->  0.586  -->  0.515 +/-  0.006 |  0.400 +/-  0.385
+eventsNonTaggedVBF(1) -->  1.102  -->  1.571 +/-  0.024 |  0.335 +/-  0.549
+eventsNonTaggedVBF(2) -->  2.700  -->  2.802 +/-  0.056 |  4.037 +/-  1.671
+eventsNonTaggedVBF(3) -->  3.985  -->  5.320 +/-  0.162 |  2.269 +/-  2.345
+eventsNonTaggedVBF(4) -->  4.124  -->  3.050 +/-  0.152 |  4.085 +/-  3.248
+data/MC/MCPred(11.125/12.498/13.259) -> scaleFactorVBF(700):  0.890 +/-  0.351
+eventsTaggedVBF(0) --> top:  1.299  data:     1  bck:-0.039
+eventsTaggedVBF(1) --> top:  3.958  data:     2  bck: 1.135
+eventsTaggedVBF(2) --> top:  5.249  data:     7  bck: 0.424
+eventsTaggedVBF(3) --> top:  7.616  data:     3  bck: 1.305
+eventsTaggedVBF(4) --> top:  2.136  data:     3  bck: 0.708
+eventsNonTaggedVBF(0) -->  0.586  -->  0.515 +/-  0.006 |  0.400 +/-  0.385
+eventsNonTaggedVBF(1) -->  1.102  -->  1.571 +/-  0.024 |  0.335 +/-  0.549
+eventsNonTaggedVBF(2) -->  2.761  -->  2.802 +/-  0.056 |  4.037 +/-  1.671
+eventsNonTaggedVBF(3) -->  3.985  -->  5.320 +/-  0.162 |  2.269 +/-  2.345
+eventsNonTaggedVBF(4) -->  4.124  -->  3.050 +/-  0.152 |  4.068 +/-  3.247
+data/MC/MCPred(11.109/12.558/13.259) -> scaleFactorVBF(800):  0.885 +/-  0.350
+**********eff vbf jet 2-j SF**********
+eventsTaggedVBFSF(0) --> top: 243.810  data:   280  bck:25.871
+eventsTaggedVBFSF(1) --> top: 155.956  data:   205  bck:13.969
+eventsTaggedVBFSF(2) --> top: 70.930  data:    86  bck: 7.061
+eventsTaggedVBFSF(3) --> top: 30.695  data:    26  bck: 2.178
+eventsTaggedVBFSF(4) --> top:  7.640  data:    10  bck: 0.385
+eventsNonTaggedVBFSF(0) --> 102.479  --> 96.632 +/-  1.165 | 97.693 +/-  8.857
+eventsNonTaggedVBFSF(1) --> 67.123  --> 61.910 +/-  0.940 | 74.039 +/-  7.934
+eventsNonTaggedVBFSF(2) --> 42.476  --> 37.872 +/-  0.756 | 48.456 +/-  7.382
+eventsNonTaggedVBFSF(3) --> 21.817  --> 21.441 +/-  0.653 | 31.893 +/-  8.396
+eventsNonTaggedVBFSF(4) --> 10.490  --> 10.909 +/-  0.545 | 17.068 +/-  7.118
+data/MC/MCPred(269.149/244.385/228.764) -> scaleFactorVBFSF(  0):  1.101 +/-  0.073
+eventsTaggedVBFSF(0) --> top:  0.324  data:     1  bck:-0.020
+eventsTaggedVBFSF(1) --> top:  1.583  data:     2  bck:-0.036
+eventsTaggedVBFSF(2) --> top:  1.561  data:     5  bck: 0.558
+eventsTaggedVBFSF(3) --> top:  3.478  data:     0  bck: 0.329
+eventsTaggedVBFSF(4) --> top:  0.890  data:     1  bck: 0.330
+eventsNonTaggedVBFSF(0) -->  0.279  -->  0.129 +/-  0.002 |  0.392 +/-  0.385
+eventsNonTaggedVBFSF(1) -->  0.380  -->  0.628 +/-  0.010 |  0.789 +/-  0.551
+eventsNonTaggedVBFSF(2) -->  1.406  -->  0.834 +/-  0.017 |  2.727 +/-  1.398
+eventsNonTaggedVBFSF(3) -->  1.682  -->  2.430 +/-  0.074 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  1.503  -->  1.271 +/-  0.064 |  1.189 +/-  1.801
+data/MC/MCPred( 5.097/ 5.251/ 5.291) -> scaleFactorVBFSF(  0):  0.971 +/-  0.453
+eventsTaggedVBFSF(0) --> top:  0.019  data:     0  bck: 0.000
+eventsTaggedVBFSF(1) --> top:  0.110  data:     0  bck:-0.007
+eventsTaggedVBFSF(2) --> top:  0.236  data:     2  bck: 0.054
+eventsTaggedVBFSF(3) --> top:  0.719  data:     0  bck: 0.089
+eventsTaggedVBFSF(4) --> top:  0.026  data:     0  bck:-0.005
+eventsNonTaggedVBFSF(0) -->  0.005  -->  0.008 +/-  0.000 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.080  -->  0.044 +/-  0.001 |  0.003 +/-  0.000
+eventsNonTaggedVBFSF(2) -->  0.101  -->  0.126 +/-  0.003 |  1.195 +/-  0.876
+eventsNonTaggedVBFSF(3) -->  0.205  -->  0.502 +/-  0.015 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.221  -->  0.037 +/-  0.002 |  0.008 +/-  0.002
+data/MC/MCPred( 1.206/ 0.611/ 0.716) -> scaleFactorVBFSF(110):  1.972 +/-  1.433
+eventsTaggedVBFSF(0) --> top:  0.019  data:     0  bck: 0.000
+eventsTaggedVBFSF(1) --> top:  0.115  data:     0  bck:-0.009
+eventsTaggedVBFSF(2) --> top:  0.264  data:     2  bck: 0.052
+eventsTaggedVBFSF(3) --> top:  0.754  data:     0  bck: 0.088
+eventsTaggedVBFSF(4) --> top:  0.043  data:     0  bck:-0.005
+eventsNonTaggedVBFSF(0) -->  0.006  -->  0.008 +/-  0.000 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.091  -->  0.046 +/-  0.001 |  0.003 +/-  0.000
+eventsNonTaggedVBFSF(2) -->  0.125  -->  0.141 +/-  0.003 |  1.196 +/-  0.876
+eventsNonTaggedVBFSF(3) -->  0.298  -->  0.526 +/-  0.016 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.221  -->  0.062 +/-  0.003 |  0.008 +/-  0.002
+data/MC/MCPred( 1.208/ 0.741/ 0.783) -> scaleFactorVBFSF(115):  1.630 +/-  1.182
+eventsTaggedVBFSF(0) --> top:  0.021  data:     0  bck: 0.000
+eventsTaggedVBFSF(1) --> top:  0.119  data:     0  bck:-0.009
+eventsTaggedVBFSF(2) --> top:  0.268  data:     2  bck: 0.052
+eventsTaggedVBFSF(3) --> top:  0.760  data:     0  bck: 0.086
+eventsTaggedVBFSF(4) --> top:  0.063  data:     0  bck:-0.005
+eventsNonTaggedVBFSF(0) -->  0.006  -->  0.008 +/-  0.000 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.091  -->  0.047 +/-  0.001 |  0.004 +/-  0.000
+eventsNonTaggedVBFSF(2) -->  0.125  -->  0.143 +/-  0.003 |  1.196 +/-  0.876
+eventsNonTaggedVBFSF(3) -->  0.302  -->  0.531 +/-  0.016 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.233  -->  0.090 +/-  0.004 |  0.008 +/-  0.002
+data/MC/MCPred( 1.208/ 0.757/ 0.820) -> scaleFactorVBFSF(118):  1.596 +/-  1.157
+eventsTaggedVBFSF(0) --> top:  0.021  data:     0  bck: 0.000
+eventsTaggedVBFSF(1) --> top:  0.122  data:     0  bck:-0.009
+eventsTaggedVBFSF(2) --> top:  0.289  data:     2  bck: 0.052
+eventsTaggedVBFSF(3) --> top:  0.796  data:     0  bck: 0.084
+eventsTaggedVBFSF(4) --> top:  0.063  data:     0  bck:-0.006
+eventsNonTaggedVBFSF(0) -->  0.006  -->  0.008 +/-  0.000 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.091  -->  0.049 +/-  0.001 |  0.004 +/-  0.000
+eventsNonTaggedVBFSF(2) -->  0.127  -->  0.155 +/-  0.003 |  1.196 +/-  0.876
+eventsNonTaggedVBFSF(3) -->  0.311  -->  0.556 +/-  0.017 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.233  -->  0.090 +/-  0.004 |  0.011 +/-  0.003
+data/MC/MCPred( 1.211/ 0.767/ 0.857) -> scaleFactorVBFSF(120):  1.578 +/-  1.141
+eventsTaggedVBFSF(0) --> top:  0.023  data:     0  bck:-0.000
+eventsTaggedVBFSF(1) --> top:  0.135  data:     0  bck:-0.009
+eventsTaggedVBFSF(2) --> top:  0.289  data:     2  bck: 0.052
+eventsTaggedVBFSF(3) --> top:  0.799  data:     0  bck: 0.084
+eventsTaggedVBFSF(4) --> top:  0.102  data:     0  bck:-0.009
+eventsNonTaggedVBFSF(0) -->  0.006  -->  0.009 +/-  0.000 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.100  -->  0.054 +/-  0.001 |  0.004 +/-  0.000
+eventsNonTaggedVBFSF(2) -->  0.167  -->  0.155 +/-  0.003 |  1.196 +/-  0.876
+eventsNonTaggedVBFSF(3) -->  0.311  -->  0.558 +/-  0.017 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.239  -->  0.145 +/-  0.007 |  0.017 +/-  0.004
+data/MC/MCPred( 1.217/ 0.822/ 0.920) -> scaleFactorVBFSF(122):  1.481 +/-  1.066
+eventsTaggedVBFSF(0) --> top:  0.023  data:     0  bck:-0.000
+eventsTaggedVBFSF(1) --> top:  0.139  data:     1  bck:-0.009
+eventsTaggedVBFSF(2) --> top:  0.297  data:     2  bck: 0.051
+eventsTaggedVBFSF(3) --> top:  0.840  data:     0  bck: 0.084
+eventsTaggedVBFSF(4) --> top:  0.107  data:     0  bck:-0.009
+eventsNonTaggedVBFSF(0) -->  0.058  -->  0.009 +/-  0.000 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.100  -->  0.055 +/-  0.001 |  0.391 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.171  -->  0.159 +/-  0.003 |  1.196 +/-  0.876
+eventsNonTaggedVBFSF(3) -->  0.319  -->  0.587 +/-  0.018 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.245  -->  0.153 +/-  0.008 |  0.017 +/-  0.004
+data/MC/MCPred( 1.604/ 0.892/ 0.963) -> scaleFactorVBFSF(124):  1.799 +/-  1.074
+eventsTaggedVBFSF(0) --> top:  0.023  data:     0  bck:-0.000
+eventsTaggedVBFSF(1) --> top:  0.149  data:     1  bck:-0.016
+eventsTaggedVBFSF(2) --> top:  0.311  data:     2  bck: 0.051
+eventsTaggedVBFSF(3) --> top:  0.879  data:     0  bck: 0.084
+eventsTaggedVBFSF(4) --> top:  0.131  data:     1  bck:-0.010
+eventsNonTaggedVBFSF(0) -->  0.064  -->  0.009 +/-  0.000 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.103  -->  0.059 +/-  0.001 |  0.394 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.240  -->  0.166 +/-  0.003 |  1.196 +/-  0.876
+eventsNonTaggedVBFSF(3) -->  0.385  -->  0.614 +/-  0.019 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.271  -->  0.187 +/-  0.009 |  1.793 +/-  1.834
+data/MC/MCPred( 3.384/ 1.063/ 1.036) -> scaleFactorVBFSF(125):  3.182 +/-  1.946
+eventsTaggedVBFSF(0) --> top:  0.029  data:     0  bck:-0.000
+eventsTaggedVBFSF(1) --> top:  0.149  data:     1  bck:-0.016
+eventsTaggedVBFSF(2) --> top:  0.316  data:     2  bck: 0.051
+eventsTaggedVBFSF(3) --> top:  0.879  data:     0  bck: 0.083
+eventsTaggedVBFSF(4) --> top:  0.186  data:     1  bck:-0.010
+eventsNonTaggedVBFSF(0) -->  0.064  -->  0.011 +/-  0.000 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.103  -->  0.059 +/-  0.001 |  0.394 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.240  -->  0.169 +/-  0.003 |  1.196 +/-  0.876
+eventsNonTaggedVBFSF(3) -->  0.390  -->  0.614 +/-  0.019 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.299  -->  0.265 +/-  0.013 |  1.793 +/-  1.834
+data/MC/MCPred( 3.384/ 1.096/ 1.119) -> scaleFactorVBFSF(126):  3.087 +/-  1.888
+eventsTaggedVBFSF(0) --> top:  0.029  data:     0  bck:-0.002
+eventsTaggedVBFSF(1) --> top:  0.158  data:     1  bck:-0.016
+eventsTaggedVBFSF(2) --> top:  0.316  data:     2  bck: 0.051
+eventsTaggedVBFSF(3) --> top:  0.879  data:     0  bck: 0.083
+eventsTaggedVBFSF(4) --> top:  0.189  data:     1  bck:-0.005
+eventsNonTaggedVBFSF(0) -->  0.064  -->  0.011 +/-  0.000 |  0.001 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.145  -->  0.063 +/-  0.001 |  0.394 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.240  -->  0.169 +/-  0.003 |  1.196 +/-  0.876
+eventsNonTaggedVBFSF(3) -->  0.391  -->  0.614 +/-  0.019 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.305  -->  0.270 +/-  0.013 |  1.784 +/-  1.833
+data/MC/MCPred( 3.375/ 1.145/ 1.127) -> scaleFactorVBFSF(128):  2.947 +/-  1.807
+eventsTaggedVBFSF(0) --> top:  0.029  data:     0  bck:-0.010
+eventsTaggedVBFSF(1) --> top:  0.212  data:     1  bck:-0.016
+eventsTaggedVBFSF(2) --> top:  0.316  data:     2  bck: 0.563
+eventsTaggedVBFSF(3) --> top:  0.913  data:     0  bck: 0.083
+eventsTaggedVBFSF(4) --> top:  0.189  data:     1  bck:-0.008
+eventsNonTaggedVBFSF(0) -->  0.064  -->  0.011 +/-  0.000 |  0.004 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.147  -->  0.084 +/-  0.001 |  0.394 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.240  -->  0.169 +/-  0.003 |  0.882 +/-  0.872
+eventsNonTaggedVBFSF(3) -->  0.401  -->  0.638 +/-  0.019 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.318  -->  0.270 +/-  0.013 |  1.789 +/-  1.833
+data/MC/MCPred( 3.069/ 1.170/ 1.172) -> scaleFactorVBFSF(130):  2.623 +/-  1.767
+eventsTaggedVBFSF(0) --> top:  0.029  data:     0  bck:-0.010
+eventsTaggedVBFSF(1) --> top:  0.239  data:     1  bck:-0.016
+eventsTaggedVBFSF(2) --> top:  0.368  data:     2  bck: 0.561
+eventsTaggedVBFSF(3) --> top:  0.956  data:     0  bck: 0.082
+eventsTaggedVBFSF(4) --> top:  0.223  data:     1  bck:-0.008
+eventsNonTaggedVBFSF(0) -->  0.064  -->  0.011 +/-  0.000 |  0.004 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.147  -->  0.095 +/-  0.001 |  0.394 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.267  -->  0.196 +/-  0.004 |  0.883 +/-  0.872
+eventsNonTaggedVBFSF(3) -->  0.537  -->  0.667 +/-  0.020 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.347  -->  0.318 +/-  0.016 |  1.790 +/-  1.833
+data/MC/MCPred( 3.070/ 1.362/ 1.288) -> scaleFactorVBFSF(135):  2.254 +/-  1.518
+eventsTaggedVBFSF(0) --> top:  0.029  data:     0  bck:-0.011
+eventsTaggedVBFSF(1) --> top:  0.323  data:     1  bck:-0.049
+eventsTaggedVBFSF(2) --> top:  0.375  data:     2  bck: 0.561
+eventsTaggedVBFSF(3) --> top:  1.093  data:     0  bck: 0.081
+eventsTaggedVBFSF(4) --> top:  0.255  data:     1  bck:-0.009
+eventsNonTaggedVBFSF(0) -->  0.064  -->  0.012 +/-  0.000 |  0.004 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.149  -->  0.128 +/-  0.002 |  0.407 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.276  -->  0.200 +/-  0.004 |  0.883 +/-  0.872
+eventsNonTaggedVBFSF(3) -->  0.577  -->  0.764 +/-  0.023 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.506  -->  0.365 +/-  0.018 |  1.791 +/-  1.834
+data/MC/MCPred( 3.085/ 1.572/ 1.468) -> scaleFactorVBFSF(140):  1.962 +/-  1.315
+eventsTaggedVBFSF(0) --> top:  0.043  data:     0  bck:-0.011
+eventsTaggedVBFSF(1) --> top:  0.394  data:     1  bck:-0.050
+eventsTaggedVBFSF(2) --> top:  0.434  data:     3  bck: 0.563
+eventsTaggedVBFSF(3) --> top:  1.132  data:     0  bck: 0.081
+eventsTaggedVBFSF(4) --> top:  0.299  data:     1  bck:-0.009
+eventsNonTaggedVBFSF(0) -->  0.064  -->  0.017 +/-  0.000 |  0.004 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.149  -->  0.156 +/-  0.002 |  0.407 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.354  -->  0.232 +/-  0.005 |  1.496 +/-  1.073
+eventsNonTaggedVBFSF(3) -->  0.671  -->  0.791 +/-  0.024 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.507  -->  0.427 +/-  0.021 |  1.791 +/-  1.834
+data/MC/MCPred( 3.698/ 1.745/ 1.623) -> scaleFactorVBFSF(145):  2.119 +/-  1.238
+eventsTaggedVBFSF(0) --> top:  0.056  data:     0  bck:-0.015
+eventsTaggedVBFSF(1) --> top:  0.398  data:     1  bck:-0.050
+eventsTaggedVBFSF(2) --> top:  0.469  data:     3  bck: 0.558
+eventsTaggedVBFSF(3) --> top:  1.164  data:     0  bck: 0.069
+eventsTaggedVBFSF(4) --> top:  0.299  data:     1  bck:-0.009
+eventsNonTaggedVBFSF(0) -->  0.064  -->  0.022 +/-  0.000 |  0.006 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.149  -->  0.158 +/-  0.002 |  0.407 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.365  -->  0.250 +/-  0.005 |  1.499 +/-  1.073
+eventsNonTaggedVBFSF(3) -->  0.724  -->  0.813 +/-  0.025 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.545  -->  0.427 +/-  0.021 |  1.791 +/-  1.834
+data/MC/MCPred( 3.703/ 1.847/ 1.671) -> scaleFactorVBFSF(150):  2.005 +/-  1.169
+eventsTaggedVBFSF(0) --> top:  0.056  data:     0  bck:-0.015
+eventsTaggedVBFSF(1) --> top:  0.448  data:     1  bck:-0.050
+eventsTaggedVBFSF(2) --> top:  0.565  data:     4  bck: 0.555
+eventsTaggedVBFSF(3) --> top:  2.001  data:     0  bck: 0.068
+eventsTaggedVBFSF(4) --> top:  0.307  data:     1  bck:-0.014
+eventsNonTaggedVBFSF(0) -->  0.065  -->  0.022 +/-  0.000 |  0.006 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.171  -->  0.178 +/-  0.003 |  0.407 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.378  -->  0.302 +/-  0.006 |  2.115 +/-  1.245
+eventsNonTaggedVBFSF(3) -->  0.743  -->  1.398 +/-  0.043 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.559  -->  0.439 +/-  0.022 |  1.800 +/-  1.834
+data/MC/MCPred( 4.328/ 1.916/ 2.339) -> scaleFactorVBFSF(155):  2.259 +/-  1.175
+eventsTaggedVBFSF(0) --> top:  0.056  data:     0  bck:-0.017
+eventsTaggedVBFSF(1) --> top:  0.459  data:     1  bck:-0.050
+eventsTaggedVBFSF(2) --> top:  0.598  data:     4  bck: 0.552
+eventsTaggedVBFSF(3) --> top:  2.065  data:     0  bck: 0.166
+eventsTaggedVBFSF(4) --> top:  0.312  data:     1  bck:-0.014
+eventsNonTaggedVBFSF(0) -->  0.065  -->  0.022 +/-  0.000 |  0.006 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.192  -->  0.182 +/-  0.003 |  0.407 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.382  -->  0.319 +/-  0.006 |  2.116 +/-  1.245
+eventsNonTaggedVBFSF(3) -->  0.801  -->  1.443 +/-  0.044 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.576  -->  0.445 +/-  0.022 |  1.801 +/-  1.834
+data/MC/MCPred( 4.330/ 2.015/ 2.412) -> scaleFactorVBFSF(160):  2.149 +/-  1.117
+eventsTaggedVBFSF(0) --> top:  0.059  data:     0  bck:-0.019
+eventsTaggedVBFSF(1) --> top:  0.471  data:     1  bck:-0.050
+eventsTaggedVBFSF(2) --> top:  0.695  data:     4  bck: 0.531
+eventsTaggedVBFSF(3) --> top:  2.124  data:     0  bck: 0.163
+eventsTaggedVBFSF(4) --> top:  0.329  data:     1  bck: 0.278
+eventsNonTaggedVBFSF(0) -->  0.065  -->  0.023 +/-  0.000 |  0.007 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.209  -->  0.187 +/-  0.003 |  0.407 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.437  -->  0.371 +/-  0.007 |  2.129 +/-  1.245
+eventsNonTaggedVBFSF(3) -->  0.850  -->  1.484 +/-  0.045 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.658  -->  0.469 +/-  0.023 |  1.282 +/-  1.805
+data/MC/MCPred( 3.826/ 2.219/ 2.534) -> scaleFactorVBFSF(170):  1.724 +/-  1.004
+eventsTaggedVBFSF(0) --> top:  0.060  data:     0  bck:-0.019
+eventsTaggedVBFSF(1) --> top:  0.487  data:     1  bck:-0.050
+eventsTaggedVBFSF(2) --> top:  0.796  data:     4  bck: 0.527
+eventsTaggedVBFSF(3) --> top:  2.192  data:     0  bck: 0.160
+eventsTaggedVBFSF(4) --> top:  0.336  data:     1  bck: 0.277
+eventsNonTaggedVBFSF(0) -->  0.084  -->  0.024 +/-  0.000 |  0.007 +/-  0.000
+eventsNonTaggedVBFSF(1) -->  0.294  -->  0.193 +/-  0.003 |  0.407 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.438  -->  0.425 +/-  0.008 |  2.132 +/-  1.245
+eventsNonTaggedVBFSF(3) -->  0.898  -->  1.531 +/-  0.047 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.686  -->  0.480 +/-  0.024 |  1.283 +/-  1.805
+data/MC/MCPred( 3.829/ 2.399/ 2.654) -> scaleFactorVBFSF(180):  1.596 +/-  0.928
+eventsTaggedVBFSF(0) --> top:  0.067  data:     1  bck:-0.019
+eventsTaggedVBFSF(1) --> top:  0.570  data:     1  bck:-0.054
+eventsTaggedVBFSF(2) --> top:  0.850  data:     4  bck: 0.519
+eventsTaggedVBFSF(3) --> top:  2.387  data:     0  bck: 0.234
+eventsTaggedVBFSF(4) --> top:  0.423  data:     1  bck: 0.276
+eventsNonTaggedVBFSF(0) -->  0.093  -->  0.027 +/-  0.000 |  0.392 +/-  0.385
+eventsNonTaggedVBFSF(1) -->  0.310  -->  0.226 +/-  0.003 |  0.409 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.736  -->  0.454 +/-  0.009 |  2.137 +/-  1.245
+eventsNonTaggedVBFSF(3) -->  0.953  -->  1.668 +/-  0.051 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.766  -->  0.603 +/-  0.030 |  1.285 +/-  1.805
+data/MC/MCPred( 4.223/ 2.859/ 2.978) -> scaleFactorVBFSF(190):  1.477 +/-  0.791
+eventsTaggedVBFSF(0) --> top:  0.129  data:     1  bck:-0.019
+eventsTaggedVBFSF(1) --> top:  0.625  data:     1  bck:-0.055
+eventsTaggedVBFSF(2) --> top:  0.975  data:     4  bck: 0.519
+eventsTaggedVBFSF(3) --> top:  2.622  data:     0  bck: 0.227
+eventsTaggedVBFSF(4) --> top:  0.570  data:     1  bck: 0.276
+eventsNonTaggedVBFSF(0) -->  0.187  -->  0.051 +/-  0.001 |  0.392 +/-  0.385
+eventsNonTaggedVBFSF(1) -->  0.317  -->  0.248 +/-  0.004 |  0.409 +/-  0.389
+eventsNonTaggedVBFSF(2) -->  0.917  -->  0.521 +/-  0.010 |  2.137 +/-  1.245
+eventsNonTaggedVBFSF(3) -->  0.969  -->  1.832 +/-  0.056 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  0.817  -->  0.813 +/-  0.041 |  1.285 +/-  1.805
+data/MC/MCPred( 4.223/ 3.207/ 3.464) -> scaleFactorVBFSF(200):  1.317 +/-  0.705
+eventsTaggedVBFSF(0) --> top:  0.266  data:     1  bck:-0.021
+eventsTaggedVBFSF(1) --> top:  0.890  data:     2  bck:-0.046
+eventsTaggedVBFSF(2) --> top:  1.348  data:     5  bck: 0.500
+eventsTaggedVBFSF(3) --> top:  3.287  data:     0  bck: 0.230
+eventsTaggedVBFSF(4) --> top:  0.787  data:     1  bck: 0.331
+eventsNonTaggedVBFSF(0) -->  0.279  -->  0.105 +/-  0.001 |  0.392 +/-  0.385
+eventsNonTaggedVBFSF(1) -->  0.376  -->  0.353 +/-  0.005 |  0.793 +/-  0.551
+eventsNonTaggedVBFSF(2) -->  1.222  -->  0.720 +/-  0.014 |  2.762 +/-  1.398
+eventsNonTaggedVBFSF(3) -->  1.471  -->  2.296 +/-  0.070 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  1.387  -->  1.123 +/-  0.056 |  1.187 +/-  1.801
+data/MC/MCPred( 5.135/ 4.735/ 4.598) -> scaleFactorVBFSF(250):  1.085 +/-  0.502
+eventsTaggedVBFSF(0) --> top:  0.291  data:     1  bck:-0.021
+eventsTaggedVBFSF(1) --> top:  0.910  data:     2  bck:-0.040
+eventsTaggedVBFSF(2) --> top:  1.470  data:     5  bck: 0.496
+eventsTaggedVBFSF(3) --> top:  3.356  data:     0  bck: 0.240
+eventsTaggedVBFSF(4) --> top:  0.814  data:     1  bck: 0.331
+eventsNonTaggedVBFSF(0) -->  0.279  -->  0.115 +/-  0.001 |  0.392 +/-  0.385
+eventsNonTaggedVBFSF(1) -->  0.380  -->  0.361 +/-  0.005 |  0.791 +/-  0.551
+eventsNonTaggedVBFSF(2) -->  1.282  -->  0.785 +/-  0.016 |  2.765 +/-  1.399
+eventsNonTaggedVBFSF(3) -->  1.504  -->  2.345 +/-  0.071 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  1.433  -->  1.163 +/-  0.058 |  1.187 +/-  1.801
+data/MC/MCPred( 5.135/ 4.878/ 4.769) -> scaleFactorVBFSF(300):  1.053 +/-  0.487
+eventsTaggedVBFSF(0) --> top:  0.291  data:     1  bck:-0.020
+eventsTaggedVBFSF(1) --> top:  1.482  data:     2  bck:-0.027
+eventsTaggedVBFSF(2) --> top:  1.508  data:     5  bck: 0.496
+eventsTaggedVBFSF(3) --> top:  3.393  data:     0  bck: 0.240
+eventsTaggedVBFSF(4) --> top:  0.873  data:     1  bck: 0.331
+eventsNonTaggedVBFSF(0) -->  0.279  -->  0.115 +/-  0.001 |  0.392 +/-  0.385
+eventsNonTaggedVBFSF(1) -->  0.380  -->  0.588 +/-  0.009 |  0.786 +/-  0.551
+eventsNonTaggedVBFSF(2) -->  1.320  -->  0.805 +/-  0.016 |  2.765 +/-  1.399
+eventsNonTaggedVBFSF(3) -->  1.547  -->  2.370 +/-  0.072 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  1.454  -->  1.247 +/-  0.062 |  1.187 +/-  1.801
+data/MC/MCPred( 5.130/ 4.979/ 5.126) -> scaleFactorVBFSF(350):  1.030 +/-  0.477
+eventsTaggedVBFSF(0) --> top:  0.293  data:     1  bck:-0.020
+eventsTaggedVBFSF(1) --> top:  1.482  data:     2  bck:-0.027
+eventsTaggedVBFSF(2) --> top:  1.530  data:     5  bck: 0.496
+eventsTaggedVBFSF(3) --> top:  3.418  data:     0  bck: 0.240
+eventsTaggedVBFSF(4) --> top:  0.888  data:     1  bck: 0.331
+eventsNonTaggedVBFSF(0) -->  0.279  -->  0.116 +/-  0.001 |  0.392 +/-  0.385
+eventsNonTaggedVBFSF(1) -->  0.380  -->  0.588 +/-  0.009 |  0.786 +/-  0.551
+eventsNonTaggedVBFSF(2) -->  1.320  -->  0.817 +/-  0.016 |  2.765 +/-  1.399
+eventsNonTaggedVBFSF(3) -->  1.598  -->  2.387 +/-  0.073 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  1.484  -->  1.268 +/-  0.063 |  1.188 +/-  1.801
+data/MC/MCPred( 5.131/ 5.061/ 5.177) -> scaleFactorVBFSF(400):  1.014 +/-  0.470
+eventsTaggedVBFSF(0) --> top:  0.318  data:     1  bck:-0.020
+eventsTaggedVBFSF(1) --> top:  1.498  data:     2  bck:-0.027
+eventsTaggedVBFSF(2) --> top:  1.547  data:     5  bck: 0.496
+eventsTaggedVBFSF(3) --> top:  3.441  data:     0  bck: 0.329
+eventsTaggedVBFSF(4) --> top:  0.888  data:     1  bck: 0.331
+eventsNonTaggedVBFSF(0) -->  0.279  -->  0.126 +/-  0.002 |  0.392 +/-  0.385
+eventsNonTaggedVBFSF(1) -->  0.380  -->  0.595 +/-  0.009 |  0.786 +/-  0.551
+eventsNonTaggedVBFSF(2) -->  1.320  -->  0.826 +/-  0.016 |  2.765 +/-  1.399
+eventsNonTaggedVBFSF(3) -->  1.618  -->  2.403 +/-  0.073 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  1.484  -->  1.268 +/-  0.063 |  1.188 +/-  1.801
+data/MC/MCPred( 5.131/ 5.081/ 5.218) -> scaleFactorVBFSF(450):  1.010 +/-  0.468
+eventsTaggedVBFSF(0) --> top:  0.318  data:     1  bck:-0.020
+eventsTaggedVBFSF(1) --> top:  1.498  data:     2  bck:-0.027
+eventsTaggedVBFSF(2) --> top:  1.547  data:     5  bck: 0.496
+eventsTaggedVBFSF(3) --> top:  3.441  data:     0  bck: 0.329
+eventsTaggedVBFSF(4) --> top:  0.888  data:     1  bck: 0.331
+eventsNonTaggedVBFSF(0) -->  0.279  -->  0.126 +/-  0.002 |  0.392 +/-  0.385
+eventsNonTaggedVBFSF(1) -->  0.380  -->  0.595 +/-  0.009 |  0.786 +/-  0.551
+eventsNonTaggedVBFSF(2) -->  1.320  -->  0.826 +/-  0.016 |  2.765 +/-  1.399
+eventsNonTaggedVBFSF(3) -->  1.624  -->  2.403 +/-  0.073 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  1.484  -->  1.268 +/-  0.063 |  1.188 +/-  1.801
+data/MC/MCPred( 5.131/ 5.087/ 5.218) -> scaleFactorVBFSF(500):  1.009 +/-  0.467
+eventsTaggedVBFSF(0) --> top:  0.318  data:     1  bck:-0.020
+eventsTaggedVBFSF(1) --> top:  1.498  data:     2  bck:-0.027
+eventsTaggedVBFSF(2) --> top:  1.547  data:     5  bck: 0.496
+eventsTaggedVBFSF(3) --> top:  3.451  data:     0  bck: 0.329
+eventsTaggedVBFSF(4) --> top:  0.888  data:     1  bck: 0.331
+eventsNonTaggedVBFSF(0) -->  0.279  -->  0.126 +/-  0.002 |  0.392 +/-  0.385
+eventsNonTaggedVBFSF(1) -->  0.380  -->  0.595 +/-  0.009 |  0.786 +/-  0.551
+eventsNonTaggedVBFSF(2) -->  1.320  -->  0.826 +/-  0.016 |  2.765 +/-  1.399
+eventsNonTaggedVBFSF(3) -->  1.624  -->  2.411 +/-  0.073 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  1.484  -->  1.268 +/-  0.063 |  1.188 +/-  1.801
+data/MC/MCPred( 5.131/ 5.087/ 5.225) -> scaleFactorVBFSF(550):  1.009 +/-  0.467
+eventsTaggedVBFSF(0) --> top:  0.318  data:     1  bck:-0.020
+eventsTaggedVBFSF(1) --> top:  1.498  data:     2  bck:-0.027
+eventsTaggedVBFSF(2) --> top:  1.547  data:     5  bck: 0.496
+eventsTaggedVBFSF(3) --> top:  3.451  data:     0  bck: 0.329
+eventsTaggedVBFSF(4) --> top:  0.888  data:     1  bck: 0.331
+eventsNonTaggedVBFSF(0) -->  0.279  -->  0.126 +/-  0.002 |  0.392 +/-  0.385
+eventsNonTaggedVBFSF(1) -->  0.380  -->  0.595 +/-  0.009 |  0.786 +/-  0.551
+eventsNonTaggedVBFSF(2) -->  1.324  -->  0.826 +/-  0.016 |  2.765 +/-  1.399
+eventsNonTaggedVBFSF(3) -->  1.624  -->  2.411 +/-  0.073 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  1.484  -->  1.268 +/-  0.063 |  1.188 +/-  1.801
+data/MC/MCPred( 5.131/ 5.091/ 5.225) -> scaleFactorVBFSF(600):  1.008 +/-  0.467
+eventsTaggedVBFSF(0) --> top:  0.318  data:     1  bck:-0.020
+eventsTaggedVBFSF(1) --> top:  1.498  data:     2  bck:-0.027
+eventsTaggedVBFSF(2) --> top:  1.554  data:     5  bck: 0.496
+eventsTaggedVBFSF(3) --> top:  3.451  data:     0  bck: 0.329
+eventsTaggedVBFSF(4) --> top:  0.888  data:     1  bck: 0.331
+eventsNonTaggedVBFSF(0) -->  0.279  -->  0.126 +/-  0.002 |  0.392 +/-  0.385
+eventsNonTaggedVBFSF(1) -->  0.380  -->  0.595 +/-  0.009 |  0.786 +/-  0.551
+eventsNonTaggedVBFSF(2) -->  1.326  -->  0.829 +/-  0.017 |  2.765 +/-  1.399
+eventsNonTaggedVBFSF(3) -->  1.624  -->  2.411 +/-  0.073 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  1.484  -->  1.268 +/-  0.063 |  1.188 +/-  1.801
+data/MC/MCPred( 5.131/ 5.093/ 5.229) -> scaleFactorVBFSF(700):  1.007 +/-  0.467
+eventsTaggedVBFSF(0) --> top:  0.318  data:     1  bck:-0.020
+eventsTaggedVBFSF(1) --> top:  1.498  data:     2  bck:-0.027
+eventsTaggedVBFSF(2) --> top:  1.554  data:     5  bck: 0.496
+eventsTaggedVBFSF(3) --> top:  3.451  data:     0  bck: 0.329
+eventsTaggedVBFSF(4) --> top:  0.888  data:     1  bck: 0.331
+eventsNonTaggedVBFSF(0) -->  0.279  -->  0.126 +/-  0.002 |  0.392 +/-  0.385
+eventsNonTaggedVBFSF(1) -->  0.380  -->  0.595 +/-  0.009 |  0.786 +/-  0.551
+eventsNonTaggedVBFSF(2) -->  1.386  -->  0.829 +/-  0.017 |  2.765 +/-  1.399
+eventsNonTaggedVBFSF(3) -->  1.624  -->  2.411 +/-  0.073 |  0.000 +/-  0.000
+eventsNonTaggedVBFSF(4) -->  1.484  -->  1.268 +/-  0.063 |  1.188 +/-  1.801
+data/MC/MCPred( 5.131/ 5.153/ 5.229) -> scaleFactorVBFSF(800):  0.996 +/-  0.461
+**********eff vbf jet 2-j OF**********
+eventsTaggedVBFOF(0) --> top: 405.404  data:   459  bck:20.740
+eventsTaggedVBFOF(1) --> top: 265.716  data:   291  bck:15.849
+eventsTaggedVBFOF(2) --> top: 128.210  data:   147  bck:10.943
+eventsTaggedVBFOF(3) --> top: 48.094  data:    39  bck: 4.193
+eventsTaggedVBFOF(4) --> top: 10.874  data:     9  bck: 0.667
+eventsNonTaggedVBFOF(0) --> 164.785  --> 160.678 +/-  1.937 | 168.478 +/- 13.343
+eventsNonTaggedVBFOF(1) --> 109.500  --> 105.481 +/-  1.601 | 106.641 +/- 10.508
+eventsNonTaggedVBFOF(2) --> 69.862  --> 68.455 +/-  1.366 | 83.517 +/- 11.000
+eventsNonTaggedVBFOF(3) --> 36.896  --> 33.595 +/-  1.023 | 46.600 +/- 10.995
+eventsNonTaggedVBFOF(4) --> 17.833  --> 15.526 +/-  0.776 | 14.792 +/-  6.538
+data/MC/MCPred(420.028/398.875/383.735) -> scaleFactorVBFOF(  0):  1.053 +/-  0.060
+eventsTaggedVBFOF(0) --> top:  1.022  data:     0  bck:-0.019
+eventsTaggedVBFOF(1) --> top:  2.529  data:     0  bck: 1.161
+eventsTaggedVBFOF(2) --> top:  3.815  data:     2  bck:-0.070
+eventsTaggedVBFOF(3) --> top:  4.245  data:     3  bck: 0.962
+eventsTaggedVBFOF(4) --> top:  1.296  data:     2  bck: 0.377
+eventsNonTaggedVBFOF(0) -->  0.307  -->  0.405 +/-  0.005 |  0.007 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.773  -->  1.004 +/-  0.015 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  1.420  -->  2.037 +/-  0.041 |  1.271 +/-  0.877
+eventsNonTaggedVBFOF(3) -->  2.410  -->  2.965 +/-  0.090 |  2.728 +/-  2.356
+eventsNonTaggedVBFOF(4) -->  2.666  -->  1.851 +/-  0.093 |  2.881 +/-  2.617
+data/MC/MCPred( 6.887/ 7.577/ 8.262) -> scaleFactorVBFOF(  0):  0.909 +/-  0.479
+eventsTaggedVBFOF(0) --> top:  0.148  data:     0  bck:-0.002
+eventsTaggedVBFOF(1) --> top:  0.234  data:     0  bck:-0.016
+eventsTaggedVBFOF(2) --> top:  0.506  data:     0  bck:-0.004
+eventsTaggedVBFOF(3) --> top:  0.815  data:     0  bck: 0.211
+eventsTaggedVBFOF(4) --> top:  0.297  data:     0  bck:-0.009
+eventsNonTaggedVBFOF(0) -->  0.066  -->  0.059 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.124  -->  0.093 +/-  0.001 |  0.006 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.219  -->  0.270 +/-  0.005 |  0.002 +/-  0.000
+eventsNonTaggedVBFOF(3) -->  0.300  -->  0.569 +/-  0.017 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(4) -->  0.435  -->  0.423 +/-  0.021 |  0.016 +/-  0.004
+data/MC/MCPred( 0.025/ 1.145/ 1.415) -> scaleFactorVBFOF(110):  0.022 +/-  0.004
+eventsTaggedVBFOF(0) --> top:  0.199  data:     0  bck:-0.002
+eventsTaggedVBFOF(1) --> top:  0.283  data:     0  bck: 0.154
+eventsTaggedVBFOF(2) --> top:  0.713  data:     0  bck:-0.008
+eventsTaggedVBFOF(3) --> top:  0.851  data:     0  bck: 0.211
+eventsTaggedVBFOF(4) --> top:  0.318  data:     1  bck:-0.009
+eventsNonTaggedVBFOF(0) -->  0.066  -->  0.079 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.124  -->  0.112 +/-  0.002 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.262  -->  0.380 +/-  0.008 |  0.005 +/-  0.000
+eventsNonTaggedVBFOF(3) -->  0.300  -->  0.594 +/-  0.018 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(4) -->  0.487  -->  0.454 +/-  0.023 |  1.791 +/-  1.834
+data/MC/MCPred( 1.797/ 1.239/ 1.620) -> scaleFactorVBFOF(115):  1.450 +/-  1.480
+eventsTaggedVBFOF(0) --> top:  0.199  data:     0  bck:-0.002
+eventsTaggedVBFOF(1) --> top:  0.283  data:     0  bck: 0.152
+eventsTaggedVBFOF(2) --> top:  0.764  data:     0  bck:-0.008
+eventsTaggedVBFOF(3) --> top:  0.872  data:     0  bck: 0.211
+eventsTaggedVBFOF(4) --> top:  0.318  data:     1  bck:-0.009
+eventsNonTaggedVBFOF(0) -->  0.066  -->  0.079 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.162  -->  0.112 +/-  0.002 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.262  -->  0.408 +/-  0.008 |  0.005 +/-  0.000
+eventsNonTaggedVBFOF(3) -->  0.309  -->  0.609 +/-  0.019 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(4) -->  0.487  -->  0.454 +/-  0.023 |  1.791 +/-  1.834
+data/MC/MCPred( 1.797/ 1.286/ 1.662) -> scaleFactorVBFOF(118):  1.398 +/-  1.426
+eventsTaggedVBFOF(0) --> top:  0.199  data:     0  bck:-0.002
+eventsTaggedVBFOF(1) --> top:  0.283  data:     0  bck: 0.151
+eventsTaggedVBFOF(2) --> top:  0.773  data:     0  bck:-0.008
+eventsTaggedVBFOF(3) --> top:  0.888  data:     0  bck: 0.211
+eventsTaggedVBFOF(4) --> top:  0.318  data:     1  bck:-0.009
+eventsNonTaggedVBFOF(0) -->  0.091  -->  0.079 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.162  -->  0.112 +/-  0.002 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.262  -->  0.413 +/-  0.008 |  0.005 +/-  0.000
+eventsNonTaggedVBFOF(3) -->  0.314  -->  0.620 +/-  0.019 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(4) -->  0.507  -->  0.454 +/-  0.023 |  1.791 +/-  1.834
+data/MC/MCPred( 1.797/ 1.336/ 1.678) -> scaleFactorVBFOF(120):  1.345 +/-  1.372
+eventsTaggedVBFOF(0) --> top:  0.199  data:     0  bck:-0.003
+eventsTaggedVBFOF(1) --> top:  0.283  data:     0  bck: 0.148
+eventsTaggedVBFOF(2) --> top:  0.802  data:     0  bck:-0.008
+eventsTaggedVBFOF(3) --> top:  0.888  data:     0  bck: 0.211
+eventsTaggedVBFOF(4) --> top:  0.347  data:     1  bck:-0.009
+eventsNonTaggedVBFOF(0) -->  0.102  -->  0.079 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.214  -->  0.112 +/-  0.002 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.301  -->  0.428 +/-  0.009 |  0.005 +/-  0.000
+eventsNonTaggedVBFOF(3) -->  0.324  -->  0.620 +/-  0.019 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(4) -->  0.527  -->  0.496 +/-  0.025 |  1.792 +/-  1.834
+data/MC/MCPred( 1.798/ 1.468/ 1.735) -> scaleFactorVBFOF(122):  1.225 +/-  1.249
+eventsTaggedVBFOF(0) --> top:  0.240  data:     0  bck:-0.003
+eventsTaggedVBFOF(1) --> top:  0.283  data:     0  bck: 0.148
+eventsTaggedVBFOF(2) --> top:  0.805  data:     0  bck:-0.008
+eventsTaggedVBFOF(3) --> top:  0.915  data:     0  bck: 0.210
+eventsTaggedVBFOF(4) --> top:  0.352  data:     1  bck:-0.009
+eventsNonTaggedVBFOF(0) -->  0.102  -->  0.095 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.229  -->  0.112 +/-  0.002 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.301  -->  0.430 +/-  0.009 |  0.005 +/-  0.000
+eventsNonTaggedVBFOF(3) -->  0.344  -->  0.639 +/-  0.019 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(4) -->  0.535  -->  0.503 +/-  0.025 |  1.792 +/-  1.834
+data/MC/MCPred( 1.798/ 1.511/ 1.780) -> scaleFactorVBFOF(124):  1.189 +/-  1.213
+eventsTaggedVBFOF(0) --> top:  0.257  data:     0  bck:-0.003
+eventsTaggedVBFOF(1) --> top:  0.318  data:     0  bck: 0.147
+eventsTaggedVBFOF(2) --> top:  0.823  data:     0  bck:-0.037
+eventsTaggedVBFOF(3) --> top:  0.970  data:     0  bck: 0.210
+eventsTaggedVBFOF(4) --> top:  0.396  data:     1  bck:-0.009
+eventsNonTaggedVBFOF(0) -->  0.102  -->  0.102 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.236  -->  0.126 +/-  0.002 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.399  -->  0.439 +/-  0.009 |  0.023 +/-  0.002
+eventsNonTaggedVBFOF(3) -->  0.460  -->  0.678 +/-  0.021 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(4) -->  0.550  -->  0.565 +/-  0.028 |  1.792 +/-  1.834
+data/MC/MCPred( 1.816/ 1.748/ 1.911) -> scaleFactorVBFOF(125):  1.039 +/-  1.049
+eventsTaggedVBFOF(0) --> top:  0.257  data:     0  bck:-0.003
+eventsTaggedVBFOF(1) --> top:  0.332  data:     0  bck: 0.147
+eventsTaggedVBFOF(2) --> top:  0.909  data:     0  bck:-0.037
+eventsTaggedVBFOF(3) --> top:  0.970  data:     0  bck: 0.210
+eventsTaggedVBFOF(4) --> top:  0.396  data:     1  bck:-0.010
+eventsNonTaggedVBFOF(0) -->  0.102  -->  0.102 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.236  -->  0.132 +/-  0.002 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.413  -->  0.485 +/-  0.010 |  0.023 +/-  0.002
+eventsNonTaggedVBFOF(3) -->  0.460  -->  0.678 +/-  0.021 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(4) -->  0.564  -->  0.565 +/-  0.028 |  1.792 +/-  1.834
+data/MC/MCPred( 1.816/ 1.775/ 1.962) -> scaleFactorVBFOF(126):  1.023 +/-  1.033
+eventsTaggedVBFOF(0) --> top:  0.261  data:     0  bck:-0.003
+eventsTaggedVBFOF(1) --> top:  0.339  data:     0  bck: 0.146
+eventsTaggedVBFOF(2) --> top:  0.911  data:     0  bck:-0.037
+eventsTaggedVBFOF(3) --> top:  0.974  data:     0  bck: 0.210
+eventsTaggedVBFOF(4) --> top:  0.396  data:     1  bck:-0.010
+eventsNonTaggedVBFOF(0) -->  0.102  -->  0.104 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.236  -->  0.134 +/-  0.002 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.413  -->  0.487 +/-  0.010 |  0.023 +/-  0.002
+eventsNonTaggedVBFOF(3) -->  0.464  -->  0.680 +/-  0.021 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(4) -->  0.573  -->  0.565 +/-  0.028 |  1.792 +/-  1.834
+data/MC/MCPred( 1.816/ 1.789/ 1.970) -> scaleFactorVBFOF(128):  1.015 +/-  1.025
+eventsTaggedVBFOF(0) --> top:  0.261  data:     0  bck:-0.003
+eventsTaggedVBFOF(1) --> top:  0.339  data:     0  bck: 0.146
+eventsTaggedVBFOF(2) --> top:  1.016  data:     0  bck:-0.037
+eventsTaggedVBFOF(3) --> top:  1.005  data:     0  bck: 0.209
+eventsTaggedVBFOF(4) --> top:  0.396  data:     1  bck:-0.010
+eventsNonTaggedVBFOF(0) -->  0.102  -->  0.104 +/-  0.001 |  0.001 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.236  -->  0.134 +/-  0.002 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.413  -->  0.543 +/-  0.011 |  0.023 +/-  0.002
+eventsNonTaggedVBFOF(3) -->  0.470  -->  0.702 +/-  0.021 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(4) -->  0.588  -->  0.565 +/-  0.028 |  1.792 +/-  1.834
+data/MC/MCPred( 1.816/ 1.809/ 2.048) -> scaleFactorVBFOF(130):  1.004 +/-  1.014
+eventsTaggedVBFOF(0) --> top:  0.340  data:     0  bck:-0.003
+eventsTaggedVBFOF(1) --> top:  0.451  data:     0  bck: 0.142
+eventsTaggedVBFOF(2) --> top:  1.191  data:     0  bck:-0.039
+eventsTaggedVBFOF(3) --> top:  1.217  data:     1  bck: 0.204
+eventsTaggedVBFOF(4) --> top:  0.416  data:     1  bck: 0.333
+eventsNonTaggedVBFOF(0) -->  0.109  -->  0.135 +/-  0.002 |  0.001 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.265  -->  0.179 +/-  0.003 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.439  -->  0.636 +/-  0.013 |  0.024 +/-  0.002
+eventsNonTaggedVBFOF(3) -->  0.629  -->  0.850 +/-  0.026 |  1.066 +/-  1.349
+eventsNonTaggedVBFOF(4) -->  0.717  -->  0.594 +/-  0.030 |  1.184 +/-  1.801
+data/MC/MCPred( 2.275/ 2.158/ 2.394) -> scaleFactorVBFOF(135):  1.054 +/-  1.043
+eventsTaggedVBFOF(0) --> top:  0.350  data:     0  bck:-0.003
+eventsTaggedVBFOF(1) --> top:  0.535  data:     0  bck: 0.127
+eventsTaggedVBFOF(2) --> top:  1.251  data:     0  bck:-0.045
+eventsTaggedVBFOF(3) --> top:  1.368  data:     1  bck: 0.553
+eventsTaggedVBFOF(4) --> top:  0.433  data:     1  bck: 0.332
+eventsNonTaggedVBFOF(0) -->  0.117  -->  0.139 +/-  0.002 |  0.001 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.265  -->  0.212 +/-  0.003 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.445  -->  0.668 +/-  0.013 |  0.028 +/-  0.003
+eventsNonTaggedVBFOF(3) -->  0.640  -->  0.955 +/-  0.029 |  0.599 +/-  1.342
+eventsNonTaggedVBFOF(4) -->  0.819  -->  0.618 +/-  0.031 |  1.185 +/-  1.801
+data/MC/MCPred( 1.813/ 2.286/ 2.593) -> scaleFactorVBFOF(140):  0.793 +/-  0.982
+eventsTaggedVBFOF(0) --> top:  0.403  data:     0  bck:-0.003
+eventsTaggedVBFOF(1) --> top:  0.679  data:     0  bck: 0.128
+eventsTaggedVBFOF(2) --> top:  1.816  data:     0  bck:-0.062
+eventsTaggedVBFOF(3) --> top:  1.881  data:     2  bck: 0.551
+eventsTaggedVBFOF(4) --> top:  0.519  data:     1  bck: 0.321
+eventsNonTaggedVBFOF(0) -->  0.188  -->  0.160 +/-  0.002 |  0.001 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.305  -->  0.270 +/-  0.004 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.489  -->  0.970 +/-  0.019 |  0.038 +/-  0.004
+eventsNonTaggedVBFOF(3) -->  0.897  -->  1.314 +/-  0.040 |  1.940 +/-  1.917
+eventsNonTaggedVBFOF(4) -->  1.119  -->  0.740 +/-  0.037 |  1.204 +/-  1.802
+data/MC/MCPred( 3.184/ 2.998/ 3.454) -> scaleFactorVBFOF(145):  1.062 +/-  0.878
+eventsTaggedVBFOF(0) --> top:  0.419  data:     0  bck:-0.016
+eventsTaggedVBFOF(1) --> top:  0.705  data:     0  bck: 0.126
+eventsTaggedVBFOF(2) --> top:  1.871  data:     0  bck:-0.063
+eventsTaggedVBFOF(3) --> top:  2.002  data:     2  bck: 0.542
+eventsTaggedVBFOF(4) --> top:  0.522  data:     1  bck: 0.321
+eventsNonTaggedVBFOF(0) -->  0.188  -->  0.166 +/-  0.002 |  0.006 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.321  -->  0.280 +/-  0.004 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.489  -->  0.999 +/-  0.020 |  0.038 +/-  0.004
+eventsNonTaggedVBFOF(3) -->  1.022  -->  1.398 +/-  0.043 |  1.952 +/-  1.917
+eventsNonTaggedVBFOF(4) -->  1.192  -->  0.745 +/-  0.037 |  1.204 +/-  1.802
+data/MC/MCPred( 3.201/ 3.211/ 3.588) -> scaleFactorVBFOF(150):  0.997 +/-  0.819
+eventsTaggedVBFOF(0) --> top:  0.425  data:     0  bck:-0.016
+eventsTaggedVBFOF(1) --> top:  0.714  data:     0  bck: 0.130
+eventsTaggedVBFOF(2) --> top:  1.922  data:     0  bck:-0.063
+eventsTaggedVBFOF(3) --> top:  2.074  data:     2  bck: 0.539
+eventsTaggedVBFOF(4) --> top:  0.544  data:     1  bck: 0.302
+eventsNonTaggedVBFOF(0) -->  0.188  -->  0.169 +/-  0.002 |  0.006 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.321  -->  0.283 +/-  0.004 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.495  -->  1.026 +/-  0.020 |  0.038 +/-  0.004
+eventsNonTaggedVBFOF(3) -->  1.046  -->  1.449 +/-  0.044 |  1.955 +/-  1.917
+eventsNonTaggedVBFOF(4) -->  1.229  -->  0.776 +/-  0.039 |  1.240 +/-  1.803
+data/MC/MCPred( 3.239/ 3.278/ 3.703) -> scaleFactorVBFOF(155):  0.988 +/-  0.803
+eventsTaggedVBFOF(0) --> top:  0.425  data:     0  bck:-0.016
+eventsTaggedVBFOF(1) --> top:  0.715  data:     0  bck: 0.130
+eventsTaggedVBFOF(2) --> top:  2.002  data:     0  bck:-0.063
+eventsTaggedVBFOF(3) --> top:  2.173  data:     2  bck: 0.539
+eventsTaggedVBFOF(4) --> top:  0.584  data:     1  bck: 0.300
+eventsNonTaggedVBFOF(0) -->  0.188  -->  0.169 +/-  0.002 |  0.006 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.323  -->  0.284 +/-  0.004 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.519  -->  1.069 +/-  0.021 |  0.039 +/-  0.004
+eventsNonTaggedVBFOF(3) -->  1.101  -->  1.518 +/-  0.046 |  1.955 +/-  1.917
+eventsNonTaggedVBFOF(4) -->  1.297  -->  0.834 +/-  0.042 |  1.242 +/-  1.803
+data/MC/MCPred( 3.242/ 3.430/ 3.873) -> scaleFactorVBFOF(160):  0.945 +/-  0.767
+eventsTaggedVBFOF(0) --> top:  0.519  data:     0  bck:-0.016
+eventsTaggedVBFOF(1) --> top:  0.746  data:     0  bck: 0.128
+eventsTaggedVBFOF(2) --> top:  2.144  data:     0  bck:-0.063
+eventsTaggedVBFOF(3) --> top:  2.262  data:     2  bck: 0.532
+eventsTaggedVBFOF(4) --> top:  0.684  data:     1  bck: 0.300
+eventsNonTaggedVBFOF(0) -->  0.188  -->  0.206 +/-  0.002 |  0.006 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.336  -->  0.296 +/-  0.004 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.523  -->  1.145 +/-  0.023 |  0.039 +/-  0.004
+eventsNonTaggedVBFOF(3) -->  1.149  -->  1.580 +/-  0.048 |  1.965 +/-  1.917
+eventsNonTaggedVBFOF(4) -->  1.393  -->  0.977 +/-  0.049 |  1.243 +/-  1.804
+data/MC/MCPred( 3.253/ 3.588/ 4.204) -> scaleFactorVBFOF(170):  0.907 +/-  0.734
+eventsTaggedVBFOF(0) --> top:  0.573  data:     0  bck:-0.016
+eventsTaggedVBFOF(1) --> top:  1.766  data:     0  bck: 0.118
+eventsTaggedVBFOF(2) --> top:  2.417  data:     0  bck:-0.062
+eventsTaggedVBFOF(3) --> top:  2.419  data:     2  bck: 0.521
+eventsTaggedVBFOF(4) --> top:  0.757  data:     1  bck: 0.300
+eventsNonTaggedVBFOF(0) -->  0.194  -->  0.227 +/-  0.003 |  0.006 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.368  -->  0.701 +/-  0.011 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.551  -->  1.291 +/-  0.026 |  0.038 +/-  0.004
+eventsNonTaggedVBFOF(3) -->  1.253  -->  1.690 +/-  0.051 |  1.980 +/-  1.918
+eventsNonTaggedVBFOF(4) -->  1.556  -->  1.081 +/-  0.054 |  1.243 +/-  1.804
+data/MC/MCPred( 3.267/ 3.922/ 4.990) -> scaleFactorVBFOF(180):  0.833 +/-  0.671
+eventsTaggedVBFOF(0) --> top:  0.620  data:     0  bck:-0.016
+eventsTaggedVBFOF(1) --> top:  1.809  data:     0  bck: 0.117
+eventsTaggedVBFOF(2) --> top:  2.609  data:     0  bck:-0.064
+eventsTaggedVBFOF(3) --> top:  2.561  data:     2  bck: 1.009
+eventsTaggedVBFOF(4) --> top:  0.796  data:     1  bck: 0.368
+eventsNonTaggedVBFOF(0) -->  0.260  -->  0.246 +/-  0.003 |  0.006 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.462  -->  0.718 +/-  0.011 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.649  -->  1.393 +/-  0.028 |  0.039 +/-  0.004
+eventsNonTaggedVBFOF(3) -->  1.528  -->  1.789 +/-  0.054 |  1.327 +/-  1.904
+eventsNonTaggedVBFOF(4) -->  1.734  -->  1.136 +/-  0.057 |  1.121 +/-  1.798
+data/MC/MCPred( 2.494/ 4.633/ 5.283) -> scaleFactorVBFOF(190):  0.538 +/-  0.565
+eventsTaggedVBFOF(0) --> top:  0.634  data:     0  bck:-0.016
+eventsTaggedVBFOF(1) --> top:  1.879  data:     0  bck: 0.615
+eventsTaggedVBFOF(2) --> top:  2.789  data:     0  bck:-0.067
+eventsTaggedVBFOF(3) --> top:  2.696  data:     2  bck: 1.006
+eventsTaggedVBFOF(4) --> top:  0.878  data:     1  bck: 0.368
+eventsNonTaggedVBFOF(0) -->  0.265  -->  0.251 +/-  0.003 |  0.006 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.469  -->  0.746 +/-  0.011 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  0.708  -->  1.489 +/-  0.030 |  0.041 +/-  0.004
+eventsNonTaggedVBFOF(3) -->  1.590  -->  1.883 +/-  0.057 |  1.330 +/-  1.904
+eventsNonTaggedVBFOF(4) -->  1.897  -->  1.253 +/-  0.063 |  1.122 +/-  1.798
+data/MC/MCPred( 2.500/ 4.928/ 5.623) -> scaleFactorVBFOF(200):  0.507 +/-  0.532
+eventsTaggedVBFOF(0) --> top:  0.960  data:     0  bck:-0.019
+eventsTaggedVBFOF(1) --> top:  2.352  data:     0  bck: 1.164
+eventsTaggedVBFOF(2) --> top:  3.459  data:     1  bck:-0.090
+eventsTaggedVBFOF(3) --> top:  3.839  data:     3  bck: 0.992
+eventsTaggedVBFOF(4) --> top:  1.151  data:     2  bck: 0.370
+eventsNonTaggedVBFOF(0) -->  0.307  -->  0.380 +/-  0.005 |  0.007 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.674  -->  0.934 +/-  0.014 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  1.210  -->  1.847 +/-  0.037 |  0.669 +/-  0.617
+eventsNonTaggedVBFOF(3) -->  2.152  -->  2.682 +/-  0.082 |  2.689 +/-  2.355
+eventsNonTaggedVBFOF(4) -->  2.481  -->  1.643 +/-  0.082 |  2.893 +/-  2.618
+data/MC/MCPred( 6.258/ 6.823/ 7.486) -> scaleFactorVBFOF(250):  0.917 +/-  0.524
+eventsTaggedVBFOF(0) --> top:  0.964  data:     0  bck:-0.019
+eventsTaggedVBFOF(1) --> top:  2.389  data:     0  bck: 1.162
+eventsTaggedVBFOF(2) --> top:  3.612  data:     2  bck:-0.090
+eventsTaggedVBFOF(3) --> top:  3.944  data:     3  bck: 0.982
+eventsTaggedVBFOF(4) --> top:  1.208  data:     2  bck: 0.368
+eventsNonTaggedVBFOF(0) -->  0.307  -->  0.382 +/-  0.005 |  0.007 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.702  -->  0.948 +/-  0.014 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  1.299  -->  1.928 +/-  0.038 |  1.283 +/-  0.877
+eventsNonTaggedVBFOF(3) -->  2.221  -->  2.755 +/-  0.084 |  2.702 +/-  2.356
+eventsNonTaggedVBFOF(4) -->  2.624  -->  1.725 +/-  0.086 |  2.897 +/-  2.618
+data/MC/MCPred( 6.889/ 7.154/ 7.739) -> scaleFactorVBFOF(300):  0.963 +/-  0.507
+eventsTaggedVBFOF(0) --> top:  0.981  data:     0  bck:-0.019
+eventsTaggedVBFOF(1) --> top:  2.397  data:     0  bck: 1.162
+eventsTaggedVBFOF(2) --> top:  3.664  data:     2  bck:-0.090
+eventsTaggedVBFOF(3) --> top:  4.114  data:     3  bck: 0.977
+eventsTaggedVBFOF(4) --> top:  1.214  data:     2  bck: 0.368
+eventsNonTaggedVBFOF(0) -->  0.307  -->  0.389 +/-  0.005 |  0.007 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.702  -->  0.952 +/-  0.014 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  1.306  -->  1.956 +/-  0.039 |  1.283 +/-  0.877
+eventsNonTaggedVBFOF(3) -->  2.238  -->  2.874 +/-  0.088 |  2.709 +/-  2.356
+eventsNonTaggedVBFOF(4) -->  2.624  -->  1.734 +/-  0.087 |  2.897 +/-  2.618
+data/MC/MCPred( 6.896/ 7.177/ 7.905) -> scaleFactorVBFOF(350):  0.961 +/-  0.506
+eventsTaggedVBFOF(0) --> top:  0.981  data:     0  bck:-0.019
+eventsTaggedVBFOF(1) --> top:  2.406  data:     0  bck: 1.162
+eventsTaggedVBFOF(2) --> top:  3.677  data:     2  bck:-0.090
+eventsTaggedVBFOF(3) --> top:  4.125  data:     3  bck: 0.977
+eventsTaggedVBFOF(4) --> top:  1.214  data:     2  bck: 0.368
+eventsNonTaggedVBFOF(0) -->  0.307  -->  0.389 +/-  0.005 |  0.007 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.723  -->  0.955 +/-  0.014 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  1.374  -->  1.963 +/-  0.039 |  1.283 +/-  0.877
+eventsNonTaggedVBFOF(3) -->  2.307  -->  2.881 +/-  0.088 |  2.709 +/-  2.356
+eventsNonTaggedVBFOF(4) -->  2.624  -->  1.734 +/-  0.087 |  2.897 +/-  2.618
+data/MC/MCPred( 6.896/ 7.336/ 7.922) -> scaleFactorVBFOF(400):  0.940 +/-  0.495
+eventsTaggedVBFOF(0) --> top:  0.981  data:     0  bck:-0.019
+eventsTaggedVBFOF(1) --> top:  2.406  data:     0  bck: 1.162
+eventsTaggedVBFOF(2) --> top:  3.690  data:     2  bck:-0.072
+eventsTaggedVBFOF(3) --> top:  4.161  data:     3  bck: 0.977
+eventsTaggedVBFOF(4) --> top:  1.214  data:     2  bck: 0.368
+eventsNonTaggedVBFOF(0) -->  0.307  -->  0.389 +/-  0.005 |  0.007 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.723  -->  0.955 +/-  0.014 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  1.374  -->  1.970 +/-  0.039 |  1.272 +/-  0.877
+eventsNonTaggedVBFOF(3) -->  2.330  -->  2.906 +/-  0.088 |  2.709 +/-  2.356
+eventsNonTaggedVBFOF(4) -->  2.636  -->  1.734 +/-  0.087 |  2.897 +/-  2.618
+data/MC/MCPred( 6.885/ 7.370/ 7.954) -> scaleFactorVBFOF(450):  0.934 +/-  0.492
+eventsTaggedVBFOF(0) --> top:  0.981  data:     0  bck:-0.019
+eventsTaggedVBFOF(1) --> top:  2.406  data:     0  bck: 1.162
+eventsTaggedVBFOF(2) --> top:  3.695  data:     2  bck:-0.072
+eventsTaggedVBFOF(3) --> top:  4.161  data:     3  bck: 0.977
+eventsTaggedVBFOF(4) --> top:  1.224  data:     2  bck: 0.368
+eventsNonTaggedVBFOF(0) -->  0.307  -->  0.389 +/-  0.005 |  0.007 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.723  -->  0.955 +/-  0.014 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  1.374  -->  1.973 +/-  0.039 |  1.272 +/-  0.877
+eventsNonTaggedVBFOF(3) -->  2.358  -->  2.906 +/-  0.088 |  2.709 +/-  2.356
+eventsNonTaggedVBFOF(4) -->  2.640  -->  1.748 +/-  0.087 |  2.897 +/-  2.618
+data/MC/MCPred( 6.885/ 7.401/ 7.971) -> scaleFactorVBFOF(500):  0.930 +/-  0.490
+eventsTaggedVBFOF(0) --> top:  0.981  data:     0  bck:-0.019
+eventsTaggedVBFOF(1) --> top:  2.406  data:     0  bck: 1.162
+eventsTaggedVBFOF(2) --> top:  3.695  data:     2  bck:-0.072
+eventsTaggedVBFOF(3) --> top:  4.165  data:     3  bck: 0.977
+eventsTaggedVBFOF(4) --> top:  1.224  data:     2  bck: 0.368
+eventsNonTaggedVBFOF(0) -->  0.307  -->  0.389 +/-  0.005 |  0.007 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.723  -->  0.955 +/-  0.014 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  1.374  -->  1.973 +/-  0.039 |  1.272 +/-  0.877
+eventsNonTaggedVBFOF(3) -->  2.361  -->  2.909 +/-  0.089 |  2.709 +/-  2.356
+eventsNonTaggedVBFOF(4) -->  2.640  -->  1.748 +/-  0.087 |  2.897 +/-  2.618
+data/MC/MCPred( 6.885/ 7.405/ 7.974) -> scaleFactorVBFOF(550):  0.930 +/-  0.490
+eventsTaggedVBFOF(0) --> top:  0.981  data:     0  bck:-0.019
+eventsTaggedVBFOF(1) --> top:  2.460  data:     0  bck: 1.162
+eventsTaggedVBFOF(2) --> top:  3.695  data:     2  bck:-0.072
+eventsTaggedVBFOF(3) --> top:  4.165  data:     3  bck: 0.977
+eventsTaggedVBFOF(4) --> top:  1.224  data:     2  bck: 0.368
+eventsNonTaggedVBFOF(0) -->  0.307  -->  0.389 +/-  0.005 |  0.007 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.723  -->  0.977 +/-  0.015 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  1.374  -->  1.973 +/-  0.039 |  1.272 +/-  0.877
+eventsNonTaggedVBFOF(3) -->  2.361  -->  2.909 +/-  0.089 |  2.709 +/-  2.356
+eventsNonTaggedVBFOF(4) -->  2.640  -->  1.748 +/-  0.087 |  2.897 +/-  2.618
+data/MC/MCPred( 6.885/ 7.405/ 7.996) -> scaleFactorVBFOF(600):  0.930 +/-  0.490
+eventsTaggedVBFOF(0) --> top:  0.981  data:     0  bck:-0.019
+eventsTaggedVBFOF(1) --> top:  2.460  data:     0  bck: 1.162
+eventsTaggedVBFOF(2) --> top:  3.695  data:     2  bck:-0.072
+eventsTaggedVBFOF(3) --> top:  4.165  data:     3  bck: 0.977
+eventsTaggedVBFOF(4) --> top:  1.248  data:     2  bck: 0.368
+eventsNonTaggedVBFOF(0) -->  0.307  -->  0.389 +/-  0.005 |  0.007 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.723  -->  0.977 +/-  0.015 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  1.374  -->  1.973 +/-  0.039 |  1.272 +/-  0.877
+eventsNonTaggedVBFOF(3) -->  2.361  -->  2.909 +/-  0.089 |  2.709 +/-  2.356
+eventsNonTaggedVBFOF(4) -->  2.640  -->  1.782 +/-  0.089 |  2.897 +/-  2.618
+data/MC/MCPred( 6.885/ 7.405/ 8.030) -> scaleFactorVBFOF(700):  0.930 +/-  0.490
+eventsTaggedVBFOF(0) --> top:  0.981  data:     0  bck:-0.019
+eventsTaggedVBFOF(1) --> top:  2.460  data:     0  bck: 1.162
+eventsTaggedVBFOF(2) --> top:  3.695  data:     2  bck:-0.072
+eventsTaggedVBFOF(3) --> top:  4.165  data:     3  bck: 0.977
+eventsTaggedVBFOF(4) --> top:  1.248  data:     2  bck: 0.377
+eventsNonTaggedVBFOF(0) -->  0.307  -->  0.389 +/-  0.005 |  0.007 +/-  0.000
+eventsNonTaggedVBFOF(1) -->  0.723  -->  0.977 +/-  0.015 |  0.000 +/-  0.000
+eventsNonTaggedVBFOF(2) -->  1.374  -->  1.973 +/-  0.039 |  1.272 +/-  0.877
+eventsNonTaggedVBFOF(3) -->  2.361  -->  2.909 +/-  0.089 |  2.709 +/-  2.356
+eventsNonTaggedVBFOF(4) -->  2.640  -->  1.782 +/-  0.089 |  2.880 +/-  2.617
+data/MC/MCPred( 6.868/ 7.405/ 8.030) -> scaleFactorVBFOF(800):  0.928 +/-  0.490
+**********eff highest pt jet 2-j**********
+scaleFactor2j(0) -->  1.064 +/-  0.052
+scaleFactor2j(1) -->  1.058 +/-  0.048
+scaleFactor2j(2) -->  0.954 +/-  0.040
+scaleFactor2j(3) -->  1.018 +/-  0.066
+scaleFactor2j(4) -->  1.017 +/-  0.025
+numerator  (mm ) --> data:  436, background:    9.24, tt+tw:  400.91, tt:  389.96, tw:   10.95
+denominator(mm ) --> data:  687, background:   28.14, tt+tw:  584.99, tt:  558.26, tw:   26.73
+numerator  (me ) --> data:  487, background:    1.57, tt+tw:  458.72, tt:  444.41, tw:   14.31
+denominator(me ) --> data:  758, background:   10.18, tt+tw:  671.58, tt:  637.35, tw:   34.24
+numerator  (em ) --> data:  587, background:    8.91, tt+tw:  605.92, tt:  586.06, tw:   19.87
+denominator(em ) --> data:  911, background:   26.17, tt+tw:  891.08, tt:  849.94, tw:   41.15
+numerator  (ee ) --> data:  243, background:    2.44, tt+tw:  236.20, tt:  228.31, tw:    7.89
+denominator(ee ) --> data:  374, background:   16.06, tt+tw:  349.22, tt:  331.16, tw:   18.07
+numerator  (all) --> data: 1753, background:   22.16, tt+tw: 1701.76, tt: 1648.73, tw:   53.02
+denominator(all) --> data: 2730, background:   80.55, tt+tw: 2496.89, tt: 2376.71, tw:  120.18
+channel         eff_tttw             eff_tt                eff_tw               eff_data                         ScaleFactor
+eff (mm ):  0.685 +/-  0.004   0.699 +/-  0.003   0.410 +/-  0.053 -->  0.658 +/-  0.018      : scaleFactor2j(mm ) -->  1.064 +/-  0.052
+eff (me ):  0.683 +/-  0.004   0.697 +/-  0.003   0.418 +/-  0.046 -->  0.660 +/-  0.017      : scaleFactor2j(me ) -->  1.058 +/-  0.048
+eff (em ):  0.680 +/-  0.003   0.690 +/-  0.003   0.483 +/-  0.041 -->  0.662 +/-  0.016      : scaleFactor2j(em ) -->  0.954 +/-  0.040
+eff (ee ):  0.676 +/-  0.005   0.689 +/-  0.004   0.437 +/-  0.067 -->  0.685 +/-  0.024      : scaleFactor2j(ee ) -->  1.018 +/-  0.066
+eff (all):  0.682 +/-  0.002   0.694 +/-  0.001   0.441 +/-  0.025 -->  0.663 +/-  0.009      : scaleFactor2j(all) -->  1.017 +/-  0.025
+****************************************************************************************************************************************
+**********eff highest pt jet 1-j**********
+numerator  (mm ) --> data:  291, background:   27.42, tt+tw:  229.96, tt:  176.45, tw:   53.52
+denominator(mm ) --> data:  633, background:  207.99, tt+tw:  346.28, tt:  262.14, tw:   84.14
+numerator  (me ) --> data:  374, background:   14.91, tt+tw:  338.20, tt:  251.61, tw:   86.59
+denominator(me ) --> data:  756, background:  195.43, tt+tw:  501.79, tt:  369.75, tw:  132.04
+numerator  (em ) --> data:  506, background:   29.56, tt+tw:  446.32, tt:  335.10, tw:  111.22
+denominator(em ) --> data: 1017, background:  308.81, tt+tw:  660.50, tt:  493.52, tw:  166.98
+numerator  (ee ) --> data:  137, background:    9.50, tt+tw:  137.49, tt:  104.20, tw:   33.30
+denominator(ee ) --> data:  333, background:  134.55, tt+tw:  201.32, tt:  153.58, tw:   47.74
+numerator  (all) --> data: 1308, background:   81.40, tt+tw: 1151.98, tt:  867.36, tw:  284.62
+denominator(all) --> data: 2739, background:  846.78, tt+tw: 1709.89, tt: 1278.99, tw:  430.90
+channel       eff_tttw           eff_tt              eff_tw               eff_data              
+eff (0):  0.664 +/-  0.008   0.673 +/-  0.004   0.636 +/-  0.029 -->  0.616 +/-  0.019  
+eff (1):  0.674 +/-  0.007   0.680 +/-  0.004   0.656 +/-  0.023 -->  0.636 +/-  0.018  
+eff (2):  0.676 +/-  0.006   0.679 +/-  0.003   0.666 +/-  0.021 -->  0.675 +/-  0.015  
+eff (3):  0.683 +/-  0.010   0.678 +/-  0.006   0.697 +/-  0.037 -->  0.625 +/-  0.027  
+eff (4):  0.674 +/-  0.004   0.678 +/-  0.002   0.661 +/-  0.013 -->  0.645 +/-  0.009  
+Predicted ttbar+tW background for 1jet analysis (fails btag):  top background scale factor
+               MC(tt + tW)     Predicted from MC     | Prediction from Data   |    Scale Factor 
+top 1-jet(mm ):    116.315        107.449 +/-  2.173       | 133.758 +/- 10.212        |    1.150 +/- 0.088
+top 1-jet(me ):    163.589        158.021 +/-  2.699       | 182.228 +/- 12.279        |    1.114 +/- 0.075
+top 1-jet(em ):    214.178        208.538 +/-  3.160       | 241.784 +/- 15.040        |    1.129 +/- 0.070
+top 1-jet(ee ):     63.829         64.242 +/-  1.776       |  64.702 +/-  6.492        |    1.014 +/- 0.102
+top 1-jet(all):    557.911        538.251 +/-  5.014       | 622.471 +/- 31.184        |    1.116 +/- 0.056
+**********************************************************
+**********eff low pt jet 1-j**********
+btagSFTW = 1.115719
+numerator(mm )   --> data:  115, background:    5.01, tt+tw:  101.80, tt:   90.09, tw:   11.72
+denominator(mm ) --> data:  406, background:   32.44, tt+tw:  331.77, tt:  266.53, tw:   65.24
+numerator(me )   --> data:  160, background:    3.06, tt+tw:  149.48, tt:  130.88, tw:   18.60
+denominator(me ) --> data:  534, background:   17.98, tt+tw:  487.68, tt:  382.49, tw:  105.19
+numerator(em )   --> data:  241, background:    4.42, tt+tw:  195.60, tt:  175.75, tw:   19.86
+denominator(em ) --> data:  747, background:   33.97, tt+tw:  641.92, tt:  510.85, tw:  131.07
+numerator(ee )   --> data:   71, background:    1.42, tt+tw:   61.61, tt:   53.68, tw:    7.93
+denominator(ee ) --> data:  208, background:   10.92, tt+tw:  199.10, tt:  157.88, tw:   41.23
+numerator(all)   --> data:  587, background:   13.91, tt+tw:  508.50, tt:  450.39, tw:   58.11
+denominator(all) --> data: 1895, background:   95.31, tt+tw: 1660.47, tt: 1317.75, tw:  342.73
+channel       eff_tttw         eff_tt            eff_tw           eff_data              
+eff (0):  0.307 +/-  0.007   0.338 +/-  0.004   0.180 +/-  0.026 -->  0.322 +/-  0.023
+eff (1):  0.307 +/-  0.006   0.342 +/-  0.004   0.177 +/-  0.021 -->  0.342 +/-  0.021
+eff (2):  0.305 +/-  0.005   0.344 +/-  0.003   0.151 +/-  0.017 -->  0.378 +/-  0.018
+eff (3):  0.309 +/-  0.010   0.340 +/-  0.006   0.192 +/-  0.036 -->  0.402 +/-  0.034
+eff (4):  0.306 +/-  0.003   0.342 +/-  0.002   0.170 +/-  0.011 -->  0.359 +/-  0.011
+**********************************************************
+**********eff low pt jet 0-j**********
+ftw_b(0) = 0.180 
+ftw_b(1) = 0.177 
+ftw_b(2) = 0.151 
+ftw_b(3) = 0.192 
+ftw_b(4) = 0.170 
+channel        ttbar MC ( 0Jet / Extrapolated from 1Jet )            tW MC ( 0Jet / Extrapolated from 1Jet) 
+(mm ),                  0.545/0.562                                              0.335/0.338
+(me ),                  0.567/0.567                                              0.382/0.342
+(em ),                  0.559/0.570                                              0.412/0.344
+(ee ),                  0.540/0.564                                              0.409/0.340
+(all),                  0.555/0.567                                              0.388/0.342
+top tagging efficiency
+Channel    fttbar        Eff toptag(MC)    Eff toptag(MC extrapolated)       Eff toptab Data 
+(mm )       0.739,        :  0.478                  0.503 +/-  0.004              0.484 +/-  0.049
+(me )       0.727,        :  0.505                  0.506 +/-  0.004              0.505 +/-  0.047
+(em )       0.711,        :  0.509                  0.505 +/-  0.003              0.546 +/-  0.045
+(ee )       0.717,        :  0.494                  0.501 +/-  0.006              0.574 +/-  0.051
+(all)       0.722,        :  0.499                  0.504 +/-  0.002              0.525 +/-  0.044
+0-Jet Top Background
+Channel    top-tagged region    bkgs top-tagged          MC tt+tW              MC top            Data top   
+              Event Count       region (non-top)    non-top-tagged count     estimation         estimation  
+(mm )               75               22.089                43.031             38.731 +/-  0.310    47.927 +/- 12.701
+(me )               94               14.928                51.674             51.898 +/-  0.416    71.624 +/- 16.049
+(em )              114               27.494                72.352             73.647 +/-  0.590    78.358 +/- 18.136
+(ee )               36               11.397                24.678             23.706 +/-  0.190    22.286 +/-  7.288
+(all)              319               75.909                191.735             187.982 +/-  1.506    220.194 +/- 45.034
+*****************************************
+\begin{table}
+\begin{center}
+{\tiny
+\hline
+ Sample & 0-jet & 1-jet & 2-jet \\
+\hline
+estimated top events in simulation  & 191.7 $\pm$   1.5 &  557.9 $\pm$   5.0 &  12.8 $\pm$   0.5 \\
+tagging efficiency     (\%)         & 52.5 $\pm$  4.4 & 64.5 $\pm$  0.9 & - \\ 
+data events in control region       &  319 & 1308 & -
+background events in control region &  75.9 $\pm$  11.4 &   81.4 $\pm$  16.3 & - \\ 
+top estimation in data              &  220.2 $\pm$  45.0 &  622.5 $\pm$  31.2 &  11.1 $\pm$   4.4 \\
+data/simulation scale factor        &   1.15 $\pm$  0.23 &   1.12 $\pm$  0.06 &  0.86 $\pm$  0.34 \\
+\hline
+\end{tabular}
+}
+\end{center}
+\end{table}
+*****************************************
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+[0mroot [0] 
+Processing /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor.C+(2)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor_C.so
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor.C: In function 'void ComputeWWBkgScaleFactor(Int_t, TString, TString)':
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor.C:71:5: error: 'lumi' was not declared in this scope
+g++: error: /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor_C_ACLiC_dict.o: No such file or directory
+Error in <ACLiC>: Compilation failed!
+Error: Function ComputeWWBkgScaleFactor(2) is not defined in current scope  :0:
+*** Interpreter error recovered ***
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+cp: cannot stat `WWBkgScaleFactors.h': No such file or directory
+mv: cannot stat `WWBkgScaleFactors.h': No such file or directory
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+[0mroot [0] 
+Processing /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+(2)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C.so
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C: In function 'void ComputeDYBkgScaleFactor(Int_t, Bool_t, Int_t, Double_t, Double_t)':
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:970:16: warning: unused variable 'sfin_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:972:16: warning: unused variable 'sfin_mm_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1017:16: warning: unused variable 'sfout_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1019:16: warning: unused variable 'sfout_mm_err' [-Wunused-variable]
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:960:77: warning: 'err_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:960:77: warning: 'nin_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:972:208: warning: 'err_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:972:208: warning: 'nin_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:970:208: warning: 'err_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:987:34: warning: 'nin_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+Processing /data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/data.root...
+Event 0
+Event 100000
+Event 200000
+Event 300000
+Event 400000
+Event 500000
+Event 600000
+Event 700000
+Event 800000
+Event 900000
+Event 1000000
+Event 1100000
+Event 1200000
+Event 1300000
+Event 1400000
+Event 1500000
+Event 1600000
+Event 1700000
+Event 1800000
+Event 1900000
+Event 2000000
+Event 2100000
+Event 2200000
+Event 2300000
+Event 2400000
+Event 2500000
+Event 2600000
+Event 2700000
+Event 2800000
+Event 2900000
+Event 3000000
+Event 3100000
+Event 3200000
+Event 3300000
+Event 3400000
+Event 3500000
+Event 3600000
+Event 3700000
+Event 3800000
+Event 3900000
+Event 4000000
+Event 4100000
+Event 4200000
+Event 4300000
+Event 4400000
+Event 4500000
+Event 4600000
+Event 4700000
+Event 4800000
+Event 4900000
+Event 5000000
+Processing /data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/dyll.root...
+Event 0
+Event 100000
+Event 200000
+Event 300000
+Event 400000
+Event 500000
+Event 600000
+Event 700000
+Event 800000
+Event 900000
+Event 1000000
+Event 1100000
+Event 1200000
+Event 1300000
+Event 1400000
+Event 1500000
+Event 1600000
+Event 1700000
+Event 1800000
+Event 1900000
+Event 2000000
+Event 2100000
+Event 2200000
+Event 2300000
+Event 2400000
+Event 2500000
+Event 2600000
+Event 2700000
+Event 2800000
+Event 2900000
+Event 3000000
+Event 3100000
+Event 3200000
+Event 3300000
+Event 3400000
+Event 3500000
+Event 3600000
+Event 3700000
+Event 3800000
+Event 3900000
+Event 4000000
+Event 4100000
+Event 4200000
+Event 4300000
+Event 4400000
+Event 4500000
+Event 4600000
+Event 4700000
+Event 4800000
+Event 4900000
+Event 5000000
+Event 5100000
+Event 5200000
+Event 5300000
+Event 5400000
+Event 5500000
+Event 5600000
+Event 5700000
+Event 5800000
+Event 5900000
+Event 6000000
+Event 6100000
+Event 6200000
+Event 6300000
+Event 6400000
+Event 6500000
+Event 6600000
+Event 6700000
+ Event 6800000
+Event 6900000
+Event 7000000
+Event 7100000
+Event 7200000
+Event 7300000
+Event 7400000
+Event 7500000
+Event 7600000
+Event 7700000
+Processing /data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/wz.root...
+Event 0
+Event 100000
+Event 200000
+Event 300000
+Event 400000
+Event 500000
+Event 600000
+Event 700000
+Event 800000
+Event 900000
+Event 1000000
+Event 1100000
+Event 1200000
+Event 1300000
+Event 1400000
+Processing /data/smurf/data/Run2012_Summer12_SmurfV10_52X/mitf-alljets/zz.root...
+Event 0
+Event 100000
+Event 200000
+Event 300000
+Event 400000
+Event 500000
+Event 600000
+Event 700000
+Event 800000
+Event 900000
+Event 1000000
+Event 1100000
+Event 1200000
+Event 1300000
+Event 1400000
+Event 1500000
+Event 1600000
+Event 1700000
+Event 1800000
+Event 1900000
+Event 2000000
+Event 2100000
+Event 2200000
+Event 2300000
+Event 2400000
+Event 2500000
+Event 2600000
+Event 2700000
+Event 2800000
+Event 2900000
+Event 3000000
+Event 3100000
+Event 3200000
+Event 3300000
+M: 0
+bin(1) Nin = 1043.984 Nout =  348.187 R0 = 0.266 R = 0.334 dr = 0.068 drMax = 0.000 rError = 0.063
+bin(2) Nin = 1105.049 Nout =  290.239 R0 = 0.266 R = 0.263 dr = 0.003 drMax = 0.068 rError = 0.069
+bin(3) Nin = 2119.360 Nout =  563.066 R0 = 0.266 R = 0.266 dr = 0.000 drMax = 0.068 rError = 0.051
+bin(4) Nin =  339.965 Nout =   85.178 R0 = 0.266 R = 0.251 dr = 0.015 drMax = 0.068 rError = 0.144
+M: 115
+bin(1) Nin =   28.836 Nout =    1.974 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.030
+bin(2) Nin =   31.830 Nout =    3.932 R0 = 0.216 R = 0.124 dr = 0.093 drMax = 0.148 rError = 0.539
+bin(3) Nin =   41.581 Nout =    8.989 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -1.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 1.786
+M: 118
+bin(1) Nin =   28.836 Nout =    1.974 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.030
+bin(2) Nin =   31.830 Nout =    3.932 R0 = 0.216 R = 0.124 dr = 0.093 drMax = 0.148 rError = 0.539
+bin(3) Nin =   41.581 Nout =    8.989 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -1.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 1.786
+M: 120
+bin(1) Nin =   28.836 Nout =    1.974 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.030
+bin(2) Nin =   31.830 Nout =    3.932 R0 = 0.216 R = 0.124 dr = 0.093 drMax = 0.148 rError = 0.539
+bin(3) Nin =   41.581 Nout =    8.989 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -1.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 1.786
+M: 122
+bin(1) Nin =   28.836 Nout =    1.974 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.030
+bin(2) Nin =   31.830 Nout =    3.932 R0 = 0.216 R = 0.124 dr = 0.093 drMax = 0.148 rError = 0.539
+bin(3) Nin =   41.581 Nout =    8.989 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -1.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 1.786
+M: 124
+bin(1) Nin =   28.836 Nout =    1.974 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.030
+bin(2) Nin =   31.830 Nout =    3.932 R0 = 0.216 R = 0.124 dr = 0.093 drMax = 0.148 rError = 0.539
+bin(3) Nin =   41.581 Nout =    8.989 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -1.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 1.786
+M: 125
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 126
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 128
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 130
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 135
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 140
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 145
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 150
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 155
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 160
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 170
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =   -0.002 R0 = 0.216 R = 0.000 dr = 0.216 drMax = 0.148 rError = 909.468
+M: 180
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.987 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.368
+bin(4) Nin =    4.966 Nout =    0.998 R0 = 0.216 R = 0.201 dr = 0.015 drMax = 0.148 rError = 2.286
+M: 190
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.216 R = 0.068 dr = 0.148 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.216 R = 0.155 dr = 0.061 drMax = 0.148 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.974 R0 = 0.216 R = 0.216 dr = 0.000 drMax = 0.148 rError = 0.369
+bin(4) Nin =    4.966 Nout =    0.998 R0 = 0.216 R = 0.201 dr = 0.015 drMax = 0.148 rError = 2.286
+M: 200
+bin(1) Nin =   28.836 Nout =    1.961 R0 = 0.215 R = 0.068 dr = 0.147 drMax = 0.000 rError = 1.037
+bin(2) Nin =   31.830 Nout =    4.932 R0 = 0.215 R = 0.155 dr = 0.060 drMax = 0.147 rError = 0.487
+bin(3) Nin =   41.581 Nout =    8.950 R0 = 0.215 R = 0.215 dr = 0.000 drMax = 0.147 rError = 0.370
+bin(4) Nin =    4.966 Nout =    0.998 R0 = 0.215 R = 0.201 dr = 0.014 drMax = 0.147 rError = 2.286
+M: 250
+bin(1) Nin =   28.836 Nout =    1.959 R0 = 0.167 R = 0.068 dr = 0.099 drMax = 0.000 rError = 1.038
+bin(2) Nin =   31.830 Nout =    5.932 R0 = 0.167 R = 0.186 dr = 0.020 drMax = 0.099 rError = 0.450
+bin(3) Nin =   41.581 Nout =    6.925 R0 = 0.167 R = 0.167 dr = 0.000 drMax = 0.099 rError = 0.504
+bin(4) Nin =    4.966 Nout =    0.984 R0 = 0.167 R = 0.198 dr = 0.032 drMax = 0.099 rError = 2.318
+M: 300
+bin(1) Nin =   28.836 Nout =    1.959 R0 = 0.167 R = 0.068 dr = 0.099 drMax = 0.000 rError = 1.038
+bin(2) Nin =   31.830 Nout =    6.932 R0 = 0.167 R = 0.218 dr = 0.051 drMax = 0.099 rError = 0.421
+bin(3) Nin =   41.581 Nout =    6.925 R0 = 0.167 R = 0.167 dr = 0.000 drMax = 0.099 rError = 0.504
+bin(4) Nin =    4.966 Nout =    0.984 R0 = 0.167 R = 0.198 dr = 0.032 drMax = 0.099 rError = 2.318
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+[dtmit02] /home/ceballos/releases/CMSSW_5_2_3_patch3/src > exit
+exit
+
+Script done on Sat Aug 11 12:25:31 2012

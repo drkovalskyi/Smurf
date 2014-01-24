@@ -1,6 +1,6 @@
 Double_t ZttScaleFactor(Int_t period, Double_t scale1fb, Double_t trg, Double_t eff) {
   if(period != 2 && period != 3) assert(0);
-  return 0.00397199*scale1fb*trg*eff;
+  return 0.00391814*scale1fb*trg*eff;
 }
 
 Double_t ZttScaleFactorKappa() {

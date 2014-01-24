@@ -1,0 +1,54 @@
+
+# DO NOT DELETE
+
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TROOT.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TDirectory.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TNamed.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TObject.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/Rtypes.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/RConfig.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/RVersion.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/DllImport.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/Rtypeinfo.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/snprintf.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/strlcpy.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TGenericClassInfo.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TSchemaHelper.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TStorage.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TVersionCheck.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/Riosfwd.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TBuffer.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TString.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TMathBase.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TList.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TSeqCollection.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TCollection.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TIterator.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TDatime.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TUUID.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TF1.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TFormula.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TBits.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TObjArray.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TAttLine.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TAttFill.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TAttMarker.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/Math/ParamFunctor.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TGraph.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TVectorFfwd.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TVectorDfwd.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TFitResultPtr.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TCanvas.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TPad.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TVirtualPad.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TAttPad.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TVirtualX.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TAttText.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/GuiTypes.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/Buttons.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TQObject.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TAttCanvas.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TCanvasImp.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/TSpline.h
+HCSaW/Higgs_CS_and_Width/src/HiggsCSandWidth_cc.so: /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/cintdictversion.h /afs/cern.ch/cms/slc5_amd64_gcc462/lcg/root/5.32.00-cms5/include/RVersion.h
+HiggsCSandWidth_cc__ROOTBUILDVERSION= 5.32/00

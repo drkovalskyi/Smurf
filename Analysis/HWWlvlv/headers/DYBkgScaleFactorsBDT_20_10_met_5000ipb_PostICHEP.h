@@ -1,0 +1,38 @@
+static Double_t DYBkgScaleFactorBDT(Int_t mH, Int_t jetBin) {
+  Int_t mHiggs[21] = {115,118,120,122,124,125,126,128,130,135,140,145,150,155,160,170,180,190,200,250,300};
+  Double_t DYBkgScaleFactorWWPreselection[3] = { 4.60365, 3.95191, 1.99512  };
+  Double_t DYBkgScaleFactorHiggsSelection[3][21] = { 
+    { 48.9953,49.9856,50.7261,52.7478,53.9665,58.6942,60.1205,60.1823,59.9366,60.6265,60.6259,82.1603,82.3483,82.8352,82.5085,81.9415,83.5118,86.388,88.1385,97.6885,95.2449},
+    { 12.8259,13.9888,14.3669,14.7466,14.7847,16.6521,16.517,17.6275,17.6694,18.7818,18.8259,74.4455,79.8819,83.9252,86.201,91.3646,97.8663,108.154,114.174,119.643,119.967},
+    { 2.61503,2.85417,2.8524,2.85107,2.8502,3.08834,3.56793,3.56695,3.80403,3.79356,4.27367,4.26956,4.26157,4.49418,4.72838,4.96516,5.19363,5.65968,6.12308,5.24332,5.23514} };
+  if(mH == 0) return DYBkgScaleFactorWWPreselection[jetBin];
+  Int_t massIndex = -1;
+  for (UInt_t m=0; m < 21 ; ++m) {
+    if (mH == mHiggs[m]) massIndex = m;
+  }
+  if (massIndex >= 0) {
+    return DYBkgScaleFactorHiggsSelection[jetBin][massIndex];
+  } else {
+    return DYBkgScaleFactorWWPreselection[jetBin];
+  }
+}
+
+static Double_t DYBkgScaleFactorBDTKappa(Int_t mH, Int_t jetBin) {
+  Int_t mHiggs[21] = {115,118,120,122,124,125,126,128,130,135,140,145,150,155,160,170,180,190,200,250,300};
+  Double_t DYBkgScaleFactorWWPreselectionKappa[3] = { 1.14042, 1.20401, 1.26796  };
+  Double_t DYBkgScaleFactorHiggsSelectionKappa[3][21] = { 
+    { 1.30233,1.3025,1.3024,1.30195,1.30182,1.28713,1.28681,1.28697,1.28709,1.28701,1.28701,1.139,1.13962,1.1401,1.14056,1.14174,1.14511,1.13744,1.15513,1.13488,1.1432},
+    { 1.51137,1.50911,1.50866,1.50912,1.51221,1.52926,1.52982,1.52911,1.53023,1.52978,1.53259,1.29545,1.29513,1.29497,1.29489,1.29464,1.20224,1.2497,1.26113,1.20504,1.20469},
+    { 2.10332,2.09977,2.09982,2.09985,2.09988,2.09688,2.09201,2.09203,2.0901,2.09026,2.08691,2.08696,2.09004,2.09108,2.08934,2.08776,1.8488,1.8455,1.84261,1.83764,1.83772} };
+  if(mH == 0) return DYBkgScaleFactorWWPreselectionKappa[jetBin];
+  Int_t massIndex = -1;
+  for (UInt_t m=0; m < 21 ; ++m) {
+    if (mH == mHiggs[m]) massIndex = m;
+  }
+  if (massIndex >= 0) {
+    return DYBkgScaleFactorHiggsSelectionKappa[jetBin][massIndex];
+  } else {
+    return DYBkgScaleFactorWWPreselectionKappa[jetBin];
+  }
+}
+

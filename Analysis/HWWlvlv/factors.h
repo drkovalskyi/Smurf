@@ -32,6 +32,28 @@ double poorManMetSyst(LorentzVector l1, LorentzVector l2, LorentzVector l3,
                       int lid1, int lid2, int lid3, double met, double metPhi,
                       LorentzVector j1, LorentzVector j2, LorentzVector j3, LorentzVector j4, int nsyst);
 double ratioPhotonElectron(TH1D *fDRatio, double eta);
+double weightEWKCorr(float pt, int type);
+
+double weightEWKCorr(float pt, int type){
+  if     (type == 0){ // ZH
+    if(pt < 50) return 1.0;
+    return (0.94-(0.2-0.068)/400.*(pt-50.));
+  }
+  else if(type == 1){ // WZ
+    if(pt < 50) return 1.0;
+    return (100.0-0.037*pt+1.900)/100.0;
+  }
+  else if(type == 2){ // ZZ
+    if(pt < 50) return 1.0;
+    return (100.0-0.071*pt+0.550)/100.0;
+  }
+  else if(type == 3){ // WW
+    if(pt < 50) return 1.0;
+    return (1.0+(0.02438-0.00060*pt));
+  }
+  assert(0);
+  return 0.0;
+}
 
 double ratioPhotonElectron(TH1D *fDRatio, double eta){
   eta = TMath::Abs(eta);

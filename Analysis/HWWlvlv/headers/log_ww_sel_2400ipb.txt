@@ -1,0 +1,3410 @@
+Script started on Mon Jun 11 19:50:31 2012
+[dtmit02] /home/ceballos/releases/CMSSW_5_2_3_patch3/src > ./Smurf/A Analysis/HWWlvlv/
+CVS/                             PlotHiggsRes2012_C.so            data_Fall11_V8/                  pic/
+DYBkg/                           TopBkg/                          data_Fall11_V9/                  plots/
+HCSaW/                           WJetsBkg/                        data_LP/                         pseudo_data/
+HiggsQCDScaleSystematics_7TeV.h  WWBkg/                           data_LP_42x/                     runAll-default_7TeV.sh
+HiggsQCDScaleSystematics_8TeV.h  WWControlRegion/                 data_Summer11/                   runAll-default_8TeV.sh
+PDFgHHSystematics_7TeV.h         data2011/                        data_Winter11/                   runAllJobs.sh
+PDFgHHSystematics_8TeV.h         data2012/                        factors.h                        runAllJobsOneJetBin_7TeV.sh
+PSUESystematics_7TeV.h           data_52x/                        headers/                         runAllJobsOneJetBin_8TeV.sh
+PSUESystematics_8TeV.h           data_52x_2011Ana/                headers_2011/                    scripts/
+PlotHiggsRes2011_C.so            data_EPS/                        output/                          toys/
+[dtmit02] /home/ceballos/releases/CMSSW_5_2_3_patch3/src > ./Smurf/Analysis/HWWlvlv/scripts/computeScaleFactors.sh 1
+ 2774 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 2774 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,4,0)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x_C.so
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x.C: In function 'void optimalCuts_52x(int, Char_t*, Char_t*, int, TString, TString, TString, bool, double, int)':
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x.C:393:53: warning: variable 'type3l' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x.C:1144:53: warning: variable 'type3l' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x.C:1646:53: warning: variable 'type3l' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx: In function 'int G__optimalCuts_52x_C_ACLiC_dict__0_2246(G__value*, const char*, G__param*, int)':
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:129:83: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:133:50: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:133:50: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:137:23: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:137:23: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h:7:17: warning: 'Double_t TopBkgScaleFactorKappa(Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:35:17: warning: 'Double_t WWBkgScaleFactorKappaCutBased(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+nJetsType: 0, lDecay = 4
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 760.000000
+S: 470.370358  B: 180.497763  Signif: 6.903899  S/B: 2.605962
+bdg( 1) =   61.021 +/-  4.460
+bdg( 3) =  -17.352 +/-  0.964
+bdg( 5) =   47.767 +/-  3.612
+bdg( 9) =   21.665 +/-  4.095
+bdg(13) =   34.355 +/-  2.694
+bdg(19) =    2.339 +/-  1.821
+bdg(20) =   11.740 +/-  1.598
+bdg(27) =   13.612 +/-  0.289
+bdg(28) =    5.350 +/-  0.131
+bdg(29) =  440.655 +/-  3.431
+bdg(30) =   29.716 +/-  0.666
+bdg( W) =   43.669 +/-  4.563
+bdg( Z) =   21.665 +/-  4.095
+bdg(tX) =   82.122 +/-  4.506
+bdg(Vg) =   14.079 +/-  2.423
+totalstat: 8.722564
+totalS   : 88.303068
+totalE   : 25.512117
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 2862 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 2862 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,5,0)...
+[0mnJetsType: 0, lDecay = 5
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 265.000000
+S: 168.239987  B: 85.278283  Signif: 4.973282  S/B: 1.972835
+bdg( 1) =   21.746 +/-  2.822
+bdg( 3) =   -6.910 +/-  0.678
+bdg( 5) =   16.729 +/-  2.175
+bdg( 9) =   21.203 +/-  4.091
+bdg(13) =   12.400 +/-  1.584
+bdg(19) =    1.914 +/-  1.808
+bdg(20) =    7.316 +/-  1.161
+bdg(27) =    5.829 +/-  0.189
+bdg(28) =    5.049 +/-  0.129
+bdg(29) =  156.610 +/-  2.044
+bdg(30) =   11.630 +/-  0.414
+bdg( W) =   14.837 +/-  2.902
+bdg( Z) =   21.203 +/-  4.091
+bdg(tX) =   29.130 +/-  2.690
+bdg(Vg) =    9.230 +/-  2.149
+totalstat: 6.435586
+totalS   : 37.509109
+totalE   : 15.922257
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 2929 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 2929 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,6,0)...
+[0mnJetsType: 0, lDecay = 6
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 495.000000
+S: 302.130371  B: 95.219480  Signif: 7.780184  S/B: 3.172989
+bdg( 1) =   39.275 +/-  3.454
+bdg( 3) =  -10.443 +/-  0.685
+bdg( 5) =   31.038 +/-  2.884
+bdg( 9) =    0.462 +/-  0.182
+bdg(13) =   21.955 +/-  2.180
+bdg(19) =    0.425 +/-  0.215
+bdg(20) =    4.424 +/-  1.098
+bdg(27) =    7.783 +/-  0.219
+bdg(28) =    0.301 +/-  0.023
+bdg(29) =  284.044 +/-  2.756
+bdg(30) =   18.086 +/-  0.521
+bdg( W) =   28.832 +/-  3.521
+bdg( Z) =    0.462 +/-  0.182
+bdg(tX) =   52.992 +/-  3.615
+bdg(Vg) =    4.849 +/-  1.119
+totalstat: 5.887813
+totalS   : 55.278524
+totalE   : 19.933636
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 2968 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 2968 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,0,0)...
+[0mnJetsType: 0, lDecay = 0
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 168.000000
+S: 101.998364  B: 45.492206  Signif: 5.093496  S/B: 2.242106
+bdg( 1) =   13.958 +/-  2.703
+bdg( 3) =   -5.199 +/-  0.654
+bdg( 5) =    9.661 +/-  1.608
+bdg( 9) =   12.809 +/-  2.915
+bdg(13) =    7.195 +/-  1.187
+bdg(20) =    0.251 +/-  0.100
+bdg(27) =    3.768 +/-  0.152
+bdg(28) =    3.048 +/-  0.100
+bdg(29) =   95.180 +/-  1.590
+bdg(30) =    6.818 +/-  0.313
+bdg( W) =    8.759 +/-  2.781
+bdg( Z) =   12.809 +/-  2.915
+bdg(tX) =   16.856 +/-  1.999
+bdg(Vg) =    0.251 +/-  0.100
+totalstat: 4.784744
+totalS   : 22.159690
+totalE   : 12.144570
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 2996 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 2996 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,1,0)...
+[0mnJetsType: 0, lDecay = 1
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 222.000000
+S: 136.613645  B: 35.978755  Signif: 7.507093  S/B: 3.797064
+bdg( 1) =   12.040 +/-  1.721
+bdg( 3) =   -3.889 +/-  0.370
+bdg( 5) =   13.090 +/-  1.857
+bdg( 9) =    0.062 +/-  0.062
+bdg(13) =    9.922 +/-  1.493
+bdg(19) =    0.213 +/-  0.190
+bdg(20) =    1.517 +/-  0.675
+bdg(27) =    2.899 +/-  0.133
+bdg(28) =    0.125 +/-  0.016
+bdg(29) =  128.586 +/-  1.837
+bdg(30) =    8.027 +/-  0.339
+bdg( W) =    8.151 +/-  1.760
+bdg( Z) =    0.062 +/-  0.062
+bdg(tX) =   23.012 +/-  2.383
+bdg(Vg) =    1.730 +/-  0.701
+totalstat: 3.574423
+totalS   : 23.655506
+totalE   : 13.137443
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3041 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3041 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,2,0)...
+[0mnJetsType: 0, lDecay = 2
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 273.000000
+S: 165.516726  B: 59.240725  Signif: 6.468920  S/B: 2.793969
+bdg( 1) =   27.235 +/-  2.995
+bdg( 3) =   -6.554 +/-  0.576
+bdg( 5) =   17.948 +/-  2.207
+bdg( 9) =    0.401 +/-  0.171
+bdg(13) =   12.032 +/-  1.588
+bdg(19) =    0.212 +/-  0.102
+bdg(20) =    2.907 +/-  0.866
+bdg(27) =    4.884 +/-  0.174
+bdg(28) =    0.176 +/-  0.016
+bdg(29) =  155.458 +/-  2.054
+bdg(30) =   10.059 +/-  0.396
+bdg( W) =   20.681 +/-  3.050
+bdg( Z) =    0.401 +/-  0.171
+bdg(tX) =   29.980 +/-  2.719
+bdg(Vg) =    3.119 +/-  0.872
+totalstat: 4.678658
+totalS   : 32.089691
+totalE   : 14.991913
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3096 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3096 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,3,0)...
+[0mnJetsType: 0, lDecay = 3
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 97.000000
+S: 66.241623  B: 39.786076  Signif: 3.824864  S/B: 1.664945
+bdg( 1) =    7.788 +/-  0.811
+bdg( 3) =   -1.711 +/-  0.177
+bdg( 5) =    7.068 +/-  1.464
+bdg( 9) =    8.394 +/-  2.871
+bdg(13) =    5.206 +/-  1.048
+bdg(19) =    1.914 +/-  1.808
+bdg(20) =    7.065 +/-  1.156
+bdg(27) =    2.061 +/-  0.112
+bdg(28) =    2.001 +/-  0.082
+bdg(29) =   61.430 +/-  1.284
+bdg(30) =    4.812 +/-  0.272
+bdg( W) =    6.077 +/-  0.830
+bdg( Z) =    8.394 +/-  2.871
+bdg(tX) =   12.274 +/-  1.801
+bdg(Vg) =    8.979 +/-  2.146
+totalstat: 4.303835
+totalS   : 16.093488
+totalE   : 10.296975
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3144 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3144 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,14,0)...
+[0mnJetsType: 1, lDecay = 4
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 500.000000
+S: 182.895732  B: 352.085096  Signif: 1.458712  S/B: 0.519465
+bdg( 1) =   53.343 +/-  4.385
+bdg( 3) =  -18.405 +/-  1.683
+bdg( 5) =  177.267 +/-  7.711
+bdg( 9) =   45.731 +/-  6.873
+bdg(13) =   71.168 +/-  4.171
+bdg(19) =    4.441 +/-  1.796
+bdg(20) =    3.918 +/-  0.793
+bdg(27) =   12.689 +/-  0.273
+bdg(28) =    1.933 +/-  0.076
+bdg(29) =  172.944 +/-  2.149
+bdg(30) =    9.951 +/-  0.382
+bdg( W) =   34.937 +/-  4.697
+bdg( Z) =   45.731 +/-  6.873
+bdg(tX) =  248.435 +/-  8.767
+bdg(Vg) =    8.360 +/-  1.963
+totalstat: 12.443849
+totalS   : 253.545423
+totalE   : 23.129653
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3166 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3166 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,15,0)...
+[0mnJetsType: 1, lDecay = 5
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 180.000000
+S: 54.542329  B: 125.640636  Signif: 1.186287  S/B: 0.434114
+bdg( 1) =   13.634 +/-  2.420
+bdg( 3) =   -5.805 +/-  0.726
+bdg( 5) =   53.046 +/-  4.186
+bdg( 9) =   33.966 +/-  6.069
+bdg(13) =   22.520 +/-  2.380
+bdg(19) =    0.076 +/-  0.076
+bdg(20) =    2.675 +/-  0.669
+bdg(27) =    3.901 +/-  0.151
+bdg(28) =    1.627 +/-  0.073
+bdg(29) =   50.884 +/-  1.138
+bdg(30) =    3.658 +/-  0.241
+bdg( W) =    7.829 +/-  2.527
+bdg( Z) =   33.966 +/-  6.069
+bdg(tX) =   75.566 +/-  4.815
+bdg(Vg) =    2.751 +/-  0.673
+totalstat: 8.260963
+totalS   : 83.360779
+totalE   : 13.423225
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3202 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3202 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,16,0)...
+[0mnJetsType: 1, lDecay = 6
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 320.000000
+S: 128.353402  B: 226.444460  Signif: 1.575601  S/B: 0.566821
+bdg( 1) =   39.709 +/-  3.656
+bdg( 3) =  -12.600 +/-  1.518
+bdg( 5) =  124.221 +/-  6.475
+bdg( 9) =   11.765 +/-  3.225
+bdg(13) =   48.648 +/-  3.426
+bdg(19) =    4.365 +/-  1.794
+bdg(20) =    1.243 +/-  0.427
+bdg(27) =    8.788 +/-  0.227
+bdg(28) =    0.306 +/-  0.018
+bdg(29) =  122.060 +/-  1.823
+bdg(30) =    6.293 +/-  0.296
+bdg( W) =   27.109 +/-  3.959
+bdg( Z) =   11.765 +/-  3.225
+bdg(tX) =  172.869 +/-  7.326
+bdg(Vg) =    5.608 +/-  1.844
+totalstat: 9.306227
+totalS   : 174.065412
+totalE   : 18.836079
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3228 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3228 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,10,0)...
+[0mnJetsType: 1, lDecay = 0
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 101.000000
+S: 32.805848  B: 75.446999  Signif: 1.155857  S/B: 0.434820
+bdg( 1) =    9.831 +/-  2.349
+bdg( 3) =   -4.719 +/-  0.713
+bdg( 5) =   34.885 +/-  3.460
+bdg( 9) =   18.213 +/-  4.141
+bdg(13) =   14.205 +/-  1.931
+bdg(20) =    0.011 +/-  0.011
+bdg(27) =    1.978 +/-  0.107
+bdg(28) =    1.043 +/-  0.059
+bdg(29) =   30.818 +/-  0.883
+bdg(30) =    1.988 +/-  0.171
+bdg( W) =    5.112 +/-  2.455
+bdg( Z) =   18.213 +/-  4.141
+bdg(tX) =   49.089 +/-  3.962
+bdg(Vg) =    0.011 +/-  0.011
+totalstat: 6.300450
+totalS   : 52.800421
+totalE   : 10.404463
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3289 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3289 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,11,0)...
+[0mnJetsType: 1, lDecay = 1
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 138.000000
+S: 59.147740  B: 99.776903  Signif: 1.593090  S/B: 0.592800
+bdg( 1) =   15.601 +/-  2.368
+bdg( 3) =   -5.715 +/-  1.331
+bdg( 5) =   53.444 +/-  4.199
+bdg( 9) =    7.350 +/-  2.883
+bdg(13) =   24.234 +/-  2.506
+bdg(19) =    0.732 +/-  0.627
+bdg(20) =    0.475 +/-  0.331
+bdg(27) =    3.542 +/-  0.144
+bdg(28) =    0.113 +/-  0.011
+bdg(29) =   56.038 +/-  1.241
+bdg(30) =    3.109 +/-  0.213
+bdg( W) =    9.886 +/-  2.716
+bdg( Z) =    7.350 +/-  2.883
+bdg(tX) =   77.678 +/-  4.890
+bdg(Vg) =    1.207 +/-  0.709
+totalstat: 6.458448
+totalS   : 78.451075
+totalE   : 12.606532
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3325 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3325 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,12,0)...
+[0mnJetsType: 1, lDecay = 2
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 182.000000
+S: 69.205662  B: 126.667557  Signif: 1.488605  S/B: 0.546357
+bdg( 1) =   24.108 +/-  2.786
+bdg( 3) =   -6.886 +/-  0.732
+bdg( 5) =   70.778 +/-  4.930
+bdg( 9) =    4.415 +/-  1.446
+bdg(13) =   24.414 +/-  2.335
+bdg(19) =    3.633 +/-  1.681
+bdg(20) =    0.768 +/-  0.270
+bdg(27) =    5.246 +/-  0.175
+bdg(28) =    0.193 +/-  0.015
+bdg(29) =   66.022 +/-  1.335
+bdg(30) =    3.184 +/-  0.205
+bdg( W) =   17.222 +/-  2.880
+bdg( Z) =    4.415 +/-  1.446
+bdg(tX) =   95.191 +/-  5.455
+bdg(Vg) =    4.401 +/-  1.703
+totalstat: 6.700322
+totalS   : 95.933250
+totalE   : 13.995471
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3347 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3347 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,13,0)...
+[0mnJetsType: 1, lDecay = 3
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 79.000000
+S: 21.736481  B: 50.193638  Signif: 1.114242  S/B: 0.433053
+bdg( 1) =    3.803 +/-  0.583
+bdg( 3) =   -1.086 +/-  0.136
+bdg( 5) =   18.161 +/-  2.357
+bdg( 9) =   15.753 +/-  4.437
+bdg(13) =    8.316 +/-  1.392
+bdg(19) =    0.076 +/-  0.076
+bdg(20) =    2.664 +/-  0.669
+bdg(27) =    1.923 +/-  0.106
+bdg(28) =    0.585 +/-  0.044
+bdg(29) =   20.066 +/-  0.717
+bdg(30) =    1.671 +/-  0.170
+bdg( W) =    2.717 +/-  0.599
+bdg( Z) =   15.753 +/-  4.437
+bdg(tX) =   26.477 +/-  2.737
+bdg(Vg) =    2.740 +/-  0.673
+totalstat: 5.343017
+totalS   : 31.314752
+totalE   : 8.481163
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3395 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3395 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,24,0)...
+[0mnJetsType: 2, lDecay = 4
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 465.000000
+S: 72.887171  B: 363.437202  Signif: 0.565426  S/B: 0.200550
+bdg( 1) =   34.660 +/-  3.593
+bdg( 3) =  -17.264 +/-  1.358
+bdg( 5) =  225.068 +/-  7.808
+bdg( 9) =   75.711 +/-  9.173
+bdg(13) =   35.789 +/-  2.840
+bdg(19) =    1.032 +/-  0.594
+bdg(20) =    0.500 +/-  0.344
+bdg(27) =    6.963 +/-  0.201
+bdg(28) =    0.978 +/-  0.059
+bdg(29) =   70.976 +/-  1.372
+bdg(30) =    1.911 +/-  0.170
+bdg( W) =   17.396 +/-  3.841
+bdg( Z) =   75.711 +/-  9.173
+bdg(tX) =  260.858 +/-  8.308
+bdg(Vg) =    1.532 +/-  0.686
+totalstat: 13.051621
+totalS   : 272.078638
+totalE   : 20.888379
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3449 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3449 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,25,0)...
+[0mnJetsType: 2, lDecay = 5
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 214.000000
+S: 24.393334  B: 171.714141  Signif: 0.395290  S/B: 0.142058
+bdg( 1) =   12.664 +/-  2.288
+bdg( 3) =   -8.367 +/-  0.983
+bdg( 5) =   82.938 +/-  4.855
+bdg( 9) =   64.713 +/-  8.554
+bdg(13) =   15.711 +/-  2.032
+bdg(19) =    0.097 +/-  0.097
+bdg(20) =    0.500 +/-  0.344
+bdg(27) =    2.666 +/-  0.125
+bdg(28) =    0.791 +/-  0.053
+bdg(29) =   23.763 +/-  0.780
+bdg(30) =    0.630 +/-  0.094
+bdg( W) =    4.298 +/-  2.490
+bdg( Z) =   64.713 +/-  8.554
+bdg(tX) =   98.649 +/-  5.264
+bdg(Vg) =    0.597 +/-  0.357
+totalstat: 10.384824
+totalS   : 118.457625
+totalE   : 14.003838
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3491 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3491 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,26,0)...
+[0mnJetsType: 2, lDecay = 6
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 251.000000
+S: 48.493837  B: 191.723062  Signif: 0.704139  S/B: 0.252937
+bdg( 1) =   21.995 +/-  2.771
+bdg( 3) =   -8.897 +/-  0.937
+bdg( 5) =  142.130 +/-  6.115
+bdg( 9) =   10.998 +/-  3.311
+bdg(13) =   20.078 +/-  1.984
+bdg(19) =    0.935 +/-  0.586
+bdg(27) =    4.297 +/-  0.157
+bdg(28) =    0.187 +/-  0.025
+bdg(29) =   47.213 +/-  1.128
+bdg(30) =    1.281 +/-  0.142
+bdg( W) =   13.098 +/-  2.925
+bdg( Z) =   10.998 +/-  3.311
+bdg(tX) =  162.208 +/-  6.428
+bdg(Vg) =    0.935 +/-  0.586
+totalstat: 7.905709
+totalS   : 162.906797
+totalE   : 15.498932
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3517 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3517 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,20,0)...
+[0mnJetsType: 2, lDecay = 0
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 137.000000
+S: 14.535485  B: 103.918332  Signif: 0.382866  S/B: 0.139874
+bdg( 1) =    9.562 +/-  2.231
+bdg( 3) =   -6.628 +/-  0.955
+bdg( 5) =   53.012 +/-  3.921
+bdg( 9) =   35.932 +/-  5.328
+bdg(13) =   10.205 +/-  1.726
+bdg(27) =    1.320 +/-  0.089
+bdg(28) =    0.514 +/-  0.045
+bdg(29) =   14.265 +/-  0.599
+bdg(30) =    0.271 +/-  0.052
+bdg( W) =    2.935 +/-  2.427
+bdg( Z) =   35.932 +/-  5.328
+bdg(tX) =   63.218 +/-  4.284
+totalstat: 7.279929
+totalS   : 73.094664
+totalE   : 10.883649
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3567 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3567 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,21,0)...
+[0mnJetsType: 2, lDecay = 1
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 116.000000
+S: 22.202828  B: 89.135325  Signif: 0.674172  S/B: 0.249091
+bdg( 1) =    7.913 +/-  1.646
+bdg( 3) =   -2.699 +/-  0.372
+bdg( 5) =   65.637 +/-  4.163
+bdg( 9) =    6.485 +/-  2.691
+bdg(13) =    9.751 +/-  1.337
+bdg(19) =    0.280 +/-  0.237
+bdg(27) =    1.713 +/-  0.098
+bdg(28) =    0.055 +/-  0.008
+bdg(29) =   21.571 +/-  0.749
+bdg(30) =    0.631 +/-  0.096
+bdg( W) =    5.213 +/-  1.688
+bdg( Z) =    6.485 +/-  2.691
+bdg(tX) =   75.389 +/-  4.372
+bdg(Vg) =    0.280 +/-  0.237
+totalstat: 5.463202
+totalS   : 75.909399
+totalE   : 10.551690
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3604 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3604 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,22,0)...
+[0mnJetsType: 2, lDecay = 2
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 135.000000
+S: 26.291009  B: 102.587737  Signif: 0.698159  S/B: 0.256278
+bdg( 1) =   14.083 +/-  2.229
+bdg( 3) =   -6.198 +/-  0.860
+bdg( 5) =   76.493 +/-  4.479
+bdg( 9) =    4.513 +/-  1.928
+bdg(13) =   10.327 +/-  1.465
+bdg(19) =    0.655 +/-  0.536
+bdg(27) =    2.584 +/-  0.122
+bdg(28) =    0.131 +/-  0.024
+bdg(29) =   25.641 +/-  0.844
+bdg(30) =    0.650 +/-  0.104
+bdg( W) =    7.885 +/-  2.389
+bdg( Z) =    4.513 +/-  1.928
+bdg(tX) =   86.820 +/-  4.712
+bdg(Vg) =    0.655 +/-  0.536
+totalstat: 5.714338
+totalS   : 87.215377
+totalE   : 11.352478
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3683 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3683 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,23,0)...
+[0mnJetsType: 2, lDecay = 3
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 77.000000
+S: 9.857849  B: 67.795809  Signif: 0.389454  S/B: 0.145405
+bdg( 1) =    3.102 +/-  0.506
+bdg( 3) =   -1.739 +/-  0.234
+bdg( 5) =   29.926 +/-  2.864
+bdg( 9) =   28.781 +/-  6.693
+bdg(13) =    5.506 +/-  1.073
+bdg(19) =    0.097 +/-  0.097
+bdg(20) =    0.500 +/-  0.344
+bdg(27) =    1.346 +/-  0.087
+bdg(28) =    0.277 +/-  0.027
+bdg(29) =    9.499 +/-  0.499
+bdg(30) =    0.359 +/-  0.078
+bdg( W) =    1.363 +/-  0.557
+bdg( Z) =   28.781 +/-  6.693
+bdg(tX) =   35.431 +/-  3.058
+bdg(Vg) =    0.597 +/-  0.357
+totalstat: 7.405889
+totalS   : 46.250859
+totalE   : 8.812131
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3722 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3722 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,4,0)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x_C.so
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x.C: In function 'void optimalCuts_52x(int, Char_t*, Char_t*, int, TString, TString, TString, bool, double, int)':
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x.C:393:53: warning: variable 'type3l' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x.C:1144:53: warning: variable 'type3l' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x.C:1646:53: warning: variable 'type3l' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx: In function 'int G__optimalCuts_52x_C_ACLiC_dict__0_2246(G__value*, const char*, G__param*, int)':
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:129:83: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:133:50: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:133:50: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:137:23: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:137:23: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h:7:17: warning: 'Double_t TopBkgScaleFactorKappa(Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:35:17: warning: 'Double_t WWBkgScaleFactorKappaCutBased(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+nJetsType: 0, lDecay = 4
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 957.000000
+S: 559.644775  B: 268.630139  Signif: 5.691687  S/B: 2.083328
+bdg( 1) =  107.178 +/-  5.516
+bdg( 3) =  -25.511 +/-  1.058
+bdg( 5) =   60.971 +/-  4.214
+bdg( 9) =   37.846 +/-  6.119
+bdg(13) =   42.058 +/-  2.983
+bdg(19) =    3.719 +/-  1.958
+bdg(20) =   18.182 +/-  2.005
+bdg(27) =   14.352 +/-  0.294
+bdg(29) =  523.478 +/-  3.744
+bdg(30) =   36.166 +/-  0.736
+bdg(31) =    9.835 +/-  0.201
+bdg( W) =   81.667 +/-  5.616
+bdg( Z) =   47.681 +/-  6.122
+bdg(tX) =  103.028 +/-  5.163
+bdg(Vg) =   21.901 +/-  2.803
+totalstat: 10.871160
+totalS   : 121.405566
+totalE   : 28.779766
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3805 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3805 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,5,0)...
+[0mnJetsType: 0, lDecay = 5
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 345.000000
+S: 202.656845  B: 123.689665  Signif: 4.320177  S/B: 1.638430
+bdg( 1) =   33.987 +/-  3.412
+bdg( 3) =  -10.422 +/-  0.764
+bdg( 5) =   23.276 +/-  2.669
+bdg( 9) =   36.977 +/-  6.103
+bdg(13) =   14.932 +/-  1.725
+bdg(19) =    2.731 +/-  1.921
+bdg(20) =    8.366 +/-  1.203
+bdg(27) =    4.535 +/-  0.166
+bdg(29) =  188.282 +/-  2.244
+bdg(30) =   14.375 +/-  0.465
+bdg(31) =    9.307 +/-  0.197
+bdg( W) =   23.566 +/-  3.497
+bdg( Z) =   46.284 +/-  6.106
+bdg(tX) =   38.208 +/-  3.177
+bdg(Vg) =   11.097 +/-  2.267
+totalstat: 8.368119
+totalS   : 61.859561
+totalE   : 18.065063
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3846 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3846 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,6,0)...
+[0mnJetsType: 0, lDecay = 6
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 612.000000
+S: 356.987929  B: 144.940474  Signif: 6.437309  S/B: 2.462997
+bdg( 1) =   73.191 +/-  4.333
+bdg( 3) =  -15.089 +/-  0.731
+bdg( 5) =   37.695 +/-  3.261
+bdg( 9) =    0.870 +/-  0.446
+bdg(13) =   27.126 +/-  2.434
+bdg(19) =    0.988 +/-  0.378
+bdg(20) =    9.816 +/-  1.604
+bdg(27) =    9.817 +/-  0.243
+bdg(29) =  335.197 +/-  2.997
+bdg(30) =   21.791 +/-  0.571
+bdg(31) =    0.528 +/-  0.037
+bdg( W) =   58.101 +/-  4.395
+bdg( Z) =    1.397 +/-  0.448
+bdg(tX) =   64.821 +/-  4.069
+bdg(Vg) =   10.804 +/-  1.648
+totalstat: 6.939504
+totalS   : 71.506611
+totalE   : 22.403759
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3905 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3905 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,0,0)...
+[0mnJetsType: 0, lDecay = 0
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 230.000000
+S: 126.148437  B: 73.076962  Signif: 4.318215  S/B: 1.726241
+bdg( 1) =   23.442 +/-  3.284
+bdg( 3) =   -8.172 +/-  0.740
+bdg( 5) =   14.801 +/-  2.121
+bdg( 9) =   24.236 +/-  4.678
+bdg(13) =    9.295 +/-  1.329
+bdg(20) =    0.452 +/-  0.132
+bdg(27) =    3.065 +/-  0.137
+bdg(29) =  117.453 +/-  1.770
+bdg(30) =    8.695 +/-  0.359
+bdg(31) =    5.957 +/-  0.157
+bdg( W) =   15.270 +/-  3.366
+bdg( Z) =   30.193 +/-  4.681
+bdg(tX) =   24.096 +/-  2.503
+bdg(Vg) =    0.452 +/-  0.132
+totalstat: 6.542447
+totalS   : 39.921033
+totalE   : 14.114723
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3929 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3929 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,1,0)...
+[0mnJetsType: 0, lDecay = 1
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 273.000000
+S: 155.248173  B: 49.561589  Signif: 6.903583  S/B: 3.132429
+bdg( 1) =   17.665 +/-  1.906
+bdg( 3) =   -4.929 +/-  0.382
+bdg( 5) =   15.813 +/-  2.108
+bdg( 9) =    0.062 +/-  0.062
+bdg(13) =   12.346 +/-  1.699
+bdg(19) =    0.526 +/-  0.282
+bdg(20) =    4.436 +/-  1.260
+bdg(27) =    3.442 +/-  0.143
+bdg(29) =  146.066 +/-  1.953
+bdg(30) =    9.182 +/-  0.359
+bdg(31) =    0.203 +/-  0.026
+bdg( W) =   12.736 +/-  1.944
+bdg( Z) =    0.264 +/-  0.067
+bdg(tX) =   28.158 +/-  2.707
+bdg(Vg) =    4.962 +/-  1.291
+totalstat: 4.091571
+totalS   : 29.217301
+totalE   : 14.311176
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3967 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3967 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,2,0)...
+[0mnJetsType: 0, lDecay = 2
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 339.000000
+S: 201.739757  B: 95.378885  Signif: 5.369680  S/B: 2.115141
+bdg( 1) =   55.525 +/-  3.892
+bdg( 3) =  -10.160 +/-  0.623
+bdg( 5) =   21.883 +/-  2.488
+bdg( 9) =    0.808 +/-  0.442
+bdg(13) =   14.780 +/-  1.743
+bdg(19) =    0.462 +/-  0.252
+bdg(20) =    5.380 +/-  0.993
+bdg(27) =    6.375 +/-  0.197
+bdg(29) =  189.131 +/-  2.274
+bdg(30) =   12.609 +/-  0.444
+bdg(31) =    0.325 +/-  0.026
+bdg( W) =   45.366 +/-  3.941
+bdg( Z) =    1.133 +/-  0.443
+bdg(tX) =   36.662 +/-  3.038
+bdg(Vg) =    5.842 +/-  1.024
+totalstat: 5.604976
+totalS   : 43.552703
+totalE   : 17.237130
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 3989 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 3989 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,3,0)...
+[0mnJetsType: 0, lDecay = 3
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 115.000000
+S: 76.508408  B: 50.612704  Signif: 3.643577  S/B: 1.511644
+bdg( 1) =   10.545 +/-  0.928
+bdg( 3) =   -2.250 +/-  0.190
+bdg( 5) =    8.475 +/-  1.620
+bdg( 9) =   12.740 +/-  3.919
+bdg(13) =    5.637 +/-  1.099
+bdg(19) =    2.731 +/-  1.921
+bdg(20) =    7.914 +/-  1.196
+bdg(27) =    1.470 +/-  0.094
+bdg(29) =   70.829 +/-  1.380
+bdg(30) =    5.680 +/-  0.295
+bdg(31) =    3.350 +/-  0.119
+bdg( W) =    8.296 +/-  0.947
+bdg( Z) =   16.090 +/-  3.921
+bdg(tX) =   14.112 +/-  1.958
+bdg(Vg) =   10.645 +/-  2.263
+totalstat: 5.217451
+totalS   : 22.724617
+totalE   : 11.274800
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4025 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4025 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,14,0)...
+[0mnJetsType: 1, lDecay = 4
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 629.000000
+S: 218.963996  B: 444.348407  Signif: 1.389012  S/B: 0.492775
+bdg( 1) =   82.038 +/-  5.099
+bdg( 3) =  -26.849 +/-  1.824
+bdg( 5) =  205.942 +/-  8.197
+bdg( 9) =   69.162 +/-  8.777
+bdg(13) =   85.380 +/-  4.592
+bdg(19) =    4.936 +/-  1.816
+bdg(20) =    5.692 +/-  1.055
+bdg(27) =   13.769 +/-  0.285
+bdg(28) =    0.010 +/-  0.008
+bdg(29) =  207.068 +/-  2.355
+bdg(30) =   11.896 +/-  0.416
+bdg(31) =    4.269 +/-  0.131
+bdg( W) =   55.189 +/-  5.415
+bdg( Z) =   73.431 +/-  8.778
+bdg(tX) =  291.321 +/-  9.396
+bdg(Vg) =   10.628 +/-  2.101
+totalstat: 14.313587
+totalS   : 302.070550
+totalE   : 25.754852
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4074 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4074 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,15,0)...
+[0mnJetsType: 1, lDecay = 5
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 233.000000
+S: 67.163635  B: 157.483558  Signif: 1.175819  S/B: 0.426480
+bdg( 1) =   19.198 +/-  2.669
+bdg( 3) =   -9.169 +/-  0.870
+bdg( 5) =   62.507 +/-  4.438
+bdg( 9) =   48.228 +/-  7.624
+bdg(13) =   26.938 +/-  2.585
+bdg(19) =    0.076 +/-  0.076
+bdg(20) =    2.840 +/-  0.676
+bdg(27) =    3.042 +/-  0.133
+bdg(28) =    0.002 +/-  0.002
+bdg(29) =   62.792 +/-  1.268
+bdg(30) =    4.372 +/-  0.260
+bdg(31) =    3.822 +/-  0.129
+bdg( W) =   10.029 +/-  2.808
+bdg( Z) =   52.050 +/-  7.625
+bdg(tX) =   89.445 +/-  5.135
+bdg(Vg) =    2.916 +/-  0.680
+totalstat: 9.724138
+totalS   : 104.070354
+totalE   : 14.988235
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4112 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4112 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,16,0)...
+[0mnJetsType: 1, lDecay = 6
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 396.000000
+S: 151.800361  B: 286.864849  Signif: 1.480056  S/B: 0.529170
+bdg( 1) =   62.841 +/-  4.344
+bdg( 3) =  -17.681 +/-  1.603
+bdg( 5) =  143.434 +/-  6.892
+bdg( 9) =   20.934 +/-  4.349
+bdg(13) =   58.442 +/-  3.796
+bdg(19) =    4.860 +/-  1.815
+bdg(20) =    2.853 +/-  0.810
+bdg(27) =   10.727 +/-  0.251
+bdg(28) =    0.007 +/-  0.007
+bdg(29) =  144.277 +/-  1.985
+bdg(30) =    7.524 +/-  0.325
+bdg(31) =    0.447 +/-  0.022
+bdg( W) =   45.160 +/-  4.631
+bdg( Z) =   21.382 +/-  4.349
+bdg(tX) =  201.876 +/-  7.868
+bdg(Vg) =    7.713 +/-  1.987
+totalstat: 10.503329
+totalS   : 204.554148
+totalE   : 20.944336
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4152 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4152 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,10,0)...
+[0mnJetsType: 1, lDecay = 0
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 140.000000
+S: 42.235815  B: 95.045697  Signif: 1.197531  S/B: 0.444374
+bdg( 1) =   13.944 +/-  2.585
+bdg( 3) =   -7.635 +/-  0.857
+bdg( 5) =   41.619 +/-  3.637
+bdg( 9) =   25.844 +/-  5.015
+bdg(13) =   17.278 +/-  2.093
+bdg(20) =    0.080 +/-  0.048
+bdg(27) =    1.370 +/-  0.090
+bdg(29) =   39.669 +/-  1.006
+bdg(30) =    2.566 +/-  0.193
+bdg(31) =    2.547 +/-  0.105
+bdg( W) =    6.309 +/-  2.723
+bdg( Z) =   28.391 +/-  5.016
+bdg(tX) =   58.896 +/-  4.196
+bdg(Vg) =    0.080 +/-  0.048
+totalstat: 7.158830
+totalS   : 65.848771
+totalE   : 11.716719
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4662 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4662 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,11,0)...
+[0mnJetsType: 1, lDecay = 1
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 155.000000
+S: 66.643839  B: 114.597972  Signif: 1.575193  S/B: 0.581545
+bdg( 1) =   19.040 +/-  2.527
+bdg( 3) =   -6.812 +/-  1.340
+bdg( 5) =   58.201 +/-  4.267
+bdg( 9) =   10.782 +/-  3.414
+bdg(13) =   26.824 +/-  2.621
+bdg(19) =    1.121 +/-  0.680
+bdg(20) =    1.129 +/-  0.457
+bdg(27) =    4.157 +/-  0.156
+bdg(29) =   63.214 +/-  1.310
+bdg(30) =    3.430 +/-  0.226
+bdg(31) =    0.155 +/-  0.013
+bdg( W) =   12.229 +/-  2.861
+bdg( Z) =   10.938 +/-  3.414
+bdg(tX) =   85.025 +/-  5.008
+bdg(Vg) =    2.250 +/-  0.819
+totalstat: 6.883388
+totalS   : 86.225221
+totalE   : 13.462608
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4718 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4718 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,12,0)...
+[0mnJetsType: 1, lDecay = 2
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 241.000000
+S: 85.156522  B: 172.266876  Signif: 1.364870  S/B: 0.494329
+bdg( 1) =   43.800 +/-  3.533
+bdg( 3) =  -10.869 +/-  0.880
+bdg( 5) =   85.234 +/-  5.413
+bdg( 9) =   10.152 +/-  2.693
+bdg(13) =   31.618 +/-  2.745
+bdg(19) =    3.738 +/-  1.683
+bdg(20) =    1.724 +/-  0.669
+bdg(27) =    6.570 +/-  0.197
+bdg(28) =    0.007 +/-  0.007
+bdg(29) =   81.063 +/-  1.491
+bdg(30) =    4.094 +/-  0.234
+bdg(31) =    0.292 +/-  0.017
+bdg( W) =   32.932 +/-  3.641
+bdg( Z) =   10.444 +/-  2.693
+bdg(tX) =  116.852 +/-  6.069
+bdg(Vg) =    5.463 +/-  1.811
+totalstat: 7.933403
+totalS   : 118.753818
+totalE   : 16.044420
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4748 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4748 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,13,0)...
+[0mnJetsType: 1, lDecay = 3
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 93.000000
+S: 24.927820  B: 62.437861  Signif: 1.048786  S/B: 0.399242
+bdg( 1) =    5.253 +/-  0.667
+bdg( 3) =   -1.534 +/-  0.153
+bdg( 5) =   20.889 +/-  2.542
+bdg( 9) =   22.384 +/-  5.743
+bdg(13) =    9.660 +/-  1.516
+bdg(19) =    0.076 +/-  0.076
+bdg(20) =    2.760 +/-  0.674
+bdg(27) =    1.672 +/-  0.098
+bdg(28) =    0.002 +/-  0.002
+bdg(29) =   23.122 +/-  0.772
+bdg(30) =    1.806 +/-  0.174
+bdg(31) =    1.275 +/-  0.075
+bdg( W) =    3.719 +/-  0.684
+bdg( Z) =   23.659 +/-  5.743
+bdg(tX) =   30.549 +/-  2.960
+bdg(Vg) =    2.836 +/-  0.678
+totalstat: 6.581035
+totalS   : 39.253371
+totalE   : 9.346961
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4784 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4784 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,24,0)...
+[0mnJetsType: 2, lDecay = 4
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 580.000000
+S: 87.986161  B: 480.752699  Signif: 0.517733  S/B: 0.183018
+bdg( 1) =   58.090 +/-  4.294
+bdg( 3) =  -25.068 +/-  1.555
+bdg( 5) =  275.397 +/-  8.706
+bdg( 9) =  116.444 +/- 11.959
+bdg(13) =   42.790 +/-  3.084
+bdg(19) =    2.518 +/-  1.189
+bdg(20) =    0.758 +/-  0.382
+bdg(27) =    7.189 +/-  0.205
+bdg(28) =    0.003 +/-  0.002
+bdg(29) =   85.651 +/-  1.515
+bdg(30) =    2.335 +/-  0.188
+bdg(31) =    2.630 +/-  0.113
+bdg( W) =   33.022 +/-  4.567
+bdg( Z) =  119.074 +/- 11.959
+bdg(tX) =  318.187 +/-  9.236
+bdg(Vg) =    3.276 +/-  1.249
+totalstat: 15.909628
+totalS   : 340.515156
+totalE   : 23.848246
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4806 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4806 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,25,0)...
+[0mnJetsType: 2, lDecay = 5
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 273.000000
+S: 30.037179  B: 233.159586  Signif: 0.361011  S/B: 0.128827
+bdg( 1) =   18.897 +/-  2.534
+bdg( 3) =  -12.210 +/-  1.148
+bdg( 5) =  104.522 +/-  5.487
+bdg( 9) =   97.792 +/- 11.054
+bdg(13) =   19.203 +/-  2.234
+bdg(19) =    0.097 +/-  0.097
+bdg(20) =    0.500 +/-  0.344
+bdg(27) =    1.982 +/-  0.105
+bdg(28) =    0.000 +/-  0.000
+bdg(29) =   29.193 +/-  0.869
+bdg(30) =    0.844 +/-  0.111
+bdg(31) =    2.376 +/-  0.109
+bdg( W) =    6.687 +/-  2.782
+bdg( Z) =  100.168 +/- 11.055
+bdg(tX) =  123.725 +/-  5.925
+bdg(Vg) =    0.597 +/-  0.357
+totalstat: 12.882396
+totalS   : 159.746124
+totalE   : 16.223340
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4844 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4844 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,26,0)...
+[0mnJetsType: 2, lDecay = 6
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 307.000000
+S: 57.948982  B: 247.593113  Signif: 0.655510  S/B: 0.234049
+bdg( 1) =   39.194 +/-  3.467
+bdg( 3) =  -12.858 +/-  1.049
+bdg( 5) =  170.876 +/-  6.759
+bdg( 9) =   18.651 +/-  4.562
+bdg(13) =   23.587 +/-  2.126
+bdg(19) =    2.421 +/-  1.185
+bdg(20) =    0.258 +/-  0.166
+bdg(27) =    5.207 +/-  0.176
+bdg(28) =    0.003 +/-  0.002
+bdg(29) =   56.458 +/-  1.241
+bdg(30) =    1.491 +/-  0.151
+bdg(31) =    0.254 +/-  0.026
+bdg( W) =   26.336 +/-  3.622
+bdg( Z) =   18.906 +/-  4.562
+bdg(tX) =  194.463 +/-  7.085
+bdg(Vg) =    2.679 +/-  1.197
+totalstat: 9.335960
+totalS   : 196.049602
+totalE   : 17.479762
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4893 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4893 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,20,0)...
+[0mnJetsType: 2, lDecay = 0
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 178.000000
+S: 18.672078  B: 149.445993  Signif: 0.346490  S/B: 0.124942
+bdg( 1) =   14.900 +/-  2.471
+bdg( 3) =  -10.001 +/-  1.120
+bdg( 5) =   66.535 +/-  4.372
+bdg( 9) =   62.816 +/-  8.173
+bdg(13) =   12.809 +/-  1.902
+bdg(27) =    0.837 +/-  0.069
+bdg(29) =   18.237 +/-  0.684
+bdg(30) =    0.435 +/-  0.075
+bdg(31) =    1.550 +/-  0.088
+bdg( W) =    4.898 +/-  2.713
+bdg( Z) =   64.366 +/-  8.174
+bdg(tX) =   79.344 +/-  4.768
+totalstat: 9.868255
+totalS   : 102.673594
+totalE   : 12.966035
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4929 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4929 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,21,0)...
+[0mnJetsType: 2, lDecay = 1
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 128.000000
+S: 25.167055  B: 102.545655  Signif: 0.668836  S/B: 0.245423
+bdg( 1) =   10.591 +/-  1.924
+bdg( 3) =   -3.415 +/-  0.409
+bdg( 5) =   74.899 +/-  4.445
+bdg( 9) =    6.726 +/-  2.694
+bdg(13) =   11.049 +/-  1.412
+bdg(19) =    0.558 +/-  0.365
+bdg(20) =    0.131 +/-  0.116
+bdg(27) =    1.929 +/-  0.105
+bdg(28) =    0.002 +/-  0.002
+bdg(29) =   24.443 +/-  0.797
+bdg(30) =    0.724 +/-  0.103
+bdg(31) =    0.077 +/-  0.009
+bdg( W) =    7.176 +/-  1.967
+bdg( Z) =    6.802 +/-  2.694
+bdg(tX) =   85.947 +/-  4.664
+bdg(Vg) =    0.689 +/-  0.383
+totalstat: 5.803270
+totalS   : 86.486711
+totalE   : 11.301005
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4969 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4969 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,22,0)...
+[0mnJetsType: 2, lDecay = 2
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 179.000000
+S: 32.781926  B: 145.047457  Signif: 0.624550  S/B: 0.226008
+bdg( 1) =   28.603 +/-  2.885
+bdg( 3) =   -9.443 +/-  0.966
+bdg( 5) =   95.977 +/-  5.092
+bdg( 9) =   11.926 +/-  3.682
+bdg(13) =   12.538 +/-  1.589
+bdg(19) =    1.863 +/-  1.127
+bdg(20) =    0.127 +/-  0.118
+bdg(27) =    3.278 +/-  0.141
+bdg(28) =    0.001 +/-  0.000
+bdg(29) =   32.015 +/-  0.952
+bdg(30) =    0.767 +/-  0.111
+bdg(31) =    0.178 +/-  0.025
+bdg( W) =   19.160 +/-  3.042
+bdg( Z) =   12.104 +/-  3.682
+bdg(tX) =  108.515 +/-  5.334
+bdg(Vg) =    1.990 +/-  1.134
+totalstat: 7.313153
+totalS   : 109.855102
+totalE   : 13.335268
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 4997 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 4997 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,23,0)...
+[0mnJetsType: 2, lDecay = 3
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 95.000000
+S: 11.365102  B: 83.713592  Signif: 0.368045  S/B: 0.135762
+bdg( 1) =    3.997 +/-  0.561
+bdg( 3) =   -2.209 +/-  0.251
+bdg( 5) =   37.987 +/-  3.315
+bdg( 9) =   34.976 +/-  7.443
+bdg(13) =    6.394 +/-  1.173
+bdg(19) =    0.097 +/-  0.097
+bdg(20) =    0.500 +/-  0.344
+bdg(27) =    1.145 +/-  0.079
+bdg(28) =    0.000 +/-  0.000
+bdg(29) =   10.956 +/-  0.536
+bdg(30) =    0.409 +/-  0.082
+bdg(31) =    0.826 +/-  0.066
+bdg( W) =    1.788 +/-  0.615
+bdg( Z) =   35.802 +/-  7.443
+bdg(tX) =   44.381 +/-  3.517
+bdg(Vg) =    0.597 +/-  0.357
+totalstat: 8.280921
+totalS   : 57.627381
+totalE   : 9.750830
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5053 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5053 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,4,0)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x_C.so
+In file included from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x.C: In function 'void optimalCuts_52x(int, Char_t*, Char_t*, int, TString, TString, TString, bool, double, int)':
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x.C:393:53: warning: variable 'type3l' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x.C:1144:53: warning: variable 'type3l' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/./optimalCuts_52x.C:1646:53: warning: variable 'type3l' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx: In function 'int G__optimalCuts_52x_C_ACLiC_dict__0_2246(G__value*, const char*, G__param*, int)':
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:129:83: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:133:50: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:133:50: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:137:23: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Ana/nt_scripts/optimalCuts_52x_C_ACLiC_dict.cxx:137:23: warning: deprecated conversion from string constant to 'Char_t* {aka char*}' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/TopBkgScaleFactors_8TeV.h:7:17: warning: 'Double_t TopBkgScaleFactorKappa(Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:35:17: warning: 'Double_t WWBkgScaleFactorKappaCutBased(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_2_3_patch3/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+nJetsType: 0, lDecay = 4
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 807.000000
+S: 462.590626  B: 201.383345  Signif: 6.164045  S/B: 2.297065
+bdg( 1) =   98.256 +/-  5.227
+bdg( 3) =  -20.078 +/-  0.895
+bdg( 5) =   42.120 +/-  3.469
+bdg( 9) =   18.790 +/-  5.080
+bdg(13) =   32.206 +/-  2.656
+bdg(19) =    2.783 +/-  1.153
+bdg(20) =   12.095 +/-  1.787
+bdg(27) =   11.918 +/-  0.270
+bdg(29) =  436.117 +/-  3.457
+bdg(30) =   26.473 +/-  0.632
+bdg(31) =    3.293 +/-  0.119
+bdg( W) =   78.178 +/-  5.303
+bdg( Z) =   22.083 +/-  5.081
+bdg(tX) =   74.325 +/-  4.369
+bdg(Vg) =   14.878 +/-  2.126
+totalstat: 9.485666
+totalS   : 87.530567
+totalE   : 25.767692
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5117 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5117 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,5,0)...
+[0mnJetsType: 0, lDecay = 5
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 195.000000
+S: 105.602697  B: 56.442870  Signif: 4.493505  S/B: 1.870966
+bdg( 1) =   25.066 +/-  2.924
+bdg( 3) =   -4.989 +/-  0.517
+bdg( 5) =    4.425 +/-  1.182
+bdg( 9) =   17.920 +/-  5.060
+bdg(13) =    5.080 +/-  1.063
+bdg(19) =    1.795 +/-  1.089
+bdg(20) =    2.279 +/-  0.787
+bdg(27) =    2.101 +/-  0.117
+bdg(29) =  100.921 +/-  1.722
+bdg(30) =    4.682 +/-  0.271
+bdg(31) =    2.765 +/-  0.113
+bdg( W) =   20.077 +/-  2.969
+bdg( Z) =   20.686 +/-  5.062
+bdg(tX) =    9.505 +/-  1.590
+bdg(Vg) =    4.074 +/-  1.344
+totalstat: 6.466927
+totalS   : 25.748971
+totalE   : 12.729712
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5153 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5153 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,6,0)...
+[0mnJetsType: 0, lDecay = 6
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 612.000000
+S: 356.987929  B: 144.940474  Signif: 6.437309  S/B: 2.462997
+bdg( 1) =   73.191 +/-  4.333
+bdg( 3) =  -15.089 +/-  0.731
+bdg( 5) =   37.695 +/-  3.261
+bdg( 9) =    0.870 +/-  0.446
+bdg(13) =   27.126 +/-  2.434
+bdg(19) =    0.988 +/-  0.378
+bdg(20) =    9.816 +/-  1.604
+bdg(27) =    9.817 +/-  0.243
+bdg(29) =  335.197 +/-  2.997
+bdg(30) =   21.791 +/-  0.571
+bdg(31) =    0.528 +/-  0.037
+bdg( W) =   58.101 +/-  4.395
+bdg( Z) =    1.397 +/-  0.448
+bdg(tX) =   64.821 +/-  4.069
+bdg(Vg) =   10.804 +/-  1.648
+totalstat: 6.939504
+totalS   : 71.506611
+totalE   : 22.403759
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5189 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5189 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,0,0)...
+[0mnJetsType: 0, lDecay = 0
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 133.000000
+S: 66.895921  B: 32.292185  Signif: 4.440730  S/B: 2.071582
+bdg( 1) =   17.935 +/-  2.829
+bdg( 3) =   -3.955 +/-  0.511
+bdg( 5) =    3.052 +/-  0.990
+bdg( 9) =    7.376 +/-  3.053
+bdg(13) =    3.762 +/-  0.873
+bdg(20) =    0.775 +/-  0.274
+bdg(27) =    1.492 +/-  0.100
+bdg(29) =   64.060 +/-  1.368
+bdg(30) =    2.836 +/-  0.208
+bdg(31) =    1.856 +/-  0.093
+bdg( W) =   13.979 +/-  2.875
+bdg( Z) =    9.232 +/-  3.055
+bdg(tX) =    6.814 +/-  1.320
+bdg(Vg) =    0.775 +/-  0.274
+totalstat: 4.619054
+totalS   : 14.212853
+totalE   : 9.959323
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5236 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5236 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,1,0)...
+[0mnJetsType: 0, lDecay = 1
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 273.000000
+S: 155.248173  B: 49.561589  Signif: 6.903583  S/B: 3.132429
+bdg( 1) =   17.665 +/-  1.906
+bdg( 3) =   -4.929 +/-  0.382
+bdg( 5) =   15.813 +/-  2.108
+bdg( 9) =    0.062 +/-  0.062
+bdg(13) =   12.346 +/-  1.699
+bdg(19) =    0.526 +/-  0.282
+bdg(20) =    4.436 +/-  1.260
+bdg(27) =    3.442 +/-  0.143
+bdg(29) =  146.066 +/-  1.953
+bdg(30) =    9.182 +/-  0.359
+bdg(31) =    0.203 +/-  0.026
+bdg( W) =   12.736 +/-  1.944
+bdg( Z) =    0.264 +/-  0.067
+bdg(tX) =   28.158 +/-  2.707
+bdg(Vg) =    4.962 +/-  1.291
+totalstat: 4.091571
+totalS   : 29.217301
+totalE   : 14.311176
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5275 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5275 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,2,0)...
+[0mnJetsType: 0, lDecay = 2
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 339.000000
+S: 201.739757  B: 95.378885  Signif: 5.369680  S/B: 2.115141
+bdg( 1) =   55.525 +/-  3.892
+bdg( 3) =  -10.160 +/-  0.623
+bdg( 5) =   21.883 +/-  2.488
+bdg( 9) =    0.808 +/-  0.442
+bdg(13) =   14.780 +/-  1.743
+bdg(19) =    0.462 +/-  0.252
+bdg(20) =    5.380 +/-  0.993
+bdg(27) =    6.375 +/-  0.197
+bdg(29) =  189.131 +/-  2.274
+bdg(30) =   12.609 +/-  0.444
+bdg(31) =    0.325 +/-  0.026
+bdg( W) =   45.366 +/-  3.941
+bdg( Z) =    1.133 +/-  0.443
+bdg(tX) =   36.662 +/-  3.038
+bdg(Vg) =    5.842 +/-  1.024
+totalstat: 5.604976
+totalS   : 43.552703
+totalE   : 17.237130
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5298 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5298 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,3,0)...
+[0mnJetsType: 0, lDecay = 3
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 62.000000
+S: 38.706776  B: 24.150685  Signif: 3.339941  S/B: 1.602720
+bdg( 1) =    7.131 +/-  0.739
+bdg( 3) =   -1.033 +/-  0.077
+bdg( 5) =    1.373 +/-  0.647
+bdg( 9) =   10.544 +/-  4.036
+bdg(13) =    1.318 +/-  0.606
+bdg(19) =    1.795 +/-  1.089
+bdg(20) =    1.504 +/-  0.738
+bdg(27) =    0.609 +/-  0.061
+bdg(29) =   36.861 +/-  1.046
+bdg(30) =    1.846 +/-  0.173
+bdg(31) =    0.909 +/-  0.064
+bdg( W) =    6.098 +/-  0.743
+bdg( Z) =   11.453 +/-  4.036
+bdg(tX) =    2.691 +/-  0.886
+bdg(Vg) =    3.300 +/-  1.316
+totalstat: 4.526090
+totalS   : 13.020974
+totalE   : 7.928270
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5338 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5338 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,14,0)...
+[0mnJetsType: 1, lDecay = 4
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 548.000000
+S: 210.268588  B: 384.950753  Signif: 1.535661  S/B: 0.546222
+bdg( 1) =   75.213 +/-  4.729
+bdg( 3) =  -23.591 +/-  1.745
+bdg( 5) =  197.440 +/-  8.227
+bdg( 9) =   29.719 +/-  5.575
+bdg(13) =   79.509 +/-  4.456
+bdg(19) =    4.860 +/-  1.815
+bdg(20) =    5.327 +/-  1.128
+bdg(27) =   13.333 +/-  0.282
+bdg(28) =    0.007 +/-  0.007
+bdg(29) =  199.380 +/-  2.353
+bdg(30) =   10.888 +/-  0.407
+bdg(31) =    3.133 +/-  0.116
+bdg( W) =   51.622 +/-  5.041
+bdg( Z) =   32.852 +/-  5.576
+bdg(tX) =  276.949 +/-  9.356
+bdg(Vg) =   10.187 +/-  2.137
+totalstat: 12.425581
+totalS   : 280.390941
+totalE   : 24.397117
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5384 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5384 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,15,0)...
+[0mnJetsType: 1, lDecay = 5
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 152.000000
+S: 58.468227  B: 98.085905  Signif: 1.600154  S/B: 0.596092
+bdg( 1) =   12.372 +/-  1.868
+bdg( 3) =   -5.910 +/-  0.691
+bdg( 5) =   54.006 +/-  4.493
+bdg( 9) =    8.785 +/-  3.489
+bdg(13) =   21.067 +/-  2.334
+bdg(20) =    2.474 +/-  0.785
+bdg(27) =    2.606 +/-  0.129
+bdg(29) =   55.104 +/-  1.265
+bdg(30) =    3.365 +/-  0.246
+bdg(31) =    2.686 +/-  0.114
+bdg( W) =    6.462 +/-  1.991
+bdg( Z) =   11.471 +/-  3.491
+bdg(tX) =   75.073 +/-  5.063
+bdg(Vg) =    2.474 +/-  0.785
+totalstat: 6.638912
+totalS   : 76.308392
+totalE   : 12.512159
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5422 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5422 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,16,0)...
+[0mnJetsType: 1, lDecay = 6
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 396.000000
+S: 151.800361  B: 286.864849  Signif: 1.480056  S/B: 0.529170
+bdg( 1) =   62.841 +/-  4.344
+bdg( 3) =  -17.681 +/-  1.603
+bdg( 5) =  143.434 +/-  6.892
+bdg( 9) =   20.934 +/-  4.349
+bdg(13) =   58.442 +/-  3.796
+bdg(19) =    4.860 +/-  1.815
+bdg(20) =    2.853 +/-  0.810
+bdg(27) =   10.727 +/-  0.251
+bdg(28) =    0.007 +/-  0.007
+bdg(29) =  144.277 +/-  1.985
+bdg(30) =    7.524 +/-  0.325
+bdg(31) =    0.447 +/-  0.022
+bdg( W) =   45.160 +/-  4.631
+bdg( Z) =   21.382 +/-  4.349
+bdg(tX) =  201.876 +/-  7.868
+bdg(Vg) =    7.713 +/-  1.987
+totalstat: 10.503329
+totalS   : 204.554148
+totalE   : 20.944336
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5458 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5458 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,10,0)...
+[0mnJetsType: 1, lDecay = 0
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 95.000000
+S: 36.381598  B: 61.651651  Signif: 1.532422  S/B: 0.590116
+bdg( 1) =    8.120 +/-  1.773
+bdg( 3) =   -4.822 +/-  0.677
+bdg( 5) =   35.451 +/-  3.707
+bdg( 9) =    5.597 +/-  2.738
+bdg(13) =   14.014 +/-  1.896
+bdg(20) =    0.248 +/-  0.181
+bdg(27) =    1.214 +/-  0.090
+bdg(29) =   34.527 +/-  0.994
+bdg(30) =    1.855 +/-  0.174
+bdg(31) =    1.830 +/-  0.094
+bdg( W) =    3.298 +/-  1.897
+bdg( Z) =    7.427 +/-  2.740
+bdg(tX) =   49.465 +/-  4.164
+bdg(Vg) =    0.248 +/-  0.181
+totalstat: 5.431603
+totalS   : 50.341226
+totalE   : 9.901174
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5480 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5480 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,11,0)...
+[0mnJetsType: 1, lDecay = 1
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 155.000000
+S: 66.643839  B: 114.597972  Signif: 1.575193  S/B: 0.581545
+bdg( 1) =   19.040 +/-  2.527
+bdg( 3) =   -6.812 +/-  1.340
+bdg( 5) =   58.201 +/-  4.267
+bdg( 9) =   10.782 +/-  3.414
+bdg(13) =   26.824 +/-  2.621
+bdg(19) =    1.121 +/-  0.680
+bdg(20) =    1.129 +/-  0.457
+bdg(27) =    4.157 +/-  0.156
+bdg(29) =   63.214 +/-  1.310
+bdg(30) =    3.430 +/-  0.226
+bdg(31) =    0.155 +/-  0.013
+bdg( W) =   12.229 +/-  2.861
+bdg( Z) =   10.938 +/-  3.414
+bdg(tX) =   85.025 +/-  5.008
+bdg(Vg) =    2.250 +/-  0.819
+totalstat: 6.883388
+totalS   : 86.225221
+totalE   : 13.462608
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5518 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5518 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,12,0)...
+[0mnJetsType: 1, lDecay = 2
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 241.000000
+S: 85.156522  B: 172.266876  Signif: 1.364870  S/B: 0.494329
+bdg( 1) =   43.800 +/-  3.533
+bdg( 3) =  -10.869 +/-  0.880
+bdg( 5) =   85.234 +/-  5.413
+bdg( 9) =   10.152 +/-  2.693
+bdg(13) =   31.618 +/-  2.745
+bdg(19) =    3.738 +/-  1.683
+bdg(20) =    1.724 +/-  0.669
+bdg(27) =    6.570 +/-  0.197
+bdg(28) =    0.007 +/-  0.007
+bdg(29) =   81.063 +/-  1.491
+bdg(30) =    4.094 +/-  0.234
+bdg(31) =    0.292 +/-  0.017
+bdg( W) =   32.932 +/-  3.641
+bdg( Z) =   10.444 +/-  2.693
+bdg(tX) =  116.852 +/-  6.069
+bdg(Vg) =    5.463 +/-  1.811
+totalstat: 7.933403
+totalS   : 118.753818
+totalE   : 16.044420
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5566 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5566 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,13,0)...
+[0mnJetsType: 1, lDecay = 3
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 57.000000
+S: 22.086629  B: 36.434254  Signif: 1.485257  S/B: 0.606205
+bdg( 1) =    4.252 +/-  0.589
+bdg( 3) =   -1.088 +/-  0.136
+bdg( 5) =   18.555 +/-  2.538
+bdg( 9) =    3.188 +/-  2.162
+bdg(13) =    7.052 +/-  1.362
+bdg(20) =    2.226 +/-  0.764
+bdg(27) =    1.392 +/-  0.093
+bdg(29) =   20.577 +/-  0.781
+bdg(30) =    1.510 +/-  0.174
+bdg(31) =    0.857 +/-  0.066
+bdg( W) =    3.164 +/-  0.604
+bdg( Z) =    4.044 +/-  2.163
+bdg(tX) =   25.607 +/-  2.880
+bdg(Vg) =    2.226 +/-  0.764
+totalstat: 3.817439
+totalS   : 26.264867
+totalE   : 7.649894
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5603 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5603 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,24,0)...
+[0mnJetsType: 2, lDecay = 4
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 580.000000
+S: 87.986161  B: 480.752699  Signif: 0.517733  S/B: 0.183018
+bdg( 1) =   58.090 +/-  4.294
+bdg( 3) =  -25.068 +/-  1.555
+bdg( 5) =  275.397 +/-  8.706
+bdg( 9) =  116.444 +/- 11.959
+bdg(13) =   42.790 +/-  3.084
+bdg(19) =    2.518 +/-  1.189
+bdg(20) =    0.758 +/-  0.382
+bdg(27) =    7.189 +/-  0.205
+bdg(28) =    0.003 +/-  0.002
+bdg(29) =   85.651 +/-  1.515
+bdg(30) =    2.335 +/-  0.188
+bdg(31) =    2.630 +/-  0.113
+bdg( W) =   33.022 +/-  4.567
+bdg( Z) =  119.074 +/- 11.959
+bdg(tX) =  318.187 +/-  9.236
+bdg(Vg) =    3.276 +/-  1.249
+totalstat: 15.909628
+totalS   : 340.515156
+totalE   : 23.848246
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5625 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5625 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,25,0)...
+[0mnJetsType: 2, lDecay = 5
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 273.000000
+S: 30.037179  B: 233.159586  Signif: 0.361011  S/B: 0.128827
+bdg( 1) =   18.897 +/-  2.534
+bdg( 3) =  -12.210 +/-  1.148
+bdg( 5) =  104.522 +/-  5.487
+bdg( 9) =   97.792 +/- 11.054
+bdg(13) =   19.203 +/-  2.234
+bdg(19) =    0.097 +/-  0.097
+bdg(20) =    0.500 +/-  0.344
+bdg(27) =    1.982 +/-  0.105
+bdg(28) =    0.000 +/-  0.000
+bdg(29) =   29.193 +/-  0.869
+bdg(30) =    0.844 +/-  0.111
+bdg(31) =    2.376 +/-  0.109
+bdg( W) =    6.687 +/-  2.782
+bdg( Z) =  100.168 +/- 11.055
+bdg(tX) =  123.725 +/-  5.925
+bdg(Vg) =    0.597 +/-  0.357
+totalstat: 12.882396
+totalS   : 159.746124
+totalE   : 16.223340
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5665 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5665 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,26,0)...
+[0mnJetsType: 2, lDecay = 6
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 307.000000
+S: 57.948982  B: 247.593113  Signif: 0.655510  S/B: 0.234049
+bdg( 1) =   39.194 +/-  3.467
+bdg( 3) =  -12.858 +/-  1.049
+bdg( 5) =  170.876 +/-  6.759
+bdg( 9) =   18.651 +/-  4.562
+bdg(13) =   23.587 +/-  2.126
+bdg(19) =    2.421 +/-  1.185
+bdg(20) =    0.258 +/-  0.166
+bdg(27) =    5.207 +/-  0.176
+bdg(28) =    0.003 +/-  0.002
+bdg(29) =   56.458 +/-  1.241
+bdg(30) =    1.491 +/-  0.151
+bdg(31) =    0.254 +/-  0.026
+bdg( W) =   26.336 +/-  3.622
+bdg( Z) =   18.906 +/-  4.562
+bdg(tX) =  194.463 +/-  7.085
+bdg(Vg) =    2.679 +/-  1.197
+totalstat: 9.335960
+totalS   : 196.049602
+totalE   : 17.479762
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5712 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5712 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,20,0)...
+[0mnJetsType: 2, lDecay = 0
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 178.000000
+S: 18.672078  B: 149.445993  Signif: 0.346490  S/B: 0.124942
+bdg( 1) =   14.900 +/-  2.471
+bdg( 3) =  -10.001 +/-  1.120
+bdg( 5) =   66.535 +/-  4.372
+bdg( 9) =   62.816 +/-  8.173
+bdg(13) =   12.809 +/-  1.902
+bdg(27) =    0.837 +/-  0.069
+bdg(29) =   18.237 +/-  0.684
+bdg(30) =    0.435 +/-  0.075
+bdg(31) =    1.550 +/-  0.088
+bdg( W) =    4.898 +/-  2.713
+bdg( Z) =   64.366 +/-  8.174
+bdg(tX) =   79.344 +/-  4.768
+totalstat: 9.868255
+totalS   : 102.673594
+totalE   : 12.966035
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5749 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5749 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,21,0)...
+[0mnJetsType: 2, lDecay = 1
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 128.000000
+S: 25.167055  B: 102.545655  Signif: 0.668836  S/B: 0.245423
+bdg( 1) =   10.591 +/-  1.924
+bdg( 3) =   -3.415 +/-  0.409
+bdg( 5) =   74.899 +/-  4.445
+bdg( 9) =    6.726 +/-  2.694
+bdg(13) =   11.049 +/-  1.412
+bdg(19) =    0.558 +/-  0.365
+bdg(20) =    0.131 +/-  0.116
+bdg(27) =    1.929 +/-  0.105
+bdg(28) =    0.002 +/-  0.002
+bdg(29) =   24.443 +/-  0.797
+bdg(30) =    0.724 +/-  0.103
+bdg(31) =    0.077 +/-  0.009
+bdg( W) =    7.176 +/-  1.967
+bdg( Z) =    6.802 +/-  2.694
+bdg(tX) =   85.947 +/-  4.664
+bdg(Vg) =    0.689 +/-  0.383
+totalstat: 5.803270
+totalS   : 86.486711
+totalE   : 11.301005
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5785 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5785 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,22,0)...
+[0mnJetsType: 2, lDecay = 2
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 179.000000
+S: 32.781926  B: 145.047457  Signif: 0.624550  S/B: 0.226008
+bdg( 1) =   28.603 +/-  2.885
+bdg( 3) =   -9.443 +/-  0.966
+bdg( 5) =   95.977 +/-  5.092
+bdg( 9) =   11.926 +/-  3.682
+bdg(13) =   12.538 +/-  1.589
+bdg(19) =    1.863 +/-  1.127
+bdg(20) =    0.127 +/-  0.118
+bdg(27) =    3.278 +/-  0.141
+bdg(28) =    0.001 +/-  0.000
+bdg(29) =   32.015 +/-  0.952
+bdg(30) =    0.767 +/-  0.111
+bdg(31) =    0.178 +/-  0.025
+bdg( W) =   19.160 +/-  3.042
+bdg( Z) =   12.104 +/-  3.682
+bdg(tX) =  108.515 +/-  5.334
+bdg(Vg) =    1.990 +/-  1.134
+totalstat: 7.313153
+totalS   : 109.855102
+totalE   : 13.335268
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+ 5807 pts/3    00:00:00 root.exe
+Info in <ACLiC>: unmodified script has already been compiled and loaded
+ 5807 pts/3    00:00:00 root.exe
+[0mroot [0] 
+Processing optimalCuts_52x.C+(29,"","",0,"ntuples_52x/backgroundA_skim2.root","ntuples_52x/hww160.root","ntuples_52x/data_skim2.root",0,23,0)...
+[0mnJetsType: 2, lDecay = 3
+KFactor_PowhegToHQT: KFactor_PowhegToHQT_mH160
+--- reading event     0 of 2086139
+--- reading event 100000 of 2086139
+--- reading event 200000 of 2086139
+--- reading event 300000 of 2086139
+--- reading event 400000 of 2086139
+--- reading event 500000 of 2086139
+--- reading event 600000 of 2086139
+--- reading event 700000 of 2086139
+--- reading event 800000 of 2086139
+--- reading event 900000 of 2086139
+--- reading event 1000000 of 2086139
+--- reading event 1100000 of 2086139
+--- reading event 1200000 of 2086139
+--- reading event 1300000 of 2086139
+--- reading event 1400000 of 2086139
+--- reading event 1500000 of 2086139
+--- reading event 1600000 of 2086139
+--- reading event 1700000 of 2086139
+--- reading event 1800000 of 2086139
+--- reading event 1900000 of 2086139
+--- reading event 2000000 of 2086139
+--- reading Signal event     0 of 191000
+--- reading Signal event 100000 of 191000
+--- reading event     0 of 83605
+data: 95.000000
+S: 11.365102  B: 83.713592  Signif: 0.368045  S/B: 0.135762
+bdg( 1) =    3.997 +/-  0.561
+bdg( 3) =   -2.209 +/-  0.251
+bdg( 5) =   37.987 +/-  3.315
+bdg( 9) =   34.976 +/-  7.443
+bdg(13) =    6.394 +/-  1.173
+bdg(19) =    0.097 +/-  0.097
+bdg(20) =    0.500 +/-  0.344
+bdg(27) =    1.145 +/-  0.079
+bdg(28) =    0.000 +/-  0.000
+bdg(29) =   10.956 +/-  0.536
+bdg(30) =    0.409 +/-  0.082
+bdg(31) =    0.826 +/-  0.066
+bdg( W) =    1.788 +/-  0.615
+bdg( Z) =   35.802 +/-  7.443
+bdg(tX) =   44.381 +/-  3.517
+bdg(Vg) =    0.597 +/-  0.357
+totalstat: 8.280921
+totalS   : 57.627381
+totalE   : 9.750830
+Error: Symbol null is not defined in current scope  :0:
+Error: Symbol null is not defined in current scope  :0:
+[dtmit02] /home/ceballos/releases/CMSSW_5_2_3_patch3/src > exit
+exit
+
+Script done on Mon Jun 11 20:32:21 2012

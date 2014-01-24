@@ -1154,12 +1154,12 @@ void ComputeTopScaleFactors2011
   }
 
   double N_top_expected_0j[5]; 
-  double fttbar[5]; 
+  double fttbar[5],sigma_ftop[5];
 
   for(int i=0; i<5; i++) {
     N_top_expected_0j[i] = (btag_lowpt_0j_den[1][i]+btag_lowpt_0j_den[2][i])-(btag_lowpt_0j_num[1][i]+btag_lowpt_0j_num[2][i]);
     fttbar[i] = (btag_lowpt_0j_den[1][i]+btag_lowpt_0j_den[2][i]*ftw_b[i])/(btag_lowpt_0j_den[1][i]+btag_lowpt_0j_den[2][i]);
-// fttbar[i] = btag_lowpt_0j_den[1][i]/(btag_lowpt_0j_den[1][i]+btag_lowpt_0j_den[2][i]);
+    sigma_ftop[i] = 0.17*btag_lowpt_0j_den[1][i]*(1.0-ftw_b[i])/(btag_lowpt_0j_den[1][i]+btag_lowpt_0j_den[2][i]);
   }
 
   double effMC_btag_lowpt_tt_0j_expected[5];  
@@ -1191,8 +1191,6 @@ void ComputeTopScaleFactors2011
   // printf("\n");
   // end get closure test closing!!!!!!!!!!!!!!!
 
-
-  double sigma_ftop[2]={0.00,0.17};
   double effMC_btag_lowpt_0j[5]; 
   double effDA_btag_lowpt_0j[5]; 
   double effMC_btag_lowpt_0j_error[5];
@@ -1202,18 +1200,19 @@ void ComputeTopScaleFactors2011
     effMC_btag_lowpt_0j[i] = fttbar[i]*effMC_btag_lowpt_tt_0j[i]+(1-fttbar[i])*effMC_btag_lowpt_tw_0j[i];
     effDA_btag_lowpt_0j[i] = fttbar[i]*(1-(1-effttDA_btag_lowpt_1j[i])*(1-effttDA_btag_lowpt_1j[i]))+(1-fttbar[i])*effttDA_btag_lowpt_1j[i];
 
-    effMC_btag_lowpt_0j_error[i] = sqrt(sigma_ftop[0]*sigma_ftop[0]*(effMC_btag_lowpt_0j[i]*(1-effMC_btag_lowpt_0j[i]))*(effMC_btag_lowpt_0j[i]*(1-effMC_btag_lowpt_0j[i]))+
-    					effttMC_btag_lowpt_tt_1j_error[i]*effttMC_btag_lowpt_tt_1j_error[i]*(fttbar[i]*(1-2*effMC_btag_lowpt_0j[i])+1)*(fttbar[i]*(1-2*effMC_btag_lowpt_0j[i])+1));
-    effDA_btag_lowpt_0j_error[i] = sqrt(sigma_ftop[1]*sigma_ftop[1]*(effDA_btag_lowpt_0j[i]*(1-effDA_btag_lowpt_0j[i]))*(effDA_btag_lowpt_0j[i]*(1-effDA_btag_lowpt_0j[i]))+
-    					effttDA_btag_lowpt_1j_error[i]*effttDA_btag_lowpt_1j_error[i]*(fttbar[i]*(1-2*effDA_btag_lowpt_0j[i])+1)*(fttbar[i]*(1-2*effDA_btag_lowpt_0j[i])+1));
-    
+    effMC_btag_lowpt_0j_error[i] = sqrt(effttMC_btag_lowpt_1j_error[i]*(fttbar[i]-2*effttMC_btag_lowpt_1j[i]*fttbar[i]+1)*
+					effttMC_btag_lowpt_1j_error[i]*(fttbar[i]-2*effttMC_btag_lowpt_1j[i]*fttbar[i]+1));
+    effDA_btag_lowpt_0j_error[i] = sqrt(sigma_ftop[i]*(effttDA_btag_lowpt_1j[i]-effttDA_btag_lowpt_1j[i]*effttDA_btag_lowpt_1j[i])*
+                                        sigma_ftop[i]*(effttDA_btag_lowpt_1j[i]-effttDA_btag_lowpt_1j[i]*effttDA_btag_lowpt_1j[i])+
+					effttDA_btag_lowpt_1j_error[i]*(fttbar[i]-2*effttDA_btag_lowpt_1j[i]*fttbar[i]+1)*
+					effttDA_btag_lowpt_1j_error[i]*(fttbar[i]-2*effttDA_btag_lowpt_1j[i]*fttbar[i]+1));
   }
 
   printf("top tagging efficiency\n");
   printf("Channel    fttbar        Eff toptag(MC)    Eff toptag(MC extrapolated)       Eff toptab Data \n");
   for(int i=0; i<5; i++) {
-    printf("(%s)       %5.3f,        : %6.3f                 %6.3f +/- %6.3f             %6.3f +/- %6.3f\n",
-           classLabel[i],fttbar[i],
+    printf("(%s)       %5.3f +/- %5.3f,        : %6.3f                 %6.3f +/- %6.3f             %6.3f +/- %6.3f\n",
+           classLabel[i],fttbar[i],sigma_ftop[i],
            (btag_lowpt_0j_num[1][i]+btag_lowpt_0j_num[2][i])/(btag_lowpt_0j_den[1][i]+btag_lowpt_0j_den[2][i]),
            effMC_btag_lowpt_0j[i],effMC_btag_lowpt_0j_error[i],
            effDA_btag_lowpt_0j[i],effDA_btag_lowpt_0j_error[i]);

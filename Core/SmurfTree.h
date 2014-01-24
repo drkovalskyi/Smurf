@@ -12,7 +12,6 @@
 #include "Math/VectorUtil.h"
 #include "Math/LorentzVector.h"
 
-
 //
 // Ntuple structure:
 //  * plain ntuples without vectors
@@ -207,7 +206,8 @@ class SmurfTree {
     vbfhww1000,
     qqwwPWG,
     qqww2j,
-    qqbarh
+    qqbarh,
+    wwewk
   };
 
   /// variables
@@ -316,6 +316,7 @@ class SmurfTree {
   float          npu_;
   float          npuPlusOne_;
   float          npuMinusOne_;
+  std::vector<double> lheWeights_;
 
   float          auxVar0_;
 
@@ -330,7 +331,7 @@ class SmurfTree {
   /// default constructor  
   SmurfTree():info_("info","Smurf ntuple"),
     lepPtr1_(&lep1_),lepPtr2_(&lep2_),jetPtr1_(&jet1_),jetPtr2_(&jet2_),dilepPtr_(&dilep_),quadlepPtr_(&quadlep_),
-    lepPtr3_(&lep3_),                 jetPtr3_(&jet3_),jetPtr4_(&jet4_){}
+    lepPtr3_(&lep3_),                 jetPtr3_(&jet3_),jetPtr4_(&jet4_),lheWeightsPtr_(&lheWeights_){}
   /// default destructor
   ~SmurfTree(){ 
     if (f_) f_->Close();  
@@ -474,6 +475,7 @@ class SmurfTree {
     tree_->Branch("npu",           &npu_,           "npu/F");
     tree_->Branch("npuPlusOne",    &npuPlusOne_,    "npuPlusOne/F");
     tree_->Branch("npuMinusOne",   &npuMinusOne_,   "npuMinusOne/F");
+    tree_->Branch("lheWeights",    "std::vector<double>",   &lheWeightsPtr_);
 
     tree_->Branch("auxVar0",	   &auxVar0_	  ,   "auxVar0/F");
   }
@@ -593,6 +595,7 @@ class SmurfTree {
     tree_->SetBranchAddress("npu",	     &npu_);
     tree_->SetBranchAddress("npuPlusOne",    &npuPlusOne_);
     tree_->SetBranchAddress("npuMinusOne",   &npuMinusOne_);
+    tree_->SetBranchAddress("lheWeights",    &lheWeightsPtr_);
 
     tree_->SetBranchAddress("auxVar0",       &auxVar0_);
 
@@ -680,6 +683,8 @@ class SmurfTree {
   LorentzVector* lepPtr3_;
   LorentzVector* jetPtr3_;
   LorentzVector* jetPtr4_;
+  std::vector<double>* lheWeightsPtr_;
+  
 }; 
 
 inline void 
@@ -845,6 +850,7 @@ SmurfTree::InitVariables(){
   npu_           = -999.;
   npuPlusOne_    = -999.;
   npuMinusOne_   = -999.;
+  lheWeights_.clear();
 
   auxVar0_	 = -999.;
 }

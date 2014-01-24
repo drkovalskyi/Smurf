@@ -18,12 +18,6 @@
 #include "Smurf/Analysis/HWWlvlv/factors.h"
 #include "Smurf/Analysis/HWWlvlv/OtherBkgScaleFactors_8TeV.h"
 
-typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 
-
-
-int    verboseLevel =   0;
-const double sigmaB = 0.35;
-
 //------------------------------------------------------------------------------
 // PlotHiggsRes
 //------------------------------------------------------------------------------
@@ -31,8 +25,8 @@ void ZllNormalization
 (
  TString datInputFile    = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data.root",
  TString bgdInputFile    = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/backgroundA.root",
- Double_t scaleFactorLum = 12.1,
- Int_t period = 2
+ Double_t scaleFactorLum = 19.4,
+ Int_t period = 3
  )
 {
 
@@ -51,25 +45,10 @@ void ZllNormalization
   TString effPath      = "";
   TString fakePath     = "";
   TString puPath       = "";
-  if	 (period == 0){ // Full2012-Summer12-V9-3500ipb
-    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-04_V1/summary.root";
-    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-04_V1/summary.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_3500ipb.root";
-  }
-  else if(period == -1){ // Full2012-Summer12-V7
-    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-02_V3/summary.root";
-    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-02_V3/summary.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X//auxiliar/puWeights_Summer12.root";
-  }
-  else if(period == 1){ // Full2012-Summer12-V9-5000ipb
-    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
-    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-06_V0/summary.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_52X/auxiliar/puWeights_Summer12_5000ipb_71mb.root";
-  }
-  else if(period == 2){ // Full2012-Summer12-V9-12000ipb
-    effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-06_V1/summary.root";
-    fakePath = "/data/smurf/dlevans/FakeRates/V00-02-07_HCP_V0/summary.root";
-    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True.root";
+  if	 (period == 3){ // Full2012-Summer12-V9-19500ipb
+    effPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_Moriond_V1.root";
+    fakePath = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root";
+    puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_19p5ifb.root";
   }
   else {
     printf("Wrong period(%d)\n",period);
@@ -112,7 +91,7 @@ void ZllNormalization
   delete fPU2012File;
 
   double massCut[2] = {82,100};
-  double metCut[2] = {-30,30};
+  double metCut[2] = {-40,40};
   //----------------------------------------------------------------------------
 
   double NZmmSelected_MC = 0;
@@ -244,7 +223,7 @@ void ZllNormalization
   for (UInt_t i=0; i<background->GetEntries(); i++) {
     
     background->GetEntry(i);
-    if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
+    if (i%1000000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
 
     if ( lep1->pt() > 20 && lep2->pt() > 10 && dilep->mass() > massCut[0] && dilep->mass() < massCut[1]
          && (cuts & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto && lq1*lq2 < 0
@@ -334,7 +313,13 @@ void ZllNormalization
       // DY->TauTau Embedded sample events: apply normalization weight.
       //----------------------------------------------------------------------------
       else if(dstype== SmurfTree::dyttDataDriven || dstype == SmurfTree::qcd) {
-	myWeight = ZttScaleFactor(nvtx,period,scale1fb)*scaleFactorLum;
+        double sf_trg = trigLookup.GetExpectedTriggerEfficiency(fabs(lep1->eta()), lep1->pt() , 
+	        					        fabs(lep2->eta()), lep2->pt(), 
+							        TMath::Abs( lid1), TMath::Abs(lid2));
+        double sf_eff = 1.0;
+	sf_eff = leptonEfficiency(lep1->pt(),lep1->eta(), fhDEffMu, fhDEffEl, lid1)*
+        	 leptonEfficiency(lep2->pt(),lep2->eta(), fhDEffMu, fhDEffEl, lid2);
+	myWeight = ZttScaleFactor(period,scale1fb,sf_trg,sf_eff)*scaleFactorLum;
       }
 
       //----------------------------------------------------------------------------
@@ -357,11 +342,11 @@ void ZllNormalization
 	myWeight = scale1fb*scaleFactorLum*add;
       }
       
-      Double_t eventWeight = scaleFactorLum*scale1fb*sfWeightPU*sfWeightEff*sfWeightTrig*sfWeightFR;
-      if(dstype == SmurfTree::data) eventWeight = sfWeightFR;
-
-      if(fabs(eventWeight-myWeight)/eventWeight > 0.00001) printf("%f %f %d -> %f %f %f %f %f\n",eventWeight,myWeight,dstype,
-                                                                  scale1fb,sfWeightPU,sfWeightEff,sfWeightTrig,sfWeightFR);
+      Double_t eventWeight = myWeight;
+ 
+      //scaleFactorLum*scale1fb*sfWeightPU*sfWeightEff*sfWeightTrig*sfWeightFR;
+      //if(dstype == SmurfTree::data) eventWeight = sfWeightFR;
+      //if(fabs(eventWeight-myWeight)/eventWeight > 0.00001) printf("%f %f %d -> %f %f %f %f %f\n",eventWeight,myWeight,dstype,scale1fb,sfWeightPU,sfWeightEff,sfWeightTrig,sfWeightFR);
 
       double corr[2] = {1.0, 1.0};
       if     (TMath::Abs(lid1) == 13 && TMath::Abs(lep1->eta()) <  1.479){
@@ -421,22 +406,22 @@ void ZllNormalization
 
       double metx=0.0;double mety=0.0;double trkmetx=0.0;double trkmety=0.0;
       if    (njets == 0){
-        metx	= met*cos(metPhi)	   -0.45189+gRandom->Gaus(0.0,3.2);
-        mety	= met*sin(metPhi)	   -0.20148+gRandom->Gaus(0.0,3.2);
-        trkmetx = trackMet*cos(trackMetPhi)+0.12580+gRandom->Gaus(0.0,1.0);
-        trkmety = trackMet*sin(trackMetPhi)+0.02615+gRandom->Gaus(0.0,1.0);
+        metx	= met*cos(metPhi)	   +1.024+gRandom->Gaus(0.0,3.2);
+        mety	= met*sin(metPhi)	   +1.429+gRandom->Gaus(0.0,3.2);
+        trkmetx = trackMet*cos(trackMetPhi)+0.155+gRandom->Gaus(0.0,2.8);
+        trkmety = trackMet*sin(trackMetPhi)+0.035+gRandom->Gaus(0.0,2.8);
       }
       else if(njets == 1){
-        metx	= met*cos(metPhi)	   -0.39040+gRandom->Gaus(0.0,3.6);
-        mety	= met*sin(metPhi)	   -0.20427+gRandom->Gaus(0.0,3.6);
-        trkmetx = trackMet*cos(trackMetPhi)+0.07639+gRandom->Gaus(0.0,4.5);
-        trkmety = trackMet*sin(trackMetPhi)+0.01167+gRandom->Gaus(0.0,4.5);
+        metx	= met*cos(metPhi)	   +1.051+gRandom->Gaus(0.0,4.4);
+        mety	= met*sin(metPhi)	   +1.343+gRandom->Gaus(0.0,4.4);
+        trkmetx = trackMet*cos(trackMetPhi)+0.191+gRandom->Gaus(0.0,4.3);
+        trkmety = trackMet*sin(trackMetPhi)+0.033+gRandom->Gaus(0.0,4.3);
       }
       else if(njets >= 2){
-        metx	= met*cos(metPhi)	   -0.27127+gRandom->Gaus(0.0,4.3);
-        mety	= met*sin(metPhi)	   -0.18935+gRandom->Gaus(0.0,4.3);
-        trkmetx = trackMet*cos(trackMetPhi)+0.13328+gRandom->Gaus(0.0,6.0);
-        trkmety = trackMet*sin(trackMetPhi)-0.01351+gRandom->Gaus(0.0,6.0);
+        metx	= met*cos(metPhi)	   +1.088+gRandom->Gaus(0.0,5.5);
+        mety	= met*sin(metPhi)	   +1.266+gRandom->Gaus(0.0,5.5);
+        trkmetx = trackMet*cos(trackMetPhi)+0.171+gRandom->Gaus(0.0,4.9);
+        trkmety = trackMet*sin(trackMetPhi)+0.037+gRandom->Gaus(0.0,4.9);
       }
       if     (njets == 0){
         Zll0Met_MC_X     ->Fill(met*cos(metPhi)  	  , eventWeight);
@@ -499,7 +484,7 @@ void ZllNormalization
   for (UInt_t i=0; i<data->GetEntries(); i++) {
     
     data->GetEntry(i);
-    if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)data->GetEntries());
+    if (i%1000000 == 0) printf("--- reading event %5d of %5d\n",i,(int)data->GetEntries());
 
     if ( lep1->pt() > 20 && lep2->pt() > 10 && dilep->mass() > massCut[0] && dilep->mass() < massCut[1]
          && (cuts & SmurfTree::ExtraLeptonVeto) == SmurfTree::ExtraLeptonVeto && lq1*lq2 < 0
@@ -593,17 +578,17 @@ void ZllNormalization
   printf("bias:  %8.5f  %8.5f  %8.5f  %8.5f\n",bias[0],bias[1],bias[2],bias[3]);
   printf("smear: %8.5f  %8.5f  %8.5f  %8.5f\n",smear[0],smear[1],smear[2],smear[3]);
 
-  printf("******************************\n");
-  printf("MeanMC: %8.5f  %8.5f  %8.5f  %8.5f MeanDA: %8.5f  %8.5f  %8.5f  %8.5f\n",
+  printf("******MCCorr*****************\n");
+  printf("MeanMCmm: %8.5f  %8.5f  %8.5f  %8.5f MeanDA: %8.5f  %8.5f  %8.5f  %8.5f\n",
          ZmmMass_CorMC->GetMean(),ZmmMass_CorMC_BB->GetMean(),ZmmMass_CorMC_EE->GetMean(),ZmmMass_CorMC_EB->GetMean(),
 	 ZmmMass_DA->GetMean(),ZmmMass_DA_BB->GetMean(),ZmmMass_DA_EE->GetMean(),ZmmMass_DA_EB->GetMean());
-  printf("RMSMC: %8.5f  %8.5f  %8.5f  %8.5f RMSDA: %8.5f  %8.5f  %8.5f  %8.5f\n",
+  printf("RMSMCmm: %8.5f  %8.5f  %8.5f  %8.5f RMSDA: %8.5f  %8.5f  %8.5f  %8.5f\n",
          ZmmMass_CorMC->GetRMS(),ZmmMass_CorMC_BB->GetRMS(),ZmmMass_CorMC_EE->GetRMS(),ZmmMass_CorMC_EB->GetRMS(),
 	 ZmmMass_DA->GetRMS(),ZmmMass_DA_BB->GetRMS(),ZmmMass_DA_EE->GetRMS(),ZmmMass_DA_EB->GetRMS());
-  printf("MeanMC: %8.5f  %8.5f  %8.5f  %8.5f MeanDA: %8.5f  %8.5f  %8.5f  %8.5f\n",
+  printf("MeanMCee: %8.5f  %8.5f  %8.5f  %8.5f MeanDA: %8.5f  %8.5f  %8.5f  %8.5f\n",
          ZeeMass_CorMC->GetMean(),ZeeMass_CorMC_BB->GetMean(),ZeeMass_CorMC_EE->GetMean(),ZeeMass_CorMC_EB->GetMean(),
 	 ZeeMass_DA->GetMean(),ZeeMass_DA_BB->GetMean(),ZeeMass_DA_EE->GetMean(),ZeeMass_DA_EB->GetMean());
-  printf("RMSMC: %8.5f  %8.5f  %8.5f  %8.5f RMSDA: %8.5f  %8.5f  %8.5f  %8.5f\n",
+  printf("RMSMCee: %8.5f  %8.5f  %8.5f  %8.5f RMSDA: %8.5f  %8.5f  %8.5f  %8.5f\n",
          ZeeMass_CorMC->GetRMS(),ZeeMass_CorMC_BB->GetRMS(),ZeeMass_CorMC_EE->GetRMS(),ZeeMass_CorMC_EB->GetRMS(),
 	 ZeeMass_DA->GetRMS(),ZeeMass_DA_BB->GetRMS(),ZeeMass_DA_EE->GetRMS(),ZeeMass_DA_EB->GetRMS());
   bias[0]  = ZmmMass_DA_BB->GetMean()/ZmmMass_CorMC_BB->GetMean();
@@ -681,10 +666,10 @@ void ZllNormalization
   bias[1]  = Zll0Met_DA_Y     ->GetMean()-Zll0Met_CorMC_Y     ->GetMean();
   bias[2]  = Zll0TrackMet_DA_X->GetMean()-Zll0TrackMet_CorMC_X->GetMean();
   bias[3]  = Zll0TrackMet_DA_Y->GetMean()-Zll0TrackMet_CorMC_Y->GetMean();
-  smear[0] = sqrt(TMath::Max(Zll0Met_CorMC_X     ->GetRMS()*Zll0Met_CorMC_X     ->GetRMS()-Zll0Met_DA_X     ->GetRMS()*Zll0Met_DA_X     ->GetRMS(),0.));
-  smear[1] = sqrt(TMath::Max(Zll0Met_CorMC_Y     ->GetRMS()*Zll0Met_CorMC_Y     ->GetRMS()-Zll0Met_DA_Y     ->GetRMS()*Zll0Met_DA_Y     ->GetRMS(),0.));
-  smear[2] = sqrt(TMath::Max(Zll0TrackMet_CorMC_X->GetRMS()*Zll0TrackMet_CorMC_X->GetRMS()-Zll0TrackMet_DA_X->GetRMS()*Zll0TrackMet_DA_X->GetRMS(),0.));
-  smear[3] = sqrt(TMath::Max(Zll0TrackMet_CorMC_Y->GetRMS()*Zll0TrackMet_CorMC_Y->GetRMS()-Zll0TrackMet_DA_Y->GetRMS()*Zll0TrackMet_DA_Y->GetRMS(),0.));
+  smear[0] = sqrt(TMath::Max(Zll0Met_DA_X     ->GetRMS()*Zll0Met_DA_X     ->GetRMS()-Zll0Met_CorMC_X     ->GetRMS()*Zll0Met_CorMC_X     ->GetRMS(),0.));
+  smear[1] = sqrt(TMath::Max(Zll0Met_DA_Y     ->GetRMS()*Zll0Met_DA_Y     ->GetRMS()-Zll0Met_CorMC_Y     ->GetRMS()*Zll0Met_CorMC_Y     ->GetRMS(),0.));
+  smear[2] = sqrt(TMath::Max(Zll0TrackMet_DA_X->GetRMS()*Zll0TrackMet_DA_X->GetRMS()-Zll0TrackMet_CorMC_X->GetRMS()*Zll0TrackMet_CorMC_X->GetRMS(),0.));
+  smear[3] = sqrt(TMath::Max(Zll0TrackMet_DA_Y->GetRMS()*Zll0TrackMet_DA_Y->GetRMS()-Zll0TrackMet_CorMC_Y->GetRMS()*Zll0TrackMet_CorMC_Y->GetRMS(),0.));
   printf(" biasCor0:  %8.5f  %8.5f  %8.5f  %8.5f\n",bias[0],bias[1],bias[2],bias[3]);
   printf("smearCor0: %8.5f  %8.5f  %8.5f  %8.5f\n",smear[0],smear[1],smear[2],smear[3]);
   bias[0]  = Zll1Met_DA_X     ->GetMean()-Zll1Met_MC_X     ->GetMean();
@@ -701,10 +686,10 @@ void ZllNormalization
   bias[1]  = Zll1Met_DA_Y     ->GetMean()-Zll1Met_CorMC_Y     ->GetMean();
   bias[2]  = Zll1TrackMet_DA_X->GetMean()-Zll1TrackMet_CorMC_X->GetMean();
   bias[3]  = Zll1TrackMet_DA_Y->GetMean()-Zll1TrackMet_CorMC_Y->GetMean();
-  smear[0] = sqrt(TMath::Max(Zll1Met_CorMC_X     ->GetRMS()*Zll1Met_CorMC_X     ->GetRMS()-Zll1Met_DA_X     ->GetRMS()*Zll1Met_DA_X     ->GetRMS(),0.));
-  smear[1] = sqrt(TMath::Max(Zll1Met_CorMC_Y     ->GetRMS()*Zll1Met_CorMC_Y     ->GetRMS()-Zll1Met_DA_Y     ->GetRMS()*Zll1Met_DA_Y     ->GetRMS(),0.));
-  smear[2] = sqrt(TMath::Max(Zll1TrackMet_CorMC_X->GetRMS()*Zll1TrackMet_CorMC_X->GetRMS()-Zll1TrackMet_DA_X->GetRMS()*Zll1TrackMet_DA_X->GetRMS(),0.));
-  smear[3] = sqrt(TMath::Max(Zll1TrackMet_CorMC_Y->GetRMS()*Zll1TrackMet_CorMC_Y->GetRMS()-Zll1TrackMet_DA_Y->GetRMS()*Zll1TrackMet_DA_Y->GetRMS(),0.));
+  smear[0] = sqrt(TMath::Max(Zll1Met_DA_X     ->GetRMS()*Zll1Met_DA_X     ->GetRMS()-Zll1Met_CorMC_X     ->GetRMS()*Zll1Met_CorMC_X     ->GetRMS(),0.));
+  smear[1] = sqrt(TMath::Max(Zll1Met_DA_Y     ->GetRMS()*Zll1Met_DA_Y     ->GetRMS()-Zll1Met_CorMC_Y     ->GetRMS()*Zll1Met_CorMC_Y     ->GetRMS(),0.));
+  smear[2] = sqrt(TMath::Max(Zll1TrackMet_DA_X->GetRMS()*Zll1TrackMet_DA_X->GetRMS()-Zll1TrackMet_CorMC_X->GetRMS()*Zll1TrackMet_CorMC_X->GetRMS(),0.));
+  smear[3] = sqrt(TMath::Max(Zll1TrackMet_DA_Y->GetRMS()*Zll1TrackMet_DA_Y->GetRMS()-Zll1TrackMet_CorMC_Y->GetRMS()*Zll1TrackMet_CorMC_Y->GetRMS(),0.));
   printf(" biasCor1:  %8.5f  %8.5f  %8.5f  %8.5f\n",bias[0],bias[1],bias[2],bias[3]);
   printf("smearCor1: %8.5f  %8.5f  %8.5f  %8.5f\n",smear[0],smear[1],smear[2],smear[3]);
   bias[0]  = Zll2Met_DA_X     ->GetMean()-Zll2Met_MC_X     ->GetMean();
@@ -721,10 +706,10 @@ void ZllNormalization
   bias[1]  = Zll2Met_DA_Y     ->GetMean()-Zll2Met_CorMC_Y     ->GetMean();
   bias[2]  = Zll2TrackMet_DA_X->GetMean()-Zll2TrackMet_CorMC_X->GetMean();
   bias[3]  = Zll2TrackMet_DA_Y->GetMean()-Zll2TrackMet_CorMC_Y->GetMean();
-  smear[0] = sqrt(TMath::Max(Zll2Met_CorMC_X     ->GetRMS()*Zll2Met_CorMC_X     ->GetRMS()-Zll2Met_DA_X     ->GetRMS()*Zll2Met_DA_X     ->GetRMS(),0.));
-  smear[1] = sqrt(TMath::Max(Zll2Met_CorMC_Y     ->GetRMS()*Zll2Met_CorMC_Y     ->GetRMS()-Zll2Met_DA_Y     ->GetRMS()*Zll2Met_DA_Y     ->GetRMS(),0.));
-  smear[2] = sqrt(TMath::Max(Zll2TrackMet_CorMC_X->GetRMS()*Zll2TrackMet_CorMC_X->GetRMS()-Zll2TrackMet_DA_X->GetRMS()*Zll2TrackMet_DA_X->GetRMS(),0.));
-  smear[3] = sqrt(TMath::Max(Zll2TrackMet_CorMC_Y->GetRMS()*Zll2TrackMet_CorMC_Y->GetRMS()-Zll2TrackMet_DA_Y->GetRMS()*Zll2TrackMet_DA_Y->GetRMS(),0.));
+  smear[0] = sqrt(TMath::Max(Zll2Met_DA_X     ->GetRMS()*Zll2Met_DA_X     ->GetRMS()-Zll2Met_CorMC_X     ->GetRMS()*Zll2Met_CorMC_X     ->GetRMS(),0.));
+  smear[1] = sqrt(TMath::Max(Zll2Met_DA_Y     ->GetRMS()*Zll2Met_DA_Y     ->GetRMS()-Zll2Met_CorMC_Y     ->GetRMS()*Zll2Met_CorMC_Y     ->GetRMS(),0.));
+  smear[2] = sqrt(TMath::Max(Zll2TrackMet_DA_X->GetRMS()*Zll2TrackMet_DA_X->GetRMS()-Zll2TrackMet_CorMC_X->GetRMS()*Zll2TrackMet_CorMC_X->GetRMS(),0.));
+  smear[3] = sqrt(TMath::Max(Zll2TrackMet_DA_Y->GetRMS()*Zll2TrackMet_DA_Y->GetRMS()-Zll2TrackMet_CorMC_Y->GetRMS()*Zll2TrackMet_CorMC_Y->GetRMS(),0.));
   printf(" biasCor2:  %8.5f  %8.5f  %8.5f  %8.5f\n",bias[0],bias[1],bias[2],bias[3]);
   printf("smearCor2: %8.5f  %8.5f  %8.5f  %8.5f\n",smear[0],smear[1],smear[2],smear[3]);
 

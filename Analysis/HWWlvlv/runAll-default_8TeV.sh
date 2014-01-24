@@ -20,7 +20,10 @@ setenv SIG_TEST data2012/${TAG}_hww${MH}.root
 #setenv SIG_TEST data2012/${TAG}_xww2p125.root
 #setenv SIG_TEST data2012/${TAG}_xww2pqq125.root
 #setenv SIG_TEST data2012/${TAG}_xww2pqq0p5125.root
-setenv BKG_TEST data2012/${TAG}_backgroundA_skim6.root
+#setenv SIG_TEST data2012/${TAG}_xww1m125.root
+#setenv SIG_TEST data2012/${TAG}_xww1p125.root
+#setenv SIG_TEST data2012/${TAG}_xww1mix125.root
+setenv BKG_TEST data2012/${TAG}_backgroundA_skim6.root;
 setenv DAT_TEST data2012/${TAG}_data_skim6.root;
 setenv SYS_TEST data2012/${TAG}_hww_syst_skim6.root;
 

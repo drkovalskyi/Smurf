@@ -17,9 +17,11 @@
 #include "TMath.h"
 #include "TCanvas.h"
 #include "TSystem.h"
+#include "TRandom.h"
 
 const int verboseLevel =   1;
-const bool UseDyttDataDriven = true; // if true, then remove em events in dyll MC
+const bool useDyttDataDriven = true; // if true, then remove em events in dyll MC
+const bool useScaleFactorEff1j = true;
 
 //------------------------------------------------------------------------------
 // dataEstimations
@@ -37,8 +39,9 @@ void ComputeTopScaleFactors
   //*******************************************************************************
   bool WWXSSel = false;
   double ptLepMin = 10.0;
-  if(WWXSSel == true) ptLepMin = 25.;
+  if(WWXSSel == true) ptLepMin = 20.;
   Bool_t useDYMVA = true;
+  const int binsPtB = 14;
 
   const Int_t nmass = 32;
   const Double_t mH[nmass] = {  0,  0,110,115,118,120,122,124,125,126,
@@ -95,7 +98,7 @@ void ComputeTopScaleFactors
     effPath  = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_Moriond_V1.root";
     fakePath = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_Moriond2012.root";
     puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_19p5ifb.root";
-    lumi     = 19.467;minRun =      0;maxRun = 999999;
+    lumi     = 19.365;minRun =      0;maxRun = 999999;
     //effPath  = "/data/smurf/dlevans/Efficiencies/V00-02-07_trigNameFix_HCP_V1/summary.root";
     //fakePath = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/summary_fakes_HCP.root";
     //puPath   = "/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/puWeights_Summer12_53x_True_12p1ifb.root";
@@ -155,6 +158,14 @@ void ComputeTopScaleFactors
   //*******************************************************************************
   //Yields and Histograms
   //*******************************************************************************
+  double btag_PtB_highestpt_2j_den[4][5][binsPtB],btag_PtB_highestpt_2j_den_error[4][5][binsPtB];
+  double btag_PtB_highestpt_2j_num[4][5][binsPtB],btag_PtB_highestpt_2j_num_error[4][5][binsPtB];
+  double btag_PtB_highestpt_1j_den[4][5][binsPtB],btag_PtB_highestpt_1j_den_error[4][5][binsPtB];
+  double btag_PtB_highestpt_1j_num[4][5][binsPtB],btag_PtB_highestpt_1j_num_error[4][5][binsPtB];
+  for(int k=0; k<4;k++) for(int i=0; i<5; i++) for(int j=0; j<binsPtB; j++) {btag_PtB_highestpt_2j_den[k][i][j] = 0.0;btag_PtB_highestpt_2j_den_error[k][i][j] = 0.0;}
+  for(int k=0; k<4;k++) for(int i=0; i<5; i++) for(int j=0; j<binsPtB; j++) {btag_PtB_highestpt_2j_num[k][i][j] = 0.0;btag_PtB_highestpt_2j_num_error[k][i][j] = 0.0;}
+  for(int k=0; k<4;k++) for(int i=0; i<5; i++) for(int j=0; j<binsPtB; j++) {btag_PtB_highestpt_1j_den[k][i][j] = 0.0;btag_PtB_highestpt_1j_den_error[k][i][j] = 0.0;}
+  for(int k=0; k<4;k++) for(int i=0; i<5; i++) for(int j=0; j<binsPtB; j++) {btag_PtB_highestpt_1j_num[k][i][j] = 0.0;btag_PtB_highestpt_1j_num_error[k][i][j] = 0.0;}
   vector<vector<double> > btag_central_2j_den,btag_central_2j_num,btag_central_2j_den_error,btag_central_2j_num_error;
   vector<double>          btag_central_All_2j_den,btag_central_All_2j_num,btag_central_All_2j_den_error,btag_central_All_2j_num_error;
   vector<vector<double> > btag_lowpt_1j_den;
@@ -353,7 +364,7 @@ void ComputeTopScaleFactors
     }
 
     bool passNewCuts = bgdEvent.dilep_.Pt() > 30;
-    if(bgdEvent.dilep_.Pt() <= 45 && WWXSSel == false) passNewCuts = false;
+    if(bgdEvent.dilep_.Pt() <= 45 && (bgdEvent.type_ == SmurfTree::mm || bgdEvent.type_ == SmurfTree::ee)) passNewCuts = false;
 
     // begin computing weights
     double theWeight = 0.0;
@@ -407,7 +418,7 @@ void ComputeTopScaleFactors
       double sf_eff = leptonEfficiency(bgdEvent.lep1_.Pt(), bgdEvent.lep1_.Eta(), fhDEffMu, fhDEffEl, bgdEvent.lid1_)*
         	      leptonEfficiency(bgdEvent.lep2_.Pt(), bgdEvent.lep2_.Eta(), fhDEffMu, fhDEffEl, bgdEvent.lid2_);
       theWeight = ZttScaleFactor(period,bgdEvent.scale1fb_,sf_trg,sf_eff)*lumi;
-      if(UseDyttDataDriven == false) theWeight = 0.0;
+      if(useDyttDataDriven == false) theWeight = 0.0;
     }
     else if(bgdEvent.dstype_ != SmurfTree::data){
       double add1 = nPUScaleFactor2012(fhDPU,bgdEvent.npu_);
@@ -429,7 +440,7 @@ void ComputeTopScaleFactors
       if(bgdEvent.dstype_ == SmurfTree::wgstar) add = add*WGstarScaleFactor(bgdEvent.type_,bgdEvent.met_);
 
       // if true, then remove em events in dyll MC
-      if(UseDyttDataDriven == true &&
+      if(useDyttDataDriven == true &&
         (bgdEvent.dstype_ == SmurfTree::dymm || bgdEvent.dstype_ == SmurfTree::dyee || bgdEvent.dstype_ == SmurfTree::dytt) &&
         (bgdEvent.type_ == SmurfTree::em || bgdEvent.type_ == SmurfTree::me)) continue;
 
@@ -492,29 +503,59 @@ void ComputeTopScaleFactors
         }
       }
 
-      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bgdEvent.jet2Btag_ >= 2.10 && bgdEvent.njets_ == 2){
-        btag_highestpt_2j_den[classType][4] 	     += theWeight;
-        btag_highestpt_2j_den[classType][bgdEvent.type_] += theWeight;
-        btag_highestpt_2j_den_error[classType][4] 	           += theWeight*theWeight;
+      int ptB = -1;
+      bool bTagJ[2] = {false, false};
+      if(gRandom->Uniform() < 1.0){
+      //if(TMath::Abs(bgdEvent.jet1_.Eta()) < TMath::Abs(bgdEvent.jet2_.Eta())){
+        bTagJ[0] = bgdEvent.jet2Btag_ >= 2.10; bTagJ[1] = bgdEvent.jet1Btag_ >= 2.10;
+	ptB = (int)TMath::Min(TMath::Max(bgdEvent.jet1_.Pt() - 30.,0.),69.999)/10.;
+        if(TMath::Abs(bgdEvent.jet1_.Eta()) > 1.5) ptB = ptB + 7;
+      } else {
+        bTagJ[0] = bgdEvent.jet1Btag_ >= 2.10; bTagJ[1] = bgdEvent.jet2Btag_ >= 2.10;
+	ptB = (int)TMath::Min(TMath::Max(bgdEvent.jet2_.Pt() - 30.,0.),69.999)/10.;
+        if(TMath::Abs(bgdEvent.jet2_.Eta()) > 1.5) ptB = ptB + 7;
+      }
+      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagJ[0] == true && bgdEvent.njets_ == 2 && TMath::Abs(bgdEvent.jet1_.Eta()) < 2.5 && TMath::Abs(bgdEvent.jet2_.Eta()) < 2.5){
+        btag_highestpt_2j_den[classType][4] 	               += theWeight;
+        btag_highestpt_2j_den[classType][bgdEvent.type_]       += theWeight;
+        btag_highestpt_2j_den_error[classType][4]              += theWeight*theWeight;
         btag_highestpt_2j_den_error[classType][bgdEvent.type_] += theWeight*theWeight;
-        if(bgdEvent.jet1Btag_ >= 2.10){
-          btag_highestpt_2j_num[classType][4]	       += theWeight;
-          btag_highestpt_2j_num[classType][bgdEvent.type_] += theWeight;
-          btag_highestpt_2j_num_error[classType][4]	             += theWeight*theWeight;
+	btag_PtB_highestpt_2j_den[classType][4][ptB]                    += theWeight;
+        btag_PtB_highestpt_2j_den[classType][bgdEvent.type_][ptB]       += theWeight;
+        btag_PtB_highestpt_2j_den_error[classType][4][ptB]              += theWeight*theWeight;
+        btag_PtB_highestpt_2j_den_error[classType][bgdEvent.type_][ptB] += theWeight*theWeight;
+        if(bTagJ[1] == true){
+          btag_highestpt_2j_num[classType][4]	                 += theWeight;
+          btag_highestpt_2j_num[classType][bgdEvent.type_]       += theWeight;
+          btag_highestpt_2j_num_error[classType][4]              += theWeight*theWeight;
           btag_highestpt_2j_num_error[classType][bgdEvent.type_] += theWeight*theWeight;
+          btag_PtB_highestpt_2j_num[classType][4][ptB]                    += theWeight;
+          btag_PtB_highestpt_2j_num[classType][bgdEvent.type_][ptB]       += theWeight;
+          btag_PtB_highestpt_2j_num_error[classType][4][ptB]              += theWeight*theWeight;
+          btag_PtB_highestpt_2j_num_error[classType][bgdEvent.type_][ptB] += theWeight*theWeight;
         }
       }
 
-      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bgdEvent.njets_ == 1){
-        btag_highestpt_1j_den[classType][4] 	     += theWeight;
-        btag_highestpt_1j_den[classType][bgdEvent.type_] += theWeight;
-        btag_highestpt_1j_den_error[classType][4] 	           += theWeight*theWeight;
+      ptB = (int)TMath::Min(TMath::Max(bgdEvent.jet1_.Pt() - 30.,0.),69.999)/10.;
+      if(TMath::Abs(bgdEvent.jet1_.Eta()) > 1.5) ptB = ptB + 7;
+      if((bgdEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bgdEvent.njets_ == 1 && TMath::Abs(bgdEvent.jet1_.Eta()) < 2.5){
+        btag_highestpt_1j_den[classType][4] 	               += theWeight;
+        btag_highestpt_1j_den[classType][bgdEvent.type_]       += theWeight;
+        btag_highestpt_1j_den_error[classType][4]              += theWeight*theWeight;
         btag_highestpt_1j_den_error[classType][bgdEvent.type_] += theWeight*theWeight;
+        btag_PtB_highestpt_1j_den[classType][4][ptB]                    += theWeight;
+        btag_PtB_highestpt_1j_den[classType][bgdEvent.type_][ptB]       += theWeight;
+        btag_PtB_highestpt_1j_den_error[classType][4][ptB]	        += theWeight*theWeight;
+        btag_PtB_highestpt_1j_den_error[classType][bgdEvent.type_][ptB] += theWeight*theWeight;
         if(bgdEvent.jet1Btag_ >= 2.10){
-          btag_highestpt_1j_num[classType][4]	       += theWeight;
-          btag_highestpt_1j_num[classType][bgdEvent.type_] += theWeight;
-          btag_highestpt_1j_num_error[classType][4]	             += theWeight*theWeight;
+          btag_highestpt_1j_num[classType][4]	                 += theWeight;
+          btag_highestpt_1j_num[classType][bgdEvent.type_]       += theWeight;
+          btag_highestpt_1j_num_error[classType][4]	         += theWeight*theWeight;
           btag_highestpt_1j_num_error[classType][bgdEvent.type_] += theWeight*theWeight;
+          btag_PtB_highestpt_1j_num[classType][4][ptB]  		  += theWeight;
+          btag_PtB_highestpt_1j_num[classType][bgdEvent.type_][ptB]	  += theWeight;
+          btag_PtB_highestpt_1j_num_error[classType][4][ptB]		  += theWeight*theWeight;
+          btag_PtB_highestpt_1j_num_error[classType][bgdEvent.type_][ptB] += theWeight*theWeight;
         }
       }
 
@@ -677,7 +718,7 @@ void ComputeTopScaleFactors
     }
 
     bool passNewCuts = dataEvent.dilep_.Pt() > 30;
-    if(dataEvent.dilep_.Pt() <= 45 && WWXSSel == false) passNewCuts = false;
+    if(dataEvent.dilep_.Pt() <= 45 && (dataEvent.type_ == SmurfTree::mm || dataEvent.type_ == SmurfTree::ee)) passNewCuts = false;
 
     bool dPhiDiLepJetCut = true;
     if(useDYMVA == false){
@@ -729,29 +770,59 @@ void ComputeTopScaleFactors
         }
       }
 
-      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && dataEvent.jet2Btag_ >= 2.10 && dataEvent.njets_ == 2){
-        btag_highestpt_2j_den[classType][4] 	      += theWeight;
-        btag_highestpt_2j_den[classType][dataEvent.type_] += theWeight;
-        btag_highestpt_2j_den_error[classType][4] 	            += theWeight*theWeight;
+      int ptB = -1;
+      bool bTagJ[2] = {false, false};
+      if(gRandom->Uniform() < 1.0){
+      //if(TMath::Abs(dataEvent.jet1_.Eta()) < TMath::Abs(dataEvent.jet2_.Eta())){
+        bTagJ[0] = dataEvent.jet2Btag_ >= 2.10; bTagJ[1] = dataEvent.jet1Btag_ >= 2.10;
+	ptB = (int)TMath::Min(TMath::Max(dataEvent.jet1_.Pt() - 30.,0.),69.999)/10.;
+        if(TMath::Abs(dataEvent.jet1_.Eta()) > 1.5) ptB = ptB + 7;
+      } else {
+        bTagJ[0] = dataEvent.jet1Btag_ >= 2.10; bTagJ[1] = dataEvent.jet2Btag_ >= 2.10;
+	ptB = (int)TMath::Min(TMath::Max(dataEvent.jet2_.Pt() - 30.,0.),69.999)/10.;
+        if(TMath::Abs(dataEvent.jet2_.Eta()) > 1.5) ptB = ptB + 7;
+      }
+      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && bTagJ[0] == true && dataEvent.njets_ == 2 && TMath::Abs(dataEvent.jet1_.Eta()) < 2.5 && TMath::Abs(dataEvent.jet2_.Eta()) < 2.5){
+        btag_highestpt_2j_den[classType][4] 	                += theWeight;
+        btag_highestpt_2j_den[classType][dataEvent.type_]       += theWeight;
+        btag_highestpt_2j_den_error[classType][4]               += theWeight*theWeight;
         btag_highestpt_2j_den_error[classType][dataEvent.type_] += theWeight*theWeight;
-        if(dataEvent.jet1Btag_ >= 2.10){
-          btag_highestpt_2j_num[classType][4]	        += theWeight;
-          btag_highestpt_2j_num[classType][dataEvent.type_] += theWeight;
-          btag_highestpt_2j_num_error[classType][4]	              += theWeight*theWeight;
+	btag_PtB_highestpt_2j_den[classType][4][ptB]                     += theWeight;
+        btag_PtB_highestpt_2j_den[classType][dataEvent.type_][ptB]       += theWeight;
+        btag_PtB_highestpt_2j_den_error[classType][4][ptB]               += theWeight*theWeight;
+        btag_PtB_highestpt_2j_den_error[classType][dataEvent.type_][ptB] += theWeight*theWeight;
+        if(bTagJ[1] == true){
+          btag_highestpt_2j_num[classType][4]	                  += theWeight;
+          btag_highestpt_2j_num[classType][dataEvent.type_]       += theWeight;
+          btag_highestpt_2j_num_error[classType][4]               += theWeight*theWeight;
           btag_highestpt_2j_num_error[classType][dataEvent.type_] += theWeight*theWeight;
+          btag_PtB_highestpt_2j_num[classType][4][ptB]                     += theWeight;
+          btag_PtB_highestpt_2j_num[classType][dataEvent.type_][ptB]       += theWeight;
+          btag_PtB_highestpt_2j_num_error[classType][4][ptB]               += theWeight*theWeight;
+          btag_PtB_highestpt_2j_num_error[classType][dataEvent.type_][ptB] += theWeight*theWeight;
         }
       }
 
-      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && dataEvent.njets_ == 1){
-        btag_highestpt_1j_den[classType][4] 	      += theWeight;
-        btag_highestpt_1j_den[classType][dataEvent.type_] += theWeight;
-        btag_highestpt_1j_den_error[classType][4] 	            += theWeight*theWeight;
+      ptB = (int)TMath::Min(TMath::Max(dataEvent.jet1_.Pt() - 30.,0.),69.999)/10.;
+      if(TMath::Abs(dataEvent.jet1_.Eta()) > 1.5) ptB = ptB + 7;
+      if((dataEvent.cuts_ & patternTopTagNotInJets) != patternTopTagNotInJets && dataEvent.njets_ == 1 && TMath::Abs(dataEvent.jet1_.Eta()) < 2.5){
+        btag_highestpt_1j_den[classType][4] 	                += theWeight;
+        btag_highestpt_1j_den[classType][dataEvent.type_]       += theWeight;
+        btag_highestpt_1j_den_error[classType][4]               += theWeight*theWeight;
         btag_highestpt_1j_den_error[classType][dataEvent.type_] += theWeight*theWeight;
+        btag_PtB_highestpt_1j_den[classType][4][ptB]                     += theWeight;
+        btag_PtB_highestpt_1j_den[classType][dataEvent.type_][ptB]	 += theWeight;
+        btag_PtB_highestpt_1j_den_error[classType][4][ptB]		 += theWeight*theWeight;
+        btag_PtB_highestpt_1j_den_error[classType][dataEvent.type_][ptB] += theWeight*theWeight;
         if(dataEvent.jet1Btag_ >= 2.10){
-          btag_highestpt_1j_num[classType][4]	        += theWeight;
-          btag_highestpt_1j_num[classType][dataEvent.type_] += theWeight;
-          btag_highestpt_1j_num_error[classType][4]	              += theWeight*theWeight;
+          btag_highestpt_1j_num[classType][4]	                  += theWeight;
+          btag_highestpt_1j_num[classType][dataEvent.type_]       += theWeight;
+          btag_highestpt_1j_num_error[classType][4]	          += theWeight*theWeight;
           btag_highestpt_1j_num_error[classType][dataEvent.type_] += theWeight*theWeight;
+          btag_PtB_highestpt_1j_num[classType][4][ptB]  		   += theWeight;
+          btag_PtB_highestpt_1j_num[classType][dataEvent.type_][ptB]	   += theWeight;
+          btag_PtB_highestpt_1j_num_error[classType][4][ptB]		   += theWeight*theWeight;
+          btag_PtB_highestpt_1j_num_error[classType][dataEvent.type_][ptB] += theWeight*theWeight;
         }
       }
 
@@ -842,7 +913,7 @@ void ComputeTopScaleFactors
   //*******************************************************************************
   //Print Summary 
   //*******************************************************************************
-  char *classLabel[5] = {"mm ", "me ", "em " , "ee ", "all"};
+  TString classLabel[5] = {"mm ", "me ", "em " , "ee ", "all"};
 
   double btagSF = 1.0;
 
@@ -1014,9 +1085,32 @@ void ComputeTopScaleFactors
   printf("**********eff highest pt jet 2-j**********\n");
   double effttMC_btag_highestpt_2j[5],effttMC_btag_highestpt_2j_error[5],effttMC_btag_highestpt_tt_2j[5],effttMC_btag_highestpt_tt_2j_error[5];
   double effttDA_btag_highestpt_2j[5],effttDA_btag_highestpt_2j_error[5],effttMC_btag_highestpt_tw_2j[5],effttMC_btag_highestpt_tw_2j_error[5];
+  double effttMC_btag_PtB_highestpt_2j[5][binsPtB],effttMC_btag_PtB_highestpt_2j_error[5][binsPtB],effttMC_btag_PtB_highestpt_tt_2j[5][binsPtB],effttMC_btag_PtB_highestpt_tt_2j_error[5][binsPtB];
+  double effttDA_btag_PtB_highestpt_2j[5][binsPtB],effttDA_btag_PtB_highestpt_2j_error[5][binsPtB],effttMC_btag_PtB_highestpt_tw_2j[5][binsPtB],effttMC_btag_PtB_highestpt_tw_2j_error[5][binsPtB];
+
+  for(int j=0; j<binsPtB; j++) {
+    for(int i=0; i<5; i++) {
+      //for(int k=0; k<4;k++) printf("(%d,%d,%2d): %6.1f %6.1f - ",k,i,j,btag_PtB_highestpt_2j_den[k][i][j],btag_PtB_highestpt_2j_num[k][i][j]);printf("\n");
+      //MC efficiencies
+      effttMC_btag_PtB_highestpt_tt_2j[i][j] = (btag_PtB_highestpt_2j_num[1][i][j])/(btag_PtB_highestpt_2j_den[1][i][j]);
+      effttMC_btag_PtB_highestpt_tw_2j[i][j] = (btag_PtB_highestpt_2j_num[2][i][j])/(btag_PtB_highestpt_2j_den[2][i][j]);
+      effttMC_btag_PtB_highestpt_2j[i][j]    = (btag_PtB_highestpt_2j_num[1][i][j] + btag_PtB_highestpt_2j_num[2][i][j]) / (btag_PtB_highestpt_2j_den[1][i][j] + btag_PtB_highestpt_2j_den[2][i][j]);
+
+      effttMC_btag_PtB_highestpt_tt_2j_error[i][j] = sqrt((1.0-effttMC_btag_PtB_highestpt_tt_2j[i][j])*effttMC_btag_PtB_highestpt_tt_2j[i][j]/(btag_PtB_highestpt_2j_den[1][i][j])*
+                                                   (btag_PtB_highestpt_2j_den_error[1][i][j])/(btag_PtB_highestpt_2j_den[1][i][j]));    
+      effttMC_btag_PtB_highestpt_tw_2j_error[i][j] = sqrt((1.0-effttMC_btag_PtB_highestpt_tw_2j[i][j])*effttMC_btag_PtB_highestpt_tw_2j[i][j]/(btag_PtB_highestpt_2j_den[2][i][j])*
+                                                   (btag_PtB_highestpt_2j_den_error[2][i][j])/(btag_PtB_highestpt_2j_den[2][i][j]));
+      effttMC_btag_PtB_highestpt_2j_error[i][j]    = sqrt((1.0-effttMC_btag_PtB_highestpt_2j[i][j])*effttMC_btag_PtB_highestpt_2j[i][j]/(btag_PtB_highestpt_2j_den[1][i][j]+btag_PtB_highestpt_2j_den[2][i][j])*
+                                                   (btag_PtB_highestpt_2j_den_error[1][i][j]+btag_PtB_highestpt_2j_den_error[2][i][j])/(btag_PtB_highestpt_2j_den[1][i][j]+btag_PtB_highestpt_2j_den[2][i][j]));
+
+      //Data efficiencies
+      effttDA_btag_PtB_highestpt_2j[i][j] = (btag_PtB_highestpt_2j_num[3][i][j]-btag_PtB_highestpt_2j_num[0][i][j]-btag_PtB_highestpt_2j_num[2][i][j]*btagSF)/
+	                                    (btag_PtB_highestpt_2j_den[3][i][j]-btag_PtB_highestpt_2j_den[0][i][j]-btag_PtB_highestpt_2j_den[2][i][j]*btagSF);    
+      effttDA_btag_PtB_highestpt_2j_error[i][j] = sqrt((1-effttDA_btag_PtB_highestpt_2j[i][j])*effttDA_btag_PtB_highestpt_2j[i][j]/btag_PtB_highestpt_2j_den[3][i][j]);
+    }
+  }
 
   for(int i=0; i<5; i++) {
-
     //MC efficiencies
     effttMC_btag_highestpt_tt_2j[i] = (btag_highestpt_2j_num[1][i])/(btag_highestpt_2j_den[1][i]);
     effttMC_btag_highestpt_tw_2j[i] = (btag_highestpt_2j_num[2][i])/(btag_highestpt_2j_den[2][i]);
@@ -1042,19 +1136,38 @@ void ComputeTopScaleFactors
   //double TopBkgScaleFactorUncertainty_2Jet = sqrt(btag_highestpt_2j_num[3][4])/(btag_highestpt_2j_num[1][4]+btag_highestpt_2j_num[2][4]);
 
   for(int i=0; i<5; i++) {
-    printf("numerator  (%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_highestpt_2j_num[3][i],btag_highestpt_2j_num[0][i],(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]),btag_highestpt_2j_num[1][i],btag_highestpt_2j_num[2][i]);
-    printf("denominator(%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_highestpt_2j_den[3][i],btag_highestpt_2j_den[0][i],(btag_highestpt_2j_den[1][i]+btag_highestpt_2j_den[2][i]),btag_highestpt_2j_den[1][i],btag_highestpt_2j_den[2][i]);
+    printf("numerator  (%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i].Data(),btag_highestpt_2j_num[3][i],btag_highestpt_2j_num[0][i],(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]),btag_highestpt_2j_num[1][i],btag_highestpt_2j_num[2][i]);
+    printf("denominator(%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i].Data(),btag_highestpt_2j_den[3][i],btag_highestpt_2j_den[0][i],(btag_highestpt_2j_den[1][i]+btag_highestpt_2j_den[2][i]),btag_highestpt_2j_den[1][i],btag_highestpt_2j_den[2][i]);
   }
 
   printf("channel         eff_tttw             eff_tt                eff_tw               eff_data                         ScaleFactor\n");
   for(int i=0; i<5; i++) {
-    printf("eff (%s): %6.3f +/- %6.3f  %6.3f +/- %6.3f  %6.3f +/- %6.3f --> %6.3f +/- %6.3f      : scaleFactor2j(%s) --> %6.3f +/- %6.3f\n",classLabel[i],
+    printf("eff (%s): %6.3f +/- %6.3f  %6.3f +/- %6.3f  %6.3f +/- %6.3f --> %6.3f +/- %6.3f      : scaleFactor2j(%s) --> %6.3f +/- %6.3f\n",classLabel[i].Data(),
            effttMC_btag_highestpt_2j[i]   ,effttMC_btag_highestpt_2j_error[i],effttMC_btag_highestpt_tt_2j[i],effttMC_btag_highestpt_tt_2j_error[i],
            effttMC_btag_highestpt_tw_2j[i],effttMC_btag_highestpt_tw_2j_error[i],effttDA_btag_highestpt_2j[i],effttDA_btag_highestpt_2j_error[i],
-           classLabel[i],(btag_highestpt_2j_num[3][i]-btag_highestpt_2j_num[0][i])/(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]),
+           classLabel[i].Data(),(btag_highestpt_2j_num[3][i]-btag_highestpt_2j_num[0][i])/(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]),
            sqrt(btag_highestpt_2j_num[3][i])/(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]));
-//     printf("scaleFactor2j(%s) --> %6.3f +/- %6.3f\n",classLabel[i],(btag_highestpt_2j_num[3][i]-btag_highestpt_2j_num[0][i])/(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]),
+//     printf("scaleFactor2j(%s) --> %6.3f +/- %6.3f\n",classLabel[i].Data(),(btag_highestpt_2j_num[3][i]-btag_highestpt_2j_num[0][i])/(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]),
 //            sqrt(btag_highestpt_2j_num[3][i])/(btag_highestpt_2j_num[1][i]+btag_highestpt_2j_num[2][i]));    
+  }
+  printf("---------------------------------------binsPtB----------------------------------------------------------------------------\n");
+  for(int j=0; j<binsPtB; j++) {
+    //for(int i=0; i<5; i++) {
+    for(int i=4; i<5; i++) {
+      printf("numerator  (%2d-%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",j,classLabel[i].Data(),btag_PtB_highestpt_2j_num[3][i][j],btag_PtB_highestpt_2j_num[0][i][j],(btag_PtB_highestpt_2j_num[1][i][j]+btag_PtB_highestpt_2j_num[2][i][j]),btag_PtB_highestpt_2j_num[1][i][j],btag_PtB_highestpt_2j_num[2][i][j]);
+      printf("denominator(%2d-%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",j,classLabel[i].Data(),btag_PtB_highestpt_2j_den[3][i][j],btag_PtB_highestpt_2j_den[0][i][j],(btag_PtB_highestpt_2j_den[1][i][j]+btag_PtB_highestpt_2j_den[2][i][j]),btag_PtB_highestpt_2j_den[1][i][j],btag_PtB_highestpt_2j_den[2][i][j]);
+    }
+  }
+  printf("channel         eff_tttw             eff_tt                eff_tw               eff_data                         ScaleFactor\n");
+  for(int j=0; j<binsPtB; j++) {
+    //for(int i=0; i<5; i++) {
+    for(int i=4; i<5; i++) {
+      printf("eff (%2d-%s): %6.3f +/- %6.3f  %6.3f +/- %6.3f  %6.3f +/- %6.3f --> %6.3f +/- %6.3f      : scaleFactor2j(%s) --> %6.3f +/- %6.3f\n",j,classLabel[i].Data(),
+             effttMC_btag_PtB_highestpt_2j[i][j]   ,effttMC_btag_PtB_highestpt_2j_error[i][j],effttMC_btag_PtB_highestpt_tt_2j[i][j],effttMC_btag_PtB_highestpt_tt_2j_error[i][j],
+             effttMC_btag_PtB_highestpt_tw_2j[i][j],effttMC_btag_PtB_highestpt_tw_2j_error[i][j],effttDA_btag_PtB_highestpt_2j[i][j],effttDA_btag_PtB_highestpt_2j_error[i][j],
+             classLabel[i].Data(),(btag_PtB_highestpt_2j_num[3][i][j]-btag_PtB_highestpt_2j_num[0][i][j])/(btag_PtB_highestpt_2j_num[1][i][j]+btag_PtB_highestpt_2j_num[2][i][j]),
+             sqrt(btag_PtB_highestpt_2j_num[3][i][j])/(btag_PtB_highestpt_2j_num[1][i][j]+btag_PtB_highestpt_2j_num[2][i][j]));
+    }
   }
 
   printf("****************************************************************************************************************************************\n");
@@ -1065,7 +1178,28 @@ void ComputeTopScaleFactors
   printf("**********eff highest pt jet 1-j**********\n");
   double effttMC_btag_highestpt_1j[5],effttMC_btag_highestpt_1j_error[5],effttMC_btag_highestpt_tt_1j[5],effttMC_btag_highestpt_tt_1j_error[5];
   double effttDA_btag_highestpt_1j[5],effttDA_btag_highestpt_1j_error[5],effttMC_btag_highestpt_tw_1j[5],effttMC_btag_highestpt_tw_1j_error[5];
+  double effttMC_btag_PtB_highestpt_1j[5][binsPtB],effttMC_btag_PtB_highestpt_1j_error[5][binsPtB],effttMC_btag_PtB_highestpt_tt_1j[5][binsPtB],effttMC_btag_PtB_highestpt_tt_1j_error[5][binsPtB];
+  double effttDA_btag_PtB_highestpt_1j[5][binsPtB],effttDA_btag_PtB_highestpt_1j_error[5][binsPtB],effttMC_btag_PtB_highestpt_tw_1j[5][binsPtB],effttMC_btag_PtB_highestpt_tw_1j_error[5][binsPtB];
 
+  for(int j=0; j<binsPtB; j++) {
+    for(int i=0; i<5; i++) {
+      //MC btag efficiencies
+      effttMC_btag_PtB_highestpt_tt_1j[i][j] = btag_PtB_highestpt_1j_num[1][i][j] / btag_PtB_highestpt_1j_den[1][i][j];
+      effttMC_btag_PtB_highestpt_tw_1j[i][j] = btag_PtB_highestpt_1j_num[2][i][j] / btag_PtB_highestpt_1j_den[2][i][j];
+      effttMC_btag_PtB_highestpt_1j[i][j]    = (btag_PtB_highestpt_1j_num[1][i][j]+btag_PtB_highestpt_1j_num[2][i][j])/(btag_PtB_highestpt_1j_den[1][i][j]+btag_PtB_highestpt_1j_den[2][i][j]);
+
+      effttMC_btag_PtB_highestpt_1j_error[i][j]    = sqrt((1.0-effttMC_btag_PtB_highestpt_1j[i][j])*effttMC_btag_PtB_highestpt_1j[i][j]/(btag_PtB_highestpt_1j_den[1][i][j]+btag_PtB_highestpt_1j_den[2][i][j])*
+                                                   (btag_PtB_highestpt_1j_den_error[1][i][j]+btag_PtB_highestpt_1j_den_error[2][i][j])/(btag_PtB_highestpt_1j_den[1][i][j]+btag_PtB_highestpt_1j_den[2][i][j]));
+      effttMC_btag_PtB_highestpt_tt_1j_error[i][j] = sqrt((1.0-effttMC_btag_PtB_highestpt_tt_1j[i][j])*effttMC_btag_PtB_highestpt_tt_1j[i][j]/(btag_PtB_highestpt_1j_den[1][i][j])*
+                                                   (btag_PtB_highestpt_1j_den_error[1][i][j])/(btag_PtB_highestpt_1j_den[1][i][j]));
+      effttMC_btag_PtB_highestpt_tw_1j_error[i][j] = sqrt((1.0-effttMC_btag_PtB_highestpt_tw_1j[i][j])*effttMC_btag_PtB_highestpt_tw_1j[i][j]/(btag_PtB_highestpt_1j_den[2][i][j])*
+                                                   (btag_PtB_highestpt_1j_den_error[2][i][j])/(btag_PtB_highestpt_1j_den[2][i][j]));
+
+      //Data btag efficiencies
+      effttDA_btag_PtB_highestpt_1j[i][j] = (btag_PtB_highestpt_1j_num[3][i][j]-btag_PtB_highestpt_1j_num[0][i][j]-btag_PtB_highestpt_1j_num[2][i][j]*btagSF)/(btag_PtB_highestpt_1j_den[3][i][j]-btag_PtB_highestpt_1j_den[0][i][j]-btag_PtB_highestpt_1j_den[2][i][j]*btagSF);
+      effttDA_btag_PtB_highestpt_1j_error[i][j] = sqrt((1-effttDA_btag_PtB_highestpt_1j[i][j])*effttDA_btag_PtB_highestpt_1j[i][j]/btag_PtB_highestpt_1j_den[3][i][j]);    
+    }
+  }
 
   for(int i=0; i<5; i++) {
     //MC btag efficiencies
@@ -1086,8 +1220,8 @@ void ComputeTopScaleFactors
   }
 
   for(int i=0; i<5; i++) {
-    printf("numerator  (%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_highestpt_1j_num[3][i],btag_highestpt_1j_num[0][i],(btag_highestpt_1j_num[1][i]+btag_highestpt_1j_num[2][i]),btag_highestpt_1j_num[1][i],btag_highestpt_1j_num[2][i]);
-    printf("denominator(%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_highestpt_1j_den[3][i],btag_highestpt_1j_den[0][i],(btag_highestpt_1j_den[1][i]+btag_highestpt_1j_den[2][i]),btag_highestpt_1j_den[1][i],btag_highestpt_1j_den[2][i]);
+    printf("numerator  (%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i].Data(),btag_highestpt_1j_num[3][i],btag_highestpt_1j_num[0][i],(btag_highestpt_1j_num[1][i]+btag_highestpt_1j_num[2][i]),btag_highestpt_1j_num[1][i],btag_highestpt_1j_num[2][i]);
+    printf("denominator(%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i].Data(),btag_highestpt_1j_den[3][i],btag_highestpt_1j_den[0][i],(btag_highestpt_1j_den[1][i]+btag_highestpt_1j_den[2][i]),btag_highestpt_1j_den[1][i],btag_highestpt_1j_den[2][i]);
   }
 
   printf("channel       eff_tttw           eff_tt              eff_tw               eff_data              \n");
@@ -1096,30 +1230,52 @@ void ComputeTopScaleFactors
            effttMC_btag_highestpt_1j[i]   ,effttMC_btag_highestpt_1j_error[i],effttMC_btag_highestpt_tt_1j[i],effttMC_btag_highestpt_tt_1j_error[i],
            effttMC_btag_highestpt_tw_1j[i],effttMC_btag_highestpt_tw_1j_error[i],effttDA_btag_highestpt_1j[i],effttDA_btag_highestpt_1j_error[i]);
   }
+  printf("---------------------------------------binsPtB----------------------------------------------------------------------------\n");
+  for(int j=0; j<binsPtB; j++) {
+    //for(int i=0; i<5; i++) {
+    for(int i=4; i<5; i++) {
+      printf("numerator  (%2d-%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",j,classLabel[i].Data(),btag_PtB_highestpt_1j_num[3][i][j],btag_PtB_highestpt_1j_num[0][i][j],(btag_PtB_highestpt_1j_num[1][i][j]+btag_PtB_highestpt_1j_num[2][i][j]),btag_PtB_highestpt_1j_num[1][i][j],btag_PtB_highestpt_1j_num[2][i][j]);
+      printf("denominator(%2d-%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",j,classLabel[i].Data(),btag_PtB_highestpt_1j_den[3][i][j],btag_PtB_highestpt_1j_den[0][i][j],(btag_PtB_highestpt_1j_den[1][i][j]+btag_PtB_highestpt_1j_den[2][i][j]),btag_PtB_highestpt_1j_den[1][i][j],btag_PtB_highestpt_1j_den[2][i][j]);
+    }
+  }
+
+  printf("channel       eff_tttw           eff_tt              eff_tw               eff_data              \n");
+  for(int j=0; j<binsPtB; j++) {
+    //for(int i=0; i<5; i++) {
+    for(int i=4; i<5; i++) {
+      printf("eff (%2d-%s): %6.3f +/- %6.3f  %6.3f +/- %6.3f  %6.3f +/- %6.3f --> %6.3f +/- %6.3f  \n",j,classLabel[i].Data(),
+             effttMC_btag_PtB_highestpt_1j[i][j]   ,effttMC_btag_PtB_highestpt_1j_error[i][j],effttMC_btag_PtB_highestpt_tt_1j[i][j],effttMC_btag_PtB_highestpt_tt_1j_error[i][j],
+             effttMC_btag_PtB_highestpt_tw_1j[i][j],effttMC_btag_PtB_highestpt_tw_1j_error[i][j],effttDA_btag_PtB_highestpt_1j[i][j],effttDA_btag_PtB_highestpt_1j_error[i][j]);
+    }
+  }
   
   // we use the combined efficiency obtained in the 2-j bin, instead of the obtained final state by final state
   double estimationMC_btag_highestpt_1j[5];     
   double estimationMC_btag_highestpt_1j_err[5]; 
-  double estimationDA_btag_highestpt_1j[5]; 
+  double estimationDA_btag_highestpt_1j[5];
   double estimationDA_btag_highestpt_1j_error[5]; 
 
   for(int i=0; i<5; i++) {
     estimationMC_btag_highestpt_1j[i] = (1-effttMC_btag_highestpt_2j[4])/effttMC_btag_highestpt_2j[4]*(btag_highestpt_1j_num[1][i]+btag_highestpt_1j_num[2][i]);
     estimationMC_btag_highestpt_1j_err[i] = effttMC_btag_highestpt_tt_1j_error[i]/effttMC_btag_highestpt_2j[4]/effttMC_btag_highestpt_2j[4]*(btag_highestpt_1j_num[1][i]+btag_highestpt_1j_num[2][i]);
-    estimationDA_btag_highestpt_1j[i] = (1-effttDA_btag_highestpt_2j[4])/effttDA_btag_highestpt_2j[4]*(btag_highestpt_1j_num[3][i]-btag_highestpt_1j_num[0][i]);
+    if(useScaleFactorEff1j == false){
+      estimationDA_btag_highestpt_1j[i] = (1-effttDA_btag_highestpt_2j[4])/effttDA_btag_highestpt_2j[4]*(btag_highestpt_1j_num[3][i]-btag_highestpt_1j_num[0][i]);
+    } else {
+      double scaleF = effttDA_btag_highestpt_2j[i]/effttMC_btag_highestpt_tt_2j[i];
+      estimationDA_btag_highestpt_1j[i] = (1-effttMC_btag_highestpt_1j[i]*scaleF)/effttMC_btag_highestpt_1j[i]*scaleF*(btag_highestpt_1j_num[3][i]-btag_highestpt_1j_num[0][i]);
+    }
 
     estimationDA_btag_highestpt_1j_error[i] = sqrt(((btag_highestpt_1j_num[3][i]-btag_highestpt_1j_num[0][i])*effttDA_btag_highestpt_2j_error[4]/effttDA_btag_highestpt_2j[4]/effttDA_btag_highestpt_2j[4])*
                                                    ((btag_highestpt_1j_num[3][i]-btag_highestpt_1j_num[0][i])*effttDA_btag_highestpt_2j_error[4]/effttDA_btag_highestpt_2j[4]/effttDA_btag_highestpt_2j[4])+
                                                    (1-effttDA_btag_highestpt_2j[4])/effttDA_btag_highestpt_2j[4]*
-                                                   (1-effttDA_btag_highestpt_2j[4])/effttDA_btag_highestpt_2j[4]*btag_highestpt_1j_num[3][i]);
-    
+                                                   (1-effttDA_btag_highestpt_2j[4])/effttDA_btag_highestpt_2j[4]*btag_highestpt_1j_num[3][i]);    
   }
 
   double systMC_1j[5];
   printf("Predicted ttbar+tW background for 1jet analysis (fails btag):  top background scale factor\n");
   printf("               MC(tt + tW)     Predicted from MC     | Prediction from Data   |    Scale Factor \n");
   for(int i=0; i<5; i++) {
-    printf("top 1-jet(%s):    %7.3f        %7.3f +/- %6.3f       | %7.3f +/- %6.3f        |    %5.3f +/- %5.3f\n",classLabel[i],
+    printf("top 1-jet(%s):    %7.2f        %7.2f +/- %6.2f       | %7.2f +/- %6.2f        |    %5.3f +/- %5.3f\n",classLabel[i].Data(),
            (btag_highestpt_1j_den[1][i]+btag_highestpt_1j_den[2][i])-(btag_highestpt_1j_num[1][i]+btag_highestpt_1j_num[2][i]),
            estimationMC_btag_highestpt_1j[i],estimationMC_btag_highestpt_1j_err[i],
            estimationDA_btag_highestpt_1j[i],estimationDA_btag_highestpt_1j_error[i],
@@ -1128,6 +1284,49 @@ void ComputeTopScaleFactors
     systMC_1j[i] = ((btag_highestpt_1j_den[1][i]+btag_highestpt_1j_den[2][i])-(btag_highestpt_1j_num[1][i]+btag_highestpt_1j_num[2][i]))/estimationMC_btag_highestpt_1j[i];
     if(systMC_1j[i] < 1.0) systMC_1j[i] = 1.0/systMC_1j[i];
     systMC_1j[i] = 1.0-systMC_1j[i];
+  }
+
+  printf("---------------------------------------binsPtB----------------------------------------------------------------------------\n");
+  double estimationMC_btag_PtB_highestpt_1j[5][binsPtB];     
+  double estimationMC_btag_PtB_highestpt_1j_err[5][binsPtB]; 
+  double estimationDA_btag_PtB_highestpt_1j[5][binsPtB]; 
+  double estimationDA_btag_PtB_highestpt_1j_error[5][binsPtB]; 
+
+  for(int j=0; j<binsPtB; j++) {
+    for(int i=0; i<5; i++) {
+      estimationMC_btag_PtB_highestpt_1j[i][j] = (1-effttMC_btag_PtB_highestpt_2j[i][j])/effttMC_btag_PtB_highestpt_2j[i][j]*(btag_PtB_highestpt_1j_num[1][i][j]+btag_PtB_highestpt_1j_num[2][i][j]);
+      estimationMC_btag_PtB_highestpt_1j_err[i][j] = effttMC_btag_PtB_highestpt_tt_1j_error[i][j]/effttMC_btag_PtB_highestpt_2j[i][j]/effttMC_btag_PtB_highestpt_2j[i][j]*(btag_PtB_highestpt_1j_num[1][i][j]+btag_PtB_highestpt_1j_num[2][i][j]);
+      estimationDA_btag_PtB_highestpt_1j[i][j] = (1-effttDA_btag_PtB_highestpt_2j[i][j])/effttDA_btag_PtB_highestpt_2j[i][j]*(btag_PtB_highestpt_1j_num[3][i][j]-btag_PtB_highestpt_1j_num[0][i][j]);
+      if(useScaleFactorEff1j == false){
+	estimationDA_btag_PtB_highestpt_1j[i][j] = (1-effttDA_btag_PtB_highestpt_2j[4][j])/effttDA_btag_PtB_highestpt_2j[4][j]*(btag_PtB_highestpt_1j_num[3][i][j]-btag_PtB_highestpt_1j_num[0][i][j]);
+      } else {
+	double scaleF = effttDA_btag_PtB_highestpt_2j[i][j]/effttMC_btag_PtB_highestpt_tt_2j[i][j];
+	estimationDA_btag_PtB_highestpt_1j[i][j] = (1-effttMC_btag_PtB_highestpt_1j[i][j]*scaleF)/effttMC_btag_PtB_highestpt_1j[i][j]*scaleF*(btag_PtB_highestpt_1j_num[3][i][j]-btag_PtB_highestpt_1j_num[0][i][j]);
+      }
+
+      estimationDA_btag_PtB_highestpt_1j_error[i][j] = sqrt(((btag_PtB_highestpt_1j_num[3][i][j]-btag_PtB_highestpt_1j_num[0][i][j])*effttDA_btag_PtB_highestpt_2j_error[i][j]/effttDA_btag_PtB_highestpt_2j[i][j]/effttDA_btag_PtB_highestpt_2j[i][j])*
+                                                     ((btag_PtB_highestpt_1j_num[3][i][j]-btag_PtB_highestpt_1j_num[0][i][j])*effttDA_btag_PtB_highestpt_2j_error[i][j]/effttDA_btag_PtB_highestpt_2j[i][j]/effttDA_btag_PtB_highestpt_2j[i][j])+
+                                                     (1-effttDA_btag_PtB_highestpt_2j[i][j])/effttDA_btag_PtB_highestpt_2j[i][j]*
+                                                     (1-effttDA_btag_PtB_highestpt_2j[i][j])/effttDA_btag_PtB_highestpt_2j[i][j]*btag_PtB_highestpt_1j_num[3][i][j]);    
+    }
+  }
+
+  double systMC_1j_PtB[5][binsPtB];
+  printf("Predicted ttbar+tW background for 1jet analysis (fails btag):  top background scale factor\n");
+  printf("               MC(tt + tW)     Predicted from MC     | Prediction from Data   |    Scale Factor \n");
+  for(int j=0; j<binsPtB; j++) {
+    //for(int i=0; i<5; i++) {
+    for(int i=4; i<5; i++) {
+      printf("top 1-jet(%2d-%s):    %7.2f        %7.2f +/- %6.2f       | %7.2f +/- %6.2f        |    %5.3f +/- %5.3f\n",j,classLabel[i].Data(),
+             (btag_PtB_highestpt_1j_den[1][i][j]+btag_PtB_highestpt_1j_den[2][i][j])-(btag_PtB_highestpt_1j_num[1][i][j]+btag_PtB_highestpt_1j_num[2][i][j]),
+             estimationMC_btag_PtB_highestpt_1j[i][j],estimationMC_btag_PtB_highestpt_1j_err[i][j],
+             estimationDA_btag_PtB_highestpt_1j[i][j],estimationDA_btag_PtB_highestpt_1j_error[i][j],
+             estimationDA_btag_PtB_highestpt_1j[i][j]      /((btag_PtB_highestpt_1j_den[1][i][j]+btag_PtB_highestpt_1j_den[2][i][j])-(btag_PtB_highestpt_1j_num[1][i][j]+btag_PtB_highestpt_1j_num[2][i][j])),
+             estimationDA_btag_PtB_highestpt_1j_error[i][j]/((btag_PtB_highestpt_1j_den[1][i][j]+btag_PtB_highestpt_1j_den[2][i][j])-(btag_PtB_highestpt_1j_num[1][i][j]+btag_PtB_highestpt_1j_num[2][i][j])));
+      systMC_1j_PtB[i][j] = ((btag_PtB_highestpt_1j_den[1][i][j]+btag_PtB_highestpt_1j_den[2][i][j])-(btag_PtB_highestpt_1j_num[1][i][j]+btag_PtB_highestpt_1j_num[2][i][j]))/estimationMC_btag_PtB_highestpt_1j[i][j];
+      if(systMC_1j_PtB[i][j] < 1.0) systMC_1j_PtB[i][j] = 1.0/systMC_1j_PtB[i][j];
+      systMC_1j_PtB[i][j] = 1.0-systMC_1j_PtB[i][j];
+    }
   }
 
   printf("**********************************************************\n");
@@ -1166,8 +1365,8 @@ void ComputeTopScaleFactors
   }
 
   for(int i=0; i<5; i++) {
-    printf("numerator(%s)   --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_lowpt_1j_num[3][i],btag_lowpt_1j_num[0][i],(btag_lowpt_1j_num[1][i]+btag_lowpt_1j_num[2][i]),btag_lowpt_1j_num[1][i],btag_lowpt_1j_num[2][i]);
-    printf("denominator(%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i],btag_lowpt_1j_den[3][i],btag_lowpt_1j_den[0][i],(btag_lowpt_1j_den[1][i]+btag_lowpt_1j_den[2][i]),btag_lowpt_1j_den[1][i],btag_lowpt_1j_den[2][i]);
+    printf("numerator(%s)   --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i].Data(),btag_lowpt_1j_num[3][i],btag_lowpt_1j_num[0][i],(btag_lowpt_1j_num[1][i]+btag_lowpt_1j_num[2][i]),btag_lowpt_1j_num[1][i],btag_lowpt_1j_num[2][i]);
+    printf("denominator(%s) --> data: %4.0f, background: %7.2f, tt+tw: %7.2f, tt: %7.2f, tw: %7.2f\n",classLabel[i].Data(),btag_lowpt_1j_den[3][i],btag_lowpt_1j_den[0][i],(btag_lowpt_1j_den[1][i]+btag_lowpt_1j_den[2][i]),btag_lowpt_1j_den[1][i],btag_lowpt_1j_den[2][i]);
   }
 
   printf("channel       eff_tttw         eff_tt            eff_tw           eff_data              \n");
@@ -1191,12 +1390,12 @@ void ComputeTopScaleFactors
   }
 
   double N_top_expected_0j[5]; 
-  double fttbar[5]; 
+  double fttbar[5],sigma_ftop[5];
 
   for(int i=0; i<5; i++) {
     N_top_expected_0j[i] = (btag_lowpt_0j_den[1][i]+btag_lowpt_0j_den[2][i])-(btag_lowpt_0j_num[1][i]+btag_lowpt_0j_num[2][i]);
     fttbar[i] = (btag_lowpt_0j_den[1][i]+btag_lowpt_0j_den[2][i]*ftw_b[i])/(btag_lowpt_0j_den[1][i]+btag_lowpt_0j_den[2][i]);
-// fttbar[i] = btag_lowpt_0j_den[1][i]/(btag_lowpt_0j_den[1][i]+btag_lowpt_0j_den[2][i]);
+    sigma_ftop[i] = 0.17*btag_lowpt_0j_den[1][i]*(1.0-ftw_b[i])/(btag_lowpt_0j_den[1][i]+btag_lowpt_0j_den[2][i]);
   }
 
   double effMC_btag_lowpt_tt_0j_expected[5];  
@@ -1214,7 +1413,7 @@ void ComputeTopScaleFactors
   printf("channel        ttbar MC ( 0Jet / Extrapolated from 1Jet )            tW MC ( 0Jet / Extrapolated from 1Jet) \n");
   for(int i=0; i<5; i++) { 
     printf("(%s),                  %5.3f/%5.3f                                              %5.3f/%5.3f\n",
-           classLabel[i],effMC_btag_lowpt_tt_0j_expected[i],effMC_btag_lowpt_tt_0j[i],effMC_btag_lowpt_tw_0j_expected[i],effMC_btag_lowpt_tw_0j[i]);
+           classLabel[i].Data(),effMC_btag_lowpt_tt_0j_expected[i],effMC_btag_lowpt_tt_0j[i],effMC_btag_lowpt_tw_0j_expected[i],effMC_btag_lowpt_tw_0j[i]);
   }
 
   // begin get closure test closing!!!!!!!!!!!!!!!
@@ -1228,8 +1427,6 @@ void ComputeTopScaleFactors
   // printf("\n");
   // end get closure test closing!!!!!!!!!!!!!!!
 
-
-  double sigma_ftop[2]={0.00,0.17};
   double effMC_btag_lowpt_0j[5]; 
   double effDA_btag_lowpt_0j[5]; 
   double effMC_btag_lowpt_0j_error[5];
@@ -1239,18 +1436,19 @@ void ComputeTopScaleFactors
     effMC_btag_lowpt_0j[i] = fttbar[i]*effMC_btag_lowpt_tt_0j[i]+(1-fttbar[i])*effMC_btag_lowpt_tw_0j[i];
     effDA_btag_lowpt_0j[i] = fttbar[i]*(1-(1-effttDA_btag_lowpt_1j[i])*(1-effttDA_btag_lowpt_1j[i]))+(1-fttbar[i])*effttDA_btag_lowpt_1j[i];
 
-    effMC_btag_lowpt_0j_error[i] = sqrt(sigma_ftop[0]*sigma_ftop[0]*(effMC_btag_lowpt_0j[i]*(1-effMC_btag_lowpt_0j[i]))*(effMC_btag_lowpt_0j[i]*(1-effMC_btag_lowpt_0j[i]))+
-    					effttMC_btag_lowpt_tt_1j_error[i]*effttMC_btag_lowpt_tt_1j_error[i]*(fttbar[i]*(1-2*effMC_btag_lowpt_0j[i])+1)*(fttbar[i]*(1-2*effMC_btag_lowpt_0j[i])+1));
-    effDA_btag_lowpt_0j_error[i] = sqrt(sigma_ftop[1]*sigma_ftop[1]*(effDA_btag_lowpt_0j[i]*(1-effDA_btag_lowpt_0j[i]))*(effDA_btag_lowpt_0j[i]*(1-effDA_btag_lowpt_0j[i]))+
-    					effttDA_btag_lowpt_1j_error[i]*effttDA_btag_lowpt_1j_error[i]*(fttbar[i]*(1-2*effDA_btag_lowpt_0j[i])+1)*(fttbar[i]*(1-2*effDA_btag_lowpt_0j[i])+1));
-    
+    effMC_btag_lowpt_0j_error[i] = sqrt(effttMC_btag_lowpt_1j_error[i]*(fttbar[i]-2*effttMC_btag_lowpt_1j[i]*fttbar[i]+1)*
+					effttMC_btag_lowpt_1j_error[i]*(fttbar[i]-2*effttMC_btag_lowpt_1j[i]*fttbar[i]+1));
+    effDA_btag_lowpt_0j_error[i] = sqrt(sigma_ftop[i]*(effttDA_btag_lowpt_1j[i]-effttDA_btag_lowpt_1j[i]*effttDA_btag_lowpt_1j[i])*
+                                        sigma_ftop[i]*(effttDA_btag_lowpt_1j[i]-effttDA_btag_lowpt_1j[i]*effttDA_btag_lowpt_1j[i])+
+					effttDA_btag_lowpt_1j_error[i]*(fttbar[i]-2*effttDA_btag_lowpt_1j[i]*fttbar[i]+1)*
+					effttDA_btag_lowpt_1j_error[i]*(fttbar[i]-2*effttDA_btag_lowpt_1j[i]*fttbar[i]+1));
   }
 
   printf("top tagging efficiency\n");
   printf("Channel    fttbar        Eff toptag(MC)    Eff toptag(MC extrapolated)       Eff toptab Data \n");
   for(int i=0; i<5; i++) {
-    printf("(%s)       %5.3f,        : %6.3f                 %6.3f +/- %6.3f             %6.3f +/- %6.3f\n",
-           classLabel[i],fttbar[i],
+    printf("(%s)       %5.3f +/- %5.3f,        : %6.3f                 %6.3f +/- %6.3f             %6.3f +/- %6.3f\n",
+           classLabel[i].Data(),fttbar[i],sigma_ftop[i],
            (btag_lowpt_0j_num[1][i]+btag_lowpt_0j_num[2][i])/(btag_lowpt_0j_den[1][i]+btag_lowpt_0j_den[2][i]),
            effMC_btag_lowpt_0j[i],effMC_btag_lowpt_0j_error[i],
            effDA_btag_lowpt_0j[i],effDA_btag_lowpt_0j_error[i]);
@@ -1270,9 +1468,9 @@ void ComputeTopScaleFactors
     
     estimationDA_btag_lowpt_0j_error[i] = sqrt(((btag_lowpt_0j_num[3][i]-btag_lowpt_0j_num[0][i])*effDA_btag_lowpt_0j_error[4]/effDA_btag_lowpt_0j[4]/effDA_btag_lowpt_0j[4])*
                                                ((btag_lowpt_0j_num[3][i]-btag_lowpt_0j_num[0][i])*effDA_btag_lowpt_0j_error[4]/effDA_btag_lowpt_0j[4]/effDA_btag_lowpt_0j[4])+
-                                               (1-estimationDA_btag_lowpt_0j[i])/estimationDA_btag_lowpt_0j[i]*
-                                               (1-estimationDA_btag_lowpt_0j[i])/estimationDA_btag_lowpt_0j[i]*btag_lowpt_0j_num[3][i]+
-                                               TMath::Power(sigma_0f_bck*btag_lowpt_0j_num[0][i]*(1-effMC_btag_lowpt_0j[4])/effMC_btag_lowpt_0j[4],2));
+                                               (1-effDA_btag_lowpt_0j[i])/effDA_btag_lowpt_0j[i]*
+                                               (1-effDA_btag_lowpt_0j[i])/effDA_btag_lowpt_0j[i]*btag_lowpt_0j_num[3][i]+
+                                               TMath::Power(sigma_0f_bck*btag_lowpt_0j_num[0][i]*(1-effDA_btag_lowpt_0j[4])/effDA_btag_lowpt_0j[4],2));
   }
 
   printf("0-Jet Top Background\n");
@@ -1280,7 +1478,7 @@ void ComputeTopScaleFactors
   printf("              Event Count       region (non-top)    non-top-tagged count     estimation         estimation  \n");
   for(int i=0; i<5; i++) {
     printf("(%s)              %3d               %6.3f                %6.3f             %6.3f +/- %6.3f    %6.3f +/- %6.3f\n",
-           classLabel[i],
+           classLabel[i].Data(),
            (int)btag_lowpt_0j_num[3][i],btag_lowpt_0j_num[0][i],N_top_expected_0j[i],
            estimationMC_btag_lowpt_0j[i],estimationMC_btag_lowpt_0j_error[i],
            estimationDA_btag_lowpt_0j[i],estimationDA_btag_lowpt_0j_error[i]);

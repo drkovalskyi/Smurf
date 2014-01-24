@@ -1,0 +1,9 @@
+<flags CXXFLAGS="-I$(CMSSW_BASE)/src/Higgs/Higgs_CS_and_Width/include/"/>
+
+
+<use name="root"/>
+<use name="rootmath"/>
+
+<export>
+  <lib   name="1"/>
+</export>
