@@ -139,7 +139,7 @@ float LeptonScaleLookup::GetExpectedTriggerEfficiency(float eta1, float pt1, flo
         eff_dbl_2_trailingleg = GetEfficiency(eta2, pt2, h2_cross_m_TrailingLeg_);
     }
     else {
-        std::cout << "[LeptonScaleLookup::GetExpectedTriggerEfficiency] ERROR: Invalid flavor combination!" << std::endl;
+        //std::cout << "[LeptonScaleLookup::GetExpectedTriggerEfficiency] ERROR: Invalid flavor combination!" << std::endl;
         return 0.0;
     }
 
