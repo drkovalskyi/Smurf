@@ -1,4 +1,4 @@
-Double_t HiggsSignalQCDScaleKappa(string nuisanceName, Int_t mH, Int_t jetBin) {
+Double_t HiggsSignalQCDScaleKappa(TString nuisanceName, Int_t mH, Int_t jetBin) {
     if(mH == 110) mH = 115;
     if(mH == 118) mH = 120;
     if(mH == 122) mH = 120;
@@ -24,15 +24,15 @@ Double_t HiggsSignalQCDScaleKappa(string nuisanceName, Int_t mH, Int_t jetBin) {
         if (mH == mHiggs[m]) massIndex = m;
     }
     assert(massIndex >= 0);
-    if (nuisanceName == "QCDscale_ggH" && jetBin == 0) {
+    if (nuisanceName.Data() == "QCDscale_ggH" && jetBin == 0) {
         return kappa0_ggH[massIndex];
-    } else if (nuisanceName == "QCDscale_ggH1in" && jetBin == 0) {
+    } else if (nuisanceName.Data() == "QCDscale_ggH1in" && jetBin == 0) {
         return kappa0_ggH1in[massIndex];
-    } else if (nuisanceName == "QCDscale_ggH1in" && jetBin == 1) {
+    } else if (nuisanceName.Data() == "QCDscale_ggH1in" && jetBin == 1) {
         return kappa1_ggH1in[massIndex];
-    } else if (nuisanceName == "QCDscale_ggH2in" && jetBin == 1) {
+    } else if (nuisanceName.Data() == "QCDscale_ggH2in" && jetBin == 1) {
         return kappa1_ggH2in[massIndex];
-    } else if (nuisanceName == "QCDscale_ggH2in" && jetBin == 2) {
+    } else if (nuisanceName.Data() == "QCDscale_ggH2in" && jetBin == 2) {
         return kappa2_ggH2in[massIndex];
     } else { 
         return 1.0;
