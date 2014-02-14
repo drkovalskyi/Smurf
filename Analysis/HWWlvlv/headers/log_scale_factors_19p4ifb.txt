@@ -1,5 +1,5 @@
-Script started on Sat 01 Feb 2014 11:08:17 AM CET
-]0;ceballos@dtmit02:~/releases/CMSSW_5_3_14/src[dtmit02] /home/ceballos/releases/CMSSW_5_3_14/src > /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/scripts/computeScaleFactors2011.sh 0;exit;[1P[1P[1P[1P
+Script started on Fri Feb 14 09:37:30 2014
+]0;ceballos@dtmit02:~/releases/CMSSW_5_3_14/src[dtmit02] /home/ceballos/releases/CMSSW_5_3_14/src > Smurf/Analysis/HWWlvlv/scripts/computeScaleFactors.sh 0;exit;
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 [0mroot [0] 
@@ -620,16 +620,24 @@ Processing /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBk
 In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
                  from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
 /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C: In function 'void ComputeTopScaleFactors(Int_t, TString, TString)':
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1500:246: warning: unknown conversion type character ')' in format [-Wformat]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:924:37: warning: variable 'effttMC_btag_central_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:925:100: warning: variable 'effttMC_btag_central_tw_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:964:38: warning: variable 'effttMC_btag_central_All_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:965:103: warning: variable 'effttMC_btag_central_All_tw_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: unknown conversion type character '&' in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:927:37: warning: variable 'effttMC_btag_central_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:928:100: warning: variable 'effttMC_btag_central_tw_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:967:38: warning: variable 'effttMC_btag_central_All_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:968:103: warning: variable 'effttMC_btag_central_All_tw_2j_error' set but not used [-Wunused-but-set-variable]
 In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
                  from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1499:55: warning: 'NonTaggedTopMC_forPrint' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1505:142: warning: 'NonTaggedTopDA_error_forPrint' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1505:143: warning: 'NonTaggedTopDA_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1507:55: warning: 'NonTaggedTopMC_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1513:142: warning: 'NonTaggedTopDA_error_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1513:143: warning: 'NonTaggedTopDA_forPrint' may be used uninitialized in this function [-Wuninitialized]
 /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h: At global scope:
 /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:20:17: warning: 'Double_t DYBkgScaleFactorKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
 --- reading event     0 of 2342393
@@ -919,11 +927,11 @@ Channel    top-tagged region    bkgs top-tagged          MC tt+tW              M
  Sample & 0-jet & 1-jet & 2-jet \\
 \hline
 estimated top events in simulation  & 668.8 $\pm$   7.9 &  1789.4 $\pm$  12.5 &   0.0 $\pm$   0.0 \\
-tagging efficiency     (\%)         & 49.6 $\pm$  2.2 & 66.6 $\pm$  0.5 & - \\ 
+tagging efficiency in \% & 49.6 $\pm$  2.2 & 66.6 $\pm$  0.5 & - \\ 
 data events in control region       &  994 & 4472 & - \\ 
 background events in control region & 258.0 $\pm$  38.7 &  216.3 $\pm$  43.3 & - \\ 
 top estimation in data              &  747.5 $\pm$  90.9 &  1929.7 $\pm$  53.9 &   0.0 $\pm$   0.0 \\
-data/simulation scale factor        &   1.12 $\pm$  0.14 &   1.08 $\pm$  0.03 &   nan $\pm$  0.00 \\
+data/simulation scale factor        &   1.12 $\pm$  0.14 &   1.08 $\pm$  0.03 &  1.00 $\pm$  1.00 \\
 \hline
 \end{tabular}
 }
@@ -1552,16 +1560,24 @@ Processing /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBk
 In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
                  from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
 /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C: In function 'void ComputeTopScaleFactors(Int_t, TString, TString)':
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1500:246: warning: unknown conversion type character ')' in format [-Wformat]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:924:37: warning: variable 'effttMC_btag_central_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:925:100: warning: variable 'effttMC_btag_central_tw_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:964:38: warning: variable 'effttMC_btag_central_All_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:965:103: warning: variable 'effttMC_btag_central_All_tw_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: unknown conversion type character '&' in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:927:37: warning: variable 'effttMC_btag_central_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:928:100: warning: variable 'effttMC_btag_central_tw_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:967:38: warning: variable 'effttMC_btag_central_All_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:968:103: warning: variable 'effttMC_btag_central_All_tw_2j_error' set but not used [-Wunused-but-set-variable]
 In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
                  from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1505:142: warning: 'NonTaggedTopDA_error_forPrint' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1505:143: warning: 'NonTaggedTopDA_forPrint' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1499:55: warning: 'NonTaggedTopMC_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1513:142: warning: 'NonTaggedTopDA_error_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1513:143: warning: 'NonTaggedTopDA_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1507:55: warning: 'NonTaggedTopMC_forPrint' may be used uninitialized in this function [-Wuninitialized]
 /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h: At global scope:
 /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:20:17: warning: 'Double_t DYBkgScaleFactorKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
 --- reading event     0 of 2342393
@@ -2874,7 +2890,7 @@ Channel    top-tagged region    bkgs top-tagged          MC tt+tW              M
  Sample & 0-jet & 1-jet & 2-jet \\
 \hline
 estimated top events in simulation  & 801.2 $\pm$   8.5 &  2151.7 $\pm$  13.6 &  51.6 $\pm$   2.1 \\
-tagging efficiency     (\%)         & 49.4 $\pm$  2.2 & 66.6 $\pm$  0.5 & - \\ 
+tagging efficiency in \% & 49.4 $\pm$  2.2 & 66.6 $\pm$  0.5 & - \\ 
 data events in control region       & 1281 & 5394 & - \\ 
 background events in control region & 416.0 $\pm$  62.4 &  301.7 $\pm$  60.3 & - \\ 
 top estimation in data              &  884.6 $\pm$ 121.5 &  2321.7 $\pm$  59.4 &  56.0 $\pm$   8.8 \\
@@ -3744,15 +3760,6 @@ Info in <ACLiC>: unmodified script has already been compiled and loaded
 [0mroot [0] 
 Processing /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+(3)...
 [0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C.so
-In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:23:0,
-                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34,
-                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/factors.h: In function 'double topReweight(int, int, double)':
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/factors.h:40:1: warning: no return statement in function returning non-void [-Wreturn-type]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/factors.h: At global scope:
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/factors.h:38:8: warning: unused parameter 'year' [-Wunused-parameter]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/factors.h:38:8: warning: unused parameter 'njets' [-Wunused-parameter]
-/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/factors.h:38:8: warning: unused parameter 'dphi' [-Wunused-parameter]
 In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
                  from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
 /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C: In function 'void ComputeDYBkgScaleFactor(Int_t, Bool_t, Int_t, Double_t, Double_t)':
@@ -4362,4 +4369,4 @@ Error: Symbol null is not defined in current scope  :0:
 Error: Symbol null is not defined in current scope  :0:
 exit
 
-Script done on Sat 01 Feb 2014 11:43:03 AM CET
+Script done on Fri Feb 14 10:12:56 2014

@@ -90,12 +90,11 @@ data/gghww${MH}_minlo.root
 data/dyllpt100.root
 data/bbww_8tev.root
 data/bbww_14tev.root
-data/wwss_qed_2_qcd_99_ls0ls1.root
-data/wwss_qed_4_qcd_99_ls0ls1.root
-data/wwss_qed_2_qcd_99_lt012.root
+data/wwss_qed_2_qcd_99_matching.root
+data/wwss_qed_2_qcd_99_no_matching.root
 data/wwss_qed_4_qcd_99_lt012.root
-data/wwss_qed_2_qcd_99_lm0123.root
 data/wwss_qed_4_qcd_99_lm0123.root
+data/wwss_qed_4_qcd_99_ls0ls1.root
 data/wwss_ph_wh.root
 data/wwss_ph_noh.root
 data/zh105inv.root
@@ -110,6 +109,7 @@ data/backgroundA.root
 data/backgroundB.root
 data/backgroundC.root
 data/backgroundD.root
+data/backgroundE.root
 data/hww_syst.root
 data/data_2fake.root
 data/data_llg.root
@@ -127,8 +127,12 @@ data/lgamma90.root
 data/qqww_powheg.root
 data/qqww.root
 data/training.root
+data/ttbar_sherpa.root
 data/ttbar_powheg.root
-data/ttbar.root
+data/ttbar_mg.root
+data/ttbar_madspin.root
+data/ttbar_mcnlo.root
+data/ttbar_amcnlo.root
 data/ttw_amcnlo.root
 data/ttw_mg.root
 data/tw.root

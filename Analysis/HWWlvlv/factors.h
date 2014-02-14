@@ -36,17 +36,17 @@ double weightEWKCorr(float pt, int type);
 double topReweight(int njets, double dphi);
 
 double topReweight(int njets, double dphi){
-  double func0j[3] = {+1.09815,-0.000971210,-1.36557e-06};
-  double func1j[3] = {+1.05545,+0.000416522,-9.49518e-06};
-  double func2j[3] = {+1.04591,-0.000187093,-3.46583e-06};
-  double func[3];
+  double func0j[2] = {+1.07815,-0.000971210};
+  double func1j[2] = {+1.05724,-0.000584877};
+  double func2j[2] = {+1.04543,-0.000475304};
+  double func[2];
 
-  if     (njets == 0) for(int i=0; i<3; i++) func[i] = func0j[i];
-  else if(njets == 1) for(int i=0; i<3; i++) func[i] = func1j[i];
-  else if(njets >= 2) for(int i=0; i<3; i++) func[i] = func2j[i];
+  if     (njets == 0) for(int i=0; i<2; i++) func[i] = func0j[i];
+  else if(njets == 1) for(int i=0; i<2; i++) func[i] = func1j[i];
+  else if(njets >= 2) for(int i=0; i<2; i++) func[i] = func2j[i];
   else assert(0);
 
-  return (func[0] + func[1]*dphi + func[2]*dphi*dphi);
+  return (func[0] + func[1]*dphi);
   
 }
 
