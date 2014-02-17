@@ -1,5 +1,5 @@
-Script started on Fri Feb 14 09:37:30 2014
-]0;ceballos@dtmit02:~/releases/CMSSW_5_3_14/src[dtmit02] /home/ceballos/releases/CMSSW_5_3_14/src > Smurf/Analysis/HWWlvlv/scripts/computeScaleFactors.sh 0;exit;
+Script started on Mon 17 Feb 2014 03:17:52 PM CET
+]0;ceballos@dtmit07:~/releases/CMSSW_5_3_14/src[dtmit07] /home/ceballos/releases/CMSSW_5_3_14/src > exitls -rlt *backgrou*exit[K[KSOAPsh.pl [K[K[K[K[K[K[K[K[K[KSmurf/Analysis/HWWlvlv/scripts/computeScaleFactors.sh -[K0'[K;exit;
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 [0mroot [0] 
@@ -4369,4 +4369,4 @@ Error: Symbol null is not defined in current scope  :0:
 Error: Symbol null is not defined in current scope  :0:
 exit
 
-Script done on Fri Feb 14 10:12:56 2014
+Script done on Mon 17 Feb 2014 03:56:49 PM CET

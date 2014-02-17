@@ -4933,7 +4933,7 @@ void PlotHiggsRes2011
     XS_QCDscale_ggH[0] = HiggsSignalQCDScaleKappa("QCDscale_ggH",mH,nJetsType);
     XS_QCDscale_ggH[1] = HiggsSignalQCDScaleKappa("QCDscale_ggH1in",mH,nJetsType);
     XS_QCDscale_ggH[2] = HiggsSignalQCDScaleKappa("QCDscale_ggH2in",mH,nJetsType);
-    
+
     double XS_PDF_VH = 1.05; 
     double XS_QCDscale_qqH = 1.01; double XS_QCDscale_VH = 1.02; 
     if(isFermioPhobic == true) {XS_QCDscale_qqH += 0.05; XS_QCDscale_VH += 0.05; XS_PDF_VH += 0.00;}

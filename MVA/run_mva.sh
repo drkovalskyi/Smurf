@@ -109,8 +109,8 @@ data/backgroundA.root
 data/backgroundB.root
 data/backgroundC.root
 data/backgroundD.root
-data/backgroundE.root
 data/hww_syst.root
+data/hww_syst_sherpa.root
 data/data_2fake.root
 data/data_llg.root
 data/data.root
