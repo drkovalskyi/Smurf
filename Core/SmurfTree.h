@@ -21,36 +21,15 @@
 // Ntuple content:
 //  * event info: run, lumi, event, nVertex, weight (for MC), event type (data, ttbar, wjets etc)
 //  * hypothesis type (leading, trailing): ee, em, me, mm
-//  * lepton1 (leading)
-//  * lepton2 (sub-leading)
-//  * jet1 (leading)
-//  * jet2 (sub-leading)
-//  * jetEventType (0,1,VBF)
+//  * lepton1
+//  * lepton2
+//  * lepton3
+//  * jet1
+//  * jet2
+//  * jet3
+//  * jet4
 //  * nJets
 //  * dilepton p4
-//  * met
-//  * metPhi
-//  * sumEt
-//  * projectedMet
-//  * MT - transverse higgs mass
-//  * MT1 - transverse mass of lepton1 and met
-//  * MT2 - transverse mass of lepton2 and met
-//  * dPhi - delta phi between leptons
-//  * dR -   delta R   between leptons   
-//  * dPhiLep1Jet1 - delta phi between leading jet and leading lepton
-//  * dRLep1Jet1 -   delta R   between leading jet and leading lepton
-//  * dPhiLep2Jet1 - delta phi between leading jet and sub-leading lepton
-//  * dRLep2Jet1 -   delta R   between leading jet and sub-leading lepton
-//  * dPhiLep1Met - delta phi between leading lepton and MET
-//  * dPhiLep2Met - delta phi between sub-leading lepton and MET
-//  * dPhiDiLepMet - delta phi between di-lepton and MET
-//  * dPhiDiLepJet1 - delta phi between di-lepton and leading jet
-//  * mc info
-//    * lep1 mc_id
-//    * lep2 mc_id
-//    * jet1 hard-scatter match (flavor)
-//    * jet2 hard-scatter match (flavor)
-//    * gen met
 //
 // Lepton variables:
 //  * p4
@@ -217,10 +196,6 @@ class SmurfTree {
   unsigned int   nvtx_;
   unsigned int   cuts_;
   float          scale1fb_;
-  float          CHSMet_;
-  float          NHSMet_;
-  float          CHSMetPhi_;
-  float          NHSMetPhi_;
   float          met_;
   float          metPhi_;
   float          metMVA_;
@@ -228,8 +203,6 @@ class SmurfTree {
   float          pmetMVA_;
   float          sumet_;
   float          metSig_;
-  float          genmet_;
-  float          genmetPhi_;
   Type           type_;
   DataType       dstype_;
   LorentzVector  lep1_;
@@ -243,7 +216,6 @@ class SmurfTree {
   LorentzVector  jet1_;
   float          jet1Btag_;
   float          jet1ProbBtag_;
-  float          jet1Dz_;
   LorentzVector  jet2_;
   float          jet2Btag_;
   float          jet2ProbBtag_;
@@ -259,10 +231,6 @@ class SmurfTree {
   float          mt2_;
   float          dPhi_;
   float          dR_;
-  float          dPhiLep1Jet1_;
-  float          dRLep1Jet1_;
-  float          dPhiLep2Jet1_;
-  float          dRLep2Jet1_;
   float          dPhiLep1MET_;
   float          dPhiLep2MET_;
   float          dPhiDiLepMET_;
@@ -292,8 +260,6 @@ class SmurfTree {
   float          lep3DetEta_;
   int            lep3McId_;
   int            lep3MotherMcId_;
-  float          dPhiLep3Jet1_;
-  float          dRLep3Jet1_;
   float          dPhiLep3MET_;
   float          mt3_;
   float          jetLowBtag_;
@@ -318,6 +284,17 @@ class SmurfTree {
   float          npuMinusOne_;
   std::vector<double> lheWeights_;
 
+  LorentzVector  genlep1_;
+  LorentzVector  genlep2_;
+  LorentzVector  genlep3_;
+  LorentzVector  genjet1_;
+  LorentzVector  genjet2_;
+  LorentzVector  genjet3_;
+  LorentzVector  genmet_;
+  int            genlep1McId_;
+  int            genlep2McId_;
+  int            genlep3McId_;
+
   float          auxVar0_;
 
  public:
@@ -331,7 +308,9 @@ class SmurfTree {
   /// default constructor  
   SmurfTree():info_("info","Smurf ntuple"),
     lepPtr1_(&lep1_),lepPtr2_(&lep2_),jetPtr1_(&jet1_),jetPtr2_(&jet2_),dilepPtr_(&dilep_),quadlepPtr_(&quadlep_),
-    lepPtr3_(&lep3_),                 jetPtr3_(&jet3_),jetPtr4_(&jet4_),lheWeightsPtr_(&lheWeights_){}
+    lepPtr3_(&lep3_),                 jetPtr3_(&jet3_),jetPtr4_(&jet4_),lheWeightsPtr_(&lheWeights_),
+    genlepPtr1_(&genlep1_),genlepPtr2_(&genlep2_),genlepPtr3_(&genlep3_),
+    genjetPtr1_(&genjet1_),genjetPtr2_(&genjet2_),genjetPtr3_(&genjet3_),genmetPtr_(&genmet_){}
   /// default destructor
   ~SmurfTree(){ 
     if (f_) f_->Close();  
@@ -377,10 +356,6 @@ class SmurfTree {
     tree_->Branch("nvtx"         , &nvtx_         ,   "nvtx/i");
     tree_->Branch("cuts"         , &cuts_         ,   "cuts/i");
     tree_->Branch("scale1fb"     , &scale1fb_     ,   "scale1fb/F");
-    tree_->Branch("CHSMet"       , &CHSMet_	  ,   "CHSMet/F");
-    tree_->Branch("NHSMet"       , &NHSMet_	  ,   "NHSMet/F");
-    tree_->Branch("CHSMetPhi"    , &CHSMetPhi_    ,   "CHSMetPhi/F");
-    tree_->Branch("NHSMetPhi"    , &NHSMetPhi_    ,   "NHSMetPhi/F");
     tree_->Branch("met"          , &met_          ,   "met/F");
     tree_->Branch("metPhi"       , &metPhi_       ,   "metPhi/F");
     tree_->Branch("metMVA"       , &metMVA_	  ,   "metMVA/F");
@@ -388,8 +363,6 @@ class SmurfTree {
     tree_->Branch("pmetMVA"      , &pmetMVA_      ,   "pmetMVA/F");
     tree_->Branch("sumet"        , &sumet_        ,   "sumet/F");
     tree_->Branch("metSig"       , &metSig_       ,   "metSig/F");
-    tree_->Branch("genmet"       , &genmet_       ,   "genmet/F");
-    tree_->Branch("genmetPhi"    , &genmetPhi_    ,   "genmetPhi/F");
     tree_->Branch("type"         , &type_         ,   "type/I");
     tree_->Branch("dstype"       , &dstype_       ,   "dstype/I");
     tree_->Branch("lep1"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &lepPtr1_);
@@ -403,7 +376,6 @@ class SmurfTree {
     tree_->Branch("jet1"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr1_);
     tree_->Branch("jet1Btag"     , &jet1Btag_     ,   "jet1Btag/F");
     tree_->Branch("jet1ProbBtag" , &jet1ProbBtag_ ,   "jet1ProbBtag/F");
-    tree_->Branch("jet1Dz"       , &jet1Dz_       ,   "jet1Dz/F");
     tree_->Branch("jet2"         , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &jetPtr2_);
     tree_->Branch("jet2Btag"     , &jet2Btag_     ,   "jet2Btag/F");
     tree_->Branch("jet2ProbBtag" , &jet2ProbBtag_ ,   "jet2ProbBtag/F");
@@ -419,10 +391,6 @@ class SmurfTree {
     tree_->Branch("mt2"          , &mt2_          ,   "mt2/F");
     tree_->Branch("dPhi"         , &dPhi_         ,   "dPhi/F");
     tree_->Branch("dR"           , &dR_           ,   "dR/F");
-    tree_->Branch("dPhiLep1Jet1" , &dPhiLep1Jet1_ ,   "dPhiLep1Jet1/F");
-    tree_->Branch("dRLep1Jet1"   , &dRLep1Jet1_   ,    "dRLep1Jet1/F");
-    tree_->Branch("dPhiLep2Jet1" , &dPhiLep2Jet1_ ,   "dPhiLep2Jet1/F");
-    tree_->Branch("dRLep2Jet1"   , &dRLep2Jet1_   ,   "dRLep2Jet1/F");
     tree_->Branch("dPhiDiLepMET" , &dPhiDiLepMET_ ,   "dPhiDiLepMET/F");
     tree_->Branch("dPhiLep1MET"  , &dPhiLep1MET_  ,   "dPhiLep1MET/F");
     tree_->Branch("dPhiLep2MET"  , &dPhiLep2MET_  ,   "dPhiLep2MET/F");
@@ -459,8 +427,6 @@ class SmurfTree {
     tree_->Branch("lep3MotherMcId",&lep3MotherMcId_,"lep3MotherMcId/I");
     tree_->Branch("jet3McId",      &jet3McId_,      "jet3McId/I");
     tree_->Branch("jet4McId",      &jet4McId_,      "jet4McId/I");
-    tree_->Branch("dPhiLep3Jet1",  &dPhiLep3Jet1_,  "dPhiLep3Jet1/F");
-    tree_->Branch("dRLep3Jet1",    &dRLep3Jet1_,    "dRLep3Jet1/F");
     tree_->Branch("dPhiLep3MET",   &dPhiLep3MET_,   "dPhiLep3MET/F");
     tree_->Branch("mt3",           &mt3_,           "mt3/F");
     tree_->Branch("jetLowBtag",    &jetLowBtag_,    "jetLowBtag/F");
@@ -477,7 +443,18 @@ class SmurfTree {
     tree_->Branch("npuMinusOne",   &npuMinusOne_,   "npuMinusOne/F");
     tree_->Branch("lheWeights",    "std::vector<double>",   &lheWeightsPtr_);
 
-    tree_->Branch("auxVar0",	   &auxVar0_	  ,   "auxVar0/F");
+    tree_->Branch("genlep1", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &genlepPtr1_);
+    tree_->Branch("genlep2", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &genlepPtr2_);
+    tree_->Branch("genlep3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &genlepPtr3_);
+    tree_->Branch("genjet1", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &genjetPtr1_);
+    tree_->Branch("genjet2", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &genjetPtr2_);
+    tree_->Branch("genjet3", "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &genjetPtr3_);
+    tree_->Branch("genmet" , "ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> >", &genmetPtr_);
+    tree_->Branch("genlep1McId",   &genlep1McId_,   "genlep1McId/I");
+    tree_->Branch("genlep2McId",   &genlep2McId_,   "genlep2McId/I");
+    tree_->Branch("genlep3McId",   &genlep3McId_,   "genlep3McId/I");
+
+    tree_->Branch("auxVar0",	   &auxVar0_,       "auxVar0/F");
   }
 
   // initialze a SmurfTree
@@ -497,10 +474,6 @@ class SmurfTree {
     tree_->SetBranchAddress("nvtx",          &nvtx_);
     tree_->SetBranchAddress("cuts",          &cuts_);
     tree_->SetBranchAddress("scale1fb",      &scale1fb_);
-    tree_->SetBranchAddress("CHSMet",	     &CHSMet_);
-    tree_->SetBranchAddress("NHSMet",	     &NHSMet_);
-    tree_->SetBranchAddress("CHSMetPhi",     &CHSMetPhi_);
-    tree_->SetBranchAddress("NHSMetPhi",     &NHSMetPhi_);
     tree_->SetBranchAddress("met",           &met_);
     tree_->SetBranchAddress("metPhi",        &metPhi_);
     tree_->SetBranchAddress("metMVA",        &metMVA_);
@@ -508,8 +481,6 @@ class SmurfTree {
     tree_->SetBranchAddress("pmetMVA",       &pmetMVA_);
     tree_->SetBranchAddress("sumet",         &sumet_);
     tree_->SetBranchAddress("metSig",        &metSig_);
-    tree_->SetBranchAddress("genmet",        &genmet_);
-    tree_->SetBranchAddress("genmetPhi",     &genmetPhi_);
     tree_->SetBranchAddress("type",          &type_);
     tree_->SetBranchAddress("dstype",        &dstype_);
     tree_->SetBranchAddress("lep1",          &lepPtr1_);
@@ -523,7 +494,6 @@ class SmurfTree {
     tree_->SetBranchAddress("jet1",          &jetPtr1_);
     tree_->SetBranchAddress("jet1Btag",      &jet1Btag_);
     tree_->SetBranchAddress("jet1ProbBtag",  &jet1ProbBtag_);
-    tree_->SetBranchAddress("jet1Dz",        &jet1Dz_);
     tree_->SetBranchAddress("jet2",          &jetPtr2_);
     tree_->SetBranchAddress("jet2Btag",      &jet2Btag_);
     tree_->SetBranchAddress("jet2ProbBtag",  &jet2ProbBtag_);
@@ -539,10 +509,6 @@ class SmurfTree {
     tree_->SetBranchAddress("mt2",           &mt2_);
     tree_->SetBranchAddress("dPhi",          &dPhi_);
     tree_->SetBranchAddress("dR",            &dR_);
-    tree_->SetBranchAddress("dPhiLep1Jet1",  &dPhiLep1Jet1_);
-    tree_->SetBranchAddress("dRLep1Jet1",    &dRLep1Jet1_);
-    tree_->SetBranchAddress("dPhiLep2Jet1",  &dPhiLep2Jet1_);
-    tree_->SetBranchAddress("dRLep2Jet1",    &dRLep2Jet1_);
     tree_->SetBranchAddress("dPhiDiLepMET",  &dPhiDiLepMET_);
     tree_->SetBranchAddress("dPhiLep1MET",   &dPhiLep1MET_);
     tree_->SetBranchAddress("dPhiLep2MET",   &dPhiLep2MET_);
@@ -579,8 +545,6 @@ class SmurfTree {
     tree_->SetBranchAddress("lep3DetEta",    &lep3DetEta_);
     tree_->SetBranchAddress("lep3McId",      &lep3McId_);
     tree_->SetBranchAddress("lep3MotherMcId",&lep3MotherMcId_);
-    tree_->SetBranchAddress("dPhiLep3Jet1",  &dPhiLep3Jet1_);
-    tree_->SetBranchAddress("dRLep3Jet1",    &dRLep3Jet1_);
     tree_->SetBranchAddress("dPhiLep3MET",   &dPhiLep3MET_);
     tree_->SetBranchAddress("mt3",	     &mt3_);
     tree_->SetBranchAddress("jetLowBtag",    &jetLowBtag_);
@@ -596,6 +560,17 @@ class SmurfTree {
     tree_->SetBranchAddress("npuPlusOne",    &npuPlusOne_);
     tree_->SetBranchAddress("npuMinusOne",   &npuMinusOne_);
     tree_->SetBranchAddress("lheWeights",    &lheWeightsPtr_);
+
+    tree_->SetBranchAddress("genlep1",  	&genlepPtr1_);
+    tree_->SetBranchAddress("genlep2",  	&genlepPtr2_);
+    tree_->SetBranchAddress("genlep3",  	&genlepPtr3_);
+    tree_->SetBranchAddress("genjet1",  	&genjetPtr1_);
+    tree_->SetBranchAddress("genjet2",  	&genjetPtr2_);
+    tree_->SetBranchAddress("genjet3",  	&genjetPtr3_);
+    tree_->SetBranchAddress("genmet",           &genmetPtr_ );
+    tree_->SetBranchAddress("genlep1McId",      &genlep1McId_);
+    tree_->SetBranchAddress("genlep2McId",      &genlep2McId_);
+    tree_->SetBranchAddress("genlep3McId",      &genlep3McId_);
 
     tree_->SetBranchAddress("auxVar0",       &auxVar0_);
 
@@ -684,6 +659,13 @@ class SmurfTree {
   LorentzVector* jetPtr3_;
   LorentzVector* jetPtr4_;
   std::vector<double>* lheWeightsPtr_;
+  LorentzVector* genlepPtr1_;
+  LorentzVector* genlepPtr2_;
+  LorentzVector* genlepPtr3_;
+  LorentzVector* genjetPtr1_;
+  LorentzVector* genjetPtr2_;
+  LorentzVector* genjetPtr3_;
+  LorentzVector* genmetPtr_;
   
 }; 
 
@@ -697,16 +679,10 @@ SmurfTree::InitVariables(){
     variables_.push_back(std::string("lumi"          ));
     variables_.push_back(std::string("nvtx"          ));
     variables_.push_back(std::string("scale1fb"      ));
-    variables_.push_back(std::string("CHSMet"	     ));
-    variables_.push_back(std::string("NHSMet"	     ));
-    variables_.push_back(std::string("CHSMetPhi"     ));
-    variables_.push_back(std::string("NHSMetPhi"     ));
     variables_.push_back(std::string("met"           ));
     variables_.push_back(std::string("metPhi"        ));
     variables_.push_back(std::string("sumet"         ));
     variables_.push_back(std::string("metSig"        ));
-    variables_.push_back(std::string("genmet"        ));
-    variables_.push_back(std::string("genmetPhi"     ));
     variables_.push_back(std::string("type"          ));
     variables_.push_back(std::string("dstype"        ));
     variables_.push_back(std::string("lq1"           ));
@@ -730,10 +706,6 @@ SmurfTree::InitVariables(){
     variables_.push_back(std::string("mt2"           ));
     variables_.push_back(std::string("dPhi"          ));
     variables_.push_back(std::string("dR"            ));
-    variables_.push_back(std::string("dPhiLep1Jet1"  ));
-    variables_.push_back(std::string("dRLep1Jet1"    ));
-    variables_.push_back(std::string("dPhiLep2Jet1"  ));
-    variables_.push_back(std::string("dRLep2Jet1"    ));
     variables_.push_back(std::string("dPhiDiLepMET"  ));
     variables_.push_back(std::string("dPhiLep1MET"   ));
     variables_.push_back(std::string("dPhiLep2MET"   ));
@@ -752,10 +724,6 @@ SmurfTree::InitVariables(){
   nvtx_          = 0;
   cuts_          = 0;
   scale1fb_      = 0;
-  CHSMet_        = -999.;
-  NHSMet_        = -999.;
-  CHSMetPhi_     = -999.;
-  NHSMetPhi_     = -999.;
   met_           = -999.;
   metPhi_        = -999.;
   metMVA_        = -999.;
@@ -763,8 +731,6 @@ SmurfTree::InitVariables(){
   pmetMVA_       = -999.;
   sumet_         = -999.;
   metSig_        = -999.;
-  genmet_        = 0;
-  genmetPhi_     = 0;
   type_          = mm;
   dstype_        = data;
   lq1_           = 0;
@@ -775,7 +741,6 @@ SmurfTree::InitVariables(){
   lmva2_         = 0.0;
   jet1Btag_      = -999.;
   jet1ProbBtag_  = -999.;
-  jet1Dz_        = 0.;
   jet2Btag_      = -999.;
   jet2ProbBtag_  = -999.;
   njets_         = 0;
@@ -788,10 +753,6 @@ SmurfTree::InitVariables(){
   mt2_           = -999.;
   dPhi_          = -999.;
   dR_            = -999.;
-  dPhiLep1Jet1_  = -999.;
-  dRLep1Jet1_    = -999.;
-  dPhiLep2Jet1_  = -999.;
-  dRLep2Jet1_    = -999.;
   dPhiLep1MET_   = -999.;
   dPhiLep2MET_   = -999.;
   dPhiDiLepMET_  = -999.;
@@ -826,8 +787,6 @@ SmurfTree::InitVariables(){
   lep3DetEta_    = -999.;
   lep3McId_	 = 0;
   lep3MotherMcId_= 0;
-  dPhiLep3Jet1_  = -999.;
-  dRLep3Jet1_	 = -999.;
   dPhiLep3MET_   = -999.;
   mt3_  	 = -999.;
   jetLowBtag_	 = -999.;
@@ -852,6 +811,17 @@ SmurfTree::InitVariables(){
   npuMinusOne_   = -999.;
   lheWeights_.clear();
 
+  genlep1_       = LorentzVector();
+  genlep2_       = LorentzVector();
+  genlep3_       = LorentzVector();
+  genjet1_       = LorentzVector();
+  genjet2_       = LorentzVector();
+  genjet3_       = LorentzVector();
+  genmet_        = LorentzVector();
+  genlep1McId_   = 0;
+  genlep2McId_   = 0;
+  genlep3McId_   = 0;
+
   auxVar0_	 = -999.;
 }
 
@@ -864,10 +834,6 @@ SmurfTree::Get(std::string value)
   if(value=="nvtx"          ) { return this->nvtx_;	     }
   if(value=="cuts"          ) { return this->cuts_;	     }
   if(value=="scale1fb"      ) { return this->scale1fb_;      }
-  if(value=="CHSMet"	    ) { return this->CHSMet_; 	     }
-  if(value=="NHSMet"	    ) { return this->NHSMet_; 	     }
-  if(value=="CHSMetPhi"	    ) { return this->CHSMetPhi_;     }
-  if(value=="NHSMetPhi"	    ) { return this->NHSMetPhi_;     }
   if(value=="met"           ) { return this->met_;	     }
   if(value=="metPhi"        ) { return this->metPhi_;	     }
   if(value=="metMVA"        ) { return this->metMVA_;        }
@@ -875,8 +841,6 @@ SmurfTree::Get(std::string value)
   if(value=="pmetMVA"       ) { return this->pmetMVA_;       }
   if(value=="sumet"         ) { return this->sumet_;	     }
   if(value=="metSig"        ) { return this->metSig_;	     }
-  if(value=="genmet"        ) { return this->genmet_;	     }
-  if(value=="genmetPhi"     ) { return this->genmetPhi_;     }
   if(value=="type"          ) { return this->type_;	     }
   if(value=="dstype"        ) { return this->dstype_;	     }
   if(value=="lq1"           ) { return this->lq1_;	     }
@@ -887,7 +851,6 @@ SmurfTree::Get(std::string value)
   if(value=="lmva2"         ) { return this->lmva2_;	     }
   if(value=="jet1Btag"      ) { return this->jet1Btag_;      }
   if(value=="jet1ProbBtag"  ) { return this->jet1ProbBtag_;  }
-  if(value=="jet1Dz"        ) { return this->jet1Dz_;        }
   if(value=="jet2Btag"      ) { return this->jet2Btag_;      }
   if(value=="jet2ProbBtag"  ) { return this->jet2ProbBtag_;  }
   if(value=="njets"         ) { return this->njets_;	     }
@@ -900,10 +863,6 @@ SmurfTree::Get(std::string value)
   if(value=="mt2"           ) { return this->mt2_;	     }
   if(value=="dPhi"          ) { return this->dPhi_;	     }
   if(value=="dR"            ) { return this->dR_;	     }
-  if(value=="dPhiLep1Jet1"  ) { return this->dPhiLep1Jet1_;  }
-  if(value=="dRLep1Jet1"    ) { return this->dRLep1Jet1_;    }
-  if(value=="dPhiLep2Jet1"  ) { return this->dPhiLep2Jet1_;  }
-  if(value=="dRLep2Jet1"    ) { return this->dRLep2Jet1_;    }
   if(value=="dPhiDiLepMET"  ) { return this->dPhiDiLepMET_;  }
   if(value=="dPhiLep1MET"   ) { return this->dPhiLep1MET_;   }
   if(value=="dPhiLep2MET"   ) { return this->dPhiLep2MET_;   }
@@ -929,8 +888,6 @@ SmurfTree::Get(std::string value)
   if(value=="lep3DetEta"    ) { return this->lep3DetEta_; }
   if(value=="lep3McId"	    ) { return this->lep3McId_;      } 
   if(value=="lep3MotherMcId") { return this->lep3MotherMcId_;} 
-  if(value=="dPhiLep3Jet1"  ) { return this->dPhiLep3Jet1_;  } 
-  if(value=="dRLep3Jet1"    ) { return this->dRLep3Jet1_;    } 
   if(value=="dPhiLep3MET"   ) { return this->dPhiLep3MET_;   } 
   if(value=="mt3"	    ) { return this->mt3_;	     } 
   if(value=="jetLowBtag"    ) { return this->jetLowBtag_;    } 
