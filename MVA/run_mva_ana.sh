@@ -102,6 +102,7 @@ data/xww0m125.root
 data/xww2p125.root
 data/xww2pqq125.root
 data/hww_syst_skim6.root
+data/hww_syst_sherpa_skim6.root
 data/data_skim6.root
 data/backgroundA_skim6.root
 EOF

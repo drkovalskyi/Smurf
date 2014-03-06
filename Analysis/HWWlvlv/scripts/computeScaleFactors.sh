@@ -8,7 +8,7 @@
 #grep -A1 data log|grep pm > aaa
 #awk '{printf("%7.2f",$3);if(NR%4!=0)printf(",");else printf("\n");}' aaa
 
-source ~/EVAL_SH65 5_2_8;
+source ~/EVAL_SH65 5_3_14;
 
 export NSEL=$1;
 

@@ -1,28 +1,28 @@
-Script started on Mon Dec  9 08:52:30 2013
-]0;ceballos@dtmit07:~/releases/CMSSW_5_2_8/src[dtmit07] /home/ceballos/releases/CMSSW_5_2_8/src > /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/scripts/computeScaleFactors2011.sh 0;exit;
+Script started on Sat 01 Feb 2014 10:52:11 AM CET
+]0;ceballos@dtmit02:~/releases/CMSSW_5_3_14/src[dtmit02] /home/ceballos/releases/CMSSW_5_3_14/src > /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/scripts/computeScaleFactors2011.sh ;[K0;exit;
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 [0mroot [0] 
-Processing /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C+(4)...
-[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C.so
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C: In function 'void ComputeDYBkgScaleFactor2011(Int_t, Bool_t, Int_t, Double_t, Double_t)':
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:993:16: warning: unused variable 'sfin_ee_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:995:16: warning: unused variable 'sfin_mm_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:1040:16: warning: unused variable 'sfout_ee_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:1042:16: warning: unused variable 'sfout_mm_err' [-Wunused-variable]
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:983:77: warning: 'err_ll_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:983:77: warning: 'nin_ll_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:995:208: warning: 'err_mm_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:995:208: warning: 'nin_mm_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:993:208: warning: 'err_ee_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:1010:34: warning: 'nin_ee_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h: At global scope:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+Processing /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C+(4)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C.so
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C: In function 'void ComputeDYBkgScaleFactor2011(Int_t, Bool_t, Int_t, Double_t, Double_t)':
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:993:16: warning: unused variable 'sfin_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:995:16: warning: unused variable 'sfin_mm_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:1040:16: warning: unused variable 'sfout_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:1042:16: warning: unused variable 'sfout_mm_err' [-Wunused-variable]
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:983:77: warning: 'err_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:983:77: warning: 'nin_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:995:208: warning: 'err_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:995:208: warning: 'nin_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:993:208: warning: 'err_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:1010:34: warning: 'nin_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
 Processing /data/smurf/data/Run2011_Fall11_SmurfV9_42X/mitf-alljets/data.root...
 Event 0
 Event 100000
@@ -502,32 +502,32 @@ Error: Symbol null is not defined in current scope  :0:
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 [0mroot [0] 
-Processing /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C+(4)...
-[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C.so
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C: In function 'void ComputeTopScaleFactors2011(Int_t, TString, TString)':
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:808:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:808:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:808:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:808:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:808:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:1265:246: warning: unknown conversion type character ')' in format [-Wformat]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:816:37: warning: variable 'effttMC_btag_central_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:817:100: warning: variable 'effttMC_btag_central_tw_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:856:38: warning: variable 'effttMC_btag_central_All_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:857:103: warning: variable 'effttMC_btag_central_All_tw_2j_error' set but not used [-Wunused-but-set-variable]
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:1270:142: warning: 'NonTaggedTopDA_error_forPrint' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:1270:143: warning: 'NonTaggedTopDA_forPrint' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:1264:55: warning: 'NonTaggedTopMC_forPrint' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h: At global scope:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:20:17: warning: 'Double_t DYBkgScaleFactorKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:39:17: warning: 'Double_t DYBkgScaleFactorBDT(Int_t, Int_t)' defined but not used [-Wunused-function]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:58:17: warning: 'Double_t DYBkgScaleFactorBDTKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
+Processing /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C+(4)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C.so
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C: In function 'void ComputeTopScaleFactors2011(Int_t, TString, TString)':
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:808:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:808:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:808:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:808:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:808:60: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:1264:246: warning: unknown conversion type character ')' in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:816:37: warning: variable 'effttMC_btag_central_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:817:100: warning: variable 'effttMC_btag_central_tw_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:856:38: warning: variable 'effttMC_btag_central_All_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:857:103: warning: variable 'effttMC_btag_central_All_tw_2j_error' set but not used [-Wunused-but-set-variable]
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:1269:142: warning: 'NonTaggedTopDA_error_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:1269:143: warning: 'NonTaggedTopDA_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors2011.C:1263:55: warning: 'NonTaggedTopMC_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:20:17: warning: 'Double_t DYBkgScaleFactorKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:39:17: warning: 'Double_t DYBkgScaleFactorBDT(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:58:17: warning: 'Double_t DYBkgScaleFactorBDTKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
 --- reading event     0 of 1808021
 --- reading event 100000 of 1808021
 --- reading event 200000 of 1808021
@@ -550,31 +550,31 @@ In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWW
 --- reading event     0 of 43869
 **********eff central jet 2-j**********
 channel               (data/background/top)-num             (data/background/top)-den
-details_central(0) -->   447/  17.82/ 376.20  -   743/ 125.62/ 504.77
-details_central(1) -->   311/  11.06/ 241.93  -   506/  78.99/ 326.59
-details_central(2) -->   144/   5.78/ 116.05  -   263/  46.19/ 168.84
-details_central(3) -->    58/   1.93/  45.71  -   102/  23.25/  72.38
-details_central(4) -->    10/   0.69/  12.76  -    38/  17.24/  32.38
+details_central(0) -->   447/  17.83/ 376.20  -   743/ 125.74/ 504.77
+details_central(1) -->   311/  11.09/ 241.93  -   506/  79.08/ 326.59
+details_central(2) -->   144/   5.78/ 116.05  -   263/  46.26/ 168.84
+details_central(3) -->    58/   1.93/  45.71  -   102/  23.29/  72.38
+details_central(4) -->    10/   0.69/  12.76  -    38/  17.25/  32.38
 channel                      eff_data              eff_tt            ScaleFactor
 scaleFactor_central(0) -->  0.697 +/-  0.017 |  0.745 +/-  0.002 |  0.935 +/-  0.023
 scaleFactor_central(1) -->  0.704 +/-  0.020 |  0.741 +/-  0.002 |  0.951 +/-  0.027
 scaleFactor_central(2) -->  0.634 +/-  0.030 |  0.687 +/-  0.004 |  0.923 +/-  0.043
-scaleFactor_central(3) -->  0.733 +/-  0.044 |  0.631 +/-  0.006 |  1.160 +/-  0.069
+scaleFactor_central(3) -->  0.733 +/-  0.044 |  0.631 +/-  0.006 |  1.161 +/-  0.069
 scaleFactor_central(4) -->  0.510 +/-  0.081 |  0.394 +/-  0.009 |  1.294 +/-  0.206
-details_central(all)         -->   970/  37.29/ 792.65  -  1652/ 291.29/1104.97
+details_central(all)         -->   970/  37.32/ 792.65  -  1652/ 291.62/1104.97
 scaleFactor_central_All(all) -->  0.689 +/-  0.011 |  0.717 +/-  0.001 |  0.961 +/-  0.016
 **********eff vbf jet 2-j**********
-eventsTaggedVBF(0) --> top: 415.127  data:   447  bck:17.819
-eventsTaggedVBF(1) --> top: 269.306  data:   311  bck:11.062
+eventsTaggedVBF(0) --> top: 415.127  data:   447  bck:17.826
+eventsTaggedVBF(1) --> top: 269.306  data:   311  bck:11.089
 eventsTaggedVBF(2) --> top: 131.568  data:   144  bck: 5.784
 eventsTaggedVBF(3) --> top: 51.478  data:    58  bck: 1.931
 eventsTaggedVBF(4) --> top: 14.861  data:    10  bck: 0.692
-eventsNonTaggedVBF(0) --> 147.108  --> 141.882 +/-  1.457 | 186.593 +/- 17.503
-eventsNonTaggedVBF(1) --> 97.242  --> 94.238 +/-  1.197 | 125.989 +/- 14.334
-eventsNonTaggedVBF(2) --> 60.583  --> 59.848 +/-  1.000 | 79.753 +/- 12.336
-eventsNonTaggedVBF(3) --> 30.988  --> 30.043 +/-  0.737 | 20.475 +/-  5.358
-eventsNonTaggedVBF(4) --> 24.144  --> 22.844 +/-  0.826 |  8.947 +/-  4.204
-data/MC/MCPred(421.757/360.065/348.854) -> scaleFactorVBF(  0):  1.171 +/-  0.074
+eventsNonTaggedVBF(0) --> 147.108  --> 141.882 +/-  1.457 | 186.465 +/- 17.493
+eventsNonTaggedVBF(1) --> 97.242  --> 94.238 +/-  1.197 | 125.917 +/- 14.327
+eventsNonTaggedVBF(2) --> 60.583  --> 59.848 +/-  1.000 | 79.677 +/- 12.325
+eventsNonTaggedVBF(3) --> 30.988  --> 30.043 +/-  0.737 | 20.433 +/-  5.349
+eventsNonTaggedVBF(4) --> 24.144  --> 22.844 +/-  0.826 |  8.936 +/-  4.199
+data/MC/MCPred(421.428/360.065/348.854) -> scaleFactorVBF(  0):  1.170 +/-  0.074
 eventsTaggedVBF(0) --> top:  0.382  data:     0  bck:-0.015
 eventsTaggedVBF(1) --> top:  1.424  data:     3  bck: 0.093
 eventsTaggedVBF(2) --> top:  2.290  data:     5  bck: 0.145
@@ -582,10 +582,10 @@ eventsTaggedVBF(3) --> top:  3.396  data:     1  bck: 0.096
 eventsTaggedVBF(4) --> top:  1.466  data:     2  bck: 0.097
 eventsNonTaggedVBF(0) -->  0.172  -->  0.131 +/-  0.001 |  0.006 +/-  0.001
 eventsNonTaggedVBF(1) -->  0.531  -->  0.498 +/-  0.006 |  1.221 +/-  0.737
-eventsNonTaggedVBF(2) -->  1.344  -->  1.042 +/-  0.017 |  2.802 +/-  1.339
-eventsNonTaggedVBF(3) -->  1.924  -->  1.982 +/-  0.049 |  0.330 +/-  0.373
-eventsNonTaggedVBF(4) -->  3.906  -->  2.254 +/-  0.082 |  1.830 +/-  1.484
-data/MC/MCPred( 6.189/ 7.878/ 5.906) -> scaleFactorVBF(  0):  0.786 +/-  0.275
+eventsNonTaggedVBF(2) -->  1.344  -->  1.042 +/-  0.017 |  2.799 +/-  1.338
+eventsNonTaggedVBF(3) -->  1.924  -->  1.982 +/-  0.049 |  0.329 +/-  0.372
+eventsNonTaggedVBF(4) -->  3.906  -->  2.254 +/-  0.082 |  1.827 +/-  1.482
+data/MC/MCPred( 6.183/ 7.878/ 5.906) -> scaleFactorVBF(  0):  0.785 +/-  0.274
 eventsTaggedVBF(0) --> top:  0.000  data:     0  bck:-0.000
 eventsTaggedVBF(1) --> top:  0.151  data:     0  bck: 0.076
 eventsTaggedVBF(2) --> top:  0.086  data:     0  bck:-0.005
@@ -640,7 +640,7 @@ eventsNonTaggedVBF(1) -->  0.017  -->  0.053 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBF(2) -->  0.068  -->  0.044 +/-  0.001 |  0.004 +/-  0.001
 eventsNonTaggedVBF(3) -->  0.107  -->  0.115 +/-  0.003 |  0.004 +/-  0.001
 eventsNonTaggedVBF(4) -->  0.164  -->  0.065 +/-  0.002 |  0.001 +/-  0.000
-data/MC/MCPred( 0.013/ 0.395/ 0.281) -> scaleFactorVBF(122):  0.032 +/-  0.003
+data/MC/MCPred( 0.012/ 0.395/ 0.281) -> scaleFactorVBF(122):  0.032 +/-  0.003
 eventsTaggedVBF(0) --> top:  0.022  data:     0  bck:-0.007
 eventsTaggedVBF(1) --> top:  0.162  data:     0  bck: 0.073
 eventsTaggedVBF(2) --> top:  0.126  data:     0  bck:-0.014
@@ -649,9 +649,9 @@ eventsTaggedVBF(4) --> top:  0.042  data:     0  bck:-0.001
 eventsNonTaggedVBF(0) -->  0.038  -->  0.007 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.026  -->  0.057 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBF(2) -->  0.075  -->  0.057 +/-  0.001 |  0.008 +/-  0.001
-eventsNonTaggedVBF(3) -->  0.107  -->  0.121 +/-  0.003 |  0.369 +/-  0.374
+eventsNonTaggedVBF(3) -->  0.107  -->  0.121 +/-  0.003 |  0.368 +/-  0.374
 eventsNonTaggedVBF(4) -->  0.175  -->  0.065 +/-  0.002 |  0.001 +/-  0.000
-data/MC/MCPred( 0.381/ 0.421/ 0.307) -> scaleFactorVBF(124):  0.904 +/-  0.888
+data/MC/MCPred( 0.380/ 0.421/ 0.307) -> scaleFactorVBF(124):  0.902 +/-  0.887
 eventsTaggedVBF(0) --> top:  0.032  data:     0  bck:-0.007
 eventsTaggedVBF(1) --> top:  0.162  data:     0  bck: 0.073
 eventsTaggedVBF(2) --> top:  0.126  data:     0  bck:-0.014
@@ -660,9 +660,9 @@ eventsTaggedVBF(4) --> top:  0.042  data:     0  bck:-0.001
 eventsNonTaggedVBF(0) -->  0.038  -->  0.011 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.026  -->  0.057 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBF(2) -->  0.085  -->  0.057 +/-  0.001 |  0.008 +/-  0.001
-eventsNonTaggedVBF(3) -->  0.107  -->  0.121 +/-  0.003 |  0.369 +/-  0.374
+eventsNonTaggedVBF(3) -->  0.107  -->  0.121 +/-  0.003 |  0.368 +/-  0.374
 eventsNonTaggedVBF(4) -->  0.175  -->  0.065 +/-  0.002 |  0.001 +/-  0.000
-data/MC/MCPred( 0.381/ 0.432/ 0.311) -> scaleFactorVBF(125):  0.882 +/-  0.867
+data/MC/MCPred( 0.380/ 0.432/ 0.311) -> scaleFactorVBF(125):  0.880 +/-  0.865
 eventsTaggedVBF(0) --> top:  0.032  data:     0  bck:-0.007
 eventsTaggedVBF(1) --> top:  0.162  data:     0  bck: 0.073
 eventsTaggedVBF(2) --> top:  0.126  data:     0  bck:-0.014
@@ -671,9 +671,9 @@ eventsTaggedVBF(4) --> top:  0.042  data:     0  bck:-0.001
 eventsNonTaggedVBF(0) -->  0.038  -->  0.011 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.026  -->  0.057 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBF(2) -->  0.085  -->  0.057 +/-  0.001 |  0.008 +/-  0.001
-eventsNonTaggedVBF(3) -->  0.107  -->  0.121 +/-  0.003 |  0.369 +/-  0.374
+eventsNonTaggedVBF(3) -->  0.107  -->  0.121 +/-  0.003 |  0.368 +/-  0.374
 eventsNonTaggedVBF(4) -->  0.175  -->  0.065 +/-  0.002 |  0.001 +/-  0.000
-data/MC/MCPred( 0.381/ 0.432/ 0.311) -> scaleFactorVBF(126):  0.882 +/-  0.867
+data/MC/MCPred( 0.380/ 0.432/ 0.311) -> scaleFactorVBF(126):  0.880 +/-  0.865
 eventsTaggedVBF(0) --> top:  0.032  data:     0  bck:-0.007
 eventsTaggedVBF(1) --> top:  0.162  data:     0  bck: 0.073
 eventsTaggedVBF(2) --> top:  0.126  data:     0  bck:-0.013
@@ -682,9 +682,9 @@ eventsTaggedVBF(4) --> top:  0.053  data:     0  bck:-0.001
 eventsNonTaggedVBF(0) -->  0.048  -->  0.011 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.026  -->  0.057 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBF(2) -->  0.096  -->  0.057 +/-  0.001 |  0.007 +/-  0.001
-eventsNonTaggedVBF(3) -->  0.107  -->  0.123 +/-  0.003 |  0.369 +/-  0.374
+eventsNonTaggedVBF(3) -->  0.107  -->  0.123 +/-  0.003 |  0.368 +/-  0.374
 eventsNonTaggedVBF(4) -->  0.206  -->  0.081 +/-  0.003 |  0.001 +/-  0.000
-data/MC/MCPred( 0.380/ 0.483/ 0.328) -> scaleFactorVBF(128):  0.788 +/-  0.775
+data/MC/MCPred( 0.380/ 0.483/ 0.328) -> scaleFactorVBF(128):  0.786 +/-  0.774
 eventsTaggedVBF(0) --> top:  0.032  data:     0  bck:-0.007
 eventsTaggedVBF(1) --> top:  0.172  data:     0  bck: 0.073
 eventsTaggedVBF(2) --> top:  0.136  data:     0  bck:-0.013
@@ -693,9 +693,9 @@ eventsTaggedVBF(4) --> top:  0.057  data:     0  bck:-0.001
 eventsNonTaggedVBF(0) -->  0.048  -->  0.011 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.026  -->  0.060 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBF(2) -->  0.096  -->  0.062 +/-  0.001 |  0.007 +/-  0.001
-eventsNonTaggedVBF(3) -->  0.116  -->  0.122 +/-  0.003 |  0.370 +/-  0.374
+eventsNonTaggedVBF(3) -->  0.116  -->  0.122 +/-  0.003 |  0.369 +/-  0.374
 eventsNonTaggedVBF(4) -->  0.195  -->  0.087 +/-  0.003 |  0.001 +/-  0.000
-data/MC/MCPred( 0.381/ 0.481/ 0.342) -> scaleFactorVBF(130):  0.792 +/-  0.778
+data/MC/MCPred( 0.380/ 0.481/ 0.342) -> scaleFactorVBF(130):  0.791 +/-  0.777
 eventsTaggedVBF(0) --> top:  0.042  data:     0  bck:-0.007
 eventsTaggedVBF(1) --> top:  0.204  data:     0  bck: 0.075
 eventsTaggedVBF(2) --> top:  0.159  data:     0  bck:-0.013
@@ -706,7 +706,7 @@ eventsNonTaggedVBF(1) -->  0.022  -->  0.071 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBF(2) -->  0.106  -->  0.072 +/-  0.001 |  0.007 +/-  0.001
 eventsNonTaggedVBF(3) -->  0.116  -->  0.127 +/-  0.003 |  0.370 +/-  0.374
 eventsNonTaggedVBF(4) -->  0.209  -->  0.102 +/-  0.004 |  0.001 +/-  0.000
-data/MC/MCPred( 0.382/ 0.501/ 0.387) -> scaleFactorVBF(135):  0.762 +/-  0.747
+data/MC/MCPred( 0.381/ 0.501/ 0.387) -> scaleFactorVBF(135):  0.760 +/-  0.745
 eventsTaggedVBF(0) --> top:  0.042  data:     0  bck:-0.007
 eventsTaggedVBF(1) --> top:  0.204  data:     0  bck: 0.076
 eventsTaggedVBF(2) --> top:  0.149  data:     0  bck:-0.012
@@ -715,9 +715,9 @@ eventsTaggedVBF(4) --> top:  0.066  data:     0  bck:-0.001
 eventsNonTaggedVBF(0) -->  0.058  -->  0.014 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.033  -->  0.071 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBF(2) -->  0.106  -->  0.068 +/-  0.001 |  0.007 +/-  0.001
-eventsNonTaggedVBF(3) -->  0.116  -->  0.147 +/-  0.004 |  0.370 +/-  0.374
+eventsNonTaggedVBF(3) -->  0.116  -->  0.147 +/-  0.004 |  0.369 +/-  0.374
 eventsNonTaggedVBF(4) -->  0.228  -->  0.102 +/-  0.004 |  0.001 +/-  0.000
-data/MC/MCPred( 0.381/ 0.541/ 0.402) -> scaleFactorVBF(140):  0.705 +/-  0.693
+data/MC/MCPred( 0.381/ 0.541/ 0.402) -> scaleFactorVBF(140):  0.704 +/-  0.691
 eventsTaggedVBF(0) --> top:  0.042  data:     0  bck:-0.007
 eventsTaggedVBF(1) --> top:  0.204  data:     0  bck: 0.076
 eventsTaggedVBF(2) --> top:  0.149  data:     0  bck:-0.012
@@ -726,9 +726,9 @@ eventsTaggedVBF(4) --> top:  0.066  data:     0  bck:-0.001
 eventsNonTaggedVBF(0) -->  0.058  -->  0.014 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.033  -->  0.071 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBF(2) -->  0.106  -->  0.068 +/-  0.001 |  0.007 +/-  0.001
-eventsNonTaggedVBF(3) -->  0.116  -->  0.147 +/-  0.004 |  0.370 +/-  0.374
+eventsNonTaggedVBF(3) -->  0.116  -->  0.147 +/-  0.004 |  0.369 +/-  0.374
 eventsNonTaggedVBF(4) -->  0.228  -->  0.102 +/-  0.004 |  0.001 +/-  0.000
-data/MC/MCPred( 0.381/ 0.541/ 0.402) -> scaleFactorVBF(145):  0.705 +/-  0.693
+data/MC/MCPred( 0.381/ 0.541/ 0.402) -> scaleFactorVBF(145):  0.704 +/-  0.691
 eventsTaggedVBF(0) --> top:  0.044  data:     0  bck:-0.000
 eventsTaggedVBF(1) --> top:  0.194  data:     0  bck:-0.003
 eventsTaggedVBF(2) --> top:  0.233  data:     0  bck:-0.006
@@ -738,8 +738,8 @@ eventsNonTaggedVBF(0) -->  0.020  -->  0.015 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.029  -->  0.068 +/-  0.001 |  0.001 +/-  0.000
 eventsNonTaggedVBF(2) -->  0.069  -->  0.106 +/-  0.002 |  0.004 +/-  0.000
 eventsNonTaggedVBF(3) -->  0.160  -->  0.179 +/-  0.004 |  0.006 +/-  0.001
-eventsNonTaggedVBF(4) -->  0.303  -->  0.244 +/-  0.009 |  0.959 +/-  1.010
-data/MC/MCPred( 0.970/ 0.581/ 0.612) -> scaleFactorVBF(150):  1.670 +/-  1.738
+eventsNonTaggedVBF(4) -->  0.303  -->  0.244 +/-  0.009 |  0.958 +/-  1.009
+data/MC/MCPred( 0.969/ 0.581/ 0.612) -> scaleFactorVBF(150):  1.668 +/-  1.736
 eventsTaggedVBF(0) --> top:  0.044  data:     0  bck:-0.000
 eventsTaggedVBF(1) --> top:  0.194  data:     0  bck:-0.003
 eventsTaggedVBF(2) --> top:  0.233  data:     0  bck:-0.006
@@ -749,8 +749,8 @@ eventsNonTaggedVBF(0) -->  0.020  -->  0.015 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.029  -->  0.068 +/-  0.001 |  0.001 +/-  0.000
 eventsNonTaggedVBF(2) -->  0.069  -->  0.106 +/-  0.002 |  0.004 +/-  0.000
 eventsNonTaggedVBF(3) -->  0.160  -->  0.179 +/-  0.004 |  0.006 +/-  0.001
-eventsNonTaggedVBF(4) -->  0.303  -->  0.244 +/-  0.009 |  0.959 +/-  1.010
-data/MC/MCPred( 0.970/ 0.581/ 0.612) -> scaleFactorVBF(155):  1.670 +/-  1.738
+eventsNonTaggedVBF(4) -->  0.303  -->  0.244 +/-  0.009 |  0.958 +/-  1.009
+data/MC/MCPred( 0.969/ 0.581/ 0.612) -> scaleFactorVBF(155):  1.668 +/-  1.736
 eventsTaggedVBF(0) --> top:  0.035  data:     0  bck:-0.000
 eventsTaggedVBF(1) --> top:  0.193  data:     0  bck:-0.002
 eventsTaggedVBF(2) --> top:  0.236  data:     0  bck:-0.007
@@ -760,8 +760,8 @@ eventsNonTaggedVBF(0) -->  0.020  -->  0.012 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.040  -->  0.068 +/-  0.001 |  0.001 +/-  0.000
 eventsNonTaggedVBF(2) -->  0.072  -->  0.108 +/-  0.002 |  0.004 +/-  0.000
 eventsNonTaggedVBF(3) -->  0.149  -->  0.174 +/-  0.004 |  0.005 +/-  0.001
-eventsNonTaggedVBF(4) -->  0.254  -->  0.268 +/-  0.010 |  0.959 +/-  1.010
-data/MC/MCPred( 0.969/ 0.535/ 0.629) -> scaleFactorVBF(160):  1.810 +/-  1.888
+eventsNonTaggedVBF(4) -->  0.254  -->  0.268 +/-  0.010 |  0.958 +/-  1.009
+data/MC/MCPred( 0.967/ 0.535/ 0.629) -> scaleFactorVBF(160):  1.808 +/-  1.886
 eventsTaggedVBF(0) --> top:  0.035  data:     0  bck:-0.000
 eventsTaggedVBF(1) --> top:  0.182  data:     0  bck:-0.001
 eventsTaggedVBF(2) --> top:  0.236  data:     0  bck:-0.007
@@ -780,10 +780,10 @@ eventsTaggedVBF(3) --> top:  0.455  data:     0  bck:-0.016
 eventsTaggedVBF(4) --> top:  0.141  data:     0  bck:-0.004
 eventsNonTaggedVBF(0) -->  0.031  -->  0.026 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.050  -->  0.085 +/-  0.001 |  0.000 +/-  0.000
-eventsNonTaggedVBF(2) -->  0.097  -->  0.147 +/-  0.002 |  0.581 +/-  0.582
+eventsNonTaggedVBF(2) -->  0.097  -->  0.147 +/-  0.002 |  0.581 +/-  0.581
 eventsNonTaggedVBF(3) -->  0.245  -->  0.265 +/-  0.007 |  0.006 +/-  0.001
 eventsNonTaggedVBF(4) -->  0.336  -->  0.217 +/-  0.008 |  0.004 +/-  0.001
-data/MC/MCPred( 0.591/ 0.759/ 0.740) -> scaleFactorVBF(180):  0.779 +/-  0.766
+data/MC/MCPred( 0.591/ 0.759/ 0.740) -> scaleFactorVBF(180):  0.778 +/-  0.766
 eventsTaggedVBF(0) --> top:  0.099  data:     0  bck:-0.001
 eventsTaggedVBF(1) --> top:  0.359  data:     0  bck: 0.018
 eventsTaggedVBF(2) --> top:  0.509  data:     1  bck:-0.009
@@ -791,10 +791,10 @@ eventsTaggedVBF(3) --> top:  0.575  data:     0  bck:-0.019
 eventsTaggedVBF(4) --> top:  0.278  data:     0  bck:-0.005
 eventsNonTaggedVBF(0) -->  0.033  -->  0.034 +/-  0.000 |  0.001 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.129  -->  0.126 +/-  0.002 |  0.000 +/-  0.000
-eventsNonTaggedVBF(2) -->  0.251  -->  0.231 +/-  0.004 |  0.582 +/-  0.582
+eventsNonTaggedVBF(2) -->  0.251  -->  0.231 +/-  0.004 |  0.582 +/-  0.581
 eventsNonTaggedVBF(3) -->  0.317  -->  0.335 +/-  0.008 |  0.007 +/-  0.002
 eventsNonTaggedVBF(4) -->  0.745  -->  0.428 +/-  0.015 |  0.005 +/-  0.002
-data/MC/MCPred( 0.595/ 1.476/ 1.154) -> scaleFactorVBF(190):  0.403 +/-  0.394
+data/MC/MCPred( 0.594/ 1.476/ 1.154) -> scaleFactorVBF(190):  0.403 +/-  0.394
 eventsTaggedVBF(0) --> top:  0.099  data:     0  bck:-0.001
 eventsTaggedVBF(1) --> top:  0.380  data:     0  bck: 0.015
 eventsTaggedVBF(2) --> top:  0.475  data:     1  bck: 0.077
@@ -802,10 +802,10 @@ eventsTaggedVBF(3) --> top:  0.633  data:     0  bck:-0.021
 eventsTaggedVBF(4) --> top:  0.331  data:     0  bck:-0.006
 eventsNonTaggedVBF(0) -->  0.033  -->  0.034 +/-  0.000 |  0.001 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.139  -->  0.133 +/-  0.002 |  0.000 +/-  0.000
-eventsNonTaggedVBF(2) -->  0.309  -->  0.216 +/-  0.004 |  0.532 +/-  0.581
+eventsNonTaggedVBF(2) -->  0.309  -->  0.216 +/-  0.004 |  0.532 +/-  0.580
 eventsNonTaggedVBF(3) -->  0.347  -->  0.370 +/-  0.009 |  0.008 +/-  0.002
 eventsNonTaggedVBF(4) -->  0.804  -->  0.508 +/-  0.018 |  0.006 +/-  0.002
-data/MC/MCPred( 0.547/ 1.633/ 1.261) -> scaleFactorVBF(200):  0.335 +/-  0.356
+data/MC/MCPred( 0.546/ 1.633/ 1.261) -> scaleFactorVBF(200):  0.335 +/-  0.356
 eventsTaggedVBF(0) --> top:  0.190  data:     0  bck: 0.001
 eventsTaggedVBF(1) --> top:  0.397  data:     0  bck: 0.006
 eventsTaggedVBF(2) --> top:  0.820  data:     1  bck: 0.017
@@ -813,7 +813,7 @@ eventsTaggedVBF(3) --> top:  0.834  data:     0  bck: 0.013
 eventsTaggedVBF(4) --> top:  0.438  data:     0  bck: 0.034
 eventsNonTaggedVBF(0) -->  0.033  -->  0.065 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.137  -->  0.139 +/-  0.002 |  0.000 +/-  0.000
-eventsNonTaggedVBF(2) -->  0.436  -->  0.373 +/-  0.006 |  0.567 +/-  0.582
+eventsNonTaggedVBF(2) -->  0.436  -->  0.373 +/-  0.006 |  0.567 +/-  0.581
 eventsNonTaggedVBF(3) -->  0.535  -->  0.487 +/-  0.012 |  0.000 +/-  0.000
 eventsNonTaggedVBF(4) -->  1.163  -->  0.673 +/-  0.024 |  0.000 +/-  0.000
 data/MC/MCPred( 0.567/ 2.304/ 1.737) -> scaleFactorVBF(250):  0.246 +/-  0.252
@@ -824,10 +824,10 @@ eventsTaggedVBF(3) --> top:  0.983  data:     0  bck: 0.031
 eventsTaggedVBF(4) --> top:  0.401  data:     0  bck: 0.036
 eventsNonTaggedVBF(0) -->  0.052  -->  0.069 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.133  -->  0.158 +/-  0.002 |  0.000 +/-  0.000
-eventsNonTaggedVBF(2) -->  0.510  -->  0.350 +/-  0.006 |  0.565 +/-  0.582
+eventsNonTaggedVBF(2) -->  0.510  -->  0.350 +/-  0.006 |  0.564 +/-  0.581
 eventsNonTaggedVBF(3) -->  0.516  -->  0.574 +/-  0.014 |  0.000 +/-  0.000
 eventsNonTaggedVBF(4) -->  1.348  -->  0.617 +/-  0.022 |  0.000 +/-  0.000
-data/MC/MCPred( 0.565/ 2.558/ 1.768) -> scaleFactorVBF(300):  0.221 +/-  0.227
+data/MC/MCPred( 0.564/ 2.558/ 1.768) -> scaleFactorVBF(300):  0.221 +/-  0.227
 eventsTaggedVBF(0) --> top:  0.172  data:     0  bck:-0.000
 eventsTaggedVBF(1) --> top:  0.461  data:     0  bck: 0.014
 eventsTaggedVBF(2) --> top:  0.608  data:     1  bck: 0.002
@@ -835,10 +835,10 @@ eventsTaggedVBF(3) --> top:  0.862  data:     0  bck: 0.037
 eventsTaggedVBF(4) --> top:  0.351  data:     0  bck: 0.041
 eventsNonTaggedVBF(0) -->  0.052  -->  0.059 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.080  -->  0.161 +/-  0.002 |  0.000 +/-  0.000
-eventsNonTaggedVBF(2) -->  0.421  -->  0.277 +/-  0.005 |  0.576 +/-  0.582
+eventsNonTaggedVBF(2) -->  0.421  -->  0.277 +/-  0.005 |  0.576 +/-  0.581
 eventsNonTaggedVBF(3) -->  0.475  -->  0.503 +/-  0.012 |  0.000 +/-  0.000
 eventsNonTaggedVBF(4) -->  0.976  -->  0.539 +/-  0.019 |  0.000 +/-  0.000
-data/MC/MCPred( 0.576/ 2.004/ 1.539) -> scaleFactorVBF(350):  0.288 +/-  0.290
+data/MC/MCPred( 0.576/ 2.004/ 1.539) -> scaleFactorVBF(350):  0.287 +/-  0.290
 eventsTaggedVBF(0) --> top:  0.140  data:     0  bck:-0.000
 eventsTaggedVBF(1) --> top:  0.381  data:     0  bck: 0.010
 eventsTaggedVBF(2) --> top:  0.565  data:     1  bck: 0.008
@@ -846,10 +846,10 @@ eventsTaggedVBF(3) --> top:  0.687  data:     0  bck: 0.037
 eventsTaggedVBF(4) --> top:  0.328  data:     0  bck: 0.046
 eventsNonTaggedVBF(0) -->  0.075  -->  0.048 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.059  -->  0.133 +/-  0.002 |  0.000 +/-  0.000
-eventsNonTaggedVBF(2) -->  0.440  -->  0.257 +/-  0.004 |  0.572 +/-  0.582
+eventsNonTaggedVBF(2) -->  0.440  -->  0.257 +/-  0.004 |  0.572 +/-  0.581
 eventsNonTaggedVBF(3) -->  0.441  -->  0.401 +/-  0.010 |  0.000 +/-  0.000
 eventsNonTaggedVBF(4) -->  0.673  -->  0.504 +/-  0.018 |  0.000 +/-  0.000
-data/MC/MCPred( 0.572/ 1.688/ 1.343) -> scaleFactorVBF(400):  0.339 +/-  0.345
+data/MC/MCPred( 0.572/ 1.688/ 1.343) -> scaleFactorVBF(400):  0.339 +/-  0.344
 eventsTaggedVBF(0) --> top:  0.090  data:     0  bck:-0.000
 eventsTaggedVBF(1) --> top:  0.294  data:     0  bck:-0.005
 eventsTaggedVBF(2) --> top:  0.361  data:     1  bck: 0.003
@@ -857,10 +857,10 @@ eventsTaggedVBF(3) --> top:  0.505  data:     0  bck: 0.000
 eventsTaggedVBF(4) --> top:  0.194  data:     0  bck: 0.042
 eventsNonTaggedVBF(0) -->  0.034  -->  0.031 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBF(1) -->  0.103  -->  0.103 +/-  0.001 |  0.002 +/-  0.000
-eventsNonTaggedVBF(2) -->  0.375  -->  0.164 +/-  0.003 |  0.576 +/-  0.582
+eventsNonTaggedVBF(2) -->  0.375  -->  0.164 +/-  0.003 |  0.575 +/-  0.581
 eventsNonTaggedVBF(3) -->  0.336  -->  0.295 +/-  0.007 |  0.000 +/-  0.000
 eventsNonTaggedVBF(4) -->  0.359  -->  0.298 +/-  0.011 |  0.000 +/-  0.000
-data/MC/MCPred( 0.578/ 1.207/ 0.891) -> scaleFactorVBF(450):  0.478 +/-  0.482
+data/MC/MCPred( 0.577/ 1.207/ 0.891) -> scaleFactorVBF(450):  0.478 +/-  0.481
 eventsTaggedVBF(0) --> top:  0.079  data:     0  bck:-0.000
 eventsTaggedVBF(1) --> top:  0.265  data:     0  bck:-0.006
 eventsTaggedVBF(2) --> top:  0.215  data:     0  bck: 0.001
@@ -917,17 +917,17 @@ eventsNonTaggedVBF(3) -->  0.108  -->  0.043 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBF(4) -->  0.068  -->  0.084 +/-  0.003 |  0.000 +/-  0.000
 data/MC/MCPred( 0.003/ 0.350/ 0.232) -> scaleFactorVBF(800):  0.008 +/-  0.001
 **********eff vbf jet 2-j SF**********
-eventsTaggedVBFSF(0) --> top: 131.189  data:   137  bck: 6.572
-eventsTaggedVBFSF(1) --> top: 84.760  data:   100  bck: 5.772
+eventsTaggedVBFSF(0) --> top: 131.189  data:   137  bck: 6.580
+eventsTaggedVBFSF(1) --> top: 84.760  data:   100  bck: 5.799
 eventsTaggedVBFSF(2) --> top: 41.708  data:    45  bck: 1.048
 eventsTaggedVBFSF(3) --> top: 16.446  data:    21  bck: 0.685
 eventsTaggedVBFSF(4) --> top:  4.791  data:     3  bck: 0.175
-eventsNonTaggedVBFSF(0) --> 46.828  --> 44.838 +/-  0.461 | 56.705 +/-  6.811
-eventsNonTaggedVBFSF(1) --> 30.659  --> 29.660 +/-  0.377 | 39.580 +/-  5.702
-eventsNonTaggedVBFSF(2) --> 19.989  --> 18.972 +/-  0.317 | 25.361 +/-  5.052
-eventsNonTaggedVBFSF(3) -->  9.695  -->  9.598 +/-  0.235 |  7.419 +/-  2.357
-eventsNonTaggedVBFSF(4) -->  7.399  -->  7.364 +/-  0.266 |  2.715 +/-  1.884
-data/MC/MCPred(131.781/114.569/110.432) -> scaleFactorVBFSF(  0):  1.150 +/-  0.093
+eventsNonTaggedVBFSF(0) --> 46.828  --> 44.838 +/-  0.461 | 56.664 +/-  6.806
+eventsNonTaggedVBFSF(1) --> 30.659  --> 29.660 +/-  0.377 | 39.550 +/-  5.698
+eventsNonTaggedVBFSF(2) --> 19.989  --> 18.972 +/-  0.317 | 25.337 +/-  5.048
+eventsNonTaggedVBFSF(3) -->  9.695  -->  9.598 +/-  0.235 |  7.403 +/-  2.352
+eventsNonTaggedVBFSF(4) -->  7.399  -->  7.364 +/-  0.266 |  2.712 +/-  1.882
+data/MC/MCPred(131.667/114.569/110.432) -> scaleFactorVBFSF(  0):  1.149 +/-  0.093
 eventsTaggedVBFSF(0) --> top:  0.079  data:     0  bck:-0.008
 eventsTaggedVBFSF(1) --> top:  0.431  data:     0  bck: 0.038
 eventsTaggedVBFSF(2) --> top:  0.658  data:     1  bck: 0.151
@@ -936,9 +936,9 @@ eventsTaggedVBFSF(4) --> top:  0.512  data:     1  bck: 0.113
 eventsNonTaggedVBFSF(0) -->  0.010  -->  0.027 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBFSF(1) -->  0.166  -->  0.151 +/-  0.002 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.460  -->  0.299 +/-  0.005 |  0.490 +/-  0.580
-eventsNonTaggedVBFSF(3) -->  0.686  -->  0.648 +/-  0.016 |  0.372 +/-  0.375
-eventsNonTaggedVBFSF(4) -->  1.115  -->  0.787 +/-  0.028 |  0.853 +/-  1.000
-data/MC/MCPred( 1.718/ 2.436/ 1.912) -> scaleFactorVBFSF(  0):  0.705 +/-  0.499
+eventsNonTaggedVBFSF(3) -->  0.686  -->  0.648 +/-  0.016 |  0.371 +/-  0.374
+eventsNonTaggedVBFSF(4) -->  1.115  -->  0.787 +/-  0.028 |  0.852 +/-  0.999
+data/MC/MCPred( 1.716/ 2.436/ 1.912) -> scaleFactorVBFSF(  0):  0.704 +/-  0.498
 eventsTaggedVBFSF(0) --> top:  0.000  data:     0  bck: 0.000
 eventsTaggedVBFSF(1) --> top:  0.009  data:     0  bck:-0.001
 eventsTaggedVBFSF(2) --> top:  0.011  data:     0  bck:-0.003
@@ -1002,9 +1002,9 @@ eventsTaggedVBFSF(4) --> top:  0.000  data:     0  bck:-0.000
 eventsNonTaggedVBFSF(0) -->  0.000  -->  0.004 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBFSF(1) -->  0.000  -->  0.003 +/-  0.000 |  0.001 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.056  -->  0.014 +/-  0.000 |  0.003 +/-  0.000
-eventsNonTaggedVBFSF(3) -->  0.067  -->  0.047 +/-  0.001 |  0.365 +/-  0.374
+eventsNonTaggedVBFSF(3) -->  0.067  -->  0.047 +/-  0.001 |  0.364 +/-  0.373
 eventsNonTaggedVBFSF(4) -->  0.055  -->  0.000 +/-  0.000 |  0.000 +/-  0.000
-data/MC/MCPred( 0.372/ 0.178/ 0.068) -> scaleFactorVBFSF(124):  2.088 +/-  2.102
+data/MC/MCPred( 0.371/ 0.178/ 0.068) -> scaleFactorVBFSF(124):  2.084 +/-  2.098
 eventsTaggedVBFSF(0) --> top:  0.012  data:     0  bck:-0.007
 eventsTaggedVBFSF(1) --> top:  0.009  data:     0  bck:-0.002
 eventsTaggedVBFSF(2) --> top:  0.030  data:     0  bck:-0.004
@@ -1013,9 +1013,9 @@ eventsTaggedVBFSF(4) --> top:  0.000  data:     0  bck:-0.000
 eventsNonTaggedVBFSF(0) -->  0.000  -->  0.004 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBFSF(1) -->  0.000  -->  0.003 +/-  0.000 |  0.001 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.056  -->  0.014 +/-  0.000 |  0.003 +/-  0.000
-eventsNonTaggedVBFSF(3) -->  0.067  -->  0.047 +/-  0.001 |  0.365 +/-  0.374
+eventsNonTaggedVBFSF(3) -->  0.067  -->  0.047 +/-  0.001 |  0.364 +/-  0.373
 eventsNonTaggedVBFSF(4) -->  0.055  -->  0.000 +/-  0.000 |  0.000 +/-  0.000
-data/MC/MCPred( 0.372/ 0.178/ 0.068) -> scaleFactorVBFSF(125):  2.088 +/-  2.102
+data/MC/MCPred( 0.371/ 0.178/ 0.068) -> scaleFactorVBFSF(125):  2.084 +/-  2.098
 eventsTaggedVBFSF(0) --> top:  0.012  data:     0  bck:-0.007
 eventsTaggedVBFSF(1) --> top:  0.009  data:     0  bck:-0.002
 eventsTaggedVBFSF(2) --> top:  0.030  data:     0  bck:-0.004
@@ -1024,9 +1024,9 @@ eventsTaggedVBFSF(4) --> top:  0.000  data:     0  bck:-0.000
 eventsNonTaggedVBFSF(0) -->  0.000  -->  0.004 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBFSF(1) -->  0.000  -->  0.003 +/-  0.000 |  0.001 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.056  -->  0.014 +/-  0.000 |  0.003 +/-  0.000
-eventsNonTaggedVBFSF(3) -->  0.067  -->  0.047 +/-  0.001 |  0.365 +/-  0.374
+eventsNonTaggedVBFSF(3) -->  0.067  -->  0.047 +/-  0.001 |  0.364 +/-  0.373
 eventsNonTaggedVBFSF(4) -->  0.055  -->  0.000 +/-  0.000 |  0.000 +/-  0.000
-data/MC/MCPred( 0.372/ 0.178/ 0.068) -> scaleFactorVBFSF(126):  2.088 +/-  2.102
+data/MC/MCPred( 0.371/ 0.178/ 0.068) -> scaleFactorVBFSF(126):  2.084 +/-  2.098
 eventsTaggedVBFSF(0) --> top:  0.012  data:     0  bck:-0.007
 eventsTaggedVBFSF(1) --> top:  0.009  data:     0  bck:-0.002
 eventsTaggedVBFSF(2) --> top:  0.030  data:     0  bck:-0.004
@@ -1035,9 +1035,9 @@ eventsTaggedVBFSF(4) --> top:  0.010  data:     0  bck:-0.000
 eventsNonTaggedVBFSF(0) -->  0.000  -->  0.004 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBFSF(1) -->  0.000  -->  0.003 +/-  0.000 |  0.001 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.056  -->  0.014 +/-  0.000 |  0.003 +/-  0.000
-eventsNonTaggedVBFSF(3) -->  0.067  -->  0.047 +/-  0.001 |  0.365 +/-  0.374
+eventsNonTaggedVBFSF(3) -->  0.067  -->  0.047 +/-  0.001 |  0.364 +/-  0.373
 eventsNonTaggedVBFSF(4) -->  0.066  -->  0.016 +/-  0.001 |  0.000 +/-  0.000
-data/MC/MCPred( 0.372/ 0.189/ 0.084) -> scaleFactorVBFSF(128):  1.969 +/-  1.983
+data/MC/MCPred( 0.371/ 0.189/ 0.084) -> scaleFactorVBFSF(128):  1.965 +/-  1.979
 eventsTaggedVBFSF(0) --> top:  0.012  data:     0  bck:-0.007
 eventsTaggedVBFSF(1) --> top:  0.009  data:     0  bck:-0.002
 eventsTaggedVBFSF(2) --> top:  0.040  data:     0  bck:-0.004
@@ -1046,9 +1046,9 @@ eventsTaggedVBFSF(4) --> top:  0.010  data:     0  bck:-0.000
 eventsNonTaggedVBFSF(0) -->  0.000  -->  0.004 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBFSF(1) -->  0.000  -->  0.003 +/-  0.000 |  0.001 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.056  -->  0.018 +/-  0.000 |  0.003 +/-  0.000
-eventsNonTaggedVBFSF(3) -->  0.076  -->  0.047 +/-  0.001 |  0.365 +/-  0.374
+eventsNonTaggedVBFSF(3) -->  0.076  -->  0.047 +/-  0.001 |  0.364 +/-  0.373
 eventsNonTaggedVBFSF(4) -->  0.066  -->  0.016 +/-  0.001 |  0.000 +/-  0.000
-data/MC/MCPred( 0.372/ 0.198/ 0.089) -> scaleFactorVBFSF(130):  1.875 +/-  1.887
+data/MC/MCPred( 0.371/ 0.198/ 0.089) -> scaleFactorVBFSF(130):  1.871 +/-  1.883
 eventsTaggedVBFSF(0) --> top:  0.012  data:     0  bck:-0.007
 eventsTaggedVBFSF(1) --> top:  0.016  data:     0  bck:-0.002
 eventsTaggedVBFSF(2) --> top:  0.051  data:     0  bck:-0.004
@@ -1057,9 +1057,9 @@ eventsTaggedVBFSF(4) --> top:  0.020  data:     0  bck:-0.000
 eventsNonTaggedVBFSF(0) -->  0.000  -->  0.004 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBFSF(1) -->  0.004  -->  0.006 +/-  0.000 |  0.001 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.056  -->  0.023 +/-  0.000 |  0.003 +/-  0.000
-eventsNonTaggedVBFSF(3) -->  0.076  -->  0.047 +/-  0.001 |  0.365 +/-  0.374
+eventsNonTaggedVBFSF(3) -->  0.076  -->  0.047 +/-  0.001 |  0.365 +/-  0.373
 eventsNonTaggedVBFSF(4) -->  0.071  -->  0.030 +/-  0.001 |  0.000 +/-  0.000
-data/MC/MCPred( 0.372/ 0.208/ 0.110) -> scaleFactorVBFSF(135):  1.786 +/-  1.797
+data/MC/MCPred( 0.371/ 0.208/ 0.110) -> scaleFactorVBFSF(135):  1.783 +/-  1.794
 eventsTaggedVBFSF(0) --> top:  0.012  data:     0  bck:-0.007
 eventsTaggedVBFSF(1) --> top:  0.016  data:     0  bck:-0.002
 eventsTaggedVBFSF(2) --> top:  0.051  data:     0  bck:-0.004
@@ -1068,9 +1068,9 @@ eventsTaggedVBFSF(4) --> top:  0.020  data:     0  bck:-0.000
 eventsNonTaggedVBFSF(0) -->  0.010  -->  0.004 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBFSF(1) -->  0.004  -->  0.006 +/-  0.000 |  0.001 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.056  -->  0.023 +/-  0.000 |  0.003 +/-  0.000
-eventsNonTaggedVBFSF(3) -->  0.076  -->  0.047 +/-  0.001 |  0.365 +/-  0.374
+eventsNonTaggedVBFSF(3) -->  0.076  -->  0.047 +/-  0.001 |  0.365 +/-  0.373
 eventsNonTaggedVBFSF(4) -->  0.079  -->  0.030 +/-  0.001 |  0.000 +/-  0.000
-data/MC/MCPred( 0.372/ 0.226/ 0.110) -> scaleFactorVBFSF(140):  1.644 +/-  1.654
+data/MC/MCPred( 0.371/ 0.226/ 0.110) -> scaleFactorVBFSF(140):  1.641 +/-  1.651
 eventsTaggedVBFSF(0) --> top:  0.012  data:     0  bck:-0.007
 eventsTaggedVBFSF(1) --> top:  0.016  data:     0  bck:-0.002
 eventsTaggedVBFSF(2) --> top:  0.051  data:     0  bck:-0.004
@@ -1079,9 +1079,9 @@ eventsTaggedVBFSF(4) --> top:  0.020  data:     0  bck:-0.000
 eventsNonTaggedVBFSF(0) -->  0.010  -->  0.004 +/-  0.000 |  0.003 +/-  0.000
 eventsNonTaggedVBFSF(1) -->  0.004  -->  0.006 +/-  0.000 |  0.001 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.056  -->  0.023 +/-  0.000 |  0.003 +/-  0.000
-eventsNonTaggedVBFSF(3) -->  0.076  -->  0.047 +/-  0.001 |  0.365 +/-  0.374
+eventsNonTaggedVBFSF(3) -->  0.076  -->  0.047 +/-  0.001 |  0.365 +/-  0.373
 eventsNonTaggedVBFSF(4) -->  0.079  -->  0.030 +/-  0.001 |  0.000 +/-  0.000
-data/MC/MCPred( 0.372/ 0.226/ 0.110) -> scaleFactorVBFSF(145):  1.644 +/-  1.654
+data/MC/MCPred( 0.371/ 0.226/ 0.110) -> scaleFactorVBFSF(145):  1.641 +/-  1.651
 eventsTaggedVBFSF(0) --> top:  0.012  data:     0  bck: 0.000
 eventsTaggedVBFSF(1) --> top:  0.039  data:     0  bck: 0.000
 eventsTaggedVBFSF(2) --> top:  0.081  data:     0  bck:-0.000
@@ -1091,8 +1091,8 @@ eventsNonTaggedVBFSF(0) -->  0.000  -->  0.004 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(1) -->  0.004  -->  0.014 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.000  -->  0.037 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(3) -->  0.096  -->  0.072 +/-  0.002 |  0.000 +/-  0.000
-eventsNonTaggedVBFSF(4) -->  0.122  -->  0.062 +/-  0.002 |  0.961 +/-  1.011
-data/MC/MCPred( 0.962/ 0.222/ 0.188) -> scaleFactorVBFSF(150):  4.331 +/-  4.552
+eventsNonTaggedVBFSF(4) -->  0.122  -->  0.062 +/-  0.002 |  0.960 +/-  1.009
+data/MC/MCPred( 0.961/ 0.222/ 0.188) -> scaleFactorVBFSF(150):  4.326 +/-  4.546
 eventsTaggedVBFSF(0) --> top:  0.012  data:     0  bck: 0.000
 eventsTaggedVBFSF(1) --> top:  0.039  data:     0  bck: 0.000
 eventsTaggedVBFSF(2) --> top:  0.081  data:     0  bck:-0.000
@@ -1102,8 +1102,8 @@ eventsNonTaggedVBFSF(0) -->  0.000  -->  0.004 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(1) -->  0.004  -->  0.014 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.000  -->  0.037 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(3) -->  0.096  -->  0.072 +/-  0.002 |  0.000 +/-  0.000
-eventsNonTaggedVBFSF(4) -->  0.122  -->  0.062 +/-  0.002 |  0.961 +/-  1.011
-data/MC/MCPred( 0.962/ 0.222/ 0.188) -> scaleFactorVBFSF(155):  4.331 +/-  4.552
+eventsNonTaggedVBFSF(4) -->  0.122  -->  0.062 +/-  0.002 |  0.960 +/-  1.009
+data/MC/MCPred( 0.961/ 0.222/ 0.188) -> scaleFactorVBFSF(155):  4.326 +/-  4.546
 eventsTaggedVBFSF(0) --> top:  0.012  data:     0  bck: 0.000
 eventsTaggedVBFSF(1) --> top:  0.039  data:     0  bck: 0.000
 eventsTaggedVBFSF(2) --> top:  0.085  data:     0  bck:-0.000
@@ -1113,8 +1113,8 @@ eventsNonTaggedVBFSF(0) -->  0.000  -->  0.004 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(1) -->  0.014  -->  0.014 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.011  -->  0.039 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(3) -->  0.085  -->  0.077 +/-  0.002 |  0.000 +/-  0.000
-eventsNonTaggedVBFSF(4) -->  0.078  -->  0.079 +/-  0.003 |  0.961 +/-  1.011
-data/MC/MCPred( 0.961/ 0.187/ 0.213) -> scaleFactorVBFSF(160):  5.131 +/-  5.394
+eventsNonTaggedVBFSF(4) -->  0.078  -->  0.079 +/-  0.003 |  0.960 +/-  1.009
+data/MC/MCPred( 0.960/ 0.187/ 0.213) -> scaleFactorVBFSF(160):  5.125 +/-  5.387
 eventsTaggedVBFSF(0) --> top:  0.012  data:     0  bck: 0.000
 eventsTaggedVBFSF(1) --> top:  0.028  data:     0  bck: 0.000
 eventsTaggedVBFSF(2) --> top:  0.074  data:     0  bck:-0.000
@@ -1125,7 +1125,7 @@ eventsNonTaggedVBFSF(1) -->  0.014  -->  0.010 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.011  -->  0.033 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(3) -->  0.075  -->  0.077 +/-  0.002 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(4) -->  0.070  -->  0.113 +/-  0.004 |  0.003 +/-  0.001
-data/MC/MCPred( 0.003/ 0.169/ 0.238) -> scaleFactorVBFSF(170):  0.017 +/-  0.005
+data/MC/MCPred( 0.003/ 0.169/ 0.238) -> scaleFactorVBFSF(170):  0.016 +/-  0.005
 eventsTaggedVBFSF(0) --> top:  0.023  data:     0  bck: 0.000
 eventsTaggedVBFSF(1) --> top:  0.050  data:     0  bck: 0.000
 eventsTaggedVBFSF(2) --> top:  0.111  data:     0  bck:-0.000
@@ -1191,7 +1191,7 @@ eventsNonTaggedVBFSF(1) -->  0.022  -->  0.029 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(2) -->  0.085  -->  0.102 +/-  0.002 |  0.017 +/-  0.002
 eventsNonTaggedVBFSF(3) -->  0.118  -->  0.170 +/-  0.004 |  0.000 +/-  0.000
 eventsNonTaggedVBFSF(4) -->  0.268  -->  0.160 +/-  0.006 |  0.000 +/-  0.000
-data/MC/MCPred( 0.018/ 0.492/ 0.473) -> scaleFactorVBFSF(350):  0.036 +/-  0.004
+data/MC/MCPred( 0.017/ 0.492/ 0.473) -> scaleFactorVBFSF(350):  0.036 +/-  0.004
 eventsTaggedVBFSF(0) --> top:  0.022  data:     0  bck:-0.001
 eventsTaggedVBFSF(1) --> top:  0.045  data:     0  bck: 0.017
 eventsTaggedVBFSF(2) --> top:  0.222  data:     0  bck:-0.027
@@ -1275,23 +1275,23 @@ eventsTaggedVBFOF(1) --> top: 184.546  data:   211  bck: 5.290
 eventsTaggedVBFOF(2) --> top: 89.860  data:    99  bck: 4.737
 eventsTaggedVBFOF(3) --> top: 35.032  data:    37  bck: 1.247
 eventsTaggedVBFOF(4) --> top: 10.070  data:     7  bck: 0.517
-eventsNonTaggedVBFOF(0) --> 100.280  --> 97.044 +/-  0.997 | 129.888 +/- 12.888
-eventsNonTaggedVBFOF(1) --> 66.583  --> 64.578 +/-  0.820 | 86.409 +/- 10.396
-eventsNonTaggedVBFOF(2) --> 40.594  --> 40.876 +/-  0.683 | 54.391 +/-  9.025
-eventsNonTaggedVBFOF(3) --> 21.293  --> 20.445 +/-  0.502 | 13.056 +/-  3.669
-eventsNonTaggedVBFOF(4) --> 16.745  --> 15.480 +/-  0.560 |  6.232 +/-  3.249
-data/MC/MCPred(289.976/245.496/238.422) -> scaleFactorVBFOF(  0):  1.181 +/-  0.079
+eventsNonTaggedVBFOF(0) --> 100.280  --> 97.044 +/-  0.997 | 129.801 +/- 12.881
+eventsNonTaggedVBFOF(1) --> 66.583  --> 64.578 +/-  0.820 | 86.367 +/- 10.391
+eventsNonTaggedVBFOF(2) --> 40.594  --> 40.876 +/-  0.683 | 54.340 +/-  9.017
+eventsNonTaggedVBFOF(3) --> 21.293  --> 20.445 +/-  0.502 | 13.029 +/-  3.663
+eventsNonTaggedVBFOF(4) --> 16.745  --> 15.480 +/-  0.560 |  6.224 +/-  3.245
+data/MC/MCPred(289.761/245.496/238.422) -> scaleFactorVBFOF(  0):  1.180 +/-  0.079
 eventsTaggedVBFOF(0) --> top:  0.303  data:     0  bck:-0.007
 eventsTaggedVBFOF(1) --> top:  0.993  data:     3  bck: 0.055
 eventsTaggedVBFOF(2) --> top:  1.632  data:     4  bck:-0.006
 eventsTaggedVBFOF(3) --> top:  2.285  data:     0  bck: 0.115
 eventsTaggedVBFOF(4) --> top:  0.955  data:     1  bck:-0.016
 eventsNonTaggedVBFOF(0) -->  0.162  -->  0.104 +/-  0.001 |  0.003 +/-  0.000
-eventsNonTaggedVBFOF(1) -->  0.365  -->  0.348 +/-  0.004 |  1.237 +/-  0.737
-eventsNonTaggedVBFOF(2) -->  0.885  -->  0.743 +/-  0.012 |  2.312 +/-  1.191
+eventsNonTaggedVBFOF(1) -->  0.365  -->  0.348 +/-  0.004 |  1.236 +/-  0.737
+eventsNonTaggedVBFOF(2) -->  0.885  -->  0.743 +/-  0.012 |  2.309 +/-  1.190
 eventsNonTaggedVBFOF(3) -->  1.239  -->  1.333 +/-  0.033 |  0.000 +/-  0.000
-eventsNonTaggedVBFOF(4) -->  2.791  -->  1.468 +/-  0.053 |  0.977 +/-  1.012
-data/MC/MCPred( 4.529/ 5.441/ 3.994) -> scaleFactorVBFOF(  0):  0.832 +/-  0.318
+eventsNonTaggedVBFOF(4) -->  2.791  -->  1.468 +/-  0.053 |  0.976 +/-  1.011
+data/MC/MCPred( 4.525/ 5.441/ 3.994) -> scaleFactorVBFOF(  0):  0.832 +/-  0.317
 eventsTaggedVBFOF(0) --> top:  0.000  data:     0  bck:-0.000
 eventsTaggedVBFOF(1) --> top:  0.142  data:     0  bck: 0.077
 eventsTaggedVBFOF(2) --> top:  0.075  data:     0  bck:-0.002
@@ -1390,7 +1390,7 @@ eventsNonTaggedVBFOF(1) -->  0.026  -->  0.053 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBFOF(2) -->  0.040  -->  0.044 +/-  0.001 |  0.005 +/-  0.001
 eventsNonTaggedVBFOF(3) -->  0.040  -->  0.076 +/-  0.002 |  0.004 +/-  0.001
 eventsNonTaggedVBFOF(4) -->  0.140  -->  0.065 +/-  0.002 |  0.001 +/-  0.000
-data/MC/MCPred( 0.010/ 0.294/ 0.244) -> scaleFactorVBFOF(128):  0.033 +/-  0.004
+data/MC/MCPred( 0.010/ 0.294/ 0.244) -> scaleFactorVBFOF(128):  0.032 +/-  0.004
 eventsTaggedVBFOF(0) --> top:  0.019  data:     0  bck:-0.000
 eventsTaggedVBFOF(1) --> top:  0.163  data:     0  bck: 0.075
 eventsTaggedVBFOF(2) --> top:  0.096  data:     0  bck:-0.008
@@ -1486,10 +1486,10 @@ eventsTaggedVBFOF(3) --> top:  0.241  data:     0  bck:-0.016
 eventsTaggedVBFOF(4) --> top:  0.067  data:     0  bck:-0.001
 eventsNonTaggedVBFOF(0) -->  0.031  -->  0.018 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBFOF(1) -->  0.036  -->  0.068 +/-  0.001 |  0.000 +/-  0.000
-eventsNonTaggedVBFOF(2) -->  0.075  -->  0.096 +/-  0.002 |  0.581 +/-  0.582
+eventsNonTaggedVBFOF(2) -->  0.075  -->  0.096 +/-  0.002 |  0.581 +/-  0.581
 eventsNonTaggedVBFOF(3) -->  0.136  -->  0.141 +/-  0.003 |  0.006 +/-  0.001
 eventsNonTaggedVBFOF(4) -->  0.219  -->  0.103 +/-  0.004 |  0.001 +/-  0.000
-data/MC/MCPred( 0.589/ 0.497/ 0.426) -> scaleFactorVBFOF(180):  1.186 +/-  1.172
+data/MC/MCPred( 0.588/ 0.497/ 0.426) -> scaleFactorVBFOF(180):  1.185 +/-  1.170
 eventsTaggedVBFOF(0) --> top:  0.065  data:     0  bck:-0.001
 eventsTaggedVBFOF(1) --> top:  0.188  data:     0  bck:-0.004
 eventsTaggedVBFOF(2) --> top:  0.343  data:     1  bck:-0.007
@@ -1497,10 +1497,10 @@ eventsTaggedVBFOF(3) --> top:  0.369  data:     0  bck:-0.017
 eventsTaggedVBFOF(4) --> top:  0.145  data:     0  bck:-0.001
 eventsNonTaggedVBFOF(0) -->  0.033  -->  0.022 +/-  0.000 |  0.001 +/-  0.000
 eventsNonTaggedVBFOF(1) -->  0.111  -->  0.066 +/-  0.001 |  0.002 +/-  0.000
-eventsNonTaggedVBFOF(2) -->  0.154  -->  0.156 +/-  0.003 |  0.581 +/-  0.582
+eventsNonTaggedVBFOF(2) -->  0.154  -->  0.156 +/-  0.003 |  0.581 +/-  0.581
 eventsNonTaggedVBFOF(3) -->  0.190  -->  0.215 +/-  0.005 |  0.006 +/-  0.001
 eventsNonTaggedVBFOF(4) -->  0.443  -->  0.223 +/-  0.008 |  0.001 +/-  0.000
-data/MC/MCPred( 0.591/ 0.931/ 0.682) -> scaleFactorVBFOF(190):  0.635 +/-  0.625
+data/MC/MCPred( 0.591/ 0.931/ 0.682) -> scaleFactorVBFOF(190):  0.634 +/-  0.624
 eventsTaggedVBFOF(0) --> top:  0.065  data:     0  bck:-0.001
 eventsTaggedVBFOF(1) --> top:  0.220  data:     0  bck:-0.006
 eventsTaggedVBFOF(2) --> top:  0.333  data:     1  bck:-0.007
@@ -1508,10 +1508,10 @@ eventsTaggedVBFOF(3) --> top:  0.420  data:     0  bck:-0.020
 eventsTaggedVBFOF(4) --> top:  0.197  data:     0  bck:-0.002
 eventsNonTaggedVBFOF(0) -->  0.033  -->  0.022 +/-  0.000 |  0.001 +/-  0.000
 eventsNonTaggedVBFOF(1) -->  0.121  -->  0.077 +/-  0.001 |  0.003 +/-  0.000
-eventsNonTaggedVBFOF(2) -->  0.201  -->  0.151 +/-  0.003 |  0.581 +/-  0.582
+eventsNonTaggedVBFOF(2) -->  0.201  -->  0.151 +/-  0.003 |  0.581 +/-  0.581
 eventsNonTaggedVBFOF(3) -->  0.194  -->  0.245 +/-  0.006 |  0.007 +/-  0.002
 eventsNonTaggedVBFOF(4) -->  0.526  -->  0.304 +/-  0.011 |  0.002 +/-  0.001
-data/MC/MCPred( 0.594/ 1.075/ 0.799) -> scaleFactorVBFOF(200):  0.553 +/-  0.541
+data/MC/MCPred( 0.593/ 1.075/ 0.799) -> scaleFactorVBFOF(200):  0.552 +/-  0.541
 eventsTaggedVBFOF(0) --> top:  0.180  data:     0  bck: 0.001
 eventsTaggedVBFOF(1) --> top:  0.259  data:     0  bck:-0.011
 eventsTaggedVBFOF(2) --> top:  0.603  data:     1  bck: 0.022
@@ -1519,10 +1519,10 @@ eventsTaggedVBFOF(3) --> top:  0.638  data:     0  bck: 0.012
 eventsTaggedVBFOF(4) --> top:  0.307  data:     0  bck: 0.004
 eventsNonTaggedVBFOF(0) -->  0.033  -->  0.061 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBFOF(1) -->  0.121  -->  0.091 +/-  0.001 |  0.005 +/-  0.000
-eventsNonTaggedVBFOF(2) -->  0.289  -->  0.275 +/-  0.005 |  0.564 +/-  0.582
+eventsNonTaggedVBFOF(2) -->  0.289  -->  0.275 +/-  0.005 |  0.564 +/-  0.581
 eventsNonTaggedVBFOF(3) -->  0.416  -->  0.373 +/-  0.009 |  0.000 +/-  0.000
 eventsNonTaggedVBFOF(4) -->  0.888  -->  0.472 +/-  0.017 |  0.000 +/-  0.000
-data/MC/MCPred( 0.569/ 1.748/ 1.271) -> scaleFactorVBFOF(250):  0.325 +/-  0.333
+data/MC/MCPred( 0.568/ 1.748/ 1.271) -> scaleFactorVBFOF(250):  0.325 +/-  0.332
 eventsTaggedVBFOF(0) --> top:  0.168  data:     0  bck: 0.001
 eventsTaggedVBFOF(1) --> top:  0.371  data:     0  bck:-0.006
 eventsTaggedVBFOF(2) --> top:  0.554  data:     1  bck: 0.024
@@ -1530,10 +1530,10 @@ eventsTaggedVBFOF(3) --> top:  0.694  data:     0  bck: 0.032
 eventsTaggedVBFOF(4) --> top:  0.294  data:     0  bck: 0.006
 eventsNonTaggedVBFOF(0) -->  0.052  -->  0.058 +/-  0.001 |  0.000 +/-  0.000
 eventsNonTaggedVBFOF(1) -->  0.122  -->  0.130 +/-  0.002 |  0.002 +/-  0.000
-eventsNonTaggedVBFOF(2) -->  0.393  -->  0.252 +/-  0.004 |  0.563 +/-  0.581
+eventsNonTaggedVBFOF(2) -->  0.393  -->  0.252 +/-  0.004 |  0.562 +/-  0.581
 eventsNonTaggedVBFOF(3) -->  0.377  -->  0.405 +/-  0.010 |  0.000 +/-  0.000
 eventsNonTaggedVBFOF(4) -->  0.958  -->  0.452 +/-  0.016 |  0.000 +/-  0.000
-data/MC/MCPred( 0.565/ 1.902/ 1.297) -> scaleFactorVBFOF(300):  0.297 +/-  0.306
+data/MC/MCPred( 0.565/ 1.902/ 1.297) -> scaleFactorVBFOF(300):  0.297 +/-  0.305
 eventsTaggedVBFOF(0) --> top:  0.138  data:     0  bck: 0.001
 eventsTaggedVBFOF(1) --> top:  0.377  data:     0  bck:-0.004
 eventsTaggedVBFOF(2) --> top:  0.384  data:     1  bck: 0.030
@@ -1544,7 +1544,7 @@ eventsNonTaggedVBFOF(1) -->  0.058  -->  0.132 +/-  0.002 |  0.002 +/-  0.000
 eventsNonTaggedVBFOF(2) -->  0.336  -->  0.175 +/-  0.003 |  0.559 +/-  0.581
 eventsNonTaggedVBFOF(3) -->  0.357  -->  0.333 +/-  0.008 |  0.000 +/-  0.000
 eventsNonTaggedVBFOF(4) -->  0.708  -->  0.379 +/-  0.014 |  0.000 +/-  0.000
-data/MC/MCPred( 0.561/ 1.512/ 1.066) -> scaleFactorVBFOF(350):  0.371 +/-  0.385
+data/MC/MCPred( 0.560/ 1.512/ 1.066) -> scaleFactorVBFOF(350):  0.371 +/-  0.384
 eventsTaggedVBFOF(0) --> top:  0.118  data:     0  bck: 0.001
 eventsTaggedVBFOF(1) --> top:  0.337  data:     0  bck:-0.008
 eventsTaggedVBFOF(2) --> top:  0.343  data:     1  bck: 0.035
@@ -1552,10 +1552,10 @@ eventsTaggedVBFOF(3) --> top:  0.531  data:     0  bck: 0.036
 eventsTaggedVBFOF(4) --> top:  0.244  data:     0  bck: 0.013
 eventsNonTaggedVBFOF(0) -->  0.075  -->  0.040 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBFOF(1) -->  0.037  -->  0.118 +/-  0.001 |  0.003 +/-  0.000
-eventsNonTaggedVBFOF(2) -->  0.356  -->  0.156 +/-  0.003 |  0.557 +/-  0.581
+eventsNonTaggedVBFOF(2) -->  0.356  -->  0.156 +/-  0.003 |  0.556 +/-  0.581
 eventsNonTaggedVBFOF(3) -->  0.335  -->  0.310 +/-  0.008 |  0.000 +/-  0.000
 eventsNonTaggedVBFOF(4) -->  0.472  -->  0.375 +/-  0.014 |  0.000 +/-  0.000
-data/MC/MCPred( 0.560/ 1.275/ 0.999) -> scaleFactorVBFOF(400):  0.439 +/-  0.456
+data/MC/MCPred( 0.559/ 1.275/ 0.999) -> scaleFactorVBFOF(400):  0.439 +/-  0.456
 eventsTaggedVBFOF(0) --> top:  0.078  data:     0  bck:-0.000
 eventsTaggedVBFOF(1) --> top:  0.253  data:     0  bck: 0.000
 eventsTaggedVBFOF(2) --> top:  0.235  data:     1  bck: 0.004
@@ -1563,10 +1563,10 @@ eventsTaggedVBFOF(3) --> top:  0.415  data:     0  bck:-0.002
 eventsTaggedVBFOF(4) --> top:  0.143  data:     0  bck: 0.011
 eventsNonTaggedVBFOF(0) -->  0.034  -->  0.027 +/-  0.000 |  0.000 +/-  0.000
 eventsNonTaggedVBFOF(1) -->  0.015  -->  0.089 +/-  0.001 |  0.000 +/-  0.000
-eventsNonTaggedVBFOF(2) -->  0.301  -->  0.107 +/-  0.002 |  0.575 +/-  0.582
+eventsNonTaggedVBFOF(2) -->  0.301  -->  0.107 +/-  0.002 |  0.574 +/-  0.581
 eventsNonTaggedVBFOF(3) -->  0.234  -->  0.242 +/-  0.006 |  0.001 +/-  0.000
 eventsNonTaggedVBFOF(4) -->  0.272  -->  0.220 +/-  0.008 |  0.000 +/-  0.000
-data/MC/MCPred( 0.575/ 0.857/ 0.685) -> scaleFactorVBFOF(450):  0.671 +/-  0.679
+data/MC/MCPred( 0.575/ 0.857/ 0.685) -> scaleFactorVBFOF(450):  0.670 +/-  0.678
 eventsTaggedVBFOF(0) --> top:  0.067  data:     0  bck:-0.000
 eventsTaggedVBFOF(1) --> top:  0.225  data:     0  bck:-0.001
 eventsTaggedVBFOF(2) --> top:  0.112  data:     0  bck: 0.003
@@ -1628,16 +1628,16 @@ scaleFactor2j(1) -->  1.060 +/-  0.054
 scaleFactor2j(2) -->  1.145 +/-  0.051
 scaleFactor2j(3) -->  1.129 +/-  0.087
 scaleFactor2j(4) -->  1.104 +/-  0.031
-numerator  (mm ) --> data:  251, background:    1.13, tt+tw:  231.09, tt:  223.45, tw:    7.64
-denominator(mm ) --> data:  388, background:    4.00, tt+tw:  326.34, tt:  310.33, tw:   16.01
+numerator  (mm ) --> data:  251, background:    1.14, tt+tw:  231.09, tt:  223.45, tw:    7.64
+denominator(mm ) --> data:  388, background:    4.01, tt+tw:  326.34, tt:  310.33, tw:   16.01
 numerator  (me ) --> data:  393, background:    1.85, tt+tw:  369.17, tt:  356.32, tw:   12.85
 denominator(me ) --> data:  577, background:    6.24, tt+tw:  523.10, tt:  495.87, tw:   27.23
 numerator  (em ) --> data:  501, background:    2.06, tt+tw:  435.86, tt:  419.26, tw:   16.60
 denominator(em ) --> data:  729, background:    9.90, tt+tw:  618.34, tt:  585.31, tw:   33.04
 numerator  (ee ) --> data:  169, background:    0.16, tt+tw:  149.54, tt:  144.42, tw:    5.12
-denominator(ee ) --> data:  241, background:    2.04, tt+tw:  210.71, tt:  199.82, tw:   10.88
-numerator  (all) --> data: 1314, background:    5.20, tt+tw: 1185.66, tt: 1143.45, tw:   42.21
-denominator(all) --> data: 1935, background:   22.19, tt+tw: 1678.49, tt: 1591.33, tw:   87.16
+denominator(ee ) --> data:  241, background:    2.05, tt+tw:  210.71, tt:  199.82, tw:   10.88
+numerator  (all) --> data: 1314, background:    5.21, tt+tw: 1185.66, tt: 1143.45, tw:   42.21
+denominator(all) --> data: 1935, background:   22.21, tt+tw: 1678.49, tt: 1591.33, tw:   87.16
 channel         eff_tttw             eff_tt                eff_tw               eff_data                         ScaleFactor
 eff (mm ):  0.708 +/-  0.003   0.720 +/-  0.003   0.477 +/-  0.031 -->  0.658 +/-  0.024      : scaleFactor2j(mm ) -->  1.081 +/-  0.069
 eff (me ):  0.706 +/-  0.002   0.719 +/-  0.002   0.472 +/-  0.024 -->  0.696 +/-  0.019      : scaleFactor2j(me ) -->  1.060 +/-  0.054
@@ -1646,42 +1646,42 @@ eff (ee ):  0.710 +/-  0.004   0.723 +/-  0.003   0.470 +/-  0.038 -->  0.718 +/
 eff (all):  0.706 +/-  0.001   0.719 +/-  0.001   0.484 +/-  0.013 -->  0.694 +/-  0.010      : scaleFactor2j(all) -->  1.104 +/-  0.031
 ****************************************************************************************************************************************
 **********eff highest pt jet 1-j**********
-numerator  (mm ) --> data:  154, background:    8.70, tt+tw:  154.23, tt:  114.40, tw:   39.83
-denominator(mm ) --> data:  333, background:  134.17, tt+tw:  219.41, tt:  161.04, tw:   58.37
+numerator  (mm ) --> data:  154, background:    8.72, tt+tw:  154.23, tt:  114.40, tw:   39.83
+denominator(mm ) --> data:  333, background:  134.39, tt+tw:  219.41, tt:  161.04, tw:   58.37
 numerator  (me ) --> data:  277, background:   16.70, tt+tw:  245.64, tt:  176.92, tw:   68.72
 denominator(me ) --> data:  547, background:  182.90, tt+tw:  350.07, tt:  249.34, tw:  100.73
 numerator  (em ) --> data:  313, background:   17.89, tt+tw:  295.94, tt:  212.03, tw:   83.91
 denominator(em ) --> data:  647, background:  215.24, tt+tw:  421.41, tt:  299.03, tw:  122.38
-numerator  (ee ) --> data:  123, background:   12.76, tt+tw:  102.45, tt:   74.38, tw:   28.06
-denominator(ee ) --> data:  267, background:  105.48, tt+tw:  146.11, tt:  104.97, tw:   41.14
-numerator  (all) --> data:  867, background:   56.06, tt+tw:  798.26, tt:  577.74, tw:  220.52
-denominator(all) --> data: 1794, background:  637.78, tt+tw: 1137.00, tt:  814.38, tw:  322.62
+numerator  (ee ) --> data:  123, background:   12.80, tt+tw:  102.45, tt:   74.38, tw:   28.06
+denominator(ee ) --> data:  267, background:  105.67, tt+tw:  146.11, tt:  104.97, tw:   41.14
+numerator  (all) --> data:  867, background:   56.12, tt+tw:  798.26, tt:  577.74, tw:  220.52
+denominator(all) --> data: 1794, background:  638.20, tt+tw: 1137.00, tt:  814.38, tw:  322.62
 channel       eff_tttw           eff_tt              eff_tw               eff_data              
-eff (0):  0.703 +/-  0.005   0.710 +/-  0.004   0.682 +/-  0.015 -->  0.751 +/-  0.024  
+eff (0):  0.703 +/-  0.005   0.710 +/-  0.004   0.682 +/-  0.015 -->  0.752 +/-  0.024  
 eff (1):  0.702 +/-  0.004   0.710 +/-  0.003   0.682 +/-  0.011 -->  0.727 +/-  0.019  
 eff (2):  0.702 +/-  0.004   0.709 +/-  0.003   0.686 +/-  0.010 -->  0.683 +/-  0.018  
 eff (3):  0.701 +/-  0.006   0.709 +/-  0.005   0.682 +/-  0.018 -->  0.683 +/-  0.028  
-eff (4):  0.702 +/-  0.002   0.709 +/-  0.002   0.684 +/-  0.006 -->  0.708 +/-  0.011  
+eff (4):  0.702 +/-  0.002   0.709 +/-  0.002   0.684 +/-  0.006 -->  0.709 +/-  0.011  
 Predicted ttbar+tW background for 1jet analysis (fails btag):  top background scale factor
                MC(tt + tW)     Predicted from MC     | Prediction from Data   |    Scale Factor 
-top 1-jet(mm ):     65.179         64.107 +/-  1.110       |  64.134 +/-  6.325        |    0.984 +/- 0.097
+top 1-jet(mm ):     65.179         64.107 +/-  1.110       |  64.124 +/-  6.325        |    0.984 +/- 0.097
 top 1-jet(me ):    104.425        102.104 +/-  1.418       | 114.894 +/-  9.278        |    1.100 +/- 0.089
 top 1-jet(em ):    125.471        123.009 +/-  1.573       | 130.259 +/- 10.112        |    1.038 +/- 0.081
-top 1-jet(ee ):     43.661         42.583 +/-  0.929       |  48.659 +/-  5.452        |    1.114 +/- 0.125
-top 1-jet(all):    338.736        331.803 +/-  2.565       | 357.945 +/- 21.922        |    1.057 +/- 0.065
+top 1-jet(ee ):     43.661         42.583 +/-  0.929       |  48.643 +/-  5.452        |    1.114 +/- 0.125
+top 1-jet(all):    338.736        331.803 +/-  2.565       | 357.919 +/- 21.921        |    1.057 +/- 0.065
 **********************************************************
 **********eff low pt jet 1-j**********
-btagSFTW = 1.056708
+btagSFTW = 1.056631
 numerator(mm )   --> data:   70, background:    1.03, tt+tw:   74.03, tt:   65.13, tw:    8.90
-denominator(mm ) --> data:  224, background:    9.73, tt+tw:  228.26, tt:  179.53, tw:   48.73
+denominator(mm ) --> data:  224, background:    9.76, tt+tw:  228.26, tt:  179.53, tw:   48.73
 numerator(me )   --> data:  120, background:    1.17, tt+tw:  114.12, tt:  101.03, tw:   13.09
 denominator(me ) --> data:  397, background:   17.87, tt+tw:  359.76, tt:  277.95, tw:   81.81
 numerator(em )   --> data:  159, background:    3.31, tt+tw:  132.90, tt:  118.68, tw:   14.22
 denominator(em ) --> data:  472, background:   21.21, tt+tw:  428.84, tt:  330.71, tw:   98.13
 numerator(ee )   --> data:   56, background:    0.56, tt+tw:   45.52, tt:   40.87, tw:    4.65
-denominator(ee ) --> data:  179, background:   13.33, tt+tw:  147.96, tt:  115.25, tw:   32.71
+denominator(ee ) --> data:  179, background:   13.36, tt+tw:  147.96, tt:  115.25, tw:   32.71
 numerator(all)   --> data:  405, background:    6.08, tt+tw:  366.56, tt:  325.70, tw:   40.86
-denominator(all) --> data: 1272, background:   62.14, tt+tw: 1164.83, tt:  903.44, tw:  261.38
+denominator(all) --> data: 1272, background:   62.19, tt+tw: 1164.83, tt:  903.44, tw:  261.38
 channel       eff_tttw         eff_tt            eff_tw           eff_data              
 eff (0):  0.324 +/-  0.004   0.363 +/-  0.004   0.183 +/-  0.014 -->  0.366 +/-  0.032
 eff (1):  0.317 +/-  0.004   0.363 +/-  0.003   0.160 +/-  0.010 -->  0.359 +/-  0.024
@@ -1703,19 +1703,19 @@ channel        ttbar MC ( 0Jet / Extrapolated from 1Jet )            tW MC ( 0Je
 (all),                  0.596/0.591                                              0.440/0.361
 top tagging efficiency
 Channel    fttbar        Eff toptag(MC)    Eff toptag(MC extrapolated)       Eff toptab Data 
-(mm )       0.715,        :  0.546                  0.528 +/-  0.003              0.532 +/-  0.052
-(me )       0.697,        :  0.549                  0.525 +/-  0.003              0.519 +/-  0.048
-(em )       0.706,        :  0.538                  0.521 +/-  0.003              0.575 +/-  0.046
-(ee )       0.702,        :  0.527                  0.515 +/-  0.004              0.552 +/-  0.054
-(all)       0.704,        :  0.542                  0.523 +/-  0.002              0.547 +/-  0.044
+(mm )       0.715 +/- 0.091,        :  0.546                  0.528 +/-  0.006              0.532 +/-  0.044
+(me )       0.697 +/- 0.091,        :  0.549                  0.525 +/-  0.005              0.519 +/-  0.036
+(em )       0.706 +/- 0.095,        :  0.538                  0.521 +/-  0.004              0.575 +/-  0.034
+(ee )       0.702 +/- 0.095,        :  0.527                  0.515 +/-  0.007              0.552 +/-  0.048
+(all)       0.704 +/- 0.093,        :  0.542                  0.523 +/-  0.003              0.547 +/-  0.027
 0-Jet Top Background
 Channel    top-tagged region    bkgs top-tagged          MC tt+tW              MC top            Data top   
               Event Count       region (non-top)    non-top-tagged count     estimation         estimation  
-(mm )               58               10.511                22.759             24.989 +/-  0.156    39.303 +/- 10.367
-(me )               52               10.550                31.920             35.397 +/-  0.221    34.306 +/-  9.478
-(em )               64               17.197                37.750             40.186 +/-  0.251    38.736 +/- 10.858
-(ee )               35                8.774                15.548             15.803 +/-  0.099    21.705 +/-  7.019
-(all)              209               47.032                107.977             116.376 +/-  0.726    134.050 +/- 29.089
+(mm )               58               10.496                22.759             24.989 +/-  0.253    39.312 +/-  8.791
+(me )               52               10.550                31.920             35.397 +/-  0.358    34.303 +/-  8.174
+(em )               64               17.197                37.750             40.186 +/-  0.407    38.732 +/-  9.411
+(ee )               35                8.733                15.548             15.803 +/-  0.160    21.738 +/-  6.329
+(all)              209               46.975                107.977             116.376 +/-  1.178    134.085 +/- 22.245
 *****************************************
 \begin{table}
 \begin{center}
@@ -1724,12 +1724,12 @@ Channel    top-tagged region    bkgs top-tagged          MC tt+tW              M
 \hline
  Sample & 0-jet & 1-jet & 2-jet \\
 \hline
-estimated top events in simulation  & 108.0 $\pm$   0.7 &  338.7 $\pm$   2.6 &   7.9 $\pm$   0.3 \\
-tagging efficiency     (\%)         & 54.7 $\pm$  4.4 & 70.8 $\pm$  1.1 & - \\ 
+estimated top events in simulation  & 108.0 $\pm$   1.2 &  338.7 $\pm$   2.6 &   7.9 $\pm$   0.3 \\
+tagging efficiency     (\%)         & 54.7 $\pm$  2.7 & 70.9 $\pm$  1.1 & - \\ 
 data events in control region       &  209 &  867 & - \\ 
-background events in control region &  47.0 $\pm$   7.1 &   56.1 $\pm$  11.2 & - \\ 
-top estimation in data              &  134.0 $\pm$  29.1 &  357.9 $\pm$  21.9 &   6.2 $\pm$   2.2 \\
-data/simulation scale factor        &   1.24 $\pm$  0.27 &   1.06 $\pm$  0.07 &  0.79 $\pm$  0.27 \\
+background events in control region &  47.0 $\pm$   7.0 &   56.1 $\pm$  11.2 & - \\ 
+top estimation in data              &  134.1 $\pm$  22.2 &  357.9 $\pm$  21.9 &   6.2 $\pm$   2.2 \\
+data/simulation scale factor        &   1.24 $\pm$  0.21 &   1.06 $\pm$  0.07 &  0.78 $\pm$  0.27 \\
 \hline
 \end{tabular}
 }
@@ -1741,10 +1741,10 @@ Error: Symbol null is not defined in current scope  :0:
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 [0mroot [0] 
-Processing /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor2011.C+(4)...
-[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor2011_C.so
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:39:17: warning: 'Double_t DYBkgScaleFactorBDT(Int_t, Int_t)' defined but not used [-Wunused-function]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:58:17: warning: 'Double_t DYBkgScaleFactorBDTKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
+Processing /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor2011.C+(4)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor2011_C.so
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:39:17: warning: 'Double_t DYBkgScaleFactorBDT(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:58:17: warning: 'Double_t DYBkgScaleFactorBDTKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
 --- reading event     0 of 43869
 --- reading event     0 of 1808021
 --- reading event 100000 of 1808021
@@ -1767,763 +1767,763 @@ Processing /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkg/
 --- reading event 1800000 of 1808021
 mH = << 0 Analysis : WW Control Region
 Data Yield : 468 +/- 21.6333
-DY Bkg : 10.8318 +/- 5.95214
+DY Bkg : 10.7277 +/- 5.89595
 WJets Bkg : 23.8972 +/- 8.85746
-Top Bkg : 56.9293 +/- 11.037
+Top Bkg : 59.1377 +/- 8.2398
 ZZ,WZ,DYtautau Bkg : 18.5011 +/- 3.81071
-Total Bkg : 110.159 +/- 15.8183
+Total Bkg : 112.264 +/- 13.9869
 WW Yield from MC : 332.922 +/- 2.87373
-ScaleFactor : 1.07485 +/- 0.0810311
+ScaleFactor : 1.06853 +/- 0.0779265
 ******************************************************************
 mH = << 1 Analysis : WW Control Region
 Data Yield : 468 +/- 21.6333
-DY Bkg : 10.8318 +/- 5.95214
+DY Bkg : 10.7277 +/- 5.89595
 WJets Bkg : 23.8972 +/- 8.85746
-Top Bkg : 56.9293 +/- 11.037
+Top Bkg : 59.1377 +/- 8.2398
 ZZ,WZ,DYtautau Bkg : 18.5011 +/- 3.81071
-Total Bkg : 110.159 +/- 15.8183
+Total Bkg : 112.264 +/- 13.9869
 WW Yield from MC : 332.922 +/- 2.87373
-ScaleFactor : 1.07485 +/- 0.0810311
+ScaleFactor : 1.06853 +/- 0.0779265
 ******************************************************************
 mH = << 2 Analysis : WW Control Region
 Data Yield : 468 +/- 21.6333
-DY Bkg : 10.8318 +/- 5.95214
+DY Bkg : 10.7277 +/- 5.89595
 WJets Bkg : 23.8972 +/- 8.85746
-Top Bkg : 56.9293 +/- 11.037
+Top Bkg : 59.1377 +/- 8.2398
 ZZ,WZ,DYtautau Bkg : 18.5011 +/- 3.81071
-Total Bkg : 110.159 +/- 15.8183
+Total Bkg : 112.264 +/- 13.9869
 WW Yield from MC : 332.922 +/- 2.87373
-ScaleFactor : 1.07485 +/- 0.0810311
+ScaleFactor : 1.06853 +/- 0.0779265
 ******************************************************************
 mH = << 3 Analysis : WW Control Region
 Data Yield : 468 +/- 21.6333
-DY Bkg : 10.8318 +/- 5.95214
+DY Bkg : 10.7277 +/- 5.89595
 WJets Bkg : 23.8972 +/- 8.85746
-Top Bkg : 56.9293 +/- 11.037
+Top Bkg : 59.1377 +/- 8.2398
 ZZ,WZ,DYtautau Bkg : 18.5011 +/- 3.81071
-Total Bkg : 110.159 +/- 15.8183
+Total Bkg : 112.264 +/- 13.9869
 WW Yield from MC : 332.922 +/- 2.87373
-ScaleFactor : 1.07485 +/- 0.0810311
+ScaleFactor : 1.06853 +/- 0.0779265
 ******************************************************************
 mH = << 4 Analysis : WW Control Region
 Data Yield : 468 +/- 21.6333
-DY Bkg : 10.8318 +/- 5.95214
+DY Bkg : 10.7277 +/- 5.89595
 WJets Bkg : 23.8972 +/- 8.85746
-Top Bkg : 56.9293 +/- 11.037
+Top Bkg : 59.1377 +/- 8.2398
 ZZ,WZ,DYtautau Bkg : 18.5011 +/- 3.81071
-Total Bkg : 110.159 +/- 15.8183
+Total Bkg : 112.264 +/- 13.9869
 WW Yield from MC : 332.922 +/- 2.87373
-ScaleFactor : 1.07485 +/- 0.0810311
+ScaleFactor : 1.06853 +/- 0.0779265
 ******************************************************************
 mH = << 5 Analysis : WW Control Region
 Data Yield : 468 +/- 21.6333
-DY Bkg : 10.8318 +/- 5.95214
+DY Bkg : 10.7277 +/- 5.89595
 WJets Bkg : 23.8972 +/- 8.85746
-Top Bkg : 56.9293 +/- 11.037
+Top Bkg : 59.1377 +/- 8.2398
 ZZ,WZ,DYtautau Bkg : 18.5011 +/- 3.81071
-Total Bkg : 110.159 +/- 15.8183
+Total Bkg : 112.264 +/- 13.9869
 WW Yield from MC : 332.922 +/- 2.87373
-ScaleFactor : 1.07485 +/- 0.0810311
+ScaleFactor : 1.06853 +/- 0.0779265
 ******************************************************************
 mH = << 6 Analysis : WW Control Region
 Data Yield : 468 +/- 21.6333
-DY Bkg : 10.8318 +/- 5.95214
+DY Bkg : 10.7277 +/- 5.89595
 WJets Bkg : 23.8972 +/- 8.85746
-Top Bkg : 56.9293 +/- 11.037
+Top Bkg : 59.1377 +/- 8.2398
 ZZ,WZ,DYtautau Bkg : 18.5011 +/- 3.81071
-Total Bkg : 110.159 +/- 15.8183
+Total Bkg : 112.264 +/- 13.9869
 WW Yield from MC : 332.922 +/- 2.87373
-ScaleFactor : 1.07485 +/- 0.0810311
+ScaleFactor : 1.06853 +/- 0.0779265
 ******************************************************************
 mH = << 7 Analysis : WW Control Region
 Data Yield : 468 +/- 21.6333
-DY Bkg : 10.8318 +/- 5.95214
+DY Bkg : 10.7277 +/- 5.89595
 WJets Bkg : 23.8984 +/- 8.85789
-Top Bkg : 56.9293 +/- 11.037
+Top Bkg : 59.1377 +/- 8.2398
 ZZ,WZ,DYtautau Bkg : 18.5011 +/- 3.81071
-Total Bkg : 110.161 +/- 15.8186
+Total Bkg : 112.265 +/- 13.9871
 WW Yield from MC : 332.922 +/- 2.87373
-ScaleFactor : 1.07484 +/- 0.0810316
+ScaleFactor : 1.06852 +/- 0.0779269
 ******************************************************************
 mH = << 8 Analysis : WW Control Region
 Data Yield : 468 +/- 21.6333
-DY Bkg : 10.8318 +/- 5.95214
+DY Bkg : 10.7277 +/- 5.89595
 WJets Bkg : 23.8984 +/- 8.85789
-Top Bkg : 56.9293 +/- 11.037
+Top Bkg : 59.1377 +/- 8.2398
 ZZ,WZ,DYtautau Bkg : 18.5011 +/- 3.81071
-Total Bkg : 110.161 +/- 15.8186
+Total Bkg : 112.265 +/- 13.9871
 WW Yield from MC : 332.922 +/- 2.87373
-ScaleFactor : 1.07484 +/- 0.0810316
+ScaleFactor : 1.06852 +/- 0.0779269
 ******************************************************************
 mH = << 9 Analysis : WW Control Region
 Data Yield : 467 +/- 21.6102
-DY Bkg : 10.8318 +/- 5.95214
+DY Bkg : 10.7277 +/- 5.89595
 WJets Bkg : 23.6409 +/- 8.76432
-Top Bkg : 56.8536 +/- 11.0224
+Top Bkg : 59.0591 +/- 8.22889
 ZZ,WZ,DYtautau Bkg : 18.3124 +/- 3.77138
-Total Bkg : 109.639 +/- 15.7467
+Total Bkg : 111.74 +/- 13.9109
 WW Yield from MC : 332.333 +/- 2.87122
-ScaleFactor : 1.07531 +/- 0.0809921
+ScaleFactor : 1.06899 +/- 0.0778829
 ******************************************************************
 mH = << 10 Analysis : WW Control Region
 Data Yield : 465 +/- 21.5639
-DY Bkg : 10.8318 +/- 5.95214
+DY Bkg : 10.7277 +/- 5.89595
 WJets Bkg : 22.1075 +/- 8.20942
-Top Bkg : 56.6521 +/- 10.9836
+Top Bkg : 58.8497 +/- 8.20013
 ZZ,WZ,DYtautau Bkg : 18.2338 +/- 3.75606
-Total Bkg : 107.825 +/- 15.4133
+Total Bkg : 109.919 +/- 13.5465
 WW Yield from MC : 330.23 +/- 2.86179
-ScaleFactor : 1.08159 +/- 0.0808107
+ScaleFactor : 1.07525 +/- 0.0776762
 ******************************************************************
 mH = << 11 Analysis : WW Control Region
 Data Yield : 465 +/- 21.5639
-DY Bkg : 10.8318 +/- 5.95214
+DY Bkg : 10.7277 +/- 5.89595
 WJets Bkg : 22.1075 +/- 8.20942
-Top Bkg : 56.6521 +/- 10.9836
+Top Bkg : 58.8497 +/- 8.20013
 ZZ,WZ,DYtautau Bkg : 18.2338 +/- 3.75606
-Total Bkg : 107.825 +/- 15.4133
+Total Bkg : 109.919 +/- 13.5465
 WW Yield from MC : 330.23 +/- 2.86179
-ScaleFactor : 1.08159 +/- 0.0808107
+ScaleFactor : 1.07525 +/- 0.0776762
 ******************************************************************
 mH = << 12 Analysis : WW Control Region
 Data Yield : 418 +/- 20.445
-DY Bkg : 6.01983 +/- 3.96486
+DY Bkg : 5.96195 +/- 3.92723
 WJets Bkg : 19.2525 +/- 7.18016
-Top Bkg : 53.3265 +/- 10.3446
+Top Bkg : 55.3951 +/- 7.72714
 ZZ,WZ,DYtautau Bkg : 16.1542 +/- 3.33718
-Total Bkg : 94.753 +/- 13.617
+Total Bkg : 96.7637 +/- 11.7398
 WW Yield from MC : 299.443 +/- 2.72592
-ScaleFactor : 1.0795 +/- 0.0826211
+ScaleFactor : 1.07278 +/- 0.0793359
 ******************************************************************
 mH = << 13 Analysis : WW Control Region
 Data Yield : 418 +/- 20.445
-DY Bkg : 6.01983 +/- 3.96486
+DY Bkg : 5.96195 +/- 3.92723
 WJets Bkg : 19.2525 +/- 7.18016
-Top Bkg : 53.3265 +/- 10.3446
+Top Bkg : 55.3951 +/- 7.72714
 ZZ,WZ,DYtautau Bkg : 16.1542 +/- 3.33718
-Total Bkg : 94.753 +/- 13.617
+Total Bkg : 96.7637 +/- 11.7398
 WW Yield from MC : 299.443 +/- 2.72592
-ScaleFactor : 1.0795 +/- 0.0826211
+ScaleFactor : 1.07278 +/- 0.0793359
 ******************************************************************
 mH = << 14 Analysis : WW Control Region
 Data Yield : 418 +/- 20.445
-DY Bkg : 6.01983 +/- 3.96486
+DY Bkg : 5.96195 +/- 3.92723
 WJets Bkg : 18.9604 +/- 7.07736
-Top Bkg : 53.3143 +/- 10.3423
+Top Bkg : 55.3824 +/- 7.72542
 ZZ,WZ,DYtautau Bkg : 15.9845 +/- 3.30089
-Total Bkg : 94.279 +/- 13.5524
+Total Bkg : 96.2893 +/- 11.6658
 WW Yield from MC : 299.023 +/- 2.72411
-ScaleFactor : 1.08259 +/- 0.0826209
+ScaleFactor : 1.07587 +/- 0.0793278
 ******************************************************************
 mH = << 15 Analysis : WW Control Region
 Data Yield : 416 +/- 20.3961
-DY Bkg : 6.01983 +/- 3.96486
+DY Bkg : 5.96195 +/- 3.92723
 WJets Bkg : 18.7324 +/- 6.99665
-Top Bkg : 53.2358 +/- 10.3272
+Top Bkg : 55.3009 +/- 7.71417
 ZZ,WZ,DYtautau Bkg : 15.8768 +/- 3.27994
-Total Bkg : 93.8649 +/- 13.4938
+Total Bkg : 95.8721 +/- 11.6036
 WW Yield from MC : 297.448 +/- 2.71704
-ScaleFactor : 1.083 +/- 0.0828115
+ScaleFactor : 1.07625 +/- 0.0795006
 ******************************************************************
 mH = << 16 Analysis : WW Control Region
 Data Yield : 412 +/- 20.2978
-DY Bkg : 6.01983 +/- 3.96486
+DY Bkg : 5.96195 +/- 3.92723
 WJets Bkg : 18.2821 +/- 6.82916
-Top Bkg : 53.0986 +/- 10.3007
+Top Bkg : 55.1584 +/- 7.69452
 ZZ,WZ,DYtautau Bkg : 15.8196 +/- 3.26883
-Total Bkg : 93.2201 +/- 13.3846
+Total Bkg : 95.222 +/- 11.487
 WW Yield from MC : 295.557 +/- 2.70839
-ScaleFactor : 1.07857 +/- 0.082855
+ScaleFactor : 1.0718 +/- 0.0795201
 ******************************************************************
 mH = << 17 Analysis : WW Control Region
 Data Yield : 409 +/- 20.2237
-DY Bkg : 6.01983 +/- 3.96486
+DY Bkg : 5.96195 +/- 3.92723
 WJets Bkg : 18.054 +/- 6.74853
-Top Bkg : 53.041 +/- 10.2897
+Top Bkg : 55.0986 +/- 7.6864
 ZZ,WZ,DYtautau Bkg : 15.7369 +/- 3.25276
-Total Bkg : 92.8517 +/- 13.3312
+Total Bkg : 94.8514 +/- 11.4292
 WW Yield from MC : 292.809 +/- 2.69566
-ScaleFactor : 1.07971 +/- 0.0833189
+ScaleFactor : 1.07288 +/- 0.0799469
 ******************************************************************
 mH = << 18 Analysis : WW Control Region
 Data Yield : 404 +/- 20.0998
-DY Bkg : 6.01983 +/- 3.96486
+DY Bkg : 5.96195 +/- 3.92723
 WJets Bkg : 17.9842 +/- 6.72353
-Top Bkg : 52.9457 +/- 10.2715
+Top Bkg : 54.9996 +/- 7.67296
 ZZ,WZ,DYtautau Bkg : 15.523 +/- 3.20938
-Total Bkg : 92.4727 +/- 13.2939
+Total Bkg : 94.4687 +/- 11.3931
 WW Yield from MC : 289.821 +/- 2.68214
-ScaleFactor : 1.0749 +/- 0.083742
+ScaleFactor : 1.06801 +/- 0.0803293
 ******************************************************************
 mH = << 0 Analysis : WW Control Region
 Data Yield : 343 +/- 18.5203
-DY Bkg : 23.5101 +/- 9.4875
+DY Bkg : 23.6214 +/- 9.52877
 WJets Bkg : 18.5586 +/- 6.95415
-Top Bkg : 138.839 +/- 4.79035
+Top Bkg : 138.351 +/- 4.62207
 ZZ,WZ,DYtautau Bkg : 12.2334 +/- 2.48653
-Total Bkg : 193.142 +/- 12.9423
+Total Bkg : 192.764 +/- 12.9114
 WW Yield from MC : 149.262 +/- 1.92214
-ScaleFactor : 1.00399 +/- 0.151924
+ScaleFactor : 1.00652 +/- 0.151809
 ******************************************************************
 mH = << 1 Analysis : WW Control Region
 Data Yield : 343 +/- 18.5203
-DY Bkg : 23.5101 +/- 9.4875
+DY Bkg : 23.6214 +/- 9.52877
 WJets Bkg : 18.5586 +/- 6.95415
-Top Bkg : 138.839 +/- 4.79035
+Top Bkg : 138.351 +/- 4.62207
 ZZ,WZ,DYtautau Bkg : 12.2334 +/- 2.48653
-Total Bkg : 193.142 +/- 12.9423
+Total Bkg : 192.764 +/- 12.9114
 WW Yield from MC : 149.262 +/- 1.92214
-ScaleFactor : 1.00399 +/- 0.151924
+ScaleFactor : 1.00652 +/- 0.151809
 ******************************************************************
 mH = << 2 Analysis : WW Control Region
 Data Yield : 343 +/- 18.5203
-DY Bkg : 23.5101 +/- 9.4875
+DY Bkg : 23.6214 +/- 9.52877
 WJets Bkg : 18.5586 +/- 6.95415
-Top Bkg : 138.839 +/- 4.79035
+Top Bkg : 138.351 +/- 4.62207
 ZZ,WZ,DYtautau Bkg : 12.2334 +/- 2.48653
-Total Bkg : 193.142 +/- 12.9423
+Total Bkg : 192.764 +/- 12.9114
 WW Yield from MC : 149.262 +/- 1.92214
-ScaleFactor : 1.00399 +/- 0.151924
+ScaleFactor : 1.00652 +/- 0.151809
 ******************************************************************
 mH = << 3 Analysis : WW Control Region
 Data Yield : 343 +/- 18.5203
-DY Bkg : 23.5101 +/- 9.4875
+DY Bkg : 23.6214 +/- 9.52877
 WJets Bkg : 18.5586 +/- 6.95415
-Top Bkg : 138.839 +/- 4.79035
+Top Bkg : 138.351 +/- 4.62207
 ZZ,WZ,DYtautau Bkg : 12.2334 +/- 2.48653
-Total Bkg : 193.142 +/- 12.9423
+Total Bkg : 192.764 +/- 12.9114
 WW Yield from MC : 149.262 +/- 1.92214
-ScaleFactor : 1.00399 +/- 0.151924
+ScaleFactor : 1.00652 +/- 0.151809
 ******************************************************************
 mH = << 4 Analysis : WW Control Region
 Data Yield : 343 +/- 18.5203
-DY Bkg : 23.5101 +/- 9.4875
+DY Bkg : 23.6214 +/- 9.52877
 WJets Bkg : 18.5586 +/- 6.95415
-Top Bkg : 138.839 +/- 4.79035
+Top Bkg : 138.351 +/- 4.62207
 ZZ,WZ,DYtautau Bkg : 12.2334 +/- 2.48653
-Total Bkg : 193.142 +/- 12.9423
+Total Bkg : 192.764 +/- 12.9114
 WW Yield from MC : 149.262 +/- 1.92214
-ScaleFactor : 1.00399 +/- 0.151924
+ScaleFactor : 1.00652 +/- 0.151809
 ******************************************************************
 mH = << 5 Analysis : WW Control Region
 Data Yield : 343 +/- 18.5203
-DY Bkg : 23.5101 +/- 9.4875
+DY Bkg : 23.6214 +/- 9.52877
 WJets Bkg : 18.5586 +/- 6.95415
-Top Bkg : 138.839 +/- 4.79035
+Top Bkg : 138.351 +/- 4.62207
 ZZ,WZ,DYtautau Bkg : 12.2334 +/- 2.48653
-Total Bkg : 193.142 +/- 12.9423
+Total Bkg : 192.764 +/- 12.9114
 WW Yield from MC : 149.262 +/- 1.92214
-ScaleFactor : 1.00399 +/- 0.151924
+ScaleFactor : 1.00652 +/- 0.151809
 ******************************************************************
 mH = << 6 Analysis : WW Control Region
 Data Yield : 343 +/- 18.5203
-DY Bkg : 23.5101 +/- 9.4875
+DY Bkg : 23.6214 +/- 9.52877
 WJets Bkg : 18.5586 +/- 6.95415
-Top Bkg : 138.839 +/- 4.79035
+Top Bkg : 138.351 +/- 4.62207
 ZZ,WZ,DYtautau Bkg : 12.2334 +/- 2.48653
-Total Bkg : 193.142 +/- 12.9423
+Total Bkg : 192.764 +/- 12.9114
 WW Yield from MC : 149.262 +/- 1.92214
-ScaleFactor : 1.00399 +/- 0.151924
+ScaleFactor : 1.00652 +/- 0.151809
 ******************************************************************
 mH = << 7 Analysis : WW Control Region
 Data Yield : 343 +/- 18.5203
-DY Bkg : 23.5101 +/- 9.4875
+DY Bkg : 23.6214 +/- 9.52877
 WJets Bkg : 18.5586 +/- 6.95415
-Top Bkg : 138.839 +/- 4.79035
+Top Bkg : 138.351 +/- 4.62207
 ZZ,WZ,DYtautau Bkg : 12.2289 +/- 2.48564
-Total Bkg : 193.137 +/- 12.9421
+Total Bkg : 192.76 +/- 12.9112
 WW Yield from MC : 149.262 +/- 1.92214
-ScaleFactor : 1.00402 +/- 0.151924
+ScaleFactor : 1.00655 +/- 0.151808
 ******************************************************************
 mH = << 8 Analysis : WW Control Region
 Data Yield : 343 +/- 18.5203
-DY Bkg : 23.5101 +/- 9.4875
+DY Bkg : 23.6214 +/- 9.52877
 WJets Bkg : 18.5648 +/- 6.95629
-Top Bkg : 138.839 +/- 4.79035
+Top Bkg : 138.351 +/- 4.62207
 ZZ,WZ,DYtautau Bkg : 12.2275 +/- 2.48538
-Total Bkg : 193.142 +/- 12.9432
+Total Bkg : 192.765 +/- 12.9123
 WW Yield from MC : 149.262 +/- 1.92214
-ScaleFactor : 1.00399 +/- 0.151928
+ScaleFactor : 1.00652 +/- 0.151812
 ******************************************************************
 mH = << 9 Analysis : WW Control Region
 Data Yield : 343 +/- 18.5203
-DY Bkg : 23.5101 +/- 9.4875
+DY Bkg : 23.6214 +/- 9.52877
 WJets Bkg : 18.1118 +/- 6.79584
-Top Bkg : 138.25 +/- 4.77098
+Top Bkg : 137.764 +/- 4.60344
 ZZ,WZ,DYtautau Bkg : 12.0842 +/- 2.45416
-Total Bkg : 191.956 +/- 12.8445
+Total Bkg : 191.581 +/- 12.8139
 WW Yield from MC : 148.904 +/- 1.91969
-ScaleFactor : 1.01437 +/- 0.151926
+ScaleFactor : 1.01689 +/- 0.151812
 ******************************************************************
 mH = << 10 Analysis : WW Control Region
 Data Yield : 342 +/- 18.4932
-DY Bkg : 23.5101 +/- 9.4875
+DY Bkg : 23.6214 +/- 9.52877
 WJets Bkg : 16.812 +/- 6.33186
-Top Bkg : 137.224 +/- 4.73836
+Top Bkg : 136.741 +/- 4.57215
 ZZ,WZ,DYtautau Bkg : 11.9704 +/- 2.43164
-Total Bkg : 189.517 +/- 12.5885
+Total Bkg : 189.145 +/- 12.5582
 WW Yield from MC : 148.067 +/- 1.91447
-ScaleFactor : 1.02983 +/- 0.151674
+ScaleFactor : 1.03234 +/- 0.151562
 ******************************************************************
 mH = << 11 Analysis : WW Control Region
 Data Yield : 342 +/- 18.4932
-DY Bkg : 23.5101 +/- 9.4875
+DY Bkg : 23.6214 +/- 9.52877
 WJets Bkg : 16.812 +/- 6.33186
-Top Bkg : 137.224 +/- 4.73836
+Top Bkg : 136.741 +/- 4.57215
 ZZ,WZ,DYtautau Bkg : 11.9704 +/- 2.43164
-Total Bkg : 189.517 +/- 12.5885
+Total Bkg : 189.145 +/- 12.5582
 WW Yield from MC : 148.067 +/- 1.91447
-ScaleFactor : 1.02983 +/- 0.151674
+ScaleFactor : 1.03234 +/- 0.151562
 ******************************************************************
 mH = << 12 Analysis : WW Control Region
 Data Yield : 311 +/- 17.6352
-DY Bkg : 22.49 +/- 9.18194
+DY Bkg : 22.5964 +/- 9.22198
 WJets Bkg : 14.1527 +/- 5.37499
-Top Bkg : 125.683 +/- 4.37169
+Top Bkg : 125.241 +/- 4.22037
 ZZ,WZ,DYtautau Bkg : 10.4736 +/- 2.13027
-Total Bkg : 172.8 +/- 11.6982
+Total Bkg : 172.464 +/- 11.6741
 WW Yield from MC : 133.843 +/- 1.82099
-ScaleFactor : 1.03255 +/- 0.158736
+ScaleFactor : 1.03506 +/- 0.15864
 ******************************************************************
 mH = << 13 Analysis : WW Control Region
 Data Yield : 311 +/- 17.6352
-DY Bkg : 22.49 +/- 9.18194
+DY Bkg : 22.5964 +/- 9.22198
 WJets Bkg : 14.1527 +/- 5.37499
-Top Bkg : 125.683 +/- 4.37169
+Top Bkg : 125.241 +/- 4.22037
 ZZ,WZ,DYtautau Bkg : 10.4736 +/- 2.13027
-Total Bkg : 172.8 +/- 11.6982
+Total Bkg : 172.464 +/- 11.6741
 WW Yield from MC : 133.843 +/- 1.82099
-ScaleFactor : 1.03255 +/- 0.158736
+ScaleFactor : 1.03506 +/- 0.15864
 ******************************************************************
 mH = << 14 Analysis : WW Control Region
 Data Yield : 311 +/- 17.6352
-DY Bkg : 22.49 +/- 9.18194
+DY Bkg : 22.5964 +/- 9.22198
 WJets Bkg : 14.1533 +/- 5.37517
-Top Bkg : 125.628 +/- 4.37001
+Top Bkg : 125.186 +/- 4.21877
 ZZ,WZ,DYtautau Bkg : 10.4688 +/- 2.12932
-Total Bkg : 172.74 +/- 11.6975
+Total Bkg : 172.405 +/- 11.6735
 WW Yield from MC : 133.714 +/- 1.82007
-ScaleFactor : 1.03399 +/- 0.158887
+ScaleFactor : 1.0365 +/- 0.158791
 ******************************************************************
 mH = << 15 Analysis : WW Control Region
 Data Yield : 311 +/- 17.6352
-DY Bkg : 22.49 +/- 9.18194
+DY Bkg : 22.5964 +/- 9.22198
 WJets Bkg : 13.6601 +/- 5.19778
-Top Bkg : 125.508 +/- 4.36643
+Top Bkg : 125.066 +/- 4.21535
 ZZ,WZ,DYtautau Bkg : 10.4055 +/- 2.1168
-Total Bkg : 172.063 +/- 11.6134
+Total Bkg : 171.728 +/- 11.5893
 WW Yield from MC : 133.275 +/- 1.81719
-ScaleFactor : 1.04248 +/- 0.159073
+ScaleFactor : 1.045 +/- 0.158977
 ******************************************************************
 mH = << 16 Analysis : WW Control Region
 Data Yield : 309 +/- 17.5784
-DY Bkg : 22.49 +/- 9.18194
+DY Bkg : 22.5964 +/- 9.22198
 WJets Bkg : 13.5056 +/- 5.14366
-Top Bkg : 125.264 +/- 4.35831
+Top Bkg : 124.823 +/- 4.20754
 ZZ,WZ,DYtautau Bkg : 10.3605 +/- 2.1079
-Total Bkg : 171.62 +/- 11.5846
+Total Bkg : 171.286 +/- 11.5607
 WW Yield from MC : 132.869 +/- 1.81447
-ScaleFactor : 1.03395 +/- 0.159072
+ScaleFactor : 1.03646 +/- 0.158976
 ******************************************************************
 mH = << 17 Analysis : WW Control Region
 Data Yield : 308 +/- 17.5499
-DY Bkg : 22.49 +/- 9.18194
+DY Bkg : 22.5964 +/- 9.22198
 WJets Bkg : 13.4611 +/- 5.12803
-Top Bkg : 125.082 +/- 4.35287
+Top Bkg : 124.642 +/- 4.20234
 ZZ,WZ,DYtautau Bkg : 10.2888 +/- 2.09375
-Total Bkg : 171.322 +/- 11.5731
+Total Bkg : 170.988 +/- 11.5492
 WW Yield from MC : 132.274 +/- 1.81049
-ScaleFactor : 1.03329 +/- 0.159558
+ScaleFactor : 1.03582 +/- 0.159462
 ******************************************************************
 mH = << 18 Analysis : WW Control Region
 Data Yield : 305 +/- 17.4642
-DY Bkg : 22.446 +/- 9.17083
+DY Bkg : 22.5523 +/- 9.21088
 WJets Bkg : 13.4493 +/- 5.12387
-Top Bkg : 124.778 +/- 4.34338
+Top Bkg : 124.339 +/- 4.19324
 ZZ,WZ,DYtautau Bkg : 10.2458 +/- 2.08524
-Total Bkg : 170.919 +/- 11.5573
+Total Bkg : 170.586 +/- 11.5337
 WW Yield from MC : 131.825 +/- 1.80736
-ScaleFactor : 1.01711 +/- 0.159474
+ScaleFactor : 1.01964 +/- 0.159378
 ******************************************************************
 mH = << 0 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 1 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 2 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 3 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 4 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 5 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 6 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 7 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 8 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 9 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 10 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 11 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 12 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 13 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 14 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 15 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 16 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 17 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 18 Analysis : WW Control Region
 Data Yield : 1332 +/- 36.4966
-DY Bkg : 53.9308 +/- 20.1407
+DY Bkg : 53.4162 +/- 19.9558
 WJets Bkg : 87.2395 +/- 31.6739
-Top Bkg : 114.764 +/- 22.1705
+Top Bkg : 119.216 +/- 16.4961
 ZZ,WZ,DYtautau Bkg : 61.6832 +/- 12.9833
-Total Bkg : 317.617 +/- 45.486
+Total Bkg : 321.555 +/- 42.9204
 WW Yield from MC : 947.721 +/- 4.80071
-ScaleFactor : 1.07034 +/- 0.0617733
+ScaleFactor : 1.06618 +/- 0.0596924
 ******************************************************************
 mH = << 0 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 1 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 2 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 3 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 4 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 5 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 6 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 7 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 8 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 9 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 10 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 11 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 12 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 13 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 14 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 15 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 16 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 17 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 mH = << 18 Analysis : WW Control Region
 Data Yield : 882 +/- 29.6985
-DY Bkg : 94.6472 +/- 33.6278
+DY Bkg : 94.9874 +/- 33.7207
 WJets Bkg : 57.6165 +/- 21.0636
-Top Bkg : 334.755 +/- 10.9993
+Top Bkg : 333.577 +/- 10.5766
 ZZ,WZ,DYtautau Bkg : 43.0258 +/- 9.06114
-Total Bkg : 530.044 +/- 42.1615
+Total Bkg : 529.206 +/- 42.1275
 WW Yield from MC : 375.051 +/- 3.01718
-ScaleFactor : 0.938421 +/- 0.137712
+ScaleFactor : 0.940654 +/- 0.137639
 ******************************************************************
 *****************************************
 \begin{table}
@@ -2533,24 +2533,24 @@ ScaleFactor : 0.938421 +/- 0.137712
  Sample & 0-jet & 1-jet \\
         & \multicolumn{2}{|c|}{cut-based} \\
 \hline
- 115 &  1.07  $\pm$  0.08  &  1.00  $\pm$  0.15 \\
- 118 &  1.07  $\pm$  0.08  &  1.00  $\pm$  0.15 \\
- 120 &  1.07  $\pm$  0.08  &  1.00  $\pm$  0.15 \\
- 122 &  1.07  $\pm$  0.08  &  1.00  $\pm$  0.15 \\
- 124 &  1.07  $\pm$  0.08  &  1.00  $\pm$  0.15 \\
- 125 &  1.07  $\pm$  0.08  &  1.00  $\pm$  0.15 \\
- 126 &  1.07  $\pm$  0.08  &  1.00  $\pm$  0.15 \\
- 128 &  1.07  $\pm$  0.08  &  1.00  $\pm$  0.15 \\
- 130 &  1.07  $\pm$  0.08  &  1.00  $\pm$  0.15 \\
- 135 &  1.08  $\pm$  0.08  &  1.01  $\pm$  0.15 \\
+ 115 &  1.07  $\pm$  0.08  &  1.01  $\pm$  0.15 \\
+ 118 &  1.07  $\pm$  0.08  &  1.01  $\pm$  0.15 \\
+ 120 &  1.07  $\pm$  0.08  &  1.01  $\pm$  0.15 \\
+ 122 &  1.07  $\pm$  0.08  &  1.01  $\pm$  0.15 \\
+ 124 &  1.07  $\pm$  0.08  &  1.01  $\pm$  0.15 \\
+ 125 &  1.07  $\pm$  0.08  &  1.01  $\pm$  0.15 \\
+ 126 &  1.07  $\pm$  0.08  &  1.01  $\pm$  0.15 \\
+ 128 &  1.07  $\pm$  0.08  &  1.01  $\pm$  0.15 \\
+ 130 &  1.07  $\pm$  0.08  &  1.01  $\pm$  0.15 \\
+ 135 &  1.07  $\pm$  0.08  &  1.02  $\pm$  0.15 \\
  140 &  1.08  $\pm$  0.08  &  1.03  $\pm$  0.15 \\
  145 &  1.08  $\pm$  0.08  &  1.03  $\pm$  0.15 \\
- 150 &  1.08  $\pm$  0.08  &  1.03  $\pm$  0.16 \\
- 155 &  1.08  $\pm$  0.08  &  1.03  $\pm$  0.16 \\
- 160 &  1.08  $\pm$  0.08  &  1.03  $\pm$  0.16 \\
+ 150 &  1.07  $\pm$  0.08  &  1.04  $\pm$  0.16 \\
+ 155 &  1.07  $\pm$  0.08  &  1.04  $\pm$  0.16 \\
+ 160 &  1.08  $\pm$  0.08  &  1.04  $\pm$  0.16 \\
  170 &  1.08  $\pm$  0.08  &  1.04  $\pm$  0.16 \\
- 180 &  1.08  $\pm$  0.08  &  1.03  $\pm$  0.16 \\
- 190 &  1.08  $\pm$  0.08  &  1.03  $\pm$  0.16 \\
+ 180 &  1.07  $\pm$  0.08  &  1.04  $\pm$  0.16 \\
+ 190 &  1.07  $\pm$  0.08  &  1.04  $\pm$  0.16 \\
  200 &  1.07  $\pm$  0.08  &  1.02  $\pm$  0.16 \\
 \hline
 \hline
@@ -2587,26 +2587,26 @@ Error: Symbol null is not defined in current scope  :0:
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 [0mroot [0] 
-Processing /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C+(4)...
-[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C.so
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C: In function 'void ComputeDYBkgScaleFactor2011(Int_t, Bool_t, Int_t, Double_t, Double_t)':
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:993:16: warning: unused variable 'sfin_ee_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:995:16: warning: unused variable 'sfin_mm_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:1040:16: warning: unused variable 'sfout_ee_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:1042:16: warning: unused variable 'sfout_mm_err' [-Wunused-variable]
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:983:77: warning: 'err_ll_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:983:77: warning: 'nin_ll_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:995:208: warning: 'err_mm_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:995:208: warning: 'nin_mm_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:993:208: warning: 'err_ee_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:1010:34: warning: 'nin_ee_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h: At global scope:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+Processing /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C+(4)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C.so
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C: In function 'void ComputeDYBkgScaleFactor2011(Int_t, Bool_t, Int_t, Double_t, Double_t)':
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:993:16: warning: unused variable 'sfin_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:995:16: warning: unused variable 'sfin_mm_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:1040:16: warning: unused variable 'sfout_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:1042:16: warning: unused variable 'sfout_mm_err' [-Wunused-variable]
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:983:77: warning: 'err_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:983:77: warning: 'nin_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:995:208: warning: 'err_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:995:208: warning: 'nin_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:993:208: warning: 'err_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor2011.C:1010:34: warning: 'nin_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
 Processing /data/smurf/data/Run2011_Fall11_SmurfV9_42X/mitf-alljets/data.root...
 Event 0
 Event 100000
@@ -3087,4 +3087,4 @@ Error: Symbol null is not defined in current scope  :0:
 Error: Symbol null is not defined in current scope  :0:
 exit
 
-Script done on Mon Dec  9 09:09:09 2013
+Script done on Sat 01 Feb 2014 11:07:12 AM CET

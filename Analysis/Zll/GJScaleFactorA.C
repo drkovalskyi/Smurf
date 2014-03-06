@@ -21,8 +21,8 @@
 //root -l -q -b Smurf/Analysis/Zll/GJScaleFactorA.C+'("ntuples_zh_42x/mitf-alljets_noweights/gamma50.root","ntuples_zh_42x/mitf-alljets_noweights/gamma75.root","ntuples_zh_42x/mitf-alljets_noweights/gamma90.root",2011)'
 // hadd gamma.root output?.root
 // or
-//root -l -q -b Smurf/Analysis/Zll/GJScaleFactorA.C+'("Ana/nt_scripts/ntuples_53x/gamma50.root","Ana/nt_scripts/ntuples_53x/gamma75.root","Ana/nt_scripts/ntuples_53x/gamma90.root",2012)'
-//root -l -q -b Smurf/Analysis/Zll/GJScaleFactorA.C+'("Ana/nt_scripts/ntuples_42x_v9/gamma50.root","Ana/nt_scripts/ntuples_42x_v9/gamma75.root","Ana/nt_scripts/ntuples_42x_v9/gamma90.root",2011)'
+//root -l -q -b Smurf/Analysis/Zll/GJScaleFactorA.C+'("Analysis/nt_scripts/ntuples_53x/gamma50.root","Analysis/nt_scripts/ntuples_53x/gamma75.root","Analysis/nt_scripts/ntuples_53x/gamma90.root",2012)'
+//root -l -q -b Smurf/Analysis/Zll/GJScaleFactorA.C+'("Analysis/nt_scripts/ntuples_42x_v9/gamma50.root","Analysis/nt_scripts/ntuples_42x_v9/gamma75.root","Analysis/nt_scripts/ntuples_42x_v9/gamma90.root",2011)'
 // hadd gamma.root output?.root
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > LorentzVector; 

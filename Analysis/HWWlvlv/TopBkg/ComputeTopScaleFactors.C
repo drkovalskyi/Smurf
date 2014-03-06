@@ -347,6 +347,9 @@ void ComputeTopScaleFactors
     else if(bgdEvent.dstype_ == SmurfTree::wgamma          ) fDecay = 19;
     else if(bgdEvent.dstype_ == SmurfTree::wgstar          ) fDecay = 20;
     else if(bgdEvent.dstype_ == SmurfTree::data            ) fDecay =  1;
+    else if(bgdEvent.processId_==121   || bgdEvent.processId_==122 ||
+            bgdEvent.processId_==24    || bgdEvent.processId_==26  ||
+            bgdEvent.processId_==10001 || bgdEvent.processId_==10010)  fDecay =  14;
     else {fDecay = 0;cout << bgdEvent.dstype_ << endl;assert(0);}
 
     int charge = (int)(bgdEvent.lq1_ + bgdEvent.lq2_);
@@ -1024,6 +1027,11 @@ void ComputeTopScaleFactors
     TopBkgScaleFactorUncertainty_2Jet_vbf[imass] = sqrt(NonTaggedTopDA_error)/NonTaggedTopMC;
     printf("data/MC/MCPred(%6.3f/%6.3f/%6.3f) -> scaleFactorVBF(%3d): %6.3f +/- %6.3f\n",NonTaggedTopDA,NonTaggedTopMC,NonTaggedTopMCPred,(int)mH[imass],TopBkgScaleFactor_2Jet_vbf[imass],TopBkgScaleFactorUncertainty_2Jet_vbf[imass]);
   }
+  
+  if(nVBFLoop == 1){
+    TopBkgScaleFactor_2Jet_vbf[1]            = 1.0;
+    TopBkgScaleFactorUncertainty_2Jet_vbf[1] = 1.0;
+  }
 
   printf("**********eff vbf jet 2-j SF**********\n");
   double evtMC_vbfSF_2j[5],evtMC_vbfSF_2j_error[5],evtDA_vbfSF_2j[5],evtDA_vbfSF_2j_error[5];
@@ -1497,7 +1505,7 @@ void ComputeTopScaleFactors
   printf("estimated top events in simulation  & %5.1f $\\pm$ %5.1f &  %5.1f $\\pm$ %5.1f & %5.1f $\\pm$ %5.1f \\\\\n",N_top_expected_0j[Chan],estimationMC_btag_lowpt_0j_error[Chan],
   (btag_highestpt_1j_den[1][Chan]+btag_highestpt_1j_den[2][Chan])-(btag_highestpt_1j_num[1][Chan]+btag_highestpt_1j_num[2][Chan]),estimationMC_btag_highestpt_1j_err[Chan],
   NonTaggedTopMC_forPrint,NonTaggedTopMC_forPrint*0.04);
-  printf("tagging efficiency     (\\%)         & %4.1f $\\pm$ %4.1f & %4.1f $\\pm$ %4.1f & - \\\\ \n",effDA_btag_lowpt_0j[Chan]*100,effDA_btag_lowpt_0j_error[Chan]*100,effttDA_btag_highestpt_1j[Chan]*100,effttDA_btag_highestpt_1j_error[Chan]*100);
+  printf("tagging efficiency in \\%         & %4.1f $\\pm$ %4.1f & %4.1f $\\pm$ %4.1f & - \\\\ \n",effDA_btag_lowpt_0j[Chan]*100,effDA_btag_lowpt_0j_error[Chan]*100,effttDA_btag_highestpt_1j[Chan]*100,effttDA_btag_highestpt_1j_error[Chan]*100);
   printf("data events in control region       & %4d & %4d & - \\\\ \n",(int)btag_lowpt_0j_num[3][Chan],(int)btag_highestpt_1j_num[3][Chan]);
   printf("background events in control region & %5.1f $\\pm$ %5.1f &  %5.1f $\\pm$ %5.1f & - \\\\ \n",btag_lowpt_0j_num[0][Chan],btag_lowpt_0j_num[0][Chan]*0.15,
   btag_highestpt_1j_num[0][Chan],btag_highestpt_1j_num[0][Chan]*0.20);

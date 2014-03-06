@@ -1,30 +1,28 @@
-Script started on Wed Jan 22 09:47:25 2014
-]0;ceballos@dtmit02:~/releases/CMSSW_5_2_8/src[dtmit02] /home/ceballos/releases/CMSSW_5_2_8/src > ~ Smurf/Analysis/HWWlvlv/scripts/
-CVS/                        computeScaleFactors.sh      computeScaleFactors2011.sh  
-[dtmit02] /home/ceballos/releases/CMSSW_5_2_8/src > Smurf/Analysis/HWWlvlv/scripts/computeScaleFactors.sh 0;exit;
+Script started on Mon 17 Feb 2014 03:17:52 PM CET
+]0;ceballos@dtmit07:~/releases/CMSSW_5_3_14/src[dtmit07] /home/ceballos/releases/CMSSW_5_3_14/src > exitls -rlt *backgrou*exit[K[KSOAPsh.pl [K[K[K[K[K[K[K[K[K[KSmurf/Analysis/HWWlvlv/scripts/computeScaleFactors.sh -[K0'[K;exit;
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 [0mroot [0] 
-Processing /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+(3)...
-[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C.so
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C: In function 'void ComputeDYBkgScaleFactor(Int_t, Bool_t, Int_t, Double_t, Double_t)':
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:992:16: warning: unused variable 'sfin_ee_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:16: warning: unused variable 'sfin_mm_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1039:16: warning: unused variable 'sfout_ee_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1041:16: warning: unused variable 'sfout_mm_err' [-Wunused-variable]
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:982:77: warning: 'err_ll_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:982:77: warning: 'nin_ll_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:208: warning: 'err_mm_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:208: warning: 'nin_mm_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:992:208: warning: 'err_ee_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1009:34: warning: 'nin_ee_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h: At global scope:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+Processing /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+(3)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C.so
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C: In function 'void ComputeDYBkgScaleFactor(Int_t, Bool_t, Int_t, Double_t, Double_t)':
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:992:16: warning: unused variable 'sfin_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:16: warning: unused variable 'sfin_mm_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1039:16: warning: unused variable 'sfout_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1041:16: warning: unused variable 'sfout_mm_err' [-Wunused-variable]
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:982:77: warning: 'err_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:982:77: warning: 'nin_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:208: warning: 'err_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:208: warning: 'nin_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:992:208: warning: 'err_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1009:34: warning: 'nin_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
 Processing /data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data.root...
 Event 0
 Event 100000
@@ -617,23 +615,31 @@ Error: Symbol null is not defined in current scope  :0:
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 [0mroot [0] 
-Processing /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+(3)...
-[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C.so
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C: In function 'void ComputeTopScaleFactors(Int_t, TString, TString)':
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1500:246: warning: unknown conversion type character ')' in format [-Wformat]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:924:37: warning: variable 'effttMC_btag_central_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:925:100: warning: variable 'effttMC_btag_central_tw_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:964:38: warning: variable 'effttMC_btag_central_All_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:965:103: warning: variable 'effttMC_btag_central_All_tw_2j_error' set but not used [-Wunused-but-set-variable]
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1499:55: warning: 'NonTaggedTopMC_forPrint' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1505:142: warning: 'NonTaggedTopDA_error_forPrint' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1505:143: warning: 'NonTaggedTopDA_forPrint' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h: At global scope:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:20:17: warning: 'Double_t DYBkgScaleFactorKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
+Processing /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+(3)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C.so
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C: In function 'void ComputeTopScaleFactors(Int_t, TString, TString)':
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: unknown conversion type character '&' in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:927:37: warning: variable 'effttMC_btag_central_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:928:100: warning: variable 'effttMC_btag_central_tw_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:967:38: warning: variable 'effttMC_btag_central_All_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:968:103: warning: variable 'effttMC_btag_central_All_tw_2j_error' set but not used [-Wunused-but-set-variable]
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1507:55: warning: 'NonTaggedTopMC_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1513:142: warning: 'NonTaggedTopDA_error_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1513:143: warning: 'NonTaggedTopDA_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:20:17: warning: 'Double_t DYBkgScaleFactorKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
 --- reading event     0 of 2342393
 --- reading event 100000 of 2342393
 --- reading event 200000 of 2342393
@@ -921,11 +927,11 @@ Channel    top-tagged region    bkgs top-tagged          MC tt+tW              M
  Sample & 0-jet & 1-jet & 2-jet \\
 \hline
 estimated top events in simulation  & 668.8 $\pm$   7.9 &  1789.4 $\pm$  12.5 &   0.0 $\pm$   0.0 \\
-tagging efficiency     (\%)         & 49.6 $\pm$  2.2 & 66.6 $\pm$  0.5 & - \\ 
+tagging efficiency in \% & 49.6 $\pm$  2.2 & 66.6 $\pm$  0.5 & - \\ 
 data events in control region       &  994 & 4472 & - \\ 
 background events in control region & 258.0 $\pm$  38.7 &  216.3 $\pm$  43.3 & - \\ 
 top estimation in data              &  747.5 $\pm$  90.9 &  1929.7 $\pm$  53.9 &   0.0 $\pm$   0.0 \\
-data/simulation scale factor        &   1.12 $\pm$  0.14 &   1.08 $\pm$  0.03 &   nan $\pm$  0.00 \\
+data/simulation scale factor        &   1.12 $\pm$  0.14 &   1.08 $\pm$  0.03 &  1.00 $\pm$  1.00 \\
 \hline
 \end{tabular}
 }
@@ -937,26 +943,26 @@ Error: Symbol null is not defined in current scope  :0:
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 [0mroot [0] 
-Processing /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+(3)...
-[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C.so
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C: In function 'void ComputeDYBkgScaleFactor(Int_t, Bool_t, Int_t, Double_t, Double_t)':
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:992:16: warning: unused variable 'sfin_ee_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:16: warning: unused variable 'sfin_mm_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1039:16: warning: unused variable 'sfout_ee_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1041:16: warning: unused variable 'sfout_mm_err' [-Wunused-variable]
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:982:77: warning: 'err_ll_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:982:77: warning: 'nin_ll_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:208: warning: 'err_mm_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:208: warning: 'nin_mm_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:992:208: warning: 'err_ee_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1009:34: warning: 'nin_ee_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h: At global scope:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+Processing /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+(3)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C.so
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C: In function 'void ComputeDYBkgScaleFactor(Int_t, Bool_t, Int_t, Double_t, Double_t)':
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:992:16: warning: unused variable 'sfin_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:16: warning: unused variable 'sfin_mm_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1039:16: warning: unused variable 'sfout_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1041:16: warning: unused variable 'sfout_mm_err' [-Wunused-variable]
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:982:77: warning: 'err_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:982:77: warning: 'nin_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:208: warning: 'err_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:208: warning: 'nin_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:992:208: warning: 'err_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1009:34: warning: 'nin_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
 Processing /data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data.root...
 Event 0
 Event 100000
@@ -1549,23 +1555,31 @@ Error: Symbol null is not defined in current scope  :0:
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 [0mroot [0] 
-Processing /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+(3)...
-[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C.so
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C: In function 'void ComputeTopScaleFactors(Int_t, TString, TString)':
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1500:246: warning: unknown conversion type character ')' in format [-Wformat]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:924:37: warning: variable 'effttMC_btag_central_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:925:100: warning: variable 'effttMC_btag_central_tw_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:964:38: warning: variable 'effttMC_btag_central_All_2j_error' set but not used [-Wunused-but-set-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:965:103: warning: variable 'effttMC_btag_central_All_tw_2j_error' set but not used [-Wunused-but-set-variable]
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1505:142: warning: 'NonTaggedTopDA_error_forPrint' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1505:143: warning: 'NonTaggedTopDA_forPrint' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1499:55: warning: 'NonTaggedTopMC_forPrint' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h: At global scope:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:20:17: warning: 'Double_t DYBkgScaleFactorKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
+Processing /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C+(3)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C.so
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C: In function 'void ComputeTopScaleFactors(Int_t, TString, TString)':
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: repeated ' ' flag in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1508:243: warning: unknown conversion type character '&' in format [-Wformat]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:927:37: warning: variable 'effttMC_btag_central_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:928:100: warning: variable 'effttMC_btag_central_tw_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:967:38: warning: variable 'effttMC_btag_central_All_2j_error' set but not used [-Wunused-but-set-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:968:103: warning: variable 'effttMC_btag_central_All_tw_2j_error' set but not used [-Wunused-but-set-variable]
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1513:142: warning: 'NonTaggedTopDA_error_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1513:143: warning: 'NonTaggedTopDA_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/TopBkg/ComputeTopScaleFactors.C:1507:55: warning: 'NonTaggedTopMC_forPrint' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkgScaleFactors_8TeV.h:20:17: warning: 'Double_t DYBkgScaleFactorKappa(Int_t, Int_t)' defined but not used [-Wunused-function]
 --- reading event     0 of 2342393
 --- reading event 100000 of 2342393
 --- reading event 200000 of 2342393
@@ -2876,7 +2890,7 @@ Channel    top-tagged region    bkgs top-tagged          MC tt+tW              M
  Sample & 0-jet & 1-jet & 2-jet \\
 \hline
 estimated top events in simulation  & 801.2 $\pm$   8.5 &  2151.7 $\pm$  13.6 &  51.6 $\pm$   2.1 \\
-tagging efficiency     (\%)         & 49.4 $\pm$  2.2 & 66.6 $\pm$  0.5 & - \\ 
+tagging efficiency in \% & 49.4 $\pm$  2.2 & 66.6 $\pm$  0.5 & - \\ 
 data events in control region       & 1281 & 5394 & - \\ 
 background events in control region & 416.0 $\pm$  62.4 &  301.7 $\pm$  60.3 & - \\ 
 top estimation in data              &  884.6 $\pm$ 121.5 &  2321.7 $\pm$  59.4 &  56.0 $\pm$   8.8 \\
@@ -2892,8 +2906,8 @@ Error: Symbol null is not defined in current scope  :0:
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 [0mroot [0] 
-Processing /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor.C+(3)...
-[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor_C.so
+Processing /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor.C+(3)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkg/ComputeWWBkgScaleFactor_C.so
 --- reading event     0 of 341497
 --- reading event 100000 of 341497
 --- reading event 200000 of 341497
@@ -3744,26 +3758,26 @@ Error: Symbol null is not defined in current scope  :0:
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 Info in <ACLiC>: unmodified script has already been compiled and loaded
 [0mroot [0] 
-Processing /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+(3)...
-[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C.so
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C: In function 'void ComputeDYBkgScaleFactor(Int_t, Bool_t, Int_t, Double_t, Double_t)':
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:992:16: warning: unused variable 'sfin_ee_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:16: warning: unused variable 'sfin_mm_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1039:16: warning: unused variable 'sfout_ee_err' [-Wunused-variable]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1041:16: warning: unused variable 'sfout_mm_err' [-Wunused-variable]
-In file included from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
-                 from /home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:982:77: warning: 'err_ll_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:982:77: warning: 'nin_ll_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:208: warning: 'err_mm_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:208: warning: 'nin_mm_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:992:208: warning: 'err_ee_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1009:34: warning: 'nin_ee_sub' may be used uninitialized in this function [-Wuninitialized]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h: At global scope:
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
-/home/ceballos/releases/CMSSW_5_2_8/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+Processing /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C+(3)...
+[0mInfo in <TUnixSystem::ACLiC>: creating shared library /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C.so
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C: In function 'void ComputeDYBkgScaleFactor(Int_t, Bool_t, Int_t, Double_t, Double_t)':
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:992:16: warning: unused variable 'sfin_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:16: warning: unused variable 'sfin_mm_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1039:16: warning: unused variable 'sfout_ee_err' [-Wunused-variable]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1041:16: warning: unused variable 'sfout_mm_err' [-Wunused-variable]
+In file included from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.h:34:0,
+                 from /home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor_C_ACLiC_dict.cxx:17:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:982:77: warning: 'err_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:982:77: warning: 'nin_ll_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:208: warning: 'err_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:994:208: warning: 'nin_mm_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:992:208: warning: 'err_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/DYBkg/ComputeDYBkgScaleFactor.C:1009:34: warning: 'nin_ee_sub' may be used uninitialized in this function [-Wuninitialized]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h: At global scope:
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:18:17: warning: 'Double_t WWBkgScaleFactorMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
+/home/ceballos/releases/CMSSW_5_3_14/src/Smurf/Analysis/HWWlvlv/WWBkgScaleFactors_8TeV.h:52:17: warning: 'Double_t WWBkgScaleFactorKappaMVA(Int_t, Int_t)' defined but not used [-Wunused-function]
 Processing /data/smurf/data/Run2012_Summer12_SmurfV9_53X/mitf-alljets/data.root...
 Event 0
 Event 100000
@@ -3963,7 +3977,7 @@ Event 400000
 Event 500000
 Event 600000
 Event 700000
- Event 800000
+Event 800000
 Event 900000
 Event 1000000
 Event 1100000
@@ -4355,4 +4369,4 @@ Error: Symbol null is not defined in current scope  :0:
 Error: Symbol null is not defined in current scope  :0:
 exit
 
-Script done on Wed Jan 22 10:29:17 2014
+Script done on Mon 17 Feb 2014 03:56:49 PM CET

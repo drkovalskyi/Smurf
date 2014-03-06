@@ -5,7 +5,7 @@
 #grep -e data -e "bdg(27)" -e "bdg(28)" -e "bdg(29)" -e "bdg(30)" -e "bdg(xW)" -e "bdg(xZ)" -e "bdg(tX)" -e "bdg(Vg)" ../../Smurf/Analysis/HWWlvlv/headers/log_ss_ww_20_20.txt|awk '{if($1!="data:")printf("%8.3f %8.3f ",$3,$5);else printf("%4d ",$2);if(NR%9==0)printf("\n");}' > kkk
 #awk '{printf("    & %4d & %6.1f $\\pm$ %5.1f & %6.1f $\\pm$ %5.1f & %6.1f $\\pm$ %5.1f & %6.1f $\\pm$ %5.1f & %6.1f $\\pm$ %5.1f & %6.1f $\\pm$ %5.1f & %6.1f $\\pm$ %5.1f & %6.1f $\\pm$ %5.1f\n",$1,($2+$4+$6+$8+$10+$12+$14+$16),sqrt($3*$3+$5*$5+$7*$7+$9*$9+$11*$11+$13*$13+$15*$15*$17*$17),$6,$7,$8,$9,$14,$15,$10,$11,($2+$4),sqrt($3*$3+$5*$5),$12,$13,$16,$17)}' kkk
 
-source ~/EVAL_SH65 5_2_8;
+source ~/EVAL_SH65 5_3_14;
 
 export NSEL=$1;
 

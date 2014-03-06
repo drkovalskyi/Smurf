@@ -33,6 +33,22 @@ double poorManMetSyst(LorentzVector l1, LorentzVector l2, LorentzVector l3,
                       LorentzVector j1, LorentzVector j2, LorentzVector j3, LorentzVector j4, int nsyst);
 double ratioPhotonElectron(TH1D *fDRatio, double eta);
 double weightEWKCorr(float pt, int type);
+double topReweight(int njets, double dphi);
+
+double topReweight(int njets, double dphi){
+  double func0j[2] = {+1.07815,-0.000971210};
+  double func1j[2] = {+1.05724,-0.000584877};
+  double func2j[2] = {+1.04543,-0.000475304};
+  double func[2];
+
+  if     (njets == 0) for(int i=0; i<2; i++) func[i] = func0j[i];
+  else if(njets == 1) for(int i=0; i<2; i++) func[i] = func1j[i];
+  else if(njets >= 2) for(int i=0; i<2; i++) func[i] = func2j[i];
+  else assert(0);
+
+  return (func[0] + func[1]*dphi);
+  
+}
 
 double weightEWKCorr(float pt, int type){
   if     (type == 0){ // ZH

@@ -86,7 +86,7 @@ void PlotHiggsRes2011
   bool useJESTemplates     = true;
   bool useWJetsTemplates   = true;
   bool useWJetsMCTemplates = false; // default is false in 2012 analysis
-  bool useTopTemplates     = true;
+  int  topTemplatesType    = 1; // 0 == nothing, 1 == compare with MC generator, 2 == apply correction
   bool useWgammaTemplates  = true;
   bool usePDFTemplates     = true;
   int rebinMVAHist        = 10;
@@ -117,7 +117,7 @@ void PlotHiggsRes2011
     useJESTemplates	= false;
     useWJetsTemplates	= false;
     useWJetsMCTemplates = false;
-    useTopTemplates	= false;
+    topTemplatesType	= 0;
     useWgammaTemplates  = false;
     usePDFTemplates     = false;
   }
@@ -330,18 +330,6 @@ void PlotHiggsRes2011
   fhDRatioPhotonElectron->SetDirectory(0);
   fRatioPhotonElectron->Close();
   delete fRatioPhotonElectron;
-
-  //----------------------------------------------------------------------------
-  // S/(S+B) weights
-  //----------------------------------------------------------------------------
-  TH1D *hDweight_SoverSB;
-  if((nJetsType == 0 || nJetsType == 1) && wwDecay == 6){
-    TFile *fWeight_SoverSB = TFile::Open(Form("/data/smurf/data/Run2012_Summer12_SmurfV9_53X/auxiliar/hwwof_%dj_SoverSB_7TeV.root",nJetsType));
-    hDweight_SoverSB = (TH1D*)(fWeight_SoverSB->Get("histoW"));
-    assert(hDweight_SoverSB);
-    hDweight_SoverSB->SetDirectory(0);
-    fWeight_SoverSB->Close();
-  }
 
   //----------------------------------------------------------------------------
   // ggH pT spectrum Weights
@@ -1374,14 +1362,9 @@ void PlotHiggsRes2011
       nSigAcc[nSigBin]  = nSigAcc[nSigBin]  + myWeight;
       nSigEAcc[nSigBin] = nSigEAcc[nSigBin] + myWeight*myWeight;
 
-      double theWeightSoverSB = 1.0;
-      if((nJetsType == 0 || nJetsType == 1) && wwDecay == 6){
-        int val = (int)((bdtg/2.+0.5)*126)+1;
-	theWeightSoverSB = hDweight_SoverSB->GetBinContent(val);
-      }
-      HISTOS->Fill(TMath::Min(dilep->M(),599.999),myWeight*theWeightSoverSB);
-      //HISTOS->Fill(dPhi*180.0/TMath::Pi(),myWeight*theWeightSoverSB);
-      //HISTOS->Fill(TMath::Min((double)mt,279.999),myWeight*theWeightSoverSB);
+      HISTOS->Fill(TMath::Min(dilep->M(),599.999),myWeight);
+      //HISTOS->Fill(dPhi*180.0/TMath::Pi(),myWeight);
+      //HISTOS->Fill(TMath::Min((double)mt,279.999),myWeight);
       if     (useVar == 0) histos   ->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),       myWeight);
       else if(useVar == 1) histos   ->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),       myWeight);
       else if(useVar == 2) histos   ->Fill(TMath::Max(TMath::Min((double)nn  ,maxHis[2]-0.001),minHis[2]+0.001),       myWeight);
@@ -2175,11 +2158,6 @@ void PlotHiggsRes2011
       nBgdAccDecays[fDecay]  = nBgdAccDecays[fDecay]  + myWeightMVA;
       nBgdEAccDecays[fDecay] = nBgdEAccDecays[fDecay] + myWeightMVA*myWeightMVA;
 
-      double theWeightSoverSB = 1.0;
-      if((nJetsType == 0 || nJetsType == 1) && wwDecay == 6){
-        int val = (int)((bdtg/2.+0.5)*126)+1;
-	theWeightSoverSB = hDweight_SoverSB->GetBinContent(val);
-      }
       //----------------------------------------------------------------------------
       // For DY Bkg
       // When makeZjetsTemplates == true, we use only the DY->ee/mm samples
@@ -2188,9 +2166,9 @@ void PlotHiggsRes2011
       if      (((fDecay == 4 || fDecay == 8) && makeZjetsTemplates == false) ||
                ((dstype == SmurfTree::dymm || dstype == SmurfTree::dyee) && fDecay == 4 &&
                 (type   == SmurfTree::mm   || type   == SmurfTree::ee) && makeZjetsTemplates == true)){ // Z+jets
-        HISTO1->Fill(TMath::Min(dilep->M(),599.999),myWeight*theWeightSoverSB);
-        //HISTO1->Fill(dPhi*180.0/TMath::Pi(),myWeight*theWeightSoverSB);
-        //HISTO1->Fill(TMath::Min((double)mt,279.999),myWeight*theWeightSoverSB);
+        HISTO1->Fill(TMath::Min(dilep->M(),599.999),myWeight);
+        //HISTO1->Fill(dPhi*180.0/TMath::Pi(),myWeight);
+        //HISTO1->Fill(TMath::Min((double)mt,279.999),myWeight);
 	if     (useVar == 0) histo1->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),      myWeightMVA);
 	else if(useVar == 1) histo1->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),      myWeightMVA);
 	else if(useVar == 2) histo1->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),        myWeightMVA);
@@ -2202,9 +2180,9 @@ void PlotHiggsRes2011
       // For Top Bkg
       //----------------------------------------------------------------------------
       else if(fDecay == 3){
-        HISTO2->Fill(TMath::Min(dilep->M(),599.999),myWeight*theWeightSoverSB);
-        //HISTO2->Fill(dPhi*180.0/TMath::Pi(),myWeight*theWeightSoverSB);
-        //HISTO2->Fill(TMath::Min((double)mt,279.999),myWeight*theWeightSoverSB);
+        HISTO2->Fill(TMath::Min(dilep->M(),599.999),myWeight);
+        //HISTO2->Fill(dPhi*180.0/TMath::Pi(),myWeight);
+        //HISTO2->Fill(TMath::Min((double)mt,279.999),myWeight);
 	if     (useVar == 0) histo2->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
 	else if(useVar == 1) histo2->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
 	else if(useVar == 2) histo2->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),    myWeightMVA);
@@ -2216,9 +2194,9 @@ void PlotHiggsRes2011
       // For WZ,ZZ Bkg
       //----------------------------------------------------------------------------
       else if(fDecay == 2){ 
-        HISTO3->Fill(TMath::Min(dilep->M(),599.999),myWeight*theWeightSoverSB);
-        //HISTO3->Fill(dPhi*180.0/TMath::Pi(),myWeight*theWeightSoverSB);
-        //HISTO3->Fill(TMath::Min((double)mt,279.999),myWeight*theWeightSoverSB);
+        HISTO3->Fill(TMath::Min(dilep->M(),599.999),myWeight);
+        //HISTO3->Fill(dPhi*180.0/TMath::Pi(),myWeight);
+        //HISTO3->Fill(TMath::Min((double)mt,279.999),myWeight);
 	if     (useVar == 0) histo3->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
 	else if(useVar == 1) histo3->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
 	else if(useVar == 2) histo3->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),    myWeightMVA);
@@ -2230,9 +2208,9 @@ void PlotHiggsRes2011
       // For W+Jets, W+gamma, W+gamma* Bkg
       //----------------------------------------------------------------------------
       else if(fDecay == 5 || fDecay == 6 || fDecay == 7 || fDecay == 9){ 
-        HISTO4->Fill(TMath::Min(dilep->M(),599.999),myWeight*theWeightSoverSB);
-        //HISTO4->Fill(dPhi*180.0/TMath::Pi(),myWeight*theWeightSoverSB);
-        //HISTO4->Fill(TMath::Min((double)mt,279.999),myWeight*theWeightSoverSB);
+        HISTO4->Fill(TMath::Min(dilep->M(),599.999),myWeight);
+        //HISTO4->Fill(dPhi*180.0/TMath::Pi(),myWeight);
+        //HISTO4->Fill(TMath::Min((double)mt,279.999),myWeight);
 	if     (useVar == 0) histo4->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
 	else if(useVar == 1) histo4->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
 	else if(useVar == 2) histo4->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),    myWeightMVA);
@@ -2244,9 +2222,9 @@ void PlotHiggsRes2011
       // For WW Bkg
       //----------------------------------------------------------------------------
       else if(fDecay == 0 || fDecay == 1 || fDecay == 15){ // WW
-        HISTO0->Fill(TMath::Min(dilep->M(),599.999),myWeight*theWeightSoverSB);
-        //HISTO0->Fill(dPhi*180.0/TMath::Pi(),myWeight*theWeightSoverSB);
-        //HISTO0->Fill(TMath::Min((double)mt,279.999),myWeight*theWeightSoverSB);
+        HISTO0->Fill(TMath::Min(dilep->M(),599.999),myWeight);
+        //HISTO0->Fill(dPhi*180.0/TMath::Pi(),myWeight);
+        //HISTO0->Fill(TMath::Min((double)mt,279.999),myWeight);
 	if     (useVar == 0) histo0->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),  myWeightMVA);
 	else if(useVar == 1) histo0->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),  myWeightMVA);
 	else if(useVar == 2) histo0->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),    myWeightMVA);
@@ -2293,6 +2271,13 @@ void PlotHiggsRes2011
     	addFRS=addFRS*fakeRate(lep2->pt(), lep2->eta(), fhDFRMuSyst, fhDFRElSyst, (cuts & SmurfTree::Lep2LooseMuV2)  == SmurfTree::Lep2LooseMuV2  && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection,
                 							          (cuts & SmurfTree::Lep2LooseEleV4) == SmurfTree::Lep2LooseEleV4 && (cuts & SmurfTree::Lep2FullSelection) != SmurfTree::Lep2FullSelection);
         histo_WjetsM_CMS_MVAWMBoundingUp       ->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001), myWeight*addFRS/addFR);
+      }
+
+      //----------------------------------------------------------------------------
+      // systematics shapes for Top bkg (Madgraph ttbar+jets) - type == 2
+      //----------------------------------------------------------------------------
+      if(topTemplatesType == 2 && fDecay == 3){
+        histo_Top_CMS_MVATopBoundingUp->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight*topReweight(nJetsType,dPhi*180.0/TMath::Pi()));
       }
 
       if(useExpTemplates == true){
@@ -3075,9 +3060,9 @@ void PlotHiggsRes2011
       }
 
       //----------------------------------------------------------------------------
-      //systematics shapes for Top bkg (Madgraph ttbar+jets)
+      // systematics shapes for Top bkg (Madgraph ttbar+jets) - type == 1
       //----------------------------------------------------------------------------
-      if(useTopTemplates == true && fDecay == 3){
+      if(topTemplatesType == 1 && fDecay == 3){
         histo_Top_CMS_MVATopBoundingUp->Fill(TMath::Max(TMath::Min((double)bdtg,maxHis[4]-0.001),minHis[4]+0.001),myWeight);
       }
 
@@ -3462,14 +3447,9 @@ void PlotHiggsRes2011
     if(wwPresel == true) passMVAPreselCuts = true;
     if(passMVAPreselCuts == true){
       nDatAcc = nDatAcc + myWeight;
-      double theWeightSoverSB = 1.0;
-      if((nJetsType == 0 || nJetsType == 1) && wwDecay == 6){
-        int val = (int)((bdtg/2.+0.5)*126)+1;
-	theWeightSoverSB = hDweight_SoverSB->GetBinContent(val);
-      }
-      HISTO5->Fill(TMath::Min(dilep->M(),599.999),myWeight*theWeightSoverSB);
-      //HISTO5->Fill(dPhi*180.0/TMath::Pi(),myWeight*theWeightSoverSB);
-      //HISTO5->Fill(TMath::Min((double)mt,279.999),myWeight*theWeightSoverSB);
+      HISTO5->Fill(TMath::Min(dilep->M(),599.999),myWeight);
+      //HISTO5->Fill(dPhi*180.0/TMath::Pi(),myWeight);
+      //HISTO5->Fill(TMath::Min((double)mt,279.999),myWeight);
       if     (useVar == 0) histo5->Fill(TMath::Max(TMath::Min((double)bdt ,maxHis[0]-0.001),minHis[0]+0.001),       myWeight);
       else if(useVar == 1) histo5->Fill(TMath::Max(TMath::Min((double)bdtd,maxHis[1]-0.001),minHis[1]+0.001),       myWeight);
       else if(useVar == 2) histo5->Fill(TMath::Max(TMath::Min((double)nn,maxHis[2]-0.001),minHis[2]+0.001),         myWeight);
@@ -4045,7 +4025,7 @@ void PlotHiggsRes2011
     // MVATopBounding : mirror the difference between nominal shape (POWHEG) and 
     //                 systematics shape (Madgraph)
     //----------------------------------------------------------------------------
-    if(useTopTemplates == true){
+    if(topTemplatesType != 0){
       histo_Top_CMS_MVATopBoundingUp  ->Scale(histo_Top->GetSumOfWeights()/histo_Top_CMS_MVATopBoundingUp  ->GetSumOfWeights());
       histo_Top_CMS_MVATopBoundingUp  ->Rebin(rebinMVAHist);
       histo_Top_CMS_MVATopBoundingDown->Rebin(rebinMVAHist);
@@ -4953,7 +4933,7 @@ void PlotHiggsRes2011
     XS_QCDscale_ggH[0] = HiggsSignalQCDScaleKappa("QCDscale_ggH",mH,nJetsType);
     XS_QCDscale_ggH[1] = HiggsSignalQCDScaleKappa("QCDscale_ggH1in",mH,nJetsType);
     XS_QCDscale_ggH[2] = HiggsSignalQCDScaleKappa("QCDscale_ggH2in",mH,nJetsType);
-    
+
     double XS_PDF_VH = 1.05; 
     double XS_QCDscale_qqH = 1.01; double XS_QCDscale_VH = 1.02; 
     if(isFermioPhobic == true) {XS_QCDscale_qqH += 0.05; XS_QCDscale_VH += 0.05; XS_PDF_VH += 0.00;}
@@ -4989,7 +4969,7 @@ void PlotHiggsRes2011
     int nData;
     int nTotalBins = 1;//histo_qqH->GetNbinsX();
     if(nTotalBins != 1) {useExpTemplates = false; useJESTemplates = false; useWJetsTemplates = false; useZjetsTemplates  = false; 
-                         useTopTemplates = false; useWWTemplates  = false; useStatTemplates  = false; useStat3BTemplates = false; 
+                         topTemplatesType = 0   ; useWWTemplates  = false; useStatTemplates  = false; useStat3BTemplates = false; 
 			 usePDFTemplates = false;}
 
     //----------------------------------------------------------------------------
@@ -5178,7 +5158,7 @@ void PlotHiggsRes2011
       newcardShape << Form("Observation %d\n",nData);
       if(nTotalBins == 1){
         if(useZjetsTemplates  == true || useWWTemplates      == true || useStatTemplates  == true || useExpTemplates   == true ||
-           useWJetsTemplates  == true || useWJetsMCTemplates == true || useTopTemplates   == true ||
+           useWJetsTemplates  == true || useWJetsMCTemplates == true || topTemplatesType != 0     ||
 	   useStat3BTemplates == true)
           newcardShape << Form("shapes *   *   %s  histo_$PROCESS histo_$PROCESS_$SYSTEMATIC\n",outputLimits);
         else
@@ -5259,7 +5239,7 @@ void PlotHiggsRes2011
       if(useZjetsTemplates == true){
         newcardShape << Form("CMS_hww%s_%1dj_MVAZBounding           shape   -     -      -    -      -     -         -     -    2.0    -         -     -     -    -   -     -      -    -    -\n",finalStateName,nJetsType);		          
       }
-      if(useTopTemplates == true){
+      if(topTemplatesType != 0){
         newcardShape << Form("CMS_hww_MVATopBounding                shape   -     -      -    -      -    -         -    1.0    -     -         -     -     -     -   -     -      -    -    -\n");		          
       }
       if(useWWTemplates == true){
@@ -5362,7 +5342,7 @@ void PlotHiggsRes2011
       newcardSpin << Form("Observation %d\n",nData);
       if(nTotalBins == 1){
         if(useZjetsTemplates  == true || useWWTemplates      == true || useStatTemplates  == true || useExpTemplates   == true ||
-           useWJetsTemplates  == true || useWJetsMCTemplates == true || useTopTemplates   == true ||
+           useWJetsTemplates  == true || useWJetsMCTemplates == true || topTemplatesType != 0     ||
 	   useStat3BTemplates == true)
           newcardSpin << Form("shapes *   *   %s  histo_$PROCESS histo_$PROCESS_$SYSTEMATIC\n",outputLimits);
         else
@@ -5443,7 +5423,7 @@ void PlotHiggsRes2011
       if(useZjetsTemplates == true){
         newcardSpin << Form("CMS_hww%s_%1dj_MVAZBounding           shape -  -  -   -    -  	-      -     -         -     -    2.0	 -	   -	 -     -    -    -\n",finalStateName,nJetsType);			     
       }
-      if(useTopTemplates == true){
+      if(topTemplatesType != 0){
         newcardSpin << Form("CMS_hww_MVATopBounding                shape -  -  -   -    -  	-      -    -	      -    1.0    -	-	  -	-     -     -    -\n");		       
       }
       if(useWWTemplates == true){
