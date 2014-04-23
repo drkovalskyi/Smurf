@@ -71,6 +71,35 @@ fi
 ### samples must be in "data" folder
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
+data/xww125p6_g125ww4l-2bp-v19.root
+data/xww125p6_g125ww4l-2hm-v19.root
+data/xww125p6_g125ww4l-2hp-v19.root
+data/xww125p6_g125ww4l-2mh10-v19.root
+data/xww125p6_g125ww4l-2mh9-v19.root
+data/xww125p6_g125ww4l-2ph2-v19.root
+data/xww125p6_g125ww4l-2ph6-v19.root
+data/xww125p6_gqq125ww4l-2hm-v19.root
+data/xww125p6_gqq125ww4l-2hp-v19.root
+data/xww125p6_gqq125ww4l-2mh10-v19.root
+data/xww125p6_gqq125ww4l-2ph2-v19.root
+data/xww125p6_gqq125ww4l-2ph3-v19.root
+data/xww125p6_gqq125ww4l-2ph6-v19.root
+data/xww125p6_h125ww4l-0p-wh-v19.root
+data/xww125p6_h125ww4l-0ph-wh-v19.root
+data/xww125p6_x125ww4l-0l1-v19.root
+data/xww125p6_x125ww4l-0l1f05ph180-v19.root
+data/xww125p6_x125ww4l-0m-jjh-v19.root
+data/xww125p6_x125ww4l-0mf05ph0-v19.root
+data/xww125p6_x125ww4l-0mf05ph0-vbf-v19.root
+data/xww125p6_x125ww4l-0mf05ph0-wh-v19.root
+data/xww125p6_x125ww4l-0mt-v19.root
+data/xww125p6_x125ww4l-0p-jjh-v19.root
+data/xww125p6_x125ww4l-0p-zh-v19.root
+data/xww125p6_x125ww4l-0ph-v19.root
+data/xww125p6_x125ww4l-0ph-vbf-v19.root
+data/xww125p6_x125ww4l-0phf05-v19.root
+data/xww125p6_x125ww4l-0phf05ph0-v19.root
+data/xww125p6_x125ww4l-0pm-v19.root
 data/hww110.root
 data/hww115.root
 data/hww120.root
