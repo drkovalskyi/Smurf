@@ -22,7 +22,8 @@ void changeDataType
 (
  TString inputFileName  = "input.root",
  TString outputFileName = "output.root",
- Int_t   newDataType    = SmurfTree::qqbarh
+ Int_t   newDataType    = SmurfTree::qqbarh,
+ Int_t   newProcessId   = -1
 )
 {
 
@@ -36,8 +37,10 @@ void changeDataType
   TTree *normalizedTree = background->CloneTree(0);
 
   Int_t dstype;
+  Int_t processId;
 
   background->SetBranchAddress( "dstype" , &dstype );
+  background->SetBranchAddress("processId",&processId);
 
   for (UInt_t i=0; i<background->GetEntries(); i++) {
     
@@ -45,6 +48,9 @@ void changeDataType
     if (i%100000 == 0) printf("--- reading event %5d of %5d\n",i,(int)background->GetEntries());
 
     dstype = newDataType;
+    
+    if(newProcessId >= 0) processId = newProcessId;
+    
     normalizedTree->Fill(); 
   }
 

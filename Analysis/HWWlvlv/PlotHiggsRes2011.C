@@ -5357,13 +5357,13 @@ void PlotHiggsRes2011
       newcardSpin << Form("rate  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %6.3f\n",yield[22],yield[20],yield[1],yield[2],yield[3],yield[4],yield[5],yield[6],yield[7],yield[8],yield[9],TMath::Max((double)yield[10],0.0),yield[11],yield[12],yield[13],yield[14],yield[21]);
       newcardSpin << Form("lumi_7TeV                        lnN 1.022 1.022 1.022 1.022 1.022 1.022 %5.3f %5.3f 1.022   -     -     -   1.022 1.022 1.022     - 1.022\n",lumiErr,lumiErr);			         
       if(useExpTemplates == true){
-      newcardSpin << Form("CMS_hww_MVALepEffBounding          shape  %s   %s   %s   %s   %s    -   1.000 1.000 1.000   -     -     -   -     -     -	 -     %s\n",theqqbarH_ALTString,theggH_ALTString,theZHString,theWHString,theqqHString,theqqWW2jString);
-      newcardSpin << Form("CMS_hww_MVALepResBounding          shape  %s   %s   %s   %s   %s    -   1.000 1.000 1.000 1.000   -     -   -     -     -	 -     %s\n",theqqbarH_ALTString,theggH_ALTString,theZHString,theWHString,theqqHString,theqqWW2jString);
-      newcardSpin << Form("CMS_hww_MVAMETResBounding          shape  %s   %s   %s   %s   %s    -   1.000 1.000 1.000 1.000   -     -   -     -     -	 -     %s\n",theqqbarH_ALTString,theggH_ALTString,theZHString,theWHString,theqqHString,theqqWW2jString);
+      newcardSpin << Form("CMS_hww_MVALepEffBounding          shape  %s   %s   %s   %s   %s   %s   1.000 1.000 1.000   -     -     -   -     -     -	 -     %s\n",theqqbarH_ALTString,theggH_ALTString,theZHString,theWHString,theqqHString,theggHString,theqqWW2jString);
+      newcardSpin << Form("CMS_hww_MVALepResBounding          shape  %s   %s   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   -     -     -	 -     %s\n",theqqbarH_ALTString,theggH_ALTString,theZHString,theWHString,theqqHString,theggHString,theqqWW2jString);
+      newcardSpin << Form("CMS_hww_MVAMETResBounding          shape  %s   %s   %s   %s   %s   %s   1.000 1.000 1.000 1.000   -     -   -     -     -	 -     %s\n",theqqbarH_ALTString,theggH_ALTString,theZHString,theWHString,theqqHString,theggHString,theqqWW2jString);
 
-      newcardSpin << Form("CMS_hww_MVALepEffBounding          shape1  -    -	-    -   -   %s     -	  -	-     -     -	  -   -     -	  -	-      -\n",theggHString);
-      newcardSpin << Form("CMS_hww_MVALepResBounding          shape1  -    -	-    -   -   %s     -	  -	-     -     -	  -   -     -	  -	-      -\n",theggHString);
-      newcardSpin << Form("CMS_hww_MVAMETResBounding          shape1  -    -	-    -   -   %s     -	  -	-     -     -	  -   -     -	  -	-      -\n",theggHString);
+      //newcardSpin << Form("CMS_hww_MVALepEffBounding          shape1  -    -	-    -   -   %s     -	  -	-     -     -	  -   -     -	  -	-      -\n",theggHString);
+      //newcardSpin << Form("CMS_hww_MVALepResBounding          shape1  -    -	-    -   -   %s     -	  -	-     -     -	  -   -     -	  -	-      -\n",theggHString);
+      //newcardSpin << Form("CMS_hww_MVAMETResBounding          shape1  -    -	-    -   -   %s     -	  -	-     -     -	  -   -     -	  -	-      -\n",theggHString);
       }
       else {
       newcardSpin << Form("CMS_eff_m                        lnN 1.030 1.030 1.030 1.030 1.030 1.030 %5.3f %5.3f 1.030	-     - 	-   1.030 1.030     -	  - 1.030\n",theExpUncertainties[0],theExpUncertainties[0]);
@@ -5373,9 +5373,9 @@ void PlotHiggsRes2011
       newcardSpin << Form("CMS_hww_met_resolution           lnN 1.020 1.020 1.020 1.020 1.020 1.020 %5.3f %5.3f 1.020	-     - 	-   1.020 1.020     -	  - 1.020\n",theExpUncertainties[4],theExpUncertainties[4]);
       }
       if(useJESTemplates == true){
-      newcardSpin << Form("CMS_hww_MVAJESBounding             shape   %s   %s   %s   %s   %s   -    1.000 1.000 1.000 1.000   -     -   -     -     -     -   %s\n",theggH_ALTString,theggH_ALTString,theZHString,theWHString,theqqHString,theqqWW2jString);			
+      newcardSpin << Form("CMS_hww_MVAJESBounding             shape   %s   %s   %s   %s   %s  %s    1.000 1.000 1.000 1.000   -     -   -     -     -     -   %s\n",theggH_ALTString,theggH_ALTString,theZHString,theWHString,theqqHString,theggHString,theqqWW2jString);			
 
-      newcardSpin << Form("CMS_hww_MVAJESBounding            shape1    -    -	 -    -    -   %s     -	   -	  -     -     -	    -   -     -     -     -    -\n",theggHString);			
+      //newcardSpin << Form("CMS_hww_MVAJESBounding            shape1    -    -	 -    -    -   %s     -	   -	  -     -     -	    -   -     -     -     -    -\n",theggHString);			
       }
       else {
       newcardSpin << Form("CMS_scale_j                      lnN %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f %5.3f   -     -     -   %5.3f %5.3f     -     - %5.3f\n",jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E,jeteff_E);             
@@ -5443,7 +5443,8 @@ void PlotHiggsRes2011
 	if(histo_qqbarH_ALT->GetSumOfWeights() > 0)
       	newcardSpin << Form("CMS_hww%s_%1dj_MVAqqbarH_ALTStatBounding_7TeV  shape   1.0  -   -   -    -    -      -  	 -	   -	 -     -	   -	     -     -	 -     -    -\n",finalStateName,nJetsType);
 	if(histo_ggH_ALT->GetSumOfWeights() > 0)
-      	newcardSpin << Form("CMS_hww%s_%1dj_MVAggH_ALTStatBounding_7TeV  shape1 -  1.0     -   -    -    -      -  	 -	   -	 -     -	   -	     -     -	 -     -    -\n",finalStateName,nJetsType);
+      	newcardSpin << Form("CMS_hww%s_%1dj_MVAggH_ALTStatBounding_7TeV  shape -  1.0     -   -    -    -      -  	 -	   -	 -     -	   -	     -     -	 -     -    -\n",finalStateName,nJetsType);
+      	//newcardSpin << Form("CMS_hww%s_%1dj_MVAggH_ALTStatBounding_7TeV  shape1 -  1.0     -   -    -    -      -  	 -	   -	 -     -	   -	     -     -	 -     -    -\n",finalStateName,nJetsType);
 	if(histo_ZH->GetSumOfWeights() > 0)
       	newcardSpin << Form("CMS_hww%s_%1dj_MVAZHStatBounding_7TeV      shape  -   -  %s      -    -      -           -         -     -     -           -         -     -     -     -     -    -\n",finalStateName,nJetsType,theZHString);
 	if(histo_WH->GetSumOfWeights() > 0)
@@ -5451,7 +5452,8 @@ void PlotHiggsRes2011
 	if(histo_qqH->GetSumOfWeights() > 0)
       	newcardSpin << Form("CMS_hww%s_%1dj_MVAqqHStatBounding_7TeV     shape -   -     -      -   1.0     -     -         -     -     -     -         -     -     -     -     -     -\n",finalStateName,nJetsType);
 	if(histo_ggH->GetSumOfWeights() > 0)
-      	newcardSpin << Form("CMS_hww%s_%1dj_MVAggHStatBounding_7TeV     shape1 -      -   -    -     -	 1.0	-     - 	-     -     -	  -	    -	  -	-     -        -\n",finalStateName,nJetsType);
+      	newcardSpin << Form("CMS_hww%s_%1dj_MVAggHStatBounding_7TeV     shape -      -   -    -     -	 1.0	-     - 	-     -     -	  -	    -	  -	-     -        -\n",finalStateName,nJetsType);
+      	//newcardSpin << Form("CMS_hww%s_%1dj_MVAggHStatBounding_7TeV     shape1 -      -   -    -     -	 1.0	-     - 	-     -     -	  -	    -	  -	-     -        -\n",finalStateName,nJetsType);
       	newcardSpin << Form("CMS_hww%s_%1dj_MVAqqWWStatBounding_7TeV    shape  -     -   -    -     -	  -    1.0    - 	-     -     -	  -	    -	  -	-     -        -\n",finalStateName,nJetsType);
 	if(histo_ggWW->GetSumOfWeights() > 0)
       	newcardSpin << Form("CMS_hww%s_%1dj_MVAggWWStatBounding_7TeV    shape  -      -   -    -    -	  -	-    1.0    -	  -	-     - 	-     -     -	  -	    -\n",finalStateName,nJetsType);

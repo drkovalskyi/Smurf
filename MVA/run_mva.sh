@@ -91,7 +91,10 @@ data/zh125_hgoldgoldgamma.root
 data/dyllpt100.root
 data/bbww_8tev.root
 data/bbww_14tev.root
+data/hpp_mh160.root
 data/hpp_mh200.root
+data/hpp_mh400.root
+data/hpp_mh600.root
 data/hpp_mh800.root
 data/wwss_qed_2_qcd_99_matching.root
 data/wwss_qed_2_qcd_99_no_matching.root
