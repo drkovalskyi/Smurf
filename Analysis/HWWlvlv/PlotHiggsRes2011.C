@@ -1259,11 +1259,18 @@ void PlotHiggsRes2011
 
     // Reweighting for mH=125.6GeV
     //if     (processId==121 ||
-    //	    processId==122)   myWeight = myWeight * 0.982613;
+    //	    processId==122)     myWeight = myWeight * 0.982613;
     //else if(processId==24)    myWeight = myWeight * 0.982613;
     //else if(processId==26)    myWeight = myWeight * 0.982613;
     //else if(processId==10001) myWeight = myWeight * 0.977433;
     //else if(processId==10010) myWeight = myWeight * 0.978484;
+    // Reweighting for mH=125.0GeV
+    //if     (processId==121 ||
+    //	    processId==122)     myWeight = myWeight * 0.95563;
+    //else if(processId==24)    myWeight = myWeight * 0.95563;
+    //else if(processId==26)    myWeight = myWeight * 0.95563;
+    //else if(processId==10001) myWeight = myWeight * 0.93919;
+    //else if(processId==10010) myWeight = myWeight * 0.94555;
 
     //----------------------------------------------------------------------------
     // Classify Signal Events by production mechanism
@@ -2023,7 +2030,7 @@ void PlotHiggsRes2011
     //else if(processId==10001) myWeight = myWeight * 0.977433;
     //else if(processId==10010) myWeight = myWeight * 0.978484;
     //if     (processId==121 ||
-    //	    processId==122)   myWeight = myWeight * 1.028236;
+    //	    processId==122)     myWeight = myWeight * 1.028236;
     //else if(processId==24)    myWeight = myWeight * 1.028236;
     //else if(processId==26)    myWeight = myWeight * 1.028236;
     //else if(processId==10001) myWeight = myWeight * 1.040719;
@@ -5349,7 +5356,6 @@ void PlotHiggsRes2011
         else
           newcardSpin << Form("shapes *   *   %s  histo_$PROCESS\n",outputLimits);
         newcardSpin << Form("shapes data_obs * %s  histo_Data \n",outputLimits);
-        newcardSpin << Form("shapes ggH      * test.root w:ggH_ w:$PROCESS_$SYSTEMATIC\n");
       }
       newcardSpin << Form("bin j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev j%1d%s7tev\n",nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName);
       newcardSpin << Form("process qqbarH_ALT ggH_ALT ZH WH qqH ggH qqWW ggWW VV Top Zjets WjetsE Wgamma Wg3l Ztt WjetsM qqWW2j\n");

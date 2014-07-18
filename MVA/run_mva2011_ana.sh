@@ -61,6 +61,25 @@ fi
 ### samples must be in "data" folder
 rm -f list_samples.txt;
 cat > list_samples.txt <<EOF
+data2011/xww125p6_g125ww4l-2bp.root
+data2011/xww125p6_g125ww4l-2mh10.root
+data2011/xww125p6_g125ww4l-2mh9.root
+data2011/xww125p6_g125ww4l-2ph3.root
+data2011/xww125p6_g125ww4l-2ph6.root
+data2011/xww125p6_gqq125ww4l-2hp.root
+data2011/xww125p6_gqq125ww4l-2mh9.root
+data2011/xww125p6_gqq125ww4l-2ph7.root
+data2011/xww125p6_h125ww4l-0m-wh.root
+data2011/xww125p6_v125ww4l-1m.root
+data2011/xww125p6_v125ww4l-1p.root
+data2011/xww125p6_v125ww4l-mix.root
+data2011/xww125p6_x125ww4l-0l1f05ph180.root
+data2011/xww125p6_x125ww4l-0mf05ph0.root
+data2011/xww125p6_x125ww4l-0mf05ph0-vbf.root
+data2011/xww125p6_x125ww4l-0phf05ph0.root
+data2011/xww125p6_x125ww4l-0ph.root
+data2011/xww125p6_x125ww4l-0p-jjh.root
+data2011/xww125p6_x125ww4l-0pm.root
 data2011/hww110.root
 data2011/hww115.root
 data2011/hww118.root
@@ -90,9 +109,6 @@ data2011/xww0p125.root
 data2011/xww0m125.root
 data2011/xww2p125.root
 data2011/xww2pqq125.root
-data2011/xww1m125_7tev.root
-data2011/xww1p125_7tev.root
-data2011/xww1mix125_7tev.root
 data2011/hww_syst_skim6.root
 data2011/data_skim6.root
 data2011/backgroundA_skim6.root

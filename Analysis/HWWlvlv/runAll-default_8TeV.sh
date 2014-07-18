@@ -23,8 +23,7 @@ setenv SIG_TEST data2012/${TAG}_hww${MH}.root
 #setenv SIG_TEST data2012/${TAG}_xww1m125.root
 #setenv SIG_TEST data2012/${TAG}_xww1p125.root
 #setenv SIG_TEST data2012/${TAG}_xww1mix125.root
-#setenv SIG_TEST data2012/${TAG}_xww125p6_x125ww4l-0pm-v19.root
-setenv SIG_TEST data2012/${TAG}_xww125p6_s12-0p.root;
+#setenv SIG_TEST data2012/${TAG}_xww125p6-0p.root;
 setenv BKG_TEST data2012/${TAG}_backgroundA_skim6.root;
 setenv DAT_TEST data2012/${TAG}_data_skim6.root;
 setenv SYS_TEST data2012/${TAG}_hww_syst_skim6.root;

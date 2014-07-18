@@ -34,6 +34,10 @@ hadd -f ntuples2012_MultiClass_125train_0jets_backgroundA_skim6_2PQQ.root     nt
 rm -f   ntuples2012_MultiClass_125train_1jets_backgroundA_skim6_2PQQ.root
 ln -s   ntuples2012_MultiClass_125train_0jets_backgroundA_skim6_2PQQ.root     ntuples2012_MultiClass_125train_1jets_backgroundA_skim6_2PQQ.root
 
+hadd -f ntuples2012_MultiClass_125train_0jets_backgroundA_skim6_2PQQ0p5.root	 ntuples2012_MultiClass_125train_0jets_backgroundA_skim6.root ntuples2012_MultiClass_125train_0jets_xww2p125.root ntuples2012_MultiClass_125train_0jets_xww2pqq125.root
+rm -f   ntuples2012_MultiClass_125train_1jets_backgroundA_skim6_2PQQ0p5.root
+ln -s   ntuples2012_MultiClass_125train_0jets_backgroundA_skim6_2PQQ0p5.root	 ntuples2012_MultiClass_125train_1jets_backgroundA_skim6_2PQQ0p5.root
+
 cd ~/releases/CMSSW_5_3_14/src/;
 root -l -q -b Smurf/Analysis/Zll/WGammaStarScaleFactor.C+'("${OUTPUT}/ntuples2012_MultiClass_125train_0jets_xww2pqq0p5125.root","${OUTPUT}/output12.root",1.035018)'; mv ${OUTPUT}/output12.root ${OUTPUT}/ntuples2012_MultiClass_125train_0jets_xww2pqq0p5125.root;
 root -l -q -b Smurf/Analysis/Zll/changeDataType.C+'("${OUTPUT}/ntuples2012_MultiClass_125train_0jets_xww125p6_s12-gqq125ww4l-2bp-v19.root","${OUTPUT}/output12.root")';   mv ${OUTPUT}/output12.root ${OUTPUT}/ntuples2012_MultiClass_125train_0jets_xww125p6_s12-gqq125ww4l-2bp-v19.root;
@@ -72,12 +76,22 @@ hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_2ph7.root  ntuples2012_Mu
 hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_2mh9.root  ntuples2012_MultiClass_125train_0jets_xww125p6_s12-g125ww4l-2mh9-v19.root   ntuples2012_MultiClass_125train_0jets_xww125p6_s12-gqq125ww4l-2mh9-v19.root
 hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_2mh10.root ntuples2012_MultiClass_125train_0jets_xww125p6_s12-g125ww4l-2mh10-v19.root  ntuples2012_MultiClass_125train_0jets_xww125p6_s12-gqq125ww4l-2mh10-v19.root
 
-hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_s12-0p.root       ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0pm-v19.root      ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0p-vbf-v19.root       ntuples2012_MultiClass_125train_0jets_xww125p6_s12-h125ww4l-0p-wh-v19.root       ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0p-zh-v19.root
-hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_s12-0m.root       ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0mt-v19.root      ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0m-vbf-v19.root       ntuples2012_MultiClass_125train_0jets_xww125p6_s12-h125ww4l-0m-wh-v19.root       ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0m-zh-v19.root
-hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_s12-0ph.root      ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0ph-v19.root      ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0ph-vbf-v19.root      ntuples2012_MultiClass_125train_0jets_xww125p6_s12-h125ww4l-0ph-wh-v19.root      ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0ph-zh-v19.root
-hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_s12-0mf05ph0.root ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0mf05ph0-v19.root ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0mf05ph0-vbf-v19.root ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0mf05ph0-wh-v19.root ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0mf05ph0-zh-v19.root
+hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6-0p.root       ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0pm-v19.root	   ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0p-vbf-v19.root       ntuples2012_MultiClass_125train_0jets_xww125p6_s12-h125ww4l-0p-wh-v19.root       ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0p-zh-v19.root
+hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6-0m.root       ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0mt-v19.root	   ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0m-vbf-v19.root       ntuples2012_MultiClass_125train_0jets_xww125p6_s12-h125ww4l-0m-wh-v19.root       ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0m-zh-v19.root
+hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6-0ph.root      ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0ph-v19.root	   ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0ph-vbf-v19.root      ntuples2012_MultiClass_125train_0jets_xww125p6_s12-h125ww4l-0ph-wh-v19.root      ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0ph-zh-v19.root
+hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6-0mf05ph0.root ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0mf05ph0-v19.root ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0mf05ph0-vbf-v19.root ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0mf05ph0-wh-v19.root ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0mf05ph0-zh-v19.root
 
-rm -f ntuples2012_MultiClass_125train_1jets_xww125p6_s12-0p.root;
-ln -s ntuples2012_MultiClass_125train_0jets_xww125p6_s12-0p.root ntuples2012_MultiClass_125train_1jets_xww125p6_s12-0p.root;
+rm -f ntuples2012_MultiClass_125train_1jets_xww125p6-0p.root;
+ln -s ntuples2012_MultiClass_125train_0jets_xww125p6-0p.root ntuples2012_MultiClass_125train_1jets_xww125p6-0p.root;
+
+hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_v125ww4l-1m.root 	 ntuples2012_MultiClass_125train_0jets_xww125p6_s12-v125ww4l-1m-v19.root;	   
+hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_v125ww4l-1p.root 	 ntuples2012_MultiClass_125train_0jets_xww125p6_s12-v125ww4l-1p-v19.root;	   
+hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_v125ww4l-mix.root	 ntuples2012_MultiClass_125train_0jets_xww125p6_s12-v125ww4l-mix-v19.root;	   
+hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_x125ww4l-0l1.root	 ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0l1-v19.root;	   
+hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_x125ww4l-0l1f05ph180.root ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0l1f05ph180-v19.root; 
+hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_x125ww4l-0m-jjh.root	 ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0m-jjh-v19.root;	   
+hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_x125ww4l-0p-jjh.root	 ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0p-jjh-v19.root;	   
+hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_x125ww4l-0phf05.root	 ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0phf05-v19.root;	   
+hadd -f ntuples2012_MultiClass_125train_0jets_xww125p6_x125ww4l-0phf05ph0.root	 ntuples2012_MultiClass_125train_0jets_xww125p6_s12-x125ww4l-0phf05ph0-v19.root;    
 
 cd $myDir;

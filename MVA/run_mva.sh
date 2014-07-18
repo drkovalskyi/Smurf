@@ -101,12 +101,15 @@ data/wwss_qed_2_qcd_99_no_matching.root
 data/wwss_qed_4_qcd_99_lt012.root
 data/wwss_qed_4_qcd_99_lm0123.root
 data/wwss_qed_4_qcd_99_ls0ls1.root
+data/wwss_qed_4_qcd_99_ls0ls1_v6.root
+data/wwss_qed_4_qcd_99_ls0ls1_v12.root
 data/wzgamma3l_ewk_sm.root
 data/wz3l_ewk_sm.root
 data/wz3l_ewk_lt012.root
 data/wz3l_ewk_lm0123.root
 data/wz3l_ewk_ls0ls1.root
 data/wwss_qed_4_qcd_99_ls_lm_lt.root
+data/wwss_qed_4_qcd_99_ls_lm_lt_v8.root
 data/wwss_qed_4_qcd_99_sm.root
 data/wwss_qed_2_qcd_99_sm.root
 data/wwss_qed_4_qcd_0_sm.root

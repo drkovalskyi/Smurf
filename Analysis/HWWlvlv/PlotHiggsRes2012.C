@@ -5360,7 +5360,6 @@ void PlotHiggsRes2012
         else
           newcardSpin << Form("shapes *   *   %s  histo_$PROCESS\n",outputLimits);
         newcardSpin << Form("shapes data_obs * %s  histo_Data\n",outputLimits);
-        newcardSpin << Form("shapes ggH      * test.root w:ggH_ w:$PROCESS_$SYSTEMATIC\n");
       }
       newcardSpin << Form("bin j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev j%1d%s8tev\n",nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName,nJetsType,finalStateName);
       newcardSpin << Form("process qqbarH_ALT ggH_ALT ZH WH qqH ggH qqWW ggWW VV Top Zjets WjetsE Wgamma Wg3l Ztt WjetsM qqWW2j\n");

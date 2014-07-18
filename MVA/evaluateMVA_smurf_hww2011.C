@@ -576,6 +576,20 @@ TString suffix       = "ww"
     TBranch* br_bdtgV1_aux2 = 0;
     TBranch* br_bdtgV2_aux2 = 0;
 
+    clone->SetBranchStatus("genmet",0);
+    clone->SetBranchStatus("CHSMet",0);
+    clone->SetBranchStatus("CHSMetPhi",0);
+    clone->SetBranchStatus("dPhiLep1Jet1",0);
+    clone->SetBranchStatus("dPhiLep2Jet1",0);
+    clone->SetBranchStatus("dPhiLep3Jet1",0);
+    clone->SetBranchStatus("dRLep1Jet1",0);
+    clone->SetBranchStatus("dRLep2Jet1",0);
+    clone->SetBranchStatus("dRLep3Jet1",0);
+    clone->SetBranchStatus("genmetPhi",0);
+    clone->SetBranchStatus("jet1Dz",0);
+    clone->SetBranchStatus("NHSMet",0);
+    clone->SetBranchStatus("NHSMetPhi",0);
+
     if(Use["BDT"])         br_bdt        = clone->Branch(Form("bdt_hww%i_%djet_%s"  ,mH,njet,suffix.Data()) , &bdt   , Form("bdt_hww%i_%djet_%s/F"   ,mH,njet,suffix.Data()) );
     if(Use["BDTD"])        br_bdtd       = clone->Branch(Form("bdtd_hww%i_%djet_%s" ,mH,njet,suffix.Data()) , &bdtd  , Form("bdtd_hww%i_%djet_%s/F"  ,mH,njet,suffix.Data()) );
     if(Use["MLPBNN"])      br_nn         = clone->Branch(Form("nn_hww%i_%djet_%s"   ,mH,njet,suffix.Data()) , &nn    , Form("nn_hww%i_%djet_%s/F"    ,mH,njet,suffix.Data()) );
