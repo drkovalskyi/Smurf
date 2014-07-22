@@ -33,6 +33,7 @@ double poorManMetSyst(LorentzVector l1, LorentzVector l2, LorentzVector l3,
                       LorentzVector j1, LorentzVector j2, LorentzVector j3, LorentzVector j4, int nsyst);
 double ratioPhotonElectron(TH1D *fDRatio, double eta);
 double weightEWKCorr(float pt, int type);
+double weightNNLOCorr(TH1D *fDRatio[5], float pt, int type);
 double topReweight(int njets, double dphi);
 
 double topReweight(int njets, double dphi){
@@ -69,6 +70,13 @@ double weightEWKCorr(float pt, int type){
   }
   assert(0);
   return 0.0;
+}
+
+double weightNNLOCorr(TH1D *fDRatio[5], float pt, int type){ // 0:def 1:QUp 2:QDown 3:RUp 4:RDown
+  if(type < 0 || type > 4) assert(0);
+  double thePt = TMath::Min((double)pt,159.999);
+  Int_t bin = fDRatio[type]->GetXaxis()->FindBin(thePt);
+  return fDRatio[type]->GetBinContent(bin);
 }
 
 double ratioPhotonElectron(TH1D *fDRatio, double eta){
