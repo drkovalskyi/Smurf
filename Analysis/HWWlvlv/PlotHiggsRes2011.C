@@ -1248,7 +1248,7 @@ void PlotHiggsRes2011
       }
     }
 
-    add = add*addggH;
+    add = add;//*addggH; CAREFUL, NOT USED FOR NEW JHU SAMPLES
     double myWeight = scaleFactorLum * scale1fb * add;
 
     if(KeepGGHOnly == true && processId != 10010) myWeight = 0.0;
